@@ -1,0 +1,50 @@
+﻿@model WebApplication1.ViewModels.Monit10_1516.LearnesListVM
+
+@{
+    ViewBag.Title = "GetLearnesList";
+}
+
+<h3>Список обучающихся</h3>
+
+<div class="form-group">
+    <div class="col-md-offset-0">
+       @* <input id="addLearner" type="button" onclick="location.href='@Url.Action("CreateInPlans", "Monit10_1516")'" value="Создать и скачать планы" class="btn btn-success" />*@
+    </div>
+</div>
+<table cols="4" border="1" cellspacing="0" cellpadding="10" align="CENTER" class="table table-striped table-bordered table-condensed">
+    <tr bgcolor="#efefef" align="center">
+        <th width="auto" class="not_mapped_style" style="text-align:center">№ п/п</th>
+        <th width="auto%" class="not_mapped_style" style="text-align:center">Фамилия</th>
+        <th width="auto" class="not_mapped_style" style="text-align:center">Имя</th>
+        <th width="auto" class="not_mapped_style" style="text-align:center">Отчество</th>
+    </tr>
+    @{
+        int rowNumber = 0;
+        foreach (var item in Model.Lerners)
+        {
+            rowNumber++;
+            <tr bgcolor="#efefef">
+                <td align="center">
+                    @Html.DisplayFor(modelItem => rowNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondName)
+                </td>
+                <td width="2%" style="font-size:smaller" align="center">
+                    @Html.ActionLink("удалить", "DeleteLearner", new { learnerID = item.LearnerID })
+                </td>
+            </tr>
+        }
+    }
+</table>
+<div class="form-group">
+    <div class="col-md-offset-0">
+        <input id="addLearner" type="button" onclick="location.href='@Url.Action("AddLearner", "Monit10_1516")'" value="+ добавить" class="btn btn-default" />
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="33a03b0c1bfe400ca82d59563d5487d3" Name="Diagram1">
+        <EntityTypeShape EntityType="cokoModelWAN.area" Width="1.5" PointX="0.75" PointY="17.5" />
+        <EntityTypeShape EntityType="cokoModelWAN.ege_15_res_before" Width="1.5" PointX="11.25" PointY="12.375" />
+        <EntityTypeShape EntityType="cokoModelWAN.ege_dat_sub" Width="1.5" PointX="9" PointY="24" />
+        <EntityTypeShape EntityType="cokoModelWAN.ege_partcat" Width="1.5" PointX="9" PointY="10.75" />
+        <EntityTypeShape EntityType="cokoModelWAN.oge_15_res" Width="1.5" PointX="5.25" PointY="13.75" />
+        <EntityTypeShape EntityType="cokoModelWAN.oge_15_res_before" Width="1.5" PointX="8.25" PointY="13.875" />
+        <EntityTypeShape EntityType="cokoModelWAN.school" Width="1.5" PointX="3" PointY="16.375" />
+        <EntityTypeShape EntityType="cokoModelWAN.schooltype" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="cokoModelWAN.towntype" Width="1.5" PointX="2.75" PointY="0.75" />
+        <AssociationConnector Association="cokoModelWAN.FK_school_area" />
+        <AssociationConnector Association="cokoModelWAN.FK_ege_15_res_before_ege_dat_sub" />
+        <AssociationConnector Association="cokoModelWAN.FK_ege_15_res_before_ege_partcat" />
+        <AssociationConnector Association="cokoModelWAN.FK_ege_15_res_before_school" />
+        <AssociationConnector Association="cokoModelWAN.FK_oge_15_res_ege_dat_sub" />
+        <AssociationConnector Association="cokoModelWAN.FK_oge_15_res_ege_dat_sub1" />
+        <AssociationConnector Association="cokoModelWAN.FK_oge_15_res_school1" />
+        <AssociationConnector Association="cokoModelWAN.FK_oge_15_res_school" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

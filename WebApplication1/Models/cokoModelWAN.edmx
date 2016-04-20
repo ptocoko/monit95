@@ -1,0 +1,983 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище cokoModelWAN" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="int" Nullable="false" />
+          <Property Name="AreaName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="AreaFullName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Административный центр" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ege_15_res_before">
+          <Key>
+            <PropertyRef Name="SubjectCode" />
+            <PropertyRef Name="ParticipantID" />
+          </Key>
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+          <Property Name="ParticipantID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PartCategoryCode" Type="int" Nullable="false" />
+          <Property Name="SchoolCode" Type="int" Nullable="false" />
+          <Property Name="SchoolID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StationNumber" Type="int" />
+          <Property Name="CabinetNumber" Type="int" />
+          <Property Name="surname" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentSeries" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="PrimaryMark" Type="float" Nullable="false" />
+          <Property Name="TestResult" Type="float" Nullable="false" />
+          <Property Name="t1" Type="float" />
+          <Property Name="t2" Type="float" />
+          <Property Name="t3" Type="float" />
+          <Property Name="t4" Type="float" />
+          <Property Name="t5" Type="float" />
+          <Property Name="t6" Type="float" />
+          <Property Name="t7" Type="float" />
+          <Property Name="t8" Type="float" />
+          <Property Name="t9" Type="float" />
+          <Property Name="t10" Type="float" />
+          <Property Name="t11" Type="float" />
+          <Property Name="t12" Type="float" />
+          <Property Name="t13" Type="float" />
+          <Property Name="t14" Type="float" />
+          <Property Name="t15" Type="float" />
+          <Property Name="t16" Type="float" />
+          <Property Name="t17" Type="float" />
+          <Property Name="t18" Type="float" />
+          <Property Name="t19" Type="float" />
+          <Property Name="t20" Type="float" />
+          <Property Name="t21" Type="float" />
+          <Property Name="t22" Type="float" />
+          <Property Name="t23" Type="float" />
+          <Property Name="t24" Type="float" />
+          <Property Name="t25" Type="float" />
+          <Property Name="t26" Type="float" />
+          <Property Name="t27" Type="float" />
+          <Property Name="t28" Type="float" />
+          <Property Name="t29" Type="float" />
+          <Property Name="t30" Type="float" />
+          <Property Name="t31" Type="float" />
+          <Property Name="t32" Type="float" />
+          <Property Name="t33" Type="float" />
+          <Property Name="t34" Type="float" />
+          <Property Name="t35" Type="float" />
+          <Property Name="t36" Type="float" />
+          <Property Name="t37" Type="float" />
+          <Property Name="t38" Type="float" />
+          <Property Name="t39" Type="float" />
+          <Property Name="t40" Type="float" />
+          <Property Name="t41" Type="float" />
+        </EntityType>
+        <EntityType Name="ege_dat_sub">
+          <Key>
+            <PropertyRef Name="SubjectCode" />
+          </Key>
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+          <Property Name="LetterCode" Type="nchar" MaxLength="10" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MarkBorder2014" Type="int" />
+          <Property Name="MarkBorder2015" Type="int" />
+          <Property Name="GpaRussia2014" Type="float" />
+          <Property Name="GpaRussia2015" Type="float" />
+          <Property Name="ForAtestat2015" Type="float" />
+        </EntityType>
+        <EntityType Name="ege_partcat">
+          <Key>
+            <PropertyRef Name="PartCategoryCode" />
+          </Key>
+          <Property Name="PartCategoryCode" Type="int" Nullable="false" />
+          <Property Name="PartCategoryName" Type="nchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oge_15_res">
+          <Key>
+            <PropertyRef Name="ParticipantID" />
+            <PropertyRef Name="SubjectCode" />
+          </Key>
+          <Property Name="ParticipantID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+          <Property Name="TestDate" Type="datetime" Nullable="false" />
+          <Property Name="SchoolCode" Type="int" Nullable="false" />
+          <Property Name="SchoolID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="StationNumber" Type="int" />
+          <Property Name="CabinetNumber" Type="int" />
+          <Property Name="surname" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SeconName" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentSeries" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="PrimaryMark" Type="float" Nullable="false" />
+          <Property Name="TestResult" Type="float" Nullable="false" />
+          <Property Name="t1" Type="float" />
+          <Property Name="t2" Type="float" />
+          <Property Name="t3" Type="float" />
+          <Property Name="t4" Type="float" />
+          <Property Name="t5" Type="float" />
+          <Property Name="t6" Type="float" />
+          <Property Name="t7" Type="float" />
+          <Property Name="t8" Type="float" />
+          <Property Name="t9" Type="float" />
+          <Property Name="t10" Type="float" />
+          <Property Name="t11" Type="float" />
+          <Property Name="t12" Type="float" />
+          <Property Name="t13" Type="float" />
+          <Property Name="t14" Type="float" />
+          <Property Name="t15" Type="float" />
+          <Property Name="t16" Type="float" />
+          <Property Name="t17" Type="float" />
+          <Property Name="t18" Type="float" />
+          <Property Name="t19" Type="float" />
+          <Property Name="t20" Type="float" />
+          <Property Name="t21" Type="float" />
+          <Property Name="t22" Type="float" />
+          <Property Name="t23" Type="float" />
+          <Property Name="t24" Type="float" />
+          <Property Name="t25" Type="float" />
+          <Property Name="t26" Type="float" />
+        </EntityType>
+        <EntityType Name="oge_15_res_before">
+          <Key>
+            <PropertyRef Name="SubjectCode" />
+            <PropertyRef Name="ParticipantID" />
+          </Key>
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+          <Property Name="ParticipantID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SchoolCode" Type="int" Nullable="false" />
+          <Property Name="SchoolID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="StationNumber" Type="smallint" Nullable="false" />
+          <Property Name="CabinetNumber" Type="smallint" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentSeries" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="PrimaryMark" Type="float" Nullable="false" />
+          <Property Name="TestResult" Type="float" Nullable="false" />
+          <Property Name="t1" Type="float" />
+          <Property Name="t2" Type="float" />
+          <Property Name="t3" Type="float" />
+          <Property Name="t4" Type="float" />
+          <Property Name="t5" Type="float" />
+          <Property Name="t6" Type="float" />
+          <Property Name="t7" Type="float" />
+          <Property Name="t8" Type="float" />
+          <Property Name="t9" Type="float" />
+          <Property Name="t10" Type="float" />
+          <Property Name="t11" Type="float" />
+          <Property Name="t12" Type="float" />
+          <Property Name="t13" Type="float" />
+          <Property Name="t14" Type="float" />
+          <Property Name="t15" Type="float" />
+          <Property Name="t16" Type="float" />
+          <Property Name="t17" Type="float" />
+          <Property Name="t18" Type="float" />
+          <Property Name="t19" Type="float" />
+          <Property Name="t20" Type="float" />
+          <Property Name="t21" Type="float" />
+          <Property Name="t22" Type="float" />
+          <Property Name="t23" Type="float" />
+          <Property Name="t24" Type="float" />
+          <Property Name="t25" Type="float" />
+          <Property Name="t26" Type="float" />
+        </EntityType>
+        <EntityType Name="school">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar(max)" />
+          <Property Name="SchoolCode" Type="smallint" />
+          <Property Name="SchoolAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="SchoolDirector" Type="nvarchar" MaxLength="100" />
+          <Property Name="SchoolPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="SchoolEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="AreaID" Type="int" Nullable="false" />
+          <Property Name="GoverCode" Type="int" />
+          <Property Name="SchoolTypeCode" Type="int" />
+          <Property Name="TownTypeCode" Type="int" Nullable="false" />
+          <Property Name="SchoolViewCode" Type="int" />
+        </EntityType>
+        <EntityType Name="schooltype">
+          <Key>
+            <PropertyRef Name="SchoolTypeCode" />
+          </Key>
+          <Property Name="SchoolTypeCode" Type="int" Nullable="false" />
+          <Property Name="SchoolTypeName" Type="nchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="towntype">
+          <Key>
+            <PropertyRef Name="TownTypeCode" />
+          </Key>
+          <Property Name="TownTypeCode" Type="int" Nullable="false" />
+          <Property Name="TownTypeName" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ege_15_res_before_ege_dat_sub">
+          <End Role="ege_dat_sub" Type="Self.ege_dat_sub" Multiplicity="1" />
+          <End Role="ege_15_res_before" Type="Self.ege_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ege_dat_sub">
+              <PropertyRef Name="SubjectCode" />
+            </Principal>
+            <Dependent Role="ege_15_res_before">
+              <PropertyRef Name="SubjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ege_15_res_before_ege_partcat">
+          <End Role="ege_partcat" Type="Self.ege_partcat" Multiplicity="1" />
+          <End Role="ege_15_res_before" Type="Self.ege_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ege_partcat">
+              <PropertyRef Name="PartCategoryCode" />
+            </Principal>
+            <Dependent Role="ege_15_res_before">
+              <PropertyRef Name="PartCategoryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ege_15_res_before_school">
+          <End Role="school" Type="Self.school" Multiplicity="1" />
+          <End Role="ege_15_res_before" Type="Self.ege_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="school">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="ege_15_res_before">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_15_res_ege_dat_sub">
+          <End Role="ege_dat_sub" Type="Self.ege_dat_sub" Multiplicity="1" />
+          <End Role="oge_15_res_before" Type="Self.oge_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ege_dat_sub">
+              <PropertyRef Name="SubjectCode" />
+            </Principal>
+            <Dependent Role="oge_15_res_before">
+              <PropertyRef Name="SubjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_15_res_ege_dat_sub1">
+          <End Role="ege_dat_sub" Type="Self.ege_dat_sub" Multiplicity="1" />
+          <End Role="oge_15_res" Type="Self.oge_15_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ege_dat_sub">
+              <PropertyRef Name="SubjectCode" />
+            </Principal>
+            <Dependent Role="oge_15_res">
+              <PropertyRef Name="SubjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_15_res_school">
+          <End Role="school" Type="Self.school" Multiplicity="1" />
+          <End Role="oge_15_res_before" Type="Self.oge_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="school">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="oge_15_res_before">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_15_res_school1">
+          <End Role="school" Type="Self.school" Multiplicity="1" />
+          <End Role="oge_15_res" Type="Self.oge_15_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="school">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="oge_15_res">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_school_area">
+          <End Role="area" Type="Self.area" Multiplicity="1" />
+          <End Role="school" Type="Self.school" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="school">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище cokoModelWANContainer">
+          <EntitySet Name="area" EntityType="Self.area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ege_15_res_before" EntityType="Self.ege_15_res_before" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ege_dat_sub" EntityType="Self.ege_dat_sub" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ege_partcat" EntityType="Self.ege_partcat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="oge_15_res" EntityType="Self.oge_15_res" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="oge_15_res_before" EntityType="Self.oge_15_res_before" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="school" EntityType="Self.school" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="schooltype" EntityType="Self.schooltype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="towntype" EntityType="Self.towntype" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ege_15_res_before_ege_dat_sub" Association="Self.FK_ege_15_res_before_ege_dat_sub">
+            <End Role="ege_dat_sub" EntitySet="ege_dat_sub" />
+            <End Role="ege_15_res_before" EntitySet="ege_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ege_15_res_before_ege_partcat" Association="Self.FK_ege_15_res_before_ege_partcat">
+            <End Role="ege_partcat" EntitySet="ege_partcat" />
+            <End Role="ege_15_res_before" EntitySet="ege_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ege_15_res_before_school" Association="Self.FK_ege_15_res_before_school">
+            <End Role="school" EntitySet="school" />
+            <End Role="ege_15_res_before" EntitySet="ege_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_15_res_ege_dat_sub" Association="Self.FK_oge_15_res_ege_dat_sub">
+            <End Role="ege_dat_sub" EntitySet="ege_dat_sub" />
+            <End Role="oge_15_res_before" EntitySet="oge_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_15_res_ege_dat_sub1" Association="Self.FK_oge_15_res_ege_dat_sub1">
+            <End Role="ege_dat_sub" EntitySet="ege_dat_sub" />
+            <End Role="oge_15_res" EntitySet="oge_15_res" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_15_res_school" Association="Self.FK_oge_15_res_school">
+            <End Role="school" EntitySet="school" />
+            <End Role="oge_15_res_before" EntitySet="oge_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_15_res_school1" Association="Self.FK_oge_15_res_school1">
+            <End Role="school" EntitySet="school" />
+            <End Role="oge_15_res" EntitySet="oge_15_res" />
+          </AssociationSet>
+          <AssociationSet Name="FK_school_area" Association="Self.FK_school_area">
+            <End Role="area" EntitySet="area" />
+            <End Role="school" EntitySet="school" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cokoModelWAN" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="cokoEntitiesWAN" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="areas" EntityType="cokoModelWAN.area" />
+          <EntitySet Name="ege_15_res_before" EntityType="cokoModelWAN.ege_15_res_before" />
+          <EntitySet Name="ege_dat_sub" EntityType="cokoModelWAN.ege_dat_sub" />
+          <EntitySet Name="ege_partcat" EntityType="cokoModelWAN.ege_partcat" />
+          <EntitySet Name="oge_15_res" EntityType="cokoModelWAN.oge_15_res" />
+          <EntitySet Name="oge_15_res_before" EntityType="cokoModelWAN.oge_15_res_before" />
+          <EntitySet Name="schools" EntityType="cokoModelWAN.school" />
+          <EntitySet Name="schooltypes" EntityType="cokoModelWAN.schooltype" />
+          <EntitySet Name="towntypes" EntityType="cokoModelWAN.towntype" />
+          <AssociationSet Name="FK_school_area" Association="cokoModelWAN.FK_school_area">
+            <End Role="area" EntitySet="areas" />
+            <End Role="school" EntitySet="schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ege_15_res_before_ege_dat_sub" Association="cokoModelWAN.FK_ege_15_res_before_ege_dat_sub">
+            <End Role="ege_dat_sub" EntitySet="ege_dat_sub" />
+            <End Role="ege_15_res_before" EntitySet="ege_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ege_15_res_before_ege_partcat" Association="cokoModelWAN.FK_ege_15_res_before_ege_partcat">
+            <End Role="ege_partcat" EntitySet="ege_partcat" />
+            <End Role="ege_15_res_before" EntitySet="ege_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ege_15_res_before_school" Association="cokoModelWAN.FK_ege_15_res_before_school">
+            <End Role="school" EntitySet="schools" />
+            <End Role="ege_15_res_before" EntitySet="ege_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_15_res_ege_dat_sub" Association="cokoModelWAN.FK_oge_15_res_ege_dat_sub">
+            <End Role="ege_dat_sub" EntitySet="ege_dat_sub" />
+            <End Role="oge_15_res_before" EntitySet="oge_15_res_before" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_15_res_ege_dat_sub1" Association="cokoModelWAN.FK_oge_15_res_ege_dat_sub1">
+            <End Role="ege_dat_sub" EntitySet="ege_dat_sub" />
+            <End Role="oge_15_res" EntitySet="oge_15_res" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_15_res_school1" Association="cokoModelWAN.FK_oge_15_res_school1">
+            <End Role="school" EntitySet="schools" />
+            <End Role="oge_15_res" EntitySet="oge_15_res" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_15_res_school" Association="cokoModelWAN.FK_oge_15_res_school">
+            <End Role="school" EntitySet="schools" />
+            <End Role="oge_15_res_before" EntitySet="oge_15_res_before" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="Int32" Nullable="false" />
+          <Property Name="AreaName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="AreaFullName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Административный_центр" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="schools" Relationship="cokoModelWAN.FK_school_area" FromRole="area" ToRole="school" />
+        </EntityType>
+        <EntityType Name="ege_15_res_before">
+          <Key>
+            <PropertyRef Name="SubjectCode" />
+            <PropertyRef Name="ParticipantID" />
+          </Key>
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="ParticipantID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PartCategoryCode" Type="Int32" Nullable="false" />
+          <Property Name="SchoolCode" Type="Int32" Nullable="false" />
+          <Property Name="SchoolID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StationNumber" Type="Int32" />
+          <Property Name="CabinetNumber" Type="Int32" />
+          <Property Name="surname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentSeries" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryMark" Type="Double" Nullable="false" />
+          <Property Name="TestResult" Type="Double" Nullable="false" />
+          <Property Name="t1" Type="Double" />
+          <Property Name="t2" Type="Double" />
+          <Property Name="t3" Type="Double" />
+          <Property Name="t4" Type="Double" />
+          <Property Name="t5" Type="Double" />
+          <Property Name="t6" Type="Double" />
+          <Property Name="t7" Type="Double" />
+          <Property Name="t8" Type="Double" />
+          <Property Name="t9" Type="Double" />
+          <Property Name="t10" Type="Double" />
+          <Property Name="t11" Type="Double" />
+          <Property Name="t12" Type="Double" />
+          <Property Name="t13" Type="Double" />
+          <Property Name="t14" Type="Double" />
+          <Property Name="t15" Type="Double" />
+          <Property Name="t16" Type="Double" />
+          <Property Name="t17" Type="Double" />
+          <Property Name="t18" Type="Double" />
+          <Property Name="t19" Type="Double" />
+          <Property Name="t20" Type="Double" />
+          <Property Name="t21" Type="Double" />
+          <Property Name="t22" Type="Double" />
+          <Property Name="t23" Type="Double" />
+          <Property Name="t24" Type="Double" />
+          <Property Name="t25" Type="Double" />
+          <Property Name="t26" Type="Double" />
+          <Property Name="t27" Type="Double" />
+          <Property Name="t28" Type="Double" />
+          <Property Name="t29" Type="Double" />
+          <Property Name="t30" Type="Double" />
+          <Property Name="t31" Type="Double" />
+          <Property Name="t32" Type="Double" />
+          <Property Name="t33" Type="Double" />
+          <Property Name="t34" Type="Double" />
+          <Property Name="t35" Type="Double" />
+          <Property Name="t36" Type="Double" />
+          <Property Name="t37" Type="Double" />
+          <Property Name="t38" Type="Double" />
+          <Property Name="t39" Type="Double" />
+          <Property Name="t40" Type="Double" />
+          <Property Name="t41" Type="Double" />
+          <NavigationProperty Name="ege_dat_sub" Relationship="cokoModelWAN.FK_ege_15_res_before_ege_dat_sub" FromRole="ege_15_res_before" ToRole="ege_dat_sub" />
+          <NavigationProperty Name="ege_partcat" Relationship="cokoModelWAN.FK_ege_15_res_before_ege_partcat" FromRole="ege_15_res_before" ToRole="ege_partcat" />
+          <NavigationProperty Name="school" Relationship="cokoModelWAN.FK_ege_15_res_before_school" FromRole="ege_15_res_before" ToRole="school" />
+        </EntityType>
+        <EntityType Name="ege_dat_sub">
+          <Key>
+            <PropertyRef Name="SubjectCode" />
+          </Key>
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="LetterCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MarkBorder2014" Type="Int32" />
+          <Property Name="MarkBorder2015" Type="Int32" />
+          <Property Name="GpaRussia2014" Type="Double" />
+          <Property Name="GpaRussia2015" Type="Double" />
+          <Property Name="ForAtestat2015" Type="Double" />
+          <NavigationProperty Name="ege_15_res_before" Relationship="cokoModelWAN.FK_ege_15_res_before_ege_dat_sub" FromRole="ege_dat_sub" ToRole="ege_15_res_before" />
+          <NavigationProperty Name="oge_15_res_before" Relationship="cokoModelWAN.FK_oge_15_res_ege_dat_sub" FromRole="ege_dat_sub" ToRole="oge_15_res_before" />
+          <NavigationProperty Name="oge_15_res" Relationship="cokoModelWAN.FK_oge_15_res_ege_dat_sub1" FromRole="ege_dat_sub" ToRole="oge_15_res" />
+        </EntityType>
+        <EntityType Name="ege_partcat">
+          <Key>
+            <PropertyRef Name="PartCategoryCode" />
+          </Key>
+          <Property Name="PartCategoryCode" Type="Int32" Nullable="false" />
+          <Property Name="PartCategoryName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ege_15_res_before" Relationship="cokoModelWAN.FK_ege_15_res_before_ege_partcat" FromRole="ege_partcat" ToRole="ege_15_res_before" />
+        </EntityType>
+        <EntityType Name="oge_15_res">
+          <Key>
+            <PropertyRef Name="ParticipantID" />
+            <PropertyRef Name="SubjectCode" />
+          </Key>
+          <Property Name="ParticipantID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="TestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SchoolCode" Type="Int32" Nullable="false" />
+          <Property Name="SchoolID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StationNumber" Type="Int32" />
+          <Property Name="CabinetNumber" Type="Int32" />
+          <Property Name="surname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SeconName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentSeries" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryMark" Type="Double" Nullable="false" />
+          <Property Name="TestResult" Type="Double" Nullable="false" />
+          <Property Name="t1" Type="Double" />
+          <Property Name="t2" Type="Double" />
+          <Property Name="t3" Type="Double" />
+          <Property Name="t4" Type="Double" />
+          <Property Name="t5" Type="Double" />
+          <Property Name="t6" Type="Double" />
+          <Property Name="t7" Type="Double" />
+          <Property Name="t8" Type="Double" />
+          <Property Name="t9" Type="Double" />
+          <Property Name="t10" Type="Double" />
+          <Property Name="t11" Type="Double" />
+          <Property Name="t12" Type="Double" />
+          <Property Name="t13" Type="Double" />
+          <Property Name="t14" Type="Double" />
+          <Property Name="t15" Type="Double" />
+          <Property Name="t16" Type="Double" />
+          <Property Name="t17" Type="Double" />
+          <Property Name="t18" Type="Double" />
+          <Property Name="t19" Type="Double" />
+          <Property Name="t20" Type="Double" />
+          <Property Name="t21" Type="Double" />
+          <Property Name="t22" Type="Double" />
+          <Property Name="t23" Type="Double" />
+          <Property Name="t24" Type="Double" />
+          <Property Name="t25" Type="Double" />
+          <Property Name="t26" Type="Double" />
+          <NavigationProperty Name="ege_dat_sub" Relationship="cokoModelWAN.FK_oge_15_res_ege_dat_sub1" FromRole="oge_15_res" ToRole="ege_dat_sub" />
+          <NavigationProperty Name="school" Relationship="cokoModelWAN.FK_oge_15_res_school1" FromRole="oge_15_res" ToRole="school" />
+        </EntityType>
+        <EntityType Name="oge_15_res_before">
+          <Key>
+            <PropertyRef Name="SubjectCode" />
+            <PropertyRef Name="ParticipantID" />
+          </Key>
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="ParticipantID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolCode" Type="Int32" Nullable="false" />
+          <Property Name="SchoolID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StationNumber" Type="Int16" Nullable="false" />
+          <Property Name="CabinetNumber" Type="Int16" Nullable="false" />
+          <Property Name="surname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentSeries" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryMark" Type="Double" Nullable="false" />
+          <Property Name="TestResult" Type="Double" Nullable="false" />
+          <Property Name="t1" Type="Double" />
+          <Property Name="t2" Type="Double" />
+          <Property Name="t3" Type="Double" />
+          <Property Name="t4" Type="Double" />
+          <Property Name="t5" Type="Double" />
+          <Property Name="t6" Type="Double" />
+          <Property Name="t7" Type="Double" />
+          <Property Name="t8" Type="Double" />
+          <Property Name="t9" Type="Double" />
+          <Property Name="t10" Type="Double" />
+          <Property Name="t11" Type="Double" />
+          <Property Name="t12" Type="Double" />
+          <Property Name="t13" Type="Double" />
+          <Property Name="t14" Type="Double" />
+          <Property Name="t15" Type="Double" />
+          <Property Name="t16" Type="Double" />
+          <Property Name="t17" Type="Double" />
+          <Property Name="t18" Type="Double" />
+          <Property Name="t19" Type="Double" />
+          <Property Name="t20" Type="Double" />
+          <Property Name="t21" Type="Double" />
+          <Property Name="t22" Type="Double" />
+          <Property Name="t23" Type="Double" />
+          <Property Name="t24" Type="Double" />
+          <Property Name="t25" Type="Double" />
+          <Property Name="t26" Type="Double" />
+          <NavigationProperty Name="ege_dat_sub" Relationship="cokoModelWAN.FK_oge_15_res_ege_dat_sub" FromRole="oge_15_res_before" ToRole="ege_dat_sub" />
+          <NavigationProperty Name="school" Relationship="cokoModelWAN.FK_oge_15_res_school" FromRole="oge_15_res_before" ToRole="school" />
+        </EntityType>
+        <EntityType Name="school">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolCode" Type="Int16" />
+          <Property Name="SchoolAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolDirector" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaID" Type="Int32" Nullable="false" />
+          <Property Name="GoverCode" Type="Int32" />
+          <Property Name="SchoolTypeCode" Type="Int32" />
+          <Property Name="TownTypeCode" Type="Int32" Nullable="false" />
+          <Property Name="SchoolViewCode" Type="Int32" />
+          <NavigationProperty Name="area" Relationship="cokoModelWAN.FK_school_area" FromRole="school" ToRole="area" />
+          <NavigationProperty Name="ege_15_res_before" Relationship="cokoModelWAN.FK_ege_15_res_before_school" FromRole="school" ToRole="ege_15_res_before" />
+          <NavigationProperty Name="oge_15_res" Relationship="cokoModelWAN.FK_oge_15_res_school1" FromRole="school" ToRole="oge_15_res" />
+          <NavigationProperty Name="oge_15_res_before" Relationship="cokoModelWAN.FK_oge_15_res_school" FromRole="school" ToRole="oge_15_res_before" />
+        </EntityType>
+        <EntityType Name="schooltype">
+          <Key>
+            <PropertyRef Name="SchoolTypeCode" />
+          </Key>
+          <Property Name="SchoolTypeCode" Type="Int32" Nullable="false" />
+          <Property Name="SchoolTypeName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="towntype">
+          <Key>
+            <PropertyRef Name="TownTypeCode" />
+          </Key>
+          <Property Name="TownTypeCode" Type="Int32" Nullable="false" />
+          <Property Name="TownTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_school_area">
+          <End Type="cokoModelWAN.area" Role="area" Multiplicity="1" />
+          <End Type="cokoModelWAN.school" Role="school" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="school">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ege_15_res_before_ege_dat_sub">
+          <End Type="cokoModelWAN.ege_dat_sub" Role="ege_dat_sub" Multiplicity="1" />
+          <End Type="cokoModelWAN.ege_15_res_before" Role="ege_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ege_dat_sub">
+              <PropertyRef Name="SubjectCode" />
+            </Principal>
+            <Dependent Role="ege_15_res_before">
+              <PropertyRef Name="SubjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ege_15_res_before_ege_partcat">
+          <End Type="cokoModelWAN.ege_partcat" Role="ege_partcat" Multiplicity="1" />
+          <End Type="cokoModelWAN.ege_15_res_before" Role="ege_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ege_partcat">
+              <PropertyRef Name="PartCategoryCode" />
+            </Principal>
+            <Dependent Role="ege_15_res_before">
+              <PropertyRef Name="PartCategoryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ege_15_res_before_school">
+          <End Type="cokoModelWAN.school" Role="school" Multiplicity="1" />
+          <End Type="cokoModelWAN.ege_15_res_before" Role="ege_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="school">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="ege_15_res_before">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_15_res_ege_dat_sub">
+          <End Type="cokoModelWAN.ege_dat_sub" Role="ege_dat_sub" Multiplicity="1" />
+          <End Type="cokoModelWAN.oge_15_res_before" Role="oge_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ege_dat_sub">
+              <PropertyRef Name="SubjectCode" />
+            </Principal>
+            <Dependent Role="oge_15_res_before">
+              <PropertyRef Name="SubjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_15_res_ege_dat_sub1">
+          <End Type="cokoModelWAN.ege_dat_sub" Role="ege_dat_sub" Multiplicity="1" />
+          <End Type="cokoModelWAN.oge_15_res" Role="oge_15_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ege_dat_sub">
+              <PropertyRef Name="SubjectCode" />
+            </Principal>
+            <Dependent Role="oge_15_res">
+              <PropertyRef Name="SubjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_15_res_school1">
+          <End Type="cokoModelWAN.school" Role="school" Multiplicity="1" />
+          <End Type="cokoModelWAN.oge_15_res" Role="oge_15_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="school">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="oge_15_res">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_15_res_school">
+          <End Type="cokoModelWAN.school" Role="school" Multiplicity="1" />
+          <End Type="cokoModelWAN.oge_15_res_before" Role="oge_15_res_before" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="school">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="oge_15_res_before">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище cokoModelWANContainer" CdmEntityContainer="cokoEntitiesWAN">
+          <EntitySetMapping Name="areas">
+            <EntityTypeMapping TypeName="cokoModelWAN.area">
+              <MappingFragment StoreEntitySet="area">
+                <ScalarProperty Name="Административный_центр" ColumnName="Административный центр" />
+                <ScalarProperty Name="AreaFullName" ColumnName="AreaFullName" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ege_15_res_before">
+            <EntityTypeMapping TypeName="cokoModelWAN.ege_15_res_before">
+              <MappingFragment StoreEntitySet="ege_15_res_before">
+                <ScalarProperty Name="t41" ColumnName="t41" />
+                <ScalarProperty Name="t40" ColumnName="t40" />
+                <ScalarProperty Name="t39" ColumnName="t39" />
+                <ScalarProperty Name="t38" ColumnName="t38" />
+                <ScalarProperty Name="t37" ColumnName="t37" />
+                <ScalarProperty Name="t36" ColumnName="t36" />
+                <ScalarProperty Name="t35" ColumnName="t35" />
+                <ScalarProperty Name="t34" ColumnName="t34" />
+                <ScalarProperty Name="t33" ColumnName="t33" />
+                <ScalarProperty Name="t32" ColumnName="t32" />
+                <ScalarProperty Name="t31" ColumnName="t31" />
+                <ScalarProperty Name="t30" ColumnName="t30" />
+                <ScalarProperty Name="t29" ColumnName="t29" />
+                <ScalarProperty Name="t28" ColumnName="t28" />
+                <ScalarProperty Name="t27" ColumnName="t27" />
+                <ScalarProperty Name="t26" ColumnName="t26" />
+                <ScalarProperty Name="t25" ColumnName="t25" />
+                <ScalarProperty Name="t24" ColumnName="t24" />
+                <ScalarProperty Name="t23" ColumnName="t23" />
+                <ScalarProperty Name="t22" ColumnName="t22" />
+                <ScalarProperty Name="t21" ColumnName="t21" />
+                <ScalarProperty Name="t20" ColumnName="t20" />
+                <ScalarProperty Name="t19" ColumnName="t19" />
+                <ScalarProperty Name="t18" ColumnName="t18" />
+                <ScalarProperty Name="t17" ColumnName="t17" />
+                <ScalarProperty Name="t16" ColumnName="t16" />
+                <ScalarProperty Name="t15" ColumnName="t15" />
+                <ScalarProperty Name="t14" ColumnName="t14" />
+                <ScalarProperty Name="t13" ColumnName="t13" />
+                <ScalarProperty Name="t12" ColumnName="t12" />
+                <ScalarProperty Name="t11" ColumnName="t11" />
+                <ScalarProperty Name="t10" ColumnName="t10" />
+                <ScalarProperty Name="t9" ColumnName="t9" />
+                <ScalarProperty Name="t8" ColumnName="t8" />
+                <ScalarProperty Name="t7" ColumnName="t7" />
+                <ScalarProperty Name="t6" ColumnName="t6" />
+                <ScalarProperty Name="t5" ColumnName="t5" />
+                <ScalarProperty Name="t4" ColumnName="t4" />
+                <ScalarProperty Name="t3" ColumnName="t3" />
+                <ScalarProperty Name="t2" ColumnName="t2" />
+                <ScalarProperty Name="t1" ColumnName="t1" />
+                <ScalarProperty Name="TestResult" ColumnName="TestResult" />
+                <ScalarProperty Name="PrimaryMark" ColumnName="PrimaryMark" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="DocumentSeries" ColumnName="DocumentSeries" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="CabinetNumber" ColumnName="CabinetNumber" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
+                <ScalarProperty Name="PartCategoryCode" ColumnName="PartCategoryCode" />
+                <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ege_dat_sub">
+            <EntityTypeMapping TypeName="cokoModelWAN.ege_dat_sub">
+              <MappingFragment StoreEntitySet="ege_dat_sub">
+                <ScalarProperty Name="ForAtestat2015" ColumnName="ForAtestat2015" />
+                <ScalarProperty Name="GpaRussia2015" ColumnName="GpaRussia2015" />
+                <ScalarProperty Name="GpaRussia2014" ColumnName="GpaRussia2014" />
+                <ScalarProperty Name="MarkBorder2015" ColumnName="MarkBorder2015" />
+                <ScalarProperty Name="MarkBorder2014" ColumnName="MarkBorder2014" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="LetterCode" ColumnName="LetterCode" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ege_partcat">
+            <EntityTypeMapping TypeName="cokoModelWAN.ege_partcat">
+              <MappingFragment StoreEntitySet="ege_partcat">
+                <ScalarProperty Name="PartCategoryName" ColumnName="PartCategoryName" />
+                <ScalarProperty Name="PartCategoryCode" ColumnName="PartCategoryCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oge_15_res">
+            <EntityTypeMapping TypeName="cokoModelWAN.oge_15_res">
+              <MappingFragment StoreEntitySet="oge_15_res">
+                <ScalarProperty Name="t26" ColumnName="t26" />
+                <ScalarProperty Name="t25" ColumnName="t25" />
+                <ScalarProperty Name="t24" ColumnName="t24" />
+                <ScalarProperty Name="t23" ColumnName="t23" />
+                <ScalarProperty Name="t22" ColumnName="t22" />
+                <ScalarProperty Name="t21" ColumnName="t21" />
+                <ScalarProperty Name="t20" ColumnName="t20" />
+                <ScalarProperty Name="t19" ColumnName="t19" />
+                <ScalarProperty Name="t18" ColumnName="t18" />
+                <ScalarProperty Name="t17" ColumnName="t17" />
+                <ScalarProperty Name="t16" ColumnName="t16" />
+                <ScalarProperty Name="t15" ColumnName="t15" />
+                <ScalarProperty Name="t14" ColumnName="t14" />
+                <ScalarProperty Name="t13" ColumnName="t13" />
+                <ScalarProperty Name="t12" ColumnName="t12" />
+                <ScalarProperty Name="t11" ColumnName="t11" />
+                <ScalarProperty Name="t10" ColumnName="t10" />
+                <ScalarProperty Name="t9" ColumnName="t9" />
+                <ScalarProperty Name="t8" ColumnName="t8" />
+                <ScalarProperty Name="t7" ColumnName="t7" />
+                <ScalarProperty Name="t6" ColumnName="t6" />
+                <ScalarProperty Name="t5" ColumnName="t5" />
+                <ScalarProperty Name="t4" ColumnName="t4" />
+                <ScalarProperty Name="t3" ColumnName="t3" />
+                <ScalarProperty Name="t2" ColumnName="t2" />
+                <ScalarProperty Name="t1" ColumnName="t1" />
+                <ScalarProperty Name="TestResult" ColumnName="TestResult" />
+                <ScalarProperty Name="PrimaryMark" ColumnName="PrimaryMark" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="DocumentSeries" ColumnName="DocumentSeries" />
+                <ScalarProperty Name="SeconName" ColumnName="SeconName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="CabinetNumber" ColumnName="CabinetNumber" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
+                <ScalarProperty Name="TestDate" ColumnName="TestDate" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oge_15_res_before">
+            <EntityTypeMapping TypeName="cokoModelWAN.oge_15_res_before">
+              <MappingFragment StoreEntitySet="oge_15_res_before">
+                <ScalarProperty Name="t26" ColumnName="t26" />
+                <ScalarProperty Name="t25" ColumnName="t25" />
+                <ScalarProperty Name="t24" ColumnName="t24" />
+                <ScalarProperty Name="t23" ColumnName="t23" />
+                <ScalarProperty Name="t22" ColumnName="t22" />
+                <ScalarProperty Name="t21" ColumnName="t21" />
+                <ScalarProperty Name="t20" ColumnName="t20" />
+                <ScalarProperty Name="t19" ColumnName="t19" />
+                <ScalarProperty Name="t18" ColumnName="t18" />
+                <ScalarProperty Name="t17" ColumnName="t17" />
+                <ScalarProperty Name="t16" ColumnName="t16" />
+                <ScalarProperty Name="t15" ColumnName="t15" />
+                <ScalarProperty Name="t14" ColumnName="t14" />
+                <ScalarProperty Name="t13" ColumnName="t13" />
+                <ScalarProperty Name="t12" ColumnName="t12" />
+                <ScalarProperty Name="t11" ColumnName="t11" />
+                <ScalarProperty Name="t10" ColumnName="t10" />
+                <ScalarProperty Name="t9" ColumnName="t9" />
+                <ScalarProperty Name="t8" ColumnName="t8" />
+                <ScalarProperty Name="t7" ColumnName="t7" />
+                <ScalarProperty Name="t6" ColumnName="t6" />
+                <ScalarProperty Name="t5" ColumnName="t5" />
+                <ScalarProperty Name="t4" ColumnName="t4" />
+                <ScalarProperty Name="t3" ColumnName="t3" />
+                <ScalarProperty Name="t2" ColumnName="t2" />
+                <ScalarProperty Name="t1" ColumnName="t1" />
+                <ScalarProperty Name="TestResult" ColumnName="TestResult" />
+                <ScalarProperty Name="PrimaryMark" ColumnName="PrimaryMark" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="DocumentSeries" ColumnName="DocumentSeries" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="CabinetNumber" ColumnName="CabinetNumber" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
+                <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schools">
+            <EntityTypeMapping TypeName="cokoModelWAN.school">
+              <MappingFragment StoreEntitySet="school">
+                <ScalarProperty Name="SchoolViewCode" ColumnName="SchoolViewCode" />
+                <ScalarProperty Name="TownTypeCode" ColumnName="TownTypeCode" />
+                <ScalarProperty Name="SchoolTypeCode" ColumnName="SchoolTypeCode" />
+                <ScalarProperty Name="GoverCode" ColumnName="GoverCode" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+                <ScalarProperty Name="SchoolEmail" ColumnName="SchoolEmail" />
+                <ScalarProperty Name="SchoolPhone" ColumnName="SchoolPhone" />
+                <ScalarProperty Name="SchoolDirector" ColumnName="SchoolDirector" />
+                <ScalarProperty Name="SchoolAddress" ColumnName="SchoolAddress" />
+                <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schooltypes">
+            <EntityTypeMapping TypeName="cokoModelWAN.schooltype">
+              <MappingFragment StoreEntitySet="schooltype">
+                <ScalarProperty Name="SchoolTypeName" ColumnName="SchoolTypeName" />
+                <ScalarProperty Name="SchoolTypeCode" ColumnName="SchoolTypeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="towntypes">
+            <EntityTypeMapping TypeName="cokoModelWAN.towntype">
+              <MappingFragment StoreEntitySet="towntype">
+                <ScalarProperty Name="TownTypeName" ColumnName="TownTypeName" />
+                <ScalarProperty Name="TownTypeCode" ColumnName="TownTypeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

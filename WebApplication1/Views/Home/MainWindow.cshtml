@@ -1,0 +1,88 @@
+﻿@*@model WebApplication1.ViewModels.Monit10_1516.MainWindowVM*@
+@model Monit95App.ViewModels.Monit10_1516.MainWindowVM
+
+@{
+    ViewBag.Title = "Monit10";
+}
+
+<h3>План повышения качества образовательных достижений обучающихся 10 классов</h3>
+
+<table cols="6" border="1" cellspacing="0" cellpadding="10" align="CENTER">
+    <tr bgcolor="#efefef" align="center">
+        <th width="6%" class="not_mapped_style" style="text-align:center"> Код </th>
+        <th width="32%" class="not_mapped_style" style="text-align:center"> Элемент содержания </th>
+        <th width="18%" class="not_mapped_style" style="text-align:center"> Номера заданий по КИМ ОГЭ-2015 </th>
+        <th width="14%" class="not_mapped_style" style="text-align:center"> Количество выделенных часов </th>
+        <th width="16%" class="not_mapped_style" style="text-align:center"> Срок проведения дополнительных занятий </th>
+        <th width="14%" class="not_mapped_style" style="text-align:center"> Дата проведения контрольной работы </th>
+    </tr>
+    <tr colspan="6">
+        <td colspan="6" bgcolor="#008080">
+            <i><b><big> Русский язык </big></b></i>
+        </td>
+    </tr>
+   
+     @foreach (var item in Model.ElementPlans.Take(8))
+     {
+    <tr bgcolor="#efefef">
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.ElCode) @*Код*@
+        </td>
+        <td>
+            @Html.ActionLink(item.ElName, "EditElLearn", "Home", new { elCode = item.ElCode }, null /* html attributes */) @*Элемент содержания*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskNumOge15) @*Номера заданий по КИМ ОГЭ-2015*@
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.CountHours) @*Количество выделенных часов*@
+        </td>
+        <td align="center">
+            @Html.HiddenFor(modelItem => item.HoursStart)  @*Срок проведения дополнительных занятий*@
+            @Html.HiddenFor(modelItem => item.HoursEnd)
+            @Html.DisplayFor(modelItem => item.Srok)
+        </td>
+        <td align="center">
+            @Html.HiddenFor(modelItem => item.ExamDate) @*Дата проведения контрольной работы*@
+            @Html.DisplayFor(modelItem => item.ExamDateString) 
+        </td>
+        <td width="10%" style="font-size:smaller">
+            @Html.ActionLink("редактировать", "Edit", new { elCode = item.ElCode })
+        </td>
+    </tr>
+     }
+    <tr colspan="6">
+        <td colspan="6" bgcolor="#008080">
+            <i><b><big> Математика </big></b></i>
+        </td>
+    </tr>
+    @foreach (var item in Model.ElementPlans.Skip(8))
+    {
+        <tr bgcolor="#efefef">
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.ElCode)
+            </td>
+            <td>
+                @Html.ActionLink(item.ElName, "EditElLearn", "Home", new { elCode = item.ElCode }, null /* html attributes */)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskNumOge15)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.CountHours)
+            </td>
+            <td align="center">
+                @Html.HiddenFor(modelItem => item.HoursStart)
+                @Html.HiddenFor(modelItem => item.HoursEnd)
+                @Html.DisplayFor(modelItem => item.Srok)
+            </td>
+            <td align="center">
+                @Html.HiddenFor(modelItem => item.ExamDate)
+                @Html.DisplayFor(modelItem => item.ExamDateString)
+            </td>
+            <td width="10%" style="font-size:smaller">
+                @Html.ActionLink("редактировать", "Edit", new { elCode = item.ElCode })
+            </td>
+        </tr>
+    }
+</table>
