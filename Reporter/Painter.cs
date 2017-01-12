@@ -11,7 +11,7 @@ namespace Reporter
     public class Painter
     {
         private Excel.Series series;
-        private Excel.Range range;
+        private Excel.Range range;                
 
         public Painter(Excel.Series series, Excel.Range range)
         {
@@ -33,6 +33,7 @@ namespace Reporter
                 if (value >= 50 && value < 80)
                 {
                     series.Points(i).Interior.Color = (int)XlRgbColor.rgbYellow;
+                    
                 }
                 if (value >= 80)
                 {

@@ -1,0 +1,124 @@
+﻿@model Monit95App.ViewModels.Home.SchoolsVM
+
+@{
+    ViewBag.Title = "Schools";
+}
+<body>    
+    <p></p>
+    <table>
+        <tr>
+            <td>
+                <label>Район:</label>
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.AreaNames, Model.AreaNames, "--Выбрать--", new { @id = "ddlArea"})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Образовательная организация:</label>
+            </td>
+            <td id="School">
+                @Html.DropDownListFor(x => x.SchoolNames, new List<SelectListItem>(), "--Выбрать--", new { @id = "ddlSchool", @class="ttt" });
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Отчеты</a></li>
+            <li><a href="#tabs-2">Реквизиты</a></li>
+        </ul>
+        <div id="tabs-1"></div>                    
+        <div id="tabs-2"></div>         
+    </div>          
+</body>
+
+<script>
+    function openInNewTab(url) {
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
+    function Reset() {
+        $("#tabs-1").html('');
+        $("#tabs-2").html('');
+    }
+    $(document).ready(function () {
+        $("#tabs").tabs();
+    });
+    $('#School').change(function () {        
+        $('#tabs').tabs({
+            active: 0
+        });
+        $("[tabindex='-1']").removeClass('ui-state-active');
+        $("[tabindex='-1']").removeClass('ui-tabs-active');
+        Reset();
+        var schoolId = $("#ddlSchool").val();
+        $.ajax({
+            url: "/Report/GetOnlineReportsPV?_schoolId=" + schoolId,
+            type: "GET",
+            success: function (data) {
+                $("#tabs-1").html(data);                
+            }
+        })
+        $.ajax({
+            url: "/Home/GetSchoolinfoPV?_schoolId=" + schoolId,
+            type: "GET",
+            success: function (data) {
+                $("#tabs-2").html(data);
+            }
+        })
+    });
+    $('#ddlArea').change(function () {
+        Reset();
+        $.ajax({
+            type: "post",
+            url: "/Home/GetSchools",
+            data: { areaID_str: $('#ddlArea').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var school = "<select id='ddlSchool'>";
+                school = school + '<option value="">--Выбрать--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    school = school + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                school = school + '</select>';
+                $('#School').html(school);
+            }
+        });
+    });   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@Ajax.ActionLink("AjaxTester", "AjaxTester", "Home", new AjaxOptions { UpdateTargetId = "AjaxTestDiv" })
+    <div id="AjaxTestDiv">content</div>*@

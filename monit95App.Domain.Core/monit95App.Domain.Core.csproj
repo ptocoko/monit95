@@ -7,10 +7,11 @@
     <ProjectGuid>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>monit95App.Domain.Core</RootNamespace>
-    <AssemblyName>monit95App.Domain.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Monit95App.Domain.Core</RootNamespace>
+    <AssemblyName>Monit95App.Domain.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,22 +51,93 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IParticipant.cs" />
-    <Compile Include="area.cs" />
-    <Compile Include="cokoContext.cs" />
-    <Compile Include="monit10_1516_el.cs" />
-    <Compile Include="monit10_1516_elvalue.cs" />
-    <Compile Include="monit10_1516_learner.cs" />
-    <Compile Include="monit10_1516_planoo.cs" />
-    <Compile Include="monit10_1516_rating.cs" />
-    <Compile Include="monit95Context.cs" />
+    <Compile Include="area.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cokoModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cokoModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cokoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cokoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cokoModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Collector.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CollectorSchool.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CollectorSchoolInfo.cs" />
+    <Compile Include="CreatorSchoolInfo.cs" />
+    <Compile Include="idoege2016_res.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Learner.cs" />
+    <Compile Include="Project.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Report.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatisticsStore.cs" />
+    <Compile Include="oge_16_res.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report.cs" />
-    <Compile Include="school.cs" />
+    <Compile Include="readyoneclass_res.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatistic.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="School.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolBaseInfo.cs" />
+    <Compile Include="SchoolFullInfo.cs" />
+    <Compile Include="towntype.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="cokoModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>cokoModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="cokoModel.edmx.diagram">
+      <DependentUpon>cokoModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cokoModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>cokoModel.edmx</DependentUpon>
+      <LastGenOutput>cokoModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="cokoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>cokoModel.edmx</DependentUpon>
+      <LastGenOutput>cokoModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
+      <Project>{cb5e7793-7905-42a4-818d-0212a4edda43}</Project>
+      <Name>Monit95App.Domain.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

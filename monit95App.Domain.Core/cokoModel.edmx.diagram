@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6913b7c096cc44baa5fa8b04ed29c759" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="cokoModel.School" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cokoModel.area" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="cokoModel.Collector" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="cokoModel.CollectorSchool" Width="1.5" PointX="3" PointY="2.25" />
+        <AssociationConnector Association="cokoModel.FK_school_area" />
+        <AssociationConnector Association="cokoModel.FK_CollectorSchools_Collectors" />
+        <AssociationConnector Association="cokoModel.FK_CollectorSchools_school" />
+        <EntityTypeShape EntityType="cokoModel.idoege2016_res" Width="1.5" PointX="3" PointY="6.125" />
+        <AssociationConnector Association="cokoModel.FK_idoege2016_res_school" />
+        <EntityTypeShape EntityType="cokoModel.readyoneclass_res" Width="1.5" PointX="3" PointY="17.125" />
+        <AssociationConnector Association="cokoModel.FK_temp_201630_school" />
+        <EntityTypeShape EntityType="cokoModel.towntype" Width="1.5" PointX="0.75" PointY="13.75" />
+        <AssociationConnector Association="cokoModel.FK_school_towntype" />
+        <EntityTypeShape EntityType="cokoModel.Report" Width="1.5" PointX="5.375" PointY="0.875" />
+        <EntityTypeShape EntityType="cokoModel.ReportStatistic" Width="1.5" PointX="7.625" PointY="0.875" />
+        <AssociationConnector Association="cokoModel.FK_ReportDownload_ReportDownload" />
+        <EntityTypeShape EntityType="cokoModel.oge_16_res" Width="1.5" PointX="3" PointY="23.375" />
+        <AssociationConnector Association="cokoModel.FK_oge_16_res_Schools" />
+        <EntityTypeShape EntityType="cokoModel.Project" Width="1.5" PointX="5.375" PointY="9.75" />
+        <AssociationConnector Association="cokoModel.FK_Projects_Reports" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Monit95App.Services.Work.Concrete.OnlineReport>                   
+    
+<head>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+</head>
+<body>
+    <br />
+    <div id="accordion">
+        @foreach (var year in Model.Select(x => x.Year).Distinct().OrderByDescending(y => y))
+        {
+            <h3>@year учебный год</h3>
+            <div>
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Проект</th>
+                            <th>Отчет</th>
+                            <th>Учебный год</th>
+                        </tr>
+                    </thead>
+                    @foreach (var report in Model.Where(x => x.Year == year).OrderByDescending(x => x.Id))
+                    {
+                        <tr>
+                            <td>@report.ProjectName</td>
+                            <td>
+                                <a><div onclick="openInNewTab('@report.Link', '@report.Id');" style="color:royalblue">@report.Name</div></a>
+                            </td>
+                            <td>@report.Year</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+</body>
+
+<script>
+    function openInNewTab(url, reportId) {        
+        $.ajax({
+            url: "/Report/AddReportDownload?_reportId=" + reportId,
+            type: "post"
+        });
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
+    $(function () {
+        $("#accordion").accordion({
+            collapsible: true
+        });
+    });
+</script>

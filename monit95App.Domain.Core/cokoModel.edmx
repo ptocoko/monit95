@@ -1,0 +1,1007 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище cokoModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="int" Nullable="false" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AreaFullName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Административный центр" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Collectors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="StatucCode" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CollectorSchools">
+          <Key>
+            <PropertyRef Name="CollectorId" />
+            <PropertyRef Name="SchoolId" />
+          </Key>
+          <Property Name="CollectorId" Type="int" Nullable="false" />
+          <Property Name="SchoolId" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="StatusCode" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="idoege2016_res">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParticipID" Type="int" Nullable="false" />
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+          <Property Name="DiagNumber" Type="smallint" Nullable="false" />
+          <Property Name="SchoolID" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="presence" Type="bit" Nullable="false" />
+          <Property Name="PrimaryMark" Type="float" Nullable="false" />
+          <Property Name="TestResult5" Type="float" Nullable="false" />
+          <Property Name="ValueArray" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="t1" Type="float" />
+          <Property Name="t2" Type="float" />
+          <Property Name="t3" Type="float" />
+          <Property Name="t4" Type="float" />
+          <Property Name="t5" Type="float" />
+          <Property Name="t6" Type="float" />
+          <Property Name="t7" Type="float" />
+          <Property Name="t8" Type="float" />
+          <Property Name="t9" Type="float" />
+          <Property Name="t10" Type="float" />
+          <Property Name="t11" Type="float" />
+          <Property Name="t12" Type="float" />
+          <Property Name="t13" Type="float" />
+          <Property Name="t14" Type="float" />
+          <Property Name="t15" Type="float" />
+          <Property Name="t16" Type="float" />
+          <Property Name="t17" Type="float" />
+          <Property Name="t18" Type="float" />
+          <Property Name="t19" Type="float" />
+          <Property Name="t20" Type="float" />
+          <Property Name="t21" Type="float" />
+          <Property Name="t22" Type="float" />
+          <Property Name="t23" Type="float" />
+          <Property Name="t24" Type="float" />
+          <Property Name="t25" Type="float" />
+          <Property Name="t26" Type="float" />
+          <Property Name="t27" Type="float" />
+          <Property Name="t28" Type="float" />
+          <Property Name="t29" Type="float" />
+          <Property Name="t30" Type="float" />
+          <Property Name="t31" Type="float" />
+          <Property Name="t32" Type="float" />
+          <Property Name="t33" Type="float" />
+          <Property Name="t34" Type="float" />
+          <Property Name="t35" Type="float" />
+        </EntityType>
+        <EntityType Name="oge_16_res">
+          <Key>
+            <PropertyRef Name="ParticipId" />
+            <PropertyRef Name="SubjectCode" />
+          </Key>
+          <Property Name="ParticipId" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="100" />
+          <Property Name="DocumSer" Type="nvarchar" MaxLength="100" />
+          <Property Name="DocumNum" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SchoolId" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+          <Property Name="PrimaryMark" Type="float" Nullable="false" />
+          <Property Name="TestMark5" Type="float" Nullable="false" />
+          <Property Name="Marks" Type="nvarchar" MaxLength="255" />
+          <Property Name="t1" Type="float" />
+          <Property Name="t2" Type="float" />
+          <Property Name="t3" Type="float" />
+          <Property Name="t4" Type="float" />
+          <Property Name="t5" Type="float" />
+          <Property Name="t6" Type="float" />
+          <Property Name="t7" Type="float" />
+          <Property Name="t8" Type="float" />
+          <Property Name="t9" Type="float" />
+          <Property Name="t10" Type="float" />
+          <Property Name="t11" Type="float" />
+          <Property Name="t12" Type="float" />
+          <Property Name="t13" Type="float" />
+          <Property Name="t14" Type="float" />
+          <Property Name="t15" Type="float" />
+          <Property Name="t16" Type="float" />
+          <Property Name="t17" Type="float" />
+          <Property Name="t18" Type="float" />
+          <Property Name="t19" Type="float" />
+          <Property Name="t20" Type="float" />
+          <Property Name="t21" Type="float" />
+          <Property Name="t22" Type="float" />
+          <Property Name="t23" Type="float" />
+          <Property Name="t24" Type="float" />
+          <Property Name="t25" Type="float" />
+          <Property Name="t26" Type="float" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectCode" />
+            <PropertyRef Name="ParticipCode" />
+            <PropertyRef Name="SubjectCode" />
+          </Key>
+          <Property Name="ProjectCode" Type="int" Nullable="false" />
+          <Property Name="ParticipCode" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SNS" Type="nvarchar" MaxLength="255" />
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+          <Property Name="Marks" Type="varchar" MaxLength="255" />
+          <Property Name="PrimaryMark" Type="float" />
+          <Property Name="Mark5" Type="int" />
+          <Property Name="Parts" Type="varchar" MaxLength="255" />
+          <Property Name="Elements" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="readyoneclass_res">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="SNS" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SchoolID" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OldGroupCode" Type="int" Nullable="false" />
+          <Property Name="WasOrWasntDOO" Type="smallint" Nullable="false" />
+          <Property Name="WasOrWasnt" Type="smallint" Nullable="false" />
+          <Property Name="TestResult5" Type="smallint" />
+          <Property Name="PrimaryMark" Type="float" />
+          <Property Name="t1" Type="float" />
+          <Property Name="t2" Type="float" />
+          <Property Name="t3" Type="float" />
+          <Property Name="t4" Type="float" />
+          <Property Name="t5" Type="float" />
+          <Property Name="HealthGroupCode" Type="smallint" />
+          <Property Name="WasOrWasntOO" Type="smallint" />
+          <Property Name="TeacherCode" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Year" Type="nchar" MaxLength="9" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Available" Type="varchar(max)" />
+          <Property Name="TypeCode" Type="smallint" />
+        </EntityType>
+        <EntityType Name="ReportStatistics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportId" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schools">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="VPRcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="GIAcode" Type="int" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Director" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Admin" Type="nvarchar" MaxLength="100" />
+          <Property Name="AdminPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="TypeCode" Type="int" />
+          <Property Name="ViewCode" Type="int" />
+          <Property Name="TownTypeCode" Type="int" />
+          <Property Name="GoverCode" Type="int" />
+          <Property Name="ReportLink" Type="nvarchar" MaxLength="255" />
+          <Property Name="PropertyTypeCode" Type="int" />
+          <Property Name="Monit95Login" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="towntype">
+          <Key>
+            <PropertyRef Name="TownTypeCode" />
+          </Key>
+          <Property Name="TownTypeCode" Type="int" Nullable="false" />
+          <Property Name="TownTypeName" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CollectorSchools_Collectors">
+          <End Role="Collectors" Type="Self.Collectors" Multiplicity="1" />
+          <End Role="CollectorSchools" Type="Self.CollectorSchools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collectors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectorSchools">
+              <PropertyRef Name="CollectorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectorSchools_school">
+          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="CollectorSchools" Type="Self.CollectorSchools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectorSchools">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_idoege2016_res_school">
+          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="idoege2016_res" Type="Self.idoege2016_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="idoege2016_res">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oge_16_res_Schools">
+          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="oge_16_res" Type="Self.oge_16_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="oge_16_res">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Reports">
+          <End Role="Reports" Type="Self.Reports" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reports">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ProjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportDownload_ReportDownload">
+          <End Role="Reports" Type="Self.Reports" Multiplicity="1" />
+          <End Role="ReportStatistics" Type="Self.ReportStatistics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reports">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReportStatistics">
+              <PropertyRef Name="ReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_school_area">
+          <End Role="area" Type="Self.area" Multiplicity="1" />
+          <End Role="Schools" Type="Self.Schools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="Schools">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_school_towntype">
+          <End Role="towntype" Type="Self.towntype" Multiplicity="0..1" />
+          <End Role="Schools" Type="Self.Schools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="towntype">
+              <PropertyRef Name="TownTypeCode" />
+            </Principal>
+            <Dependent Role="Schools">
+              <PropertyRef Name="TownTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_temp_201630_school">
+          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="readyoneclass_res" Type="Self.readyoneclass_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="readyoneclass_res">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище cokoModelContainer">
+          <EntitySet Name="area" EntityType="Self.area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Collectors" EntityType="Self.Collectors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CollectorSchools" EntityType="Self.CollectorSchools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="idoege2016_res" EntityType="Self.idoege2016_res" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="oge_16_res" EntityType="Self.oge_16_res" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="readyoneclass_res" EntityType="Self.readyoneclass_res" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportStatistics" EntityType="Self.ReportStatistics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="towntype" EntityType="Self.towntype" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CollectorSchools_Collectors" Association="Self.FK_CollectorSchools_Collectors">
+            <End Role="Collectors" EntitySet="Collectors" />
+            <End Role="CollectorSchools" EntitySet="CollectorSchools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectorSchools_school" Association="Self.FK_CollectorSchools_school">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="CollectorSchools" EntitySet="CollectorSchools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_idoege2016_res_school" Association="Self.FK_idoege2016_res_school">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="idoege2016_res" EntitySet="idoege2016_res" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oge_16_res_Schools" Association="Self.FK_oge_16_res_Schools">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="oge_16_res" EntitySet="oge_16_res" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Reports" Association="Self.FK_Projects_Reports">
+            <End Role="Reports" EntitySet="Reports" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportDownload_ReportDownload" Association="Self.FK_ReportDownload_ReportDownload">
+            <End Role="Reports" EntitySet="Reports" />
+            <End Role="ReportStatistics" EntitySet="ReportStatistics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_school_area" Association="Self.FK_school_area">
+            <End Role="area" EntitySet="area" />
+            <End Role="Schools" EntitySet="Schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_school_towntype" Association="Self.FK_school_towntype">
+            <End Role="towntype" EntitySet="towntype" />
+            <End Role="Schools" EntitySet="Schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_temp_201630_school" Association="Self.FK_temp_201630_school">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="readyoneclass_res" EntitySet="readyoneclass_res" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cokoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="VPRcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GIAcode" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Director" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Admin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AdminPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="TypeCode" Type="Int32" />
+          <Property Name="ViewCode" Type="Int32" />
+          <Property Name="TownTypeCode" Type="Int32" />
+          <Property Name="GoverCode" Type="Int32" />
+          <Property Name="ReportLink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyTypeCode" Type="Int32" />
+          <Property Name="Monit95Login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="area" Relationship="cokoModel.FK_school_area" FromRole="School" ToRole="area" />
+          <NavigationProperty Name="CollectorSchools" Relationship="cokoModel.FK_CollectorSchools_school" FromRole="School" ToRole="CollectorSchool" />
+          <NavigationProperty Name="idoege2016_res" Relationship="cokoModel.FK_idoege2016_res_school" FromRole="School" ToRole="idoege2016_res" />
+          <NavigationProperty Name="readyoneclass_res" Relationship="cokoModel.FK_temp_201630_school" FromRole="School" ToRole="readyoneclass_res" />
+          <NavigationProperty Name="towntype" Relationship="cokoModel.FK_school_towntype" FromRole="School" ToRole="towntype" />
+          <NavigationProperty Name="oge_16_res" Relationship="cokoModel.FK_oge_16_res_Schools" FromRole="School" ToRole="oge_16_res" />
+        </EntityType>
+        <EntityContainer Name="cokoContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Schools" EntityType="Self.School" />
+          <EntitySet Name="areas" EntityType="cokoModel.area" />
+          <EntitySet Name="Collectors" EntityType="cokoModel.Collector" />
+          <EntitySet Name="CollectorSchools" EntityType="cokoModel.CollectorSchool" />
+          <AssociationSet Name="FK_school_area" Association="cokoModel.FK_school_area">
+            <End Role="area" EntitySet="areas" />
+            <End Role="School" EntitySet="Schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectorSchools_Collectors" Association="cokoModel.FK_CollectorSchools_Collectors">
+            <End Role="Collector" EntitySet="Collectors" />
+            <End Role="CollectorSchool" EntitySet="CollectorSchools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectorSchools_school" Association="cokoModel.FK_CollectorSchools_school">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="CollectorSchool" EntitySet="CollectorSchools" />
+          </AssociationSet>
+          <EntitySet Name="idoege2016_res" EntityType="cokoModel.idoege2016_res" />
+          <AssociationSet Name="FK_idoege2016_res_school" Association="cokoModel.FK_idoege2016_res_school">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="idoege2016_res" EntitySet="idoege2016_res" />
+          </AssociationSet>
+          <EntitySet Name="readyoneclass_res" EntityType="cokoModel.readyoneclass_res" />
+          <AssociationSet Name="FK_temp_201630_school" Association="cokoModel.FK_temp_201630_school">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="readyoneclass_res" EntitySet="readyoneclass_res" />
+          </AssociationSet>
+          <EntitySet Name="towntypes" EntityType="cokoModel.towntype" />
+          <AssociationSet Name="FK_school_towntype" Association="cokoModel.FK_school_towntype">
+            <End Role="towntype" EntitySet="towntypes" />
+            <End Role="School" EntitySet="Schools" />
+          </AssociationSet>
+          <EntitySet Name="Reports" EntityType="cokoModel.Report" />
+          <EntitySet Name="ReportStatistics" EntityType="cokoModel.ReportStatistic" />
+          <AssociationSet Name="FK_ReportDownload_ReportDownload" Association="cokoModel.FK_ReportDownload_ReportDownload">
+            <End Role="Report" EntitySet="Reports" />
+            <End Role="ReportStatistic" EntitySet="ReportStatistics" />
+          </AssociationSet>
+          <EntitySet Name="oge_16_res" EntityType="cokoModel.oge_16_res" />
+          <AssociationSet Name="FK_oge_16_res_Schools" Association="cokoModel.FK_oge_16_res_Schools">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="oge_16_res" EntitySet="oge_16_res" />
+          </AssociationSet>
+          <EntitySet Name="Projects" EntityType="cokoModel.Project" />
+          <AssociationSet Name="FK_Projects_Reports" Association="cokoModel.FK_Projects_Reports">
+            <End Role="Report" EntitySet="Reports" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="Int32" Nullable="false" />
+          <Property Name="AreaName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaFullName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Административный_центр" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schools" Relationship="cokoModel.FK_school_area" FromRole="area" ToRole="School" />
+        </EntityType>
+        <EntityType Name="Collector">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="StatucCode" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="CollectorSchools" Relationship="cokoModel.FK_CollectorSchools_Collectors" FromRole="Collector" ToRole="CollectorSchool" />
+        </EntityType>
+        <EntityType Name="CollectorSchool">
+          <Key>
+            <PropertyRef Name="CollectorId" />
+            <PropertyRef Name="SchoolId" />
+          </Key>
+          <Property Name="CollectorId" Type="Int32" Nullable="false" />
+          <Property Name="SchoolId" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="StatusCode" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Collector" Relationship="cokoModel.FK_CollectorSchools_Collectors" FromRole="CollectorSchool" ToRole="Collector" />
+          <NavigationProperty Name="School" Relationship="cokoModel.FK_CollectorSchools_school" FromRole="CollectorSchool" ToRole="School" />
+        </EntityType>
+        <Association Name="FK_school_area">
+          <End Type="cokoModel.area" Role="area" Multiplicity="1" />
+          <End Type="cokoModel.School" Role="School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectorSchools_Collectors">
+          <End Type="cokoModel.Collector" Role="Collector" Multiplicity="1" />
+          <End Type="cokoModel.CollectorSchool" Role="CollectorSchool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collector">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectorSchool">
+              <PropertyRef Name="CollectorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectorSchools_school">
+          <End Type="cokoModel.School" Role="School" Multiplicity="1" />
+          <End Type="cokoModel.CollectorSchool" Role="CollectorSchool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectorSchool">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="idoege2016_res">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ParticipID" Type="Int32" Nullable="false" />
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="DiagNumber" Type="Int16" Nullable="false" />
+          <Property Name="SchoolID" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="presence" Type="Boolean" Nullable="false" />
+          <Property Name="PrimaryMark" Type="Double" Nullable="false" />
+          <Property Name="TestResult5" Type="Double" Nullable="false" />
+          <Property Name="ValueArray" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="t1" Type="Double" />
+          <Property Name="t2" Type="Double" />
+          <Property Name="t3" Type="Double" />
+          <Property Name="t4" Type="Double" />
+          <Property Name="t5" Type="Double" />
+          <Property Name="t6" Type="Double" />
+          <Property Name="t7" Type="Double" />
+          <Property Name="t8" Type="Double" />
+          <Property Name="t9" Type="Double" />
+          <Property Name="t10" Type="Double" />
+          <Property Name="t11" Type="Double" />
+          <Property Name="t12" Type="Double" />
+          <Property Name="t13" Type="Double" />
+          <Property Name="t14" Type="Double" />
+          <Property Name="t15" Type="Double" />
+          <Property Name="t16" Type="Double" />
+          <Property Name="t17" Type="Double" />
+          <Property Name="t18" Type="Double" />
+          <Property Name="t19" Type="Double" />
+          <Property Name="t20" Type="Double" />
+          <Property Name="t21" Type="Double" />
+          <Property Name="t22" Type="Double" />
+          <Property Name="t23" Type="Double" />
+          <Property Name="t24" Type="Double" />
+          <Property Name="t25" Type="Double" />
+          <Property Name="t26" Type="Double" />
+          <Property Name="t27" Type="Double" />
+          <Property Name="t28" Type="Double" />
+          <Property Name="t29" Type="Double" />
+          <Property Name="t30" Type="Double" />
+          <Property Name="t31" Type="Double" />
+          <Property Name="t32" Type="Double" />
+          <Property Name="t33" Type="Double" />
+          <Property Name="t34" Type="Double" />
+          <Property Name="t35" Type="Double" />
+          <NavigationProperty Name="School" Relationship="cokoModel.FK_idoege2016_res_school" FromRole="idoege2016_res" ToRole="School" />
+        </EntityType>
+        <Association Name="FK_idoege2016_res_school">
+          <End Type="cokoModel.School" Role="School" Multiplicity="1" />
+          <End Type="cokoModel.idoege2016_res" Role="idoege2016_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="idoege2016_res">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="readyoneclass_res">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Guid" Nullable="false" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="SNS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ClassCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OldGroupCode" Type="Int32" Nullable="false" />
+          <Property Name="WasOrWasntDOO" Type="Int16" Nullable="false" />
+          <Property Name="WasOrWasnt" Type="Int16" Nullable="false" />
+          <Property Name="TestResult5" Type="Int16" />
+          <Property Name="PrimaryMark" Type="Double" />
+          <Property Name="t1" Type="Double" />
+          <Property Name="t2" Type="Double" />
+          <Property Name="t3" Type="Double" />
+          <Property Name="t4" Type="Double" />
+          <Property Name="t5" Type="Double" />
+          <Property Name="HealthGroupCode" Type="Int16" />
+          <Property Name="WasOrWasntOO" Type="Int16" />
+          <Property Name="TeacherCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="School" Relationship="cokoModel.FK_temp_201630_school" FromRole="readyoneclass_res" ToRole="School" />
+        </EntityType>
+        <Association Name="FK_temp_201630_school">
+          <End Type="cokoModel.School" Role="School" Multiplicity="1" />
+          <End Type="cokoModel.readyoneclass_res" Role="readyoneclass_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="readyoneclass_res">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="towntype">
+          <Key>
+            <PropertyRef Name="TownTypeCode" />
+          </Key>
+          <Property Name="TownTypeCode" Type="Int32" Nullable="false" />
+          <Property Name="TownTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Schools" Relationship="cokoModel.FK_school_towntype" FromRole="towntype" ToRole="School" />
+        </EntityType>
+        <Association Name="FK_school_towntype">
+          <End Type="cokoModel.towntype" Role="towntype" Multiplicity="0..1" />
+          <End Type="cokoModel.School" Role="School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="towntype">
+              <PropertyRef Name="TownTypeCode" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="TownTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ReportStatistics" Relationship="cokoModel.FK_ReportDownload_ReportDownload" FromRole="Report" ToRole="ReportStatistic" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Available" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Projects" Relationship="cokoModel.FK_Projects_Reports" FromRole="Report" ToRole="Project" />
+          <Property Name="TypeCode" Type="Int16" />
+        </EntityType>
+        <EntityType Name="ReportStatistic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ReportId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Report" Relationship="cokoModel.FK_ReportDownload_ReportDownload" FromRole="ReportStatistic" ToRole="Report" />
+        </EntityType>
+        <Association Name="FK_ReportDownload_ReportDownload">
+          <End Type="cokoModel.Report" Role="Report" Multiplicity="1" />
+          <End Type="cokoModel.ReportStatistic" Role="ReportStatistic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReportStatistic">
+              <PropertyRef Name="ReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="oge_16_res">
+          <Key>
+            <PropertyRef Name="ParticipId" />
+            <PropertyRef Name="SubjectCode" />
+          </Key>
+          <Property Name="ParticipId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DocumSer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DocumNum" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolId" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="PrimaryMark" Type="Double" Nullable="false" />
+          <Property Name="TestMark5" Type="Double" Nullable="false" />
+          <Property Name="Marks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="t1" Type="Double" />
+          <Property Name="t2" Type="Double" />
+          <Property Name="t3" Type="Double" />
+          <Property Name="t4" Type="Double" />
+          <Property Name="t5" Type="Double" />
+          <Property Name="t6" Type="Double" />
+          <Property Name="t7" Type="Double" />
+          <Property Name="t8" Type="Double" />
+          <Property Name="t9" Type="Double" />
+          <Property Name="t10" Type="Double" />
+          <Property Name="t11" Type="Double" />
+          <Property Name="t12" Type="Double" />
+          <Property Name="t13" Type="Double" />
+          <Property Name="t14" Type="Double" />
+          <Property Name="t15" Type="Double" />
+          <Property Name="t16" Type="Double" />
+          <Property Name="t17" Type="Double" />
+          <Property Name="t18" Type="Double" />
+          <Property Name="t19" Type="Double" />
+          <Property Name="t20" Type="Double" />
+          <Property Name="t21" Type="Double" />
+          <Property Name="t22" Type="Double" />
+          <Property Name="t23" Type="Double" />
+          <Property Name="t24" Type="Double" />
+          <Property Name="t25" Type="Double" />
+          <Property Name="t26" Type="Double" />
+          <NavigationProperty Name="School" Relationship="cokoModel.FK_oge_16_res_Schools" FromRole="oge_16_res" ToRole="School" />
+        </EntityType>
+        <Association Name="FK_oge_16_res_Schools">
+          <End Type="cokoModel.School" Role="School" Multiplicity="1" />
+          <End Type="cokoModel.oge_16_res" Role="oge_16_res" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="oge_16_res">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectCode" />
+            <PropertyRef Name="ParticipCode" />
+            <PropertyRef Name="SubjectCode" />
+          </Key>
+          <Property Name="ProjectCode" Type="Int32" Nullable="false" />
+          <Property Name="ParticipCode" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SNS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="Marks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryMark" Type="Int32" />
+          <Property Name="Mark5" Type="Int32" />
+          <Property Name="Parts" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Elements" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Report" Relationship="cokoModel.FK_Projects_Reports" FromRole="Project" ToRole="Report" />
+        </EntityType>
+        <Association Name="FK_Projects_Reports">
+          <End Type="cokoModel.Report" Role="Report" Multiplicity="1" />
+          <End Type="cokoModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище cokoModelContainer" CdmEntityContainer="cokoContext">
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="cokoModel.School">
+              <MappingFragment StoreEntitySet="Schools">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VPRcode" ColumnName="VPRcode" />
+                <ScalarProperty Name="GIAcode" ColumnName="GIAcode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="AdminPhone" ColumnName="AdminPhone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="ViewCode" ColumnName="ViewCode" />
+                <ScalarProperty Name="TownTypeCode" ColumnName="TownTypeCode" />
+                <ScalarProperty Name="GoverCode" ColumnName="GoverCode" />
+                <ScalarProperty Name="ReportLink" ColumnName="ReportLink" />
+                <ScalarProperty Name="PropertyTypeCode" ColumnName="PropertyTypeCode" />
+                <ScalarProperty Name="Monit95Login" ColumnName="Monit95Login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="areas">
+            <EntityTypeMapping TypeName="cokoModel.area">
+              <MappingFragment StoreEntitySet="area">
+                <ScalarProperty Name="Административный_центр" ColumnName="Административный центр" />
+                <ScalarProperty Name="AreaFullName" ColumnName="AreaFullName" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Collectors">
+            <EntityTypeMapping TypeName="cokoModel.Collector">
+              <MappingFragment StoreEntitySet="Collectors">
+                <ScalarProperty Name="StatucCode" ColumnName="StatucCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollectorSchools">
+            <EntityTypeMapping TypeName="cokoModel.CollectorSchool">
+              <MappingFragment StoreEntitySet="CollectorSchools">
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+                <ScalarProperty Name="CollectorId" ColumnName="CollectorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="idoege2016_res">
+            <EntityTypeMapping TypeName="cokoModel.idoege2016_res">
+              <MappingFragment StoreEntitySet="idoege2016_res">
+                <ScalarProperty Name="t35" ColumnName="t35" />
+                <ScalarProperty Name="t34" ColumnName="t34" />
+                <ScalarProperty Name="t33" ColumnName="t33" />
+                <ScalarProperty Name="t32" ColumnName="t32" />
+                <ScalarProperty Name="t31" ColumnName="t31" />
+                <ScalarProperty Name="t30" ColumnName="t30" />
+                <ScalarProperty Name="t29" ColumnName="t29" />
+                <ScalarProperty Name="t28" ColumnName="t28" />
+                <ScalarProperty Name="t27" ColumnName="t27" />
+                <ScalarProperty Name="t26" ColumnName="t26" />
+                <ScalarProperty Name="t25" ColumnName="t25" />
+                <ScalarProperty Name="t24" ColumnName="t24" />
+                <ScalarProperty Name="t23" ColumnName="t23" />
+                <ScalarProperty Name="t22" ColumnName="t22" />
+                <ScalarProperty Name="t21" ColumnName="t21" />
+                <ScalarProperty Name="t20" ColumnName="t20" />
+                <ScalarProperty Name="t19" ColumnName="t19" />
+                <ScalarProperty Name="t18" ColumnName="t18" />
+                <ScalarProperty Name="t17" ColumnName="t17" />
+                <ScalarProperty Name="t16" ColumnName="t16" />
+                <ScalarProperty Name="t15" ColumnName="t15" />
+                <ScalarProperty Name="t14" ColumnName="t14" />
+                <ScalarProperty Name="t13" ColumnName="t13" />
+                <ScalarProperty Name="t12" ColumnName="t12" />
+                <ScalarProperty Name="t11" ColumnName="t11" />
+                <ScalarProperty Name="t10" ColumnName="t10" />
+                <ScalarProperty Name="t9" ColumnName="t9" />
+                <ScalarProperty Name="t8" ColumnName="t8" />
+                <ScalarProperty Name="t7" ColumnName="t7" />
+                <ScalarProperty Name="t6" ColumnName="t6" />
+                <ScalarProperty Name="t5" ColumnName="t5" />
+                <ScalarProperty Name="t4" ColumnName="t4" />
+                <ScalarProperty Name="t3" ColumnName="t3" />
+                <ScalarProperty Name="t2" ColumnName="t2" />
+                <ScalarProperty Name="t1" ColumnName="t1" />
+                <ScalarProperty Name="ValueArray" ColumnName="ValueArray" />
+                <ScalarProperty Name="TestResult5" ColumnName="TestResult5" />
+                <ScalarProperty Name="PrimaryMark" ColumnName="PrimaryMark" />
+                <ScalarProperty Name="presence" ColumnName="presence" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="DiagNumber" ColumnName="DiagNumber" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="ParticipID" ColumnName="ParticipID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="readyoneclass_res">
+            <EntityTypeMapping TypeName="cokoModel.readyoneclass_res">
+              <MappingFragment StoreEntitySet="readyoneclass_res">
+                <ScalarProperty Name="TeacherCode" ColumnName="TeacherCode" />
+                <ScalarProperty Name="WasOrWasntOO" ColumnName="WasOrWasntOO" />
+                <ScalarProperty Name="HealthGroupCode" ColumnName="HealthGroupCode" />
+                <ScalarProperty Name="t5" ColumnName="t5" />
+                <ScalarProperty Name="t4" ColumnName="t4" />
+                <ScalarProperty Name="t3" ColumnName="t3" />
+                <ScalarProperty Name="t2" ColumnName="t2" />
+                <ScalarProperty Name="t1" ColumnName="t1" />
+                <ScalarProperty Name="PrimaryMark" ColumnName="PrimaryMark" />
+                <ScalarProperty Name="TestResult5" ColumnName="TestResult5" />
+                <ScalarProperty Name="WasOrWasnt" ColumnName="WasOrWasnt" />
+                <ScalarProperty Name="WasOrWasntDOO" ColumnName="WasOrWasntDOO" />
+                <ScalarProperty Name="OldGroupCode" ColumnName="OldGroupCode" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="SNS" ColumnName="SNS" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="towntypes">
+            <EntityTypeMapping TypeName="cokoModel.towntype">
+              <MappingFragment StoreEntitySet="towntype">
+                <ScalarProperty Name="TownTypeName" ColumnName="TownTypeName" />
+                <ScalarProperty Name="TownTypeCode" ColumnName="TownTypeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="cokoModel.Report">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportStatistics">
+            <EntityTypeMapping TypeName="cokoModel.ReportStatistic">
+              <MappingFragment StoreEntitySet="ReportStatistics">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oge_16_res">
+            <EntityTypeMapping TypeName="cokoModel.oge_16_res">
+              <MappingFragment StoreEntitySet="oge_16_res">
+                <ScalarProperty Name="t26" ColumnName="t26" />
+                <ScalarProperty Name="t25" ColumnName="t25" />
+                <ScalarProperty Name="t24" ColumnName="t24" />
+                <ScalarProperty Name="t23" ColumnName="t23" />
+                <ScalarProperty Name="t22" ColumnName="t22" />
+                <ScalarProperty Name="t21" ColumnName="t21" />
+                <ScalarProperty Name="t20" ColumnName="t20" />
+                <ScalarProperty Name="t19" ColumnName="t19" />
+                <ScalarProperty Name="t18" ColumnName="t18" />
+                <ScalarProperty Name="t17" ColumnName="t17" />
+                <ScalarProperty Name="t16" ColumnName="t16" />
+                <ScalarProperty Name="t15" ColumnName="t15" />
+                <ScalarProperty Name="t14" ColumnName="t14" />
+                <ScalarProperty Name="t13" ColumnName="t13" />
+                <ScalarProperty Name="t12" ColumnName="t12" />
+                <ScalarProperty Name="t11" ColumnName="t11" />
+                <ScalarProperty Name="t10" ColumnName="t10" />
+                <ScalarProperty Name="t9" ColumnName="t9" />
+                <ScalarProperty Name="t8" ColumnName="t8" />
+                <ScalarProperty Name="t7" ColumnName="t7" />
+                <ScalarProperty Name="t6" ColumnName="t6" />
+                <ScalarProperty Name="t5" ColumnName="t5" />
+                <ScalarProperty Name="t4" ColumnName="t4" />
+                <ScalarProperty Name="t3" ColumnName="t3" />
+                <ScalarProperty Name="t2" ColumnName="t2" />
+                <ScalarProperty Name="t1" ColumnName="t1" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="TestMark5" ColumnName="TestMark5" />
+                <ScalarProperty Name="PrimaryMark" ColumnName="PrimaryMark" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+                <ScalarProperty Name="DocumNum" ColumnName="DocumNum" />
+                <ScalarProperty Name="DocumSer" ColumnName="DocumSer" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="ParticipId" ColumnName="ParticipId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="cokoModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="Elements" ColumnName="Elements" />
+                <ScalarProperty Name="Parts" ColumnName="Parts" />
+                <ScalarProperty Name="Mark5" ColumnName="Mark5" />
+                <ScalarProperty Name="PrimaryMark" ColumnName="PrimaryMark" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="SNS" ColumnName="SNS" />
+                <ScalarProperty Name="ParticipCode" ColumnName="ParticipCode" />
+                <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,94 @@
+﻿<style type="text/css">
+    .red {
+        background-color:coral;
+    }
+
+    .green {
+        background-color: lightgreen;
+    }
+
+    .table-head{
+        background-color:darkgray;        
+    }
+</style>
+
+<script>
+    var SchoolInfoApp = angular.module('SchoolInfoApp', []);
+    SchoolInfoApp.controller('SchoolInfoController', function ($scope, SchoolInfoService) {
+        $scope.sortType = 'schoolid'; // set the default sort type
+        $scope.sortReverse = false;  // set the default sort order
+        getSchoolInfos();
+        function getSchoolInfos() {
+            SchoolInfoService.getSchoolInfos()
+                .success(function (studs) {
+                    $scope.schoolInfos = studs;
+                    console.log($scope.schoolInfos);
+                })
+                .error(function (error) {
+                    $scope.status = 'Unable to load customer data: ' + error.message;
+                    console.log($scope.status);
+                });
+        }
+    });
+
+    SchoolInfoApp.factory('SchoolInfoService', ['$http', function ($http) {
+
+        var SchoolInfoService = {};
+        SchoolInfoService.getSchoolInfos = function () {
+            return $http.get('/Collector/GetCollectorSchoolInfos');            
+        };
+        return SchoolInfoService;
+
+    }]);
+</script>
+
+<div ng-app="SchoolInfoApp" class="container">
+    <br />
+    <br />
+
+    <div ng-controller="SchoolInfoController">
+        <table class="table table-bordered">                        
+            <thead>
+                <tr class="table-head">
+                    <td>
+                        <a href="#" ng-click="sortType = 'schoolid'; sortReverse = !sortReverse">
+                            Логин ОО
+                            <span ng-show="sortType == 'schoolid' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'schoolid' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'schoolname'; sortReverse = !sortReverse">
+                            Наименование ОО
+                            <span ng-show="sortType == 'schoolname' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'schoolname' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'areaname'; sortReverse = !sortReverse">
+                            Район
+                            <span ng-show="sortType == 'areaname' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'areaname' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'status'; sortReverse = !sortReverse">
+                            Статус
+                            <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="info in schoolInfos | orderBy:sortType:sortReverse" ng-class='{red : info.StatusName == "не загруженно", green: info.StatusName == "загруженно"}'>
+                    <td>{{info.schoolBaseInfo.Id}}</td>
+                    <td>{{info.schoolBaseInfo.Name}}</td>
+                    <td>{{info.schoolBaseInfo.AreaName}}</td>
+                    <td>{{info.StatusName}}</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@model Monit95App.Domain.Core.SchoolFullInfo
+
+<head>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css") <!--подключает необходимые стили в том числе bootstrap-->
+    @Styles.Render("~/Content/themes/base/css")
+    <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
+</head>
+<h2>Информация об образовательной организации</h2>
+@{ Html.RenderPartial("~/Views/Shared/_Schoolinfo.cshtml", Model); }

@@ -1,0 +1,49 @@
+﻿@model Monit95App.ViewModels.Monit10_1516.PlanOOVM
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h3>Редактирование срока работы по элементу содержания</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(x => x.ElName, new { @class = "control-label col-md-3" })
+            <div class="form-control-static">
+                @Model.ElName
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.CountHours, new { @class = "control-label col-md-3" })
+            @Html.TextBoxFor(x => x.CountHours, new { @class = "form-control", @type = "number" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.HoursDateStart, new { @class = "control-label col-md-3" })
+          @*  @Html.TextBoxFor(x => x.HoursDateStart, new { @class = "form-control" })*@
+            @Html.EditorFor(x => x.HoursDateStart, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.HoursDateEnd, new { @class = "control-label col-md-3" })
+            @Html.EditorFor(x => x.HoursDateEnd, new { @class = "form-control", @type = "date" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.ExamDate, new { @class = "control-label col-md-3" })
+            @Html.EditorFor(x => x.ExamDate, new { @class = "form-control", @type = "date" })
+
+            @Html.HiddenFor(x => x.SchoolID)
+            @Html.HiddenFor(x => x.ElCode)
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@*<label class="control-label col-md-2">Элемент содержания:</label>*@  
+@*<input type="date" class="form-control">*@   
+@*<input id="savePlanOO" type="button" onclick="SavePlanOO()" value="Сохранить" class="btn btn-success" />*@

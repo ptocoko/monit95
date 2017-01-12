@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>АИС_МОР.Domain</RootNamespace>
     <AssemblyName>АИС_МОР.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -55,21 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\Statics\IReportRepository.cs" />
-    <Compile Include="Concrete\Monit10_1516\ElementPlan2.cs" />
-    <Compile Include="Concrete\Monit10_1516\ElementPlan.cs" />
-    <Compile Include="Concrete\Monit10_1516\Learner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\АИС ГИА\element\element\АИС ГИА. element.csproj">
-      <Project>{ad3d9b4c-012a-4fa4-9d01-f6f1407dc456}</Project>
-      <Name>АИС ГИА. element</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\АИС ГИА\АИС ГИА. Domain\АИС ГИА. Domain.csproj">
-      <Project>{4420af10-ee58-4422-a703-776641672a4a}</Project>
-      <Name>АИС ГИА. Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Reporter\Reporter.csproj">
       <Project>{a66ecc89-6b2f-4432-8464-bf086d31ea6c}</Project>
       <Name>Reporter</Name>

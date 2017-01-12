@@ -1,0 +1,10 @@
+<div data-max="2">
+    @*максимальное количество предметом которое можно выбрать*@
+    @for (int i = 0; i < Model.Subjects.Count; i++)
+    @*{
+        @Html.CheckBoxFor(m => m.Subjects[i].Checked, new { id = "subject_" + i })
+        @Html.HiddenFor(m => m.Subjects[i].Name)
+        @Html.DisplayFor(m => m.Subjects[i].Name)
+        <br />
+    }*@
+</div>
