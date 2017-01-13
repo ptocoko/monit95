@@ -17,7 +17,7 @@ namespace Monit95App.Services.Work.Concrete
             this.school = school;
         }
         public IEnumerable<ReportMeta> GetReportMetas()
-        {            
+        {                     
             var new_protectReports = context.Reports.Where(x => x.TypeCode == 2).ToList();
             var new_protectReports2 = new_protectReports.Where(x => x.Available.Split(',').Contains(school.Id));
 
@@ -32,8 +32,8 @@ namespace Monit95App.Services.Work.Concrete
                     Year = protectReport.Year,
                     Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{protectReport.Id}.rar"
                 });
-            }                                  
-            return reportMetas;
+            }
+            return reportMetas ?? Enumerable.Empty<ReportMeta>();
         }
     }
 }

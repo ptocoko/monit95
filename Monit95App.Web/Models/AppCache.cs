@@ -9,13 +9,13 @@ namespace Monit95App.Models
 {
     public class AppCache
     {
-        public IEnumerable<ReportMeta> GetOnlineReports(string _schoolId)
+        public IEnumerable<ReportMeta> GetReportMetas(string _schoolId)
         {
             MemoryCache memoryCache = MemoryCache.Default;
             return memoryCache.Get(_schoolId.ToString()) as List<ReportMeta>;            
         }
 
-        public bool AddOnlineReports(IEnumerable<ReportMeta> list, string _schoolId)
+        public bool AddReportMetas(IEnumerable<ReportMeta> list, string _schoolId)
         {            
             MemoryCache memoryCache = MemoryCache.Default;
             return memoryCache.Add(_schoolId, list, DateTime.Now.AddMinutes(10));      

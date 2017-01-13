@@ -39,7 +39,7 @@ namespace Monit95App.Services.Work.Concrete
                     Link = $@"{school.ReportLink}/{reportFileName}"
                 });
             }
-            return reportMetas;
+            return reportMetas ?? Enumerable.Empty<ReportMeta>();
         }
     }
 }

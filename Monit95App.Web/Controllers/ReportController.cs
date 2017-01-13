@@ -19,13 +19,7 @@ namespace Monit95App.Controllers
     {        
         private readonly cokoContext cokoDb = new cokoContext();        
         private readonly AppCache appCache = new AppCache();
-        private readonly ReportMetaHandler onlineReportHandler = new ReportMetaHandler(new SchoolReportFileNameOffline());
-
-        [HttpPost]
-        public void AddReportDownload(string _schoolId)
-        {
-
-        }
+        //private readonly ReportMetaHandler reportMetaHandler = new ReportMetaHandler();
 
         public ReportController()
         {            
@@ -34,22 +28,22 @@ namespace Monit95App.Controllers
         [HttpGet]
         public ActionResult Report()
         {
-            var model = appCache.GetOnlineReports(User.Identity.Name);
+            var model = appCache.GetReportMetas(User.Identity.Name);
             if (model == null)
             {
-                model = onlineReportHandler.GetOnlineReports(cokoDb.Schools.Find(User.Identity.Name));
-                appCache.AddOnlineReports(model, User.Identity.Name);
+                model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(User.Identity.Name));
+                appCache.AddReportMetas(model, User.Identity.Name);
             }
             return View(model);
         }
         
         public ActionResult GetOnlineReportsPV(string _schoolID)            
         {
-            var model = appCache.GetOnlineReports(_schoolID);
+            var model = appCache.GetReportMetas(_schoolID);
             if (model == null)
             {
-                model = onlineReportHandler.GetOnlineReports(cokoDb.Schools.Find(_schoolID));
-                appCache.AddOnlineReports(model, _schoolID);
+                model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(_schoolID));
+                appCache.AddReportMetas(model, _schoolID);
             }
             return PartialView("_OnlineReports", model);            
         }

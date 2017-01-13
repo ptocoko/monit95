@@ -12,42 +12,22 @@ namespace Monit95App.Services.Work.Concrete
 {  
     public class ReportMetaHandler
     {
-        private readonly cokoContext cokoDb = new cokoContext();        
-        private readonly ISchoolReportFileNameSource iFileNames;
+        private readonly cokoContext cokoDb = new cokoContext();                
              
-        public IEnumerable<ReportMeta> GetPrivateReportMetas(School _school)
+        public static IEnumerable<ReportMeta> GetReportMetasBySchool(School school)
         {
-            var reportFileNames = iFileNames.GetFileNames(_school);
-            return new List<ReportMeta>();
-        } 
-        public IEnumerable<ReportMeta> GetOnlineReports(School _school)
-        {                                    
-            var reportFileNames = iFileNames.GetFileNames(_school);            
-            var reportFileNamesMetadata = FileManager.FileManager.ParseArrayFileNamesToReportFileMetas(reportFileNames.ToArray());            
-
-            School currentSchool = cokoDb.Schools.Find(_school);
-            Report report = null;            
-            string reportFileName = string.Empty;
-            List<ReportMeta> resultOnlineReports = new List<ReportMeta>();
-            foreach (var reportFileNameMetadata in reportFileNamesMetadata) 
-            {
-                reportFileName = reportFileNameMetadata.fileName;
-                report = cokoDb.Reports.Find(reportFileNameMetadata.reportCode);
-                resultOnlineReports.Add(new ReportMeta
-                {
-                    Id = report.Id,
-                    Name = report.Name,
-                    ProjectName = report.ProjectName,
-                    Year = report.Year,
-                    Link = reportFileNameMetadata.schoolId.Equals("2000") ? $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/{reportFileName}" :
-                                                                            $@"{currentSchool.ReportLink}/{reportFileName}"
-                });
-            }
-            return resultOnlineReports;
-        }
-        public ReportMetaHandler(ISchoolReportFileNameSource _fileNames)
-        {
-            iFileNames = _fileNames;                        
+            //TODO: здесь надо сделать Dependency Injection
+            ITypeReport privateReportMeta = new PrivateReportMeta(school, new SchoolReportFileNameOffline());
+            ITypeReport protectReportMeta = new ProtectReportMeta(school);
+            ITypeReport publicReportMeta = new PublicReportMeta();
+            var p1 = privateReportMeta.GetReportMetas();
+            var p2 = protectReportMeta.GetReportMetas();
+            var p3 = publicReportMeta.GetReportMetas();
+            var p1p2 = p1.Union(p2);
+            var schoolReportMetas = privateReportMeta.GetReportMetas()
+                                    .Concat(protectReportMeta.GetReportMetas())
+                                    .Concat(publicReportMeta.GetReportMetas());
+            return schoolReportMetas;
         }
     }
 

@@ -35,12 +35,27 @@ namespace Monit95App.Services.Work.Tests
             School school = new School() { Id = "0048" };
 
             // Act
-            ProtectReportMeta protectReportMeta = new ProtectReportMeta(school);
+            var protectReportMeta = new ProtectReportMeta(school);
             var reportMetas = protectReportMeta.GetReportMetas().ToList();
             var bo = reportMetas.FindIndex(x => x.Id == 201664);
 
             // Assert
             Assert.IsTrue(bo >= 0);
+        }
+
+        [TestMethod]
+        public void TestGetPublicReportMetas()
+        {
+            // Arrange            
+            var existReports = new[] { 201650, 201653, 201654 };
+            var publicReportMeta = new PublicReportMeta();
+            
+            // Act
+            var reportMetas = publicReportMeta.GetReportMetas().ToList();
+            var result = reportMetas.Where(x => existReports.Contains(x.Id)).ToList();
+
+            // Assert
+            Assert.AreEqual(3, result.Count());
         }
     }
 }

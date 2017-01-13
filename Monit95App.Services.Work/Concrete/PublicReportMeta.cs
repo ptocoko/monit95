@@ -13,7 +13,8 @@ namespace Monit95App.Services.Work.Concrete
         private cokoContext context = new cokoContext();
         public IEnumerable<ReportMeta> GetReportMetas()
         {
-            var allReports = context.Reports.Where(x => x.TypeCode == 2).ToList();            
+            //TODO: здесь дублирующий код с ProtectReportMeta и надо использовать Automapper
+            var allReports = context.Reports.Where(x => x.TypeCode == 3).ToList();            
 
             ICollection<ReportMeta> reportMetas = new List<ReportMeta>();
             foreach (var report in allReports)
@@ -27,7 +28,7 @@ namespace Monit95App.Services.Work.Concrete
                     Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{report.Id}.rar"
                 });
             }
-            return reportMetas;
+            return reportMetas ?? Enumerable.Empty<ReportMeta>();
         }
     }
 }
