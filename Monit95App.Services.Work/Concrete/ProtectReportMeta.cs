@@ -22,6 +22,7 @@ namespace Monit95App.Services.Work.Concrete
             var new_protectReports2 = new_protectReports.Where(x => x.Available.Split(',').Contains(school.Id));
 
             ICollection<ReportMeta> reportMetas = new List<ReportMeta>();
+
             foreach (var protectReport in new_protectReports2)
             {
                 reportMetas.Add(new ReportMeta

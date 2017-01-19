@@ -25,16 +25,18 @@ namespace Monit95App.Domain.Core
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<area> areas { get; set; }
         public virtual DbSet<Collector> Collectors { get; set; }
         public virtual DbSet<CollectorSchool> CollectorSchools { get; set; }
-        public virtual DbSet<idoege2016_res> idoege2016_res { get; set; }
-        public virtual DbSet<readyoneclass_res> readyoneclass_res { get; set; }
-        public virtual DbSet<towntype> towntypes { get; set; }
+        public virtual DbSet<Particip> Particips { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<ReportStatistic> ReportStatistics { get; set; }
-        public virtual DbSet<oge_16_res> oge_16_res { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Result> Results { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<schooltype> schooltypes { get; set; }
+        public virtual DbSet<schoolview> schoolviews { get; set; }
+        public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<towntype> towntypes { get; set; }
     }
 }

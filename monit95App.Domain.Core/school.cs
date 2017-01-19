@@ -18,9 +18,8 @@ namespace Monit95App.Domain.Core
         public School()
         {
             this.CollectorSchools = new HashSet<CollectorSchool>();
-            this.idoege2016_res = new HashSet<idoege2016_res>();
-            this.readyoneclass_res = new HashSet<readyoneclass_res>();
-            this.oge_16_res = new HashSet<oge_16_res>();
+            this.Particips = new HashSet<Particip>();
+            this.Particips1 = new HashSet<Particip>();
         }
     
         public string Id { get; set; }
@@ -47,11 +46,10 @@ namespace Monit95App.Domain.Core
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CollectorSchool> CollectorSchools { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<idoege2016_res> idoege2016_res { get; set; }
+        public virtual ICollection<Particip> Particips { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<readyoneclass_res> readyoneclass_res { get; set; }
+        public virtual ICollection<Particip> Particips1 { get; set; }
+        public virtual schoolview schoolview { get; set; }
         public virtual towntype towntype { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<oge_16_res> oge_16_res { get; set; }
     }
 }

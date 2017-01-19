@@ -1,4 +1,5 @@
-﻿using Monit95App.Domain.Core;
+﻿using AutoMapper;
+using Monit95App.Domain.Core;
 using Monit95App.Services.Work.Abstract;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,11 @@ namespace Monit95App.Services.Work.Concrete
         }
         public IEnumerable<ReportMeta> GetReportMetas()
         {
+            //TODO: попробовать AutoMapper.EF6. Что это такое вообще?
+
+            //настройка AutoMapper
+            Mapper.Initialize(cfg => cfg.CreateMap<Report, ReportMeta>());
+
             var reportFileNames = iFileNames.GetFileNames(school); //e.g: 0001_201664.zip
             Report report = null;            
             List<ReportMeta> reportMetas = new List<ReportMeta>();
@@ -29,15 +35,12 @@ namespace Monit95App.Services.Work.Concrete
             {
                 currentReportCode = Convert.ToInt32(reportFileName.Substring(5, 6));
                 report = context.Reports.Where(x => x.Id == currentReportCode
-                                                 && x.TypeCode == 1).Single();                                                 
-                reportMetas.Add(new ReportMeta
-                {
-                    Id = report.Id,
-                    Name = report.Name,
-                    ProjectName = report.ProjectName,
-                    Year = report.Year,
-                    Link = $@"{school.ReportLink}/{reportFileName}"
-                });
+                                                 && x.TypeCode == 1).Single();
+
+                var newReportMeta = Mapper.Map<Report, ReportMeta>(report);
+                newReportMeta.Link = $@"{school.ReportLink}/{reportFileName}";
+                reportMetas.Add(newReportMeta);
+  
             }
             return reportMetas ?? Enumerable.Empty<ReportMeta>();
         }

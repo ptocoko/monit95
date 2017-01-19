@@ -77,25 +77,22 @@
     </Compile>
     <Compile Include="CollectorSchoolInfo.cs" />
     <Compile Include="CreatorSchoolInfo.cs" />
-    <Compile Include="idoege2016_res.cs">
+    <Compile Include="Learner.cs" />
+    <Compile Include="Particip.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Learner.cs" />
     <Compile Include="Project.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Report.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ReportStatisticsStore.cs" />
-    <Compile Include="oge_16_res.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="readyoneclass_res.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ReportStatistic.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStatisticsStore.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="School.cs">
@@ -103,6 +100,15 @@
     </Compile>
     <Compile Include="SchoolBaseInfo.cs" />
     <Compile Include="SchoolFullInfo.cs" />
+    <Compile Include="schooltype.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="schoolview.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Test.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="towntype.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
@@ -122,6 +128,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
+      <Project>{cb5e7793-7905-42a4-818d-0212a4edda43}</Project>
+      <Name>Monit95App.Domain.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="cokoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>cokoModel.edmx</DependentUpon>
@@ -132,12 +144,6 @@
       <DependentUpon>cokoModel.edmx</DependentUpon>
       <LastGenOutput>cokoModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
-      <Project>{cb5e7793-7905-42a4-818d-0212a4edda43}</Project>
-      <Name>Monit95App.Domain.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

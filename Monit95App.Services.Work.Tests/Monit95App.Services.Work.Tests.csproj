@@ -69,7 +69,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestReportMetaHandler.cs" />
     <Compile Include="TestRszkVMmanager.cs" />
     <Compile Include="TestExercisesFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

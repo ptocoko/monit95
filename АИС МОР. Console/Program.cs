@@ -18,18 +18,7 @@ namespace Monit95App.ConsoleApp
     {
         static void Main(string[] args)
         {
-            System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcessesByName("Excel");
-            foreach (System.Diagnostics.Process p in process)
-            {
-                if (!string.IsNullOrEmpty(p.ProcessName))
-                {
-                    try
-                    {
-                        p.Kill();
-                    }
-                    catch { }
-                }
-            }
+           
             Excel.Application app = new Excel.Application();           
             app.DisplayAlerts = false;
             cokoContext context = new cokoContext();
@@ -90,13 +79,15 @@ namespace Monit95App.ConsoleApp
             //}
             //excerInitBook.Close();
 
-            //карты для 2016-62
-            Excel.Workbook excerInitBook = app.Workbooks.Open($@"d:\Dropbox\2016-62_карты.xlsx");
+            //карты для 2016-61 декабрь
+            Excel.Workbook excerInitBook = app.Workbooks.Open($@"\\192.168.88.220\файлы_пто\Карты\Карты учителя.xlsx");
             Excel.Worksheet sheet;
-            IMarks iMarks = new MarksFormat2();
-            var results = context.Projects.Where(x => x.ProjectCode == 201662 && x.SubjectCode == 2); //
+            int currentSubjectCode = 2; //
+            IMarks iMarks = new MarksFormat2();            
+            var allResults = context.Results.ToList();
+            var subjectResults = allResults.Where(x => x.TestDate.ToShortDateString().Equals("28.12.2016") && x.Particip.TeachSubCode == currentSubjectCode);          
             int count = 0;
-            foreach (var result in results)
+            foreach (var result in subjectResults)
             {
                 sheet = excerInitBook.Sheets["data"];
                 sheet.Range["B5"].Value2 = result.ParticipCode;
@@ -105,6 +96,7 @@ namespace Monit95App.ConsoleApp
                 sheet.Range["B6"].Value2 = readyMarks;
                 sheet.Range["B7"].Value2 = result.PrimaryMark;
                 sheet.Range["B8"].Value2 = result.Mark5;
+                sheet.Range["B9"].Value2 = $@"{result.Particip.Surname} {result.Particip.Name} {result.Particip.SecondName}";
                 sheet.Range["B2"].Value2 = Convert.ToDouble(result.Parts);
                 string[] columns = new string[] { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P" };
                 int index = 0;
@@ -113,11 +105,11 @@ namespace Monit95App.ConsoleApp
                     sheet.Range[columns[index] + "3"].Value2 = Convert.ToDouble(value);
                     index++;
                 }
-                string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Учителя02"); //
+                string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\Учителя{currentSubjectCode}");
                 if (!System.IO.Directory.Exists(reportFolder))
                     System.IO.Directory.CreateDirectory(reportFolder);
-                sheet = excerInitBook.Sheets["02"]; //
-                sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{result.ParticipCode}.pdf")); //                
+                sheet = excerInitBook.Sheets["595A73D4"]; //
+                sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{result.ParticipCode}.pdf"));              
                 Console.WriteLine(count++);
             }
             excerInitBook.Close();

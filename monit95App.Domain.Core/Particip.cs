@@ -12,23 +12,29 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class Report
+    public partial class Particip
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Report()
+        public Particip()
         {
-            this.ReportStatistics = new HashSet<ReportStatistic>();
+            this.Results = new HashSet<Result>();
         }
     
-        public int Id { get; set; }
+        public string Code { get; set; }
+        public int ProjectCode { get; set; }
+        public string SchoolId { get; set; }
+        public string Surname { get; set; }
         public string Name { get; set; }
-        public string ProjectName { get; set; }
-        public string Year { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Available { get; set; }
-        public Nullable<short> TypeCode { get; set; }
+        public string SecondName { get; set; }
+        public int TeachSubCode { get; set; }
+        public Nullable<int> CategId { get; set; }
+        public Nullable<int> Experience { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
     
+        public virtual School School { get; set; }
+        public virtual School School1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReportStatistic> ReportStatistics { get; set; }
+        public virtual ICollection<Result> Results { get; set; }
     }
 }

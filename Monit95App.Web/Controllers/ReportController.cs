@@ -31,7 +31,7 @@ namespace Monit95App.Controllers
             var model = appCache.GetReportMetas(User.Identity.Name);
             if (model == null)
             {
-                model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(User.Identity.Name));
+                model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(User.Identity.Name), new SchoolReportFileNameOffline());
                 appCache.AddReportMetas(model, User.Identity.Name);
             }
             return View(model);
@@ -42,7 +42,7 @@ namespace Monit95App.Controllers
             var model = appCache.GetReportMetas(_schoolID);
             if (model == null)
             {
-                model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(_schoolID));
+                model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(_schoolID), new SchoolReportFileNameOffline());
                 appCache.AddReportMetas(model, _schoolID);
             }
             return PartialView("_OnlineReports", model);            
