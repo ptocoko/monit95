@@ -13,13 +13,11 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
       { code: 1, name: 'Русский язык' },
       { code: 2, name: 'Математика' },   
       { code: 7, name: 'История' }
-    ]
-    $scope.selectedCategId = $scope.categories[0];
+    ]    
 
     $scope.participsData = null;
     $scope.schoolsData = null;
-    $scope.username = null;
-    // Fetching records from the factory created at the bottom of the script file
+    $scope.username = null;    
 
     $scope.i = function (areaCode) {
         $scope.username = areaCode;
@@ -53,7 +51,7 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
         Surname: '',
         Name: '',
         SecondName: '',
-        SubjectCode: '',
+        NSubjectCode: '',        
         SchoolId: '',
         CategId: '',
         Experience: '',
@@ -65,7 +63,7 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
         $scope.Particip.Surname = '',
         $scope.Particip.Name = '',
         $scope.Particip.SecondName = '',
-        $scope.Particip.SubjectCode = '',
+        $scope.Particip.NSubjectCode = '',        
         $scope.Particip.SchoolId = '',
         $scope.Particip.CategId = '',
         $scope.Particip.Experience = '',
@@ -73,7 +71,7 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
         $scope.Particip.Email = ''
     }
 
-    $scope.save = function (Particip, participForm) {
+    $scope.save = function (Particip, participForm) {                      
         if (participForm.$valid) {
             $http({
                 method: 'POST',
@@ -91,43 +89,7 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
         } else {
             alert("!Заполните обязательные поля")
         }
-    }
-
-    //Add New Item
-    //$scope.save = function () {
-    //    if ($scope.Particip.Surname != "" &&
-    //        $scope.Particip.Name != "" &&
-    //        $scope.Particip.SecondName != "" &&
-    //        $scope.Particip.SchoolId != '' &&
-    //        $scope.Particip.SubjectCode != '' &&
-    //        $scope.Particip.CategId != "" &&
-    //        $scope.Particip.Experience != "" &&
-    //        $scope.Particip.Phone != "" &&
-    //        $scope.Particip.Email != ""
-    //        ) {
-
-    //        $http({
-    //            method: 'POST',
-    //            url: '/api/PParticip/PostParticip',
-    //            data: $scope.Particip
-    //        }).then(function successCallback(response) {
-    //            // this callback will be called asynchronously
-    //            // when the response is available
-    //            $scope.participsData.push(response.data); //TODO: тут необходим рефакторинг
-    //            $scope.i($scope.username);
-
-    //            $scope.clear();
-    //            //alert("Участник удачно добавлен!");
-    //        }, function errorCallback(response) {
-    //            // called asynchronously if an error occurs
-    //            // or server returns response with an error status.
-    //            alert("Error : " + response.data.ExceptionMessage);
-    //        });
-    //    }
-    //    else {
-    //        alert('Пожалуйста заполните все поля 222');
-    //    }
-    //};
+    }    
 
     // Edit product details
     $scope.edit = function (data) {

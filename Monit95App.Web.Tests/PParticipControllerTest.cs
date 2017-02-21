@@ -66,7 +66,7 @@ namespace Monit95App.Web.Tests
                 Email = "theadamo86@gmail.com",
                 School = new School { Id = "0053", Name = "СОШ" },
                 Category = new Category { Id = 1, Name = "Первая категория" },
-                NsurSubject = new NsurSubject { Code = 1, Name = "Русский язык"}
+                NsurSubject = new NsurSubject { Code = 1, Name = "Русский язык" }
             });
 
             //Assert

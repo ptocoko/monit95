@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="85865882773149aca6257e8eee1294bf" Name="Diagram1" ZoomLevel="74">
+      <Diagram DiagramId="85865882773149aca6257e8eee1294bf" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="cokoModel.Area" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Category" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Collector" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />

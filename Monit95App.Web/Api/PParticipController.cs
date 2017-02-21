@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 
@@ -46,21 +47,23 @@ namespace Monit95App.Api
         //}
         //TODO: необходим automapper
 
-        public IEnumerable<object> GetParticips(int areaCode)
+        public async Task<IEnumerable<object>> GetParticips(int areaCode)
         {
-            var allPParticips = _unitOfWork.PParticips.GetAll();
+            var allPParticips =  await Task.Run(() => _unitOfWork.PParticips.GetAll());
             var areaPParticips = allPParticips.Where(x => x.School.AreaCode == areaCode)
                 .Select(x => _pparticipViewer.CreateViewModel(x));
            
             return areaPParticips;
         }
         //TODO: возвращать нормально
-        public object PostParticip(ProjectParticip newParticip)
-        {            
+        public async Task<object> PostParticip(ProjectParticip newParticip)
+        {
+            newParticip.Category = _db.Categories.Find(newParticip.CategId);
+            newParticip.NsurSubject = _db.NsurSubjects.Find(newParticip.NSubjectCode);
             newParticip.ProjectCode = 201661;
             newParticip.ParticipCode = _pparticipCodeCreator.FactoryMethod(newParticip);
             _unitOfWork.PParticips.Add(newParticip);
-            _unitOfWork.Save();
+            await Task.Run(() =>_unitOfWork.Save());
                         
             return _pparticipViewer.CreateViewModel(newParticip);
         }
