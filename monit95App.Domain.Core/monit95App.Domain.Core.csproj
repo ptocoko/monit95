@@ -84,7 +84,13 @@
     <Compile Include="Monit95users.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NsurSubject.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="oge_16_res.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectParticip.cs">
@@ -103,6 +109,12 @@
     </Compile>
     <Compile Include="SchoolBaseInfo.cs" />
     <Compile Include="SchoolFullInfo.cs" />
+    <Compile Include="Test.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TestPlan.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TestResult.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>

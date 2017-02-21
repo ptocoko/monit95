@@ -18,7 +18,6 @@ namespace Monit95App.Controllers
     {
         private readonly cokoContext context = new cokoContext();
 
-
         [OutputCache(Duration=1800, Location = OutputCacheLocation.Client, VaryByParam = "subjectCode")]
         public JsonResult GetAllParticips(int subjectCode)
         {

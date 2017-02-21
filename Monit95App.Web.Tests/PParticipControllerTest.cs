@@ -41,9 +41,9 @@ namespace Monit95App.Web.Tests
             }.AsQueryable();
             var mockSchoolSetHandler = new MockTSetCreator<School>();
             var mockSchoolSet = mockSchoolSetHandler.FactoryMethod(schoolList);
-            //configue Find()
+            //configure Find()
             mockSchoolSet.Setup(x => x.Find(It.IsAny<object[]>()))                   
-                .Returns<object[]>(x => schoolList.FirstOrDefault(y => y.Id == x[0]));
+                .Returns<object[]>(x => schoolList.FirstOrDefault(y => y.Id == x[0]));         
 
             //mocking context
             var mockContext = new Mock<cokoContext>();
@@ -58,22 +58,15 @@ namespace Monit95App.Web.Tests
                 Surname = "Шахабов",
                 Name = "Адам",
                 SecondName = "Хаважиевич",
-                SubjectCode = 2,
+                NSubjectCode = 2,
                 SchoolId = "0053",
                 CategId = 1,
                 Experience = 0,
                 Phone = "8 (928) 016-83-96",
                 Email = "theadamo86@gmail.com",
-                School = new School
-                {
-                    Id = "0053",
-                    Name = "СОШ"
-                },
-                Category = new Category
-                {
-                    Id = 1,
-                    Name = "Первая категория"
-                }
+                School = new School { Id = "0053", Name = "СОШ" },
+                Category = new Category { Id = 1, Name = "Первая категория" },
+                NsurSubject = new NsurSubject { Code = 1, Name = "Русский язык"}
             });
 
             //Assert

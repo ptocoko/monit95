@@ -18,7 +18,7 @@ namespace Monit95App.Models
                 Surname = entity.Surname,
                 Name = entity.Name,
                 SecondName = entity.SecondName,
-                SubjectName = entity.SubjectCode == 1 ? "Русский язык" : "Математика",
+                SubjectName = entity.NsurSubject.Name,
                 SchoolIdWithName = $"{entity.School.Id} - {entity.School.Name}",
                 CategName = entity.Category != null ? entity.Category.Name : "",
                 Experience = entity.Experience != null ? entity.Experience : -1,

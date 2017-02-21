@@ -11,7 +11,8 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
     ];
     $scope.subjects = [
       { code: 1, name: 'Русский язык' },
-      { code: 2, name: 'Математика' }
+      { code: 2, name: 'Математика' },   
+      { code: 7, name: 'История' }
     ]
     $scope.selectedCategId = $scope.categories[0];
 

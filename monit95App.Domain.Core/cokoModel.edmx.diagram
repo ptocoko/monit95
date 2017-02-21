@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="85865882773149aca6257e8eee1294bf" Name="Diagram1">
+      <Diagram DiagramId="85865882773149aca6257e8eee1294bf" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="cokoModel.Area" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Category" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Collector" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
@@ -22,12 +22,20 @@
         <AssociationConnector Association="cokoModel.FK_Schools_TownTypes" ManuallyRouted="false" />
         <EntityTypeShape EntityType="cokoModel.oge_16_res" Width="1.5" PointX="5.25" PointY="12.25" />
         <AssociationConnector Association="cokoModel.FK_oge_16_res_Schools" />
-        <EntityTypeShape EntityType="cokoModel.ProjectParticip" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="cokoModel.TestResult" Width="1.5" PointX="7.5" PointY="1.25" />
-        <AssociationConnector Association="cokoModel.FK_Particips_Projects" />
-        <AssociationConnector Association="cokoModel.FK_Particips_Schools" />
+        <EntityTypeShape EntityType="cokoModel.Project" Width="1.5" PointX="5.125" PointY="21.75" />
+        <EntityTypeShape EntityType="cokoModel.TestPlan" Width="1.5" PointX="9.625" PointY="15.375" />
+        <EntityTypeShape EntityType="cokoModel.TestResult" Width="1.5" PointX="11.875" PointY="14.875" />
+        <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="7.375" PointY="9.625" />
+        <AssociationConnector Association="cokoModel.FK_TestPlan_Projects" />
+        <AssociationConnector Association="cokoModel.FK_TestPlan_Tests" />
+        <AssociationConnector Association="cokoModel.FK_TestResults_TestPlan" />
+        <EntityTypeShape EntityType="cokoModel.NsurSubject" Width="1.5" PointX="3" PointY="14" />
+        <EntityTypeShape EntityType="cokoModel.ProjectParticip" Width="1.5" PointX="5.25" PointY="0.875" />
+        <AssociationConnector Association="cokoModel.FK_ProjectParticips_Categories" />
+        <AssociationConnector Association="cokoModel.FK_ProjectParticips_NsurSubjects" />
+        <AssociationConnector Association="cokoModel.FK_ProjectParticips_Schools" />
         <AssociationConnector Association="cokoModel.FK_TestResults_ProjectParticips" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

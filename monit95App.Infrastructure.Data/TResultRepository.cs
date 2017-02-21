@@ -15,14 +15,9 @@ namespace Monit95App.Infrastructure.Data
         {
             _db = db;
         }
-        public IEnumerable<TestResult> GetForArea(int areaCode, Guid testId, DateTime testDate)
+        public IEnumerable<TestResult> GetOpenTestResultsForArea(int areaCode)
         {
-            var t = _db.TestResults.Where(x => x.ProjectParticip.School.AreaCode == areaCode
-                                           && x.TestId == testId
-                                           && x.TestDate == testDate).ToList();
-            return _db.TestResults.Where(x => x.ProjectParticip.School.AreaCode == areaCode
-                                           && x.TestId == testId
-                                           && x.TestDate == testDate);
+            return _db.TestResults.Where(x => x.TestPlan.StatusCode == true);
         }
         public void Add(TestResult item)
         {

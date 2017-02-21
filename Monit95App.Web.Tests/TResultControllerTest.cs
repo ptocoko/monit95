@@ -16,7 +16,7 @@ namespace Monit95App.Web.Tests
     public class TResultControllerTest
     {      
         [TestMethod]
-        public void TestGetForArea()
+        public void TestGetOpenTestResultsForArea()
         {
             //Arrange
             //mocking PParticips
@@ -63,7 +63,7 @@ namespace Monit95App.Web.Tests
             //Act
             var uow = new UnitOfWork(mockContext.Object);
             var tresultController = new TResultController(uow);
-            var result = tresultController.GetForArea(206, "873D064B-8039-4255-8FC5-C0CE7F711B59", "20022017");
+            var result = tresultController.GetOpenTestResultsForArea(206);
             
             int c = 0;
             var e = result.GetEnumerator();

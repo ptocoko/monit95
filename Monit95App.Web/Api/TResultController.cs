@@ -24,11 +24,11 @@ namespace Monit95App.Api
         }
 
         //Get for certain area test's results
-        public IEnumerable<TestResult> GetForArea(int areaCode, string testIdString, string testDateString) //testDateString format is ddMMyyyy
+        public IEnumerable<TestResult> GetOpenTestResultsForArea(int areaCode) //testDateString format is ddMMyyyy
         {
-            var testId = new Guid(testIdString);
-            var testDate = DateTime.ParseExact(testDateString, "ddMMyyyy", CultureInfo.InvariantCulture);
-            return _uow.TResults.GetForArea(areaCode, testId, testDate);
+            //var testId = new Guid(testIdString);
+            //var testDate = DateTime.ParseExact(testDateString, "ddMMyyyy", CultureInfo.InvariantCulture);
+            return _uow.TResults.GetOpenTestResultsForArea(areaCode);
         }
 
         public TResultViewModel PostTResult()
