@@ -137,13 +137,13 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Cloud%40Mail.Ru\Mail.Ru-.net-cloud-client-master\MailRuCloudApi\MailRuCloudApi.csproj">
-      <Project>{75bf5eac-81a8-4e00-a82e-0bcbd17ac50b}</Project>
-      <Name>MailRuCloudApi</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\FileManager\FileManager\Monit95App.Services.FileManager.csproj">
       <Project>{204b0873-c4b9-49c6-a7d1-9485fb3d9017}</Project>
       <Name>Monit95App.Services.FileManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mail.Ru-.net-cloud-client-master\MailRuCloudApi\MailRuCloudApi.csproj">
+      <Project>{75bf5eac-81a8-4e00-a82e-0bcbd17ac50b}</Project>
+      <Name>MailRuCloudApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
       <Project>{84dc3950-0b35-4eb2-b534-93af0387ccdc}</Project>

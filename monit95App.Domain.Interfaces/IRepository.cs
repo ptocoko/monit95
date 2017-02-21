@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Domain.Interfaces
 {
-    public interface IRepository<T>
-        where T : class
+    public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetTList(); //получение всех объектов        
-        T GetT(string id);
-        void Create(T item);
-        void Save();
+        IEnumerable<T> GetAll(); //get all objects
+        T Get(string id);
+        void Add(T item);
         void Update(T item);
-        //void Delete(int id);
+        bool Delete(string id);        
     }
 }

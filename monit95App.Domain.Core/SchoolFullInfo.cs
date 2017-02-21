@@ -1,5 +1,4 @@
-﻿using Monit95App.Domain.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Web;
 
 namespace Monit95App.Domain.Core
 {
-    public class SchoolFullInfo : ISchoolFullInfo
+    public class SchoolFullInfo
     {
         [Display(Name = "Логин на сайте www.monit95.ru:")]
         public string Id { get; set; }

@@ -7,8 +7,8 @@
     <ProjectGuid>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>monit95App.Domain.Interfaces</RootNamespace>
-    <AssemblyName>monit95App.Domain.Interfaces</AssemblyName>
+    <RootNamespace>Monit95App.Domain.Interfaces</RootNamespace>
+    <AssemblyName>Monit95App.Domain.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -44,6 +44,12 @@
     <Compile Include="ISchoolBaseInfo.cs" />
     <Compile Include="ISchoolFullInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
+      <Project>{84dc3950-0b35-4eb2-b534-93af0387ccdc}</Project>
+      <Name>Monit95App.Domain.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -27,7 +27,7 @@ namespace Monit95App.Controllers
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
 
-        //
+        //Вход
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)

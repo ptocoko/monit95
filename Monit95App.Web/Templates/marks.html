@@ -1,0 +1,49 @@
+﻿<head>
+    <style>
+        table {
+            width: 100%; /* Ширина таблицы */
+            border-collapse: collapse; /* Убираем двойные линии между ячейками */
+        }
+
+        td, th {
+            padding: 3px; /* Поля вокруг содержимого таблицы */
+            border: 1px solid #000; /* Параметры рамки */
+        }
+
+        th {
+            background: #C0C0C0; /* Цвет фона */
+            color: #333; /* Цвет текста */
+        }
+
+        tbody tr:hover {
+            background: #f3bd48; /* Цвет фона при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Баллы за задания</h4></div>
+        <div class="panel-body">
+            <!--<p>Перенесити баллы за задания с бланков ответов</p>-->
+            <p><i>Результаты участников (баллы по заданиям) можно будет заполнить на данной странице после проведения экзамена и проверке работ экспертами.</i></p>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>№ п/п</th>
+                    <th>Код участника</th>
+                    <th>Баллы за задания</th>
+                </tr>                
+            </thead>
+            <tbody>
+                <tr ng-repeat="result in results">
+                    <td>{{result.participCode}}</td>
+                    <td>{{result.marks}}</td>
+                    <td>
+                        <button ng-click="change($index)" class="btn btn-sm btn-default">изменить</button>
+                    </td>
+                </tr>                
+            </tbody>
+        </table>
+    </div>
+</body>

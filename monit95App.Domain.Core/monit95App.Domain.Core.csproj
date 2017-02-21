@@ -51,7 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="area.cs">
+    <Compile Include="Area.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Category.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="cokoModel.Context.cs">
@@ -78,10 +81,13 @@
     <Compile Include="CollectorSchoolInfo.cs" />
     <Compile Include="CreatorSchoolInfo.cs" />
     <Compile Include="Learner.cs" />
-    <Compile Include="Particip.cs">
+    <Compile Include="Monit95users.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Project.cs">
+    <Compile Include="oge_16_res.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectParticip.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Report.cs">
@@ -92,24 +98,15 @@
     </Compile>
     <Compile Include="ReportStatisticsStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Result.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="School.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SchoolBaseInfo.cs" />
     <Compile Include="SchoolFullInfo.cs" />
-    <Compile Include="schooltype.cs">
+    <Compile Include="TestResult.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="schoolview.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Test.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="towntype.cs">
+    <Compile Include="TownType.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -126,12 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
-      <Project>{cb5e7793-7905-42a4-818d-0212a4edda43}</Project>
-      <Name>Monit95App.Domain.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="cokoModel.Context.tt">

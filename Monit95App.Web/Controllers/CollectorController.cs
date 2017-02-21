@@ -45,5 +45,6 @@ namespace Monit95App.Controllers
             );
             return Json(collectorSchools, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

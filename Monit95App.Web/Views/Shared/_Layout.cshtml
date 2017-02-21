@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+<head>    
     <style>
         /*Рамка вокруг форм*/
         .class1 {
@@ -79,7 +79,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+    <title>@ViewBag.Title – Monit95</title>
         
     @Scripts.Render("~/bundles/modernizr")        
     @Scripts.Render("~/bundles/jquery")
@@ -88,11 +88,23 @@
     @Scripts.Render("~/bundles/bootstrap")    
     @Scripts.Render("~/bundles/ajax")            
     @Scripts.Render("~/bundles/angular")    
-      
-    @Styles.Render("~/Content/css") <!--подключает необходимые стили в том числе bootstrap-->
-    @Styles.Render("~/Content/themes/base/css")           
+    
+    @*Modules*@  
+    <script src="~/Scripts/modules/nsurApp.js"></script>
+
+    @*Controllers*@
+    <script src="~/Scripts/controllers/tabctrl.js"></script>
+    <script src="~/Scripts/controllers/participctrl.js"></script>
+    <script src="~/Scripts/controllers/planctrl.js"></script>   
+
+    @*Services*@
+    <script src="~/Scripts/services/pparticipservice.js"></script>  
+    <script src="~/Scripts/services/schoolservice.js"></script>
+    
+    @Styles.Render("~/Content/css")                 
     <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />    
     <link href='@Url.Content("~/Content/site.css")' rel="stylesheet" type="text/css" />    
+    <link href='@Url.Content("~/Content/mystyle.css")' rel="stylesheet" type="text/css" />
     
 </head>
 <body>
@@ -102,67 +114,45 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                    
+                    <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Главная", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @if (User.IsInRole("area"))
+                    {
+                        <li>@Html.ActionLink(@"НСУР", "Index", "Nsur")</li>
+                    }
                     @if (User.IsInRole("coko"))
                     {
                         <li>@Html.ActionLink(@"Школы", "Schools", "Home", new { @style = "background:NavajoWhite; color:black;" })</li>
                         <li>@Html.ActionLink(@"Сбор", "GetCollect", "Collector")</li>
-                    }                    
+                    }
                     @if (User.IsInRole("school"))
                     {
                         <li>@Html.ActionLink(@"ОГЭ-2016", "Oge2016", "Home")</li>
                         <li>@Html.ActionLink(@"Информация", "Schoolinfo", "Home")</li>
                         <li>@Html.ActionLink("Отчеты", "Report", "Report")</li>
-                    }
-                        @*<li>@Html.ActionLink(@"1 класс", "Select", "Work201630", null, new { @style = "background:NavajoWhite; color:black;" })</li> //Исследование готовности 1 классов*@
-
-                        @*<li>@Html.ActionLink(@"«Я СДАМ ОГЭ!»", "Select", "Work201628")</li>*@
-                        
-                        @*if (new[] { "0336", "0019", "0020", "0050", "0054", "0199", "0257", "0260", "0324", "0326", "0330", "0466", "0519" }.Contains(User.Identity.Name))
-                {
-                    <li>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Мониторинг<span class="caret"></span></a>
-                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                            <li class="dropdown-submenu">
-                                <a tabindex="-1" href="#">Мониторинг 10 классов</a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Общий план", "GeneralPlan", "Monit10_1516")</li>
-                                    <li>@Html.ActionLink("Список обучающихся", "GetLearnesList", "Monit10_1516")</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                }*@
-                    
-
-                    @*<li>@Html.ActionLink("Контакты", "Contact", "Home")</li>*@ @*Контакты школы*@
+                    }                  
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
                 </ul>
 
-
-               
-                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
+
     </div>
     <div class="container body-content">
         @RenderBody()        
-        <hr />
-        @*<p>Количество аторизованных пользователей: @Model.CountUser</p>*@
+        <hr />        
         
         <footer>
             <p>Логин: @User.Identity.Name</p>
-            @*<p>@Membership.GetNumberOfUsersOnline()</p>*@            
-            @*@{ Html.RenderAction("GetFooter", "Home"); }*@
+
             <p>&copy; 2015-@DateTime.Now.Year, Мониторинг образования региона</p>
         </footer>
-    </div>       
-    @*@Scripts.Render("~/bundles/jquery")*@        @*точно тут*@
+    </div>         
     <script type="text/javascript">
 
     imageDir = "http://mvcreative.ru/example/6/2/snow/";
@@ -180,9 +170,7 @@
     sflakeHeight = 15;
     </script>
     <script type="text/javascript" src="http://mvcreative.ru/example/6/2/snow.js"></script>
-
-      
-      
+           
     @RenderSection("scripts", required: false) @*точно тут*@
 </body>
 </html>

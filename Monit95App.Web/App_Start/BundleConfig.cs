@@ -41,7 +41,9 @@ namespace Monit95App
 
             //AngularJS
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                        "~/Scripts/angular.js"));
+                        "~/Scripts/angular.js",
+                        "~/Scripts/angular-route.js"
+                        ));            
         }
     }
 }

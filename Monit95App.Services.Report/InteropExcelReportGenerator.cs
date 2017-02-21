@@ -55,11 +55,11 @@ namespace Monit95App.Services.Report
                 dataSheet.Range[columns[index] + "3"].Value2 = Convert.ToDouble(elementValue);
                 index++;
             }
-            string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\Учителя{currentSubjectCode}");
+            string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\Учителя");
             if (!System.IO.Directory.Exists(reportFolder))
                 System.IO.Directory.CreateDirectory(reportFolder);            
-            exportSheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{result.ParticipCode}.pdf"));
-            Console.WriteLine(count++);
+            exportSheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{model.ParticipCode}.pdf"));
+           // Console.WriteLine(count++);
         }
 
         public void Dispose()

@@ -15,20 +15,20 @@ namespace Monit95App.Services.Report
         {
             this.iMarks = iMarks;
         }
-        public ParticipReportModel FactoryMethod(Result result)
+        public ParticipReportModel FactoryMethod(TestResult result)
         {
             //TODO: add AutoMapper
             var participReportModel = new ParticipReportModel();
             participReportModel.ParticipCode = result.ParticipCode;
-            participReportModel.ParticipSNS = $"{result.Particip.Surname} {result.Particip.Surname}";
-            if (!String.IsNullOrEmpty(result.Particip.SecondName))
+            participReportModel.ParticipSNS = $"{result.ProjectParticip.Surname} {result.ProjectParticip.Name}";
+            if (!String.IsNullOrEmpty(result.ProjectParticip.SecondName))
             {
-                participReportModel.ParticipSNS += result.Particip.SecondName;
+                participReportModel.ParticipSNS += result.ProjectParticip.SecondName;
             }
             participReportModel.TestDate = result.TestDate;
             participReportModel.Marks = iMarks.GetMarks(new[] { result.Marks }).Single();
-            participReportModel.PrimaryMark = result.PrimaryMark;
-            participReportModel.Mark5 = result.Mark5;
+            participReportModel.PrimaryMark = (double)result.PrimaryMark;
+            participReportModel.Mark5 = (short)result.Mark5;
             participReportModel.Parts = result.Parts.Split(';').Select(x => Convert.ToDouble(x)).ToList();
             participReportModel.Elements = result.Elements.Split(';').Select(x => Convert.ToDouble(x)).ToList();
             return participReportModel;

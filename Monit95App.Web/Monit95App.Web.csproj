@@ -41,6 +41,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.3.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.1\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DelegateDecompiler, Version=0.9.1.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
       <HintPath>..\packages\DelegateDecompiler.0.9.1.0\lib\net40-Client\DelegateDecompiler.dll</HintPath>
       <Private>True</Private>
@@ -77,16 +85,19 @@
       <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Abstractions, Version=2.0.0.138, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Abstractions.2.0.0.138\lib\net40\System.IO.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
@@ -98,10 +109,17 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -139,7 +157,6 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -182,13 +199,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\PParticipController.cs" />
+    <Compile Include="Api\SchoolController.cs" />
+    <Compile Include="Api\TResultController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CollectorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NsurController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\Work201615Controller.cs" />
     <Compile Include="Controllers\Work201628Controller.cs" />
@@ -197,6 +219,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Abstarct\IFolderSchoolIds.cs" />
+    <Compile Include="Models\Abstarct\IPParticipViewer.cs" />
+    <Compile Include="Models\Abstarct\ITResultViewer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppCache.cs" />
     <Compile Include="Models\CollectorHandler.cs" />
@@ -204,7 +228,12 @@
     <Compile Include="Models\FolderSchoolIds.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Monit10Learner.cs" />
+    <Compile Include="Models\PParticipViewer.cs" />
+    <Compile Include="Models\PParticipViewModel.cs" />
     <Compile Include="Models\ReportMetaManager.cs" />
+    <Compile Include="Models\TResultViewer.cs" />
+    <Compile Include="Models\TResultViewModel.cs" />
+    <Compile Include="Util\AutofacConfig.cs" />
     <Compile Include="ViewModels\Home\LearnerVM.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />
     <Compile Include="ViewModels\CokoEmployer\SelectVM.cs" />
@@ -224,6 +253,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\mystyle.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -292,9 +322,12 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\188.0.173.242.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
@@ -302,10 +335,24 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\angularmodules.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-colorpicker.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-countries.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-currencies.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-datepicker.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-fonts.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-fontsizes.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-googlefonts.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-languages.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-number.js" />
+    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-phone.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\controllers\marks.js" />
+    <Content Include="Scripts\controllers\planctrl.js" />
+    <Content Include="Scripts\controllers\tabctrl.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -322,11 +369,19 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modules\nsurapp.js" />
+    <Content Include="Scripts\controllers\participctrl.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\services\marksservice.js" />
+    <Content Include="Scripts\services\pparticipservice.js" />
+    <Content Include="Scripts\services\schoolservice.js" />
     <Content Include="Scripts\smart-table.js" />
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Templates\marks.html" />
+    <Content Include="Templates\participlist.html" />
+    <Content Include="Templates\plan.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -341,7 +396,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout_back.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -382,12 +436,13 @@
     <Content Include="Views\Home\Oge2016.cshtml" />
     <Content Include="Views\Shared\_LearnerTable.cshtml" />
     <Content Include="Scripts\smart-table.min.js.map" />
+    <Content Include="Views\Nsur\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Abstract\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="ViewModels\Collector\" />
+    <Folder Include="Views\Nsur\Templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -397,10 +452,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Cloud%40Mail.Ru\Mail.Ru-.net-cloud-client-master\MailRuCloudApi\MailRuCloudApi.csproj">
-      <Project>{75bf5eac-81a8-4e00-a82e-0bcbd17ac50b}</Project>
-      <Name>MailRuCloudApi</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\FileManager\FileManager\Monit95App.Services.FileManager.csproj">
       <Project>{204b0873-c4b9-49c6-a7d1-9485fb3d9017}</Project>
       <Name>Monit95App.Services.FileManager</Name>

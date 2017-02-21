@@ -12,16 +12,16 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class towntype
+    public partial class TownType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public towntype()
+        public TownType()
         {
             this.Schools = new HashSet<School>();
         }
     
-        public int TownTypeCode { get; set; }
-        public string TownTypeName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<School> Schools { get; set; }

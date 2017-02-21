@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.IO;
-using MailRuCloudApi;
 using Monit95App.Services.Work.Abstract;
 
 namespace Monit95App.Services.Work.Concrete

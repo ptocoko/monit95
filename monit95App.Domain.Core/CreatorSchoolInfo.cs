@@ -14,7 +14,7 @@ namespace Monit95App.Domain.Core
             {
                 Id = _school.Id,
                 Name = _school.Name,
-                AreaName = $"{_school.AreaId} - {_school.area.AreaName }",
+                AreaName = $"{_school.AreaCode} - {_school.Area.Name }",
             };
             return schoolBaseInfo;
         }
@@ -24,13 +24,13 @@ namespace Monit95App.Domain.Core
             {
                 Id = _school.Id,
                 Name = _school.Name,
-                AreaName = $"{_school.AreaId} - {_school.area.AreaName }",
+                AreaName = $"{_school.AreaCode} - {_school.Area.Name }",
 
-                TownTypeName = _school.towntype.TownTypeName,
-                VPRcode = _school.VPRcode,
+                TownTypeName = _school.TownType.Name,
+                VPRcode = _school.VprCode,
                 Phone = string.IsNullOrEmpty(_school.Phone) ? "Не указан" : _school.Phone,
                 Email = _school.Email ?? "Не указан",
-                GIAcode = _school.GIAcode ?? 0
+                GIAcode = _school.GiaCode ?? 0
             };
             return schoolFullInfo;
         }

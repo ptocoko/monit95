@@ -51,8 +51,12 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Moq, Version=4.5.23.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.5.23\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.5.30.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.30\lib\net45\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -65,9 +69,22 @@
       <HintPath>..\packages\System.IO.Abstractions.TestingHelpers.2.0.0.138\lib\net40\System.IO.Abstractions.TestingHelpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -111,6 +128,10 @@
     <Compile Include="MockedDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCollector.cs" />
+    <Compile Include="PParticipControllerTest.cs" />
+    <Compile Include="TestSchoolController.cs" />
+    <Compile Include="TResultControllerTest.cs" />
+    <Compile Include="TResultViewerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -120,6 +141,18 @@
     <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
       <Project>{84dc3950-0b35-4eb2-b534-93af0387ccdc}</Project>
       <Name>Monit95App.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
+      <Project>{cb5e7793-7905-42a4-818d-0212a4edda43}</Project>
+      <Name>Monit95App.Domain.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monit95App.Infrastructure.Data.Tests\Monit95App.Infrastructure.Data.Tests.csproj">
+      <Project>{a8cd881c-fcf2-4326-b6bd-b9e587f28918}</Project>
+      <Name>Monit95App.Infrastructure.Data.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
+      <Project>{f3a784e6-8723-4628-9677-2374bed42492}</Project>
+      <Name>Monit95App.Infrastructure.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.Work\Monit95App.Services.Work.csproj">
       <Project>{7dec6e41-341f-4308-9d88-2f838187d3ad}</Project>

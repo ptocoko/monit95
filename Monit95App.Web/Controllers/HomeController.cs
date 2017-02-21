@@ -19,7 +19,7 @@ namespace Monit95App.Controllers
         private readonly cokoContext context = new cokoContext();
 
 
-        [OutputCache(Duration=1800, Location =OutputCacheLocation.Client, VaryByParam = "subjectCode")]
+        [OutputCache(Duration=1800, Location = OutputCacheLocation.Client, VaryByParam = "subjectCode")]
         public JsonResult GetAllParticips(int subjectCode)
         {
             List<LearnerVM> participInfos = new List<LearnerVM>();
@@ -35,7 +35,7 @@ namespace Monit95App.Controllers
                         Name = result.Name,
                         SecondName = string.IsNullOrEmpty(result.SecondName) ? string.Empty : result.SecondName
                     },
-                    AreaIdWithName = $"{result.School.AreaId} - {result.School.area.AreaName}",
+                    AreaIdWithName = $"{result.School.AreaCode} - {result.School.Area.Name}",
                     SchoolIdWithName = $"{result.SchoolId} - {result.School.Name}"
                 });
             }
@@ -80,11 +80,11 @@ namespace Monit95App.Controllers
             List<SelectListItem> areaNames = new List<SelectListItem>();
             var vm = new SchoolsVM();
 
-            List<area> areas = context.areas.ToList();
+            List<Area> areas = context.Areas.ToList();
             //поместить из БД area в List<SelectListItem> areaNames
             areas.ForEach(x =>
             {
-                areaNames.Add(new SelectListItem { Text = x.AreaID + " - " + x.AreaName, Value = x.AreaID.ToString() });
+                areaNames.Add(new SelectListItem { Text = x.Code + " - " + x.Name, Value = x.Code.ToString() });
             });
 
             vm.AreaNames = areaNames;
@@ -101,7 +101,7 @@ namespace Monit95App.Controllers
             if (!string.IsNullOrEmpty(areaID_str))
             {
                 areaID_int = Convert.ToInt32(areaID_str);                
-                List<School> schools = context.Schools.Where(x => x.AreaId == areaID_int).ToList();
+                List<School> schools = context.Schools.Where(x => x.AreaCode == areaID_int).ToList();
                 schools.ForEach(x =>
                 {
                     schoolNames.Add(new SelectListItem { Text = x.Id + " - " + x.Name, Value = x.Id.ToString() });
@@ -138,7 +138,7 @@ namespace Monit95App.Controllers
 
             School school = (School)Session["footer"];
 
-            string userInfo = $@"{school.AreaId}-{school.Id} {school.Name}";
+            string userInfo = $@"{school.AreaCode}-{school.Id} {school.Name}";
 
             var vm = new FooterVM(userInfo);
 
@@ -158,7 +158,8 @@ namespace Monit95App.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-            return View();
+           return View();
+         //   return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Contact()
