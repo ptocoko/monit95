@@ -93,7 +93,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="items in participsData">
+                    <tr ng-repeat="items in participsData | orderBy: 'SchoolIdWithName'">
                         <td hidden="hidden">{{items.ParticipCode}}</td>
                         <td class="mytd">{{$index + 1}}</td>
                         <td class="mytd">{{items.Surname}}</td>
