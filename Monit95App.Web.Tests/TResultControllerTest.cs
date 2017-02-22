@@ -8,6 +8,7 @@ using Monit95App.Api;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections;
+using Monit95App.Models;
 
 namespace Monit95App.Web.Tests
 {
@@ -19,39 +20,25 @@ namespace Monit95App.Web.Tests
         public void TestGetOpenTestResultsForArea()
         {
             //Arrange
-            //mocking PParticips
-            var pparticipList = new List<ProjectParticip>
-            {
-                new ProjectParticip { ParticipCode = "2016-205-011", School = new School { AreaCode = 205 } },
-                new ProjectParticip { ParticipCode = "2016-206-001", School = new School { AreaCode = 206 } },
-                new ProjectParticip { ParticipCode = "2016-206-002", School = new School { AreaCode = 206 } },
-                new ProjectParticip { ParticipCode = "2016-206-004", School = new School { AreaCode = 206 } },
-            };
-            var mockPParticipSetHandler = new MockTSetCreator<ProjectParticip>();
-            var mockPParticipSet = mockPParticipSetHandler.FactoryMethod(pparticipList);
-
+            //mocking TResult     
             var tresultList = new List<TestResult>
             {
                 new TestResult
                 {
                     TestId = new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"),
-                    TestDate = new DateTime(2017, 02, 20),
+                    TestDate = new DateTime(2017, 02, 22),
                     Marks = "1;1;1;1;1;1;1;1;1;1;1;1;1;1;1|1;1;1;1;1;1;1;1;1;1;1;1;1;1;1",
-                    ProjectParticip = new ProjectParticip { School = new School { AreaCode = 206 } }
+                    ProjectParticip = new ProjectParticip { ParticipCode = "2016-206-001", School = new School { AreaCode = 206 } },
+                    TestPlan = new TestPlan { StatusCode = true, Test = new Test { Name = "Орфография"} }
                 },
-                new TestResult
+                 new TestResult
                 {
                     TestId = new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"),
-                    TestDate = new DateTime(2017, 02, 20),                    
-                    ProjectParticip = new ProjectParticip { School = new School { AreaCode = 206 } }
+                    TestDate = new DateTime(2017, 02, 22),
+                    Marks = "1;1;1;1;1;1;1;1;1;1;1;1;1;1;1|1;1;1;1;1;1;1;1;1;1;1;1;1;1;1",
+                    ProjectParticip = new ProjectParticip { ParticipCode = "2016-206-002", School = new School { AreaCode = 206 } },
+                    TestPlan = new TestPlan { StatusCode = true, Test = new Test { Name = "Орфография"}  }
                 },
-                new TestResult
-                {
-                    TestId = new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"),
-                    TestDate = new DateTime(2017, 02, 20),
-                    Marks = "0;1;1;1;1;1;1;0;1;1;1;1;0;1;1|1;1;1;1;1;1;1;1;1;1;1;1;1;1;1",
-                    ProjectParticip = new ProjectParticip { School = new School { AreaCode = 205 } }
-                }
             };
             var mockTResultSetCreator = new MockTSetCreator<TestResult>();
             var mockTResultSet = mockTResultSetCreator.FactoryMethod(tresultList);
@@ -60,18 +47,22 @@ namespace Monit95App.Web.Tests
             var mockContext = new Mock<cokoContext>();
             mockContext.Setup(x => x.TestResults).Returns(mockTResultSet.Object);           
 
-            //Act
-            var uow = new UnitOfWork(mockContext.Object);
-            var tresultController = new TResultController(uow);
+            //Act            
+            var tresultController = new TResultController(mockContext.Object, new TResultDTOcreator());
             var result = tresultController.GetOpenTestResultsForArea(206);
             
             int c = 0;
-            var e = result.GetEnumerator();
+            var e = result.Result.GetEnumerator();
+            TResultDTO ob = null;
             while (e.MoveNext()) //count results
-                c++;            
-
+            {
+                ob = e.Current;
+                c++;
+            }
+                
             //Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(ob);
+            Assert.IsInstanceOfType(ob, typeof(TResultDTO));
             Assert.AreEqual(2, c);
         }
     }

@@ -40,14 +40,9 @@ namespace Monit95App.Api
             _pparticipCodeCreator = new PParticipCodeCreator(_db);
             _pparticipViewer = new PParticipViewer();
         }
-        //public PParticipController()
-        //    : this(new UnitOfWork(new cokoContext()))
-        //{
-
-        //}
-        //TODO: необходим automapper
-
-        public async Task<IEnumerable<object>> GetParticips(int areaCode)
+   
+        //TODO: необходим automapper        
+        public async Task<IEnumerable<PParticipViewModel>> GetParticips(int areaCode)
         {
             var allPParticips =  await Task.Run(() => _unitOfWork.PParticips.GetAll());
             var areaPParticips = allPParticips.Where(x => x.School.AreaCode == areaCode)

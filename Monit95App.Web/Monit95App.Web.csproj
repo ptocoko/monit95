@@ -220,7 +220,7 @@
     </Compile>
     <Compile Include="Models\Abstarct\IFolderSchoolIds.cs" />
     <Compile Include="Models\Abstarct\IPParticipViewer.cs" />
-    <Compile Include="Models\Abstarct\ITResultViewer.cs" />
+    <Compile Include="Models\Abstarct\ITResultDTOcreator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppCache.cs" />
     <Compile Include="Models\CollectorHandler.cs" />
@@ -231,8 +231,8 @@
     <Compile Include="Models\PParticipViewer.cs" />
     <Compile Include="Models\PParticipViewModel.cs" />
     <Compile Include="Models\ReportMetaManager.cs" />
-    <Compile Include="Models\TResultViewer.cs" />
-    <Compile Include="Models\TResultViewModel.cs" />
+    <Compile Include="Models\TResultDTOcreator.cs" />
+    <Compile Include="Models\TResultDTO.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
     <Compile Include="ViewModels\Home\LearnerVM.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />

@@ -23,7 +23,7 @@ namespace Monit95App.Infrastructure.Data
             
             var areaPParticips = _db.ProjectParticips.Where(x => x.School.AreaCode == newPParticip.School.AreaCode).ToList();                                              
             var areaParticipCodes = areaPParticips.Select(x => Int32.Parse(x.ParticipCode.Substring(9, 3)));
-            var validCodes = Enumerable.Range(1, 1000).Except(areaParticipCodes);            
+            var validCodes = Enumerable.Range(1, 2000).Except(areaParticipCodes);            
             var firstValidCode = validCodes.OrderBy(x => x).First().ToString();
 
             if (firstValidCode.Length == 1) firstValidCode = "00" + firstValidCode;

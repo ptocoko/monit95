@@ -7,16 +7,17 @@ using System.Web;
 
 namespace Monit95App.Models
 {
-    public class TResultViewer : ITResultViewModel
+    public class TResultDTOcreator : ITResultDTOcreator
     {
-        public TResultViewModel CreateViewModel(TestResult entity)
+        public TResultDTO FactoryMethod(TestResult entity)
         {
             int index = entity.Marks.IndexOf("|");
             var outMarks = entity.Marks.Substring(0, index);
-            var vm = new TResultViewModel
+            var vm = new TResultDTO
             {
                 PParticipCode = entity.ParticipCode,
-                Marks = outMarks
+                Marks = outMarks,
+                TestNameWithTestDate = $@"{entity.TestPlan.Test.Name}, {entity.TestDate.ToShortDateString()}"                
             };
 
             return vm;

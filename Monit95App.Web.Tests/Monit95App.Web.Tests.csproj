@@ -131,7 +131,7 @@
     <Compile Include="PParticipControllerTest.cs" />
     <Compile Include="TestSchoolController.cs" />
     <Compile Include="TResultControllerTest.cs" />
-    <Compile Include="TResultViewerTest.cs" />
+    <Compile Include="TResultDTOcreatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

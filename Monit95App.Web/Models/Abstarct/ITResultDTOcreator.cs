@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Models.Abstarct
 {
-    public interface ITResultViewModel
+    public interface ITResultDTOcreator
     {
-        TResultViewModel CreateViewModel(TestResult entity);
+        TResultDTO FactoryMethod(TestResult entity);
     }
 }

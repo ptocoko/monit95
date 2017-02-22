@@ -70,8 +70,7 @@ namespace Monit95App.Web.Tests
             });
 
             //Assert
-            Assert.IsNotNull(postResult);
-            Assert.IsInstanceOfType(postResult, typeof(PParticipViewModel));
+            Assert.IsNotNull(postResult);            
         }
         public PParticipControllerTest()
 		{
