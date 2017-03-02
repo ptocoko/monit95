@@ -22,19 +22,31 @@
         <AssociationConnector Association="cokoModel.FK_Schools_TownTypes" ManuallyRouted="false" />
         <EntityTypeShape EntityType="cokoModel.oge_16_res" Width="1.5" PointX="5.25" PointY="12.25" />
         <AssociationConnector Association="cokoModel.FK_oge_16_res_Schools" />
-        <EntityTypeShape EntityType="cokoModel.Project" Width="1.5" PointX="5.125" PointY="21.75" />
-        <EntityTypeShape EntityType="cokoModel.TestPlan" Width="1.5" PointX="9.625" PointY="15.375" />
-        <EntityTypeShape EntityType="cokoModel.TestResult" Width="1.5" PointX="11.875" PointY="14.875" />
-        <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="7.375" PointY="9.625" />
-        <AssociationConnector Association="cokoModel.FK_TestPlan_Projects" />
-        <AssociationConnector Association="cokoModel.FK_TestPlan_Tests" />
-        <AssociationConnector Association="cokoModel.FK_TestResults_TestPlan" />
+        <EntityTypeShape EntityType="cokoModel.TestElement" Width="1.5" PointX="5.25" PointY="31.25" />
+        <EntityTypeShape EntityType="cokoModel.ExerElement" Width="1.5" PointX="12.75" PointY="20" />
+        <EntityTypeShape EntityType="cokoModel.ExerMark" Width="1.5" PointX="12.75" PointY="1.5" />
         <EntityTypeShape EntityType="cokoModel.NsurSubject" Width="1.5" PointX="3" PointY="14" />
-        <EntityTypeShape EntityType="cokoModel.ProjectParticip" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="cokoModel.ParticipTest" Width="1.5" PointX="10.5" PointY="1.625" />
+        <EntityTypeShape EntityType="cokoModel.ProjectParticip" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="cokoModel.Project" Width="1.5" PointX="6" PointY="22" />
+        <EntityTypeShape EntityType="cokoModel.ProjectTest" Width="1.5" PointX="8.25" PointY="21.625" />
+        <EntityTypeShape EntityType="cokoModel.TestExercis" Width="1.5" PointX="10.5" PointY="8.75" />
+        <EntityTypeShape EntityType="cokoModel.TestResult" Width="1.5" PointX="7.5" PointY="1.25" />
+        <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="3" PointY="31" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Categories" />
+        <AssociationConnector Association="cokoModel.FK_ExerElements_TestElements" />
+        <AssociationConnector Association="cokoModel.FK_ExerElements_TestExercises" />
+        <AssociationConnector Association="cokoModel.FK_ExerMarks_ParticipTests" />
+        <AssociationConnector Association="cokoModel.FK_ExerMarks_TestExercises" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_NsurSubjects" />
+        <AssociationConnector Association="cokoModel.FK_ParticipTests_ProjectParticips" />
+        <AssociationConnector Association="cokoModel.FK_ParticipTests_ProjectTests" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Schools" />
         <AssociationConnector Association="cokoModel.FK_TestResults_ProjectParticips" />
+        <AssociationConnector Association="cokoModel.FK_ProjectTests_Projects" />
+        <AssociationConnector Association="cokoModel.FK_ProjectTests_Tests" />
+        <AssociationConnector Association="cokoModel.FK_TestElements_Tests" />
+        <AssociationConnector Association="cokoModel.FK_TestExercises_Tests" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

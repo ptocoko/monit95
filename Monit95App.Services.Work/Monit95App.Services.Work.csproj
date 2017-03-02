@@ -70,16 +70,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IMarks.cs" />
-    <Compile Include="Abstract\RszkVMmanager.cs" />
     <Compile Include="Abstract\ICreateReportFromDB.cs" />
     <Compile Include="Abstract\IExerciseExtend.cs" />
     <Compile Include="Abstract\IExerciseBase.cs" />
     <Compile Include="Abstract\IExportReportToXLSX.cs" />
     <Compile Include="Abstract\ISchoolReportFileNameSource.cs" />
+    <Compile Include="Abstract\ISelector.cs" />
     <Compile Include="Abstract\LRmodel.cs" />
     <Compile Include="Abstract\ITypeReport.cs" />
-    <Compile Include="Concrete\ExerciseManager.cs" />
-    <Compile Include="Concrete\ExercisesFactory.cs" />
     <Compile Include="Concrete\ExerciseExtend.cs" />
     <Compile Include="Concrete\ProtectReportMeta.cs" />
     <Compile Include="Concrete\PublicReportMeta.cs" />
@@ -87,7 +85,6 @@
     <Compile Include="Concrete\SchoolReportFileNameOffline.cs" />
     <Compile Include="Concrete\LearnerOnlineReport.cs" />
     <Compile Include="Concrete\LRmodel_201636.cs" />
-    <Compile Include="Concrete\ExerciseBase.cs" />
     <Compile Include="Concrete\CreatorLearnerReport.cs" />
     <Compile Include="Concrete\LRmodel_201637.cs" />
     <Compile Include="Concrete\MarksFormat1.cs" />
@@ -100,7 +97,7 @@
     <Compile Include="Concrete\ReportMetaHandler.cs" />
     <Compile Include="Concrete\RszkViewModel.cs" />
     <Compile Include="Abstract\SRmodel.cs" />
-    <Compile Include="Concrete\RszkVMmanager_201648.cs" />
+    <Compile Include="Concrete\Selector.cs" />
     <Compile Include="Concrete\SRmodel_201636.cs" />
     <Compile Include="Concrete\Subject.cs" />
     <Compile Include="Concrete\PreparingSubjectResult.cs" />

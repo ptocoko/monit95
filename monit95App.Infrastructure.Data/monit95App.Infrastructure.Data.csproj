@@ -56,7 +56,7 @@
     <Compile Include="PPrimaryKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolRepository.cs" />
-    <Compile Include="TResultRepository.cs" />
+    <Compile Include="ExerMarkRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

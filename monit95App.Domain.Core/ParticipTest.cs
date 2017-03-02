@@ -12,33 +12,24 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectParticip
+    public partial class ParticipTest
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProjectParticip()
+        public ParticipTest()
         {
-            this.ParticipTests = new HashSet<ParticipTest>();
-            this.TestResults = new HashSet<TestResult>();
+            this.ExerMarks = new HashSet<ExerMark>();
         }
     
         public int ProjectCode { get; set; }
+        public System.Guid TestId { get; set; }
+        public int TestNumber { get; set; }
+        public System.DateTime TestDate { get; set; }
         public string ParticipCode { get; set; }
-        public string SchoolId { get; set; }
-        public string Surname { get; set; }
-        public string Name { get; set; }
-        public string SecondName { get; set; }
-        public int NSubjectCode { get; set; }
-        public Nullable<int> CategId { get; set; }
-        public Nullable<int> Experience { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
+        public bool IsWas { get; set; }
     
-        public virtual Category Category { get; set; }
-        public virtual NsurSubject NsurSubject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ParticipTest> ParticipTests { get; set; }
-        public virtual School School { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestResult> TestResults { get; set; }
+        public virtual ICollection<ExerMark> ExerMarks { get; set; }
+        public virtual ProjectParticip ProjectParticip { get; set; }
+        public virtual ProjectTest ProjectTest { get; set; }
     }
 }

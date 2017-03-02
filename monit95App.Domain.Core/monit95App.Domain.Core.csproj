@@ -80,6 +80,15 @@
     </Compile>
     <Compile Include="CollectorSchoolInfo.cs" />
     <Compile Include="CreatorSchoolInfo.cs" />
+    <Compile Include="ExerElement.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExerMark.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExerMarkDTO.cs" />
+    <Compile Include="ParticipTestDTO.cs" />
+    <Compile Include="ProjectTestDTO.cs" />
     <Compile Include="Learner.cs" />
     <Compile Include="Monit95users.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
@@ -90,10 +99,16 @@
     <Compile Include="oge_16_res.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ParticipTest.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Project.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectParticip.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectTest.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Report.cs">
@@ -112,7 +127,10 @@
     <Compile Include="Test.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TestPlan.cs">
+    <Compile Include="TestElement.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TestExercis.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TestResult.cs">

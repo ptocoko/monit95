@@ -18,7 +18,8 @@ namespace Monit95App
         protected void Application_Start()
         {
             AutofacConfig.ConfigureContainer();
-            AreaRegistration.RegisterAllAreas();
+            AreaRegistration.RegisterAllAreas(); //Autofac
+
             // Manually installed WebAPI 2.2 after making an MVC project.
             GlobalConfiguration.Configure(WebApiConfig.Register); // NEW way
             

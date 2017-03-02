@@ -20,8 +20,7 @@
         }
     </style>
 </head>
-<body>
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-init="GetOpenTResultsForArea($rootScope.username)">
         <div class="panel-heading"><h4>Баллы за задания</h4></div>
         <div class="panel-body">
             <!--<p>Перенесити баллы за задания с бланков ответов</p>-->
@@ -33,12 +32,14 @@
                     <th>№ п/п</th>
                     <th>Код участника</th>
                     <th>Баллы за задания</th>
+                    <th></th>
                 </tr>                
             </thead>
             <tbody>
-                <tr ng-repeat="result in results">
-                    <td>{{result.participCode}}</td>
-                    <td>{{result.marks}}</td>
+                <tr ng-repeat="tresult in tresultsData">
+                    <td>{{$index + 1}}
+                    <td>{{tresult.PParticipCode}}</td>
+                    <td>{{tresult.Marks}}</td>
                     <td>
                         <button ng-click="change($index)" class="btn btn-sm btn-default">изменить</button>
                     </td>
@@ -46,4 +47,3 @@
             </tbody>
         </table>
     </div>
-</body>
