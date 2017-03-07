@@ -86,9 +86,6 @@
     <Compile Include="ExerMark.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExerMarkDTO.cs" />
-    <Compile Include="ParticipTestDTO.cs" />
-    <Compile Include="ProjectTestDTO.cs" />
     <Compile Include="Learner.cs" />
     <Compile Include="Monit95users.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>

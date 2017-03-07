@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailRuCloudApi", "Mail.Ru-.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.Data.Tests", "Monit95App.Infrastructure.Data.Tests\Monit95App.Infrastructure.Data.Tests.csproj", "{A8CD881C-FCF2-4326-B6BD-B9E587F28918}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.DTO", "Monit95App.Services.DTO\Monit95App.Services.DTO.csproj", "{6066434D-DC3D-49C1-8421-619F293C6929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,10 @@ Global
 		{A8CD881C-FCF2-4326-B6BD-B9E587F28918}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8CD881C-FCF2-4326-B6BD-B9E587F28918}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8CD881C-FCF2-4326-B6BD-B9E587F28918}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6066434D-DC3D-49C1-8421-619F293C6929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6066434D-DC3D-49C1-8421-619F293C6929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6066434D-DC3D-49C1-8421-619F293C6929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6066434D-DC3D-49C1-8421-619F293C6929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,5 +126,6 @@ Global
 		{29D3A46A-7CA6-4743-BA59-71BD94D8CF34} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
 		{75BF5EAC-81A8-4E00-A82E-0BCBD17AC50B} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
 		{A8CD881C-FCF2-4326-B6BD-B9E587F28918} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
+		{6066434D-DC3D-49C1-8421-619F293C6929} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
 	EndGlobalSection
 EndGlobal

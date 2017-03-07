@@ -6,6 +6,8 @@ using System.Linq;
 using Monit95App.Infrastructure.Data.Tests;
 using Moq;
 using Monit95App.Services.Work.Concrete;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Models;
 
 namespace Monit95App.Services.Work.Tests
 {
@@ -53,7 +55,7 @@ namespace Monit95App.Services.Work.Tests
             mockContext.Setup(x => x.ProjectTests).Returns(mockprojectTestSet.Object);
 
             //Act
-            var selector = new Selector(mockContext.Object);
+            var selector = new Selector(mockContext.Object, new ExerMarkDTOcreator());
             var result = selector.GetOpenProjectTestForArea(201661, areaCode:206, schoolId:null);
             var first = result.FirstOrDefault();
 

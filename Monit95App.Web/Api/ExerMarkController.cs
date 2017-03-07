@@ -2,6 +2,7 @@
 using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using Monit95App.Models.Abstarct;
+using Monit95App.Services.DTO;
 using Monit95App.Services.Work.Abstract;
 using Monit95App.Services.Work.Concrete;
 using System;
@@ -27,17 +28,12 @@ namespace Monit95App.Api
         public ExerMarkController()
         {
             _uow = new UnitOfWork(new cokoContext());
-            _selector = new Selector(new cokoContext());
+            _selector = new Selector(new cokoContext(), new ExerMarkDTOcreator());
         }     
 
-        public IEnumerable<ProjectTestDTO> GetOpenProjectTestForArea(int projectCode, int areaCode, string schoolId = null)
+        public IEnumerable<ProjectTestDTO> GetOpenProjectTest(int projectCode, int areaCode, string schoolId = null)
         {
           return _selector.GetOpenProjectTestForArea(projectCode, areaCode, schoolId);
-        }
-
-        public string GetTest()
-        {
-            return "Adam";
         }
     }
 }

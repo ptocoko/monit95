@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.Work.Abstract
+namespace Monit95App.Services.DTO
 {
-    public interface ISelector
+    public interface IExerMarkDTOcreator
     {
-        IEnumerable<ProjectTestDTO> GetOpenProjectTestForArea(int projectCode, int areaCode, string schoolId);
+        IEnumerable<ExerMarkDTO> FactoryMethod(ParticipTest participTest);
     }
 }

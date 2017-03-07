@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-    <div class="panel panel-default" ng-init="GetOpenTResultsForArea($rootScope.username)">
+    <div class="panel panel-default" ng-init="GetOpenProjectTest(201661, $rootScope.username)">
         <div class="panel-heading"><h4>Баллы за задания</h4></div>
         <div class="panel-body">
             <!--<p>Перенесити баллы за задания с бланков ответов</p>-->
@@ -35,15 +35,17 @@
                     <th></th>
                 </tr>                
             </thead>
-            <tbody>
-                <tr ng-repeat="tresult in tresultsData">
+            <tbody ng-repeat="i in tresultsData">                
+                <tr ng-repeat="i2 in i.ParticipTestDTOs">
                     <td>{{$index + 1}}
-                    <td>{{tresult.PParticipCode}}</td>
-                    <td>{{tresult.Marks}}</td>
+                    <td>{{i2.ParticipCode}}</td>
+                    <td>{{GetEx(i2.ExerMarkDTOs)}}</td>
                     <td>
                         <button ng-click="change($index)" class="btn btn-sm btn-default">изменить</button>
                     </td>
                 </tr>                
             </tbody>
         </table>
+
+
     </div>

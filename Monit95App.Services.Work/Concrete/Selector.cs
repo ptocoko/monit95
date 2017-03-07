@@ -6,15 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Monit95App.Services.Work.Abstract;
+using Monit95App.Domain.Interfaces;
+using System.Collections;
+using Monit95App.Services.DTO;
 
 namespace Monit95App.Services.Work.Concrete
 {
     public class Selector : ISelector
     {
         private cokoContext _db;
-        public Selector(cokoContext db)
+        private IExerMarkDTOcreator _exerMarkDTOscreator;
+        public Selector(cokoContext db, IExerMarkDTOcreator exerMarkDTOcreator)
         {
             _db = db;
+            _exerMarkDTOscreator = exerMarkDTOcreator;
         }
         //TODO: тут явно необхлдима жадная загрузка
         public IEnumerable<ProjectTestDTO> GetOpenProjectTestForArea(int projectCode, int areaCode, string schoolId)
@@ -37,7 +42,7 @@ namespace Monit95App.Services.Work.Concrete
             var projectTestDTOs = new List<ProjectTestDTO>();
             if (openProjectTests != null)
             {
-                projectTestDTOs = openProjectTests.Select(x => new ProjectTestDTO
+                projectTestDTOs = openProjectTests.ToList().Select(x => new ProjectTestDTO
                 {
                     ProjectCode = x.ProjectCode,
                     TestId = x.TestId,
@@ -48,12 +53,7 @@ namespace Monit95App.Services.Work.Concrete
                     ParticipTestDTOs = x.ParticipTests.Select(y => new ParticipTestDTO
                     {
                         ParticipCode = y.ParticipCode,
-                        ExerMarkDTOs = y.ExerMarks.Select(z => new ExerMarkDTO
-                        {
-                            ExerNumber = z.ExerNumber,
-                            ExerCurrentMar = z.Mark,
-                            ExerMaxMark = z.TestExercis.ExerMaxMark
-                        }) ?? y.ProjectTest.Test.TestExercises.Select(z => new ExerMarkDTO { ExerNumber = z.ExerNumber })
+                        ExerMarkDTOs = _exerMarkDTOscreator.FactoryMethod(y)
                     })
                 }).ToList();
             }

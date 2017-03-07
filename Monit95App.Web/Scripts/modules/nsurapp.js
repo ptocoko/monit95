@@ -1,5 +1,5 @@
 ﻿// Defining angularjs module
-var nsurApp = angular.module('nsurApp', ['ngRoute']);
+var nsurApp = angular.module('nsurApp', ['ngRoute', 'ui.bootstrap']);
 
 nsurApp.config(function ($routeProvider, $locationProvider) {
     $routeProvider    
