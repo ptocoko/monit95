@@ -35,5 +35,10 @@ namespace Monit95App.Api
         {
           return _selector.GetOpenProjectTestForArea(projectCode, areaCode, schoolId);
         }
+
+        public ParticipTestDTO PostParticipTest(ParticipTestDTO participTestDTO)
+        {
+            return new ParticipTestDTO();
+        }
     }
 }
