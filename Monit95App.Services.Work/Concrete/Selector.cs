@@ -22,7 +22,7 @@ namespace Monit95App.Services.Work.Concrete
             _exerMarkDTOscreator = exerMarkDTOcreator;
         }
         //TODO: тут явно необхлдима жадная загрузка
-        public IEnumerable<ProjectTestDTO> GetOpenProjectTestForArea(int projectCode, int areaCode, string schoolId)
+        public IEnumerable<ProjectTestDTO> GetOpenProjectTestDTOs(int projectCode, int areaCode, string schoolId)
         {
             var openProjectTests = _db.ProjectTests.Where(x => x.ProjectCode == projectCode && x.StatusCode == true);
 

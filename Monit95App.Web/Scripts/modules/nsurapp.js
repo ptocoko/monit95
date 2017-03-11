@@ -2,20 +2,24 @@
 var nsurApp = angular.module('nsurApp', ['ngRoute', 'ui.bootstrap']);
 
 nsurApp.config(function ($routeProvider, $locationProvider) {
-    $routeProvider    
+    $routeProvider
         .when('/participlist', {
-            templateUrl: 'Templates/participlist.html',            
+            templateUrl: 'Templates/participlist.html',
             controller: 'participCtrl'
         })
-       .when('/plan', {
-           templateUrl: '/Templates/plan.html',
-           controller: 'planCtrl'
-       })
-     .when('/marks', {
-         templateUrl: '/Templates/marks.html',
-         controller: 'marksCtrl'
-     })
-     
+        .when('/plan', {
+            templateUrl: '/Templates/plan.html',
+            controller: 'planCtrl'
+        })
+        .when('/marks', {
+            templateUrl: '/Templates/marks.html',
+            controller: 'marksCtrl'
+        })
+        .when('/marks_edit', {
+            templateUrl: '/Templates/marks_edit.html/:participTestDTO?',
+            controller: 'marks_editCtrl'
+        });
+
     $locationProvider.hashPrefix('');
 });
 

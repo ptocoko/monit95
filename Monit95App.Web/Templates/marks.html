@@ -20,32 +20,32 @@
         }
     </style>
 </head>
-    <div class="panel panel-default" ng-init="GetOpenProjectTest(201661, $rootScope.username)">
-        <div class="panel-heading"><h4>Баллы за задания</h4></div>
-        <div class="panel-body">
-            <!--<p>Перенесити баллы за задания с бланков ответов</p>-->
-            <p><i>Результаты участников (баллы по заданиям) можно будет заполнить на данной странице после проведения экзамена и проверке работ экспертами.</i></p>
-        </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>№ п/п</th>
-                    <th>Код участника</th>
-                    <th>Баллы за задания</th>
-                    <th></th>
-                </tr>                
-            </thead>
-            <tbody ng-repeat="i in tresultsData">                
-                <tr ng-repeat="i2 in i.ParticipTestDTOs">
-                    <td>{{$index + 1}}
-                    <td>{{i2.ParticipCode}}</td>
-                    <td>{{GetEx(i2.ExerMarkDTOs)}}</td>
-                    <td>
-                        <button ng-click="change($index)" class="btn btn-sm btn-default">изменить</button>
-                    </td>
-                </tr>                
-            </tbody>
-        </table>
-
-
+<div class="panel panel-default" ng-init="GetOpenProjectTestDTOs(201661, $rootScope.username)">
+    <div class="panel-heading"><h4>Баллы за задания</h4></div>
+    <div class="panel-body">
+        <!--<p>Перенесити баллы за задания с бланков ответов</p>-->
+        <p><i>Результаты участников (баллы по заданиям) можно будет заполнить на данной странице после проведения экзамена и проверке работ экспертами.</i></p>
     </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th hidden="hidden">pk</th>
+                <th>№ п/п</th>
+                <th>Код участника</th>
+                <th>Баллы за задания</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="i in openProjectTestDTOs">
+            <tr ng-repeat="i2 in i.ParticipTestDTOs">
+                <td>{{i.ProjectCode}}</td>
+                <td>{{$index + 1}}
+                <td>{{i2.ParticipCode}}</td>
+                <td>{{marks_toString(i2.ExerMarkDTOs)}}</td>
+                <td>
+                    <button ng-click="change($index)" class="btn btn-sm btn-default">изменить</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

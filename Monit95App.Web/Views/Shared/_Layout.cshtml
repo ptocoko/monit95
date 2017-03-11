@@ -155,8 +155,9 @@
             <p>&copy; 2015-@DateTime.Now.Year, Мониторинг образования региона</p>
         </footer>
     </div>         
-    <script type="text/javascript">
 
+    @*снег*@
+    @*<script type="text/javascript">
     imageDir = "http://mvcreative.ru/example/6/2/snow/";
     sflakesMax = 65;
     sflakesMaxActive = 65;
@@ -171,7 +172,8 @@
     sflakeWidth = 15;
     sflakeHeight = 15;
     </script>
-    <script type="text/javascript" src="http://mvcreative.ru/example/6/2/snow.js"></script>
+    <script type="text/javascript" src="http://mvcreative.ru/example/6/2/snow.js">
+    </script>*@
            
     @RenderSection("scripts", required: false) @*точно тут*@
 </body>

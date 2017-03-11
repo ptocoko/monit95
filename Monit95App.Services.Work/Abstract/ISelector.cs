@@ -10,6 +10,6 @@ namespace Monit95App.Services.Work.Abstract
 {
     public interface ISelector
     {
-        IEnumerable<ProjectTestDTO> GetOpenProjectTestForArea(int projectCode, int areaCode, string schoolId);
+        IEnumerable<ProjectTestDTO> GetOpenProjectTestDTOs(int projectCode, int areaCode, string schoolId);
     }
 }

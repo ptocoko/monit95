@@ -23,7 +23,7 @@ namespace Monit95App.Services.DTO
                     {
                         ExerNumber = exerMark.ExerNumber,
                         ExerMaxMark = exerMark.TestExercis.ExerMaxMark,
-                        ExerCurrentMar = exerMark.Mark
+                        ExerCurrentMark = exerMark.Mark
                     });
                 }                
             }
@@ -35,7 +35,7 @@ namespace Monit95App.Services.DTO
                     {
                         ExerNumber = testExercise.ExerNumber,
                         ExerMaxMark = testExercise.ExerMaxMark,
-                        ExerCurrentMar = -1
+                        ExerCurrentMark = -1
                     });
                 }
             }

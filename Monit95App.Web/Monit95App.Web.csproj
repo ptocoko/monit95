@@ -344,6 +344,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\controllers\marksctrl.js" />
+    <Content Include="Scripts\controllers\marks_editctrl.js" />
     <Content Include="Scripts\controllers\planctrl.js" />
     <Content Include="Scripts\controllers\tabctrl.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />

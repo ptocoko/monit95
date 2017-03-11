@@ -31,13 +31,14 @@ namespace Monit95App.Api
             _selector = new Selector(new cokoContext(), new ExerMarkDTOcreator());
         }     
 
-        public IEnumerable<ProjectTestDTO> GetOpenProjectTest(int projectCode, int areaCode, string schoolId = null)
+        public IEnumerable<ProjectTestDTO> GetOpenProjectTestDTOs(int projectCode, int areaCode, string schoolId = null)
         {
-          return _selector.GetOpenProjectTestForArea(projectCode, areaCode, schoolId);
+          return _selector.GetOpenProjectTestDTOs(projectCode, areaCode, schoolId);
         }
 
         public ParticipTestDTO PostParticipTest(ParticipTestDTO participTestDTO)
         {
+            //...
             return new ParticipTestDTO();
         }
     }

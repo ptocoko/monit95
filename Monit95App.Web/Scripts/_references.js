@@ -8,6 +8,7 @@
 /// <reference path="angular-ui/ui-bootstrap.min.js" />
 /// <reference path="angular-ui/ui-bootstrap-tpls.min.js" />
 /// <reference path="bootstrap.min.js" />
+/// <reference path="controllers/marks_editctrl.js" />
 /// <reference path="controllers/marksctrl.js" />
 /// <reference path="controllers/participctrl.js" />
 /// <reference path="controllers/planctrl.js" />

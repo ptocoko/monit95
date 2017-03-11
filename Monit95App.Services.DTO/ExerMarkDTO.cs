@@ -10,6 +10,6 @@ namespace Monit95App.Services.DTO
     {
         public int ExerNumber { get; set; }
         public int ExerMaxMark { get; set; }
-        public int ExerCurrentMar { get; set; }
+        public int ExerCurrentMark { get; set; }
     }
 }
