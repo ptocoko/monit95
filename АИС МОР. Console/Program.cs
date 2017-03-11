@@ -20,9 +20,9 @@ namespace Monit95App.ConsoleApp
         public static IEnumerable<IGrouping<string, TestResult>> GetResults(int pc, Guid ti, DateTime td)
         {
             cokoContext cokoDb = new cokoContext();
-            var allResults = cokoDb.TestResults;
+            var allResults = cokoDb.TestResults.ToList();
             var result = allResults.Where(x => x.ProjectCode == pc && x.TestId == ti)
-                                           .GroupBy(x => x.ParticipCode).ToList();
+                                           .GroupBy(x => x.ParticipCode);
             var results = new List<IGrouping<string, TestResult>>();
             foreach (var g in result)
             {
