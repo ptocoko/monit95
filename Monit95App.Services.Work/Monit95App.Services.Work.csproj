@@ -79,6 +79,7 @@
     <Compile Include="Abstract\LRmodel.cs" />
     <Compile Include="Abstract\ITypeReport.cs" />
     <Compile Include="Concrete\ExerciseExtend.cs" />
+    <Compile Include="Concrete\ExerMarkService.cs" />
     <Compile Include="Concrete\ProtectReportMeta.cs" />
     <Compile Include="Concrete\PublicReportMeta.cs" />
     <Compile Include="Concrete\SchoolReportFileNameOnline.cs" />

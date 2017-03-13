@@ -64,7 +64,7 @@ namespace Monit95App.ConsoleApp
             {
                 sheet = excerInitBook.Sheets["data"];                
                 //Заполняем реквизиты
-                var resultTest1 = particip.Where(x => x.TestNumber == 1).Single();                               
+                var resultTest1 = particip.First();                               
                 sheet.Range["B10"].Value2 = resultTest1.ParticipCode;
                 sheet.Range["B19"].Value2 = resultTest1.TestDate;
                 string fullName = $"{resultTest1.ProjectParticip.Surname} {resultTest1.ProjectParticip.Name}";
@@ -78,7 +78,7 @@ namespace Monit95App.ConsoleApp
                 int elementRowNumber = 5;
                 int primaryMarkRowNumber = 12;
                 int grade5RowNumber = 15;
-                string[] columns = new string[] { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P" };
+                string[] columns = new string[] { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S" };
                 int index = 0;
                 foreach (var r in particip.OrderBy(x => x.TestNumber))
                 {                                        
@@ -96,9 +96,10 @@ namespace Monit95App.ConsoleApp
                         sheet.Range[columns[index] + elementRowNumber].Value2 = Convert.ToDouble(value);
                         index++;
                     }
-                    sheet.Range["B" + partRowNumber].Value2 = r;
-                    sheet.Range["B" + primaryMarkRowNumber].Value2 = r.PrimaryMark;
-                    sheet.Range["B" + grade5RowNumber].Value2 = r.Mark5;
+                    //sheet.Range["B" + partRowNumber.ToString()].Value2 = r;                    
+                    sheet.Range["B" + primaryMarkRowNumber.ToString()].Value2 = r.PrimaryMark;
+                    sheet.Range["B" + grade5RowNumber.ToString()].Value2 = r.Mark5;
+                    sheet.Range["B11"].Value2 = r.Marks;
 
                     partRowNumber++;
                     elementRowNumber++;
@@ -114,61 +115,7 @@ namespace Monit95App.ConsoleApp
                 sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{resultTest1.ParticipCode}.pdf"));
                 Console.WriteLine(++countProcessedResults);
             }
-            excerInitBook.Close();
-
-
-
-            //Карты для 201661, один результат,
-            //Excel.Workbook excerInitBook = app.Workbooks.Open($@"d:\Dropbox\Работы\Карты\Карты учителя.xlsx");
-            //Excel.Worksheet sheet;
-            //int currentProjectCode = 201662;
-            //var currentTestGuid = new Guid("5EB7B3B7-A6E3-4725-A242-633D58E28B93");
-            //var currentTestDate = new DateTime(2017, 01, 26);
-            //string sheetName = "5EB7B3B7";
-            //var results = Program.GetResults1(currentProjectCode, currentTestGuid, currentTestDate).ToList();
-
-            //int count = 0;
-            //foreach (var result in results)
-            //{
-            //    sheet = excerInitBook.Sheets["data"];
-
-            //    sheet.Range["B8"].Value2 = result.ParticipCode;
-            //    sheet.Range["B15"].Value2 = result.TestDate;
-
-            //    string fullName = $"{result.ProjectParticip.Surname} {result.ProjectParticip.Name}";
-            //    if (!string.IsNullOrEmpty(result.ProjectParticip.SecondName))
-            //    {
-            //        fullName += $" {result.ProjectParticip.SecondName}";
-            //    }
-            //    sheet.Range["B14"].Value2 = fullName;
-
-            //    sheet.Range["B9"].Value2 = result.Marks;
-
-            //    sheet.Range["B10"].Value2 = result.PrimaryMark;
-
-            //    sheet.Range["B12"].Value2 = result.Mark5;
-
-            //    sheet.Range["B2"].Value2 = Convert.ToDouble(result.Parts.Replace('.', ','));
-
-            //    string[] columns = new string[] { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S" };
-            //    int index = 0;
-            //    foreach (var value in result.Elements.Split(';'))
-            //    {
-            //        sheet.Range[columns[index] + "4"].Value2 = Convert.ToDouble(value);
-            //        index++;
-            //    }
-
-            //    string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\Участники");
-            //    if (!System.IO.Directory.Exists(reportFolder))
-            //        System.IO.Directory.CreateDirectory(reportFolder);
-            //    sheet = excerInitBook.Sheets[sheetName]; //
-            //    sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{result.ParticipCode}.pdf"));
-            //    Console.WriteLine(count++);
-            //}
-            //excerInitBook.Close(0);
-            //excerInitBook = null;
-
-
+            excerInitBook.Close();            
 
             //Создание РСЗК для «Я сдам ОГЭ!», 2016 год, предметы по выбору
             //int subjectCode = 6; //\\

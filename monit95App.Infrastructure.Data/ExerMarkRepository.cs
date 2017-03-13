@@ -47,7 +47,13 @@ namespace Monit95App.Infrastructure.Data
 
         public void Update(ExerMark item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                throw new ArgumentNullException("item");
+            }
+
+            var exerMark = _db.ExerMarks.Find(item);
+            exerMark.Mark = item.Mark;
         }
     }
 }
