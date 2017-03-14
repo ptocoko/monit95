@@ -22,7 +22,9 @@ namespace Monit95App.ConsoleApp
             cokoContext cokoDb = new cokoContext();
             var allResults = cokoDb.TestResults.ToList();
             var result = allResults.Where(x => x.ProjectCode == pc && x.TestId == ti)
-                                           .GroupBy(x => x.ParticipCode);
+                                   .GroupBy(x => x.ParticipCode)
+                                   .Any(x)
+
             var results = new List<IGrouping<string, TestResult>>();
             foreach (var g in result)
             {
@@ -57,7 +59,7 @@ namespace Monit95App.ConsoleApp
             int currentProjectCode = 201661;
             var currentTestGuid = new Guid("595A73D4-F446-4916-A8C5-0E38BAB6A069"); //
             var currentTestDate = new DateTime(2017, 02, 27); //
-            string startSheetName = "595A73D4-"; //
+            string startSheetName = currentTestGuid.ToString().Substring(currentTestGuid.ToString().IndexOf('-'), 9);
             var results = Program.GetResults(currentProjectCode, currentTestGuid, currentTestDate).ToList();
             int countProcessedResults = 0;            
             foreach (var particip in results)

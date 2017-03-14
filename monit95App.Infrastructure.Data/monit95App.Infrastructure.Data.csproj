@@ -54,6 +54,7 @@
     <Compile Include="PParticipRepository.cs" />
     <Compile Include="PParticipCodeCreator.cs" />
     <Compile Include="PPrimaryKey.cs" />
+    <Compile Include="ParticipTestRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolRepository.cs" />
     <Compile Include="ExerMarkRepository.cs" />

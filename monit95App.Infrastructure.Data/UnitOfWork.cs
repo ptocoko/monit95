@@ -12,9 +12,19 @@ namespace Monit95App.Infrastructure.Data
     {
         private cokoContext db;
         private SchoolRepository schoolRepository;
-        private PParticipRepository pparticipRepository;        
+        private PParticipRepository pparticipRepository;
+        private ParticipTestRepository participTestRepository;
                        
-        //
+        
+        public ParticipTestRepository ParticipTests
+        {
+            get
+            {
+                if (participTestRepository == null)
+                    participTestRepository = new ParticipTestRepository(db);
+                return participTestRepository;
+            }
+        }
 
         public UnitOfWork(cokoContext db)
         {

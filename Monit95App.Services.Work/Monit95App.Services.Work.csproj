@@ -74,12 +74,14 @@
     <Compile Include="Abstract\IExerciseExtend.cs" />
     <Compile Include="Abstract\IExerciseBase.cs" />
     <Compile Include="Abstract\IExportReportToXLSX.cs" />
+    <Compile Include="Abstract\IParticipTestService.cs" />
     <Compile Include="Abstract\ISchoolReportFileNameSource.cs" />
-    <Compile Include="Abstract\ISelector.cs" />
+    <Compile Include="Abstract\IProjectTestService.cs" />
     <Compile Include="Abstract\LRmodel.cs" />
     <Compile Include="Abstract\ITypeReport.cs" />
     <Compile Include="Concrete\ExerciseExtend.cs" />
     <Compile Include="Concrete\ExerMarkService.cs" />
+    <Compile Include="Concrete\ParticipTestService.cs" />
     <Compile Include="Concrete\ProtectReportMeta.cs" />
     <Compile Include="Concrete\PublicReportMeta.cs" />
     <Compile Include="Concrete\SchoolReportFileNameOnline.cs" />
@@ -93,16 +95,16 @@
     <Compile Include="Concrete\PrivateReportMeta.cs" />
     <Compile Include="Concrete\RszkViewModelExporter.cs" />
     <Compile Include="Concrete\ReportModelManager_201636.cs" />
-    <Compile Include="Concrete\ExerciseResult.cs" />
     <Compile Include="Concrete\ReportMeta.cs" />
     <Compile Include="Concrete\ReportMetaHandler.cs" />
     <Compile Include="Concrete\RszkViewModel.cs" />
     <Compile Include="Abstract\SRmodel.cs" />
-    <Compile Include="Concrete\Selector.cs" />
+    <Compile Include="Concrete\ProjectTestService.cs" />
     <Compile Include="Concrete\SRmodel_201636.cs" />
     <Compile Include="Concrete\Subject.cs" />
     <Compile Include="Concrete\PreparingSubjectResult.cs" />
     <Compile Include="Concrete\SubjectResult.cs" />
+    <Compile Include="Concrete\TestResultService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

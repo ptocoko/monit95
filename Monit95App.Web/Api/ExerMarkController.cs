@@ -16,30 +16,50 @@ using System.Web.Http;
 
 namespace Monit95App.Api
 {
+    [Authorize]
     public class ExerMarkController : ApiController
     {
         private UnitOfWork _uow;
-        private ISelector _selector;  
-        public ExerMarkController(cokoContext db, ISelector selector)
+        private IProjectTestService _projectTestService;
+        private IParticipTestService _participTestService;
+        public ExerMarkController(cokoContext db, IProjectTestService projectTestService, IParticipTestService participTestService)
         {
             _uow = new UnitOfWork(db);
-            _selector = selector;
+            _projectTestService = projectTestService;
+            _participTestService = participTestService;
         }
+        
         public ExerMarkController()
         {
             _uow = new UnitOfWork(new cokoContext());
-            _selector = new Selector(new cokoContext(), new ExerMarkDTOcreator());
+            _projectTestService = new ProjectTestService(new cokoContext(), new ExerMarkDTOcreator(), new ParticipTestService(new cokoContext(), new ExerMarkDTOcreator()));
         }     
 
         public IEnumerable<ProjectTestDTO> GetOpenProjectTestDTOs(int projectCode, int areaCode, string schoolId = null)
         {
-          return _selector.GetOpenProjectTestDTOs(projectCode, areaCode, schoolId);
+          return _projectTestService.GetOpenProjectTestDTOs(projectCode, areaCode, schoolId);
         }
+
 
         public ParticipTestDTO PostParticipTest(ParticipTestDTO participTestDTO)
         {
             //...
             return new ParticipTestDTO();
+        }
+        
+        public ParticipTestDTO GetParticipTestDto(string primaryKeyStr)
+        {
+            ParticipTest participTest = _uow.ParticipTests.Get(primaryKeyStr);
+            if(participTest != null)
+            {
+                var dto = _participTestService.GetDto(participTest);
+                return dto;
+            }
+            else
+            {
+                throw new NullReferenceException("participTest = _uow.ParticipTests.Get(primaryKeyStr)");
+            }
+            
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Monit95App.Controllers
 {
+    [Authorize]
     public class NsurController : Controller
     {
         // GET: Nsur

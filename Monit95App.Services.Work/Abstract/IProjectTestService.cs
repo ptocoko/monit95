@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.Work.Abstract
 {
-    public interface ISelector
+    public interface IProjectTestService
     {
         IEnumerable<ProjectTestDTO> GetOpenProjectTestDTOs(int projectCode, int areaCode, string schoolId);
     }

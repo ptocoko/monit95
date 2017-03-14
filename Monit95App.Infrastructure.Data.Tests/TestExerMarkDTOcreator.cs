@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core;
 using Monit95App.Models;
 using System.Linq;
+using Monit95App.Services.DTO;
 
 namespace Monit95App.Infrastructure.Data.Tests
 {

@@ -8,6 +8,7 @@ using Moq;
 using Monit95App.Services.Work.Concrete;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Models;
+using Monit95App.Services.DTO;
 
 namespace Monit95App.Services.Work.Tests
 {
@@ -55,8 +56,8 @@ namespace Monit95App.Services.Work.Tests
             mockContext.Setup(x => x.ProjectTests).Returns(mockprojectTestSet.Object);
 
             //Act
-            var selector = new Selector(mockContext.Object, new ExerMarkDTOcreator());
-            var result = selector.GetOpenProjectTestForArea(201661, areaCode:206, schoolId:null);
+            var selector = new ProjectTestService(mockContext.Object, new ExerMarkDTOcreator(), new ParticipTestService(mockContext.Object, new ExerMarkDTOcreator()));
+            var result = selector.GetOpenProjectTestDTOs(201661, areaCode:206, schoolId:null);
             var first = result.FirstOrDefault();
 
             //Assert
@@ -64,7 +65,7 @@ namespace Monit95App.Services.Work.Tests
             Assert.AreEqual("Орфография", first.TestName);
             Assert.AreEqual("2016-206-001", first.ParticipTestDTOs.Single().ParticipCode);
             Assert.AreEqual(1, first.ParticipTestDTOs.Single().ExerMarkDTOs.Single().ExerMaxMark);
-            Assert.AreEqual(0, first.ParticipTestDTOs.Single().ExerMarkDTOs.Single().ExerCurrentMar);
+            Assert.AreEqual(0, first.ParticipTestDTOs.Single().ExerMarkDTOs.Single().ExerCurrentMark);
         }
     }
 }

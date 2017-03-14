@@ -88,6 +88,10 @@
       <Project>{a8cd881c-fcf2-4326-b6bd-b9e587f28918}</Project>
       <Name>Monit95App.Infrastructure.Data.Tests</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
+      <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>
+      <Name>Monit95App.Services.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.Work\Monit95App.Services.Work.csproj">
       <Project>{7dec6e41-341f-4308-9d88-2f838187d3ad}</Project>
       <Name>Monit95App.Services.Work</Name>

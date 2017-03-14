@@ -12,16 +12,16 @@ using Monit95App.Services.DTO;
 
 namespace Monit95App.Services.Work.Concrete
 {
-    public class Selector : ISelector
+    public class ProjectTestService : IProjectTestService
     {
         private cokoContext _db;
-        private IExerMarkDTOcreator _exerMarkDTOscreator;
-        public Selector(cokoContext db, IExerMarkDTOcreator exerMarkDTOcreator)
+        private IParticipTestService _participTestService;
+        public ProjectTestService(cokoContext db, IExerMarkDTOcreator exerMarkDTOcreator, IParticipTestService participTestService)
         {
             _db = db;
-            _exerMarkDTOscreator = exerMarkDTOcreator;
+            _participTestService = participTestService;
         }
-        //TODO: тут явно необхлдима жадная загрузка
+        //TODO: тут явно необходима жадная загрузка
         public IEnumerable<ProjectTestDTO> GetOpenProjectTestDTOs(int projectCode, int areaCode, string schoolId)
         {
             var openProjectTests = _db.ProjectTests.Where(x => x.ProjectCode == projectCode && x.StatusCode == true);
@@ -50,11 +50,8 @@ namespace Monit95App.Services.Work.Concrete
                     TestName = x.Test.Name,
                     TestNumber = x.TestNumber,
                     TestDate = x.TestDate,
-                    ParticipTestDTOs = x.ParticipTests.Select(y => new ParticipTestDTO
-                    {
-                        ParticipCode = y.ParticipCode,
-                        ExerMarkDTOs = _exerMarkDTOscreator.FactoryMethod(y)
-                    })
+                    ParticipTestDTOs = x.ParticipTests.Select(y => _participTestService.GetDto(y))                    
+                
                 }).ToList();
             }
 

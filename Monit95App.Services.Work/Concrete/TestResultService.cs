@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.Work.Concrete
 {
-    public class ExerMarkService
+    public class TestResultService
     {
-        public void CreateOrUpdate_ExerMark()
-        {
-
-        }
     }
 }
