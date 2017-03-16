@@ -1,5 +1,13 @@
 ﻿<script>    
     var ParticipApp = angular.module('ParticipApp', []);
+    ParticipApp.factory('ParticipService', function ($http) {
+        var ParticipService = {};
+        ParticipService.GetAllParticips = function (subjectCode) {
+            return $http.get('/Home/GetAllParticips?subjectCode=' + subjectCode);
+        };
+        return ParticipService;
+    });
+
     ParticipApp.controller('ParticipController', function ($scope, ParticipService) {
         GetAllParticips();
         $scope.download01 = function download01(participId, schoolId) {
@@ -30,13 +38,7 @@
         }
     });
 
-    ParticipApp.factory('ParticipService', ['$http', function ($http) {
-        var ParticipService = {};
-        ParticipService.GetAllParticips = function (subjectCode) {
-            return $http.get('/Home/GetAllParticips?subjectCode=' + subjectCode);
-        };
-        return ParticipService;
-    }]);
+   
 </script>
 <br />
 <div class="well-sm">
