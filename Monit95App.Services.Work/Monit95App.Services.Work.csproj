@@ -72,7 +72,7 @@
     <Compile Include="Abstract\IMarks.cs" />
     <Compile Include="Abstract\ICreateReportFromDB.cs" />
     <Compile Include="Abstract\IExportReportToXLSX.cs" />
-    <Compile Include="Abstract\IParticipTestService.cs" />
+    <Compile Include="Abstract\IParticipTestService.cs.cs" />
     <Compile Include="Abstract\ISchoolReportFileNameSource.cs" />
     <Compile Include="Abstract\IProjectTestService.cs" />
     <Compile Include="Abstract\LRmodel.cs" />
