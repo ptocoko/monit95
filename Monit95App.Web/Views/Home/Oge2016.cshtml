@@ -1,6 +1,7 @@
 ﻿<script>    
     var ParticipApp = angular.module('ParticipApp', []);
-    ParticipApp.controller('ParticipController', function ($scope, ParticipService) {
+
+    ParticipApp.controller('ParticipController', function ($scope, $http) {
         GetAllParticips();
         $scope.download01 = function download01(participId, schoolId) {
             var win = window.open('https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + schoolId + '/201656/' + participId + '.pdf', '_blank');
@@ -10,33 +11,21 @@
             var win = window.open('https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + schoolId + '/201657/' + participId + '.pdf', '_blank');
             win.focus();
         }
+
         function GetAllParticips() {
-            ParticipService.GetAllParticips(1)
-                .success(function (data) {
-                    $scope.particips01 = data;
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to load customer data: ' + error.message;
-                    console.log($scope.status);
+            console.log('GetAllParticips called');
+            $http.get('/Home/GetAllParticips?subjectCode=1')
+                .then(function (response) {
+                    $scope.particips01 = response.data;
                 });
-            ParticipService.GetAllParticips(2)
-                .success(function (data) {
-                    $scope.particips02 = data;
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to load customer data: ' + error.message;
-                    console.log($scope.status);
-                });
+            $http.get('/Home/GetAllParticips?subjectCode=2')
+                .then(function (response) {
+                    $scope.particips02 = response.data;
+                });          
         }
     });
 
-    ParticipApp.factory('ParticipService', ['$http', function ($http) {
-        var ParticipService = {};
-        ParticipService.GetAllParticips = function (subjectCode) {
-            return $http.get('/Home/GetAllParticips?subjectCode=' + subjectCode);
-        };
-        return ParticipService;
-    }]);
+   
 </script>
 <br />
 <div class="well-sm">
