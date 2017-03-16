@@ -3,6 +3,8 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
     $scope.areaCode = null;
     $rootScope.pparticipCount = null;
     $scope.username = null;
+    $scope.participsData = null;
+    $scope.schoolsData = null;
 
     $scope.categories = [
       { id: 0, name: 'Без категории' },
@@ -14,11 +16,7 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
       { code: 2, name: 'Математика' },   
       { code: 7, name: 'История' }
     ]    
-
-    $scope.participsData = null;
-    $scope.schoolsData = null;
-    $scope.username = null;    
-
+        
     $scope.i = function (areaCode) {
         $scope.username = areaCode;
         console.log(areaCode)        

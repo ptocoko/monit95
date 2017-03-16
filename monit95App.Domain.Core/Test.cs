@@ -17,7 +17,9 @@ namespace Monit95App.Domain.Core
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Test()
         {
-            this.TestPlans = new HashSet<TestPlan>();
+            this.ProjectTests = new HashSet<ProjectTest>();
+            this.TestElements = new HashSet<TestElement>();
+            this.TestExercises = new HashSet<TestExercis>();
         }
     
         public System.Guid Id { get; set; }
@@ -26,6 +28,10 @@ namespace Monit95App.Domain.Core
         public string FullName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestPlan> TestPlans { get; set; }
+        public virtual ICollection<ProjectTest> ProjectTests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestElement> TestElements { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestExercis> TestExercises { get; set; }
     }
 }

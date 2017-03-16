@@ -62,7 +62,6 @@ namespace Monit95App.Controllers
             return Json(collectorSchools, JsonRequestBehavior.AllowGet);
         }
 
-
         public ActionResult Oge2016()
         {
             return View();

@@ -201,7 +201,7 @@
   <ItemGroup>
     <Compile Include="Api\PParticipController.cs" />
     <Compile Include="Api\SchoolController.cs" />
-    <Compile Include="Api\TResultController.cs" />
+    <Compile Include="Api\ExerMarkController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -220,7 +220,6 @@
     </Compile>
     <Compile Include="Models\Abstarct\IFolderSchoolIds.cs" />
     <Compile Include="Models\Abstarct\IPParticipViewer.cs" />
-    <Compile Include="Models\Abstarct\ITResultDTOcreator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppCache.cs" />
     <Compile Include="Models\CollectorHandler.cs" />
@@ -231,8 +230,6 @@
     <Compile Include="Models\PParticipViewer.cs" />
     <Compile Include="Models\PParticipViewModel.cs" />
     <Compile Include="Models\ReportMetaManager.cs" />
-    <Compile Include="Models\TResultDTOcreator.cs" />
-    <Compile Include="Models\TResultDTO.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
     <Compile Include="ViewModels\Home\LearnerVM.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />
@@ -325,32 +322,29 @@
     <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\188.0.173.242.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-touch.js" />
+    <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-touch.min.js.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\angularmodules.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-colorpicker.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-countries.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-currencies.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-datepicker.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-fonts.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-fontsizes.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-googlefonts.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-languages.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-number.js" />
-    <Content Include="Scripts\bootstrap-form-helper\bootstrap-formhelpers-phone.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\controllers\marks.js" />
+    <Content Include="Scripts\controllers\marksctrl.js" />
+    <Content Include="Scripts\controllers\marks_editctrl.js" />
     <Content Include="Scripts\controllers\planctrl.js" />
     <Content Include="Scripts\controllers\tabctrl.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -373,13 +367,14 @@
     <Content Include="Scripts\controllers\participctrl.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\services\marksservice.js" />
+    <Content Include="Scripts\services\tresultservice.js" />
     <Content Include="Scripts\services\pparticipservice.js" />
     <Content Include="Scripts\services\schoolservice.js" />
     <Content Include="Scripts\smart-table.js" />
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Templates\marks.html" />
+    <Content Include="Templates\marks_edit.html" />
     <Content Include="Templates\participlist.html" />
     <Content Include="Templates\plan.html" />
     <Content Include="Web.config">
@@ -467,6 +462,10 @@
     <ProjectReference Include="..\monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
       <Project>{f3a784e6-8723-4628-9677-2374bed42492}</Project>
       <Name>Monit95App.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
+      <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>
+      <Name>Monit95App.Services.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.Work\Monit95App.Services.Work.csproj">
       <Project>{7dec6e41-341f-4308-9d88-2f838187d3ad}</Project>

@@ -13,20 +13,18 @@ namespace Monit95App.Infrastructure.Data
         private cokoContext db;
         private SchoolRepository schoolRepository;
         private PParticipRepository pparticipRepository;
-        private TResultRepository tresultRepository;
-
-        //
-        private IRepository<TestResult> p;
-        public TResultRepository TResults2
+        private ParticipTestRepository participTestRepository;
+                       
+        
+        public ParticipTestRepository ParticipTests
         {
             get
             {
-                if (p == null)
-                    p = new TResultRepository(db);
-                return tresultRepository;
+                if (participTestRepository == null)
+                    participTestRepository = new ParticipTestRepository(db);
+                return participTestRepository;
             }
         }
-        //
 
         public UnitOfWork(cokoContext db)
         {
@@ -49,16 +47,6 @@ namespace Monit95App.Infrastructure.Data
                 if (pparticipRepository == null)
                     pparticipRepository = new PParticipRepository(db);
                 return pparticipRepository;
-            }
-        }
-
-        public TResultRepository TResults
-        {
-            get
-            {
-                if (tresultRepository == null)
-                    tresultRepository = new TResultRepository(db);
-                return tresultRepository;
             }
         }
 

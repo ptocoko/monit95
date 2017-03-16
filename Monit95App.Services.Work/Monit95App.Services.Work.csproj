@@ -70,16 +70,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IMarks.cs" />
-    <Compile Include="Abstract\RszkVMmanager.cs" />
     <Compile Include="Abstract\ICreateReportFromDB.cs" />
     <Compile Include="Abstract\IExerciseExtend.cs" />
     <Compile Include="Abstract\IExerciseBase.cs" />
     <Compile Include="Abstract\IExportReportToXLSX.cs" />
     <Compile Include="Abstract\ISchoolReportFileNameSource.cs" />
+    <Compile Include="Abstract\ISelector.cs" />
     <Compile Include="Abstract\LRmodel.cs" />
     <Compile Include="Abstract\ITypeReport.cs" />
-    <Compile Include="Concrete\ExerciseManager.cs" />
-    <Compile Include="Concrete\ExercisesFactory.cs" />
     <Compile Include="Concrete\ExerciseExtend.cs" />
     <Compile Include="Concrete\ProtectReportMeta.cs" />
     <Compile Include="Concrete\PublicReportMeta.cs" />
@@ -87,7 +85,6 @@
     <Compile Include="Concrete\SchoolReportFileNameOffline.cs" />
     <Compile Include="Concrete\LearnerOnlineReport.cs" />
     <Compile Include="Concrete\LRmodel_201636.cs" />
-    <Compile Include="Concrete\ExerciseBase.cs" />
     <Compile Include="Concrete\CreatorLearnerReport.cs" />
     <Compile Include="Concrete\LRmodel_201637.cs" />
     <Compile Include="Concrete\MarksFormat1.cs" />
@@ -100,11 +97,12 @@
     <Compile Include="Concrete\ReportMetaHandler.cs" />
     <Compile Include="Concrete\RszkViewModel.cs" />
     <Compile Include="Abstract\SRmodel.cs" />
-    <Compile Include="Concrete\RszkVMmanager_201648.cs" />
+    <Compile Include="Concrete\Selector.cs" />
     <Compile Include="Concrete\SRmodel_201636.cs" />
     <Compile Include="Concrete\Subject.cs" />
     <Compile Include="Concrete\PreparingSubjectResult.cs" />
     <Compile Include="Concrete\SubjectResult.cs" />
+    <Compile Include="Concrete\TestResultService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +154,10 @@
     <ProjectReference Include="..\monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
       <Project>{f3a784e6-8723-4628-9677-2374bed42492}</Project>
       <Name>Monit95App.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
+      <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>
+      <Name>Monit95App.Services.DTO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
