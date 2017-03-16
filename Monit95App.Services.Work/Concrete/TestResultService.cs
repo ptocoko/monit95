@@ -20,7 +20,7 @@ namespace Monit95App.Services.Work.Concrete
         {
             var result = _db.TestResults.Where(x => x.ProjectCode == projectCode && x.TestId == testId) //все результаты участников по данному эказамену (testId)
                                         .GroupBy(x => x.ParticipCode )
-                                        .Where(x => !x.Any(o => o.TestDate == testDate)) //должен быть результат на указанную дату testDate
+                                        .Where(x => x.Any(o => o.TestDate == testDate)) //должен быть результат на указанную дату testDate
                                         .ToList();            
             return result;
         }
