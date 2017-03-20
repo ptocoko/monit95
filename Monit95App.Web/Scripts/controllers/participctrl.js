@@ -1,6 +1,5 @@
 ﻿// Defining angularjs Controller and injecting ParticipsService
-nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $location, ParticipService, SchoolService) {
-    $scope.areaCode = null;
+nsurApp.controller('participCtrl', function ($scope, $filter, $rootScope, $http, $location, ParticipService, SchoolService) {
     $rootScope.pparticipCount = null;
     $scope.username = null;
     $scope.participsData = null;
@@ -17,10 +16,9 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
       { code: 7, name: 'История' }
     ]    
         
-    $scope.i = function (areaCode) {
-        $scope.username = areaCode;
-        console.log(areaCode)        
-        ParticipService.GetParticips(areaCode).then(function (d) {
+    $scope.i = function (projectCode, areaCode) {
+        $scope.username = areaCode;          
+        ParticipService.GetParticips(projectCode, areaCode).then(function (d) {
             $scope.participsData = d.data; // Success
             $rootScope.pparticipCount = d.data.length;
 
@@ -35,14 +33,7 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
         });
     }
 
-    //Calculate Total of Price After Initialization
-    //$scope.pparticipcount = function () {
-    //    var pparticipcount = 0;
-    //    angular.forEach($scope.participsData, function (item) {
-    //        pparticipcount += item.Price;
-    //    })
-    //    return pparticipcount;
-    //}
+    
 
     $scope.Particip = {
         ParticipCode: '',
@@ -77,7 +68,6 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
                 data: Particip
             }).then(function successCallback(response) {
                 $scope.participsData.push(response.data); //TODO: тут необходим рефакторинг
-                $scope.i($scope.username);
 
                 $scope.clear();                
             }, function errorCallback(response) {
@@ -134,16 +124,24 @@ nsurApp.controller('participCtrl', function ($scope, $rootScope, $http, $locatio
     };
 
     // Delete
-    $scope.delete = function (index) {
-        var primaryKey = $scope.participsData[index].ProjectCode + ';' + $scope.participsData[index].ParticipCode;
+    $scope.delete = function (item) {        
+        var primaryKey = item.ProjectCode + ';' + item.ParticipCode;
         $http({
             method: 'GET',
             url: '/api/PParticip/GetDParticip?primaryKey=' + primaryKey,
         }).then(function successCallback(response) {
-            $scope.participsData.splice(index, 1);
-            //alert("Участник успешно удален !!!");
+            $scope.participsData.splice($scope.participsData.indexOf(item), 1);            
         }, function errorCallback(response) {
             alert("Error : " + response.data.ExceptionMessage);
         });
     };
 });
+
+//Calculate Total of Price After Initialization
+    //$scope.pparticipcount = function () {
+    //    var pparticipcount = 0;
+    //    angular.forEach($scope.participsData, function (item) {
+    //        pparticipcount += item.Price;
+    //    })
+    //    return pparticipcount;
+    //}

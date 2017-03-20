@@ -96,7 +96,6 @@ namespace Monit95App.Api
             _unitOfWork.PParticips.Delete(primaryKey);
             _unitOfWork.Save();
             return "Yes";
-
         }
         //}
     }
