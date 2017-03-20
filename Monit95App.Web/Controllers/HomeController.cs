@@ -14,6 +14,7 @@ using System.Web.UI;
 
 namespace Monit95App.Controllers
 {   
+    //Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
         private readonly cokoContext context = new cokoContext();
