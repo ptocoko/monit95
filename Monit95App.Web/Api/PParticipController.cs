@@ -15,10 +15,6 @@ using System.Web.Mvc;
 
 namespace Monit95App.Api
 {
-    public class Product
-    {
-        public string Name { get; set; }
-    }
     public class PParticipController : ApiController
     {
         private UnitOfWork _unitOfWork;
