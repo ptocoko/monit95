@@ -34,17 +34,14 @@ namespace Monit95App.Domain.Core
         public virtual DbSet<ReportStatistic> ReportStatistics { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
-        public virtual DbSet<oge_16_res> oge_16_res { get; set; }
-        public virtual DbSet<TestElement> TestElements { get; set; }
-        public virtual DbSet<ExerElement> ExerElements { get; set; }
-        public virtual DbSet<ExerMark> ExerMarks { get; set; }
         public virtual DbSet<NsurSubject> NsurSubjects { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<ProjectParticip> ProjectParticips { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<TestExercis> TestExercises { get; set; }
         public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<GiaResult> GiaResults { get; set; }
     }
 }

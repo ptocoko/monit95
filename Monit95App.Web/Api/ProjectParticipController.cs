@@ -11,25 +11,25 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Monit95App.Api
 {
-    public class PParticipController : ApiController
+    //[RoutePrefix("/api/ProjectParticip")]
+    public class ProjectParticipController : ApiController
     {
         private UnitOfWork _unitOfWork;
         private cokoContext _db;     
         private IPParticipCodeCreator _pparticipCodeCreator;
         private IPParticipViewer _pparticipViewer;
 
-        public PParticipController(cokoContext db, IPParticipCodeCreator pparticipCodeCreator, IPParticipViewer pparticipViewer)
+        public ProjectParticipController(cokoContext db, IPParticipCodeCreator pparticipCodeCreator, IPParticipViewer pparticipViewer)
         {
             _unitOfWork = new UnitOfWork(db);
             _pparticipCodeCreator = pparticipCodeCreator;
             _pparticipViewer = pparticipViewer;
         }
 
-        public PParticipController()
+        public ProjectParticipController()
         {
             _db = new cokoContext();
             _unitOfWork = new UnitOfWork(_db);
@@ -37,10 +37,11 @@ namespace Monit95App.Api
             _pparticipViewer = new PParticipViewer();
         }
    
-        //TODO: необходим automapper        
+        //TODO: необходим automapper           
+        //[Route("api/ProjectParticip/GetParticips/{area:int}")]
         public async Task<IEnumerable<PParticipViewModel>> GetParticips(int areaCode)
         {
-            var allPParticips =  await Task.Run(() => _unitOfWork.PParticips.GetAll());
+            var allPParticips =  await Task.Run(() => _unitOfWork.ProjectParticips.GetAll());
             var areaPParticips = allPParticips.Where(x => x.School.AreaCode == areaCode)
                 .Select(x => _pparticipViewer.CreateViewModel(x));
            
@@ -53,7 +54,7 @@ namespace Monit95App.Api
             newParticip.NsurSubject = _db.NsurSubjects.Find(newParticip.NSubjectCode);
             newParticip.ProjectCode = 201661;
             newParticip.ParticipCode = _pparticipCodeCreator.FactoryMethod(newParticip);
-            _unitOfWork.PParticips.Add(newParticip);
+            _unitOfWork.ProjectParticips.Add(newParticip);
             await Task.Run(() =>_unitOfWork.Save());
                         
             return _pparticipViewer.CreateViewModel(newParticip);
@@ -89,7 +90,7 @@ namespace Monit95App.Api
         public string GetDParticip(string primaryKey)
         {
 
-            _unitOfWork.PParticips.Delete(primaryKey);
+            _unitOfWork.ProjectParticips.Delete(primaryKey);
             _unitOfWork.Save();
             return "Yes";
         }

@@ -18,7 +18,6 @@ namespace Monit95App.Domain.Core
         public Test()
         {
             this.ProjectTests = new HashSet<ProjectTest>();
-            this.TestElements = new HashSet<TestElement>();
             this.TestExercises = new HashSet<TestExercis>();
         }
     
@@ -29,8 +28,6 @@ namespace Monit95App.Domain.Core
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTest> ProjectTests { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestElement> TestElements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestExercis> TestExercises { get; set; }
     }

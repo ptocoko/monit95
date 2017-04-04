@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.DTO
 {
-    public class ParticipTestDTO
-    {        
-        public int ProjectCode { get; set; }
-        public Guid TestId { get; set; }
-        public int TestNumber { get; set; }
-        public DateTime TestDate { get; set; }
+    public class ParticipTestDto
+    {
+        public int ParticipTestId { get; set; }
+
+        public string FullTestName { get; set; } //e.g. 0101-ОРФОГРАФИЯ, 01-04-2017
         public string ParticipCode { get; set; }
-        public IEnumerable<ExerMarkDTO> ExerMarkDTOs { get; set; } = new List<ExerMarkDTO>();
+        public string ExerMarks { get; set; } //e.g. 1;1;0;1;0
     }
 }

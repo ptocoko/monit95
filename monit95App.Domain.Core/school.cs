@@ -18,8 +18,8 @@ namespace Monit95App.Domain.Core
         public School()
         {
             this.CollectorSchools = new HashSet<CollectorSchool>();
-            this.oge_16_res = new HashSet<oge_16_res>();
             this.ProjectParticips = new HashSet<ProjectParticip>();
+            this.GiaResults = new HashSet<GiaResult>();
         }
     
         public string Id { get; set; }
@@ -48,8 +48,8 @@ namespace Monit95App.Domain.Core
         public virtual Monit95users Monit95users { get; set; }
         public virtual TownType TownType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<oge_16_res> oge_16_res { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiaResult> GiaResults { get; set; }
     }
 }

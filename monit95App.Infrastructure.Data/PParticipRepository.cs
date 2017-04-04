@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Data
 {   
-    public class PParticipRepository : IRepository<ProjectParticip>
+    public class ProjectParticipRepository : IRepository<ProjectParticip>
     {
         //TODO: посмотреть где тут необходим try...catch
         private cokoContext db;        
 
-        public PParticipRepository(cokoContext db)
+        public ProjectParticipRepository(cokoContext db)
         {
             this.db = db;
         }

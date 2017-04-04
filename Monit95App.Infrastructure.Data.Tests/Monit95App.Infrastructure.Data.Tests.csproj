@@ -68,8 +68,6 @@
     <Compile Include="MockTSetCreator.cs" />
     <Compile Include="ParticipCodeCreatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestExerMarkDTOcreator.cs" />
-    <Compile Include="TestExerMarkRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -12,30 +12,27 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectParticip
+    public partial class GiaResult
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProjectParticip()
-        {
-            this.ParticipTests = new HashSet<ParticipTest>();
-        }
-    
         public int ProjectCode { get; set; }
         public string ParticipCode { get; set; }
-        public string SchoolId { get; set; }
+        public int SubjectCode { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
         public string SecondName { get; set; }
-        public int NSubjectCode { get; set; }
-        public Nullable<int> CategId { get; set; }
-        public Nullable<int> Experience { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
+        public string DocumSer { get; set; }
+        public string DocumNum { get; set; }
+        public string SchoolId { get; set; }
+        public Nullable<System.DateTime> TestDate { get; set; }
+        public int PrimaryMark { get; set; }
+        public int Grade5 { get; set; }
+        public Nullable<int> Grade100 { get; set; }
+        public string Marks { get; set; }
+        public string Parts { get; set; }
+        public string Elements { get; set; }
+        public string Skills { get; set; }
     
-        public virtual Category Category { get; set; }
-        public virtual NsurSubject NsurSubject { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ParticipTest> ParticipTests { get; set; }
+        public virtual Project Project { get; set; }
         public virtual School School { get; set; }
     }
 }

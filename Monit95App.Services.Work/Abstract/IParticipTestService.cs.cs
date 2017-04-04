@@ -10,7 +10,6 @@ namespace Monit95App.Services.Work.Abstract
 {
     public interface IParticipTestService
     {
-        ParticipTestDTO GetDto(ParticipTest item);
-        void AddDto(ParticipTestDTO dto);
+        ParticipTestDto CreateDto(ParticipTest item);
     }
 }

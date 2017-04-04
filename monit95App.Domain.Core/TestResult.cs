@@ -14,17 +14,14 @@ namespace Monit95App.Domain.Core
     
     public partial class TestResult
     {
-        public int ProjectCode { get; set; }
-        public string ParticipCode { get; set; }
-        public System.Guid TestId { get; set; }
-        public int TestNumber { get; set; }
-        public System.DateTime TestDate { get; set; }
-        public Nullable<double> PrimaryMark { get; set; }
-        public Nullable<short> Mark5 { get; set; }
+        public int Id { get; set; }
+        public int ParticipTestId { get; set; }
+        public double PrimaryMark { get; set; }
+        public int Grade5 { get; set; }
         public string Marks { get; set; }
         public string Parts { get; set; }
         public string Elements { get; set; }
     
-        public virtual ProjectParticip ProjectParticip { get; set; }
+        public virtual ParticipTest ParticipTest { get; set; }
     }
 }

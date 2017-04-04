@@ -199,9 +199,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\PParticipController.cs" />
+    <Compile Include="Api\ProjectParticipController.cs" />
     <Compile Include="Api\SchoolController.cs" />
-    <Compile Include="Api\ExerMarkController.cs" />
+    <Compile Include="Api\ProjectTestController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -213,8 +213,6 @@
     <Compile Include="Controllers\NsurController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\Work201615Controller.cs" />
-    <Compile Include="Controllers\Work201628Controller.cs" />
-    <Compile Include="Controllers\Work201630Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -405,12 +403,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_GuestLayout.cshtml" />
-    <Content Include="Views\Monit10_1516\GeneralPlan.cshtml" />
-    <Content Include="Views\Monit10_1516\Edit.cshtml" />
-    <Content Include="Views\Monit10_1516\EditElLearn.cshtml" />
-    <Content Include="Views\Monit10_1516\GetLearnesList.cshtml" />
     <Content Include="Views\Work201615\Select.cshtml" />
-    <Content Include="Views\Monit10_1516\AddLearner.cshtml" />
     <Content Include="Views\Work201615\_PartialClass2.cshtml" />
     <Content Include="Views\Work201615\_PartialClass1.cshtml" />
     <Content Include="Views\Work201615\_PartialClass3.cshtml" />

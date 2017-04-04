@@ -32,9 +32,7 @@ nsurApp.controller('participCtrl', function ($scope, $filter, $rootScope, $http,
             alert('Error Occured !!!'); // Failed
         });
     }
-
-    
-
+   
     $scope.Particip = {
         ParticipCode: '',
         Surname: '',

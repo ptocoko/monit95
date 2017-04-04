@@ -20,11 +20,12 @@ namespace Monit95App.Domain.Core
             this.ParticipTests = new HashSet<ParticipTest>();
         }
     
+        public int Id { get; set; }
         public int ProjectCode { get; set; }
         public System.Guid TestId { get; set; }
         public int TestNumber { get; set; }
         public System.DateTime TestDate { get; set; }
-        public bool StatusCode { get; set; }
+        public bool IsOpened { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParticipTest> ParticipTests { get; set; }

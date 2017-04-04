@@ -51,12 +51,12 @@ namespace Monit95App.ConsoleApp
                 sheet = excerInitBook.Sheets["data"];
                 //Заполняем реквизиты
                 var resultTest1 = particip.First();
-                sheet.Range["B10"].Value2 = resultTest1.ParticipCode;
-                sheet.Range["B19"].Value2 = resultTest1.TestDate;
-                string fullName = $"{resultTest1.ProjectParticip.Surname} {resultTest1.ProjectParticip.Name}";
-                if (!string.IsNullOrEmpty(resultTest1.ProjectParticip.SecondName))
+                sheet.Range["B10"].Value2 = resultTest1.ParticipTest.ProjectParticip.ParticipCode;
+                sheet.Range["B19"].Value2 = resultTest1.ParticipTest.ProjectTest.TestDate;
+                string fullName = $"{resultTest1.ParticipTest.ProjectParticip.Surname} {resultTest1.ParticipTest.ProjectParticip.Name}";
+                if (!string.IsNullOrEmpty(resultTest1.ParticipTest.ProjectParticip.SecondName))
                 {
-                    fullName += $" {resultTest1.ProjectParticip.SecondName}";
+                    fullName += $" {resultTest1.ParticipTest.ProjectParticip.SecondName}";
                 }
                 sheet.Range["B18"].Value2 = fullName;
                 //
@@ -66,7 +66,7 @@ namespace Monit95App.ConsoleApp
                 int grade5RowNumber = 15;
                 string[] columns = new string[] { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S" };
                 int index = 0;
-                foreach (var r in particip.OrderBy(x => x.TestNumber))
+                foreach (var r in particip.OrderBy(x => x.ParticipTest.ProjectTest.TestNumber))
                 {
                     //Parts 
                     index = 0;
@@ -83,10 +83,10 @@ namespace Monit95App.ConsoleApp
                         index++;
                     }                                    
                     sheet.Range["B" + primaryMarkRowNumber.ToString()].Value2 = r.PrimaryMark;
-                    sheet.Range["B" + grade5RowNumber.ToString()].Value2 = r.Mark5;
+                    sheet.Range["B" + grade5RowNumber.ToString()].Value2 = r.Grade5;
 
                     sheet.Range["B11"].Value2 = r.Marks;
-                    sheet.Range["B19"].Value2 = r.TestDate;
+                    sheet.Range["B19"].Value2 = r.ParticipTest.ProjectTest.TestDate;
 
                     partRowNumber++;
                     elementRowNumber++;
@@ -99,7 +99,7 @@ namespace Monit95App.ConsoleApp
                 if (!System.IO.Directory.Exists(reportFolder))
                     System.IO.Directory.CreateDirectory(reportFolder);
                 sheet = excerInitBook.Sheets[startSheetName + particip.Count()]; //
-                sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{resultTest1.ParticipCode}.pdf"));
+                sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{resultTest1.ParticipTest.ProjectTest.ProjectCode}.pdf"));
                 Console.WriteLine(++countProcessedResults);
             }
             excerInitBook.Close();

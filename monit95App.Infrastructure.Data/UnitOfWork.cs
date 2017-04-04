@@ -10,49 +10,48 @@ namespace Monit95App.Infrastructure.Data
 {
     public class UnitOfWork : IDisposable
     {
-        private cokoContext db;
+        private cokoContext _db;
         private SchoolRepository schoolRepository;
-        private PParticipRepository pparticipRepository;
+        private ProjectParticipRepository projectParticipRepository;
         private ParticipTestRepository participTestRepository;
-                       
-        
+
         public ParticipTestRepository ParticipTests
         {
             get
             {
                 if (participTestRepository == null)
-                    participTestRepository = new ParticipTestRepository(db);
+                    participTestRepository = new ParticipTestRepository(_db);
                 return participTestRepository;
             }
         }
 
         public UnitOfWork(cokoContext db)
         {
-            this.db = db;
+            _db = db;
         }
         public SchoolRepository Schools
         {
             get
             {
                 if (schoolRepository == null)
-                    schoolRepository = new SchoolRepository(db);
+                    schoolRepository = new SchoolRepository(_db);
                 return schoolRepository;
             }
         }
 
-        public PParticipRepository PParticips
+        public ProjectParticipRepository ProjectParticips
         {
             get
             {
-                if (pparticipRepository == null)
-                    pparticipRepository = new PParticipRepository(db);
-                return pparticipRepository;
+                if (projectParticipRepository == null)
+                    projectParticipRepository = new ProjectParticipRepository(_db);
+                return projectParticipRepository;
             }
         }
 
         public void Save()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
         private bool disposed = false;
@@ -63,7 +62,7 @@ namespace Monit95App.Infrastructure.Data
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    _db.Dispose();
                 }
                 this.disposed = true;
             }

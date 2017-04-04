@@ -40,11 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExerMarkDTO.cs" />
-    <Compile Include="ExerMarkDTOcreator.cs" />
-    <Compile Include="IExerMarkDTOcreator.cs" />
-    <Compile Include="ParticipTestDTO.cs" />
-    <Compile Include="ProjectTestDTO.cs" />
+    <Compile Include="ExerMarkDto.cs" />
+    <Compile Include="Interfaces\IExerMarkDtoCreator.cs" />
+    <Compile Include="ParticipTestDto.cs" />
+    <Compile Include="ProjectTestDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +52,7 @@
       <Name>Monit95App.Domain.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

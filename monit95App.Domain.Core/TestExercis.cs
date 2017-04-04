@@ -14,21 +14,11 @@ namespace Monit95App.Domain.Core
     
     public partial class TestExercis
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TestExercis()
-        {
-            this.ExerElements = new HashSet<ExerElement>();
-            this.ExerMarks = new HashSet<ExerMark>();
-        }
-    
+        public int Id { get; set; }
         public System.Guid TestId { get; set; }
-        public int ExerNumber { get; set; }
-        public int ExerMaxMark { get; set; }
+        public int Number { get; set; }
+        public int MaxMark { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExerElement> ExerElements { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExerMark> ExerMarks { get; set; }
         public virtual Test Test { get; set; }
     }
 }

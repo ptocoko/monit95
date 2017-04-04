@@ -1,19 +1,33 @@
-﻿<body>    
-    <div class="panel panel-default">
-        
-        <!-- Default panel contents -->
-        <div class="panel-heading"><h4>Экзаменационный материал</h4></div>
-        <div class="panel-body">
-            <!--<p>Скачайте данный экзаменационный материал и распечатайте</p>-->
-            <p><i>Экзаменационный материал будет доступен на данной странице в день экзамена.</i></p>
-        </div>
-        <!-- List group -->
-        <!--<ul class="list-group">
-            <b>
-                <li class="list-group-item"><a href="#">Бланк ответов</a></li>
-                <li class="list-group-item"><a href="#">Орфография, 22.02.2017</a></li>
-                <li class="list-group-item"><a href="#">Алгебра, 24.02.2017</a></li>
-            </b>
-        </ul>-->
+﻿<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <h4>Орфография, {{data}}</h4>
     </div>
-</body>
+    <div class="panel-body">
+        <p>1. Проведение</p>
+        <ul class="list-group">            
+                <li class="list-group-item"><a href="https://cloud.mail.ru/public/9K5z/bLh1fmwFb/1 орфография_201_список уч..pdf"><b>Cписок участников</b></a></li>
+                <li class="list-group-item"><a href="#"><b>КИМ</b></a></li>
+                <li class="list-group-item"><a href="#"><b>Бланк ответов</b></a></li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <p>2. Проверка</p>
+        <ul class="list-group">            
+                <li class="list-group-item"><a href="#"><b>Ключи</b></a></li>            
+        </ul>
+    </div>
+    <div class="panel-body">
+        <p>3. Занесение результатов</p>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="#"><b>Форма для внесения результатов</b></a></li>
+            <div>
+                <label class="btn btn-primary btn-sm">
+                    Отправить&hellip;
+                    <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none;">
+                </label>
+            </div>
+
+        </ul>
+    </div>
+</div>

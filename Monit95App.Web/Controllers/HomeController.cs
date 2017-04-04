@@ -23,11 +23,11 @@ namespace Monit95App.Controllers
         public JsonResult GetAllParticips(int subjectCode)
         {
             List<LearnerVM> participInfos = new List<LearnerVM>();
-            foreach (var result in context.oge_16_res.Where(x=>x.SubjectCode == subjectCode))
+            foreach (var result in context.GiaResults.Where(x=>x.ProjectCode==201676 && x.SubjectCode == subjectCode))
             {
                 participInfos.Add(new LearnerVM
                 {
-                    Id = result.ParticipId,
+                    Id = result.ParticipCode,
                     SchoolId = result.SchoolId,
                     Learner = new Learner
                     {

@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.DTO
+namespace Monit95App.Services.DTO.Interfaces
 {
-    public interface IExerMarkDTOcreator
+    public interface IExerMarkDtoCreator
     {
-        IEnumerable<ExerMarkDTO> FactoryMethod(ParticipTest participTest);
+        IEnumerable<ExerMarkDto> FactoryMethod(ParticipTest participTest);
     }
 }

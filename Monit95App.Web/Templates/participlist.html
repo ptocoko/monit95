@@ -2,7 +2,7 @@
     <div id="body">
         <div ng-init="i('201661', $rootScope.username)">
             <div ng-hide="Particip.ParticipCode != '' ">                                  
-                <div class="container">
+                <div class="container" ng-hide="1 != 0">
                     <form name="participForm" novalidate>
                         <fieldset>
                             <legend>Добавить участника</legend>
@@ -68,8 +68,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button type="submit" data-ng-click="save(Particip, participForm)" class="btn btn-success">Добавить</button>
-                                    <button data-ng-click="clear()" class="btn btn-danger">Очистить</button>
+                                    <!--<button type="submit" data-ng-click="save(Particip, participForm)" class="btn btn-success">Добавить</button>
+                                    <button data-ng-click="clear()" class="btn btn-danger">Очистить</button>-->
                                 </div>
                             </div>
                         </fieldset>
@@ -108,7 +108,7 @@
                             email: {{item.Email}}
                         </td>
                         <td>
-                            <button ng-click="delete(item)" class="btn btn-sm btn-danger">удалить</button>
+                            <!--<button ng-click="delete(item)" class="btn btn-sm btn-danger">удалить</button>-->
                         </td>
                     </tr>
                 </tbody>               

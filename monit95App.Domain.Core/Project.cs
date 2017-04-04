@@ -18,6 +18,7 @@ namespace Monit95App.Domain.Core
         public Project()
         {
             this.ProjectTests = new HashSet<ProjectTest>();
+            this.GiaResults = new HashSet<GiaResult>();
         }
     
         public int Code { get; set; }
@@ -25,5 +26,7 @@ namespace Monit95App.Domain.Core
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTest> ProjectTests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiaResult> GiaResults { get; set; }
     }
 }
