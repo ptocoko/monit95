@@ -59,30 +59,10 @@ namespace Monit95App.Api
                         
             return _pparticipViewer.CreateViewModel(newParticip);
         }
-
-        public IEnumerable<ProjectParticip> PutParticip(ProjectParticip item, string code, int pc, int areaId)
-        {
-            //item.Code = code;
-            //item.ProjectCode = pc;
-            //if (participRepository.Update(item))
-            //{
-            //    return participRepository.GetAreaParticips(areaId);
-            //}
-            //else
-            //{
-            //    return null;
-            //}
-            return new List<ProjectParticip>();
-        }
+    
 
         public HttpResponseMessage ooo(int Uid)
-        {
-            // Employee emp = this.GetEmployee(Uid);
-            //if (emp == null)
-            //{
-            //    throw new HttpResponseException(HttpStatusCode.NotFound);
-            //}
-            //   _emp.Remove(emp);
+        {    
             var response = new HttpResponseMessage();
             response.Headers.Add("DeleteMessage", "Succsessfuly Deleted!!!");
             return response;

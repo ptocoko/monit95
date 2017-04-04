@@ -1,19 +1,13 @@
 ﻿using System.Web.Mvc;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
 using Monit95App.ViewModels.Home;
 using System.Collections.Generic;
-using Monit95App.Models;
 using System.Linq;
 using System;
-using Newtonsoft.Json;
-using Monit95App.Domain.Core;
-using System.Data.Entity;
-using System.Threading.Tasks;
 using System.Web.UI;
+using Monit95App.Domain.Core;
 
 namespace Monit95App.Controllers
-{   
+{
     //Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
