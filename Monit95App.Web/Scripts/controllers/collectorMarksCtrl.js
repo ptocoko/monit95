@@ -94,20 +94,25 @@
 	};
 
 	$scope.sendMarks = function () {
-		var data = [];
-
-		$scope.marks.forEach(function (item, i, arr) {
-			data.push($.param(arr[i]));
-		});
-
-		var config = {
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-			}
+		if ($scope.marks.length < 1) {
+			$scope.errorMessage = 'Push items before';
 		}
-		
-		$http.post('/CollectorMarks/PostData', data, config).then(function (response) {
+		else {
+			var data = [];
 
-		});
+			$scope.marks.forEach(function (item, i, arr) {
+				data.push($.param(arr[i]));
+			});
+
+			var config = {
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+				}
+			}
+
+			$http.post('/CollectorMarks/PostData', data, config).then(function (response) {
+
+			});
+		}
 	};
 });
