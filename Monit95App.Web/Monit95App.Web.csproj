@@ -209,6 +209,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CollectorController.cs" />
+    <Compile Include="Controllers\CollectorMarksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NsurController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Models\PParticipViewModel.cs" />
     <Compile Include="Models\ReportMetaManager.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
+    <Compile Include="ViewModels\CollectorMarks\MarksViewModel.cs" />
     <Compile Include="ViewModels\Home\LearnerVM.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />
     <Compile Include="ViewModels\CokoEmployer\SelectVM.cs" />
@@ -323,6 +325,8 @@
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-resource.js" />
+    <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-touch.js" />
@@ -332,15 +336,17 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Scripts\angular-touch.min.js.map" />
+    <Content Include="Scripts\angular-resource.min.js.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\angularmodules.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\controllers\collectorMarksCtrl.js" />
     <Content Include="Scripts\controllers\marksctrl.js" />
     <Content Include="Scripts\controllers\marks_editctrl.js" />
     <Content Include="Scripts\controllers\planctrl.js" />
@@ -361,10 +367,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modules\collectorMarksModule.js" />
     <Content Include="Scripts\modules\nsurapp.js" />
     <Content Include="Scripts\controllers\participctrl.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\services\collectorMarksService.js" />
     <Content Include="Scripts\services\tresultservice.js" />
     <Content Include="Scripts\services\pparticipservice.js" />
     <Content Include="Scripts\services\schoolservice.js" />
@@ -425,6 +433,7 @@
     <Content Include="Views\Shared\_LearnerTable.cshtml" />
     <Content Include="Scripts\smart-table.min.js.map" />
     <Content Include="Views\Nsur\Index.cshtml" />
+    <Content Include="Views\CollectorMarks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<body ng-app="collectorMarksApp" ng-controller="CollectorMarksCtrl">
+    <h3>Оценки</h3>
+    <div class="container-fluid">
+        
+        <select ng-model="class">
+            <option value="{{class.Id}}" ng-repeat="class in classes">{{class.Name}}</option>
+        </select>
+
+        <form ng-submit="sendMarks()">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th colspan="10">Баллы за задания</th>
+                </tr>
+                <tr ng-repeat="row in marks">
+                    <td>{{row.Surname}}</td>
+                    <td>{{row.Name}}</td>
+                    <td>{{row.SecondName}}</td>
+                    <td ng-repeat="mark in makeArrayFromStringMarks(row.Marks) track by $index">{{mark}}</td>
+                </tr>
+                <tr>
+                    <td><input class="form-control" type="text" ng-model="Surname" /></td>
+                    <td><input class="form-control" type="text" ng-model="Name" /></td>
+                    <td><input class="form-control" type="text" ng-model="SecondName" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="firstMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="secondMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="thirdMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="fourthMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="fifthMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="sixthMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="seventhMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="eighthMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="ninthMark" /></td>
+                    <td><input class="form-control" size="1" type="text" ng-model="tenthMark" /></td>
+                </tr>
+            </table>
+            
+            <input class="form-control" type="submit" value="submit" />
+        </form>
+        <button class="btn btn-default" ng-click="pushMarks('@User.Identity.Name')">Push</button>
+    </div>
+</body>
+

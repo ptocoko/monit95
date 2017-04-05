@@ -91,17 +91,20 @@
     
     @*Modules*@  
     <script src="~/Scripts/modules/nsurApp.js"></script>
+    <script src="~/Scripts/modules/collectorMarksModule.js"></script>
 
     @*Controllers*@
     <script src="~/Scripts/controllers/tabctrl.js"></script>
     <script src="~/Scripts/controllers/participctrl.js"></script>
     <script src="~/Scripts/controllers/planctrl.js"></script>   
     <script src="~/Scripts/controllers/marksctrl.js"></script>   
+    <script src="~/Scripts/controllers/collectorMarksCtrl.js"></script>
 
     @*Services*@
     <script src="~/Scripts/services/pparticipservice.js"></script>  
     <script src="~/Scripts/services/schoolservice.js"></script>
     <script src="~/Scripts/services/tresultservice.js"></script>
+    <script src="~/Scripts/services/collectorMarksService.js"></script>
     
     @Styles.Render("~/Content/css")                 
     <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />    
@@ -136,6 +139,7 @@
                         <li>@Html.ActionLink(@"ОГЭ-2016", "Oge2016", "Home")</li>
                         <li>@Html.ActionLink(@"Информация", "Schoolinfo", "Home")</li>
                         <li>@Html.ActionLink("Отчеты", "Report", "Report")</li>
+                        <li>@Html.ActionLink("Оценки", "Index", "CollectorMarks")</li>
                     }                  
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
                 </ul>
