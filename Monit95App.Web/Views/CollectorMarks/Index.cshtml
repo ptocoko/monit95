@@ -8,7 +8,7 @@
     <div class="container-fluid">
         
         <select ng-model="class">
-            <option value="{{class.Id}}" ng-repeat="class in classes">{{class.Name}}</option>
+            <option value="{{class.Name}}" ng-repeat="class in classes">{{class.Name}}</option>
         </select>
 
         <form ng-submit="sendMarks()">

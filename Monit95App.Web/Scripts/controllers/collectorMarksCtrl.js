@@ -39,71 +39,74 @@
 		},
 	];
 
-	$scope.exercises = [
-		{
-			Name: '1',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '2',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '3',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '4',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '5',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '6',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '7',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '8',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '9',
-			MaxRate: 1,
-			CurrentMark: ''
-		},
-		{
-			Name: '10',
-			MaxRate: 1,
-			CurrentMark: ''
-		}
-	];
+	var getInstanceOfExercises = function () {
+		return [
+			{
+				Name: '1',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '2',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '3',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '4',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '5',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '6',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '7',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '8',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '9',
+				MaxRate: 1,
+				CurrentMark: ''
+			},
+			{
+				Name: '10',
+				MaxRate: 1,
+				CurrentMark: ''
+			}
+		];
+	};
+
+	$scope.exercises = getInstanceOfExercises();
 
 	$scope.Students = [];
 
 	$scope.pushMarks = function (schoolId) {
-		var marks = $scope.exercises;
-
+		
 		$scope.Students.push({
 			SchoolId: schoolId,
 			Surname: $scope.Surname,
 			Name: $scope.Name,
 			SecondName: $scope.SecondName,
-			ClassId: $scope.class,
-			Exercises: marks
+			ClassName: $scope.class,
+			Exercises: $scope.exercises
 		});
 
 		resetScopes();
@@ -116,11 +119,7 @@
 		$scope.Name = "";
 		$scope.SecondName = "";
 
-		$scope.exercises.forEach(function (item, i, arr) {
-			if (i < 8) {
-				arr[i].CurrentMark = '';
-			}
-		});
+		$scope.exercises = getInstanceOfExercises();
 	};
 
 	$scope.sendMarks = function () {
