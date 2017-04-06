@@ -230,7 +230,7 @@
     <Compile Include="Models\PParticipViewModel.cs" />
     <Compile Include="Models\ReportMetaManager.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
-    <Compile Include="ViewModels\CollectorMarks\MarksViewModel.cs" />
+    <Compile Include="ViewModels\CollectorMarks\StudentViewModel.cs" />
     <Compile Include="ViewModels\Home\LearnerVM.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />
     <Compile Include="ViewModels\CokoEmployer\SelectVM.cs" />
