@@ -17,14 +17,17 @@ namespace Monit95App.Controllers
         }
 
         [HttpPost]
-        public ContentResult PostData()
+        public ContentResult PostData(IEnumerable<StudentViewModel> model)
         {
-            var schoolId = Request.Form["[\"SchoolId"].Split(new char[] { ',' });
-
-            var surnames = Request.Form["Surname"].Split(new char[] { ',' });
-            var names = Request.Form["Name"].Split(new char[] { ',' });
-            var classIds = Request.Form["Marks"].Split(new char[] { ',' });
-            return Content("success");
+            if (model != null)
+            {
+                var studentModel = model;
+                return Content("success");
+            }
+            else
+            {
+                return Content("error");
+            }
         }
     }
 }
