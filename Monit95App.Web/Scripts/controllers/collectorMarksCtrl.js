@@ -38,69 +38,99 @@
 			Id: "0204", Name: "2Г"
 		},
 	];
-	
-	$scope.marks = [];
+
+	$scope.exercises = [
+		{
+			Name: '1',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '2',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '3',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '4',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '5',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '6',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '7',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '8',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '9',
+			MaxRate: 1,
+			CurrentMark: ''
+		},
+		{
+			Name: '10',
+			MaxRate: 1,
+			CurrentMark: ''
+		}
+	];
+
+	$scope.Students = [];
 
 	$scope.pushMarks = function (schoolId) {
+		var marks = $scope.exercises;
 
-
-		$scope.marks.push({
+		$scope.Students.push({
 			SchoolId: schoolId,
 			Surname: $scope.Surname,
 			Name: $scope.Name,
 			SecondName: $scope.SecondName,
 			ClassId: $scope.class,
-			Marks: makeStringFromMarks()
+			Exercises: marks
 		});
 
 		resetScopes();
 	};
 
-	var makeStringFromMarks = function () {
-		var endOfMarksString = "|1;1;1;1;1;1;1;1;1;1";
-
-		return  $scope.firstMark + ";" +
-				$scope.secondMark + ";" +
-				$scope.thirdMark + ";" +
-				$scope.fourthMark + ";" +
-				$scope.fifthMark + ";" +
-				$scope.sixthMark + ";" +
-				$scope.seventhMark + ";" +
-				$scope.eighthMark + ";" +
-				$scope.ninthMark + ";" +
-				$scope.tenthMark + endOfMarksString;
-	};
-
-	$scope.makeArrayFromStringMarks = function (marksString) {
-		var arr = marksString.split("|");
-		return arr[0].split(";");
-	};
+	
 
 	var resetScopes = function () {
 		$scope.Surname = "";
 		$scope.Name = "";
 		$scope.SecondName = "";
 
-		$scope.firstMark = "";
-		$scope.secondMark = "";
-		$scope.thirdMark = "";
-		$scope.fourthMark = "";
-		$scope.fifthMark = "";
-		$scope.sixthMark = "";
-		$scope.seventhMark = "";
-		$scope.eighthMark = "";
-		$scope.ninthMark = "";
-		$scope.tenthMark = "";
+		$scope.exercises.forEach(function (item, i, arr) {
+			if (i < 8) {
+				arr[i].CurrentMark = '';
+			}
+		});
 	};
 
 	$scope.sendMarks = function () {
-		if ($scope.marks.length < 1) {
+		if ($scope.Students.length < 1) {
 			$scope.errorMessage = 'Push items before';
 		}
 		else {
 			var data = [];
 
-			$scope.marks.forEach(function (item, i, arr) {
+			$scope.Students.forEach(function (item, i, arr) {
 				data.push($.param(arr[i]));
 			});
 
