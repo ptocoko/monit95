@@ -27,21 +27,24 @@ namespace Monit95App.Domain.Core
     
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Collector> Collectors { get; set; }
         public virtual DbSet<CollectorSchool> CollectorSchools { get; set; }
-        public virtual DbSet<Monit95users> Monit95users { get; set; }
-        public virtual DbSet<Report> Reports { get; set; }
-        public virtual DbSet<ReportStatistic> ReportStatistics { get; set; }
-        public virtual DbSet<School> Schools { get; set; }
-        public virtual DbSet<TownType> TownTypes { get; set; }
+        public virtual DbSet<ExerciseMark> ExerciseMarks { get; set; }
+        public virtual DbSet<ExerMark> ExerMarks { get; set; }
+        public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<NsurSubject> NsurSubjects { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<ProjectParticip> ProjectParticips { get; set; }
+        public virtual DbSet<ProjectParticipsV2> ProjectParticipsV2 { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<TestExercis> TestExercises { get; set; }
         public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
-        public virtual DbSet<GiaResult> GiaResults { get; set; }
+        public virtual DbSet<ReportStatistic> ReportStatistics { get; set; }
+        public virtual DbSet<TownType> TownTypes { get; set; }
     }
 }

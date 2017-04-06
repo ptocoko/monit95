@@ -12,14 +12,14 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class TestExercis
+    public partial class ExerciseMark
     {
         public int Id { get; set; }
+        public int ProjectParticipId { get; set; }
         public System.Guid TestId { get; set; }
-        public int Number { get; set; }
-        public string Name { get; set; }
-        public int MaxMark { get; set; }
+        public string Marks { get; set; }
     
+        public virtual ProjectParticipsV2 ProjectParticipsV2 { get; set; }
         public virtual Test Test { get; set; }
     }
 }

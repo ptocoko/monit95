@@ -12,21 +12,28 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class Project
+    public partial class ProjectParticipsV2
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Project()
+        public ProjectParticipsV2()
         {
-            this.GiaResults = new HashSet<GiaResult>();
-            this.ProjectTests = new HashSet<ProjectTest>();
+            this.ExerciseMarks = new HashSet<ExerciseMark>();
         }
     
-        public int Code { get; set; }
+        public int Id { get; set; }
+        public int ProjectCode { get; set; }
+        public string ParticipCode { get; set; }
+        public string Surname { get; set; }
         public string Name { get; set; }
+        public string SecondName { get; set; }
+        public string SchoolId { get; set; }
+        public string ClassCode { get; set; }
     
+        public virtual Class Class { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GiaResult> GiaResults { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectTest> ProjectTests { get; set; }
+        public virtual ICollection<ExerciseMark> ExerciseMarks { get; set; }
+        public virtual ProjectParticipsV2 ProjectParticipsV21 { get; set; }
+        public virtual ProjectParticipsV2 ProjectParticipsV22 { get; set; }
+        public virtual School School { get; set; }
     }
 }

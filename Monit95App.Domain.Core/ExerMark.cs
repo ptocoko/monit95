@@ -12,18 +12,11 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class Monit95users
+    public partial class ExerMark
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Monit95users()
-        {
-            this.Schools = new HashSet<School>();
-        }
-    
-        public string Login { get; set; }
-        public string Password { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<School> Schools { get; set; }
+        public int Id { get; set; }
+        public int ParticipTestId { get; set; }
+        public int TestExerciseId { get; set; }
+        public int Mark { get; set; }
     }
 }
