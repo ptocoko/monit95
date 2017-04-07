@@ -13,6 +13,7 @@
             <span ng-if="!class" id="myPopup">Сначала выберите класс!</span>
             <br />
         </div>
+        
         <table class="table table-bordered">
             <tr>
                 <th rowspan="2">Фамилия</th>
@@ -30,14 +31,14 @@
                 <td ng-repeat="exercise in student.Exercises track by $index"><input size="1" class="form-control" ng-model="exercise.CurrentMark" /></td>
             </tr>
             <tr>
-                <td><input class="form-control" type="text" ng-model="Surname" /></td>
-                <td><input class="form-control" type="text" ng-model="Name" /></td>
-                <td><input class="form-control" type="text" ng-model="SecondName" /></td>
-                <td ng-repeat="exercise in exercises track by $index"><input class="form-control" size="1" type="text" ng-model="exercise.CurrentMark" /></td>
+                <td><input tabindex="1" id="setFocusHere" class="form-control" type="text" ng-model="Surname" /></td>
+                <td><input tabindex="2" class="form-control" type="text" ng-model="Name" /></td>
+                <td id="cell"><input tabindex="3" class="form-control" type="text" ng-model="SecondName" /><button tabindex="{{exercises.length+4}}" id="buttn" class="btn btn-success btn-sm" ng-click="pushMarks('@User.Identity.Name')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+                <td ng-repeat="exercise in exercises track by $index"><input tabindex="{{$index+4}}" class="form-control" size="1" type="text" ng-model="exercise.CurrentMark" /></td>
             </tr>
         </table>
-
-        <button class="btn btn-success btn-sm" ng-click="pushMarks('@User.Identity.Name')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button><br/><br/>
+       
+        
         <button class="btn btn-default btn-lg" type="button" ng-click="sendMarks(Students)">Отправить</button>
     </div>
 </body>

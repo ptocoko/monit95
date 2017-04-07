@@ -115,6 +115,8 @@
 		});
 
 		resetScopes();
+
+		angular.element('#setFocusHere').focus();
 	};
 
 	
