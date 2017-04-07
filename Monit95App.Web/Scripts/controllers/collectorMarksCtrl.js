@@ -82,7 +82,12 @@
 				CurrentMark: ''
 			},
 			{
-				Name: '9',
+				Name: '9.1',
+				MaxRate: '1',
+				CurrentMark: ''
+			},
+			{
+				Name: '9.2',
 				MaxRate: '1',
 				CurrentMark: ''
 			},
@@ -97,7 +102,7 @@
 	$scope.exercises = getInstanceOfExercises();
 
 	$scope.Students = [];
-
+	
 	$scope.pushMarks = function (schoolId) {
 		
 		$scope.Students.push({
@@ -124,18 +129,25 @@
 
 	$scope.sendMarks = function (students) {
 		if ($scope.Students.length > 0) {
-			$http({
-				method: 'POST',
-				url: '/CollectorMarks/PostData',
-				data: students
-			}).then(function success(res) {
-				//реализовать
-			}, function error(res) {
-				//реализовать
-			});
+			if (confirm('Вы уверены в своих действиях?\nДанные нельзя будет редактировать в последующем!')) {
+
+				$http({
+					method: 'POST',
+					url: '/CollectorMarks/PostData',
+					data: students
+				}).then(function success(res) {
+					resetScopes();
+					$scope.Students = [];
+					$scope.class = '';
+					alert('Оценки ваших учеников отправлены удачно :)')//ИЗМЕНИТЬ ОБЯЗАТЕЛЬНО!!!
+
+				}, function error(res) {
+					alert('К сожалению произошла ошибка. Попробуйте повторить отправку через несколько минут.');
+				});
+			}
 		}
 		else {
-			//реализовать
+			alert('Сначала добавьте чё нить');//ИЗМЕНИТЬ ОБЯЗАТЕЛЬНО!!!
 		}
 	};
 });
