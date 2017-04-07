@@ -14,6 +14,7 @@ namespace Monit95App.Infrastructure.Data
         private SchoolRepository schoolRepository;
         private ProjectParticipRepository projectParticipRepository;
         private ParticipTestRepository participTestRepository;
+        private ClassRepository classRepository;
 
         public ParticipTestRepository ParticipTests
         {
@@ -46,6 +47,16 @@ namespace Monit95App.Infrastructure.Data
                 if (projectParticipRepository == null)
                     projectParticipRepository = new ProjectParticipRepository(_db);
                 return projectParticipRepository;
+            }
+        }
+
+        public ClassRepository Classes
+        {
+            get
+            {
+                if (classRepository == null)
+                    classRepository = new ClassRepository(_db);
+                return classRepository;
             }
         }
 

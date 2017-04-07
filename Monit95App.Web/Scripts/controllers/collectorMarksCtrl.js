@@ -1,43 +1,15 @@
 ﻿angular.module('collectorMarksApp').controller('CollectorMarksCtrl', function ($scope, $http, CollectorMarksService) {
 	
-	$scope.classes = [
-		{
-			Id: "0100", Name: "1"
+	
+	var getClasses = function () {
+		CollectorMarksService.getClasses().then(function (response) {
+			$scope.classes = response.data;
 		},
-		{
-			Id: "0101", Name: "1A"
-		},
-		{
-			Id: "0102", Name: "1Б"
-		},
-		{
-			Id: "0103", Name: "1В"
-		},
-		{
-			Id: "0104", Name: "1Г"
-		},
-		{
-			Id: "0105", Name: "1Д"
-		},
-		{
-			Id: "0106", Name: "1Е"
-		},
-		{
-			Id: "0200", Name: "2"
-		},
-		{
-			Id: "0201", Name: "2А"
-		},
-		{
-			Id: "0202", Name: "2Б"
-		},
-		{
-			Id: "0203", Name: "2В"
-		},
-		{
-			Id: "0204", Name: "2Г"
-		},
-	];
+		function () {
+			alert('Ошибка доступа к базе данных');
+		});
+	};
+	getClasses();
 
 	var getInstanceOfExercises = function () {
 		return [
@@ -82,7 +54,12 @@
 				CurrentMark: ''
 			},
 			{
-				Name: '9',
+				Name: '9.1',
+				MaxRate: '1',
+				CurrentMark: ''
+			},
+			{
+				Name: '9.2',
 				MaxRate: '1',
 				CurrentMark: ''
 			},
@@ -97,7 +74,7 @@
 	$scope.exercises = getInstanceOfExercises();
 
 	$scope.Students = [];
-
+	
 	$scope.pushMarks = function (schoolId) {
 		
 		$scope.Students.push({
@@ -110,6 +87,8 @@
 		});
 
 		resetScopes();
+
+		angular.element('#setFocusHere').focus();
 	};
 
 	
@@ -124,18 +103,21 @@
 
 	$scope.sendMarks = function (students) {
 		if ($scope.Students.length > 0) {
-			$http({
-				method: 'POST',
-				url: '/CollectorMarks/PostData',
-				data: students
-			}).then(function success(res) {
-				//реализовать
-			}, function error(res) {
-				//реализовать
-			});
+			if (confirm('Вы уверены в своих действиях?\nДанные нельзя будет редактировать в последующем!')) {
+
+				CollectorMarksService.postMarks(students).then(function success(res) {
+					resetScopes();
+					$scope.Students = [];
+					$scope.class = '';
+					alert('Оценки ваших учеников отправлены удачно :)')//ИЗМЕНИТЬ ОБЯЗАТЕЛЬНО!!!
+
+				}, function error(res) {
+					alert('К сожалению произошла ошибка. Попробуйте повторить отправку через несколько минут.');
+				});
+			}
 		}
 		else {
-			//реализовать
+			alert('Сначала добавьте чё нить');//ИЗМЕНИТЬ ОБЯЗАТЕЛЬНО!!!
 		}
 	};
 });
