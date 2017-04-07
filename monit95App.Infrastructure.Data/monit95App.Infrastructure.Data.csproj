@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassRepository.cs" />
     <Compile Include="FileReportRepository.cs" />
     <Compile Include="Interfaces\IPParticipCodeCreator.cs" />
     <Compile Include="PParticipRepository.cs" />
