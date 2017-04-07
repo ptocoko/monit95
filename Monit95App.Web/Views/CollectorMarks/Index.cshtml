@@ -6,14 +6,13 @@
 <body ng-app="collectorMarksApp" ng-controller="CollectorMarksCtrl">
     <h3>Оценки</h3>
     <div class="container-fluid">
-        <label ng-if="!class">
-            Сначала выберите класс:
-        </label>
-        <select style="width:80px" class="form-control" ng-model="class">
-            <option value="{{class.Name}}" ng-repeat="class in classes">{{class.Name}}</option>
-        </select>
-        <br/>
-
+        <div id="popup">
+            <select style="width:80px" class="form-control" ng-model="class">
+                <option value="{{class.Name}}" ng-repeat="class in classes">{{class.Name}}</option>
+            </select>
+            <span ng-if="!class" id="myPopup">Сначала выберите класс!</span>
+            <br />
+        </div>
         <table class="table table-bordered">
             <tr>
                 <th rowspan="2">Фамилия</th>
