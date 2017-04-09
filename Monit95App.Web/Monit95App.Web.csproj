@@ -199,6 +199,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\MarksCollectorController.cs" />
     <Compile Include="Api\ProjectParticipController.cs" />
     <Compile Include="Api\SchoolController.cs" />
     <Compile Include="Api\ProjectTestController.cs" />

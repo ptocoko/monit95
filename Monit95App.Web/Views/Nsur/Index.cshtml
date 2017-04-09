@@ -1,15 +1,15 @@
 ﻿@{
-    ViewBag.Title = "НСУР";    
+    ViewBag.Title = "РСУР";    
 }
 <head>               
   
 </head>
 <body ng-app="nsurApp" ng-controller="tabCtrl" ng-init="$rootScope.username='@User.Identity.Name'">
-    <h3>Национальная система учительского роста</h3>    
+    <h3>Региональная система учительского роста</h3>    
     <ul class="nav nav-pills" role="tablist">
         <li role="presentation" ng-class="{active: tabNumber == 1}" ng-click="selectTab(1)"><a href="#/participlist">Участники<span class="badge"></span></a></li>
         <li role="presentation" ng-class="{active: tabNumber == 2}" ng-click="selectTab(2)"><a href="#/plan">Планирование</a></li>
-        <li role="presentation" ng-class="{active: tabNumber == 3}" ng-click="selectTab(3)"><a href="#/marks">Баллы по заданиям<span class="badge">3</span></a></li>
+        @*<li role="presentation" ng-class="{active: tabNumber == 3}" ng-click="selectTab(3)"><a href="#/marks">Баллы за заданиям<span class="badge">3</span></a></li>*@
         <li role="presentation" ng-class="{active: tabNumber == 4}" ng-click="selectTab(4)"><a href="#/reports">Отчеты</a></li>
     </ul>
     <div ng-view></div>
