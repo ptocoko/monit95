@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Web", "Monit95App.Web\Monit95App.Web.csproj", "{F0E9BF7F-EA42-4B82-810C-B9FB8763E173}"
 EndProject
@@ -28,11 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Work", "Monit95App.Services.Work\Monit95App.Services.Work.csproj", "{7DEC6E41-341F-4308-9D88-2F838187D3AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.FileManager", "..\..\FileManager\FileManager\Monit95App.Services.FileManager.csproj", "{204B0873-C4B9-49C6-A7D1-9485FB3D9017}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.FileManager", "..\FileManager\FileManager\Monit95App.Services.FileManager.csproj", "{204B0873-C4B9-49C6-A7D1-9485FB3D9017}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Web.Tests", "Monit95App.Web.Tests\Monit95App.Web.Tests.csproj", "{9D370610-E7DD-4512-850C-F20B9652F8F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailRuCloudApi.Tests", "..\..\..\Cloud Mail.Ru\Mail.Ru-.net-cloud-client-master\Tests\MailRuCloudApi.Tests.csproj", "{C6B2A54B-8F90-4928-8F41-C1A5E747EB0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailRuCloudApi.Tests", "..\Cloud Mail.Ru\Mail.Ru-.net-cloud-client-master\Tests\MailRuCloudApi.Tests.csproj", "{C6B2A54B-8F90-4928-8F41-C1A5E747EB0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Work.Tests", "Monit95App.Services.Work.Tests\Monit95App.Services.Work.Tests.csproj", "{70EFD6D5-BD31-4EC4-B557-89154DF14F2D}"
 EndProject
@@ -43,6 +43,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.Data.Tests", "Monit95App.Infrastructure.Data.Tests\Monit95App.Infrastructure.Data.Tests.csproj", "{A8CD881C-FCF2-4326-B6BD-B9E587F28918}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.DTO", "Monit95App.Services.DTO\Monit95App.Services.DTO.csproj", "{6066434D-DC3D-49C1-8421-619F293C6929}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Mark", "Monit95App.Services.Mark\Monit95App.Services.Mark.csproj", "{94624C2F-6D28-4964-A368-981E1C568022}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,6 +112,10 @@ Global
 		{6066434D-DC3D-49C1-8421-619F293C6929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6066434D-DC3D-49C1-8421-619F293C6929}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6066434D-DC3D-49C1-8421-619F293C6929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94624C2F-6D28-4964-A368-981E1C568022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94624C2F-6D28-4964-A368-981E1C568022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94624C2F-6D28-4964-A368-981E1C568022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94624C2F-6D28-4964-A368-981E1C568022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,5 +133,6 @@ Global
 		{75BF5EAC-81A8-4E00-A82E-0BCBD17AC50B} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
 		{A8CD881C-FCF2-4326-B6BD-B9E587F28918} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
 		{6066434D-DC3D-49C1-8421-619F293C6929} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
+		{94624C2F-6D28-4964-A368-981E1C568022} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
 	EndGlobalSection
 EndGlobal

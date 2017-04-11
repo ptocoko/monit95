@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="85865882773149aca6257e8eee1294bf" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="cokoModel.Area" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Category" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Collector" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.CollectorSchool" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
@@ -14,7 +13,6 @@
         <EntityTypeShape EntityType="cokoModel.ReportStatistic" Width="1.5" PointX="13" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.School" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.TownType" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <AssociationConnector Association="cokoModel.FK_Schools_Areas" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_CollectorSchools_Collectors" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_CollectorSchools_school" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_Schools_Monit95users" ManuallyRouted="false" />
@@ -40,6 +38,8 @@
         <EntityTypeShape EntityType="cokoModel.GiaResult" Width="1.5" PointX="8.25" PointY="14.75" />
         <AssociationConnector Association="cokoModel.FK_GiaResults_Projects" />
         <AssociationConnector Association="cokoModel.FK_GiaResults_Schools" />
+        <EntityTypeShape EntityType="cokoModel.Area" Width="1.5" PointX="0.75" PointY="6.5" />
+        <AssociationConnector Association="cokoModel.FK_Schools_Areas" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

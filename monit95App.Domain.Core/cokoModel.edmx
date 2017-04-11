@@ -171,6 +171,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TestId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="MaxMark" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TestResults">
@@ -499,14 +500,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="cokoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Area">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Schools" Relationship="Self.FK_Schools_Areas" FromRole="Areas" ToRole="Schools" />
-        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
@@ -589,12 +582,12 @@
           <Property Name="ReportLink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PropertyTypeCode" Type="Int32" />
           <Property Name="Monit95Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Area" Relationship="Self.FK_Schools_Areas" FromRole="Schools" ToRole="Areas" />
           <NavigationProperty Name="CollectorSchools" Relationship="Self.FK_CollectorSchools_school" FromRole="Schools" ToRole="CollectorSchools" />
           <NavigationProperty Name="Monit95users" Relationship="Self.FK_Schools_Monit95users" FromRole="Schools" ToRole="Monit95users" />
           <NavigationProperty Name="TownType" Relationship="Self.FK_Schools_TownTypes" FromRole="Schools" ToRole="TownTypes" />
           <NavigationProperty Name="ProjectParticips" Relationship="cokoModel.FK_ProjectParticips_Schools" FromRole="School" ToRole="ProjectParticip" />
           <NavigationProperty Name="GiaResults" Relationship="cokoModel.FK_GiaResults_Schools" FromRole="School" ToRole="GiaResult" />
+          <NavigationProperty Name="Area" Relationship="cokoModel.FK_Schools_Areas" FromRole="School" ToRole="Area" />
         </EntityType>
         <EntityType Name="TownType">
           <Key>
@@ -604,18 +597,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Schools" Relationship="Self.FK_Schools_TownTypes" FromRole="TownTypes" ToRole="Schools" />
         </EntityType>
-        <Association Name="FK_Schools_Areas">
-          <End Role="Areas" Type="Self.Area" Multiplicity="1" />
-          <End Role="Schools" Type="Self.School" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Areas">
-              <PropertyRef Name="Code" />
-            </Principal>
-            <Dependent Role="Schools">
-              <PropertyRef Name="AreaCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CollectorSchools_Collectors">
           <End Role="Collectors" Type="Self.Collector" Multiplicity="1" />
           <End Role="CollectorSchools" Type="Self.CollectorSchool" Multiplicity="*" />
@@ -677,7 +658,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="cokoContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Areas" EntityType="Self.Area" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Collectors" EntityType="Self.Collector" />
           <EntitySet Name="CollectorSchools" EntityType="Self.CollectorSchool" />
@@ -686,10 +666,6 @@
           <EntitySet Name="ReportStatistics" EntityType="Self.ReportStatistic" />
           <EntitySet Name="Schools" EntityType="Self.School" />
           <EntitySet Name="TownTypes" EntityType="Self.TownType" />
-          <AssociationSet Name="FK_Schools_Areas" Association="Self.FK_Schools_Areas">
-            <End Role="Areas" EntitySet="Areas" />
-            <End Role="Schools" EntitySet="Schools" />
-          </AssociationSet>
           <AssociationSet Name="FK_CollectorSchools_Collectors" Association="Self.FK_CollectorSchools_Collectors">
             <End Role="Collectors" EntitySet="Collectors" />
             <End Role="CollectorSchools" EntitySet="CollectorSchools" />
@@ -762,6 +738,11 @@
           <AssociationSet Name="FK_GiaResults_Schools" Association="cokoModel.FK_GiaResults_Schools">
             <End Role="School" EntitySet="Schools" />
             <End Role="GiaResult" EntitySet="GiaResults" />
+          </AssociationSet>
+          <EntitySet Name="Areas" EntityType="cokoModel.Area" />
+          <AssociationSet Name="FK_Schools_Areas" Association="cokoModel.FK_Schools_Areas">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="School" EntitySet="Schools" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="NsurSubject">
@@ -838,6 +819,7 @@
           <Property Name="Number" Type="Int32" Nullable="false" />
           <Property Name="MaxMark" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Test" Relationship="cokoModel.FK_TestExercises_Tests" FromRole="TestExercis" ToRole="Test" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TestResult">
           <Key>
@@ -1023,20 +1005,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schools" Relationship="cokoModel.FK_Schools_Areas" FromRole="Area" ToRole="School" />
+        </EntityType>
+        <Association Name="FK_Schools_Areas">
+          <End Type="cokoModel.Area" Role="Area" Multiplicity="1" />
+          <End Type="cokoModel.School" Role="School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="AreaCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище cokoModelContainer" CdmEntityContainer="cokoContext">
-          <EntitySetMapping Name="Areas">
-            <EntityTypeMapping TypeName="cokoModel.Area">
-              <MappingFragment StoreEntitySet="Areas">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="cokoModel.Category">
               <MappingFragment StoreEntitySet="Categories">
@@ -1186,6 +1180,7 @@
           <EntitySetMapping Name="TestExercises">
             <EntityTypeMapping TypeName="cokoModel.TestExercis">
               <MappingFragment StoreEntitySet="TestExercises">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="MaxMark" ColumnName="MaxMark" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="TestId" ColumnName="TestId" />
@@ -1236,6 +1231,14 @@
                 <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
                 <ScalarProperty Name="ParticipCode" ColumnName="ParticipCode" />
                 <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="cokoModel.Area">
+              <MappingFragment StoreEntitySet="Areas">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

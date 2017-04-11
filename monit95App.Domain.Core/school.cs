@@ -42,7 +42,6 @@ namespace Monit95App.Domain.Core
         public Nullable<int> PropertyTypeCode { get; set; }
         public string Monit95Login { get; set; }
     
-        public virtual Area Area { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CollectorSchool> CollectorSchools { get; set; }
         public virtual Monit95users Monit95users { get; set; }
@@ -51,5 +50,6 @@ namespace Monit95App.Domain.Core
         public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiaResult> GiaResults { get; set; }
+        public virtual Area Area { get; set; }
     }
 }

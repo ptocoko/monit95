@@ -199,7 +199,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\MarksCollectorController.cs" />
+    <Compile Include="Api\MarksFileController.cs" />
     <Compile Include="Api\ProjectParticipController.cs" />
     <Compile Include="Api\SchoolController.cs" />
     <Compile Include="Api\ProjectTestController.cs" />
@@ -213,7 +213,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NsurController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\Work201615Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -460,6 +459,10 @@
     <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
       <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>
       <Name>Monit95App.Services.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monit95App.Services.Mark\Monit95App.Services.Mark.csproj">
+      <Project>{94624C2F-6D28-4964-A368-981E1C568022}</Project>
+      <Name>Monit95App.Services.Mark</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.Work\Monit95App.Services.Work.csproj">
       <Project>{7dec6e41-341f-4308-9d88-2f838187d3ad}</Project>

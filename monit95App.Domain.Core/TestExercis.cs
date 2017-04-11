@@ -18,6 +18,7 @@ namespace Monit95App.Domain.Core
         public System.Guid TestId { get; set; }
         public int Number { get; set; }
         public int MaxMark { get; set; }
+        public string Name { get; set; }
     
         public virtual Test Test { get; set; }
     }

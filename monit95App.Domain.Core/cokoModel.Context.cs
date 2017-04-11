@@ -25,7 +25,6 @@ namespace Monit95App.Domain.Core
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Collector> Collectors { get; set; }
         public virtual DbSet<CollectorSchool> CollectorSchools { get; set; }
@@ -43,5 +42,6 @@ namespace Monit95App.Domain.Core
         public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
+        public virtual DbSet<Area> Areas { get; set; }
     }
 }
