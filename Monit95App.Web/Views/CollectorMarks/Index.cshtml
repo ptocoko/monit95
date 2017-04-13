@@ -28,7 +28,9 @@
                 <td><input class="form-control" ng-model="student.Surname" /></td>
                 <td><input class="form-control" ng-model="student.Name" /></td>
                 <td><input class="form-control" ng-model="student.SecondName" /></td>
-                <td ng-repeat="exercise in student.Exercises track by $index"><input size="1" class="form-control" ng-model="exercise.CurrentMark" /></td>
+                <td ng-repeat="exercise in student.Exercises track by $index">
+                    <input size="1" class="form-control" ng-model="exercise.CurrentMark" />
+                </td>
             </tr>
             <tr>
                 <td><input tabindex="1" id="setFocusHere" class="form-control" type="text" ng-model="Surname" ng-disabled="!class" /></td>
@@ -39,11 +41,13 @@
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </td>
-                <td ng-repeat="exercise in exercises track by $index"><input tabindex="{{$index+4}}" class="form-control" size="1" type="text" ng-model="exercise.CurrentMark" ng-disabled="!class"/></td>
+                <td ng-repeat="exercise in exercises track by $index">
+                    
+                    <input tabindex="{{$index+4}}" class="form-control" size="1" type="text" ng-model="exercise.CurrentMark" ng-disabled="!class"/>
+                </td>
             </tr>
         </table>
        
-        
         <button ng-disabled="Students.length==0" class="btn btn-default btn-lg" type="button" ng-click="sendMarks(Students)">Отправить</button>
     </div>
 </body>
