@@ -11,18 +11,37 @@ namespace Monit95App.Services.Mark
 {
     public class MarksFileService : IMarksFileService
     {
-        public Task SaveAsync(HttpPostedFile httpPostedFile, string userName)
+        private string _collectFolder { get; }
+
+        public MarksFileService(string collectFolder)
         {
-            var serverPath = "d:";
+            collectFolder = _collectFolder;
+        }
+
+        public Task SaveAsync(HttpPostedFile httpPostedFile, string userName)
+        {            
             var fileExten = Path.GetExtension(httpPostedFile.FileName);
             var fileName = $"{userName}.{fileExten}";
-            var fullFileName = Path.Combine(serverPath, fileName);
+            var fullFileName = Path.Combine(_collectFolder, fileName);
             
             return Task.Run(() =>
             {
                 httpPostedFile.SaveAs(fullFileName);
+            });            
+        }
+
+        public Task<bool> IsExist(string userName)
+        {
+
+            return Task.Run(() =>
+            {
+
+                var filenames = Directory.GetFiles(_collectFolder, "*.xlsx")
+                                  .Select(x => Path.GetFileNameWithoutExtension(x)).ToList();
+
+                return true;
             });
-            
+
         }
     }
 }

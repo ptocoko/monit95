@@ -17,7 +17,12 @@ namespace Monit95App.Api
         
         public MarksFileController()
         {
-            _marksFileService = new MarksFileService();
+            _marksFileService = new MarksFileService(@"d:\collector");
+        }
+
+        public MarksFileController(IMarksFileService marksFileService)
+        {
+            _marksFileService = marksFileService;
         }
 
         [HttpPost]
@@ -39,6 +44,13 @@ namespace Monit95App.Api
 
             //return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Не верный файл");
             return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        public async Task<bool> IsExistFile(string fullFileName)
+        {            
+
+
+            return true;
         }
     }
 }
