@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="ExerMarkDto.cs" />
     <Compile Include="Interfaces\IExerMarkDtoCreator.cs" />
+    <Compile Include="Interfaces\IProjectParticipV2Service.cs" />
     <Compile Include="ParticipTestDto.cs" />
+    <Compile Include="ProjectParticipV2Dto.cs" />
     <Compile Include="ProjectTestDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Monit95App.ViewModels.CollectorMarks
 {
-    public class StudentViewModel
+    public class ProjectParticipV2
     {
         public string SchoolId { get; set; }
         public string Surname { get; set; }

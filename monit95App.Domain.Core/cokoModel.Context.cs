@@ -36,7 +36,7 @@ namespace Monit95App.Domain.Core
         public virtual DbSet<NsurSubject> NsurSubjects { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<ProjectParticip> ProjectParticips { get; set; }
-        public virtual DbSet<ProjectParticipsV2> ProjectParticipsV2 { get; set; }
+        public virtual DbSet<StudentViewModel> ProjectParticipsV2 { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<Report> Reports { get; set; }

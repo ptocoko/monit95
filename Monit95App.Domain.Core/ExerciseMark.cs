@@ -19,7 +19,7 @@ namespace Monit95App.Domain.Core
         public System.Guid TestId { get; set; }
         public string Marks { get; set; }
     
-        public virtual ProjectParticipsV2 ProjectParticipsV2 { get; set; }
+        public virtual StudentViewModel ProjectParticipsV2 { get; set; }
         public virtual Test Test { get; set; }
     }
 }

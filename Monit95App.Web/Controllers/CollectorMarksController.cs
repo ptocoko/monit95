@@ -1,5 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.DTO;
+using Monit95App.Services.DTO.Interfaces;
 using Monit95App.ViewModels.CollectorMarks;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,7 @@ namespace Monit95App.Controllers
     {
         private cokoContext _db;
         private UnitOfWork _unitOfWork;
+        private IProjectParticipV2Service _projectParticipV2Service;
 
         public CollectorMarksController()
         {
@@ -29,8 +32,10 @@ namespace Monit95App.Controllers
         }
 
         [HttpPost]
-        public ContentResult PostData(IEnumerable<StudentViewModel> model)
+        public ContentResult PostData(ProjectParticipV2Dto model)
         {
+
+            _projectParticipV2Service.InsertOrUpdate(model);
             if (model != null)
             {
                 var studentModel = model;
@@ -41,6 +46,8 @@ namespace Monit95App.Controllers
                 return Content("error");
             }
         }
+
+        
 
         public async Task<JsonResult> GetClasses()
         {

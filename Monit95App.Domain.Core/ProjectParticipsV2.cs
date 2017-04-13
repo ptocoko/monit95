@@ -12,10 +12,10 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectParticipsV2
+    public partial class StudentViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProjectParticipsV2()
+        public StudentViewModel()
         {
             this.ExerciseMarks = new HashSet<ExerciseMark>();
         }
@@ -32,8 +32,8 @@ namespace Monit95App.Domain.Core
         public virtual Class Class { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExerciseMark> ExerciseMarks { get; set; }
-        public virtual ProjectParticipsV2 ProjectParticipsV21 { get; set; }
-        public virtual ProjectParticipsV2 ProjectParticipsV22 { get; set; }
+        public virtual StudentViewModel ProjectParticipsV21 { get; set; }
+        public virtual StudentViewModel ProjectParticipsV22 { get; set; }
         public virtual School School { get; set; }
     }
 }
