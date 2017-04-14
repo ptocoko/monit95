@@ -13,5 +13,13 @@
 		});
 	};
 
+	service.postParticip = function (particip) {
+		return $http({
+			method: 'POST',
+			url: '/CollectorMarks/PostData',
+			data: particip
+		});
+	}
+
 	return service;
 });

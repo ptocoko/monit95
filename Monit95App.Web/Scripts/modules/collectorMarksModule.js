@@ -1,1 +1,1 @@
-﻿angular.module('collectorMarksApp', []);
+﻿angular.module('collectorMarksApp', ['ui.bootstrap']);
