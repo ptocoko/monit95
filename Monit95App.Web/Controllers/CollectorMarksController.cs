@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace Monit95App.Controllers
 {
+    //TODO: only for school role account
     public class CollectorMarksController : Controller
     {
         private cokoContext _db;
@@ -31,20 +32,28 @@ namespace Monit95App.Controllers
             return View();
         }
 
+        public ActionResult FillParticips()
+        {
+            return View();
+        }
+
+        //TODO: Post particip & Post result
         [HttpPost]
         public ContentResult PostData(ProjectParticipV2Dto model)
         {
-            _projectParticipV2Service.InsertOrUpdate(model);
+            
             if (model != null)
             {
-                var studentModel = model;
+                _projectParticipV2Service.InsertOrUpdate(model);
                 return Content("success");
             }
             else
             {
                 return Content("error");
             }
-        }        
+        }
+
+        
 
         public async Task<JsonResult> GetClasses()
         {

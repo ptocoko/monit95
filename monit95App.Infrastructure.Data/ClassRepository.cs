@@ -42,8 +42,7 @@ namespace Monit95App.Infrastructure.Data
 
         public IEnumerable<Class> GetAll()
         {
-            var classes= db.Classes.ToList();
-            return classes;
+            return db.Classes;
         }
 
         public void Update(Class item)

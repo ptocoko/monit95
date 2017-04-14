@@ -346,6 +346,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\controllers\collectorMarksCtrl.js" />
+    <Content Include="Scripts\controllers\fillParticipsCtrl.js" />
     <Content Include="Scripts\controllers\marksctrl.js" />
     <Content Include="Scripts\controllers\marks_editctrl.js" />
     <Content Include="Scripts\controllers\planctrl.js" />
@@ -381,6 +382,7 @@
     <Content Include="Templates\marks.html" />
     <Content Include="Templates\marks_edit.html" />
     <Content Include="Templates\participlist.html" />
+    <Content Include="Templates\ParticipModalTemplate.html" />
     <Content Include="Templates\plan.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -433,6 +435,7 @@
     <Content Include="Scripts\smart-table.min.js.map" />
     <Content Include="Views\Nsur\Index.cshtml" />
     <Content Include="Views\CollectorMarks\Index.cshtml" />
+    <Content Include="Views\CollectorMarks\FillParticips.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
