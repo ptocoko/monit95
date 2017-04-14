@@ -105,7 +105,7 @@
 			}, function () {
 				alert('Ошибка доступа к базе данных');
 			});
-			$scope.particips.push(particip);
+			$scope.particips.push(particip);//TODO: вызвать после удачного запроса
 		});
 	};
 

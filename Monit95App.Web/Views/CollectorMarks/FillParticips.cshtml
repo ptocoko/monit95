@@ -11,9 +11,9 @@
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчество</th>
-            <th>Класс</th>
+            <th width="120">Класс</th>
         </tr>
-        <tr ng-repeat="particip in particips">
+        <tr ng-repeat="particip in particips | orderBy:'ClassId'">
             <td>{{particip.Surname}}</td>
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
