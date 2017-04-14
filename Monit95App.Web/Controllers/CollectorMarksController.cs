@@ -34,7 +34,6 @@ namespace Monit95App.Controllers
         [HttpPost]
         public ContentResult PostData(ProjectParticipV2Dto model)
         {
-
             _projectParticipV2Service.InsertOrUpdate(model);
             if (model != null)
             {
@@ -45,9 +44,7 @@ namespace Monit95App.Controllers
             {
                 return Content("error");
             }
-        }
-
-        
+        }        
 
         public async Task<JsonResult> GetClasses()
         {

@@ -31,6 +31,8 @@ namespace Monit95App.Infrastructure.Data
         public void Update(T entity)
         {
             _context.Set<T>().Attach(entity);
+            var entry = _context.Entry(entity);
+            entry.State = System.Data.Entity.EntityState.Modified;
         }
 
         public void Delete(T entity)
