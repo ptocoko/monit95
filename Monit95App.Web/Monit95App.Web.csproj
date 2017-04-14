@@ -212,6 +212,7 @@
     <Compile Include="Controllers\CollectorMarksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NsurController.cs" />
+    <Compile Include="Controllers\OneTwoThreeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\Work201615Controller.cs" />
     <Compile Include="Global.asax.cs">
@@ -349,6 +350,7 @@
     <Content Include="Scripts\controllers\fillParticipsCtrl.js" />
     <Content Include="Scripts\controllers\marksctrl.js" />
     <Content Include="Scripts\controllers\marks_editctrl.js" />
+    <Content Include="Scripts\controllers\onetwothreectrl.js" />
     <Content Include="Scripts\controllers\planctrl.js" />
     <Content Include="Scripts\controllers\tabctrl.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -368,6 +370,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modules\collectorMarksModule.js" />
+    <Content Include="Scripts\modules\onetwothree.js" />
     <Content Include="Scripts\modules\nsurapp.js" />
     <Content Include="Scripts\controllers\participctrl.js" />
     <Content Include="Scripts\respond.js" />
@@ -384,6 +387,7 @@
     <Content Include="Templates\participlist.html" />
     <Content Include="Templates\ParticipModalTemplate.html" />
     <Content Include="Templates\plan.html" />
+    <Content Include="Templates\main.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -436,12 +440,12 @@
     <Content Include="Views\Nsur\Index.cshtml" />
     <Content Include="Views\CollectorMarks\Index.cshtml" />
     <Content Include="Views\CollectorMarks\FillParticips.cshtml" />
+    <Content Include="Views\OneTwoThree\Spa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="ViewModels\Collector\" />
-    <Folder Include="Views\Nsur\Templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

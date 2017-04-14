@@ -91,6 +91,7 @@
     
     @*Modules*@  
     <script src="~/Scripts/modules/nsurApp.js"></script>
+    <script src="~/Scripts/modules/onetwothree.js"></script>
     <script src="~/Scripts/modules/collectorMarksModule.js"></script>
 
     @*Controllers*@
@@ -100,6 +101,7 @@
     <script src="~/Scripts/controllers/marksctrl.js"></script>   
     <script src="~/Scripts/controllers/collectorMarksCtrl.js"></script>
     <script src="~/Scripts/controllers/fillParticipsCtrl.js"></script>
+    <script src="~/Scripts/controllers/onetwothreectrl.js"></script>
 
     @*Services*@
     <script src="~/Scripts/services/pparticipservice.js"></script>  
@@ -137,10 +139,11 @@
                     }
                     @if (User.IsInRole("school"))
                     {
-                        <li>@Html.ActionLink(@"ОГЭ-2016", "Oge2016", "Home")</li>
+                        <li>@Html.ActionLink(@"1-3 классы", "Spa", "OneTwoThree")</li>
+                        @*<li>@Html.ActionLink(@"ОГЭ-2016", "Oge2016", "Home")</li>*@
                         <li>@Html.ActionLink(@"Информация", "Schoolinfo", "Home")</li>
                         <li>@Html.ActionLink("Отчеты", "Report", "Report")</li>
-                        <li>@Html.ActionLink("Оценки", "Index", "CollectorMarks")</li>
+                        @*<li>@Html.ActionLink("Оценки", "Index", "CollectorMarks")</li>*@
                     }                  
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
                 </ul>

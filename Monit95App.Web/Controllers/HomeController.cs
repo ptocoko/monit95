@@ -100,10 +100,7 @@ namespace Monit95App.Controllers
                     schoolNames.Add(new SelectListItem { Text = x.Id + " - " + x.Name, Value = x.Id.ToString() });
                 });
             }
-            //
-            //string json = JsonConvert.SerializeObject(schoolNames);
-            //System.IO.File.WriteAllText(@"D:\path.json", json);
-            //
+   
             return Json(schoolNames, JsonRequestBehavior.AllowGet);
         }
 
@@ -152,7 +149,6 @@ namespace Monit95App.Controllers
         {
             ViewBag.Message = "Your application description page.";
            return View();
-         //   return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Contact()

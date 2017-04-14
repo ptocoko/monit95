@@ -17,13 +17,13 @@ namespace Monit95App.Domain.Core
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Class()
         {
-            this.ProjectParticipsV2 = new HashSet<StudentViewModel>();
+            this.ProjectParticipsV2 = new HashSet<ProjectParticipsV2>();
         }
     
         public string Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentViewModel> ProjectParticipsV2 { get; set; }
+        public virtual ICollection<ProjectParticipsV2> ProjectParticipsV2 { get; set; }
     }
 }
