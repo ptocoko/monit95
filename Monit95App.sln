@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.DTO", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.DTO.Tests", "Monit95App.Services.DTO.Tests\Monit95App.Services.DTO.Tests.csproj", "{ED22B912-D38F-464A-95C5-676F166959BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Mark", "Monit95App.Services.Mark\Monit95App.Services.Mark.csproj", "{94624C2F-6D28-4964-A368-981E1C568022}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,10 @@ Global
 		{ED22B912-D38F-464A-95C5-676F166959BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED22B912-D38F-464A-95C5-676F166959BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED22B912-D38F-464A-95C5-676F166959BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94624C2F-6D28-4964-A368-981E1C568022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94624C2F-6D28-4964-A368-981E1C568022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94624C2F-6D28-4964-A368-981E1C568022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94624C2F-6D28-4964-A368-981E1C568022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,5 +126,6 @@ Global
 		{A8CD881C-FCF2-4326-B6BD-B9E587F28918} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
 		{6066434D-DC3D-49C1-8421-619F293C6929} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
 		{ED22B912-D38F-464A-95C5-676F166959BA} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
+		{94624C2F-6D28-4964-A368-981E1C568022} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
 	EndGlobalSection
 EndGlobal

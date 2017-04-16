@@ -127,9 +127,6 @@
     <Compile Include="Test.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TestExercis.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="TestResult.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>

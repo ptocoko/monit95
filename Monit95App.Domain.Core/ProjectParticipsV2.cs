@@ -32,8 +32,6 @@ namespace Monit95App.Domain.Core
         public virtual Class Class { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExerciseMark> ExerciseMarks { get; set; }
-        public virtual ProjectParticipsV2 ProjectParticipsV21 { get; set; }
-        public virtual ProjectParticipsV2 ProjectParticipsV22 { get; set; }
         public virtual School School { get; set; }
     }
 }

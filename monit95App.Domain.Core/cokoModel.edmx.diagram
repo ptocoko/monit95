@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="cokoModel.ProjectTest" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Report" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.School" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="cokoModel.TestExercis" Width="1.5" PointX="5.25" PointY="21" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.TestResult" Width="1.5" PointX="9.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="3" PointY="18.875" IsExpanded="true" />
         <AssociationConnector Association="cokoModel.FK_Schools_Areas" ManuallyRouted="false" />
@@ -36,16 +35,14 @@
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Schools" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectTests_Projects" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectTests_Tests" ManuallyRouted="false" />
-        <AssociationConnector Association="cokoModel.FK_TestExercises_Tests" ManuallyRouted="false" />
         <EntityTypeShape EntityType="cokoModel.ReportStatistic" Width="1.5" PointX="13" PointY="8" />
         <EntityTypeShape EntityType="cokoModel.TownType" Width="1.5" PointX="0.75" PointY="6.125" />
         <AssociationConnector Association="cokoModel.FK_ReportDownload_ReportDownload" />
         <AssociationConnector Association="cokoModel.FK_Schools_TownTypes" />
         <EntityTypeShape EntityType="cokoModel.Class" Width="1.5" PointX="3" PointY="26.125" />
-        <EntityTypeShape EntityType="cokoModel.ProjectParticipsV2" Width="1.5" PointX="5.25" PointY="12.125" />
+        <EntityTypeShape EntityType="cokoModel.ProjectParticipsV2" Width="1.5" PointX="5.25" PointY="12.75" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_Classes" />
         <AssociationConnector Association="cokoModel.FK_ExerciseMarks_ProjectParticipsV2" />
-        <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_ProjectParticipsV2" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_Schools" />
       </Diagram>
     </edmx:Diagrams>

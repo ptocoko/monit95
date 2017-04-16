@@ -33,7 +33,7 @@ namespace Monit95App.Api
         {
             if(dto != null)
             {
-                await _projectParticipV2Service.DeleteAsync(dto)
+                await _projectParticipV2Service.DeleteAsync(dto);
             }
             else
             {
