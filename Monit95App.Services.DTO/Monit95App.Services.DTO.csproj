@@ -40,11 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassService.cs" />
     <Compile Include="ExerMarkDto.cs" />
+    <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IExerMarkDtoCreator.cs" />
     <Compile Include="Interfaces\IProjectParticipV2Service.cs" />
     <Compile Include="ParticipTestDto.cs" />
     <Compile Include="ProjectParticipV2Dto.cs" />
+    <Compile Include="ProjectParticipV2Service.cs" />
     <Compile Include="ProjectTestDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +55,10 @@
     <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
       <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
       <Name>Monit95App.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
+      <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
+      <Name>Monit95App.Domain.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

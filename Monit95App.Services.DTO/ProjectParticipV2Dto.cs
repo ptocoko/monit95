@@ -7,10 +7,14 @@ namespace Monit95App.Services.DTO
 {
     public class ProjectParticipV2Dto
     {
-        public string SchoolId { get; set; }
+        public int Id { get; set; }
+        public int ProjectCode { get; set; }
+        public string ParticipCode { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
         public string SecondName { get; set; }
-        public string ClassId { get; set; }        
+        public string SchoolId { get; set; }
+
+        public string ClassName { get; set; }        
     }
 }

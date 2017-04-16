@@ -30,7 +30,7 @@ namespace Monit95App.Infrastructure.Data
 
         public void Update(T entity)
         {
-            _context.Set<T>().Attach(entity);
+            // _context.Set<T>().Attach(entity);
             var entry = _context.Entry(entity);
             entry.State = System.Data.Entity.EntityState.Modified;
         }
@@ -38,6 +38,11 @@ namespace Monit95App.Infrastructure.Data
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
+
+            //var entry = _context.Entry(entity);
+            //entry.State = System.Data.Entity.EntityState.Deleted;
+
+           
         }
     }
 }

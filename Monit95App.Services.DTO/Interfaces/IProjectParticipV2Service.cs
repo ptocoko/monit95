@@ -9,8 +9,9 @@ namespace Monit95App.Services.DTO.Interfaces
 {
     public interface IProjectParticipV2Service
     {
-        void InsertOrUpdate(ProjectParticipV2Dto item);
+        void Add(ProjectParticipV2Dto item);
+        Task DeleteAsync(ProjectParticipV2Dto item);
 
-        IEnumerable<ProjectParticipV2Dto> Get(string schoolId);
+        Task<List<ProjectParticipV2Dto>> GetBySchoolIdAsync(string schoolId);
     }
 }

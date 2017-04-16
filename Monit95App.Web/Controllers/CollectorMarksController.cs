@@ -16,14 +16,12 @@ namespace Monit95App.Controllers
     //TODO: only for school role account
     public class CollectorMarksController : Controller
     {
-        private cokoContext _db;
-        private UnitOfWork _unitOfWork;
         private IProjectParticipV2Service _projectParticipV2Service;
+        private IClassService _classService;
 
         public CollectorMarksController()
         {
-            _db = new cokoContext();
-            _unitOfWork = new UnitOfWork(_db);
+
         }
 
         // GET: CollectorMarks
@@ -40,24 +38,21 @@ namespace Monit95App.Controllers
         //TODO: Post particip & Post result
         [HttpPost]
         public ContentResult PostData(ProjectParticipV2Dto model)
-        {
-            
+        {            
             if (model != null)
             {
-                _projectParticipV2Service.InsertOrUpdate(model);
+                _projectParticipV2Service.Add(model);
                 return Content("success");
             }
             else
             {
                 return Content("error");
             }
-        }
-
-        
+        }        
 
         public async Task<JsonResult> GetClasses()
         {
-            var classes = await Task.Run(() => _unitOfWork.Classes.GetAll());
+            var classes = await Task.Run(() => _classService.GetAll());
             var result = classes.Take(24).Select(s => new { Id = s.Id.Trim(), Name = s.Name.Trim() }).ToList();
 
             return Json(result, JsonRequestBehavior.AllowGet);
