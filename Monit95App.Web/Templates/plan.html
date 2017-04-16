@@ -1,32 +1,35 @@
 ﻿<div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">
-        <h4>Орфография, {{data}}</h4>
+        <h4>Орфография, 15.04.2017</h4>
     </div>
     <div class="panel-body">
         <p>1. Проведение</p>
-        <ul class="list-group">            
-                <li class="list-group-item"><a href="https://cloud.mail.ru/public/9K5z/bLh1fmwFb/1 орфография_201_список уч..pdf"><b>Cписок участников</b></a></li>
-                <li class="list-group-item"><a href="#"><b>КИМ</b></a></li>
-                <li class="list-group-item"><a href="#"><b>Бланк ответов</b></a></li>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{$rootScope.username}}/орфография_15.04.2017_201_список уч..pdf"><b>Cписок участников</b></a></li>
+            <li class="list-group-item"><a href="https://cloud.mail.ru/public/9K5z/bLh1fmwFb/орфография_15.04.2017_ким.rar"><b>КИМ</b></a></li>
+            <li class="list-group-item"><a href="https://cloud.mail.ru/public/9K5z/bLh1fmwFb/бланк ответов.pdf"><b>Бланк ответов</b></a></li>
         </ul>
     </div>
     <div class="panel-body">
         <p>2. Проверка</p>
-        <ul class="list-group">            
-                <li class="list-group-item"><a href="#"><b>Ключи</b></a></li>            
+        <ul class="list-group">
+            <li class="list-group-item"><a href="https://cloud.mail.ru/public/9K5z/bLh1fmwFb/орфография_15.04.2017_ключи.rar"><b>Ключи</b></a></li>
         </ul>
     </div>
     <div class="panel-body">
         <p>3. Занесение результатов</p>
         <ul class="list-group">
-            <li class="list-group-item"><a href="#"><b>Форма для внесения результатов</b></a></li>
-            <div>
-                <label class="btn btn-primary btn-sm">
-                    Отправить&hellip;
-                    <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none;">
-                </label>
-            </div>
+            <li class="list-group-item"><a href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{$rootScope.username}}/орфография_15.04.2017_201_баллы за задания.xlsx"><b>Форма для внесения баллов за задания</b></a></li>
+            <li>
+                <div>
+                    <label class="btn btn-primary btn-sm">
+                        Отправить&hellip;
+                        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none;"
+                               onchange="angular.element(this).scope().uploadFile(this)">
+                    </label>
+                </div>
+            </li>
 
         </ul>
     </div>

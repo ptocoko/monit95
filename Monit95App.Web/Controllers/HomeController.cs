@@ -11,11 +11,11 @@ namespace Monit95App.Controllers
     //Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
-        private readonly cokoContext context = new cokoContext();
+        private readonly cokoContext context = new cokoContext();        
 
         [OutputCache(Duration=1800, Location = OutputCacheLocation.Client, VaryByParam = "subjectCode")]
         public JsonResult GetAllParticips(int subjectCode)
-        {
+        {            
             List<LearnerVM> participInfos = new List<LearnerVM>();
             foreach (var result in context.GiaResults.Where(x=>x.ProjectCode==201676 && x.SubjectCode == subjectCode))
             {
