@@ -7,9 +7,8 @@
 			alert('Ошибка доступа к базе данных');
 		});
 	};
-	getClasses();
 
-	$scope.getParticips = function (schoolId) {
+	var getParticips = function (schoolId) {
 		CollectorMarksService.getParticips(schoolId).then(function (res) {
 			$scope.particips = res.data;
 		},
@@ -17,7 +16,12 @@
 			alert('Ошибка доступа к базе данных');
 		});
 	}
-	
+
+	$scope.init = function (schoolId){
+		getParticips(schoolId);
+		getClasses();
+	}
+
 	$scope.showParticipModalDialog = function (schoolId, classes) {
 		var openModal = $uibModal.open({
 			appendTo: angular.element($document[0].querySelector('.container')),
@@ -29,6 +33,7 @@
 				$scope.save = function () {
 
 					openModal.close({
+						ProjectCode: '201677',
 						SchoolId: schoolId,
 						Surname: $scope.surname,
 						Name: $scope.name,
