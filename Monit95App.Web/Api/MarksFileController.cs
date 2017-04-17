@@ -13,7 +13,7 @@ namespace Monit95App.Api
 {    
     public class MarksFileController : ApiController
     {
-        private IMarksFileService _marksFileService { get; }
+        private IMarksFileService _marksFileService;
         
         public MarksFileController()
         {
@@ -26,21 +26,14 @@ namespace Monit95App.Api
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> UploadFile()
-        {
-//            string serverPath = @"\\192.168.88.220\\файлы_пто\[2016-61] - РСУР\Сбор";
-            //string serverPath = @"d:\";
-            //var provider = new MultipartFormDataStreamProvider(serverPath);
-            //var result = await Request.Content.ReadAsMultipartAsync(provider);            
-            
-
+        public HttpResponseMessage UploadFile()
+        {           
             HttpFileCollection hfc = HttpContext.Current.Request.Files;
             HttpPostedFile hpf = hfc[0];            
             var formVarCollection = HttpContext.Current.Request.Form;
             var userName = formVarCollection.GetValues("username").SingleOrDefault();
 
-            await _marksFileService.SaveAsync(hpf, userName);
-
+            _marksFileService.SaveAsync(hpf, userName);
 
             //return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Не верный файл");
             return Request.CreateResponse(HttpStatusCode.Created);

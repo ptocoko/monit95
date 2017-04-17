@@ -9,6 +9,6 @@ namespace Monit95App.Services.Mark.Interfaces
 {
     public interface IMarksFileService
     {
-        Task SaveAsync(HttpPostedFile httpPostedFile, string userName);
+        void SaveAsync(HttpPostedFile httpPostedFile, string userName);
     }
 }
