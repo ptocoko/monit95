@@ -14,9 +14,9 @@
                 <td><input ng-model="name" class="form-control" required /></td>
                 <td><input ng-model="secondName" class="form-control" required /></td>
                 <td>
-                    <select required class="form-control select-for-classes" ng-model="classId" >
+                    <select required class="form-control select-for-classes" ng-model="className" >
                         <option></option>
-                        <option value="{{class.Id}}" ng-repeat="class in classes">{{class.Name}}</option>
+                        <option value="{{class.Name}}" ng-repeat="class in classes">{{class.Name}}</option>
                     </select>
                 </td>
             </tr>

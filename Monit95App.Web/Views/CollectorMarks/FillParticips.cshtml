@@ -5,7 +5,7 @@
 
 <h3>Список учащихся 1-3 классов</h3>
 
-<body class="container" ng-app="collectorMarksApp" ng-controller="FillParticipsController">
+<body class="container" ng-app="collectorMarksApp" ng-controller="FillParticipsController" ng-init="init('@User.Identity.Name')">
     <table class="table table-bordered">
         <tr>
             <th>Фамилия</th>
@@ -17,7 +17,7 @@
             <td>{{particip.Surname}}</td>
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
-            <td>{{getClassNameFromId(particip.ClassId)}}</td>
+            <td>{{particip.ClassName}}</td>
         </tr>
     </table>
     <hr />

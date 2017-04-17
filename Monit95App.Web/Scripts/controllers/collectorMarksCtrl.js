@@ -9,7 +9,7 @@
 			alert('Ошибка доступа к базе данных');
 		});
 	};
-	//getClasses();
+	getClasses();
 
 	var getInstanceOfExercises = function () {
 		return [

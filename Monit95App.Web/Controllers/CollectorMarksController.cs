@@ -17,11 +17,16 @@ namespace Monit95App.Controllers
     public class CollectorMarksController : Controller
     {
         private IProjectParticipV2Service _projectParticipV2Service;
-        private IClassService _classService;
 
         public CollectorMarksController()
         {
+            var unitOfWork = new UnitOfWorkV2(new cokoContext());
 
+            var projectParticipV2Repository = new Repository<ProjectParticipsV2>(unitOfWork);
+            var classRepository = new Repository<Class>(unitOfWork);
+
+            var classService = new ClassService(unitOfWork, classRepository);
+            _projectParticipV2Service = new ProjectParticipV2Service(unitOfWork, projectParticipV2Repository, classService);
         }
 
         // GET: CollectorMarks
@@ -37,7 +42,7 @@ namespace Monit95App.Controllers
 
         //TODO: Post particip & Post result
         [HttpPost]
-        public ContentResult PostData(ProjectParticipV2Dto model)
+        public ContentResult PostParticip(ProjectParticipV2Dto model)
         {            
             if (model != null)
             {
@@ -49,13 +54,6 @@ namespace Monit95App.Controllers
                 return Content("error");
             }
         }        
-
-        public async Task<JsonResult> GetClasses()
-        {
-            var classes = await Task.Run(() => _classService.GetAll());
-            var result = classes.Take(24).Select(s => new { Id = s.Id.Trim(), Name = s.Name.Trim() }).ToList();
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }

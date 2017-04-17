@@ -16,7 +16,7 @@ namespace Monit95App.Infrastructure.Data
         public UnitOfWorkV2(cokoContext context)
         {
             _context = context;
-            _context.Configuration.LazyLoadingEnabled = false;
+           // _context.Configuration.LazyLoadingEnabled = false;
         }
 
         public cokoContext DbContext
