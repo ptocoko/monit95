@@ -19,7 +19,7 @@ namespace Monit95App.Infrastructure.Data
 
         public IQueryable<T> GetAll()
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>();    
             return query;
         }
 
