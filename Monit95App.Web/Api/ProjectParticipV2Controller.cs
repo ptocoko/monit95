@@ -7,7 +7,8 @@ using System.Web.Http;
 using Monit95App.Services.DTO.Interfaces;
 using Monit95App.Services.DTO;
 using System.Threading.Tasks;
-
+using Monit95App.Infrastructure.Data;
+using Monit95App.Domain.Core;
 
 namespace Monit95App.Api
 {
@@ -15,11 +16,22 @@ namespace Monit95App.Api
     {
         private IProjectParticipV2Service _projectParticipV2Service;
 
-        public async Task<IEnumerable<ProjectParticipV2Dto>> GetBySchoolId(string schoolId)
+        public ProjectParticipV2Controller()
         {
-            if(!String.IsNullOrEmpty(schoolId))
+            var unitOfWork = new UnitOfWorkV2(new cokoContext());
+
+            var projectParticipV2Repository = new Repository<ProjectParticipsV2>(unitOfWork);
+            var classRepository = new Repository<Class>(unitOfWork);
+
+            var classService = new ClassService(unitOfWork, classRepository);
+            _projectParticipV2Service = new ProjectParticipV2Service(unitOfWork, projectParticipV2Repository, classService);
+        }
+
+        public async Task<IEnumerable<ProjectParticipV2Dto>> GetBySchoolId(string id)
+        {
+            if(!String.IsNullOrEmpty(id))
             {
-                return await _projectParticipV2Service.GetBySchoolIdAsync(schoolId);
+                return await _projectParticipV2Service.GetBySchoolIdAsync(id);
             }
 
             else

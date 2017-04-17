@@ -28,7 +28,7 @@ namespace Monit95App.Services.DTO
             return Task.Run(() =>
             {
                 var dtos = new List<ProjectParticipV2Dto>();
-                var entities = _projectParticipV2Repository.GetAll().Where(x => x.SchoolId == schoolId);
+                var entities = _projectParticipV2Repository.GetAll().Where(x => x.SchoolId == schoolId).ToList();
 
                 foreach (var entity in entities)
                 {
