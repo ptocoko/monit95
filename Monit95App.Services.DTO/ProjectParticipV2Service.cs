@@ -12,23 +12,50 @@ namespace Monit95App.Services.DTO
     public class ProjectParticipV2Service : IProjectParticipV2Service
     {
         private IUnitOfWork _unitOfWork;
-        private IRepositoryV2<ProjectParticipsV2> _projectParticipV2Repository;
+        private IRepositoryV2<ProjectParticipsV2> _projectParticipV2Rep;
 
         private IClassService _classServise;
 
         public ProjectParticipV2Service(IUnitOfWork unitOfWork, IRepositoryV2<ProjectParticipsV2> projectParticipV2Repository, IClassService classService)
         {
             _unitOfWork = unitOfWork;
-            _projectParticipV2Repository = projectParticipV2Repository;
+            _projectParticipV2Rep = projectParticipV2Repository;
             _classServise = classService;
         }
 
-        public Task <List<ProjectParticipV2Dto>> GetBySchoolIdAsync(string schoolId)
+        public Task<ProjectParticipV2Dto> AddAsync(ProjectParticipV2Dto dto)
+        {
+            return Task.Run(() =>
+            {
+                if (dto != null)
+                {
+                    var newEntity = new ProjectParticipsV2
+                    {
+                        ProjectCode = dto.ProjectCode,
+                        ParticipCode = dto.ParticipCode,
+                        Surname = dto.Surname,
+                        Name = dto.Name,
+                        SecondName = dto.SecondName,
+                        SchoolId = dto.SchoolId
+                    };
+
+                    newEntity.ClassCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode
+
+                    _projectParticipV2Rep.Insert(newEntity);
+                    _unitOfWork.Save();
+
+                    dto.Id = newEntity.Id;
+                }
+
+                return dto;
+            });
+        }
+        public Task<List<ProjectParticipV2Dto>> GetBySchoolIdAsync(string schoolId)
         {
             return Task.Run(() =>
             {
                 var dtos = new List<ProjectParticipV2Dto>();
-                var entities = _projectParticipV2Repository.GetAll().Where(x => x.SchoolId == schoolId).ToList();
+                var entities = _projectParticipV2Rep.GetAll().Where(x => x.SchoolId == schoolId).ToList();
 
                 foreach (var entity in entities)
                 {
@@ -48,43 +75,43 @@ namespace Monit95App.Services.DTO
             });           
         }
 
-        public void Add(ProjectParticipV2Dto dto)
+        public Task<bool> UpdateAsync(ProjectParticipV2Dto dto)
         {
-            if(dto != null)
+            return Task.Run(() =>
             {
-                var newEntity = new ProjectParticipsV2
+                if (dto != null && dto.Id != 0)
                 {
-                    ProjectCode = dto.ProjectCode,
-                    ParticipCode = dto.ParticipCode,
-                    Surname = dto.Surname,
-                    Name = dto.Name,
-                    SecondName = dto.SecondName,
-                    SchoolId = dto.SchoolId
-                };
-
-                newEntity.ClassCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode
-
-                _projectParticipV2Repository.Insert(newEntity);
-                _unitOfWork.Save();
-            }
+                    var entity = _projectParticipV2Rep.GetById(dto.Id);
+                    entity.ProjectCode = dto.ProjectCode;
+                    entity.ParticipCode = dto.ParticipCode;
+                    entity.Surname = dto.Surname;
+                    entity.Name = dto.Name;
+                    entity.SchoolId = dto.SchoolId;
+                    entity.ClassCode = _classServise.GetId(dto.Name);
+                }
+                return true;
+            });
+            
         }
 
         public void Update(ProjectParticipV2Dto dto)
         {
-            var entity = _projectParticipV2Repository.GetAll().Single(x => x.Id == dto.Id);
+            var entity = _projectParticipV2Rep.GetAll().Single(x => x.Id == dto.Id);
 
             entity.Surname = dto.Surname;
             entity.Name = dto.Name;
             entity.SecondName = dto.SecondName;
             entity.ClassCode = _classServise.GetId(dto.ClassName);
 
-            _projectParticipV2Repository.Update(entity);
+            _projectParticipV2Rep.Update(entity);
             _unitOfWork.Save();
         }
 
-        public Task DeleteAsync(ProjectParticipV2Dto item)
+        public Task<bool> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }

@@ -19,14 +19,27 @@ namespace Monit95App.Api
         public ProjectParticipV2Controller()
         {
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
-
             var projectParticipV2Repository = new Repository<ProjectParticipsV2>(unitOfWork);
             var classRepository = new Repository<Class>(unitOfWork);
-
             var classService = new ClassService(unitOfWork, classRepository);
             _projectParticipV2Service = new ProjectParticipV2Service(unitOfWork, projectParticipV2Repository, classService);
         }
 
+        //create
+        public async Task<HttpResponseMessage> Post(ProjectParticipV2Dto dto)
+        {
+            if(dto != null)
+            {
+                await _projectParticipV2Service.AddAsync(dto);
+                return Request.CreateResponse(HttpStatusCode.Created, dto);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось добавить участника");
+            }            
+        }
+
+        //read
         public async Task<IEnumerable<ProjectParticipV2Dto>> GetBySchoolId(string id)
         {
             if(!String.IsNullOrEmpty(id))
@@ -41,16 +54,19 @@ namespace Monit95App.Api
 
         }
 
-        public async void Delete(ProjectParticipV2Dto dto)
+        //delete
+        public async Task<HttpResponseMessage> Delete(int id)
         {
-            if(dto != null)
+            if(id != 0)
             {
-                await _projectParticipV2Service.DeleteAsync(dto);
+                await _projectParticipV2Service.DeleteAsync(id);
+                return Request.CreateResponse(HttpStatusCode.OK);
             }
             else
             {
-                throw new ArgumentNullException("Delete(ProjectParticipV2Dto dto)");
+                throw new ArgumentNullException("async Task<HttpResponseMessage> Delete(int id)");
             }
+            
         }
     }
 }

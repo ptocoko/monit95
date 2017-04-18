@@ -20,13 +20,7 @@ namespace Monit95App.Controllers
 
         public CollectorMarksController()
         {
-            var unitOfWork = new UnitOfWorkV2(new cokoContext());
-
-            var projectParticipV2Repository = new Repository<ProjectParticipsV2>(unitOfWork);
-            var classRepository = new Repository<Class>(unitOfWork);
-
-            var classService = new ClassService(unitOfWork, classRepository);
-            _projectParticipV2Service = new ProjectParticipV2Service(unitOfWork, projectParticipV2Repository, classService);
+            
         }
 
         // GET: CollectorMarks
@@ -38,22 +32,7 @@ namespace Monit95App.Controllers
         public ActionResult FillParticips()
         {
             return View();
-        }
-
-        //TODO: Post particip & Post result
-        [HttpPost]
-        public ContentResult PostParticip(ProjectParticipV2Dto model)
-        {            
-            if (model != null)
-            {
-                _projectParticipV2Service.Add(model);
-                return Content("success");
-            }
-            else
-            {
-                return Content("error");
-            }
-        }        
+        }              
         
     }
 }

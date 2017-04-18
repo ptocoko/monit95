@@ -17,17 +17,21 @@ namespace Monit95App.Infrastructure.Data
             _context = unitOfWork.DbContext;
         }
 
+        public void Insert(T entity)
+        {
+            _context.Set<T>().Add(entity);                        
+        }
+
         public IQueryable<T> GetAll()
         {
             IQueryable<T> query = _context.Set<T>();    
             return query;
         }
-
-        public void Insert(T entity)
+        public T GetById(int id)
         {
-            _context.Set<T>().Add(entity);
+            return _context.Set<T>().Find(id);
         }
-
+       
         public void Update(T entity)
         {
             // _context.Set<T>().Attach(entity);
@@ -35,14 +39,13 @@ namespace Monit95App.Infrastructure.Data
             entry.State = System.Data.Entity.EntityState.Modified;
         }
 
-        public void Delete(T entity)
+        public void Delete(int id)
         {
+            var entity = _context.Set<T>().Find(id);
             _context.Set<T>().Remove(entity);
-
+            
             //var entry = _context.Entry(entity);
-            //entry.State = System.Data.Entity.EntityState.Deleted;
-
-           
+            //entry.State = System.Data.Entity.EntityState.Deleted;           
         }
     }
 }
