@@ -93,7 +93,6 @@
 			}
 		}, function () {
 			isUpdatingParticip = false;
-			
 		});
 	};
 

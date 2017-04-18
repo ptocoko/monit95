@@ -86,6 +86,7 @@ namespace Monit95App.Services.DTO
                     entity.ParticipCode = dto.ParticipCode;
                     entity.Surname = dto.Surname;
                     entity.Name = dto.Name;
+                    entity.SecondName = dto.SecondName;
                     entity.SchoolId = dto.SchoolId;
                     entity.ClassCode = _classServise.GetId(dto.ClassName);
 
