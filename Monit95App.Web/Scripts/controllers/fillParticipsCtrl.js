@@ -1,10 +1,10 @@
 ﻿angular.module('collectorMarksApp').controller('FillParticipsController', function ($scope, $uibModal, $document, CollectorMarksService) {
-	var getClasses = function () {
+	var getClassesFromDB = function () {
 		CollectorMarksService.getClasses().then(function (response) {
 			$scope.classes = response.data;
 		},
 		function () {
-			alert('Ошибка доступа к базе данных');
+			alert('Ошибка доступа к базе данных классы');
 		});
 	};
 
@@ -13,13 +13,13 @@
 			$scope.particips = res.data;
 		},
 		function () {
-			alert('Ошибка доступа к базе данных');
+			alert('Ошибка доступа к базе данных участники');
 		});
 	}
 
 	$scope.init = function (schoolId){
 		getParticips(schoolId);
-		getClasses();
+		getClassesFromDB();
 	}
 
 	$scope.showParticipModalDialog = function (schoolId, classes) {
@@ -52,7 +52,7 @@
 			CollectorMarksService.postParticip(particip).then(function () {
 				$scope.particips.push(particip);
 			}, function () {
-				alert('Ошибка доступа к базе данных');
+				alert('alert: Ошибка доступа к базе данных');
 			});
 			
 		});
