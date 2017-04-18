@@ -87,7 +87,9 @@ namespace Monit95App.Services.DTO
                     entity.Surname = dto.Surname;
                     entity.Name = dto.Name;
                     entity.SchoolId = dto.SchoolId;
-                    entity.ClassCode = _classServise.GetId(dto.Name);
+                    entity.ClassCode = _classServise.GetId(dto.ClassName);
+
+                    _unitOfWork.Save();
                 }
                 return true;
             });

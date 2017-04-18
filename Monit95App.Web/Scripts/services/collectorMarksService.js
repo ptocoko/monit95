@@ -32,5 +32,13 @@
 		});
 	}
 
+	service.updateParticip = function (particip) {
+		return $http({
+			method: 'PUT',
+			url: '/api/ProjectParticipV2/Update',
+			data: particip
+		});
+	}
+
 	return service;
 });

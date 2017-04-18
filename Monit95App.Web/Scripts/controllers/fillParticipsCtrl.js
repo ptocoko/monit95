@@ -1,5 +1,6 @@
 ﻿angular.module('collectorMarksApp').controller('FillParticipsController', function ($scope, $uibModal, $document, CollectorMarksService) {
 	var _schoolId = '';
+	var isUpdatingParticip = false;
 
 	var getClassesFromDB = function () {
 		CollectorMarksService.getClasses().then(function (response) {
@@ -25,7 +26,7 @@
 		getClassesFromDB();
 	}
 
-	$scope.showParticipModalDialog = function (schoolId, classes) {
+	$scope.showParticipModalDialog = function (schoolId, classes, particip) {
 		var openModal = $uibModal.open({
 			appendTo: angular.element($document[0].querySelector('.container')),
 			templateUrl: '/Templates/ParticipModalTemplate.html',
@@ -33,16 +34,39 @@
 			controller: function ($scope, $uibModal) {
 				$scope.classes = classes;
 
-				$scope.save = function () {
+				if (particip != undefined) {
+					$scope.surname = particip.Surname;
+					$scope.name = particip.Name;
+					$scope.secondName = particip.SecondName;
+					$scope.className = particip.ClassName;
+				}
 
-					openModal.close({
-						ProjectCode: '201677',
-						SchoolId: schoolId,
-						Surname: $scope.surname,
-						Name: $scope.name,
-						SecondName: $scope.secondName,
-						ClassName: $scope.className
-					});
+				$scope.save = function () {
+					var newParticip = {};
+
+					if (particip != undefined) {
+						newParticip = {
+							Id: particip.Id,
+							ProjectCode: '201677',
+							SchoolId: schoolId,
+							Surname: $scope.surname,
+							Name: $scope.name,
+							SecondName: $scope.secondName,
+							ClassName: $scope.className
+						};
+					}
+					else {
+						newParticip = {
+							ProjectCode: '201677',
+							SchoolId: schoolId,
+							Surname: $scope.surname,
+							Name: $scope.name,
+							SecondName: $scope.secondName,
+							ClassName: $scope.className
+						};
+					}
+
+					openModal.close(newParticip);
 				}
 
 				$scope.cancel = function () {
@@ -52,11 +76,23 @@
 		});
 
 		openModal.result.then(function (particip) {
-			CollectorMarksService.postParticip(particip).then(function () {
-				getParticips(_schoolId);
-			}, function (message) {
-				alert('alert: Ошибка доступа к базе данных\n' + message);
-			});
+			if (isUpdatingParticip) {
+				CollectorMarksService.updateParticip(particip).then(function () {
+					getParticips(_schoolId);
+				}, function (message) {
+					alert('Something went wrong!\n' + message);
+				});
+				isUpdatingParticip = false;
+			}
+			else {
+				CollectorMarksService.postParticip(particip).then(function () {
+					getParticips(_schoolId);
+				}, function (message) {
+					alert('alert: Ошибка доступа к базе данных\n' + message);
+				});
+			}
+		}, function () {
+			isUpdatingParticip = false;
 			
 		});
 	};
@@ -71,5 +107,10 @@
 				});
 		}
 		
+	}
+
+	$scope.updateParticip = function (particip) {
+		isUpdatingParticip = true;
+		$scope.showParticipModalDialog(_schoolId, $scope.classes, particip);
 	}
 });
