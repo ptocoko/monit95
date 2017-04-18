@@ -109,7 +109,18 @@ namespace Monit95App.Services.DTO
 
         public Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                if (id != 0)
+                {
+                    _projectParticipV2Rep.Delete(id);
+                    _unitOfWork.Save();
+                }
+                return true;
+            });
+            
+
+            //throw new NotImplementedException();
         }
 
        
