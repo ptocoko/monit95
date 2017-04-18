@@ -3,52 +3,27 @@
     ViewBag.Title = "Index";
 }
 
-<body ng-app="collectorMarksApp" ng-controller="CollectorMarksCtrl">
+<body ng-app="collectorMarksApp" ng-controller="CollectorMarksCtrl" ng-init="getParticips('@User.Identity.Name')">
     <h3>Оценки</h3>
-    <div class="container-fluid">
-        <div id="popup">
-            <select style="width:80px" class="form-control" ng-model="class">
-                <option value="{{class.Name}}" ng-repeat="class in classes">{{class.Name}}</option>
-            </select>
-            <span ng-if="!class" id="myPopup">Сначала выберите класс!</span>
-            <br />
-        </div>
-        
+    <div class="container">
         <table class="table table-bordered">
             <tr>
-                <th rowspan="2">Фамилия</th>
-                <th rowspan="2">Имя</th>
-                <th rowspan="2">Отчество</th>
-                <th colspan="{{exercises.length}}">Баллы за задания</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Класс</th>
+                <th>Баллы по заданиям</th>
+                <th></th>
             </tr>
-            <tr>
-                <td ng-repeat="number in exercises">{{number.Name}}</td>
-            </tr>
-            <tr ng-repeat="student in Students">
-                <td><input class="form-control" ng-model="student.Surname" /></td>
-                <td><input class="form-control" ng-model="student.Name" /></td>
-                <td><input class="form-control" ng-model="student.SecondName" /></td>
-                <td ng-repeat="exercise in student.Exercises track by $index">
-                    <input size="1" class="form-control" ng-model="exercise.CurrentMark" />
-                </td>
-            </tr>
-            <tr>
-                <td><input tabindex="1" id="setFocusHere" class="form-control" type="text" ng-model="Surname" ng-disabled="!class" /></td>
-                <td><input tabindex="2" class="form-control" type="text" ng-model="Name" ng-disabled="!class"/></td>
-                <td id="cell">
-                    <input tabindex="3" class="form-control" type="text" ng-model="SecondName" ng-disabled="!class"/>
-                    <button ng-disabled="!class" tabindex="{{exercises.length+4}}" id="buttn" class="btn btn-success btn-sm" ng-click="pushMarks('@User.Identity.Name')">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                </td>
-                <td ng-repeat="exercise in exercises track by $index">
-                    
-                    <input tabindex="{{$index+4}}" class="form-control" size="1" type="text" ng-model="exercise.CurrentMark" ng-disabled="!class"/>
-                </td>
+            <tr ng-repeat="particip in particips | orderBy:['ClassName','Surname']">
+                <td>{{particip.Surname}}</td>
+                <td>{{particip.Name}}</td>
+                <td>{{particip.SecondName}}</td>
+                <td>{{particip.ClassName}}</td>
+                <td>{{getMarksById(particip.Id)}}</td>
+                <td></td>
             </tr>
         </table>
-       
-        <button ng-disabled="Students.length==0" class="btn btn-default btn-lg" type="button" ng-click="sendMarks(Students)">Отправить</button>
     </div>
 </body>
 
