@@ -37,12 +37,12 @@
     border-color: transparent #555 transparent transparent;
 }
 
-#cell {
+.cell {
     position: relative;
 }
 
-#buttn {
+.buttn {
     position: absolute;
-    bottom: 10px;
-    right: -447%;
+    bottom: 3px;
+    right: -20%;
 }

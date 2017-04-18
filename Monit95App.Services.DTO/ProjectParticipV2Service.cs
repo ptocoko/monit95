@@ -87,7 +87,9 @@ namespace Monit95App.Services.DTO
                     entity.Surname = dto.Surname;
                     entity.Name = dto.Name;
                     entity.SchoolId = dto.SchoolId;
-                    entity.ClassCode = _classServise.GetId(dto.Name);
+                    entity.ClassCode = _classServise.GetId(dto.ClassName);
+
+                    _unitOfWork.Save();
                 }
                 _unitOfWork.Save();
 
@@ -98,7 +100,18 @@ namespace Monit95App.Services.DTO
 
         public Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                if (id != 0)
+                {
+                    _projectParticipV2Rep.Delete(id);
+                    _unitOfWork.Save();
+                }
+                return true;
+            });
+            
+
+            //throw new NotImplementedException();
         }
 
        

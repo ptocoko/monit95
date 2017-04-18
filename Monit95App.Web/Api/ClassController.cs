@@ -24,7 +24,8 @@ namespace Monit95App.Api
         }
         public IEnumerable<Class> Get()
         {
-            return _classService.GetAll();
+            var res = _classService.GetAll().Take(24).Select(s => new Class { Id = s.Id, Name = s.Name });
+            return res;
         }
     }
 }

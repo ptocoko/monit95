@@ -12,12 +12,16 @@
             <th>Имя</th>
             <th>Отчество</th>
             <th width="120">Класс</th>
+            <th width="50"></th>
+            <th width="50"></th>
         </tr>
-        <tr ng-repeat="particip in particips | orderBy:'ClassId'">
+        <tr ng-repeat="particip in particips | orderBy:['ClassName','Surname']">
             <td>{{particip.Surname}}</td>
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
+            <td><a class="glyphicon glyphicon-trash" href="" ng-click="deleteParticip(particip)"></a></td>
+            <td><a class="glyphicon glyphicon-edit" href="" ng-click="updateParticip(particip)"></a> </td>
         </tr>
     </table>
     <hr />

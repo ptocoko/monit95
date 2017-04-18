@@ -68,5 +68,19 @@ namespace Monit95App.Api
             }
             
         }
+
+        [HttpPut]
+        public async Task<HttpResponseMessage> Update(ProjectParticipV2Dto dto)
+        {
+            if (dto != null)
+            {
+                await _projectParticipV2Service.UpdateAsync(dto);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                throw new ArgumentNullException("async Task<HttpResponseMessage> Update(ProjectParticipV2Dto dto)");
+            }
+        }
     }
 }
