@@ -92,22 +92,11 @@ namespace Monit95App.Services.DTO
 
                     _unitOfWork.Save();
                 }
+                _unitOfWork.Save();
+
                 return true;
             });
             
-        }
-
-        public void Update(ProjectParticipV2Dto dto)
-        {
-            var entity = _projectParticipV2Rep.GetAll().Single(x => x.Id == dto.Id);
-
-            entity.Surname = dto.Surname;
-            entity.Name = dto.Name;
-            entity.SecondName = dto.SecondName;
-            entity.ClassCode = _classServise.GetId(dto.ClassName);
-
-            _projectParticipV2Rep.Update(entity);
-            _unitOfWork.Save();
         }
 
         public Task<bool> DeleteAsync(int id)
