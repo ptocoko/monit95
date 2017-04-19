@@ -9,7 +9,11 @@ oneTwoThreeApp.config(function ($routeProvider, $locationProvider) {
         .when('/partiplist', {
             templateUrl: '/Templates/onetwothree_particip.html',
             controller: 'oneTwoThree_participCtrl'
-        });   
+		})
+		.when('/partipmarks', {
+			templateUrl: '/Templates/onetwothree_marks.html',
+			controller: 'oneTwoThree_marksCtrl'
+		});   
     
     $locationProvider.hashPrefix('');
 });

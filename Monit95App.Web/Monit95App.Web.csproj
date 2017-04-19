@@ -348,7 +348,7 @@
     <Content Include="Scripts\angularmodules.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\controllers\collectorMarksCtrl.js" />
+    <Content Include="Scripts\controllers\onetwothree_marksctrl.js" />
     <Content Include="Scripts\controllers\onetwothree_participctrl.js" />
     <Content Include="Scripts\controllers\marksctrl.js" />
     <Content Include="Scripts\controllers\marks_editctrl.js" />
@@ -387,6 +387,7 @@
     <Content Include="Templates\modalTemplatesMarksRU\templateForClass1.html" />
     <Content Include="Templates\modalTemplatesMarksRU\templateForClass2.html" />
     <Content Include="Templates\modalTemplatesMarksRU\templateForClass3.html" />
+    <Content Include="Templates\onetwothree_marks.html" />
     <Content Include="Templates\participlist.html" />
     <Content Include="Templates\addorupdateform.html" />
     <Content Include="Templates\plan.html" />

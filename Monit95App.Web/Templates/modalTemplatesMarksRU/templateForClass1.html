@@ -2,17 +2,25 @@
     <h3>{{participFullName}}</h3>
     <br/>
     <div style="text-align:center">
-        <table class="table table-bordered">
-            <tr>
-                <th>Номер задания</th>
-                <th>Отметка</th>
-            </tr>
-            <tr ng-repeat="name in exerciseNames">
-                <td>{{name}}</td>
-                <td><input class="form-control" size="1" ng-model="marks[$index]" /></td>
-            </tr>
-        </table>
-
-        <button ng-click="">btn</button>
+        <input class="form-control" type="checkbox" ng-model="isAbsent" ng-click="setAbsentMarks()"/>
+        <form ng-submit="save()">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Номер задания</th>
+                    <th>Отметка</th>
+                </tr>
+                <tr ng-repeat="name in exerciseNames">
+                    <td>{{name}}</td>
+                    <td><input class="form-control" size="1" ng-model="marksArray[$index]" ng-disabled="!isAbsent"/></td>
+                </tr>
+            </table>
+            <hr/>
+            <div style="text-align:right">
+                <input type="submit" class="btn btn-success" href="" value="Сохранить" />
+                <a class="btn btn-default btn-in-horizon" href="" ng-click="cancel()">Отменить</a>
+            </div>
+        </form>
+        <br/>
+        <button ng-click="showMarks()">btn</button>
     </div>
 </div>
