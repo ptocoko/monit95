@@ -108,7 +108,7 @@
 				$scope.particips.splice($scope.particips.indexOf(particip), 1);
 			},
 				function (message) {
-					alert('Ошибка при удалении участника\n' + message);
+					alert('Ошибка при удалении участника\nПопробуйте обновить страницу');
 				});
 		}
 		

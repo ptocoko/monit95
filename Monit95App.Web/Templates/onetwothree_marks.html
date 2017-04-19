@@ -1,0 +1,22 @@
+﻿<h3>Оценки</h3>
+
+<body class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Класс</th>
+            <th>Баллы по заданиям</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="particip in particips | orderBy:['ClassName','Surname']">
+            <td>{{particip.Surname}}</td>
+            <td>{{particip.Name}}</td>
+            <td>{{particip.SecondName}}</td>
+            <td>{{particip.ClassName}}</td>
+            <td>{{getMarksByParticipId(particip.Id).split('|')[0]}}</td>
+            <td><a class="btn btn-default" href="" ng-click="changeMarks(particip, getMarksByParticipId(particip.Id))">Изменить</a></td>
+        </tr>
+    </table>
+</body>

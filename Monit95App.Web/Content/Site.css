@@ -71,6 +71,10 @@ input[type="checkbox"].input-validation-error {
     width:80%;
 }
 
+.modal-marksSize{
+    width:35%;
+}
+
 .btn-in-horizon {
     margin-left: 10px;
     float: right;

@@ -1,3 +1,25 @@
-﻿<div class="container">
-    <h3>First Class</h3>
+﻿<div style="width:100%" class="container">
+    <h3>{{participFullName}}</h3>
+    <br/>
+    <div style="text-align:center">
+        <input class="form-control" type="checkbox" ng-model="isAbsent" ng-click="setAbsentMarks()"/>
+        <form ng-submit="save()">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Номер задания</th>
+                    <th>Отметка</th>
+                </tr>
+                <tr ng-repeat="name in exerciseNames">
+                    <td>{{name}}</td>
+                    <td><input class="form-control" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
+                </tr>
+            </table>
+            <hr/>
+            <div style="text-align:right">
+                <input type="submit" class="btn btn-success" href="" value="Сохранить" />
+                <a class="btn btn-default btn-in-horizon" href="" ng-click="cancel()">Отменить</a>
+            </div>
+        </form>
+        <br/>
+    </div>
 </div>
