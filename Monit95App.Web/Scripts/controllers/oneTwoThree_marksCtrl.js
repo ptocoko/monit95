@@ -13,7 +13,7 @@
 	};
 
 	$scope.Marks = [{//temporary
-		ProjectParticipId: '1',
+		ProjectParticipId: '1248',
 		Marks: '1;1;0;1;1;1;1;1;1;0;0|1;1;1;1;1;1;1;1;1;1;1'
 	}];
 
@@ -34,9 +34,11 @@
 				size: 'marksSize',
 				controller: function ($scope, $uibModal) {
 					$scope.participFullName = particip.Surname + ' ' + particip.Name + ' ' + particip.SecondName;
-
-					if(classNumber === '1')
+					var testId;
+					if (classNumber === '1') {
 						$scope.exerciseNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9.1', '9.2', '10'];
+						testId = '';
+					}
 
 					$scope.marksArray = [];
 
@@ -60,14 +62,14 @@
 					}
 
 					$scope.setAbsentMarks = function () {
-						if (isAbsent) {
+						if ($scope.isAbsent) {
 							$scope.marksArray.forEach(function (item, i, arr) {
-								item = 'x';
+								$scope.marksArray[i] = 'x';
 							});
 						}
 						else {
 							$scope.marksArray.forEach(function (item, i, arr) {
-								item = '';
+								$scope.marksArray[i] = '';
 							});
 						}
 					}

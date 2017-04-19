@@ -11,7 +11,7 @@
                 </tr>
                 <tr ng-repeat="name in exerciseNames">
                     <td>{{name}}</td>
-                    <td><input class="form-control" size="1" ng-model="marksArray[$index]" ng-disabled="!isAbsent"/></td>
+                    <td><input class="form-control" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
                 </tr>
             </table>
             <hr/>
@@ -21,6 +21,5 @@
             </div>
         </form>
         <br/>
-        <button ng-click="showMarks()">btn</button>
     </div>
 </div>
