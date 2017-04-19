@@ -90,24 +90,22 @@
     @Scripts.Render("~/bundles/angular")    
     
     @*Modules*@  
-    <script src="~/Scripts/modules/nsurApp.js"></script>
-    <script src="~/Scripts/modules/onetwothree.js"></script>
-    <script src="~/Scripts/modules/collectorMarksModule.js"></script>
+    <script src="~/Scripts/modules/nsurapp.js"></script>
+    <script src="~/Scripts/modules/onetwothreeapp.js"></script>    
 
     @*Controllers*@
     <script src="~/Scripts/controllers/tabctrl.js"></script>
     <script src="~/Scripts/controllers/participctrl.js"></script>
     <script src="~/Scripts/controllers/planctrl.js"></script>   
-    <script src="~/Scripts/controllers/marksctrl.js"></script>   
-    <script src="~/Scripts/controllers/collectorMarksCtrl.js"></script>
-    <script src="~/Scripts/controllers/fillParticipsCtrl.js"></script>
-    <script src="~/Scripts/controllers/onetwothreectrl.js"></script>
-
+    <script src="~/Scripts/controllers/marksctrl.js"></script>       
+    @*<script src="~/Scripts/controllers/collectormarksctrl.js"></script>*@
+    <script src="~/Scripts/controllers/onetwothree_participctrl.js"></script>
+    
     @*Services*@
     <script src="~/Scripts/services/pparticipservice.js"></script>  
     <script src="~/Scripts/services/schoolservice.js"></script>
     <script src="~/Scripts/services/tresultservice.js"></script>
-    <script src="~/Scripts/services/collectorMarksService.js"></script>
+    <script src="~/Scripts/services/onetwothree_participservice.js"></script>
     
     @Styles.Render("~/Content/css")                 
     <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />    

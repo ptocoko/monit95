@@ -1,9 +1,13 @@
-﻿angular.module('collectorMarksApp').controller('FillParticipsController', function ($scope, $uibModal, $document, CollectorMarksService) {
+﻿oneTwoThreeApp.controller('oneTwoThree_participCtrl', function ($scope, $uibModal, $document, OneTwoThree_ParticipService, $rootScope) {
 	var _schoolId = '';
-	var isUpdatingParticip = false;
+    var isUpdatingParticip = false;    
+
+    $scope.$on('$viewContentLoaded', function () {
+        $scope.init($rootScope.username)        
+    });   
 
 	var getClassesFromDB = function () {
-		CollectorMarksService.getClasses().then(function (response) {
+		OneTwoThree_ParticipService.getClasses().then(function (response) {
 			$scope.classes = response.data;
 		},
 		function () {
@@ -11,25 +15,27 @@
 		});
 	};
 
+    $scope.init = function (username) { 
+        _schoolId = username;
+        getParticips(_schoolId);
+        getClassesFromDB();
+    }
+
 	var getParticips = function (schoolId) {
-		CollectorMarksService.getParticips(schoolId).then(function (res) {
-			_schoolId = schoolId;
+        OneTwoThree_ParticipService.getParticips(schoolId).then(function (res) {
+			//_schoolId = schoolId;
 			$scope.particips = res.data;
 		},
 		function () {
 			alert('Ошибка доступа к базе данных участники');
 		});
-	}
+	}    
 
-	$scope.init = function (schoolId){
-		getParticips(schoolId);
-		getClassesFromDB();
-	}
-
-	$scope.showParticipModalDialog = function (schoolId, classes, particip) {
+    $scope.showParticipModalDialog = function (classes, particip) {
+        console.log(_schoolId);
 		var openModal = $uibModal.open({
 			appendTo: angular.element($document[0].querySelector('.container')),
-			templateUrl: '/Templates/ParticipModalTemplate.html',
+			templateUrl: '/Templates/AddOrUpdateForm.html',
 			size: 'mySize',
 			controller: function ($scope, $uibModal) {
 				$scope.classes = classes;
@@ -48,7 +54,7 @@
 						newParticip = {
 							Id: particip.Id,
 							ProjectCode: '201677',
-							SchoolId: schoolId,
+							SchoolId: _schoolId,
 							Surname: $scope.surname,
 							Name: $scope.name,
 							SecondName: $scope.secondName,
@@ -58,7 +64,7 @@
 					else {
 						newParticip = {
 							ProjectCode: '201677',
-							SchoolId: schoolId,
+							SchoolId: _schoolId,
 							Surname: $scope.surname,
 							Name: $scope.name,
 							SecondName: $scope.secondName,
@@ -77,7 +83,7 @@
 
 		openModal.result.then(function (particip) {
 			if (isUpdatingParticip) {
-				CollectorMarksService.updateParticip(particip).then(function () {
+				OneTwoThree_ParticipService.updateParticip(particip).then(function () {
 					getParticips(_schoolId);
 				}, function (message) {
 					alert('Something went wrong!\n' + message);
@@ -85,7 +91,7 @@
 				isUpdatingParticip = false;
 			}
 			else {
-				CollectorMarksService.postParticip(particip).then(function () {
+				OneTwoThree_ParticipService.postParticip(particip).then(function () {
 					getParticips(_schoolId);
 				}, function (message) {
 					alert('alert: Ошибка доступа к базе данных\n' + message);
@@ -98,7 +104,7 @@
 
 	$scope.deleteParticip = function (particip) {
 		if (confirm('Вы действительно хотите удалить данную запись?')){
-			CollectorMarksService.deleteParticip(particip.Id).then(function () {
+			OneTwoThree_ParticipService.deleteParticip(particip.Id).then(function () {
 				$scope.particips.splice($scope.particips.indexOf(particip), 1);
 			},
 				function (message) {
@@ -110,6 +116,6 @@
 
 	$scope.updateParticip = function (particip) {
 		isUpdatingParticip = true;
-		$scope.showParticipModalDialog(_schoolId, $scope.classes, particip);
+		$scope.showParticipModalDialog($scope.classes, particip);
 	}
 });

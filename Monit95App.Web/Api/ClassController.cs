@@ -24,7 +24,7 @@ namespace Monit95App.Api
         }
         public IEnumerable<Class> Get()
         {
-            var res = _classService.GetAll().Take(24).Select(s => new Class { Id = s.Id, Name = s.Name });
+            var res = _classService.GetAll().OrderBy(x=>x.Id).Take(36).Select(s => new Class { Id = s.Id, Name = s.Name });
             return res;
         }
     }
