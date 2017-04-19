@@ -9,15 +9,27 @@
 		});
 	};
 
-	$scope.Marks = {};
+	$scope.Marks = [];
 
 	$scope.getMarksById = function (id) {
-		return $scope.Marks[id];
+		var result = '';
+		$scope.Marks.forEach(function (item, i, arr) {
+			if (item.ParticipId === id) {
+				result = item.Marks;
+			}
+			return result;
+		})
 	};
 
 	$scope.changeMarks = function (particip) {
+		var classNumber = particip.ClassName.charAt(0);
 		var openModal = $uibModal.open({
-			templateUrl: '/Templates/modalTemplatesMarksRU/templateForClass' + particip.ClassName.slice
-		})
+			templateUrl: '/Templates/modalTemplatesMarksRU/templateForClass' + classNumber + '.html',
+			controller: function ($scope, $uibModal) {
+				$scope.participFullName = particip.Surname + ' ' + particip.Name + ' ' + particip.SecondName;
+
+
+			}
+		});
 	}
 });
