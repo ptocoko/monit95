@@ -1,4 +1,4 @@
-﻿angular.module('collectorMarksApp').factory('CollectorMarksService', function ($http) {
+﻿oneTwoThreeApp.factory('OneTwoThree_ParticipService', function ($http) {
 	var service = {};
 
 	service.getClasses = function () {

@@ -1,11 +1,6 @@
-﻿
-@{
-    ViewBag.Title = "FillParticips";
-}
+﻿<h3>Список учащихся 1-3 классов</h3>
 
-<h3>Список учащихся 1-3 классов</h3>
-
-<body class="container" ng-app="collectorMarksApp" ng-controller="FillParticipsController" ng-init="init('@User.Identity.Name')">
+<body class="container">
     <table class="table table-bordered">
         <tr>
             <th>Фамилия</th>
@@ -26,7 +21,7 @@
     </table>
     <hr />
     <div style="text-align:right">
-        <a class="btn btn-default" href="" ng-click="showParticipModalDialog('@User.Identity.Name', classes)">Добавить</a>
+        <a class="btn btn-default" href="" ng-click="showParticipModalDialog(classes)">Добавить</a>
     </div>
 </body>
 

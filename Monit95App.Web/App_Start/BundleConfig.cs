@@ -45,8 +45,8 @@ namespace Monit95App
                         "~/Scripts/angular-route.js",
                         "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                         "~/Scripts/angular-animate.js",
-                        "~/Scripts/angular-touch.js",
-                        "~/Scripts/angular-resource.js"));            
+                        "~/Scripts/angular-touch.js"
+                        ));            
         }
     }
 }
