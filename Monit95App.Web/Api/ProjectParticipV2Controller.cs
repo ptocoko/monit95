@@ -74,7 +74,14 @@ namespace Monit95App.Api
         {
             if (dto != null)
             {
-                await _projectParticipV2Service.UpdateAsync(dto);
+                try
+                {
+                    await _projectParticipV2Service.UpdateAsync(dto);
+                }
+                catch (ArgumentNullException)
+                {
+                    Request.CreateResponse(HttpStatusCode.Conflict);
+                }
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             else

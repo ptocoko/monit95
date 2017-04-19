@@ -40,6 +40,10 @@
 						$scope.marks = deserializeMarks(marksObject.Marks);
 					}
 
+					function serializeMarks(marksArr) {
+
+					}
+
 					function deserializeMarks(marksString) {
 						var marks = marksString.split('|')[0];
 						return marks.split(';');
