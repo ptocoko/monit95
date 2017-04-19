@@ -9,27 +9,52 @@
 		});
 	};
 
-	$scope.Marks = [];
+	$scope.Marks = [{
+		ProjectParticipId: '1',
+		Marks: '1;1;0;1;1;1;1;1;1;0;0|1;1;1;1;1;1;1;1;1;1;1'
+	}];
 
-	$scope.getMarksById = function (id) {
+	$scope.getMarksObjectById = function (id) {
 		var result = '';
 		$scope.Marks.forEach(function (item, i, arr) {
-			if (item.ParticipId === id) {
-				result = item.Marks;
+			if (item.ProjectParticipId == id) {
+				result = item;
 			}
-			return result;
 		})
+		return result;
 	};
 
-	$scope.changeMarks = function (particip) {
+	$scope.changeMarks = function (particip, marksObject) {
 		var classNumber = particip.ClassName.charAt(0);
-		var openModal = $uibModal.open({
-			templateUrl: '/Templates/modalTemplatesMarksRU/templateForClass' + classNumber + '.html',
-			controller: function ($scope, $uibModal) {
-				$scope.participFullName = particip.Surname + ' ' + particip.Name + ' ' + particip.SecondName;
+		var openModal;
+		if (classNumber === '1') {
+			openModal = $uibModal.open({
+				templateUrl: '/Templates/modalTemplatesMarksRU/templateForClass1.html',
+				size: 'marksSize',
+				controller: function ($scope, $uibModal) {
+					$scope.participFullName = particip.Surname + ' ' + particip.Name + ' ' + particip.SecondName;
+					$scope.exerciseNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9.1', '9.2', '10'];
+					$scope.marks = [];
 
+					if (marksObject != '') {
+						$scope.marks = deserializeMarks(marksObject.Marks);
+					}
 
-			}
-		});
+					function deserializeMarks(marksString) {
+						var marks = marksString.split('|')[0];
+						return marks.split(';');
+					}
+				}
+			});
+		}
+		else if (classNumber === '2') {
+
+		}
+		else if (classNumber === '3') {
+
+		}
+		else {
+			alert('Something went wrong!\nclassNumber = ' + classNumber);
+		}
 	}
 });

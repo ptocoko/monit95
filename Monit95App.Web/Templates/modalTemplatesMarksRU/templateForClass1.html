@@ -1,3 +1,18 @@
-﻿<div class="container">
-    <h3>First Class</h3>
+﻿<div style="width:100%" class="container">
+    <h3>{{participFullName}}</h3>
+    <br/>
+    <div style="text-align:center">
+        <table class="table table-bordered">
+            <tr>
+                <th>Номер задания</th>
+                <th>Отметка</th>
+            </tr>
+            <tr ng-repeat="name in exerciseNames">
+                <td>{{name}}</td>
+                <td><input class="form-control" size="1" ng-model="marks[$index]" /></td>
+            </tr>
+        </table>
+
+        <button ng-click="">btn</button>
+    </div>
 </div>

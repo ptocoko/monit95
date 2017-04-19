@@ -20,8 +20,8 @@
                 <td>{{particip.Name}}</td>
                 <td>{{particip.SecondName}}</td>
                 <td>{{particip.ClassName}}</td>
-                <td>{{getMarksById(particip.Id)}}</td>
-                <td><a class="btn btn-default" href="" ng-click="changeMarks(particip)">Изменить</a></td>
+                <td>{{getMarksObjectById(particip.Id).Marks.split('|')[0]}}</td>
+                <td><a class="btn btn-default" href="" ng-click="changeMarks(particip, getMarksObjectById(particip.Id))">Изменить</a></td>
             </tr>
         </table>
     </div>
