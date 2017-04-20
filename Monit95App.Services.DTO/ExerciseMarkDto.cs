@@ -10,11 +10,7 @@ namespace Monit95App.Services.DTO
     {
         public int Id { get; set; }
         public int ProjectParticipId { get; set; }
-        public Guid TestId { get; set; }
-        public string Surname { get; set; }
-        public string Name { get; set; }
-        public string SecondName { get; set; }
-        public string ClassName { get; set; }
+        public string TestId { get; set; }
         public string Marks { get; set; }        
     }
 }

@@ -1,7 +1,8 @@
 ﻿oneTwoThreeApp.controller('oneTwoThree_marksCtrl', function ($scope, $http, $uibModal, $rootScope, OneTwoThree_ParticipService) {
 
 	$scope.$on('$viewContentLoaded', function () {
-		$scope.getParticips($rootScope.username)
+		$scope.getParticips($rootScope.username);
+		$scope.getMarks($rootScope.username);
 	}); 
 
 	$scope.getParticips = function (schoolId) {
@@ -12,10 +13,13 @@
 		});
 	};
 
-	$scope.Marks = [{//temporary
-		ProjectParticipId: 1248,
-		Marks: '1;1;0;1;1;1;1;1;1;0;0;1;0;0'
-	}];
+	$scope.getMarks = function (schoolId) {
+		OneTwoThree_ParticipService.getMarks(schoolId).then(function (response) {
+			$scope.Marks = response.data;
+		}, function () {
+			alert('Ошибка доступа к базе данных\nПожалуйста, повторите попытку позже');
+		})
+	}
 
 	$scope.getMarksObjectByParticipId = function (id) {
 		var result = '';
@@ -260,12 +264,12 @@
 						];
 						testId = 'BB55D9EE-4177-4FB9-B825-7BE22455B626';
 					}
-
+					//Todo: 
 					$scope.marksArray = [];
 
 					if (marksObject !== '') {
 						$scope.marksArray = deserializeMarks(marksObject.Marks);
-						if ($scope.marksArray[0] == 'x')
+						if ($scope.marksArray[0] == 'X')
 							$scope.isAbsent = true;
 					}
 					else {
@@ -277,20 +281,24 @@
 					function serializeMarks(marksArr) {
 						var result = '';
 						marksArr.forEach(function (item, i, arr) {
-							result += item + ';';
+							result += item + '; ';
 						})
 						
-						return result.slice(0, result.length-1);
+						return result.slice(0, result.length-2);
 					}
 
 					function deserializeMarks(marksStr) {
-						return marksStr.split(';');
+						var array = marksStr.split(';');
+						array.forEach(function (item, i, arr) {
+							array[i] = item.trim();
+						});
+						return array;
 					}
 
 					$scope.setAbsentMarks = function () {
 						if ($scope.isAbsent) {
 							$scope.marksArray.forEach(function (item, i, arr) {
-								$scope.marksArray[i] = 'x';
+								$scope.marksArray[i] = 'X';
 							});
 						}
 						else {
@@ -302,7 +310,7 @@
 
 					$scope.checkAndNext = function (i) {
 						if ($scope.marksArray[i] <= $scope.exercises[i].MaxRate && $scope.marksArray[i] >= 0) {
-							console.log('right');
+							console.log('right');//delete this
 							var inputs = $('form').find(':input');
 							inputs.eq(i + 1).focus().select();
 						}
@@ -311,7 +319,7 @@
 						}
 						else {
 							$scope.marksArray[i] = $scope.exercises[i].MaxRate;
-							console.log('wrong');
+							console.log('wrong');//delete this
 							var inputs = $('form').find(':input');
 							inputs.eq(i + 1).focus().select();
 						}
@@ -325,12 +333,13 @@
 					$scope.save = function () {
 						if (marksObject !== '') {
 							marksObject.Marks = serializeMarks($scope.marksArray);
+
 							openModal.close(marksObject);
 						}
 						else {
 							openModal.close({
 								TestId: testId,
-								ParticipId: particip.Id,
+								ProjectParticipId: particip.Id,
 								Marks: serializeMarks($scope.marksArray)
 							});
 						}
@@ -342,8 +351,10 @@
 				}
 			});
 		
-		openModal.result.then(function (res) {
-			//to realize
-		})
+			openModal.result.then(function (res) {
+				OneTwoThree_ParticipService.postMarks(res).then(function (response) {
+					$scope.Marks.push(response.data);
+				});
+			});
 	}
 });
