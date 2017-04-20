@@ -323,6 +323,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\PublishProfiles\188.0.173.242.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
+    <Content Include="Images\whatsApp_tech_support_1class.jpg" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
