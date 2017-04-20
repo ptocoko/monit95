@@ -9,13 +9,28 @@
 		return $http.get('/api/ProjectParticipV2/GetBySchoolId/' + schoolId);
 	}
 
-	service.postMarks = function (students) {
+	service.getMarks = function (schoolId) {
+		return $http({
+			method: 'GET',
+			url: '/api/ExerciseMarks/GetMarksBySchoolId/' + schoolId
+		});
+	}
+
+	service.postMarks = function (marks) {
 		return $http({
 			method: 'POST',
-			url: '/CollectorMarks/PostData',
-			data: students
+			url: '/api/ExerciseMarks/Post',
+			data: marks
 		});
 	};
+
+	service.updateMarks = function (marks) {
+		return $http({
+			method: 'PUT',
+			url: '/api/ExerciseMarks/Update',
+			data: marks
+		});
+	}
 
 	service.postParticip = function (particip) {
 		return $http({
