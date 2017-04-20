@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.DTO
 {
-    public class ExerciseMarkService : IExerciseMarkService
+    public class ExerciseMarkService  //IExerciseMarkService
     {
         private IUnitOfWork _unitOfWork;
         private IRepositoryV2<ExerciseMark> _exerciseMarkRep;
@@ -61,7 +61,7 @@ namespace Monit95App.Services.DTO
 
                 var schoolParticips = _projectParticipV2Rep.GetAll().Where(x => x.SchoolId == schoolId);
                 var allClass1Particips = schoolParticips.Where(x => x.ClassCode.StartsWith("01"));
-                var hasMarksClass1Particips = allClass1Particips.Where
+                //var hasMarksClass1Particips = allClass1Particips.Where
                 var class2Particips = schoolParticips.Where(x => x.ClassCode.StartsWith("02"));
                 var class3Particips = schoolParticips.Where(x => x.ClassCode.StartsWith("03"));
                 var dtos = new List<ExerciseMarkDto>();
@@ -75,13 +75,13 @@ namespace Monit95App.Services.DTO
                     dto.SecondName = particip.SecondName;
                     dto.ClassName = particip.Class.Name;
 
-                    if (particip.ExerciseMarks.Where(x=>x.TestId.ToString() == "C0AAE792-9EE5-4A9F-B8CD-03AEF37032E1")) //if has marks
-                    {
-                        dto.Id = particip.Exerc;
-                        dto.ProjectParticipId = 
+                    //if (particip.ExerciseMarks.Where(x=>x.TestId.ToString() == "C0AAE792-9EE5-4A9F-B8CD-03AEF37032E1")) //if has marks
+                    //{
+                    //    dto.Id = particip.Exerc;
+                    //    dto.ProjectParticipId = 
                         
 
-                    }
+                    //}
                 }
 
                 return dtos;
