@@ -4,14 +4,12 @@
     <form ng-submit="save()">
         <table class="table table-bordered">
             <tr style="background-color:lightgray">
-                <th>№</th>
                 <th>Фамилия</th>
                 <th>Имя</th>
                 <th>Отчество</th>
                 <th>Класс</th>
             </tr>
             <tr>
-                <td>{{$index + 1}}</td>
                 <td><input ng-model="surname" class="form-control" required /></td>
                 <td><input ng-model="name" class="form-control" required /></td>
                 <td><input ng-model="secondName" class="form-control" required /></td>
