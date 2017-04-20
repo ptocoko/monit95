@@ -14,7 +14,7 @@
 
 	$scope.Marks = [{//temporary
 		ProjectParticipId: 1248,
-		Marks: '1;1;0;1;1;1;1;1;1;0;0'
+		Marks: '1;1;0;1;1;1;1;1;1;0;0;1;0;0'
 	}];
 
 	$scope.getMarksObjectByParticipId = function (id) {
@@ -36,14 +36,242 @@
 					$scope.participFullName = particip.Surname + ' ' + particip.Name + ' ' + particip.SecondName;
 					var testId;
 					if (classNumber === '1') {
-						$scope.exerciseNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9.1', '9.2', '10'];
-						testId = '';
+						$scope.exercises = [
+							{
+								Name: '1',
+								MaxRate: 2
+							},
+							{
+								Name: '2',
+								MaxRate: 2
+							},
+							{
+								Name: '3',
+								MaxRate: 2
+							},
+							{
+								Name: '4',
+								MaxRate: 1
+							},
+							{
+								Name: '5',
+								MaxRate: 1
+							},
+							{
+								Name: '6',
+								MaxRate: 1
+							},
+							{
+								Name: '7',
+								MaxRate: 2
+							},
+							{
+								Name: '8',
+								MaxRate: 1
+							},
+							{
+								Name: '9.1',
+								MaxRate: 2
+							},
+							{
+								Name: '9.2',
+								MaxRate: 2
+							},
+							{
+								Name: '10',
+								MaxRate: 2
+							},
+							{
+								Name: '11',
+								MaxRate: 2
+							},
+							{
+								Name: '12',
+								MaxRate: 2
+							},
+							{
+								Name: '13',
+								MaxRate: 2
+							}
+						];
+						testId = 'C0AAE792-9EE5-4A9F-B8CD-03AEF37032E1';
+					}
+
+					if (classNumber === '2') {
+						$scope.exercises = [
+							{
+								Name: '1',
+								MaxRate: 1
+							},
+							{
+								Name: '2',
+								MaxRate: 2
+							},
+							{
+								Name: '3',
+								MaxRate: 2
+							},
+							{
+								Name: '4',
+								MaxRate: 2
+							},
+							{
+								Name: '5',
+								MaxRate: 1
+							},
+							{
+								Name: '6',
+								MaxRate: 1
+							},
+							{
+								Name: '7',
+								MaxRate: 2
+							},
+							{
+								Name: '8',
+								MaxRate: 2
+							},
+							{
+								Name: '9.1',
+								MaxRate: 2
+							},
+							{
+								Name: '9.2',
+								MaxRate: 2
+							},
+							{
+								Name: '10',
+								MaxRate: 2
+							},
+							{
+								Name: '11',
+								MaxRate: 2
+							},
+							{
+								Name: '12',
+								MaxRate: 2
+							},
+							{
+								Name: '13',
+								MaxRate: 2
+							},
+							{
+								Name: '14',
+								MaxRate: 3
+							},
+							{
+								Name: '15',
+								MaxRate: 3
+							},
+							{
+								Name: '16',
+								MaxRate: 3
+							},
+							{
+								Name: '17',
+								MaxRate: 2
+							}
+						];
+						testId = 'CCE3AB81-F9CC-4139-AF54-2A6E3E287D86';
+					}
+
+					if (classNumber === '3') {
+						$scope.exercises = [
+							{
+								Name: '1',
+								MaxRate: 1
+							},
+							{
+								Name: '2',
+								MaxRate: 2
+							},
+							{
+								Name: '3',
+								MaxRate: 2
+							},
+							{
+								Name: '4',
+								MaxRate: 2
+							},
+							{
+								Name: '5',
+								MaxRate: 1
+							},
+							{
+								Name: '6',
+								MaxRate: 1
+							},
+							{
+								Name: '7',
+								MaxRate: 1
+							},
+							{
+								Name: '8',
+								MaxRate: 1
+							},
+							{
+								Name: '9',
+								MaxRate: 1
+							},
+							{
+								Name: '10',
+								MaxRate: 1
+							},
+							{
+								Name: '11',
+								MaxRate: 2
+							},
+							{
+								Name: '12',
+								MaxRate: 1
+							},
+							{
+								Name: '13',
+								MaxRate: 2
+							},
+							{
+								Name: '14',
+								MaxRate: 1
+							},
+							{
+								Name: '15',
+								MaxRate: 2
+							},
+							{
+								Name: '16',
+								MaxRate: 3
+							},
+							{
+								Name: '17',
+								MaxRate: 3
+							},
+							{
+								Name: '18',
+								MaxRate: 3
+							},
+							{
+								Name: '19',
+								MaxRate: 2
+							},
+							{
+								Name: '20',
+								MaxRate: 2
+							}
+						];
+						testId = 'BB55D9EE-4177-4FB9-B825-7BE22455B626';
 					}
 
 					$scope.marksArray = [];
 
 					if (marksObject !== '') {
 						$scope.marksArray = deserializeMarks(marksObject.Marks);
+						if ($scope.marksArray[0] == 'x')
+							$scope.isAbsent = true;
+					}
+					else {
+						$scope.exercises.forEach(function (item, i, arr) {
+							$scope.marksArray[i] = '';
+						})
 					}
 
 					function serializeMarks(marksArr) {
@@ -70,6 +298,24 @@
 								$scope.marksArray[i] = '';
 							});
 						}
+					}
+
+					$scope.checkAndNext = function (i) {
+						if ($scope.marksArray[i] <= $scope.exercises[i].MaxRate && $scope.marksArray[i] >= 0) {
+							console.log('right');
+							var inputs = $('form').find(':input');
+							inputs.eq(i + 1).focus().select();
+						}
+						else if ($scope.marksArray[i] == undefined){
+
+						}
+						else {
+							$scope.marksArray[i] = $scope.exercises[i].MaxRate;
+							console.log('wrong');
+							var inputs = $('form').find(':input');
+							inputs.eq(i + 1).focus().select();
+						}
+						
 					}
 
 					$scope.showMarks = function () {//temp
