@@ -64,6 +64,7 @@
     <Compile Include="ClassServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProjectParticipV2ServiceTest.cs" />
+    <Compile Include="ExerciseMarkServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

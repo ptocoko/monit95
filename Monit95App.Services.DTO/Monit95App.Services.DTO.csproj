@@ -41,17 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassService.cs" />
-    <Compile Include="ExerMarkDto.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
-    <Compile Include="Interfaces\IExerMarkDtoCreator.cs" />
-    <Compile Include="Interfaces\IProjectParticipV2MarksService.cs" />
+    <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IProjectParticipV2Service.cs" />
-    <Compile Include="ParticipTestDto.cs" />
-    <Compile Include="ProjectParticipV2MarksDto.cs" />
+    <Compile Include="ExerciseMarkDto.cs" />
     <Compile Include="ProjectParticipV2Dto.cs" />
-    <Compile Include="ProjectParticipV2MarksService.cs" />
+    <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="ProjectParticipV2Service.cs" />
-    <Compile Include="ProjectTestDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
