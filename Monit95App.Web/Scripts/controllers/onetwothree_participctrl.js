@@ -91,8 +91,8 @@
 				isUpdatingParticip = false;
 			}
 			else {
-				OneTwoThree_ParticipService.postParticip(particip).then(function () {
-					getParticips(_schoolId);
+				OneTwoThree_ParticipService.postParticip(particip).then(function (response) {					
+                    $scope.particips.push(response.data)
 				}, function (message) {
 					alert('alert: Ошибка доступа к базе данных\n' + message);
 				});

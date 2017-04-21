@@ -17,7 +17,7 @@ namespace Monit95App.Api
         
         public MarksFileController()
         {
-            _marksFileService = new MarksFileService(@"d:\collector");
+            _marksFileService = new MarksFileService(@"c:\collector");
         }
 
         public MarksFileController(IMarksFileService marksFileService)
