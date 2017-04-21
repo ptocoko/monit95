@@ -1,7 +1,25 @@
-﻿<h3>Оценки</h3>
+﻿<h3>Протокол</h3>
 
 <body class="container">
     <br/>
+    <form class="form-inline">
+        <div class="form-group">
+            
+                <label>
+                    Выберите класс: 
+                    <select style="display:inline-block" class="form-control" ng-model="searchByClassName">
+                        <option selected value="">Все</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </label>
+           
+        </div>
+        <div class="form-group">
+            <input placeholder="Поиск..." class="form-control" ng-model="search" />
+        </div>
+    </form>
     <table class="table table-bordered">
         <tr>
             <th>№</th>
@@ -12,7 +30,7 @@
             <th>Баллы по заданиям</th>
             <th></th>
         </tr>
-        <tr ng-repeat="particip in particips | orderBy:['ClassName','Surname']">
+        <tr ng-repeat="particip in particips | orderBy:['ClassName','Surname'] | filter:search | filter:{ClassName:searchByClassName}">
             <td align="right">{{$index+1}}</td>
             <td>{{particip.Surname}}</td>
             <td>{{particip.Name}}</td>
