@@ -5,18 +5,18 @@
         <div class="checkbox">
             <label for="isAbsentCheckbox">
                 <input id="isAbsentCheckbox" type="checkbox" ng-model="isAbsent" ng-click="setAbsentMarks()" />
-                Отсутствовал на экзамене
+                Отсутствовал
             </label>
         </div>
         <form ng-submit="save()">
-            <table class="table table-bordered">
+            <table class="table table-bordered">                
                 <tr>
-                    <th>Номер задания</th>
-                    <th>Отметка</th>
+                    <th style="width: 100px" align="right">Номер задания</th>
+                    <th style="width: 100px">Балл</th>
                 </tr>
                 <tr ng-repeat="exercise in exercises">
                     <td>{{exercise.Name}}</td>
-                    <td><input ng-change="checkAndNext($index)" class="form-control input-sm" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
+                    <td><input style="width: 100px" ng-change="checkAndNext($index)" class="form-control input-sm" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
                 </tr>
             </table>
             <hr/>
