@@ -1,25 +1,25 @@
-﻿<h3>Протокол проведения диагностических работ по русскому языку в 1, 2 и 3 классах</h3>
+﻿<h3>Протокол проведения диагностических работ в 1, 2 и 3 классах по русскому языку в образовательной организации</h3>
 
 <body class="container">
-    <br/>
+    <br />
     <form class="form-inline">
         <div class="form-group">
-            
-                <label>
-                    Номер класса: 
-                    <select style="display:inline-block" class="form-control" ng-model="searchByClassName">
-                        <option selected value="">Все</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </label>
-           
+            <label>
+                Класс:
+                <select class="form-control" ng-model="searchByClassName">
+                    <option selected value="">Все</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </label>
         </div>
         <div class="form-group">
             <input placeholder="Поиск..." class="form-control" ng-model="search" />
         </div>
     </form>
+    <hr />
+    <div>Недобавленных результатов: {{countOfEmptyMarks}}</div>
     <table class="table table-bordered">
         <tr>
             <th>№</th>
@@ -36,7 +36,7 @@
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
-            <td>{{getMarksObjectByParticipId(particip.Id).Marks}}</td>
+            <td ng-class="{yell:Marks[particip.Id].substring(0, 1)=='X', red:Marks[particip.Id]==undefined}">{{Marks[particip.Id]}}</td>
             <td><a class="btn btn-default" href="" ng-click="changeMarks(particip, getMarksObjectByParticipId(particip.Id))">Изменить</a></td>
         </tr>
     </table>
