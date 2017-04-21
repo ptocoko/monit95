@@ -1,18 +1,20 @@
-﻿<h3>Протокол проведения диагностических работ в 1, 2 и 3 классах по русскому языку в образовательной организации</h3>
+﻿<h3>Протокол</h3>
 
 <body class="container">
     <br/>
     <form class="form-inline">
         <div class="form-group">
-            <label>
-                Класс:    
-                <select class="form-control" ng-model="searchByClassName">
-                    <option selected value="">Все</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-            </label>
+            
+                <label>
+                    Выберите класс: 
+                    <select style="display:inline-block" class="form-control" ng-model="searchByClassName">
+                        <option selected value="">Все</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </label>
+           
         </div>
         <div class="form-group">
             <input placeholder="Поиск..." class="form-control" ng-model="search" />
