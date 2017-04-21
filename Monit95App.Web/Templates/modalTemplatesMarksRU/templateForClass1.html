@@ -1,22 +1,22 @@
 ﻿<div style="width:100%" class="container">
     <h3>{{participFullName}}</h3>
     <br/>
-    <div style="text-align:center">
-        <div class="form-group-sm">
-            <label class="col-sm-10 control-label" for="isAbsentCheckbox">Отсутствовал на экзамене</label>
-            <div class="col-sm-2">
-                <input id="isAbsentCheckbox" class="form-control" type="checkbox" ng-model="isAbsent" ng-click="setAbsentMarks()" />
-            </div>
+    <div>
+        <div class="checkbox">
+            <label for="isAbsentCheckbox">
+                <input id="isAbsentCheckbox" type="checkbox" ng-model="isAbsent" ng-click="setAbsentMarks()" />
+                Отсутствовал
+            </label>
         </div>
         <form ng-submit="save()">
-            <table class="table table-bordered">
+            <table class="table table-bordered">                
                 <tr>
-                    <th>Номер задания</th>
-                    <th>Отметка</th>
+                    <th style="width: 100px" align="right">Номер задания</th>
+                    <th style="width: 100px">Балл</th>
                 </tr>
                 <tr ng-repeat="exercise in exercises">
                     <td>{{exercise.Name}}</td>
-                    <td><input ng-change="checkAndNext($index)" class="form-control" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
+                    <td><input style="width: 100px" ng-change="checkAndNext($index)" class="form-control input-sm" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
                 </tr>
             </table>
             <hr/>

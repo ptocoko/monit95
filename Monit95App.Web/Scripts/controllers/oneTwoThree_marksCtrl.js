@@ -5,17 +5,35 @@
 		$scope.getMarks($rootScope.username);
 	}); 
 
+	$scope.particips = [];
+	$scope.Marks = {};
+	var marksObjectArr = [];
+
+	function updateCountOfEmptyMarks() {
+		$scope.countOfEmptyMarks = $scope.particips.length - marksObjectArr.length;
+	}
+
+	function getLightArrayFromObjectArray(objectArr) {
+		objectArr.forEach(function (item, i, arr) {
+			$scope.Marks[item.ProjectParticipId.toString()] = item.Marks;
+		});
+	}
+
 	$scope.getParticips = function (schoolId) {
 		OneTwoThree_ParticipService.getParticips(schoolId).then(function (response) {
 			$scope.particips = response.data;
+			updateCountOfEmptyMarks();
 		}, function () {
 			alert('Ошибка доступа к базе данных\nПожалуйста, повторите попытку позже');
 		});
 	};
 
+
 	$scope.getMarks = function (schoolId) {
 		OneTwoThree_ParticipService.getMarks(schoolId).then(function (response) {
-			$scope.Marks = response.data;
+			marksObjectArr = response.data;
+			getLightArrayFromObjectArray(marksObjectArr);
+			updateCountOfEmptyMarks();
 		}, function () {
 			alert('Ошибка доступа к базе данных\nПожалуйста, повторите попытку позже');
 		})
@@ -23,7 +41,7 @@
 
 	$scope.getMarksObjectByParticipId = function (id) {
 		var result = '';
-		$scope.Marks.forEach(function (item, i, arr) {
+		marksObjectArr.forEach(function (item, i, arr) {
 			if (item.ProjectParticipId == id) {
 				result = item;
 			}
@@ -323,11 +341,7 @@
 						}
 						
 					}
-
-					$scope.showMarks = function () {//temp
-						console.log(serializeMarks($scope.marksArray));
-					}
-
+					
 					$scope.save = function () {
 						if (marksObject !== '') {
 							marksObject.Marks = serializeMarks($scope.marksArray);
@@ -353,13 +367,19 @@
 				if (res[1]) {
 					console.log('updating')
 					OneTwoThree_ParticipService.updateMarks(res[0]).then(function (response) {
-
-					})
+						getLightArrayFromObjectArray(marksObjectArr);
+					}, function (message) {
+						alert('Ошибка при обновлении результатов!\nПожалуйста, повторите попытку позже');
+					});
 				}
 				else {
 					console.log('adding')
 					OneTwoThree_ParticipService.postMarks(res[0]).then(function (response) {
-						$scope.Marks.push(response.data);
+						marksObjectArr.push(response.data);
+						getLightArrayFromObjectArray(marksObjectArr);
+						updateCountOfEmptyMarks();
+					}, function (message) {
+						alert('Ошибка при добавлении результатов!\nПожалуйста, повторите попытку позже');
 					});
 				}
 				
