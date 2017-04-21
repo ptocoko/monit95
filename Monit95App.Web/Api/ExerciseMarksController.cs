@@ -48,6 +48,7 @@ namespace Monit95App.Api
             }
         }
 
+        [HttpPut]
         public async Task<HttpResponseMessage> Update(ExerciseMarkDto dto)
         {
             if(dto != null)

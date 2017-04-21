@@ -24,7 +24,7 @@
 	$scope.getMarksObjectByParticipId = function (id) {
 		var result = '';
 		$scope.Marks.forEach(function (item, i, arr) {
-			if (item.ProjectParticipId === id) {
+			if (item.ProjectParticipId == id) {
 				result = item;
 			}
 		})
@@ -33,7 +33,7 @@
 
 	$scope.changeMarks = function (particip, marksObject) {
 		var classNumber = particip.ClassName.charAt(0);
-			openModal = $uibModal.open({
+			var openModal = $uibModal.open({
 				templateUrl: '/Templates/modalTemplatesMarksRU/templateForClass1.html',
 				size: 'marksSize',
 				controller: function ($scope, $uibModal) {
@@ -310,7 +310,6 @@
 
 					$scope.checkAndNext = function (i) {
 						if ($scope.marksArray[i] <= $scope.exercises[i].MaxRate && $scope.marksArray[i] >= 0) {
-							console.log('right');//delete this
 							var inputs = $('form').find(':input');
 							inputs.eq(i + 1).focus().select();
 						}
@@ -319,7 +318,6 @@
 						}
 						else {
 							$scope.marksArray[i] = $scope.exercises[i].MaxRate;
-							console.log('wrong');//delete this
 							var inputs = $('form').find(':input');
 							inputs.eq(i + 1).focus().select();
 						}
@@ -334,14 +332,14 @@
 						if (marksObject !== '') {
 							marksObject.Marks = serializeMarks($scope.marksArray);
 
-							openModal.close(marksObject);
+							openModal.close([marksObject, true]);
 						}
 						else {
-							openModal.close({
+							openModal.close([{
 								TestId: testId,
 								ProjectParticipId: particip.Id,
 								Marks: serializeMarks($scope.marksArray)
-							});
+							}, false]);
 						}
 					}
 
@@ -352,9 +350,19 @@
 			});
 		
 			openModal.result.then(function (res) {
-				OneTwoThree_ParticipService.postMarks(res).then(function (response) {
-					$scope.Marks.push(response.data);
-				});
+				if (res[1]) {
+					console.log('updating')
+					OneTwoThree_ParticipService.updateMarks(res[0]).then(function (response) {
+
+					})
+				}
+				else {
+					console.log('adding')
+					OneTwoThree_ParticipService.postMarks(res[0]).then(function (response) {
+						$scope.Marks.push(response.data);
+					});
+				}
+				
 			});
 	}
 });
