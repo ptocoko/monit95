@@ -12,5 +12,6 @@
         var obXhr = new XMLHttpRequest();
         obXhr.open("POST", "/api/MarksFile/UploadFile");
         obXhr.send(formData);
+        alert('Протокол успешно отправлен!');
     }
 });
