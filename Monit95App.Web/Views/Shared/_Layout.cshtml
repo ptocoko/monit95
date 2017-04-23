@@ -89,25 +89,36 @@
     @Scripts.Render("~/bundles/ajax")            
     @Scripts.Render("~/bundles/angular")    
     
+    <!-- AngularJS Code -->
     @*Modules*@  
     <script src="~/Scripts/modules/nsurapp.js"></script>
     <script src="~/Scripts/modules/onetwothreeapp.js"></script>    
-
     @*Controllers*@
     <script src="~/Scripts/controllers/tabctrl.js"></script>
     <script src="~/Scripts/controllers/participctrl.js"></script>
     <script src="~/Scripts/controllers/planctrl.js"></script>
-    <script src="~/Scripts/controllers/marksctrl.js"></script>       
-    @*<script src="~/Scripts/controllers/collectormarksctrl.js"></script>*@
+    <script src="~/Scripts/controllers/marksctrl.js"></script>           
     <script src="~/Scripts/controllers/onetwothree_participctrl.js"></script>
-    <script src="~/Scripts/controllers/oneTwoThree_marksCtrl.js"></script>
-    
+    <script src="~/Scripts/controllers/oneTwoThree_marksCtrl.js"></script>    
     @*Services*@
     <script src="~/Scripts/services/pparticipservice.js"></script>  
     <script src="~/Scripts/services/schoolservice.js"></script>
     <script src="~/Scripts/services/tresultservice.js"></script>
     <script src="~/Scripts/services/onetwothree_participservice.js"></script>
-    
+    <!-- AngularJS Code -->
+
+    <!-- Angular Code -->
+    <base href="/">
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function (err) { console.error(err); });
+    </script>
+    <!-- Angular Code -->
+
     @Styles.Render("~/Content/css")                 
     <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />    
     <link href='@Url.Content("~/Content/site.css")' rel="stylesheet" type="text/css" />    
@@ -127,6 +138,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(@"Angular", "Index", "Angular")</li>
                     @if (User.IsInRole("area"))
                     {
                         <li>@Html.ActionLink(@"РСУР", "Index", "Nsur")</li>
