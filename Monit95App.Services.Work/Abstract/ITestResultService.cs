@@ -9,6 +9,6 @@ namespace Monit95App.Services.Work.Abstract
 {
     public interface ITestResultService
     {
-        IEnumerable<IGrouping<string, TestResult>> GetParticipGroupResultByDate(int projectCode, Guid testId, DateTime testDate);
+        IEnumerable<IGrouping<string, TestResult>> SelectParticipsGroupResults(Guid testId, DateTime testDate);
     }
 }

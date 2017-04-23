@@ -35,39 +35,41 @@ namespace Monit95App.ConsoleApp
             Excel.Application app = new Excel.Application();
             app.DisplayAlerts = false;
 
-            //Карты, 3 и более результата, 201661
-            Excel.Workbook excerInitBook = app.Workbooks.Open($@"d:\Dropbox\Работы\Карты\Карты учителя.xlsx"); //
-            int currentProjectCode = 201661; //
-            var currentTestGuid = new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"); //
-            var currentTestDate = new DateTime(2017, 02, 22); //  
+            //РСУР
+            Excel.Workbook excerInitBook = app.Workbooks.Open($@"d:\theadamo86@gmail.com\Работы\Карты\Карты учителя.xlsx");            
+            var currentTestGuid = new Guid("BCD81DE6-1640-4AA7-91F5-6EF79548E54F"); //
+            var currentTestDate = new DateTime(2017, 04, 03); //  
 
             Excel.Worksheet sheet;
             string startSheetName = currentTestGuid.ToString().Substring(0, currentTestGuid.ToString().IndexOf('-') + 1);
-            var testResultService = new TestResultService(new cokoContext());
-            var results = testResultService.SelectParticipsGroupResults(currentProjectCode, currentTestGuid, currentTestDate);
+            ITestResultService testResultService = new TestResultService(new cokoContext());
+            var results = testResultService.SelectParticipsGroupResults(currentTestGuid, currentTestDate);
             int countProcessedResults = 0;
             foreach (var particip in results)
             {
                 sheet = excerInitBook.Sheets["data"];
                 //Заполняем реквизиты
                 var resultTest1 = particip.First();
-                sheet.Range["B10"].Value2 = resultTest1.ParticipTest.ProjectParticip.ParticipCode;
-                sheet.Range["B19"].Value2 = resultTest1.ParticipTest.ProjectTest.TestDate;
+                sheet.Range["B27"].Value2 = resultTest1.ParticipTest.ProjectParticip.ParticipCode;                
                 string fullName = $"{resultTest1.ParticipTest.ProjectParticip.Surname} {resultTest1.ParticipTest.ProjectParticip.Name}";
                 if (!string.IsNullOrEmpty(resultTest1.ParticipTest.ProjectParticip.SecondName))
                 {
                     fullName += $" {resultTest1.ParticipTest.ProjectParticip.SecondName}";
                 }
-                sheet.Range["B18"].Value2 = fullName;
+                sheet.Range["B29"].Value2 = fullName;
                 //
-                int partRowNumber = 2;
-                int elementRowNumber = 5;
-                int primaryMarkRowNumber = 12;
-                int grade5RowNumber = 15;
+                int primaryMarkRowNumber = 2;
+                int grade5RowNumber = 7;
+                int partRowNumber = 12;
+                int elementRowNumber = 17;                
+                
                 string[] columns = new string[] { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S" };
                 int index = 0;
                 foreach (var r in particip.OrderBy(x => x.ParticipTest.ProjectTest.TestNumber))
-                {
+                {                    
+                    sheet.Range["B" + primaryMarkRowNumber.ToString()].Value2 = r.PrimaryMark; //primaryMark
+                    sheet.Range["B" + grade5RowNumber.ToString()].Value2 = r.Grade5; //grade5
+                    
                     //Parts 
                     index = 0;
                     foreach (var value in r.Parts.Split(';'))
@@ -75,6 +77,7 @@ namespace Monit95App.ConsoleApp
                         sheet.Range[columns[index] + partRowNumber].Value2 = Convert.ToDouble(value);
                         index++;
                     }
+
                     //Elements  
                     index = 0;
                     foreach (var value in r.Elements.Split(';'))
@@ -82,11 +85,9 @@ namespace Monit95App.ConsoleApp
                         sheet.Range[columns[index] + elementRowNumber].Value2 = Convert.ToDouble(value);
                         index++;
                     }                                    
-                    sheet.Range["B" + primaryMarkRowNumber.ToString()].Value2 = r.PrimaryMark;
-                    sheet.Range["B" + grade5RowNumber.ToString()].Value2 = r.Grade5;
-
-                    sheet.Range["B11"].Value2 = r.Marks;
-                    sheet.Range["B19"].Value2 = r.ParticipTest.ProjectTest.TestDate;
+                                        
+                    sheet.Range["B28"].Value2 = r.Marks; //Баллы последнего среза                    
+                    sheet.Range["B30"].Value2 = r.ParticipTest.ProjectTest.TestDate;
 
                     partRowNumber++;
                     elementRowNumber++;
@@ -95,11 +96,11 @@ namespace Monit95App.ConsoleApp
                 }
 
                 //Сохранить отчет
-                string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\Учителя");
+                string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\{resultTest1.ParticipTest.ProjectTest.Test.Name}");
                 if (!System.IO.Directory.Exists(reportFolder))
                     System.IO.Directory.CreateDirectory(reportFolder);
-                sheet = excerInitBook.Sheets[startSheetName + particip.Count()]; //
-                sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{resultTest1.ParticipTest.ProjectTest.ProjectCode}.pdf"));
+                sheet = excerInitBook.Sheets[startSheetName + particip.Count()]; //e.g.: 873D064B-1
+                sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{resultTest1.ParticipTest.ParticipCode}.pdf"));
                 Console.WriteLine(++countProcessedResults);
             }
             excerInitBook.Close();

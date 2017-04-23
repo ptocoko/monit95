@@ -74,6 +74,7 @@
     <Compile Include="TestITypeReport.cs" />
     <Compile Include="TestIMarks.cs" />
     <Compile Include="ParticipTestServiceTest.cs" />
+    <Compile Include="TestResultServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
