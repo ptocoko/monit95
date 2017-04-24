@@ -54,9 +54,13 @@
 			var openModal = $uibModal.open({
 				templateUrl: '/Templates/modalTemplatesMarksRU/templateForClass1.html',
 				size: 'marksSize',
-				controller: function ($scope, $uibModal) {
+				controller: function ($scope, $uibModal, OneTwoThree_ParticipService) {
 					$scope.participFullName = particip.Surname + ' ' + particip.Name + ' ' + particip.SecondName;
+					$scope.statusText = '';
+					$scope.addMarksDisabled = false;
+					$scope.isErrorText = false;
 					var testId;
+
 					if (classNumber === '1') {
 						$scope.exercises = [
 							{
@@ -343,17 +347,39 @@
 					}
 					
 					$scope.save = function () {
+						$scope.statusText = 'Результаты обновляются...';
+						$scope.isErrorText = false;
 						if (marksObject !== '') {
 							marksObject.Marks = serializeMarks($scope.marksArray);
+							$scope.addMarksDisabled = true;
 
-							openModal.close([marksObject, true]);
+							OneTwoThree_ParticipService.updateMarks(marksObject).then(function (response) {
+								openModal.close([marksObject, true]);
+							}, function (message) {
+								$scope.statusText = 'Ошибка! Проверьте подключение к интернету';
+								$scope.isErrorText = true;
+								$scope.addMarksDisabled = false;
+							});
 						}
 						else {
-							openModal.close([{
+							$scope.statusText = 'Результаты добавляются...';
+							$scope.isErrorText = false;
+							var newMarksObject = {
 								TestId: testId,
 								ProjectParticipId: particip.Id,
 								Marks: serializeMarks($scope.marksArray)
-							}, false]);
+							};
+							$scope.addMarksDisabled = true;
+
+							OneTwoThree_ParticipService.postMarks(newMarksObject).then(function (response) {
+								openModal.close([response.data, false]);
+							}, function (message) {
+								$scope.statusText = 'Ошибка! Проверьте подключение к интернету';
+								$scope.isErrorText = true;
+								$scope.addMarksDisabled = false;
+							});
+
+							
 						}
 					}
 
@@ -366,21 +392,13 @@
 			openModal.result.then(function (res) {
 				if (res[1]) {
 					console.log('updating')
-					OneTwoThree_ParticipService.updateMarks(res[0]).then(function (response) {
-						getLightArrayFromObjectArray(marksObjectArr);
-					}, function (message) {
-						alert('Ошибка при обновлении результатов!\nПожалуйста, повторите попытку позже');
-					});
+					getLightArrayFromObjectArray(marksObjectArr);
 				}
 				else {
 					console.log('adding')
-					OneTwoThree_ParticipService.postMarks(res[0]).then(function (response) {
-						marksObjectArr.push(response.data);
-						getLightArrayFromObjectArray(marksObjectArr);
-						updateCountOfEmptyMarks();
-					}, function (message) {
-						alert('Ошибка при добавлении результатов!\nПожалуйста, повторите попытку позже');
-					});
+					marksObjectArr.push(res[0]);
+					getLightArrayFromObjectArray(marksObjectArr);
+					updateCountOfEmptyMarks();
 				}
 				
 			});

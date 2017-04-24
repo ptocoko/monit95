@@ -39,6 +39,7 @@
 			controller: function ($scope, $uibModal, OneTwoThree_ParticipService) {
 				$scope.saveBtnActive = false;
 				$scope.statusText = '';
+				$scope.isErrorText = false;
 				$scope.classes = classes;
 
 				if (particip != undefined) {
@@ -81,11 +82,13 @@
 								$scope.saveBtnActive = false;
 							}, function (message) {
 								$scope.statusText = 'Ошибка при обновлении данных. Проверьте подключение к интернету и повторите попытку';
+								$scope.isErrorText = true;
 								$scope.saveBtnActive = false;
 							});
 						}
 						else {
 							$scope.statusText = 'Ошибка! Такое ФИО уже существует в базе данных';
+							$scope.isErrorText = true;
 							$scope.saveBtnActive = false;
 						}
 					}
@@ -104,11 +107,13 @@
 								openModal.close(response.data);
 							}, function (message) {
 								$scope.statusText = 'Ошибка при добавлении данных. Проверьте подключение к интернету и повторите попытку';
+								$scope.isErrorText = true;
 								$scope.saveBtnActive = false;
 							});
 						}
 						else {
 							$scope.statusText = 'Ошибка! Такое ФИО уже существует в базе данных';
+							$scope.isErrorText = true;
 							$scope.saveBtnActive = false;
 						}
 					}
