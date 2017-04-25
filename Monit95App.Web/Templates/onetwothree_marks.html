@@ -36,7 +36,7 @@
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
-            <td ng-class="{yell:Marks[particip.Id].substring(0, 1)=='X', red:Marks[particip.Id]==undefined}">{{Marks[particip.Id]}}</td>
+            <td ng-class="{yell:Marks[particip.Id].substring(0, 1)=='X', red:Marks[particip.Id]==undefined}">{{addWhiteSpacesBetweenMarks(Marks[particip.Id])}}</td>
             <td><a class="btn btn-default" href="" ng-click="changeMarks(particip, getMarksObjectByParticipId(particip.Id))">Изменить</a></td>
         </tr>
     </table>

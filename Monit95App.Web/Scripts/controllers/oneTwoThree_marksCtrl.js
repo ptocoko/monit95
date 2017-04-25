@@ -49,6 +49,17 @@
 		return result;
 	};
 
+	$scope.addWhiteSpacesBetweenMarks = function (marksWithoutSpaces) {
+		var tempArr = marksWithoutSpaces.split(';');
+		var marksWithSpaces = '';
+
+		tempArr.forEach(function (item, i, arr) {
+			marksWithSpaces += item.trim() + '; ';
+		});
+
+		return marksWithSpaces.slice(0, marksWithSpaces.length - 2);
+	}
+
 	$scope.changeMarks = function (particip, marksObject) {
 		var classNumber = particip.ClassName.charAt(0);
 			var openModal = $uibModal.open({
@@ -303,10 +314,10 @@
 					function serializeMarks(marksArr) {
 						var result = '';
 						marksArr.forEach(function (item, i, arr) {
-							result += item + '; ';
+							result += item + ';';
 						})
 						
-						return result.slice(0, result.length-2);
+						return result.slice(0, result.length-1);
 					}
 
 					function deserializeMarks(marksStr) {
