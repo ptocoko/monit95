@@ -9,6 +9,9 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
+var particip_component_1 = require("./particip/particip.component");
+var plan_component_1 = require("./plan/plan.component");
+var app_routing_1 = require("./app.routing");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -16,8 +19,8 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent],
+        imports: [platform_browser_1.BrowserModule, app_routing_1.routing, forms_1.FormsModule],
+        declarations: [app_component_1.AppComponent, particip_component_1.ParticipComponent, plan_component_1.PlanComponent],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
