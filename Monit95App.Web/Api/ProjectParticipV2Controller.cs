@@ -26,18 +26,18 @@ namespace Monit95App.Api
         }
 
         //create
-        public async Task<HttpResponseMessage> Post(ProjectParticipV2Dto dto)
-        {
-            if(dto != null)
-            {
-                await _projectParticipV2Service.AddAsync(dto);
-                return Request.CreateResponse(HttpStatusCode.Created, dto);
-            }
-            else
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось добавить участника");
-            }            
-        }
+        //public async Task<HttpResponseMessage> Post(ProjectParticipV2Dto dto)
+        //{
+        //    if(dto != null)
+        //    {
+        //        await _projectParticipV2Service.AddAsync(dto);
+        //        return Request.CreateResponse(HttpStatusCode.Created, dto);
+        //    }
+        //    else
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось добавить участника");
+        //    }            
+        //}
 
         //read
         public async Task<IEnumerable<ProjectParticipV2Dto>> GetBySchoolId(string id)
