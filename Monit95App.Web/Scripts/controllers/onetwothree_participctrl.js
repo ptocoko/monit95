@@ -1,43 +1,45 @@
 ﻿oneTwoThreeApp.controller('oneTwoThree_participCtrl', function ($scope, $uibModal, $document, OneTwoThree_ParticipService, $rootScope) {
 	var _schoolId = '';
     var isUpdatingParticip = false;    
+	
+	$scope.showingDelBtn = {};
+	$scope.showingAddBtn = false;
 
     $scope.$on('$viewContentLoaded', function () {
         $scope.init($rootScope.username)        
     });   
-
-	var getClassesFromDB = function () {
-		OneTwoThree_ParticipService.getClasses().then(function (response) {
-			$scope.classes = response.data;
-		},
-		function () {
-			alert('Ошибка доступа к базе данных классы');
-		});
-	};
-
+	
     $scope.init = function (username) { 
         _schoolId = username;
         getParticips(_schoolId);
-        getClassesFromDB();
     }
 
 	var getParticips = function (schoolId) {
         OneTwoThree_ParticipService.getParticips(schoolId).then(function (res) {
-			//_schoolId = schoolId;
 			$scope.particips = res.data;
+
+			OneTwoThree_ParticipService.getClasses().then(function (response) {
+				$scope.classes = response.data;
+				$scope.showingAddBtn = true;
+			},
+			function () {
+				alert('Ошибка доступа к базе данных.\nПроверьте подключение к интернету и повторите попытку');
+			});
 		},
 		function () {
-			alert('Ошибка доступа к базе данных участники');
+			alert('Ошибка доступа к базе данных.\nПроверьте подключение к интернету и повторите попытку');
 		});
 	}    
 
-    $scope.showParticipModalDialog = function (classes, particip) {
-        console.log(_schoolId);
+    $scope.showParticipModalDialog = function (classes, particips, particip) {
 		var openModal = $uibModal.open({
 			appendTo: angular.element($document[0].querySelector('.container')),
 			templateUrl: '/Templates/AddOrUpdateForm.html',
 			size: 'mySize',
-			controller: function ($scope, $uibModal) {
+			controller: function ($scope, $uibModal, OneTwoThree_ParticipService) {
+				$scope.saveBtnActive = false;
+				$scope.statusText = '';
+				$scope.isErrorText = false;
 				$scope.classes = classes;
 
 				if (particip != undefined) {
@@ -48,7 +50,22 @@
 				}
 
 				$scope.save = function () {
+					$scope.saveBtnActive = true;
 					var newParticip = {};
+
+					function checkFIO(participToCheck) {
+						var checkingFIO = participToCheck.Surname.trim().toUpperCase() + participToCheck.Name.trim().toUpperCase() + participToCheck.SecondName.trim().toUpperCase();
+
+						var isExist = false;
+						particips.forEach(function (item, i, arr) {
+							var participFIO = item.Surname.trim().toUpperCase() + item.Name.trim().toUpperCase() + item.SecondName.trim().toUpperCase();
+
+							if (participFIO === checkingFIO && item.ClassName.trim() === participToCheck.ClassName.trim()) {
+								isExist = true;
+							}
+						});
+						return isExist;
+					}
 
 					if (particip != undefined) {
 						newParticip = {
@@ -60,6 +77,22 @@
 							SecondName: $scope.secondName,
 							ClassName: $scope.className
 						};
+						if (!checkFIO(newParticip)) {
+							$scope.statusText = 'Данные обновляются...';
+							OneTwoThree_ParticipService.updateParticip(newParticip).then(function () {
+								openModal.close();
+								$scope.saveBtnActive = false;
+							}, function (message) {
+								$scope.statusText = 'Ошибка при обновлении данных. Проверьте подключение к интернету и повторите попытку';
+								$scope.isErrorText = true;
+								$scope.saveBtnActive = false;
+							});
+						}
+						else {
+							$scope.statusText = 'Ошибка! Такое ФИО уже существует в базе данных';
+							$scope.isErrorText = true;
+							$scope.saveBtnActive = false;
+						}
 					}
 					else {
 						newParticip = {
@@ -70,9 +103,22 @@
 							SecondName: $scope.secondName,
 							ClassName: $scope.className
 						};
+						if (!checkFIO(newParticip)) {
+							$scope.statusText = 'Данные добавляются...';
+							OneTwoThree_ParticipService.postParticip(newParticip).then(function (response) {
+								openModal.close(response.data);
+							}, function (message) {
+								$scope.statusText = 'Ошибка при добавлении данных. Проверьте подключение к интернету и повторите попытку';
+								$scope.isErrorText = true;
+								$scope.saveBtnActive = false;
+							});
+						}
+						else {
+							$scope.statusText = 'Ошибка! Такое ФИО уже существует в базе данных';
+							$scope.isErrorText = true;
+							$scope.saveBtnActive = false;
+						}
 					}
-
-					openModal.close(newParticip);
 				}
 
 				$scope.cancel = function () {
@@ -82,40 +128,36 @@
 		});
 
 		openModal.result.then(function (particip) {
-			if (isUpdatingParticip) {
-				OneTwoThree_ParticipService.updateParticip(particip).then(function () {
-					getParticips(_schoolId);
-				}, function (message) {
-					alert('Something went wrong!\n' + message);
-				});
-				isUpdatingParticip = false;
+			if (particip != undefined) {
+				$scope.particips.push(particip);
 			}
 			else {
-				OneTwoThree_ParticipService.postParticip(particip).then(function (response) {					
-                    $scope.particips.push(response.data)
-				}, function (message) {
-					alert('alert: Ошибка доступа к базе данных\n' + message);
-				});
+				getParticips(_schoolId);
 			}
 		}, function () {
-			isUpdatingParticip = false;
+			//isUpdatingParticip = false;
 		});
 	};
 
 	$scope.deleteParticip = function (particip) {
-		if (confirm('Вы действительно хотите удалить данную запись?')){
+		$scope.showingDelBtn[particip.Id] = false;
+		if (confirm('Вы действительно хотите удалить данного участника?')){
 			OneTwoThree_ParticipService.deleteParticip(particip.Id).then(function () {
+				$scope.showingDelBtn[particip.Id] = true;
 				$scope.particips.splice($scope.particips.indexOf(particip), 1);
 			},
-				function (message) {
-					alert('Ошибка при удалении участника\nПопробуйте обновить страницу');
-				});
+			function (message) {
+				alert('Ошибка при удалении участника\nПроверьте подключение к интернету и обновите страницу');
+				$scope.showingDelBtn[particip.Id] = true;
+			});
 		}
-		
+		else {
+			$scope.showingDelBtn[particip.Id] = true;
+		}
 	}
 
 	$scope.updateParticip = function (particip) {
 		isUpdatingParticip = true;
-		$scope.showParticipModalDialog($scope.classes, particip);
+		$scope.showParticipModalDialog($scope.classes, $scope.particips, particip);
 	}
 });
