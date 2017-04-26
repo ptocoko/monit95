@@ -49,16 +49,16 @@
 		return result;
 	};
 
-	$scope.addWhiteSpacesBetweenMarks = function (marksWithoutSpaces) {
-		var tempArr = marksWithoutSpaces.split(';');
-		var marksWithSpaces = '';
+	//$scope.addWhiteSpacesBetweenMarks = function (marksWithoutSpaces) {
+	//	var tempArr = marksWithoutSpaces.split(';');
+	//	var marksWithSpaces = '';
 
-		tempArr.forEach(function (item, i, arr) {
-			marksWithSpaces += item.trim() + '; ';
-		});
+	//	tempArr.forEach(function (item, i, arr) {
+	//		marksWithSpaces += item.trim() + '; ';
+	//	});
 
-		return marksWithSpaces.slice(0, marksWithSpaces.length - 2);
-	}
+	//	return marksWithSpaces.slice(0, marksWithSpaces.length - 2);
+	//}
 
 	$scope.changeMarks = function (particip, marksObject) {
 		var classNumber = particip.ClassName.charAt(0);
@@ -71,6 +71,7 @@
 					$scope.addMarksDisabled = false;
 					$scope.isErrorText = false;
 					var testId;
+					var inputs;
 
 					if (classNumber === '1') {
 						$scope.exercises = [
@@ -310,14 +311,19 @@
 							$scope.marksArray[i] = '';
 						})
 					}
+					
+					$(function () {
+						$('#0').focus().select();
+						inputs = $('form').find(':input');
+					});
 
 					function serializeMarks(marksArr) {
 						var result = '';
 						marksArr.forEach(function (item, i, arr) {
-							result += item + ';';
+							result += item + '; ';
 						})
 						
-						return result.slice(0, result.length-1);
+						return result.slice(0, result.length-2);
 					}
 
 					function deserializeMarks(marksStr) {
@@ -338,12 +344,16 @@
 							$scope.marksArray.forEach(function (item, i, arr) {
 								$scope.marksArray[i] = '';
 							});
+							$('#0').focus().select();
 						}
 					}
-
+					
 					$scope.checkAndNext = function (i) {
-						if ($scope.marksArray[i] <= $scope.exercises[i].MaxRate && $scope.marksArray[i] >= 0) {
-							var inputs = $('form').find(':input');
+						if ($scope.marksArray[i] <= $scope.exercises[i].MaxRate && $scope.marksArray[i] >= 0 && $scope.marksArray[i].length < 2) {
+							inputs.eq(i + 1).focus().select();
+						}
+						else if ($scope.marksArray[i].length == 2) {
+							$scope.marksArray[i] = $scope.marksArray[i].slice(-1);
 							inputs.eq(i + 1).focus().select();
 						}
 						else if ($scope.marksArray[i] == undefined){
@@ -351,7 +361,6 @@
 						}
 						else {
 							$scope.marksArray[i] = $scope.exercises[i].MaxRate;
-							var inputs = $('form').find(':input');
 							inputs.eq(i + 1).focus().select();
 						}
 						
