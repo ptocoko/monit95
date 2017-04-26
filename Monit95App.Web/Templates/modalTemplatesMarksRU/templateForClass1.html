@@ -5,23 +5,24 @@
         <div class="checkbox">
             <label for="isAbsentCheckbox">
                 <input id="isAbsentCheckbox" type="checkbox" ng-model="isAbsent" ng-click="setAbsentMarks()" />
-                Отсутствовал
+                Отсутствовал на экзамене
             </label>
         </div>
         <form ng-submit="save()">
-            <table class="table table-bordered">                
+            <table class="table table-bordered">
                 <tr>
-                    <th style="width: 100px" align="right">Номер задания</th>
-                    <th style="width: 100px">Балл</th>
+                    <th>Номер задания</th>
+                    <th>Отметка</th>
                 </tr>
                 <tr ng-repeat="exercise in exercises">
                     <td>{{exercise.Name}}</td>
-                    <td><input style="width: 100px" ng-change="checkAndNext($index)" class="form-control input-sm" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
+                    <td><input id="{{$index}}" ng-change="checkAndNext($index)" class="form-control input-sm" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
                 </tr>
             </table>
             <hr/>
             <div style="text-align:right">
-                <input type="submit" class="btn btn-success" href="" value="Сохранить" />
+                <span ng-class="[{redText:isErrorText}]" style="margin-right:20px">{{statusText}}</span>
+                <input ng-disabled="addMarksDisabled" type="submit" class="btn btn-success" href="" value="Сохранить" />
                 <a class="btn btn-default btn-in-horizon" href="" ng-click="cancel()">Отменить</a>
             </div>
         </form>

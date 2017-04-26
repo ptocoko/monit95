@@ -23,7 +23,8 @@
         </table>
         <hr />
         <div style="text-align:right">
-            <input type="submit" class="btn btn-success" href="" value="Сохранить"/>
+            <span ng-class="[{redText:isErrorText}]" style="margin-right:20px">{{statusText}}</span>
+            <input ng-disabled="saveBtnActive" type="submit" class="btn btn-success" href="" value="Сохранить"/>
             <a class="btn btn-default btn-in-horizon" href="" ng-click="cancel()">Отменить</a>
         </div>
     </form>
