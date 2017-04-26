@@ -77,159 +77,19 @@
 						$scope.exercises = [
 							{
 								Name: '1',
-								MaxRate: 2
-							},
-							{
-								Name: '2',
-								MaxRate: 2
-							},
-							{
-								Name: '3',
-								MaxRate: 2
-							},
-							{
-								Name: '4',
-								MaxRate: 1
-							},
-							{
-								Name: '5',
-								MaxRate: 1
-							},
-							{
-								Name: '6',
-								MaxRate: 1
-							},
-							{
-								Name: '7',
-								MaxRate: 2
-							},
-							{
-								Name: '8',
-								MaxRate: 1
-							},
-							{
-								Name: '9.1',
-								MaxRate: 2
-							},
-							{
-								Name: '9.2',
-								MaxRate: 2
-							},
-							{
-								Name: '10',
-								MaxRate: 2
-							},
-							{
-								Name: '11',
-								MaxRate: 2
-							},
-							{
-								Name: '12',
-								MaxRate: 2
-							},
-							{
-								Name: '13',
-								MaxRate: 2
-							}
-						];
-						testId = 'C0AAE792-9EE5-4A9F-B8CD-03AEF37032E1';
-					}
-
-					if (classNumber === '2') {
-						$scope.exercises = [
-							{
-								Name: '1',
 								MaxRate: 1
 							},
 							{
 								Name: '2',
-								MaxRate: 2
+								MaxRate: 1
 							},
 							{
 								Name: '3',
-								MaxRate: 2
+								MaxRate: 1
 							},
 							{
 								Name: '4',
-								MaxRate: 2
-							},
-							{
-								Name: '5',
 								MaxRate: 1
-							},
-							{
-								Name: '6',
-								MaxRate: 1
-							},
-							{
-								Name: '7',
-								MaxRate: 2
-							},
-							{
-								Name: '8',
-								MaxRate: 2
-							},
-							{
-								Name: '9.1',
-								MaxRate: 2
-							},
-							{
-								Name: '9.2',
-								MaxRate: 2
-							},
-							{
-								Name: '10',
-								MaxRate: 2
-							},
-							{
-								Name: '11',
-								MaxRate: 2
-							},
-							{
-								Name: '12',
-								MaxRate: 2
-							},
-							{
-								Name: '13',
-								MaxRate: 2
-							},
-							{
-								Name: '14',
-								MaxRate: 3
-							},
-							{
-								Name: '15',
-								MaxRate: 3
-							},
-							{
-								Name: '16',
-								MaxRate: 3
-							},
-							{
-								Name: '17',
-								MaxRate: 2
-							}
-						];
-						testId = 'CCE3AB81-F9CC-4139-AF54-2A6E3E287D86';
-					}
-
-					if (classNumber === '3') {
-						$scope.exercises = [
-							{
-								Name: '1',
-								MaxRate: 1
-							},
-							{
-								Name: '2',
-								MaxRate: 2
-							},
-							{
-								Name: '3',
-								MaxRate: 2
-							},
-							{
-								Name: '4',
-								MaxRate: 2
 							},
 							{
 								Name: '5',
@@ -261,6 +121,68 @@
 							},
 							{
 								Name: '12',
+								MaxRate: 2
+							},
+							{
+								Name: '13',
+								MaxRate: 3
+							},
+							{
+								Name: '14',
+								MaxRate: 2
+							}
+						];
+						testId = '6AD11617-1BCD-4DFF-886E-3CCAFE13C3F1';
+					}
+
+					if (classNumber === '2') {
+						$scope.exercises = [
+							{
+								Name: '1',
+								MaxRate: 1
+							},
+							{
+								Name: '2',
+								MaxRate: 1
+							},
+							{
+								Name: '3',
+								MaxRate: 1
+							},
+							{
+								Name: '4',
+								MaxRate: 1
+							},
+							{
+								Name: '5',
+								MaxRate: 1
+							},
+							{
+								Name: '6',
+								MaxRate: 1
+							},
+							{
+								Name: '7',
+								MaxRate: 1
+							},
+							{
+								Name: '8',
+								MaxRate: 1
+							},
+							{
+								Name: '9',
+								MaxRate: 1
+							},
+							{
+								Name: '10',
+								MaxRate: 1
+							},
+							{
+								Name: '11',
+								MaxRate: 1
+							},
+							{
+								Name: '12',
 								MaxRate: 1
 							},
 							{
@@ -269,7 +191,7 @@
 							},
 							{
 								Name: '14',
-								MaxRate: 1
+								MaxRate: 2
 							},
 							{
 								Name: '15',
@@ -277,26 +199,92 @@
 							},
 							{
 								Name: '16',
-								MaxRate: 3
+								MaxRate: 2
+							}
+						];
+						testId = '14815A91-BB55-4030-9BF9-ECD1D8B2F99E';
+					}
+
+					if (classNumber === '3') {
+						$scope.exercises = [
+							{
+								Name: '1',
+								MaxRate: 1
+							},
+							{
+								Name: '2',
+								MaxRate: 1
+							},
+							{
+								Name: '3',
+								MaxRate: 1
+							},
+							{
+								Name: '4',
+								MaxRate: 1
+							},
+							{
+								Name: '5',
+								MaxRate: 1
+							},
+							{
+								Name: '6',
+								MaxRate: 1
+							},
+							{
+								Name: '7',
+								MaxRate: 1
+							},
+							{
+								Name: '8',
+								MaxRate: 1
+							},
+							{
+								Name: '9',
+								MaxRate: 1
+							},
+							{
+								Name: '10',
+								MaxRate: 1
+							},
+							{
+								Name: '11',
+								MaxRate: 1
+							},
+							{
+								Name: '12',
+								MaxRate: 1
+							},
+							{
+								Name: '13',
+								MaxRate: 1
+							},
+							{
+								Name: '14',
+								MaxRate: 1
+							},
+							{
+								Name: '15',
+								MaxRate: 1
+							},
+							{
+								Name: '16',
+								MaxRate: 2
 							},
 							{
 								Name: '17',
-								MaxRate: 3
+								MaxRate: 2
 							},
 							{
 								Name: '18',
-								MaxRate: 3
+								MaxRate: 2
 							},
 							{
 								Name: '19',
 								MaxRate: 2
-							},
-							{
-								Name: '20',
-								MaxRate: 2
 							}
 						];
-						testId = 'BB55D9EE-4177-4FB9-B825-7BE22455B626';
+						testId = '5D16AC39-4FE0-4392-9612-7E256EA1BEBB';
 					}
 					//Todo: 
 					$scope.marksArray = [];

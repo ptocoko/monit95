@@ -55,10 +55,12 @@
 
 					function checkFIO(participToCheck) {
 						var checkingFIO = participToCheck.Surname.trim().toUpperCase() + participToCheck.Name.trim().toUpperCase() + participToCheck.SecondName.trim().toUpperCase();
-						console.log(checkingFIO);
+
 						var isExist = false;
 						particips.forEach(function (item, i, arr) {
-							if (item.Surname.trim().toUpperCase() + item.Name.trim().toUpperCase() + item.SecondName.trim().toUpperCase() === checkingFIO) {
+							var participFIO = item.Surname.trim().toUpperCase() + item.Name.trim().toUpperCase() + item.SecondName.trim().toUpperCase();
+
+							if (participFIO === checkingFIO && item.ClassName.trim() === participToCheck.ClassName.trim()) {
 								isExist = true;
 							}
 						});
