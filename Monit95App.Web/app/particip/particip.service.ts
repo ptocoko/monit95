@@ -3,7 +3,8 @@
 export class ParticipService {
 
     private data: Particip[] = [
-        { surname: "Shakhabov", name: "Adam" }
+        { surname: "Shakhabov", name: "Adam" },
+        { surname: "Muciev", name: "Adlan" }
 
     ];
     getData(): Particip[] {

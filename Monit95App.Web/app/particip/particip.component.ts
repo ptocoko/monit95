@@ -1,12 +1,18 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { ParticipService } from './particip.service';
+import { Particip } from './particip';
 
 @Component({
     selector: 'app-particip',
-    templateUrl: './app/particip/participlistv2.html'
+    templateUrl: './app/particip/participlist.html',
+    providers: [ParticipService]
 })
-export class ParticipComponent {
-    welcome: string;
-    constructor() {
-        this.welcome = "Welcome to home page";
-    };
+export class ParticipComponent implements OnInit {
+    items: Particip[] = [];
+
+    constructor(private participService: ParticipService) {};
+
+    ngOnInit() {
+        this.items = this.participService.getData();
+    }
 };

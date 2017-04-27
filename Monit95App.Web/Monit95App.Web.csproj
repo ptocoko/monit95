@@ -500,7 +500,7 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\particip\particip-service.ts" />
+    <TypeScriptCompile Include="app\particip\particip.service.ts" />
     <TypeScriptCompile Include="app\particip\particip.ts" />
     <TypeScriptCompile Include="app\particip\particip.component.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />

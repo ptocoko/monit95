@@ -9,19 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var particip_service_1 = require("./particip.service");
 var ParticipComponent = (function () {
-    function ParticipComponent() {
-        this.welcome = "Welcome to home page";
+    function ParticipComponent(participService) {
+        this.participService = participService;
+        this.items = [];
     }
     ;
+    ParticipComponent.prototype.ngOnInit = function () {
+        this.items = this.participService.getData();
+    };
     return ParticipComponent;
 }());
 ParticipComponent = __decorate([
     core_1.Component({
         selector: 'app-particip',
-        templateUrl: './app/particip/participlistv2.html'
+        templateUrl: './app/particip/participlist.html',
+        providers: [particip_service_1.ParticipService]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [particip_service_1.ParticipService])
 ], ParticipComponent);
 exports.ParticipComponent = ParticipComponent;
 ;

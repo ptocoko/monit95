@@ -9,6 +9,6 @@
         //public categName: string,
         //public experience: number,
         //public phone: string,
-        //public email: string
+        //public email?: string
     ) { }
 }

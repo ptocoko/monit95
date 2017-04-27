@@ -1,7 +1,7 @@
 ﻿<h1>Список участников</h1>
 
 <div class="page-header">
-    <h1> Список покупок </h1>
+    <h1>Список покупок</h1>
 </div>
 <div class="panel">   
     <table class="table table-striped">
@@ -13,8 +13,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of items">
-                <td>{{item.Surname}}</td>
-                <td>{{item.Name}}</td>
+                <td>{{item.surname}}</td>
+                <td>{{item.name}}</td>
                 <td><input type="checkbox" [(ngModel)]="item.done" /></td>
             </tr>
         </tbody>
