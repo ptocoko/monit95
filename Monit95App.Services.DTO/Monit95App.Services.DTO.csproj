@@ -43,12 +43,18 @@
     <Compile Include="ClassService.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
+    <Compile Include="Interfaces\IOneTwoThreeReportService.cs" />
     <Compile Include="Interfaces\IProjectParticipV2Service.cs" />
     <Compile Include="ExerciseMarkDto.cs" />
+    <Compile Include="Interfaces\ITestResultV2Service.cs" />
+    <Compile Include="OneTwoThreeReportDto.cs" />
+    <Compile Include="OneTwoThreeReportService.cs" />
     <Compile Include="ProjectParticipV2Dto.cs" />
     <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="ProjectParticipV2Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestResultV2Dto.cs" />
+    <Compile Include="TestResultV2Service.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
@@ -58,6 +64,10 @@
     <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
       <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
       <Name>Monit95App.Domain.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
+      <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
+      <Name>Monit95App.Infrastructure.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

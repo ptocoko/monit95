@@ -51,7 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileReportRepository.cs" />
+    <Compile Include="Interfaces\IGrade5.cs" />
     <Compile Include="Interfaces\IPParticipCodeCreator.cs" />
+    <Compile Include="OneTwoThreeGradeConverter.cs" />
     <Compile Include="PParticipRepository.cs" />
     <Compile Include="PParticipCodeCreator.cs" />
     <Compile Include="PPrimaryKey.cs" />

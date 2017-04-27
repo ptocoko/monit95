@@ -26,6 +26,7 @@ namespace Monit95App.Domain.Core
         public int TestNumber { get; set; }
         public System.DateTime TestDate { get; set; }
         public bool IsOpened { get; set; }
+        public string Note { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParticipTest> ParticipTests { get; set; }

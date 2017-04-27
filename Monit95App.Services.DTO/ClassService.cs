@@ -30,5 +30,11 @@ namespace Monit95App.Services.DTO
             var allClasses = GetAll();            
             return allClasses.Where(x => x.Name.TrimEnd().Equals(className.TrimEnd())).Select(x => x.Id).Single();
         }
+
+        public string GetName(string classCode)
+        {
+            var allClasses = GetAll();
+            return allClasses.Where(x => x.Id.TrimEnd().Equals(classCode.TrimEnd())).Select(s => s.Name).Single();
+        }
     }
 }

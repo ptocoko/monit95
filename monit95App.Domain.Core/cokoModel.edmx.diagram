@@ -44,6 +44,8 @@
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_Classes" />
         <AssociationConnector Association="cokoModel.FK_ExerciseMarks_ProjectParticipsV2" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_Schools" />
+        <EntityTypeShape EntityType="cokoModel.TestResultsV2" Width="1.5" PointX="9.75" PointY="14" />
+        <AssociationConnector Association="cokoModel.FK_TestResultsV2_ExerciseMarks" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

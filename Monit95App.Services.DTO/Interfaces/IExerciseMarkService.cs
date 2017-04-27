@@ -9,7 +9,7 @@ namespace Monit95App.Services.DTO.Interfaces
     public interface IExerciseMarkService
     {
         Task<ExerciseMarkDto> AddAsync(ExerciseMarkDto dto);
-        Task<List<ExerciseMarkDto>> GetBySchoolIdAsync(string schoolId);
+        Task<List<ExerciseMarkDto>> GetBySchoolIdAsync(string schoolId, string[] tests);
         Task<bool> UpdateAsync(ExerciseMarkDto marks);
     }
 }

@@ -130,6 +130,9 @@
     <Compile Include="TestResult.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TestResultsV2.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TownType.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>

@@ -12,22 +12,13 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ExerciseMark
+    public partial class TestResultsV2
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ExerciseMark()
-        {
-            this.TestResultsV2 = new HashSet<TestResultsV2>();
-        }
-    
         public int Id { get; set; }
-        public int ProjectParticipId { get; set; }
-        public System.Guid TestId { get; set; }
-        public string Marks { get; set; }
+        public int ExerciseMarkId { get; set; }
+        public int Grade5 { get; set; }
+        public string Skills { get; set; }
     
-        public virtual Test Test { get; set; }
-        public virtual ProjectParticipsV2 ProjectParticipsV2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestResultsV2> TestResultsV2 { get; set; }
+        public virtual ExerciseMark ExerciseMark { get; set; }
     }
 }
