@@ -19,7 +19,7 @@ var ParticipComponent = (function () {
 ParticipComponent = __decorate([
     core_1.Component({
         selector: 'app-particip',
-        template: "<h1>{{welcome}}</h1>"
+        templateUrl: './app/particip/participlistv2.html'
     }),
     __metadata("design:paramtypes", [])
 ], ParticipComponent);

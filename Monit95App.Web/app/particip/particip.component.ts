@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'app-particip',
-    template: `<h1>{{welcome}}</h1>`
+    templateUrl: './app/particip/participlistv2.html'
 })
 export class ParticipComponent {
     welcome: string;
