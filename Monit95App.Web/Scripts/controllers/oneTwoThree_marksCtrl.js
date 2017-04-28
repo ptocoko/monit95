@@ -71,7 +71,8 @@
 					$scope.addMarksDisabled = false;
 					$scope.isErrorText = false;
 					var testId;
-					var inputs;
+					var allInputs; //содержит все input-ы (поля для оценок + кнопка отправить)
+					var marksInputs; //содержит только input-ы для оценок
 
 					if (classNumber === '1') {
 						$scope.exercises = [
@@ -301,8 +302,14 @@
 					}
 					
 					$(function () {
-						$('#0').focus().select();
-						inputs = $('form').find(':input');
+						allInputs = $('form').find(':input');
+						marksInputs = $('table').find(':input');
+						marksInputs.focus(function () {
+							var i = marksInputs.index(this);
+							this.value = '';
+							$scope.marksArray[i] = '';
+						});
+						$('#0').focus();
 					});
 
 					function serializeMarks(marksArr) {
@@ -332,24 +339,24 @@
 							$scope.marksArray.forEach(function (item, i, arr) {
 								$scope.marksArray[i] = '';
 							});
-							$('#0').focus().select();
+							$('#0').focus();
 						}
 					}
 					
 					$scope.checkAndNext = function (i) {
 						if ($scope.marksArray[i] <= $scope.exercises[i].MaxRate && $scope.marksArray[i] >= 0 && $scope.marksArray[i].length < 2) {
-							inputs.eq(i + 1).focus().select();
+							allInputs.eq(i + 1).focus();
 						}
-						else if ($scope.marksArray[i].length == 2) {
-							$scope.marksArray[i] = $scope.marksArray[i].slice(-1);
-							inputs.eq(i + 1).focus().select();
-						}
+						//else if ($scope.marksArray[i].length == 2) {
+						//	$scope.marksArray[i] = $scope.marksArray[i].slice(-1);
+						//	inputs.eq(i + 1).focus();
+						//}
 						else if ($scope.marksArray[i] == undefined){
 
 						}
 						else {
 							$scope.marksArray[i] = $scope.exercises[i].MaxRate;
-							inputs.eq(i + 1).focus().select();
+							allInputs.eq(i + 1).focus();
 						}
 						
 					}
