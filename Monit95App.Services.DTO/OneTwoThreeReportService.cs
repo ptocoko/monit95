@@ -31,7 +31,7 @@ namespace Monit95App.Services.DTO
             {
                 var particip = await _projectParticipV2Service.GetByParticipIdAsync(participId);
                 var marks = await _exerciseMarkService.GetBySchoolIdAsync(particip.SchoolId, tests);
-                var participMarks = marks.Where(p => p.ProjectParticipId == participId).Single();
+                var participMarks = marks.Where(p => p.ProjectParticipId == participId).Single(); //если здесь ошибка, значит в массив tests переданы неверные testId
 
                 var testResult = await _testResultV2Service.GetByMarkIdAsync(participMarks.Id);
                 return new OneTwoThreeReportDto { GradeStr = _gradeConverter.ConvertToString(testResult.Grade5), Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, Marks = participMarks.Marks, Skills = testResult.Skills };

@@ -29,18 +29,12 @@ namespace Monit95App.Services.DTO
                     var testResult = _testREsultV2Rep.GetById(exerciseMarkId);
 
                     if (testResult != null)
-                    {
-                        return new TestResultV2Dto { Id = testResult.Id, Grade5 = testResult.Grade5, Skills = testResult.Skills };
-                    }
+                        return new TestResultV2Dto { Id = testResult.Id, ExerciseMarkId = testResult.ExerciseMarkId, Grade5 = testResult.Grade5, Skills = testResult.Skills };
                     else
-                    {
                         throw new NullReferenceException();
-                    }
                 }
                 else
-                {
                     throw new ArgumentNullException();
-                }
             });
             
         }
