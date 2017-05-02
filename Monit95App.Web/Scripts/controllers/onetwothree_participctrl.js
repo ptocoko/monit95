@@ -11,10 +11,10 @@
 	
     $scope.init = function (username) { 
         _schoolId = username;
-        getParticips(_schoolId);
+        getParticipsAndAll(_schoolId);
     }
 
-	var getParticips = function (schoolId) {
+	var getParticipsAndAll = function (schoolId) {
         OneTwoThree_ParticipService.getParticips(schoolId).then(function (res) {
 			$scope.particips = res.data;
 
@@ -29,7 +29,7 @@
 		function () {
 			alert('Ошибка доступа к базе данных.\nПроверьте подключение к интернету и повторите попытку');
 		});
-	}    
+	}   
 
     $scope.showParticipModalDialog = function (classes, particips, particip) {
 		var openModal = $uibModal.open({
@@ -159,5 +159,37 @@
 	$scope.updateParticip = function (particip) {
 		isUpdatingParticip = true;
 		$scope.showParticipModalDialog($scope.classes, $scope.particips, particip);
+	};
+
+	$scope.showReport = function (particip) {
+		var openReportModal = $uibModal.open({
+			size: 'reportSize',
+			templateUrl: '/Templates/onetwothree_report_form.html',
+			controller: function ($scope, $uibModal, OneTwoThree_ParticipService) {
+				$scope.fullName = particip.Surname + ' ' + particip.Name + ' ' + particip.SecondName;
+
+				OneTwoThree_ParticipService.getReport(particip.SchoolId, particip.Id).then(function (res) {
+					$scope.report = res.data;
+				}, function () {
+					openReportModal.close();
+					alert('Something went wrong');
+				});
+
+				$scope.getColorFromGradeStr = function (gradeStr) {
+					if (gradeStr === 'Ниже базового')
+						return 'low-grade';
+					else if (gradeStr === 'Базовой подготовки')
+						return 'medium-grade';
+					else if (gradeStr === 'Прочной базовой подготовки')
+						return 'high-grade';
+					else if (gradeStr === 'Повышенный')
+						return 'higher-grade';
+				};
+
+				$scope.close = function () {
+					openReportModal.close();
+				}
+			}
+		})
 	}
 });

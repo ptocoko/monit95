@@ -1,6 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Infrastructure.Data.Interfaces;
 using Monit95App.Services.DTO;
 using Monit95App.Services.DTO.Interfaces;
 using System;
@@ -15,40 +16,67 @@ namespace Monit95App.Api
 {
     public class OneTwoThreeReportController : ApiController
     {
-        private IOneTwoThreeReportService _oneTwoThreeReportService;
         private IExerciseMarkService _exerciseMarkService;
         private IProjectParticipV2Service _projectParticipV2Service;
         private ITestResultV2Service _testResultV2Service;
-        private IClassService _classServise;
-
-        private IUnitOfWork _unitOfWork;
-
-        private IRepositoryV2<ProjectParticipsV2> _projectParticipV2Rep;
-        private IRepositoryV2<ExerciseMark> _exerciseMarkRep;
-        private IRepositoryV2<TestResultsV2> _testResultV2Rep;
-        private IRepositoryV2<Class> _classRep;
+        private IGrade5 _gradeConverter;
 
         public OneTwoThreeReportController()
         {
-            _unitOfWork = new UnitOfWorkV2(new cokoContext());
+            var _unitOfWork = new UnitOfWorkV2(new cokoContext());
 
-            _projectParticipV2Rep = new Repository<ProjectParticipsV2>(_unitOfWork);
-            _exerciseMarkRep = new Repository<ExerciseMark>(_unitOfWork);
-            _testResultV2Rep = new Repository<TestResultsV2>(_unitOfWork);
-            _classRep = new Repository<Class>(_unitOfWork);
+            var _projectParticipV2Rep = new Repository<ProjectParticipsV2>(_unitOfWork);
+            var _exerciseMarkRep = new Repository<ExerciseMark>(_unitOfWork);
+            var _testResultV2Rep = new Repository<TestResultsV2>(_unitOfWork);
+            var _classRep = new Repository<Class>(_unitOfWork);
 
-            _classServise = new ClassService(_unitOfWork, _classRep);
+            var _classServise = new ClassService(_unitOfWork, _classRep);
             _projectParticipV2Service = new ProjectParticipV2Service(_unitOfWork, _projectParticipV2Rep, _classServise);
             _exerciseMarkService = new ExerciseMarkService(_unitOfWork, _exerciseMarkRep);
-            _testResultV2Service = new TestResultV2Service(_testResultV2Rep, _unitOfWork);
-            _oneTwoThreeReportService = new OneTwoThreeReportService(_projectParticipV2Service, _exerciseMarkService, _testResultV2Service, new OneTwoThreeGradeConverter());
+            _testResultV2Service = new TestResultV2Service(_testResultV2Rep, _exerciseMarkRep);
+
+            _gradeConverter = new OneTwoThreeGradeConverter();
         }
 
-        public async Task<OneTwoThreeReportDto> GetReport(int id)
+        public async Task<Dictionary<string, OneTwoThreeReportDto>> GetReport(string schoolId, int participId)
         {
-            string[] tests = new string[] { "C0AAE792-9EE5-4A9F-B8CD-03AEF37032E1", "CCE3AB81-F9CC-4139-AF54-2A6E3E287D86", "BB55D9EE-4177-4FB9-B825-7BE22455B626" };
-            
-            return await _oneTwoThreeReportService.GetReportByParticipIdAsync(id, tests);
+            if (!String.IsNullOrEmpty(schoolId) && participId != 0)
+            {
+                var marks = await _exerciseMarkService.GetBySchoolIdAsync(schoolId, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.All));
+                var participMarks = marks.Where(p => p.ProjectParticipId == participId).ToList();
+
+                var participMarksRU = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.RU).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
+                var participMarksMA = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
+
+                var testResults = await _testResultV2Service.GetByParticipIdAsync(participId);
+
+                var testResultRU = testResults.SingleOrDefault(p => p.ExerciseMarkId == participMarksRU.Id) ?? new TestResultV2Dto { Grade5 = -1, Skills = "Умения не найдены" };
+                var testResultMA = testResults.SingleOrDefault(p => p.ExerciseMarkId == participMarksMA.Id) ?? new TestResultV2Dto { Grade5 = -1, Skills = "Умения не найдены" };
+
+                var result = new Dictionary<string, OneTwoThreeReportDto>();
+                result.Add("RU", new OneTwoThreeReportDto { GradeStr = _gradeConverter.ConvertToString(testResultRU.Grade5), Marks = participMarksRU.Marks, Skills = testResultRU.Skills });
+                result.Add("MA", new OneTwoThreeReportDto { GradeStr = _gradeConverter.ConvertToString(testResultMA.Grade5), Marks = participMarksMA.Marks, Skills = testResultMA.Skills });
+
+                return result;
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<int>> GetParticipIdsWithMarks(string id)
+        {
+            if (!String.IsNullOrEmpty(id))
+            {
+                var marks = await _exerciseMarkService.GetBySchoolIdAsync(id, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.RU));
+                return marks.Select(s => s.ProjectParticipId);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }

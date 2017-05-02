@@ -26,11 +26,9 @@ namespace Monit95App.Api
 
         public async Task<IEnumerable<ExerciseMarkDto>> GetMarksBySchoolId(string id)
         {
-            string[] tests = new string[] { "6AD11617-1BCD-4DFF-886E-3CCAFE13C3F1", "14815A91-BB55-4030-9BF9-ECD1D8B2F99E", "5D16AC39-4FE0-4392-9612-7E256EA1BEBB" };
-
             if (!String.IsNullOrEmpty(id))
             {
-                return await _exerciseMarksService.GetBySchoolIdAsync(id, tests);
+                return await _exerciseMarksService.GetBySchoolIdAsync(id, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA));
             }
             else
             {

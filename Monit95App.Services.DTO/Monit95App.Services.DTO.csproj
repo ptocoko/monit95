@@ -43,12 +43,10 @@
     <Compile Include="ClassService.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
-    <Compile Include="Interfaces\IOneTwoThreeReportService.cs" />
     <Compile Include="Interfaces\IProjectParticipV2Service.cs" />
     <Compile Include="ExerciseMarkDto.cs" />
     <Compile Include="Interfaces\ITestResultV2Service.cs" />
     <Compile Include="OneTwoThreeReportDto.cs" />
-    <Compile Include="OneTwoThreeReportService.cs" />
     <Compile Include="ProjectParticipV2Dto.cs" />
     <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="ProjectParticipV2Service.cs" />

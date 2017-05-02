@@ -14,6 +14,9 @@ namespace Monit95App.Infrastructure.Data
             string gradeStr;
             switch (grade)
             {
+                case -1:
+                    gradeStr = "";
+                    break;
                 case 2:
                     gradeStr = "Ниже базового";
                     break;

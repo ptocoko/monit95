@@ -9,5 +9,6 @@ namespace Monit95App.Services.DTO.Interfaces
     public interface ITestResultV2Service
     {
         Task<TestResultV2Dto> GetByMarkIdAsync(int exerciseMarkId);
+        Task<List<TestResultV2Dto>> GetByParticipIdAsync(int participId);
     }
 }

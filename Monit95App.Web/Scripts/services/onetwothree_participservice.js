@@ -55,5 +55,12 @@
 		});
 	}
 
+	service.getReport = function (schoolId, participId) {
+		return $http({
+			method: 'GET',
+			url: '/api/OneTwoThreeReport/GetReport?schoolId=' + schoolId + '&participId=' + participId
+		});
+	}
+
 	return service;
 });
