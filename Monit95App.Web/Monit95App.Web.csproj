@@ -251,7 +251,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.component.html" />
-    <Content Include="app\particip\participlist.html" />
+    <Content Include="app\particips\particip-list.html" />
+    <Content Include="app\particips\particips.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -500,9 +501,11 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\particip\particip.service.ts" />
-    <TypeScriptCompile Include="app\particip\particip.ts" />
-    <TypeScriptCompile Include="app\particip\particip.component.ts" />
+    <TypeScriptCompile Include="app\particips\mock-particips.ts" />
+    <TypeScriptCompile Include="app\particips\particip-list.component.ts" />
+    <TypeScriptCompile Include="app\particips\particip.service.ts" />
+    <TypeScriptCompile Include="app\particips\particip.model.ts" />
+    <TypeScriptCompile Include="app\particips\particips.component.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
   </ItemGroup>
   <PropertyGroup>

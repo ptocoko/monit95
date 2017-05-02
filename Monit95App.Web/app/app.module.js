@@ -7,9 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
-var particip_component_1 = require("./particip/particip.component");
+var particips_component_1 = require("./particips/particips.component");
+var particip_list_component_1 = require("./particips/particip-list.component");
 var plan_component_1 = require("./plan/plan.component");
 var app_routing_1 = require("./app.routing");
 var AppModule = (function () {
@@ -19,8 +21,8 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, app_routing_1.routing, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, particip_component_1.ParticipComponent, plan_component_1.PlanComponent],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_1.routing, forms_1.FormsModule],
+        declarations: [app_component_1.AppComponent, particips_component_1.ParticipsComponent, particip_list_component_1.ParticipListComponent, plan_component_1.PlanComponent],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

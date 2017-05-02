@@ -1,8 +1,8 @@
-﻿export class Particip {
+﻿export class ParticipModel {
     constructor(
         //public participCode: string,
-        public surname: string,
-        public name: string
+        public Surname: string,
+        public Name: string
         //public secondName: string,
         //public subjectCode: string,
         //public schoolIdWithName: string,

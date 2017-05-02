@@ -5,6 +5,4 @@
     templateUrl: './app/app.component.html'
     
 })
-export class AppComponent {
-    name = 'Adam';
-}
+export class AppComponent { }
