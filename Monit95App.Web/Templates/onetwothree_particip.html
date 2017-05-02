@@ -15,7 +15,7 @@
             </label>
             <input style="margin-left:10px" placeholder="Поиск..." class="form-control" ng-model="search" />
             <div style="float:right;text-align:right;">
-                <a class="btn btn-default" href="" ng-click="showParticipModalDialog(classes, particips)">Добавить</a>
+                <a ng-show="showingAddBtn" class="btn btn-default" href="" ng-click="showParticipModalDialog(classes, particips)">Добавить</a>
             </div>
             <div style="clear:both"></div>
         </div>

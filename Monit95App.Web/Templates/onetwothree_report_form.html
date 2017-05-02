@@ -7,15 +7,15 @@
             <th>Баллы</th>
             <th>Уровень</th>
         </tr>
-        <tr>
+        <tr ng-show="report['RU'].GradeStr">
             <td>Русский язык</td>
             <td>{{report['RU'].Marks}}</td>
             <td ng-class="getColorFromGradeStr(report['RU'].GradeStr)">{{report['RU'].GradeStr}}</td>
         </tr>
-        <tr>
+        <tr ng-show="report['MA'].GradeStr">
             <td>Математика</td>
             <td>{{report['MA'].Marks}}</td>
-            <td>{{report['MA'].GradeStr}}</td>
+            <td ng-class="getColorFromGradeStr(report['MA'].GradeStr)">{{report['MA'].GradeStr}}</td>
         </tr>
     </table>
     <hr/>
