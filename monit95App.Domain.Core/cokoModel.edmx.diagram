@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="cokoModel.ProjectTest" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Report" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.School" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="cokoModel.TestResult" Width="1.5" PointX="9.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="3" PointY="18.875" IsExpanded="true" />
         <AssociationConnector Association="cokoModel.FK_Schools_Areas" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Categories" ManuallyRouted="false" />
@@ -31,7 +30,6 @@
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_NsurSubjects" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ParticipTests_ProjectParticips" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ParticipTests_ProjectTests" ManuallyRouted="false" />
-        <AssociationConnector Association="cokoModel.FK_TestResults_ParticipTests" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Schools" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectTests_Projects" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectTests_Tests" ManuallyRouted="false" />
@@ -44,6 +42,8 @@
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_Classes" />
         <AssociationConnector Association="cokoModel.FK_ExerciseMarks_ProjectParticipsV2" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_Schools" />
+        <EntityTypeShape EntityType="cokoModel.TestResult" Width="1.5" PointX="9.75" PointY="3.5" />
+        <AssociationConnector Association="cokoModel.FK_TestResults_ParticipTests" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

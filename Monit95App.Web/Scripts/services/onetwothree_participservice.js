@@ -19,7 +19,7 @@
 	service.getMaxRates = function () {
 		return $http({
 			method: 'GET',
-			url: '/api/ExerciseMarks/GetMaxRate/'
+			url: '/api/ExerciseMarks/GetMaxRates'
 		});
 	}
 

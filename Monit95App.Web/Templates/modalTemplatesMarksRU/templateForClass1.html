@@ -14,7 +14,7 @@
                     <th>Задание</th>
                     <th>Балл</th>
                 </tr>
-                <tr ng-repeat="exercise in exercises">
+                <tr ng-repeat="exercise in exercises track by $index">
                     <td>{{$index + 1}}</td>
                     <td><input id="{{$index}}" ng-change="checkAndNext($index)" class="form-control input-sm" size="1" ng-model="marksArray[$index]" ng-disabled="isAbsent" required/></td>
                 </tr>
