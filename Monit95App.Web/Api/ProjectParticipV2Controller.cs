@@ -16,13 +16,9 @@ namespace Monit95App.Api
     {
         private IProjectParticipV2Service _projectParticipV2Service;
 
-        public ProjectParticipV2Controller()
+        public ProjectParticipV2Controller(IProjectParticipV2Service projectParticipV2Service)
         {
-            var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var projectParticipV2Repository = new Repository<ProjectParticipsV2>(unitOfWork);
-            var classRepository = new Repository<Class>(unitOfWork);
-            var classService = new ClassService(unitOfWork, classRepository);
-            _projectParticipV2Service = new ProjectParticipV2Service(unitOfWork, projectParticipV2Repository, classService);
+            _projectParticipV2Service = projectParticipV2Service;
         }
 
         //create

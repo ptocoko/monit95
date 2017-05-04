@@ -17,11 +17,9 @@ namespace Monit95App.Api
     {
         IExerciseMarkService _exerciseMarksService;
 
-        public ExerciseMarksController()
+        public ExerciseMarksController(IExerciseMarkService exerciseMarkService)
         {
-            var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var exerciseMarksRepository = new Repository<ExerciseMark>(unitOfWork);
-            _exerciseMarksService = new ExerciseMarkService(unitOfWork, exerciseMarksRepository);
+            _exerciseMarksService = exerciseMarkService;
         }
 
         public async Task<IEnumerable<ExerciseMarkDto>> GetMarksBySchoolId(string id)

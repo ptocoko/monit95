@@ -17,25 +17,15 @@ namespace Monit95App.Api
     public class OneTwoThreeReportController : ApiController
     {
         private IExerciseMarkService _exerciseMarkService;
-        private IProjectParticipV2Service _projectParticipV2Service;
         private ITestResultV2Service _testResultV2Service;
         private IGrade5 _gradeConverter;
 
-        public OneTwoThreeReportController()
+        public OneTwoThreeReportController(IExerciseMarkService exerciseMarkService, ITestResultV2Service testResultV2Service, IGrade5 gradeConverter)
         {
-            var _unitOfWork = new UnitOfWorkV2(new cokoContext());
+            _exerciseMarkService = exerciseMarkService;
+            _testResultV2Service = testResultV2Service;
 
-            var _projectParticipV2Rep = new Repository<ProjectParticipsV2>(_unitOfWork);
-            var _exerciseMarkRep = new Repository<ExerciseMark>(_unitOfWork);
-            var _testResultV2Rep = new Repository<TestResultsV2>(_unitOfWork);
-            var _classRep = new Repository<Class>(_unitOfWork);
-
-            var _classServise = new ClassService(_unitOfWork, _classRep);
-            _projectParticipV2Service = new ProjectParticipV2Service(_unitOfWork, _projectParticipV2Rep, _classServise);
-            _exerciseMarkService = new ExerciseMarkService(_unitOfWork, _exerciseMarkRep);
-            _testResultV2Service = new TestResultV2Service(_testResultV2Rep, _exerciseMarkRep);
-
-            _gradeConverter = new OneTwoThreeGradeConverter();
+            _gradeConverter = gradeConverter;
         }
 
         public async Task<Dictionary<string, OneTwoThreeReportDto>> GetReport(string schoolId, int participId)
