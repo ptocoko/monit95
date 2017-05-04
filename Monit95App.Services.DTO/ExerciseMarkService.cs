@@ -13,12 +13,14 @@ namespace Monit95App.Services.DTO
     {
         private IUnitOfWork _unitOfWork;
         private IRepositoryV2<ExerciseMark> _exerciseMarkRep;
+        private IRepositoryV2<Test> _testRep;
 
         public ExerciseMarkService(IUnitOfWork unitOfWork, 
-                                   IRepositoryV2<ExerciseMark> exerciseMarkRep)
+                                   IRepositoryV2<ExerciseMark> exerciseMarkRep, IRepositoryV2<Test> testRep)
         {
             _unitOfWork = unitOfWork;
             _exerciseMarkRep = exerciseMarkRep;
+            _testRep = testRep;
         }
 
         public Task<ExerciseMarkDto> AddAsync(ExerciseMarkDto dto)
@@ -55,9 +57,13 @@ namespace Monit95App.Services.DTO
                 //6AD11617-1BCD-4DFF-886E-3CCAFE13C3F1 - 1 класс, математика
                 //14815A91-BB55-4030-9BF9-ECD1D8B2F99E - 2 класс, математика
                 //5D16AC39-4FE0-4392-9612-7E256EA1BEBB - 3 класс, математика
+
+                //BD0B538F-A937-4BF7-8302-77A8B225D60D - 1 класс, чтение
+                //D6554110-E07A-4783-B371-04A46E32467B - 2 класс, чтение
+                //FDA1B01B-63AB-44A6-A976-D5B60E59BE5E - 3 класс, чтение
                 var dto = new List<ExerciseMarkDto>();
 
-                var tests = new string[] { "6AD11617-1BCD-4DFF-886E-3CCAFE13C3F1", "14815A91-BB55-4030-9BF9-ECD1D8B2F99E", "5D16AC39-4FE0-4392-9612-7E256EA1BEBB" };
+                var tests = new string[] { "BD0B538F-A937-4BF7-8302-77A8B225D60D", "D6554110-E07A-4783-B371-04A46E32467B", "FDA1B01B-63AB-44A6-A976-D5B60E59BE5E" };
                 var res = _exerciseMarkRep.GetAll()
                                          .Where(x => x.ProjectParticipsV2.SchoolId == schoolId && tests.Contains(x.TestId.ToString()))
                                          .Select(s => new ExerciseMarkDto { Id = s.Id, ProjectParticipId = s.ProjectParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })
@@ -66,6 +72,20 @@ namespace Monit95App.Services.DTO
 
                 return dto;
             });           
+        }
+
+        public Task<List<MaxRatesDto>> GetMaxRates(string[] testIds)
+        {
+            return Task.Run(() =>
+            {
+                var result = new List<MaxRatesDto>();
+                foreach (var testid in testIds)
+                {
+                    var maxMarks = _testRep.GetAll().SingleOrDefault(p => p.Id == new Guid(testid)).ExcerMaxMarks.Split(new char[] { ';' });
+                    result.Add(new MaxRatesDto { TestId = testid, MaxRates = maxMarks });
+                }
+                return result;
+            });
         }
 
         public Task<bool> UpdateAsync(ExerciseMarkDto marks)

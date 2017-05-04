@@ -14,12 +14,6 @@ namespace Monit95App.Domain.Core
     
     public partial class ParticipTest
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ParticipTest()
-        {
-            this.TestResults = new HashSet<TestResult>();
-        }
-    
         public int Id { get; set; }
         public int ProjectCode { get; set; }
         public string ParticipCode { get; set; }
@@ -28,7 +22,6 @@ namespace Monit95App.Domain.Core
     
         public virtual ProjectParticip ProjectParticip { get; set; }
         public virtual ProjectTest ProjectTest { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestResult> TestResults { get; set; }
+        public virtual TestResult TestResult { get; set; }
     }
 }
