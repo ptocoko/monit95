@@ -21,7 +21,8 @@ namespace Monit95App.Api
         {
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
             var exerciseMarksRepository = new Repository<ExerciseMark>(unitOfWork);
-            _exerciseMarksService = new ExerciseMarkService(unitOfWork, exerciseMarksRepository);
+            var testRep = new Repository<Test>(unitOfWork);
+            _exerciseMarksService = new ExerciseMarkService(unitOfWork, exerciseMarksRepository, testRep);
         }
 
         public async Task<IEnumerable<ExerciseMarkDto>> GetMarksBySchoolId(string id)
@@ -60,6 +61,11 @@ namespace Monit95App.Api
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
+        }
+
+        public async Task<List<MaxRatesDto>> GetMaxRates()
+        {
+            return await _exerciseMarksService.GetMaxRates(OneTwoThreeTestIdsKeeper.GetIds(OneTwoThreeTestIdAlias.CHT));
         }
     }
 }

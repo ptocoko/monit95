@@ -16,6 +16,13 @@
 		});
 	}
 
+	service.getMaxRates = function () {
+		return $http({
+			method: 'GET',
+			url: '/api/ExerciseMarks/GetMaxRate/'
+		});
+	}
+
 	service.postMarks = function (marks) {
 		return $http({
 			method: 'POST',

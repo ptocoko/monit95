@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="FileReportRepository.cs" />
     <Compile Include="Interfaces\IPParticipCodeCreator.cs" />
+    <Compile Include="OneTwoThreeTestIdsKeeper.cs" />
     <Compile Include="PParticipRepository.cs" />
     <Compile Include="PParticipCodeCreator.cs" />
     <Compile Include="PPrimaryKey.cs" />

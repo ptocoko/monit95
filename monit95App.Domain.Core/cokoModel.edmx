@@ -149,6 +149,7 @@
           <Property Name="TestNumber" Type="int" Nullable="false" />
           <Property Name="TestDate" Type="date" Nullable="false" />
           <Property Name="IsOpened" Type="bit" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Reports">
           <Key>
@@ -197,7 +198,7 @@
         </EntityType>
         <EntityType Name="TestResults">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ParticipTestId" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParticipTestId" Type="int" Nullable="false" />
@@ -215,6 +216,7 @@
           <Property Name="NumberCode" Type="varchar" MaxLength="10" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ExcerMaxMarks" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TownTypes">
           <Key>
@@ -248,7 +250,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExerciseMarks_ProjectParticipsV2">
-          <End Role="ProjectParticipsV2" Type="Self.ProjectParticipsV2" Multiplicity="1" />
+          <End Role="ProjectParticipsV2" Type="Self.ProjectParticipsV2" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ExerciseMarks" Type="Self.ExerciseMarks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectParticipsV2">
@@ -443,7 +447,7 @@
         </Association>
         <Association Name="FK_TestResults_ParticipTests">
           <End Role="ParticipTests" Type="Self.ParticipTests" Multiplicity="1" />
-          <End Role="TestResults" Type="Self.TestResults" Multiplicity="*" />
+          <End Role="TestResults" Type="Self.TestResults" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="ParticipTests">
               <PropertyRef Name="Id" />
@@ -701,6 +705,7 @@
           <NavigationProperty Name="ParticipTests" Relationship="Self.FK_ParticipTests_ProjectTests" FromRole="ProjectTests" ToRole="ParticipTests" />
           <NavigationProperty Name="Project" Relationship="Self.FK_ProjectTests_Projects" FromRole="ProjectTests" ToRole="Projects" />
           <NavigationProperty Name="Test" Relationship="Self.FK_ProjectTests_Tests" FromRole="ProjectTests" ToRole="Tests" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
@@ -768,6 +773,7 @@
           <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ExerciseMarks" Relationship="Self.FK_ExerciseMarks_Tests" FromRole="Tests" ToRole="ExerciseMarks" />
           <NavigationProperty Name="ProjectTests" Relationship="Self.FK_ProjectTests_Tests" FromRole="Tests" ToRole="ProjectTests" />
+          <Property Name="ExcerMaxMarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Schools_Areas">
           <End Role="Areas" Type="Self.Area" Multiplicity="1" />
@@ -1269,6 +1275,7 @@
           <EntitySetMapping Name="ProjectTests">
             <EntityTypeMapping TypeName="cokoModel.ProjectTest">
               <MappingFragment StoreEntitySet="ProjectTests">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
                 <ScalarProperty Name="TestId" ColumnName="TestId" />
@@ -1332,6 +1339,7 @@
           <EntitySetMapping Name="Tests">
             <EntityTypeMapping TypeName="cokoModel.Test">
               <MappingFragment StoreEntitySet="Tests">
+                <ScalarProperty Name="ExcerMaxMarks" ColumnName="ExcerMaxMarks" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NumberCode" ColumnName="NumberCode" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

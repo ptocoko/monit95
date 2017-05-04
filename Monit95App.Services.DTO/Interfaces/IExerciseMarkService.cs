@@ -11,5 +11,6 @@ namespace Monit95App.Services.DTO.Interfaces
         Task<ExerciseMarkDto> AddAsync(ExerciseMarkDto dto);
         Task<List<ExerciseMarkDto>> GetBySchoolIdAsync(string schoolId);
         Task<bool> UpdateAsync(ExerciseMarkDto marks);
+        Task<List<MaxRatesDto>> GetMaxRates(string[] testIds);
     }
 }

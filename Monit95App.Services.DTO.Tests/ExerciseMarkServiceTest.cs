@@ -21,7 +21,8 @@ namespace Monit95App.Services.DTO.Tests
 
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
             var repository = new Repository<ExerciseMark>(unitOfWork);
-            var service = new ExerciseMarkService(unitOfWork, repository);
+            var testRep = new Repository<Test>(unitOfWork);
+            var service = new ExerciseMarkService(unitOfWork, repository, testRep);
 
             //Act
             //await service.AddAsync(newDto);
