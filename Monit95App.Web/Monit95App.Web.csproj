@@ -214,8 +214,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AngularController.cs" />
-    <Compile Include="Controllers\CollectorController.cs" />
+    <Compile Include="Controllers\RsurController.cs" />
     <Compile Include="Controllers\CollectorMarksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NsurController.cs" />
@@ -429,24 +428,13 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_GuestLayout.cshtml" />
-    <Content Include="Views\Work201615\Select.cshtml" />
-    <Content Include="Views\Work201615\_PartialClass2.cshtml" />
-    <Content Include="Views\Work201615\_PartialClass1.cshtml" />
-    <Content Include="Views\Work201615\_PartialClass3.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Work201615\_PartialClass1_orig.cshtml" />
-    <Content Include="Views\Work201615\_PartialClass2_orig.cshtml" />
-    <Content Include="Views\Work201615\_PartialClass3_orig.cshtml" />
-    <Content Include="Views\Work201628\Select.cshtml" />
-    <Content Include="Views\Work201628\_Partial0.cshtml" />
-    <Content Include="Views\Work201630\Select.cshtml" />
     <Content Include="Views\Home\_PartialFooter.cshtml" />
     <Content Include="Views\Shared\_Schoolinfo.cshtml" />
     <Content Include="Views\Home\Schools.cshtml" />
     <Content Include="Views\Shared\_OnlineReports.cshtml" />
     <Content Include="Views\Report\Report.cshtml" />
     <Content Include="Views\Home\Schoolinfo.cshtml" />
-    <Content Include="Views\Collector\GetCollect.cshtml" />
     <Content Include="Views\Home\Oge2016.cshtml" />
     <Content Include="Views\Shared\_LearnerTable.cshtml" />
     <Content Include="Scripts\smart-table.min.js.map" />
@@ -456,7 +444,7 @@
     <Content Include="Views\OneTwoThree\Spa.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="systemjs.config.js" />
-    <Content Include="Views\Angular\Index.cshtml" />
+    <Content Include="Views\Rsur\Spa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -508,6 +496,7 @@
     <TypeScriptCompile Include="app\particips\particip.model.ts" />
     <TypeScriptCompile Include="app\particips\particips.component.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
+    <TypeScriptCompile Include="app\user.service.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

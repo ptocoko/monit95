@@ -10,7 +10,7 @@ namespace Monit95App.Api
     [Authorize]
     public class UserController : ApiController
     {
-        //Get current user' name
+        //Get current user's name
         public string GetName()
         {
             return User.Identity.Name;

@@ -21,7 +21,7 @@ namespace Monit95App.Util
             // регистрируем контроллер в текущей сборке
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            // регистрируем споставление типов
+            // регестрируем сопоставление типов
             builder.RegisterType<PParticipCodeCreator>().As<IPParticipCodeCreator>()
                 .WithParameter("db", new cokoContext());
 

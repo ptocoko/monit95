@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace Monit95App.Controllers
 {
-    public class AngularController : Controller
+    public class RsurController : Controller
     {
         // GET: Angular
-        public ActionResult Index()
+        public ActionResult Spa()
         {
             return View();
         }

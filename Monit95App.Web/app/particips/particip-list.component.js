@@ -10,17 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var particip_service_1 = require("./particip.service");
-var mock_particips_1 = require("./mock-particips");
+var user_service_1 = require("../user.service");
 var ParticipListComponent = (function () {
-    function ParticipListComponent(participService) {
+    function ParticipListComponent(participService, userService) {
         this.participService = participService;
+        this.userService = userService;
         this.particips = [];
     }
     ;
     ParticipListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.userService.getName().subscribe(function (response) { return _this.userName = response.json(); });
         //this.items = this.participService.getData();
-        this.particips = mock_particips_1.PARTICIPS;
-        this.getByAreaCode(201);
+        //this.particips = PARTICIPS;
+        //this.getByAreaCode(201);
     };
     //Get by areaCode
     ParticipListComponent.prototype.getByAreaCode = function (areaCode) {
@@ -36,7 +39,7 @@ ParticipListComponent = __decorate([
         templateUrl: './app/particips/particip-list.html',
         providers: [particip_service_1.ParticipService]
     }),
-    __metadata("design:paramtypes", [particip_service_1.ParticipService])
+    __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService])
 ], ParticipListComponent);
 exports.ParticipListComponent = ParticipListComponent;
 ;

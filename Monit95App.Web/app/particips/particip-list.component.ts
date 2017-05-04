@@ -1,7 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { ParticipService } from './particip.service';
 import { ParticipModel } from './particip.model';
 import { PARTICIPS } from './mock-particips';
+
+import { ParticipService } from './particip.service';
+import { UserService }     from '../user.service';
 
 @Component({
     selector: 'particip-list',
@@ -10,13 +12,18 @@ import { PARTICIPS } from './mock-particips';
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];
+    userName: string;
 
-    constructor(private participService: ParticipService) { };
+    constructor(private participService: ParticipService, private userService: UserService) { };
 
     ngOnInit() {
+        this.userService.getName().subscribe(
+            response => this.userName = response.json()
+        );
         //this.items = this.participService.getData();
-        this.particips = PARTICIPS;
-        this.getByAreaCode(201);
+        //this.particips = PARTICIPS;
+        //this.getByAreaCode(201);
+
     }
 
     //Get by areaCode

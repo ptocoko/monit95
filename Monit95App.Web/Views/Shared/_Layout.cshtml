@@ -137,15 +137,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(@"Angular", "Index", "Angular")</li>
-                    @if (User.IsInRole("area"))
+                    <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
+                    @*@if (User.IsInRole("area"))
                     {
                         <li>@Html.ActionLink(@"РСУР", "Index", "Nsur")</li>
-                    }
+                    }*@
                     @if (User.IsInRole("coko"))
                     {
-                        <li>@Html.ActionLink(@"Школы", "Schools", "Home", new { @style = "background:NavajoWhite; color:black;" })</li>
-                        <li>@Html.ActionLink(@"Сбор", "GetCollect", "Collector")</li>
+                        <li>@Html.ActionLink(@"Школы", "Schools", "Home", new { @style = "background:NavajoWhite; color:black;" })</li>                        
                     }
                     @if (User.IsInRole("school"))
                     {
