@@ -36,30 +36,30 @@ namespace Monit95App.Api
             }
         }
 
-        public async Task<ExerciseMarkDto> Post(ExerciseMarkDto dto)
-        {
-            if(dto != null)
-            {
-                return await _exerciseMarksService.AddAsync(dto);
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //public async Task<ExerciseMarkDto> Post(ExerciseMarkDto dto)
+        //{
+        //    if(dto != null)
+        //    {
+        //        return await _exerciseMarksService.AddAsync(dto);
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
         [HttpPut]
-        public async Task<HttpResponseMessage> Update(ExerciseMarkDto dto)
-        {
-            if(dto != null)
-            {
-                await _exerciseMarksService.UpdateAsync(dto);
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
+        //public async Task<HttpResponseMessage> Update(ExerciseMarkDto dto)
+        //{
+        //    if(dto != null)
+        //    {
+        //        await _exerciseMarksService.UpdateAsync(dto);
+        //        return Request.CreateResponse(HttpStatusCode.OK);
+        //    }
+        //    else
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.BadRequest);
+        //    }
+        //}
     }
 }
