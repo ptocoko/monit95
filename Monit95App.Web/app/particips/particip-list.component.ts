@@ -8,29 +8,31 @@ import { UserService }     from '../user.service';
 @Component({
     selector: 'particip-list',
     templateUrl: './app/particips/particip-list.html',
-    providers: [ParticipService]
+    providers: [ParticipService],
+    pipes: [ParticipPipe]
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];
-    userName: string;
+    areaCode: number;
 
     constructor(private participService: ParticipService, private userService: UserService) { };
 
     ngOnInit() {
         this.userService.getName().subscribe(
-            response => this.userName = response.json()
+            response => {
+                this.areaCode = response.json();
+                this.getByAreaCode();
+            }
         );
-        //this.items = this.participService.getData();
-        //this.particips = PARTICIPS;
-        //this.getByAreaCode(201);
 
+        //this.particips = PARTICIPS;        
     }
 
     //Get by areaCode
-    getByAreaCode(areaCode: number)
+    getByAreaCode()
     {
         //debugger
-        this.participService.getByAreaCode(areaCode).subscribe(
+        this.participService.getByAreaCode(this.areaCode).subscribe(
             particips => this.particips = particips
         );
     }

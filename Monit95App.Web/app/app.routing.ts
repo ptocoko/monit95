@@ -1,10 +1,9 @@
 ﻿import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ParticipsComponent } from './particips/particips.component'; 
-import { PlanComponent } from './plan/plan.component'; 
-
-import { ParticipListComponent } from './particips/particip-list.component'; 
+import { ParticipsComponent } from './particips/particips.component';
+import { ParticipListComponent } from './particips/particip-list.component';
+import { PlanComponent } from './plan/plan.component';
 
 const appRoutes: Routes = [
     { path: 'particips', component: ParticipsComponent },
