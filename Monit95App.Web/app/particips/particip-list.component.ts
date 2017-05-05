@@ -1,15 +1,17 @@
 ﻿import { Component, OnInit } from '@angular/core';
+
 import { ParticipModel } from './particip.model';
 import { PARTICIPS } from './mock-particips';
+import { ParticipPipe } from './particip.pipe'
 
 import { ParticipService } from './particip.service';
-import { UserService }     from '../user.service';
+import { UserService } from '../user.service';
 
 @Component({
     selector: 'particip-list',
     templateUrl: './app/particips/particip-list.html',
-    providers: [ParticipService],
-    pipes: [ParticipPipe]
+    providers: [ParticipService, UserService]
+  //  pipes: [ParticipPipe]
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];
@@ -24,7 +26,6 @@ export class ParticipListComponent implements OnInit {
                 this.getByAreaCode();
             }
         );
-
         //this.particips = PARTICIPS;        
     }
 

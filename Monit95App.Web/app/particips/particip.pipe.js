@@ -5,23 +5,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var UserService = (function () {
-    function UserService(http) {
-        this.http = http;
+var ParticipPipe = (function () {
+    function ParticipPipe() {
     }
-    UserService.prototype.getName = function () {
-        return this.http.get('/api/User/GetName');
+    ParticipPipe.prototype.transform = function (particips, searchText) {
+        if (searchText == null)
+            return particips;
+        return particips.filter(function (particip) {
+            return particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+        });
     };
-    return UserService;
+    return ParticipPipe;
 }());
-UserService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], UserService);
-exports.UserService = UserService;
-//# sourceMappingURL=user.service.js.map
+ParticipPipe = __decorate([
+    core_1.Pipe({ name: 'particip' })
+], ParticipPipe);
+exports.ParticipPipe = ParticipPipe;
+//# sourceMappingURL=particip.pipe.js.map

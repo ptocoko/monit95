@@ -239,15 +239,9 @@
     <Compile Include="ViewModels\CollectorMarks\ProjectParticipV2.cs" />
     <Compile Include="ViewModels\Home\LearnerVM.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />
-    <Compile Include="ViewModels\CokoEmployer\SelectVM.cs" />
-    <Compile Include="ViewModels\CokoEmployer\Work201615Model.cs" />
     <Compile Include="ViewModels\Home\FooterVM.cs" />
-    <Compile Include="ViewModels\Work201615\SelectVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\Work201628\SelectVM.cs" />
-    <Compile Include="ViewModels\Work201628\Subject.cs" />
-    <Compile Include="ViewModels\Work201630\SelectVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.component.html" />
@@ -447,7 +441,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
-    <Folder Include="ViewModels\Collector\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -490,6 +483,7 @@
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particips\mock-particips.ts" />
     <TypeScriptCompile Include="app\particips\particip-list.component.ts" />
+    <TypeScriptCompile Include="app\particips\particip.pipe.ts" />
     <TypeScriptCompile Include="app\particips\particip.service.ts" />
     <TypeScriptCompile Include="app\particips\particip.model.ts" />
     <TypeScriptCompile Include="app\particips\particips.component.ts" />
