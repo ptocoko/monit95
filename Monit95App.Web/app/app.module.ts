@@ -9,6 +9,7 @@ import { ParticipListComponent } from './particips/particip-list.component';
 import { PlanComponent } from './plan/plan.component';
 
 import { ParticipPipe } from './particips/particip.pipe';
+import {UserService} from './user.service'
 import { routing } from './app.routing';
 
 @NgModule({

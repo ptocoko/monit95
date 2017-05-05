@@ -20,16 +20,17 @@ var ParticipListComponent = (function () {
     ;
     ParticipListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getName().subscribe(function (response) { return _this.userName = response.json(); });
-        //this.items = this.participService.getData();
-        //this.particips = PARTICIPS;
-        //this.getByAreaCode(201);
+        this.userService.getName().subscribe(function (response) {
+            _this.areaCode = response.json();
+            _this.getByAreaCode();
+        });
+        //this.particips = PARTICIPS;        
     };
     //Get by areaCode
-    ParticipListComponent.prototype.getByAreaCode = function (areaCode) {
+    ParticipListComponent.prototype.getByAreaCode = function () {
         var _this = this;
         //debugger
-        this.participService.getByAreaCode(areaCode).subscribe(function (particips) { return _this.particips = particips; });
+        this.participService.getByAreaCode(this.areaCode).subscribe(function (particips) { return _this.particips = particips; });
     };
     return ParticipListComponent;
 }());
@@ -37,7 +38,8 @@ ParticipListComponent = __decorate([
     core_1.Component({
         selector: 'particip-list',
         templateUrl: './app/particips/particip-list.html',
-        providers: [particip_service_1.ParticipService]
+        providers: [particip_service_1.ParticipService],
+        pipes: [ParticipPipe]
     }),
     __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService])
 ], ParticipListComponent);

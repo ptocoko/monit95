@@ -390,8 +390,6 @@
     <Content Include="Scripts\smart-table.js" />
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Templates\marks.html" />
-    <Content Include="Templates\marks_edit.html" />
     <Content Include="Templates\modalTemplatesMarksRU\templateForClass1.html" />
     <Content Include="Templates\modalTemplatesMarksRU\templateForClass2.html" />
     <Content Include="Templates\modalTemplatesMarksRU\templateForClass3.html" />
