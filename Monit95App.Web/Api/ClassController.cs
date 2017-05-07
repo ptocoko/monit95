@@ -13,8 +13,8 @@ namespace Monit95App.Api
 {
     public class ClassController : ApiController
     {
-        private IClassService _classService;
-                
+        private readonly IClassService _classService;
+
         public ClassController()
         {
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
@@ -24,7 +24,7 @@ namespace Monit95App.Api
         }
         public IEnumerable<Class> Get()
         {
-            var res = _classService.GetAll().OrderBy(x=>x.Id).Take(36).Select(s => new Class { Id = s.Id, Name = s.Name });
+            var res = _classService.GetAll().OrderBy(x => x.Id).Take(36).Select(s => new Class { Id = s.Id, Name = s.Name });
             return res;
         }
     }

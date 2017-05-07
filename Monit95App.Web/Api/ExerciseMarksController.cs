@@ -15,7 +15,7 @@ namespace Monit95App.Api
 {
     public class ExerciseMarksController : ApiController
     {
-        IExerciseMarkService _exerciseMarksService;
+        private readonly IExerciseMarkService _exerciseMarksService;
 
         public ExerciseMarksController()
         {
@@ -27,14 +27,11 @@ namespace Monit95App.Api
 
         public async Task<IEnumerable<ExerciseMarkDto>> GetMarksBySchoolId(string id)
         {
-            if (!String.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(id))
             {
                 return await _exerciseMarksService.GetBySchoolIdAsync(id);
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public async Task<ExerciseMarkDto> Post(ExerciseMarkDto dto)
@@ -43,24 +40,16 @@ namespace Monit95App.Api
             {
                 return await _exerciseMarksService.AddAsync(dto);
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         [HttpPut]
         public async Task<HttpResponseMessage> Update(ExerciseMarkDto dto)
         {
-            if(dto != null)
-            {
-                await _exerciseMarksService.UpdateAsync(dto);
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
+            if (dto == null) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            
+            await _exerciseMarksService.UpdateAsync(dto);
+            return Request.CreateResponse(HttpStatusCode.OK);                  
         }
 
         public async Task<List<MaxRatesDto>> GetMaxRates()

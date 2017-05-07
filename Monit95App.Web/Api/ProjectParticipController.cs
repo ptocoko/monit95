@@ -59,20 +59,12 @@ namespace Monit95App.Api
             return _pparticipViewer.CreateViewModel(newParticip);
         }
     
-
-        public HttpResponseMessage ooo(int Uid)
-        {    
-            var response = new HttpResponseMessage();
-            response.Headers.Add("DeleteMessage", "Succsessfuly Deleted!!!");
-            return response;
-        }
         public string GetDParticip(string primaryKey)
         {
-
             _unitOfWork.ProjectParticips.Delete(primaryKey);
             _unitOfWork.Save();
             return "Yes";
         }
-        //}
+        
     }
 }

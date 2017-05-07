@@ -13,7 +13,7 @@ namespace Monit95App.Api
 {    
     public class MarksFileController : ApiController
     {
-        private IMarksFileService _marksFileService;
+        private readonly IMarksFileService _marksFileService;
         
         public MarksFileController()
         {
@@ -28,20 +28,15 @@ namespace Monit95App.Api
         [HttpPost]
         public HttpResponseMessage UploadFile()
         {           
-            HttpFileCollection hfc = HttpContext.Current.Request.Files;
-            HttpPostedFile hpf = hfc[0];            
+            var hfc = HttpContext.Current.Request.Files;
+            var hpf = hfc[0];            
             var formVarCollection = HttpContext.Current.Request.Form;
             var userName = formVarCollection.GetValues("username").SingleOrDefault();
 
             _marksFileService.SaveAsync(hpf, userName);
-
-            //return this.Request.CreateResponse(HttpStatusCode.BadRequest, "Не верный файл");
+            
             return Request.CreateResponse(HttpStatusCode.Created);
         }
-
-        public async Task<bool> IsExistFile(string fullFileName)
-        {            
-            return true;
-        }
+      
     }
 }

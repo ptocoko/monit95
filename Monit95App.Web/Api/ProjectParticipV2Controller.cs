@@ -42,31 +42,22 @@ namespace Monit95App.Api
         //read
         public async Task<IEnumerable<ProjectParticipV2Dto>> GetBySchoolId(string id)
         {
-            if(!String.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(id))
             {
                 return await _projectParticipV2Service.GetBySchoolIdAsync(id);
             }
-
-            else
-            {
-                return null;
-            }
-
+            return null;
         }
 
         //delete
         public async Task<HttpResponseMessage> Delete(int id)
         {
-            if(id != 0)
+            if (id != 0)
             {
                 await _projectParticipV2Service.DeleteAsync(id);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            else
-            {
-                throw new ArgumentNullException("async Task<HttpResponseMessage> Delete(int id)");
-            }
-            
+            throw new ArgumentNullException("async Task<HttpResponseMessage> Delete(int id)");
         }
 
         [HttpPut]
@@ -84,10 +75,8 @@ namespace Monit95App.Api
                 }
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            else
-            {
-                throw new ArgumentNullException("async Task<HttpResponseMessage> Update(ProjectParticipV2Dto dto)");
-            }
+
+            throw new ArgumentNullException("async Task<HttpResponseMessage> Update(ProjectParticipV2Dto dto)");
         }
     }
 }
