@@ -1,6 +1,5 @@
 ﻿import { ParticipModel } from './particip.model';
 
 export var PARTICIPS: ParticipModel[] = [
-    { Surname: 'Шахабов', Name: 'Адам' },
-    { Surname: 'Муциев', Name: 'Адлан' },
+    { participCode: '2016-206-001', surname: 'Шахабов', name: 'Адам', secondName: 'Хаважиевич', subjectName: 'Математика' }   
 ];

@@ -18,7 +18,6 @@ var ParticipListComponent = (function () {
         this.userService = userService;
         this.particips = [];
     }
-    ;
     ParticipListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userService.getName().subscribe(function (response) {
@@ -39,7 +38,7 @@ ParticipListComponent = __decorate([
     core_1.Component({
         selector: 'particip-list',
         templateUrl: './app/particips/particip-list.html',
-        providers: [particip_service_1.ParticipService, user_service_1.UserService]
+        providers: [particip_service_1.ParticipService, user_service_1.UserService],
     }),
     __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService])
 ], ParticipListComponent);

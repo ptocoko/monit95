@@ -11,13 +11,13 @@ namespace Monit95App.Controllers
     //Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
-        private readonly cokoContext context = new cokoContext();        
+        private readonly cokoContext _context = new cokoContext();        
 
         [OutputCache(Duration=1800, Location = OutputCacheLocation.Client, VaryByParam = "subjectCode")]
         public JsonResult GetAllParticips(int subjectCode)
         {            
-            List<LearnerVM> participInfos = new List<LearnerVM>();
-            foreach (var result in context.GiaResults.Where(x=>x.ProjectCode==201676 && x.SubjectCode == subjectCode))
+            var participInfos = new List<LearnerVM>();
+            foreach (var result in _context.GiaResults.Where(x=>x.ProjectCode==201676 && x.SubjectCode == subjectCode))
             {
                 participInfos.Add(new LearnerVM
                 {
@@ -38,10 +38,10 @@ namespace Monit95App.Controllers
             return jsonResult;
         }
 
-        public JsonResult GetCollectorSchoolInfos(int _collectorId = 201650)
+        public JsonResult GetCollectorSchoolInfos(int collectorId = 201650)
         {
-            List<CollectorSchoolInfo> collectorSchools = new List<CollectorSchoolInfo>();
-            var schools = context.CollectorSchools.Where(x => x.CollectorId == _collectorId)
+            var collectorSchools = new List<CollectorSchoolInfo>();
+            var schools = _context.CollectorSchools.Where(x => x.CollectorId == collectorId)
                                                    .Select(x => new
                                                    {
                                                        x.School,
@@ -70,10 +70,10 @@ namespace Monit95App.Controllers
         [Authorize(Roles = "coko")]
         public ActionResult Schools()
         {
-            List<SelectListItem> areaNames = new List<SelectListItem>();
+            var areaNames = new List<SelectListItem>();
             var vm = new SchoolsVM();
 
-            List<Area> areas = context.Areas.ToList();
+           var areas = _context.Areas.ToList();
             //поместить из БД area в List<SelectListItem> areaNames
             areas.ForEach(x =>
             {
@@ -87,14 +87,14 @@ namespace Monit95App.Controllers
 
         [Authorize(Roles = "coko")]
         [HttpPost]
-        public ActionResult GetSchools(string areaID_str)
+        public ActionResult GetSchools(string areaIdStr)
         {
-            int areaID_int;
-            List<SelectListItem> schoolNames = new List<SelectListItem>();
-            if (!string.IsNullOrEmpty(areaID_str))
+            int areaIdInt;
+            var schoolNames = new List<SelectListItem>();
+            if (!string.IsNullOrEmpty(areaIdStr))
             {
-                areaID_int = Convert.ToInt32(areaID_str);                
-                List<School> schools = context.Schools.Where(x => x.AreaCode == areaID_int).ToList();
+                areaIdInt = Convert.ToInt32(areaIdStr);                
+                var schools = _context.Schools.Where(x => x.AreaCode == areaIdInt).ToList();
                 schools.ForEach(x =>
                 {
                     schoolNames.Add(new SelectListItem { Text = x.Id + " - " + x.Name, Value = x.Id.ToString() });
@@ -105,9 +105,9 @@ namespace Monit95App.Controllers
         }
 
         [Authorize(Roles = "coko")]
-        public ActionResult GetSchoolinfoPV(string _schoolID)
+        public ActionResult GetSchoolinfoPV(string schoolId)
         {
-            var currentSchool = context.Schools.Find(_schoolID);
+            var currentSchool = _context.Schools.Find(schoolId);
             var vm = CreatorSchoolInfo.CreateFullVersion(currentSchool);
             return PartialView("_Schoolinfo", vm);
         }
@@ -115,7 +115,7 @@ namespace Monit95App.Controllers
         [Authorize(Roles = "school")]
         public ActionResult Schoolinfo()
         {                                       
-            var currentSchool = context.Schools.Find(User.Identity.Name);
+            var currentSchool = _context.Schools.Find(User.Identity.Name);
             var vm = CreatorSchoolInfo.CreateFullVersion(currentSchool);
             return View(vm);
         }
@@ -124,7 +124,7 @@ namespace Monit95App.Controllers
         public ActionResult GetFooter()
         {
             if (Session["footer"] == null)
-                Session["footer"] = context.Schools.Find(User.Identity.Name);
+                Session["footer"] = _context.Schools.Find(User.Identity.Name);
 
             School school = (School)Session["footer"];
 

@@ -25,7 +25,13 @@ var ParticipService = (function () {
             var particips = [];
             for (var index in participList) {
                 var particip = participList[index];
-                particips.push({ Surname: particip.Surname, Name: particip.Name });
+                particips.push({
+                    participCode: particip.ParticipCode,
+                    surname: particip.Surname,
+                    name: particip.Name,
+                    secondName: particip.SecondName,
+                    subjectName: particip.SubjectName
+                });
             }
             console.log(particips);
             return particips;

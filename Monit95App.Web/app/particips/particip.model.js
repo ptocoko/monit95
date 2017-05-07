@@ -1,10 +1,11 @@
 "use strict";
 var ParticipModel = (function () {
-    function ParticipModel(
-        //public participCode: string,
-        Surname, Name) {
-        this.Surname = Surname;
-        this.Name = Name;
+    function ParticipModel(participCode, surname, name, secondName, subjectName) {
+        this.participCode = participCode;
+        this.surname = surname;
+        this.name = name;
+        this.secondName = secondName;
+        this.subjectName = subjectName;
     }
     return ParticipModel;
 }());

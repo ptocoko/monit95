@@ -1,6 +1,5 @@
 "use strict";
 exports.PARTICIPS = [
-    { Surname: 'Шахабов', Name: 'Адам' },
-    { Surname: 'Муциев', Name: 'Адлан' },
+    { participCode: '2016-206-001', surname: 'Шахабов', name: 'Адам', secondName: 'Хаважиевич', subjectName: 'Математика' }
 ];
 //# sourceMappingURL=mock-particips.js.map

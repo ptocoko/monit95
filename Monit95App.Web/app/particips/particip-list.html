@@ -18,12 +18,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let particip of particips | particip: searchText">
-                <td>{{particip.ParticipCode}}</td>
-                <td>{{particip.Surname}}</td>
-                <td>{{particip.Name}}</td>
-                <td>{{particip.SecondName}}</td>
-                <td>{{particip.SubjectName}}</td>
+            <tr *ngFor="let particip of particips | participFilter: searchText">
+                <td>{{particip.participCode}}</td>
+                <td>{{particip.surname}}</td>
+                <td>{{particip.name}}</td>
+                <td>{{particip.secondName}}</td>
+                <td>{{particip.subjectName}}</td>
                 <td>
                     <button type="button" class="btn btn-default">
                         <span class="glyphicon glyphicon-menu-right"></span>запросить

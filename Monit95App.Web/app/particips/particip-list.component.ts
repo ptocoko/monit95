@@ -10,14 +10,14 @@ import { UserService } from '../user.service';
 @Component({
     selector: 'particip-list',
     templateUrl: './app/particips/particip-list.html',
-    providers: [ParticipService, UserService]
-  //  pipes: [ParticipPipe]
+    providers: [ParticipService, UserService],    
+    //pipes: [ParticipFilterPipe]
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];
     areaCode: number;
 
-    constructor(private participService: ParticipService, private userService: UserService) { };
+    constructor(private participService: ParticipService, private userService: UserService) { }
 
     ngOnInit() {
         this.userService.getName().subscribe(

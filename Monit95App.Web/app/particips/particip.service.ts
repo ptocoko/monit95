@@ -22,9 +22,16 @@ export class ParticipService {
             .map((resp: Response) => {                
                 let participList = resp.json();
                 let particips: ParticipModel[] = [];
-                for (let index in participList) {                    
+                for (let index in participList) {
                     let particip = participList[index];
-                    particips.push({ Surname: particip.Surname, Name: particip.Name });
+                    particips.push(
+                        {
+                            participCode: particip.ParticipCode,
+                            surname: particip.Surname,
+                            name: particip.Name,
+                            secondName: particip.SecondName,
+                            subjectName: particip.SubjectName
+                        });
                 }
                 console.log(particips);
                 return particips;

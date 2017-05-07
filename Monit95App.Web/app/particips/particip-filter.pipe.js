@@ -12,9 +12,8 @@ var ParticipFilterPipe = (function () {
     ParticipFilterPipe.prototype.transform = function (particips, searchText) {
         if (searchText == null)
             return particips;
-        return particips.filter(function (particip) {
-            return particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
-        });
+        return particips.filter(function (particip) { return particip.participCode.indexOf(searchText.toLowerCase()) > -1 ||
+            particip.surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1; });
     };
     return ParticipFilterPipe;
 }());
@@ -22,4 +21,8 @@ ParticipFilterPipe = __decorate([
     core_1.Pipe({ name: 'participFilter' })
 ], ParticipFilterPipe);
 exports.ParticipFilterPipe = ParticipFilterPipe;
+//return particips.filter(function (particip: any) {
+//    return particip.participCode.indexOf(searchText.toLowerCase()) > -1
+//        || particip.surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+//}) 
 //# sourceMappingURL=particip-filter.pipe.js.map
