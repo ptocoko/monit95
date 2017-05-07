@@ -8,7 +8,7 @@ export class UserService {
     constructor(private http: Http) { }
 
     getName() {
-        return this.http.get('/api/User/GetName');
+        return this.http.get('/api/AccountApi/GetUserName');
     }
 
 }

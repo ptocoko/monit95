@@ -1,20 +1,37 @@
 ﻿<div class="page-header">
-    <h1>Список участников {{userName}}</h1>
+    <h3>Список участников</h3>
 </div>
-<div class="panel">   
-    <table class="table table-striped">
-        <thead>
+<div class="panel">
+    <div class="form-group">
+        <div class="col-md-6">
+            <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />
+        </div>
+        <table class="table table-striped">
+            <thead>
             <tr>
+                <th>Код</th>
                 <th>Фамилия</th>
-                <th>Имя</th>                
+                <th>Имя</th>
+                <th>Отчетсво</th>
+                <th>Предмет</th>
+                <th>Результаты</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let particip of particips">
+            </thead>
+            <tbody>
+            <tr *ngFor="let particip of particips | particip: searchText">
+                <td>{{particip.ParticipCode}}</td>
                 <td>{{particip.Surname}}</td>
                 <td>{{particip.Name}}</td>
-                <td><input type="checkbox" [(ngModel)]="particip.done" /></td>
+                <td>{{particip.SecondName}}</td>
+                <td>{{particip.SubjectName}}</td>
+                <td>
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-menu-right"></span>запросить
+                    </button>
+                </td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+
 </div>

@@ -6,20 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var ParticipPipe = (function () {
-    function ParticipPipe() {
+var ParticipFilterPipe = (function () {
+    function ParticipFilterPipe() {
     }
-    ParticipPipe.prototype.transform = function (particips, searchText) {
+    ParticipFilterPipe.prototype.transform = function (particips, searchText) {
         if (searchText == null)
             return particips;
         return particips.filter(function (particip) {
             return particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
         });
     };
-    return ParticipPipe;
+    return ParticipFilterPipe;
 }());
-ParticipPipe = __decorate([
-    core_1.Pipe({ name: 'particip' })
-], ParticipPipe);
-exports.ParticipPipe = ParticipPipe;
-//# sourceMappingURL=particip.pipe.js.map
+ParticipFilterPipe = __decorate([
+    core_1.Pipe({ name: 'participFilter' })
+], ParticipFilterPipe);
+exports.ParticipFilterPipe = ParticipFilterPipe;
+//# sourceMappingURL=particip-filter.pipe.js.map

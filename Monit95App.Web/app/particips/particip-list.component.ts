@@ -2,7 +2,7 @@
 
 import { ParticipModel } from './particip.model';
 import { PARTICIPS } from './mock-particips';
-import { ParticipPipe } from './particip.pipe'
+import { ParticipFilterPipe } from './particip-filter.pipe'
 
 import { ParticipService } from './particip.service';
 import { UserService } from '../user.service';
@@ -23,10 +23,11 @@ export class ParticipListComponent implements OnInit {
         this.userService.getName().subscribe(
             response => {
                 this.areaCode = response.json();
+                this.particips = PARTICIPS;        
                 this.getByAreaCode();
             }
         );
-        //this.particips = PARTICIPS;        
+        
     }
 
     //Get by areaCode

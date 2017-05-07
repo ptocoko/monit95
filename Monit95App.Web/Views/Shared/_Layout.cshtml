@@ -136,12 +136,11 @@
                 @Html.ActionLink("Главная", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
-                    @*@if (User.IsInRole("area"))
+                <ul class="nav navbar-nav">                    
+                    @if (User.IsInRole("area"))
                     {
-                        <li>@Html.ActionLink(@"РСУР", "Index", "Nsur")</li>
-                    }*@
+                    <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
+                    }
                     @if (User.IsInRole("coko"))
                     {
                         <li>@Html.ActionLink(@"Школы", "Schools", "Home", new { @style = "background:NavajoWhite; color:black;" })</li>                        

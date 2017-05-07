@@ -8,10 +8,10 @@ using System.Web.Http;
 namespace Monit95App.Api
 {
     [Authorize]
-    public class UserController : ApiController
+    public class AccountApiController : ApiController
     {
         //Get current user's name
-        public string GetName()
+        public string GetUserName()
         {
             return User.Identity.Name;
         }

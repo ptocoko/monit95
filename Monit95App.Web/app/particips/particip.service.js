@@ -21,14 +21,13 @@ var ParticipService = (function () {
         var getByAreaCodeUrl = this._getByAreaCodeUrl + areaCode;
         return this._http.get(getByAreaCodeUrl)
             .map(function (resp) {
-            console.log(resp.json());
-            var participList = resp.json().data;
+            var participList = resp.json();
             var particips = [];
             for (var index in participList) {
-                console.log(participList[index]);
                 var particip = participList[index];
                 particips.push({ Surname: particip.Surname, Name: particip.Name });
             }
+            console.log(particips);
             return particips;
         });
     };

@@ -207,7 +207,7 @@
     <Compile Include="Api\ProjectParticipController.cs" />
     <Compile Include="Api\ProjectParticipV2Controller.cs" />
     <Compile Include="Api\SchoolController.cs" />
-    <Compile Include="Api\UserController.cs" />
+    <Compile Include="Api\AccountApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -217,7 +217,6 @@
     <Compile Include="Controllers\RsurController.cs" />
     <Compile Include="Controllers\CollectorMarksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NsurController.cs" />
     <Compile Include="Controllers\OneTwoThreeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
@@ -430,7 +429,7 @@
     <Content Include="Views\Home\Oge2016.cshtml" />
     <Content Include="Views\Shared\_LearnerTable.cshtml" />
     <Content Include="Scripts\smart-table.min.js.map" />
-    <Content Include="Views\Nsur\Index.cshtml" />
+    <Content Include="Views\old_Nsur\Index.cshtml" />
     <Content Include="Views\CollectorMarks\Index.cshtml" />
     <Content Include="Templates\onetwothree_particip.html" />
     <Content Include="Views\OneTwoThree\Spa.cshtml" />
@@ -483,7 +482,7 @@
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particips\mock-particips.ts" />
     <TypeScriptCompile Include="app\particips\particip-list.component.ts" />
-    <TypeScriptCompile Include="app\particips\particip.pipe.ts" />
+    <TypeScriptCompile Include="app\particips\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particips\particip.service.ts" />
     <TypeScriptCompile Include="app\particips\particip.model.ts" />
     <TypeScriptCompile Include="app\particips\particips.component.ts" />

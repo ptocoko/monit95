@@ -1,11 +1,11 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
-@Pipe({ name: 'particip' })
+@Pipe({ name: 'participFilter' })
 
-export class ParticipPipe implements PipeTransform {
+export class ParticipFilterPipe implements PipeTransform {
     transform(particips: any, searchText: any): any {
         if (searchText == null) return particips;
 
-        return particips.filter(function (particip) {
+        return particips.filter(function (particip: any) {
             return particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
         })
     }

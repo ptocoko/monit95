@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var mock_particips_1 = require("./mock-particips");
 var particip_service_1 = require("./particip.service");
 var user_service_1 = require("../user.service");
 var ParticipListComponent = (function () {
@@ -22,9 +23,9 @@ var ParticipListComponent = (function () {
         var _this = this;
         this.userService.getName().subscribe(function (response) {
             _this.areaCode = response.json();
+            _this.particips = mock_particips_1.PARTICIPS;
             _this.getByAreaCode();
         });
-        //this.particips = PARTICIPS;        
     };
     //Get by areaCode
     ParticipListComponent.prototype.getByAreaCode = function () {

@@ -19,15 +19,14 @@ export class ParticipService {
         console.log('getByAreaCode(areaCode: number)')
         var getByAreaCodeUrl = this._getByAreaCodeUrl + areaCode;
         return this._http.get(getByAreaCodeUrl)
-            .map((resp: Response) => {
-                console.log(resp.json());
-                let participList = resp.json().data;
+            .map((resp: Response) => {                
+                let participList = resp.json();
                 let particips: ParticipModel[] = [];
-                for (let index in participList) {
-                    console.log(participList[index]);
+                for (let index in participList) {                    
                     let particip = participList[index];
                     particips.push({ Surname: particip.Surname, Name: particip.Name });
                 }
+                console.log(particips);
                 return particips;
             });        
     }    
