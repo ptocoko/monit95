@@ -17,7 +17,7 @@ namespace Monit95App.Api
 
         public SchoolController(UnitOfWork unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            this.unitOfWork = unitOfWork;            
         }
 
         public SchoolController()

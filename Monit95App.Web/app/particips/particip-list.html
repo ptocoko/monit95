@@ -1,0 +1,37 @@
+﻿<div class="page-header">
+    <h3>Список участников</h3>
+</div>
+<div class="panel">
+    <div class="form-group">
+        <div class="col-md-6">
+            <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Код</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчетсво</th>
+                <th>Предмет</th>
+                <th>Результаты</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let particip of particips | participFilter: searchText">
+                <td>{{particip.participCode}}</td>
+                <td>{{particip.surname}}</td>
+                <td>{{particip.name}}</td>
+                <td>{{particip.secondName}}</td>
+                <td>{{particip.subjectName}}</td>
+                <!--<td>
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-menu-right"></span>запросить
+                    </button>
+                </td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

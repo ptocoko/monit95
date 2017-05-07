@@ -41,8 +41,6 @@ namespace Monit95App.Api
 
         public async Task<bool> IsExistFile(string fullFileName)
         {            
-
-
             return true;
         }
     }
