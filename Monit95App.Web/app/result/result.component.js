@@ -10,26 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var user_service_1 = require("../user.service");
-var PlanComponent = (function () {
-    function PlanComponent(userService) {
+var ResultComponent = (function () {
+    function ResultComponent(userService) {
         this.userService = userService;
     }
-    PlanComponent.prototype.ngOnInit = function () {
+    ResultComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userService.getName().subscribe(function (response) {
             _this.areaCode = response.json();
         });
     };
-    return PlanComponent;
+    return ResultComponent;
 }());
-PlanComponent = __decorate([
+ResultComponent = __decorate([
     core_1.Component({
-        selector: 'plan',
-        templateUrl: './app/plan/plan.html',
+        selector: 'result',
+        templateUrl: './app/result/result.html',
         providers: [user_service_1.UserService]
     }),
     __metadata("design:paramtypes", [user_service_1.UserService])
-], PlanComponent);
-exports.PlanComponent = PlanComponent;
+], ResultComponent);
+exports.ResultComponent = ResultComponent;
 ;
-//# sourceMappingURL=plan.component.js.map
+//# sourceMappingURL=result.component.js.map

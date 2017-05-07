@@ -246,6 +246,8 @@
     <Content Include="app\app.component.html" />
     <Content Include="app\particips\particip-list.html" />
     <Content Include="app\particips\particips.html" />
+    <Content Include="app\plan\plan.html" />
+    <Content Include="app\result\result.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -487,6 +489,7 @@
     <TypeScriptCompile Include="app\particips\particip.model.ts" />
     <TypeScriptCompile Include="app\particips\particips.component.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
+    <TypeScriptCompile Include="app\result\result.component.ts" />
     <TypeScriptCompile Include="app\user.service.ts" />
   </ItemGroup>
   <PropertyGroup>

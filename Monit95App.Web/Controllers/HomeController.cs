@@ -15,9 +15,9 @@ namespace Monit95App.Controllers
 
         [OutputCache(Duration=1800, Location = OutputCacheLocation.Client, VaryByParam = "subjectCode")]
         public JsonResult GetAllParticips(int subjectCode)
-        {            
+        {
             var participInfos = new List<LearnerVM>();
-            foreach (var result in _context.GiaResults.Where(x=>x.ProjectCode==201676 && x.SubjectCode == subjectCode))
+            foreach (var result in _context.GiaResults.Where(x => x.ProjectCode == 201676 && x.SubjectCode == subjectCode))
             {
                 participInfos.Add(new LearnerVM
                 {

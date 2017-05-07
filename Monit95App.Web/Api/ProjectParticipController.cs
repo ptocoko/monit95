@@ -13,14 +13,13 @@ using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Monit95App.Api
-{
-    //[RoutePrefix("/api/ProjectParticip")]
+{    
     public class ProjectParticipController : ApiController
     {
-        private UnitOfWork _unitOfWork;
-        private cokoContext _db;     
-        private IPParticipCodeCreator _pparticipCodeCreator;
-        private IPParticipViewer _pparticipViewer;
+        private readonly UnitOfWork _unitOfWork;
+        private readonly cokoContext _db;     
+        private readonly IPParticipCodeCreator _pparticipCodeCreator;
+        private readonly IPParticipViewer _pparticipViewer;
 
         public ProjectParticipController(cokoContext db, IPParticipCodeCreator pparticipCodeCreator, IPParticipViewer pparticipViewer)
         {

@@ -1,12 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import {UserService} from '../user.service';
+import { UserService } from '../user.service';
 
 @Component({
-    selector: 'plan',
-    templateUrl: './app/plan/plan.html',
+    selector: 'result',
+    templateUrl: './app/result/result.html',
     providers: [UserService]
 })
-export class PlanComponent implements OnInit
+export class ResultComponent implements OnInit
 {
     areaCode: number;
 

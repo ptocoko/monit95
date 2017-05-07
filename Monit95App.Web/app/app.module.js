@@ -13,6 +13,7 @@ var app_component_1 = require("./app.component");
 var particips_component_1 = require("./particips/particips.component");
 var particip_list_component_1 = require("./particips/particip-list.component");
 var plan_component_1 = require("./plan/plan.component");
+var result_component_1 = require("./result/result.component");
 var particip_filter_pipe_1 = require("./particips/particip-filter.pipe");
 var user_service_1 = require("./user.service");
 var app_routing_1 = require("./app.routing");
@@ -24,7 +25,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_1.routing, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, particips_component_1.ParticipsComponent, particip_list_component_1.ParticipListComponent, particip_filter_pipe_1.ParticipFilterPipe, plan_component_1.PlanComponent],
+        declarations: [app_component_1.AppComponent, particips_component_1.ParticipsComponent, particip_list_component_1.ParticipListComponent, particip_filter_pipe_1.ParticipFilterPipe, plan_component_1.PlanComponent, result_component_1.ResultComponent],
         providers: [user_service_1.UserService],
         bootstrap: [app_component_1.AppComponent]
     })
