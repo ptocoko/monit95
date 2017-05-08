@@ -36,9 +36,9 @@ namespace Monit95App.ConsoleApp
             app.DisplayAlerts = false;
 
             //РСУР
-            Excel.Workbook excerInitBook = app.Workbooks.Open($@"d:\theadamo86@gmail.com\Работы\Карты\Карты учителя.xlsx");            
-            var currentTestGuid = new Guid("37469355-4148-448D-BE19-084B31148929"); //
-            var currentTestDate = new DateTime(2017, 03, 29); //  
+            Excel.Workbook excerInitBook = app.Workbooks.Open(@"d:\theadamo86@gmail.com\Работы\Карты\Карты учителя.xlsx");            
+            var currentTestGuid = new Guid("595A73D4-F446-4916-A8C5-0E38BAB6A069"); //
+            var currentTestDate = new DateTime(2017, 04, 27); //  
 
             Excel.Worksheet sheet;
             string startSheetName = currentTestGuid.ToString().Substring(0, currentTestGuid.ToString().IndexOf('-') + 1);
@@ -96,7 +96,7 @@ namespace Monit95App.ConsoleApp
                 }
 
                 //Сохранить отчет
-                string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\{resultTest1.ParticipTest.ProjectTest.Test.Name}");
+                string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\{resultTest1.ParticipTest.ProjectTest.Test.Name}\{resultTest1.ParticipTest.ProjectParticip.School.AreaCode}");
                 if (!System.IO.Directory.Exists(reportFolder))
                     System.IO.Directory.CreateDirectory(reportFolder);
                 sheet = excerInitBook.Sheets[startSheetName + particip.Count()]; //e.g.: 873D064B-1
