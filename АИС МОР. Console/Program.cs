@@ -37,8 +37,8 @@ namespace Monit95App.ConsoleApp
 
             //РСУР
             Excel.Workbook excerInitBook = app.Workbooks.Open(@"d:\theadamo86@gmail.com\Работы\Карты\Карты учителя.xlsx");            
-            var currentTestGuid = new Guid("595A73D4-F446-4916-A8C5-0E38BAB6A069"); //
-            var currentTestDate = new DateTime(2017, 04, 27); //  
+            var currentTestGuid = new Guid("EEF4A64B-ABF2-4B9A-BF5A-8A45AF70D52E"); //
+            var currentTestDate = new DateTime(2017, 05, 03); //  
 
             Excel.Worksheet sheet;
             string startSheetName = currentTestGuid.ToString().Substring(0, currentTestGuid.ToString().IndexOf('-') + 1);
@@ -78,14 +78,17 @@ namespace Monit95App.ConsoleApp
                         index++;
                     }
 
-                    //Elements  
-                    index = 0;
-                    foreach (var value in r.Elements.Split(';'))
+                    //Elements
+                    if (r.Elements != null)
                     {
-                        sheet.Range[columns[index] + elementRowNumber].Value2 = Convert.ToDouble(value);
-                        index++;
-                    }                                    
-                                        
+                        index = 0;
+                        foreach (var value in r.Elements.Split(';'))
+                        {
+                            sheet.Range[columns[index] + elementRowNumber].Value2 = Convert.ToDouble(value);
+                            index++;
+                        }
+                    }
+
                     sheet.Range["B28"].Value2 = r.Marks; //Баллы последнего среза                    
                     sheet.Range["B30"].Value2 = r.ParticipTest.ProjectTest.TestDate;
 

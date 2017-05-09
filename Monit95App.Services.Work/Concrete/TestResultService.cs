@@ -13,7 +13,7 @@ namespace Monit95App.Services.Work.Concrete
         private cokoContext _db;
         public TestResultService(cokoContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
         //Метод возвращает группу результатов участников по срезам на указанную дату (testDate) 
