@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];
-    areaCode: number;
+    public areaCode: number;
 
     constructor(private participService: ParticipService, private userService: UserService) { }
 
