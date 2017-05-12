@@ -84,12 +84,12 @@ namespace ParticipReporter
             int i = 0;
             foreach (var report in reportsHtml)
             {
+
                 Console.WriteLine("Begin Read File");
                 var read = File.ReadAllText(report);
 
                 Console.WriteLine("Begin Convert file");
-                var co = converter.ConvertHtmlString(read);
-                
+                var co = converter.ConvertHtmlString(read);                
 
                 Console.WriteLine("Begin Save file");
                 co.Save(_reportFolder + @"\pdfs\" + report.Split(new char[] { '\\' }).Last().Split(new char[] { '.' })[0] + ".pdf");
@@ -97,6 +97,11 @@ namespace ParticipReporter
                 Console.WriteLine(i++);
             }
             //doc.Close();
+        }
+
+        static void ConvertInStream(string fileName)
+        {
+            
         }
     }
 }
