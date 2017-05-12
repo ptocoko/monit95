@@ -10,14 +10,19 @@ namespace ParticipReporter
 {
     public static class HtmlBuilder
     {
+        static int _headerColSpan;
+        static int _currentMarksColSpan;
+
         public static string GetHeader(string participCode, string blockName, DateTime testDate)
         {
             return $"<html><head><title>Результаты</title><meta charset='UTF-8'>{getStyles()}</head><body>{getCaption(participCode, blockName, testDate)}";
         }
 
-        public static string GetTable(List<ParticipResultDto> results)
+        public static string GetTable(List<ParticipResultDto> results, List<DescriptionDto> partsDesc, List<DescriptionDto> elementsDesc)
         {
-            string res = getTableHeader() + getCurrentMarksSection(results) + "</table>";
+            setColSpans(results.Count);
+
+            string res = getTableHeader() + getCurrentMarksSection(results) + getPartsSection(results, partsDesc) + getElementsSection(results, elementsDesc) + "</table>";
 
             return res;
         }
@@ -34,15 +39,123 @@ namespace ParticipReporter
 
         private static string getCurrentMarksSection(List<ParticipResultDto> results)
         {
+            string result;
+
             if(results.Count() > 1)
             {
-                throw new NotImplementedException();
+                result = $@"<tr><th class='general-header' colspan='{_headerColSpan}'>Баллы</th></tr>
+                            <tr><th colspan='{_currentMarksColSpan}'></th>";
+                for(int i=0; i<results.Count; i++)
+                    result += $"<th align='center'>срез №{i+1}</th>";
+                result += "</tr>\n";
+
+                result += $"<tr><td align='right' colspan='{_currentMarksColSpan}'>Первичный балл:</td>";
+                for (int i = 0; i < results.Count; i++)
+                    result += $"<td align='center'>{results[i].PrimaryMark}</td>";
+                result += "</tr>\n";
+
+                result += $"<tr><td align='right' colspan='{_currentMarksColSpan}'>Отметка:</td>";
+                for (int i = 0; i < results.Count; i++)
+                    result += $"<td align='center'>{results[i].Grade5}</td>";
+                result += "</tr>\n";
             }
             else
-                return $@"<tr><th colspan='4'>Баллы</th></tr>
-                        <tr><td colspan='2'>Баллы за задания:</td><td colspan='2'>{results.First().Marks}</td></tr>
-                        <tr><td colspan='2'>Первичный балл:</td><td colspan='2'>{results.First().PrimaryMark}</td></tr>
-                        <tr><td colspan='2'>Отметка:</td><td colspan='2'>{results.First().Grade5}</td></tr>";
+                result = $@"<tr><th class='general-header' colspan='{_headerColSpan}'>Баллы</th></tr>
+                        <tr><td colspan='2'>Баллы за задания:</td><td colspan='{_currentMarksColSpan}'>{results.First().Marks}</td></tr>
+                        <tr><td colspan='2'>Первичный балл:</td><td colspan='{_currentMarksColSpan}'>{results.First().PrimaryMark}</td></tr>
+                        <tr><td colspan='2'>Отметка:</td><td colspan='{_currentMarksColSpan}'>{results.First().Grade5}</td></tr>";
+
+            return result;
+        }
+
+        private static string getPartsSection(List<ParticipResultDto> results, List<DescriptionDto> partsDesc)
+        {
+            string result = $"<tr><th class='general-header' colspan='{_headerColSpan}'>Освоение разделов, проверяемых заданиями КИМ</th></tr>";
+            if (results.Count() == 1)
+            {
+                result += "<tr><th>код</th><th>номера заданий</th><th>раздел</th><th>% вып.</th></tr>";
+                for (int i = 0; i < partsDesc.Count; i++)
+                    result += $@"<tr><td align='center'>{partsDesc[i].Code}</td><td>{partsDesc[i].ExerNames}</td><td>{partsDesc[i].Name}</td><td align='center'>{results.First().PartsResults[i]}%</td></tr>";
+            }
+            else if (results.Count == 2)
+            {
+                result += "<tr><th>код</th><th>номера заданий</th><th>раздел</th>";
+                for (int i = 0; i < results.Count; i++)
+                    result += $"<th>срез №{i + 1}</th>";
+                result += "</tr>\n";
+
+                for(int i=0; i<partsDesc.Count; i++)
+                {
+                    result += $"<tr><td align='center'>{partsDesc[i].Code}</td><td>{partsDesc[i].ExerNames}</td><td>{partsDesc[i].Name}</td>";
+                    for(int j = 0; j<results.Count; j++)
+                    {
+                        result += $"<td align='center'>{results[j].PartsResults[i]}%</td>";
+                    }
+                    result += "</tr>\n";
+                }
+            }
+            else
+            {
+                result += "<tr><th>код</th><th>раздел</th>";
+                for (int i = 0; i < results.Count; i++)
+                    result += $"<th>срез №{i + 1}</th>";
+                result += "</tr>\n";
+
+                for (int i = 0; i < partsDesc.Count; i++)
+                {
+                    result += $"<tr><td align='center'>{partsDesc[i].Code}</td><td>{partsDesc[i].Name}</td>";
+                    for (int j = 0; j < results.Count; j++)
+                    {
+                        result += $"<td align='center'>{results[j].PartsResults[i]}%</td>";
+                    }
+                    result += "</tr>\n";
+                }
+            }
+
+            return result;
+        }
+
+        private static string getElementsSection(List<ParticipResultDto> results, List<DescriptionDto> elementsDesc)
+        {
+            string result = $"<tr><th class='general-header' colspan='{_headerColSpan}'>Освоение элементов содержаний (темы), проверяемых заданиями КИМ</th></tr>";
+            if (results.Count() == 1)
+            {
+                result += "<tr><th>код</th><th>номера заданий</th><th>элемент содержания</th><th>% вып.</th></tr>";
+                for (int i = 0; i < elementsDesc.Count; i++)
+                    result += $"<tr><td>{elementsDesc[i].Code}</td><td>{elementsDesc[i].ExerNames}</td><td>{elementsDesc[i].Name}</td><td>{results.First().ElementsResults[i]}%</td></tr>";
+            }
+            else if(results.Count == 2)
+            {
+                result += "<tr><th>код</th><th>номера заданий</th><th>элемент содержания</th>";
+                for (int i = 0; i < results.Count; i++)
+                    result += $"<th>срез №{i + 1}</th>";
+                result += "</tr>\n";
+
+                for(int i = 0; i<elementsDesc.Count; i++)
+                {
+                    result += $"<tr><td>{elementsDesc[i].Code}</td><td>{elementsDesc[i].ExerNames}</td><td>{elementsDesc[i].Name}</td>";
+                    for (int j = 0; j < results.Count; j++)
+                        result += $"<td>{results[j].ElementsResults[i]}%";
+                    result += "</tr>\n";
+                }
+            }
+            else
+            {
+                result += "<tr><th>код</th><th>элемент содержания</th>";
+                for (int i = 0; i < results.Count; i++)
+                    result += $"<th>срез №{i + 1}</th>";
+                result += "</tr>\n";
+
+                for (int i = 0; i < elementsDesc.Count; i++)
+                {
+                    result += $"<tr><td>{elementsDesc[i].Code}</td><td>{elementsDesc[i].Name}</td>";
+                    for (int j = 0; j < results.Count; j++)
+                        result += $"<td>{results[j].ElementsResults[i]}%";
+                    result += "</tr>\n";
+                }
+            }
+
+            return result;
         }
 
         private static string getStyles()
@@ -57,6 +170,13 @@ namespace ParticipReporter
             .result-table {
                 width: 80%;
                 border-collapse: collapse;
+            }
+            .result-table .general-header {
+                text-align: center;
+                background: #005fff;
+                color: white;
+                padding: 5px;
+                border: 1px solid black;
             }
             .result-table th {
                 text-align: center;
@@ -93,6 +213,29 @@ namespace ParticipReporter
                         <tr><td>Блок:</td><td>{blockName}</td></tr>
                         <tr><td>Дата тестирования:</td><td>{testDate.ToShortDateString()}</td></tr>
                     </table>";
+        }
+
+        private static void setColSpans(int resultsCount)
+        {
+            if(resultsCount == 1)
+            {
+                _headerColSpan = resultsCount + 3;
+                _currentMarksColSpan = resultsCount + 1;
+            }
+            else if (resultsCount == 2)
+            {
+                _headerColSpan = resultsCount + 3;
+                _currentMarksColSpan = resultsCount + 1;
+            }
+            else if (resultsCount > 2)
+            {
+                _headerColSpan = resultsCount + 2;
+                _currentMarksColSpan = 2; 
+            }
+            else
+            {
+                throw new ArgumentException("отсутствуют результаты для обработки");
+            }
         }
     }
 }

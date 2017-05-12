@@ -5,6 +5,7 @@ using Monit95App.Services.Work.Concrete;
 using Monit95App.Domain.Core;
 using System.Collections;
 using System.Linq;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services.Work.Tests
 {
@@ -17,11 +18,11 @@ namespace Monit95App.Services.Work.Tests
             var currentTestGuid = new Guid("595A73D4-F446-4916-A8C5-0E38BAB6A069"); //
             var currentTestDate = new DateTime(2017, 04, 10); //  
                         
-            ITestResultService testResultService = new TestResultService(new cokoContext());
-            var results = testResultService.SelectParticipsGroupResults(currentTestGuid, currentTestDate).ToList();
+            ITestResultService testResultService = new TestResultService(new Repository<TestElement>(new UnitOfWorkV2(new cokoContext())), new Repository<TestResult>(new UnitOfWorkV2(new cokoContext())));
+            var results = testResultService.SelectParticipsGroupResults(currentTestGuid, currentTestDate);
 
             //Assert
-            Assert.IsTrue(results.Count != 0);
+            Assert.IsTrue(results.ParticipReports.Count != 0);
         }
     }
 }

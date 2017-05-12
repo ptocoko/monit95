@@ -19,91 +19,91 @@ namespace Monit95App.ConsoleApp
 
         static void Main(string[] args)
         {
-            System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcessesByName("Excel");
-            foreach (System.Diagnostics.Process p in process)
-            {
-                if (!string.IsNullOrEmpty(p.ProcessName))
-                {
-                    try
-                    {
-                        p.Kill();
-                    }
-                    catch { }
-                }
-            }
+            //System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcessesByName("Excel");
+            //foreach (System.Diagnostics.Process p in process)
+            //{
+            //    if (!string.IsNullOrEmpty(p.ProcessName))
+            //    {
+            //        try
+            //        {
+            //            p.Kill();
+            //        }
+            //        catch { }
+            //    }
+            //}
 
-            Excel.Application app = new Excel.Application();
-            app.DisplayAlerts = false;
+            //Excel.Application app = new Excel.Application();
+            //app.DisplayAlerts = false;
 
-            //РСУР
-            Excel.Workbook excerInitBook = app.Workbooks.Open($@"d:\theadamo86@gmail.com\Работы\Карты\Карты учителя.xlsx");            
-            var currentTestGuid = new Guid("37469355-4148-448D-BE19-084B31148929"); //
-            var currentTestDate = new DateTime(2017, 03, 29); //  
+            ////РСУР
+            //Excel.Workbook excerInitBook = app.Workbooks.Open($@"d:\theadamo86@gmail.com\Работы\Карты\Карты учителя.xlsx");            
+            //var currentTestGuid = new Guid("37469355-4148-448D-BE19-084B31148929"); //
+            //var currentTestDate = new DateTime(2017, 03, 29); //  
 
-            Excel.Worksheet sheet;
-            string startSheetName = currentTestGuid.ToString().Substring(0, currentTestGuid.ToString().IndexOf('-') + 1);
-            ITestResultService testResultService = new TestResultService(new cokoContext());
-            var results = testResultService.SelectParticipsGroupResults(currentTestGuid, currentTestDate);
-            int countProcessedResults = 0;
-            foreach (var particip in results)
-            {
-                sheet = excerInitBook.Sheets["data"];
-                //Заполняем реквизиты
-                var resultTest1 = particip.First();
-                sheet.Range["B27"].Value2 = resultTest1.ParticipTest.ProjectParticip.ParticipCode;                
-                string fullName = $"{resultTest1.ParticipTest.ProjectParticip.Surname} {resultTest1.ParticipTest.ProjectParticip.Name}";
-                if (!string.IsNullOrEmpty(resultTest1.ParticipTest.ProjectParticip.SecondName))
-                {
-                    fullName += $" {resultTest1.ParticipTest.ProjectParticip.SecondName}";
-                }
-                sheet.Range["B29"].Value2 = fullName;
-                //
-                int primaryMarkRowNumber = 2;
-                int grade5RowNumber = 7;
-                int partRowNumber = 12;
-                int elementRowNumber = 17;                
+            //Excel.Worksheet sheet;
+            //string startSheetName = currentTestGuid.ToString().Substring(0, currentTestGuid.ToString().IndexOf('-') + 1);
+            //ITestResultService testResultService = new TestResultService(new cokoContext());
+            //var results = testResultService.SelectParticipsGroupResults(currentTestGuid, currentTestDate);
+            //int countProcessedResults = 0;
+            //foreach (var particip in results)
+            //{
+            //    sheet = excerInitBook.Sheets["data"];
+            //    //Заполняем реквизиты
+            //    var resultTest1 = particip.First();
+            //    sheet.Range["B27"].Value2 = resultTest1.ParticipTest.ProjectParticip.ParticipCode;                
+            //    string fullName = $"{resultTest1.ParticipTest.ProjectParticip.Surname} {resultTest1.ParticipTest.ProjectParticip.Name}";
+            //    if (!string.IsNullOrEmpty(resultTest1.ParticipTest.ProjectParticip.SecondName))
+            //    {
+            //        fullName += $" {resultTest1.ParticipTest.ProjectParticip.SecondName}";
+            //    }
+            //    sheet.Range["B29"].Value2 = fullName;
+            //    //
+            //    int primaryMarkRowNumber = 2;
+            //    int grade5RowNumber = 7;
+            //    int partRowNumber = 12;
+            //    int elementRowNumber = 17;                
                 
-                string[] columns = new string[] { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S" };
-                int index = 0;
-                foreach (var r in particip.OrderBy(x => x.ParticipTest.ProjectTest.TestNumber))
-                {                    
-                    sheet.Range["B" + primaryMarkRowNumber.ToString()].Value2 = r.PrimaryMark; //primaryMark
-                    sheet.Range["B" + grade5RowNumber.ToString()].Value2 = r.Grade5; //grade5
+            //    string[] columns = new string[] { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S" };
+            //    int index = 0;
+            //    foreach (var r in particip.OrderBy(x => x.ParticipTest.ProjectTest.TestNumber))
+            //    {                    
+            //        sheet.Range["B" + primaryMarkRowNumber.ToString()].Value2 = r.PrimaryMark; //primaryMark
+            //        sheet.Range["B" + grade5RowNumber.ToString()].Value2 = r.Grade5; //grade5
                     
-                    //Parts 
-                    index = 0;
-                    foreach (var value in r.Parts.Split(';'))
-                    {
-                        sheet.Range[columns[index] + partRowNumber].Value2 = Convert.ToDouble(value);
-                        index++;
-                    }
+            //        //Parts 
+            //        index = 0;
+            //        foreach (var value in r.Parts.Split(';'))
+            //        {
+            //            sheet.Range[columns[index] + partRowNumber].Value2 = Convert.ToDouble(value);
+            //            index++;
+            //        }
 
-                    //Elements  
-                    index = 0;
-                    foreach (var value in r.Elements.Split(';'))
-                    {
-                        sheet.Range[columns[index] + elementRowNumber].Value2 = Convert.ToDouble(value);
-                        index++;
-                    }                                    
+            //        //Elements  
+            //        index = 0;
+            //        foreach (var value in r.Elements.Split(';'))
+            //        {
+            //            sheet.Range[columns[index] + elementRowNumber].Value2 = Convert.ToDouble(value);
+            //            index++;
+            //        }                                    
                                         
-                    sheet.Range["B28"].Value2 = r.Marks; //Баллы последнего среза                    
-                    sheet.Range["B30"].Value2 = r.ParticipTest.ProjectTest.TestDate;
+            //        sheet.Range["B28"].Value2 = r.Marks; //Баллы последнего среза                    
+            //        sheet.Range["B30"].Value2 = r.ParticipTest.ProjectTest.TestDate;
 
-                    partRowNumber++;
-                    elementRowNumber++;
-                    primaryMarkRowNumber++;
-                    grade5RowNumber++;
-                }
+            //        partRowNumber++;
+            //        elementRowNumber++;
+            //        primaryMarkRowNumber++;
+            //        grade5RowNumber++;
+            //    }
 
-                //Сохранить отчет
-                string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\{resultTest1.ParticipTest.ProjectTest.Test.Name}");
-                if (!System.IO.Directory.Exists(reportFolder))
-                    System.IO.Directory.CreateDirectory(reportFolder);
-                sheet = excerInitBook.Sheets[startSheetName + particip.Count()]; //e.g.: 873D064B-1
-                sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{resultTest1.ParticipTest.ParticipCode}.pdf"));
-                Console.WriteLine(++countProcessedResults);
-            }
-            excerInitBook.Close();
+            //    //Сохранить отчет
+            //    string reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\{resultTest1.ParticipTest.ProjectTest.Test.Name}");
+            //    if (!System.IO.Directory.Exists(reportFolder))
+            //        System.IO.Directory.CreateDirectory(reportFolder);
+            //    sheet = excerInitBook.Sheets[startSheetName + particip.Count()]; //e.g.: 873D064B-1
+            //    sheet.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, String.Format($@"{reportFolder}\{resultTest1.ParticipTest.ParticipCode}.pdf"));
+            //    Console.WriteLine(++countProcessedResults);
+            //}
+            //excerInitBook.Close();
 
             //Создание РСЗК для «Я сдам ОГЭ!», 2016 год, предметы по выбору
             //int subjectCode = 6; //\\
@@ -579,7 +579,7 @@ namespace Monit95App.ConsoleApp
             //{
             //    Console.WriteLine(r.monit10_1516_el.ElName);
             //}
-            app.Quit();
+            //app.Quit();
         }
     }
 }
