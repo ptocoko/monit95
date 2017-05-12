@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Monit95App.Services.Work.Abstract
 {
     public interface ITestResultService
     {
-        IEnumerable<IGrouping<string, TestResult>> SelectParticipsGroupResults(Guid testId, DateTime testDate);
+        ReportsDto SelectParticipsGroupResults(Guid testId, DateTime testDate);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Services.DTO;
 using Monit95App.Services.Work.Abstract;
 using Monit95App.Services.Work.Concrete;
 using System;
@@ -13,54 +14,63 @@ namespace ParticipReporter
 {
     class Program
     {
-        static string reportFolder;
+        static string _reportFolder;
+        static Stopwatch _sw;
+        static string _blockName;
+        static List<DescriptionDto> _partsDesc;
+        static List<DescriptionDto> _elementsDesc;
+        static DateTime _testDate;
+
         static void Main(string[] args)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+            _sw = new Stopwatch();
+            _sw.Start();
             GetReport(new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"), new DateTime(2017, 04, 20));
-            sw.Stop();
-            Console.WriteLine(sw.Elapsed.Seconds + " секунд");
-            sw.Reset();
+            _sw.Stop();
+            Console.WriteLine($"{_sw.Elapsed.Milliseconds} миллисекунд");
+            _sw.Reset();
+
             Console.ReadKey();
         }
 
         static void GetReport(Guid testId, DateTime testDate)
         {
             ITestResultService testResultService = new TestResultService(new cokoContext());
-            var results = testResultService.SelectParticipsGroupResults(testId, testDate);
-            reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"//participResults//{results.First().First().ParticipTest.ProjectTest.Test.Name}");
-            if (!Directory.Exists(reportFolder))
-                Directory.CreateDirectory(reportFolder);
-
-            foreach (var result in results)
-            {
-                BuildReport(result);
-            }
             
+            var results = testResultService.SelectParticipsGroupResults(testId, testDate);
+            
+            SetInstances(results);
+
+            _reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"//participResults//{results.BlockName}");
+            if (!Directory.Exists(_reportFolder))
+                Directory.CreateDirectory(_reportFolder);
+
+            //foreach (var result in results)
+            //{
+            //     BuildReport(result);
+            //}
+
+            BuildReport(results.ParticipReports.First());
         }
 
-        static void BuildReport(IGrouping<string, TestResult> participResults)
+        private static void SetInstances(ReportsDto results)
         {
-            string fullName = participResults.First().ParticipTest.ProjectParticip.Surname + " " + participResults.First().ParticipTest.ProjectParticip.Name;
-            string htmlHeader = Helper.GetHeader(fullName);
-            string htmlFooter = Helper.GetFooter();
+            _blockName = results.BlockName;
+            _partsDesc = results.PartsDescription;
+            _elementsDesc = results.ElementsDescription;
+            _testDate = results.TestDate;
+        }
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append(Helper.GetTableHeader());
-            
-            foreach(var result in participResults.OrderBy(p => p.ParticipTest.ProjectTest.TestNumber))
-            {
-                sb.Append(Helper.GetResultRow(result.ParticipTest.ProjectTest.TestDate, result.PrimaryMark, result.Grade5, result.Marks));
-            }
-            sb.Append("</table>");
-            string htmlBody = sb.ToString();
+        static void BuildReport(ParticipReportDto reportDto)
+        {
+            string htmlHeader = HtmlBuilder.GetHeader(reportDto.ParticipCode, _blockName, _testDate);
+            string resultTable = HtmlBuilder.GetTable(reportDto.Results);
+            string htmlFooter = HtmlBuilder.GetFooter();
 
-            
-            using (StreamWriter sw = new StreamWriter(reportFolder + $@"\{participResults.Key}.html", false))
+            using (StreamWriter sw = new StreamWriter(_reportFolder + $@"\{reportDto.ParticipCode}.html", false))
             {
                 sw.Write(htmlHeader);
-                sw.Write(htmlBody);
+                sw.Write(resultTable);
                 sw.Write(htmlFooter);
             }
         }

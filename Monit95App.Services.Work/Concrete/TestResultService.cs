@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Services.DTO;
 using Monit95App.Services.Work.Abstract;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,31 @@ namespace Monit95App.Services.Work.Concrete
         }
 
         //Метод возвращает группу результатов участников по срезам на указанную дату (testDate) 
-        public IEnumerable<IGrouping<string, TestResult>> SelectParticipsGroupResults(Guid testId, DateTime testDate)
+        public ReportsDto SelectParticipsGroupResults(Guid testId, DateTime testDate)
         {
-            var result = _db.TestResults.Where(x => x.ParticipTest.ProjectTest.TestId == testId) //все результаты участников по данному эказамену 
-                                        .GroupBy(x => x.ParticipTest.ParticipCode)
-                                        .Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate == testDate)).ToList(); //должен быть результат на указанную дату testDate
+            var queryResults = _db.TestResults.Where(p => p.ParticipTest.ProjectTest.TestId == testId && p.ParticipTest.ProjectTest.TestDate == testDate).GroupBy(s => s.ParticipTest.ParticipCode).ToList();
 
-                   
-            return result;
+            ReportsDto reports = new ReportsDto();
+            reports.BlockName = queryResults.First().First().ParticipTest.ProjectTest.Test.Name.ToUpper();
+            reports.TestDate = testDate;
+            reports.PartsDescription = _db.TestElements.Where(p => p.TestId == testId && p.ElementTypeId == 2).Select(s =>  new DescriptionDto { Code = s.Code, ExerNames = s.ExerNames, Name = s.Name  }).ToList();
+            reports.ElementsDescription = _db.TestElements.Where(p => p.TestId == testId && p.ElementTypeId == 1).Select(s => new DescriptionDto { Code = s.Code, ExerNames = s.ExerNames, Name = s.Name }).ToList();
+
+            List<ParticipReportDto> participReports = new List<ParticipReportDto>();
+            foreach (var queryResult in queryResults)
+            {
+                var report = new ParticipReportDto();
+                report.ParticipCode = queryResult.Key;
+                report.Results = queryResult.Select(s => new ParticipResultDto { PrimaryMark = Convert.ToInt32(s.PrimaryMark), Grade5 = s.Grade5, Marks = s.Marks.Split(new char[] { '|' })[0],
+                    PartsResults = s.Parts.Replace(',', '.').Split(new char[] { ';' }).Select(x => Convert.ToDouble(x)*100).ToArray(),
+                    ElementsResults = s.Elements.Replace(',', '.').Split(new char[] {';'}).Select(y => Convert.ToDouble(y)*100).ToArray() }).ToList();
+
+                participReports.Add(report);
+            }
+
+            reports.ParticipReports = participReports;
+
+            return reports;
         }
     }
 }
