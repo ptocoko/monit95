@@ -37,8 +37,8 @@ namespace Monit95App.ConsoleApp
 
             //РСУР
             Excel.Workbook excerInitBook = app.Workbooks.Open(@"d:\theadamo86@gmail.com\Работы\Карты\Карты учителя.xlsx");            
-            var currentTestGuid = new Guid("EEF4A64B-ABF2-4B9A-BF5A-8A45AF70D52E"); //
-            var currentTestDate = new DateTime(2017, 05, 03); //  
+            var currentTestGuid = new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"); //
+            var currentTestDate = new DateTime(2017, 04, 20); //  
 
             Excel.Worksheet sheet;
             string startSheetName = currentTestGuid.ToString().Substring(0, currentTestGuid.ToString().IndexOf('-') + 1);
