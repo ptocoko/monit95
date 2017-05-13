@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ParticipReporter
@@ -30,7 +31,8 @@ namespace ParticipReporter
             var htmlFiles = Directory.GetFiles(_htmlFolder);
             foreach (var item in htmlFiles)
             {
-                ConvertHtmlToPdf(item);             
+                var myThread = new Thread(ConvertHtmlToPdf);     
+                myThread.Start(item);                
             }          
         }
 
