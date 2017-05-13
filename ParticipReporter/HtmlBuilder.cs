@@ -12,7 +12,7 @@ namespace ParticipReporter
     {
         static int _headerColSpan;
         static int _currentMarksColSpan;
-
+        
         public static string GetHeader(string participCode, string blockName, DateTime testDate)
         {
             return $"<html><head><title>Результаты</title><meta charset='UTF-8'>{getStyles()}</head><body>{getCaption(participCode, blockName, testDate)}";
