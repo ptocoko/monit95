@@ -26,7 +26,7 @@ namespace ParticipReporter
             }                
         }
 
-        public void Start()
+        public async void Start()
         {
             int nWorkerThreads;
             int nCompletionThreads;
@@ -35,21 +35,18 @@ namespace ParticipReporter
                               + "\nПотоков ввода-вывода доступно: " + nCompletionThreads);
 
             var htmlFiles = Directory.GetFiles(_htmlFolder);
-            //ThreadPool.SetMinThreads(10, 10);
-            foreach (var item in htmlFiles)
-            {
-                ThreadPool.QueueUserWorkItem(ConvertHtmlToPdf, item);
-            }          
+
+            var processTasks = htmlFiles.Select(x => Task.Run(() => ConvertHtmlToPdf(x)));
+            await Task.WhenAll(processTasks);
         }
 
-        private void ConvertHtmlToPdf(object fullFileNameOb)
-        {
-            var fullFileNameStr = (string)fullFileNameOb;
+        private void ConvertHtmlToPdf(string fullFileName)
+        {            
             var converter = new HtmlToPdf();
 
-            var pdfDocument = converter.ConvertHtmlString(File.ReadAllText(fullFileNameStr));
+            var pdfDocument = converter.ConvertHtmlString(File.ReadAllText(fullFileName));
 
-            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(fullFileNameStr)}.pdf");
+            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(fullFileName)}.pdf");
             Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
         }
     }
