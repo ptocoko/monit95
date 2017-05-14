@@ -26,30 +26,21 @@ namespace ParticipReporter
             }                
         }
 
-        public async void Start()
+        public void Process()
         {    
-            var htmlFiles = Directory.GetFiles(_htmlFolder);
+            var htmlFileNames = Directory.GetFiles(_htmlFolder);
+            foreach (var htmlFileName in htmlFileNames)
+            {
+                var htmlFileContent = File.ReadAllText(htmlFileName);
+                
+                Task.Run(() =>
+                {
+                    var htmlToPdf = new HtmlToPdf();
+                    var pdfDocument = htmlToPdf.ConvertHtmlString(htmlFileContent);
 
-            var processTasks = htmlFiles.Select(htmlFile => Task.Run(() => ConvertHtmlToPdf(htmlFile)));
-            await Task.WhenAll(processTasks);
-        }
-
-        private void ConvertHtmlToPdf(string htmlFile)
-        {
-            var htmlToPdf = new HtmlToPdf();
-
-            var pdfDocument = htmlToPdf.ConvertHtmlString(File.ReadAllText(htmlFile));
-
-            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(htmlFile)}.pdf");
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+                    pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(htmlFileName)}.pdf");
+                });
+            }            
         }
     }
 }
-
-//var myThread = new Thread(ConvertHtmlToPdf)
-//{
-//    Name = "Поток " + i.ToString()
-//};
-
-//myThread.Start(report);
-//i++;

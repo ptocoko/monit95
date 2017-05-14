@@ -43,7 +43,7 @@ namespace ParticipReporter.Tests
 
             //Act
             var htmlProcessor = new HtmlProcessor(folder);
-            htmlProcessor.Start();
+            htmlProcessor.Process();
 
 
             //Assert

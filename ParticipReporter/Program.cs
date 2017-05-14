@@ -30,11 +30,11 @@ namespace ParticipReporter
         {
             _unitOfWork = new UnitOfWorkV2(new cokoContext());
             
-            Console.WriteLine("Start");
+            Console.WriteLine("Process");
             GetReports(new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"), new DateTime(2017, 04, 20));
 
             var htmlProcessor = new HtmlProcessor(_reportFolder);
-            htmlProcessor.Start();
+            htmlProcessor.Process();
 
             Console.WriteLine("End");
             Console.ReadKey();
