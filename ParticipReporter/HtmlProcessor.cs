@@ -27,26 +27,20 @@ namespace ParticipReporter
         }
 
         public async void Start()
-        {
-            int nWorkerThreads;
-            int nCompletionThreads;
-            ThreadPool.GetMaxThreads(out nWorkerThreads, out nCompletionThreads);
-            Console.WriteLine("Максимальное количество потоков: " + nWorkerThreads
-                              + "\nПотоков ввода-вывода доступно: " + nCompletionThreads);
-
+        {    
             var htmlFiles = Directory.GetFiles(_htmlFolder);
 
-            var processTasks = htmlFiles.Select(x => Task.Run(() => ConvertHtmlToPdf(x)));
+            var processTasks = htmlFiles.Select(htmlFile => Task.Run(() => ConvertHtmlToPdf(htmlFile)));
             await Task.WhenAll(processTasks);
         }
 
-        private void ConvertHtmlToPdf(string fullFileName)
-        {            
+        private void ConvertHtmlToPdf(string htmlFile)
+        {
             var converter = new HtmlToPdf();
 
-            var pdfDocument = converter.ConvertHtmlString(File.ReadAllText(fullFileName));
+            var pdfDocument = converter.ConvertHtmlString(File.ReadAllText(htmlFile));
 
-            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(fullFileName)}.pdf");
+            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(htmlFile)}.pdf");
             Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
         }
     }
