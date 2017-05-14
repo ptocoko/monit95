@@ -36,9 +36,9 @@ namespace ParticipReporter
 
         private void ConvertHtmlToPdf(string htmlFile)
         {
-            var converter = new HtmlToPdf();
+            var htmlToPdf = new HtmlToPdf();
 
-            var pdfDocument = converter.ConvertHtmlString(File.ReadAllText(htmlFile));
+            var pdfDocument = htmlToPdf.ConvertHtmlString(File.ReadAllText(htmlFile));
 
             pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(htmlFile)}.pdf");
             Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
