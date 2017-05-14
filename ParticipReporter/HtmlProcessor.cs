@@ -31,19 +31,18 @@ namespace ParticipReporter
             var htmlFiles = Directory.GetFiles(_htmlFolder);
             foreach (var item in htmlFiles)
             {
-                var myThread = new Thread(ConvertHtmlToPdf);     
-                myThread.Start(item);                
+                var task = new Task(() => ConvertHtmlToPdf(item));                
+                task.Start();
             }          
         }
 
-        private void ConvertHtmlToPdf(object fullFileName)
-        {
-            var fullFileNameStr = (string)fullFileName;
+        private void ConvertHtmlToPdf(string fullFileName)
+        {            
             var converter = new HtmlToPdf();
 
-            var pdfDocument = converter.ConvertHtmlString(File.ReadAllText(fullFileNameStr));
+            var pdfDocument = converter.ConvertHtmlString(File.ReadAllText(fullFileName));
 
-            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(fullFileNameStr)}.pdf");            
+            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(fullFileName)}.pdf");            
         }
     }
 }
