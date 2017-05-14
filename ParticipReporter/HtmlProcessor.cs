@@ -27,8 +27,15 @@ namespace ParticipReporter
         }
 
         public void Start()
-        {                        
-            var htmlFiles = Directory.GetFiles(_htmlFolder);            
+        {
+            int nWorkerThreads;
+            int nCompletionThreads;
+            ThreadPool.GetMaxThreads(out nWorkerThreads, out nCompletionThreads);
+            Console.WriteLine("Максимальное количество потоков: " + nWorkerThreads
+                              + "\nПотоков ввода-вывода доступно: " + nCompletionThreads);
+
+            var htmlFiles = Directory.GetFiles(_htmlFolder);
+            //ThreadPool.SetMinThreads(10, 10);
             foreach (var item in htmlFiles)
             {
                 ThreadPool.QueueUserWorkItem(ConvertHtmlToPdf, item);
@@ -37,12 +44,13 @@ namespace ParticipReporter
 
         private void ConvertHtmlToPdf(object fullFileNameOb)
         {
-            string fullFileNameStr = (string)fullFileNameOb;
+            var fullFileNameStr = (string)fullFileNameOb;
             var converter = new HtmlToPdf();
 
             var pdfDocument = converter.ConvertHtmlString(File.ReadAllText(fullFileNameStr));
 
-            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(fullFileNameStr)}.pdf");            
+            pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(fullFileNameStr)}.pdf");
+            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
         }
     }
 }
