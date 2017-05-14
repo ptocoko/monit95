@@ -29,10 +29,10 @@ namespace ParticipReporter
         public void Start()
         {                        
             var htmlFiles = Directory.GetFiles(_htmlFolder);
+            var tf = new TaskFactory();
             foreach (var item in htmlFiles)
             {
-                var task = new Task(() => ConvertHtmlToPdf(item));                
-                task.Start();
+                tf.StartNew(() => ConvertHtmlToPdf(item));
             }          
         }
 
