@@ -46,7 +46,7 @@ namespace Monit95App.Services.DTO
             });
         } //C
 
-        public Task<List<ExerciseMarkDto>> GetBySchoolIdAsync(string schoolId) //R
+        public Task<List<ExerciseMarkDto>> GetBySchoolIdAsync(string schoolId, string [] tests) //R
         {                     
             return Task.Run(() =>
             {
@@ -63,7 +63,6 @@ namespace Monit95App.Services.DTO
                 //FDA1B01B-63AB-44A6-A976-D5B60E59BE5E - 3 класс, чтение
                 var dto = new List<ExerciseMarkDto>();
 
-                var tests = new string[] { "BD0B538F-A937-4BF7-8302-77A8B225D60D", "D6554110-E07A-4783-B371-04A46E32467B", "FDA1B01B-63AB-44A6-A976-D5B60E59BE5E" };
                 var res = _exerciseMarkRep.GetAll()
                                          .Where(x => x.ProjectParticipsV2.SchoolId == schoolId && tests.Contains(x.TestId.ToString()))
                                          .Select(s => new ExerciseMarkDto { Id = s.Id, ProjectParticipId = s.ProjectParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })

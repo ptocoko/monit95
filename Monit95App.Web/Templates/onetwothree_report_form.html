@@ -17,6 +17,11 @@
             <td>{{report['MA'].Marks}}</td>
             <td ng-class="getColorFromGradeStr(report['MA'].GradeStr)">{{report['MA'].GradeStr}}</td>
         </tr>
+        <tr ng-show="report['MA'].GradeStr">
+            <td>Чтение</td>
+            <td>{{report['CHT'].Marks}}</td>
+            <td ng-class="getColorFromGradeStr(report['CHT'].GradeStr)">{{report['CHT'].GradeStr}}</td>
+        </tr>
     </table>
     <hr/>
     <div style="text-align:right">
