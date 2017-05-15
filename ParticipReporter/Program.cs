@@ -32,8 +32,12 @@ namespace ParticipReporter
             
             Console.WriteLine("Start");
             GetReports(new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"), new DateTime(2017, 04, 20));
+
             var reportpaths = Directory.GetFiles(_reportFolder);
+            if (!Directory.Exists(_reportFolder + @"\pdfs"))
+                Directory.CreateDirectory(_reportFolder + @"\pdfs");
             Parallel.ForEach(reportpaths, path => ConvertReportsToPdf(path));
+
             Console.WriteLine("End");
             Console.ReadKey();
         }
