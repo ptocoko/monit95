@@ -37,15 +37,18 @@ namespace Monit95App.Api
 
                 var participMarksRU = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.RU).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
                 var participMarksMA = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
+                var participMarksCHT = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
 
                 var testResults = await _testResultV2Service.GetByParticipIdAsync(participId);
 
                 var testResultRU = testResults.SingleOrDefault(p => p.ExerciseMarkId == participMarksRU.Id) ?? new TestResultV2Dto { Grade5 = -1, Skills = "Умения не найдены" };
                 var testResultMA = testResults.SingleOrDefault(p => p.ExerciseMarkId == participMarksMA.Id) ?? new TestResultV2Dto { Grade5 = -1, Skills = "Умения не найдены" };
+                var testResultCHT = testResults.SingleOrDefault(p => p.ExerciseMarkId == participMarksCHT.Id) ?? new TestResultV2Dto { Grade5 = -1, Skills = "Умения не найдены" };
 
                 var result = new Dictionary<string, OneTwoThreeReportDto>();
                 result.Add("RU", new OneTwoThreeReportDto { GradeStr = _gradeConverter.ConvertToString(testResultRU.Grade5), Marks = participMarksRU.Marks, Skills = testResultRU.Skills });
                 result.Add("MA", new OneTwoThreeReportDto { GradeStr = _gradeConverter.ConvertToString(testResultMA.Grade5), Marks = participMarksMA.Marks, Skills = testResultMA.Skills });
+                result.Add("CHT", new OneTwoThreeReportDto { GradeStr = _gradeConverter.ConvertToString(testResultCHT.Grade5), Marks = participMarksCHT.Marks, Skills = testResultCHT.Skills }); 
 
                 return result;
             }

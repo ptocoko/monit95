@@ -26,7 +26,7 @@ namespace Monit95App.Api
         {
             if (!string.IsNullOrEmpty(id))
             {
-                return await _exerciseMarksService.GetBySchoolIdAsync(id, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA));
+                return await _exerciseMarksService.GetBySchoolIdAsync(id, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT));
             }
             else
             {
@@ -54,7 +54,7 @@ namespace Monit95App.Api
 
         public async Task<List<MaxRatesDto>> GetMaxRates()
         {
-            return await _exerciseMarksService.GetMaxRates(OneTwoThreeTestIdsKeeper.GetIds(OneTwoThreeTestIdAlias.CHT));
+            return await _exerciseMarksService.GetMaxRates(OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT));
         }
     }
 }
