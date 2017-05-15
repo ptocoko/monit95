@@ -29,18 +29,17 @@ namespace ParticipReporter
         public void Process()
         {    
             var htmlFileNames = Directory.GetFiles(_htmlFolder);
-            foreach (var htmlFileName in htmlFileNames)
-            {
-                var htmlFileContent = File.ReadAllText(htmlFileName);
-                
-                Task.Run(() =>
-                {
-                    var htmlToPdf = new HtmlToPdf();
-                    var pdfDocument = htmlToPdf.ConvertHtmlString(htmlFileContent);
+            Parallel.ForEach(htmlFileNames, htmlName => ConvertToPdf(htmlName));           
+        }
 
-                    pdfDocument.Save($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(htmlFileName)}.pdf");
-                });
-            }            
+        private void ConvertToPdf(string htmlFileName)
+        {
+            var htmlFileContent = File.ReadAllText(htmlFileName);
+            var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmlFileContent);
+            using (FileStream fs = new FileStream($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(htmlFileName)}.pdf", FileMode.Create))
+            {
+                fs.Write(pdfBytes, 0, pdfBytes.Length);
+            }
         }
     }
 }
