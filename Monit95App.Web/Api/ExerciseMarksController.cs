@@ -17,21 +17,21 @@ namespace Monit95App.Api
     {
         private readonly IExerciseMarkService _exerciseMarksService;
 
-        public ExerciseMarksController()
+        public ExerciseMarksController(IExerciseMarkService exerciseMarkService)
         {
-            var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var exerciseMarksRepository = new Repository<ExerciseMark>(unitOfWork);
-            var testRep = new Repository<Test>(unitOfWork);
-            _exerciseMarksService = new ExerciseMarkService(unitOfWork, exerciseMarksRepository, testRep);
+            _exerciseMarksService = exerciseMarkService;
         }
 
         public async Task<IEnumerable<ExerciseMarkDto>> GetMarksBySchoolId(string id)
         {
             if (!string.IsNullOrEmpty(id))
             {
-                return await _exerciseMarksService.GetBySchoolIdAsync(id);
+                return await _exerciseMarksService.GetBySchoolIdAsync(id, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA));
             }
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<ExerciseMarkDto> Post(ExerciseMarkDto dto)

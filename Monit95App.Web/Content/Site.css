@@ -75,6 +75,10 @@ input[type="checkbox"].input-validation-error {
     width:35%;
 }
 
+.modal-reportSize{
+    width: 50%;
+}
+
 .btn-in-horizon {
     margin-left: 10px;
     float: right;

@@ -15,7 +15,7 @@
             </label>
             <input style="margin-left:10px" placeholder="Поиск..." class="form-control" ng-model="search" />
             <div style="float:right;text-align:right;">
-                <a class="btn btn-default" href="" ng-click="showParticipModalDialog(classes, particips)">Добавить</a>
+                <a ng-show="showingAddBtn" class="btn btn-default" href="" ng-click="showParticipModalDialog(classes, particips)">Добавить</a>
             </div>
             <div style="clear:both"></div>
         </div>
@@ -32,6 +32,7 @@
                 <th width="120">Класс</th>
                 <th width="50"></th>
                 <th width="50"></th>
+                <th></th>
             </tr>
             <tr ng-repeat="particip in particips | orderBy:['ClassName','Surname'] | filter:search | filter:{ClassName:searchByClassName}" ng-init="showingDelBtn[particip.Id]=true">
                 <td>{{$index + 1}}</td>
@@ -43,7 +44,8 @@
                     <a ng-show="showingDelBtn[particip.Id]" class="glyphicon glyphicon-trash" href="" ng-click="deleteParticip(particip)"></a>
                     <span style="font-size:xx-small" ng-show="!showingDelBtn[particip.Id]">Удаляется...</span>
                 </td>
-                <td><a class="glyphicon glyphicon-edit" href="" ng-click="updateParticip(particip)"></a> </td>
+                <td><a class="glyphicon glyphicon-edit" href="" ng-click="updateParticip(particip)"></a></td>
+                <td><a class="btn btn-default" href="" ng-click="showReport(particip)">Результаты</a></td>
             </tr>
         </table>
         <hr />

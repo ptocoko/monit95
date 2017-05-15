@@ -51,6 +51,9 @@
       <HintPath>..\packages\Autofac.Mvc5.4.0.1\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="DelegateDecompiler, Version=0.9.1.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
       <HintPath>..\packages\DelegateDecompiler.0.9.1.0\lib\net40-Client\DelegateDecompiler.dll</HintPath>
       <Private>True</Private>
@@ -204,6 +207,7 @@
     <Compile Include="Api\ClassController.cs" />
     <Compile Include="Api\ExerciseMarksController.cs" />
     <Compile Include="Api\MarksFileController.cs" />
+    <Compile Include="Api\OneTwoThreeReportController.cs" />
     <Compile Include="Api\ProjectParticipController.cs" />
     <Compile Include="Api\ProjectParticipV2Controller.cs" />
     <Compile Include="Api\SchoolController.cs" />
@@ -389,6 +393,7 @@
     <Content Include="Templates\modalTemplatesMarksRU\templateForClass2.html" />
     <Content Include="Templates\modalTemplatesMarksRU\templateForClass3.html" />
     <Content Include="Templates\onetwothree_marks.html" />
+    <Content Include="Templates\onetwothree_report_form.html" />
     <Content Include="Templates\participlist.html" />
     <Content Include="Templates\addorupdateform.html" />
     <Content Include="Templates\plan.html" />

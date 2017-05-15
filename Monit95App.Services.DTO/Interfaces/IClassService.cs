@@ -11,5 +11,6 @@ namespace Monit95App.Services.DTO.Interfaces
     {
         List<Class> GetAll();
         string GetId(string className);
+        string GetName(string classCode);
     }
 }

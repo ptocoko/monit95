@@ -115,6 +115,23 @@ namespace Monit95App.Services.DTO
             //throw new NotImplementedException();
         }
 
-       
+        public Task<ProjectParticipV2Dto> GetByParticipIdAsync(int participId)
+        {
+            return Task.Run(() =>
+            {
+                if (participId != 0)
+                {
+                    var particip = _projectParticipV2Rep.GetById(participId);
+                    if (particip != null)
+                        return new ProjectParticipV2Dto { ClassName = _classServise.GetName(particip.ClassCode), Id = particip.Id, ProjectCode = particip.ProjectCode, ParticipCode = particip.ParticipCode, Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, SchoolId = particip.SchoolId };
+                    else
+                        throw new NullReferenceException();
+                }
+                else
+                {
+                    throw new ArgumentNullException();
+                }
+            });
+        }
     }
 }

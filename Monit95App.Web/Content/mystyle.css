@@ -58,3 +58,20 @@
 .redText{
     color: red;
 }
+
+.low-grade{
+    background-color:orangered;
+}
+
+.medium-grade{
+    background-color:yellow;
+}
+
+.high-grade{
+    background-color:lightgreen;
+}
+
+.higher-grade{
+    background-color:green;
+    color: white;
+}
