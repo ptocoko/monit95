@@ -75,7 +75,7 @@ namespace ParticipReporter
             {
                 result += "<tr><th>код</th><th>номера заданий</th><th>раздел</th><th>% вып.</th></tr>";
                 for (int i = 0; i < partsDesc.Count; i++)
-                    result += $@"<tr><td align='center'>{partsDesc[i].Code}</td><td>{partsDesc[i].ExerNames}</td><td>{partsDesc[i].Name}</td><td align='center'>{results.First().PartsResults[i]}%</td></tr>";
+                    result += $@"<tr><td align='center'>{partsDesc[i].Code}</td><td>{partsDesc[i].ExerNames}</td><td>{partsDesc[i].Name}</td><td align='center' style='background-color:{getGradeColor(results.First().PartsResults[i])}'>{results.First().PartsResults[i]}%</td></tr>";
             }
             else if (results.Count == 2)
             {
@@ -89,7 +89,7 @@ namespace ParticipReporter
                     result += $"<tr><td align='center'>{partsDesc[i].Code}</td><td>{partsDesc[i].ExerNames}</td><td>{partsDesc[i].Name}</td>";
                     for(int j = 0; j<results.Count; j++)
                     {
-                        result += $"<td align='center'>{results[j].PartsResults[i]}%</td>";
+                        result += $"<td align='center' style='background-color:{getGradeColor(results[j].PartsResults[i])}'>{results[j].PartsResults[i]}%</td>";
                     }
                     result += "</tr>\n";
                 }
@@ -106,7 +106,7 @@ namespace ParticipReporter
                     result += $"<tr><td align='center'>{partsDesc[i].Code}</td><td>{partsDesc[i].Name}</td>";
                     for (int j = 0; j < results.Count; j++)
                     {
-                        result += $"<td align='center'>{results[j].PartsResults[i]}%</td>";
+                        result += $"<td align='center' style='background-color:{getGradeColor(results[j].PartsResults[i])}'>{results[j].PartsResults[i]}%</td>";
                     }
                     result += "</tr>\n";
                 }
@@ -122,7 +122,7 @@ namespace ParticipReporter
             {
                 result += "<tr><th>код</th><th>номера заданий</th><th>элемент содержания</th><th>% вып.</th></tr>";
                 for (int i = 0; i < elementsDesc.Count; i++)
-                    result += $"<tr><td>{elementsDesc[i].Code}</td><td>{elementsDesc[i].ExerNames}</td><td>{elementsDesc[i].Name}</td><td>{results.First().ElementsResults[i]}%</td></tr>";
+                    result += $"<tr><td align='center'>{elementsDesc[i].Code}</td><td>{elementsDesc[i].ExerNames}</td><td>{elementsDesc[i].Name}</td><td align='center' style='background-color:{getGradeColor(results.First().ElementsResults[i])}'>{results.First().ElementsResults[i]}%</td></tr>";
             }
             else if(results.Count == 2)
             {
@@ -133,9 +133,9 @@ namespace ParticipReporter
 
                 for(int i = 0; i<elementsDesc.Count; i++)
                 {
-                    result += $"<tr><td>{elementsDesc[i].Code}</td><td>{elementsDesc[i].ExerNames}</td><td>{elementsDesc[i].Name}</td>";
+                    result += $"<tr><td align='center'>{elementsDesc[i].Code}</td><td>{elementsDesc[i].ExerNames}</td><td>{elementsDesc[i].Name}</td>";
                     for (int j = 0; j < results.Count; j++)
-                        result += $"<td>{results[j].ElementsResults[i]}%";
+                        result += $"<td align='center' style='background-color:{getGradeColor(results[j].ElementsResults[i])}'>{results[j].ElementsResults[i]}%";
                     result += "</tr>\n";
                 }
             }
@@ -148,9 +148,9 @@ namespace ParticipReporter
 
                 for (int i = 0; i < elementsDesc.Count; i++)
                 {
-                    result += $"<tr><td>{elementsDesc[i].Code}</td><td>{elementsDesc[i].Name}</td>";
+                    result += $"<tr><td align='center'>{elementsDesc[i].Code}</td><td>{elementsDesc[i].Name}</td>";
                     for (int j = 0; j < results.Count; j++)
-                        result += $"<td>{results[j].ElementsResults[i]}%";
+                        result += $"<td align='center' style='background-color:{getGradeColor(results[j].ElementsResults[i])}'>{results[j].ElementsResults[i]}%";
                     result += "</tr>\n";
                 }
             }
@@ -180,7 +180,7 @@ namespace ParticipReporter
             }
             .result-table th {
                 text-align: center;
-                background: #ccc;
+                background: #c4e3f3;
                 padding: 5px;
                 border: 1px solid black;
             }
@@ -236,6 +236,18 @@ namespace ParticipReporter
             {
                 throw new ArgumentException("отсутствуют результаты для обработки");
             }
+        }
+
+        private static string getGradeColor(double grade)
+        {
+            if (grade >= 65)
+                return "green";
+            else if (grade < 65 && grade >= 30)
+                return "yellow";
+            else if (grade < 30)
+                return "red";
+            else
+                throw new ArgumentException();
         }
     }
 }
