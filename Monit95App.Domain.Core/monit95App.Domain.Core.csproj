@@ -83,6 +83,9 @@
     </Compile>
     <Compile Include="CollectorSchoolInfo.cs" />
     <Compile Include="CreatorSchoolInfo.cs" />
+    <Compile Include="ElementType.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExerciseMark.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
@@ -125,6 +128,9 @@
     <Compile Include="SchoolBaseInfo.cs" />
     <Compile Include="SchoolFullInfo.cs" />
     <Compile Include="Test.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TestElement.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TestResult.cs">

@@ -50,6 +50,7 @@
     <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="ProjectParticipV2Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportsDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
