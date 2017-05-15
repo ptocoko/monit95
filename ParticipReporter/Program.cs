@@ -17,13 +17,14 @@ namespace ParticipReporter
 {
     class Program
     {
-        static string _reportFolder;
-        
+        static string _reportFolder; //= String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\participResults\Орфография");//temp
+
         static string _blockName;
         static List<DescriptionDto> _partsDesc;
         static List<DescriptionDto> _elementsDesc;
         static DateTime _testDate;
         static IUnitOfWork _unitOfWork;
+        static HtmlToPdf converter = new HtmlToPdf();
 
         static void Main(string[] args)
         {
@@ -31,7 +32,8 @@ namespace ParticipReporter
             
             Console.WriteLine("Start");
             GetReports(new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"), new DateTime(2017, 04, 20));
-            ConvertReportsToPdf();
+            var reportpaths = Directory.GetFiles(_reportFolder);
+            Parallel.ForEach(reportpaths, path => ConvertReportsToPdf(path));
             Console.WriteLine("End");
             Console.ReadKey();
         }
@@ -44,7 +46,7 @@ namespace ParticipReporter
 
             SetInstances(results);
 
-            _reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\participResults\{results.BlockName}");
+            _reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\participResults\{results.BlockName} {_testDate.ToShortDateString().Replace('/', '.')}");
             if (!Directory.Exists(_reportFolder))
                 Directory.CreateDirectory(_reportFolder);
 
@@ -76,27 +78,27 @@ namespace ParticipReporter
             }
         }
 
-        static void ConvertReportsToPdf()
+        static void ConvertReportsToPdf(string report)
         {
-            var reportsHtml = Directory.GetFiles(_reportFolder);
-            HtmlToPdf converter = new HtmlToPdf();
-         //   PdfDocument doc = null;
-            int i = 0;
-            foreach (var report in reportsHtml)
+            var htmlText = File.ReadAllText(report);
+
+            var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmlText);
+            using(FileStream sw = new FileStream(_reportFolder + @"\pdfs\" + report.Split(new char[] { '\\' }).Last().Split(new char[] { '.' })[0] + ".pdf", FileMode.Create))
             {
-                Console.WriteLine("Begin Read File");
-                var read = File.ReadAllText(report);
-
-                Console.WriteLine("Begin Convert file");
-                var co = converter.ConvertHtmlString(read);
-                
-
-                Console.WriteLine("Begin Save file");
-                co.Save(_reportFolder + @"\pdfs\" + report.Split(new char[] { '\\' }).Last().Split(new char[] { '.' })[0] + ".pdf");
-                //doc.Save;
-                Console.WriteLine(i++);
+                sw.Write(pdfBytes, 0, pdfBytes.Length);
             }
-            //doc.Close();
+
+
+            //   //var reportsHtml = Directory.GetFiles(_reportFolder);
+            ////   PdfDocument doc = null;
+
+
+
+            //   var pdf = converter.ConvertHtmlString(htmlText);
+
+            //   pdf.Save(_reportFolder + @"\pdfs\" + report.Split(new char[] { '\\' }).Last().Split(new char[] { '.' })[0] + ".pdf");
+
+            //   //doc.Close();
         }
     }
 }
