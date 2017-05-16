@@ -18,16 +18,16 @@ namespace Monit95App.Infrastructure.Data
                     gradeStr = "";
                     break;
                 case 2:
-                    gradeStr = "Ниже базового";
+                    gradeStr = "Уровень ниже базового";
                     break;
                 case 3:
-                    gradeStr = "Базовой подготовки";
+                    gradeStr = "Уровень базовой подготовки";
                     break;
                 case 4:
-                    gradeStr = "Прочной базовой подготовки";
+                    gradeStr = "Уровень прочной базовой подготовки";
                     break;
                 case 5:
-                    gradeStr = "Повышенный";
+                    gradeStr = "Повышенный уровень";
                     break;
                 default:
                     throw new ArgumentException();
