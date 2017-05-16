@@ -11,10 +11,10 @@
 	
     $scope.init = function (username) { 
         _schoolId = username;
-        getParticipsAndAll(_schoolId);
+        getParticips(_schoolId);
     }
 
-	var getParticipsAndAll = function (schoolId) {
+	var getParticips = function (schoolId) {
         OneTwoThree_ParticipService.getParticips(schoolId).then(function (res) {
 			$scope.particips = res.data;
 
@@ -176,13 +176,13 @@
 				});
 
 				$scope.getColorFromGradeStr = function (gradeStr) {
-					if (gradeStr === 'Ниже базового')
+					if (gradeStr === 'Уровень ниже базового')
 						return 'low-grade';
-					else if (gradeStr === 'Базовой подготовки')
+					else if (gradeStr === 'Уровень базовой подготовки')
 						return 'medium-grade';
-					else if (gradeStr === 'Прочной базовой подготовки')
+					else if (gradeStr === 'Уровень прочной базовой подготовки')
 						return 'high-grade';
-					else if (gradeStr === 'Повышенный')
+					else if (gradeStr === 'Повышенный уровень')
 						return 'higher-grade';
 				};
 

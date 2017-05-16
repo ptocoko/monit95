@@ -49,6 +49,8 @@
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Projects" />
         <AssociationConnector Association="cokoModel.FK_TestElements_ElementTypes" />
         <AssociationConnector Association="cokoModel.FK_TestElements_Tests" />
+        <EntityTypeShape EntityType="cokoModel.TestResultsV2" Width="1.5" PointX="9.75" PointY="16" />
+        <AssociationConnector Association="cokoModel.FK_TestResultsV2_ExerciseMarks" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

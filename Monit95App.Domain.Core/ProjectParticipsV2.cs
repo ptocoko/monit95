@@ -28,6 +28,7 @@ namespace Monit95App.Domain.Core
         public string SecondName { get; set; }
         public string SchoolId { get; set; }
         public string ClassCode { get; set; }
+        public Nullable<int> TeachContextId { get; set; }
     
         public virtual Class Class { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
