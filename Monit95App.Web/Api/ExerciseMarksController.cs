@@ -22,39 +22,36 @@ namespace Monit95App.Api
             _exerciseMarksService = exerciseMarkService;
         }
 
-        public async Task<IEnumerable<ExerciseMarkDto>> GetMarksBySchoolId(string id)
-        {
-            if (!string.IsNullOrEmpty(id))
-            {
-                return await _exerciseMarksService.GetBySchoolIdAsync(id, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT));
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //public async Task<IEnumerable<ExerciseMarkDto>> GetMarksBySchoolId(string id)
+        //{
+        //    if (!string.IsNullOrEmpty(id))
+        //    {
+        //        return await _exerciseMarksService.GetBySchoolIdAsync(id, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT));
+        //    }
+        //    return null;
+        //}
 
-        public async Task<ExerciseMarkDto> Post(ExerciseMarkDto dto)
-        {
-            if(dto != null)
-            {
-                return await _exerciseMarksService.AddAsync(dto);
-            }
-            return null;
-        }
+        //public async Task<ExerciseMarkDto> Post(ExerciseMarkDto dto)
+        //{
+        //    if(dto != null)
+        //    {
+        //        return await _exerciseMarksService.AddAsync(dto);
+        //    }
+        //    return null;
+        //}
 
-        [HttpPut]
-        public async Task<HttpResponseMessage> Update(ExerciseMarkDto dto)
-        {
-            if (dto == null) return Request.CreateResponse(HttpStatusCode.BadRequest);
+        //[HttpPut]
+        //public async Task<HttpResponseMessage> Update(ExerciseMarkDto dto)
+        //{
+        //    if (dto == null) return Request.CreateResponse(HttpStatusCode.BadRequest);
             
-            await _exerciseMarksService.UpdateAsync(dto);
-            return Request.CreateResponse(HttpStatusCode.OK);                  
-        }
+        //    await _exerciseMarksService.UpdateAsync(dto);
+        //    return Request.CreateResponse(HttpStatusCode.OK);                  
+        //}
 
-        public async Task<List<MaxRatesDto>> GetMaxRates()
-        {
-            return await _exerciseMarksService.GetMaxRates(OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT));
-        }
+        //public async Task<List<MaxRatesDto>> GetMaxRates()
+        //{
+        //    return await _exerciseMarksService.GetMaxRates(OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT));
+        //}
     }
 }
