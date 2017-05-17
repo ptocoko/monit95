@@ -8,6 +8,13 @@ namespace Monit95App.Services.DTO
 {
     public class OneTwoThreeReportDto
     {
+        public string SchoolId { get; set; }
+        public int ExerciseMarkId { get; set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string SecondName { get; set; }
+        public string ClassName { get; set; }
+        public string SubjectName { get; set; }
         public string GradeStr { get; set; }
         public string Marks { get; set; }
         public string Skills { get; set; }
