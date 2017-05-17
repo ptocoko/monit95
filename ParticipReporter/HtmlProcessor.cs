@@ -27,19 +27,17 @@ namespace ParticipReporter
         }
 
         public void Process()
-        {    
-            var htmlFileNames = Directory.GetFiles(_htmlFolder);
-            Parallel.ForEach(htmlFileNames, htmlName => ConvertToPdf(htmlName));           
-        }
-
-        private void ConvertToPdf(string htmlFileName)
         {
-            var htmlFileContent = File.ReadAllText(htmlFileName);
-            var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmlFileContent);
-            using (FileStream fs = new FileStream($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(htmlFileName)}.pdf", FileMode.Create))
-            {
-                fs.Write(pdfBytes, 0, pdfBytes.Length);
-            }
+            var htmlFileNamesWithPath = Directory.GetFiles(_htmlFolder);
+            Parallel.ForEach(htmlFileNamesWithPath, (htmlFileNameWithPath) =>
+             {
+                 var htmlFileContent = File.ReadAllText(htmlFileNameWithPath);
+                 var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmlFileContent);
+                 using (FileStream fs = new FileStream($@"{_pdfFolder}\{Path.GetFileNameWithoutExtension(htmlFileNameWithPath)}.pdf", FileMode.Create))
+                 {
+                     fs.Write(pdfBytes, 0, pdfBytes.Length);
+                 }
+             });
         }
     }
 }

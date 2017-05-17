@@ -22,7 +22,7 @@ namespace ParticipReporter.Tests
         }
 
         [TestMethod]
-        public void StartTest()
+        public void ProcessTest()
         {
             //Arrange
             string folder = @"c:\unittest";
