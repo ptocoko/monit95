@@ -26,7 +26,6 @@ namespace OneTwoThreeReporter
         static List<Class> _classes;
         static IGrade5 _gradeConverter;
         static cokoContext _context;
-        static XLWorkbook excelTemplate;
 
         static void Main(string[] args)
         {
@@ -39,10 +38,9 @@ namespace OneTwoThreeReporter
             var classService = new ClassService(_unitOfWork, new Repository<Class>(_unitOfWork));
             _classes = classService.GetAll();
 
-            excelTemplate = new XLWorkbook(Directory.GetCurrentDirectory() + @"\\201677_ППР.xlsx");
             
             var reports = GetAllResults();
-            foreach (var report in reports.Take(50))
+            foreach (var report in reports.Where(s => s.Key == "0340" || s.Key == "0005").OrderBy(o => o.Key))
             {
                 CreateSchoolReportInExcel(report);
             }
@@ -82,7 +80,7 @@ namespace OneTwoThreeReporter
 
             var groupedReports = res.GroupBy(s => s.SchoolId).ToList();
             return groupedReports;
-        }
+        }        
 
         private static void CreateSchoolReportInExcel(IGrouping<string, OneTwoThreeReportDto> schoolReport)
         {
@@ -93,6 +91,7 @@ namespace OneTwoThreeReporter
 
             var currentFilePath = currentPath + $@"\{schoolId}_201683";
 
+            var excelTemplate = new XLWorkbook(Directory.GetCurrentDirectory() + @"\\201677_ППР.xlsx");
             var sheet = excelTemplate.Worksheets.First();
 
             var school = _schools.GetAll().Single(s => s.Id == schoolId);
