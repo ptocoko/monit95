@@ -37,7 +37,6 @@ namespace OneTwoThreeReporter
 
             var classService = new ClassService(_unitOfWork, new Repository<Class>(_unitOfWork));
             _classes = classService.GetAll();
-
             
             var reports = GetAllResults();
             foreach (var report in reports)
@@ -47,6 +46,14 @@ namespace OneTwoThreeReporter
             
             Console.WriteLine("All Ok!");
             Console.ReadKey();
+        }
+
+        public OneTwoThreeReportDto Create(TestResultsV2 result)
+        {
+            var dto = new OneTwoThreeReportDto
+            {
+
+            };
         }
 
         private static List<IGrouping<string, OneTwoThreeReportDto>> GetAllResults()

@@ -61,8 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardCreator.cs" />
+    <Compile Include="ParticipProtocol.cs" />
+    <Compile Include="ParticipProtocolFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchoolProtocol.cs" />
+    <Compile Include="SchoolProtocolFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
