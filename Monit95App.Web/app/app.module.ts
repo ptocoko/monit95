@@ -13,10 +13,15 @@ import { ParticipFilterPipe } from './particips/particip-filter.pipe';
 import { UserService } from './user.service'
 import { routing } from './app.routing';
 
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+
 @NgModule({
     imports: [BrowserModule, HttpModule, routing, FormsModule],
     declarations: [AppComponent, ParticipsComponent, ParticipListComponent, ParticipFilterPipe, PlanComponent, ResultComponent],
-    providers: [UserService],
+    providers: [UserService, {
+        provide: LocationStrategy,
+        useClass: HashLocationStrategy
+    }],  
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,6 +18,7 @@ var result_component_1 = require("./result/result.component");
 var particip_filter_pipe_1 = require("./particips/particip-filter.pipe");
 var user_service_1 = require("./user.service");
 var app_routing_1 = require("./app.routing");
+var common_1 = require("@angular/common");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -27,7 +28,10 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_1.routing, forms_1.FormsModule],
         declarations: [app_component_1.AppComponent, particips_component_1.ParticipsComponent, particip_list_component_1.ParticipListComponent, particip_filter_pipe_1.ParticipFilterPipe, plan_component_1.PlanComponent, result_component_1.ResultComponent],
-        providers: [user_service_1.UserService],
+        providers: [user_service_1.UserService, {
+                provide: common_1.LocationStrategy,
+                useClass: common_1.HashLocationStrategy
+            }],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

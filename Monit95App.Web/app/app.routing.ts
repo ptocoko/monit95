@@ -2,7 +2,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { ParticipsComponent } from './particips/particips.component';
-//import { ParticipListComponent } from './particips/particip-list.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 

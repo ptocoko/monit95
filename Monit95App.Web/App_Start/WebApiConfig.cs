@@ -23,6 +23,5 @@ namespace Monit95App.App_Start
             json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
             config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
-    }
-       
+    }       
 }
