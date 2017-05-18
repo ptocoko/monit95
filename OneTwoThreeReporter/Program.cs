@@ -40,14 +40,13 @@ namespace OneTwoThreeReporter
             _classes = classService.GetAll();
 
             excelTemplate = new XLWorkbook(Directory.GetCurrentDirectory() + @"\\201677_ППР.xlsx");
-            var reports = GetAllResults();
             
+            var reports = GetAllResults();
             foreach (var report in reports.Take(50))
             {
                 CreateSchoolReportInExcel(report);
             }
-
-
+            
             Console.WriteLine("All Ok!");
             Console.ReadKey();
         }
@@ -120,19 +119,7 @@ namespace OneTwoThreeReporter
                 zip.AddFile(currentFilePath + ".xlsx", "");
                 zip.Save(currentFilePath + ".zip");
             }
-
-            //FileInfo fileToCompress = new FileInfo(currentFilePath);
-            //using (FileStream fileStream = fileToCompress.OpenRead())
-            //{
-            //    using (FileStream fs = File.Create(fileToCompress.FullName + ".zip"))
-            //    {
-            //        using(GZipStream zipStream = new GZipStream(fs, CompressionMode.Compress))
-            //        {
-            //            fileStream.CopyTo(zipStream);
-            //        }
-            //    }
-            //}
-
+            
             File.Delete(currentFilePath + ".xlsx");
         }
 
