@@ -17,15 +17,7 @@ namespace Monit95App
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
-
-            //Этот маршрут добавил я. Думал, что это поможет передать непонятный маршрут дальше
-            //на сторону frontend и там его перехватить Angular
-            //routes.MapRoute(
-            //    name: "spa-fallback",
-            //    url: "app/{*url}",
-            //    defaults: new { controller = "Home", action = "Index" }
-            //    );
+            );       
         }
     }
 }
