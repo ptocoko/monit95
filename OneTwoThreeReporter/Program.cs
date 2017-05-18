@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Ionic.Zip;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
@@ -41,7 +42,7 @@ namespace OneTwoThreeReporter
             excelTemplate = new XLWorkbook(Directory.GetCurrentDirectory() + @"\\201677_ППР.xlsx");
             var reports = GetAllResults();
             
-            foreach (var report in reports.Take(100))
+            foreach (var report in reports.Take(50))
             {
                 CreateSchoolReportInExcel(report);
             }
@@ -113,17 +114,24 @@ namespace OneTwoThreeReporter
             }
             
             excelTemplate.SaveAs(currentFilePath + ".xlsx");
-            FileInfo fileToCompress = new FileInfo(currentFilePath + ".xlsx");
-            using (FileStream fileStream = fileToCompress.OpenRead())
+
+            using(ZipFile zip = new ZipFile())
             {
-                using (FileStream fs = File.Create(fileToCompress.FullName + ".zip"))
-                {
-                    using(GZipStream zipStream = new GZipStream(fs, CompressionMode.Compress))
-                    {
-                        fileStream.CopyTo(zipStream);
-                    }
-                }
+                zip.AddFile(currentFilePath + ".xlsx", "");
+                zip.Save(currentFilePath + ".zip");
             }
+
+            //FileInfo fileToCompress = new FileInfo(currentFilePath);
+            //using (FileStream fileStream = fileToCompress.OpenRead())
+            //{
+            //    using (FileStream fs = File.Create(fileToCompress.FullName + ".zip"))
+            //    {
+            //        using(GZipStream zipStream = new GZipStream(fs, CompressionMode.Compress))
+            //        {
+            //            fileStream.CopyTo(zipStream);
+            //        }
+            //    }
+            //}
 
             File.Delete(currentFilePath + ".xlsx");
         }
