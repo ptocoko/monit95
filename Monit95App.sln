@@ -48,7 +48,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticipReporter", "Partici
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticipReporter.Tests", "ParticipReporter.Tests\ParticipReporter.Tests.csproj", "{938259AD-5255-448C-897D-C85C5EAD1F1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneTwoThreeReporter", "OneTwoThreeReporter\OneTwoThreeReporter.csproj", "{668BBA69-4F26-4DDF-B6EE-17B3384F669F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtocolGenerator", "OneTwoThreeReporter\ProtocolGenerator.csproj", "{668BBA69-4F26-4DDF-B6EE-17B3384F669F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
