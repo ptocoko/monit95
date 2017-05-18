@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OneTwoThreeReporter
+namespace ProtocolGenerator
 {
     public class ParticipProtocolFactory
     {
@@ -13,13 +13,13 @@ namespace OneTwoThreeReporter
         {
             var protocol = new ParticipProtocol
             {
-                ExerciseMarkId = result.ExerciseMarkId,
+                Id = result.ExerciseMark.ProjectParticipsV2.Id,
+                Code = result.ExerciseMark.ProjectParticipsV2.ParticipCode,
                 Surname = result.ExerciseMark.ProjectParticipsV2.Surname,
                 Name = result.ExerciseMark.ProjectParticipsV2.Name,
                 SecondName = result.ExerciseMark.ProjectParticipsV2.SecondName,
-                ClassName = result.ExerciseMark.ProjectParticipsV2.Class.Name,
-                SubjectName = result.ExerciseMark.Test.Name, //
-                ///..
+                ClassName = result.ExerciseMark.ProjectParticipsV2.Class.Name,               
+                //..
             };
 
             return protocol;
