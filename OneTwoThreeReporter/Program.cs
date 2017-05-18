@@ -40,7 +40,7 @@ namespace OneTwoThreeReporter
 
             
             var reports = GetAllResults();
-            foreach (var report in reports.Where(s => s.Key == "0340" || s.Key == "0005").OrderBy(o => o.Key))
+            foreach (var report in reports)
             {
                 CreateSchoolReportInExcel(report);
             }
