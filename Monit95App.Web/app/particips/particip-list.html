@@ -3,9 +3,9 @@
 </div>
 <div class="panel">
     <div class="form-group">                
-        <div>
-            <a href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{areaCode}}/{{areaCode}}_список.xlsx"><b>Полный список от 12.05.2017</b></a>
-        </div>
+        <div>            
+            <a [href]="participListDocPath"><b>Полный список от 12.05.2017</b></a>
+        </div>        
         <br />
         <div>
             <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />

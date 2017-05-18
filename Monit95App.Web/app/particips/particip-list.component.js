@@ -22,14 +22,14 @@ var ParticipListComponent = (function () {
         var _this = this;
         this.userService.getName().subscribe(function (response) {
             _this.areaCode = response.json();
-            // this.particips = PARTICIPS;        
             _this.getByAreaCode();
+            _this.participListDocPath =
+                'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + _this.areaCode + '/' + _this.areaCode + '_список.xlsx';
         });
     };
     //Get by areaCode
     ParticipListComponent.prototype.getByAreaCode = function () {
         var _this = this;
-        //debugger
         this.participService.getByAreaCode(this.areaCode).subscribe(function (particips) { return _this.particips = particips; });
     };
     return ParticipListComponent;
