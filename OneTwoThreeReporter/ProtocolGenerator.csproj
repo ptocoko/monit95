@@ -61,7 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardCreator.cs" />
-    <Compile Include="Interfaces\ParticipProtocol.cs" />
+    <Compile Include="Grade5DefaultName.cs" />
+    <Compile Include="Interfaces\IGrade5Name.cs" />
+    <Compile Include="Interfaces\ISubjectName.cs" />
+    <Compile Include="ParticipProtocol.cs" />
     <Compile Include="ParticipProtocolFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

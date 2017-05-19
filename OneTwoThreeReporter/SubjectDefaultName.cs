@@ -4,18 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monit95App.Domain.Core;
+using ProtocolGenerator.Interfaces;
 
 namespace ProtocolGenerator
 {
     public class SubjectDefaultName : ISubjectName
     {
-        private readonly TestResultsV2 _result;
+        private readonly Test _test;        
 
-        public string Name => _result.ExerciseMark.Test.Name;
-
-        public SubjectDefaultName(TestResultsV2 result)
+        public SubjectDefaultName(Test test)
         {
-            _result = result;
+            _test = test;
+        }
+
+        public string GetSubjectName()
+        {
+            return _test.Name;
         }
     }
 }

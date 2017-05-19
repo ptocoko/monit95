@@ -7,8 +7,12 @@ using ProtocolGenerator.Interfaces;
 
 namespace ProtocolGenerator
 {
-    public class SubjectShortName : ISubjectName
+    public class Grade5DefaultName : IGrade5Name
     {
-        public string Name => throw new NotImplementedException();
+        private 
+        public string GetGrade5Name()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
