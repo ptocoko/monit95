@@ -48,13 +48,13 @@ namespace OneTwoThreeReporter
             Console.ReadKey();
         }
 
-        public OneTwoThreeReportDto Create(TestResultsV2 result)
-        {
-            var dto = new OneTwoThreeReportDto
-            {
+        //public OneTwoThreeReportDto Create(TestResultsV2 result)
+        //{
+        //    var dto = new OneTwoThreeReportDto
+        //    {
 
-            };
-        }
+        //    };
+        //}
 
         private static List<IGrouping<string, OneTwoThreeReportDto>> GetAllResults()
         {
