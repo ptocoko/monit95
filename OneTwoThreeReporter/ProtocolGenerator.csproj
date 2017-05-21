@@ -61,17 +61,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardCreator.cs" />
-    <Compile Include="Grade5DefaultName.cs" />
-    <Compile Include="Interfaces\IGrade5Name.cs" />
-    <Compile Include="Interfaces\ISubjectName.cs" />
-    <Compile Include="ParticipProtocol.cs" />
-    <Compile Include="ParticipProtocolFactory.cs" />
+    <Compile Include="Interfaces\ParticipProtocol.cs" />
+    <Compile Include="ExtendParticipProtocol.cs" />
+    <Compile Include="ExtendParticipProtocolFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolProtocol.cs" />
     <Compile Include="SchoolProtocolFactory.cs" />
-    <Compile Include="SubjectDefaultName.cs" />
-    <Compile Include="SubjectShortName.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

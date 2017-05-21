@@ -83,6 +83,9 @@
     </Compile>
     <Compile Include="CollectorSchoolInfo.cs" />
     <Compile Include="CreatorSchoolInfo.cs" />
+    <Compile Include="Element.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ElementType.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
@@ -93,6 +96,9 @@
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GiaResult.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Grade.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Learner.cs" />
@@ -128,9 +134,6 @@
     <Compile Include="SchoolBaseInfo.cs" />
     <Compile Include="SchoolFullInfo.cs" />
     <Compile Include="Test.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestElement.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TestResult.cs">

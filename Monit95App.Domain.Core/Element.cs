@@ -12,18 +12,16 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ElementType
+    public partial class Element
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ElementType()
-        {
-            this.Elements = new HashSet<Element>();
-        }
-    
         public int Id { get; set; }
+        public System.Guid TestId { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
+        public int ElementTypeId { get; set; }
+        public string ExerNames { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Element> Elements { get; set; }
+        public virtual ElementType ElementType { get; set; }
+        public virtual Test Test { get; set; }
     }
 }
