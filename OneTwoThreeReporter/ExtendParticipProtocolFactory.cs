@@ -9,7 +9,7 @@ using ProtocolGenerator.Interfaces;
 
 namespace ProtocolGenerator
 {
-    public class ExtendParticipProtocolFactory
+    public static class ExtendParticipProtocolFactory
     {
         public static ExtendParticipProtocol Greate(TestResultsV2 result)
         {
