@@ -436,7 +436,6 @@
     <Content Include="Views\Home\Oge2016.cshtml" />
     <Content Include="Views\Shared\_LearnerTable.cshtml" />
     <Content Include="Scripts\smart-table.min.js.map" />
-    <Content Include="Views\old_Nsur\Index.cshtml" />
     <Content Include="Views\CollectorMarks\Index.cshtml" />
     <Content Include="Templates\onetwothree_particip.html" />
     <Content Include="Views\OneTwoThree\Spa.cshtml" />
