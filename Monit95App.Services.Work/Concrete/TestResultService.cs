@@ -36,18 +36,19 @@ namespace Monit95App.Services.Work.Concrete
 
             List<ParticipReportDto> participReports = new List<ParticipReportDto>();
             foreach (var queryResult in queryResults)
-            {                
-                var report = new ParticipReportDto();
-                report.ParticipCode = queryResult.Key;
-                report.Results = queryResult.Select(s => new ParticipResultDto
+            {
+                var report = new ParticipReportDto()
                 {
-                    PrimaryMark = Convert.ToInt32(s.PrimaryMark),
-                    Grade5 = s.Grade5,
-                    Marks = s.Marks.Split(new char[] { '|' })[0].Replace(";", "; "),
-                    PartsResults = s.Parts.Replace(',', '.').Split(new char[] { ';' }).Select(x => double.Parse(x, CultureInfo.InvariantCulture) * 100).ToArray(),
-                    ElementsResults = s.Elements.Replace(',', '.').Split(new char[] { ';' }).Select(y => double.Parse(y, CultureInfo.InvariantCulture) * 100).ToArray()
-                }).ToList();
-
+                    ParticipCode = queryResult.Key,
+                    Results = queryResult.Select(s => new ParticipResultDto
+                    {
+                        PrimaryMark = Convert.ToInt32(s.PrimaryMark),
+                        Grade5 = s.Grade5,
+                        Marks = s.Marks.Split(new char[] { '|' })[0].Replace(";", "; "),
+                        PartsResults = s.Parts.Replace(',', '.').Split(new char[] { ';' }).Select(x => double.Parse(x, CultureInfo.InvariantCulture) * 100).ToArray(),
+                        ElementsResults = s.Elements.Replace(',', '.').Split(new char[] { ';' }).Select(y => double.Parse(y, CultureInfo.InvariantCulture) * 100).ToArray()
+                    }).ToList()
+                };
                 participReports.Add(report);
             }
 
