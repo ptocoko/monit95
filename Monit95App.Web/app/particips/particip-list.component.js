@@ -21,16 +21,20 @@ var ParticipListComponent = (function () {
     ParticipListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userService.getName().subscribe(function (response) {
-            _this.areaCode = response.json();
+            var result = response.json();
+            _this.userName = result.UserName;
+            _this.isAreaRole = result.IsAreaRole;
             _this.getByAreaCode();
-            _this.participListDocPath =
-                'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + _this.areaCode + '/' + _this.areaCode + '_список.xlsx';
+            if (_this.isAreaRole) {
+                _this.participListDocPath =
+                    'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + _this.userName + '/' + _this.userName + '_список.xlsx';
+            }
         });
     };
     //Get by areaCode
     ParticipListComponent.prototype.getByAreaCode = function () {
         var _this = this;
-        this.participService.getByAreaCode(this.areaCode).subscribe(function (particips) { return _this.particips = particips; });
+        this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(function (particips) { return _this.particips = particips; });
     };
     return ParticipListComponent;
 }());

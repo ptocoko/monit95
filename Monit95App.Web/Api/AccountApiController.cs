@@ -11,9 +11,10 @@ namespace Monit95App.Api
     public class AccountApiController : ApiController
     {
         //Get current user's name
-        public string GetUserName()
+        public object GetUserNameAndRole()
         {
-            return User.Identity.Name;
+            var isAreaRole = User.IsInRole("area");
+            return new { UserName = User.Identity.Name, IsAreaRole = isAreaRole };
         }
     }
 }

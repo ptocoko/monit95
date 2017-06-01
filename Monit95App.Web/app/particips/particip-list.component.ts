@@ -13,18 +13,24 @@ import { UserService } from '../user.service';
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];
-    areaCode: number;
+	userName: string;
+	isAreaRole: boolean;
     participListDocPath: string;
         
     constructor(private participService: ParticipService, private userService: UserService) { }
 
     ngOnInit() {
         this.userService.getName().subscribe(
-            response => {
-                this.areaCode = response.json();               
-                this.getByAreaCode();
-                this.participListDocPath =
-                    'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + this.areaCode + '/' + this.areaCode + '_список.xlsx';
+			response => {
+				let result = response.json();
+				this.userName = result.UserName;  
+				this.isAreaRole = result.IsAreaRole;
+				this.getByAreaCode();
+
+				if (this.isAreaRole) {
+					this.participListDocPath =
+						'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + this.userName + '/' + this.userName + '_список.xlsx';
+				}
             }
         );        
     }
@@ -32,7 +38,7 @@ export class ParticipListComponent implements OnInit {
     //Get by areaCode
     getByAreaCode()
     {        
-        this.participService.getByAreaCode(this.areaCode).subscribe(
+        this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(
             particips => this.particips = particips
         );
     }

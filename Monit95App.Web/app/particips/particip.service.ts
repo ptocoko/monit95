@@ -13,11 +13,11 @@ export class ParticipService {
     public headers: Headers;
     constructor(private _http: Http) { }
 
-    public _getByAreaCodeUrl: string = '/api/ProjectParticip/GetByAreaCode?areaCode=';
+    public _getByAreaCodeUrl: string = '/api/ProjectParticip/GetByUserName?userName=';
 
-    getByAreaCode(areaCode: number): Observable<ParticipModel[]> {
-        console.log('getByAreaCode(areaCode: number)')
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + areaCode;
+    getByAreaCode(userName: string, isAreaRole: boolean): Observable<ParticipModel[]> {
+        
+        var getByAreaCodeUrl = this._getByAreaCodeUrl + userName + "&isAreaRole=" + isAreaRole;
         return this._http.get(getByAreaCodeUrl)
             .map((resp: Response) => {                
                 let participList = resp.json();
@@ -33,7 +33,7 @@ export class ParticipService {
                             subjectName: particip.SubjectName
                         });
                 }
-                console.log(particips);
+                //console.log(particips);
                 return particips;
             });        
     }    

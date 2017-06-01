@@ -38,13 +38,17 @@ namespace Monit95App.Api
    
         //TODO: необходим automapper           
         //[Route("api/ProjectParticip/GetParticips/{area:int}")]
-        public async Task<IEnumerable<PParticipViewModel>> GetByAreaCode(int areaCode)
+        public async Task<IEnumerable<PParticipViewModel>> GetByUserName(string userName, bool isAreaRole)
         {
             var allPParticips =  await Task.Run(() => _unitOfWork.ProjectParticips.GetAll());
-            var areaPParticips = allPParticips.Where(x => x.School.AreaCode == areaCode)
-                .Select(x => _pparticipViewer.CreateViewModel(x));
-           
-            return areaPParticips;
+            IEnumerable<PParticipViewModel> result;
+
+            if (isAreaRole)
+                result = allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _pparticipViewer.CreateViewModel(x));
+            else
+                result = allPParticips.Where(x => x.SchoolId == userName).Select(x => _pparticipViewer.CreateViewModel(x));
+            
+            return result;
         }
         //TODO: возвращать нормально
         public async Task<object> PostParticip(ProjectParticip newParticip)
