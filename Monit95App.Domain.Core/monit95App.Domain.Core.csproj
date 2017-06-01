@@ -92,9 +92,6 @@
     <Compile Include="ExerciseMark.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExerMark.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="GiaResult.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>

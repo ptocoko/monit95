@@ -22,10 +22,7 @@ namespace ProtocolGenerator
 
             foreach(var result in participResults)
             {
-                protocol.ParticipProtocols.Add(new ParticipProtocol
-                {
-
-                });                    
+                //...                   
             }
             
             return protocol;

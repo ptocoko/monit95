@@ -719,15 +719,6 @@
           <NavigationProperty Name="ProjectParticipsV2" Relationship="cokoModel.FK_ExerciseMarks_ProjectParticipsV2" FromRole="ExerciseMark" ToRole="ProjectParticipsV2" />
           <NavigationProperty Name="TestResultsV2" Relationship="cokoModel.FK_TestResultsV2_ExerciseMarks" FromRole="ExerciseMark" ToRole="TestResultsV2" />
         </EntityType>
-        <EntityType Name="ExerMark">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParticipTestId" Type="Int32" Nullable="false" />
-          <Property Name="TestExerciseId" Type="Int32" Nullable="false" />
-          <Property Name="Mark" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="GiaResult">
           <Key>
             <PropertyRef Name="ProjectCode" />
@@ -1042,7 +1033,6 @@
           <EntitySet Name="Collectors" EntityType="Self.Collector" />
           <EntitySet Name="CollectorSchools" EntityType="Self.CollectorSchool" />
           <EntitySet Name="ExerciseMarks" EntityType="Self.ExerciseMark" />
-          <EntitySet Name="ExerMarks" EntityType="Self.ExerMark" />
           <EntitySet Name="GiaResults" EntityType="Self.GiaResult" />
           <EntitySet Name="NsurSubjects" EntityType="Self.NsurSubject" />
           <EntitySet Name="ParticipTests" EntityType="Self.ParticipTest" />

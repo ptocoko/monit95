@@ -25,7 +25,7 @@ namespace ProtocolGenerator
                 Id = result.ExerciseMark.ProjectParticipsV2.ParticipCode
                      ?? result.ExerciseMark.ProjectParticipsV2.Id.ToString(),
                 Grade5 = CheckGrade5(result) ?? result.Grade5.ToString(), //if the test has string's version Grade5 then get that via ConvertGrade5                             
-                ElementValues = 
+                //...
             };
  
             return protocol;
@@ -41,10 +41,7 @@ namespace ProtocolGenerator
         {
             var elements = new Dictionary<Element, double>();
             var split = result.Skills.Split(';');
-            foreach (var element in COLLECTION)
-            {
-                
-            }
+            //...
 
 
             return elements;

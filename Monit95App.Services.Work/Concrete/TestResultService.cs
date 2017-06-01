@@ -13,9 +13,9 @@ namespace Monit95App.Services.Work.Concrete
 {
     public class TestResultService : ITestResultService
     {
-        private IRepositoryV2<TestElement> _testElementRep;
+        private IRepositoryV2<Element> _testElementRep;
         private IRepositoryV2<TestResult> _testResultRep;
-        public TestResultService(IRepositoryV2<TestElement> testElementRep, IRepositoryV2<TestResult> testResultRep)
+        public TestResultService(IRepositoryV2<Element> testElementRep, IRepositoryV2<TestResult> testResultRep)
         {
             _testElementRep = testElementRep;
             _testResultRep = testResultRep;
