@@ -12,11 +12,13 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ExerMark
+    public partial class Grade
     {
         public int Id { get; set; }
-        public int ParticipTestId { get; set; }
-        public int TestExerciseId { get; set; }
-        public int Mark { get; set; }
+        public System.Guid TestId { get; set; }
+        public int Grade5 { get; set; }
+        public string Describe { get; set; }
+    
+        public virtual Test Test { get; set; }
     }
 }

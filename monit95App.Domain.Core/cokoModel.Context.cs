@@ -30,7 +30,6 @@ namespace Monit95App.Domain.Core
         public virtual DbSet<Collector> Collectors { get; set; }
         public virtual DbSet<CollectorSchool> CollectorSchools { get; set; }
         public virtual DbSet<ExerciseMark> ExerciseMarks { get; set; }
-        public virtual DbSet<ExerMark> ExerMarks { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<NsurSubject> NsurSubjects { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
@@ -46,7 +45,8 @@ namespace Monit95App.Domain.Core
         public virtual DbSet<ProjectParticipsV2> ProjectParticipsV2 { get; set; }
         public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
-        public virtual DbSet<TestElement> TestElements { get; set; }
         public virtual DbSet<TestResultsV2> TestResultsV2 { get; set; }
+        public virtual DbSet<Element> Elements { get; set; }
+        public virtual DbSet<Grade> Grades { get; set; }
     }
 }

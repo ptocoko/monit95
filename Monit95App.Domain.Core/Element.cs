@@ -12,7 +12,7 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class TestElement
+    public partial class Element
     {
         public int Id { get; set; }
         public System.Guid TestId { get; set; }

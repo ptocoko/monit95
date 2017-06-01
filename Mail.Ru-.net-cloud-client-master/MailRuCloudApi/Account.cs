@@ -93,7 +93,7 @@ namespace MailRuCloudApi
 
             if (new DefaultProxySection().Enabled)
             {
-                this.Proxy = WebProxy.GetDefaultProxy();
+               //... this.Proxy = WebProxy.GetDefaultProxy();
             }
 
             string reqString = string.Format("Login={0}&Domain={1}&Password={2}", this.LoginName, ConstSettings.Domain, this.Password);

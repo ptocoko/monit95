@@ -43,6 +43,17 @@
           <Property Name="SchoolId" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="StatusCode" Type="smallint" Nullable="false" />
         </EntityType>
+        <EntityType Name="Elements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ElementTypeId" Type="int" Nullable="false" />
+          <Property Name="ExerNames" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="ElementTypes">
           <Key>
             <PropertyRef Name="Id" />
@@ -58,15 +69,6 @@
           <Property Name="ProjectParticipId" Type="int" Nullable="false" />
           <Property Name="TestId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Marks" Type="varchar" MaxLength="255" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ExerMarks">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ParticipTestId" Type="int" Nullable="false" />
-          <Property Name="TestExerciseId" Type="int" Nullable="false" />
-          <Property Name="Mark" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GiaResults">
           <Key>
@@ -91,6 +93,15 @@
           <Property Name="Parts" Type="varchar" MaxLength="255" />
           <Property Name="Elements" Type="varchar" MaxLength="255" />
           <Property Name="Skills" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Grades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Grade5" Type="int" Nullable="false" />
+          <Property Name="Describe" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="NsurSubjects">
           <Key>
@@ -203,17 +214,6 @@
           <Property Name="PropertyTypeCode" Type="int" />
           <Property Name="Monit95Login" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="TestElements">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TestId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="ElementTypeId" Type="int" Nullable="false" />
-          <Property Name="ExerNames" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="TestResults">
           <Key>
             <PropertyRef Name="ParticipTestId" />
@@ -323,6 +323,18 @@
             </Principal>
             <Dependent Role="GiaResults">
               <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grade5_Tests">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
+          <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="TestId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -488,32 +500,30 @@
         </Association>
         <Association Name="FK_TestElements_ElementTypes">
           <End Role="ElementTypes" Type="Self.ElementTypes" Multiplicity="1" />
-          <End Role="TestElements" Type="Self.TestElements" Multiplicity="*" />
+          <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ElementTypes">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="TestElements">
+            <Dependent Role="Elements">
               <PropertyRef Name="ElementTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TestElements_Tests">
           <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
-          <End Role="TestElements" Type="Self.TestElements" Multiplicity="*" />
+          <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tests">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="TestElements">
+            <Dependent Role="Elements">
               <PropertyRef Name="TestId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TestResults_ParticipTests">
-          <End Role="ParticipTests" Type="Self.ParticipTests" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="ParticipTests" Type="Self.ParticipTests" Multiplicity="1" />
           <End Role="TestResults" Type="Self.TestResults" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="ParticipTests">
@@ -542,10 +552,11 @@
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Collectors" EntityType="Self.Collectors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollectorSchools" EntityType="Self.CollectorSchools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Elements" EntityType="Self.Elements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ElementTypes" EntityType="Self.ElementTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExerciseMarks" EntityType="Self.ExerciseMarks" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ExerMarks" EntityType="Self.ExerMarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiaResults" EntityType="Self.GiaResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grades" EntityType="Self.Grades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NsurSubjects" EntityType="Self.NsurSubjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParticipTests" EntityType="Self.ParticipTests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectParticips" EntityType="Self.ProjectParticips" Schema="dbo" store:Type="Tables" />
@@ -555,7 +566,6 @@
           <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReportStatistics" EntityType="Self.ReportStatistics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TestElements" EntityType="Self.TestElements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestResults" EntityType="Self.TestResults" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestResultsV2" EntityType="Self.TestResultsV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
@@ -583,6 +593,10 @@
           <AssociationSet Name="FK_GiaResults_Schools" Association="Self.FK_GiaResults_Schools">
             <End Role="Schools" EntitySet="Schools" />
             <End Role="GiaResults" EntitySet="GiaResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grade5_Tests" Association="Self.FK_Grade5_Tests">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Grades" EntitySet="Grades" />
           </AssociationSet>
           <AssociationSet Name="FK_ParticipTests_ProjectParticips" Association="Self.FK_ParticipTests_ProjectParticips">
             <End Role="ProjectParticips" EntitySet="ProjectParticips" />
@@ -638,11 +652,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_TestElements_ElementTypes" Association="Self.FK_TestElements_ElementTypes">
             <End Role="ElementTypes" EntitySet="ElementTypes" />
-            <End Role="TestElements" EntitySet="TestElements" />
+            <End Role="Elements" EntitySet="Elements" />
           </AssociationSet>
           <AssociationSet Name="FK_TestElements_Tests" Association="Self.FK_TestElements_Tests">
             <End Role="Tests" EntitySet="Tests" />
-            <End Role="TestElements" EntitySet="TestElements" />
+            <End Role="Elements" EntitySet="Elements" />
           </AssociationSet>
           <AssociationSet Name="FK_TestResults_ParticipTests" Association="Self.FK_TestResults_ParticipTests">
             <End Role="ParticipTests" EntitySet="ParticipTests" />
@@ -704,15 +718,6 @@
           <NavigationProperty Name="Test" Relationship="Self.FK_ExerciseMarks_Tests" FromRole="ExerciseMarks" ToRole="Tests" />
           <NavigationProperty Name="ProjectParticipsV2" Relationship="cokoModel.FK_ExerciseMarks_ProjectParticipsV2" FromRole="ExerciseMark" ToRole="ProjectParticipsV2" />
           <NavigationProperty Name="TestResultsV2" Relationship="cokoModel.FK_TestResultsV2_ExerciseMarks" FromRole="ExerciseMark" ToRole="TestResultsV2" />
-        </EntityType>
-        <EntityType Name="ExerMark">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParticipTestId" Type="Int32" Nullable="false" />
-          <Property Name="TestExerciseId" Type="Int32" Nullable="false" />
-          <Property Name="Mark" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GiaResult">
           <Key>
@@ -861,7 +866,8 @@
           <NavigationProperty Name="ExerciseMarks" Relationship="Self.FK_ExerciseMarks_Tests" FromRole="Tests" ToRole="ExerciseMarks" />
           <NavigationProperty Name="ProjectTests" Relationship="Self.FK_ProjectTests_Tests" FromRole="Tests" ToRole="ProjectTests" />
           <Property Name="ExcerMaxMarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TestElements" Relationship="cokoModel.FK_TestElements_Tests" FromRole="Test" ToRole="TestElement" />
+          <NavigationProperty Name="Elements" Relationship="cokoModel.FK_TestElements_Tests1" FromRole="Test" ToRole="Element" />
+          <NavigationProperty Name="Grades" Relationship="cokoModel.FK_Grade5_Tests" FromRole="Test" ToRole="Grade" />
         </EntityType>
         <Association Name="FK_Schools_Areas">
           <End Role="Areas" Type="Self.Area" Multiplicity="1" />
@@ -1027,7 +1033,6 @@
           <EntitySet Name="Collectors" EntityType="Self.Collector" />
           <EntitySet Name="CollectorSchools" EntityType="Self.CollectorSchool" />
           <EntitySet Name="ExerciseMarks" EntityType="Self.ExerciseMark" />
-          <EntitySet Name="ExerMarks" EntityType="Self.ExerMark" />
           <EntitySet Name="GiaResults" EntityType="Self.GiaResult" />
           <EntitySet Name="NsurSubjects" EntityType="Self.NsurSubject" />
           <EntitySet Name="ParticipTests" EntityType="Self.ParticipTest" />
@@ -1119,23 +1124,28 @@
             <End Role="TestResult" EntitySet="TestResults" />
           </AssociationSet>
           <EntitySet Name="ElementTypes" EntityType="cokoModel.ElementType" />
-          <EntitySet Name="TestElements" EntityType="cokoModel.TestElement" />
           <AssociationSet Name="FK_ProjectParticips_Projects" Association="cokoModel.FK_ProjectParticips_Projects">
             <End Role="Project" EntitySet="Projects" />
             <End Role="ProjectParticip" EntitySet="ProjectParticips" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestElements_ElementTypes" Association="cokoModel.FK_TestElements_ElementTypes">
-            <End Role="ElementType" EntitySet="ElementTypes" />
-            <End Role="TestElement" EntitySet="TestElements" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestElements_Tests" Association="cokoModel.FK_TestElements_Tests">
-            <End Role="Test" EntitySet="Tests" />
-            <End Role="TestElement" EntitySet="TestElements" />
           </AssociationSet>
           <EntitySet Name="TestResultsV2" EntityType="cokoModel.TestResultsV2" />
           <AssociationSet Name="FK_TestResultsV2_ExerciseMarks" Association="cokoModel.FK_TestResultsV2_ExerciseMarks">
             <End Role="ExerciseMark" EntitySet="ExerciseMarks" />
             <End Role="TestResultsV2" EntitySet="TestResultsV2" />
+          </AssociationSet>
+          <EntitySet Name="Elements" EntityType="cokoModel.Element" />
+          <AssociationSet Name="FK_TestElements_ElementTypes1" Association="cokoModel.FK_TestElements_ElementTypes1">
+            <End Role="ElementType" EntitySet="ElementTypes" />
+            <End Role="Element" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestElements_Tests1" Association="cokoModel.FK_TestElements_Tests1">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="Element" EntitySet="Elements" />
+          </AssociationSet>
+          <EntitySet Name="Grades" EntityType="cokoModel.Grade" />
+          <AssociationSet Name="FK_Grade5_Tests" Association="cokoModel.FK_Grade5_Tests">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="Grade" EntitySet="Grades" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ReportStatistic">
@@ -1272,20 +1282,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TestElements" Relationship="cokoModel.FK_TestElements_ElementTypes" FromRole="ElementType" ToRole="TestElement" />
-        </EntityType>
-        <EntityType Name="TestElement">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TestId" Type="Guid" Nullable="false" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ElementTypeId" Type="Int32" Nullable="false" />
-          <Property Name="ExerNames" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ElementType" Relationship="cokoModel.FK_TestElements_ElementTypes" FromRole="TestElement" ToRole="ElementType" />
-          <NavigationProperty Name="Test" Relationship="cokoModel.FK_TestElements_Tests" FromRole="TestElement" ToRole="Test" />
+          <NavigationProperty Name="Elements" Relationship="cokoModel.FK_TestElements_ElementTypes1" FromRole="ElementType" ToRole="Element" />
         </EntityType>
         <Association Name="FK_ProjectParticips_Projects">
           <End Type="cokoModel.Project" Role="Project" Multiplicity="1" />
@@ -1296,30 +1293,6 @@
             </Principal>
             <Dependent Role="ProjectParticip">
               <PropertyRef Name="ProjectCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestElements_ElementTypes">
-          <End Type="cokoModel.ElementType" Role="ElementType" Multiplicity="1" />
-          <End Type="cokoModel.TestElement" Role="TestElement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ElementType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TestElement">
-              <PropertyRef Name="ElementTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestElements_Tests">
-          <End Type="cokoModel.Test" Role="Test" Multiplicity="1" />
-          <End Type="cokoModel.TestElement" Role="TestElement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Test">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TestElement">
-              <PropertyRef Name="TestId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1342,6 +1315,65 @@
             </Principal>
             <Dependent Role="TestResultsV2">
               <PropertyRef Name="ExerciseMarkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Element">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ElementTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ExerNames" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ElementType" Relationship="cokoModel.FK_TestElements_ElementTypes1" FromRole="Element" ToRole="ElementType" />
+          <NavigationProperty Name="Test" Relationship="cokoModel.FK_TestElements_Tests1" FromRole="Element" ToRole="Test" />
+        </EntityType>
+        <Association Name="FK_TestElements_ElementTypes1">
+          <End Type="cokoModel.ElementType" Role="ElementType" Multiplicity="1" />
+          <End Type="cokoModel.Element" Role="Element" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Element">
+              <PropertyRef Name="ElementTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestElements_Tests1">
+          <End Type="cokoModel.Test" Role="Test" Multiplicity="1" />
+          <End Type="cokoModel.Element" Role="Element" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Element">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Guid" Nullable="false" />
+          <Property Name="Grade5" Type="Int32" Nullable="false" />
+          <Property Name="Describe" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Test" Relationship="cokoModel.FK_Grade5_Tests" FromRole="Grade" ToRole="Test" />
+        </EntityType>
+        <Association Name="FK_Grade5_Tests">
+          <End Type="cokoModel.Test" Role="Test" Multiplicity="1" />
+          <End Type="cokoModel.Grade" Role="Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="TestId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1392,16 +1424,6 @@
                 <ScalarProperty Name="ProjectParticipId" ColumnName="ProjectParticipId" />
                 <ScalarProperty Name="TestId" ColumnName="TestId" />
                 <ScalarProperty Name="Marks" ColumnName="Marks" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ExerMarks">
-            <EntityTypeMapping TypeName="cokoModel.ExerMark">
-              <MappingFragment StoreEntitySet="ExerMarks">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ParticipTestId" ColumnName="ParticipTestId" />
-                <ScalarProperty Name="TestExerciseId" ColumnName="TestExerciseId" />
-                <ScalarProperty Name="Mark" ColumnName="Mark" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1595,9 +1617,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TestElements">
-            <EntityTypeMapping TypeName="cokoModel.TestElement">
-              <MappingFragment StoreEntitySet="TestElements">
+          <EntitySetMapping Name="TestResultsV2">
+            <EntityTypeMapping TypeName="cokoModel.TestResultsV2">
+              <MappingFragment StoreEntitySet="TestResultsV2">
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="Grade5" ColumnName="Grade5" />
+                <ScalarProperty Name="ExerciseMarkId" ColumnName="ExerciseMarkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elements">
+            <EntityTypeMapping TypeName="cokoModel.Element">
+              <MappingFragment StoreEntitySet="Elements">
                 <ScalarProperty Name="ExerNames" ColumnName="ExerNames" />
                 <ScalarProperty Name="ElementTypeId" ColumnName="ElementTypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1607,12 +1639,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TestResultsV2">
-            <EntityTypeMapping TypeName="cokoModel.TestResultsV2">
-              <MappingFragment StoreEntitySet="TestResultsV2">
-                <ScalarProperty Name="Skills" ColumnName="Skills" />
+          <EntitySetMapping Name="Grades">
+            <EntityTypeMapping TypeName="cokoModel.Grade">
+              <MappingFragment StoreEntitySet="Grades">
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="Grade5" ColumnName="Grade5" />
-                <ScalarProperty Name="ExerciseMarkId" ColumnName="ExerciseMarkId" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
