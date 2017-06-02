@@ -15,7 +15,7 @@ require("rxjs/Rx");
 var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;
-        this._getByAreaCodeUrl = '/api/ProjectParticip/GetByAreaCode?userName=';
+        this._getByAreaCodeUrl = '/api/ProjectParticip/GetByUserName?userName=';
     }
     ParticipService.prototype.getByAreaCode = function (userName, isAreaRole) {
         var getByAreaCodeUrl = this._getByAreaCodeUrl + userName + "&isAreaRole=" + isAreaRole;
@@ -30,7 +30,9 @@ var ParticipService = (function () {
                     surname: particip.Surname,
                     name: particip.Name,
                     secondName: particip.SecondName,
-                    subjectName: particip.SubjectName
+                    subjectName: particip.SubjectName,
+                    birthday: particip.Birthday,
+                    classes: particip.ClassNames
                 });
             }
             //console.log(particips);

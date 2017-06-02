@@ -18,6 +18,8 @@ namespace Monit95App.Domain.Core
         public int ExerciseMarkId { get; set; }
         public int Grade5 { get; set; }
         public string Skills { get; set; }
+        public string Elements { get; set; }
+        public string Parts { get; set; }
     
         public virtual ExerciseMark ExerciseMark { get; set; }
     }

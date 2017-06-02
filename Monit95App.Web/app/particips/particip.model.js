@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ParticipModel = (function () {
-    function ParticipModel(participCode, surname, name, secondName, subjectName
+    function ParticipModel(participCode, surname, name, secondName, subjectName, birthday, classes
         //public schoolIdWithName: string,
         //public categName: string,
         //public experience: number,
@@ -13,6 +13,8 @@ var ParticipModel = (function () {
         this.name = name;
         this.secondName = secondName;
         this.subjectName = subjectName;
+        this.birthday = birthday;
+        this.classes = classes;
     }
     return ParticipModel;
 }());

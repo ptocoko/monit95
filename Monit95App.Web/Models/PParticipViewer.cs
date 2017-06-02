@@ -23,7 +23,9 @@ namespace Monit95App.Models
                 CategName = entity.Category != null ? entity.Category.Name : "",
                 Experience = entity.Experience != null ? entity.Experience : -1,
                 Phone = entity.Phone != null ? entity.Phone : "",
-                Email = entity.Email != null ? entity.Email : ""
+                Email = entity.Email != null ? entity.Email : "",
+                Birthday = entity.Birthday,
+                ClassNumbers = entity.ClassNumbers
             };
             return vm;
         }

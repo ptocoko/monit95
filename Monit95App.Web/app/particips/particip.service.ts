@@ -30,7 +30,9 @@ export class ParticipService {
                             surname: particip.Surname,
                             name: particip.Name,
                             secondName: particip.SecondName,
-                            subjectName: particip.SubjectName
+							subjectName: particip.SubjectName,
+							birthday: particip.Birthday,
+							classes: particip.ClassNames
                         });
                 }
                 //console.log(particips);

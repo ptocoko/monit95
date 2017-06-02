@@ -31,6 +31,8 @@ namespace Monit95App.Domain.Core
         public Nullable<int> Experience { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
+        public string ClassNumbers { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual NsurSubject NsurSubject { get; set; }

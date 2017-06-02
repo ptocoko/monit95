@@ -18,12 +18,10 @@
         <EntityTypeShape EntityType="cokoModel.ProjectTest" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Report" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.School" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="3" PointY="18.875" IsExpanded="true" />
         <AssociationConnector Association="cokoModel.FK_Schools_Areas" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_CollectorSchools_Collectors" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_CollectorSchools_school" ManuallyRouted="false" />
-        <AssociationConnector Association="cokoModel.FK_ExerciseMarks_Tests" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_GiaResults_Projects" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_GiaResults_Schools" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_NsurSubjects" ManuallyRouted="false" />
@@ -31,7 +29,6 @@
         <AssociationConnector Association="cokoModel.FK_ParticipTests_ProjectTests" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Schools" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectTests_Projects" ManuallyRouted="false" />
-        <AssociationConnector Association="cokoModel.FK_ProjectTests_Tests" ManuallyRouted="false" />
         <EntityTypeShape EntityType="cokoModel.ReportStatistic" Width="1.5" PointX="13" PointY="8" />
         <EntityTypeShape EntityType="cokoModel.TownType" Width="1.5" PointX="0.75" PointY="6.125" />
         <AssociationConnector Association="cokoModel.FK_ReportDownload_ReportDownload" />
@@ -43,15 +40,18 @@
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_Schools" />
         <EntityTypeShape EntityType="cokoModel.TestResult" Width="1.5" PointX="9.75" PointY="3.5" />
         <AssociationConnector Association="cokoModel.FK_TestResults_ParticipTests" />
-        <EntityTypeShape EntityType="cokoModel.ElementType" Width="1.5" PointX="8.375" PointY="0.75" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Projects" />
         <EntityTypeShape EntityType="cokoModel.TestResultsV2" Width="1.5" PointX="9.75" PointY="16" />
         <AssociationConnector Association="cokoModel.FK_TestResultsV2_ExerciseMarks" />
-        <EntityTypeShape EntityType="cokoModel.Element" Width="1.5" PointX="12.625" PointY="12" />
-        <AssociationConnector Association="cokoModel.FK_TestElements_ElementTypes1" />
-        <AssociationConnector Association="cokoModel.FK_TestElements_Tests1" />
         <EntityTypeShape EntityType="cokoModel.Grade" Width="1.5" PointX="5.25" PointY="21.25" />
+        <EntityTypeShape EntityType="cokoModel.Element" Width="1.5" PointX="3" PointY="19.25" />
+        <EntityTypeShape EntityType="cokoModel.ElementType" Width="1.5" PointX="0.75" PointY="21.75" />
+        <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="0.75" PointY="17" />
+        <AssociationConnector Association="cokoModel.FK_TestElements_ElementTypes" />
+        <AssociationConnector Association="cokoModel.FK_TestElements_Tests" />
+        <AssociationConnector Association="cokoModel.FK_ExerciseMarks_Tests" />
         <AssociationConnector Association="cokoModel.FK_Grade5_Tests" />
+        <AssociationConnector Association="cokoModel.FK_ProjectTests_Tests" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

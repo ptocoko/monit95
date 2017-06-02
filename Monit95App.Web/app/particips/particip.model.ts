@@ -4,7 +4,9 @@
         public surname: string,
         public name: string,
         public secondName: string,
-        public subjectName: string
+		public subjectName: string,
+		public birthday: Date,
+		public classes: string
         //public schoolIdWithName: string,
         //public categName: string,
         //public experience: number,

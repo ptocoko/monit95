@@ -16,7 +16,7 @@ var UserService = (function () {
         this.http = http;
     }
     UserService.prototype.getName = function () {
-        return this.http.get('/api/AccountApi/GetUserName');
+        return this.http.get('/api/AccountApi/GetUserNameAndRole');
     };
     return UserService;
 }());

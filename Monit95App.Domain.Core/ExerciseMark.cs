@@ -25,9 +25,9 @@ namespace Monit95App.Domain.Core
         public System.Guid TestId { get; set; }
         public string Marks { get; set; }
     
-        public virtual Test Test { get; set; }
         public virtual ProjectParticipsV2 ProjectParticipsV2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestResultsV2> TestResultsV2 { get; set; }
+        public virtual Test Test { get; set; }
     }
 }
