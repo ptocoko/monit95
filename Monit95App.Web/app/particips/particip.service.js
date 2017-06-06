@@ -26,11 +26,14 @@ var ParticipService = (function () {
             var particips = [];
             for (var index in participList) {
                 var particip = participList[index];
-                particips.push(new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.Birthday, particip.ClassNames));
+                particips.push(new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.Birthday != null ? new Date(particip.Birthday) : null, particip.ClassNumbers));
             }
             //console.log(particips);
             return particips;
         });
+    };
+    ParticipService.prototype.updateParticip = function (particip) {
+        return this._http.put('/api/ProjectParticip/UpdateParticip', particip);
     };
     return ParticipService;
 }());

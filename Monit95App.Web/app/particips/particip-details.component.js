@@ -29,6 +29,7 @@ var ParticipDetailsComponent = (function () {
             _this.isAreaRole = result.IsAreaRole;
             _this.getByAreaCode();
         });
+        this.setCountOfNotEnteredData();
     };
     ParticipDetailsComponent.prototype.modalOpen = function (particip) {
         var _this = this;
@@ -36,8 +37,9 @@ var ParticipDetailsComponent = (function () {
             dialog.result.then(function (res) {
                 var bDay = res.birthday;
                 var parCode = res.participCode;
-                var classes = res.classes;
+                var classes = res.classNumbers;
                 _this.setBDayByParticipCode(parCode, bDay, classes);
+                _this.setCountOfNotEnteredData();
             }).catch(function () {
                 console.log('haha');
             });
@@ -47,15 +49,27 @@ var ParticipDetailsComponent = (function () {
         this.particips.forEach(function (val, i, arr) {
             if (val.participCode === participCode) {
                 val.birthday = bDay;
-                val.classes = participClasses;
+                val.classNumbers = participClasses;
                 return;
+            }
+        });
+    };
+    ParticipDetailsComponent.prototype.setCountOfNotEnteredData = function () {
+        var _this = this;
+        this.countOfNotEnteredData = 0;
+        this.particips.forEach(function (val, i, arr) {
+            if (val.birthday == null || val.classNumbers.length == 0) {
+                _this.countOfNotEnteredData++;
             }
         });
     };
     //Get by areaCode
     ParticipDetailsComponent.prototype.getByAreaCode = function () {
         var _this = this;
-        this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(function (particips) { return _this.particips = particips; });
+        this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(function (particips) {
+            _this.particips = particips;
+            _this.setCountOfNotEnteredData();
+        });
     };
     return ParticipDetailsComponent;
 }());

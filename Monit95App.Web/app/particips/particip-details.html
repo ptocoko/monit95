@@ -1,4 +1,5 @@
-﻿<table class="table table-bordered">
+﻿<div>Не добавленных данных: {{countOfNotEnteredData}}</div>
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Код</th>
@@ -16,8 +17,8 @@
             <td>{{particip.surname}}</td>
             <td>{{particip.name}}</td>
             <td>{{particip.secondName}}</td>
-            <td>{{particip.birthday?.toLocaleDateString('ru-RU')}}</td>
-            <td>{{particip.classes}}</td>
+            <td [ngClass]="{'red' : !particip.classNumbers}">{{particip.birthday?.toLocaleDateString('ru-RU')}}</td>
+            <td [ngClass]="{'red' : !particip.classNumbers}">{{particip.classNumbers}}</td>
             <td><a class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a></td>
         </tr>
     </tbody>

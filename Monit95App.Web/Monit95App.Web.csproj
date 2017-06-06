@@ -250,6 +250,7 @@
     <Content Include="app\app.component.html" />
     <Content Include="app\particips\particip-details.html" />
     <Content Include="app\particips\particip-list.html" />
+    <Content Include="app\particips\particip-modal.html" />
     <Content Include="app\particips\particips.html" />
     <Content Include="app\plan\plan.html" />
     <Content Include="app\result\result.html" />

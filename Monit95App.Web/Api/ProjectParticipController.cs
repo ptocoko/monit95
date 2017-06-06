@@ -62,6 +62,26 @@ namespace Monit95App.Api
                         
             return _pparticipViewer.CreateViewModel(newParticip);
         }
+
+        [HttpPut]
+        public async Task UpdateParticip(PParticipViewModel participVM)
+        {
+            if (!ModelState.IsValid) return;
+
+            var particip = _db.ProjectParticips.SingleOrDefault(s => s.ParticipCode == participVM.ParticipCode);
+            if(particip != null)
+            {
+                //var bDay = participVM.Birthday;
+                //bDay = bDay.Value.AddDays(1);
+                particip.Birthday = participVM.Birthday?.AddDays(1);
+                particip.ClassNumbers = participVM.ClassNumbers;
+                await Task.Run(() => _unitOfWork.Save());
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
     
         public string GetDParticip(string primaryKey)
         {

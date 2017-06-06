@@ -18,6 +18,7 @@ export class ParticipDetailsComponent implements OnInit {
 	particips: ParticipModel[];
 	userName: string;
 	isAreaRole: boolean;
+	countOfNotEnteredData: number;
 	constructor(private participService: ParticipService, private userService: UserService, public modal: Modal) { }
 
 	ngOnInit() {
@@ -29,6 +30,8 @@ export class ParticipDetailsComponent implements OnInit {
 				this.getByAreaCode();
 			}
 		);
+
+		this.setCountOfNotEnteredData();
 	}
 
 	modalOpen(particip: ParticipModel) {
@@ -36,8 +39,9 @@ export class ParticipDetailsComponent implements OnInit {
 			dialog.result.then(res => {
 				let bDay = <Date>res.birthday;
 				let parCode = <string>res.participCode;
-				let classes = <string>res.classes;
+				let classes = <string>res.classNumbers;
 				this.setBDayByParticipCode(parCode, bDay, classes);
+				this.setCountOfNotEnteredData();
 			}).catch(() => {
 				console.log('haha');
 			});
@@ -48,16 +52,29 @@ export class ParticipDetailsComponent implements OnInit {
 		this.particips.forEach((val, i, arr) => {
 			if (val.participCode === participCode) {
 				val.birthday = bDay;
-				val.classes = participClasses;
+				val.classNumbers = participClasses;
 				return;
 			}
 		})
 	}
 
+	setCountOfNotEnteredData() {
+		this.countOfNotEnteredData = 0;
+		this.particips.forEach((val, i, arr) => {
+			if (val.birthday == null || val.classNumbers.length == 0) {
+				this.countOfNotEnteredData++;
+			}
+		});
+
+	}
+
 	//Get by areaCode
 	getByAreaCode() {
 		this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(
-			particips => this.particips = particips
+			particips => {
+				this.particips = particips;
+				this.setCountOfNotEnteredData();
+			}
 		);
 	}
 	

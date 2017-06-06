@@ -31,12 +31,16 @@ export class ParticipService {
                             particip.Name,
                             particip.SecondName,
 							particip.SubjectName,
-							particip.Birthday,
-							particip.ClassNames
+							particip.Birthday != null ? new Date(particip.Birthday) : null,
+							particip.ClassNumbers
                         ));
                 }
                 //console.log(particips);
                 return particips;
             });        
-    }    
+	}
+
+	updateParticip(particip: ParticipModel): Observable<any> {
+		return this._http.put('/api/ProjectParticip/UpdateParticip', particip);
+	}
 }
