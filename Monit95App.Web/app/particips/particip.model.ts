@@ -1,4 +1,6 @@
-﻿export class ParticipModel {
+﻿import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
+
+export class ParticipModel extends BSModalContext {
     constructor(
         public participCode: string,
         public surname: string,
@@ -12,5 +14,5 @@
         //public experience: number,
         //public phone: string,
         //public email?: string
-    ) { }
+    ) { super()}
 }

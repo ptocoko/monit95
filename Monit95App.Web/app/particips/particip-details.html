@@ -1,7 +1,4 @@
-﻿
-<div id="cont">Husain is AWESOME!</div>
-
-<table class="table table-bordered">
+﻿<table class="table table-bordered">
     <thead>
         <tr>
             <th>Код</th>
@@ -10,6 +7,7 @@
             <th>Отчеcтво</th>
             <th>Дата рождения</th>
             <th>Классы</th>
+            <th>Change</th>
         </tr>
     </thead>
     <tbody>
@@ -18,9 +16,9 @@
             <td>{{particip.surname}}</td>
             <td>{{particip.name}}</td>
             <td>{{particip.secondName}}</td>
-            <td>{{particip.birthday}}</td>
+            <td>{{particip.birthday?.toLocaleDateString('ru-RU')}}</td>
             <td>{{particip.classes}}</td>
-            <td><a class="glyphicon glyphicon-edit"></a></td>
+            <td><a class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a></td>
         </tr>
     </tbody>
 </table>

@@ -25,15 +25,15 @@ export class ParticipService {
                 for (let index in participList) {
                     let particip = participList[index];
                     particips.push(
-                        {
-                            participCode: particip.ParticipCode,
-                            surname: particip.Surname,
-                            name: particip.Name,
-                            secondName: particip.SecondName,
-							subjectName: particip.SubjectName,
-							birthday: particip.Birthday,
-							classes: particip.ClassNames
-                        });
+                        new ParticipModel (
+                            particip.ParticipCode,
+                            particip.Surname,
+                            particip.Name,
+                            particip.SecondName,
+							particip.SubjectName,
+							particip.Birthday,
+							particip.ClassNames
+                        ));
                 }
                 //console.log(particips);
                 return particips;

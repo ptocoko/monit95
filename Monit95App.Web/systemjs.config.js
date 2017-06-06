@@ -18,6 +18,11 @@
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
+			//modal
+			'angular2-modal': 'npm:angular2-modal/bundles/angular2-modal.umd.js',
+			'angular2-modal/plugins/bootstrap': 'npm:angular2-modal/bundles/angular2-modal.bootstrap.umd.js',
+			//datepicker
+			'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js',
             // остальные пакеты
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'

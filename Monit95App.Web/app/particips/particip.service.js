@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/Rx");
+var particip_model_1 = require("./particip.model");
 var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;
@@ -25,15 +26,7 @@ var ParticipService = (function () {
             var particips = [];
             for (var index in participList) {
                 var particip = participList[index];
-                particips.push({
-                    participCode: particip.ParticipCode,
-                    surname: particip.Surname,
-                    name: particip.Name,
-                    secondName: particip.SecondName,
-                    subjectName: particip.SubjectName,
-                    birthday: particip.Birthday,
-                    classes: particip.ClassNames
-                });
+                particips.push(new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.Birthday, particip.ClassNames));
             }
             //console.log(particips);
             return particips;

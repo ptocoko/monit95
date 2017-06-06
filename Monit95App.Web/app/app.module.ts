@@ -9,9 +9,12 @@ import { ParticipListComponent } from './particips/particip-list.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './particips/particip-details.component';
-import { NgbdModalContent } from './particips/particip-modal.component';
+import { ParticipModalComponent } from './particips/particip-modal.component';
 
-import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
+import { MyDatePickerModule } from 'mydatepicker';
 
 import { ParticipFilterPipe } from './particips/particip-filter.pipe';
 import { UserService } from './user.service'
@@ -20,13 +23,13 @@ import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
-    imports: [BrowserModule, HttpModule, routing, FormsModule, Ng2Bs3ModalModule],
-	declarations: [AppComponent, ParticipsComponent, ParticipListComponent, ParticipFilterPipe, PlanComponent, ResultComponent, ParticipDetailsComponent, NgbdModalContent],
+	imports: [BrowserModule, HttpModule, routing, FormsModule, ModalModule.forRoot(), BootstrapModalModule, MyDatePickerModule],
+	declarations: [AppComponent, ParticipsComponent, ParticipListComponent, ParticipFilterPipe, PlanComponent, ResultComponent, ParticipDetailsComponent, ParticipModalComponent],
     providers: [UserService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
 	}],  
-	entryComponents: [NgbdModalContent],
+	entryComponents: [ParticipModalComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
