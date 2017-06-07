@@ -10,7 +10,7 @@ var appRoutes = [
     { path: 'plan', component: plan_component_1.PlanComponent },
     { path: 'result', component: result_component_1.ResultComponent },
     { path: 'details', component: particip_details_component_1.ParticipDetailsComponent },
-    { path: '', component: particips_component_1.ParticipsComponent, pathMatch: 'full' } // redirect to home page on load
+    { path: '', redirectTo: '/particips', pathMatch: 'full' } // redirect to home page on load
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routing.js.map

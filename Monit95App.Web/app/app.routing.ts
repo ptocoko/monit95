@@ -11,7 +11,7 @@ const appRoutes: Routes = [
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },
-    { path: '', component: ParticipsComponent, pathMatch: 'full' } // redirect to home page on load
+    { path: '', redirectTo: '/particips', pathMatch: 'full' } // redirect to home page on load
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

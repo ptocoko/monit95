@@ -29,7 +29,6 @@ var ParticipDetailsComponent = (function () {
             _this.isAreaRole = result.IsAreaRole;
             _this.getByAreaCode();
         });
-        this.setCountOfNotEnteredData();
     };
     ParticipDetailsComponent.prototype.modalOpen = function (particip) {
         var _this = this;
@@ -38,14 +37,14 @@ var ParticipDetailsComponent = (function () {
                 var bDay = res.birthday;
                 var parCode = res.participCode;
                 var classes = res.classNumbers;
-                _this.setBDayByParticipCode(parCode, bDay, classes);
+                _this.setDataByParticipCode(parCode, bDay, classes);
                 _this.setCountOfNotEnteredData();
             }).catch(function () {
                 console.log('haha');
             });
         });
     };
-    ParticipDetailsComponent.prototype.setBDayByParticipCode = function (participCode, bDay, participClasses) {
+    ParticipDetailsComponent.prototype.setDataByParticipCode = function (participCode, bDay, participClasses) {
         this.particips.forEach(function (val, i, arr) {
             if (val.participCode === participCode) {
                 val.birthday = bDay;

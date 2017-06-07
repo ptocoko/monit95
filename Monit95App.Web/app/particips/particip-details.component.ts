@@ -30,8 +30,6 @@ export class ParticipDetailsComponent implements OnInit {
 				this.getByAreaCode();
 			}
 		);
-
-		this.setCountOfNotEnteredData();
 	}
 
 	modalOpen(particip: ParticipModel) {
@@ -40,7 +38,7 @@ export class ParticipDetailsComponent implements OnInit {
 				let bDay = <Date>res.birthday;
 				let parCode = <string>res.participCode;
 				let classes = <string>res.classNumbers;
-				this.setBDayByParticipCode(parCode, bDay, classes);
+				this.setDataByParticipCode(parCode, bDay, classes);
 				this.setCountOfNotEnteredData();
 			}).catch(() => {
 				console.log('haha');
@@ -48,7 +46,7 @@ export class ParticipDetailsComponent implements OnInit {
 		});
 	}
 
-	setBDayByParticipCode(participCode: string, bDay: Date, participClasses: string) {
+	setDataByParticipCode(participCode: string, bDay: Date, participClasses: string) {
 		this.particips.forEach((val, i, arr) => {
 			if (val.participCode === participCode) {
 				val.birthday = bDay;
