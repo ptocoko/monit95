@@ -14,5 +14,7 @@ export class ParticipModel extends BSModalContext {
         //public experience: number,
         //public phone: string,
         //public email?: string
-    ) { super()}
+    ) { 
+		super();
+	}
 }

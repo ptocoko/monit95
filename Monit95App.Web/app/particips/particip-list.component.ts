@@ -1,5 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
+import { DialogRef, Overlay, overlayConfigFactory } from 'angular2-modal';
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import { ResultsModalComponent } from './results-modal.component';
+
 import { ParticipModel } from './particip.model';
 import { PARTICIPS } from './mock-particips';
 
@@ -9,7 +13,7 @@ import { UserService } from '../user.service';
 @Component({
     selector: 'particip-list',
     templateUrl: './app/particips/particip-list.html',
-    providers: [ParticipService, UserService]    
+    providers: [ParticipService, UserService, Modal]    
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];
@@ -17,7 +21,7 @@ export class ParticipListComponent implements OnInit {
 	isAreaRole: boolean;
     participListDocPath: string;
         
-    constructor(private participService: ParticipService, private userService: UserService) { }
+    constructor(private participService: ParticipService, private userService: UserService, public modal: Modal) { }
 
     ngOnInit() {
         this.userService.getName().subscribe(
@@ -41,5 +45,9 @@ export class ParticipListComponent implements OnInit {
         this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(
             particips => this.particips = particips
         );
-    }
+	}
+
+	openModal(particip: ParticipModel) {
+		this.modal.open(ResultsModalComponent, overlayConfigFactory(particip, ));
+	}
 };

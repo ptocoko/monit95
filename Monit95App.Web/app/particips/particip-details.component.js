@@ -56,11 +56,13 @@ var ParticipDetailsComponent = (function () {
     ParticipDetailsComponent.prototype.setCountOfNotEnteredData = function () {
         var _this = this;
         this.countOfNotEnteredData = 0;
-        this.particips.forEach(function (val, i, arr) {
-            if (val.birthday == null || val.classNumbers.length == 0) {
-                _this.countOfNotEnteredData++;
-            }
-        });
+        if (this.particips != null && this.particips.length > 0) {
+            this.particips.forEach(function (val, i, arr) {
+                if (val.birthday == null || val.classNumbers.length == 0) {
+                    _this.countOfNotEnteredData++;
+                }
+            });
+        }
     };
     //Get by areaCode
     ParticipDetailsComponent.prototype.getByAreaCode = function () {

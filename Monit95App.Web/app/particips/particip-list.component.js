@@ -10,12 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var angular2_modal_1 = require("angular2-modal");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var results_modal_component_1 = require("./results-modal.component");
 var particip_service_1 = require("./particip.service");
 var user_service_1 = require("../user.service");
 var ParticipListComponent = (function () {
-    function ParticipListComponent(participService, userService) {
+    function ParticipListComponent(participService, userService, modal) {
         this.participService = participService;
         this.userService = userService;
+        this.modal = modal;
         this.particips = [];
     }
     ParticipListComponent.prototype.ngOnInit = function () {
@@ -36,15 +40,18 @@ var ParticipListComponent = (function () {
         var _this = this;
         this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(function (particips) { return _this.particips = particips; });
     };
+    ParticipListComponent.prototype.openModal = function (particip) {
+        this.modal.open(results_modal_component_1.ResultsModalComponent, angular2_modal_1.overlayConfigFactory(particip));
+    };
     return ParticipListComponent;
 }());
 ParticipListComponent = __decorate([
     core_1.Component({
         selector: 'particip-list',
         templateUrl: './app/particips/particip-list.html',
-        providers: [particip_service_1.ParticipService, user_service_1.UserService]
+        providers: [particip_service_1.ParticipService, user_service_1.UserService, bootstrap_1.Modal]
     }),
-    __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService])
+    __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService, bootstrap_1.Modal])
 ], ParticipListComponent);
 exports.ParticipListComponent = ParticipListComponent;
 ;

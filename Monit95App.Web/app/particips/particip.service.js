@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/Rx");
 var particip_model_1 = require("./particip.model");
+var results_model_1 = require("./results.model");
 var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;
@@ -34,6 +35,24 @@ var ParticipService = (function () {
     };
     ParticipService.prototype.updateParticip = function (particip) {
         return this._http.put('/api/ProjectParticip/UpdateParticip', particip);
+    };
+    ParticipService.prototype.getParticipResults = function (participCode) {
+        return this._http.get('/api/ProjectParticip/GetParticipResults?participCode=' + participCode)
+            .map(function (res) {
+            var resultsInJSON = res.json();
+            var results = [];
+            var resultDetail;
+            for (var index1 in resultsInJSON) {
+                var resultDetailsInJSON = resultsInJSON[Number.parseInt(index1)];
+                resultDetail = [];
+                for (var index2 in resultDetailsInJSON) {
+                    var detailInJSON = resultDetailsInJSON[Number.parseInt(index2)];
+                    resultDetail.push(new results_model_1.ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId));
+                }
+                results.push(new results_model_1.ResultsModel(resultDetail));
+            }
+            return results;
+        });
     };
     return ParticipService;
 }());

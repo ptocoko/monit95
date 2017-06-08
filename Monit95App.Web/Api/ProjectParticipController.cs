@@ -68,11 +68,9 @@ namespace Monit95App.Api
         {
             if (!ModelState.IsValid) return;
 
-            var particip = _db.ProjectParticips.SingleOrDefault(s => s.ParticipCode == participVM.ParticipCode);
+            var particip = await Task.Run(() => _db.ProjectParticips.SingleOrDefault(s => s.ParticipCode == participVM.ParticipCode));
             if(particip != null)
             {
-                //var bDay = participVM.Birthday;
-                //bDay = bDay.Value.AddDays(1);
                 particip.Birthday = participVM.Birthday?.AddDays(1);
                 particip.ClassNumbers = participVM.ClassNumbers;
                 await Task.Run(() => _unitOfWork.Save());
@@ -81,6 +79,16 @@ namespace Monit95App.Api
             {
                 throw new ArgumentException();
             }
+        }
+
+        public async Task<IEnumerable<IGrouping<string, object>>> GetParticipResults(string participCode)
+        {
+            if (String.IsNullOrEmpty(participCode)) return null;
+
+            var res = await Task.Run(() => _db.TestResults.Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode)
+                            .Select(s => new { SubjectName = s.ParticipTest.ProjectTest.Test.Name, TestDate = s.ParticipTest.ProjectTest.TestDate, Marks = s.Marks, Grade5 = s.Grade5, TestId = s.ParticipTest.ProjectTest.Test.Id.ToString(), NumberCode = s.ParticipTest.ProjectTest.Test.NumberCode })
+                            .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList());
+            return res;
         }
     
         public string GetDParticip(string primaryKey)

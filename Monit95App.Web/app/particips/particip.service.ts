@@ -2,7 +2,8 @@
 import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable }                                                      from 'rxjs/Observable';
-import { ParticipModel }                                                   from './particip.model';
+import { ParticipModel } from './particip.model';
+import { ResultsModel, ResultDetailsModel } from './results.model';
 
 @Component({
     providers: [Http]
@@ -42,5 +43,38 @@ export class ParticipService {
 
 	updateParticip(particip: ParticipModel): Observable<any> {
 		return this._http.put('/api/ProjectParticip/UpdateParticip', particip);
+	}
+
+	getParticipResults(participCode: string): Observable<ResultsModel[]> {
+		return this._http.get('/api/ProjectParticip/GetParticipResults?participCode=' + participCode)
+			.map((res: Response) =>
+			{
+				let resultsInJSON = res.json();
+
+				let results: ResultsModel[] = [];
+				let resultDetail: ResultDetailsModel[];
+
+				for (let index1 in resultsInJSON)
+				{
+					let resultDetailsInJSON = resultsInJSON[Number.parseInt(index1)];
+
+					resultDetail = [];
+					for (let index2 in resultDetailsInJSON)
+					{
+						let detailInJSON = resultDetailsInJSON[Number.parseInt(index2)]
+						resultDetail.push(new ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId))
+					}
+					results.push(new ResultsModel(resultDetail))
+				}
+				return results;
+			})
+	}
+
+	checkReportIsExist(testId: string, participCode: string): Observable<boolean> {//TODO: доделать!
+		return this._http.head('/ParticipReport/IsExest?testId' + testId + '&participCode=' + participCode)
+			.map((resp: Response) => {
+				let result = resp.json();
+				return Boolean(result);
+			});
 	}
 }

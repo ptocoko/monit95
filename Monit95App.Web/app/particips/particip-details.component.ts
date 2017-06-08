@@ -58,12 +58,13 @@ export class ParticipDetailsComponent implements OnInit {
 
 	setCountOfNotEnteredData() {
 		this.countOfNotEnteredData = 0;
-		this.particips.forEach((val, i, arr) => {
-			if (val.birthday == null || val.classNumbers.length == 0) {
-				this.countOfNotEnteredData++;
-			}
-		});
-
+		if (this.particips != null && this.particips.length > 0) {
+			this.particips.forEach((val, i, arr) => {
+				if (val.birthday == null || val.classNumbers.length == 0) {
+					this.countOfNotEnteredData++;
+				}
+			});
+		}
 	}
 
 	//Get by areaCode

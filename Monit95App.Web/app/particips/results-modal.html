@@ -1,0 +1,30 @@
+﻿<div style="width:100%;padding:15px">
+    <h3>{{particip.surname}} {{particip.name}} {{particip.secondName}}</h3>
+    <hr/>
+    <table class="table table-bordered">
+        <tr>
+            <th>Предмет</th>
+            <th>Дата тестирования</th>
+            <th>Баллы по заданиям</th>
+            <th>Оценка</th>
+            <th>Карта</th>
+        </tr>
+        <template ngFor let-res [ngForOf]="results">
+            <tr>
+                <td>{{res.resultDetails[0].subjectName}}</td>
+                <td>{{res.resultDetails[0].testDate.toLocaleDateString('ru-RU')}}</td>
+                <td>{{res.resultDetails[0].marks.split('|')[0]}}</td>
+                <td>{{res.resultDetails[0].grade5}}</td>
+                <td  style="vertical-align:middle;text-align:center" [attr.rowspan]="res.resultDetails.length">
+                    <a href="/ParticipReport/GetReport?testId={{res.resultDetails[0].testId}}&participCode={{particip.participCode}}">СКАЧАТЬ</a>
+                </td>
+            </tr>
+            <tr *ngFor="let subres of res.resultDetails.slice(1)">
+                <td>{{subres.subjectName}}</td>
+                <td>{{subres.testDate.toLocaleDateString('ru-RU')}}</td>
+                <td>{{subres.marks.split('|')[0]}}</td>
+                <td>{{subres.grade5}}</td>
+            </tr>
+        </template>
+    </table>
+</div>

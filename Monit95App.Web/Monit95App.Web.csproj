@@ -218,6 +218,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ParticipReportController.cs" />
     <Compile Include="Controllers\RsurController.cs" />
     <Compile Include="Controllers\CollectorMarksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -252,6 +253,7 @@
     <Content Include="app\particips\particip-list.html" />
     <Content Include="app\particips\particip-modal.html" />
     <Content Include="app\particips\particips.html" />
+    <Content Include="app\particips\results-modal.html" />
     <Content Include="app\plan\plan.html" />
     <Content Include="app\result\result.html" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -448,6 +450,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
+    <Folder Include="Views\ParticipReport\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -496,6 +499,8 @@
     <TypeScriptCompile Include="app\particips\particip.service.ts" />
     <TypeScriptCompile Include="app\particips\particip.model.ts" />
     <TypeScriptCompile Include="app\particips\particips.component.ts" />
+    <TypeScriptCompile Include="app\particips\results-modal.component.ts" />
+    <TypeScriptCompile Include="app\particips\results.model.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
     <TypeScriptCompile Include="app\result\result.component.ts" />
     <TypeScriptCompile Include="app\user.service.ts" />
