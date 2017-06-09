@@ -62,19 +62,11 @@ export class ParticipService {
 					for (let index2 in resultDetailsInJSON)
 					{
 						let detailInJSON = resultDetailsInJSON[Number.parseInt(index2)]
-						resultDetail.push(new ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId))
+						resultDetail.push(new ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId, detailInJSON.ReportExisting))
 					}
 					results.push(new ResultsModel(resultDetail))
 				}
 				return results;
 			})
-	}
-
-	checkReportIsExist(testId: string, participCode: string): Observable<boolean> {//TODO: доделать!
-		return this._http.head('/ParticipReport/IsExest?testId' + testId + '&participCode=' + participCode)
-			.map((resp: Response) => {
-				let result = resp.json();
-				return Boolean(result);
-			});
 	}
 }

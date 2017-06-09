@@ -9,6 +9,8 @@ namespace Monit95App.Models
 {
     public class PParticipViewer : IPParticipViewer
     {
+        private readonly string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
+
         public PParticipViewModel CreateViewModel(ProjectParticip entity)
         {
             var vm = new PParticipViewModel
@@ -28,6 +30,32 @@ namespace Monit95App.Models
                 ClassNumbers = entity.ClassNumbers
             };
             return vm;
+        }
+
+        public ParticipResultsViewModel CreateResultViewModel(TestResult entity, string participCode)
+        {
+            return new ParticipResultsViewModel
+            {
+                SubjectName = entity.ParticipTest.ProjectTest.Test.Name,
+                TestDate = entity.ParticipTest.ProjectTest.TestDate,
+                Marks = entity.Marks,
+                Grade5 = entity.Grade5,
+                TestId = entity.ParticipTest.ProjectTest.Test.Id.ToString(),
+                NumberCode = entity.ParticipTest.ProjectTest.Test.NumberCode,
+                ReportExisting =  ReportIsExist(entity.ParticipTest.ProjectTest.Test.Id.ToString(), participCode)
+            };
+        }
+
+        private bool ReportIsExist(string testId, string participCode)
+        {
+            if (System.IO.File.Exists($@"{reportFolder}\{testId}\{participCode}.pdf"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

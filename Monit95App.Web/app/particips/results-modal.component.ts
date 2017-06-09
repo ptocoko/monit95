@@ -27,8 +27,6 @@ export class ResultsModalComponent implements ModalComponent<ParticipModel>, OnI
 	getResults(participCode: string) {
 		this.participService.getParticipResults(participCode).subscribe(res => {
 			this.results = res;
-			console.log(JSON.stringify(this.results));//TODO: delete this!
 		});
 	}
-	
 }

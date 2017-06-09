@@ -27,15 +27,7 @@ var ResultsModalComponent = (function () {
         var _this = this;
         this.participService.getParticipResults(participCode).subscribe(function (res) {
             _this.results = res;
-            console.log(JSON.stringify(_this.results)); //TODO: delete this!
         });
-    };
-    ResultsModalComponent.prototype.myRange = function (array) {
-        var res = [];
-        array.forEach(function (val, i, arr) {
-            res.push(i);
-        });
-        return res;
     };
     return ResultsModalComponent;
 }());

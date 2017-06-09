@@ -16,7 +16,7 @@
                 <td>{{res.resultDetails[0].marks.split('|')[0]}}</td>
                 <td>{{res.resultDetails[0].grade5}}</td>
                 <td  style="vertical-align:middle;text-align:center" [attr.rowspan]="res.resultDetails.length">
-                    <a href="/ParticipReport/GetReport?testId={{res.resultDetails[0].testId}}&participCode={{particip.participCode}}">СКАЧАТЬ</a>
+                    <a *ngIf="res.resultDetails[0].reportExisting" href="/ParticipReport/GetReport?testId={{res.resultDetails[0].testId}}&participCode={{particip.participCode}}">СКАЧАТЬ</a>
                 </td>
             </tr>
             <tr *ngFor="let subres of res.resultDetails.slice(1)">

@@ -10,5 +10,6 @@ namespace Monit95App.Models.Abstarct
     public interface IPParticipViewer
     {
         PParticipViewModel CreateViewModel(ProjectParticip entity);
+        ParticipResultsViewModel CreateResultViewModel(TestResult entity, string participCode);
     }
 }

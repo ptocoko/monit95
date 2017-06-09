@@ -27,17 +27,5 @@ namespace Monit95App.Controllers
 
             return result;
         }
-
-        public bool IsExist(string testId, string participCode)
-        {
-            if (System.IO.File.Exists($@"{reportFolder}\{testId}\{participCode}.pdf"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 }

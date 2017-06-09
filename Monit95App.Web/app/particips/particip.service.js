@@ -47,7 +47,7 @@ var ParticipService = (function () {
                 resultDetail = [];
                 for (var index2 in resultDetailsInJSON) {
                     var detailInJSON = resultDetailsInJSON[Number.parseInt(index2)];
-                    resultDetail.push(new results_model_1.ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId));
+                    resultDetail.push(new results_model_1.ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId, detailInJSON.ReportExisting));
                 }
                 results.push(new results_model_1.ResultsModel(resultDetail));
             }

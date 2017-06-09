@@ -236,6 +236,7 @@
     <Compile Include="Models\FolderSchoolIds.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Monit10Learner.cs" />
+    <Compile Include="Models\ParticipResultsViewModel.cs" />
     <Compile Include="Models\PParticipViewer.cs" />
     <Compile Include="Models\PParticipViewModel.cs" />
     <Compile Include="Models\ReportMetaManager.cs" />
