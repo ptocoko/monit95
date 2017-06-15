@@ -26,23 +26,6 @@
           <Property Name="Id" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="5" Nullable="false" />
         </EntityType>
-        <EntityType Name="Collectors">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="StatucCode" Type="smallint" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CollectorSchools">
-          <Key>
-            <PropertyRef Name="CollectorId" />
-            <PropertyRef Name="SchoolId" />
-          </Key>
-          <Property Name="CollectorId" Type="int" Nullable="false" />
-          <Property Name="SchoolId" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="StatusCode" Type="smallint" Nullable="false" />
-        </EntityType>
         <EntityType Name="Element">
           <Key>
             <PropertyRef Name="Id" />
@@ -225,7 +208,6 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ExcerMaxMarks" Type="varchar" MaxLength="50" />
-          <Property Name="Temp" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="TestResults">
           <Key>
@@ -257,30 +239,6 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_CollectorSchools_Collectors">
-          <End Role="Collectors" Type="Self.Collectors" Multiplicity="1" />
-          <End Role="CollectorSchools" Type="Self.CollectorSchools" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Collectors">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CollectorSchools">
-              <PropertyRef Name="CollectorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CollectorSchools_school">
-          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
-          <End Role="CollectorSchools" Type="Self.CollectorSchools" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schools">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CollectorSchools">
-              <PropertyRef Name="SchoolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ExerciseMarks_ProjectParticipsV2">
           <End Role="ProjectParticipsV2" Type="Self.ProjectParticipsV2" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -555,8 +513,6 @@
           <EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Collectors" EntityType="Self.Collectors" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CollectorSchools" EntityType="Self.CollectorSchools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Element" EntityType="Self.Element" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ElementType" EntityType="Self.ElementType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExerciseMarks" EntityType="Self.ExerciseMarks" Schema="dbo" store:Type="Tables" />
@@ -575,14 +531,6 @@
           <EntitySet Name="TestResults" EntityType="Self.TestResults" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestResultsV2" EntityType="Self.TestResultsV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TownTypes" EntityType="Self.TownTypes" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CollectorSchools_Collectors" Association="Self.FK_CollectorSchools_Collectors">
-            <End Role="Collectors" EntitySet="Collectors" />
-            <End Role="CollectorSchools" EntitySet="CollectorSchools" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CollectorSchools_school" Association="Self.FK_CollectorSchools_school">
-            <End Role="Schools" EntitySet="Schools" />
-            <End Role="CollectorSchools" EntitySet="CollectorSchools" />
-          </AssociationSet>
           <AssociationSet Name="FK_ExerciseMarks_ProjectParticipsV2" Association="Self.FK_ExerciseMarks_ProjectParticipsV2">
             <End Role="ProjectParticipsV2" EntitySet="ProjectParticipsV2" />
             <End Role="ExerciseMarks" EntitySet="ExerciseMarks" />
@@ -691,26 +639,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ProjectParticips" Relationship="Self.FK_ProjectParticips_Categories" FromRole="Categories" ToRole="ProjectParticips" />
-        </EntityType>
-        <EntityType Name="Collector">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StatucCode" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="CollectorSchools" Relationship="Self.FK_CollectorSchools_Collectors" FromRole="Collectors" ToRole="CollectorSchools" />
-        </EntityType>
-        <EntityType Name="CollectorSchool">
-          <Key>
-            <PropertyRef Name="CollectorId" />
-            <PropertyRef Name="SchoolId" />
-          </Key>
-          <Property Name="CollectorId" Type="Int32" Nullable="false" />
-          <Property Name="SchoolId" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="StatusCode" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="Collector" Relationship="Self.FK_CollectorSchools_Collectors" FromRole="CollectorSchools" ToRole="Collectors" />
-          <NavigationProperty Name="School" Relationship="Self.FK_CollectorSchools_school" FromRole="CollectorSchools" ToRole="Schools" />
         </EntityType>
         <EntityType Name="ExerciseMark">
           <Key>
@@ -856,7 +784,6 @@
           <Property Name="PropertyTypeCode" Type="Int32" />
           <Property Name="Monit95Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Area" Relationship="Self.FK_Schools_Areas" FromRole="Schools" ToRole="Areas" />
-          <NavigationProperty Name="CollectorSchools" Relationship="Self.FK_CollectorSchools_school" FromRole="Schools" ToRole="CollectorSchools" />
           <NavigationProperty Name="GiaResults" Relationship="Self.FK_GiaResults_Schools" FromRole="Schools" ToRole="GiaResults" />
           <NavigationProperty Name="ProjectParticips" Relationship="Self.FK_ProjectParticips_Schools" FromRole="Schools" ToRole="ProjectParticips" />
           <NavigationProperty Name="TownType" Relationship="cokoModel.FK_Schools_TownTypes" FromRole="School" ToRole="TownType" />
@@ -883,30 +810,6 @@
             </Principal>
             <Dependent Role="ProjectParticips">
               <PropertyRef Name="CategId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CollectorSchools_Collectors">
-          <End Role="Collectors" Type="Self.Collector" Multiplicity="1" />
-          <End Role="CollectorSchools" Type="Self.CollectorSchool" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Collectors">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CollectorSchools">
-              <PropertyRef Name="CollectorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CollectorSchools_school">
-          <End Role="Schools" Type="Self.School" Multiplicity="1" />
-          <End Role="CollectorSchools" Type="Self.CollectorSchool" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schools">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CollectorSchools">
-              <PropertyRef Name="SchoolId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -999,8 +902,6 @@
         <EntityContainer Name="cokoContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Areas" EntityType="Self.Area" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Collectors" EntityType="Self.Collector" />
-          <EntitySet Name="CollectorSchools" EntityType="Self.CollectorSchool" />
           <EntitySet Name="ExerciseMarks" EntityType="Self.ExerciseMark" />
           <EntitySet Name="GiaResults" EntityType="Self.GiaResult" />
           <EntitySet Name="NsurSubjects" EntityType="Self.NsurSubject" />
@@ -1017,14 +918,6 @@
           <AssociationSet Name="FK_ProjectParticips_Categories" Association="Self.FK_ProjectParticips_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="ProjectParticips" EntitySet="ProjectParticips" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CollectorSchools_Collectors" Association="Self.FK_CollectorSchools_Collectors">
-            <End Role="Collectors" EntitySet="Collectors" />
-            <End Role="CollectorSchools" EntitySet="CollectorSchools" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CollectorSchools_school" Association="Self.FK_CollectorSchools_school">
-            <End Role="Schools" EntitySet="Schools" />
-            <End Role="CollectorSchools" EntitySet="CollectorSchools" />
           </AssociationSet>
           <AssociationSet Name="FK_GiaResults_Projects" Association="Self.FK_GiaResults_Projects">
             <End Role="Projects" EntitySet="Projects" />
@@ -1095,11 +988,11 @@
           <EntitySet Name="Grades" EntityType="cokoModel.Grade" />
           <EntitySet Name="Elements" EntityType="cokoModel.Element" />
           <EntitySet Name="ElementTypes" EntityType="cokoModel.ElementType" />
-          <EntitySet Name="Tests" EntityType="cokoModel.Test" />
           <AssociationSet Name="FK_TestElements_ElementTypes" Association="cokoModel.FK_TestElements_ElementTypes">
             <End Role="ElementType" EntitySet="ElementTypes" />
             <End Role="Element" EntitySet="Elements" />
           </AssociationSet>
+          <EntitySet Name="Tests" EntityType="cokoModel.Test" />
           <AssociationSet Name="FK_TestElements_Tests" Association="cokoModel.FK_TestElements_Tests">
             <End Role="Test" EntitySet="Tests" />
             <End Role="Element" EntitySet="Elements" />
@@ -1312,21 +1205,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Elements" Relationship="cokoModel.FK_TestElements_ElementTypes" FromRole="ElementType" ToRole="Element" />
         </EntityType>
-        <EntityType Name="Test">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="NumberCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ExcerMaxMarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Temp" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Elements" Relationship="cokoModel.FK_TestElements_Tests" FromRole="Test" ToRole="Element" />
-          <NavigationProperty Name="ExerciseMarks" Relationship="cokoModel.FK_ExerciseMarks_Tests" FromRole="Test" ToRole="ExerciseMark" />
-          <NavigationProperty Name="Grades" Relationship="cokoModel.FK_Grade5_Tests" FromRole="Test" ToRole="Grade" />
-          <NavigationProperty Name="ProjectTests" Relationship="cokoModel.FK_ProjectTests_Tests" FromRole="Test" ToRole="ProjectTest" />
-        </EntityType>
         <Association Name="FK_TestElements_ElementTypes">
           <End Type="cokoModel.ElementType" Role="ElementType" Multiplicity="1" />
           <End Type="cokoModel.Element" Role="Element" Multiplicity="*" />
@@ -1339,6 +1217,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="NumberCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExcerMaxMarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Elements" Relationship="cokoModel.FK_TestElements_Tests" FromRole="Test" ToRole="Element" />
+          <NavigationProperty Name="ExerciseMarks" Relationship="cokoModel.FK_ExerciseMarks_Tests" FromRole="Test" ToRole="ExerciseMark" />
+          <NavigationProperty Name="Grades" Relationship="cokoModel.FK_Grade5_Tests" FromRole="Test" ToRole="Grade" />
+          <NavigationProperty Name="ProjectTests" Relationship="cokoModel.FK_ProjectTests_Tests" FromRole="Test" ToRole="ProjectTest" />
+        </EntityType>
         <Association Name="FK_TestElements_Tests">
           <End Type="cokoModel.Test" Role="Test" Multiplicity="1" />
           <End Type="cokoModel.Element" Role="Element" Multiplicity="*" />
@@ -1406,24 +1298,6 @@
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Collectors">
-            <EntityTypeMapping TypeName="cokoModel.Collector">
-              <MappingFragment StoreEntitySet="Collectors">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="StatucCode" ColumnName="StatucCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CollectorSchools">
-            <EntityTypeMapping TypeName="cokoModel.CollectorSchool">
-              <MappingFragment StoreEntitySet="CollectorSchools">
-                <ScalarProperty Name="CollectorId" ColumnName="CollectorId" />
-                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1655,7 +1529,6 @@
           <EntitySetMapping Name="Tests">
             <EntityTypeMapping TypeName="cokoModel.Test">
               <MappingFragment StoreEntitySet="Test">
-                <ScalarProperty Name="Temp" ColumnName="Temp" />
                 <ScalarProperty Name="ExcerMaxMarks" ColumnName="ExcerMaxMarks" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

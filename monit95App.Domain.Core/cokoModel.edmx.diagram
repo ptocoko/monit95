@@ -7,8 +7,6 @@
       <Diagram DiagramId="804f084d4abf4f0080fa7534e57e7708" Name="Diagram1">
         <EntityTypeShape EntityType="cokoModel.Area" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.Category" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="cokoModel.Collector" Width="1.5" PointX="3" PointY="22.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="cokoModel.CollectorSchool" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.ExerciseMark" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.GiaResult" Width="1.5" PointX="8.25" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="cokoModel.NsurSubject" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
@@ -20,8 +18,6 @@
         <EntityTypeShape EntityType="cokoModel.School" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <AssociationConnector Association="cokoModel.FK_Schools_Areas" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="cokoModel.FK_CollectorSchools_Collectors" ManuallyRouted="false" />
-        <AssociationConnector Association="cokoModel.FK_CollectorSchools_school" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_GiaResults_Projects" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_GiaResults_Schools" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticips_NsurSubjects" ManuallyRouted="false" />
@@ -46,8 +42,8 @@
         <EntityTypeShape EntityType="cokoModel.Grade" Width="1.5" PointX="5.25" PointY="21.25" />
         <EntityTypeShape EntityType="cokoModel.Element" Width="1.5" PointX="3" PointY="19.25" />
         <EntityTypeShape EntityType="cokoModel.ElementType" Width="1.5" PointX="0.75" PointY="21.75" />
-        <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="0.75" PointY="17" />
         <AssociationConnector Association="cokoModel.FK_TestElements_ElementTypes" />
+        <EntityTypeShape EntityType="cokoModel.Test" Width="1.5" PointX="0.75" PointY="17.125" />
         <AssociationConnector Association="cokoModel.FK_TestElements_Tests" />
         <AssociationConnector Association="cokoModel.FK_ExerciseMarks_Tests" />
         <AssociationConnector Association="cokoModel.FK_Grade5_Tests" />
