@@ -92,7 +92,6 @@
     <Compile Include="Grade.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Learner.cs" />
     <Compile Include="NsurSubject.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>

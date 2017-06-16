@@ -242,7 +242,6 @@
     <Compile Include="Models\ReportMetaManager.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
     <Compile Include="ViewModels\CollectorMarks\ProjectParticipV2.cs" />
-    <Compile Include="ViewModels\Home\LearnerVM.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />
     <Compile Include="ViewModels\Home\FooterVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

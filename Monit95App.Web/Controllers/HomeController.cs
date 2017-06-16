@@ -13,30 +13,7 @@ namespace Monit95App.Controllers
     {
         private readonly cokoContext _context = new cokoContext();        
 
-        [OutputCache(Duration=1800, Location = OutputCacheLocation.Client, VaryByParam = "subjectCode")]
-        public JsonResult GetAllParticips(int subjectCode)
-        {
-            var participInfos = new List<LearnerVM>();
-            foreach (var result in _context.GiaResults.Where(x => x.ProjectCode == 201676 && x.SubjectCode == subjectCode))
-            {
-                participInfos.Add(new LearnerVM
-                {
-                    Id = result.ParticipCode,
-                    SchoolId = result.SchoolId,
-                    Learner = new Learner
-                    {
-                        Surname = result.Surname,
-                        Name = result.Name,
-                        SecondName = string.IsNullOrEmpty(result.SecondName) ? string.Empty : result.SecondName
-                    },
-                    AreaIdWithName = $"{result.School.AreaCode} - {result.School.Area.Name}",
-                    SchoolIdWithName = $"{result.SchoolId} - {result.School.Name}"
-                });
-            }
-            var jsonResult = Json(participInfos, JsonRequestBehavior.AllowGet);
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
-        }        
+        [OutputCache(Duration=1800, Location = OutputCacheLocation.Client, VaryByParam = "subjectCode")]        
 
         public ActionResult Oge2016()
         {
