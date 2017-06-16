@@ -6,9 +6,10 @@
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчеcтво</th>
+            <th>Предмет</th>
             <th>Дата рождения</th>
-            <th>Класс</th>
-            <th>Change</th>
+            <th>Классы</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
             <td>{{particip.surname}}</td>
             <td>{{particip.name}}</td>
             <td>{{particip.secondName}}</td>
+            <td>{{particip.subjectName}}</td>
             <td [ngClass]="{'red' : !particip.classNumbers}">{{particip.birthday?.toLocaleDateString('ru-RU')}}</td>
             <td [ngClass]="{'red' : !particip.classNumbers}">{{particip.classNumbers}}</td>
             <td><a class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a></td>

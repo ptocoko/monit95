@@ -36,26 +36,7 @@ namespace Monit95App.Controllers
             var jsonResult = Json(participInfos, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
-        }
-
-        //public JsonResult GetCollectorSchoolInfos(int collectorId = 201650)
-        //{
-        //    var collectorSchools = new List<CollectorSchoolInfo>();
-        //    var schools = _context.CollectorSchools.Where(x => x.CollectorId == collectorId)
-        //                                           .Select(x => new
-        //                                           {
-        //                                               x.School,
-        //                                               x.StatusCode
-        //                                           }).Distinct().ToList();
-        //    schools.ForEach(x =>
-        //    collectorSchools.Add(new CollectorSchoolInfo
-        //    {
-        //        schoolBaseInfo = CreatorSchoolInfo.CreateBaseVersion(x.School),
-        //        StatusName = x.StatusCode == 0 ? "не загруженно" : "загруженно"
-        //    })
-        //    );
-        //    return Json(collectorSchools, JsonRequestBehavior.AllowGet);
-        //}
+        }        
 
         public ActionResult Oge2016()
         {
