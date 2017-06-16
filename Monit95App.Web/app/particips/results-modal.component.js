@@ -29,6 +29,9 @@ var ResultsModalComponent = (function () {
             _this.results = res;
         });
     };
+    ResultsModalComponent.prototype.close = function () {
+        this.dialog.close();
+    };
     return ResultsModalComponent;
 }());
 ResultsModalComponent = __decorate([

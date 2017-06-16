@@ -29,4 +29,8 @@ export class ResultsModalComponent implements ModalComponent<ParticipModel>, OnI
 			this.results = res;
 		});
 	}
+
+	close() {
+		this.dialog.close();
+	}
 }

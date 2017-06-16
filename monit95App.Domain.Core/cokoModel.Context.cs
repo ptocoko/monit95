@@ -27,8 +27,6 @@ namespace Monit95App.Domain.Core
     
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Collector> Collectors { get; set; }
-        public virtual DbSet<CollectorSchool> CollectorSchools { get; set; }
         public virtual DbSet<ExerciseMark> ExerciseMarks { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<NsurSubject> NsurSubjects { get; set; }

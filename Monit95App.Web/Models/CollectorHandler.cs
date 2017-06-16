@@ -25,19 +25,19 @@ namespace Monit95App.Models
             this.folder = $@"~/Files/{collectorId}/collector";            
         }
 
-        public void UpdateCollectorSchools() //update table "CollectorSchools" in DB
-        {            
-            var folderSchoolIds = iFolderSchoolIds.GetFolderSchoolIds(folder);
-            var collectSchools = cokoDbContext.CollectorSchools.Where(x => x.CollectorId == collectorId);
-            foreach(var collectSchool in collectSchools)
-            {
-                collectSchool.StatusCode = 0;
-            }
-            var collectFolderSchools = collectSchools.Where(x => folderSchoolIds.Contains(x.SchoolId));
-            foreach (var collectFolderSchool in collectFolderSchools)
-            {
-                collectFolderSchool.StatusCode = 1;
-            }
-        }
+        //public void UpdateCollectorSchools() //update table "CollectorSchools" in DB
+        //{            
+        //    var folderSchoolIds = iFolderSchoolIds.GetFolderSchoolIds(folder);
+        //    var collectSchools = cokoDbContext.CollectorSchools.Where(x => x.CollectorId == collectorId);
+        //    foreach(var collectSchool in collectSchools)
+        //    {
+        //        collectSchool.StatusCode = 0;
+        //    }
+        //    var collectFolderSchools = collectSchools.Where(x => folderSchoolIds.Contains(x.SchoolId));
+        //    foreach (var collectFolderSchool in collectFolderSchools)
+        //    {
+        //        collectFolderSchool.StatusCode = 1;
+        //    }
+        //}
     }
 }

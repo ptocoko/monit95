@@ -75,12 +75,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>cokoModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Collector.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CollectorSchool.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="CollectorSchoolInfo.cs" />
     <Compile Include="CreatorSchoolInfo.cs" />
     <Compile Include="Element.cs">
