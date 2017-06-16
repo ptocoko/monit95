@@ -42,8 +42,6 @@
   <ItemGroup>
     <Compile Include="IRepository.cs" />
     <Compile Include="IRepositoryV2.cs" />
-    <Compile Include="ISchoolBaseInfo.cs" />
-    <Compile Include="ISchoolFullInfo.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
