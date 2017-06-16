@@ -240,6 +240,8 @@
     <Compile Include="Models\PParticipViewer.cs" />
     <Compile Include="Models\PParticipViewModel.cs" />
     <Compile Include="Models\ReportMetaManager.cs" />
+    <Compile Include="Models\SchoolModel.cs" />
+    <Compile Include="SchoolModelCreator.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
     <Compile Include="ViewModels\CollectorMarks\ProjectParticipV2.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />

@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using System.Web.UI;
 using Monit95App.Domain.Core;
+using Monit95App.Web;
 
 namespace Monit95App.Controllers
 {
@@ -66,7 +67,7 @@ namespace Monit95App.Controllers
         public ActionResult GetSchoolinfoPV(string schoolId)
         {
             var currentSchool = _context.Schools.Find(schoolId);
-            var vm = CreatorSchoolInfo.CreateFullVersion(currentSchool);
+            var vm = SchoolModelCreator.CreateFullVersion(currentSchool);
             return PartialView("_Schoolinfo", vm);
         }
 
@@ -74,7 +75,7 @@ namespace Monit95App.Controllers
         public ActionResult Schoolinfo()
         {                                       
             var currentSchool = _context.Schools.Find(User.Identity.Name);
-            var vm = CreatorSchoolInfo.CreateFullVersion(currentSchool);
+            var vm = SchoolModelCreator.CreateFullVersion(currentSchool);
             return View(vm);
         }
 

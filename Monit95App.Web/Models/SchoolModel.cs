@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Monit95App.Domain.Core
+namespace Monit95App.Web.Models
 {
-    public class SchoolFullInfo
+    public class SchoolModel
     {
         [Display(Name = "Логин на сайте www.monit95.ru:")]
         public string Id { get; set; }
