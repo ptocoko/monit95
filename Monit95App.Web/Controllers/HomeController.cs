@@ -12,14 +12,7 @@ namespace Monit95App.Controllers
     //Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
-        private readonly cokoContext _context = new cokoContext();        
-
-        [OutputCache(Duration=1800, Location = OutputCacheLocation.Client, VaryByParam = "subjectCode")]        
-
-        public ActionResult Oge2016()
-        {
-            return View();
-        }
+        private readonly cokoContext _context = new cokoContext();             
 
         public HomeController()
         {
