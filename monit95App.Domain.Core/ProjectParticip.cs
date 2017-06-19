@@ -38,7 +38,7 @@ namespace Monit95App.Domain.Core
         public virtual NsurSubject NsurSubject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParticipTest> ParticipTests { get; set; }
-        public virtual School School { get; set; }
         public virtual Project Project { get; set; }
+        public virtual School School { get; set; }
     }
 }

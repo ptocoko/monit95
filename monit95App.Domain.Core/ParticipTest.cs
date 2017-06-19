@@ -19,8 +19,8 @@ namespace Monit95App.Domain.Core
         public string ParticipCode { get; set; }
         public int ProjectTestId { get; set; }
     
-        public virtual ProjectParticip ProjectParticip { get; set; }
         public virtual ProjectTest ProjectTest { get; set; }
         public virtual TestResult TestResult { get; set; }
+        public virtual ProjectParticip ProjectParticip { get; set; }
     }
 }

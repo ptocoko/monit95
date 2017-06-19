@@ -31,7 +31,6 @@ namespace Monit95App.Domain.Core
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<NsurSubject> NsurSubjects { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
-        public virtual DbSet<ProjectParticip> ProjectParticips { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
@@ -46,5 +45,6 @@ namespace Monit95App.Domain.Core
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<ProjectParticip> ProjectParticips { get; set; }
     }
 }
