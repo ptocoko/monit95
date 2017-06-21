@@ -10,28 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var user_service_1 = require("../user.service");
-var PlanComponent = (function () {
-    function PlanComponent(userService) {
-        this.userService = userService;
+var particip_service_1 = require("../particip.service");
+var EditParticipComponent = (function () {
+    function EditParticipComponent(participService) {
+        this.participService = participService;
     }
-    PlanComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userService.getName().subscribe(function (user) {
-            if (user.isAreaRole)
-                _this.areaCode = Number.parseInt(user.userName);
-        });
-    };
-    return PlanComponent;
+    return EditParticipComponent;
 }());
-PlanComponent = __decorate([
+EditParticipComponent = __decorate([
     core_1.Component({
-        selector: 'plan',
-        templateUrl: './app/plan/plan.html',
-        providers: [user_service_1.UserService]
+        selector: 'edit-particip',
+        templateUrl: './app/particips/edit-particip/edit-particip.html'
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
-], PlanComponent);
-exports.PlanComponent = PlanComponent;
-;
-//# sourceMappingURL=plan.component.js.map
+    __metadata("design:paramtypes", [particip_service_1.ParticipService])
+], EditParticipComponent);
+exports.EditParticipComponent = EditParticipComponent;
+//# sourceMappingURL=edit-particip.component.js.map

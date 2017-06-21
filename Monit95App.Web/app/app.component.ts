@@ -11,11 +11,6 @@ export class AppComponent implements OnInit {
     constructor(private userService: UserService) { }
 
     ngOnInit() {
-        this.userService.getName().subscribe(
-            response => {
-                let result = response.json();           
-                this.userHasAreaRole = result.IsAreaRole;              
-            }
-        );
+		this.userService.getName().subscribe(user => this.userHasAreaRole = user.isAreaRole);
     }
 }

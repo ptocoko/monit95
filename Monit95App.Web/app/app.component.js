@@ -17,10 +17,7 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getName().subscribe(function (response) {
-            var result = response.json();
-            _this.userHasAreaRole = result.IsAreaRole;
-        });
+        this.userService.getName().subscribe(function (user) { return _this.userHasAreaRole = user.isAreaRole; });
     };
     return AppComponent;
 }());

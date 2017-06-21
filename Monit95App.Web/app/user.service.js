@@ -11,12 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var user_model_1 = require("./user.model");
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
     }
     UserService.prototype.getName = function () {
-        return this.http.get('/api/AccountApi/GetUserNameAndRole');
+        return this.http.get('/api/AccountApi/GetUserNameAndRole')
+            .map(function (resp) {
+            var res = resp.json();
+            return new user_model_1.UserModel(res.UserName, res.IsAreaRole);
+        });
     };
     return UserService;
 }());

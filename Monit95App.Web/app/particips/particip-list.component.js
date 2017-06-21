@@ -24,21 +24,19 @@ var ParticipListComponent = (function () {
     }
     ParticipListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getName().subscribe(function (response) {
-            var result = response.json();
-            _this.userName = result.UserName;
-            _this.isAreaRole = result.IsAreaRole;
-            _this.getByAreaCode();
-            if (_this.isAreaRole) {
+        this.userService.getName().subscribe(function (user) {
+            _this.isAreaRole = user.isAreaRole;
+            _this.getByAreaCode(user);
+            if (user.isAreaRole) {
                 _this.participListDocPath =
-                    'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + _this.userName + '/' + _this.userName + '_список.xlsx';
+                    'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + user.userName + '/' + user.userName + '_список.xlsx';
             }
         });
     };
     //Get by areaCode
-    ParticipListComponent.prototype.getByAreaCode = function () {
+    ParticipListComponent.prototype.getByAreaCode = function (user) {
         var _this = this;
-        this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(function (particips) { return _this.particips = particips; });
+        this.participService.getByAreaCode(user).subscribe(function (particips) { return _this.particips = particips; });
     };
     ParticipListComponent.prototype.openModal = function (particip) {
         this.modal.open(results_modal_component_1.ResultsModalComponent, angular2_modal_1.overlayConfigFactory(particip));

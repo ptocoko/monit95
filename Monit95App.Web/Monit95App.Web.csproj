@@ -252,6 +252,7 @@
   <ItemGroup>
     <Content Include="app\app.component.html" />
     <Content Include="app\particips\details\particip-details.html" />
+    <Content Include="app\particips\edit-particip\edit-particip.html" />
     <Content Include="app\particips\particip-list.html" />
     <Content Include="app\particips\details\particip-modal.html" />
     <Content Include="app\particips\particips.html" />
@@ -494,6 +495,7 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\particips\edit-particip\edit-particip.component.ts" />
     <TypeScriptCompile Include="app\particips\mock-particips.ts" />
     <TypeScriptCompile Include="app\particips\details\particip-details.component.ts" />
     <TypeScriptCompile Include="app\particips\particip-list.component.ts" />
@@ -506,6 +508,7 @@
     <TypeScriptCompile Include="app\particips\results\results.model.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
     <TypeScriptCompile Include="app\result\result.component.ts" />
+    <TypeScriptCompile Include="app\user.model.ts" />
     <TypeScriptCompile Include="app\user.service.ts" />
   </ItemGroup>
   <PropertyGroup>

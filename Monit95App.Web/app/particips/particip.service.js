@@ -19,8 +19,8 @@ var ParticipService = (function () {
         this._http = _http;
         this._getByAreaCodeUrl = '/api/ProjectParticip/GetByUserName?userName=';
     }
-    ParticipService.prototype.getByAreaCode = function (userName, isAreaRole) {
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + userName + "&isAreaRole=" + isAreaRole;
+    ParticipService.prototype.getByAreaCode = function (user) {
+        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&isAreaRole=" + user.isAreaRole;
         return this._http.get(getByAreaCodeUrl)
             .map(function (resp) {
             var participList = resp.json();

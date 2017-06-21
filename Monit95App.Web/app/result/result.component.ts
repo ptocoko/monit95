@@ -13,10 +13,9 @@ export class ResultComponent implements OnInit
     constructor(private userService: UserService) { }
 
     ngOnInit() {
-        this.userService.getName().subscribe(
-            response => {
-                this.areaCode = response.json();                
-            }
-        );
+		this.userService.getName().subscribe(user => {
+			if (user.isAreaRole)
+				this.areaCode = Number.parseInt(user.userName);
+		});
     }
 };

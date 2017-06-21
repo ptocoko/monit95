@@ -4,6 +4,7 @@ import { DialogRef, Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 import { ParticipModel } from '../particip.model';
+import { UserModel } from '../../user.model';
 import { ParticipModalComponent } from './particip-modal.component';
 
 import { ParticipService } from '../particip.service';
@@ -16,20 +17,13 @@ import { UserService } from '../../user.service';
 })
 export class ParticipDetailsComponent implements OnInit {
 	particips: ParticipModel[];
-	userName: string;
-	isAreaRole: boolean;
 	countOfNotEnteredData: number;
 	constructor(private participService: ParticipService, private userService: UserService, public modal: Modal) { }
 
 	ngOnInit() {
-		this.userService.getName().subscribe(
-			response => {
-				let result = response.json();
-				this.userName = result.UserName;
-				this.isAreaRole = result.IsAreaRole;
-				this.getByAreaCode();
-			}
-		);
+		this.userService.getName().subscribe(user => {
+			this.getByAreaCode(user);
+		});
 	}
 
 	modalOpen(particip: ParticipModel) {
@@ -68,8 +62,8 @@ export class ParticipDetailsComponent implements OnInit {
 	}
 
 	//Get by areaCode
-	getByAreaCode() {
-		this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(
+	getByAreaCode(user: UserModel) {
+		this.participService.getByAreaCode(user).subscribe(
 			particips => {
 				this.particips = particips;
 				this.setCountOfNotEnteredData();

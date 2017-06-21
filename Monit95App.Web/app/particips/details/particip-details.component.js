@@ -23,11 +23,8 @@ var ParticipDetailsComponent = (function () {
     }
     ParticipDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getName().subscribe(function (response) {
-            var result = response.json();
-            _this.userName = result.UserName;
-            _this.isAreaRole = result.IsAreaRole;
-            _this.getByAreaCode();
+        this.userService.getName().subscribe(function (user) {
+            _this.getByAreaCode(user);
         });
     };
     ParticipDetailsComponent.prototype.modalOpen = function (particip) {
@@ -65,9 +62,9 @@ var ParticipDetailsComponent = (function () {
         }
     };
     //Get by areaCode
-    ParticipDetailsComponent.prototype.getByAreaCode = function () {
+    ParticipDetailsComponent.prototype.getByAreaCode = function (user) {
         var _this = this;
-        this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(function (particips) {
+        this.participService.getByAreaCode(user).subscribe(function (particips) {
             _this.particips = particips;
             _this.setCountOfNotEnteredData();
         });

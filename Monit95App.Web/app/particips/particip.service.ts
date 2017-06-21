@@ -4,6 +4,7 @@ import 'rxjs/Rx';
 import { Observable }                                                      from 'rxjs/Observable';
 import { ParticipModel } from './particip.model';
 import { ResultsModel, ResultDetailsModel } from './results/results.model';
+import { UserModel } from '../user.model';
 
 @Component({
     providers: [Http]
@@ -14,11 +15,11 @@ export class ParticipService {
     public headers: Headers;
     constructor(private _http: Http) { }
 
-    public _getByAreaCodeUrl: string = '/api/ProjectParticip/GetByUserName?userName=';
+    private _getByAreaCodeUrl: string = '/api/ProjectParticip/GetByUserName?userName=';
 
-    getByAreaCode(userName: string, isAreaRole: boolean): Observable<ParticipModel[]> {
+    getByAreaCode(user: UserModel): Observable<ParticipModel[]> {
         
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + userName + "&isAreaRole=" + isAreaRole;
+        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&isAreaRole=" + user.isAreaRole;
         return this._http.get(getByAreaCodeUrl)
             .map((resp: Response) => {                
                 let participList = resp.json();
