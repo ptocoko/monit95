@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 
 import { ParticipService } from '../particip.service';
+import { UserService } from '../../user.service';
 import { ParticipModel } from '../particip.model';
 
 @Component({
@@ -10,9 +11,11 @@ import { ParticipModel } from '../particip.model';
 export class EditParticipComponent {
 	private particips: ParticipModel[];
 
-	constructor(private participService: ParticipService) { }
+	constructor(private participService: ParticipService, private userService: UserService) { }
 
-	//ngOnInit() {
-	//	this.participService.
-	//}
+	ngOnInit() {
+		this.userService.getName().subscribe(user => {
+			this.participService.getByAreaCode(user).subscribe(particips => this.particips = particips);
+		});
+	}
 }

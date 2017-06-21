@@ -11,10 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var particip_service_1 = require("../particip.service");
+var user_service_1 = require("../../user.service");
 var EditParticipComponent = (function () {
-    function EditParticipComponent(participService) {
+    function EditParticipComponent(participService, userService) {
         this.participService = participService;
+        this.userService = userService;
     }
+    EditParticipComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.userService.getName().subscribe(function (user) {
+            _this.participService.getByAreaCode(user).subscribe(function (particips) { return _this.particips = particips; });
+        });
+    };
     return EditParticipComponent;
 }());
 EditParticipComponent = __decorate([
@@ -22,7 +30,7 @@ EditParticipComponent = __decorate([
         selector: 'edit-particip',
         templateUrl: './app/particips/edit-particip/edit-particip.html'
     }),
-    __metadata("design:paramtypes", [particip_service_1.ParticipService])
+    __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService])
 ], EditParticipComponent);
 exports.EditParticipComponent = EditParticipComponent;
 //# sourceMappingURL=edit-particip.component.js.map

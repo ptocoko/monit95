@@ -9,6 +9,8 @@ import { ParticipListComponent } from './particips/particip-list.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './particips/details/particip-details.component';
+import { EditParticipComponent } from './particips/edit-particip/edit-particip.component';
+
 import { ParticipModalComponent } from './particips/details/particip-modal.component';
 import { ResultsModalComponent } from './particips/results/results-modal.component';
 
@@ -26,7 +28,18 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
 	imports: [BrowserModule, HttpModule, routing, FormsModule, ModalModule.forRoot(), BootstrapModalModule, MyDatePickerModule],
-	declarations: [AppComponent, ParticipsComponent, ParticipListComponent, ParticipFilterPipe, PlanComponent, ResultComponent, ParticipDetailsComponent, ParticipModalComponent, ResultsModalComponent],
+	declarations: [
+		AppComponent,
+		ParticipsComponent,
+		ParticipListComponent,
+		ParticipFilterPipe,
+		PlanComponent,
+		ResultComponent,
+		ParticipDetailsComponent,
+		ParticipModalComponent,
+		ResultsModalComponent,
+		EditParticipComponent
+	],
 	providers: [
 		UserService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },

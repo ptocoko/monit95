@@ -1,1 +1,25 @@
-﻿
+﻿<h1>Запрос на изменение сведений об учителях</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчеcтво</th>
+            <th>Предмет</th>
+            <th>Классы</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let particip of particips">
+            <td>{{particip.participCode}}</td>
+            <td>{{particip.surname}}</td>
+            <td>{{particip.name}}</td>
+            <td>{{particip.secondName}}</td>
+            <td>{{particip.subjectName}}</td>
+            <td>{{particip.classNumbers}}</td>
+            <td><a class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a></td>
+        </tr>
+    </tbody>
+</table>
