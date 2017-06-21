@@ -3,16 +3,16 @@
 import { DialogRef, Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
-import { ParticipModel } from './particip.model';
+import { ParticipModel } from '../particip.model';
 import { ParticipModalComponent } from './particip-modal.component';
 
-import { ParticipService } from './particip.service';
-import { UserService } from '../user.service';
+import { ParticipService } from '../particip.service';
+import { UserService } from '../../user.service';
 
 @Component({
 	selector: 'particip-details',
-	templateUrl: './app/particips/particip-details.html',
-	providers: [ParticipService, UserService, Modal]
+	templateUrl: './app/particips/details/particip-details.html',
+	providers: [Modal]
 })
 export class ParticipDetailsComponent implements OnInit {
 	particips: ParticipModel[];
@@ -41,7 +41,7 @@ export class ParticipDetailsComponent implements OnInit {
 				this.setDataByParticipCode(parCode, bDay, classes);
 				this.setCountOfNotEnteredData();
 			}).catch(() => {
-				console.log('haha');
+				//console.log('haha');
 			});
 		});
 	}

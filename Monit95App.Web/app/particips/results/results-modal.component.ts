@@ -2,14 +2,13 @@
 
 import { DialogRef, ModalComponent } from 'angular2-modal';
 
-import { ParticipModel } from './particip.model';
-import { ParticipService } from './particip.service';
+import { ParticipModel } from '../particip.model';
+import { ParticipService } from '../particip.service';
 import { ResultsModel, ResultDetailsModel } from './results.model';
 
 @Component({
 	selector: 'results-modal',
-	templateUrl: './app/particips/results-modal.html',
-	providers: [ParticipService]
+	templateUrl: './app/particips/results/results-modal.html'
 })
 export class ResultsModalComponent implements ModalComponent<ParticipModel>, OnInit {
 	particip: ParticipModel;

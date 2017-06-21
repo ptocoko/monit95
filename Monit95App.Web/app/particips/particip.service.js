@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/Rx");
 var particip_model_1 = require("./particip.model");
-var results_model_1 = require("./results.model");
+var results_model_1 = require("./results/results.model");
 var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;

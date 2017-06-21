@@ -3,7 +3,7 @@ import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from 
 import 'rxjs/Rx';
 import { Observable }                                                      from 'rxjs/Observable';
 import { ParticipModel } from './particip.model';
-import { ResultsModel, ResultDetailsModel } from './results.model';
+import { ResultsModel, ResultDetailsModel } from './results/results.model';
 
 @Component({
     providers: [Http]

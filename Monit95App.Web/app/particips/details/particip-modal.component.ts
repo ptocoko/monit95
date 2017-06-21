@@ -5,14 +5,13 @@ import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 import { IMyDpOptions } from 'mydatepicker';
 
-import { ParticipModel } from './particip.model';
-import { ParticipService } from './particip.service';
+import { ParticipModel } from '../particip.model';
+import { ParticipService } from '../particip.service';
 
 
 @Component({
 	selector: 'modal-content',
-	templateUrl: './app/particips/particip-modal.html',
-	providers: [ParticipService]
+	templateUrl: './app/particips/details/particip-modal.html'
 })
 export class ParticipModalComponent implements ModalComponent<ParticipModel> {
 	particip: ParticipModel;

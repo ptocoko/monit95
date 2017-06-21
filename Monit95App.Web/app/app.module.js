@@ -15,14 +15,15 @@ var particips_component_1 = require("./particips/particips.component");
 var particip_list_component_1 = require("./particips/particip-list.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
-var particip_details_component_1 = require("./particips/particip-details.component");
-var particip_modal_component_1 = require("./particips/particip-modal.component");
-var results_modal_component_1 = require("./particips/results-modal.component");
+var particip_details_component_1 = require("./particips/details/particip-details.component");
+var particip_modal_component_1 = require("./particips/details/particip-modal.component");
+var results_modal_component_1 = require("./particips/results/results-modal.component");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var mydatepicker_1 = require("mydatepicker");
 var particip_filter_pipe_1 = require("./particips/particip-filter.pipe");
 var user_service_1 = require("./user.service");
+var particip_service_1 = require("./particips/particip.service");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var AppModule = (function () {
@@ -34,10 +35,11 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_1.routing, forms_1.FormsModule, angular2_modal_1.ModalModule.forRoot(), bootstrap_1.BootstrapModalModule, mydatepicker_1.MyDatePickerModule],
         declarations: [app_component_1.AppComponent, particips_component_1.ParticipsComponent, particip_list_component_1.ParticipListComponent, particip_filter_pipe_1.ParticipFilterPipe, plan_component_1.PlanComponent, result_component_1.ResultComponent, particip_details_component_1.ParticipDetailsComponent, particip_modal_component_1.ParticipModalComponent, results_modal_component_1.ResultsModalComponent],
-        providers: [user_service_1.UserService, {
-                provide: common_1.LocationStrategy,
-                useClass: common_1.HashLocationStrategy
-            }],
+        providers: [
+            user_service_1.UserService,
+            { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
+            particip_service_1.ParticipService
+        ],
         entryComponents: [particip_modal_component_1.ParticipModalComponent, results_modal_component_1.ResultsModalComponent],
         bootstrap: [app_component_1.AppComponent]
     })
