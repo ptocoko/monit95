@@ -10,25 +10,25 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.Rsur
 {
-    public class ProjectParticipEditLogic : IProjectParticipEditLogic
+    public class ParticipEditService : IParticipEditService
     {
         private IUnitOfWork _unitOfWork;
-        private IGenericRepository<ProjectParticipsEdit> _projectParticipEditRepository;
+        private IGenericRepository<ProjectParticipsEdit> _participEditRepository;
 
-        public ProjectParticipEditLogic(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> projectParticipEditRepository)
+        public ParticipEditService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> participEditRepository)
         {
             this._unitOfWork = unitOfWork;
-            this._projectParticipEditRepository = projectParticipEditRepository;
+            this._participEditRepository = participEditRepository;
         }
 
-        public List<ProjectParticipEditModel> GetModels()
+        public List<ParticipEditModel> GetModels()
         {
-            var entities =  _projectParticipEditRepository.GetAll().ToList();
+            var entities = _participEditRepository.GetAll().ToList();
 
-            var models = new List<ProjectParticipEditModel>();
+            var models = new List<ParticipEditModel>();
             foreach (var entity in entities)
             {
-                ProjectParticipEditModel model = new ProjectParticipEditModel()
+                ParticipEditModel model = new ParticipEditModel()
                 {
                     ParticipCode = entity.ParticipCode,
                     ParticipSurname = entity.Surname,
@@ -41,7 +41,7 @@ namespace Monit95App.Services.Rsur
             return models;
         }
 
-        public void AddModel(ProjectParticipEditModel model)
+        public void AddModel(ParticipEditModel model)
         {
             if(model != null)
             {
@@ -53,7 +53,7 @@ namespace Monit95App.Services.Rsur
                     SecondName = model.ParticipSecondName
                 };
 
-                _projectParticipEditRepository.Insert(entity);
+                _participEditRepository.Insert(entity);
                 _unitOfWork.Save();
             }
         }

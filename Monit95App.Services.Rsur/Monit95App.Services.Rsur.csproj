@@ -41,9 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IProjectParticipEditLogic.cs" />
-    <Compile Include="Models\ProjectParticipEditModel.cs" />
-    <Compile Include="ProjectParticipEditLogic.cs" />
+    <Compile Include="Interfaces\IParticipEditService.cs" />
+    <Compile Include="Models\ParticipEditModel.cs" />
+    <Compile Include="ParticipEditService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
