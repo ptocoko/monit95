@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
-using Monit95App.Infrastructure.Data;
 using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services.DTO.Tests
 {

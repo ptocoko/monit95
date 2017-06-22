@@ -85,13 +85,13 @@
       <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
       <Name>Monit95App.Domain.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
+      <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
+      <Name>Monit95App.Infrastructure.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monit95App.Infrastructure.Data.Tests\Monit95App.Infrastructure.Data.Tests.csproj">
       <Project>{a8cd881c-fcf2-4326-b6bd-b9e587f28918}</Project>
       <Name>Monit95App.Infrastructure.Data.Tests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
-      <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
-      <Name>Monit95App.Infrastructure.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
       <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>

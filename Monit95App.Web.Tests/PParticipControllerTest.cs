@@ -6,10 +6,10 @@ using Monit95App.Api;
 using Moq;
 using System.Data.Entity;
 using System.Linq;
-using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using Monit95App.Infrastructure.Data.Tests;
 using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Web.Tests
 {

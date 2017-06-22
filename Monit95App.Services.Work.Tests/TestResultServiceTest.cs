@@ -4,8 +4,8 @@ using Monit95App.Services.Work.Abstract;
 using Monit95App.Services.Work.Concrete;
 using System.Collections;
 using System.Linq;
-using Monit95App.Infrastructure.Data;
 using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services.Work.Tests
 {

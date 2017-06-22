@@ -132,10 +132,6 @@
       <Project>{75bf5eac-81a8-4e00-a82e-0bcbd17ac50b}</Project>
       <Name>MailRuCloudApi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
-      <Project>{f3a784e6-8723-4628-9677-2374bed42492}</Project>
-      <Name>Monit95App.Infrastructure.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
       <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>
       <Name>Monit95App.Services.DTO</Name>
