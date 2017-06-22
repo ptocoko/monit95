@@ -26,6 +26,9 @@ var EditModalComponent = (function () {
             console.log(JSON.stringify(error));
         });
     };
+    EditModalComponent.prototype.cancel = function () {
+        this.dialog.dismiss();
+    };
     return EditModalComponent;
 }());
 EditModalComponent = __decorate([

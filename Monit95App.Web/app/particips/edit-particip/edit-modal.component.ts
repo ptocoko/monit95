@@ -26,4 +26,8 @@ export class EditModalComponent {
 		});
 		
 	}
+
+	cancel() {
+		this.dialog.dismiss();
+	}
 }

@@ -21,7 +21,10 @@
             <div [hidden]="secondName.valid || secondName.pristine" class="alert alert-danger">Введите отчество!</div>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="!participForm.form.valid">Отправить</button>
+        <div style="text-align:right">
+            <button type="submit" class="btn btn-success" [disabled]="!participForm.form.valid">Отправить</button>
+            <button class="btn btn-default btn-in-horizon" (click)="cancel()">Отменить</button>
+        </div>
     </form>
     <hr />
 </div>
