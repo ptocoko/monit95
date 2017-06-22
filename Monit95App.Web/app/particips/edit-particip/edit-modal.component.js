@@ -16,12 +16,17 @@ var EditModalComponent = (function () {
         this.dialog = dialog;
         this.particip = dialog.context;
     }
+    EditModalComponent.prototype.onSubmit = function () {
+        console.log(JSON.stringify(this.particip));
+        this.dialog.close();
+    };
     return EditModalComponent;
 }());
 EditModalComponent = __decorate([
     core_1.Component({
         selector: 'edit-modal',
-        templateUrl: './app/particips/edit-particip/edit-modal.html'
+        templateUrl: './app/particips/edit-particip/edit-modal.html',
+        styleUrls: ['./app/particips/edit-particip/edit-modal.css']
     }),
     __metadata("design:paramtypes", [angular2_modal_1.DialogRef])
 ], EditModalComponent);

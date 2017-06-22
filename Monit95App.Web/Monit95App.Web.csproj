@@ -252,6 +252,7 @@
   <ItemGroup>
     <Content Include="app\app.component.html" />
     <Content Include="app\particips\details\particip-details.html" />
+    <Content Include="app\particips\edit-particip\edit-modal.css" />
     <Content Include="app\particips\edit-particip\edit-modal.html" />
     <Content Include="app\particips\edit-particip\edit-particip.html" />
     <Content Include="app\particips\particip-list.html" />
