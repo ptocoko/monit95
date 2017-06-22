@@ -13,17 +13,17 @@ namespace Monit95App.Services.Rsur
     public class ProjectParticipEditLogic : IProjectParticipEditLogic
     {
         private IUnitOfWork _unitOfWork;
-        private IGenericRepository<ProjectParticipsEdit> _projectParticipToEditRepository;
+        private IGenericRepository<ProjectParticipsEdit> _projectParticipEditRepository;
 
-        public ProjectParticipEditLogic(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> projectParticipToEditRepository)
+        public ProjectParticipEditLogic(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> projectParticipEditRepository)
         {
             this._unitOfWork = unitOfWork;
-            this._projectParticipToEditRepository = projectParticipToEditRepository;
+            this._projectParticipEditRepository = projectParticipEditRepository;
         }
 
         public List<ProjectParticipEditModel> GetModels()
         {
-            var entities =  _projectParticipToEditRepository.GetAll().ToList();
+            var entities =  _projectParticipEditRepository.GetAll().ToList();
 
             var models = new List<ProjectParticipEditModel>();
             foreach (var entity in entities)
@@ -31,14 +31,31 @@ namespace Monit95App.Services.Rsur
                 ProjectParticipEditModel model = new ProjectParticipEditModel()
                 {
                     ParticipCode = entity.ParticipCode,
-                    Surname = entity.Surname,
-                    SecondName = entity.SecondName
+                    ParticipSurname = entity.Surname,
+                    ParticipSecondName = entity.SecondName
                 };
 
                 models.Add(model);
             }
 
             return models;
+        }
+
+        public void AddModel(ProjectParticipEditModel model)
+        {
+            if(model != null)
+            {
+                var entity = new ProjectParticipsEdit
+                {
+                    ParticipCode = model.ParticipCode,
+                    Surname = model.ParticipSurname,
+                    Name = model.ParticipName,
+                    SecondName = model.ParticipSecondName
+                };
+
+                _projectParticipEditRepository.Insert(entity);
+                _unitOfWork.Save();
+            }
         }
     }
 }
