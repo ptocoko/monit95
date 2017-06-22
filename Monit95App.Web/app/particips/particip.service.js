@@ -54,6 +54,9 @@ var ParticipService = (function () {
             return results;
         });
     };
+    ParticipService.prototype.postRequestToEdit = function (particip) {
+        return this._http.post('/api/ProjectParticip/PostRequestToEdit', particip);
+    };
     return ParticipService;
 }());
 ParticipService = __decorate([

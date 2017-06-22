@@ -91,6 +91,11 @@ namespace Monit95App.Api
             return res;
         }
 
+        public async void PostRequestToEdit(PParticipViewModel participVM)
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetDParticip(string primaryKey)
         {
             _unitOfWork.ProjectParticips.Delete(primaryKey);

@@ -11,14 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
+var particip_service_1 = require("../particip.service");
 var EditModalComponent = (function () {
-    function EditModalComponent(dialog) {
+    function EditModalComponent(dialog, participService) {
         this.dialog = dialog;
+        this.participService = participService;
         this.particip = dialog.context;
     }
     EditModalComponent.prototype.onSubmit = function () {
-        console.log(JSON.stringify(this.particip));
-        this.dialog.close();
+        var _this = this;
+        this.participService.postRequestToEdit(this.particip).subscribe(function (res) {
+            _this.dialog.close();
+        }, function (error) {
+            console.log(JSON.stringify(error));
+        });
     };
     return EditModalComponent;
 }());
@@ -28,7 +34,7 @@ EditModalComponent = __decorate([
         templateUrl: './app/particips/edit-particip/edit-modal.html',
         styleUrls: ['./app/particips/edit-particip/edit-modal.css']
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, particip_service_1.ParticipService])
 ], EditModalComponent);
 exports.EditModalComponent = EditModalComponent;
 //# sourceMappingURL=edit-modal.component.js.map

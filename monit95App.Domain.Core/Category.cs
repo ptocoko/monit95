@@ -18,6 +18,7 @@ namespace Monit95App.Domain.Core
         public Category()
         {
             this.ProjectParticips = new HashSet<ProjectParticip>();
+            this.ProjectParticipsToEdits = new HashSet<ProjectParticipsToEdit>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace Monit95App.Domain.Core
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectParticipsToEdit> ProjectParticipsToEdits { get; set; }
     }
 }

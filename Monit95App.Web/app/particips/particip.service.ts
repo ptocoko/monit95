@@ -70,4 +70,8 @@ export class ParticipService {
 				return results;
 			})
 	}
+
+	postRequestToEdit(particip: ParticipModel): Observable<any> {
+		return this._http.post('/api/ProjectParticip/PostRequestToEdit', particip);
+	}
 }

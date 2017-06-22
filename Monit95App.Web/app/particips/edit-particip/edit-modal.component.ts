@@ -14,12 +14,16 @@ import { ParticipService } from '../particip.service';
 export class EditModalComponent {
 	private particip: ParticipModel;
 
-	constructor(private dialog: DialogRef<ParticipModel>) {
+	constructor(private dialog: DialogRef<ParticipModel>, private participService: ParticipService) {
 		this.particip = dialog.context;
 	}
 
 	onSubmit() {
-		console.log(JSON.stringify(this.particip));
-		this.dialog.close();
+		this.participService.postRequestToEdit(this.particip).subscribe(res => {
+			this.dialog.close();
+		}, error => {
+			console.log(JSON.stringify(error));
+		});
+		
 	}
 }
