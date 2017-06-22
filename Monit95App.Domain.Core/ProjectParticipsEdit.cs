@@ -12,7 +12,7 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectParticipsToEdit
+    public partial class ProjectParticipsEdit
     {
         public string ParticipCode { get; set; }
         public string Surname { get; set; }
