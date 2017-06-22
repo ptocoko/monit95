@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Domain.Interfaces
 {
-    public interface IRepositoryV2<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         IQueryable<T> GetAll();
         T GetById(int id);

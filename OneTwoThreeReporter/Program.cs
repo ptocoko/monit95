@@ -21,8 +21,8 @@ namespace OneTwoThreeReporter
     class Program
     {
         static IUnitOfWork _unitOfWork;
-        static IRepositoryV2<TestResultsV2> _testResults;
-        static IRepositoryV2<School> _schools;
+        static IGenericRepository<TestResultsV2> _testResults;
+        static IGenericRepository<School> _schools;
         static List<Class> _classes;
         static IGrade5 _gradeConverter;
         static cokoContext _context;
@@ -31,11 +31,11 @@ namespace OneTwoThreeReporter
         {
             _context = new cokoContext();
             _unitOfWork = new UnitOfWorkV2(_context);
-            _testResults = new Repository<TestResultsV2>(_unitOfWork);
-            _schools = new Repository<School>(_unitOfWork);
+            _testResults = new GenericRepository<TestResultsV2>(_unitOfWork);
+            _schools = new GenericRepository<School>(_unitOfWork);
             _gradeConverter = new OneTwoThreeGradeConverter();
 
-            var classService = new ClassService(_unitOfWork, new Repository<Class>(_unitOfWork));
+            var classService = new ClassService(_unitOfWork, new GenericRepository<Class>(_unitOfWork));
             _classes = classService.GetAll();
             
             var reports = GetAllResults();

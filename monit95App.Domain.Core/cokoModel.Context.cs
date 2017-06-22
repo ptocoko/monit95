@@ -46,5 +46,6 @@ namespace Monit95App.Domain.Core
         public virtual DbSet<ElementType> ElementTypes { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<ProjectParticip> ProjectParticips { get; set; }
+        public virtual DbSet<ProjectParticipsEdit> ProjectParticipsEdits { get; set; }
     }
 }

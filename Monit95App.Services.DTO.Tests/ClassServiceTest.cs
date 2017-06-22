@@ -14,7 +14,7 @@ namespace Monit95App.Services.DTO.Tests
         {
             //Arrange
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var classRepository = new Repository<Class>(unitOfWork);
+            var classRepository = new GenericRepository<Class>(unitOfWork);
 
             var classService = new ClassService(unitOfWork, classRepository);
 
@@ -31,7 +31,7 @@ namespace Monit95App.Services.DTO.Tests
         {
             //Arrange
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var classRepository = new Repository<Class>(unitOfWork);
+            var classRepository = new GenericRepository<Class>(unitOfWork);
 
             var classService = new ClassService(unitOfWork, classRepository);
 

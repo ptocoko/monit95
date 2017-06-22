@@ -20,8 +20,8 @@ namespace Monit95App.Services.DTO.Tests
             };
 
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var repository = new Repository<ExerciseMark>(unitOfWork);
-            var testRep = new Repository<Test>(unitOfWork);
+            var repository = new GenericRepository<ExerciseMark>(unitOfWork);
+            var testRep = new GenericRepository<Test>(unitOfWork);
             var service = new ExerciseMarkService(unitOfWork, repository, testRep);
 
             //Act

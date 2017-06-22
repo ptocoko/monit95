@@ -18,7 +18,7 @@ namespace Monit95App.Api
         public ClassController()
         {
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var classRepository = new Repository<Class>(unitOfWork);
+            var classRepository = new GenericRepository<Class>(unitOfWork);
             _classService = new ClassService(unitOfWork, classRepository);
 
         }

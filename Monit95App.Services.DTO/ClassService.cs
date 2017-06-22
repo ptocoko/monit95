@@ -12,9 +12,9 @@ namespace Monit95App.Services.DTO
     public class ClassService : IClassService
     {
         private IUnitOfWork _unitOfWork;
-        private IRepositoryV2<Class> _classRepository;
+        private IGenericRepository<Class> _classRepository;
 
-        public ClassService(IUnitOfWork unitOfWork, IRepositoryV2<Class> classRepository)
+        public ClassService(IUnitOfWork unitOfWork, IGenericRepository<Class> classRepository)
         {
             _unitOfWork = unitOfWork;
             _classRepository = classRepository;

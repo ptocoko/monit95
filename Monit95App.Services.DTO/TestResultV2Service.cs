@@ -11,10 +11,10 @@ namespace Monit95App.Services.DTO
 {
     public class TestResultV2Service : ITestResultV2Service
     {
-        private IRepositoryV2<TestResultsV2> _testResultV2Rep;
-        private IRepositoryV2<ExerciseMark> _exerciseMarkRep;
+        private IGenericRepository<TestResultsV2> _testResultV2Rep;
+        private IGenericRepository<ExerciseMark> _exerciseMarkRep;
 
-        public TestResultV2Service(IRepositoryV2<TestResultsV2> testResultV2Rep, IRepositoryV2<ExerciseMark> exerciseMarkRep)
+        public TestResultV2Service(IGenericRepository<TestResultsV2> testResultV2Rep, IGenericRepository<ExerciseMark> exerciseMarkRep)
         {
             _testResultV2Rep = testResultV2Rep;
             _exerciseMarkRep = exerciseMarkRep;

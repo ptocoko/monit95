@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Data
 {
-    public class Repository<T> : IRepositoryV2<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected cokoContext _context;
 
-        public Repository(IUnitOfWork unitOfWork)
+        public GenericRepository(IUnitOfWork unitOfWork)
         {
             _context = unitOfWork.DbContext;
         }
@@ -33,8 +33,7 @@ namespace Monit95App.Infrastructure.Data
         }
        
         public void Update(T entity)
-        {
-            // _context.Set<T>().Attach(entity);
+        {            
             var entry = _context.Entry(entity);
             entry.State = System.Data.Entity.EntityState.Modified;
         }
@@ -42,10 +41,7 @@ namespace Monit95App.Infrastructure.Data
         public void Delete(int id)
         {
             var entity = _context.Set<T>().Find(id);
-            _context.Set<T>().Remove(entity);
-            
-            //var entry = _context.Entry(entity);
-            //entry.State = System.Data.Entity.EntityState.Deleted;           
+            _context.Set<T>().Remove(entity);                           
         }
     }
 }

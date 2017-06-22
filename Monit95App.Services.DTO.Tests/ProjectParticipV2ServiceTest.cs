@@ -29,7 +29,7 @@ namespace Monit95App.Services.DTO.Tests
             var mockClassService = new Mock<IClassService>();
             mockClassService.Setup(x => x.GetId("1 А")).Returns("0101");
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var projectParticipV2Repository = new Repository<ProjectParticipsV2>(unitOfWork);
+            var projectParticipV2Repository = new GenericRepository<ProjectParticipsV2>(unitOfWork);
             var service = new ProjectParticipV2Service(unitOfWork, projectParticipV2Repository, mockClassService.Object);
 
             //Create

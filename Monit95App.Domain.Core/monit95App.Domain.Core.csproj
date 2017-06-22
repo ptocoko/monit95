@@ -102,6 +102,9 @@
     <Compile Include="ProjectParticip.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectParticipsEdit.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProjectParticipsV2.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>

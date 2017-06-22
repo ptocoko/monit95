@@ -12,11 +12,11 @@ namespace Monit95App.Services.DTO
     public class ExerciseMarkService : IExerciseMarkService
     {
         private IUnitOfWork _unitOfWork;
-        private IRepositoryV2<ExerciseMark> _exerciseMarkRep;
-        private IRepositoryV2<Test> _testRep;
+        private IGenericRepository<ExerciseMark> _exerciseMarkRep;
+        private IGenericRepository<Test> _testRep;
 
         public ExerciseMarkService(IUnitOfWork unitOfWork, 
-                                   IRepositoryV2<ExerciseMark> exerciseMarkRep, IRepositoryV2<Test> testRep)
+                                   IGenericRepository<ExerciseMark> exerciseMarkRep, IGenericRepository<Test> testRep)
         {
             _unitOfWork = unitOfWork;
             _exerciseMarkRep = exerciseMarkRep;

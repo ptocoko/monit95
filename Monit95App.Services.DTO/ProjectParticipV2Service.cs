@@ -12,11 +12,11 @@ namespace Monit95App.Services.DTO
     public class ProjectParticipV2Service : IProjectParticipV2Service
     {
         private IUnitOfWork _unitOfWork;
-        private IRepositoryV2<ProjectParticipsV2> _projectParticipV2Rep;
+        private IGenericRepository<ProjectParticipsV2> _projectParticipV2Rep;
 
         private IClassService _classServise;
 
-        public ProjectParticipV2Service(IUnitOfWork unitOfWork, IRepositoryV2<ProjectParticipsV2> projectParticipV2Repository, IClassService classService)
+        public ProjectParticipV2Service(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsV2> projectParticipV2Repository, IClassService classService)
         {
             _unitOfWork = unitOfWork;
             _projectParticipV2Rep = projectParticipV2Repository;
