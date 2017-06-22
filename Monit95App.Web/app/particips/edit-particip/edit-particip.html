@@ -1,8 +1,8 @@
-﻿<h1>Запрос на изменение сведений об учителях</h1>
+﻿<h2>Запрос на изменение сведений об учителях</h2>
+<hr/>
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Код</th>
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчеcтво</th>
@@ -13,7 +13,6 @@
     </thead>
     <tbody>
         <tr *ngFor="let particip of particips">
-            <td>{{particip.participCode}}</td>
             <td>{{particip.surname}}</td>
             <td>{{particip.name}}</td>
             <td>{{particip.secondName}}</td>

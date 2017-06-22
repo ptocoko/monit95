@@ -19,6 +19,7 @@ var particip_details_component_1 = require("./particips/details/particip-details
 var edit_particip_component_1 = require("./particips/edit-particip/edit-particip.component");
 var particip_modal_component_1 = require("./particips/details/particip-modal.component");
 var results_modal_component_1 = require("./particips/results/results-modal.component");
+var edit_modal_component_1 = require("./particips/edit-particip/edit-modal.component");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var mydatepicker_1 = require("mydatepicker");
@@ -43,16 +44,17 @@ AppModule = __decorate([
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,
-            //ParticipModalComponent,
-            //ResultsModalComponent,
-            edit_particip_component_1.EditParticipComponent
+            edit_particip_component_1.EditParticipComponent,
+            particip_modal_component_1.ParticipModalComponent,
+            results_modal_component_1.ResultsModalComponent,
+            edit_modal_component_1.EditModalComponent
         ],
         providers: [
             user_service_1.UserService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             particip_service_1.ParticipService
         ],
-        entryComponents: [particip_modal_component_1.ParticipModalComponent, results_modal_component_1.ResultsModalComponent],
+        entryComponents: [particip_modal_component_1.ParticipModalComponent, results_modal_component_1.ResultsModalComponent, edit_modal_component_1.EditModalComponent],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

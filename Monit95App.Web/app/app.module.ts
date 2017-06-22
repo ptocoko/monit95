@@ -13,6 +13,7 @@ import { EditParticipComponent } from './particips/edit-particip/edit-particip.c
 
 import { ParticipModalComponent } from './particips/details/particip-modal.component';
 import { ResultsModalComponent } from './particips/results/results-modal.component';
+import { EditModalComponent } from './particips/edit-particip/edit-modal.component';
 
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
@@ -36,16 +37,17 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,
+		EditParticipComponent,
 		ParticipModalComponent,
 		ResultsModalComponent,
-		EditParticipComponent
+		EditModalComponent
 	],
 	providers: [
 		UserService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		ParticipService
 	],  
-	entryComponents: [ParticipModalComponent, ResultsModalComponent],
+	entryComponents: [ParticipModalComponent, ResultsModalComponent, EditModalComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

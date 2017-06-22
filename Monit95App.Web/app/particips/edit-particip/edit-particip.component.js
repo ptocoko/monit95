@@ -10,12 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var angular2_modal_1 = require("angular2-modal");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var edit_modal_component_1 = require("./edit-modal.component");
 var particip_service_1 = require("../particip.service");
 var user_service_1 = require("../../user.service");
 var EditParticipComponent = (function () {
-    function EditParticipComponent(participService, userService) {
+    function EditParticipComponent(participService, userService, modal) {
         this.participService = participService;
         this.userService = userService;
+        this.modal = modal;
     }
     EditParticipComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -23,14 +27,20 @@ var EditParticipComponent = (function () {
             _this.participService.getByAreaCode(user).subscribe(function (particips) { return _this.particips = particips; });
         });
     };
+    EditParticipComponent.prototype.modalOpen = function (particip) {
+        this.modal.open(edit_modal_component_1.EditModalComponent, angular2_modal_1.overlayConfigFactory(particip, bootstrap_1.BSModalContext)).then(function (dialog) {
+        }).catch(function () {
+        });
+    };
     return EditParticipComponent;
 }());
 EditParticipComponent = __decorate([
     core_1.Component({
         selector: 'edit-particip',
-        templateUrl: './app/particips/edit-particip/edit-particip.html'
+        templateUrl: './app/particips/edit-particip/edit-particip.html',
+        providers: [bootstrap_1.Modal]
     }),
-    __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService])
+    __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService, bootstrap_1.Modal])
 ], EditParticipComponent);
 exports.EditParticipComponent = EditParticipComponent;
 //# sourceMappingURL=edit-particip.component.js.map

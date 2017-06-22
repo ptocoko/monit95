@@ -43,6 +43,6 @@ export class ParticipListComponent implements OnInit {
 	}
 
 	openModal(particip: ParticipModel) {
-		this.modal.open(ResultsModalComponent, overlayConfigFactory(particip, ));
+		this.modal.open(ResultsModalComponent, overlayConfigFactory(particip));
 	}
 };
