@@ -24,7 +24,7 @@ namespace Monit95App.Api
         {
             if(!ModelState.IsValid)
             {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось внести изменения");                
             }
 
             _participEditService.AddModel(model);
