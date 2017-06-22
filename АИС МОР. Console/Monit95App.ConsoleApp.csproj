@@ -86,14 +86,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
-      <Project>{84dc3950-0b35-4eb2-b534-93af0387ccdc}</Project>
-      <Name>Monit95App.Domain.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
-      <Project>{cb5e7793-7905-42a4-818d-0212a4edda43}</Project>
-      <Name>Monit95App.Domain.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
       <Project>{f3a784e6-8723-4628-9677-2374bed42492}</Project>
       <Name>Monit95App.Infrastructure.Data</Name>

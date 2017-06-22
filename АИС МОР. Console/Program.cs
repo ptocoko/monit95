@@ -6,8 +6,6 @@ using Reporter;
 using System.Runtime.InteropServices;
 using System.IO;
 using Ionic.Zip;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Domain.Core;
 using Excel = Microsoft.Office.Interop.Excel;
 using Monit95App.Services.Work.Abstract;
 

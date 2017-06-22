@@ -5,11 +5,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Api;
 using Moq;
 using System.Data.Entity;
-using Monit95App.Domain.Core;
 using System.Linq;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using Monit95App.Infrastructure.Data.Tests;
+using Monit95App.Domain.Core;
 
 namespace Monit95App.Web.Tests
 {

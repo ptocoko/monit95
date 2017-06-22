@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Domain.Interfaces;
 using Moq;
-using Monit95App.Domain.Core;
 using System.Collections.Generic;
 using System.Linq;
+using Monit95App.Domain.Core;
 
 namespace Monit95App.Infrastructure.Data.Tests
 {

@@ -1,11 +1,11 @@
-﻿using Monit95App.Services.DTO.Interfaces;
+﻿using Monit95App.Domain.Core;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Services.DTO.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
 
 namespace Monit95App.Services.DTO
 {

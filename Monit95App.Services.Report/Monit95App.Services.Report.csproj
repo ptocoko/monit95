@@ -48,8 +48,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
-      <Project>{84dc3950-0b35-4eb2-b534-93af0387ccdc}</Project>
+    <ProjectReference Include="..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
+      <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
       <Name>Monit95App.Domain.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.Work\Monit95App.Services.Work.csproj">

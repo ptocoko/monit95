@@ -464,12 +464,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
-      <Project>{84dc3950-0b35-4eb2-b534-93af0387ccdc}</Project>
+    <ProjectReference Include="..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
+      <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
       <Name>Monit95App.Domain.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
-      <Project>{cb5e7793-7905-42a4-818d-0212a4edda43}</Project>
+    <ProjectReference Include="..\Domain\Monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
+      <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
       <Name>Monit95App.Domain.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
