@@ -3,6 +3,7 @@ import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from 
 import 'rxjs/Rx';
 import { Observable }                                                      from 'rxjs/Observable';
 import { ParticipModel } from './particip.model';
+import { ParticipEditModel } from '../particips/edit-particip/edit-particip.model';
 import { ResultsModel, ResultDetailsModel } from './results/results.model';
 import { UserModel } from '../user.model';
 
@@ -34,7 +35,8 @@ export class ParticipService {
                             particip.SecondName,
 							particip.SubjectName,
 							particip.Birthday != null ? new Date(particip.Birthday) : null,
-							particip.ClassNumbers
+							particip.ClassNumbers,
+							particip.HasRequestToEdit
                         ));
                 }
                 //console.log(particips);
@@ -71,7 +73,7 @@ export class ParticipService {
 			})
 	}
 
-	postRequestToEdit(particip: ParticipModel): Observable<any> {
-		return this._http.post('/api/ProjectParticip/PostRequestToEdit', particip);
+	postRequestToEdit(editParticip: ParticipEditModel): Observable<any> {
+		return this._http.post('/api/ParticipEdit/Post', editParticip);
 	}
 }

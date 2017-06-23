@@ -27,9 +27,20 @@ export class EditParticipComponent {
 
 	modalOpen(particip: ParticipModel) {
 		this.modal.open(EditModalComponent, overlayConfigFactory(particip, BSModalContext)).then((dialog: DialogRef<ParticipModel>) => {
+			dialog.result.then(res => {
+				this.setDataByParticipCode(res);
+			}).catch(() => {
 
-		}).catch(() => {
-
+			})
 		});
+	}
+
+	setDataByParticipCode(particip: ParticipModel) {
+		this.particips.forEach((val, i, arr) => {
+			if (val.participCode === particip.participCode) {
+				val.hasRequestToEdit = particip.hasRequestToEdit;
+				return;
+			}
+		})
 	}
 }

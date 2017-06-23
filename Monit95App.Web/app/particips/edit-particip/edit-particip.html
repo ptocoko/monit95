@@ -12,13 +12,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let particip of particips">
+        <tr *ngFor="let particip of particips" [ngClass]="{'unactive-row' : particip.hasRequestToEdit}">
             <td>{{particip.surname}}</td>
             <td>{{particip.name}}</td>
             <td>{{particip.secondName}}</td>
             <td>{{particip.subjectName}}</td>
             <td>{{particip.classNumbers}}</td>
-            <td><a class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a></td>
+            <td>
+                <a *ngIf="!particip.hasRequestToEdit" class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a>
+                <span *ngIf="particip.hasRequestToEdit">Запрос обрабатывается...</span>
+            </td>
         </tr>
     </tbody>
 </table>

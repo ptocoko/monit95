@@ -10,6 +10,7 @@ namespace Monit95App.Models
     public class PParticipViewer : IPParticipViewer
     {
         private readonly string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
+        private cokoContext _db = new cokoContext();
 
         public PParticipViewModel CreateViewModel(ProjectParticip entity)
         {
@@ -27,7 +28,8 @@ namespace Monit95App.Models
                 Phone = entity.Phone != null ? entity.Phone : "",
                 Email = entity.Email != null ? entity.Email : "",
                 Birthday = entity.Birthday,
-                ClassNumbers = entity.ClassNumbers
+                ClassNumbers = entity.ClassNumbers,
+                HasRequestToEdit = _db.ProjectParticipsEdits.SingleOrDefault(p => p.ParticipCode == entity.ParticipCode) != null ? true : false
             };
             return vm;
         }

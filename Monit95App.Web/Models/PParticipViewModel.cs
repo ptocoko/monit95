@@ -20,6 +20,7 @@ namespace Monit95App.Models
         public string Email { get; set; }
         public DateTime? Birthday { get; set; }
         public string ClassNumbers { get; set; }
+        public bool HasRequestToEdit { get; set; }
 
     }
 }

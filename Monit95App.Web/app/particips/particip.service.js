@@ -27,7 +27,7 @@ var ParticipService = (function () {
             var particips = [];
             for (var index in participList) {
                 var particip = participList[index];
-                particips.push(new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.Birthday != null ? new Date(particip.Birthday) : null, particip.ClassNumbers));
+                particips.push(new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.Birthday != null ? new Date(particip.Birthday) : null, particip.ClassNumbers, particip.HasRequestToEdit));
             }
             //console.log(particips);
             return particips;
@@ -54,8 +54,8 @@ var ParticipService = (function () {
             return results;
         });
     };
-    ParticipService.prototype.postRequestToEdit = function (particip) {
-        return this._http.post('/api/ProjectParticip/PostRequestToEdit', particip);
+    ParticipService.prototype.postRequestToEdit = function (editParticip) {
+        return this._http.post('/api/ParticipEdit/Post', editParticip);
     };
     return ParticipService;
 }());

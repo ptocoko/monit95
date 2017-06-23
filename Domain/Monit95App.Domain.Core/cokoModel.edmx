@@ -129,13 +129,13 @@
           <Property Name="Surname" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="SecondName" Type="nvarchar" MaxLength="25" />
-          <Property Name="ClassNumbers" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="SchoolId" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="ClassNumbers" Type="varchar" MaxLength="30" />
+          <Property Name="SchoolId" Type="char" MaxLength="4" />
           <Property Name="CategId" Type="int" />
           <Property Name="Phone" Type="varchar" MaxLength="100" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="Experience" Type="int" />
-          <Property Name="NSubjectCode" Type="int" Nullable="false" />
+          <Property Name="NSubjectCode" Type="int" />
         </EntityType>
         <EntityType Name="ProjectParticipsV2">
           <Key>
@@ -406,7 +406,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectParticipsToEdit_NsurSubjects">
-          <End Role="NsurSubjects" Type="Self.NsurSubjects" Multiplicity="1" />
+          <End Role="NsurSubjects" Type="Self.NsurSubjects" Multiplicity="0..1" />
           <End Role="ProjectParticipsEdit" Type="Self.ProjectParticipsEdit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NsurSubjects">
@@ -418,7 +418,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectParticipsToEdit_Schools">
-          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="Schools" Type="Self.Schools" Multiplicity="0..1" />
           <End Role="ProjectParticipsEdit" Type="Self.ProjectParticipsEdit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Schools">
@@ -1370,13 +1370,13 @@
           <Property Name="Surname" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="SecondName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="ClassNumbers" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="SchoolId" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ClassNumbers" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolId" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
           <Property Name="CategId" Type="Int32" />
           <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Experience" Type="Int32" />
-          <Property Name="NSubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="NSubjectCode" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="cokoModel.FK_ProjectParticipsToEdit_Categories" FromRole="ProjectParticipsEdit" ToRole="Category" />
           <NavigationProperty Name="NsurSubject" Relationship="cokoModel.FK_ProjectParticipsToEdit_NsurSubjects" FromRole="ProjectParticipsEdit" ToRole="NsurSubject" />
           <NavigationProperty Name="School" Relationship="cokoModel.FK_ProjectParticipsToEdit_Schools" FromRole="ProjectParticipsEdit" ToRole="School" />
@@ -1394,7 +1394,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectParticipsToEdit_NsurSubjects">
-          <End Type="cokoModel.NsurSubject" Role="NsurSubject" Multiplicity="1" />
+          <End Type="cokoModel.NsurSubject" Role="NsurSubject" Multiplicity="0..1" />
           <End Type="cokoModel.ProjectParticipsEdit" Role="ProjectParticipsEdit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NsurSubject">
@@ -1406,7 +1406,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectParticipsToEdit_Schools">
-          <End Type="cokoModel.School" Role="School" Multiplicity="1" />
+          <End Type="cokoModel.School" Role="School" Multiplicity="0..1" />
           <End Type="cokoModel.ProjectParticipsEdit" Role="ProjectParticipsEdit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="School">

@@ -24,7 +24,7 @@ namespace Monit95App.Domain.Core
         public string Phone { get; set; }
         public string Email { get; set; }
         public Nullable<int> Experience { get; set; }
-        public int NSubjectCode { get; set; }
+        public Nullable<int> NSubjectCode { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual NsurSubject NsurSubject { get; set; }

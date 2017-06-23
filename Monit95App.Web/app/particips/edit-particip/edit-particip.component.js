@@ -28,8 +28,20 @@ var EditParticipComponent = (function () {
         });
     };
     EditParticipComponent.prototype.modalOpen = function (particip) {
+        var _this = this;
         this.modal.open(edit_modal_component_1.EditModalComponent, angular2_modal_1.overlayConfigFactory(particip, bootstrap_1.BSModalContext)).then(function (dialog) {
-        }).catch(function () {
+            dialog.result.then(function (res) {
+                _this.setDataByParticipCode(res);
+            }).catch(function () {
+            });
+        });
+    };
+    EditParticipComponent.prototype.setDataByParticipCode = function (particip) {
+        this.particips.forEach(function (val, i, arr) {
+            if (val.participCode === particip.participCode) {
+                val.hasRequestToEdit = particip.hasRequestToEdit;
+                return;
+            }
         });
     };
     return EditParticipComponent;

@@ -504,6 +504,7 @@
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particips\edit-particip\edit-modal.component.ts" />
     <TypeScriptCompile Include="app\particips\edit-particip\edit-particip.component.ts" />
+    <TypeScriptCompile Include="app\particips\edit-particip\edit-particip.model.ts" />
     <TypeScriptCompile Include="app\particips\mock-particips.ts" />
     <TypeScriptCompile Include="app\particips\details\particip-details.component.ts" />
     <TypeScriptCompile Include="app\particips\particip-list.component.ts" />
