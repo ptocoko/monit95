@@ -17,14 +17,13 @@
 
         <div class="form-group">
             <label for="secondName">Отчество</label>
-            <input type="text" class="form-control" id="secondName" required [(ngModel)]="editParticip.participSecondName" name="secondName" #secondName="ngModel" />
-            <div [hidden]="secondName.valid || secondName.pristine" class="alert alert-danger">Введите отчество!</div>
+            <input type="text" class="form-control" id="secondName" [(ngModel)]="editParticip.participSecondName" name="secondName" />
         </div>
+        <hr />
 
         <div style="text-align:right">
             <button type="submit" class="btn btn-success" [disabled]="!participForm.form.valid">Отправить</button>
-            <button class="btn btn-default btn-in-horizon" (click)="cancel()">Отменить</button>
+            <button type="button" class="btn btn-default btn-in-horizon" (click)="cancel()">Отменить</button>
         </div>
     </form>
-    <hr />
 </div>
