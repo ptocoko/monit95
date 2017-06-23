@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
-var results_modal_component_1 = require("./results-modal.component");
+var results_modal_component_1 = require("./results/results-modal.component");
 var particip_service_1 = require("./particip.service");
 var user_service_1 = require("../user.service");
 var ParticipListComponent = (function () {
@@ -24,21 +24,19 @@ var ParticipListComponent = (function () {
     }
     ParticipListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getName().subscribe(function (response) {
-            var result = response.json();
-            _this.userName = result.UserName;
-            _this.isAreaRole = result.IsAreaRole;
-            _this.getByAreaCode();
-            if (_this.isAreaRole) {
+        this.userService.getName().subscribe(function (user) {
+            _this.isAreaRole = user.isAreaRole;
+            _this.getByAreaCode(user);
+            if (user.isAreaRole) {
                 _this.participListDocPath =
-                    'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + _this.userName + '/' + _this.userName + '_список.xlsx';
+                    'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + user.userName + '/' + user.userName + '_список.xlsx';
             }
         });
     };
     //Get by areaCode
-    ParticipListComponent.prototype.getByAreaCode = function () {
+    ParticipListComponent.prototype.getByAreaCode = function (user) {
         var _this = this;
-        this.participService.getByAreaCode(this.userName, this.isAreaRole).subscribe(function (particips) { return _this.particips = particips; });
+        this.participService.getByAreaCode(user).subscribe(function (particips) { return _this.particips = particips; });
     };
     ParticipListComponent.prototype.openModal = function (particip) {
         this.modal.open(results_modal_component_1.ResultsModalComponent, angular2_modal_1.overlayConfigFactory(particip));
@@ -49,7 +47,7 @@ ParticipListComponent = __decorate([
     core_1.Component({
         selector: 'particip-list',
         templateUrl: './app/particips/particip-list.html',
-        providers: [particip_service_1.ParticipService, user_service_1.UserService, bootstrap_1.Modal]
+        providers: [bootstrap_1.Modal]
     }),
     __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService, bootstrap_1.Modal])
 ], ParticipListComponent);

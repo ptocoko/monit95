@@ -17,8 +17,9 @@ var PlanComponent = (function () {
     }
     PlanComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getName().subscribe(function (response) {
-            _this.areaCode = response.json();
+        this.userService.getName().subscribe(function (user) {
+            if (user.isAreaRole)
+                _this.areaCode = Number.parseInt(user.userName);
         });
     };
     return PlanComponent;

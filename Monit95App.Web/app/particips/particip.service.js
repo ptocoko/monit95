@@ -13,14 +13,14 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/Rx");
 var particip_model_1 = require("./particip.model");
-var results_model_1 = require("./results.model");
+var results_model_1 = require("./results/results.model");
 var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;
         this._getByAreaCodeUrl = '/api/ProjectParticip/GetByUserName?userName=';
     }
-    ParticipService.prototype.getByAreaCode = function (userName, isAreaRole) {
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + userName + "&isAreaRole=" + isAreaRole;
+    ParticipService.prototype.getByAreaCode = function (user) {
+        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&isAreaRole=" + user.isAreaRole;
         return this._http.get(getByAreaCodeUrl)
             .map(function (resp) {
             var participList = resp.json();
@@ -53,6 +53,9 @@ var ParticipService = (function () {
             }
             return results;
         });
+    };
+    ParticipService.prototype.postRequestToEdit = function (particip) {
+        return this._http.post('/api/ProjectParticip/PostRequestToEdit', particip);
     };
     return ParticipService;
 }());
