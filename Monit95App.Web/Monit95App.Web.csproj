@@ -455,6 +455,7 @@
     <Content Include="Views\Rsur\Spa.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\particips\correction\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\ParticipReport\" />
