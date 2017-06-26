@@ -1,6 +1,6 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
-@Pipe({ name: 'participFilter' })
 
+@Pipe({ name: 'participFilter' })
 export class ParticipFilterPipe implements PipeTransform {
     transform(particips: any, searchText: any): any {
         if (searchText == null) return particips;

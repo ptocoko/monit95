@@ -1,0 +1,25 @@
+﻿<div class="container">
+    <h2>Коррекция</h2>
+    <p>Коррекция персональных данных</p>
+    <table *ngFor="let item of participCorrections" class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Данные в базе РСУР</th>
+                <th>Измененные данные</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Код</td>
+                <td>{{item.participCode}}</td>
+            </tr>
+            <tr>
+                <td>Фамилия</td>
+                <td>{{item.oldParticipSurname}}</td>
+                <td>{{item.newParticipSurname}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -13,13 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var ParticipModel = (function (_super) {
     __extends(ParticipModel, _super);
-    function ParticipModel(participCode, surname, name, secondName, subjectName, birthday, classNumbers, hasRequestToEdit
-        //public schoolIdWithName: string,
-        //public categName: string,
-        //public experience: number,
-        //public phone: string,
-        //public email?: string
-    ) {
+    function ParticipModel(participCode, surname, name, secondName, subjectName, birthday, classNumbers, hasRequestToEdit) {
         var _this = _super.call(this) || this;
         _this.participCode = participCode;
         _this.surname = surname;

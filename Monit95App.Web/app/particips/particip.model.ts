@@ -10,11 +10,6 @@ export class ParticipModel extends BSModalContext {
 		public birthday: Date,
 		public classNumbers: string,
 		public hasRequestToEdit: boolean
-        //public schoolIdWithName: string,
-        //public categName: string,
-        //public experience: number,
-        //public phone: string,
-        //public email?: string
     ) { 
 		super();
 	}
