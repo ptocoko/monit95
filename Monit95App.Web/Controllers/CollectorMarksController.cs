@@ -15,7 +15,7 @@ namespace Monit95App.Controllers
     //TODO: only for school role account
     public class CollectorMarksController : Controller
     {
-        private IProjectParticipV2Service _projectParticipV2Service;
+        private IParticipService _projectParticipV2Service;
 
         public CollectorMarksController()
         {

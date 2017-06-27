@@ -14,9 +14,9 @@ namespace Monit95App.Api
 {
     public class ParticipController : ApiController
     {
-        private IProjectParticipV2Service _projectParticipV2Service;
+        private IParticipService _projectParticipV2Service;
 
-        public ParticipController(IProjectParticipV2Service projectParticipV2Service)
+        public ParticipController(IParticipService projectParticipV2Service)
         {
             _projectParticipV2Service = projectParticipV2Service;
         }

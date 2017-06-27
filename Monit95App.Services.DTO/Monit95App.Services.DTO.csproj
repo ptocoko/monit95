@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="ClassService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
-    <Compile Include="Interfaces\IProjectParticipV2Service.cs" />
+    <Compile Include="Interfaces\IParticipService.cs" />
     <Compile Include="ExerciseMarkDto.cs" />
     <Compile Include="Interfaces\ITestResultV2Service.cs" />
     <Compile Include="OneTwoThreeReportDto.cs" />

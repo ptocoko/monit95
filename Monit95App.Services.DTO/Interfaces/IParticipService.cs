@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.DTO.Interfaces
 {
-    public interface IProjectParticipV2Service
+    public interface IParticipService
     {
-        Task<ParticipDto> AddAsync(ParticipDto dto);       //C
+        Task<ParticipDto> AddAsync(ParticipDto dto);                //C
         Task<List<ParticipDto>> GetBySchoolIdAsync(string schoolId);//R
         Task<ParticipDto> GetByParticipIdAsync(int participId);
         Task<bool> UpdateAsync(ParticipDto dto);                    //U
-        Task<bool> DeleteAsync(int id);                                      //D
+        Task<bool> DeleteAsync(int id);                             //D
     }
 }

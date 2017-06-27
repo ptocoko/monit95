@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.DTO
 {
-    public class ParticipService : IProjectParticipV2Service
+    public class ParticipService : IParticipService
     {
         private IUnitOfWork _unitOfWork;
         private IGenericRepository<ProjectParticipsV2> _projectParticipV2Rep;
