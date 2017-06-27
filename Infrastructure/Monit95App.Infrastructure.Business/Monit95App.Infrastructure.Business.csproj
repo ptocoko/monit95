@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,13 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IRsurParticipEditService.cs" />
+    <Compile Include="Models\RsurParticipEditModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipCodeCreator.cs" />
+    <Compile Include="RsurParticipEditService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
       <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
       <Name>Monit95App.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\Monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
+      <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
+      <Name>Monit95App.Domain.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\Monit95App.Services.Interfaces\Monit95App.Services.Interfaces.csproj">
       <Project>{C22767FE-EDB7-4F9C-A995-9D37F00CA9FC}</Project>
