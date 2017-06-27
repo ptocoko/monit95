@@ -128,9 +128,9 @@
       <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
       <Name>Monit95App.Domain.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mail.Ru-.net-cloud-client-master\MailRuCloudApi\MailRuCloudApi.csproj">
+    <ProjectReference Include="..\Mail.Ru-.net-cloud-client-master\MailRuCloudApi\Monit95App.Infrastructure.MailRuCloudApi.csproj">
       <Project>{75bf5eac-81a8-4e00-a82e-0bcbd17ac50b}</Project>
-      <Name>MailRuCloudApi</Name>
+      <Name>Monit95App.Infrastructure.MailRuCloudApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
       <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>
