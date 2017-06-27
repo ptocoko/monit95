@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Models.Abstarct
 {
-    public interface IPParticipViewer
+    public interface IRsurParticipViewer
     {
-        PParticipViewModel CreateViewModel(ProjectParticip entity);
+        RsurParticipModel CreateViewModel(ProjectParticip entity);
         ParticipResultsViewModel CreateResultViewModel(TestResult entity, string participCode);
     }
 }

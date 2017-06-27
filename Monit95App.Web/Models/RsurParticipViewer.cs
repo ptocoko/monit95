@@ -7,14 +7,14 @@ using System.Web;
 
 namespace Monit95App.Models
 {
-    public class PParticipViewer : IPParticipViewer
+    public class RsurParticipViewer : IRsurParticipViewer
     {
         private readonly string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
         private cokoContext _db = new cokoContext();
 
-        public PParticipViewModel CreateViewModel(ProjectParticip entity)
+        public RsurParticipModel CreateViewModel(ProjectParticip entity)
         {
-            var vm = new PParticipViewModel
+            var vm = new RsurParticipModel
             {
                 ProjectCode = entity.ProjectCode,
                 ParticipCode = entity.ParticipCode,
@@ -24,9 +24,9 @@ namespace Monit95App.Models
                 SubjectName = entity.NsurSubject.Name,
                 SchoolIdWithName = $"{entity.School.Id} - {entity.School.Name}",
                 CategName = entity.Category != null ? entity.Category.Name : "",
-                Experience = entity.Experience != null ? entity.Experience : -1,
-                Phone = entity.Phone != null ? entity.Phone : "",
-                Email = entity.Email != null ? entity.Email : "",
+                Experience = entity.Experience ?? -1,
+                Phone = entity.Phone ?? "",
+                Email = entity.Email ?? "",
                 Birthday = entity.Birthday,
                 ClassNumbers = entity.ClassNumbers,
                 HasRequestToEdit = _db.ProjectParticipsEdits.SingleOrDefault(p => p.ParticipCode == entity.ParticipCode) != null ? true : false

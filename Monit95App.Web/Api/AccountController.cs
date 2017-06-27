@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace Monit95App.Api
 {
     [Authorize]
-    public class AccountApiController : ApiController
+    public class AccountController : ApiController
     {
         //Get current user's name
         public object GetUserNameAndRole()

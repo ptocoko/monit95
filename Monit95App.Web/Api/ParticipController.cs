@@ -12,11 +12,11 @@ using Monit95App.Domain.Core;
 
 namespace Monit95App.Api
 {
-    public class ProjectParticipV2Controller : ApiController
+    public class ParticipController : ApiController
     {
         private IProjectParticipV2Service _projectParticipV2Service;
 
-        public ProjectParticipV2Controller(IProjectParticipV2Service projectParticipV2Service)
+        public ParticipController(IProjectParticipV2Service projectParticipV2Service)
         {
             _projectParticipV2Service = projectParticipV2Service;
         }

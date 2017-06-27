@@ -52,7 +52,7 @@ namespace Monit95App.Web.Tests
 
             var uow = new UnitOfWork(mockContext.Object);
             //Act
-            var pparticipConroller = new ProjectParticipController(mockContext.Object, new PParticipCodeCreator(mockContext.Object), new PParticipViewer());
+            var pparticipConroller = new RsurParticipController(mockContext.Object, new PParticipCodeCreator(mockContext.Object), new RsurParticipViewer());
             var postResult = pparticipConroller.PostParticip(new ProjectParticip
             {
                 Surname = "Шахабов",

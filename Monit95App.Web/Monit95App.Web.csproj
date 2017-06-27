@@ -208,11 +208,11 @@
     <Compile Include="Api\ExerciseMarksController.cs" />
     <Compile Include="Api\MarksFileController.cs" />
     <Compile Include="Api\OneTwoThreeReportController.cs" />
-    <Compile Include="Api\ProjectParticipController.cs" />
-    <Compile Include="Api\ParticipEditController.cs" />
-    <Compile Include="Api\ProjectParticipV2Controller.cs" />
+    <Compile Include="Api\RsurParticipController.cs" />
+    <Compile Include="Api\RsurParticipEditController.cs" />
+    <Compile Include="Api\ParticipController.cs" />
     <Compile Include="Api\SchoolController.cs" />
-    <Compile Include="Api\AccountApiController.cs" />
+    <Compile Include="Api\AccountController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -229,22 +229,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Abstarct\IFolderSchoolIds.cs" />
-    <Compile Include="Models\Abstarct\IPParticipViewer.cs" />
+    <Compile Include="Models\Abstarct\IRsurParticipViewer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppCache.cs" />
     <Compile Include="Models\CollectorHandler.cs" />
     <Compile Include="Models\FileReport.cs" />
     <Compile Include="Models\FolderSchoolIds.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Monit10Learner.cs" />
     <Compile Include="Models\ParticipResultsViewModel.cs" />
-    <Compile Include="Models\PParticipViewer.cs" />
-    <Compile Include="Models\PParticipViewModel.cs" />
-    <Compile Include="Models\ReportMetaManager.cs" />
+    <Compile Include="Models\RsurParticipViewer.cs" />
+    <Compile Include="Models\RsurParticipModel.cs" />
     <Compile Include="Models\SchoolModel.cs" />
-    <Compile Include="SchoolModelCreator.cs" />
+    <Compile Include="Models\SchoolModelCreator.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
-    <Compile Include="ViewModels\CollectorMarks\ProjectParticipV2.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />
     <Compile Include="ViewModels\Home\FooterVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

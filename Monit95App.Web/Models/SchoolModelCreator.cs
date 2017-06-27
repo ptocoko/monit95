@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Monit95App.Web
+namespace Monit95App.Web.Models
 {
 	public static class SchoolModelCreator
 	{       

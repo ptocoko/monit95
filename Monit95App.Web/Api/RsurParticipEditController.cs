@@ -11,17 +11,17 @@ using System.Web.Http;
 namespace Monit95App.Api
 {
     [Authorize]
-    public class ParticipEditController : ApiController
+    public class RsurParticipEditController : ApiController
     {
-        private IParticipEditService _participEditService;
+        private IRsurParticipEditService _participEditService;
 
-        public ParticipEditController(IParticipEditService particiEditService)
+        public RsurParticipEditController(IRsurParticipEditService particiEditService)
         {
             _participEditService = particiEditService;
         }
 
         [HttpPost]
-        public HttpResponseMessage Post([FromBody]ParticipEditModel model)
+        public HttpResponseMessage Post([FromBody]RsurParticipEditModel model)
         {
             if(!ModelState.IsValid)
             {

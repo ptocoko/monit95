@@ -24,6 +24,9 @@ var ParticipCorrectionComponent = (function () {
         this._participCorrectionService.getCorrections().then(function (result) { return _this.participCorrections = result; });
     };
     ;
+    ParticipCorrectionComponent.prototype.applyCorrection = function (correction) {
+        this._participCorrectionService.applyCorrection(correction);
+    };
     return ParticipCorrectionComponent;
 }());
 ParticipCorrectionComponent = __decorate([

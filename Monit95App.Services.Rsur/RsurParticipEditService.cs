@@ -10,25 +10,25 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.Rsur
 {
-    public class ParticipEditService : IParticipEditService
+    public class RsurParticipEditService : IRsurParticipEditService
     {
         private IUnitOfWork _unitOfWork;
         private IGenericRepository<ProjectParticipsEdit> _participEditRepository;
 
-        public ParticipEditService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> participEditRepository)
+        public RsurParticipEditService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> participEditRepository)
         {
             this._unitOfWork = unitOfWork;
             this._participEditRepository = participEditRepository;
         }
 
-        public List<ParticipEditModel> GetModels()
+        public List<RsurParticipEditModel> GetModels()
         {
             var entities = _participEditRepository.GetAll().ToList();
 
-            var models = new List<ParticipEditModel>();
+            var models = new List<RsurParticipEditModel>();
             foreach (var entity in entities)
             {
-                ParticipEditModel model = new ParticipEditModel()
+                RsurParticipEditModel model = new RsurParticipEditModel()
                 {
                     ParticipCode = entity.ParticipCode,
                     ParticipSurname = entity.Surname,
@@ -41,7 +41,7 @@ namespace Monit95App.Services.Rsur
             return models;
         }
 
-        public void AddModel(ParticipEditModel model)
+        public void AddModel(RsurParticipEditModel model)
         {
             if(model != null)
             {

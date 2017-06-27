@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.Rsur.Models
 {
-    public class ParticipEditModel
+    public class RsurParticipEditModel
     {
         [Required]
         public string ParticipCode { get; set; }

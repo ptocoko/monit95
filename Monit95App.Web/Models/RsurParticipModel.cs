@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Monit95App.Models
 {
-    public class PParticipViewModel
+    public class RsurParticipModel
     {
         public int ProjectCode { get; set; }
         public string ParticipCode { get; set; } 
@@ -21,6 +21,5 @@ namespace Monit95App.Models
         public DateTime? Birthday { get; set; }
         public string ClassNumbers { get; set; }
         public bool HasRequestToEdit { get; set; }
-
     }
 }

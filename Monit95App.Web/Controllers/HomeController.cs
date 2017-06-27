@@ -6,6 +6,7 @@ using System;
 using System.Web.UI;
 using Monit95App.Domain.Core;
 using Monit95App.Web;
+using Monit95App.Web.Models;
 
 namespace Monit95App.Controllers
 {

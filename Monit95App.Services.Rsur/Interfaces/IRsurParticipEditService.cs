@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.Rsur.Interfaces
 {
-    public interface IParticipEditService
+    public interface IRsurParticipEditService
     {
-        List<ParticipEditModel> GetModels();
-        void AddModel(ParticipEditModel model);
+        List<RsurParticipEditModel> GetModels();
+        void AddModel(RsurParticipEditModel model);
     }
 }
