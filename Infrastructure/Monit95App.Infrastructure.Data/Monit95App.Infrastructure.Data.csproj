@@ -58,7 +58,6 @@
     <Compile Include="RsurParticipRepository.cs" />
     <Compile Include="RsurParticipCodeCreator.cs" />
     <Compile Include="RsurParticipPrimaryKey.cs" />
-    <Compile Include="ParticipTestRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="SchoolRepository.cs" />
