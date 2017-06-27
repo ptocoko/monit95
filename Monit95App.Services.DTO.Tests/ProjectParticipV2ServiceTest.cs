@@ -7,6 +7,7 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTO.Interfaces;
 using System.Linq;
 using Monit95App.Domain.Core;
+using Monit95App.Services.Interfaces;
 
 namespace Monit95App.Services.DTO.Tests
 {
@@ -16,7 +17,7 @@ namespace Monit95App.Services.DTO.Tests
         [TestMethod]
         public async void AddAsync()
         {
-            var dto = new ProjectParticipV2Dto
+            var dto = new ParticipDto
             {
                 ProjectCode = 201661,
                 Surname = "Testu",
@@ -30,7 +31,7 @@ namespace Monit95App.Services.DTO.Tests
             mockClassService.Setup(x => x.GetId("1 А")).Returns("0101");
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
             var projectParticipV2Repository = new GenericRepository<ProjectParticipsV2>(unitOfWork);
-            var service = new ProjectParticipV2Service(unitOfWork, projectParticipV2Repository, mockClassService.Object);
+            var service = new ParticipService(unitOfWork, projectParticipV2Repository, mockClassService.Object);
 
             //Create
             var addedDto = await service.AddAsync(dto);            

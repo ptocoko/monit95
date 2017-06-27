@@ -9,10 +9,10 @@ namespace Monit95App.Services.DTO.Interfaces
 {
     public interface IProjectParticipV2Service
     {
-        Task<ProjectParticipV2Dto> AddAsync(ProjectParticipV2Dto dto);       //C
-        Task<List<ProjectParticipV2Dto>> GetBySchoolIdAsync(string schoolId);//R
-        Task<ProjectParticipV2Dto> GetByParticipIdAsync(int participId);
-        Task<bool> UpdateAsync(ProjectParticipV2Dto dto);                    //U
+        Task<ParticipDto> AddAsync(ParticipDto dto);       //C
+        Task<List<ParticipDto>> GetBySchoolIdAsync(string schoolId);//R
+        Task<ParticipDto> GetByParticipIdAsync(int participId);
+        Task<bool> UpdateAsync(ParticipDto dto);                    //U
         Task<bool> DeleteAsync(int id);                                      //D
     }
 }

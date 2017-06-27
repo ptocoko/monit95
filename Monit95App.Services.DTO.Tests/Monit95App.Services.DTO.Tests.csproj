@@ -91,6 +91,10 @@
       <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>
       <Name>Monit95App.Services.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Services\Monit95App.Services.Interfaces\Monit95App.Services.Interfaces.csproj">
+      <Project>{C22767FE-EDB7-4F9C-A995-9D37F00CA9FC}</Project>
+      <Name>Monit95App.Services.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

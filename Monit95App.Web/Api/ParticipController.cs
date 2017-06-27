@@ -36,7 +36,7 @@ namespace Monit95App.Api
         //}
 
         //read
-        public async Task<IEnumerable<ProjectParticipV2Dto>> GetBySchoolId(string id)
+        public async Task<IEnumerable<ParticipDto>> GetBySchoolId(string id)
         {
             if (!string.IsNullOrEmpty(id))
             {
@@ -57,7 +57,7 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> Update(ProjectParticipV2Dto dto)
+        public async Task<HttpResponseMessage> Update(ParticipDto dto)
         {
             if (dto != null)
             {

@@ -1,6 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Services.DTO.Interfaces;
+using Monit95App.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.DTO
 {
-    public class ProjectParticipV2Service : IProjectParticipV2Service
+    public class ParticipService : IProjectParticipV2Service
     {
         private IUnitOfWork _unitOfWork;
         private IGenericRepository<ProjectParticipsV2> _projectParticipV2Rep;
 
         private IClassService _classServise;
 
-        public ProjectParticipV2Service(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsV2> projectParticipV2Repository, IClassService classService)
+        public ParticipService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsV2> projectParticipV2Repository, IClassService classService)
         {
             _unitOfWork = unitOfWork;
             _projectParticipV2Rep = projectParticipV2Repository;
             _classServise = classService;
         }
 
-        public Task<ProjectParticipV2Dto> AddAsync(ProjectParticipV2Dto dto)
+        public Task<ParticipDto> AddAsync(ParticipDto dto)
         {
             return Task.Run(() =>
             {
@@ -50,16 +51,16 @@ namespace Monit95App.Services.DTO
                 return dto;
             });
         }
-        public Task<List<ProjectParticipV2Dto>> GetBySchoolIdAsync(string schoolId)
+        public Task<List<ParticipDto>> GetBySchoolIdAsync(string schoolId)
         {
             return Task.Run(() =>
             {
-                var dtos = new List<ProjectParticipV2Dto>();
+                var dtos = new List<ParticipDto>();
                 var entities = _projectParticipV2Rep.GetAll().Where(x => x.SchoolId == schoolId).ToList();
 
                 foreach (var entity in entities)
                 {
-                    dtos.Add(new ProjectParticipV2Dto
+                    dtos.Add(new ParticipDto
                     {
                         Id = entity.Id,
                         ProjectCode = entity.ProjectCode,
@@ -75,7 +76,7 @@ namespace Monit95App.Services.DTO
             });           
         }
 
-        public Task<bool> UpdateAsync(ProjectParticipV2Dto dto)
+        public Task<bool> UpdateAsync(ParticipDto dto)
         {
             return Task.Run(() =>
             {
@@ -115,7 +116,7 @@ namespace Monit95App.Services.DTO
             //throw new NotImplementedException();
         }
 
-        public Task<ProjectParticipV2Dto> GetByParticipIdAsync(int participId)
+        public Task<ParticipDto> GetByParticipIdAsync(int participId)
         {
             return Task.Run(() =>
             {
@@ -123,7 +124,7 @@ namespace Monit95App.Services.DTO
                 {
                     var particip = _projectParticipV2Rep.GetById(participId);
                     if (particip != null)
-                        return new ProjectParticipV2Dto { ClassName = _classServise.GetName(particip.ClassCode), Id = particip.Id, ProjectCode = particip.ProjectCode, ParticipCode = particip.ParticipCode, Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, SchoolId = particip.SchoolId };
+                        return new ParticipDto { ClassName = _classServise.GetName(particip.ClassCode), Id = particip.Id, ProjectCode = particip.ProjectCode, ParticipCode = particip.ParticipCode, Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, SchoolId = particip.SchoolId };
                     else
                         throw new NullReferenceException();
                 }
