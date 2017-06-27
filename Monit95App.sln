@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Interfaces", "Services\Monit95App.Services.Interfaces\Monit95App.Services.Interfaces.csproj", "{C22767FE-EDB7-4F9C-A995-9D37F00CA9FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.Business", "Infrastructure\Monit95App.Infrastructure.Business\Monit95App.Infrastructure.Business.csproj", "{134A7FF4-97E4-49F3-95E0-C01A86858535}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +142,10 @@ Global
 		{C22767FE-EDB7-4F9C-A995-9D37F00CA9FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C22767FE-EDB7-4F9C-A995-9D37F00CA9FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C22767FE-EDB7-4F9C-A995-9D37F00CA9FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134A7FF4-97E4-49F3-95E0-C01A86858535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134A7FF4-97E4-49F3-95E0-C01A86858535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134A7FF4-97E4-49F3-95E0-C01A86858535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134A7FF4-97E4-49F3-95E0-C01A86858535}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,5 +165,6 @@ Global
 		{CB5E7793-7905-42A4-818D-0212A4EDDA43} = {7BCAB294-45F4-40B6-B34E-7257F19D0A6B}
 		{F3A784E6-8723-4628-9677-2374BED42492} = {B5863550-5A37-4AF5-86C7-BE2ABBB5CE05}
 		{C22767FE-EDB7-4F9C-A995-9D37F00CA9FC} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
+		{134A7FF4-97E4-49F3-95E0-C01A86858535} = {B5863550-5A37-4AF5-86C7-BE2ABBB5CE05}
 	EndGlobalSection
 EndGlobal

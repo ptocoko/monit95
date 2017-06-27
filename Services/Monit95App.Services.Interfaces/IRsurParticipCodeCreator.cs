@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.Data.Interfaces
+namespace Monit95App.Infrastructure.Services.Interfaces
 {
     public interface IRsurParticipCodeCreator
     {

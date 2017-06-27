@@ -1,6 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Infrastructure.Data.Interfaces;
+using Monit95App.Infrastructure.Services.Interfaces;
 using Monit95App.Models;
 using Monit95App.Models.Abstarct;
 using System;
@@ -17,13 +18,13 @@ namespace Monit95App.Api
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly cokoContext _db;     
-        private readonly IRsurParticipCodeCreator _pparticipCodeCreator;
+       // private readonly IRsurParticipCodeCreator _pparticipCodeCreator;
         private readonly IRsurParticipViewer _pparticipViewer;
 
         public RsurParticipController(cokoContext db, IRsurParticipCodeCreator pparticipCodeCreator, IRsurParticipViewer pparticipViewer)
         {
             _unitOfWork = new UnitOfWork(db);
-            _pparticipCodeCreator = pparticipCodeCreator;
+       //     _pparticipCodeCreator = pparticipCodeCreator;
             _pparticipViewer = pparticipViewer;
         }
 
@@ -31,7 +32,7 @@ namespace Monit95App.Api
         {
             _db = new cokoContext();
             _unitOfWork = new UnitOfWork(_db);
-            _pparticipCodeCreator = new RsurParticipCodeCreator(_db);
+           // _pparticipCodeCreator = new RsurParticipCodeCreator(_db);
             _pparticipViewer = new RsurParticipViewer();
         }
         
@@ -40,7 +41,7 @@ namespace Monit95App.Api
             newParticip.Category = _db.Categories.Find(newParticip.CategId);
             newParticip.NsurSubject = _db.NsurSubjects.Find(newParticip.NSubjectCode);
             newParticip.ProjectCode = 201661;
-            newParticip.ParticipCode = _pparticipCodeCreator.FactoryMethod(newParticip);
+          //  newParticip.ParticipCode = _pparticipCodeCreator.FactoryMethod(newParticip);
             _unitOfWork.ProjectParticips.Add(newParticip);
             await Task.Run(() => _unitOfWork.Save());
 

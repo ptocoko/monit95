@@ -68,7 +68,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MockTSetCreator.cs" />
-    <Compile Include="ParticipCodeCreatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
