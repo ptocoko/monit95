@@ -13,13 +13,30 @@
         <tbody>
             <tr>
                 <td>Код</td>
-                <td>{{item.participCode}}</td>
+                <td>{{item.participCode}}</td>                
+                <td></td>
+                <td rowspan="4">
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-success" (click)="applyCorrection(item)">Принять</button>
+                        <button type="button" class="btn btn-danger" (click)="cancelCorrection(item.participCode)">Отклонить</button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>Фамилия</td>
                 <td>{{item.oldParticipSurname}}</td>
-                <td>{{item.newParticipSurname}}</td>
+                <td>{{item.newParticipSurname}}</td>                
             </tr>
+            <tr>
+                <td>Имя</td>
+                <td>{{item.oldParticipName}}</td>
+                <td>{{item.newParticipName}}</td>
+            </tr>
+            <tr>
+                <td>Отчество</td>
+                <td>{{item.oldParticipSecondName}}</td>
+                <td>{{item.newParticipSecondName}}</td>
+            </tr>            
         </tbody>
     </table>
 </div>
