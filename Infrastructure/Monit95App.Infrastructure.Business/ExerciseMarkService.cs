@@ -1,13 +1,14 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
-using Monit95App.Services.DTO.Interfaces;
+using Monit95App.Infrastructure.Business.Interfaces;
+using Monit95App.Infrastructure.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.DTO
+namespace Monit95App.Infrastructure.Business
 {
     public class ExerciseMarkService : IExerciseMarkService
     {
@@ -23,7 +24,7 @@ namespace Monit95App.Services.DTO
             _testRep = testRep;
         }
 
-        public Task<ExerciseMarkDto> AddAsync(ExerciseMarkDto dto)
+        public Task<ExerciseMarkModel> AddAsync(ExerciseMarkModel dto)
         {
             return Task.Run(() =>
             {
@@ -46,7 +47,7 @@ namespace Monit95App.Services.DTO
             });
         } //C
 
-        public Task<List<ExerciseMarkDto>> GetBySchoolIdAsync(string schoolId, string [] tests) //R
+        public Task<List<ExerciseMarkModel>> GetBySchoolIdAsync(string schoolId, string [] tests) //R
         {                     
             return Task.Run(() =>
             {
@@ -61,11 +62,11 @@ namespace Monit95App.Services.DTO
                 //BD0B538F-A937-4BF7-8302-77A8B225D60D - 1 класс, чтение
                 //D6554110-E07A-4783-B371-04A46E32467B - 2 класс, чтение
                 //FDA1B01B-63AB-44A6-A976-D5B60E59BE5E - 3 класс, чтение
-                var dto = new List<ExerciseMarkDto>();
+                var dto = new List<ExerciseMarkModel>();
 
                 var res = _exerciseMarkRep.GetAll()
                                          .Where(x => x.ProjectParticipsV2.SchoolId == schoolId && tests.Contains(x.TestId.ToString()))
-                                         .Select(s => new ExerciseMarkDto { Id = s.Id, ProjectParticipId = s.ProjectParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })
+                                         .Select(s => new ExerciseMarkModel { Id = s.Id, ProjectParticipId = s.ProjectParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })
                                          .ToList();
                 dto.AddRange(res);
 
@@ -87,7 +88,7 @@ namespace Monit95App.Services.DTO
             });
         }
 
-        public Task<bool> UpdateAsync(ExerciseMarkDto marks)
+        public Task<bool> UpdateAsync(ExerciseMarkModel marks)
         {
             return Task.Run(() =>
             {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.DTO
+namespace Monit95App.Infrastructure.Business.Models
 {
-    public class ExerciseMarkDto
+    public class ExerciseMarkModel
     {
         public int Id { get; set; }
         public int ProjectParticipId { get; set; }

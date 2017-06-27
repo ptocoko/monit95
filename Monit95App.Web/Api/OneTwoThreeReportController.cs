@@ -1,5 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Business.Interfaces;
+using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Infrastructure.Data.Interfaces;
 using Monit95App.Services.DTO;
@@ -35,9 +37,9 @@ namespace Monit95App.Api
                 var marks = await _exerciseMarkService.GetBySchoolIdAsync(schoolId, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.All));
                 var participMarks = marks.Where(p => p.ProjectParticipId == participId).ToList();
 
-                var participMarksRU = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.RU).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
-                var participMarksMA = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
-                var participMarksCHT = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
+                var participMarksRU = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.RU).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkModel { Id = 0, Marks = "Результаты не найдены" };
+                var participMarksMA = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkModel { Id = 0, Marks = "Результаты не найдены" };
+                var participMarksCHT = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkModel { Id = 0, Marks = "Результаты не найдены" };
 
                 var testResults = await _testResultV2Service.GetByParticipIdAsync(participId);
 

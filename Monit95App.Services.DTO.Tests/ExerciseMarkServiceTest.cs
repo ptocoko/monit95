@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Infrastructure.Business;
+using Monit95App.Infrastructure.Business.Models;
 
 namespace Monit95App.Services.DTO.Tests
 {
@@ -12,7 +14,7 @@ namespace Monit95App.Services.DTO.Tests
         [TestMethod]
         public async Task AddAsyncTest()
         {
-            var newDto = new ExerciseMarkDto
+            var newDto = new ExerciseMarkModel
             {              
                 Marks = "1;0;0;1",
                 ProjectParticipId = 1018,

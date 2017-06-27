@@ -79,6 +79,10 @@
       <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
       <Name>Monit95App.Domain.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Monit95App.Infrastructure.Business\Monit95App.Infrastructure.Business.csproj">
+      <Project>{134A7FF4-97E4-49F3-95E0-C01A86858535}</Project>
+      <Name>Monit95App.Infrastructure.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
       <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
       <Name>Monit95App.Infrastructure.Data</Name>

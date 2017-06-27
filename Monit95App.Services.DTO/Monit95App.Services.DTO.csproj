@@ -41,14 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassService.cs" />
-    <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IParticipService.cs" />
-    <Compile Include="ExerciseMarkDto.cs" />
     <Compile Include="Interfaces\ITestResultV2Service.cs" />
     <Compile Include="OneTwoThreeReportDto.cs" />
-    <Compile Include="MaxRatesDto.cs" />
     <Compile Include="ParticipDto.cs" />
-    <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="ParticipService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportsDto.cs" />
