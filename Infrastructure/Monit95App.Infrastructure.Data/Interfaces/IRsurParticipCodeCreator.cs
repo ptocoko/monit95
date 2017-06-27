@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Data.Interfaces
 {
-    public interface IPParticipCodeCreator
+    public interface IRsurParticipCodeCreator
     {
         //Метод возвращает код участника для нового участника
         string FactoryMethod(ProjectParticip newEntity);

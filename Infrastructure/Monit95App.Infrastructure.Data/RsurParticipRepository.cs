@@ -22,10 +22,10 @@ namespace Monit95App.Infrastructure.Data
         {            
             return db.ProjectParticips.ToList();
         }
-        private PPrimaryKey PPrimaryKeyParse(string primaryKey)
+        private RsurParticipPrimaryKey PPrimaryKeyParse(string primaryKey)
         {            
             var primaryKeySplit = primaryKey.Split(';');
-            var pk = new PPrimaryKey();
+            var pk = new RsurParticipPrimaryKey();
             pk.ProjectCode = Int32.Parse(primaryKeySplit[0]);
             pk.ParticipCode = primaryKeySplit[1].ToString();
 

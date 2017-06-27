@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Data
 {
-    public class PPrimaryKey
+    public class RsurParticipPrimaryKey
     {
         public int ProjectCode { get; set; }
         public string ParticipCode { get; set; }

@@ -52,12 +52,12 @@
   <ItemGroup>
     <Compile Include="FileReportRepository.cs" />
     <Compile Include="Interfaces\IGrade5.cs" />
-    <Compile Include="Interfaces\IPParticipCodeCreator.cs" />
+    <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
     <Compile Include="OneTwoThreeGradeConverter.cs" />
     <Compile Include="OneTwoThreeTestsKeeper.cs" />
-    <Compile Include="PParticipRepository.cs" />
-    <Compile Include="PParticipCodeCreator.cs" />
-    <Compile Include="PPrimaryKey.cs" />
+    <Compile Include="RsurParticipRepository.cs" />
+    <Compile Include="RsurParticipCodeCreator.cs" />
+    <Compile Include="RsurParticipPrimaryKey.cs" />
     <Compile Include="ParticipTestRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenericRepository.cs" />

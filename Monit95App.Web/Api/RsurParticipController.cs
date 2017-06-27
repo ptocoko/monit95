@@ -17,10 +17,10 @@ namespace Monit95App.Api
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly cokoContext _db;     
-        private readonly IPParticipCodeCreator _pparticipCodeCreator;
+        private readonly IRsurParticipCodeCreator _pparticipCodeCreator;
         private readonly IRsurParticipViewer _pparticipViewer;
 
-        public RsurParticipController(cokoContext db, IPParticipCodeCreator pparticipCodeCreator, IRsurParticipViewer pparticipViewer)
+        public RsurParticipController(cokoContext db, IRsurParticipCodeCreator pparticipCodeCreator, IRsurParticipViewer pparticipViewer)
         {
             _unitOfWork = new UnitOfWork(db);
             _pparticipCodeCreator = pparticipCodeCreator;
@@ -31,7 +31,7 @@ namespace Monit95App.Api
         {
             _db = new cokoContext();
             _unitOfWork = new UnitOfWork(_db);
-            _pparticipCodeCreator = new PParticipCodeCreator(_db);
+            _pparticipCodeCreator = new RsurParticipCodeCreator(_db);
             _pparticipViewer = new RsurParticipViewer();
         }
         

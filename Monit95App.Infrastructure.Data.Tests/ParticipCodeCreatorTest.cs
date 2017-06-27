@@ -54,7 +54,7 @@ namespace Monit95App.Infrastructure.Data.Tests
                 Email = "theadamo86@gmail.com",                                                                
             };
 
-            var participCodeCreator = new PParticipCodeCreator(mockContext.Object);
+            var participCodeCreator = new RsurParticipCodeCreator(mockContext.Object);
             var result = participCodeCreator.FactoryMethod(newParticip);
 
             //Assert

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Data
 {   
-    public class PParticipCodeCreator : IPParticipCodeCreator
+    public class RsurParticipCodeCreator : IRsurParticipCodeCreator
     {
         private cokoContext _db;        
-        public PParticipCodeCreator(cokoContext db)
+        public RsurParticipCodeCreator(cokoContext db)
         {
             _db = db;            
         }
