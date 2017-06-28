@@ -25,6 +25,11 @@ namespace Monit95App.Api
 
         private readonly IRsurParticipService _rsurParticipService;
 
+        public RsurParticipController(IRsurParticipService rsurParticipService)
+        {
+            _rsurParticipService = rsurParticipService;
+        }
+
         public RsurParticipController(cokoContext db, IRsurParticipCodeCreator pparticipCodeCreator, IRsurParticipViewer pparticipViewer)
         {
             _unitOfWork = new UnitOfWork(db);
@@ -38,50 +43,19 @@ namespace Monit95App.Api
             _unitOfWork = new UnitOfWork(_db);
            // _pparticipCodeCreator = new RsurParticipCodeCreator(_db);
             _pparticipViewer = new RsurParticipViewer();
-        }
-
-        //[HttpPut]
-        //public async Task UpdateParticip(ParticipModel participVM)
-        //{
-        //    if (!ModelState.IsValid) return;
-
-        //    var particip = await Task.Run(() => _db.ProjectParticips.SingleOrDefault(s => s.ParticipCode == participVM.ParticipCode));
-        //    if(particip != null)
-        //    {
-        //        particip.Birthday = participVM.Birthday?.AddDays(1);
-        //        particip.ClassNumbers = participVM.ClassNumbers;
-        //        await Task.Run(() => _unitOfWork.Save());
-        //    }
-        //    else
-        //    {
-        //        throw new ArgumentException();
-        //    }
-        //}
+        }        
 
         [HttpPut]
         [Route("api/rsurParticips")]
-        public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipModel model)
+        public HttpResponseMessage PutParticip([FromBody]RsurParticipModel model)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось внести изменения");
             }
 
-            return Request.CreateErrorResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");
-            //if (dto != null)
-            //{
-            //    try
-            //    {
-            //        await _projectParticipV2Service.UpdateAsync(dto);
-            //    }
-            //    catch (ArgumentNullException)
-            //    {
-            //        Request.CreateResponse(HttpStatusCode.Conflict);
-            //    }
-            //    return Request.CreateResponse(HttpStatusCode.OK);
-            //}
-
-            //throw new ArgumentNullException("async Task<HttpResponseMessage> Update(ProjectParticipV2Dto dto)");
+            _rsurParticipService.Update(model);
+            return Request.CreateErrorResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");           
         }
 
 

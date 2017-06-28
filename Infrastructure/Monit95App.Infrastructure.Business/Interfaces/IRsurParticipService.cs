@@ -9,6 +9,6 @@ namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface IRsurParticipService
     {
-        void UpdateAsync(RsurParticipModel model);
+        bool Update(RsurParticipModel model);
     }
 }
