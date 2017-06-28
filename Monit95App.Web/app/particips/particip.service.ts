@@ -16,7 +16,7 @@ export class ParticipService {
     public headers: Headers;
     constructor(private _http: Http) { }
 
-    private _getByAreaCodeUrl: string = '/api/ProjectParticip/GetByUserName?userName=';
+    private _getByAreaCodeUrl: string = '/api/RsurParticip/GetByUserName?userName=';
 
     getByAreaCode(user: UserModel): Observable<ParticipModel[]> {
         

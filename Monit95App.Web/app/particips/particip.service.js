@@ -17,7 +17,7 @@ var results_model_1 = require("./results/results.model");
 var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;
-        this._getByAreaCodeUrl = '/api/ProjectParticip/GetByUserName?userName=';
+        this._getByAreaCodeUrl = '/api/RsurParticip/GetByUserName?userName=';
     }
     ParticipService.prototype.getByAreaCode = function (user) {
         var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&isAreaRole=" + user.isAreaRole;

@@ -38,7 +38,8 @@ namespace Monit95App.Util
             builder.RegisterType<ParticipService>().As<IParticipService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("projectParticipV2Repository", new GenericRepository<ProjectParticipsV2>(new UnitOfWorkV2(context))), new NamedParameter("classService", new ClassService(new UnitOfWorkV2(context), new GenericRepository<Class>(new UnitOfWorkV2(context)))) });
             builder.RegisterType<ClassService>().As<IClassService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("classRepository", new GenericRepository<Class>(new UnitOfWorkV2(context))) });
             builder.RegisterType<RsurParticipEditService>().As<IRsurParticipEditService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("participEditRepository", new GenericRepository<ProjectParticipsEdit>(new UnitOfWorkV2(context))) });
-            builder.RegisterType<RsurParticipService>().As<IRsurParticipService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("participRepository", new GenericRepository<ProjectParticip>(new UnitOfWorkV2(context))) });
+
+            //builder.RegisterType<RsurParticipService>().As<IRsurParticipService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("participRepository", new GenericRepository<ProjectParticip>(new UnitOfWorkV2(context))) });
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

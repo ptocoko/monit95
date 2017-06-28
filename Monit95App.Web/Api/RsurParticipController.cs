@@ -18,32 +18,39 @@ namespace Monit95App.Api
 {    
     public class RsurParticipController : ApiController
     {
-        private readonly UnitOfWork _unitOfWork;
-        private readonly cokoContext _db;     
-       // private readonly IRsurParticipCodeCreator _pparticipCodeCreator;
-        private readonly IRsurParticipViewer _pparticipViewer;
-
+        private readonly UnitOfWork _unitOfWork;                
+        private readonly IRsurParticipViewer _rsurParticipViewer;
         private readonly IRsurParticipService _rsurParticipService;
+
+        public async Task<IEnumerable<RsurParticipModel>> GetByUserName(string userName, bool isAreaRole)
+        {
+            var allPParticips = await Task.Run(() => _unitOfWork.ProjectParticips.GetAll());
+            IEnumerable<RsurParticipModel> result;
+
+            if (isAreaRole)
+                result = allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _rsurParticipViewer.CreateModel(x));
+            else
+                result = allPParticips.Where(x => x.SchoolId == userName).Select(x => _rsurParticipViewer.CreateModel(x));
+
+            return result;
+        }      
+
+        //public RsurParticipController(cokoContext db, IRsurParticipViewer rsurParticipViewer)
+        //{
+        //    _unitOfWork = new UnitOfWork(db);       
+        //    _rsurParticipViewer = rsurParticipViewer;
+        //}
+
+        public RsurParticipController()
+        {            
+            _unitOfWork = new UnitOfWork(new cokoContext());           
+            _rsurParticipViewer = new RsurParticipViewer();
+        }
 
         public RsurParticipController(IRsurParticipService rsurParticipService)
         {
             _rsurParticipService = rsurParticipService;
         }
-
-        public RsurParticipController(cokoContext db, IRsurParticipCodeCreator pparticipCodeCreator, IRsurParticipViewer pparticipViewer)
-        {
-            _unitOfWork = new UnitOfWork(db);
-       //     _pparticipCodeCreator = pparticipCodeCreator;
-            _pparticipViewer = pparticipViewer;
-        }
-
-        public RsurParticipController()
-        {
-            _db = new cokoContext();
-            _unitOfWork = new UnitOfWork(_db);
-           // _pparticipCodeCreator = new RsurParticipCodeCreator(_db);
-            _pparticipViewer = new RsurParticipViewer();
-        }        
 
         [HttpPut]
         [Route("api/rsurParticips")]
@@ -68,22 +75,11 @@ namespace Monit95App.Api
             _unitOfWork.ProjectParticips.Add(newParticip);
             await Task.Run(() => _unitOfWork.Save());
 
-            return _pparticipViewer.CreateModel(newParticip);
+            return _rsurParticipViewer.CreateModel(newParticip);
         }
              
         //[Route("api/ProjectParticip/GetParticips/{area:int}")]
-        public async Task<IEnumerable<RsurParticipModel>> GetByUserName(string userName, bool isAreaRole)
-        {
-            var allPParticips =  await Task.Run(() => _unitOfWork.ProjectParticips.GetAll());
-            IEnumerable<RsurParticipModel> result;
-
-            if (isAreaRole)
-                result = allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _pparticipViewer.CreateModel(x));
-            else
-                result = allPParticips.Where(x => x.SchoolId == userName).Select(x => _pparticipViewer.CreateModel(x));
-            
-            return result;
-        }
+        
 
 
         
@@ -93,7 +89,7 @@ namespace Monit95App.Api
             if (String.IsNullOrEmpty(participCode)) return null;
 
             var res = await Task.Run(() => _db.TestResults.Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode).ToList()
-                                              .Select(s => _pparticipViewer.CreateResultViewModel(s, participCode))
+                                              .Select(s => _rsurParticipViewer.CreateResultViewModel(s, participCode))
                                               .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList());
             return res;
         }     

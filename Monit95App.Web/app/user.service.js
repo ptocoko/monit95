@@ -17,7 +17,7 @@ var UserService = (function () {
         this.http = http;
     }
     UserService.prototype.getName = function () {
-        return this.http.get('/api/AccountApi/GetUserNameAndRole')
+        return this.http.get('/api/Account/GetUserNameAndRole')
             .map(function (resp) {
             var res = resp.json();
             return new user_model_1.UserModel(res.UserName, res.IsAreaRole);

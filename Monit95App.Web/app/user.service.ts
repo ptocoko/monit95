@@ -14,7 +14,7 @@ export class UserService {
 	}
 
 	getName(): Observable<UserModel> {
-		return this.http.get('/api/AccountApi/GetUserNameAndRole')
+		return this.http.get('/api/Account/GetUserNameAndRole')
 			.map((resp: Response) => {
 				let res = resp.json();
 				return new UserModel(res.UserName, <boolean>res.IsAreaRole);
