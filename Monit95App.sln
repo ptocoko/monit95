@@ -14,9 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{B5863550-5A37-4AF5-86C7-BE2ABBB5CE05}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A8F3FD56-402C-426A-A576-0026014F6F5B}"
-	ProjectSection(SolutionItems) = preProject
-		App.config = App.config
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B0571893-C8F7-4398-91B2-2EBEE4B33FDF}"
 EndProject

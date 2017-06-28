@@ -55,7 +55,7 @@ namespace Monit95App.Api
             }
 
             _rsurParticipService.Update(model);
-            return Request.CreateErrorResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");           
+            return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");           
         }
 
 
