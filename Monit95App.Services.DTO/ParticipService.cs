@@ -24,7 +24,7 @@ namespace Monit95App.Services.DTO
             _classServise = classService;
         }
 
-        public Task<ParticipDto> AddAsync(ParticipDto dto)
+        public Task<ParticipModel> AddAsync(ParticipModel dto)
         {
             return Task.Run(() =>
             {
@@ -51,16 +51,16 @@ namespace Monit95App.Services.DTO
                 return dto;
             });
         }
-        public Task<List<ParticipDto>> GetBySchoolIdAsync(string schoolId)
+        public Task<List<ParticipModel>> GetBySchoolIdAsync(string schoolId)
         {
             return Task.Run(() =>
             {
-                var dtos = new List<ParticipDto>();
+                var dtos = new List<ParticipModel>();
                 var entities = _projectParticipV2Rep.GetAll().Where(x => x.SchoolId == schoolId).ToList();
 
                 foreach (var entity in entities)
                 {
-                    dtos.Add(new ParticipDto
+                    dtos.Add(new ParticipModel
                     {
                         Id = entity.Id,
                         ProjectCode = entity.ProjectCode,
@@ -76,7 +76,7 @@ namespace Monit95App.Services.DTO
             });           
         }
 
-        public Task<bool> UpdateAsync(ParticipDto dto)
+        public Task<bool> UpdateAsync(ParticipModel dto)
         {
             return Task.Run(() =>
             {
@@ -116,7 +116,7 @@ namespace Monit95App.Services.DTO
             //throw new NotImplementedException();
         }
 
-        public Task<ParticipDto> GetByParticipIdAsync(int participId)
+        public Task<ParticipModel> GetByParticipIdAsync(int participId)
         {
             return Task.Run(() =>
             {
@@ -124,7 +124,7 @@ namespace Monit95App.Services.DTO
                 {
                     var particip = _projectParticipV2Rep.GetById(participId);
                     if (particip != null)
-                        return new ParticipDto { ClassName = _classServise.GetName(particip.ClassCode), Id = particip.Id, ProjectCode = particip.ProjectCode, ParticipCode = particip.ParticipCode, Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, SchoolId = particip.SchoolId };
+                        return new ParticipModel { ClassName = _classServise.GetName(particip.ClassCode), Id = particip.Id, ProjectCode = particip.ProjectCode, ParticipCode = particip.ParticipCode, Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, SchoolId = particip.SchoolId };
                     else
                         throw new NullReferenceException();
                 }

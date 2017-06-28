@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Monit95App.Services.DTO
 {
-    public class ParticipDto
+    public class ParticipModel
     {
         public int Id { get; set; }
         public int ProjectCode { get; set; }

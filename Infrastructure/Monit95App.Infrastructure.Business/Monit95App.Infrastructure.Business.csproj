@@ -44,6 +44,7 @@
     <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
+    <Compile Include="Interfaces\IRsurParticipService.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
     <Compile Include="Models\RsurParticipEditModel.cs" />

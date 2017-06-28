@@ -14,33 +14,32 @@ namespace Monit95App.Api
 {
     public class ParticipController : ApiController
     {
-        private IParticipService _projectParticipV2Service;
+        private IParticipService _participService;
 
-        public ParticipController(IParticipService projectParticipV2Service)
+        public ParticipController(IParticipService participService)
         {
-            _projectParticipV2Service = projectParticipV2Service;
+            _participService = participService;
+        }
+        
+        public async Task<HttpResponseMessage> Post(ParticipModel model)
+        {
+            if (model != null)
+            {
+                await _participService.AddAsync(model);
+                return Request.CreateResponse(HttpStatusCode.Created, model);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось добавить участника");
+            }
         }
 
-        //create
-        //public async Task<HttpResponseMessage> Post(ProjectParticipV2Dto dto)
-        //{
-        //    if(dto != null)
-        //    {
-        //        await _projectParticipV2Service.AddAsync(dto);
-        //        return Request.CreateResponse(HttpStatusCode.Created, dto);
-        //    }
-        //    else
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось добавить участника");
-        //    }            
-        //}
-
         //read
-        public async Task<IEnumerable<ParticipDto>> GetBySchoolId(string id)
+        public async Task<IEnumerable<ParticipModel>> GetBySchoolId(string id)
         {
             if (!string.IsNullOrEmpty(id))
             {
-                return await _projectParticipV2Service.GetBySchoolIdAsync(id);
+                return await _participService.GetBySchoolIdAsync(id);
             }
             return null;
         }
@@ -50,20 +49,20 @@ namespace Monit95App.Api
         {
             if (id != 0)
             {
-                await _projectParticipV2Service.DeleteAsync(id);
+                await _participService.DeleteAsync(id);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             throw new ArgumentNullException("async Task<HttpResponseMessage> Delete(int id)");
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> Update(ParticipDto dto)
+        public async Task<HttpResponseMessage> Update(ParticipModel dto)
         {
             if (dto != null)
             {
                 try
                 {
-                    await _projectParticipV2Service.UpdateAsync(dto);
+                    await _participService.UpdateAsync(dto);
                 }
                 catch (ArgumentNullException)
                 {

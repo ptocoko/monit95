@@ -17,7 +17,7 @@ namespace Monit95App.Services.DTO.Tests
         [TestMethod]
         public async void AddAsync()
         {
-            var dto = new ParticipDto
+            var dto = new ParticipModel
             {
                 ProjectCode = 201661,
                 Surname = "Testu",
