@@ -35,12 +35,6 @@ namespace Monit95App.Api
             return result;
         }      
 
-        //public RsurParticipController(cokoContext db, IRsurParticipViewer rsurParticipViewer)
-        //{
-        //    _unitOfWork = new UnitOfWork(db);       
-        //    _rsurParticipViewer = rsurParticipViewer;
-        //}
-
         public RsurParticipController()
         {            
             _unitOfWork = new UnitOfWork(new cokoContext());           
