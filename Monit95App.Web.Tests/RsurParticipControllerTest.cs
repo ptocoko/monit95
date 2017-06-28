@@ -47,9 +47,9 @@ namespace Monit95App.Web.Tests
             var model = new RsurParticipModel
             {
                 ProjectCode = 201661,
-                ParticipCode = "2016-100-004",                
-                Surname = "testNewSurname",
-                Name = "testNewName"
+                ParticipCode = "2016-100-004",
+                //Surname = "testNewSurname",
+                //Name = "testNewName"
             };
 
             //Act
