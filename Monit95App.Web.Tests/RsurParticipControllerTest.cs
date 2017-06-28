@@ -48,8 +48,8 @@ namespace Monit95App.Web.Tests
             {
                 ProjectCode = 201661,
                 ParticipCode = "2016-100-004",
-                //Surname = "testNewSurname",
-                //Name = "testNewName"
+                Surname = "testNewSurname",
+                Name = "testNewName"
             };
 
             //Act
