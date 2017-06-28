@@ -18,7 +18,8 @@ namespace Monit95App.Api
 {    
     public class RsurParticipController : ApiController
     {
-        private readonly UnitOfWork _unitOfWork;                
+        private readonly UnitOfWork _unitOfWork;
+        private readonly cokoContext _db;
         private readonly IRsurParticipViewer _rsurParticipViewer;
         private readonly IRsurParticipService _rsurParticipService;
 
@@ -39,6 +40,7 @@ namespace Monit95App.Api
         {            
             _unitOfWork = new UnitOfWork(new cokoContext());           
             _rsurParticipViewer = new RsurParticipViewer();
+            _db = new cokoContext();
         }
 
         public RsurParticipController(IRsurParticipService rsurParticipService)
