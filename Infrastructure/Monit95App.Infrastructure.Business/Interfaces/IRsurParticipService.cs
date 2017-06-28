@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monit95App.Infrastructure.Business.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface IRsurParticipService
     {
-
+        void UpdateAsync(RsurParticipModel model);
     }
 }

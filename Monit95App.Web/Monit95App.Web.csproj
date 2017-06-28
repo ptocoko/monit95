@@ -238,7 +238,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ParticipResultsViewModel.cs" />
     <Compile Include="Models\RsurParticipViewer.cs" />
-    <Compile Include="Models\RsurParticipModel.cs" />
     <Compile Include="Models\SchoolModel.cs" />
     <Compile Include="Models\SchoolModelCreator.cs" />
     <Compile Include="Util\AutofacConfig.cs" />

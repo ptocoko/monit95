@@ -48,6 +48,7 @@
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
     <Compile Include="Models\RsurParticipEditModel.cs" />
+    <Compile Include="Models\RsurParticipModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipCodeCreator.cs" />
     <Compile Include="RsurParticipEditService.cs" />

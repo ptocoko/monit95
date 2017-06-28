@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Models.Abstarct;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Monit95App.Models
         private readonly string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
         private cokoContext _db = new cokoContext();
 
-        public RsurParticipModel CreateViewModel(ProjectParticip entity)
+        public RsurParticipModel CreateModel(ProjectParticip entity)
         {
             var vm = new RsurParticipModel
             {

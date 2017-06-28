@@ -1,4 +1,6 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Business.Interfaces;
+using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Infrastructure.Data.Interfaces;
 using Monit95App.Infrastructure.Services.Interfaces;
@@ -92,7 +94,7 @@ namespace Monit95App.Api
             _unitOfWork.ProjectParticips.Add(newParticip);
             await Task.Run(() => _unitOfWork.Save());
 
-            return _pparticipViewer.CreateViewModel(newParticip);
+            return _pparticipViewer.CreateModel(newParticip);
         }
              
         //[Route("api/ProjectParticip/GetParticips/{area:int}")]
@@ -102,9 +104,9 @@ namespace Monit95App.Api
             IEnumerable<RsurParticipModel> result;
 
             if (isAreaRole)
-                result = allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _pparticipViewer.CreateViewModel(x));
+                result = allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _pparticipViewer.CreateModel(x));
             else
-                result = allPParticips.Where(x => x.SchoolId == userName).Select(x => _pparticipViewer.CreateViewModel(x));
+                result = allPParticips.Where(x => x.SchoolId == userName).Select(x => _pparticipViewer.CreateModel(x));
             
             return result;
         }
