@@ -73,10 +73,7 @@ namespace Monit95App.Api
         }
              
         //[Route("api/ProjectParticip/GetParticips/{area:int}")]
-        
-
-
-        
+                
 
         public async Task<IEnumerable<IGrouping<string, ParticipResultsViewModel>>> GetParticipResults(string participCode)
         {
