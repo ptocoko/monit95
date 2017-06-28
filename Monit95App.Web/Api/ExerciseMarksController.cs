@@ -1,6 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Business.Interfaces;
+using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTO;
 using Monit95App.Services.DTO.Interfaces;
@@ -14,6 +15,7 @@ using System.Web.Http;
 
 namespace Monit95App.Api
 {
+    [Authorize]
     public class ExerciseMarksController : ApiController
     {
         private readonly IExerciseMarkService _exerciseMarksService;
@@ -32,20 +34,20 @@ namespace Monit95App.Api
         //    return null;
         //}
 
-        //public async Task<ExerciseMarkDto> Post(ExerciseMarkDto dto)
-        //{
-        //    if(dto != null)
-        //    {
-        //        return await _exerciseMarksService.AddAsync(dto);
-        //    }
-        //    return null;
-        //}
+        public async Task<ExerciseMarkModel> Post(ExerciseMarkModel model)
+        {
+            if (model != null)
+            {
+                return await _exerciseMarksService.AddAsync(model);
+            }
+            return null;
+        }
 
         //[HttpPut]
         //public async Task<HttpResponseMessage> Update(ExerciseMarkDto dto)
         //{
         //    if (dto == null) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            
+
         //    await _exerciseMarksService.UpdateAsync(dto);
         //    return Request.CreateResponse(HttpStatusCode.OK);                  
         //}
