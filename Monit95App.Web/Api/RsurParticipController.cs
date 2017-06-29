@@ -49,7 +49,7 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        [Route("api/rsurParticips")]
+        //[Route("api/rsurParticips")]
         public HttpResponseMessage PutParticip([FromBody]RsurParticipModel model)
         {
             if (!ModelState.IsValid)

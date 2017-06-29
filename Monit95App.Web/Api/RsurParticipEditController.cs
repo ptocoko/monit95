@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace Monit95App.Api
 {
-    [Authorize]
+    [System.Web.Http.Authorize]
     public class RsurParticipEditController : ApiController
     {
         private IRsurParticipEditService _participEditService;
@@ -19,8 +21,13 @@ namespace Monit95App.Api
             _participEditService = particiEditService;
         }
 
-        [HttpPost]
-        public HttpResponseMessage Post([FromBody]RsurParticipEditModel model)
+        public async Task<List<RsurParticipEditModel>> Get()
+        {
+            return await Task.Run(() => _participEditService.GetModels());
+        }
+
+        [System.Web.Http.HttpPost]
+        public HttpResponseMessage Post([Bind(Include ="ParticipCode,NewParticipSurname,NewParticipName,NewParticipSecondName")]RsurParticipEditModel model)
         {
             if(!ModelState.IsValid)
             {

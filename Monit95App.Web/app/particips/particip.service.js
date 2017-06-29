@@ -27,17 +27,17 @@ var ParticipService = (function () {
             var particips = [];
             for (var index in participList) {
                 var particip = participList[index];
-                particips.push(new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.Birthday != null ? new Date(particip.Birthday) : null, particip.ClassNumbers, particip.HasRequestToEdit));
+                particips.push(new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.SchoolIdWithName, particip.CategName, particip.Birthday != null ? new Date(particip.Birthday) : null, particip.ClassNumbers, particip.HasRequestToEdit));
             }
             //console.log(particips);
             return particips;
         });
     };
     ParticipService.prototype.updateParticip = function (particip) {
-        return this._http.put('/api/ProjectParticip/UpdateParticip', particip);
+        return this._http.put('/api/RsurParticip/PutParticip', particip);
     };
     ParticipService.prototype.getParticipResults = function (participCode) {
-        return this._http.get('/api/ProjectParticip/GetParticipResults?participCode=' + participCode)
+        return this._http.get('/api/RsurParticip/GetParticipResults?participCode=' + participCode)
             .map(function (res) {
             var resultsInJSON = res.json();
             var results = [];
@@ -55,7 +55,7 @@ var ParticipService = (function () {
         });
     };
     ParticipService.prototype.postRequestToEdit = function (editParticip) {
-        return this._http.post('/api/ParticipEdit/Post', editParticip);
+        return this._http.post('/api/RsurParticipEdit/Post', editParticip);
     };
     return ParticipService;
 }());

@@ -14,30 +14,41 @@ namespace Monit95App.Infrastructure.Business
     {
         private IUnitOfWork _unitOfWork;
         private IGenericRepository<ProjectParticipsEdit> _participEditRepository;
+        private IGenericRepository<ProjectParticip> _participRepository;
 
-        public RsurParticipEditService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> participEditRepository)
+        public RsurParticipEditService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> participEditRepository, IGenericRepository<ProjectParticip> participRepository)
         {
             this._unitOfWork = unitOfWork;
             this._participEditRepository = participEditRepository;
+            _participRepository = participRepository;
         }
 
         public List<RsurParticipEditModel> GetModels()
         {
-            var entities = _participEditRepository.GetAll().ToList();
-
-            var models = new List<RsurParticipEditModel>();
-            foreach (var entity in entities)
+            var models = _participEditRepository.GetAll().Join(_participRepository.GetAll(), ik => ik.ParticipCode, ok => ok.ParticipCode, (ik, ok) => new RsurParticipEditModel
             {
-                RsurParticipEditModel model = new RsurParticipEditModel()
-                {
-                    ParticipCode = entity.ParticipCode,
-                    ParticipSurname = entity.Surname,
-                    ParticipName = entity.Name,
-                    ParticipSecondName = entity.SecondName
-                };
+                ParticipCode = ik.ParticipCode,
+                NewParticipSurname = ik.Surname,
+                OldParticipSurname = ok.Surname,
+                NewParticipName = ik.Name,
+                OldParticipName = ok.Name,
+                NewParticipSecondName = ik.SecondName,
+                OldParticipSecondName = ok.SecondName
+            }).ToList();
 
-                models.Add(model);
-            }
+            //var models = new List<RsurParticipEditModel>();
+            //foreach (var entity in entities)
+            //{
+            //    RsurParticipEditModel model = new RsurParticipEditModel()
+            //    {
+            //        ParticipCode = entity.ParticipCode,
+            //        NewParticipSurname = entity.Surname,
+            //        NewParticipName = entity.Name,
+            //        NewParticipSecondName = entity.SecondName
+            //    };
+
+            //    models.Add(model);
+            //}
 
             return models;
         }
@@ -49,9 +60,9 @@ namespace Monit95App.Infrastructure.Business
                 var entity = new ProjectParticipsEdit
                 {
                     ParticipCode = model.ParticipCode,
-                    Surname = model.ParticipSurname,
-                    Name = model.ParticipName,
-                    SecondName = model.ParticipSecondName
+                    Surname = model.NewParticipSurname,
+                    Name = model.NewParticipName,
+                    SecondName = model.NewParticipSecondName
                 };
 
                 _participEditRepository.Insert(entity);

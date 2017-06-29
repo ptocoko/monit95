@@ -23,7 +23,7 @@ namespace Monit95App.Models
                 Name = entity.Name,
                 SecondName = entity.SecondName,
                 SubjectName = entity.NsurSubject.Name,
-                SchoolIdWithName = $"{entity.School.Id} - {entity.School.Name}",
+                SchoolIdWithName = $"{entity.School.Id} - {entity.School.Name.Trim()}",
                 CategName = entity.Category != null ? entity.Category.Name : "",
                 Experience = entity.Experience ?? -1,
                 Phone = entity.Phone ?? "",

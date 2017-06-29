@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ParticipEditModel = (function () {
-    function ParticipEditModel(participCode, participSurname, participName, participSecondName) {
+    function ParticipEditModel(participCode, newParticipSurname, newParticipName, newParticipSecondName) {
         this.participCode = participCode;
-        this.participSurname = participSurname;
-        this.participName = participName;
-        this.participSecondName = participSecondName;
+        this.newParticipSurname = newParticipSurname;
+        this.newParticipName = newParticipName;
+        this.newParticipSecondName = newParticipSecondName;
     }
     return ParticipEditModel;
 }());

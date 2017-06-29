@@ -11,13 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var particip_correction_mock_1 = require("./particip-correction.mock");
+var particip_correction_1 = require("./particip-correction");
 var ParticipCorrectionService = (function () {
     function ParticipCorrectionService(_http) {
         this._http = _http;
     }
     ParticipCorrectionService.prototype.getCorrections = function () {
-        return Promise.resolve(particip_correction_mock_1.PARTICIPCORRECTIONS);
+        return this._http.get('/api/RsurParticipEdit/Get').map(function (resp) {
+            var models = resp.json();
+            var particips = new Array();
+            for (var index in models) {
+                var model = models[index];
+                var particip = new particip_correction_1.ParticipCorrection();
+                particip.participCode = model.ParticipCode;
+                particip.oldParticipSurname = model.OldParticipSurname;
+                particip.newParticipSurname = model.NewParticipSurname;
+                particip.oldParticipName = model.OldParticipName;
+                particip.newParticipName = model.NewParticipName;
+                particip.oldParticipSecondName = model.OldParticipSecondName;
+                particip.newParticipSecondName = model.NewParticipSecondName;
+                particips.push(particip);
+            }
+            return particips;
+        });
     };
     ParticipCorrectionService.prototype.applyCorrection = function (correction) {
         this._http.put('/api/participCorrections', +correction);

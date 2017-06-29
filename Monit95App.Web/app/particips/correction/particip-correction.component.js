@@ -21,7 +21,7 @@ var ParticipCorrectionComponent = (function () {
     };
     ParticipCorrectionComponent.prototype.getCorrections = function () {
         var _this = this;
-        this._participCorrectionService.getCorrections().then(function (result) { return _this.participCorrections = result; });
+        this._participCorrectionService.getCorrections().subscribe(function (participsCorrections) { return _this.participCorrections = participsCorrections; });
     };
     ;
     ParticipCorrectionComponent.prototype.applyCorrection = function (correction) {

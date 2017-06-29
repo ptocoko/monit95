@@ -4,15 +4,15 @@ namespace Monit95App.Infrastructure.Business.Models
 {
     public class RsurParticipEditModel
     {
-        [Required]
         public string ParticipCode { get; set; }
+        
+        public string NewParticipSurname { get; set; }
+        public string OldParticipSurname { get; set; }
+        
+        public string NewParticipName { get; set; }
+        public string OldParticipName { get; set; }
 
-        [Required]
-        public string ParticipSurname { get; set; }
-
-        [Required]
-        public string ParticipName { get; set; }
-
-        public string ParticipSecondName { get; set; }
+        public string NewParticipSecondName { get; set; }
+        public string OldParticipSecondName { get; set; }
     }
 }

@@ -17,7 +17,7 @@ export class ParticipCorrectionComponent implements OnInit {
     }
 
     getCorrections(): void {
-        this._participCorrectionService.getCorrections().then(result => this.participCorrections = result);        
+		this._participCorrectionService.getCorrections().subscribe(participsCorrections => this.participCorrections = participsCorrections);        
     };
 
     applyCorrection(correction: ParticipCorrection): void
