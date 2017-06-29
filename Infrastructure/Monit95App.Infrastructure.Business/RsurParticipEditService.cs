@@ -32,6 +32,7 @@ namespace Monit95App.Infrastructure.Business
                 {
                     ParticipCode = entity.ParticipCode,
                     ParticipSurname = entity.Surname,
+                    ParticipName = entity.Name,
                     ParticipSecondName = entity.SecondName
                 };
 
