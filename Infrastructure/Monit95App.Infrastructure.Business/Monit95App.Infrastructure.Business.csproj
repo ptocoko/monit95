@@ -47,6 +47,9 @@
     <Compile Include="Interfaces\IRsurParticipService.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
+    <Compile Include="Models\Report\ElementResultModel.cs" />
+    <Compile Include="Models\Report\RsurParticipReportModel.cs" />
+    <Compile Include="Models\Report\MarkResultModel.cs" />
     <Compile Include="Models\RsurParticipEditModel.cs" />
     <Compile Include="Models\RsurParticipModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
