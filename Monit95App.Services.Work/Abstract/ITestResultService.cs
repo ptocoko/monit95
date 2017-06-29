@@ -11,5 +11,6 @@ namespace Monit95App.Services.Work.Abstract
     public interface ITestResultService
     {
         ReportsDto SelectParticipsGroupResults(Guid testId, DateTime testDate);
+        List<IGrouping<string, TestResult>> SelectParticipsGroupResults2(Guid testId, DateTime testDate);
     }
 }

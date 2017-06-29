@@ -86,6 +86,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
+      <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
+      <Name>Monit95App.Domain.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
       <Project>{6066434d-dc3d-49c1-8421-619f293c6929}</Project>
       <Name>Monit95App.Services.DTO</Name>

@@ -21,10 +21,15 @@ namespace Monit95App.Services.Work.Concrete
             _testResultRep = testResultRep;
         }
 
+        public TestResultService()
+        {
+            
+        }
+
         //Метод возвращает группу результатов участников по срезам на указанную дату (testDate) 
         public ReportsDto SelectParticipsGroupResults(Guid testId, DateTime testDate)
         {
-            var queryResults = _testResultRep.GetAll().Where(x => x.ParticipTest.ProjectTest.TestId == testId) //все результаты участников по данному эказамену 
+            var queryResults = _testResultRep.GetAll().Where(x => x.ParticipTest.ProjectTest.TestId == testId) //все результаты участников по данному экзамену 
                                         .GroupBy(x => x.ParticipTest.ParticipCode)
                                         .Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate == testDate)).ToList();
 
@@ -55,6 +60,16 @@ namespace Monit95App.Services.Work.Concrete
             reports.ParticipReports = participReports;
 
             return reports;
+        }
+
+        public List<IGrouping<string, TestResult>> SelectParticipsGroupResults2(Guid testId, DateTime testDate)
+        {
+            var context = new cokoContext();
+            var queryResults = context.TestResults.Where(x => x.ParticipTest.ProjectTest.TestId == testId) //все результаты участников по данному экзамену 
+                                                  .GroupBy(x => x.ParticipTest.ParticipCode)
+                                                  .Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate == testDate)).ToList();           
+
+            return queryResults;
         }
     }
 }
