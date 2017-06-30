@@ -27,6 +27,13 @@ var ParticipCorrectionComponent = (function () {
     ParticipCorrectionComponent.prototype.applyCorrection = function (correction) {
         this._participCorrectionService.applyCorrection(correction);
     };
+    ParticipCorrectionComponent.prototype.cancelCorrection = function (particip) {
+        var _this = this;
+        this._participCorrectionService.cancelCorrection(particip.participCode).subscribe(function (success) {
+            var index = _this.participCorrections.indexOf(particip);
+            _this.participCorrections.splice(index, 1);
+        }, function (error) { });
+    };
     return ParticipCorrectionComponent;
 }());
 ParticipCorrectionComponent = __decorate([

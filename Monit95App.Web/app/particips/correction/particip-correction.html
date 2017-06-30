@@ -13,28 +13,28 @@
         <tbody>
             <tr>
                 <td>Код</td>
-                <td colspan="2" align="center">{{item.participCode}}</td>
+                <td colspan="2" align="center"><b>{{item.participCode}}</b></td>
                 <td rowspan="4">
                     <div class="btn-group-vertical">
                         <button type="button" class="btn btn-success" (click)="applyCorrection(item)">Принять</button>
-                        <button type="button" class="btn btn-danger" (click)="cancelCorrection(item.participCode)">Отклонить</button>
+                        <button type="button" class="btn btn-danger" (click)="cancelCorrection(item)">Отклонить</button>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>Фамилия</td>
                 <td>{{item.oldParticipSurname}}</td>
-                <td>{{item.newParticipSurname}}</td>                
+                <td><span *ngIf="item.oldParticipSurname!=item.newParticipSurname">{{item.newParticipSurname}}</span></td>                
             </tr>
             <tr>
                 <td>Имя</td>
                 <td>{{item.oldParticipName}}</td>
-                <td>{{item.newParticipName}}</td>
+                <td><span *ngIf="item.oldParticipName!=item.newParticipName">{{item.newParticipName}}</span></td>
             </tr>
             <tr>
                 <td>Отчество</td>
                 <td>{{item.oldParticipSecondName}}</td>
-                <td>{{item.newParticipSecondName}}</td>
+                <td><span *ngIf="item.oldParticipSecondName!=item.newParticipSecondName">{{item.newParticipSecondName}}</span></td>
             </tr>            
         </tbody>
     </table>

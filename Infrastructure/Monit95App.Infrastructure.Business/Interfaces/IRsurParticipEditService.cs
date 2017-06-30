@@ -11,5 +11,6 @@ namespace Monit95App.Infrastructure.Business.Interfaces
     {
         List<RsurParticipEditModel> GetModels();
         void AddModel(RsurParticipEditModel model);
+        Task DeleteModel(string participCode);
     }
 }

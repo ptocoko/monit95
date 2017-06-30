@@ -23,6 +23,13 @@ export class ParticipCorrectionComponent implements OnInit {
     applyCorrection(correction: ParticipCorrection): void
     {
         this._participCorrectionService.applyCorrection(correction);
-    }
+	}
+
+	cancelCorrection(particip: ParticipCorrection) {
+		this._participCorrectionService.cancelCorrection(particip.participCode).subscribe(success => {
+			let index = this.participCorrections.indexOf(particip);
+			this.participCorrections.splice(index, 1);
+		}, error => { });
+	}
 }
 

@@ -31,7 +31,11 @@ export class ParticipCorrectionService {
 			
 			return particips;
 		})
-    }
+	}
+
+	cancelCorrection(participCode: string): Observable<any> {
+		return this._http.delete('/api/RsurParticipEdit/Cancel?participCode=' + participCode);
+	}
 
     applyCorrection(correction: ParticipCorrection): void
     {

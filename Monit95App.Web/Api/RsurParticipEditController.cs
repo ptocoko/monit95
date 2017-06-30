@@ -37,5 +37,17 @@ namespace Monit95App.Api
             _participEditService.AddModel(model);
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
+
+        [System.Web.Http.HttpDelete]
+        public HttpResponseMessage Cancel(string participCode)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось отменить коррекцию");
+            }
+
+            _participEditService.DeleteModel(participCode);
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
     }
 }

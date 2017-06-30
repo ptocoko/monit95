@@ -69,5 +69,12 @@ namespace Monit95App.Infrastructure.Business
                 _unitOfWork.Save();
             }
         }
+
+        public async Task DeleteModel(string participCode)
+        {
+            var entity = _participEditRepository.GetAll().Single(p => p.ParticipCode == participCode);
+            _unitOfWork.DbContext.ProjectParticipsEdits.Remove(entity);
+            await Task.Run(() => _unitOfWork.Save());
+        }
     }
 }
