@@ -3,7 +3,7 @@ using Monit95App.Api;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Business;
-using Monit95App.Infrastructure.Business.Protocols;
+using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -44,7 +44,7 @@ namespace Monit95App.Web.Tests
             };
             controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
 
-            var model = new RsurParticipProtocol
+            var model = new RsurParticipModel
             {
                 ProjectCode = 201661,
                 ParticipCode = "2016-100-004",
@@ -59,6 +59,15 @@ namespace Monit95App.Web.Tests
             //Assert
             Assert.AreEqual(message.StatusCode, HttpStatusCode.OK);
             Assert.AreEqual(entity.Surname, "testNewSurname");
+        }
+
+        public void GetByUserNameTest()
+        {
+            //Arange
+            //Act
+
+            //Assert
+            Assert.Fail();
         }
 
         [TestCleanup]

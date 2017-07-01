@@ -20,10 +20,12 @@ namespace Monit95App.Infrastructure.Business.Tests
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
             var repository = new GenericRepository<Domain.Core.TestResult>(unitOfWork);
             var service = new RsurParticipProtocolService(repository);
-            
-            //Act
-            //Assert
 
+            //Act
+            var participGroupResults1 = service.GetTestResultsGroupByParticipCode("873D064B-8039-4255-8FC5-C0CE7F711B59");
+            
+            //Assert
+            Assert.IsNotNull(participGroupResults1.Count != 0);
 
             Assert.Fail();
         }

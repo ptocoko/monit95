@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Monit95App.Infrastructure.Business.Protocols
+namespace Monit95App.Infrastructure.Business.Models
 {
     public class RsurParticipEditModel
     {

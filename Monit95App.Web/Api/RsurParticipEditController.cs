@@ -1,5 +1,5 @@
 ﻿using Monit95App.Infrastructure.Business.Interfaces;
-using Monit95App.Infrastructure.Business.Protocols;
+using Monit95App.Infrastructure.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

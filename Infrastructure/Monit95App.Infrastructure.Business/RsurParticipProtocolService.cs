@@ -1,12 +1,12 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Business.Interfaces;
-using Monit95App.Infrastructure.Business.Protocols.Report;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Monit95App.Infrastructure.Business.Models;
 
 namespace Monit95App.Infrastructure.Business
 {
@@ -32,9 +32,9 @@ namespace Monit95App.Infrastructure.Business
         public IList<IGrouping<string, TestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null)
         {
             var testId = new Guid(testIdStr);
-            var allResults = _testResultRepository.GetAll().ToList();
-            var participGroupResults = allResults.Where(x => x.ParticipTest.ProjectTest.TestId == testId)
-                                                 .GroupBy(x => x.ParticipTest.ParticipCode).ToList();
+            var participGroupResults = _testResultRepository.GetAll()
+                                        .Where(x => x.ParticipTest.ProjectTest.TestId == testId)
+                                        .GroupBy(x => x.ParticipTest.ParticipCode).ToList();
             if(testDate != null)
             {
                 participGroupResults = participGroupResults.Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate <= testDate)).ToList();
@@ -43,10 +43,10 @@ namespace Monit95App.Infrastructure.Business
             return participGroupResults;
         }
 
-        public IList<ParticipReportModel> CreateReportModel(IList<IGrouping<string, TestResult>> participGroupResults)
+        public IList<ParticipProtocolModel> CreateReportModel(IList<IGrouping<string, TestResult>> participGroupResults)
         {
 
-            return new List<ParticipReportModel>();
+            return new List<ParticipProtocolModel>();
         }
 
         #endregion

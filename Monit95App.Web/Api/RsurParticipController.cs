@@ -1,6 +1,6 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Business.Interfaces;
-using Monit95App.Infrastructure.Business.Protocols;
+using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Infrastructure.Data.Interfaces;
 using Monit95App.Models;
@@ -22,10 +22,10 @@ namespace Monit95App.Api
         private readonly IRsurParticipViewer _rsurParticipViewer;
         private readonly IRsurParticipService _rsurParticipService;
 
-        public async Task<IEnumerable<RsurParticipProtocol>> GetByUserName(string userName, bool isAreaRole)
+        public async Task<IEnumerable<RsurParticipModel>> GetByUserName(string userName, bool isAreaRole)
         {
             var allPParticips = await Task.Run(() => _unitOfWork.ProjectParticips.GetAll());
-            IEnumerable<RsurParticipProtocol> result;
+            IEnumerable<RsurParticipModel> result;
 
             if (isAreaRole)
                 result = allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _rsurParticipViewer.CreateModel(x));
@@ -49,7 +49,7 @@ namespace Monit95App.Api
 
         [HttpPut]
         [Route("api/rsurParticips")]
-        public HttpResponseMessage PutParticip([FromBody]RsurParticipProtocol model)
+        public HttpResponseMessage PutParticip([FromBody]RsurParticipModel model)
         {
             if (!ModelState.IsValid)
             {

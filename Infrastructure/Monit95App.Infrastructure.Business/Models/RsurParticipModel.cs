@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Monit95App.Infrastructure.Business.Protocols
+namespace Monit95App.Infrastructure.Business.Models
 {
-    public class RsurParticipProtocol
+    public class RsurParticipModel
     {
         [Required]
         public int ProjectCode { get; set; }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.Business.Protocols.Report
+namespace Monit95App.Infrastructure.Business.Models
 {
     public class MarkResultModel
     {

@@ -1,5 +1,5 @@
 ﻿using Monit95App.Domain.Core;
-using Monit95App.Infrastructure.Business.Protocols;
+using Monit95App.Infrastructure.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Monit95App.Models.Abstarct
 {
     public interface IRsurParticipViewer
     {
-        RsurParticipProtocol CreateModel(ProjectParticip entity);
+        RsurParticipModel CreateModel(ProjectParticip entity);
         ParticipResultsViewModel CreateResultViewModel(TestResult entity, string participCode);
     }
 }

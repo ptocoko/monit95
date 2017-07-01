@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.Business.Protocols.Report
+namespace Monit95App.Infrastructure.Business.Models
 {
-    public class ParticipReportModel
+    public class ParticipProtocolModel
     {
-        public ParticipReportModel()
+        public ParticipProtocolModel()
         {
             this.MarkResultModels = new List<MarkResultModel>();
             this.ElementResultModels = new List<ElementResultModel>();
