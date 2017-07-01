@@ -75,18 +75,12 @@
     <Compile Include="Abstract\ITypeReport.cs" />
     <Compile Include="Concrete\ProtectReportMeta.cs" />
     <Compile Include="Concrete\PublicReportMeta.cs" />
-    <Compile Include="Concrete\SchoolReportFileNameOnline.cs" />
     <Compile Include="Concrete\SchoolReportFileNameOffline.cs" />
-    <Compile Include="Concrete\CreatorLearnerReport.cs" />
     <Compile Include="Concrete\MarksFormat1.cs" />
     <Compile Include="Concrete\MarksFormat2.cs" />
     <Compile Include="Concrete\PrivateReportMeta.cs" />
-    <Compile Include="Concrete\ReportModelManager_201636.cs" />
     <Compile Include="Concrete\ReportMeta.cs" />
     <Compile Include="Concrete\ReportMetaHandler.cs" />
-    <Compile Include="Concrete\Subject.cs" />
-    <Compile Include="Concrete\PreparingSubjectResult.cs" />
-    <Compile Include="Concrete\SubjectResult.cs" />
     <Compile Include="Concrete\TestResultService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

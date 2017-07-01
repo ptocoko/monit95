@@ -489,10 +489,6 @@
       <Project>{94624C2F-6D28-4964-A368-981E1C568022}</Project>
       <Name>Monit95App.Services.Mark</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Monit95App.Services.Rsur\Monit95App.Services.Rsur.csproj">
-      <Project>{189388C0-B6F4-4643-89A3-EC4B8BA013E0}</Project>
-      <Name>Monit95App.Services.Rsur</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.Work\Monit95App.Services.Work.csproj">
       <Project>{7dec6e41-341f-4308-9d88-2f838187d3ad}</Project>
       <Name>Monit95App.Services.Work</Name>

@@ -42,7 +42,7 @@ namespace Monit95App.Infrastructure.Business
             return participGroupResults;
         }
 
-        public IList<ParticipReportModel> CreateReport(IList<IGrouping<string, TestResult>> participGroupResults)
+        public IList<ParticipReportModel> CreateReportModel(IList<IGrouping<string, TestResult>> participGroupResults)
         {
 
             return new List<ParticipReportModel>();
