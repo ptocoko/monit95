@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Business;
+using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,13 @@ namespace Monit95App.Infrastructure.Business.Tests
         [TestMethod()]
         public void GetParticipGroupResultsTest()
         {
+            //Arange
+            var unitOfWork = new UnitOfWorkV2(new cokoContext());
+            var repository = new GenericRepository<Domain.Core.TestResult>(unitOfWork);
+            var service = new RsurParticipReportService(repository);
+            
+            //Act
+            //Assert
 
 
             Assert.Fail();
