@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Monit95App.Services.Work.Concrete;
+using Monit95App.Domain.Work.Concrete;
 using Reporter;
 using System.Runtime.InteropServices;
 using System.IO;
 using Ionic.Zip;
 using Excel = Microsoft.Office.Interop.Excel;
-using Monit95App.Services.Work.Abstract;
+using Monit95App.Domain.Work.Abstract;
 
 namespace Monit95App.ConsoleApp
 {

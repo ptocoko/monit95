@@ -1,4 +1,4 @@
-﻿using Monit95App.Services.Mark.Interfaces;
+﻿using Monit95App.Domain.Mark.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Monit95App.Services.Mark
+namespace Monit95App.Domain.Mark
 {
     public class MarksFileService : IMarksFileService
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.Interfaces
+namespace Monit95App.Domain.Interfaces
 {
     public interface IClassService
     {

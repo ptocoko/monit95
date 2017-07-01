@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Services.Work.Concrete;
+using Monit95App.Domain.Work.Concrete;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Monit95App.Services.Work.Tests
+namespace Monit95App.Domain.Work.Tests
 {
     [TestClass]
     public class TestIMarks

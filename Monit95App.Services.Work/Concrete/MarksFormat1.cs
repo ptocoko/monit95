@@ -1,4 +1,4 @@
-﻿using Monit95App.Services.Work.Abstract;
+﻿using Monit95App.Domain.Work.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.Work.Concrete
+namespace Monit95App.Domain.Work.Concrete
 {
     public class MarksFormat1 : IMarks //format1 = "0,5(1);1(1);0(2)"
     {

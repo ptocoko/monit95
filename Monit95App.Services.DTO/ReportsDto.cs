@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.DTO
+namespace Monit95App.Domain.DTO
 {
     public class ReportsDto
     {

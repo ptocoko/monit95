@@ -1,11 +1,11 @@
-﻿using Monit95App.Services.Work.Abstract;
+﻿using Monit95App.Domain.Work.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.Work.Concrete
+namespace Monit95App.Domain.Work.Concrete
 {
     public class MarksFormat2 : IMarks 
     {

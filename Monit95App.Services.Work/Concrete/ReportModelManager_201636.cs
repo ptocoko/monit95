@@ -1,10 +1,10 @@
-﻿using Monit95App.Services.Work.Abstract;
+﻿using Monit95App.Domain.Work.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Monit95App.Services.Work.Concrete;
+using Monit95App.Domain.Work.Concrete;
 
 using Excel = Microsoft.Office.Interop.Excel;
 using Ionic.Zip;
@@ -12,7 +12,7 @@ using System.IO;
 using System.Reflection;
 using Monit95App.Domain.Core;
 
-namespace Monit95App.Services.Work.Concrete
+namespace Monit95App.Domain.Work.Concrete
 {
     //201636 - 
     //public class ReportModelManager_201636 : ICreateReportFromDB<readyoneclass_res, LRmodel_201636>, 

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Domain.Core;
 
-namespace Monit95App.Services.DTO.Tests
+namespace Monit95App.Domain.DTO.Tests
 {
     [TestClass]
     public class ClassServiceTest

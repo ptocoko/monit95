@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.DTO.Interfaces
+namespace Monit95App.Domain.DTO.Interfaces
 {
     public interface ITestResultV2Service
     {

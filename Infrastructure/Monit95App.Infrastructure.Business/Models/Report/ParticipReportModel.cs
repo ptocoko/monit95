@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Business.Models.Report
 {
-    public class RsurParticipReportModel
+    public class ParticipReportModel
     {
-        public RsurParticipReportModel()
+        public ParticipReportModel()
         {
             this.MarkResultModels = new List<MarkResultModel>();
             this.ElementResultModels = new List<ElementResultModel>();

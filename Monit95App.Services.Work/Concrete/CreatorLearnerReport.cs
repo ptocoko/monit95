@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Monit95App.Services.Work.Concrete
+namespace Monit95App.Domain.Work.Concrete
 {
     //2_кл_РУ
     public class CreatorLearnerReport 

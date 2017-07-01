@@ -497,10 +497,6 @@
       <Project>{7dec6e41-341f-4308-9d88-2f838187d3ad}</Project>
       <Name>Monit95App.Services.Work</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\Monit95App.Services.Interfaces\Monit95App.Services.Interfaces.csproj">
-      <Project>{C22767FE-EDB7-4F9C-A995-9D37F00CA9FC}</Project>
-      <Name>Monit95App.Services.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />

@@ -40,9 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IExcelReportGenerator.cs" />
-    <Compile Include="ExportSettings.cs" />
-    <Compile Include="InteropExcelReportGenerator.cs" />
     <Compile Include="ParticipReportModel.cs" />
     <Compile Include="ParticipReportModelCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Monit95App.Services.DTO
+namespace Monit95App.Domain.DTO
 {
     public class ParticipModel
     {

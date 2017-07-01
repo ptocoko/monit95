@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Monit95App.Services.Mark.Interfaces
+namespace Monit95App.Domain.Mark.Interfaces
 {
     public interface IMarksFileService
     {

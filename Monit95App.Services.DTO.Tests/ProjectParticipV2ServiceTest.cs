@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Monit95App.Infrastructure.Data.Tests;
 using Moq;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Services.DTO.Interfaces;
+using Monit95App.Domain.DTO.Interfaces;
 using System.Linq;
 using Monit95App.Domain.Core;
-using Monit95App.Services.Interfaces;
+using Monit95App.Domain.Interfaces;
 
-namespace Monit95App.Services.DTO.Tests
+namespace Monit95App.Domain.DTO.Tests
 {
     [TestClass]
     public class ProjectParticipV2ServiceTest

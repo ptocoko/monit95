@@ -1,14 +1,14 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
-using Monit95App.Services.DTO.Interfaces;
-using Monit95App.Services.Interfaces;
+using Monit95App.Domain.DTO.Interfaces;
+using Monit95App.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.DTO
+namespace Monit95App.Domain.DTO
 {
     public class ClassService : IClassService
     {

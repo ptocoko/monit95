@@ -1,12 +1,12 @@
 ﻿using Monit95App.Domain.Core;
-using Monit95App.Services.DTO;
+using Monit95App.Domain.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.Work.Abstract
+namespace Monit95App.Domain.Work.Abstract
 {
     public interface ITestResultService
     {

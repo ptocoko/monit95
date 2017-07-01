@@ -1,5 +1,5 @@
-﻿using Monit95App.Services.Mark;
-using Monit95App.Services.Mark.Interfaces;
+﻿using Monit95App.Domain.Mark;
+using Monit95App.Domain.Mark.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

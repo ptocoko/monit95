@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.IO;
-using Monit95App.Services.Work.Abstract;
+using Monit95App.Domain.Work.Abstract;
 
-namespace Monit95App.Services.Work.Concrete
+namespace Monit95App.Domain.Work.Concrete
 {  
     public class ReportMetaHandler
     {
