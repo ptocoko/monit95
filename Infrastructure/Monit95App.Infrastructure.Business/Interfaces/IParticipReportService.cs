@@ -9,6 +9,6 @@ namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface IParticipReportService
     {
-        IList<IGrouping<string, TestResult>> GetParticipGroupResults(Guid testId, DateTime? testDate = null);
+        IList<IGrouping<string, TestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null);
     }
 }

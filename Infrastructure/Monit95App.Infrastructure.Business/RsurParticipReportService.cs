@@ -29,8 +29,9 @@ namespace Monit95App.Infrastructure.Business
         /// Get test's result grouped by ParticipCode. If testDate is not null, then return to the specified date
         /// </summary>
         /// <returns>Grouped results</returns>
-        public IList<IGrouping<string, TestResult>> GetParticipGroupResults(Guid testId, DateTime? testDate = null)
+        public IList<IGrouping<string, TestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null)
         {
+            var testId = new Guid(testIdStr);
             var allResults = _testResultRepository.GetAll().ToList();
             var participGroupResults = allResults.Where(x => x.ParticipTest.ProjectTest.TestId == testId)
                                                  .GroupBy(x => x.ParticipTest.ParticipCode).ToList();
