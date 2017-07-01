@@ -1,7 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Business.Interfaces;
-using Monit95App.Infrastructure.Business.Models.Report;
+using Monit95App.Infrastructure.Business.Protocols.Report;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Business
 {
-    public class RsurParticipReportService : IParticipReportService
+    public class RsurParticipProtocolService : IParticipProtocolService
     {
         #region Fields
 
@@ -20,7 +20,7 @@ namespace Monit95App.Infrastructure.Business
 
         #region Methods
 
-        public RsurParticipReportService(IGenericRepository<TestResult> testResultRepository)
+        public RsurParticipProtocolService(IGenericRepository<TestResult> testResultRepository)
         {            
             this._testResultRepository = testResultRepository;
         }        

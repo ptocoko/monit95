@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Business.Interfaces
 {
-    public interface IParticipReportService
+    public interface IParticipProtocolService
     {
         IList<IGrouping<string, TestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null);
     }

@@ -1,4 +1,4 @@
-﻿using Monit95App.Infrastructure.Business.Models;
+﻿using Monit95App.Infrastructure.Business.Protocols;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface IRsurParticipService
     {
-        bool Update(RsurParticipModel model);
-        void Add(RsurParticipModel model);
+        bool Update(RsurParticipProtocol model);
+        void Add(RsurParticipProtocol model);
     }
 }

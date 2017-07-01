@@ -43,19 +43,19 @@
   <ItemGroup>
     <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
-    <Compile Include="Interfaces\IParticipReportService.cs" />
+    <Compile Include="Interfaces\IParticipProtocolService.cs" />
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\IRsurParticipService.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
-    <Compile Include="Models\Report\ElementResultModel.cs" />
-    <Compile Include="Models\Report\ParticipReportModel.cs" />
-    <Compile Include="Models\Report\MarkResultModel.cs" />
+    <Compile Include="Models\Protocols\ElementResultModel.cs" />
+    <Compile Include="Models\Protocols\ParticipReportModel.cs" />
+    <Compile Include="Models\Protocols\MarkResultModel.cs" />
     <Compile Include="Models\RsurParticipEditModel.cs" />
-    <Compile Include="Models\RsurParticipModel.cs" />
+    <Compile Include="Models\RsurParticipProtocol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipEditService.cs" />
-    <Compile Include="RsurParticipReportService.cs" />
+    <Compile Include="RsurParticipProtocolService.cs" />
     <Compile Include="RsurParticipService.cs" />
   </ItemGroup>
   <ItemGroup>

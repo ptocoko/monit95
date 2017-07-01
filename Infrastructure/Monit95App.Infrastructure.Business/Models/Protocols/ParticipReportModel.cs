@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.Business.Models.Report
+namespace Monit95App.Infrastructure.Business.Protocols.Report
 {
     public class ParticipReportModel
     {

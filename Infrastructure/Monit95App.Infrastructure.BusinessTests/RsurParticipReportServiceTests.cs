@@ -14,12 +14,12 @@ namespace Monit95App.Infrastructure.Business.Tests
     public class RsurParticipReportServiceTests
     {
         [TestMethod()]
-        public void GetParticipGroupResultsTest()
+        public void GetTestResultsGroupByParticipCodeTest()
         {
             //Arange
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
             var repository = new GenericRepository<Domain.Core.TestResult>(unitOfWork);
-            var service = new RsurParticipReportService(repository);
+            var service = new RsurParticipProtocolService(repository);
             
             //Act
             //Assert

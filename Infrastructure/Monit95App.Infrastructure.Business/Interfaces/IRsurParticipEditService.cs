@@ -1,4 +1,4 @@
-﻿using Monit95App.Infrastructure.Business.Models;
+﻿using Monit95App.Infrastructure.Business.Protocols;
 using System;
 using System.Collections.Generic;
 using System.Linq;

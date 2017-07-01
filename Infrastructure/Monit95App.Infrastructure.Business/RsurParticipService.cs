@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Monit95App.Infrastructure.Business.Models;
+using Monit95App.Infrastructure.Business.Protocols;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Domain.Core;
 
@@ -27,7 +27,7 @@ namespace Monit95App.Infrastructure.Business
             _rsurParticipRepository = rsurParticipRepository;
         }
 
-        public void Add(RsurParticipModel model)
+        public void Add(RsurParticipProtocol model)
         {
             //newPParticip.School = _db.Schools.Find(newPParticip.SchoolId);            
 
@@ -44,7 +44,7 @@ namespace Monit95App.Infrastructure.Business
             //return newParticipCode;
         }
 
-        public bool Update(RsurParticipModel model)
+        public bool Update(RsurParticipProtocol model)
         {
             var entity = _rsurParticipRepository.GetAll().Where(x => x.ParticipCode == model.ParticipCode).Single();
 
