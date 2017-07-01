@@ -44,7 +44,6 @@
     <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IParticipReportService.cs" />
-    <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\IRsurParticipService.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
@@ -55,7 +54,6 @@
     <Compile Include="Models\RsurParticipEditModel.cs" />
     <Compile Include="Models\RsurParticipModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RsurParticipCodeCreator.cs" />
     <Compile Include="RsurParticipEditService.cs" />
     <Compile Include="RsurParticipReportService.cs" />
     <Compile Include="RsurParticipService.cs" />
