@@ -32,13 +32,19 @@ namespace Monit95App.Util
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
+            // Register individual components            
+            builder.RegisterType<UnitOfWorkV2>().As<IUnitOfWork>().WithParameter("context", new cokoContext());            
+            builder.RegisterType<GenericRepository<ExerciseMark>>().As<IGenericRepository<ExerciseMark>>();
+            builder.RegisterType<GenericRepository<TestResultsV2>>().As<IGenericRepository<TestResultsV2>>();
+            builder.RegisterType<GenericRepository<ProjectParticipsV2>>().As<IGenericRepository<ProjectParticipsV2>>();
+            builder.RegisterType<GenericRepository<Class>>().As<IGenericRepository<Class>>();
+            builder.RegisterType<GenericRepository<ProjectParticipsEdit>>().As<IGenericRepository<ProjectParticipsEdit>>();
+            builder.RegisterType<ExerciseMarkService>().As<IExerciseMarkService>();            
+            builder.RegisterType<TestResultV2Service>().As<ITestResultV2Service>();            
+            builder.RegisterType<ParticipService>().As<IParticipService>();            
+            builder.RegisterType<ClassService>().As<IClassService>();            
+            builder.RegisterType<RsurParticipEditService>().As<IRsurParticipEditService>();
             builder.RegisterType<OneTwoThreeGradeConverter>().As<IGrade5>();
-            builder.RegisterType<ExerciseMarkService>().As<IExerciseMarkService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("exerciseMarkRep", new GenericRepository<ExerciseMark>(new UnitOfWorkV2(new cokoContext()))), new NamedParameter("testRep", new GenericRepository<Test>(new UnitOfWorkV2(new cokoContext()))) }); //исправить
-            builder.RegisterType<TestResultV2Service>().As<ITestResultV2Service>().WithParameters(new List<Parameter> { new NamedParameter("testResultV2Rep", new GenericRepository<TestResultsV2>(new UnitOfWorkV2(context))), new NamedParameter("exerciseMarkRep", new GenericRepository<ExerciseMark>(new UnitOfWorkV2(context))) });            
-            builder.RegisterType<ParticipService>().As<IParticipService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("projectParticipV2Repository", new GenericRepository<ProjectParticipsV2>(new UnitOfWorkV2(context))), new NamedParameter("classService", new ClassService(new UnitOfWorkV2(context), new GenericRepository<Class>(new UnitOfWorkV2(context)))) });
-            builder.RegisterType<ClassService>().As<IClassService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("classRepository", new GenericRepository<Class>(new UnitOfWorkV2(context))) });
-            builder.RegisterType<RsurParticipEditService>().As<IRsurParticipEditService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("participEditRepository", new GenericRepository<ProjectParticipsEdit>(new UnitOfWorkV2(context))) });
-
             //builder.RegisterType<RsurParticipService>().As<IRsurParticipService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("participRepository", new GenericRepository<ProjectParticip>(new UnitOfWorkV2(context))) });
 
             var container = builder.Build();
