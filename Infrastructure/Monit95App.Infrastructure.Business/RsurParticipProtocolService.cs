@@ -34,13 +34,13 @@ namespace Monit95App.Infrastructure.Business
             var testId = new Guid(testIdStr);
             var participGroupResults = _testResultRepository.GetAll()
                                         .Where(x => x.ParticipTest.ProjectTest.TestId == testId)
-                                        .GroupBy(x => x.ParticipTest.ParticipCode).ToList();
+                                        .GroupBy(x => x.ParticipTest.ParticipCode);
             if(testDate != null)
             {
-                participGroupResults = participGroupResults.Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate <= testDate)).ToList();
+                participGroupResults = participGroupResults.Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate <= testDate));
             }            
 
-            return participGroupResults;
+            return participGroupResults.ToList();
         }
 
         public IList<ParticipProtocolModel> CreateReportModel(IList<IGrouping<string, TestResult>> participGroupResults)
