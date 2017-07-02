@@ -11,6 +11,11 @@ using Monit95App.Domain.Work.Abstract;
 using Autofac;
 using Monit95App.Infrastructure.Business;
 using Monit95App.Infrastructure.Business.Interfaces;
+using Newtonsoft.Json.Linq;
+using Autofac.Core;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Domain.Core;
 
 namespace Monit95App.ConsoleApp
 {
@@ -19,7 +24,13 @@ namespace Monit95App.ConsoleApp
         static IContainer BuildContainer()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<RsurParticipProtocolService>().As<IParticipProtocolService>();            
+
+            builder.RegisterType<UnitOfWorkV2>().As<IUnitOfWork>().WithParameter("context", new cokoContext());
+            builder.RegisterType<GenericRepository<TestResult>>().As<IGenericRepository<TestResult>>();
+            builder.RegisterType<RsurParticipProtocolService>().As<IParticipProtocolService>();
+
+            builder.RegisterType<RsurParticipProtocolService>();            
+
             return builder.Build();
         }
 
@@ -27,6 +38,8 @@ namespace Monit95App.ConsoleApp
         {
             var container = BuildContainer();
             var rsurParticipProtocolService = container.Resolve<RsurParticipProtocolService>();
+
+            JObject o1 = JObject.Parse(File.ReadAllText(@"config.json"));
 
             System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcessesByName("Excel");
             foreach (System.Diagnostics.Process p in process)
