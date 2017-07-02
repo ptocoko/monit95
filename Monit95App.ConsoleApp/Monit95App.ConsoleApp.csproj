@@ -7,8 +7,8 @@
     <ProjectGuid>{6CBC9470-8B83-4569-97E3-30EB7D520F40}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>АИС_МОР.Console</RootNamespace>
-    <AssemblyName>АИС_МОР.Console</AssemblyName>
+    <RootNamespace>Monit95App.ConsoleApp</RootNamespace>
+    <AssemblyName>Monit95App.ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
