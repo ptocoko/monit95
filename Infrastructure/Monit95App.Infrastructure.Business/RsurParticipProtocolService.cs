@@ -43,9 +43,23 @@ namespace Monit95App.Infrastructure.Business
             return participGroupResults.ToList();
         }
 
-        public IList<ParticipProtocolModel> CreateReportModel(IList<IGrouping<string, TestResult>> participGroupResults)
+        public IList<ParticipProtocolModel> CreateReportModel(IList<IGrouping<string, TestResult>> resultsGroupByParticipCode)
         {
+            var participProtocolModels = new List<ParticipProtocolModel>();
 
+            foreach(var resultGroupByParticipCode in resultsGroupByParticipCode)
+            {
+                var model = new ParticipProtocolModel();
+                foreach (var result in resultGroupByParticipCode)
+                {
+                    model.ParticipCode = result.ParticipTest.ProjectParticip.ParticipCode;
+                    model.FullName = $"{result.ParticipTest.ProjectParticip.Surname} {result.ParticipTest.ProjectParticip.Name}";
+                    if(!String.IsNullOrEmpty(result.ParticipTest.ProjectParticip.SecondName))
+                    {
+                        model.FullName = result.ParticipTest.ProjectParticip.SecondName;
+                    }
+                }
+            }
             return new List<ParticipProtocolModel>();
         }
 

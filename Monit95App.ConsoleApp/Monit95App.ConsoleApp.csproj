@@ -87,6 +87,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="config.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
