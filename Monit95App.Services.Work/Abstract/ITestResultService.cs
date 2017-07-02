@@ -10,7 +10,6 @@ namespace Monit95App.Domain.Work.Abstract
 {
     public interface ITestResultService
     {
-        ReportsDto SelectParticipsGroupResults(Guid testId, DateTime testDate);
-        List<IGrouping<string, TestResult>> SelectParticipsGroupResults2(Guid testId, DateTime testDate);
+        ReportsDto SelectParticipsGroupResults(Guid testId, DateTime testDate);        
     }
 }

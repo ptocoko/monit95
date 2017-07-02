@@ -8,15 +8,26 @@ using System.IO;
 using Ionic.Zip;
 using Excel = Microsoft.Office.Interop.Excel;
 using Monit95App.Domain.Work.Abstract;
+using Autofac;
+using Monit95App.Infrastructure.Business;
+using Monit95App.Infrastructure.Business.Interfaces;
 
 namespace Monit95App.ConsoleApp
 {
     class Program
     {
-        //TODO: сделать тесты                         
+        static IContainer BuildContainer()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterType<RsurParticipProtocolService>().As<IParticipProtocolService>();            
+            return builder.Build();
+        }
 
         static void Main(string[] args)
         {
+            var container = BuildContainer();
+            var rsurParticipProtocolService = container.Resolve<RsurParticipProtocolService>();
+
             System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcessesByName("Excel");
             foreach (System.Diagnostics.Process p in process)
             {
@@ -37,13 +48,12 @@ namespace Monit95App.ConsoleApp
 
             //РСУР
             Excel.Workbook excerInitBook = app.Workbooks.Open($@"d:\MailRu\Работы\Карты\Карты.xlsx");
-            var currentTestGuid = new Guid("BCD81DE6-1640-4AA7-91F5-6EF79548E54F"); //
+            string currentTestGuidStr = "BCD81DE6-1640-4AA7-91F5-6EF79548E54F"; //
             var currentTestDate = new DateTime(2017, 05, 22); //  
 
             Excel.Worksheet sheet;
-            string startSheetName = currentTestGuid.ToString().Substring(0, currentTestGuid.ToString().IndexOf('-') + 1);
-            ITestResultService testResultService = new TestResultService();
-            var results = testResultService.SelectParticipsGroupResults2(currentTestGuid, currentTestDate);
+            string startSheetName = currentTestGuidStr.ToString().Substring(0, currentTestGuidStr.ToString().IndexOf('-') + 1);                        
+            var results = rsurParticipProtocolService.GetTestResultsGroupByParticipCode(currentTestGuidStr, currentTestDate);
             int countProcessedResults = 0;
             foreach (var particip in results)
             {
@@ -51,7 +61,7 @@ namespace Monit95App.ConsoleApp
                 //Заполняем реквизиты
                 var resultTest1 = particip.First();
                 sheet.Range["B27"].Value2 = resultTest1.ParticipTest.ProjectParticip.ParticipCode;
-                string fullName = $"{resultTest1.ParticipTest.ProjectParticip.Surname} {resultTest1.ParticipTest.ProjectParticip.Name}";
+                string fullName = $"{resultTest1.ParticipTest.ProjectParticip.Surname} { resultTest1.ParticipTest.ProjectParticip.Name }";
                 if (!string.IsNullOrEmpty(resultTest1.ParticipTest.ProjectParticip.SecondName))
                 {
                     fullName += $" {resultTest1.ParticipTest.ProjectParticip.SecondName}";

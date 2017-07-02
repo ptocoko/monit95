@@ -36,6 +36,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -89,6 +92,10 @@
     <ProjectReference Include="..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
       <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
       <Name>Monit95App.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Monit95App.Infrastructure.Business\Monit95App.Infrastructure.Business.csproj">
+      <Project>{134A7FF4-97E4-49F3-95E0-C01A86858535}</Project>
+      <Name>Monit95App.Infrastructure.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
       <Project>{6066434d-dc3d-49c1-8421-619f293c6929}</Project>

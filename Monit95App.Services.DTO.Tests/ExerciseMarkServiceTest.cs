@@ -30,7 +30,7 @@ namespace Monit95App.Domain.DTO.Tests
             //await service.AddAsync(newDto);
 
             //Assert
-            Assert.IsTrue(1 != 1);
+            Assert.Fail();
         }
     }
 }

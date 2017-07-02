@@ -60,16 +60,6 @@ namespace Monit95App.Domain.Work.Concrete
             reports.ParticipReports = participReports;
 
             return reports;
-        }
-
-        public List<IGrouping<string, TestResult>> SelectParticipsGroupResults2(Guid testId, DateTime testDate)
-        {
-            var context = new cokoContext();
-            var queryResults = context.TestResults.Where(x => x.ParticipTest.ProjectTest.TestId == testId) //все результаты участников по данному экзамену 
-                                                  .GroupBy(x => x.ParticipTest.ParticipCode)
-                                                  .Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate == testDate)).ToList();           
-
-            return queryResults;
-        }
+        }       
     }
 }
