@@ -7,13 +7,7 @@ using System.Threading.Tasks;
 namespace Monit95App.Infrastructure.Business.Models
 {
     public class ParticipProtocolModel
-    {
-        public ParticipProtocolModel()
-        {
-            this.MarkResultModels = new List<MarkResultModel>();
-            this.ElementResultModels = new List<ElementResultModel>();
-        }
-
+    {     
         public string ParticipCode { get; set; }
         public string FullName { get; set; }
         public string SchoolName { get; set; }

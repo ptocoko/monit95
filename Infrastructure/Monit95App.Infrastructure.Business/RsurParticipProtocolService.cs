@@ -47,20 +47,20 @@ namespace Monit95App.Infrastructure.Business
         {
             var participProtocolModels = new List<ParticipProtocolModel>();
 
-            foreach(var resultGroupByParticipCode in resultsGroupByParticipCode)
+            foreach (var participResults in resultsGroupByParticipCode)
             {
-                var model = new ParticipProtocolModel();
-                foreach (var result in resultGroupByParticipCode)
+                var model = new ParticipProtocolModel();                
+                var lastResult = participResults.OrderBy(x => x.ParticipTest.ProjectTest.TestNumber).Single(); //get last result
+
+                model.ParticipCode = lastResult.ParticipTest.ProjectParticip.ParticipCode;
+                model.FullName = $"{lastResult.ParticipTest.ProjectParticip.Surname} {lastResult.ParticipTest.ProjectParticip.Name}";
+                if (!String.IsNullOrEmpty(lastResult.ParticipTest.ProjectParticip.SecondName))
                 {
-                    model.ParticipCode = result.ParticipTest.ProjectParticip.ParticipCode;
-                    model.FullName = $"{result.ParticipTest.ProjectParticip.Surname} {result.ParticipTest.ProjectParticip.Name}";
-                    if(!String.IsNullOrEmpty(result.ParticipTest.ProjectParticip.SecondName))
-                    {
-                        model.FullName = result.ParticipTest.ProjectParticip.SecondName;
-                    }
+                    model.FullName = lastResult.ParticipTest.ProjectParticip.SecondName;
                 }
+                model.TestName = lastResult.ParticipTest.ProjectTest.Test.Name;
             }
-            return new List<ParticipProtocolModel>();
+            return participProtocolModels;
         }
 
         #endregion

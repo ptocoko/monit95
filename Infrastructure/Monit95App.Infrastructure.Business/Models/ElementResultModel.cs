@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 namespace Monit95App.Infrastructure.Business.Models
 {
     public class ElementResultModel
-    {
-        public ElementResultModel()
-        {
-            this.ValuesOnTests = new List<Dictionary<int, float>>();
-        }
-
+    {      
         public string Code { get; set; }
         public string Name { get; set; }
         public int ElementTypeId { get; set; }
