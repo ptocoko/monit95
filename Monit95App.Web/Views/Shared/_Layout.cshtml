@@ -146,12 +146,9 @@
                         <li>@Html.ActionLink(@"Школы", "Schools", "Home", new { @style = "background:NavajoWhite; color:black;" })</li>                        
                     }
                     @if (User.IsInRole("school"))
-                    {
-                        @*<li>@Html.ActionLink(@"1-3 классы", "Spa", "OneTwoThree")</li>*@
-                        @*<li>@Html.ActionLink(@"ОГЭ-2016", "Oge2016", "Home")</li>*@
+                    {                        
                         <li>@Html.ActionLink(@"Информация", "Schoolinfo", "Home")</li>
-                        <li>@Html.ActionLink("Файлы", "Report", "Report")</li>
-                        @*<li>@Html.ActionLink("Оценки", "Index", "CollectorMarks")</li>*@
+                        <li>@Html.ActionLink("Файлы", "Report", "Report")</li>                     
                     }                  
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
                 </ul>
@@ -170,27 +167,8 @@
 
             <p>&copy; 2015-@DateTime.Now.Year, Мониторинг образования региона</p>
         </footer>
-    </div>         
-
-    @*снег*@
-    @*<script type="text/javascript">
-    imageDir = "http://mvcreative.ru/example/6/2/snow/";
-    sflakesMax = 65;
-    sflakesMaxActive = 65;
-    svMaxX = 2;
-    svMaxY = 6;
-    ssnowStick = 1;
-    ssnowCollect = 0;
-    sfollowMouse = 1;
-    sflakeBottom = 0;
-    susePNG = 1;
-    sflakeTypes = 5;
-    sflakeWidth = 15;
-    sflakeHeight = 15;
-    </script>
-    <script type="text/javascript" src="http://mvcreative.ru/example/6/2/snow.js">
-    </script>*@
+    </div>            
            
-    @RenderSection("scripts", required: false) @*точно тут*@
+    @RenderSection("scripts", required: false)
 </body>
 </html>
