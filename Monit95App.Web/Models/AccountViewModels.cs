@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Monit95App.Models
 {
@@ -59,5 +60,11 @@ namespace Monit95App.Models
         [Display(Name = "Подтверждение пароля")]
         [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class ApiViewModel
+    {
+        public string UserName { get; set; }
+        public IEnumerable<string> UserRoleNames { get; set; }
     }
 }
