@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Business.Models
 {
-    public class ParticipProtocolModel
+    public class ParticipProtocol
     {     
         public string ParticipCode { get; set; }
         public string FullName { get; set; }

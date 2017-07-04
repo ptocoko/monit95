@@ -43,13 +43,13 @@ namespace Monit95App.Infrastructure.Business
             return participGroupResults.ToList();
         }
 
-        public IList<ParticipProtocolModel> CreateReportModel(IList<IGrouping<string, TestResult>> resultsGroupByParticipCode)
+        public IList<ParticipProtocol> CreateReportModel(IList<IGrouping<string, TestResult>> resultsGroupByParticipCode)
         {
-            var participProtocolModels = new List<ParticipProtocolModel>();
+            var participProtocolModels = new List<ParticipProtocol>();
 
             foreach (var participResults in resultsGroupByParticipCode)
             {
-                var model = new ParticipProtocolModel();                
+                var model = new ParticipProtocol();                
                 var lastResult = participResults.OrderBy(x => x.ParticipTest.ProjectTest.TestNumber).Single(); //get last result
 
                 model.ParticipCode = lastResult.ParticipTest.ProjectParticip.ParticipCode;
