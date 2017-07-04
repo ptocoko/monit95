@@ -16,13 +16,13 @@ namespace Monit95App.Api
     {
         private readonly IClassService _classService;
 
-        public ClassController()
+        public ClassController(IClassService classService)
         {
-            var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            var classRepository = new GenericRepository<Class>(unitOfWork);
-            _classService = new ClassService(unitOfWork, classRepository);
-
+            _classService = classService;
         }
+
+        [Route("api/classes")]
+        [HttpGet]
         public IEnumerable<Class> Get()
         {
             var res = _classService.GetAll().OrderBy(x => x.Id).Take(36).Select(s => new Class { Id = s.Id, Name = s.Name });

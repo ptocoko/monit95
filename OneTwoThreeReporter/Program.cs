@@ -35,7 +35,7 @@ namespace OneTwoThreeReporter
             _schools = new GenericRepository<School>(_unitOfWork);
             _gradeConverter = new OneTwoThreeGradeConverter();
 
-            var classService = new ClassService(_unitOfWork, new GenericRepository<Class>(_unitOfWork));
+            var classService = new ClassService(new GenericRepository<Class>(_unitOfWork));
             _classes = classService.GetAll();
             
             var reports = GetAllResults();

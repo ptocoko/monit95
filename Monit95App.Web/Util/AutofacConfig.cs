@@ -34,19 +34,17 @@ namespace Monit95App.Util
 
             // Register individual components            
             builder.RegisterType<UnitOfWorkV2>().As<IUnitOfWork>().WithParameter("context", new cokoContext());
-           // builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>));
-            //builder.RegisterType<GenericRepository<ExerciseMark>>().As<IGenericRepository<ExerciseMark>>();
-            //builder.RegisterType<GenericRepository<TestResultsV2>>().As<IGenericRepository<TestResultsV2>>();
-            //builder.RegisterType<GenericRepository<ProjectParticipsV2>>().As<IGenericRepository<ProjectParticipsV2>>();
-            //builder.RegisterType<GenericRepository<Class>>().As<IGenericRepository<Class>>();
-            //builder.RegisterType<GenericRepository<ProjectParticipsEdit>>().As<IGenericRepository<ProjectParticipsEdit>>();
+            builder.RegisterType<GenericRepository<ExerciseMark>>().As<IGenericRepository<ExerciseMark>>();
+            builder.RegisterType<GenericRepository<TestResultsV2>>().As<IGenericRepository<TestResultsV2>>();
+            builder.RegisterType<GenericRepository<ProjectParticipsV2>>().As<IGenericRepository<ProjectParticipsV2>>();
+            builder.RegisterType<GenericRepository<Class>>().As<IGenericRepository<Class>>();
+            builder.RegisterType<GenericRepository<ProjectParticipsEdit>>().As<IGenericRepository<ProjectParticipsEdit>>();
             builder.RegisterType<ExerciseMarkService>().As<IExerciseMarkService>();            
             builder.RegisterType<TestResultV2Service>().As<ITestResultV2Service>();            
             builder.RegisterType<ParticipService>().As<IParticipService>();            
             builder.RegisterType<ClassService>().As<IClassService>();            
             builder.RegisterType<RsurParticipEditService>().As<IRsurParticipEditService>();
-            builder.RegisterType<OneTwoThreeGradeConverter>().As<IGrade5>();
-            //builder.RegisterType<RsurParticipService>().As<IRsurParticipService>().WithParameters(new List<Parameter> { new NamedParameter("unitOfWork", new UnitOfWorkV2(context)), new NamedParameter("participRepository", new GenericRepository<ProjectParticip>(new UnitOfWorkV2(context))) });
+            builder.RegisterType<OneTwoThreeGradeConverter>().As<IGrade5>();            
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

@@ -15,7 +15,7 @@ namespace Monit95App.Domain.DTO.Tests
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
             var classRepository = new GenericRepository<Class>(unitOfWork);
 
-            var classService = new ClassService(unitOfWork, classRepository);
+            var classService = new ClassService(classRepository);
 
             //Act
             var result = classService.GetAll();
@@ -32,7 +32,7 @@ namespace Monit95App.Domain.DTO.Tests
             var unitOfWork = new UnitOfWorkV2(new cokoContext());
             var classRepository = new GenericRepository<Class>(unitOfWork);
 
-            var classService = new ClassService(unitOfWork, classRepository);
+            var classService = new ClassService(classRepository);
 
             //Act
             var result = classService.GetId("2 А"); 

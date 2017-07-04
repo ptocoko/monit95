@@ -10,13 +10,11 @@ using System.Threading.Tasks;
 namespace Monit95App.Domain.DTO
 {
     public class ClassService : IClassService
-    {
-        private IUnitOfWork _unitOfWork;
-        private IGenericRepository<Class> _classRepository;
+    {        
+        private readonly IGenericRepository<Class> _classRepository;
 
-        public ClassService(IUnitOfWork unitOfWork, IGenericRepository<Class> classRepository)
-        {
-            _unitOfWork = unitOfWork;
+        public ClassService(IGenericRepository<Class> classRepository)
+        {            
             _classRepository = classRepository;
         }
 
