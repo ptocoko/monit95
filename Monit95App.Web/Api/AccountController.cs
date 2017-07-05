@@ -35,7 +35,7 @@ namespace Monit95App.Api
                 };
                 return Request.CreateResponse(HttpStatusCode.OK, model);
             }
-            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "У пользователя отсутствуют роли");                                  
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "The user has no one role");            
         }
 
 
