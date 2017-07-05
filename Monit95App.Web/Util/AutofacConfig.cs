@@ -33,12 +33,8 @@ namespace Monit95App.Util
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             // Register individual components            
-            builder.RegisterType<UnitOfWorkV2>().As<IUnitOfWork>().WithParameter("context", new cokoContext());
-            builder.RegisterType<GenericRepository<ExerciseMark>>().As<IGenericRepository<ExerciseMark>>();
-            builder.RegisterType<GenericRepository<TestResultsV2>>().As<IGenericRepository<TestResultsV2>>();
-            builder.RegisterType<GenericRepository<ProjectParticipsV2>>().As<IGenericRepository<ProjectParticipsV2>>();
-            builder.RegisterType<GenericRepository<Class>>().As<IGenericRepository<Class>>();
-            builder.RegisterType<GenericRepository<ProjectParticipsEdit>>().As<IGenericRepository<ProjectParticipsEdit>>();
+            builder.RegisterType<UnitOfWorkV2>().As<IUnitOfWork>().WithParameter("context", new cokoContext());       
+            builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>));            
             builder.RegisterType<ExerciseMarkService>().As<IExerciseMarkService>();            
             builder.RegisterType<TestResultV2Service>().As<ITestResultV2Service>();            
             builder.RegisterType<ParticipService>().As<IParticipService>();            
