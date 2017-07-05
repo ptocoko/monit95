@@ -76,5 +76,27 @@ namespace Monit95App.Infrastructure.Business
             _unitOfWork.DbContext.ProjectParticipsEdits.Remove(entity);
             await Task.Run(() => _unitOfWork.Save());
         }
+
+        public async Task<bool> UpdateModel(RsurParticipEditModel model)
+        {
+            if (model != null)
+            {
+                var entity = _participRepository.GetAll().SingleOrDefault(p => p.ParticipCode == model.ParticipCode);
+                if (entity == null)
+                    return false;
+
+                entity.Surname = model.NewParticipSurname;
+                entity.Name = model.NewParticipName;
+                entity.SecondName = model.NewParticipSecondName;
+
+                int countOfChanges = await Task.Run(() => _unitOfWork.Save());
+                if (countOfChanges < 1)
+                    return false;
+
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

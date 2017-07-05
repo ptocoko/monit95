@@ -8,7 +8,8 @@ import { ParticipCorrectionService } from './particip-correction.service';
     providers: [ParticipCorrectionService]
 })
 export class ParticipCorrectionComponent implements OnInit {
-    participCorrections: ParticipCorrection[] = [];
+	participCorrections: ParticipCorrection[] = [];
+	statusText: string = '';
 
     constructor(private _participCorrectionService: ParticipCorrectionService) { }
 
@@ -17,19 +18,31 @@ export class ParticipCorrectionComponent implements OnInit {
     }
 
     getCorrections(): void {
-		this._participCorrectionService.getCorrections().subscribe(participsCorrections => this.participCorrections = participsCorrections);        
+		this._participCorrectionService.getCorrections().subscribe(participsCorrections => this.participCorrections = participsCorrections, error=>this.errorHandler(error), () => {
+			if (this.participCorrections.length === 0)
+				this.statusText = 'Запросов на корректировку данных нет!';
+		});        
     };
 
-    applyCorrection(correction: ParticipCorrection): void
+    applyCorrection(correction: ParticipCorrection)
     {
-        this._participCorrectionService.applyCorrection(correction);
+		this._participCorrectionService.applyCorrection(correction).subscribe(success => this.successHandler(correction, 'Коррекция принята!'), error => this.errorHandler(error));
 	}
 
-	cancelCorrection(particip: ParticipCorrection) {
-		this._participCorrectionService.cancelCorrection(particip.participCode).subscribe(success => {
-			let index = this.participCorrections.indexOf(particip);
-			this.participCorrections.splice(index, 1);
+	cancelCorrection(correction: ParticipCorrection) {
+		this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(success => {
+			this.successHandler(correction, 'Коррекция отменена!');
 		}, error => { });
+	}
+
+	successHandler(correction: ParticipCorrection, statusText: string) {
+		let index = this.participCorrections.indexOf(correction);
+		this.participCorrections.splice(index, 1);
+		this.statusText = statusText;
+	}
+
+	errorHandler(error: any) {
+		console.log(error);
 	}
 }
 

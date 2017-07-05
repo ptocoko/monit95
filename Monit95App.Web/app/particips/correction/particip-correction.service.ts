@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
+import 'rxjs/Rx';
 import { ParticipCorrection } from './particip-correction';
 import { PARTICIPCORRECTIONS } from './particip-correction.mock';
 
@@ -37,8 +37,8 @@ export class ParticipCorrectionService {
 		return this._http.delete('/api/RsurParticipEdit/Cancel?participCode=' + participCode);
 	}
 
-    applyCorrection(correction: ParticipCorrection): void
+    applyCorrection(correction: ParticipCorrection): Observable<any>
     {
-        this._http.put('/api/participCorrections', + correction);
+		return this._http.put('/api/RsurParticipEdit/Apply', correction);
     }
 }

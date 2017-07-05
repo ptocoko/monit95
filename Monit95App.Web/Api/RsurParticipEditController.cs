@@ -20,12 +20,13 @@ namespace Monit95App.Api
         {
             _participEditService = particiEditService;
         }
-
+        
         public async Task<List<RsurParticipEditModel>> Get()
         {
             return await Task.Run(() => _participEditService.GetModels());
-        }
 
+        }
+           
         [System.Web.Http.HttpPost]
         public HttpResponseMessage Post([Bind(Include ="ParticipCode,NewParticipSurname,NewParticipName,NewParticipSecondName")]RsurParticipEditModel model)
         {
@@ -39,15 +40,35 @@ namespace Monit95App.Api
         }
 
         [System.Web.Http.HttpDelete]
-        public HttpResponseMessage Cancel(string participCode)
+        public async Task<HttpResponseMessage> Cancel(string participCode)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось отменить коррекцию");
             }
 
-            _participEditService.DeleteModel(participCode);
+            await _participEditService.DeleteModel(participCode);
+        
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
+
+        [System.Web.Http.HttpPut]
+        public async Task<HttpResponseMessage> Apply(RsurParticipEditModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось применить коррекцию");
+            }
+
+            bool isUpdated = await _participEditService.UpdateModel(model);
+            if (isUpdated)
+            {
+                await Cancel(model.ParticipCode);
+                return Request.CreateResponse(HttpStatusCode.OK, "Запись в базе данных обновлена успешно");
+            }
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Не удалось обновить запись в базе данных");
+        }
+
     }
 }

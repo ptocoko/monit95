@@ -15,24 +15,36 @@ var ParticipCorrectionComponent = (function () {
     function ParticipCorrectionComponent(_participCorrectionService) {
         this._participCorrectionService = _participCorrectionService;
         this.participCorrections = [];
+        this.statusText = '';
     }
     ParticipCorrectionComponent.prototype.ngOnInit = function () {
         this.getCorrections();
     };
     ParticipCorrectionComponent.prototype.getCorrections = function () {
         var _this = this;
-        this._participCorrectionService.getCorrections().subscribe(function (participsCorrections) { return _this.participCorrections = participsCorrections; });
+        this._participCorrectionService.getCorrections().subscribe(function (participsCorrections) { return _this.participCorrections = participsCorrections; }, function (error) { return _this.errorHandler(error); }, function () {
+            if (_this.participCorrections.length === 0)
+                _this.statusText = 'Запросов на корректировку данных нет!';
+        });
     };
     ;
     ParticipCorrectionComponent.prototype.applyCorrection = function (correction) {
-        this._participCorrectionService.applyCorrection(correction);
-    };
-    ParticipCorrectionComponent.prototype.cancelCorrection = function (particip) {
         var _this = this;
-        this._participCorrectionService.cancelCorrection(particip.participCode).subscribe(function (success) {
-            var index = _this.participCorrections.indexOf(particip);
-            _this.participCorrections.splice(index, 1);
+        this._participCorrectionService.applyCorrection(correction).subscribe(function (success) { return _this.successHandler(correction, 'Коррекция принята!'); }, function (error) { return _this.errorHandler(error); });
+    };
+    ParticipCorrectionComponent.prototype.cancelCorrection = function (correction) {
+        var _this = this;
+        this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(function (success) {
+            _this.successHandler(correction, 'Коррекция отменена!');
         }, function (error) { });
+    };
+    ParticipCorrectionComponent.prototype.successHandler = function (correction, statusText) {
+        var index = this.participCorrections.indexOf(correction);
+        this.participCorrections.splice(index, 1);
+        this.statusText = statusText;
+    };
+    ParticipCorrectionComponent.prototype.errorHandler = function (error) {
+        console.log(error);
     };
     return ParticipCorrectionComponent;
 }());
