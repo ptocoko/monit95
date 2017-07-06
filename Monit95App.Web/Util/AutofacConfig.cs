@@ -24,8 +24,8 @@ namespace Monit95App.Util
     {
         public static void ConfigureContainer()
         {      
-            var context = new cokoContext();
-            context.Database.Initialize(false);
+            //var context = new cokoContext();
+            //context.Database.Initialize(false);
 
             var builder = new ContainerBuilder();
             var config = GlobalConfiguration.Configuration;
