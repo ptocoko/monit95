@@ -111,22 +111,3 @@ namespace Monit95App.Controllers
         
     }
 }
-
-//public EmptyResult MergeReport(int _param)
-//{
-//    //...
-//    System.Diagnostics.Debug.WriteLine("MergeReport start! " + _param);
-//    return new EmptyResult();
-//}
-
-//public string AjaxTester()
-//{
-//    if (Request.IsAjaxRequest())
-//    {
-//        return DateTime.Now.ToString();
-//    }
-//    else
-//    {
-//        return "FAIL";
-//    }
-//}
