@@ -31,6 +31,7 @@ namespace Monit95App.Controllers
             if (model == null)
             {
                 model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(User.Identity.Name), new SchoolReportFileNameOffline());
+
                 appCache.AddReportMetas(model, User.Identity.Name);
             }
             return View(model);
