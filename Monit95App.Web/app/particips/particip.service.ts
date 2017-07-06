@@ -34,6 +34,8 @@ export class ParticipService {
                             particip.Name,
                             particip.SecondName,
 							particip.SubjectName,
+							particip.SchoolIdWithName,
+							particip.CategName,
 							particip.Birthday != null ? new Date(particip.Birthday) : null,
 							particip.ClassNumbers,
 							particip.HasRequestToEdit
@@ -45,11 +47,11 @@ export class ParticipService {
 	}
 
 	updateParticip(particip: ParticipModel): Observable<any> {
-		return this._http.put('/api/ProjectParticip/UpdateParticip', particip);
+		return this._http.put('/api/RsurParticip/PutParticip', particip);
 	}
 
 	getParticipResults(participCode: string): Observable<ResultsModel[]> {
-		return this._http.get('/api/ProjectParticip/GetParticipResults?participCode=' + participCode)
+		return this._http.get('/api/RsurParticip/GetParticipResults?participCode=' + participCode)
 			.map((res: Response) =>
 			{
 				let resultsInJSON = res.json();
@@ -74,6 +76,6 @@ export class ParticipService {
 	}
 
 	postRequestToEdit(editParticip: ParticipEditModel): Observable<any> {
-		return this._http.post('/api/ParticipEdit/Post', editParticip);
+		return this._http.post('/api/RsurParticipEdit/Post', editParticip);
 	}
 }

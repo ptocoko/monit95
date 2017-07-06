@@ -7,6 +7,8 @@ export class ParticipModel extends BSModalContext {
         public name: string,
         public secondName: string,
 		public subjectName: string,
+		public schoolIdWithName: string,
+		public categName: string,
 		public birthday: Date,
 		public classNumbers: string,
 		public hasRequestToEdit: boolean
