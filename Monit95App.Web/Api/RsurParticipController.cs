@@ -15,6 +15,7 @@ using System.Web.Http;
 
 namespace Monit95App.Api
 {    
+    [Authorize]
     public class RsurParticipController : ApiController
     {
         private readonly UnitOfWork _unitOfWork;
@@ -47,6 +48,7 @@ namespace Monit95App.Api
             _rsurParticipService = rsurParticipService;
         }
 
+        [Authorize(Roles = "coko")]
         [HttpPut]
         //[Route("api/rsurParticips")]
         public HttpResponseMessage PutParticip([FromBody]RsurParticipModel model)
@@ -84,8 +86,9 @@ namespace Monit95App.Api
                                               .Select(s => _rsurParticipViewer.CreateResultViewModel(s, participCode))
                                               .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList());
             return res;
-        }     
+        }
 
+        [Authorize(Roles = "coko")]
         public string GetDParticip(string primaryKey)
         {
             _unitOfWork.ProjectParticips.Delete(primaryKey);
