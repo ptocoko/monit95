@@ -20,7 +20,7 @@ export class ParticipService {
 
     getByAreaCode(user: UserModel): Observable<ParticipModel[]> {
         
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&isAreaRole=" + user.isAreaRole;
+        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + this.getRolesStringFromArray(user.userRoles);
         return this._http.get(getByAreaCodeUrl)
             .map((resp: Response) => {                
                 let participList = resp.json();
@@ -77,5 +77,9 @@ export class ParticipService {
 
 	postRequestToEdit(editParticip: ParticipEditModel): Observable<any> {
 		return this._http.post('/api/RsurParticipEdit/Post', editParticip);
+	}
+
+	private getRolesStringFromArray(userRoles: string[]):string {
+		return userRoles.join(',');
 	}
 }

@@ -137,7 +137,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">                    
-                    @if (User.IsInRole("area") || User.IsInRole("school"))
+                    @if (User.Identity.IsAuthenticated)
                     {
                     <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
                     }

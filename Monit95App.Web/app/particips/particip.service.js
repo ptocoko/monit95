@@ -20,7 +20,7 @@ var ParticipService = (function () {
         this._getByAreaCodeUrl = '/api/RsurParticip/GetByUserName?userName=';
     }
     ParticipService.prototype.getByAreaCode = function (user) {
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&isAreaRole=" + user.isAreaRole;
+        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + this.getRolesStringFromArray(user.userRoles);
         return this._http.get(getByAreaCodeUrl)
             .map(function (resp) {
             var participList = resp.json();
@@ -56,6 +56,9 @@ var ParticipService = (function () {
     };
     ParticipService.prototype.postRequestToEdit = function (editParticip) {
         return this._http.post('/api/RsurParticipEdit/Post', editParticip);
+    };
+    ParticipService.prototype.getRolesStringFromArray = function (userRoles) {
+        return userRoles.join(',');
     };
     return ParticipService;
 }());

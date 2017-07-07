@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Monit95App.Api
 {
-    [System.Web.Http.Authorize]
+    [System.Web.Http.Authorize(Roles ="coko")]
     public class RsurParticipEditController : ApiController
     {
         private IRsurParticipEditService _participEditService;

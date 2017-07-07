@@ -14,10 +14,10 @@ export class UserService {
 	}
 
 	getName(): Observable<UserModel> {
-		return this.http.get('/api/Account/GetUserNameAndRole')
+		return this.http.get('/api/Accounts')
 			.map((resp: Response) => {
 				let res = resp.json();
-				return new UserModel(res.UserName, <boolean>res.IsAreaRole);
+				return new UserModel(res.UserName, res.UserRoleNames);
 			});
     }
 

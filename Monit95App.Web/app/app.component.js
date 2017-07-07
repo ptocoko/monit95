@@ -14,10 +14,16 @@ var user_service_1 = require("./user.service");
 var AppComponent = (function () {
     function AppComponent(userService) {
         this.userService = userService;
+        this.isAreaRole = false;
+        this.isCokoRole = false;
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getName().subscribe(function (user) { return _this.userHasAreaRole = user.isAreaRole; });
+        this.userService.getName().subscribe(function (user) { return _this.handler(user.userRoles); });
+    };
+    AppComponent.prototype.handler = function (userRoles) {
+        this.isAreaRole = userRoles.indexOf('area') >= 0;
+        this.isCokoRole = userRoles.indexOf('coko') >= 0;
     };
     return AppComponent;
 }());

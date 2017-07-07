@@ -40,11 +40,11 @@ namespace Monit95App.Api
 
 
         //Get current user's name
-        public object GetUserNameAndRole()
-        {
-            var isAreaRole = User.IsInRole("area");
-            return new { UserName = User.Identity.Name, IsAreaRole = isAreaRole };
-        }
+        //public object GetUserNameAndRole()
+        //{
+        //    var isAreaRole = User.IsInRole("area");
+        //    return new { UserName = User.Identity.Name, IsAreaRole = isAreaRole };
+        //}
 
         #endregion
     }

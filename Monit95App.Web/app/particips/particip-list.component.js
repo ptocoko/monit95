@@ -25,9 +25,9 @@ var ParticipListComponent = (function () {
     ParticipListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userService.getName().subscribe(function (user) {
-            _this.isAreaRole = user.isAreaRole;
+            _this.isAreaRole = user.userRoles.indexOf('area') >= 0;
             _this.getByAreaCode(user);
-            if (user.isAreaRole) {
+            if (_this.isAreaRole) {
                 _this.participListDocPath =
                     'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + user.userName + '/' + user.userName + '_список.xlsx';
             }

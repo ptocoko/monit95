@@ -1,6 +1,6 @@
 ﻿export class UserModel{
 	constructor(
 		public userName: string,
-		public isAreaRole: boolean
+		public userRoles: Array<string>
 	) { }
 }

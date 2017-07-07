@@ -22,15 +22,18 @@ namespace Monit95App.Api
         private readonly IRsurParticipViewer _rsurParticipViewer;
         private readonly IRsurParticipService _rsurParticipService;
 
-        public async Task<IEnumerable<RsurParticipModel>> GetByUserName(string userName, bool isAreaRole)
+        public async Task<IEnumerable<RsurParticipModel>> GetByUserName(string userName, string userRoles)
         {
             var allPParticips = await Task.Run(() => _unitOfWork.ProjectParticips.GetAll());
-            IEnumerable<RsurParticipModel> result;
+            List<RsurParticipModel> result = new List<RsurParticipModel>();
 
-            if (isAreaRole)
-                result = allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _rsurParticipViewer.CreateModel(x));
-            else
-                result = allPParticips.Where(x => x.SchoolId == userName).Select(x => _rsurParticipViewer.CreateModel(x));
+            if(userRoles.Contains("coko"))
+                result.AddRange(allPParticips.Where(x => x.SchoolId == "0000").Select(x => _rsurParticipViewer.CreateModel(x)));
+
+            if (userRoles.Contains("area"))
+                result.AddRange(allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _rsurParticipViewer.CreateModel(x)));
+            if(userRoles.Contains("school"))
+                result.AddRange(allPParticips.Where(x => x.SchoolId == userName).Select(x => _rsurParticipViewer.CreateModel(x)));
 
             return result;
         }      
