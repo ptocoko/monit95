@@ -503,11 +503,13 @@
     <TypeScriptCompile Include="app\particips\correction\particip-correction.mock.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.service.ts" />
+    <TypeScriptCompile Include="app\particips\details\particips-without-details.filter.ts" />
     <TypeScriptCompile Include="app\particips\edit-particip\edit-modal.component.ts" />
     <TypeScriptCompile Include="app\particips\edit-particip\edit-particip.component.ts" />
     <TypeScriptCompile Include="app\particips\edit-particip\edit-particip.model.ts" />
     <TypeScriptCompile Include="app\particips\mock-particips.ts" />
     <TypeScriptCompile Include="app\particips\details\particip-details.component.ts" />
+    <TypeScriptCompile Include="app\limit-to.pipe.ts" />
     <TypeScriptCompile Include="app\particips\particip-list.component.ts" />
     <TypeScriptCompile Include="app\particips\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particips\details\particip-modal.component.ts" />

@@ -32,6 +32,8 @@ var particip_service_1 = require("./particips/particip.service");
 var particip_correction_service_1 = require("./particips/correction/particip-correction.service");
 //Pipes
 var particip_filter_pipe_1 = require("./particips/particip-filter.pipe");
+var limit_to_pipe_1 = require("./limit-to.pipe");
+var particips_without_details_filter_1 = require("./particips/details/particips-without-details.filter");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var AppModule = (function () {
@@ -47,6 +49,8 @@ AppModule = __decorate([
             particips_component_1.ParticipsComponent,
             particip_list_component_1.ParticipListComponent,
             particip_filter_pipe_1.ParticipFilterPipe,
+            limit_to_pipe_1.LimitToPipe,
+            particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,

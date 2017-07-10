@@ -1,4 +1,18 @@
-﻿<div>Не добавленных данных: {{countOfNotEnteredData}}</div>
+﻿<br/>
+<div *ngIf="particips">
+    <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />
+</div>
+<br/>
+<div>
+    <div style="float:left;margin-top:10px;margin-bottom:10px">Не добавленных данных: {{countOfNotEnteredData}}</div>
+    <div style="float:right" class="checkbox">
+        <label>
+            <input type="checkbox" [checked]="showOnlyParticipsWithoutDetails" (change)="showOnlyParticipsWithoutDetails = !showOnlyParticipsWithoutDetails"/>
+            Показать только незаполненные
+        </label>
+    </div>
+    <div style="clear:both"></div>
+</div>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -13,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let particip of particips">
+        <tr *ngFor="let particip of particips | participFilter: searchText | participsWithoutDetails: showOnlyParticipsWithoutDetails">
             <td>{{particip.participCode}}</td>
             <td>{{particip.surname}}</td>
             <td>{{particip.name}}</td>

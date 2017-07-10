@@ -7,9 +7,10 @@
             <a target="_blank" [href]="participListDocPath"><b>Полный список от 12.05.2017</b></a>
         </div>        
         <br />
-        <div>
+        <div *ngIf="particips">
             <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />
         </div>
+        <br/>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -22,7 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let particip of particips | participFilter: searchText">
+            <tr *ngFor="let particip of particips | participFilter: searchText | limitTo: 100">
                 <td>{{particip.participCode}}</td>
                 <td>{{particip.surname}}</td>
                 <td>{{particip.name}}</td>

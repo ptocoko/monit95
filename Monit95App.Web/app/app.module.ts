@@ -27,6 +27,8 @@ import { ParticipCorrectionService } from './particips/correction/particip-corre
 
 //Pipes
 import { ParticipFilterPipe } from './particips/particip-filter.pipe';
+import { LimitToPipe } from "./limit-to.pipe";
+import { ParticipsWithoutDetailsPipe } from "./particips/details/particips-without-details.filter";
 
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -38,6 +40,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 		ParticipsComponent,
 		ParticipListComponent,
 		ParticipFilterPipe,
+		LimitToPipe,
+		ParticipsWithoutDetailsPipe,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,
