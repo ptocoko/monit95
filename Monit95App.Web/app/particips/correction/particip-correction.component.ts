@@ -26,7 +26,8 @@ export class ParticipCorrectionComponent implements OnInit {
 
     applyCorrection(correction: ParticipCorrection)
     {
-		this._participCorrectionService.applyCorrection(correction).subscribe(success => this.successHandler(correction, 'Коррекция принята!'), error => this.errorHandler(error));
+        this._participCorrectionService.applyCorrection(correction)
+            .subscribe(success => this.successHandler(correction, 'Коррекция принята!'), error => this.errorHandler(error));
 	}
 
 	cancelCorrection(correction: ParticipCorrection) {

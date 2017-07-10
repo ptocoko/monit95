@@ -30,7 +30,8 @@ var ParticipCorrectionComponent = (function () {
     ;
     ParticipCorrectionComponent.prototype.applyCorrection = function (correction) {
         var _this = this;
-        this._participCorrectionService.applyCorrection(correction).subscribe(function (success) { return _this.successHandler(correction, 'Коррекция принята!'); }, function (error) { return _this.errorHandler(error); });
+        this._participCorrectionService.applyCorrection(correction)
+            .subscribe(function (success) { return _this.successHandler(correction, 'Коррекция принята!'); }, function (error) { return _this.errorHandler(error); });
     };
     ParticipCorrectionComponent.prototype.cancelCorrection = function (correction) {
         var _this = this;

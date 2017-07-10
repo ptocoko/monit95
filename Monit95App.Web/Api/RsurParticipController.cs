@@ -15,6 +15,7 @@ using System.Web.Http;
 
 namespace Monit95App.Api
 {    
+    [Authorize]
     public class RsurParticipController : ApiController
     {
         private readonly UnitOfWork _unitOfWork;
@@ -22,6 +23,16 @@ namespace Monit95App.Api
         private readonly IRsurParticipViewer _rsurParticipViewer;
         private readonly IRsurParticipService _rsurParticipService;
 
+        public async Task<HttpResponseMessage> GetByParticipCode()
+        {
+            var resultModel = new RsurParticipModel();
+
+            //...
+
+            return  Request.CreateResponse(HttpStatusCode.OK, resultModel);
+        }
+       
+       
         public async Task<IEnumerable<RsurParticipModel>> GetByUserName(string userName, string userRoles)
         {
             var allPParticips = await Task.Run(() => _unitOfWork.ProjectParticips.GetAll());
@@ -51,7 +62,7 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        //[Route("api/rsurParticips")]
+        [Route("api/rsurParticips")]
         public HttpResponseMessage PutParticip([FromBody]RsurParticipModel model)
         {
             if (!ModelState.IsValid)
@@ -89,12 +100,12 @@ namespace Monit95App.Api
             return res;
         }     
 
-        public string GetDParticip(string primaryKey)
-        {
-            _unitOfWork.ProjectParticips.Delete(primaryKey);
-            _unitOfWork.Save();
-            return "Yes";
-        }
+        //public string GetDParticip(string primaryKey)
+        //{
+        //    _unitOfWork.ProjectParticips.Delete(primaryKey);
+        //    _unitOfWork.Save();
+        //    return "Yes";
+        //}
         
     }
 }
