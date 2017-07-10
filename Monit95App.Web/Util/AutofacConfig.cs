@@ -33,14 +33,14 @@ namespace Monit95App.Util
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             // Register individual components            
-            builder.RegisterType<UnitOfWorkV2>().As<IUnitOfWork>().WithParameter("context", new cokoContext());       
-            builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>));            
-            builder.RegisterType<ExerciseMarkService>().As<IExerciseMarkService>();            
-            builder.RegisterType<TestResultV2Service>().As<ITestResultV2Service>();            
-            builder.RegisterType<ParticipService>().As<IParticipService>();            
-            builder.RegisterType<ClassService>().As<IClassService>();            
-            builder.RegisterType<RsurParticipEditService>().As<IRsurParticipEditService>();
-            builder.RegisterType<OneTwoThreeGradeConverter>().As<IGrade5>();            
+            builder.RegisterType<UnitOfWorkV2>().As<IUnitOfWork>().WithParameter("context", new cokoContext()).ExternallyOwned();       
+            builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerRequest();            
+            builder.RegisterType<ExerciseMarkService>().As<IExerciseMarkService>().InstancePerRequest();            
+            builder.RegisterType<TestResultV2Service>().As<ITestResultV2Service>().InstancePerRequest();            
+            builder.RegisterType<ParticipService>().As<IParticipService>().InstancePerRequest();            
+            builder.RegisterType<ClassService>().As<IClassService>().InstancePerRequest();            
+            builder.RegisterType<RsurParticipEditService>().As<IRsurParticipEditService>().InstancePerRequest();
+            builder.RegisterType<OneTwoThreeGradeConverter>().As<IGrade5>().InstancePerRequest();            
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
