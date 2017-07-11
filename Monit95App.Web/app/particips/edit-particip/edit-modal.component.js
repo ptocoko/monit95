@@ -25,8 +25,6 @@ var EditModalComponent = (function () {
         this.participService.postRequestToEdit(this.editParticip).subscribe(function (res) {
             _this.particip.hasRequestToEdit = true;
             _this.dialog.close(_this.particip);
-        }, function (error) {
-            console.log(JSON.stringify(error));
         });
     };
     EditModalComponent.prototype.cancel = function () {

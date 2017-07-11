@@ -57,7 +57,7 @@ export class ParticipModalComponent implements ModalComponent<ParticipModel> {
 				this.dialog.close(this.particip);
 			}, (error) => {
 				this.statusText = 'Ошибка доступа к серверу!';
-				console.log(JSON.stringify(error));
+				throw error;
 			});
 		}
 		else {

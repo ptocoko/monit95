@@ -20,7 +20,7 @@ export class ParticipCorrectionComponent implements OnInit {
     }
 
     getCorrections(): void {
-		this._participCorrectionService.getCorrections().subscribe(participsCorrections => this.participCorrections = participsCorrections, error=>this.errorHandler(error), () => {
+		this._participCorrectionService.getCorrections().subscribe(participsCorrections => this.participCorrections = participsCorrections, error => { throw error }, () => {
 			if (this.participCorrections.length === 0)
 				this.statusText = 'Запросов на корректировку данных нет!';
 		});        
@@ -33,29 +33,21 @@ export class ParticipCorrectionComponent implements OnInit {
 			particip.secondName = correction.newParticipSecondName;
 
 			this._participService.updateParticip(particip).subscribe(success => {
-				this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(success => this.successHandler(correction, 'Коррекция принята успешно!')/*TODO: handle error!*/)
-			}, error => {
-				//TODO: обработать ошибку
+				this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(success => this.successHandler(correction, 'Коррекция принята успешно!'))
 			})
-		}, error => {
-			//TODO: обработать ошибку
-		})
+		});
 	}
 
 	cancelCorrection(correction: ParticipCorrection) {
 		this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(success => {
 			this.successHandler(correction, 'Коррекция отменена!');
-		}, error => { });
+		});
 	}
 
 	successHandler(correction: ParticipCorrection, statusText: string) {
 		let index = this.participCorrections.indexOf(correction);
 		this.participCorrections.splice(index, 1);
 		this.statusText = statusText;
-	}
-
-	errorHandler(error: any) {
-		console.log(error);
 	}
 }
 

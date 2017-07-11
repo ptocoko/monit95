@@ -52,7 +52,7 @@ var ParticipModalComponent = (function () {
                 _this.dialog.close(_this.particip);
             }, function (error) {
                 _this.statusText = 'Ошибка доступа к серверу!';
-                console.log(JSON.stringify(error));
+                throw error;
             });
         }
         else {

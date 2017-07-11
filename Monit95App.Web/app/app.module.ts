@@ -1,5 +1,5 @@
 ﻿//Modules
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +32,8 @@ import { ParticipsWithoutDetailsPipe } from "./particips/details/particips-witho
 
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { GlobalErrorHandler } from "./error-handler";
+
 
 @NgModule({
 	imports: [BrowserModule, HttpModule, routing, FormsModule, ModalModule.forRoot(), BootstrapModalModule, MyDatePickerModule],
@@ -53,7 +55,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 	],
 	providers: [
         UserService, ParticipService, ParticipCorrectionService,
-		{ provide: LocationStrategy, useClass: HashLocationStrategy }		
+		{ provide: LocationStrategy, useClass: HashLocationStrategy },
+		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
 	entryComponents: [ParticipModalComponent, ResultsModalComponent, EditModalComponent],
     bootstrap: [AppComponent]

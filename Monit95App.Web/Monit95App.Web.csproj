@@ -496,6 +496,7 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.component.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.mock.ts" />

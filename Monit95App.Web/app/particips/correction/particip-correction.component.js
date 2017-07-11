@@ -24,7 +24,7 @@ var ParticipCorrectionComponent = (function () {
     };
     ParticipCorrectionComponent.prototype.getCorrections = function () {
         var _this = this;
-        this._participCorrectionService.getCorrections().subscribe(function (participsCorrections) { return _this.participCorrections = participsCorrections; }, function (error) { return _this.errorHandler(error); }, function () {
+        this._participCorrectionService.getCorrections().subscribe(function (participsCorrections) { return _this.participCorrections = participsCorrections; }, function (error) { throw error; }, function () {
             if (_this.participCorrections.length === 0)
                 _this.statusText = 'Запросов на корректировку данных нет!';
         });
@@ -37,27 +37,20 @@ var ParticipCorrectionComponent = (function () {
             particip.name = correction.newParticipName;
             particip.secondName = correction.newParticipSecondName;
             _this._participService.updateParticip(particip).subscribe(function (success) {
-                _this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(function (success) { return _this.successHandler(correction, 'Коррекция принята успешно!'); } /*TODO: handle error!*/);
-            }, function (error) {
-                //TODO: обработать ошибку
+                _this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(function (success) { return _this.successHandler(correction, 'Коррекция принята успешно!'); });
             });
-        }, function (error) {
-            //TODO: обработать ошибку
         });
     };
     ParticipCorrectionComponent.prototype.cancelCorrection = function (correction) {
         var _this = this;
         this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(function (success) {
             _this.successHandler(correction, 'Коррекция отменена!');
-        }, function (error) { });
+        });
     };
     ParticipCorrectionComponent.prototype.successHandler = function (correction, statusText) {
         var index = this.participCorrections.indexOf(correction);
         this.participCorrections.splice(index, 1);
         this.statusText = statusText;
-    };
-    ParticipCorrectionComponent.prototype.errorHandler = function (error) {
-        console.log(error);
     };
     return ParticipCorrectionComponent;
 }());
