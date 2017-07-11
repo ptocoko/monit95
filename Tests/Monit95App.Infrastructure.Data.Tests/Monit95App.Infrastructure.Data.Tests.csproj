@@ -75,19 +75,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
+    <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
       <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
       <Name>Monit95App.Domain.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
+    <ProjectReference Include="..\..\Infrastructure\Monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
       <Project>{f3a784e6-8723-4628-9677-2374bed42492}</Project>
       <Name>Monit95App.Infrastructure.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
+    <ProjectReference Include="..\..\Monit95App.Services.DTO\Monit95App.Services.DTO.csproj">
       <Project>{6066434D-DC3D-49C1-8421-619F293C6929}</Project>
       <Name>Monit95App.Services.DTO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Monit95App.Web\Monit95App.Web.csproj">
+    <ProjectReference Include="..\..\Monit95App.Web\Monit95App.Web.csproj">
       <Project>{F0E9BF7F-EA42-4B82-810C-B9FB8763E173}</Project>
       <Name>Monit95App.Web</Name>
     </ProjectReference>

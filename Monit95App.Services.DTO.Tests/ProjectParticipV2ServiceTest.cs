@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using Monit95App.Infrastructure.Data.Tests;
 using Moq;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Domain.DTO.Interfaces;
