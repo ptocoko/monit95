@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Monit95App.Models
+namespace Monit95App.Infrastructure.Business.Models
 {
-    public class ParticipResultsViewModel
+    public class ParticipResultsModel
     {
         public string SubjectName { get; set; }
         public DateTime TestDate { get; set; }

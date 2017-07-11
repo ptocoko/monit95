@@ -64,7 +64,7 @@ var ParticipDetailsComponent = (function () {
     //Get by areaCode
     ParticipDetailsComponent.prototype.getByAreaCode = function (user) {
         var _this = this;
-        this.participService.getByAreaCode(user).subscribe(function (particips) {
+        this.participService.getByUserName(user).subscribe(function (particips) {
             _this.particips = particips;
             _this.setCountOfNotEnteredData();
         });

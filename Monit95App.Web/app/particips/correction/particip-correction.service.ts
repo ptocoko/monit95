@@ -36,9 +36,4 @@ export class ParticipCorrectionService {
 	cancelCorrection(participCode: string): Observable<any> {
 		return this._http.delete('/api/RsurParticipEdit/Cancel?participCode=' + participCode);
 	}
-
-    applyCorrection(correction: ParticipCorrection): Observable<any>
-    {
-		return this._http.put('/api/RsurParticipEdit/Apply', correction);
-    }
 }

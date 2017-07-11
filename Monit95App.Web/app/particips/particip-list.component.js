@@ -36,7 +36,7 @@ var ParticipListComponent = (function () {
     //Get by areaCode
     ParticipListComponent.prototype.getByAreaCode = function (user) {
         var _this = this;
-        this.participService.getByAreaCode(user).subscribe(function (particips) { return _this.particips = particips; });
+        this.participService.getByUserName(user).subscribe(function (particips) { return _this.particips = particips; });
     };
     ParticipListComponent.prototype.openModal = function (particip) {
         this.modal.open(results_modal_component_1.ResultsModalComponent, angular2_modal_1.overlayConfigFactory(particip));

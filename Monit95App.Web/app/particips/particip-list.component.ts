@@ -37,7 +37,7 @@ export class ParticipListComponent implements OnInit {
     //Get by areaCode
     getByAreaCode(user: UserModel)
     {        
-        this.participService.getByAreaCode(user).subscribe(
+        this.participService.getByUserName(user).subscribe(
             particips => this.particips = particips
         );
 	}

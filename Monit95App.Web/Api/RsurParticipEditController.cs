@@ -21,22 +21,30 @@ namespace Monit95App.Api
             _participEditService = particiEditService;
         }
         
-        public async Task<List<RsurParticipEditModel>> Get()
+        public async Task<HttpResponseMessage> Get()
         {
-            return await Task.Run(() => _participEditService.GetModels());
+            var models = await Task.Run(() => _participEditService.GetModels());
 
+            if (models == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Коррекции отсутствуют");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK, models);
         }
            
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage Post([Bind(Include ="ParticipCode,NewParticipSurname,NewParticipName,NewParticipSecondName")]RsurParticipEditModel model)
+        public async Task<HttpResponseMessage> Post([Bind(Include ="ParticipCode,NewParticipSurname,NewParticipName,NewParticipSecondName")]RsurParticipEditModel model)
         {
             if(!ModelState.IsValid)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось внести изменения");                
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");                
             }
 
-            _participEditService.AddModel(model);
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            var isAdded = await Task.Run(() => _participEditService.AddModel(model));
+
+            if (isAdded)
+                return Request.CreateResponse(HttpStatusCode.Created);
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось добавить коррекцию");
         }
 
         [System.Web.Http.HttpDelete]
@@ -47,28 +55,9 @@ namespace Monit95App.Api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось отменить коррекцию");
             }
 
-            await _participEditService.DeleteModel(participCode);
+            var isDeleted = await Task.Run(() => _participEditService.DeleteModel(participCode));
         
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
-
-        [System.Web.Http.HttpPut]
-        public async Task<HttpResponseMessage> Apply(RsurParticipEditModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось применить коррекцию");
-            }
-
-            bool isUpdated = await _participEditService.UpdateModel(model);
-            if (isUpdated)
-            {
-                await Cancel(model.ParticipCode);
-                return Request.CreateResponse(HttpStatusCode.OK, "Запись в базе данных обновлена успешно");
-            }
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Не удалось обновить запись в базе данных");
-        }
-
     }
 }

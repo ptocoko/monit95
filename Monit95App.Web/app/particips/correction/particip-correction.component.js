@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var particip_correction_service_1 = require("./particip-correction.service");
+var particip_service_1 = require("../particip.service");
 var ParticipCorrectionComponent = (function () {
-    function ParticipCorrectionComponent(_participCorrectionService) {
+    function ParticipCorrectionComponent(_participCorrectionService, _participService) {
         this._participCorrectionService = _participCorrectionService;
+        this._participService = _participService;
         this.participCorrections = [];
         this.statusText = '';
     }
@@ -30,8 +32,18 @@ var ParticipCorrectionComponent = (function () {
     ;
     ParticipCorrectionComponent.prototype.applyCorrection = function (correction) {
         var _this = this;
-        this._participCorrectionService.applyCorrection(correction)
-            .subscribe(function (success) { return _this.successHandler(correction, 'Коррекция принята!'); }, function (error) { return _this.errorHandler(error); });
+        this._participService.getByParticipCode(correction.participCode).subscribe(function (particip) {
+            particip.surname = correction.newParticipSurname;
+            particip.name = correction.newParticipName;
+            particip.secondName = correction.newParticipSecondName;
+            _this._participService.updateParticip(particip).subscribe(function (success) {
+                _this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(function (success) { return _this.successHandler(correction, 'Коррекция принята успешно!'); } /*TODO: handle error!*/);
+            }, function (error) {
+                //TODO: обработать ошибку
+            });
+        }, function (error) {
+            //TODO: обработать ошибку
+        });
     };
     ParticipCorrectionComponent.prototype.cancelCorrection = function (correction) {
         var _this = this;
@@ -55,7 +67,7 @@ ParticipCorrectionComponent = __decorate([
         templateUrl: './app/particips/correction/particip-correction.html',
         providers: [particip_correction_service_1.ParticipCorrectionService]
     }),
-    __metadata("design:paramtypes", [particip_correction_service_1.ParticipCorrectionService])
+    __metadata("design:paramtypes", [particip_correction_service_1.ParticipCorrectionService, particip_service_1.ParticipService])
 ], ParticipCorrectionComponent);
 exports.ParticipCorrectionComponent = ParticipCorrectionComponent;
 //# sourceMappingURL=particip-correction.component.js.map

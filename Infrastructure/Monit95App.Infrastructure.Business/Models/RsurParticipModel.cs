@@ -8,7 +8,7 @@ namespace Monit95App.Infrastructure.Business.Models
 {
     public class RsurParticipModel
     {
-        [Required]
+        //[Required]
         public int ProjectCode { get; set; }
 
         [Required]
@@ -28,7 +28,7 @@ namespace Monit95App.Infrastructure.Business.Models
         [Required]
         public string SchoolIdWithName { get; set; }
 
-        [Required]
+        //[Required]
         public string CategName { get; set; }
 
         public int? Experience { get; set; }

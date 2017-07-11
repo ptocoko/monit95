@@ -46,7 +46,7 @@ var ParticipModalComponent = (function () {
         var participClasses = this.getClassesString();
         if (this.dateModel != null && participClasses != null) {
             var date = this.dateModel.date;
-            this.particip.birthday = new Date(date.year, date.month - 1, date.day);
+            this.particip.birthday = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
             this.particip.classNumbers = participClasses;
             this.participService.updateParticip(this.particip).subscribe(function () {
                 _this.dialog.close(_this.particip);

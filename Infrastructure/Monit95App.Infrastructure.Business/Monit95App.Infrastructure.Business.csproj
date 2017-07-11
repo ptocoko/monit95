@@ -47,17 +47,20 @@
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\IRsurParticipService.cs" />
+    <Compile Include="Interfaces\IRsurParticipViewer.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
     <Compile Include="Models\ElementResultModel.cs" />
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
+    <Compile Include="Models\ParticipResultsModel.cs" />
     <Compile Include="Models\RsurParticipEditModel.cs" />
     <Compile Include="Models\RsurParticipModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipEditService.cs" />
     <Compile Include="RsurParticipProtocolService.cs" />
     <Compile Include="RsurParticipService.cs" />
+    <Compile Include="RsurParticipViewer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">

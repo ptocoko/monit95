@@ -5,6 +5,7 @@ using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Business;
 using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,11 +33,14 @@ namespace Monit95App.Web.Tests
         }
 
         [TestMethod]
-        public void PutParticipTest()
+        public async void PutParticipTest()
         {
             //Arrange
-            var repository = new GenericRepository<ProjectParticip>(_uow);
-            var service = new RsurParticipService(_uow, repository);
+            var participRepository = new GenericRepository<ProjectParticip>(_uow);
+            var testResultRepository = new GenericRepository<TestResult>(_uow);
+            var participViewer = new RsurParticipViewer();
+            var service = new RsurParticipService(_uow, participRepository, testResultRepository, participViewer);
+            
 
             var controller = new RsurParticipController(service)
             {
@@ -53,7 +57,7 @@ namespace Monit95App.Web.Tests
             };
 
             //Act
-            var message = controller.PutParticip(model);
+            var message = await controller.PutParticip(model);
             var entity = _uow.DbContext.ProjectParticips.Single(x => x.ParticipCode == "2016-100-004");
 
             //Assert

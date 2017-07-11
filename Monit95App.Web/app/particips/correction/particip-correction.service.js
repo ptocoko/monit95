@@ -39,9 +39,6 @@ var ParticipCorrectionService = (function () {
     ParticipCorrectionService.prototype.cancelCorrection = function (participCode) {
         return this._http.delete('/api/RsurParticipEdit/Cancel?participCode=' + participCode);
     };
-    ParticipCorrectionService.prototype.applyCorrection = function (correction) {
-        return this._http.put('/api/RsurParticipEdit/Apply', correction);
-    };
     return ParticipCorrectionService;
 }());
 ParticipCorrectionService = __decorate([

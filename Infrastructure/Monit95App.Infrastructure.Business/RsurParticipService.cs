@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Business.Models;
+using System.Data.Entity.Infrastructure;
 
 namespace Monit95App.Infrastructure.Business
 {
@@ -16,15 +17,47 @@ namespace Monit95App.Infrastructure.Business
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
+        private readonly IGenericRepository<TestResult> _testResultRepository;
+        private readonly IRsurParticipViewer _rsurParticipViewer;
 
         #endregion
 
         #region Methods
 
-        public RsurParticipService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticip> rsurParticipRepository)
+        public RsurParticipService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticip> rsurParticipRepository, IGenericRepository<TestResult> testResultRepository, IRsurParticipViewer rsurParticipViewer)
         {
             _unitOfWork = unitOfWork;
             _rsurParticipRepository = rsurParticipRepository;
+            _testResultRepository = testResultRepository;
+            _rsurParticipViewer = rsurParticipViewer;
+        }
+        
+        public IEnumerable<RsurParticipModel> GetByUserName(string userName, string userRoles)
+        {
+            var allParticips = _rsurParticipRepository.GetAll();
+
+            IEnumerable<RsurParticipModel> result = null;
+
+            if (userRoles.Contains("coko"))
+                result = allParticips.Where(x => x.SchoolId == "0000").ToList().Select(x => _rsurParticipViewer.CreateModel(x));
+
+            if (userRoles.Contains("area"))
+            {
+                var areaCode = int.Parse(userName);
+                result = allParticips.Where(x => x.School.AreaCode == areaCode).ToList().Select(x => _rsurParticipViewer.CreateModel(x));
+            }
+            if (userRoles.Contains("school"))
+                result = allParticips.Where(x => x.SchoolId == userName).ToList().Select(x => _rsurParticipViewer.CreateModel(x));
+
+            return result;
+        }
+
+        public RsurParticipModel GetByParticipCode(string participCode)
+        {
+            return _rsurParticipRepository.GetAll().Where(p => p.ParticipCode == participCode).ToList()
+                                                           .Select(s => _rsurParticipViewer.CreateModel(s)).SingleOrDefault();
+
+
         }
 
         public void Add(RsurParticipModel model)
@@ -46,17 +79,33 @@ namespace Monit95App.Infrastructure.Business
 
         public bool Update(RsurParticipModel model)
         {
-            var entity = _rsurParticipRepository.GetAll().Where(x => x.ParticipCode == model.ParticipCode).Single();
+            var entity = _rsurParticipRepository.GetAll().SingleOrDefault(x => x.ParticipCode == model.ParticipCode);
+            if (entity == null)
+                return false;
 
             entity.Surname = model.Surname;
             entity.Name = model.Name;
             entity.SecondName = model.SecondName;
-            entity.Birthday = model.Birthday?.AddDays(1);
-            entity.ClassNumbers = model.ClassNumbers;          
+            entity.Birthday = model.Birthday;
+            entity.ClassNumbers = model.ClassNumbers;
 
-            _unitOfWork.Save();
+            try
+            {
+                _unitOfWork.Save();
+            }
+            catch (RetryLimitExceededException)
+            {
+                return false;
+            }
 
             return true;
+        }
+
+        public IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode)
+        {
+            return _testResultRepository.GetAll().Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode).ToList()
+                                               .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
+                                               .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
         }
 
         #endregion

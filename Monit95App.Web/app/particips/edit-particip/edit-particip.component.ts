@@ -21,7 +21,7 @@ export class EditParticipComponent {
 
 	ngOnInit() {
 		this.userService.getName().subscribe(user => {
-			this.participService.getByAreaCode(user).subscribe(particips => this.particips = particips);
+			this.participService.getByUserName(user).subscribe(particips => this.particips = particips);
 		});
 	}
 

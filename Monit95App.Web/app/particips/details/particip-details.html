@@ -5,7 +5,7 @@
 <br/>
 <div>
     <div style="float:left;margin-top:10px;margin-bottom:10px">Не добавленных данных: {{countOfNotEnteredData}}</div>
-    <div style="float:right" class="checkbox">
+    <div *ngIf="countOfNotEnteredData > 0" style="float:right" class="checkbox">
         <label>
             <input type="checkbox" [checked]="showOnlyParticipsWithoutDetails" (change)="showOnlyParticipsWithoutDetails = !showOnlyParticipsWithoutDetails"/>
             Показать только незаполненные
@@ -35,7 +35,7 @@
             <td>{{particip.subjectName}}</td>
             <td [ngClass]="{'red' : !particip.classNumbers}">{{particip.birthday?.toLocaleDateString('ru-RU')}}</td>
             <td [ngClass]="{'red' : !particip.classNumbers}">{{particip.classNumbers}}</td>
-            <td><a class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a></td>
+            <td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a></td>
         </tr>
     </tbody>
 </table>

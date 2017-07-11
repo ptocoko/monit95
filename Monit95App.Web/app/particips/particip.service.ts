@@ -18,32 +18,27 @@ export class ParticipService {
 
     private _getByAreaCodeUrl: string = '/api/RsurParticip/GetByUserName?userName=';
 
-    getByAreaCode(user: UserModel): Observable<ParticipModel[]> {
+    getByUserName(user: UserModel): Observable<ParticipModel[]> {
         
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + this.getRolesStringFromArray(user.userRoles);
+        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + user.userRoles.join(',');
         return this._http.get(getByAreaCodeUrl)
             .map((resp: Response) => {                
                 let participList = resp.json();
                 let particips: ParticipModel[] = [];
                 for (let index in participList) {
                     let particip = participList[index];
-                    particips.push(
-                        new ParticipModel (
-                            particip.ParticipCode,
-                            particip.Surname,
-                            particip.Name,
-                            particip.SecondName,
-							particip.SubjectName,
-							particip.SchoolIdWithName,
-							particip.CategName,
-							particip.Birthday != null ? new Date(particip.Birthday) : null,
-							particip.ClassNumbers,
-							particip.HasRequestToEdit
-                        ));
+                    particips.push(this.getParticipModel(particip));
                 }
-                //console.log(particips);
                 return particips;
             });        
+	}
+
+	getByParticipCode(participCode: string): Observable<ParticipModel> {
+		return this._http.get('/api/RsurParticip/GetByParticipCode?participCode=' + participCode)
+			.map((resp: Response) => {
+				let participResp = resp.json();
+				return this.getParticipModel(participResp);
+			});
 	}
 
 	updateParticip(particip: ParticipModel): Observable<any> {
@@ -79,7 +74,18 @@ export class ParticipService {
 		return this._http.post('/api/RsurParticipEdit/Post', editParticip);
 	}
 
-	private getRolesStringFromArray(userRoles: string[]):string {
-		return userRoles.join(',');
+	private getParticipModel(particip: any): ParticipModel {
+		return new ParticipModel(
+						particip.ParticipCode,
+						particip.Surname,
+						particip.Name,
+						particip.SecondName,
+						particip.SubjectName,
+						particip.SchoolIdWithName,
+						particip.CategName,
+						particip.Birthday != null ? new Date(particip.Birthday) : null,
+						particip.ClassNumbers,
+						particip.HasRequestToEdit
+					);
 	}
 }
