@@ -69,22 +69,6 @@ namespace Monit95App.Api
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось применить изменения");
         }
 
-
-        //public async Task<object> PostParticip(ProjectParticip newParticip)
-        //{
-        //    newParticip.Category = _db.Categories.Find(newParticip.CategId);
-        //    newParticip.NsurSubject = _db.NsurSubjects.Find(newParticip.NSubjectCode);
-        //    newParticip.ProjectCode = 201661;
-        //  //  newParticip.ParticipCode = _pparticipCodeCreator.FactoryMethod(newParticip);
-        //    _unitOfWork.ProjectParticips.Add(newParticip);
-        //    await Task.Run(() => _unitOfWork.Save());
-
-        //    return _rsurParticipViewer.CreateModel(newParticip);
-        //}
-             
-        //[Route("api/ProjectParticip/GetParticips/{area:int}")]
-                
-
         public async Task<HttpResponseMessage> GetParticipResults(string participCode)
         {
             if (participCode == null)
@@ -97,13 +81,5 @@ namespace Monit95App.Api
             else
                 return Request.CreateResponse(HttpStatusCode.OK, results);
         }     
-
-        //public string GetDParticip(string primaryKey)
-        //{
-        //    _unitOfWork.ProjectParticips.Delete(primaryKey);
-        //    _unitOfWork.Save();
-        //    return "Yes";
-        //}
-        
     }
 }
