@@ -41,7 +41,7 @@ namespace Monit95App.Web.Tests
             var service = new RsurParticipService(_uow, participRepository, testResultRepository, participViewer);
             
 
-            var controller = new RsurParticipController(service)
+            var controller = new RsurParticipsController(service)
             {
                 Request = new HttpRequestMessage()
             };

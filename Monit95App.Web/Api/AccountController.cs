@@ -38,14 +38,6 @@ namespace Monit95App.Api
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "The user has no one role");            
         }
 
-
-        //Get current user's name
-        //public object GetUserNameAndRole()
-        //{
-        //    var isAreaRole = User.IsInRole("area");
-        //    return new { UserName = User.Identity.Name, IsAreaRole = isAreaRole };
-        //}
-
         #endregion
     }
 }

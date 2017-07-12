@@ -208,7 +208,7 @@
     <Compile Include="Api\ExerciseMarksController.cs" />
     <Compile Include="Api\MarksFileController.cs" />
     <Compile Include="Api\OneTwoThreeReportController.cs" />
-    <Compile Include="Api\RsurParticipController.cs" />
+    <Compile Include="Api\RsurParticipsController.cs" />
     <Compile Include="Api\RsurParticipEditController.cs" />
     <Compile Include="Api\ParticipController.cs" />
     <Compile Include="Api\SchoolController.cs" />
