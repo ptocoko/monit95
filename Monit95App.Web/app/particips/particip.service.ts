@@ -21,7 +21,8 @@ export class ParticipService {
     getByUserName(user: UserModel): Observable<ParticipModel[]> {
         
         var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + user.userRoles.join(',');
-        return this._http.get(getByAreaCodeUrl)
+        //return this._http.get(getByAreaCodeUrl)
+        return this._http.get("/api/rsurParticips")
             .map((resp: Response) => {                
                 let participList = resp.json();
                 let particips: ParticipModel[] = [];

@@ -22,7 +22,8 @@ var ParticipService = (function () {
     ParticipService.prototype.getByUserName = function (user) {
         var _this = this;
         var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + user.userRoles.join(',');
-        return this._http.get(getByAreaCodeUrl)
+        //return this._http.get(getByAreaCodeUrl)
+        return this._http.get("/api/rsurParticips")
             .map(function (resp) {
             var participList = resp.json();
             var particips = [];
