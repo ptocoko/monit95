@@ -31,7 +31,7 @@ namespace Monit95App.Api
             if (participCode == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
 
-            RsurParticipModel resultModel = await Task.Run(() => _rsurParticipService.GetByParticipCode(participCode));
+            RsurParticipBaseModel resultModel = await Task.Run(() => _rsurParticipService.GetByParticipCode(participCode));
 
             if (resultModel == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом");
@@ -55,7 +55,7 @@ namespace Monit95App.Api
 
         [HttpPut]
         //[Route("api/rsurParticips")]
-        public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipModel model)
+        public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipBaseModel model)
         {
             if (!ModelState.IsValid)
             {

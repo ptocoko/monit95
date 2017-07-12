@@ -54,8 +54,10 @@
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
     <Compile Include="Models\ParticipResultsModel.cs" />
+    <Compile Include="Models\RsurExportReportModel.cs" />
+    <Compile Include="Models\RsurParticipFullModel.cs" />
     <Compile Include="Models\RsurParticipEditModel.cs" />
-    <Compile Include="Models\RsurParticipModel.cs" />
+    <Compile Include="Models\RsurParticipBaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipEditService.cs" />
     <Compile Include="RsurParticipProtocolService.cs" />
@@ -71,6 +73,9 @@
       <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
       <Name>Monit95App.Domain.Interfaces</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="particips-template.xlsx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
