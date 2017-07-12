@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Work.Concrete;
-using System.Collections.Generic;
 using System.Collections;
 
 namespace Monit95App.Domain.Work.Tests
