@@ -6,9 +6,8 @@ using System.Web;
 
 namespace Monit95App.Infrastructure.Business.Models
 {
-    public class RsurParticipModel
-    {
-        //[Required]
+    public class RsurParticipBaseModel
+    {        
         public int ProjectCode { get; set; }
 
         [Required]
@@ -27,8 +26,7 @@ namespace Monit95App.Infrastructure.Business.Models
 
         [Required]
         public string SchoolIdWithName { get; set; }
-
-        //[Required]
+        
         public string CategName { get; set; }
 
         public int? Experience { get; set; }

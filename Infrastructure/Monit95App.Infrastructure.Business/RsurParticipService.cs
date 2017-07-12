@@ -32,11 +32,11 @@ namespace Monit95App.Infrastructure.Business
             _rsurParticipViewer = rsurParticipViewer;
         }
         
-        public IEnumerable<RsurParticipModel> GetByUserName(string userName, string userRoles)
+        public IEnumerable<RsurParticipBaseModel> GetByUserName(string userName, string userRoles)
         {
             var allParticips = _rsurParticipRepository.GetAll();
 
-            IEnumerable<RsurParticipModel> result = null;
+            IEnumerable<RsurParticipBaseModel> result = null;
 
             if (userRoles.Contains("coko"))
                 result = allParticips.Where(x => x.SchoolId == "0000").ToList().Select(x => _rsurParticipViewer.CreateModel(x));
@@ -52,7 +52,7 @@ namespace Monit95App.Infrastructure.Business
             return result;
         }
 
-        public RsurParticipModel GetByParticipCode(string participCode)
+        public RsurParticipBaseModel GetByParticipCode(string participCode)
         {
             return _rsurParticipRepository.GetAll().Where(p => p.ParticipCode == participCode).ToList()
                                                            .Select(s => _rsurParticipViewer.CreateModel(s)).SingleOrDefault();
@@ -60,7 +60,7 @@ namespace Monit95App.Infrastructure.Business
 
         }
 
-        public void Add(RsurParticipModel model)
+        public void Add(RsurParticipBaseModel model)
         {
             //newPParticip.School = _db.Schools.Find(newPParticip.SchoolId);            
 
@@ -77,7 +77,7 @@ namespace Monit95App.Infrastructure.Business
             //return newParticipCode;
         }
 
-        public bool Update(RsurParticipModel model)
+        public bool Update(RsurParticipBaseModel model)
         {
             var entity = _rsurParticipRepository.GetAll().SingleOrDefault(x => x.ParticipCode == model.ParticipCode);
             if (entity == null)
