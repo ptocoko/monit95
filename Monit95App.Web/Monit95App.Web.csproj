@@ -228,12 +228,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Abstarct\IFolderSchoolIds.cs" />
+    <Compile Include="Models\Abstarct\IRsurParticipViewer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppCache.cs" />
-    <Compile Include="Models\CollectorHandler.cs" />
-    <Compile Include="Models\FileReport.cs" />
-    <Compile Include="Models\FolderSchoolIds.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SchoolModel.cs" />
     <Compile Include="Models\SchoolModelCreator.cs" />
