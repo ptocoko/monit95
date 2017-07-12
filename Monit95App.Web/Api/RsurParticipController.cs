@@ -5,7 +5,6 @@ using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Infrastructure.Data.Interfaces;
 using Monit95App.Models;
-using Monit95App.Models.Abstarct;
 using System;
 using System.Collections.Generic;
 using System.Linq;
