@@ -8,7 +8,6 @@ import { UserModel } from '../../user.model';
 import { ParticipModalComponent } from './particip-modal.component';
 
 import { ParticipService } from '../particip.service';
-import { UserService } from '../../user.service';
 
 @Component({
 	selector: 'particip-details',
@@ -18,12 +17,10 @@ import { UserService } from '../../user.service';
 export class ParticipDetailsComponent implements OnInit {
 	particips: ParticipModel[];
 	countOfNotEnteredData: number;
-	constructor(private participService: ParticipService, private userService: UserService, public modal: Modal) { }
+	constructor(private participService: ParticipService, public modal: Modal) { }
 
-	ngOnInit() {
-		this.userService.getName().subscribe(user => {
-			this.getByAreaCode(user);
-		});
+	ngOnInit() {		
+			this.get();		
 	}
 
 	modalOpen(particip: ParticipModel) {
@@ -60,10 +57,9 @@ export class ParticipDetailsComponent implements OnInit {
 			});
 		}
 	}
-
-	//Get by areaCode
-	getByAreaCode(user: UserModel) {
-		this.participService.getByUserName(user).subscribe(
+	
+	get() {
+		this.participService.get().subscribe(
 			particips => {
 				this.particips = particips;
 				this.setCountOfNotEnteredData();

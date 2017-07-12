@@ -32,7 +32,7 @@ var ParticipCorrectionComponent = (function () {
     ;
     ParticipCorrectionComponent.prototype.applyCorrection = function (correction) {
         var _this = this;
-        this._participService.getByParticipCode(correction.participCode).subscribe(function (particip) {
+        this._participService.getParticip(correction.participCode).subscribe(function (particip) {
             particip.surname = correction.newParticipSurname;
             particip.name = correction.newParticipName;
             particip.secondName = correction.newParticipSecondName;

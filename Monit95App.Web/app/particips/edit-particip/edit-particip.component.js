@@ -23,9 +23,7 @@ var EditParticipComponent = (function () {
     }
     EditParticipComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getName().subscribe(function (user) {
-            _this.participService.getByUserName(user).subscribe(function (particips) { return _this.particips = particips; });
-        });
+        this.participService.get().subscribe(function (particips) { return _this.particips = particips; });
     };
     EditParticipComponent.prototype.modalOpen = function (particip) {
         var _this = this;

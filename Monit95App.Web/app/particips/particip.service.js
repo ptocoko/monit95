@@ -17,13 +17,10 @@ var results_model_1 = require("./results/results.model");
 var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;
-        this._getByAreaCodeUrl = '/api/RsurParticip/GetByUserName?userName=';
     }
-    ParticipService.prototype.getByUserName = function (user) {
+    ParticipService.prototype.get = function () {
         var _this = this;
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + user.userRoles.join(',');
-        //return this._http.get(getByAreaCodeUrl)
-        return this._http.get("/api/rsurParticips")
+        return this._http.get("api/rsurParticips")
             .map(function (resp) {
             var participList = resp.json();
             var particips = [];
@@ -34,9 +31,9 @@ var ParticipService = (function () {
             return particips;
         });
     };
-    ParticipService.prototype.getByParticipCode = function (participCode) {
+    ParticipService.prototype.getParticip = function (participCode) {
         var _this = this;
-        return this._http.get('/api/RsurParticip/GetByParticipCode?participCode=' + participCode)
+        return this._http.get('api/rsurParticips/' + participCode)
             .map(function (resp) {
             var participResp = resp.json();
             return _this.getParticipModel(participResp);

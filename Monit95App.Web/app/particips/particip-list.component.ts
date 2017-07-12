@@ -17,27 +17,17 @@ import { UserService } from '../user.service';
     providers: [Modal]    
 })
 export class ParticipListComponent implements OnInit {
-    particips: ParticipModel[] = [];
-	isAreaRole: boolean;
-    participListDocPath: string;
+    particips: ParticipModel[] = [];	    
         
     constructor(private participService: ParticipService, private userService: UserService, public modal: Modal) { }
 
     ngOnInit() {
-		this.userService.getName().subscribe(user => {
-			this.isAreaRole = user.userRoles.indexOf('area')>=0;
-			this.getByAreaCode(user);
-			if (this.isAreaRole) {
-				this.participListDocPath =
-					'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + user.userName + '/' + user.userName + '_список.xlsx';
-			}
-		});    
+        this.get();		  
     }
-
-    //Get by areaCode
-    getByAreaCode(user: UserModel)
+    
+    get()
     {        
-        this.participService.getByUserName(user).subscribe(
+        this.participService.get().subscribe(
             particips => this.particips = particips
         );
 	}

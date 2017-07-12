@@ -14,18 +14,13 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var particip_modal_component_1 = require("./particip-modal.component");
 var particip_service_1 = require("../particip.service");
-var user_service_1 = require("../../user.service");
 var ParticipDetailsComponent = (function () {
-    function ParticipDetailsComponent(participService, userService, modal) {
+    function ParticipDetailsComponent(participService, modal) {
         this.participService = participService;
-        this.userService = userService;
         this.modal = modal;
     }
     ParticipDetailsComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userService.getName().subscribe(function (user) {
-            _this.getByAreaCode(user);
-        });
+        this.get();
     };
     ParticipDetailsComponent.prototype.modalOpen = function (particip) {
         var _this = this;
@@ -61,10 +56,9 @@ var ParticipDetailsComponent = (function () {
             });
         }
     };
-    //Get by areaCode
-    ParticipDetailsComponent.prototype.getByAreaCode = function (user) {
+    ParticipDetailsComponent.prototype.get = function () {
         var _this = this;
-        this.participService.getByUserName(user).subscribe(function (particips) {
+        this.participService.get().subscribe(function (particips) {
             _this.particips = particips;
             _this.setCountOfNotEnteredData();
         });
@@ -77,7 +71,7 @@ ParticipDetailsComponent = __decorate([
         templateUrl: './app/particips/details/particip-details.html',
         providers: [bootstrap_1.Modal]
     }),
-    __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService, bootstrap_1.Modal])
+    __metadata("design:paramtypes", [particip_service_1.ParticipService, bootstrap_1.Modal])
 ], ParticipDetailsComponent);
 exports.ParticipDetailsComponent = ParticipDetailsComponent;
 //# sourceMappingURL=particip-details.component.js.map

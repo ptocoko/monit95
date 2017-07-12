@@ -27,7 +27,7 @@ export class ParticipCorrectionComponent implements OnInit {
     };
 
     applyCorrection(correction: ParticipCorrection) {
-		this._participService.getByParticipCode(correction.participCode).subscribe(particip => {
+		this._participService.getParticip(correction.participCode).subscribe(particip => {
 			particip.surname = correction.newParticipSurname;
 			particip.name = correction.newParticipName;
 			particip.secondName = correction.newParticipSecondName;

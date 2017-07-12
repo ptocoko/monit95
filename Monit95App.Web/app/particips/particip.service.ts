@@ -5,7 +5,6 @@ import { Observable }                                                      from 
 import { ParticipModel } from './particip.model';
 import { ParticipEditModel } from '../particips/edit-particip/edit-particip.model';
 import { ResultsModel, ResultDetailsModel } from './results/results.model';
-import { UserModel } from '../user.model';
 
 @Component({
     providers: [Http]
@@ -14,15 +13,10 @@ import { UserModel } from '../user.model';
 @Injectable()
 export class ParticipService {
     public headers: Headers;
-    constructor(private _http: Http) { }
+    constructor(private _http: Http) { }    
 
-    private _getByAreaCodeUrl: string = '/api/RsurParticip/GetByUserName?userName=';
-
-    getByUserName(user: UserModel): Observable<ParticipModel[]> {
-        
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + user.userRoles.join(',');
-        //return this._http.get(getByAreaCodeUrl)
-        return this._http.get("/api/rsurParticips")
+    get(): Observable<ParticipModel[]> {                        
+        return this._http.get("api/rsurParticips")
             .map((resp: Response) => {                
                 let participList = resp.json();
                 let particips: ParticipModel[] = [];
@@ -32,15 +26,15 @@ export class ParticipService {
                 }
                 return particips;
             });        
-	}
+	}	
 
-	getByParticipCode(participCode: string): Observable<ParticipModel> {
-		return this._http.get('/api/RsurParticip/GetByParticipCode?participCode=' + participCode)
-			.map((resp: Response) => {
-				let participResp = resp.json();
-				return this.getParticipModel(participResp);
-			});
-	}
+    getParticip(participCode: string): Observable<ParticipModel> {
+        return this._http.get('api/rsurParticips/' + participCode)
+            .map((resp: Response) => {
+                let participResp = resp.json();
+                return this.getParticipModel(participResp);
+            });
+    }
 
 	updateParticip(particip: ParticipModel): Observable<any> {
 		return this._http.put('/api/RsurParticip/PutParticip', particip);

@@ -16,7 +16,7 @@ using System.Web.Http;
 
 namespace Monit95App.Api
 {    
-   // [Authorize]
+    [Authorize]
     public class RsurParticipsController : ApiController
     {
         private readonly IRsurParticipService _rsurParticipService;
@@ -24,9 +24,11 @@ namespace Monit95App.Api
         public RsurParticipsController(IRsurParticipService rsurParticipService)
         {
             _rsurParticipService = rsurParticipService;
-        }
+        }       
 
-        public async Task<HttpResponseMessage> GetByParticipCode(string participCode)
+        [HttpGet]
+        [Route("api/rsurParticips/{participCode}")]
+        public async Task<HttpResponseMessage> Get(string participCode)
         {
             if (participCode == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
@@ -36,21 +38,7 @@ namespace Monit95App.Api
             if (resultModel == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом");
             else
-                return  Request.CreateResponse(HttpStatusCode.OK, resultModel);
-        }
-       
-       [HttpGet]
-        public async Task<HttpResponseMessage> GetByUserName(string userName, string userRoles)
-        {
-            if (userName == null || userRoles == null)
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
-
-            var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
-
-            if (models == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, models);
+                return Request.CreateResponse(HttpStatusCode.OK, resultModel);
         }
 
         [HttpGet]
@@ -71,7 +59,6 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        //[Route("api/rsurParticips")]
         public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipBaseModel model)
         {
             if (!ModelState.IsValid)
