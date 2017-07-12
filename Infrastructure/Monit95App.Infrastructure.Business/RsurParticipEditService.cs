@@ -34,21 +34,7 @@ namespace Monit95App.Infrastructure.Business
                 OldParticipName = ok.Name,
                 NewParticipSecondName = ik.SecondName,
                 OldParticipSecondName = ok.SecondName
-            }).ToList();
-
-            //var models = new List<RsurParticipEditModel>();
-            //foreach (var entity in entities)
-            //{
-            //    RsurParticipEditModel model = new RsurParticipEditModel()
-            //    {
-            //        ParticipCode = entity.ParticipCode,
-            //        NewParticipSurname = entity.Surname,
-            //        NewParticipName = entity.Name,
-            //        NewParticipSecondName = entity.SecondName
-            //    };
-
-            //    models.Add(model);
-            //}
+            }).ToList();          
 
             return models;
         }
