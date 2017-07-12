@@ -24,7 +24,7 @@ var EditParticipComponent = (function () {
     EditParticipComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userService.getName().subscribe(function (user) {
-            _this.participService.getByAreaCode(user).subscribe(function (particips) { return _this.particips = particips; });
+            _this.participService.getByUserName(user).subscribe(function (particips) { return _this.particips = particips; });
         });
     };
     EditParticipComponent.prototype.modalOpen = function (particip) {

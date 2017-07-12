@@ -229,15 +229,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Abstarct\IFolderSchoolIds.cs" />
-    <Compile Include="Models\Abstarct\IRsurParticipViewer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppCache.cs" />
     <Compile Include="Models\CollectorHandler.cs" />
     <Compile Include="Models\FileReport.cs" />
     <Compile Include="Models\FolderSchoolIds.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ParticipResultsViewModel.cs" />
-    <Compile Include="Models\RsurParticipViewer.cs" />
     <Compile Include="Models\SchoolModel.cs" />
     <Compile Include="Models\SchoolModelCreator.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
@@ -335,6 +332,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="package.json" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\188.0.173.242.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
@@ -498,16 +496,19 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.component.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.mock.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.service.ts" />
+    <TypeScriptCompile Include="app\particips\details\particips-without-details.filter.ts" />
     <TypeScriptCompile Include="app\particips\edit-particip\edit-modal.component.ts" />
     <TypeScriptCompile Include="app\particips\edit-particip\edit-particip.component.ts" />
     <TypeScriptCompile Include="app\particips\edit-particip\edit-particip.model.ts" />
     <TypeScriptCompile Include="app\particips\mock-particips.ts" />
     <TypeScriptCompile Include="app\particips\details\particip-details.component.ts" />
+    <TypeScriptCompile Include="app\limit-to.pipe.ts" />
     <TypeScriptCompile Include="app\particips\particip-list.component.ts" />
     <TypeScriptCompile Include="app\particips\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particips\details\particip-modal.component.ts" />

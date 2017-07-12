@@ -18,7 +18,7 @@ var ResultComponent = (function () {
     ResultComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userService.getName().subscribe(function (user) {
-            if (user.isAreaRole)
+            if (user.userRoles.indexOf('area') >= 0)
                 _this.areaCode = Number.parseInt(user.userName);
         });
     };

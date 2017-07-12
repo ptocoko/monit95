@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Business.Interfaces;
 using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Data;
@@ -18,83 +19,67 @@ namespace Monit95App.Api
     [Authorize]
     public class RsurParticipController : ApiController
     {
-        private readonly UnitOfWork _unitOfWork;
-        private readonly cokoContext _db;
-        private readonly IRsurParticipViewer _rsurParticipViewer;
         private readonly IRsurParticipService _rsurParticipService;
-
-        public async Task<IEnumerable<RsurParticipModel>> GetByUserName(string userName, bool isAreaRole)
-        {
-            var allPParticips = await Task.Run(() => _unitOfWork.ProjectParticips.GetAll());
-            IEnumerable<RsurParticipModel> result;
-
-            if (isAreaRole)
-                result = allPParticips.Where(x => x.School.AreaCode == int.Parse(userName)).Select(x => _rsurParticipViewer.CreateModel(x));
-            else
-                result = allPParticips.Where(x => x.SchoolId == userName).Select(x => _rsurParticipViewer.CreateModel(x));
-
-            return result;
-        }      
-
-        public RsurParticipController()
-        {            
-            _unitOfWork = new UnitOfWork(new cokoContext());           
-            _rsurParticipViewer = new RsurParticipViewer();
-            _db = new cokoContext();
-        }
 
         public RsurParticipController(IRsurParticipService rsurParticipService)
         {
             _rsurParticipService = rsurParticipService;
         }
 
-        [Authorize(Roles = "coko")]
+        public async Task<HttpResponseMessage> GetByParticipCode(string participCode)
+        {
+            if (participCode == null)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
+
+            RsurParticipModel resultModel = await Task.Run(() => _rsurParticipService.GetByParticipCode(participCode));
+
+            if (resultModel == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом");
+            else
+                return  Request.CreateResponse(HttpStatusCode.OK, resultModel);
+        }
+       
+       [HttpGet]
+        public async Task<HttpResponseMessage> GetByUserName(string userName, string userRoles)
+        {
+            if (userName == null || userRoles == null)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
+
+            var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
+
+            if (models == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK, models);
+        }      
+
         [HttpPut]
         //[Route("api/rsurParticips")]
-        public HttpResponseMessage PutParticip([FromBody]RsurParticipModel model)
+        public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось внести изменения");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Неверный запрос");
             }
 
-            _rsurParticipService.Update(model);
-            return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");           
+            var isUpdated = await Task.Run(() => _rsurParticipService.Update(model));
+            if (isUpdated)
+                return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось применить изменения");
         }
 
-
-        public async Task<object> PostParticip(ProjectParticip newParticip)
+        public async Task<HttpResponseMessage> GetParticipResults(string participCode)
         {
-            newParticip.Category = _db.Categories.Find(newParticip.CategId);
-            newParticip.NsurSubject = _db.NsurSubjects.Find(newParticip.NSubjectCode);
-            newParticip.ProjectCode = 201661;
-          //  newParticip.ParticipCode = _pparticipCodeCreator.FactoryMethod(newParticip);
-            _unitOfWork.ProjectParticips.Add(newParticip);
-            await Task.Run(() => _unitOfWork.Save());
+            if (participCode == null)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
 
-            return _rsurParticipViewer.CreateModel(newParticip);
-        }
-             
-        //[Route("api/ProjectParticip/GetParticips/{area:int}")]
-                
+            var results = await Task.Run(() => _rsurParticipService.GetParticipResults(participCode));
 
-        public async Task<IEnumerable<IGrouping<string, ParticipResultsViewModel>>> GetParticipResults(string participCode)
-        {
-            if (String.IsNullOrEmpty(participCode)) return null;
-
-            var res = await Task.Run(() => _db.TestResults.Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode).ToList()
-                                              .Select(s => _rsurParticipViewer.CreateResultViewModel(s, participCode))
-                                              .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList());
-            return res;
-        }
-
-        [Authorize(Roles = "coko")]
-        public string GetDParticip(string primaryKey)
-        {
-            _unitOfWork.ProjectParticips.Delete(primaryKey);
-            _unitOfWork.Save();
-            return "Yes";
-        }
-        
+            if (results == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти результаты");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK, results);
+        }     
     }
 }

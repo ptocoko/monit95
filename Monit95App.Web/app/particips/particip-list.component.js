@@ -25,9 +25,9 @@ var ParticipListComponent = (function () {
     ParticipListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userService.getName().subscribe(function (user) {
-            _this.isAreaRole = user.isAreaRole;
+            _this.isAreaRole = user.userRoles.indexOf('area') >= 0;
             _this.getByAreaCode(user);
-            if (user.isAreaRole) {
+            if (_this.isAreaRole) {
                 _this.participListDocPath =
                     'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + user.userName + '/' + user.userName + '_список.xlsx';
             }
@@ -36,7 +36,7 @@ var ParticipListComponent = (function () {
     //Get by areaCode
     ParticipListComponent.prototype.getByAreaCode = function (user) {
         var _this = this;
-        this.participService.getByAreaCode(user).subscribe(function (particips) { return _this.particips = particips; });
+        this.participService.getByUserName(user).subscribe(function (particips) { return _this.particips = particips; });
     };
     ParticipListComponent.prototype.openModal = function (particip) {
         this.modal.open(results_modal_component_1.ResultsModalComponent, angular2_modal_1.overlayConfigFactory(particip));

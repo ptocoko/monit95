@@ -19,18 +19,26 @@ var ParticipService = (function () {
         this._http = _http;
         this._getByAreaCodeUrl = '/api/RsurParticip/GetByUserName?userName=';
     }
-    ParticipService.prototype.getByAreaCode = function (user) {
-        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&isAreaRole=" + user.isAreaRole;
+    ParticipService.prototype.getByUserName = function (user) {
+        var _this = this;
+        var getByAreaCodeUrl = this._getByAreaCodeUrl + user.userName + "&userRoles=" + user.userRoles.join(',');
         return this._http.get(getByAreaCodeUrl)
             .map(function (resp) {
             var participList = resp.json();
             var particips = [];
             for (var index in participList) {
                 var particip = participList[index];
-                particips.push(new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.SchoolIdWithName, particip.CategName, particip.Birthday != null ? new Date(particip.Birthday) : null, particip.ClassNumbers, particip.HasRequestToEdit));
+                particips.push(_this.getParticipModel(particip));
             }
-            //console.log(particips);
             return particips;
+        });
+    };
+    ParticipService.prototype.getByParticipCode = function (participCode) {
+        var _this = this;
+        return this._http.get('/api/RsurParticip/GetByParticipCode?participCode=' + participCode)
+            .map(function (resp) {
+            var participResp = resp.json();
+            return _this.getParticipModel(participResp);
         });
     };
     ParticipService.prototype.updateParticip = function (particip) {
@@ -56,6 +64,9 @@ var ParticipService = (function () {
     };
     ParticipService.prototype.postRequestToEdit = function (editParticip) {
         return this._http.post('/api/RsurParticipEdit/Post', editParticip);
+    };
+    ParticipService.prototype.getParticipModel = function (particip) {
+        return new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.SchoolIdWithName, particip.CategName, particip.Birthday != null ? new Date(particip.Birthday) : null, particip.ClassNumbers, particip.HasRequestToEdit);
     };
     return ParticipService;
 }());

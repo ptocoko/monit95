@@ -25,8 +25,6 @@ export class EditModalComponent {
 		this.participService.postRequestToEdit(this.editParticip).subscribe(res => {
 			this.particip.hasRequestToEdit = true;
 			this.dialog.close(this.particip);
-		}, error => {
-			console.log(JSON.stringify(error));
 		});
 		
 	}

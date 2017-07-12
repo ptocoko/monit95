@@ -10,8 +10,7 @@ namespace Monit95App.Infrastructure.Business.Interfaces
     public interface IRsurParticipEditService
     {
         List<RsurParticipEditModel> GetModels();
-        void AddModel(RsurParticipEditModel model);
-        Task DeleteModel(string participCode);
-        Task<bool> UpdateModel(RsurParticipEditModel model);
+        bool AddModel(RsurParticipEditModel model);
+        bool DeleteModel(string participCode);
     }
 }

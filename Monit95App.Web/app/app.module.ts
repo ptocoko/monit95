@@ -1,5 +1,5 @@
 ﻿//Modules
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -27,9 +27,13 @@ import { ParticipCorrectionService } from './particips/correction/particip-corre
 
 //Pipes
 import { ParticipFilterPipe } from './particips/particip-filter.pipe';
+import { LimitToPipe } from "./limit-to.pipe";
+import { ParticipsWithoutDetailsPipe } from "./particips/details/particips-without-details.filter";
 
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { GlobalErrorHandler } from "./error-handler";
+
 
 @NgModule({
 	imports: [BrowserModule, HttpModule, routing, FormsModule, ModalModule.forRoot(), BootstrapModalModule, MyDatePickerModule],
@@ -38,6 +42,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 		ParticipsComponent,
 		ParticipListComponent,
 		ParticipFilterPipe,
+		LimitToPipe,
+		ParticipsWithoutDetailsPipe,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,
@@ -49,7 +55,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 	],
 	providers: [
         UserService, ParticipService, ParticipCorrectionService,
-		{ provide: LocationStrategy, useClass: HashLocationStrategy }		
+		{ provide: LocationStrategy, useClass: HashLocationStrategy },
+		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
 	entryComponents: [ParticipModalComponent, ResultsModalComponent, EditModalComponent],
     bootstrap: [AppComponent]

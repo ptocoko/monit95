@@ -78,6 +78,10 @@
       <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
       <Name>Monit95App.Domain.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monit95App.Infrastructure.Business\Monit95App.Infrastructure.Business.csproj">
+      <Project>{134a7ff4-97e4-49f3-95e0-c01a86858535}</Project>
+      <Name>Monit95App.Infrastructure.Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

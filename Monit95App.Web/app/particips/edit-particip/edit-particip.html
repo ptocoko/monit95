@@ -1,5 +1,9 @@
 ﻿<h2>Запрос на изменение сведений об учителях</h2>
 <hr/>
+<div *ngIf="particips">
+    <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />
+</div>
+<br/>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -12,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let particip of particips" [ngClass]="{'unactive-row' : particip.hasRequestToEdit}">
+        <tr *ngFor="let particip of particips | participFilter: searchText | limitTo: 100" [ngClass]="{'unactive-row' : particip.hasRequestToEdit}">
             <td>{{particip.surname}}</td>
             <td>{{particip.name}}</td>
             <td>{{particip.secondName}}</td>

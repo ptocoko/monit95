@@ -1,12 +1,13 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Business.Interfaces;
 using Monit95App.Infrastructure.Business.Models;
-using Monit95App.Models.Abstarct;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Monit95App.Models
+namespace Monit95App.Infrastructure.Business
 {
     public class RsurParticipViewer : IRsurParticipViewer
     {
@@ -35,9 +36,9 @@ namespace Monit95App.Models
             return vm;
         }
 
-        public ParticipResultsViewModel CreateResultViewModel(TestResult entity, string participCode)
+        public ParticipResultsModel CreateResultModel(TestResult entity, string participCode)
         {
-            return new ParticipResultsViewModel
+            return new ParticipResultsModel
             {
                 SubjectName = entity.ParticipTest.ProjectTest.Test.Name,
                 TestDate = entity.ParticipTest.ProjectTest.TestDate,
@@ -45,7 +46,7 @@ namespace Monit95App.Models
                 Grade5 = entity.Grade5,
                 TestId = entity.ParticipTest.ProjectTest.Test.Id.ToString(),
                 NumberCode = entity.ParticipTest.ProjectTest.Test.NumberCode,
-                ReportExisting =  ReportIsExist(entity.ParticipTest.ProjectTest.Test.Id.ToString(), participCode)
+                ReportExisting = ReportIsExist(entity.ParticipTest.ProjectTest.Test.Id.ToString(), participCode)
             };
         }
 

@@ -50,14 +50,14 @@ export class ParticipModalComponent implements ModalComponent<ParticipModel> {
 		if (this.dateModel != null && participClasses != null) {
 
 			let date = this.dateModel.date;
-			this.particip.birthday = new Date(date.year, date.month - 1, date.day);
+			this.particip.birthday = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
 			this.particip.classNumbers = participClasses;
 
 			this.participService.updateParticip(this.particip).subscribe(() => {
 				this.dialog.close(this.particip);
 			}, (error) => {
 				this.statusText = 'Ошибка доступа к серверу!';
-				console.log(JSON.stringify(error));
+				throw error;
 			});
 		}
 		else {

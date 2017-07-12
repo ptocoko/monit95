@@ -5,11 +5,11 @@
             <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a routerLink="/particips" routerLinkActive="active">Участники</a></li>
-                    <li *ngIf="userHasAreaRole"><a routerLink="/plan" routerLinkActive="active">Планирование</a></li>
-                    <li *ngIf="userHasAreaRole"><a routerLink="/result" routerLinkActive="active">Результаты</a></li>   
+                    <li *ngIf="isAreaRole"><a routerLink="/plan" routerLinkActive="active">Планирование</a></li>
+                    <li *ngIf="isAreaRole"><a routerLink="/result" routerLinkActive="active">Результаты</a></li>   
                     <li><a style="background-color:#ffeb3b" routerLink="/details" routerLinkActive="active">Дополнить сведения</a></li>
                     <li><a routerLink="/edit-particip" routerLinkActive="active">Изменить ФИО</a></li>
-                    <li *ngIf="userHasAreaRole"><a routerLink="/particip-correction" routerLinkActive="active">ParticipCorrectionComponent</a></li>
+                    <li *ngIf="isCokoRole"><a routerLink="/particip-correction" routerLinkActive="active">Коррекции</a></li>
                 </ul>
             </div>
         </div>

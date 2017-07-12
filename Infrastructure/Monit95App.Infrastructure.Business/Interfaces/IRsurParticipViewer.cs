@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Models.Abstarct
+namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface IRsurParticipViewer
     {
         RsurParticipModel CreateModel(ProjectParticip entity);
-        ParticipResultsViewModel CreateResultViewModel(TestResult entity, string participCode);
+        ParticipResultsModel CreateResultModel(TestResult entity, string participCode);
     }
 }

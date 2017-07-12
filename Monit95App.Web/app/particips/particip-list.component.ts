@@ -25,9 +25,9 @@ export class ParticipListComponent implements OnInit {
 
     ngOnInit() {
 		this.userService.getName().subscribe(user => {
-			this.isAreaRole = user.isAreaRole;
+			this.isAreaRole = user.userRoles.indexOf('area')>=0;
 			this.getByAreaCode(user);
-			if (user.isAreaRole) {
+			if (this.isAreaRole) {
 				this.participListDocPath =
 					'https://cloud.mail.ru/public/GhWx/bn9GnxmXg/' + user.userName + '/' + user.userName + '_список.xlsx';
 			}
@@ -37,7 +37,7 @@ export class ParticipListComponent implements OnInit {
     //Get by areaCode
     getByAreaCode(user: UserModel)
     {        
-        this.participService.getByAreaCode(user).subscribe(
+        this.participService.getByUserName(user).subscribe(
             particips => this.particips = particips
         );
 	}
