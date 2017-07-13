@@ -18,7 +18,7 @@ namespace Monit95App.Domain.Work.Tests
             var currentTestGuid = new Guid("595A73D4-F446-4916-A8C5-0E38BAB6A069"); //
             var currentTestDate = new DateTime(2017, 04, 10); //  
                         
-            ITestResultService testResultService = new TestResultService(new GenericRepository<Element>(new UnitOfWorkV2(new cokoContext())), new GenericRepository<TestResult>(new UnitOfWorkV2(new cokoContext())));
+            ITestResultService testResultService = new TestResultService(new GenericRepository<Element>(new UnitOfWork(new cokoContext())), new GenericRepository<TestResult>(new UnitOfWork(new cokoContext())));
             var results = testResultService.SelectParticipsGroupResults(currentTestGuid, currentTestDate);
 
             //Assert

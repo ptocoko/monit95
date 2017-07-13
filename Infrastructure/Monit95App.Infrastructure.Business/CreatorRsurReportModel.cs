@@ -24,22 +24,41 @@ namespace Monit95App.Infrastructure.Business
         {
             _projectParticipRepository = projectParticipRepository;
         }
+        
+        public RsurReportModel Create(int? areaCode = null, string schoolId = null)
+        {        
+            var query = _projectParticipRepository.GetAll();            
+            if (areaCode != null)
+                query = query.Where(x => x.School.AreaCode == areaCode);            
+            if(schoolId != null)
+                query = query.Where(x => x.SchoolId == schoolId);
 
-        public RsurReportModel Create(int? areaCode, string schoolId)
-        {
-            var projectParticips = _projectParticipRepository.GetAll();
-            if(areaCode != null)
+            var projectParticips = new List<ProjectParticip>();
+            try
             {
-                projectParticips = projectParticips.Where(x => x.School.AreaCode == areaCode);
+                projectParticips = query.ToList();
+            }
+            catch
+            {                
+                return null;
             }
 
-            //IQueryable<ProjectParticip> projectParticips = null;
-            //if (userName.Equals("coko"))
-            //    projectParticips = _projectParticipRepository.GetAll();
-            //if (userName.Length == 3)
-            //{
-            //    projectParticips = projectParticips.Where(x => x.School.AreaCode == Convert.ToInt32(userName));
-            //}
+            var rsurReportModel = new RsurReportModel()
+            {
+                ReportCreatedDate = DateTime.Now,
+                ReportName = "Список участников РСУР"
+            };
+            
+            rsurReportModel.Models = projectParticips.Select(x => new RsurParticipFullInfo
+            {
+                ParticipCode = x.ParticipCode,
+                Surname = x.Surname,
+                Name = x.Name,
+                SecondName = x.SecondName ?? null,
+                SubjectName = x.NsurSubject.Name,
+                SchoolIdWithName = $"{x.SchoolId}-{x.School.Name}",
+                //
+            }).ToList();
 
             return new RsurReportModel();
         }

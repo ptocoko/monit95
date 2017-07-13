@@ -13,11 +13,13 @@ namespace Monit95App.Infrastructure.BusinessTests
         public void CreateTest()
         {
             //Arrange
-            var unitOfWork = new UnitOfWorkV2(new cokoContext());
+            var unitOfWork = new UnitOfWork(new cokoContext());
             var repository = new GenericRepository<ProjectParticip>(unitOfWork);
             var creator = new CreatorRsurReportModel(repository);
 
             //Act
+            var result = creator.Create();
+            var resultArea = creator.Create(2066);
             //Assert
         }
     }

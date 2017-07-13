@@ -25,7 +25,7 @@ namespace Monit95App.ConsoleApp
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<UnitOfWorkV2>().As<IUnitOfWork>().WithParameter("context", new cokoContext());
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().WithParameter("context", new cokoContext());
             builder.RegisterType<GenericRepository<TestResult>>().As<IGenericRepository<TestResult>>();
             builder.RegisterType<RsurParticipProtocolService>().As<IParticipProtocolService>();
 

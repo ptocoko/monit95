@@ -21,7 +21,7 @@ namespace Monit95App.Domain.DTO.Tests
                 TestId = "C0AAE792-9EE5-4A9F-B8CD-03AEF37032E1"
             };
 
-            var unitOfWork = new UnitOfWorkV2(new cokoContext());
+            var unitOfWork = new UnitOfWork(new cokoContext());
             var repository = new GenericRepository<ExerciseMark>(unitOfWork);
             var testRep = new GenericRepository<Test>(unitOfWork);
             var service = new ExerciseMarkService(unitOfWork, repository, testRep);

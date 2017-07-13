@@ -30,7 +30,7 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             _context = new cokoContext();
-            _unitOfWork = new UnitOfWorkV2(_context);
+            _unitOfWork = new UnitOfWork(_context);
             _testResults = new GenericRepository<TestResultsV2>(_unitOfWork);
             _schools = new GenericRepository<School>(_unitOfWork);
             _gradeConverter = new OneTwoThreeGradeConverter();

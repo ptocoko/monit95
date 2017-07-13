@@ -25,7 +25,7 @@ namespace Monit95App.Web.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            _uow = new UnitOfWorkV2(new cokoContext());
+            _uow = new UnitOfWork(new cokoContext());
             var entity = _uow.DbContext.ProjectParticips.Single(x => x.ParticipCode == "2016-100-004");
             entity.Surname = "testSurname";
             _uow.Save();

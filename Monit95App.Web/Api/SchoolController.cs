@@ -13,9 +13,9 @@ namespace Monit95App.Api
 {
     public class SchoolController : ApiController
     {
-        private UnitOfWork unitOfWork = new UnitOfWork(new cokoContext());
+        private UnitOfWorkProperty unitOfWork = new UnitOfWorkProperty(new cokoContext());
 
-        public SchoolController(UnitOfWork unitOfWork)
+        public SchoolController(UnitOfWorkProperty unitOfWork)
         {
             this.unitOfWork = unitOfWork;            
         }

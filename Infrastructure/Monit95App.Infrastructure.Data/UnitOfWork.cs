@@ -1,59 +1,45 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
+﻿using Monit95App.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Monit95App.Domain.Core;
+using System.Data;
 
 namespace Monit95App.Infrastructure.Data
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
-        private cokoContext _db;
-        private SchoolRepository schoolRepository;
-        private ProjectParticipRepository projectParticipRepository;              
+        private cokoContext _context;
 
-        public UnitOfWork(cokoContext db)
+        public UnitOfWork(cokoContext context)
         {
-            _db = db;
+            _context = context;           
         }
-        public SchoolRepository Schools
+
+        public cokoContext DbContext
         {
             get
             {
-                if (schoolRepository == null)
-                    schoolRepository = new SchoolRepository(_db);
-                return schoolRepository;
+                return _context;
             }
         }
 
-        public ProjectParticipRepository ProjectParticips
+        public int Save()
         {
-            get
-            {
-                if (projectParticipRepository == null)
-                    projectParticipRepository = new ProjectParticipRepository(_db);
-                return projectParticipRepository;
-            }
-        }        
-
-        public void Save()
-        {
-            _db.SaveChanges();            
+            return _context.SaveChanges();
         }
 
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
+        public void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (disposing)
             {
-                if (disposing)
+                if (this._context != null)
                 {
-                    _db.Dispose();
+                    this._context.Dispose();
+                    this._context = null;
                 }
-                this.disposed = true;
             }
         }
 
@@ -62,5 +48,6 @@ namespace Monit95App.Infrastructure.Data
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
     }
 }
