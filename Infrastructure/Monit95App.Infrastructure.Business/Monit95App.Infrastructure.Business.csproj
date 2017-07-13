@@ -48,6 +48,7 @@
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\IRsurParticipService.cs" />
     <Compile Include="Interfaces\IRsurParticipViewer.cs" />
+    <Compile Include="Interfaces\ISchoolInfoEditService.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
     <Compile Include="Models\ElementResultModel.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="RsurParticipProtocolService.cs" />
     <Compile Include="RsurParticipService.cs" />
     <Compile Include="RsurParticipViewer.cs" />
+    <Compile Include="SchoolInfoEditService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">

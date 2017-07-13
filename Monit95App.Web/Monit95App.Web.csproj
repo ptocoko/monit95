@@ -213,6 +213,7 @@
     <Compile Include="Api\ParticipController.cs" />
     <Compile Include="Api\SchoolController.cs" />
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\SchoolInfoEditController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -384,6 +385,7 @@
     <Content Include="Scripts\controllers\participctrl.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\schoolInfoEdit\school-info.edit.js" />
     <Content Include="Scripts\services\onetwothree_participservice.js" />
     <Content Include="Scripts\services\tresultservice.js" />
     <Content Include="Scripts\services\pparticipservice.js" />
@@ -451,7 +453,9 @@
     <Folder Include="Views\ParticipReport\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
