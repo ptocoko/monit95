@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="CreatorRsurReportModel.cs" />
     <Compile Include="ExerciseMarkService.cs" />
+    <Compile Include="Interfaces\ICreatorRsurReportModel.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
