@@ -14,9 +14,9 @@ namespace Monit95App.Infrastructure.Business
         private readonly string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
         private cokoContext _db = new cokoContext();
 
-        public RsurParticipBaseModel CreateModel(ProjectParticip entity)
+        public RsurParticipBaseInfo CreateModel(ProjectParticip entity)
         {
-            var vm = new RsurParticipBaseModel
+            var vm = new RsurParticipBaseInfo
             {
                 ProjectCode = entity.ProjectCode,
                 ParticipCode = entity.ParticipCode,

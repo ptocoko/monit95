@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreatorRsurReportModel.cs" />
     <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
@@ -54,10 +55,10 @@
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
     <Compile Include="Models\ParticipResultsModel.cs" />
-    <Compile Include="Models\RsurExportReportModel.cs" />
-    <Compile Include="Models\RsurParticipFullModel.cs" />
+    <Compile Include="Models\RsurReportModel.cs" />
+    <Compile Include="Models\RsurParticipFullInfo.cs" />
     <Compile Include="Models\RsurParticipEditModel.cs" />
-    <Compile Include="Models\RsurParticipBaseModel.cs" />
+    <Compile Include="Models\RsurParticipBaseInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipEditService.cs" />
     <Compile Include="RsurParticipProtocolService.cs" />
@@ -75,7 +76,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="particips-template.xlsx" />
+    <None Include="Files\particips-template.xlsx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

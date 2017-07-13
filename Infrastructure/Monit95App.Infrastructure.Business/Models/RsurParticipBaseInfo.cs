@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Monit95App.Infrastructure.Business.Models
 {
-    public class RsurParticipBaseModel
+    public class RsurParticipBaseInfo
     {        
         public int ProjectCode { get; set; }
 

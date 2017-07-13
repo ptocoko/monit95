@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Business.Models
 {
-    public class RsurParticipFullModel : RsurParticipBaseModel
+    public class RsurParticipFullInfo : RsurParticipBaseInfo
     {        
         public string AreaName { get; set; }
     }

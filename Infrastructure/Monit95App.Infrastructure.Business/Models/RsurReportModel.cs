@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Business.Models
 {
-    public class RsurExportReportModel
+    public class RsurReportModel
     {
-        public string Date { get; set; } //dd.mm.yyyy
+        public DateTime Date { get; set; } //dd.mm.yyyy
         public string Name { get; set; }
         public string UserName { get; set; }
-        List<RsurParticipFullModel> Models { get; set; } = new List<RsurParticipFullModel>();
+        List<RsurParticipFullInfo> Models { get; set; } = new List<RsurParticipFullInfo>();
     }
 }

@@ -9,10 +9,10 @@ namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface IRsurParticipService
     {
-        IEnumerable<RsurParticipBaseModel> GetByUserName(string userName, string userRoles);
-        RsurParticipBaseModel GetByParticipCode(string participCode);
-        bool Update(RsurParticipBaseModel model);
-        void Add(RsurParticipBaseModel model);
+        IEnumerable<RsurParticipBaseInfo> GetByUserName(string userName, string userRoles);
+        RsurParticipBaseInfo GetByParticipCode(string participCode);
+        bool Update(RsurParticipBaseInfo model);
+        void Add(RsurParticipBaseInfo model);
         IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode);
     }
 }

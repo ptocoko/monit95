@@ -10,7 +10,7 @@ namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface IRsurParticipViewer
     {
-        RsurParticipBaseModel CreateModel(ProjectParticip entity);
+        RsurParticipBaseInfo CreateModel(ProjectParticip entity);
         ParticipResultsModel CreateResultModel(TestResult entity, string participCode);
     }
 }
