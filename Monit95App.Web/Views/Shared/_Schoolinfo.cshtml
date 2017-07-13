@@ -1,10 +1,18 @@
 ﻿@model Monit95App.Web.Models.SchoolModel
 
 <div class="form-horizontal">
-    @Html.LabelFor(x => x.Name, new { @class = "control-label col-md-3" })
-    <div class="form-control-static">
-        @Model.Name
+    <div>
+        @Html.LabelFor(x => x.Name, new { @class = "control-label col-md-3" })
+
+        <div id="NameDiv" style="display:inline-block" class="form-control-static">
+            @Model.Name
+        </div>
+        <input size="@Model.Name.Length" id="NameInput" style="display:none" type="text" value="@Model.Name"  class="form-control-static"/>
+        <a id="editName" class="glyphicon glyphicon-pencil"></a>
+        <a id="saveName" class="glyphicon glyphicon-ok" style="display:none;color:limegreen"></a>
+        <a id="cancelName" class="glyphicon glyphicon-remove" style="display:none;color:red"></a>
     </div>
+
     @Html.LabelFor(x => x.Id, new { @class = "control-label col-md-3" })
     <div id="schoolId" class="form-control-static">
         @Model.Id
@@ -17,13 +25,27 @@
     <div class="form-control-static">
         @Model.TownTypeName
     </div>
-    @Html.LabelFor(x => x.Phone, new { @class = "control-label col-md-3" })
-    <div class="form-control-static">
-        @Model.Phone
+
+    <div>
+        @Html.LabelFor(x => x.Phone, new { @class = "control-label col-md-3" })
+        <div id="PhoneDiv" style="display:inline-block" class="form-control-static">
+            @Model.Phone
+        </div>
+        <input size="@Model.Phone.Length" id="PhoneInput" style="display:none" type="text" value="@Model.Phone" class="form-control-static" />
+        <a id="editPhone" class="glyphicon glyphicon-pencil"></a>
+        <a id="savePhone" class="glyphicon glyphicon-ok" style="display:none;color:limegreen"></a>
+        <a id="cancelPhone" class="glyphicon glyphicon-remove" style="display:none;color:red"></a>
     </div>
-    @Html.LabelFor(x => x.Email, new { @class = "control-label col-md-3" })
-    <div class="form-control-static">
-        @Model.Email
+
+    <div>
+        @Html.LabelFor(x => x.Email, new { @class = "control-label col-md-3" })
+        <div id="EmailDiv" style="display:inline-block" class="form-control-static">
+            @Model.Email
+        </div>
+        <input size="@Model.Email.Length" id="EmailInput" style="display:none" type="email" value="@Model.Email" class="form-control-static" />
+        <a id="editEmail" class="glyphicon glyphicon-pencil"></a>
+        <a id="saveEmail" class="glyphicon glyphicon-ok" style="display:none;color:limegreen"></a>
+        <a id="cancelEmail" class="glyphicon glyphicon-remove" style="display:none;color:red"></a>
     </div>
     @if (Model.GIAcode != 0)
     {

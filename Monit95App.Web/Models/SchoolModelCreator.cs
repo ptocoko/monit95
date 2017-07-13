@@ -16,7 +16,7 @@ namespace Monit95App.Web.Models
                 Id = _school.Id,
                 Name = _school.Name,
                 AreaName = $"{_school.AreaCode} - {_school.Area.Name }",
-                TownTypeName = _school.TownType.Name,
+                TownTypeName = _school.TownType != null ? _school.TownType.Name : "",
                 VPRcode = _school.VprCode,
                 Phone = string.IsNullOrEmpty(_school.Phone) ? "Не указан" : _school.Phone,
                 Email = _school.Email ?? "Не указан",
