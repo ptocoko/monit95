@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Monit95App.Api
 {
-    //[Authorize(Roles = "school")]
+    [Authorize(Roles = "school")]
     public class SchoolInfoEditController : ApiController
     {
         private ISchoolInfoEditService _schoolInfoEditService;

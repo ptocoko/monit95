@@ -23,6 +23,16 @@ function hideEditing(editVal) {
 	$("#editEmail").show();
 }
 
+function isEmail(email) {
+	var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	return regex.test(email);
+}
+
+function isNumber(number) {
+	var regex = /^[0-9\s()-]*$/;
+	return regex.test(number);
+}
+
 function sendRequest(valToEdit, obj) {
 	$.ajax({
 		url: apiUrl + valToEdit + '?' + valToEdit+'=' + obj + '&schoolId=' + schoolId.trim(),
@@ -54,10 +64,20 @@ $().ready(() => {
 	});
 	$("#savePhone").click(() => {
 		var phone = $("#PhoneInput").val().trim();
-		sendRequest('Phone', phone);
+		if (isNumber(phone)) {
+			sendRequest('Phone', phone);
+		}
+		else {
+			alert("Неверный формат номера телефона!");
+		}
 	});
 	$("#saveEmail").click(() => {
-		var name = $("#EmailInput").val().trim();
-		sendRequest('Email', name);
+		var email = $("#EmailInput").val().trim();
+		if (isEmail(email)) {
+			sendRequest('Email', email);
+		}
+		else {
+			alert("Неверный формат адреса Email!");
+		}
 	});
 })
