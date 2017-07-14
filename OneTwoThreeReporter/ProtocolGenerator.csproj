@@ -60,7 +60,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardCreator.cs" />
     <Compile Include="Interfaces\ParticipProtocol.cs" />
     <Compile Include="ExtendParticipProtocol.cs" />
     <Compile Include="ExtendParticipProtocolFactory.cs" />
