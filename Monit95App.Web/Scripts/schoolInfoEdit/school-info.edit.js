@@ -14,6 +14,7 @@ function showEditing(editVal) {
 
 function hideEditing(editVal) {
 	$("#" + editVal + "Div").show();
+	$("#" + editVal + "Div").parent().removeClass('has-error');
 	$("#" + editVal + "Input").hide();
 	$("#save" + editVal).hide();
 	$("#cancel" + editVal).hide();
@@ -38,8 +39,8 @@ function sendRequest(nameOfVal, val) {
 		url: apiUrl + nameOfVal + '?' + nameOfVal + '=' + val + '&schoolId=' + schoolId.trim(),
 		method: 'PUT',
 		success: function (data) {
-			$("#"+valToEdit+"Div").text(obj);
-			hideEditing(valToEdit);
+			$("#" + nameOfVal +"Div").text(val);
+			hideEditing(nameOfVal);
 		},
 		error: function (request, status, error) {
 			var errorMessage = request.responseJSON.Message ? request.responseJSON.Message : request.responseText;
@@ -56,7 +57,7 @@ $().ready(() => {
 	$("#editEmail").click(() => showEditing('Email'));
 
 	$("#cancelName").click(() => hideEditing('Name'));
-	$("#cancelPone").click(() => hideEditing('Phone'));
+	$("#cancelPhone").click(() => hideEditing('Phone'));
 	$("#cancelEmail").click(() => hideEditing('Email'));
 
 	$("#saveName").click(() => {
@@ -66,18 +67,22 @@ $().ready(() => {
 	$("#savePhone").click(() => {
 		var phone = $("#PhoneInput").val().trim();
 		if (isNumber(phone)) {
+			$('#PhoneInput').parent().removeClass('has-error')
 			sendRequest('Phone', phone);
 		}
 		else {
+			$('#PhoneInput').parent().addClass('has-error')
 			alert("Неверный формат номера телефона!");
 		}
 	});
 	$("#saveEmail").click(() => {
 		var email = $("#EmailInput").val().trim();
 		if (isEmail(email)) {
+			$('#EmailInput').parent().removeClass('has-error')
 			sendRequest('Email', email);
 		}
 		else {
+			$('#EmailInput').parent().addClass('has-error')
 			alert("Неверный формат адреса Email!");
 		}
 	});

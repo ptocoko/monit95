@@ -1,17 +1,22 @@
 ﻿@model Monit95App.Web.Models.SchoolModel
 <style>
-    .error-span{
-        color: red;
+    .glyphicon{
+        font-size: 16px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    a {
+        text-decoration: none;
     }
 </style>
 <div class="form-horizontal">
-    <div>
+    <div class="form-inline">
         @Html.LabelFor(x => x.Name, new { @class = "control-label col-md-3" })
 
         <div id="NameDiv" style="display:inline-block" class="form-control-static">
             @Model.Name
         </div>
-        <input size="@Model.Name.Length" id="NameInput" style="display:none" type="text" value="@Model.Name"  class="form-control-static"/>
+        <input size="@Model.Name.Length" id="NameInput" style="display:none" type="text" value="@Model.Name"  class="form-control"/>
         <a id="editName" class="glyphicon glyphicon-pencil"></a>
         <a id="saveName" class="glyphicon glyphicon-ok" style="display:none;color:limegreen"></a>
         <a id="cancelName" class="glyphicon glyphicon-remove" style="display:none;color:red"></a>
@@ -30,23 +35,23 @@
         @Model.TownTypeName
     </div>
 
-    <div>
+    <div class="form-inline">
         @Html.LabelFor(x => x.Phone, new { @class = "control-label col-md-3" })
         <div id="PhoneDiv" style="display:inline-block" class="form-control-static">
             @Model.Phone
         </div>
-        <input size="@Model.Phone.Length" id="PhoneInput" style="display:none" type="text" value="@Model.Phone" class="form-control-static" />
+        <input size="@Model.Phone.Length" id="PhoneInput" style="display:none" type="text" value="@Model.Phone" class="form-control" />
         <a id="editPhone" class="glyphicon glyphicon-pencil"></a>
         <a id="savePhone" class="glyphicon glyphicon-ok" style="display:none;color:limegreen"></a>
         <a id="cancelPhone" class="glyphicon glyphicon-remove" style="display:none;color:red"></a>
     </div>
 
-    <div>
+    <div class="form-inline">
         @Html.LabelFor(x => x.Email, new { @class = "control-label col-md-3" })
         <div id="EmailDiv" style="display:inline-block" class="form-control-static">
             @Model.Email
         </div>
-        <input size="@Model.Email.Length" id="EmailInput" style="display:none" type="email" value="@Model.Email" class="form-control-static" />
+        <input size="@Model.Email.Length" id="EmailInput" style="display:none" type="email" value="@Model.Email" class="form-control" />
         <a id="editEmail" class="glyphicon glyphicon-pencil"></a>
         <a id="saveEmail" class="glyphicon glyphicon-ok" style="display:none;color:limegreen"></a>
         <a id="cancelEmail" class="glyphicon glyphicon-remove" style="display:none;color:red"></a>
