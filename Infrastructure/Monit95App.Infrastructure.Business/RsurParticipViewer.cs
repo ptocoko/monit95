@@ -11,11 +11,16 @@ namespace Monit95App.Infrastructure.Business
 {
     public class RsurParticipViewer : IRsurParticipViewer
     {
-        private readonly string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
+        private const string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
         private cokoContext _db = new cokoContext();
 
+        #warning refactoring 'HasRequestToEdit'
         public RsurParticipBaseInfo CreateModel(ProjectParticip entity)
         {
+            if(entity == null)
+            {
+                throw new ArgumentNullException("entity", "RsurParticipViewer.CreateModel(ProjectParticip entity)");
+            }
             var vm = new RsurParticipBaseInfo
             {
                 ProjectCode = entity.ProjectCode,
