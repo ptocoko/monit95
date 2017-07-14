@@ -13,6 +13,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using WebApi.OutputCache.V2;
 
 namespace Monit95App.Api
 {    
@@ -41,6 +42,7 @@ namespace Monit95App.Api
                 return Request.CreateResponse(HttpStatusCode.OK, resultModel);
         }
 
+        [CacheOutput(ClientTimeSpan = 100)]
         [HttpGet]
         [Route("api/rsurParticips")]
         public async Task<HttpResponseMessage> Get()
@@ -59,6 +61,7 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
+        [Route("api/RsurParticips/PutParticip")]
         public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipBaseInfo model)
         {
             if (!ModelState.IsValid)
@@ -73,6 +76,8 @@ namespace Monit95App.Api
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось применить изменения");
         }
 
+        [HttpGet]
+        [Route("api/RsurParticips/GetParticipResults/{participCode}")]
         public async Task<HttpResponseMessage> GetParticipResults(string participCode)
         {
             if (participCode == null)

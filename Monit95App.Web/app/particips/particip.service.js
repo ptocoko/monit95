@@ -40,10 +40,10 @@ var ParticipService = (function () {
         });
     };
     ParticipService.prototype.updateParticip = function (particip) {
-        return this._http.put('/api/RsurParticip/PutParticip', particip);
+        return this._http.put('/api/RsurParticips/PutParticip', particip);
     };
     ParticipService.prototype.getParticipResults = function (participCode) {
-        return this._http.get('/api/RsurParticip/GetParticipResults?participCode=' + participCode)
+        return this._http.get('/api/RsurParticips/GetParticipResults/' + participCode)
             .map(function (res) {
             var resultsInJSON = res.json();
             var results = [];

@@ -37,11 +37,11 @@ export class ParticipService {
     }
 
 	updateParticip(particip: ParticipModel): Observable<any> {
-		return this._http.put('/api/RsurParticip/PutParticip', particip);
+		return this._http.put('/api/RsurParticips/PutParticip', particip);
 	}
 
 	getParticipResults(participCode: string): Observable<ResultsModel[]> {
-		return this._http.get('/api/RsurParticip/GetParticipResults?participCode=' + participCode)
+		return this._http.get('/api/RsurParticips/GetParticipResults/' + participCode)
 			.map((res: Response) =>
 			{
 				let resultsInJSON = res.json();
