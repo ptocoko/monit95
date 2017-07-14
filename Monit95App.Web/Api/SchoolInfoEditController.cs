@@ -21,14 +21,15 @@ namespace Monit95App.Api
         [HttpPut]
         public async Task<HttpResponseMessage> UpdateName(string name, string schoolId)
         {
-            if (name == null || schoolId == null)
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса 'update name'");
+            //if (name == null || schoolId == null)
+            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса 'update name'");
 
-            var isUpdated = await Task.Run(() => _schoolInfoEditService.UpdateField(school => school.Name = name, schoolId));
-            if (isUpdated)
-                return Request.CreateResponse(HttpStatusCode.Created);
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось обновить наименование");
+            //var isUpdated = await Task.Run(() => _schoolInfoEditService.UpdateField(school => school.Name = name, schoolId));
+            //if (isUpdated)
+            //    return Request.CreateResponse(HttpStatusCode.Created);
+            //else
+            //    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось обновить наименование");
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "lol kek");
         }
 
         [HttpPut]

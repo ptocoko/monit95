@@ -33,16 +33,17 @@ function isNumber(number) {
 	return regex.test(number);
 }
 
-function sendRequest(valToEdit, obj) {
+function sendRequest(nameOfVal, val) {
 	$.ajax({
-		url: apiUrl + valToEdit + '?' + valToEdit+'=' + obj + '&schoolId=' + schoolId.trim(),
+		url: apiUrl + nameOfVal + '?' + nameOfVal + '=' + val + '&schoolId=' + schoolId.trim(),
 		method: 'PUT',
 		success: function (data) {
 			$("#"+valToEdit+"Div").text(obj);
 			hideEditing(valToEdit);
 		},
-		error: function (error) {
-			//TODO: handle error!
+		error: function (request, status, error) {
+			var errorMessage = request.responseJSON.Message ? request.responseJSON.Message : request.responseText;
+			alert('Ошибка сервера! Пожалуйста, обратитесь к администратору\n\n' + error + ' - ' + errorMessage);
 		}
 	})
 }
