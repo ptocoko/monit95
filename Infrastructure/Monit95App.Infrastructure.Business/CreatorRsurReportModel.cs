@@ -54,6 +54,11 @@ namespace Monit95App.Infrastructure.Business
             return rsurReportModel;
         }
 
+        public void ExportToXlsx(RsurReportModel rsurReportModel)
+        {
+
+        }
+
 
 
         #endregion

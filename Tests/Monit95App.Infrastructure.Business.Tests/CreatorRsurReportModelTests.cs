@@ -21,6 +21,7 @@ namespace Monit95App.Infrastructure.BusinessTests
             var result = creator.Create();
             var resultArea = creator.Create(2066);
             //Assert
+            Assert.Fail();
         }
     }
 }

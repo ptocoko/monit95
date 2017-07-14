@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Painter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
