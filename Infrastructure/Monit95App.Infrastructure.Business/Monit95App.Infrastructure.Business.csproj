@@ -54,12 +54,12 @@
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
     <Compile Include="Interfaces\IParticipService.cs" />
-    <Compile Include="Interfaces\IRsurParticipEditService.cs" />
-    <Compile Include="Interfaces\IRsurParticipService.cs" />
-    <Compile Include="Interfaces\IRsurParticipViewer.cs" />
-    <Compile Include="Interfaces\IRsurReportModelWriter.cs" />
+    <Compile Include="Interfaces\Rsur\IRsurParticipEditService.cs" />
+    <Compile Include="Interfaces\Rsur\IRsurParticipService.cs" />
+    <Compile Include="Interfaces\Rsur\IRsurParticipViewer.cs" />
+    <Compile Include="Interfaces\Rsur\IRsurReportModelWriter.cs" />
     <Compile Include="Interfaces\ITestResultV2Service.cs" />
-    <Compile Include="Interfaces\RsurParticipInfo.cs" />
+    <Compile Include="Interfaces\Rsur\RsurParticipInfo.cs" />
     <Compile Include="Interfaces\XlsxConverter.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />

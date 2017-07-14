@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Business.Interfaces.Rsur;
 
 namespace Monit95App.Infrastructure.Business.Models
 {

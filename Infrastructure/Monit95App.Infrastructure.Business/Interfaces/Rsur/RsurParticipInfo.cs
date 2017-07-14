@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.Business.Interfaces
+namespace Monit95App.Infrastructure.Business.Interfaces.Rsur
 {
     public abstract class RsurParticipInfo
     {
