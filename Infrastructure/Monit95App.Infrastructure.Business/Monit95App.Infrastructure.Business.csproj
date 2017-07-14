@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\IRsurParticipService.cs" />
     <Compile Include="Interfaces\IRsurParticipViewer.cs" />
+    <Compile Include="Interfaces\RsurParticipInfo.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
     <Compile Include="Models\ElementResultModel.cs" />

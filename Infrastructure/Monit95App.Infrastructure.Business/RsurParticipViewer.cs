@@ -12,33 +12,17 @@ namespace Monit95App.Infrastructure.Business
     public class RsurParticipViewer : IRsurParticipViewer
     {
         private const string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
-        private cokoContext _db = new cokoContext();
-
-        #warning refactoring 'HasRequestToEdit'
+        private readonly cokoContext _db = new cokoContext();
+        
         public RsurParticipBaseInfo CreateModel(ProjectParticip entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 throw new ArgumentNullException("entity", "RsurParticipViewer.CreateModel(ProjectParticip entity)");
             }
-            var vm = new RsurParticipBaseInfo
-            {
-                ProjectCode = entity.ProjectCode,
-                ParticipCode = entity.ParticipCode,
-                Surname = entity.Surname,
-                Name = entity.Name,
-                SecondName = entity.SecondName,
-                SubjectName = entity.NsurSubject.Name,
-                SchoolIdWithName = $"{entity.School.Id} - {entity.School.Name.Trim()}",
-                CategName = entity.Category != null ? entity.Category.Name : "",
-                Experience = entity.Experience ?? -1,
-                Phone = entity.Phone ?? "",
-                Email = entity.Email ?? "",
-                Birthday = entity.Birthday,
-                ClassNumbers = entity.ClassNumbers,
-                HasRequestToEdit = _db.ProjectParticipsEdits.SingleOrDefault(p => p.ParticipCode == entity.ParticipCode) != null ? true : false
-            };
-            return vm;
+            var rsurParticipBaseInfo = new RsurParticipBaseInfo(entity);
+                                   
+            return rsurParticipBaseInfo;
         }
 
         public ParticipResultsModel CreateResultModel(TestResult entity, string participCode)

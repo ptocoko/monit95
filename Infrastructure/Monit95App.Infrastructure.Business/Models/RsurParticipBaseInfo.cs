@@ -1,44 +1,19 @@
-﻿using System;
+﻿using Monit95App.Infrastructure.Business.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Monit95App.Domain.Core;
 
 namespace Monit95App.Infrastructure.Business.Models
 {
-    public class RsurParticipBaseInfo
-    {        
-        public int ProjectCode { get; set; }
+    public class RsurParticipBaseInfo : RsurParticipInfo
+    {
+        public RsurParticipBaseInfo() { }
 
-        [Required]
-        public string ParticipCode { get; set; }
+        public RsurParticipBaseInfo(ProjectParticip entity) : base(entity) { }
 
-        [Required]
-        public string Surname { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        public string SecondName { get; set; }
-
-        [Required]
-        public string SubjectName { get; set; }
-
-        [Required]
-        public string SchoolIdWithName { get; set; }
-        
-        public string CategName { get; set; }
-
-        public int? Experience { get; set; }
-
-        public string Phone { get; set; }
-
-        public string Email { get; set; }
-
-        public DateTime? Birthday { get; set; }
-
-        public string ClassNumbers { get; set; }
-
-        public bool HasRequestToEdit { get; set; }
+        protected override void FillAdditionalInfo(ProjectParticip entity) { }
     }
 }

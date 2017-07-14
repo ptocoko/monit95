@@ -48,20 +48,13 @@ namespace Monit95App.Infrastructure.Business
                 ReportCreatedDate = DateTime.Now,
                 ReportName = "Список участников РСУР"
             };
-            
-            rsurReportModel.Models = projectParticips.Select(x => new RsurParticipFullInfo
-            {
-                ParticipCode = x.ParticipCode,
-                Surname = x.Surname,
-                Name = x.Name,
-                SecondName = x.SecondName ?? null,
-                SubjectName = x.NsurSubject.Name,
-                SchoolIdWithName = $"{x.SchoolId}-{x.School.Name}",
-                //
-            }).ToList();
 
-            return new RsurReportModel();
+            rsurReportModel.Models = projectParticips.Select(x => new RsurParticipFullInfo(x)).ToList();
+
+            return rsurReportModel;
         }
+
+
 
         #endregion
 
