@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,29 @@ namespace Monit95App.Infrastructure.Business.Models
 
         #endregion
 
-        public void ExportToXlsx()
-        {
-            var templateBook = new XLWorkbook(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) 
-                                + @"\particips-template.xlsx");
-            var templateSheet = templateBook.Worksheets.First();
+        #region Methods
 
-        }
+        //public byte[] ExportToXlsx()
+        //{
+        //    var templateFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        //                        + @"\particips-template.xlsx";            
+        //    var templateBook = new XLWorkbook(templateFile);
+        //    var templateSheet = templateBook.Worksheets.First();
+        //    templateBook.Save();
+
+        //    using (FileStream fstream = File.OpenRead(templateFile))
+        //    {
+        //        // преобразуем строку в байты
+        //        byte[] array = new byte[fstream.Length];
+        //        // считываем данные
+        //        fstream.Read(array, 0, array.Length);
+        //        // декодируем байты в строку
+        //        string textFromFile = System.Text.Encoding.Default.GetString(array);
+        //        Console.WriteLine("Текст из файла: {0}", textFromFile);
+        //    }
+        //}
+
+        #endregion
     }
 }
 

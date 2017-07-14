@@ -1,17 +1,18 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
-using Monit95App.Domain.DTO.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Monit95App.Infrastructure.Business.Interfaces;
+using Monit95App.Infrastructure.Business.Models;
 
-namespace Monit95App.Domain.DTO
+namespace Monit95App.Infrastructure.Business
 {
     public class ParticipService : IParticipService
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private IGenericRepository<ProjectParticipsV2> _projectParticipV2Rep;
 
         private IClassService _classServise;

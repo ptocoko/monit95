@@ -221,7 +221,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ParticipReportController.cs" />
     <Compile Include="Controllers\RsurController.cs" />
-    <Compile Include="Controllers\CollectorMarksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OneTwoThreeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />

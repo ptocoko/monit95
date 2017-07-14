@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Monit95App.Domain.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Domain.DTO.Interfaces
+namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface ITestResultV2Service
     {

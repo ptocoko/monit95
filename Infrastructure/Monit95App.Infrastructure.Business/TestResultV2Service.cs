@@ -1,13 +1,14 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Domain.DTO;
 using Monit95App.Domain.Interfaces;
-using Monit95App.Domain.DTO.Interfaces;
+using Monit95App.Infrastructure.Business.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Domain.DTO
+namespace Monit95App.Infrastructure.Business
 {
     public class TestResultV2Service : ITestResultV2Service
     {

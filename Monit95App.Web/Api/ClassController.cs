@@ -1,7 +1,6 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Domain.DTO;
-using Monit95App.Domain.DTO.Interfaces;
 using Monit95App.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
