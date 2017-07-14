@@ -11,7 +11,6 @@ namespace ProtocolGenerator
     {
         public string SchoolName { get; set; }
         public string AreaName { get; set; }
-        public List<ParticipProtocol> ParticipProtocols { get; set; } = new List<ParticipProtocol>();
-        
+        public List<ParticipProtocol> ParticipProtocols { get; set; } = new List<ParticipProtocol>();        
     }
 }
