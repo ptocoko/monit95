@@ -24,7 +24,10 @@ namespace Monit95App.Infrastructure.Business
 
         #region Methods
 
-        public RsurParticipService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticip> rsurParticipRepository, IGenericRepository<TestResult> testResultRepository, IRsurParticipViewer rsurParticipViewer)
+        public RsurParticipService(IUnitOfWork unitOfWork, 
+                                   IGenericRepository<ProjectParticip> rsurParticipRepository, 
+                                   IGenericRepository<TestResult> testResultRepository, 
+                                   IRsurParticipViewer rsurParticipViewer)
         {
             _unitOfWork = unitOfWork;
             _rsurParticipRepository = rsurParticipRepository;
