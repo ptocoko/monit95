@@ -2,6 +2,7 @@
 using Monit95App.Infrastructure.Business.Interfaces.Rsur;
 using Monit95App.Models;
 using Monit95App.Services;
+using Monit95App.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,17 +20,16 @@ namespace Monit95App.Api
     {
         #region Fields
 
-        private readonly IRsurReportModelService _rsurReportModelService;
-        //private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
+        private readonly IRsurReportModelConverter _rsurReportModelConverter;        
         private readonly IUserService _userService;
 
         #endregion
 
         #region Methods
 
-        public FilesController(IRsurReportModelService rsurReportModelService, IUserService userService)
+        public FilesController(IRsurReportModelConverter rsurReportModelConverter, IUserService userService)
         {
-            _rsurReportModelService = rsurReportModelService;
+            _rsurReportModelConverter = rsurReportModelConverter;
             _userService = userService;
         }
 
@@ -50,9 +50,9 @@ namespace Monit95App.Api
 
             Stream stream = null;          
             if(authorizedUser.UserRoleNames.Contains("area"))
-                stream = await _rsurReportModelService.GetXlsxStream(Convert.ToInt32(id));
+                stream = await _rsurReportModelConverter.GetStream(Convert.ToInt32(id));
             if (authorizedUser.UserRoleNames.Contains("school"))
-                stream = await _rsurReportModelService.GetXlsxStream(schoolId: id);            
+                stream = await _rsurReportModelConverter.GetStream(schoolId: id);            
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StreamContent(stream),                

@@ -8,13 +8,13 @@ using System.IO;
 namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
-    public class RsurReportModelXlsxWriterTests
+    public class RsurReportModelXlsxConverterTests
     {
         [TestMethod]
         public void WriteTest()
         {
             //Arrange
-            var writer = new RsurReportModelXlsxWriter();
+            var writer = new RsurReportModelXlsxConverter();
             var model = new RsurReportModel
             {
                 ReportCreatedDate = DateTime.Now,

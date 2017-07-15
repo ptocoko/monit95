@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.Business.Interfaces
+namespace Monit95App.Infrastructure.Business.Interfaces.Rsur
 {
-    public interface ICreatorRsurReportModel
+    public interface IRsurReportModelCreator
     {
-        RsurReportModel Create(int? areaCode, string schoolId);
+        RsurReportModel Create(int? areaCode, string schoolId = null);
     }
 }

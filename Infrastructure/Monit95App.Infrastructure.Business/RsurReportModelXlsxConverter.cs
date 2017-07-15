@@ -1,20 +1,105 @@
-﻿using System;
+﻿using Monit95App.Infrastructure.Business.Interfaces.Rsur;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Monit95App.Infrastructure.Business.Models;
-using Monit95App.Infrastructure.Business.Interfaces.Rsur;
+using System.IO;
 using Monit95App.Infrastructure.Business.Models.Rsur;
+using Monit95App.Domain.Core;
+using Monit95App.Domain.Interfaces;
+using ClosedXML.Excel;
 
-namespace Monit95App.Infrastructure.Business.Interfaces
-{
-    public class XlsxConverter : IRsurReportModelWriter
+namespace Monit95App.Infrastructure.Business
+{    
+    public class RsurReportModelXlsxConverter : IRsurReportModelConverter
     {
-        public Stream Write(RsurReportModel model)
+        private readonly IGenericRepository<ProjectParticip> _projectParticipRepository;
+        private string tempalteFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\particips-template.xlsx";
+
+        public RsurReportModelXlsxConverter()
         {
-            throw new NotImplementedException();
+
+        }
+
+        public RsurReportModelXlsxConverter(IGenericRepository<ProjectParticip> projectParticipRepository)
+        {
+            _projectParticipRepository = projectParticipRepository;
+        }
+
+        public RsurReportModel Create(int? areaCode, string schoolId)
+        {
+            var query = _projectParticipRepository.GetAll();
+            if (areaCode != null)
+                query = query.Where(x => x.School.AreaCode == areaCode);
+            if (schoolId != null)
+                query = query.Where(x => x.SchoolId == schoolId);
+
+            var projectParticips = new List<ProjectParticip>();
+            try
+            {
+                projectParticips = query.ToList();
+            }
+            catch
+            {
+                return null;
+            }
+
+            var rsurReportModel = new RsurReportModel()
+            {
+                ReportCreatedDate = DateTime.Now,
+                ReportName = "Список участников РСУР"
+            };
+
+            rsurReportModel.RsurParticipFullInfos = projectParticips.Select(x => new RsurParticipFullInfo(x)).ToList();
+
+            return rsurReportModel;
+        }
+
+        public Stream Write(RsurReportModel rsurReportModel)
+        {
+            if (rsurReportModel == null) throw new ArgumentNullException("rsurReportModel", "RsurReportModelXlsxConverter.Write");
+            
+            var templateBook = new XLWorkbook(tempalteFilePath);
+            var templateSheet = templateBook.Worksheets.First();
+            templateSheet.Cell("C1").Value = rsurReportModel.ReportCreatedDate;
+            templateSheet.Cell("C2").Value = rsurReportModel.ReportName;
+
+            int rowNumber = 5;
+            foreach (var info in rsurReportModel.RsurParticipFullInfos)
+            {
+                templateSheet.Cell(rowNumber, 2).Value = info.ParticipCode;
+                templateSheet.Cell(rowNumber, 3).Value = info.Surname;
+                templateSheet.Cell(rowNumber, 4).Value = info.SecondName;
+                templateSheet.Cell(rowNumber, 5).Value = info.AreaName;
+                templateSheet.Cell(rowNumber, 6).Value = info.SchoolIdWithName;
+                templateSheet.Cell(rowNumber, 7).Value = info.SubjectName;
+                templateSheet.Cell(rowNumber, 8).Value = info.CategName;
+                templateSheet.Cell(rowNumber, 9).Value = info.Experience;
+                templateSheet.Cell(rowNumber, 10).Value = info.Phone;
+                templateSheet.Cell(rowNumber, 11).Value = info.Email;
+                templateSheet.Cell(rowNumber, 12).Value = info.Birthday;
+                templateSheet.Cell(rowNumber, 13).Value = info.ClassNumbers;
+
+                rowNumber++;
+            }
+
+            var memoryStream = new MemoryStream();
+
+            templateBook.SaveAs(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
+        }
+
+        public Task<Stream> GetStream(int? areaCode, string schoolId = null)
+        {
+            return Task.Run(() =>
+            {
+                var model = Create(areaCode, schoolId);
+                var stream = Write(model);
+
+                return stream;
+            });            
         }
     }
 }

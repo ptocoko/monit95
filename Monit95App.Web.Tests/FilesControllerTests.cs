@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Monit95App.Api;
+using Monit95App.Web.Services;
 
 namespace Monit95App.Web.Tests
 {
@@ -19,8 +20,8 @@ namespace Monit95App.Web.Tests
         {
             //Arrange
             var mockUserService = new Mock<IUserService>();
-            var mockRsurReportModelService = new Mock<IRsurReportModelService>();
-            mockRsurReportModelService.Setup(x => x.GetXlsxStream(null, "0005")).Returns(Task.FromResult((Stream)new MemoryStream(Encoding.UTF8.GetBytes("simple"))));
+            var mockRsurReportModelService = new Mock<IRsurReportModelConverter>();
+            mockRsurReportModelService.Setup(x => x.GetStream(null, "0005")).Returns(Task.FromResult((Stream)new MemoryStream(Encoding.UTF8.GetBytes("simple"))));
             var userModel = new UserModel
             {
                 UserName = "0005",

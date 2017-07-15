@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services
+namespace Monit95App.Web.Services
 {
     public interface IUserService
     {

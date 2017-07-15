@@ -48,20 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreatorRsurReportModel.cs" />
     <Compile Include="ExerciseMarkService.cs" />
-    <Compile Include="Interfaces\ICreatorRsurReportModel.cs" />
+    <Compile Include="Interfaces\Rsur\IRsurReportModelConverter.cs" />
+    <Compile Include="Interfaces\Rsur\IRsurReportModelCreator.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
     <Compile Include="Interfaces\IParticipService.cs" />
     <Compile Include="Interfaces\Rsur\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\Rsur\IRsurParticipService.cs" />
     <Compile Include="Interfaces\Rsur\IRsurParticipViewer.cs" />
-    <Compile Include="Interfaces\Rsur\IRsurReportModelService.cs" />
     <Compile Include="Interfaces\Rsur\IRsurReportModelWriter.cs" />
     <Compile Include="Interfaces\ITestResultV2Service.cs" />
     <Compile Include="Models\Rsur\RsurParticipInfo.cs" />
-    <Compile Include="RsurReportModelConverterRepository.cs" />
     <Compile Include="RsurReportModelXlsxConverter.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
@@ -80,7 +78,6 @@
     <Compile Include="RsurParticipProtocolService.cs" />
     <Compile Include="RsurParticipService.cs" />
     <Compile Include="RsurParticipViewer.cs" />
-    <Compile Include="RsurReportModelXlsxWriter.cs" />
     <Compile Include="TestResultV2Service.cs" />
   </ItemGroup>
   <ItemGroup>

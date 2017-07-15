@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Business.Interfaces.Rsur
 {
-    public interface IRsurReportModelService
+    public interface IRsurReportModelConverter : IRsurReportModelCreator, IRsurReportModelWriter
     {
-        Task<Stream> GetXlsxStream(int? areaCode = null, string schoolId = null);                                                            
+        Task<Stream> GetStream(int? areaCode = null, string schoolId = null);
     }
 }
