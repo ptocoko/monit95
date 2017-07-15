@@ -57,6 +57,7 @@
     <Compile Include="Interfaces\Rsur\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\Rsur\IRsurParticipService.cs" />
     <Compile Include="Interfaces\Rsur\IRsurParticipViewer.cs" />
+    <Compile Include="Interfaces\Rsur\IRsurReportModelService.cs" />
     <Compile Include="Interfaces\Rsur\IRsurReportModelWriter.cs" />
     <Compile Include="Interfaces\ITestResultV2Service.cs" />
     <Compile Include="Models\Rsur\RsurParticipInfo.cs" />

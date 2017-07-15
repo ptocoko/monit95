@@ -206,6 +206,7 @@
   <ItemGroup>
     <Compile Include="Api\ClassController.cs" />
     <Compile Include="Api\ExerciseMarksController.cs" />
+    <Compile Include="Api\FilesController.cs" />
     <Compile Include="Api\MarksFileController.cs" />
     <Compile Include="Api\OneTwoThreeReportController.cs" />
     <Compile Include="Api\RsurParticipsController.cs" />
