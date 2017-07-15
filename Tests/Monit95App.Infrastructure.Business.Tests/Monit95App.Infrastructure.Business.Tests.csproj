@@ -67,10 +67,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RsurParticipReportServiceTests.cs" />
-    <Compile Include="CreatorRsurReportModelTests.cs" />
+    <Compile Include="RsurParticipProtocolServiceTests.cs" />
     <Compile Include="RsurReportModelXlsxConverterTests.cs" />
-    <Compile Include="RsurReportModelServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

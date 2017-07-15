@@ -30,11 +30,5 @@ namespace Monit95App.Infrastructure.Business.Tests
             Assert.IsTrue(participGroupResults1.Count != 0);
             Assert.AreEqual(4, participGroupResults2);
         }
-
-        [TestMethod()]
-        public void CreateReportModelTest()
-        {
-            Assert.Fail();
-        }
     }
 }

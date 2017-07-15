@@ -11,6 +11,13 @@ namespace Monit95App.Infrastructure.BusinessTests
     public class RsurReportModelXlsxConverterTests
     {
         [TestMethod]
+        public void CreateTest()
+        {
+            //Assert
+            Assert.Fail();
+        }      
+
+        [TestMethod]
         public void WriteTest()
         {
             //Arrange
@@ -35,6 +42,13 @@ namespace Monit95App.Infrastructure.BusinessTests
             File.WriteAllBytes(@"d:\test.xlsx", bytes);
             stream.Dispose();
 
+            //Assert
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void GetStreamTest()
+        {
             //Assert
             Assert.Fail();
         }
