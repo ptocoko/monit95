@@ -233,6 +233,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SchoolModel.cs" />
     <Compile Include="Models\SchoolModelCreator.cs" />
+    <Compile Include="Services\IUserService.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
     <Compile Include="ViewModels\Home\SchoolsVM.cs" />
     <Compile Include="ViewModels\Home\FooterVM.cs" />

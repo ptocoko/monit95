@@ -62,7 +62,7 @@ namespace Monit95App.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ApiViewModel
+    public class UserModel
     {
         public string UserName { get; set; }
         public IEnumerable<string> UserRoleNames { get; set; }

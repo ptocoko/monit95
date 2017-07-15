@@ -28,7 +28,7 @@ namespace Monit95App.Api
             if(user.Roles.Count > 0)
             {
                 var userRoles = user.Roles.Select(x => x.Role.Name);
-                var model = new ApiViewModel
+                var model = new UserModel
                 {
                     UserName = User.Identity.Name,
                     UserRoleNames = userRoles
