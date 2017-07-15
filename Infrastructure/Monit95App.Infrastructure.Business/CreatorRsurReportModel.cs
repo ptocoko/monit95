@@ -2,6 +2,7 @@
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Business.Interfaces;
 using Monit95App.Infrastructure.Business.Models;
+using Monit95App.Infrastructure.Business.Models.Rsur;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace Monit95App.Infrastructure.Business
                 ReportName = "Список участников РСУР"
             };
 
-            rsurReportModel.Models = projectParticips.Select(x => new RsurParticipFullInfo(x)).ToList();
+            rsurReportModel.RsurParticipFullInfos = projectParticips.Select(x => new RsurParticipFullInfo(x)).ToList();
 
             return rsurReportModel;
         }

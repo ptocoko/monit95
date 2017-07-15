@@ -9,6 +9,7 @@ using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Business.Models;
 using System.Data.Entity.Infrastructure;
 using Monit95App.Infrastructure.Business.Interfaces.Rsur;
+using Monit95App.Infrastructure.Business.Models.Rsur;
 
 namespace Monit95App.Infrastructure.Business
 {

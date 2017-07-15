@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Monit95App.Infrastructure.Business.Models
+namespace Monit95App.Infrastructure.Business.Models.Rsur
 {
     public class RsurParticipEditModel
     {

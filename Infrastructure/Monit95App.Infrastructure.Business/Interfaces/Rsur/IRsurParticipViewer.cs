@@ -1,5 +1,6 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Business.Models;
+using Monit95App.Infrastructure.Business.Models.Rsur;
 using System;
 using System.Collections.Generic;
 using System.Linq;

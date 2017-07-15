@@ -4,6 +4,7 @@ using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Business;
 using Monit95App.Infrastructure.Business.Models;
+using Monit95App.Infrastructure.Business.Models.Rsur;
 using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;

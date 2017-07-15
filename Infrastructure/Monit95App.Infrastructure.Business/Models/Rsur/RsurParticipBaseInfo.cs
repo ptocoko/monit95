@@ -7,7 +7,7 @@ using System.Web;
 using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Business.Interfaces.Rsur;
 
-namespace Monit95App.Infrastructure.Business.Models
+namespace Monit95App.Infrastructure.Business.Models.Rsur
 {
     public class RsurParticipBaseInfo : RsurParticipInfo
     {

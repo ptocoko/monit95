@@ -59,8 +59,9 @@
     <Compile Include="Interfaces\Rsur\IRsurParticipViewer.cs" />
     <Compile Include="Interfaces\Rsur\IRsurReportModelWriter.cs" />
     <Compile Include="Interfaces\ITestResultV2Service.cs" />
-    <Compile Include="Interfaces\Rsur\RsurParticipInfo.cs" />
-    <Compile Include="Interfaces\XlsxConverter.cs" />
+    <Compile Include="Models\Rsur\RsurParticipInfo.cs" />
+    <Compile Include="RsurReportModelConverterRepository.cs" />
+    <Compile Include="RsurReportModelXlsxConverter.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
     <Compile Include="Models\ElementResultModel.cs" />
@@ -68,16 +69,17 @@
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
     <Compile Include="Models\ParticipResultsModel.cs" />
-    <Compile Include="Models\RsurReportModel.cs" />
-    <Compile Include="Models\RsurParticipFullInfo.cs" />
-    <Compile Include="Models\RsurParticipEditModel.cs" />
-    <Compile Include="Models\RsurParticipBaseInfo.cs" />
+    <Compile Include="Models\Rsur\RsurReportModel.cs" />
+    <Compile Include="Models\Rsur\RsurParticipFullInfo.cs" />
+    <Compile Include="Models\Rsur\RsurParticipEditModel.cs" />
+    <Compile Include="Models\Rsur\RsurParticipBaseInfo.cs" />
     <Compile Include="ParticipService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipEditService.cs" />
     <Compile Include="RsurParticipProtocolService.cs" />
     <Compile Include="RsurParticipService.cs" />
     <Compile Include="RsurParticipViewer.cs" />
+    <Compile Include="RsurReportModelXlsxWriter.cs" />
     <Compile Include="TestResultV2Service.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,8 +97,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Files\particips-template.xlsx" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

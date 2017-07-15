@@ -2,6 +2,7 @@
 using Monit95App.Infrastructure.Business.Interfaces;
 using Monit95App.Infrastructure.Business.Interfaces.Rsur;
 using Monit95App.Infrastructure.Business.Models;
+using Monit95App.Infrastructure.Business.Models.Rsur;
 using System;
 using System.Collections.Generic;
 using System.Linq;

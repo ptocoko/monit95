@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Monit95App.Infrastructure.Business.Models;
 using Monit95App.Infrastructure.Business.Interfaces.Rsur;
+using Monit95App.Infrastructure.Business.Models.Rsur;
 
 namespace Monit95App.Infrastructure.Business.Interfaces
 {
