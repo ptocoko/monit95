@@ -15,6 +15,11 @@ namespace Monit95App.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        public string GetName()
+        {
+            return User.Identity.Name;
+        }
+
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {

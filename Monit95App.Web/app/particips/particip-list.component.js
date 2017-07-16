@@ -25,6 +25,9 @@ var ParticipListComponent = (function () {
     ParticipListComponent.prototype.ngOnInit = function () {
         this.get();
     };
+    ParticipListComponent.prototype.downloadXlsx = function () {
+        this.participService.getXlsxParticipList();
+    };
     ParticipListComponent.prototype.get = function () {
         var _this = this;
         this.participService.get().subscribe(function (particips) { return _this.particips = particips; });

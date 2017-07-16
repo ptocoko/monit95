@@ -24,7 +24,12 @@ export class ParticipListComponent implements OnInit {
     ngOnInit() {
         this.get();		  
     }
-    
+
+    downloadXlsx()
+    {
+        this.participService.getXlsxParticipList();
+    }
+
     get()
     {        
         this.participService.get().subscribe(

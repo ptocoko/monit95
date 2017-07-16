@@ -18,6 +18,12 @@ var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;
     }
+    ParticipService.prototype.getXlsxParticipList = function () {
+        var _this = this;
+        this._http.get('account/getName').subscribe(function (response) {
+            return _this._http.get('/api/files/rsurParticipLists/' + response);
+        });
+    };
     ParticipService.prototype.get = function () {
         var _this = this;
         return this._http.get("api/rsurParticips")
