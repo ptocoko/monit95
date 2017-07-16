@@ -72,7 +72,7 @@ namespace Monit95App.Infrastructure.Business
                 templateSheet.Cell(rowNumber, 10).Value = info.Experience;
                 templateSheet.Cell(rowNumber, 11).Value = info.Phone;
                 templateSheet.Cell(rowNumber, 12).Value = info.Email;
-                templateSheet.Cell(rowNumber, 13).Value = info.Birthday;
+                templateSheet.Cell(rowNumber, 13).Value = info.Birthday?.ToShortDateString();
                 templateSheet.Cell(rowNumber, 14).Value = info.ClassNumbers;
 
                 rowNumber++;

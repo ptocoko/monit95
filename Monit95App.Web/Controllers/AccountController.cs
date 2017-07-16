@@ -16,9 +16,8 @@ namespace Monit95App.Controllers
     public class AccountController : Controller
     {
         public string GetName()
-        {
-            return "201";
-       //     return User.Identity.Name;
+        {            
+            return User.Identity.Name;
         }
 
         public AccountController()
