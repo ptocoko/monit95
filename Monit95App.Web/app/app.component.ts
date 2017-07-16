@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
     constructor(private userService: UserService) { }
 
     ngOnInit() {
-		this.userService.getName().subscribe(user => this.handler(user.userRoles));
+		//this.userService.getName().subscribe(user => this.handler(user.userRoles));
 	}
 
 	handler(userRoles: string[]) {

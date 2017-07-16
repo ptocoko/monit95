@@ -15,14 +15,12 @@ export class ParticipService {
     public headers: Headers;
     constructor(private _http: Http) { }    
 
-    getXlsxParticipList()
-    {
-        this._http.get('account/getName').subscribe(response =>
-        {
-            return this._http.get('/api/files/rsurParticipLists/' + response);
-        })
-        
-    }
+
+    downloadFile(data: Response) {
+        var blob = new Blob([data]);        
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
+    }    
 
     get(): Observable<ParticipModel[]> {                        
         return this._http.get("api/rsurParticips")

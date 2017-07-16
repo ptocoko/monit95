@@ -23,14 +23,14 @@ var ParticipListComponent = (function () {
         this.particips = [];
     }
     ParticipListComponent.prototype.ngOnInit = function () {
-        this.get();
-    };
-    ParticipListComponent.prototype.downloadXlsx = function () {
-        this.participService.getXlsxParticipList();
-    };
-    ParticipListComponent.prototype.get = function () {
         var _this = this;
+        //Get participList
         this.participService.get().subscribe(function (particips) { return _this.particips = particips; });
+        //Get user's names
+        this.userService.getName().then(function (response) {
+            _this.userName = response;
+        });
+        console.log('ParticipListComponent.getUserName(): ' + this.userName);
     };
     ParticipListComponent.prototype.openModal = function (particip) {
         this.modal.open(results_modal_component_1.ResultsModalComponent, angular2_modal_1.overlayConfigFactory(particip));

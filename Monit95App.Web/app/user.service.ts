@@ -7,18 +7,15 @@ import { UserModel } from './user.model';
 
 @Injectable()
 export class UserService {
-	private userNameAndRole: Observable<UserModel>;
+    private userNameAndRole: Observable<UserModel>;
 
-	constructor(private http: Http) {
-		
-	}
+    constructor(private http: Http) {
 
-	getName(): Observable<UserModel> {
-		return this.http.get('/api/Accounts')
-			.map((resp: Response) => {
-				let res = resp.json();
-				return new UserModel(res.UserName, res.UserRoleNames);
-			});
     }
 
+    getName(): Promise<string> {
+        return this.http.get("account/getName").toPromise().then(response => {
+            return response.json();
+        });
+    }
 }

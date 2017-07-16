@@ -18,8 +18,7 @@ var AppComponent = (function () {
         this.isCokoRole = false;
     }
     AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userService.getName().subscribe(function (user) { return _this.handler(user.userRoles); });
+        //this.userService.getName().subscribe(user => this.handler(user.userRoles));
     };
     AppComponent.prototype.handler = function (userRoles) {
         this.isAreaRole = userRoles.indexOf('area') >= 0;

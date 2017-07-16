@@ -17,25 +17,22 @@ import { UserService } from '../user.service';
     providers: [Modal]    
 })
 export class ParticipListComponent implements OnInit {
-    particips: ParticipModel[] = [];	    
+    particips: ParticipModel[] = [];	
+    userName: string;
         
     constructor(private participService: ParticipService, private userService: UserService, public modal: Modal) { }
 
     ngOnInit() {
-        this.get();		  
-    }
-
-    downloadXlsx()
-    {
-        this.participService.getXlsxParticipList();
-    }
-
-    get()
-    {        
+        //Get participList
         this.participService.get().subscribe(
             particips => this.particips = particips
         );
-	}
+        //Get user's names
+        this.userService.getName().then(response => {
+            this.userName = response;
+        });
+        console.log('ParticipListComponent.getUserName(): ' + this.userName);
+    }
 
 	openModal(particip: ParticipModel) {
 		this.modal.open(ResultsModalComponent, overlayConfigFactory(particip));

@@ -7,8 +7,8 @@
             <div *ngIf="particips" style="display:inline-block;">
                 <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />
             </div>
-            <div style="display:inline-block;">
-                <a class="btn btn-default" (click)="downloadXlsx()">
+            <div style="display:inline-block;">                
+                <a class="btn btn-default" href="/api/files/rsurParticipLists/{{userName}}" target="_blank">
                     <i class="fa fa-file-excel-o fa-lg"></i> Экспорт
                 </a>
             </div>

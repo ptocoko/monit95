@@ -12,12 +12,13 @@ using Monit95App.Models;
 
 namespace Monit95App.Controllers
 {
-    [Authorize]
+    ///[Authorize]
     public class AccountController : Controller
     {
         public string GetName()
         {
-            return User.Identity.Name;
+            return "201";
+       //     return User.Identity.Name;
         }
 
         public AccountController()

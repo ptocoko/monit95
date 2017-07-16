@@ -35,7 +35,6 @@ namespace Monit95App.Controllers
 
             vm.AreaNames = areaNames;
             return View(vm);
-
         }
 
         [Authorize(Roles = "coko")]

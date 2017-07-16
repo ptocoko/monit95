@@ -16,11 +16,10 @@ var PlanComponent = (function () {
         this.userService = userService;
     }
     PlanComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userService.getName().subscribe(function (user) {
-            if (user.userRoles.indexOf('area') >= 0)
-                _this.areaCode = Number.parseInt(user.userName);
-        });
+        //this.userService.getName().subscribe(user => {
+        //	if (user.userRoles.indexOf('area') >= 0)
+        //		this.areaCode = Number.parseInt(user.userName);
+        //});
     };
     return PlanComponent;
 }());

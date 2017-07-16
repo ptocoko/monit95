@@ -16,11 +16,9 @@ var ResultComponent = (function () {
         this.userService = userService;
     }
     ResultComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userService.getName().subscribe(function (user) {
-            if (user.userRoles.indexOf('area') >= 0)
-                _this.areaCode = Number.parseInt(user.userName);
-        });
+        //this.userService.getName().subscribe(user => {
+        //	if (user.userRoles.indexOf('area') >= 0)
+        //		this.areaCode = Number.parseInt(user.userName);
     };
     return ResultComponent;
 }());
@@ -33,5 +31,4 @@ ResultComponent = __decorate([
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], ResultComponent);
 exports.ResultComponent = ResultComponent;
-;
 //# sourceMappingURL=result.component.js.map

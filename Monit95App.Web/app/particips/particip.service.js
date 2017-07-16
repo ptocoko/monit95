@@ -18,11 +18,10 @@ var ParticipService = (function () {
     function ParticipService(_http) {
         this._http = _http;
     }
-    ParticipService.prototype.getXlsxParticipList = function () {
-        var _this = this;
-        this._http.get('account/getName').subscribe(function (response) {
-            return _this._http.get('/api/files/rsurParticipLists/' + response);
-        });
+    ParticipService.prototype.downloadFile = function (data) {
+        var blob = new Blob([data]);
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
     };
     ParticipService.prototype.get = function () {
         var _this = this;
