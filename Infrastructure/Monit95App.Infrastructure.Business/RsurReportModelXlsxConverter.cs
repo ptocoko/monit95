@@ -27,7 +27,7 @@ namespace Monit95App.Infrastructure.Business
             _projectParticipRepository = projectParticipRepository;
         }
 
-        public RsurReportModel Create(int? areaCode, string schoolId)
+        public RsurReportModel Create(int? areaCode = null, string schoolId = null)
         {
             var query = _projectParticipRepository.GetAll();
             if (areaCode != null)
@@ -36,14 +36,7 @@ namespace Monit95App.Infrastructure.Business
                 query = query.Where(x => x.SchoolId == schoolId);
 
             var projectParticips = new List<ProjectParticip>();
-            try
-            {
-                projectParticips = query.ToList();
-            }
-            catch
-            {
-                return null;
-            }
+            projectParticips = query.ToList();            
 
             var rsurReportModel = new RsurReportModel()
             {
@@ -70,16 +63,17 @@ namespace Monit95App.Infrastructure.Business
             {
                 templateSheet.Cell(rowNumber, 2).Value = info.ParticipCode;
                 templateSheet.Cell(rowNumber, 3).Value = info.Surname;
-                templateSheet.Cell(rowNumber, 4).Value = info.SecondName;
-                templateSheet.Cell(rowNumber, 5).Value = info.AreaName;
-                templateSheet.Cell(rowNumber, 6).Value = info.SchoolIdWithName;
-                templateSheet.Cell(rowNumber, 7).Value = info.SubjectName;
-                templateSheet.Cell(rowNumber, 8).Value = info.CategName;
-                templateSheet.Cell(rowNumber, 9).Value = info.Experience;
-                templateSheet.Cell(rowNumber, 10).Value = info.Phone;
-                templateSheet.Cell(rowNumber, 11).Value = info.Email;
-                templateSheet.Cell(rowNumber, 12).Value = info.Birthday;
-                templateSheet.Cell(rowNumber, 13).Value = info.ClassNumbers;
+                templateSheet.Cell(rowNumber, 4).Value = info.Name;
+                templateSheet.Cell(rowNumber, 5).Value = info.SecondName;
+                templateSheet.Cell(rowNumber, 6).Value = info.AreaName;
+                templateSheet.Cell(rowNumber, 7).Value = info.SchoolIdWithName;
+                templateSheet.Cell(rowNumber, 8).Value = info.SubjectName;
+                templateSheet.Cell(rowNumber, 9).Value = info.CategName;
+                templateSheet.Cell(rowNumber, 10).Value = info.Experience;
+                templateSheet.Cell(rowNumber, 11).Value = info.Phone;
+                templateSheet.Cell(rowNumber, 12).Value = info.Email;
+                templateSheet.Cell(rowNumber, 13).Value = info.Birthday;
+                templateSheet.Cell(rowNumber, 14).Value = info.ClassNumbers;
 
                 rowNumber++;
             }

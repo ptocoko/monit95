@@ -18,6 +18,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Monit95App.Models;
 using Monit95App.Infrastructure.Business.Interfaces.Rsur;
+using Monit95App.Web.Services;
 
 namespace Monit95App.Util
 {
@@ -44,6 +45,10 @@ namespace Monit95App.Util
             builder.RegisterType<RsurParticipEditService>().As<IRsurParticipEditService>();
             builder.RegisterType<OneTwoThreeGradeConverter>().As<IGrade5>();
             builder.RegisterType<RsurParticipViewer>().As<IRsurParticipViewer>();
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<RsurReportModelXlsxConverter>().As<IRsurReportModelConverter>();
+
+            builder.RegisterType<ApplicationDbContext>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

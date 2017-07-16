@@ -33,32 +33,40 @@ namespace Monit95App.Api
             _userService = userService;
         }
 
+        public FilesController()
+        {
+
+        }
+
         #endregion
 
         #region Api
 
+        #warning refactoring validate logic
         [Route("api/files/rsurParticipLists/{id}")]
         public async Task<HttpResponseMessage> Get(string id) //id = userName
         {
-            if(id == null)            
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "В запросе отсутствует или указан не верный id");
-            
-            var authorizedUser = _userService.GetModel(User.Identity.GetUserId());            
-
-            if(!authorizedUser.UserName.Equals(id))            
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Указанный пользователь и авторизованный не равны");                        
+            if(id == null) return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "В запросе отсутствует или указан не верный id");            
+            var authorizedUser = _userService.GetModel(User.Identity.GetUserId());
+            var authorizedUserRoleNames = authorizedUser.UserRoleNames;
+            if (!authorizedUser.UserName.Equals(id)) //compare request user and current (real) user           
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не верный пользователь");                
 
             Stream stream = null;          
             if(authorizedUser.UserRoleNames.Contains("area"))
                 stream = await _rsurReportModelConverter.GetStream(Convert.ToInt32(id));
             if (authorizedUser.UserRoleNames.Contains("school"))
-                stream = await _rsurReportModelConverter.GetStream(schoolId: id);            
+                stream = await _rsurReportModelConverter.GetStream(schoolId: id);   
+            
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StreamContent(stream),                
-            };
+                Content = new StreamContent(stream),
+            };            
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-
+            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+            {
+                FileName = $"{id}-рсур-список участников.xlsx"
+            };            
             return response;
         }
 
