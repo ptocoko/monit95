@@ -48,7 +48,7 @@ var ParticipService = (function () {
         return this._http.put('/api/RsurParticip/PutParticip', particip);
     };
     ParticipService.prototype.getParticipResults = function (participCode) {
-        return this._http.get('/api/RsurParticip/GetParticipResults?participCode=' + participCode)
+        return this._http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
             .map(function (res) {
             var resultsInJSON = res.json();
             var results = [];

@@ -20,13 +20,9 @@ export class ResultsModalComponent implements ModalComponent<ParticipModel>, OnI
 	}
 
 	ngOnInit() {
-		this.getResults(this.particip.participCode);
-	}
-
-	getResults(participCode: string) {
-		this.participService.getParticipResults(participCode).subscribe(res => {
-			this.results = res;
-		});
+        this.participService.getParticipResults(this.particip.participCode).subscribe(res => {
+            this.results = res;
+        });
 	}
 
 	close() {

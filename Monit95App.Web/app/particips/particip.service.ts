@@ -48,7 +48,7 @@ export class ParticipService {
 	}
 
 	getParticipResults(participCode: string): Observable<ResultsModel[]> {
-		return this._http.get('/api/RsurParticip/GetParticipResults?participCode=' + participCode)
+		return this._http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
 			.map((res: Response) =>
 			{
 				let resultsInJSON = res.json();
