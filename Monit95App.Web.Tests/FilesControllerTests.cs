@@ -1,14 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Services;
 using Moq;
 using Monit95App.Models;
-using Monit95App.Infrastructure.Business.Interfaces.Rsur;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Monit95App.Api;
 using Monit95App.Web.Services;
+using Monit95App.Services.Interfaces.Rsur;
 
 namespace Monit95App.Web.Tests
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
-using Monit95App.Infrastructure.Business.Interfaces.Rsur;
 using Monit95App.Models;
 using Monit95App.Services;
+using Monit95App.Services.Interfaces.Rsur;
 using Monit95App.Web.Services;
 using System;
 using System.Collections.Generic;

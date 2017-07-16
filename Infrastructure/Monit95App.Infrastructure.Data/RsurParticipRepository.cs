@@ -8,35 +8,36 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Monit95App.Infrastructure.Data
-{   
+{
     public class ProjectParticipRepository : IRepository<ProjectParticip>
     {
         //TODO: посмотреть где тут необходим try...catch
-        private cokoContext db;        
+        private cokoContext db;
 
         public ProjectParticipRepository(cokoContext db)
         {
             this.db = db;
         }
         public IEnumerable<ProjectParticip> GetAll()
-        {            
+        {
             return db.ProjectParticips.ToList();
         }
-        private RsurParticipPrimaryKey PPrimaryKeyParse(string primaryKey)
-        {            
-            var primaryKeySplit = primaryKey.Split(';');
-            var pk = new RsurParticipPrimaryKey();
-            pk.ProjectCode = Int32.Parse(primaryKeySplit[0]);
-            pk.ParticipCode = primaryKeySplit[1].ToString();
+        //private RsurParticipPrimaryKey PPrimaryKeyParse(string primaryKey)
+        //{            
+        //    var primaryKeySplit = primaryKey.Split(';');
+        //    var pk = new RsurParticipPrimaryKey();
+        //    pk.ProjectCode = Int32.Parse(primaryKeySplit[0]);
+        //    pk.ParticipCode = primaryKeySplit[1].ToString();
 
-            return pk;            
-        }
-        
+        //    return pk;            
+        //}
+
         public ProjectParticip Get(string primaryKey) //primaryKey = "201661;2016-206-002"
         {
-            var pk = PPrimaryKeyParse(primaryKey);
+            //var pk = PPrimaryKeyParse(primaryKey);
+            //return db.ProjectParticips.Single(x => x.ProjectCode == pk.ProjectCode && x.ParticipCode == pk.ParticipCode);
 
-            return db.ProjectParticips.Single(x => x.ProjectCode == pk.ProjectCode && x.ParticipCode == pk.ParticipCode);
+            return new ProjectParticip();
         }
 
         public void Add(ProjectParticip item)
@@ -45,8 +46,8 @@ namespace Monit95App.Infrastructure.Data
             {
                 throw new ArgumentNullException("item");
             }
-            db.ProjectParticips.Add(item);                      
-        }     
+            db.ProjectParticips.Add(item);
+        }
         public void Update(ProjectParticip item)
         {
             //TODO : use automapper
@@ -58,13 +59,13 @@ namespace Monit95App.Infrastructure.Data
             particip.CategId = item.CategId;
             particip.Experience = item.Experience;
             particip.Phone = item.Phone;
-            particip.Email = item.Email;            
+            particip.Email = item.Email;
         }
 
         public bool Delete(string primaryKey)
         {
-            var particip = Get(primaryKey);            
-            var deletedEntity = db.ProjectParticips.Remove(particip);                                
+            var particip = Get(primaryKey);
+            var deletedEntity = db.ProjectParticips.Remove(particip);
             if (deletedEntity != null)
             {
                 return true;

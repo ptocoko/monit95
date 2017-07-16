@@ -1,5 +1,4 @@
-﻿using Monit95App.Domain.Work.Concrete;
-using Monit95App.Services.Work.Concrete;
+﻿using Monit95App.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

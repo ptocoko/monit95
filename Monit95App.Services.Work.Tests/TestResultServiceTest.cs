@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Domain.Work.Abstract;
-using Monit95App.Domain.Work.Concrete;
 using System.Collections;
 using System.Linq;
 using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Interfaces;
+using Monit95App.Services;
 
 namespace Monit95App.Domain.Work.Tests
 {

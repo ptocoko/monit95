@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Infrastructure.Business;
-using Monit95App.Infrastructure.Business.Models.Rsur;
 using System.Collections.Generic;
 using System.IO;
+using Monit95App.Services;
+using Monit95App.Services.Models.Rsur;
 
 namespace Monit95App.Infrastructure.BusinessTests
 {

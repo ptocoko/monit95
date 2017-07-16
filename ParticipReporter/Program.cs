@@ -1,9 +1,8 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Domain.DTO;
-using Monit95App.Domain.Work.Abstract;
-using Monit95App.Domain.Work.Concrete;
+using Monit95App.Services;
+using Monit95App.Services.Interfaces;
 using SelectPdf;
 using System;
 using System.Collections.Generic;

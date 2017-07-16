@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Domain.Work.Concrete;
+using Monit95App.Services;
 using System.Collections;
 
 namespace Monit95App.Domain.Work.Tests

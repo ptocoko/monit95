@@ -3,11 +3,7 @@ using Autofac.Core;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Monit95App.Domain.Core;
-using Monit95App.Infrastructure.Business;
-using Monit95App.Infrastructure.Business.Interfaces;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Infrastructure.Data.Interfaces;
-using Monit95App.Domain.DTO;
 using Monit95App.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,8 +13,11 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using Monit95App.Models;
-using Monit95App.Infrastructure.Business.Interfaces.Rsur;
 using Monit95App.Web.Services;
+using Monit95App.Services;
+using Monit95App.Services.Interfaces;
+using Monit95App.Service.Interfaces;
+using Monit95App.Services.Interfaces.Rsur;
 
 namespace Monit95App.Util
 {

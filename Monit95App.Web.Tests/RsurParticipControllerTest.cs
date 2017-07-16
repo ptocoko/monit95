@@ -2,10 +2,9 @@
 using Monit95App.Api;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Business;
-using Monit95App.Infrastructure.Business.Models;
-using Monit95App.Infrastructure.Business.Models.Rsur;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services;
+using Monit95App.Services.Models.Rsur;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using Monit95App.Models;
 using System.Web.UI;
-using Monit95App.Domain.Work.Concrete;
+using Monit95App.Services;
 
 namespace Monit95App.Controllers
 {

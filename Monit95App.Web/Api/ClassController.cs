@@ -1,6 +1,5 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Domain.DTO;
 using Monit95App.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Monit95App.Service.Interfaces;
 
 namespace Monit95App.Api
 {
