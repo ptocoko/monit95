@@ -1,5 +1,4 @@
-﻿const apiUrl = '/api/SchoolInfoEdit/Update'
-var schoolId = '';
+﻿const apiUrl = '/api/SchoolInfoEdit/Update';
 
 function showEditing(editVal) {
 	$("#" + editVal + "Div").hide();
@@ -36,7 +35,7 @@ function isNumber(number) {
 
 function sendRequest(nameOfVal, val) {
 	$.ajax({
-		url: apiUrl + nameOfVal + '?' + nameOfVal + '=' + val + '&schoolId=' + schoolId.trim(),
+		url: apiUrl + nameOfVal + '?' + nameOfVal + '=' + val,
 		method: 'PUT',
 		success: function () {
 			location.reload();
@@ -51,8 +50,6 @@ function sendRequest(nameOfVal, val) {
 }
 
 $().ready(() => {
-	schoolId = $("#schoolId").html();
-
 	$("#editName").click(() => showEditing('Name'));
 	$("#editPhone").click(() => showEditing('Phone'));
 	$("#editEmail").click(() => showEditing('Email'));

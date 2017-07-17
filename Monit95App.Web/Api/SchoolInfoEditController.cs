@@ -19,10 +19,12 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> UpdateName(string name, string schoolId)
+        public async Task<HttpResponseMessage> UpdateName(string name)
         {
-            if (String.IsNullOrEmpty(name) || schoolId == null)
+            if (String.IsNullOrEmpty(name))
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса 'update name'");
+
+            var schoolId = User.Identity.Name;
 
             var isUpdated = await Task.Run(() => _schoolInfoEditService.AddNameCorrection(name, schoolId));
             if (isUpdated)
@@ -32,10 +34,12 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> UpdatePhone(string phone, string schoolId)
+        public async Task<HttpResponseMessage> UpdatePhone(string phone)
         {
-            if (phone == null || schoolId == null)
+            if (phone == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
+
+            var schoolId = User.Identity.Name;
 
             var isUpdated = await Task.Run(() => _schoolInfoEditService.UpdateField(school => school.Phone = phone, schoolId));
             if (isUpdated)
@@ -45,10 +49,12 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> UpdateEmail(string email, string schoolId)
+        public async Task<HttpResponseMessage> UpdateEmail(string email)
         {
-            if (email == null || schoolId == null)
+            if (email == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
+
+            var schoolId = User.Identity.Name;
 
             var isUpdated = await Task.Run(() => _schoolInfoEditService.UpdateField(school => school.Email = email, schoolId));
             if (isUpdated)
