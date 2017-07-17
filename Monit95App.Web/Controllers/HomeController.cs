@@ -61,7 +61,7 @@ namespace Monit95App.Controllers
         public ActionResult GetSchoolinfoPV(string schoolId)
         {
             var currentSchool = _context.Schools.Find(schoolId);
-            var vm = SchoolModelCreator.CreateFullVersion(currentSchool);
+            var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
             return PartialView("_Schoolinfo", vm);
         }
 
@@ -69,7 +69,7 @@ namespace Monit95App.Controllers
         public ActionResult Schoolinfo()
         {                                       
             var currentSchool = _context.Schools.Find(User.Identity.Name);
-            var vm = SchoolModelCreator.CreateFullVersion(currentSchool);
+            var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
             return View(vm);
         }
 

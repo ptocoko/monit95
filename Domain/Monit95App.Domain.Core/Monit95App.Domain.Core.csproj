@@ -119,6 +119,9 @@
     <Compile Include="School.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SchoolsEdit.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Test.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
