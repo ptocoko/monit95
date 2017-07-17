@@ -9,6 +9,8 @@ using Monit95App.Domain.Interfaces;
 using ClosedXML.Excel;
 using Monit95App.Services.Models.Rsur;
 using Monit95App.Services.Interfaces.Rsur;
+using System.Resources;
+using System.Reflection;
 
 namespace Monit95App.Services
 {    
@@ -29,6 +31,15 @@ namespace Monit95App.Services
 
         public RsurReportModel Create(int? areaCode = null, string schoolId = null)
         {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "txt.txt";
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+            }
+
             var query = _projectParticipRepository.GetAll();
             if (areaCode != null)
                 query = query.Where(x => x.School.AreaCode == areaCode);
@@ -50,7 +61,7 @@ namespace Monit95App.Services
         }
 
         public Stream Write(RsurReportModel rsurReportModel)
-        {
+        {            
             if (rsurReportModel == null) throw new ArgumentNullException("rsurReportModel", "RsurReportModelXlsxConverter.Write");
             
             var templateBook = new XLWorkbook(tempalteFilePath);
