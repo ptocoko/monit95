@@ -38,9 +38,10 @@ function sendRequest(nameOfVal, val) {
 	$.ajax({
 		url: apiUrl + nameOfVal + '?' + nameOfVal + '=' + val + '&schoolId=' + schoolId.trim(),
 		method: 'PUT',
-		success: function (data) {
-			$("#" + nameOfVal +"Div").text(val);
-			hideEditing(nameOfVal);
+		success: function () {
+			location.reload();
+			//$("#" + nameOfVal +"Div").text(val);
+			//hideEditing(nameOfVal);
 		},
 		error: function (request, status, error) {
 			var errorMessage = request.responseJSON.Message ? request.responseJSON.Message : request.responseText;

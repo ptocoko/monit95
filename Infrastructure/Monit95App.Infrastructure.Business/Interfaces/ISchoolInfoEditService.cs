@@ -9,10 +9,7 @@ namespace Monit95App.Infrastructure.Business.Interfaces
 {
     public interface ISchoolInfoEditService
     {
-        //bool UpdateName(string schoolId, string name);
-        //bool UpdatePhoneNumbaer(string schoolId, string number);
-        //bool UpdateEmail(string schoolId, string email);
-
+        bool AddNameCorrection(string name, string schoolId);
         bool UpdateField(Action<School> setProperty, string schoolId);
     }
 }

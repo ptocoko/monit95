@@ -13,11 +13,30 @@ namespace Monit95App.Infrastructure.Business
     public class SchoolInfoEditService : ISchoolInfoEditService
     {
         private IGenericRepository<School> _schoolRepository;
+        private IGenericRepository<SchoolsEdit> _schoolEditRepository;
         private IUnitOfWork _unitOfWork;
-        public SchoolInfoEditService(IGenericRepository<School> schoolRepository, IUnitOfWork unitOfWork)
+        public SchoolInfoEditService(IGenericRepository<School> schoolRepository, IGenericRepository<SchoolsEdit> schoolEditRepository, IUnitOfWork unitOfWork)
         {
             _schoolRepository = schoolRepository;
+            _schoolEditRepository = schoolEditRepository;
             _unitOfWork = unitOfWork;
+        }
+
+        public bool AddNameCorrection(string name, string schoolId)
+        {
+            if (_schoolEditRepository.GetAll().FirstOrDefault(s => s.Id == schoolId) != null)
+                return false;
+
+            _schoolEditRepository.Insert(new SchoolsEdit { Id = schoolId, Name = name });
+            try
+            {
+                _unitOfWork.Save();
+            }
+            catch (RetryLimitExceededException)
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool UpdateField(Action<School> setProperty, string schoolId)

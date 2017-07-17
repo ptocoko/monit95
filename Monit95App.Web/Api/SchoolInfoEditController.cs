@@ -24,7 +24,7 @@ namespace Monit95App.Api
             if (String.IsNullOrEmpty(name) || schoolId == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса 'update name'");
 
-            var isUpdated = await Task.Run(() => _schoolInfoEditService.UpdateField(school => school.Name = name, schoolId));
+            var isUpdated = await Task.Run(() => _schoolInfoEditService.AddNameCorrection(name, schoolId));
             if (isUpdated)
                 return Request.CreateResponse(HttpStatusCode.Created);
             else
