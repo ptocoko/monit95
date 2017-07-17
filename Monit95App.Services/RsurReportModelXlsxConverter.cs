@@ -31,14 +31,14 @@ namespace Monit95App.Services
 
         public RsurReportModel Create(int? areaCode = null, string schoolId = null)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "txt.txt";
+            //var assembly = Assembly.GetExecutingAssembly();
+            //var resourceName = "txt.txt";
 
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
-            }
+            //using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            //using (StreamReader reader = new StreamReader(stream))
+            //{
+            //    string result = reader.ReadToEnd();
+            //}
 
             var query = _projectParticipRepository.GetAll();
             if (areaCode != null)

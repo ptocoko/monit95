@@ -109,13 +109,10 @@
     <Compile Include="ProjectTest.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ReportStatistic.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="School.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>

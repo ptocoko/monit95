@@ -14,7 +14,6 @@ namespace Monit95App.Domain.Core
     
     public partial class TestResult
     {
-        public int Id { get; set; }
         public int ParticipTestId { get; set; }
         public double PrimaryMark { get; set; }
         public int Grade5 { get; set; }

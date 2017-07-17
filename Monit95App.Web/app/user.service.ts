@@ -13,9 +13,9 @@ export class UserService {
 
     }
 
-    getName(): Promise<string> {
+    getName(): Promise<any> {
         return this.http.get("account/getName").toPromise().then(response => {
-            return response.json();
+            return response.text();
         });
     }
 }

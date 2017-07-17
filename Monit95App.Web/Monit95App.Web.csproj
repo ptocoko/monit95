@@ -85,7 +85,6 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Mono.Reflection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
       <Private>True</Private>

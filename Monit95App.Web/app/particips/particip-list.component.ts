@@ -18,7 +18,7 @@ import { UserService } from '../user.service';
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];	
-    userName: string;
+    userName: any;
         
     constructor(private participService: ParticipService, private userService: UserService, public modal: Modal) { }
 
