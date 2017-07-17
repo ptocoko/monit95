@@ -17,7 +17,14 @@
             @Model.Name
         </div>
         <input size="@Model.Name.Length" id="NameInput" style="display:none" type="text" value="@Model.Name"  class="form-control"/>
+        @if (Model.NameHasCorrection)
+        {
+        <span style="color:gray" title="Коррекция обрабатывается..." class="glyphicon glyphicon-refresh"></span>
+        }
+         else{ 
         <a id="editName" class="glyphicon glyphicon-pencil"></a>
+        }
+        
         <a id="saveName" class="glyphicon glyphicon-ok" style="display:none;color:limegreen"></a>
         <a id="cancelName" class="glyphicon glyphicon-remove" style="display:none;color:red"></a>
     </div>
