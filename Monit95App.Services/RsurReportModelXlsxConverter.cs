@@ -30,16 +30,7 @@ namespace Monit95App.Services
         }
 
         public RsurReportModel Create(int? areaCode = null, string schoolId = null)
-        {
-            //var assembly = Assembly.GetExecutingAssembly();
-            //var resourceName = "txt.txt";
-
-            //using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            //using (StreamReader reader = new StreamReader(stream))
-            //{
-            //    string result = reader.ReadToEnd();
-            //}
-
+        {        
             var query = _projectParticipRepository.GetAll();
             if (areaCode != null)
                 query = query.Where(x => x.School.AreaCode == areaCode);
@@ -60,11 +51,19 @@ namespace Monit95App.Services
             return rsurReportModel;
         }
 
+        #warning close stream
         public Stream Write(RsurReportModel rsurReportModel)
         {            
-            if (rsurReportModel == null) throw new ArgumentNullException("rsurReportModel", "RsurReportModelXlsxConverter.Write");
-            
-            var templateBook = new XLWorkbook(tempalteFilePath);
+            if (rsurReportModel == null)
+                throw new ArgumentNullException("rsurReportModel", "RsurReportModelXlsxConverter.Write");
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var r = assembly.GetManifestResourceNames();
+
+            Stream stream = assembly.GetManifestResourceStream("Monit95App.Services.Resource.particip-list.xlsx");
+       
+            // var templateBook = new XLWorkbook(tempalteFilePath);
+            var templateBook = new XLWorkbook(stream);
             var templateSheet = templateBook.Worksheets.First();
             templateSheet.Cell("C1").Value = rsurReportModel.ReportCreatedDate;
             templateSheet.Cell("C2").Value = rsurReportModel.ReportName;

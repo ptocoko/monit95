@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.IO;
 using Monit95App.Services;
 using Monit95App.Services.Models.Rsur;
+using ClosedXML.Excel;
+using System.Linq;
 
-namespace Monit95App.Infrastructure.BusinessTests
+namespace Monit95App.Services.Tests
 {
     [TestClass]
     public class RsurReportModelXlsxConverterTests
@@ -38,13 +40,15 @@ namespace Monit95App.Infrastructure.BusinessTests
 
             //Act
             var stream = writer.Write(model);
-            byte[] bytes = new byte [stream.Length];
-            stream.Read(bytes, 0, bytes.Length);
-            File.WriteAllBytes(@"d:\test.xlsx", bytes);
-            stream.Dispose();
+
+            var templateBook = new XLWorkbook(stream);
+            var templateSheet = templateBook.Worksheets.First();
+
+            var c2Value = templateSheet.Cell("C2").Value.ToString();          
 
             //Assert
-            Assert.Fail();
+            Assert.IsNotNull(stream);
+            Assert.AreEqual("Test", c2Value);
         }
 
         [TestMethod]

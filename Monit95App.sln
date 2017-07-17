@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Web.Tests", "Mon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Work.Tests", "Monit95App.Services.Work.Tests\Monit95App.Services.Work.Tests.csproj", "{70EFD6D5-BD31-4EC4-B557-89154DF14F2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.DTO.Tests", "Monit95App.Services.DTO.Tests\Monit95App.Services.DTO.Tests.csproj", "{ED22B912-D38F-464A-95C5-676F166959BA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticipReporter", "ParticipReporter\ParticipReporter.csproj", "{774AD074-77D2-44A1-988D-4BC45A96F8C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticipReporter.Tests", "ParticipReporter.Tests\ParticipReporter.Tests.csproj", "{938259AD-5255-448C-897D-C85C5EAD1F1E}"
@@ -37,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.ConsoleApp", "Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.Data.Tests", "Tests\Monit95App.Infrastructure.Data.Tests\Monit95App.Infrastructure.Data.Tests.csproj", "{A8CD881C-FCF2-4326-B6BD-B9E587F28918}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.Business.Tests", "Tests\Monit95App.Infrastructure.Business.Tests\Monit95App.Infrastructure.Business.Tests.csproj", "{EAFAB265-533C-46EC-82C9-F1E63873F611}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Tests", "Tests\Monit95App.Infrastructure.Business.Tests\Monit95App.Services.Tests.csproj", "{EAFAB265-533C-46EC-82C9-F1E63873F611}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services", "Monit95App.Services\Monit95App.Services.csproj", "{5E38A333-C51E-4910-A650-440C8D7F0A94}"
 EndProject
@@ -63,10 +61,6 @@ Global
 		{70EFD6D5-BD31-4EC4-B557-89154DF14F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70EFD6D5-BD31-4EC4-B557-89154DF14F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70EFD6D5-BD31-4EC4-B557-89154DF14F2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED22B912-D38F-464A-95C5-676F166959BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED22B912-D38F-464A-95C5-676F166959BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED22B912-D38F-464A-95C5-676F166959BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED22B912-D38F-464A-95C5-676F166959BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{774AD074-77D2-44A1-988D-4BC45A96F8C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{774AD074-77D2-44A1-988D-4BC45A96F8C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{774AD074-77D2-44A1-988D-4BC45A96F8C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -114,7 +108,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9D370610-E7DD-4512-850C-F20B9652F8F6} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
 		{70EFD6D5-BD31-4EC4-B557-89154DF14F2D} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
-		{ED22B912-D38F-464A-95C5-676F166959BA} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
 		{938259AD-5255-448C-897D-C85C5EAD1F1E} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
 		{84DC3950-0B35-4EB2-B534-93AF0387CCDC} = {7BCAB294-45F4-40B6-B34E-7257F19D0A6B}
 		{CB5E7793-7905-42A4-818D-0212A4EDDA43} = {7BCAB294-45F4-40B6-B34E-7257F19D0A6B}
