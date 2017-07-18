@@ -32,5 +32,7 @@ namespace Monit95App.Web.Models
 
         [Display(Name = "Логин на СтатГрад (www.statgrad.org):")]
         public string VPRcode { get; set; }
+
+        public bool NameHasCorrection { get; set; }
     }
 }

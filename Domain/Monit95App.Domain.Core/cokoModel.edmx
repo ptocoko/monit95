@@ -215,6 +215,13 @@
           <Property Name="PropertyTypeCode" Type="int" />
           <Property Name="Monit95Login" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="SchoolsEdit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Test">
           <Key>
             <PropertyRef Name="Id" />
@@ -580,6 +587,7 @@
           <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReportStatistics" EntityType="Self.ReportStatistics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolsEdit" EntityType="Self.SchoolsEdit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestResults" EntityType="Self.TestResults" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestResultsV2" EntityType="Self.TestResultsV2" Schema="dbo" store:Type="Tables" />
@@ -1016,6 +1024,7 @@
             <End Role="School" EntitySet="Schools" />
             <End Role="ProjectParticipsEdit" EntitySet="ProjectParticipsEdits" />
           </AssociationSet>
+          <EntitySet Name="SchoolsEdits" EntityType="cokoModel.SchoolsEdit" />
           </EntityContainer>
         <EntityType Name="ReportStatistic">
           <Key>
@@ -1417,6 +1426,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SchoolsEdit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1689,6 +1705,14 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="ParticipCode" ColumnName="ParticipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolsEdits">
+            <EntityTypeMapping TypeName="cokoModel.SchoolsEdit">
+              <MappingFragment StoreEntitySet="SchoolsEdit">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
