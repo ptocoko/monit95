@@ -7,6 +7,7 @@ using System.Web.UI;
 using Monit95App.Domain.Core;
 using Monit95App.Web;
 using Monit95App.Web.Models;
+using Monit95App.Models;
 
 namespace Monit95App.Controllers
 {
@@ -18,6 +19,13 @@ namespace Monit95App.Controllers
         public HomeController()
         {
      
+        }
+
+        [Authorize(Roles = "coko")]
+        public ActionResult Corrections()
+        {
+            var vm = CorrectionModelCreator.CreateModels(_context);
+            return View(vm);
         }
 
         [Authorize(Roles = "coko")]

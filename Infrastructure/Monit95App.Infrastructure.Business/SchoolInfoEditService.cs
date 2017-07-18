@@ -39,6 +39,25 @@ namespace Monit95App.Infrastructure.Business
             return true;
         }
 
+        public bool DeleteNameCorrection(string schoolId)
+        {
+            var correction = _schoolEditRepository.GetAll().FirstOrDefault(s => s.Id == schoolId);
+            if (correction == null)
+                return false;
+
+            _unitOfWork.DbContext.SchoolsEdits.Remove(correction);
+
+            try
+            {
+                _unitOfWork.Save();
+            }
+            catch (RetryLimitExceededException)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public bool UpdateField(Action<School> setProperty, string schoolId)
         {
             var school = _schoolRepository.GetAll().SingleOrDefault(p => p.Id == schoolId);

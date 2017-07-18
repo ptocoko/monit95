@@ -32,6 +32,10 @@ function isNumber(number) {
 	var regex = /^[0-9\s()-]*$/;
 	return regex.test(number);
 }
+function errorHandler(request, status, error) {
+	var errorMessage = request.responseJSON.Message ? request.responseJSON.Message : request.responseText;
+	alert('Ошибка сервера! Пожалуйста, обратитесь к администратору\n\n' + error + ' - ' + errorMessage);
+}
 
 function sendRequest(nameOfVal, val) {
 	$.ajax({
@@ -43,8 +47,7 @@ function sendRequest(nameOfVal, val) {
 			//hideEditing(nameOfVal);
 		},
 		error: function (request, status, error) {
-			var errorMessage = request.responseJSON.Message ? request.responseJSON.Message : request.responseText;
-			alert('Ошибка сервера! Пожалуйста, обратитесь к администратору\n\n' + error + ' - ' + errorMessage);
+			errorHandler(request, status, error)
 		}
 	})
 }
@@ -60,7 +63,14 @@ $().ready(() => {
 
 	$("#saveName").click(() => {
 		var name = $("#NameInput").val().trim();
-		sendRequest('Name', name);
+		$.ajax({
+			url: '/api/SchoolInfoEdit/AddNameCorrection?name=' + name,
+			method: 'PUT',
+			success: function () {
+				location.reload();
+			},
+
+		})
 	});
 	$("#savePhone").click(() => {
 		var phone = $("#PhoneInput").val().trim();

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Monit95App.Models.CorrectionModel>
+
+@{
+    ViewBag.Title = "Коррекции";
+}
+
+<h2>Коррекции</h2>
+<br />
+
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Коррекции наименований школ</a></li>
+    <li role="presentation"><a href="~/Rsur/Spa#particip-correction">Коррекции учителей</a></li>
+</ul>
+@if (Model.Count() < 1)
+{
+    <br />
+    <p>Коррекции отсутствуют.</p>
+}
+else
+{
+    foreach (var correction in Model)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Данные в базе</th>
+                    <th>Измененные данные</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Логин школы</b></td>
+                    <td colspan="2" align="center"><b>@correction.SchoolId</b></td>
+                    <td rowspan="2">
+                        <div class="btn-group-vertical">
+                            <button class="btn btn-success" onclick="apply('@correction.NewName', '@correction.SchoolId')">Принять</button>
+                            <button class="btn btn-danger" onclick="cancel('@correction.SchoolId')">Отклонить</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Наименование</b></td>
+                    <td>@correction.OldName</td>
+                    <td>@correction.NewName</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}
+
+<script>
+    function apply(name, schoolId) {
+        $.ajax({
+            url: '/api/SchoolInfoEdit/UpdateName?name=' + name + '&schoolId=' + schoolId,
+            method: 'PUT',
+            success: function () {
+                cancel(schoolId);
+            },
+            error: function (request, status, error) {
+                errorHandler(request, status, error)
+            }
+        })
+    }
+
+    function cancel(schoolId) {
+        $.ajax({
+            url: '/api/SchoolInfoEdit/DeleteNameCorrection?schoolId=' + schoolId,
+            method: 'DELETE',
+            success: function () {
+                location.reload();
+            },
+            error: function (request, status, error) {
+                errorHandler(request, status, error)
+            }
+        })
+    }
+
+    function errorHandler(request, status, error) {
+        var errorMessage = request.responseJSON.Message ? request.responseJSON.Message : request.responseText;
+        alert('Ошибка сервера! Пожалуйста, обратитесь к администратору\n\n' + error + ' - ' + errorMessage);
+    }
+</script>

@@ -62,7 +62,7 @@
             }
         })
         $.ajax({
-            url: "/Home/GetSchoolinfoPV?_schoolId=" + schoolId,
+            url: "/Home/GetSchoolinfoPV?schoolId=" + schoolId,
             type: "GET",
             success: function (data) {
                 $("#tabs-2").html(data);
@@ -74,7 +74,7 @@
         $.ajax({
             type: "post",
             url: "/Home/GetSchools",
-            data: { areaID_str: $('#ddlArea').val() },
+            data: { areaIdstr: $('#ddlArea').val() },
             datatype: "json",
             traditional: true,
             success: function (data) {

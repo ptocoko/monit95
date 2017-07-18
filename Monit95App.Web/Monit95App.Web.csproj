@@ -231,6 +231,8 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppCache.cs" />
+    <Compile Include="Models\CorrectionModelCreator.cs" />
+    <Compile Include="Models\CorrectionModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SchoolModel.cs" />
     <Compile Include="Models\SchoolModelCreator.cs" />
@@ -446,6 +448,7 @@
     <Content Include="tsconfig.json" />
     <Content Include="systemjs.config.js" />
     <Content Include="Views\Rsur\Spa.cshtml" />
+    <Content Include="Views\Home\Corrections.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,6 +10,7 @@ namespace Monit95App.Infrastructure.Business.Interfaces
     public interface ISchoolInfoEditService
     {
         bool AddNameCorrection(string name, string schoolId);
+        bool DeleteNameCorrection(string schoolId);
         bool UpdateField(Action<School> setProperty, string schoolId);
     }
 }
