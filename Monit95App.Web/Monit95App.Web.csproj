@@ -161,6 +161,12 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
+    <Reference Include="WebApi.OutputCache.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Strathweb.CacheOutput.WebApi2.0.10.0\lib\net45\WebApi.OutputCache.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="WebApi.OutputCache.V2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Strathweb.CacheOutput.WebApi2.0.10.0\lib\net45\WebApi.OutputCache.V2.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -213,6 +219,7 @@
     <Compile Include="Api\ParticipController.cs" />
     <Compile Include="Api\SchoolController.cs" />
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\SchoolInfoEditController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -229,6 +236,8 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppCache.cs" />
+    <Compile Include="Models\CorrectionModelCreator.cs" />
+    <Compile Include="Models\CorrectionModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SchoolModel.cs" />
     <Compile Include="Models\SchoolModelCreator.cs" />
@@ -385,6 +394,7 @@
     <Content Include="Scripts\controllers\participctrl.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\schoolInfoEdit\school-info.edit.js" />
     <Content Include="Scripts\services\onetwothree_participservice.js" />
     <Content Include="Scripts\services\tresultservice.js" />
     <Content Include="Scripts\services\pparticipservice.js" />
@@ -445,6 +455,7 @@
     <Content Include="tsconfig.json" />
     <Content Include="systemjs.config.js" />
     <Content Include="Views\Rsur\Spa.cshtml" />
+    <Content Include="Views\Home\Corrections.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -452,7 +463,9 @@
     <Folder Include="Views\ParticipReport\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ using System.Web.UI;
 using Monit95App.Domain.Core;
 using Monit95App.Web;
 using Monit95App.Web.Models;
+using Monit95App.Models;
 
 namespace Monit95App.Controllers
 {
@@ -18,6 +19,13 @@ namespace Monit95App.Controllers
         public HomeController()
         {
      
+        }
+
+        [Authorize(Roles = "coko")]
+        public ActionResult Corrections()
+        {
+            var vm = CorrectionModelCreator.CreateModels(_context);
+            return View(vm);
         }
 
         [Authorize(Roles = "coko")]
@@ -60,7 +68,7 @@ namespace Monit95App.Controllers
         public ActionResult GetSchoolinfoPV(string schoolId)
         {
             var currentSchool = _context.Schools.Find(schoolId);
-            var vm = SchoolModelCreator.CreateFullVersion(currentSchool);
+            var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
             return PartialView("_Schoolinfo", vm);
         }
 
@@ -68,7 +76,7 @@ namespace Monit95App.Controllers
         public ActionResult Schoolinfo()
         {                                       
             var currentSchool = _context.Schools.Find(User.Identity.Name);
-            var vm = SchoolModelCreator.CreateFullVersion(currentSchool);
+            var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
             return View(vm);
         }
 

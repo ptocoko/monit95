@@ -50,6 +50,7 @@
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsToEdit_Categories" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsToEdit_NsurSubjects" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsToEdit_Schools" />
+        <EntityTypeShape EntityType="cokoModel.SchoolsEdit" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
