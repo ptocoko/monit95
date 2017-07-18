@@ -53,46 +53,44 @@ namespace Monit95App.Services
 
         #warning close stream
         public Stream Write(RsurReportModel rsurReportModel)
-        {            
+        {
             if (rsurReportModel == null)
                 throw new ArgumentNullException("rsurReportModel", "RsurReportModelXlsxConverter.Write");
 
             var assembly = Assembly.GetExecutingAssembly();
-            var r = assembly.GetManifestResourceNames();
+            using (Stream stream = assembly.GetManifestResourceStream("Monit95App.Services.Resource.particip-list.xlsx"))
+            {                
+                var templateBook = new XLWorkbook(stream);
+                var templateSheet = templateBook.Worksheets.First();
+                templateSheet.Cell("C1").Value = rsurReportModel.ReportCreatedDate;
+                templateSheet.Cell("C2").Value = rsurReportModel.ReportName;
 
-            Stream stream = assembly.GetManifestResourceStream("Monit95App.Services.Resource.particip-list.xlsx");
-       
-            // var templateBook = new XLWorkbook(tempalteFilePath);
-            var templateBook = new XLWorkbook(stream);
-            var templateSheet = templateBook.Worksheets.First();
-            templateSheet.Cell("C1").Value = rsurReportModel.ReportCreatedDate;
-            templateSheet.Cell("C2").Value = rsurReportModel.ReportName;
+                int rowNumber = 5;
+                foreach (var info in rsurReportModel.RsurParticipFullInfos)
+                {
+                    templateSheet.Cell(rowNumber, 2).Value = info.ParticipCode;
+                    templateSheet.Cell(rowNumber, 3).Value = info.Surname;
+                    templateSheet.Cell(rowNumber, 4).Value = info.Name;
+                    templateSheet.Cell(rowNumber, 5).Value = info.SecondName;
+                    templateSheet.Cell(rowNumber, 6).Value = info.AreaName;
+                    templateSheet.Cell(rowNumber, 7).Value = info.SchoolIdWithName;
+                    templateSheet.Cell(rowNumber, 8).Value = info.SubjectName;
+                    templateSheet.Cell(rowNumber, 9).Value = info.CategName;
+                    templateSheet.Cell(rowNumber, 10).Value = info.Experience;
+                    templateSheet.Cell(rowNumber, 11).Value = info.Phone;
+                    templateSheet.Cell(rowNumber, 12).Value = info.Email;
+                    templateSheet.Cell(rowNumber, 13).Value = info.Birthday?.ToShortDateString();
+                    templateSheet.Cell(rowNumber, 14).Value = info.ClassNumbers;
 
-            int rowNumber = 5;
-            foreach (var info in rsurReportModel.RsurParticipFullInfos)
-            {
-                templateSheet.Cell(rowNumber, 2).Value = info.ParticipCode;
-                templateSheet.Cell(rowNumber, 3).Value = info.Surname;
-                templateSheet.Cell(rowNumber, 4).Value = info.Name;
-                templateSheet.Cell(rowNumber, 5).Value = info.SecondName;
-                templateSheet.Cell(rowNumber, 6).Value = info.AreaName;
-                templateSheet.Cell(rowNumber, 7).Value = info.SchoolIdWithName;
-                templateSheet.Cell(rowNumber, 8).Value = info.SubjectName;
-                templateSheet.Cell(rowNumber, 9).Value = info.CategName;
-                templateSheet.Cell(rowNumber, 10).Value = info.Experience;
-                templateSheet.Cell(rowNumber, 11).Value = info.Phone;
-                templateSheet.Cell(rowNumber, 12).Value = info.Email;
-                templateSheet.Cell(rowNumber, 13).Value = info.Birthday?.ToShortDateString();
-                templateSheet.Cell(rowNumber, 14).Value = info.ClassNumbers;
+                    rowNumber++;                                        
+                }
+                
+                var memoryStream = new MemoryStream();
+                templateBook.SaveAs(memoryStream);
+                memoryStream.Position = 0;
 
-                rowNumber++;
+                return memoryStream;
             }
-
-            var memoryStream = new MemoryStream();
-
-            templateBook.SaveAs(memoryStream);
-            memoryStream.Position = 0;
-            return memoryStream;
         }
 
         public Task<Stream> GetStream(int? areaCode, string schoolId = null)
