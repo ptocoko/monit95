@@ -46,8 +46,9 @@ namespace Monit95App.Util
             builder.RegisterType<RsurParticipViewer>().As<IRsurParticipViewer>();
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<RsurReportModelXlsxConverter>().As<IRsurReportModelConverter>();
-
+            builder.RegisterType<SchoolInfoEditService>().As<ISchoolInfoEditService>();
             builder.RegisterType<ApplicationDbContext>();
+            //
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

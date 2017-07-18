@@ -1,6 +1,6 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Business.Interfaces;
+using Monit95App.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.Business
+namespace Monit95App.Services
 {
     public class SchoolInfoEditService : ISchoolInfoEditService
     {

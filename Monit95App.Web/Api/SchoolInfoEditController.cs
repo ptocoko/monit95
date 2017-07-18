@@ -1,4 +1,4 @@
-﻿using Monit95App.Infrastructure.Business.Interfaces;
+﻿using Monit95App.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
