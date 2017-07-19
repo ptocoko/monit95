@@ -36,7 +36,9 @@ namespace Monit95App.Web.Tests
             //Assert
             Assert.IsNotNull(httpResponseMessage);
             Assert.AreEqual("simple", contentAsString);
+            //Assert.Fail();
             mockUserService.Verify(x => x.GetModel(It.IsAny<string>()));
+            
         }
     }
 }
