@@ -51,7 +51,7 @@ namespace Monit95App.Services
             return rsurReportModel;
         }
 
-        #warning close stream
+        #warning multithreading
         public Stream Write(RsurReportModel rsurReportModel)
         {
             if (rsurReportModel == null)
@@ -82,12 +82,16 @@ namespace Monit95App.Services
                     templateSheet.Cell(rowNumber, 13).Value = info.Birthday?.ToShortDateString();
                     templateSheet.Cell(rowNumber, 14).Value = info.ClassNumbers;
 
-                    rowNumber++;                                        
+                    rowNumber++;
+                    //}
+
+
+
+
                 }
-                
-                var memoryStream = new MemoryStream();
+
+                var memoryStream = new MemoryStream();                
                 templateBook.SaveAs(memoryStream);
-                memoryStream.Position = 0;
 
                 return memoryStream;
             }
