@@ -22,6 +22,12 @@ namespace Monit95App.Services
 
         #region Public methods
 
+        public ExerciseMarkService(IUnitOfWork unitOfWork, IGenericRepository<ExerciseMark> exerciseMarkRep)                                 
+        {
+            _unitOfWork = unitOfWork;
+            _exerciseMarkRepository = exerciseMarkRep;            
+        }
+
         public ExerciseMarkService(IUnitOfWork unitOfWork, 
                                    IGenericRepository<ExerciseMark> exerciseMarkRep, 
                                    IGenericRepository<Test> testRep)
@@ -31,6 +37,7 @@ namespace Monit95App.Services
             _testRepository = testRep;
         }
 
+        #warning what about validate properties of model?
         public Task<ExerciseMarkModel> AddAsync(ExerciseMarkModel model)
         {
             return Task.Run(() =>
