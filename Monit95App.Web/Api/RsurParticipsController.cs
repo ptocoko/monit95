@@ -16,18 +16,32 @@ using WebApi.OutputCache.V2;
 
 namespace Monit95App.Api
 {    
-    [Authorize]
+    //[Authorize]
+    [RoutePrefix("api/RsurParticips")]
     public class RsurParticipsController : ApiController
     {
+        #region Fileds
+
         private readonly IRsurParticipService _rsurParticipService;
 
+        #endregion
         public RsurParticipsController(IRsurParticipService rsurParticipService)
         {
             _rsurParticipService = rsurParticipService;
-        }       
+        }
+
+        #region Api
+
+        [HttpPatch]
+        [Route("{participCode}")]
+        public async Task<HttpResponseMessage> Patch([FromBody]RsurParticipBaseInfo model)
+        {
+            model
+            return new HttpResponseMessage();
+        }
 
         [HttpGet]
-        [Route("api/rsurParticips/{participCode}")]
+        [Route("{participCode}")]
         public async Task<HttpResponseMessage> Get(string participCode)
         {
             if (participCode == null)
@@ -42,8 +56,8 @@ namespace Monit95App.Api
         }
 
         [CacheOutput(ClientTimeSpan = 100)]
-        [HttpGet]
-        [Route("api/rsurParticips")]
+        [HttpGet]            
+        [Route("")]
         public async Task<HttpResponseMessage> Get()
         {
             var _dbContext = new ApplicationDbContext();
@@ -88,6 +102,8 @@ namespace Monit95App.Api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти результаты");
             else
                 return Request.CreateResponse(HttpStatusCode.OK, results);
-        }     
+        }
+
+        #endregion
     }
 }
