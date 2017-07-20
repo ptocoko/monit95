@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.JsonPatch;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
@@ -33,10 +34,10 @@ namespace Monit95App.Api
         #region Api
 
         [HttpPatch]
-        [Route("{participCode}")]
-        public async Task<HttpResponseMessage> Patch([FromBody]RsurParticipBaseInfo model)
+        [Route("{ParticipCode}")]
+        public async Task<HttpResponseMessage> Patch([FromBody] JsonPatchDocument<RsurParticipBaseInfo> baseInfo)
         {
-            model
+            //model.App
             return new HttpResponseMessage();
         }
 
