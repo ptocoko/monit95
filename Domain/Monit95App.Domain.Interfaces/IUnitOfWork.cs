@@ -10,6 +10,6 @@ namespace Monit95App.Domain.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         cokoContext DbContext { get; }
-        int Save();
+        int Save();        
     }
 }
