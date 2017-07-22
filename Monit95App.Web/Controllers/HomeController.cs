@@ -6,15 +6,16 @@ using System;
 using System.Web.UI;
 using Monit95App.Domain.Core;
 using Monit95App.Web;
-using Monit95App.Web.Models;
 using Monit95App.Models;
+using Monit95App.Services.School;
 
 namespace Monit95App.Controllers
 {
     //Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
-        private readonly cokoContext _context = new cokoContext();             
+        private readonly cokoContext _context = new cokoContext();
+        private readonly ISchoolService _schoolService;
 
         public HomeController()
         {
@@ -66,9 +67,9 @@ namespace Monit95App.Controllers
 
         [Authorize(Roles = "coko")]
         public ActionResult GetSchoolinfoPV(string schoolId)
-        {
+        {            
             var currentSchool = _context.Schools.Find(schoolId);
-            var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
+            var vm =  _schoolService.GetModel(schoolId);
             return PartialView("_Schoolinfo", vm);
         }
 
@@ -76,7 +77,7 @@ namespace Monit95App.Controllers
         public ActionResult Schoolinfo()
         {                                       
             var currentSchool = _context.Schools.Find(User.Identity.Name);
-            var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
+            var vm = _schoolService.GetModel(currentSchool.Id);
             return View(vm);
         }
 

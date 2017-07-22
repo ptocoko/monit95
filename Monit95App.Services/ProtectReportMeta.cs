@@ -11,8 +11,8 @@ namespace Monit95App.Services
     public class ProtectReportMeta : ITypeReport
     {
         private cokoContext context = new cokoContext();
-        private School school;
-        public ProtectReportMeta(School school)
+        private Domain.Core.School school;
+        public ProtectReportMeta(Domain.Core.School school)
         {
             this.school = school;
         }

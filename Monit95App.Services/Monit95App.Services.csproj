@@ -111,6 +111,9 @@
     <Compile Include="SchoolInfoEditService.cs" />
     <Compile Include="SchoolReportFileNameOffline.cs" />
     <Compile Include="SchoolRepository.cs" />
+    <Compile Include="School\ISchoolService.cs" />
+    <Compile Include="School\SchoolModel.cs" />
+    <Compile Include="School\SchoolService.cs" />
     <Compile Include="TestResultService.cs" />
     <Compile Include="TestResultV2Dto.cs" />
     <Compile Include="TestResultV2Service.cs" />

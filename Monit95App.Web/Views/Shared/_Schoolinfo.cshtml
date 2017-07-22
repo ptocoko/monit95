@@ -1,4 +1,4 @@
-﻿@model Monit95App.Web.Models.SchoolModel
+﻿@model Monit95App.Services.School.SchoolModel
 <style>
     .glyphicon{
         font-size: 16px;
@@ -17,7 +17,7 @@
             @Model.Name
         </div>
         <input size="30" id="NameInput" style="display:none" type="text" value="@Model.Name"  class="form-control"/>
-        @if (Model.NameHasCorrection)
+        @if (Model.HasNameCorrection)
         {
         <span style="color:gray" title="Коррекция обрабатывается..." class="glyphicon glyphicon-refresh"></span>
         }
@@ -63,18 +63,18 @@
         <a id="saveEmail" class="glyphicon glyphicon-ok" style="display:none;color:limegreen"></a>
         <a id="cancelEmail" class="glyphicon glyphicon-remove" style="display:none;color:red"></a>
     </div>
-    @if (Model.GIAcode != 0)
+    @if (Model.GiaCode != 0)
     {
-        @Html.LabelFor(x => x.GIAcode, new { @class = "control-label col-md-3" });
+        @Html.LabelFor(x => x.GiaCode, new { @class = "control-label col-md-3" });
         <div class="form-control-static">
-            @Model.GIAcode
+            @Model.GiaCode
         </div>
     }
-    @if (!Model.VPRcode.IsEmpty())
+    @if (!Model.VprCode.IsEmpty())
     {
-        @Html.LabelFor(x => x.VPRcode, new { @class = "control-label col-md-3" });
+        @Html.LabelFor(x => x.VprCode, new { @class = "control-label col-md-3" });
         <div class="form-control-static">
-            @Model.VPRcode
+            @Model.VprCode
         </div>
     }
     <script src="~/Scripts/schoolInfoEdit/school-info.edit.js"></script>

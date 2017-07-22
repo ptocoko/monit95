@@ -12,10 +12,10 @@ namespace Monit95App.Services
 {
     public class SchoolInfoEditService : ISchoolInfoEditService
     {
-        private IGenericRepository<School> _schoolRepository;
+        private IGenericRepository<Domain.Core.School> _schoolRepository;
         private IGenericRepository<SchoolsEdit> _schoolEditRepository;
         private IUnitOfWork _unitOfWork;
-        public SchoolInfoEditService(IGenericRepository<School> schoolRepository, IGenericRepository<SchoolsEdit> schoolEditRepository, IUnitOfWork unitOfWork)
+        public SchoolInfoEditService(IGenericRepository<Domain.Core.School> schoolRepository, IGenericRepository<SchoolsEdit> schoolEditRepository, IUnitOfWork unitOfWork)
         {
             _schoolRepository = schoolRepository;
             _schoolEditRepository = schoolEditRepository;
@@ -58,7 +58,7 @@ namespace Monit95App.Services
             return true;
         }
 
-        public bool UpdateField(Action<School> setProperty, string schoolId)
+        public bool UpdateField(Action<Domain.Core.School> setProperty, string schoolId)
         {
             var school = _schoolRepository.GetAll().SingleOrDefault(p => p.Id == schoolId);
             if (school == null)

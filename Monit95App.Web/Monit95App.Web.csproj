@@ -54,6 +54,9 @@
     <Reference Include="Autofac.Integration.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="DelegateDecompiler, Version=0.9.1.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
       <HintPath>..\packages\DelegateDecompiler.0.9.1.0\lib\net40-Client\DelegateDecompiler.dll</HintPath>
       <Private>True</Private>
@@ -273,7 +276,7 @@
     <Compile Include="Api\RsurParticipsController.cs" />
     <Compile Include="Api\RsurParticipEditController.cs" />
     <Compile Include="Api\ParticipController.cs" />
-    <Compile Include="Api\SchoolController.cs" />
+    <Compile Include="Api\SchoolsController.cs" />
     <Compile Include="Api\AccountController.cs" />
     <Compile Include="Api\SchoolInfoEditController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -295,8 +298,6 @@
     <Compile Include="Models\CorrectionModelCreator.cs" />
     <Compile Include="Models\CorrectionModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\SchoolModel.cs" />
-    <Compile Include="Models\SchoolModelCreator.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Util\AutofacConfig.cs" />

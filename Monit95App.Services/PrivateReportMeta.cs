@@ -11,11 +11,11 @@ namespace Monit95App.Services
 {
     public class PrivateReportMeta : ITypeReport
     {
-        private readonly School school;
+        private readonly Domain.Core.School school;
         private readonly ISchoolReportFileNameSource iFileNames;
 
         private cokoContext context = new cokoContext();
-        public PrivateReportMeta(School school, ISchoolReportFileNameSource iFileNames)
+        public PrivateReportMeta(Domain.Core.School school, ISchoolReportFileNameSource iFileNames)
         {
             this.school = school;
             this.iFileNames = iFileNames;

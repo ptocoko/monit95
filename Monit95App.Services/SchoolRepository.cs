@@ -8,7 +8,7 @@ using Monit95App.Domain.Core;
 
 namespace Monit95App.Services
 {
-    public class SchoolRepository : IRepository<School>
+    public class SchoolRepository : IRepository<Domain.Core.School>
     {
         private cokoContext db;
         public SchoolRepository(cokoContext db)
@@ -16,7 +16,7 @@ namespace Monit95App.Services
             this.db = db;
         }
 
-        public void Add(School item)
+        public void Add(Domain.Core.School item)
         {
             db.Schools.Add(item);
         }
@@ -35,24 +35,24 @@ namespace Monit95App.Services
             }
         }
 
-        public School Get(string id)
+        public Domain.Core.School Get(string id)
         {
             var all = db.Schools.ToList();            
             return db.Schools.Find(id);
         }
-        public IEnumerable<School> GetAll()
+        public IEnumerable<Domain.Core.School> GetAll()
         {
             var all = db.Schools.ToList();
             return db.Schools.ToList();
         }
 
         //TODO: адаптер вместо отдельного метода GetAreaAll
-        public IEnumerable<School> GetAreaAll(int areaCode)
+        public IEnumerable<Domain.Core.School> GetAreaAll(int areaCode)
         {
             return db.Schools.Where(x => x.AreaCode == areaCode);
         }
 
-        public void Update(School item)
+        public void Update(Domain.Core.School item)
         {
             throw new NotImplementedException();
         }

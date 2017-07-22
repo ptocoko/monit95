@@ -13,7 +13,7 @@ namespace Monit95App.Services
     {
         private readonly cokoContext cokoDb = new cokoContext();                
              
-        public static IEnumerable<ReportMeta> GetReportMetasBySchool(School school, ISchoolReportFileNameSource iFileNames)
+        public static IEnumerable<ReportMeta> GetReportMetasBySchool(Domain.Core.School school, ISchoolReportFileNameSource iFileNames)
         {
             //TODO: здесь надо сделать Dependency Injection
             ITypeReport privateReportMeta = new PrivateReportMeta(school, iFileNames);

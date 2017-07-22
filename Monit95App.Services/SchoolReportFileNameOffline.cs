@@ -8,7 +8,7 @@ namespace Monit95App.Services
 {
     public class SchoolReportFileNameOffline : ISchoolReportFileNameSource
     {
-        public IEnumerable<string> GetFileNames(School school)
+        public IEnumerable<string> GetFileNames(Domain.Core.School school)
         {
             var fileNames = Directory.GetFiles($@"\\192.168.88.254\Reports\{school.Id}")
                                      .Select(x => Path.GetFileName(x));            

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Monit95App.Web.Models
+namespace Monit95App.Services.School
 {
     public class SchoolModel
     {
@@ -28,11 +24,11 @@ namespace Monit95App.Web.Models
         public string Phone { get; set; }
 
         [Display(Name = "Код ГИА:")]
-        public int? GIAcode { get; set; }      
+        public int? GiaCode { get; set; }      
 
         [Display(Name = "Логин на СтатГрад (www.statgrad.org):")]
-        public string VPRcode { get; set; }
+        public string VprCode { get; set; }
 
-        public bool NameHasCorrection { get; set; }
+        public bool HasNameCorrection { get; set; }
     }
 }

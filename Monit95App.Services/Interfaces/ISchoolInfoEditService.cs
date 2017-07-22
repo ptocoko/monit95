@@ -11,6 +11,6 @@ namespace Monit95App.Services.Interfaces
     {
         bool AddNameCorrection(string name, string schoolId);
         bool DeleteNameCorrection(string schoolId);
-        bool UpdateField(Action<School> setProperty, string schoolId);
+        bool UpdateField(Action<Domain.Core.School> setProperty, string schoolId);
     }
 }
