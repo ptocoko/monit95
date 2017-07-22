@@ -8,9 +8,7 @@ using Monit95App.Domain.Core;
 namespace Monit95App.Services.Models.Rsur
 {
     public class RsurParticipBaseInfo : RsurParticipInfo
-    {
-        public RsurParticipBaseInfo() { }
-
+    {        
         public RsurParticipBaseInfo(ProjectParticip entity) : base(entity) { }
 
         protected override void FillAdditionalInfo(ProjectParticip entity) { }

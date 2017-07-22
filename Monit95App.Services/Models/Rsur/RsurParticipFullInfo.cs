@@ -9,13 +9,11 @@ namespace Monit95App.Services.Models.Rsur
 {
     public class RsurParticipFullInfo : RsurParticipInfo
     {        
-        public string AreaName { get; set; }
-
-        public RsurParticipFullInfo() { }
+        public string AreaName { get; set; }        
 
         public RsurParticipFullInfo(ProjectParticip entity) : base(entity)
         {
-            FillAdditionalInfo(entity);
+            //TemplateMethod(entity);
         }
 
         protected override void FillAdditionalInfo(ProjectParticip entity)

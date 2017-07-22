@@ -46,14 +46,23 @@ namespace Monit95App.Services.Models.Rsur
 
         #endregion
 
-        public RsurParticipInfo() { }
+        protected RsurParticipInfo(ProjectParticip entity)
+        {
+            TemplateMethod(entity);
+        }
 
-        public RsurParticipInfo(ProjectParticip entity)
+        private void TemplateMethod(ProjectParticip entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", "RsurParticipInfo.FillBaseInfo(ProjectParticip entity)");
+                throw new ArgumentNullException(nameof(entity), "RsurParticipInfo.FillBaseInfo(ProjectParticip entity)");
             }
+            FillBaseInfo(entity);
+            FillAdditionalInfo(entity);
+        }
+
+        private void FillBaseInfo(ProjectParticip entity)
+        {           
             ProjectCode = entity.ProjectCode;
             ParticipCode = entity.ParticipCode;
             Surname = entity.Surname;
@@ -61,7 +70,7 @@ namespace Monit95App.Services.Models.Rsur
             SecondName = entity.SecondName;
             SubjectName = entity.NsurSubject.Name;
             SchoolIdWithName = $"{entity.School.Id} - {entity.School.Name.Trim()}";
-            CategName = entity.Category != null ? entity.Category.Name : "";
+            CategName = entity.Category?.Name;
             Experience = entity.Experience ?? -1;
             Phone = entity.Phone ?? "";
             Email = entity.Email ?? "";
@@ -69,12 +78,10 @@ namespace Monit95App.Services.Models.Rsur
             ClassNumbers = entity.ClassNumbers;
 
             #warning refactoring
-            var _db = new cokoContext();
-            HasRequestToEdit = _db.ProjectParticipsEdits.SingleOrDefault(p => p.ParticipCode == entity.ParticipCode) != null ? true : false;
-
-            FillAdditionalInfo(entity);
-        }
-
+            var db = new cokoContext();
+            HasRequestToEdit = db.ProjectParticipsEdits.SingleOrDefault(p => p.ParticipCode == entity.ParticipCode) != null;
+        }        
+   
         protected abstract void FillAdditionalInfo(ProjectParticip entity);
     }
 }

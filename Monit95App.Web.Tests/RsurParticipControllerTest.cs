@@ -46,8 +46,8 @@ namespace Monit95App.Web.Tests
                 Request = new HttpRequestMessage()
             };
             controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-
-            var model = new RsurParticipBaseInfo
+            
+            var model = new RsurParticipBaseInfo(new ProjectParticip())
             {
                 ProjectCode = 201661,
                 ParticipCode = "2016-100-004",
