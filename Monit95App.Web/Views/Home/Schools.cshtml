@@ -62,7 +62,7 @@
             }
         })
         $.ajax({
-            url: "/Home/GetSchoolinfoPV?schoolId=" + schoolId,
+            url: "/Home/GetSchoolinfoPv?schoolId=" + schoolId,
             type: "GET",
             success: function (data) {
                 $("#tabs-2").html(data);

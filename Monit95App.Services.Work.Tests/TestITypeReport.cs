@@ -14,14 +14,14 @@ namespace Monit95App.Domain.Work.Tests
     [TestClass]
     public class TestITypeReport
     {
-        private string[] fileNames = new[] { "0024_201620.rar", "0024_201621.rar", "0024_201629.zip" };
+        private readonly string[] _fileNames = { "0024_201620.rar", "0024_201621.rar", "0024_201629.zip" };       
         [TestMethod]
         public void TestGetReportMetasBySchool()
         {
             // Arrange
             var school = new School() { Id = "0024" };            
             var mockFileName = new Mock<ISchoolReportFileNameSource>();
-            mockFileName.Setup(m => m.GetFileNames(It.IsAny<School>())).Returns(fileNames);
+            mockFileName.Setup(m => m.GetFileNames(It.IsAny<School>())).Returns(_fileNames);
 
             var schoolReportMetas = ReportMetaHandler.GetReportMetasBySchool(school, mockFileName.Object).ToList();
 
@@ -79,7 +79,7 @@ namespace Monit95App.Domain.Work.Tests
         {
             // Arrange                        
             var mockSchoolReportFileNames = new Mock<ISchoolReportFileNameSource>();            
-            mockSchoolReportFileNames.Setup(foo => foo.GetFileNames(It.IsAny<School>())).Returns(fileNames);
+            mockSchoolReportFileNames.Setup(foo => foo.GetFileNames(It.IsAny<School>())).Returns(_fileNames);
 
             // Act
             PrivateReportMeta privateReportMeta = new PrivateReportMeta(new School(), mockSchoolReportFileNames.Object);

@@ -17,7 +17,7 @@ var ParticipCorrectionComponent = (function () {
         this._participCorrectionService = _participCorrectionService;
         this._participService = _participService;
         this.participCorrections = [];
-        this.statusText = '';
+        this.statusText = "";
     }
     ParticipCorrectionComponent.prototype.ngOnInit = function () {
         this.getCorrections();
@@ -26,7 +26,7 @@ var ParticipCorrectionComponent = (function () {
         var _this = this;
         this._participCorrectionService.getCorrections().subscribe(function (participsCorrections) { return _this.participCorrections = participsCorrections; }, function (error) { throw error; }, function () {
             if (_this.participCorrections.length === 0)
-                _this.statusText = 'Запросов на корректировку данных нет!';
+                _this.statusText = "Запросов на корректировку данных нет!";
         });
     };
     ;
@@ -56,8 +56,8 @@ var ParticipCorrectionComponent = (function () {
 }());
 ParticipCorrectionComponent = __decorate([
     core_1.Component({
-        selector: 'particip-correction',
-        templateUrl: './app/particips/correction/particip-correction.html',
+        selector: "particip-correction",
+        templateUrl: "./app/particips/correction/particip-correction.html",
         providers: [particip_correction_service_1.ParticipCorrectionService]
     }),
     __metadata("design:paramtypes", [particip_correction_service_1.ParticipCorrectionService, particip_service_1.ParticipService])

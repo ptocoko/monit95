@@ -3,9 +3,7 @@ using Monit95App.ViewModels.Home;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using System.Web.UI;
 using Monit95App.Domain.Core;
-using Monit95App.Web;
 using Monit95App.Web.Models;
 using Monit95App.Models;
 
@@ -16,10 +14,10 @@ namespace Monit95App.Controllers
     {
         private readonly cokoContext _context = new cokoContext();             
 
-        public HomeController()
-        {
+        //public HomeController()
+        //{
      
-        }
+        //}
 
         [Authorize(Roles = "coko")]
         public ActionResult Corrections()
@@ -65,7 +63,7 @@ namespace Monit95App.Controllers
         }
 
         [Authorize(Roles = "coko")]
-        public ActionResult GetSchoolinfoPV(string schoolId)
+        public ActionResult GetSchoolinfoPv(string schoolId)
         {
             var currentSchool = _context.Schools.Find(schoolId);
             var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
@@ -86,9 +84,9 @@ namespace Monit95App.Controllers
             if (Session["footer"] == null)
                 Session["footer"] = _context.Schools.Find(User.Identity.Name);
 
-            School school = (School)Session["footer"];
+            var school = (School)Session["footer"];
 
-            string userInfo = $@"{school.AreaCode}-{school.Id} {school.Name}";
+            var userInfo = $@"{school?.AreaCode}-{school?.Id} {school?.Name}";
 
             var vm = new FooterVM(userInfo);
 
@@ -97,18 +95,13 @@ namespace Monit95App.Controllers
 
         public ActionResult Index()
         {
-            if (!Request.IsAuthenticated)
-            {
-                return View("Index", "~/Views/Shared/_GuestLayout.cshtml");
-            }
-            
-            return View();
+            return !Request.IsAuthenticated ? View("Index", "~/Views/Shared/_GuestLayout.cshtml") : View();
         }                                   
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-           return View();
+            return View();
         }
 
         public ActionResult Contact()
