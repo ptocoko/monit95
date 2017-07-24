@@ -7,6 +7,7 @@ namespace Monit95App.Services.School
         [Display(Name = "Логин на сайте www.monit95.ru:")]
         public string Id { get; set; }
 
+        [Required]
         [Display(Name = "Краткое наименование:")]
         public string Name { get; set; }       
 
@@ -16,10 +17,13 @@ namespace Monit95App.Services.School
         [Display(Name = "Тип населенного пункта:")]
         public string TownTypeName { get; set; }
         
+        [Required]
         [Display(Name = "Email:")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        #warning отображение телефона
+        [Required]
         [Display(Name = "Телефон:")]
         public string Phone { get; set; }
 

@@ -10,7 +10,7 @@ namespace Monit95App.Infrastructure.Data
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected cokoContext Context;
+        protected readonly cokoContext Context;
 
         public GenericRepository(IUnitOfWork unitOfWork)
         {
@@ -51,6 +51,21 @@ namespace Monit95App.Infrastructure.Data
                 throw new ArgumentException("Объект с таким первичным ключем не найден в базе данных для удаления");
             }
             Context.Set<T>().Remove(entity);
-        }       
+        }
+
+        public void Delete(string id)
+        {
+            var entity = Context.Set<T>().Find(id);
+            if (entity == null)
+            {
+                throw new ArgumentException("Объект с таким первичным ключем не найден в базе данных для удаления");
+            }
+            Context.Set<T>().Remove(entity);
+        }
+
+        public virtual void Save()
+        {
+            Context.SaveChanges();
+        }
     }
 }

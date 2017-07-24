@@ -14,5 +14,7 @@ namespace Monit95App.Domain.Interfaces
         void Insert(T entity);
         void Update(T entity);
         void Delete(int id);
+        void Delete(string id);
+        void Save();
     }
 }

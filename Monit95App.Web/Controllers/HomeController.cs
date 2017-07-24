@@ -14,12 +14,21 @@ namespace Monit95App.Controllers
     //Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
+        #region Fields
+
         private readonly cokoContext _context = new cokoContext();
         private readonly ISchoolService _schoolService;
 
+        #endregion
+
+        public HomeController(ISchoolService schoolService)
+        {
+            _schoolService = schoolService;
+        }
+
         public HomeController()
         {
-     
+            
         }
 
         [Authorize(Roles = "coko")]

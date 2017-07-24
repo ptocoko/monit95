@@ -36,6 +36,31 @@ namespace Monit95App.Services.School
             return model;
         }
 
+        public void Update(string schoolId, SchoolModel model, bool isAdmin)
+        {
+            if (schoolId == null || model == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var entity = _schoolRepository.GetById(schoolId);
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(schoolId));
+            }
+            
+            Mapper.Initialize(cfg => cfg.CreateMap<SchoolModel, Domain.Core.School>()
+                        .ForMember(property => property.Name, opt => opt.Ignore())); //property Name set manually
+            entity = Mapper.Map(model, entity);
+
+            if (isAdmin)
+            {
+                product.CategoryName = dto.CategoryName;
+            }
+
+
+        }
+
         private bool CheckHasNameCorrection(string schoolId)
         {
             var nameEditCorrection = _schoolEditRepository.GetById(schoolId);

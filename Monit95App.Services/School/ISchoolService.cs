@@ -9,5 +9,6 @@ namespace Monit95App.Services.School
     public interface ISchoolService
     {
         SchoolModel GetModel(string id);
+        void Update(string schoolId, SchoolModel model, bool isAdmin);
     }
 }

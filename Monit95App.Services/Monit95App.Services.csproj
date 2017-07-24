@@ -64,7 +64,7 @@
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
     <Compile Include="Interfaces\IParticipService.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
-    <Compile Include="Interfaces\ISchoolInfoEditService.cs" />
+    <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
     <Compile Include="Interfaces\ITestResultService.cs" />
     <Compile Include="Interfaces\ITestResultV2Service.cs" />
@@ -108,9 +108,9 @@
     <Compile Include="RsurParticipService.cs" />
     <Compile Include="RsurParticipViewer.cs" />
     <Compile Include="RsurReportModelXlsxConverter.cs" />
-    <Compile Include="SchoolInfoEditService.cs" />
-    <Compile Include="SchoolReportFileNameOffline.cs" />
-    <Compile Include="SchoolRepository.cs" />
+    <Compile Include="School\SchoolEditService.cs" />
+    <Compile Include="School\SchoolReportFileNameOffline.cs" />
+    <Compile Include="School\SchoolRepository.cs" />
     <Compile Include="School\ISchoolService.cs" />
     <Compile Include="School\SchoolModel.cs" />
     <Compile Include="School\SchoolService.cs" />

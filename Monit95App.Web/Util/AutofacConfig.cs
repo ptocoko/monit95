@@ -18,6 +18,7 @@ using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using Monit95App.Service.Interfaces;
 using Monit95App.Services.Interfaces.Rsur;
+using Monit95App.Services.School;
 
 namespace Monit95App.Util
 {
@@ -46,7 +47,8 @@ namespace Monit95App.Util
             builder.RegisterType<RsurParticipViewer>().As<IRsurParticipViewer>();
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<RsurReportModelXlsxConverter>().As<IRsurReportModelConverter>();
-            builder.RegisterType<SchoolInfoEditService>().As<ISchoolInfoEditService>();
+            builder.RegisterType<SchoolEditService>().As<ISchoolEditService>();
+            builder.RegisterType<SchoolService>().As<ISchoolService>();
             builder.RegisterType<ApplicationDbContext>();
             //
 

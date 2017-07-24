@@ -278,7 +278,7 @@
     <Compile Include="Api\ParticipController.cs" />
     <Compile Include="Api\SchoolsController.cs" />
     <Compile Include="Api\AccountController.cs" />
-    <Compile Include="Api\SchoolInfoEditController.cs" />
+    <Compile Include="Api\SchoolEditsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
