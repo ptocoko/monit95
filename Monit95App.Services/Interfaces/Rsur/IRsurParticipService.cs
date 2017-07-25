@@ -15,5 +15,7 @@ namespace Monit95App.Services.Interfaces.Rsur
         bool Update(RsurParticipBaseInfo model);
         void Add(RsurParticipBaseInfo model);
         IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode);
+
+        Task<IEnumerable<RsurParticipBaseInfo>> GetTask(int? areaCode, string schoolId);
     }
 }

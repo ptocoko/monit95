@@ -13,22 +13,26 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Monit95App.Web.Services;
 using WebApi.OutputCache.V2;
 
 namespace Monit95App.Api
 {    
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/RsurParticips")]
     public class RsurParticipsController : ApiController
     {
         #region Fileds
 
         private readonly IRsurParticipService _rsurParticipService;
+        private readonly IUserService _userService;
 
         #endregion
-        public RsurParticipsController(IRsurParticipService rsurParticipService)
+        public RsurParticipsController(IRsurParticipService rsurParticipService,
+                                       IUserService userService)
         {
             _rsurParticipService = rsurParticipService;
+            _userService = userService;
         }
 
         #region Api
@@ -56,22 +60,30 @@ namespace Monit95App.Api
                 return Request.CreateResponse(HttpStatusCode.OK, resultModel);
         }
 
-        [CacheOutput(ClientTimeSpan = 100)]
-        [HttpGet]            
+        [HttpGet]
         [Route("")]
-        public async Task<HttpResponseMessage> Get()
+        [CacheOutput(ClientTimeSpan = 100)]                            
+        public async Task<IHttpActionResult> GetAsync() //get all participates who access for authorized user
         {
-            var _dbContext = new ApplicationDbContext();
-            var user = _dbContext.Users.Find(User.Identity.GetUserId());
-            var userName = User.Identity.Name;
-            var userRoles = user.Roles.Select(x => x.Role.Name).Single();            
-            
-            var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
+            var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
+            var authorizedUserName = authorizedUserModel.UserName;
+            var authorizedUserRole = authorizedUserModel.UserRoleNames.Single();
 
-            if (models == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, models);
+            int? paramAreaCode = null;            
+            if (authorizedUserRole.Equals("area"))
+            {
+                paramAreaCode = Convert.ToInt32(authorizedUserName);
+            }
+
+            string paramSchoolId = null;
+            if (authorizedUserRole.Equals("school"))
+            {
+                paramSchoolId = authorizedUserName;
+            }
+            
+            var baseInfoList = await _rsurParticipService.GetTask(paramAreaCode, paramSchoolId);
+
+            return Ok(baseInfoList);
         }
 
         [HttpPut]
