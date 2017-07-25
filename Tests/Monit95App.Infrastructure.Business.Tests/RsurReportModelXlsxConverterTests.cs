@@ -7,6 +7,7 @@ using Monit95App.Services;
 using Monit95App.Services.Models.Rsur;
 using ClosedXML.Excel;
 using System.Linq;
+using Monit95App.Domain.Core;
 
 namespace Monit95App.Services.Tests
 {

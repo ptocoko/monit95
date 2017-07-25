@@ -1,17 +1,17 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { ParticipCorrection } from './particip-correction';
+import { ParticipCorrection } from "./particip-correction";
 
-import { ParticipCorrectionService } from './particip-correction.service';
+import { ParticipCorrectionService } from "./particip-correction.service";
 import { ParticipService } from "../particip.service";
 
 @Component({
-    selector: 'particip-correction',
-    templateUrl: './app/particips/correction/particip-correction.html',
+    selector: "particip-correction",
+    templateUrl: "./app/particips/correction/particip-correction.html",
     providers: [ParticipCorrectionService]
 })
 export class ParticipCorrectionComponent implements OnInit {
 	participCorrections: ParticipCorrection[] = [];
-	statusText: string = '';
+	statusText = "";
 
     constructor(private _participCorrectionService: ParticipCorrectionService, private _participService: ParticipService) { }
 
@@ -22,7 +22,7 @@ export class ParticipCorrectionComponent implements OnInit {
     getCorrections(): void {
 		this._participCorrectionService.getCorrections().subscribe(participsCorrections => this.participCorrections = participsCorrections, error => { throw error }, () => {
 			if (this.participCorrections.length === 0)
-				this.statusText = 'Запросов на корректировку данных нет!';
+				this.statusText = "Запросов на корректировку данных нет!";
 		});        
     };
 

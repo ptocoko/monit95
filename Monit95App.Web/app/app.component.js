@@ -21,15 +21,15 @@ var AppComponent = (function () {
         //this.userService.getName().subscribe(user => this.handler(user.userRoles));
     };
     AppComponent.prototype.handler = function (userRoles) {
-        this.isAreaRole = userRoles.indexOf('area') >= 0;
-        this.isCokoRole = userRoles.indexOf('coko') >= 0;
+        this.isAreaRole = userRoles.indexOf("area") >= 0;
+        this.isCokoRole = userRoles.indexOf("coko") >= 0;
     };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
-        selector: 'app-root',
-        templateUrl: './app/app.component.html'
+        selector: "app-root",
+        templateUrl: "./app/app.component.html"
     }),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], AppComponent);

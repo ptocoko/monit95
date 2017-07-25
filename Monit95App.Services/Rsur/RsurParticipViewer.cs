@@ -19,9 +19,10 @@ namespace Monit95App.Services
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", "RsurParticipViewer.CreateModel(ProjectParticip entity)");
+                throw new ArgumentNullException(nameof(entity), "RsurParticipViewer.CreateModel(ProjectParticip entity)");
             }
-            var rsurParticipBaseInfo = new RsurParticipBaseInfo(entity);
+            var rsurParticipBaseInfo = new RsurParticipBaseInfo();
+            rsurParticipBaseInfo.TemplateMethod(entity);
                                    
             return rsurParticipBaseInfo;
         }

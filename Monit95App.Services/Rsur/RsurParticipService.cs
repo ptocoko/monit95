@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,29 +82,17 @@ namespace Monit95App.Services
             //return newParticipCode;
         }
 
-        public bool Update(RsurParticipBaseInfo model)
-        {
-            var entity = _rsurParticipRepository.GetAll().SingleOrDefault(x => x.ParticipCode == model.ParticipCode);
-            if (entity == null)
-                return false;
-
-            entity.Surname = model.Surname;
-            entity.Name = model.Name;
-            entity.SecondName = model.SecondName;
-            entity.Birthday = model.Birthday;
-            entity.ClassNumbers = model.ClassNumbers;
-
-            try
+        public void Update(RsurParticipBaseInfo model)
+        {            
+            if(model == null)
             {
-                _unitOfWork.Save();
+                throw new ArgumentNullException(nameof(model));
             }
-            catch (RetryLimitExceededException)
-            {
-                return false;
-            }
-
-            return true;
+            
+            var validContext = new ValidationContext(model);
+            Validator.ValidateObject(model, validContext);            
         }
+
 
         public IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode)
         {

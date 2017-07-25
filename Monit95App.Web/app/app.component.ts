@@ -1,14 +1,14 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { UserService } from './user.service';
+﻿import { Component, OnInit } from "@angular/core";
+import { UserService } from "./user.service";
 import { UserModel } from "./user.model";
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app/app.component.html'
+    selector: "app-root",
+    templateUrl: "./app/app.component.html"
 })
 export class AppComponent implements OnInit {
-	isAreaRole: boolean = false;
-	isCokoRole: boolean = false;
+	isAreaRole = false;
+	isCokoRole = false;
 
     constructor(private userService: UserService) { }
 
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 	}
 
 	handler(userRoles: string[]) {
-		this.isAreaRole = userRoles.indexOf('area') >= 0;
-		this.isCokoRole = userRoles.indexOf('coko') >= 0;
+		this.isAreaRole = userRoles.indexOf("area") >= 0;
+		this.isCokoRole = userRoles.indexOf("coko") >= 0;
 	}
 }

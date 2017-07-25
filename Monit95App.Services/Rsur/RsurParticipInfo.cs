@@ -1,16 +1,14 @@
-﻿using Monit95App.Domain.Core;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Monit95App.Domain.Core;
 
-namespace Monit95App.Services.Models.Rsur
+namespace Monit95App.Services.Rsur
 {
     public abstract class RsurParticipInfo
     {
         #region Properties
+
         public int ProjectCode { get; set; }
 
         [Required]
@@ -44,16 +42,20 @@ namespace Monit95App.Services.Models.Rsur
 
         public bool HasRequestToEdit { get; set; }
 
-        #endregion
+        #endregion    
 
-        public RsurParticipInfo() { }
-
-        public RsurParticipInfo(ProjectParticip entity)
+        public void TemplateMethod(ProjectParticip entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", "RsurParticipInfo.FillBaseInfo(ProjectParticip entity)");
+                throw new ArgumentNullException(nameof(entity), "RsurParticipInfo.FillBaseInfo(ProjectParticip entity)");
             }
+            FillBaseInfo(entity);
+            FillAdditionalInfo(entity);
+        }
+
+        private void FillBaseInfo(ProjectParticip entity)
+        {           
             ProjectCode = entity.ProjectCode;
             ParticipCode = entity.ParticipCode;
             Surname = entity.Surname;
@@ -61,7 +63,7 @@ namespace Monit95App.Services.Models.Rsur
             SecondName = entity.SecondName;
             SubjectName = entity.NsurSubject.Name;
             SchoolIdWithName = $"{entity.School.Id} - {entity.School.Name.Trim()}";
-            CategName = entity.Category != null ? entity.Category.Name : "";
+            CategName = entity.Category?.Name;
             Experience = entity.Experience ?? -1;
             Phone = entity.Phone ?? "";
             Email = entity.Email ?? "";
@@ -69,12 +71,10 @@ namespace Monit95App.Services.Models.Rsur
             ClassNumbers = entity.ClassNumbers;
 
             #warning refactoring
-            var _db = new cokoContext();
-            HasRequestToEdit = _db.ProjectParticipsEdits.SingleOrDefault(p => p.ParticipCode == entity.ParticipCode) != null ? true : false;
-
-            FillAdditionalInfo(entity);
-        }
-
+            var db = new cokoContext();
+            HasRequestToEdit = db.ProjectParticipsEdits.SingleOrDefault(p => p.ParticipCode == entity.ParticipCode) != null;
+        }        
+   
         protected abstract void FillAdditionalInfo(ProjectParticip entity);
     }
 }

@@ -46,8 +46,8 @@ namespace Monit95App.Web.Tests
                 Request = new HttpRequestMessage()
             };
             controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-
-            var model = new RsurParticipBaseInfo
+            
+            var model = new RsurParticipBaseInfo()
             {
                 ProjectCode = 201661,
                 ParticipCode = "2016-100-004",
@@ -56,7 +56,7 @@ namespace Monit95App.Web.Tests
             };
 
             //Act
-            var message = await controller.PutParticip(model);
+            var message = controller.PutParticip(model);
             var entity = _uow.DbContext.ProjectParticips.Single(x => x.ParticipCode == "2016-100-004");
 
             //Assert
