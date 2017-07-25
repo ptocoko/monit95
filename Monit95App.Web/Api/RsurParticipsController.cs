@@ -17,7 +17,7 @@ using WebApi.OutputCache.V2;
 
 namespace Monit95App.Api
 {    
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/RsurParticips")]
     public class RsurParticipsController : ApiController
     {
@@ -56,17 +56,17 @@ namespace Monit95App.Api
                 return Request.CreateResponse(HttpStatusCode.OK, resultModel);
         }
 
-        [CacheOutput(ClientTimeSpan = 100)]
-        [HttpGet]            
+        [HttpGet]
         [Route("")]
-        public async Task<HttpResponseMessage> Get()
+        [CacheOutput(ClientTimeSpan = 100)]                          
+        public HttpResponseMessage Get()
         {
             var _dbContext = new ApplicationDbContext();
             var user = _dbContext.Users.Find(User.Identity.GetUserId());
             var userName = User.Identity.Name;
             var userRoles = user.Roles.Select(x => x.Role.Name).Single();            
             
-            var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
+            var models = _rsurParticipService.GetByUserName(userName, userRoles);
 
             if (models == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
@@ -74,20 +74,18 @@ namespace Monit95App.Api
                 return Request.CreateResponse(HttpStatusCode.OK, models);
         }
 
-        [HttpPut]
-        [Route("api/RsurParticips/PutParticip")]
-        public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipBaseInfo model)
+        [HttpPut]        
+        [Route("{id}")]
+        public HttpResponseMessage PutParticip([FromBody]RsurParticipBaseInfo model)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Неверный запрос");
             }
 
-            var isUpdated = await Task.Run(() => _rsurParticipService.Update(model));
-            if (isUpdated)
-                return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось применить изменения");
+            _rsurParticipService.Update(model);
+
+            return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");
         }
 
         [HttpGet]

@@ -84,6 +84,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipProtocolServiceTests.cs" />
     <Compile Include="RsurReportModelXlsxConverterTests.cs" />
+    <Compile Include="RsurParticipServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -12,8 +12,9 @@ namespace Monit95App.Services.Interfaces.Rsur
     {
         IEnumerable<RsurParticipBaseInfo> GetByUserName(string userName, string userRoles);
         RsurParticipBaseInfo GetByParticipCode(string participCode);
-        bool Update(RsurParticipBaseInfo model);
+        void Update(RsurParticipBaseInfo model);
         void Add(RsurParticipBaseInfo model);
         IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode);
     }
 }
+

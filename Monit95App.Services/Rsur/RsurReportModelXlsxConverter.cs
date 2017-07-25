@@ -46,7 +46,12 @@ namespace Monit95App.Services
                 ReportName = "Список участников РСУР"
             };
 
-            rsurReportModel.RsurParticipFullInfos = projectParticips.Select(x => new RsurParticipFullInfo(x)).ToList();
+            rsurReportModel.RsurParticipFullInfos = projectParticips.Select(x =>
+            {
+                var item = new RsurParticipFullInfo();
+                item.TemplateMethod(x);
+                return item;                
+            }).ToList();
 
             return rsurReportModel;
         }

@@ -1,16 +1,14 @@
-﻿using Monit95App.Domain.Core;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Monit95App.Domain.Core;
 
-namespace Monit95App.Services.Models.Rsur
+namespace Monit95App.Services.Rsur
 {
     public abstract class RsurParticipInfo
     {
         #region Properties
+
         public int ProjectCode { get; set; }
 
         [Required]
@@ -44,14 +42,9 @@ namespace Monit95App.Services.Models.Rsur
 
         public bool HasRequestToEdit { get; set; }
 
-        #endregion
+        #endregion    
 
-        protected RsurParticipInfo(ProjectParticip entity)
-        {
-            TemplateMethod(entity);
-        }
-
-        private void TemplateMethod(ProjectParticip entity)
+        public void TemplateMethod(ProjectParticip entity)
         {
             if (entity == null)
             {

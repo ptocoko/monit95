@@ -32,7 +32,7 @@ namespace Monit95App.Services.Tests
                 ReportName = "Test",
                 RsurParticipFullInfos = new List<RsurParticipFullInfo>
                 {
-                    new RsurParticipFullInfo(new ProjectParticip())
+                    new RsurParticipFullInfo()
                     {
                         AreaName = "Гудермес"
                     }
