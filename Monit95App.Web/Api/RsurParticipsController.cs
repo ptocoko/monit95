@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.JsonPatch;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using Monit95App.Services.Interfaces.Rsur;
 using Monit95App.Services.Models.Rsur;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -33,6 +28,24 @@ namespace Monit95App.Api
 
         #region Api
 
+        [HttpGet]
+        [Route("")]
+        [CacheOutput(ClientTimeSpan = 100)]
+        public HttpResponseMessage Get()
+        {
+            var _dbContext = new ApplicationDbContext();
+            var user = _dbContext.Users.Find(User.Identity.GetUserId());
+            var userName = User.Identity.Name;
+            var userRoles = user.Roles.Select(x => x.Role.Name).Single();
+
+            var models = _rsurParticipService.GetByUserName(userName, userRoles);
+
+            if (models == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK, models);
+        }
+
         [HttpPatch]
         [Route("{ParticipCode}")]
         public async Task<HttpResponseMessage> Patch([FromBody] JsonPatchDocument<RsurParticipBaseInfo> baseInfo)
@@ -56,23 +69,7 @@ namespace Monit95App.Api
                 return Request.CreateResponse(HttpStatusCode.OK, resultModel);
         }
 
-        [HttpGet]
-        [Route("")]
-        [CacheOutput(ClientTimeSpan = 100)]                          
-        public HttpResponseMessage Get()
-        {
-            var _dbContext = new ApplicationDbContext();
-            var user = _dbContext.Users.Find(User.Identity.GetUserId());
-            var userName = User.Identity.Name;
-            var userRoles = user.Roles.Select(x => x.Role.Name).Single();            
-            
-            var models = _rsurParticipService.GetByUserName(userName, userRoles);
-
-            if (models == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, models);
-        }
+       
 
         [HttpPut]        
         [Route("{id}")]
