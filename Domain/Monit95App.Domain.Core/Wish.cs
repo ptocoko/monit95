@@ -11,16 +11,13 @@ namespace Monit95App.Domain.Core
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class TestResult
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Wish
     {
-        public int ParticipTestId { get; set; }
-        public double PrimaryMark { get; set; }
-        public int Grade5 { get; set; }
-        public string Marks { get; set; }
-        public string Parts { get; set; }
-        public string Elements { get; set; }
-    
-        public virtual ParticipTest ParticipTest { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string Message { get; set; }
+        public System.DateTime Date { get; set; }
     }
 }

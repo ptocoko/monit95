@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Monit95App.Models.WishModel>
+
+@{
+    ViewBag.Title = "Пожелания";
+}
+
+<h2>Пожелания</h2>
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.UserId)</th>
+        <th>@Html.DisplayNameFor(model => model.Message)</th>
+        <th>@Html.DisplayNameFor(model => model.Date)</th>
+        <th></th>
+    </tr>
+    @foreach(var wish in Model)
+    {
+        <tr>
+            <td><abbr title="@wish.UserName">@wish.UserId</abbr></td>
+            <td style="text-align:justify">@wish.Message</td>
+            <td>@wish.Date.ToString("dd.MM.yyyy")</td>
+            <td>@Html.ActionLink("Удалить", "Delete", new { id=wish.Id })</td>
+        </tr>
+    }
+</table>

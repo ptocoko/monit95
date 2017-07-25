@@ -20,8 +20,8 @@ namespace Monit95App.Domain.Core
             this.ParticipTests = new HashSet<ParticipTest>();
         }
     
-        public int ProjectCode { get; set; }
         public string ParticipCode { get; set; }
+        public int ProjectCode { get; set; }
         public string SchoolId { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }

@@ -143,6 +143,10 @@
                         <li>@Html.ActionLink("Файлы", "Report", "Report")</li>                     
                     }                  
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink(@"Пожелания", "Index", "Wishes")</li>
+                    }
                 </ul>
 
                 @Html.Partial("_LoginPartial")
