@@ -20,8 +20,6 @@
         <AssociationConnector Association="cokoModel.FK_GiaResults_Schools" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ParticipTests_ProjectTests" ManuallyRouted="false" />
         <AssociationConnector Association="cokoModel.FK_ProjectTests_Projects" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="cokoModel.ReportStatistic" Width="1.5" PointX="13" PointY="8" />
-        <AssociationConnector Association="cokoModel.FK_ReportDownload_ReportDownload" />
         <EntityTypeShape EntityType="cokoModel.Class" Width="1.5" PointX="3" PointY="26.125" />
         <EntityTypeShape EntityType="cokoModel.ProjectParticipsV2" Width="1.5" PointX="5.25" PointY="12.75" />
         <AssociationConnector Association="cokoModel.FK_ProjectParticipsV2_Classes" />

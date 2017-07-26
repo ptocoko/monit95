@@ -181,15 +181,6 @@
           <Property Name="Available" Type="varchar(max)" />
           <Property Name="TypeCode" Type="smallint" />
         </EntityType>
-        <EntityType Name="ReportStatistics">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ReportId" Type="int" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="Schools">
           <Key>
             <PropertyRef Name="Id" />
@@ -487,18 +478,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ReportDownload_ReportDownload">
-          <End Role="Reports" Type="Self.Reports" Multiplicity="1" />
-          <End Role="ReportStatistics" Type="Self.ReportStatistics" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reports">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ReportStatistics">
-              <PropertyRef Name="ReportId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Schools_Areas">
           <End Role="Areas" Type="Self.Areas" Multiplicity="1" />
           <End Role="Schools" Type="Self.Schools" Multiplicity="*" />
@@ -588,7 +567,6 @@
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectTests" EntityType="Self.ProjectTests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ReportStatistics" EntityType="Self.ReportStatistics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SchoolsEdit" EntityType="Self.SchoolsEdit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
@@ -667,10 +645,6 @@
           <AssociationSet Name="FK_ProjectTests_Tests" Association="Self.FK_ProjectTests_Tests">
             <End Role="Test" EntitySet="Test" />
             <End Role="ProjectTests" EntitySet="ProjectTests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReportDownload_ReportDownload" Association="Self.FK_ReportDownload_ReportDownload">
-            <End Role="Reports" EntitySet="Reports" />
-            <End Role="ReportStatistics" EntitySet="ReportStatistics" />
           </AssociationSet>
           <AssociationSet Name="FK_Schools_Areas" Association="Self.FK_Schools_Areas">
             <End Role="Areas" EntitySet="Areas" />
@@ -813,7 +787,6 @@
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Available" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TypeCode" Type="Int16" />
-          <NavigationProperty Name="ReportStatistics" Relationship="cokoModel.FK_ReportDownload_ReportDownload" FromRole="Report" ToRole="ReportStatistic" />
         </EntityType>
         <EntityType Name="School">
           <Key>
@@ -936,11 +909,6 @@
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ProjectTests" EntitySet="ProjectTests" />
           </AssociationSet>
-          <EntitySet Name="ReportStatistics" EntityType="cokoModel.ReportStatistic" />
-          <AssociationSet Name="FK_ReportDownload_ReportDownload" Association="cokoModel.FK_ReportDownload_ReportDownload">
-            <End Role="Report" EntitySet="Reports" />
-            <End Role="ReportStatistic" EntitySet="ReportStatistics" />
-          </AssociationSet>
           <EntitySet Name="Classes" EntityType="cokoModel.Class" />
           <EntitySet Name="ProjectParticipsV2" EntityType="cokoModel.ProjectParticipsV2" />
           <AssociationSet Name="FK_ProjectParticipsV2_Classes" Association="cokoModel.FK_ProjectParticipsV2_Classes">
@@ -1031,28 +999,6 @@
             <End Role="ProjectParticip" EntitySet="ProjectParticips" />
           </AssociationSet>
           </EntityContainer>
-        <EntityType Name="ReportStatistic">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ReportId" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Report" Relationship="cokoModel.FK_ReportDownload_ReportDownload" FromRole="ReportStatistic" ToRole="Report" />
-        </EntityType>
-        <Association Name="FK_ReportDownload_ReportDownload">
-          <End Type="cokoModel.Report" Role="Report" Multiplicity="1" />
-          <End Type="cokoModel.ReportStatistic" Role="ReportStatistic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Report">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ReportStatistic">
-              <PropertyRef Name="ReportId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="Id" />
@@ -1570,16 +1516,6 @@
                 <ScalarProperty Name="ReportLink" ColumnName="ReportLink" />
                 <ScalarProperty Name="PropertyTypeCode" ColumnName="PropertyTypeCode" />
                 <ScalarProperty Name="Monit95Login" ColumnName="Monit95Login" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReportStatistics">
-            <EntityTypeMapping TypeName="cokoModel.ReportStatistic">
-              <MappingFragment StoreEntitySet="ReportStatistics">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
