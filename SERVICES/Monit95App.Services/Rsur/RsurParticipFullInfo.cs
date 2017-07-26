@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Monit95App.Domain.Core;
-using Monit95App.Services.Rsur;
+﻿using Monit95App.Domain.Core;
 
-namespace Monit95App.Services.Models.Rsur
+namespace Monit95App.Services.Rsur
 {
     public class RsurParticipFullInfo : RsurParticipInfo
     {        

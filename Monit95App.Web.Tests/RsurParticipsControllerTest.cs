@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Hosting;
 using System.Web.Http.Results;
+using Monit95App.Services.Rsur;
 
 namespace Monit95App.Web.Tests
 {

@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Domain.Core;
-using System.Data.Entity.Infrastructure;
-using Monit95App.Services.Interfaces;
-using Monit95App.Services.Models.Rsur;
-using Monit95App.Services.Models;
 using AutoMapper;
-namespace Monit95App.Services
+using Monit95App.Domain.Core;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Services.Interfaces;
+using Monit95App.Services.Models;
+using Monit95App.Services.Models.Rsur;
+
+namespace Monit95App.Services.Rsur
 {
     public class RsurParticipService : IRsurParticipService
     {
@@ -33,7 +31,26 @@ namespace Monit95App.Services
             _testResultRepository = testResultRepository;
             _rsurParticipViewer = rsurParticipViewer;
         }
-           
+
+        public IEnumerable<RsurParticipFullInfo> Get(int? areaCode, string schoolId)
+        {
+            var queryToGetEntities = _rsurParticipRepository.GetAll();
+            if (areaCode != null)
+            {
+                queryToGetEntities = queryToGetEntities.Where(p => p.School.AreaCode == areaCode);
+            }
+            if (schoolId != null)
+            {
+                queryToGetEntities = queryToGetEntities.Where(p => p.SchoolId == schoolId);
+            }
+            var entities = queryToGetEntities.ToList();
+
+            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>());
+                                        
+            var rsurParticipFullInfoList = Mapper.Map<List<ProjectParticip>, List<RsurParticipFullInfo>>(entities);
+
+            return rsurParticipFullInfoList;
+        }
         public RsurParticipBaseInfo GetByParticipCode(string participCode)
         {
             return _rsurParticipRepository.GetAll().Where(p => p.ParticipCode == participCode).ToList()
@@ -57,13 +74,13 @@ namespace Monit95App.Services
 
             //return newParticipCode;
         }
-        public void Update(RsurParticipBaseInfo model)
-        {            
-            if(model == null)
+        public void Update(RsurParticipFullInfo model)
+        {
+            if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            
+
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
             Validator.ValidateObject(model, validContext);            
         }
@@ -73,25 +90,7 @@ namespace Monit95App.Services
                                                     .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
                                                         .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
         }
-        public IEnumerable<RsurParticipFullInfo> Get(int? areaCode, string schoolId)
-        {            
-            var queryToGetEntities = _rsurParticipRepository.GetAll();
-            if(areaCode != null)
-            {
-                queryToGetEntities.Where(p => p.School.AreaCode == areaCode);
-            }
-            if(schoolId != null)
-            {
-                queryToGetEntities.Where(p => p.SchoolId == schoolId);
-            }
-            var entities = queryToGetEntities.ToList();
-
-            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>());
-            var rsurParticipFullInfoList = Mapper.Map<List<ProjectParticip>, List<RsurParticipFullInfo>>(entities);
-
-            return rsurParticipFullInfoList;
-        }
-
+        
         #endregion
     }
 }

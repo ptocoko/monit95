@@ -37,6 +37,7 @@ namespace Monit95App.Api
 
         #region Api
 
+
         [HttpPatch]
         [Route("{ParticipCode}")]
         public async Task<HttpResponseMessage> Patch([FromBody] JsonPatchDocument<RsurParticipBaseInfo> baseInfo)

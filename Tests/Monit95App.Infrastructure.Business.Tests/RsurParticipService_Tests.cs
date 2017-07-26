@@ -8,6 +8,8 @@ using Monit95App.Services.Models.Rsur;
 using System.Collections.Generic;
 using NSubstitute;
 using System.Linq;
+using Monit95App.Services.Rsur;
+using Monit95App.Services.Interfaces;
 
 namespace Monit95App.Infrastructure.BusinessTests
 {
@@ -15,17 +17,18 @@ namespace Monit95App.Infrastructure.BusinessTests
     public class RsurParticipService_Tests
     {
         UnitOfWork unitOfWork;
-        GenericRepository<ProjectParticip> rsurParticipRepository;
-        GenericRepository<Domain.Core.TestResult> testResultRepository;
+        private readonly IGenericRepository<ProjectParticip> _mockRsurParticipRespoitory;
+        private readonly GenericRepository<Domain.Core.TestResult> testResultRepository;
         RsurParticipViewer rsurParticipViewer;
-        RsurParticipService service;
+        IRsurParticipService service;
 
         public RsurParticipService_Tests()
         {
-            unitOfWork = new UnitOfWork(new cokoContext());
-            rsurParticipRepository = new GenericRepository<ProjectParticip>(unitOfWork);
+            unitOfWork = new UnitOfWork(new cokoContext());            
             testResultRepository = new GenericRepository<Domain.Core.TestResult>(unitOfWork);
-            rsurParticipViewer = new RsurParticipViewer();            
+            rsurParticipViewer = new RsurParticipViewer();
+            _mockRsurParticipRespoitory = Substitute.For<IGenericRepository<ProjectParticip>>();
+            service = new RsurParticipService(_mockRsurParticipRespoitory, testResultRepository, rsurParticipViewer);
         }
 
         [TestMethod]
@@ -40,28 +43,37 @@ namespace Monit95App.Infrastructure.BusinessTests
                     Surname = "Shakhabov",
                     Name = "Adam",
                     SchoolId = "0005"
+                },
+                new ProjectParticip
+                {
+                    ParticipCode = "2016-206-002",
+                    Surname = "Esembaev",
+                    Name = "Husain",
+                    SchoolId = "0006"
                 }
-            }.AsQueryable();
-
-            var mockRsurParticipRespoitory = Substitute.For<IGenericRepository<ProjectParticip>>();
-            mockRsurParticipRespoitory.GetAll().Returns(entities);
-
-            service = new RsurParticipService(mockRsurParticipRespoitory, testResultRepository, rsurParticipViewer);
+            }.AsQueryable();            
+            _mockRsurParticipRespoitory.GetAll().Returns(entities);            
 
             //Act
-            var result = service.Get(null, "0005");
+            var rsurParticipFullInfoList = service.Get(null, "0005");
 
-            //Asssert
-            Assert.Fail();
+            //Asssert            
+            Assert.AreEqual(1, rsurParticipFullInfoList.Count());
+            Assert.AreEqual("Adam", rsurParticipFullInfoList.Single().Name);            
         }
 
         [TestMethod]
         public void Update_Test()
         {
             //Arrange                     
-            
+            var model = new RsurParticipFullInfo
+            {
+                Surname = "Shakhabov",
+                Name = "Adam"
+            };
+
             //Act
-           // service.Update(model);
+            service.Update(null);
 
             //Assert
             Assert.Fail();
