@@ -23,11 +23,12 @@ namespace Monit95App.Api
         [Route("api/accounts")]
         [HttpGet]
         public HttpResponseMessage Get()
-        {            
+        {
+#warning here i try fix
             var user = _dbContext.Users.Find(User.Identity.GetUserId());
-            if(user.Roles.Count > 0)
+            if (user.Roles.Count > 0)
             {
-                var userRoles = user.Roles.Select(x => x.Role.Name);
+                var userRoles = user.Roles.Select(x => _dbContext.Roles.First(s => s.Id == x.RoleId).Name);
                 var model = new UserModel
                 {
                     UserName = User.Identity.Name,
@@ -35,7 +36,7 @@ namespace Monit95App.Api
                 };
                 return Request.CreateResponse(HttpStatusCode.OK, model);
             }
-            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "The user has no one role");            
+            return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "The user has no one role");
         }
 
         #endregion

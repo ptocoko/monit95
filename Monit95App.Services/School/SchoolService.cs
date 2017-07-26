@@ -55,7 +55,8 @@ namespace Monit95App.Services.School
 
             if (isAdmin)
             {
-                product.CategoryName = dto.CategoryName;
+#warning i haven't any idea what happens here
+                //product.CategoryName = dto.CategoryName;
             }
 
 

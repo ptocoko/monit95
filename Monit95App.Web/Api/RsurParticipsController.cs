@@ -61,17 +61,20 @@ namespace Monit95App.Api
         [Route("")]
         public async Task<HttpResponseMessage> Get()
         {
-            var _dbContext = new ApplicationDbContext();
-            var user = _dbContext.Users.Find(User.Identity.GetUserId());
-            var userName = User.Identity.Name;
-            var userRoles = user.Roles.Select(x => x.Role.Name).Single();            
-            
-            var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
+#warning fix after update identity
 
-            if (models == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, models);
+            //var _dbContext = new ApplicationDbContext();
+            //var user = _dbContext.Users.Find(User.Identity.GetUserId());
+            //var userName = User.Identity.Name;
+            //var userRoles = user.Roles.Select(x => x.Role.Name).Single();            
+
+            //var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
+
+            //if (models == null)
+            //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
+            //else
+            //    return Request.CreateResponse(HttpStatusCode.OK, models);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPut]
