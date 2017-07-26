@@ -15,7 +15,7 @@ namespace Monit95App.Services
 {
     public class RsurParticipService : IRsurParticipService
     {
-        #region External services
+        #region Fields
         
         private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
         private readonly IGenericRepository<TestResult> _testResultRepository;

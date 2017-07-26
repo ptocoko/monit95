@@ -58,16 +58,7 @@ namespace Monit95App.Infrastructure.BusinessTests
         [TestMethod]
         public void Update_Test()
         {
-            //Arrange
-
-
-            var model = new RsurParticipFullInfo
-            {
-                ParticipCode = "2016-206-001",
-                Surname = "Шахабов",
-                Name = "Адам",
-                SubjectName = "РУ"              
-            };            
+            //Arrange                     
             
             //Act
            // service.Update(model);
