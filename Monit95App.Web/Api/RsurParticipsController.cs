@@ -63,7 +63,7 @@ namespace Monit95App.Api
         [HttpGet]
         [Route("")]
         [CacheOutput(ClientTimeSpan = 100)]                            
-        public async Task<IHttpActionResult> GetAsync() //get all participates who access for authorized user
+        public IHttpActionResult Get() //get all participates who access for authorized user
         {
             var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
             var authorizedUserName = authorizedUserModel.UserName;
@@ -81,7 +81,7 @@ namespace Monit95App.Api
                 paramSchoolId = authorizedUserName;
             }
             
-            var baseInfoList = await _rsurParticipService.GetTask(paramAreaCode, paramSchoolId);
+            var baseInfoList = _rsurParticipService.Get(paramAreaCode, paramSchoolId);
 
             return Ok(baseInfoList);
         }
