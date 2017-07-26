@@ -4,7 +4,6 @@ using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
-using Monit95App.Services.Interfaces.Rsur;
 using Monit95App.Services.Models.Rsur;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Monit95App.Services.Interfaces;
 using Monit95App.Web.Services;
 using WebApi.OutputCache.V2;
 
@@ -87,19 +87,20 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        [Route("api/RsurParticips/PutParticip")]
-        public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipBaseInfo model)
+        [Route("{id}")]
+        public IHttpActionResult Put([FromBody]RsurParticipBaseInfo model)
         {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Неверный запрос");
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Неверный запрос");
+            //}
 
-            var isUpdated = await Task.Run(() => _rsurParticipService.Update(model));
-            if (isUpdated)
-                return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось применить изменения");
+            //var isUpdated = await Task.Run(() => _rsurParticipService.Update(model));
+            //if (isUpdated)
+            //    return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");
+            //else
+            //    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось применить изменения");
+            return Ok();
         }
 
         [HttpGet]

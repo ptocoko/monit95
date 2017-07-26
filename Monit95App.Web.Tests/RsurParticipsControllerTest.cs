@@ -37,34 +37,37 @@ namespace Monit95App.Web.Tests
         public async void PutParticipTest()
         {
             //Arrange
-            var mockUserService = Substitute.For<IUserService>;
-            var participRepository = new GenericRepository<ProjectParticip>(_uow);
-            var testResultRepository = new GenericRepository<TestResult>(_uow);
-            var participViewer = new RsurParticipViewer();
-            var service = new RsurParticipService(_uow, participRepository, testResultRepository, participViewer);
+            //var mockUserService = Substitute.For<IUserService>;
+
+            //var participRepository = new GenericRepository<ProjectParticip>(_uow);
+            //var testResultRepository = new GenericRepository<TestResult>(_uow);
+            //var participViewer = new RsurParticipViewer();
+            //var service = new RsurParticipService(_uow, participRepository, testResultRepository, participViewer);
             
 
-            var controller = new RsurParticipsController(service)
-            {
-                Request = new HttpRequestMessage()
-            };
-            controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
+            //var controller = new RsurParticipsController(service)
+            //{
+            //    Request = new HttpRequestMessage()
+            //};
+            //controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
             
-            var model = new RsurParticipBaseInfo(new ProjectParticip())
-            {
-                ProjectCode = 201661,
-                ParticipCode = "2016-100-004",
-                Surname = "testNewSurname",
-                Name = "testNewName"
-            };
+            //var model = new RsurParticipBaseInfo(new ProjectParticip())
+            //{
+            //    ProjectCode = 201661,
+            //    ParticipCode = "2016-100-004",
+            //    Surname = "testNewSurname",
+            //    Name = "testNewName"
+            //};
 
-            //Act
-            var message = await controller.PutParticip(model);
-            var entity = _uow.DbContext.ProjectParticips.Single(x => x.ParticipCode == "2016-100-004");
+            ////Act
+            //var message = await controller.PutParticip(model);
+            //var entity = _uow.DbContext.ProjectParticips.Single(x => x.ParticipCode == "2016-100-004");
 
-            //Assert
-            Assert.AreEqual(message.StatusCode, HttpStatusCode.OK);
-            Assert.AreEqual(entity.Surname, "testNewSurname");
+            ////Assert
+            //Assert.AreEqual(message.StatusCode, HttpStatusCode.OK);
+            //Assert.AreEqual(entity.Surname, "testNewSurname");
+
+            Assert.Fail();
         }
 
         public void GetByUserNameTest()

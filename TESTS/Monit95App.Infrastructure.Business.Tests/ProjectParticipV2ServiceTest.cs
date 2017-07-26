@@ -1,16 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using Moq;
-using Monit95App.Infrastructure.Data;
-using System.Linq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Services.Models;
-using Monit95App.Service.Interfaces;
+using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
+using Monit95App.Services.Interfaces;
+using Monit95App.Services.Models;
+using Moq;
 
-namespace Monit95App.Domain.DTO.Tests
+namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
     public class ProjectParticipV2ServiceTest

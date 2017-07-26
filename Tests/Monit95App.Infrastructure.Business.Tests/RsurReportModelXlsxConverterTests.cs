@@ -1,15 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Infrastructure.Business;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using ClosedXML.Excel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Services;
 using Monit95App.Services.Models.Rsur;
-using ClosedXML.Excel;
-using System.Linq;
-using Monit95App.Domain.Core;
+using Monit95App.Services.Rsur;
 
-namespace Monit95App.Services.Tests
+namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
     public class RsurReportModelXlsxConverterTests

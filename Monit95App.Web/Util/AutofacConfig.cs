@@ -16,8 +16,7 @@ using Monit95App.Models;
 using Monit95App.Web.Services;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
-using Monit95App.Service.Interfaces;
-using Monit95App.Services.Interfaces.Rsur;
+using Monit95App.Services.Rsur;
 using Monit95App.Services.School;
 
 namespace Monit95App.Util
