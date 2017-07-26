@@ -19,8 +19,8 @@ namespace Monit95App.Domain.Core
         {
             this.GiaResults = new HashSet<GiaResult>();
             this.ProjectParticipsV2 = new HashSet<ProjectParticipsV2>();
-            this.ProjectParticips = new HashSet<ProjectParticip>();
             this.ProjectParticipsEdits = new HashSet<ProjectParticipsEdit>();
+            this.ProjectParticips = new HashSet<ProjectParticip>();
         }
     
         public string Id { get; set; }
@@ -37,7 +37,7 @@ namespace Monit95App.Domain.Core
         public int AreaCode { get; set; }
         public Nullable<int> TypeCode { get; set; }
         public Nullable<int> ViewCode { get; set; }
-        public Nullable<int> TownTypeId { get; set; }
+        public int TownTypeId { get; set; }
         public Nullable<int> GoverCode { get; set; }
         public string ReportLink { get; set; }
         public Nullable<int> PropertyTypeCode { get; set; }
@@ -46,12 +46,12 @@ namespace Monit95App.Domain.Core
         public virtual Area Area { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiaResult> GiaResults { get; set; }
-        public virtual TownType TownType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectParticipsV2> ProjectParticipsV2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectParticipsEdit> ProjectParticipsEdits { get; set; }
+        public virtual TownType TownType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
     }
 }

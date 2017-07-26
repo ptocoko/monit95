@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\monit95\Domain\Monit95App.Domain.Core\cokoModel.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\husai\Source\Repos\monit95\Domain\Monit95App.Domain.Core\cokoModel.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.
