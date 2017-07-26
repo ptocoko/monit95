@@ -83,6 +83,7 @@
     <Compile Include="ProjectParticipV2ServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipProtocolServiceTests.cs" />
+    <Compile Include="RsurParticipService_Tests.cs" />
     <Compile Include="RsurReportModelXlsxConverterTests.cs" />
     <Compile Include="SchoolServiceTests.cs" />
     <Compile Include="TestIMarks.cs" />

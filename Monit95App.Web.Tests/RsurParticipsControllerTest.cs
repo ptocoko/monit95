@@ -3,7 +3,9 @@ using Monit95App.Api;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Models;
 using Monit95App.Services;
+using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models.Rsur;
 using Monit95App.Web.Services;
 using NSubstitute;
@@ -16,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Hosting;
+using System.Web.Http.Results;
 
 namespace Monit95App.Web.Tests
 {
@@ -27,11 +30,46 @@ namespace Monit95App.Web.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            _uow = new UnitOfWork(new cokoContext());
-            var entity = _uow.DbContext.ProjectParticips.Single(x => x.ParticipCode == "2016-100-004");
-            entity.Surname = "testSurname";
-            _uow.Save();
+            //_uow = new UnitOfWork(new cokoContext());
+            //var entity = _uow.DbContext.ProjectParticips.Single(x => x.ParticipCode == "2016-100-004");
+            //entity.Surname = "testSurname";
+            //_uow.Save();
         }
+
+        [TestMethod]
+        public void GetTest()
+        {
+            //Arrange
+            var stubUserModel = new UserModel
+            {
+                UserName = "0005",
+                UserRoleNames = new[] { "school" }
+            };
+            var stubRsurParticipBaseInfos = new List<RsurParticipFullInfo>
+            {
+                new RsurParticipFullInfo
+                {
+                    Surname = "Шахабов",
+                    Name = "Адам"
+                }
+            };
+
+            var mockUserService = Substitute.For<IUserService>();
+            mockUserService.GetModel(Arg.Any<string>()).Returns(stubUserModel);
+            var mockRsurParticipService = Substitute.For<IRsurParticipService>();
+            mockRsurParticipService.Get(Arg.Any<int>(), Arg.Any<string>()).Returns(stubRsurParticipBaseInfos);
+            var rsurParticipsController = new RsurParticipsController(mockRsurParticipService, mockUserService);
+
+            //Act
+            var actionResult = rsurParticipsController.Get();            
+
+            //Assert
+            Assert.IsNotNull(actionResult);
+            mockUserService.Received().GetModel(null);
+            mockRsurParticipService.Received().Get(null, "0005");
+            Assert.IsInstanceOfType(actionResult, typeof(OkNegotiatedContentResult<IEnumerable<RsurParticipBaseInfo>>));
+        }
+
 
         [TestMethod]
         public async void PutParticipTest()
@@ -82,7 +120,7 @@ namespace Monit95App.Web.Tests
         [TestCleanup]
         public void TestCleanup()
         {
-            _uow.Dispose();
+          //  _uow.Dispose();
         }
     }
 }

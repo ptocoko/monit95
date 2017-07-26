@@ -10,14 +10,13 @@ using System.Data.Entity.Infrastructure;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models.Rsur;
 using Monit95App.Services.Models;
-
+using AutoMapper;
 namespace Monit95App.Services
 {
     public class RsurParticipService : IRsurParticipService
     {
-        #region Fields
-
-        private readonly IUnitOfWork _unitOfWork;
+        #region External services
+        
         private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
         private readonly IGenericRepository<TestResult> _testResultRepository;
         private readonly IRsurParticipViewer _rsurParticipViewer;
@@ -26,37 +25,15 @@ namespace Monit95App.Services
 
         #region Methods
 
-        public RsurParticipService(IUnitOfWork unitOfWork, 
-                                   IGenericRepository<ProjectParticip> rsurParticipRepository, 
+        public RsurParticipService(IGenericRepository<ProjectParticip> rsurParticipRepository, 
                                    IGenericRepository<TestResult> testResultRepository, 
                                    IRsurParticipViewer rsurParticipViewer)
-        {
-            _unitOfWork = unitOfWork;
+        {            
             _rsurParticipRepository = rsurParticipRepository;
             _testResultRepository = testResultRepository;
             _rsurParticipViewer = rsurParticipViewer;
         }
-        
-        public IEnumerable<RsurParticipBaseInfo> GetByUserName(string userName, string userRoles)
-        {
-            var allParticips = _rsurParticipRepository.GetAll();
-
-            IEnumerable<RsurParticipBaseInfo> result = null;
-
-            if (userRoles.Contains("coko"))
-                result = allParticips.Where(x => x.SchoolId == "0000").ToList().Select(x => _rsurParticipViewer.CreateModel(x));
-
-            if (userRoles.Contains("area"))
-            {
-                var areaCode = int.Parse(userName);
-                result = allParticips.Where(x => x.School.AreaCode == areaCode).ToList().Select(x => _rsurParticipViewer.CreateModel(x));
-            }
-            if (userRoles.Contains("school"))
-                result = allParticips.Where(x => x.SchoolId == userName).ToList().Select(x => _rsurParticipViewer.CreateModel(x));
-
-            return result;
-        }
-
+           
         public RsurParticipBaseInfo GetByParticipCode(string participCode)
         {
             return _rsurParticipRepository.GetAll().Where(p => p.ParticipCode == participCode).ToList()
@@ -64,7 +41,6 @@ namespace Monit95App.Services
 
 
         }
-
         public void Add(RsurParticipBaseInfo model)
         {
             //newPParticip.School = _db.Schools.Find(newPParticip.SchoolId);            
@@ -81,7 +57,6 @@ namespace Monit95App.Services
 
             //return newParticipCode;
         }
-
         public void Update(RsurParticipBaseInfo model)
         {            
             if(model == null)
@@ -89,21 +64,32 @@ namespace Monit95App.Services
                 throw new ArgumentNullException(nameof(model));
             }
             
-            var validContext = new ValidationContext(model);
+            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
             Validator.ValidateObject(model, validContext);            
         }
-
-
         public IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode)
         {
             return _testResultRepository.GetAll().Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode).ToList()
-                                               .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
-                                               .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
+                                                    .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
+                                                        .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
         }
+        public IEnumerable<RsurParticipFullInfo> Get(int? areaCode, string schoolId)
+        {            
+            var queryToGetEntities = _rsurParticipRepository.GetAll();
+            if(areaCode != null)
+            {
+                queryToGetEntities.Where(p => p.School.AreaCode == areaCode);
+            }
+            if(schoolId != null)
+            {
+                queryToGetEntities.Where(p => p.SchoolId == schoolId);
+            }
+            var entities = queryToGetEntities.ToList();
 
-        public Task<IEnumerable<RsurParticipBaseInfo>> GetTask(int? areaCode, string schoolId)
-        {
-            throw new NotImplementedException();
+            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>());
+            var rsurParticipFullInfoList = Mapper.Map<List<ProjectParticip>, List<RsurParticipFullInfo>>(entities);
+
+            return rsurParticipFullInfoList;
         }
 
         #endregion
