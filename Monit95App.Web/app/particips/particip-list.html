@@ -22,16 +22,18 @@
                     <th>Имя</th>
                     <th>Отчеcтво</th>
                     <th>Предмет</th>
-                    <th>Результаты</th>
+                    <th>Редактировать</th>
+                    <th>Результаты</th>                    
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let particip of particips | participFilter: searchText | limitTo: 100">
-                    <td>{{particip.participCode}}</td>
-                    <td>{{particip.surname}}</td>
-                    <td>{{particip.name}}</td>
-                    <td>{{particip.secondName}}</td>
-                    <td>{{particip.subjectName}}</td>
+                    <td>{{particip.ParticipCode}}</td>
+                    <td>{{particip.Surname}}</td>
+                    <td>{{particip.Name}}</td>
+                    <td>{{particip.SecondName}}</td>
+                    <td>{{particip.NsurSubjectName}}</td>
+                    <td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="modalOpen(particip)"></a></td>
                     <td>
                         <button type="button" class="btn btn-default" (click)="openModal(particip)">
                             <span class="glyphicon glyphicon-menu-right"></span>запросить

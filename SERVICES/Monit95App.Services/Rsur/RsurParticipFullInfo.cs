@@ -9,7 +9,7 @@ namespace Monit95App.Services.Rsur
 
         protected override void FillAdditionalInfo(ProjectParticip entity)
         {
-            AreaName = $"{entity.School.Area.Code} - {entity.School.Area.Name}";
+            AreaName = $"{entity.School.Area.Code} - {entity.School.Area.Name.Trim()}";
         }
 
         public RsurParticipFullInfo()

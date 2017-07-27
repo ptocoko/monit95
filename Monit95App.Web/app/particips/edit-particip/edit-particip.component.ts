@@ -19,9 +19,9 @@ export class EditParticipComponent {
 
 	constructor(private participService: ParticipService, private userService: UserService, private modal: Modal) { }
 
-    ngOnInit() {
-        this.participService.get().subscribe(particips => this.particips = particips);
-    }
+    //ngOnInit() {
+    //    this.participService.get().subscribe(particips => this.particips = particips);
+    //}
 
 	modalOpen(particip: ParticipModel) {
 		this.modal.open(EditModalComponent, overlayConfigFactory(particip, BSModalContext)).then((dialog: DialogRef<ParticipModel>) => {

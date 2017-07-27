@@ -10,9 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+//import { DialogRef, Overlay, overlayConfigFactory } from "angular2-modal";
 var angular2_modal_1 = require("angular2-modal");
+//import { Modal, BSModalContext } from "angular2-modal/plugins/bootstrap";
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var results_modal_component_1 = require("./results/results-modal.component");
+//import { UserModel } from "../user.model";
+//import { PARTICIPS } from "./mock-particips";
 var particip_service_1 = require("./particip.service");
 var user_service_1 = require("../user.service");
 var ParticipListComponent = (function () {
@@ -25,12 +29,15 @@ var ParticipListComponent = (function () {
     ParticipListComponent.prototype.ngOnInit = function () {
         var _this = this;
         //Get participList
-        this.participService.get().subscribe(function (particips) { return _this.particips = particips; });
+        this.participService.getAll().subscribe(function (response) {
+            _this.particips = response.json();
+            console.log(_this.particips);
+        });
         //Get user's names
         this.userService.getName().then(function (response) {
             _this.userName = response;
         });
-        console.log('ParticipListComponent.getUserName(): ' + this.userName);
+        console.log("ParticipListComponent.getUserName(): " + this.userName);
     };
     ParticipListComponent.prototype.openModal = function (particip) {
         this.modal.open(results_modal_component_1.ResultsModalComponent, angular2_modal_1.overlayConfigFactory(particip));
@@ -39,11 +46,13 @@ var ParticipListComponent = (function () {
 }());
 ParticipListComponent = __decorate([
     core_1.Component({
-        selector: 'particip-list',
-        templateUrl: './app/particips/particip-list.html',
+        selector: "particip-list",
+        templateUrl: "./app/particips/particip-list.html",
         providers: [bootstrap_1.Modal]
     }),
-    __metadata("design:paramtypes", [particip_service_1.ParticipService, user_service_1.UserService, bootstrap_1.Modal])
+    __metadata("design:paramtypes", [particip_service_1.ParticipService,
+        user_service_1.UserService,
+        bootstrap_1.Modal])
 ], ParticipListComponent);
 exports.ParticipListComponent = ParticipListComponent;
 ;

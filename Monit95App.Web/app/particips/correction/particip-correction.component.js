@@ -30,17 +30,16 @@ var ParticipCorrectionComponent = (function () {
         });
     };
     ;
-    ParticipCorrectionComponent.prototype.applyCorrection = function (correction) {
-        var _this = this;
-        this._participService.getParticip(correction.participCode).subscribe(function (particip) {
-            particip.surname = correction.newParticipSurname;
-            particip.name = correction.newParticipName;
-            particip.secondName = correction.newParticipSecondName;
-            _this._participService.updateParticip(particip).subscribe(function (success) {
-                _this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(function (success) { return _this.successHandler(correction, 'Коррекция принята успешно!'); });
-            });
-        });
-    };
+    //   applyCorrection(correction: ParticipCorrection) {
+    //	this._participService.getParticip(correction.participCode).subscribe(particip => {
+    //		particip.surname = correction.newParticipSurname;
+    //		particip.name = correction.newParticipName;
+    //		particip.secondName = correction.newParticipSecondName;
+    //		this._participService.updateParticip(particip).subscribe(success => {
+    //			this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(success => this.successHandler(correction, 'Коррекция принята успешно!'))
+    //		})
+    //	});
+    //}
     ParticipCorrectionComponent.prototype.cancelCorrection = function (correction) {
         var _this = this;
         this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(function (success) {
