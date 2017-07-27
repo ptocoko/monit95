@@ -17,16 +17,15 @@ namespace Monit95App.Web.Services
 
         public UserModel GetModel(string userId)
         {
-#warning fix after update identity
-            //var user = _accountContext.Users.Find(userId);
-            //var model = new UserModel
-            //{
-            //    UserName = user.UserName,
-            //    UserRoleNames = user.Roles.Select(x => x.Role.Name)
-            //};
+#warning here i try fix
+            var user = _accountContext.Users.Find(userId);
+            var model = new UserModel
+            {
+                UserName = user.UserName,
+                UserRoleNames = user.Roles.Select(x => _accountContext.Roles.Find(x.RoleId).Name)
+            };
 
-            //return model;
-            return null;
+            return model;
         }
     }
 }

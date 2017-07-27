@@ -61,20 +61,19 @@ namespace Monit95App.Api
         [Route("")]
         public async Task<HttpResponseMessage> Get()
         {
-#warning fix after update identity
+#warning here i try fix
 
-            //var _dbContext = new ApplicationDbContext();
-            //var user = _dbContext.Users.Find(User.Identity.GetUserId());
-            //var userName = User.Identity.Name;
-            //var userRoles = user.Roles.Select(x => x.Role.Name).Single();            
+            var _dbContext = new ApplicationDbContext();
+            var user = _dbContext.Users.Find(User.Identity.GetUserId());
+            var userName = User.Identity.Name;
+            var userRoles = user.Roles.Select(x => _dbContext.Roles.Find(x.RoleId).Name).Single();
 
-            //var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
+            var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
 
-            //if (models == null)
-            //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
-            //else
-            //    return Request.CreateResponse(HttpStatusCode.OK, models);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            if (models == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK, models);
         }
 
         [HttpPut]

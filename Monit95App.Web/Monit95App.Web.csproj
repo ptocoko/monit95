@@ -287,6 +287,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OneTwoThreeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\WishesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,6 +301,8 @@
     <Compile Include="Models\CorrectionModelCreator.cs" />
     <Compile Include="Models\CorrectionModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\WishModel.cs" />
+    <Compile Include="Models\WishModelCreator.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
@@ -515,6 +518,9 @@
     <Content Include="systemjs.config.js" />
     <Content Include="Views\Rsur\Spa.cshtml" />
     <Content Include="Views\Home\Corrections.cshtml" />
+    <Content Include="Views\Wishes\Delete.cshtml" />
+    <Content Include="Views\Wishes\Index.cshtml" />
+    <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
