@@ -1,12 +1,31 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using AutoMapper;
 using Monit95App.Domain.Core;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services.Rsur
 {
     public abstract class RsurParticipInfo
     {
+        #region Fields
+                
+        private readonly IGenericRepository<ProjectParticipsEdit> _rsurParticipEditRepository;
+        
+        #endregion
+
+        protected RsurParticipInfo()
+        {
+            
+        }
+
+        protected RsurParticipInfo(IGenericRepository<ProjectParticipsEdit> rsurParticipEditRepository)
+        {
+            _rsurParticipEditRepository = rsurParticipEditRepository;
+        }
+
         #region Properties
 
         public int ProjectCode { get; set; }
@@ -23,12 +42,12 @@ namespace Monit95App.Services.Rsur
         public string SecondName { get; set; }
 
         [Required]
-        public string SubjectName { get; set; }
+        public string NsurSubjectName { get; set; }
 
         [Required]
         public string SchoolIdWithName { get; set; }
 
-        public string CategName { get; set; }
+        public string CategoryName { get; set; }
 
         public int? Experience { get; set; }
 
@@ -42,7 +61,7 @@ namespace Monit95App.Services.Rsur
 
         public bool HasRequestToEdit { get; set; }
 
-        #endregion    
+        #endregion
 
         public void TemplateMethod(ProjectParticip entity)
         {
@@ -55,24 +74,12 @@ namespace Monit95App.Services.Rsur
         }
 
         private void FillBaseInfo(ProjectParticip entity)
-        {           
-            ProjectCode = entity.ProjectCode;
-            ParticipCode = entity.ParticipCode;
-            Surname = entity.Surname;
-            Name = entity.Name;
-            SecondName = entity.SecondName;
-            SubjectName = entity.NsurSubject.Name;
-            SchoolIdWithName = $"{entity.School.Id} - {entity.School.Name.Trim()}";
-            CategName = entity.Category?.Name;
-            Experience = entity.Experience ?? -1;
-            Phone = entity.Phone ?? "";
-            Email = entity.Email ?? "";
-            Birthday = entity.Birthday;
-            ClassNumbers = entity.ClassNumbers;
-
-            #warning refactoring
-            var db = new cokoContext();
-            HasRequestToEdit = db.ProjectParticipsEdits.SingleOrDefault(p => p.ParticipCode == entity.ParticipCode) != null;
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>()
+                .ForMember("SchoolIdWithName", opt => opt.MapFrom(s => $"{s.School.Id} - {s.School.Name.Trim()}")));
+            Mapper.Map(entity, this);                                                
+                                                
+            HasRequestToEdit = _rsurParticipEditRepository.GetById(entity.ParticipCode) != null;
         }        
    
         protected abstract void FillAdditionalInfo(ProjectParticip entity);

@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Domain.Interfaces;
 
 namespace Monit95App.Services.Rsur
 {
@@ -8,7 +9,17 @@ namespace Monit95App.Services.Rsur
 
         protected override void FillAdditionalInfo(ProjectParticip entity)
         {
-            AreaName = entity.School.Area.Name;
+            AreaName = $"{entity.School.Area.Code} - {entity.School.Area.Name}";
+        }
+
+        public RsurParticipFullInfo()
+        {
+
+        }
+
+        public RsurParticipFullInfo(IGenericRepository<ProjectParticipsEdit> rsurParticipEditRepository) : base(rsurParticipEditRepository)
+        {
+
         }
     }
 }

@@ -16,7 +16,13 @@ namespace Monit95App.Services.Rsur
         #region Fields
         
         private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
+        
+        #warning separate 
         private readonly IGenericRepository<TestResult> _testResultRepository;
+
+        private readonly IGenericRepository<ProjectParticipsEdit> _rsurParticipEditRepository;
+
+        #warning separate 
         private readonly IRsurParticipViewer _rsurParticipViewer;
 
         #endregion
@@ -24,11 +30,13 @@ namespace Monit95App.Services.Rsur
         #region Methods
 
         public RsurParticipService(IGenericRepository<ProjectParticip> rsurParticipRepository, 
-                                   IGenericRepository<TestResult> testResultRepository, 
+                                   IGenericRepository<TestResult> testResultRepository,
+                                   IGenericRepository<ProjectParticipsEdit> rsurParticipEditRepository,
                                    IRsurParticipViewer rsurParticipViewer)
         {            
             _rsurParticipRepository = rsurParticipRepository;
             _testResultRepository = testResultRepository;
+            _rsurParticipEditRepository = rsurParticipEditRepository;
             _rsurParticipViewer = rsurParticipViewer;
         }
 
@@ -45,16 +53,20 @@ namespace Monit95App.Services.Rsur
             }
             var entities = queryToGetEntities.ToList();
 
-            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>());
-                                        
-            var rsurParticipFullInfoList = Mapper.Map<List<ProjectParticip>, List<RsurParticipFullInfo>>(entities);
+            var rsurParticipFullInfoList = new List<RsurParticipFullInfo>();
+
+            foreach (var entity in entities)
+            {
+                var fullInfo = new RsurParticipFullInfo(_rsurParticipEditRepository);
+                fullInfo.TemplateMethod(entity);
+                rsurParticipFullInfoList.Add(fullInfo);
+            }                                    
 
             return rsurParticipFullInfoList;
         }
         public RsurParticipBaseInfo GetByParticipCode(string participCode)
         {
-            return _rsurParticipRepository.GetAll().Where(p => p.ParticipCode == participCode).ToList()
-                                                           .Select(s => _rsurParticipViewer.CreateModel(s)).SingleOrDefault();
+            return new RsurParticipBaseInfo();
 
 
         }
@@ -76,10 +88,10 @@ namespace Monit95App.Services.Rsur
         }
         public void Update(RsurParticipFullInfo model)
         {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
+            //if (model == null)
+            //{
+            //    throw new ArgumentNullException(nameof(model));
+            //}
 
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
             Validator.ValidateObject(model, validContext);            

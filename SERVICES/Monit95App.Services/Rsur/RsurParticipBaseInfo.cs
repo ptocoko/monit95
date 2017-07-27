@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using Monit95App.Domain.Core;
-using Monit95App.Services.Rsur;
+﻿using Monit95App.Domain.Core;
+using Monit95App.Domain.Interfaces;
 
-namespace Monit95App.Services.Models.Rsur
+namespace Monit95App.Services.Rsur
 {
     public class RsurParticipBaseInfo : RsurParticipInfo
-    {                        
+    {    
         protected override void FillAdditionalInfo(ProjectParticip entity) { }
+
+        public RsurParticipBaseInfo()
+        {
+            
+        }
+
+        public RsurParticipBaseInfo(IGenericRepository<ProjectParticipsEdit> rsurParticipEditRepository) : base(rsurParticipEditRepository)
+        {
+
+        }
     }
 }

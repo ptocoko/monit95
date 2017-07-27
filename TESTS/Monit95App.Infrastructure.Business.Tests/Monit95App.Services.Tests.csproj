@@ -90,6 +90,7 @@
     <Compile Include="TestITypeReport.cs" />
     <Compile Include="TestResultServiceTest.cs" />
     <Compile Include="TestRszkVMmanager.cs" />
+    <Compile Include="RsurParticipFullInfo_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

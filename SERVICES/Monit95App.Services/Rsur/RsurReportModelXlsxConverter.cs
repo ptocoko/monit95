@@ -80,8 +80,8 @@ namespace Monit95App.Services
                     templateSheet.Cell(rowNumber, 5).Value = info.SecondName;
                     templateSheet.Cell(rowNumber, 6).Value = info.AreaName;
                     templateSheet.Cell(rowNumber, 7).Value = info.SchoolIdWithName;
-                    templateSheet.Cell(rowNumber, 8).Value = info.SubjectName;
-                    templateSheet.Cell(rowNumber, 9).Value = info.CategName;
+                    templateSheet.Cell(rowNumber, 8).Value = info.NsurSubjectName;
+                    templateSheet.Cell(rowNumber, 9).Value = info.CategoryName;
                     templateSheet.Cell(rowNumber, 10).Value = info.Experience;
                     templateSheet.Cell(rowNumber, 11).Value = info.Phone;
                     templateSheet.Cell(rowNumber, 12).Value = info.Email;
