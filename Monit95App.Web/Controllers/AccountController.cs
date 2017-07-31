@@ -51,7 +51,8 @@ namespace Monit95App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
+                var userName = model.UserName.Replace("-", string.Empty);
+                var user = await UserManager.FindAsync(userName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);

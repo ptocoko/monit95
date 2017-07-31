@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services", "Monit95App.Services\Monit95App.Services.csproj", "{5E38A333-C51E-4910-A650-440C8D7F0A94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountsCreator", "AccountsCreator\AccountsCreator.csproj", "{8C1FC8FD-E2A4-4701-8CC4-C3A720E50087}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{5E38A333-C51E-4910-A650-440C8D7F0A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E38A333-C51E-4910-A650-440C8D7F0A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E38A333-C51E-4910-A650-440C8D7F0A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C1FC8FD-E2A4-4701-8CC4-C3A720E50087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C1FC8FD-E2A4-4701-8CC4-C3A720E50087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C1FC8FD-E2A4-4701-8CC4-C3A720E50087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C1FC8FD-E2A4-4701-8CC4-C3A720E50087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
