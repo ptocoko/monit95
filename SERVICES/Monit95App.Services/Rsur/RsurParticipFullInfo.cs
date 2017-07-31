@@ -7,19 +7,15 @@ namespace Monit95App.Services.Rsur
     {        
         public string AreaName { get; set; }        
 
+        public bool HasSurnameEdit { get; set; }
+        public bool HasNameEdit { get; set; }
+
         protected override void FillAdditionalInfo(ProjectParticip entity)
         {
             AreaName = $"{entity.School.Area.Code} - {entity.School.Area.Name.Trim()}";
-        }
 
-        public RsurParticipFullInfo()
-        {
-
-        }
-
-        public RsurParticipFullInfo(IGenericRepository<ProjectParticipsEdit> rsurParticipEditRepository) : base(rsurParticipEditRepository)
-        {
-
+            HasSurnameEdit = entity.ProjectParticipEdit.Surname == null;
+            HasNameEdit = entity.ProjectParticipEdit.Name == null;
         }
     }
 }

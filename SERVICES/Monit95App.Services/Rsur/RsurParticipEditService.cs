@@ -10,11 +10,11 @@ namespace Monit95App.Services.Rsur
 {
     public class RsurParticipEditService : IRsurParticipEditService
     {
-        private IUnitOfWork _unitOfWork;
-        private IGenericRepository<ProjectParticipsEdit> _participEditRepository;
-        private IGenericRepository<ProjectParticip> _participRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IGenericRepository<ProjectParticipEdit> _participEditRepository;
+        private readonly IGenericRepository<ProjectParticip> _participRepository;
 
-        public RsurParticipEditService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipsEdit> participEditRepository, IGenericRepository<ProjectParticip> participRepository)
+        public RsurParticipEditService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipEdit> participEditRepository, IGenericRepository<ProjectParticip> participRepository)
         {
             this._unitOfWork = unitOfWork;
             this._participEditRepository = participEditRepository;
@@ -41,7 +41,7 @@ namespace Monit95App.Services.Rsur
         {
             try
             {
-                var entity = new ProjectParticipsEdit
+                var entity = new ProjectParticipEdit
                 {
                     ParticipCode = model.ParticipCode,
                     Surname = model.NewParticipSurname,
@@ -64,7 +64,7 @@ namespace Monit95App.Services.Rsur
             try
             {
                 var entity = _participEditRepository.GetAll().Single(p => p.ParticipCode == participCode);
-                _unitOfWork.DbContext.ProjectParticipsEdits.Remove(entity);
+                _unitOfWork.DbContext.ProjectParticipEdits.Remove(entity);
                 _unitOfWork.Save();
             }
             catch (RetryLimitExceededException)

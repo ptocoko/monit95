@@ -6,15 +6,5 @@ namespace Monit95App.Services.Rsur
     public class RsurParticipBaseInfo : RsurParticipInfo
     {    
         protected override void FillAdditionalInfo(ProjectParticip entity) { }
-
-        public RsurParticipBaseInfo()
-        {
-            
-        }
-
-        public RsurParticipBaseInfo(IGenericRepository<ProjectParticipsEdit> rsurParticipEditRepository) : base(rsurParticipEditRepository)
-        {
-
-        }
     }
 }

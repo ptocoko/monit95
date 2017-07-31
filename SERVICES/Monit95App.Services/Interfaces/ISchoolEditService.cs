@@ -9,7 +9,7 @@ namespace Monit95App.Services.Interfaces
 {
     public interface ISchoolEditService
     {
-        Task<bool> DeleteEditTask(string schoolId);
-        Task<bool> AddEditTask(SchoolsEdit schoolEdit);
+        bool DeleteEditTask(string schoolId);
+        bool AddEditTask(SchoolEdit schoolEdit);
     }
 }

@@ -20,8 +20,6 @@ namespace Monit95App.Services.Rsur
         #warning separate 
         private readonly IGenericRepository<TestResult> _testResultRepository;
 
-        private readonly IGenericRepository<ProjectParticipsEdit> _rsurParticipEditRepository;
-
         #warning separate 
         private readonly IRsurParticipViewer _rsurParticipViewer;
 
@@ -31,12 +29,10 @@ namespace Monit95App.Services.Rsur
 
         public RsurParticipService(IGenericRepository<ProjectParticip> rsurParticipRepository, 
                                    IGenericRepository<TestResult> testResultRepository,
-                                   IGenericRepository<ProjectParticipsEdit> rsurParticipEditRepository,
                                    IRsurParticipViewer rsurParticipViewer)
         {            
             _rsurParticipRepository = rsurParticipRepository;
             _testResultRepository = testResultRepository;
-            _rsurParticipEditRepository = rsurParticipEditRepository;
             _rsurParticipViewer = rsurParticipViewer;
         }
 
@@ -57,7 +53,7 @@ namespace Monit95App.Services.Rsur
 
             foreach (var entity in entities)
             {
-                var fullInfo = new RsurParticipFullInfo(_rsurParticipEditRepository);
+                var fullInfo = new RsurParticipFullInfo();
                 fullInfo.TemplateMethod(entity);
                 rsurParticipFullInfoList.Add(fullInfo);
             }                                    

@@ -18,7 +18,6 @@ namespace Monit95App.Domain.Core
         public NsurSubject()
         {
             this.ProjectParticips = new HashSet<ProjectParticip>();
-            this.ProjectParticipsEdits = new HashSet<ProjectParticipsEdit>();
         }
     
         public int Code { get; set; }
@@ -26,7 +25,5 @@ namespace Monit95App.Domain.Core
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectParticipsEdit> ProjectParticipsEdits { get; set; }
     }
 }

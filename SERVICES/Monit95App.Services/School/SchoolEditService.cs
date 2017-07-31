@@ -13,12 +13,12 @@ namespace Monit95App.Services.School
         #region Fileds
 
         private readonly IGenericRepository<Domain.Core.School> _schoolRepository;
-        private readonly IGenericRepository<SchoolsEdit> _schoolEditRepository;
+        private readonly IGenericRepository<SchoolEdit> _schoolEditRepository;
 
         #endregion      
 
         public SchoolEditService(IGenericRepository<Domain.Core.School> schoolRepository, 
-                                 IGenericRepository<SchoolsEdit> schoolEditRepository)
+                                 IGenericRepository<SchoolEdit> schoolEditRepository)
         {
             _schoolRepository = schoolRepository;
             _schoolEditRepository = schoolEditRepository;            
@@ -26,37 +26,34 @@ namespace Monit95App.Services.School
 
         #region Services
 
-        public Task<bool> DeleteEditTask(string schoolId) //schoolId = schoolEditId
+        public bool DeleteEditTask(string schoolId) //schoolId = schoolEditId
         {
-            return Task.Run(() =>
-            {
-                var correction = _schoolEditRepository.GetById(schoolId);
-                if (correction == null)
-                {
-                    return false;
-                }
-                _schoolRepository.Delete(schoolId);
-                _schoolRepository.Save();
 
-                return true;
-            });            
+            var correction = _schoolEditRepository.GetById(schoolId);
+            if (correction == null)
+            {
+                return false;
+            }
+            _schoolRepository.Delete(schoolId);
+            _schoolRepository.Save();
+
+            return true;
+
         }
 
-        public Task<bool> AddEditTask(SchoolsEdit schoolEdit)
+        public bool AddEditTask(SchoolEdit schoolEdit)
         {
-            return Task.Run(() =>
+
+            if (schoolEdit == null)
             {
-                if (schoolEdit == null)
-                {
-                    return false;
-                }
+                return false;
+            }
 
-                _schoolEditRepository.Insert(schoolEdit);
-                _schoolRepository.Save();
+            _schoolEditRepository.Insert(schoolEdit);
+            _schoolRepository.Save();
 
-                return true;
-            });
-        }               
+            return true;
+        }
 
         #endregion
     }

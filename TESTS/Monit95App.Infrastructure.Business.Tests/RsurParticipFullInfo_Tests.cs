@@ -23,15 +23,14 @@ namespace Monit95App.Infrastructure.BusinessTests
                 School = new School { Id = "0005", Name = "Школа № 1", Area = new Area {Code = 205, Name = "г. Грозный"}},
                 Category = new Category { Name = "Без категории"}
             };
-            var mockRsurParticipEditRepository = Substitute.For<IGenericRepository<ProjectParticipsEdit>>();
-            mockRsurParticipEditRepository.GetById(Arg.Any<string>()).Returns(new ProjectParticipsEdit());
-            var rsurParticipFullInfo = new RsurParticipFullInfo(mockRsurParticipEditRepository);
+            var mockRsurParticipEditRepository = Substitute.For<IGenericRepository<ProjectParticipEdit>>();
+            mockRsurParticipEditRepository.GetById(Arg.Any<string>()).Returns(new ProjectParticipEdit());
+            var rsurParticipFullInfo = new RsurParticipFullInfo();
             
             //Act
             rsurParticipFullInfo.TemplateMethod(entity);
 
-            //Assert
-            Assert.AreEqual(true, rsurParticipFullInfo.HasRequestToEdit);
+            //Assert            
             Assert.AreEqual("Adam", rsurParticipFullInfo.Name);
             Assert.AreEqual("Без категории", rsurParticipFullInfo.CategoryName);
             Assert.AreEqual("0005 - Школа № 1", rsurParticipFullInfo.SchoolIdWithName);            

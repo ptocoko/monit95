@@ -14,7 +14,7 @@ namespace Monit95App.Models
         {
             _context = context;
 
-            return _context.SchoolsEdits.Join(_context.Schools, ok => ok.Id, ik => ik.Id, (ok, ik) => new CorrectionModel { SchoolId = ok.Id, NewName = ok.Name, OldName = ik.Name }).ToList();
+            return _context.SchoolEdits.Join(_context.Schools, ok => ok.Id, ik => ik.Id, (ok, ik) => new CorrectionModel { SchoolId = ok.Id, NewName = ok.Name, OldName = ik.Name }).ToList();
         }
     }
 }

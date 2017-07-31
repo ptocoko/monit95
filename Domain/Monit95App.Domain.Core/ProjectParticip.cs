@@ -27,18 +27,19 @@ namespace Monit95App.Domain.Core
         public string Name { get; set; }
         public string SecondName { get; set; }
         public int NSubjectCode { get; set; }
-        public Nullable<int> CategId { get; set; }
+        public int CategId { get; set; }
         public Nullable<int> Experience { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public string ClassNumbers { get; set; }
     
-        public virtual Category Category { get; set; }
         public virtual NsurSubject NsurSubject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParticipTest> ParticipTests { get; set; }
         public virtual Project Project { get; set; }
+        public virtual ProjectParticipEdit ProjectParticipEdit { get; set; }
         public virtual School School { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

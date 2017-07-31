@@ -18,7 +18,7 @@ namespace Monit95App.Infrastructure.BusinessTests
     {
         UnitOfWork unitOfWork;
         private readonly IGenericRepository<ProjectParticip> _mockRsurParticipRespoitory;
-        private readonly IGenericRepository<ProjectParticipsEdit> _mockRsurParticipEditRepository;
+        private readonly IGenericRepository<ProjectParticipEdit> _mockRsurParticipEditRepository;
         private readonly GenericRepository<Domain.Core.TestResult> testResultRepository;
         RsurParticipViewer rsurParticipViewer;
         IRsurParticipService service;
@@ -29,9 +29,8 @@ namespace Monit95App.Infrastructure.BusinessTests
             testResultRepository = new GenericRepository<Domain.Core.TestResult>(unitOfWork);
             rsurParticipViewer = new RsurParticipViewer();
             _mockRsurParticipRespoitory = Substitute.For<IGenericRepository<ProjectParticip>>();
-            _mockRsurParticipEditRepository = Substitute.For<IGenericRepository<ProjectParticipsEdit>>();
-            service = new RsurParticipService(_mockRsurParticipRespoitory, testResultRepository, 
-                                              _mockRsurParticipEditRepository, rsurParticipViewer);
+            _mockRsurParticipEditRepository = Substitute.For<IGenericRepository<ProjectParticipEdit>>();
+            service = new RsurParticipService(_mockRsurParticipRespoitory, testResultRepository, rsurParticipViewer);
         }
 
         [TestMethod]
@@ -58,7 +57,7 @@ namespace Monit95App.Infrastructure.BusinessTests
                 }
             }.AsQueryable();            
             _mockRsurParticipRespoitory.GetAll().Returns(entities);
-            _mockRsurParticipEditRepository.GetById(Arg.Any<string>()).Returns(new ProjectParticipsEdit());
+            _mockRsurParticipEditRepository.GetById(Arg.Any<string>()).Returns(new ProjectParticipEdit());
 
             //Act
             var rsurParticipFullInfoList = service.Get(null, "0005");

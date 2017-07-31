@@ -12,7 +12,7 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectParticipsEdit
+    public partial class ProjectParticipEdit
     {
         public string ParticipCode { get; set; }
         public string Surname { get; set; }
@@ -26,8 +26,6 @@ namespace Monit95App.Domain.Core
         public Nullable<int> Experience { get; set; }
         public Nullable<int> NSubjectCode { get; set; }
     
-        public virtual Category Category { get; set; }
-        public virtual NsurSubject NsurSubject { get; set; }
-        public virtual School School { get; set; }
+        public virtual ProjectParticip ProjectParticip { get; set; }
     }
 }

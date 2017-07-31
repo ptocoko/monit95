@@ -9,23 +9,7 @@ using Monit95App.Infrastructure.Data;
 namespace Monit95App.Services.Rsur
 {
     public abstract class RsurParticipInfo
-    {
-        #region Fields
-                
-        private readonly IGenericRepository<ProjectParticipsEdit> _rsurParticipEditRepository;
-        
-        #endregion
-
-        protected RsurParticipInfo()
-        {
-            
-        }
-
-        protected RsurParticipInfo(IGenericRepository<ProjectParticipsEdit> rsurParticipEditRepository)
-        {
-            _rsurParticipEditRepository = rsurParticipEditRepository;
-        }
-
+    {        
         #region Properties
 
         public int ProjectCode { get; set; }
@@ -57,9 +41,7 @@ namespace Monit95App.Services.Rsur
 
         public DateTime? Birthday { get; set; }
 
-        public string ClassNumbers { get; set; }
-
-        public bool HasRequestToEdit { get; set; }
+        public string ClassNumbers { get; set; }        
 
         #endregion
 
@@ -70,16 +52,14 @@ namespace Monit95App.Services.Rsur
                 throw new ArgumentNullException(nameof(entity), "RsurParticipInfo.FillBaseInfo(ProjectParticip entity)");
             }
             FillBaseInfo(entity);
-            FillAdditionalInfo(entity);
+            FillAdditionalInfo(entity);            
         }
 
         private void FillBaseInfo(ProjectParticip entity)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>()
                 .ForMember("SchoolIdWithName", opt => opt.MapFrom(s => $"{s.School.Id} - {s.School.Name.Trim()}")));
-            Mapper.Map(entity, this);                                                
-                                                
-            HasRequestToEdit = _rsurParticipEditRepository.GetById(entity.ParticipCode) != null;
+            Mapper.Map(entity, this);                                                                                                            
         }        
    
         protected abstract void FillAdditionalInfo(ProjectParticip entity);

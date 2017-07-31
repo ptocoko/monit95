@@ -10,10 +10,10 @@ namespace Monit95App.Services.School
 	public class SchoolService : ISchoolService
 	{
 	    private readonly IGenericRepository<Domain.Core.School> _schoolRepository;
-	    private readonly IGenericRepository<SchoolsEdit> _schoolEditRepository;
+	    private readonly IGenericRepository<SchoolEdit> _schoolEditRepository;
 
         public SchoolService(IGenericRepository<Domain.Core.School> schoolRepository,
-                             IGenericRepository<SchoolsEdit> schoolEditRepository)
+                             IGenericRepository<SchoolEdit> schoolEditRepository)
 	    {
 	        _schoolRepository = schoolRepository;
 	        _schoolEditRepository = schoolEditRepository;
@@ -54,12 +54,6 @@ namespace Monit95App.Services.School
             Mapper.Initialize(cfg => cfg.CreateMap<SchoolModel, Domain.Core.School>()
                         .ForMember(property => property.Name, opt => opt.Ignore())); //property Name set manually
             entity = Mapper.Map(model, entity);
-
-            //if (isAdmin)
-            //{
-            //    product.CategoryName = dto.CategoryName;
-            //}
-
 
         }
 
