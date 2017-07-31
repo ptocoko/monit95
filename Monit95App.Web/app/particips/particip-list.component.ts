@@ -1,22 +1,26 @@
 ﻿import { Component, OnInit } from "@angular/core";
-
-//import { DialogRef, Overlay, overlayConfigFactory } from "angular2-modal";
 import { overlayConfigFactory } from "angular2-modal";
-//import { Modal, BSModalContext } from "angular2-modal/plugins/bootstrap";
 import { Modal } from "angular2-modal/plugins/bootstrap";
-import { ResultsModalComponent } from "./results/results-modal.component";
-
-import { ParticipModel } from "./particip.model";
 import { Response } from '@angular/http';
-//import { UserModel } from "../user.model";
-//import { PARTICIPS } from "./mock-particips";
+
+import { ResultsModalComponent } from "./results/results-modal.component";
+import { ParticipModel } from "./particip.model";
+import { ParticipFormComponent } from './particip-form/particip-form.component'
 
 import { ParticipService } from "./particip.service";
 import { UserService } from "../user.service";
+import Editmodalcomponent = require("./edit-particip/edit-modal.component");
+import EditModalComponent = Editmodalcomponent.EditModalComponent;
+
+import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import { DialogRef } from 'angular2-modal';
+
+import { PARTICIPS } from './mock-particips'
+
 
 @Component({
     selector: "particip-list",
-    templateUrl: "./app/particips/particip-list.html",
+    templateUrl: "./app/particips/particip-list.component.html",
     providers: [Modal]    
 })
 export class ParticipListComponent implements OnInit {
@@ -29,20 +33,28 @@ export class ParticipListComponent implements OnInit {
 
     ngOnInit() {
         //Get participList
-        this.participService.getAll().subscribe((response: Response) => {
-            this.particips = response.json() as ParticipModel[];
-            console.log(this.particips);
-        });
+        //this.participService.getAll().subscribe((response: Response) => {
+        //    this.particips = response.json() as ParticipModel[];
+        //    console.log(this.particips);
+        //});
+
+        this.particips = PARTICIPS as ParticipModel[];
           
-        //Get user's names
-        this.userService.getName().then(response => {
-            this.userName = response;
+        //Get user name
+        this.userService.getAccount().subscribe((response: Response) => {
+            this.userName = response.json().UserName;
         });
-        console.log(`ParticipListComponent.getUserName(): ${this.userName}`);
-
     }
+//console.log(`ParticipListComponent.getUserName(): ${this.userName}`);
 
-	openModal(particip: ParticipModel) {
-		this.modal.open(ResultsModalComponent, overlayConfigFactory(particip));
-	}
+    edit(particip: ParticipModel) {
+        this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))
+            .then((dialog: DialogRef<ParticipModel>) => {
+                dialog.result.then(response => {
+                    //..
+                }).catch(() => {
+                    //..
+                });
+            });
+    }
 };

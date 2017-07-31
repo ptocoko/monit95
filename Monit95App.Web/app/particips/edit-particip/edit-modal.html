@@ -2,7 +2,6 @@
     <h2>This is modal!</h2>
     <hr />
     <form (ngSubmit)="onSubmit()" #participForm="ngForm">
-
         <div class="form-group">
             <label for="surname">Фамилия</label>
             <input type="text" class="form-control" id="surname" required [(ngModel)]="editParticip.newParticipSurname" name="surname" #surname="ngModel" />

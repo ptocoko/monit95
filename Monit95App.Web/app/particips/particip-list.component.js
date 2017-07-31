@@ -10,15 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-//import { DialogRef, Overlay, overlayConfigFactory } from "angular2-modal";
 var angular2_modal_1 = require("angular2-modal");
-//import { Modal, BSModalContext } from "angular2-modal/plugins/bootstrap";
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
-var results_modal_component_1 = require("./results/results-modal.component");
-//import { UserModel } from "../user.model";
-//import { PARTICIPS } from "./mock-particips";
+var particip_form_component_1 = require("./particip-form/particip-form.component");
 var particip_service_1 = require("./particip.service");
 var user_service_1 = require("../user.service");
+var bootstrap_2 = require("angular2-modal/plugins/bootstrap");
+var mock_particips_1 = require("./mock-particips");
 var ParticipListComponent = (function () {
     function ParticipListComponent(participService, userService, modal) {
         this.participService = participService;
@@ -27,27 +25,35 @@ var ParticipListComponent = (function () {
         this.particips = [];
     }
     ParticipListComponent.prototype.ngOnInit = function () {
-        var _this = this;
         //Get participList
-        this.participService.getAll().subscribe(function (response) {
-            _this.particips = response.json();
-            console.log(_this.particips);
+        //this.participService.getAll().subscribe((response: Response) => {
+        //    this.particips = response.json() as ParticipModel[];
+        //    console.log(this.particips);
+        //});
+        var _this = this;
+        this.particips = mock_particips_1.PARTICIPS;
+        //Get user name
+        this.userService.getAccount().subscribe(function (response) {
+            _this.userName = response.json().UserName;
         });
-        //Get user's names
-        this.userService.getName().then(function (response) {
-            _this.userName = response;
-        });
-        console.log("ParticipListComponent.getUserName(): " + this.userName);
     };
-    ParticipListComponent.prototype.openModal = function (particip) {
-        this.modal.open(results_modal_component_1.ResultsModalComponent, angular2_modal_1.overlayConfigFactory(particip));
+    //console.log(`ParticipListComponent.getUserName(): ${this.userName}`);
+    ParticipListComponent.prototype.edit = function (particip) {
+        this.modal.open(particip_form_component_1.ParticipFormComponent, angular2_modal_1.overlayConfigFactory(particip, bootstrap_2.BSModalContext))
+            .then(function (dialog) {
+            dialog.result.then(function (response) {
+                //..
+            }).catch(function () {
+                //..
+            });
+        });
     };
     return ParticipListComponent;
 }());
 ParticipListComponent = __decorate([
     core_1.Component({
         selector: "particip-list",
-        templateUrl: "./app/particips/particip-list.html",
+        templateUrl: "./app/particips/particip-list.component.html",
         providers: [bootstrap_1.Modal]
     }),
     __metadata("design:paramtypes", [particip_service_1.ParticipService,

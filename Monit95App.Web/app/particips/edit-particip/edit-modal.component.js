@@ -18,7 +18,7 @@ var EditModalComponent = (function () {
         this.dialog = dialog;
         this.participService = participService;
         this.particip = dialog.context;
-        this.editParticip = new edit_particip_model_1.ParticipEditModel(this.particip.participCode, this.particip.surname, this.particip.name, this.particip.secondName);
+        this.editParticip = new edit_particip_model_1.ParticipEditModel(this.particip.participCode, this.particip.surname.value, this.particip.name, this.particip.secondName);
     }
     EditModalComponent.prototype.onSubmit = function () {
         var _this = this;

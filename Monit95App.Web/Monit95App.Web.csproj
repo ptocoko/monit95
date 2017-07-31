@@ -314,7 +314,7 @@
     <Content Include="app\particips\edit-particip\edit-modal.html" />
     <Content Include="app\particips\edit-particip\edit-particip.html" />
     <Content Include="app\particips\particip-form\particip-form.component.html" />
-    <Content Include="app\particips\particip-list.html" />
+    <Content Include="app\particips\particip-list.component.html" />
     <Content Include="app\particips\details\particip-modal.html" />
     <Content Include="app\particips\particips.html" />
     <Content Include="app\particips\results\results-modal.html" />

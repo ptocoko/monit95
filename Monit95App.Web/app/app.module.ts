@@ -19,6 +19,7 @@ import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './particips/details/particip-details.component';
 import { EditParticipComponent } from './particips/edit-particip/edit-particip.component';
 import { ParticipCorrectionComponent } from './particips/correction/particip-correction.component';
+import { ParticipFormComponent } from './particips/particip-form/particip-form.component'
 
 //Services
 import { UserService } from './user.service'
@@ -51,14 +52,15 @@ import { GlobalErrorHandler } from "./error-handler";
 		ParticipModalComponent,
 		ResultsModalComponent,
         EditModalComponent,
-        ParticipCorrectionComponent
+        ParticipCorrectionComponent,
+        ParticipFormComponent
 	],
 	providers: [
         UserService, ParticipService, ParticipCorrectionService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
-	entryComponents: [ParticipModalComponent, ResultsModalComponent, EditModalComponent],
+    entryComponents: [ParticipModalComponent, ResultsModalComponent, EditModalComponent, ParticipFormComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
