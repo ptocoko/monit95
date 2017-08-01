@@ -14,8 +14,8 @@ namespace Monit95App.Services.Rsur
         {
             AreaName = $"{entity.School.Area.Code} - {entity.School.Area.Name.Trim()}";
 
-            HasSurnameEdit = entity.ProjectParticipEdit.Surname == null;
-            HasNameEdit = entity.ProjectParticipEdit.Name == null;
+            HasSurnameEdit = entity.ProjectParticipEdit?.Surname != null;
+            HasNameEdit = entity.ProjectParticipEdit?.Name != null;
         }
     }
 }

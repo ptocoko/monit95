@@ -51,7 +51,7 @@ export class ParticipListComponent implements OnInit {
         this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))
             .then((dialog: DialogRef<ParticipModel>) => {
                 dialog.result.then(response => {
-                    //..
+                    this.participService.update(response);
                 }).catch(() => {
                     //..
                 });

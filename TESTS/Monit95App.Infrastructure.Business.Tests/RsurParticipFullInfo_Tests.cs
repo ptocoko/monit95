@@ -33,11 +33,8 @@ namespace Monit95App.Infrastructure.BusinessTests
             //Assert            
             Assert.AreEqual("Adam", rsurParticipFullInfo.Name);
             Assert.AreEqual("Без категории", rsurParticipFullInfo.CategoryName);
-            Assert.AreEqual("0005 - Школа № 1", rsurParticipFullInfo.SchoolIdWithName);       
-            
-
-
-
+            Assert.AreEqual("0005 - Школа № 1", rsurParticipFullInfo.SchoolIdWithName);
+            Assert.AreEqual(false, rsurParticipFullInfo.HasSurnameEdit);
             Assert.AreEqual("205 - г. Грозный", rsurParticipFullInfo.AreaName);            
         }
     }
