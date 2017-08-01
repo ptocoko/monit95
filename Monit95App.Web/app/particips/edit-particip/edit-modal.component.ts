@@ -18,12 +18,11 @@ export class EditModalComponent {
 
 	constructor(private dialog: DialogRef<ParticipModel>, private participService: ParticipService) {
 		this.particip = dialog.context;
-		this.editParticip = new ParticipEditModel(this.particip.participCode, this.particip.surname.value, this.particip.name, this.particip.secondName);
+		this.editParticip = new ParticipEditModel(this.particip.participCode, this.particip.surname, this.particip.name, this.particip.secondName);
 	}
 
 	onSubmit() {
 		this.participService.postRequestToEdit(this.editParticip).subscribe(res => {
-			this.particip.hasRequestToEdit = true;
 			this.dialog.close(this.particip);
 		});
 		

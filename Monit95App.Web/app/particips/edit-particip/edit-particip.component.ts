@@ -35,8 +35,7 @@ export class EditParticipComponent {
 
 	setDataByParticipCode(particip: ParticipModel) {
 		this.particips.forEach((val, i, arr) => {
-			if (val.participCode === particip.participCode) {
-				val.hasRequestToEdit = particip.hasRequestToEdit;
+			if (val.participCode === particip.participCode) {				
 				return;
 			}
 		})

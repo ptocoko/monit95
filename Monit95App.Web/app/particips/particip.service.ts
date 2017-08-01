@@ -30,9 +30,8 @@ export class ParticipService {
     }
 
     update(particip: ParticipModel) {
-        return this.http.put(this.ROUTE_PREFIX + '/' + particip.participCode, particip);
-    }
-   
+        return this.http.put(`${this.ROUTE_PREFIX}/${particip.participCode}`, particip);
+    }    
 
     //getParticip(participCode: string): Observable<ParticipModel> {
     //    return this.http.get('api/rsurParticips/' + participCode)

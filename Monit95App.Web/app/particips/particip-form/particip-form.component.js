@@ -16,9 +16,16 @@ var ParticipFormComponent = (function () {
     function ParticipFormComponent(dialog, participService) {
         this.dialog = dialog;
         this.participService = participService;
-        this.particip = dialog.context;
     }
     ParticipFormComponent.prototype.ngOnInit = function () {
+        this.particip = this.dialog.context;
+    };
+    ParticipFormComponent.prototype.onSubmit = function () {
+        console.log(this.particip);
+        this.dialog.close();
+    };
+    ParticipFormComponent.prototype.cancel = function () {
+        this.dialog.dismiss();
     };
     return ParticipFormComponent;
 }());

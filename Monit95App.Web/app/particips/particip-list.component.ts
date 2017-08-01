@@ -25,11 +25,13 @@ import { PARTICIPS } from './mock-particips'
 })
 export class ParticipListComponent implements OnInit {
     particips: ParticipModel[] = [];	
-    userName: any;
+    userName: string;
         
     constructor(private participService: ParticipService,
                 private userService: UserService,
-                public modal: Modal) { }
+                public modal: Modal) {
+        
+    }
 
     ngOnInit() {
         //Get participList
@@ -44,16 +46,16 @@ export class ParticipListComponent implements OnInit {
         this.userService.getAccount().subscribe((response: Response) => {
             this.userName = response.json().UserName;
         });
-    }
-//console.log(`ParticipListComponent.getUserName(): ${this.userName}`);
+    } 
 
     edit(particip: ParticipModel) {
         this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))
             .then((dialog: DialogRef<ParticipModel>) => {
-                dialog.result.then(response => {
-                    this.participService.update(response);
-                }).catch(() => {
-                    //..
+                dialog.result.then(dialogResponse => {
+                    this.participService.update(dialogResponse).subscribe((serviceResponse: Response) => {
+                        var index = this.particips.indexOf(particip);
+                        this.particips[index] = serviceResponse.json() as ParticipModel;
+                    });
                 });
             });
     }

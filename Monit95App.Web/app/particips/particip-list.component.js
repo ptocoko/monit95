@@ -37,14 +37,15 @@ var ParticipListComponent = (function () {
             _this.userName = response.json().UserName;
         });
     };
-    //console.log(`ParticipListComponent.getUserName(): ${this.userName}`);
     ParticipListComponent.prototype.edit = function (particip) {
+        var _this = this;
         this.modal.open(particip_form_component_1.ParticipFormComponent, angular2_modal_1.overlayConfigFactory(particip, bootstrap_2.BSModalContext))
             .then(function (dialog) {
-            dialog.result.then(function (response) {
-                //..
-            }).catch(function () {
-                //..
+            dialog.result.then(function (dialogResponse) {
+                _this.participService.update(dialogResponse).subscribe(function (serviceResponse) {
+                    var index = _this.particips.indexOf(particip);
+                    _this.particips[index] = serviceResponse.json();
+                });
             });
         });
     };

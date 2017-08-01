@@ -2,7 +2,6 @@
 import { DialogRef } from 'angular2-modal';
 
 import { ParticipModel } from '../particip.model'
-
 import { ParticipService } from '../particip.service';
 
 @Component({
@@ -13,9 +12,19 @@ export class ParticipFormComponent implements OnInit {
     particip: ParticipModel;    
 
     constructor(private dialog: DialogRef<ParticipModel>, private participService: ParticipService) {
-        this.particip = dialog.context;        
+
     }
     
     ngOnInit() {        
+        this.particip = this.dialog.context;
     }    
+
+    onSubmit() {
+        console.log(this.particip);
+        this.dialog.close();
+    }
+
+    cancel() {
+        this.dialog.dismiss();
+    }
 }

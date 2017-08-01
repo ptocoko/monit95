@@ -15,9 +15,9 @@ var http_1 = require("@angular/http");
 require("rxjs/Rx");
 var results_model_1 = require("./results/results.model");
 var ParticipService = (function () {
-    //headers: Headers;
     function ParticipService(http) {
         this.http = http;
+        this.ROUTE_PREFIX = "api/RsurParticips";
     }
     ParticipService.prototype.downloadFile = function (data) {
         var blob = new Blob([data]);
@@ -25,20 +25,11 @@ var ParticipService = (function () {
         window.open(url);
     };
     ParticipService.prototype.getAll = function () {
-        return this.http.get("api/rsurParticips");
+        return this.http.get(this.ROUTE_PREFIX);
     };
-    //   get(): Observable<ParticipModel[]> {                        
-    //       return this.http.get("api/rsurParticips")
-    //           .map((resp: Response) => {                
-    //               const participList = resp.json();
-    //               const particips: ParticipModel[] = [];
-    //               for (let index in participList) {
-    //                   let particip = participList[index];
-    //                   particips.push(this.getParticipModel(particip));
-    //               }
-    //               return particips;
-    //           });        
-    //}	
+    ParticipService.prototype.update = function (particip) {
+        return this.http.put(this.ROUTE_PREFIX + "/" + particip.participCode, particip);
+    };
     //getParticip(participCode: string): Observable<ParticipModel> {
     //    return this.http.get('api/rsurParticips/' + participCode)
     //        .map((resp: Response) => {
@@ -46,9 +37,6 @@ var ParticipService = (function () {
     //            return this.getParticipModel(participResp);
     //        });
     //}
-    ParticipService.prototype.updateParticip = function (particip) {
-        return this.http.put('/api/RsurParticip/PutParticip', particip);
-    };
     ParticipService.prototype.getParticipResults = function (participCode) {
         return this.http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
             .map(function (res) {

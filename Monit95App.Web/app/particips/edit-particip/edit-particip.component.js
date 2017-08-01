@@ -36,7 +36,6 @@ var EditParticipComponent = (function () {
     EditParticipComponent.prototype.setDataByParticipCode = function (particip) {
         this.particips.forEach(function (val, i, arr) {
             if (val.participCode === particip.participCode) {
-                val.hasRequestToEdit = particip.hasRequestToEdit;
                 return;
             }
         });

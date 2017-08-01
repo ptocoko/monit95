@@ -53,7 +53,7 @@ export class ParticipModalComponent implements ModalComponent<ParticipModel> {
 			this.particip.birthday = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
 			this.particip.classNumbers = participClasses;
 
-			this.participService.updateParticip(this.particip).subscribe(() => {
+			this.participService.update(this.particip).subscribe(() => {
 				this.dialog.close(this.particip);
 			}, (error) => {
 				this.statusText = 'Ошибка доступа к серверу!';
