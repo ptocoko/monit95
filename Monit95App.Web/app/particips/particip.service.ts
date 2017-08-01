@@ -12,9 +12,12 @@ import { ResultsModel, ResultDetailsModel } from './results/results.model';
 })
 
 @Injectable()
-export class ParticipService {
-    //headers: Headers;
-    constructor(private http: Http) { }    
+export class ParticipService {    
+    ROUTE_PREFIX = "api/RsurParticips";
+
+    constructor(private http: Http) {
+
+    }    
 
     downloadFile(data: Response) {
         const blob = new Blob([data]);        
@@ -23,21 +26,13 @@ export class ParticipService {
     }
 
     getAll() {
-        return this.http.get("api/rsurParticips");
+        return this.http.get(this.ROUTE_PREFIX);
     }
 
-    //   get(): Observable<ParticipModel[]> {                        
- //       return this.http.get("api/rsurParticips")
- //           .map((resp: Response) => {                
- //               const participList = resp.json();
- //               const particips: ParticipModel[] = [];
- //               for (let index in participList) {
- //                   let particip = participList[index];
- //                   particips.push(this.getParticipModel(particip));
- //               }
- //               return particips;
- //           });        
-	//}	
+    update(particip: ParticipModel) {
+        return this.http.put(this.ROUTE_PREFIX + '/' + particip.participCode, particip);
+    }
+   
 
     //getParticip(participCode: string): Observable<ParticipModel> {
     //    return this.http.get('api/rsurParticips/' + participCode)
@@ -47,9 +42,7 @@ export class ParticipService {
     //        });
     //}
 
-	updateParticip(particip: ParticipModel): Observable<any> {
-		return this.http.put('/api/RsurParticip/PutParticip', particip);
-	}
+	
 
 	getParticipResults(participCode: string): Observable<ResultsModel[]> {
 		return this.http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
