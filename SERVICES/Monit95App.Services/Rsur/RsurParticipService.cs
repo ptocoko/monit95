@@ -98,7 +98,17 @@ namespace Monit95App.Services.Rsur
                                                     .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
                                                         .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
         }
-        
+
+        public RsurParticipFullInfo Update(RsurParticipFullInfo model, bool? isAdmin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProjectParticip GetEntity(string participCode)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

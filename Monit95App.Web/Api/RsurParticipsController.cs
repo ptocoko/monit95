@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
 using Monit95App.Web.Services;
@@ -38,7 +39,6 @@ namespace Monit95App.Api
 
         #region Api
 
-
         [HttpPatch]
         [Route("{ParticipCode}")]
         public async Task<HttpResponseMessage> Patch([FromBody] JsonPatchDocument<RsurParticipBaseInfo> baseInfo)
@@ -48,7 +48,7 @@ namespace Monit95App.Api
         }
 
         [HttpGet]
-        [Route("{participCode}")]
+        [Route("{ParticipCode}")]
         public async Task<HttpResponseMessage> Get(string participCode)
         {
             if (participCode == null)
@@ -89,20 +89,34 @@ namespace Monit95App.Api
         }
 
         [HttpPut]
-        [Route("{id}")]
-        public IHttpActionResult Put([FromBody]RsurParticipBaseInfo model)
+        [Route("{ParticipCode}")]
+        public IHttpActionResult Put([FromBody]RsurParticipFullInfo fullInfo)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Неверный запрос");
-            //}
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            //var isUpdated = await Task.Run(() => _rsurParticipService.Update(model));
-            //if (isUpdated)
-            //    return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");
-            //else
-            //    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось применить изменения");
-            return Ok();
+            var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
+            var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();            
+            bool? isAdmin = authorizedUserModel.UserName == "coko";
+            if (authorizedUserModel.UserRoleNames.Single() == "area")
+            {
+                var entity = _rsurParticipService.GetEntity(participCode);
+                if (entity == null)
+                {
+                    return NotFound();
+                }
+                if (entity.School.AreaCode.ToString() != authorizedUserModel.UserName)
+                {
+                    return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
+                }
+
+            }
+
+            var updatedRsurParticipFullInfo = _rsurParticipService.Update(fullInfo, isAdmin);
+
+            return Ok(updatedRsurParticipFullInfo);
         }
 
         [HttpGet]
