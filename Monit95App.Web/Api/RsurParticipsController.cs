@@ -88,8 +88,8 @@ namespace Monit95App.Api
             return Ok(baseInfoList);
         }
 
-        [HttpPut]
-        [Route("{ParticipCode}")]
+        [HttpPut]        
+        [Route(@"{ParticipCode:regex(^2016-2\d{2}-\d{3})}")]
         public IHttpActionResult Put([FromBody]RsurParticipFullInfo fullInfo)
         {
             if (!ModelState.IsValid)
@@ -98,8 +98,9 @@ namespace Monit95App.Api
             }
 
             var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
-            var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();            
-            bool? isAdmin = authorizedUserModel.UserName == "coko";
+            var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();     
+            
+            bool isAdmin = authorizedUserModel.UserName == "coko";
             if (authorizedUserModel.UserRoleNames.Single() == "area")
             {
                 var entity = _rsurParticipService.GetEntity(participCode);
@@ -111,7 +112,13 @@ namespace Monit95App.Api
                 {
                     return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
                 }
-
+            }
+            if (authorizedUserModel.UserRoleNames.Single() == "school")
+            {
+                if(fullInfo.SchoolIdWithName.Substring(0, 4) != authorizedUserModel.UserName)
+                {
+                    return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
+                }
             }
 
             var updatedRsurParticipFullInfo = _rsurParticipService.Update(fullInfo, isAdmin);

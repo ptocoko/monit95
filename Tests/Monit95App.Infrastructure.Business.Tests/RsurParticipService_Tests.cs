@@ -6,6 +6,7 @@ using Monit95App.Services;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Models.Rsur;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using NSubstitute;
 using System.Linq;
 using Monit95App.Services.Rsur;
@@ -15,22 +16,22 @@ namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
     public class RsurParticipService_Tests
-    {
-        UnitOfWork unitOfWork;
+    {        
         private readonly IGenericRepository<ProjectParticip> _mockRsurParticipRespoitory;
         private readonly IGenericRepository<ProjectParticipEdit> _mockRsurParticipEditRepository;
-        private readonly GenericRepository<Domain.Core.TestResult> testResultRepository;
+        private readonly IGenericRepository<Domain.Core.TestResult> _testResultRepository;
         RsurParticipViewer rsurParticipViewer;
         IRsurParticipService service;
+        private readonly IRsurParticipEditService _mockRsurParticipEditService;
 
         public RsurParticipService_Tests()
-        {
-            unitOfWork = new UnitOfWork(new cokoContext());            
-            testResultRepository = new GenericRepository<Domain.Core.TestResult>(unitOfWork);
+        {            
+            _testResultRepository = Substitute.For<IGenericRepository<Domain.Core.TestResult>>();
             rsurParticipViewer = new RsurParticipViewer();
             _mockRsurParticipRespoitory = Substitute.For<IGenericRepository<ProjectParticip>>();
             _mockRsurParticipEditRepository = Substitute.For<IGenericRepository<ProjectParticipEdit>>();
-            service = new RsurParticipService(_mockRsurParticipRespoitory, testResultRepository, rsurParticipViewer);
+            _mockRsurParticipEditService = Substitute.For<IRsurParticipEditService>();
+            service = new RsurParticipService(_mockRsurParticipRespoitory, _testResultRepository, rsurParticipViewer, _mockRsurParticipEditService);
         }
 
         [TestMethod]
@@ -68,20 +69,113 @@ namespace Monit95App.Infrastructure.BusinessTests
         }
 
         [TestMethod]
-        public void Update_Test()
+        [ExpectedException(typeof(ValidationException))]
+        public void UpdateByAdmin_ValidationException()
         {
             //Arrange                     
-            var model = new RsurParticipFullInfo
+            var fullInfo = new RsurParticipFullInfo
             {
                 Surname = "Shakhabov",
                 Name = "Adam"
             };
 
             //Act
-            service.Update(null);
+            var result = service.Update(fullInfo, true);
 
             //Assert
-            Assert.Fail();
+            //Excepted ValidationException
+        }
+
+        [TestMethod]        
+        public void UpdateByAdmin_Ok()
+        {
+            //Arrange   
+            var mockEntity = new ProjectParticip
+            {
+                ParticipCode = "2016-200-000",
+                Surname = "oldShakhabov",
+                Name = "Adam",
+            };
+            _mockRsurParticipRespoitory.GetById("2016-200-000").Returns(mockEntity);       
+
+            //Act
+            var fullInfo = new RsurParticipFullInfo
+            {
+                ParticipCode = "2016-200-000",
+                Surname = "Shakhabov",
+                Name = "Adam",
+                NsurSubjectName = "Орфография",
+                SchoolIdWithName = "0005 - ",
+            };
+            var result = service.Update(fullInfo, true);
+            var result2 = service.Update(fullInfo, false);
+
+            //Assert
+            Assert.AreEqual(fullInfo, result);
+            _mockRsurParticipRespoitory.Received().GetById("2016-200-000");
+            _mockRsurParticipRespoitory.Received().Update(Arg.Is<ProjectParticip>(x => x.Surname == "Shakhabov"));            
+        }
+
+        [TestMethod]
+        public void UpdateByAdmin_Fail()
+        {
+            //Arrange   
+            var mockEntity = new ProjectParticip
+            {
+                ParticipCode = "2016-200-000",
+                Surname = "oldShakhabov",
+                Name = "Adam",
+            };
+            _mockRsurParticipRespoitory.GetById("2016-200-000").Returns(mockEntity);
+
+            //Act
+            var fullInfo = new RsurParticipFullInfo
+            {
+                ParticipCode = "2016-200-000",
+                Surname = "Shakhabov",
+                Name = "Adam",
+                NsurSubjectName = "Орфография",
+                SchoolIdWithName = "0005 - ",
+            };
+            var result = service.Update(fullInfo, false);            
+
+            //Assert
+            Assert.AreEqual(fullInfo, result);
+            _mockRsurParticipRespoitory.Received().GetById("2016-200-000");
+            _mockRsurParticipRespoitory.DidNotReceive().Update(Arg.Is<ProjectParticip>(x => x.Surname == "Shakhabov"));
+        }
+
+        [TestMethod]
+        public void UpdateByNoAdmin_Ok()
+        {
+            //Arrange   
+            var mockEntity = new ProjectParticip
+            {
+                ParticipCode = "2016-200-000",
+                Surname = "oldShakhabov",
+                Name = "Adam",
+            };
+            _mockRsurParticipRespoitory.GetById("2016-200-000").Returns(mockEntity);
+
+            //Act
+            var fullInfo = new RsurParticipFullInfo
+            {
+                ParticipCode = "2016-200-000",
+                Surname = "Shakhabov",
+                Name = "Adam",
+                NsurSubjectName = "Орфография",
+                SchoolIdWithName = "0005 - ",
+                HasSurnameEdit = false
+            };
+            var result = service.Update(fullInfo, false);            
+
+            //Assert
+            Assert.AreEqual(fullInfo, result);            
+            _mockRsurParticipRespoitory.Received().GetById("2016-200-000");
+            _mockRsurParticipRespoitory.DidNotReceive().Update(Arg.Is<ProjectParticip>(x => x.Surname == "Shakhabov"));
+
+            _mockRsurParticipEditService.AddOrUpdate(fullInfo);
+            Assert.AreEqual(true, result.HasSurnameEdit);
         }
     }
 }

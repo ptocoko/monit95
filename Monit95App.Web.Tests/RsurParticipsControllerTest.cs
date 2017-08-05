@@ -158,9 +158,77 @@ namespace Monit95App.Web.Tests
             //Assert            
             Assert.AreEqual(HttpStatusCode.Forbidden, actionResultStatusCode.StatusCode);
             _mockRsurParticipService.Received().GetEntity("2016-202-000");
-            _mockRsurParticipService.
-                
-                ().Update(Arg.Any<RsurParticipFullInfo>(), Arg.Any<bool>());
+            _mockRsurParticipService.DidNotReceive().Update(Arg.Any<RsurParticipFullInfo>(), Arg.Any<bool>());
+        }
+
+        [TestMethod]
+        public void PutBySchool_Test_Ok()
+        {
+            //Arrange            
+            var mockUserModel = new UserModel
+            {
+                UserName = "0005",
+                UserRoleNames = new[] { "school" }
+            };
+            var mockEntity = new ProjectParticip
+            {
+                School = new School { AreaCode = 201 }
+            };
+            _mockUserService.GetModel(Arg.Any<string>()).Returns(mockUserModel);
+            _mockRsurParticipService.GetEntity("2016-201-000").Returns(mockEntity);
+            _rsurParticipsController.RequestContext.RouteData = new HttpRouteData(
+                new HttpRoute(),
+                new HttpRouteValueDictionary { { "ParticipCode", "2016-201-000" } });
+
+            //Act            
+            var fullInfo = new RsurParticipFullInfo
+            {
+                ParticipCode = "2016-201-000",
+                Surname = "Adam",
+                Name = "Shakhabov",
+                SecondName = "Khavajievich",
+                SchoolIdWithName = "0005 - "
+            };
+            var actionResult = _rsurParticipsController.Put(fullInfo);
+
+            //Assert
+            Assert.IsInstanceOfType(actionResult, typeof(OkNegotiatedContentResult<RsurParticipFullInfo>));            
+            _mockRsurParticipService.Received().Update(fullInfo, false);
+        }
+
+        [TestMethod]
+        public void PutBySchool_Test_Fail()
+        {
+            //Arrange            
+            var mockUserModel = new UserModel
+            {
+                UserName = "0005",
+                UserRoleNames = new[] { "school" }
+            };
+            var mockEntity = new ProjectParticip
+            {
+                School = new School { AreaCode = 201 }
+            };
+            _mockUserService.GetModel(Arg.Any<string>()).Returns(mockUserModel);
+            _mockRsurParticipService.GetEntity("2016-201-000").Returns(mockEntity);
+            _rsurParticipsController.RequestContext.RouteData = new HttpRouteData(
+                new HttpRoute(),
+                new HttpRouteValueDictionary { { "ParticipCode", "2016-201-000" } });
+
+            //Act            
+            var fullInfo = new RsurParticipFullInfo
+            {
+                ParticipCode = "2016-201-000",
+                Surname = "Adam",
+                Name = "Shakhabov",
+                SecondName = "Khavajievich",
+                SchoolIdWithName = "0006 - "
+            };
+            var actionResult = _rsurParticipsController.Put(fullInfo);
+
+            //Assert
+            Assert.IsInstanceOfType(actionResult, typeof(StatusCodeResult));
+            _mockRsurParticipService.DidNotReceive().Update(fullInfo, Arg.Any<bool>());
         }
 
         public void GetByUserNameTest()

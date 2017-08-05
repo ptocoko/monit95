@@ -58,8 +58,11 @@ namespace Monit95App.Services.Rsur
         private void FillBaseInfo(ProjectParticip entity)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>()
-                .ForMember("SchoolIdWithName", opt => opt.MapFrom(s => $"{s.School.Id} - {s.School.Name.Trim()}")));
-            Mapper.Map(entity, this);                                                                                                            
+            .ForMember( 
+                
+                   )
+                .ForMember(dist => dist.SchoolIdWithName, opt => opt.MapFrom(s => $"{s.School.Id} - {s.School.Name.Trim()}")));
+            Mapper.Map(entity, this);
         }        
    
         protected abstract void FillAdditionalInfo(ProjectParticip entity);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using Monit95App.Domain.Core;
@@ -72,6 +73,11 @@ namespace Monit95App.Services.Rsur
                 return false;
             }
             return true;
+        }
+
+        public void AddOrUpdate(RsurParticipFullInfo fullInfo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

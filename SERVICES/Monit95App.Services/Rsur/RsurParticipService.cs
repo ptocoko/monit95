@@ -13,13 +13,20 @@ namespace Monit95App.Services.Rsur
 {
     public class RsurParticipService : IRsurParticipService
     {
-        #region Fields
-        
+        #region Fields        
+
+        private readonly MapperConfiguration _adminMapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>());
+        private readonly MapperConfiguration _noAdminMapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>()
+                                                                                                      .ForMember(member => member.Name, opt => opt.Ignore())
+                                                                                                      .ForMember(member => member.Surname, opt => opt.Ignore()));
+        #endregion
+
+        #region Dependency
+
         private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
-        
+        private readonly IRsurParticipEditService _rsurParticipEditService;
         #warning separate 
         private readonly IGenericRepository<TestResult> _testResultRepository;
-
         #warning separate 
         private readonly IRsurParticipViewer _rsurParticipViewer;
 
@@ -29,11 +36,13 @@ namespace Monit95App.Services.Rsur
 
         public RsurParticipService(IGenericRepository<ProjectParticip> rsurParticipRepository, 
                                    IGenericRepository<TestResult> testResultRepository,
-                                   IRsurParticipViewer rsurParticipViewer)
+                                   IRsurParticipViewer rsurParticipViewer,
+                                   IRsurParticipEditService rsurParticipEditService)
         {            
             _rsurParticipRepository = rsurParticipRepository;
             _testResultRepository = testResultRepository;
             _rsurParticipViewer = rsurParticipViewer;
+            _rsurParticipEditService = rsurParticipEditService;
         }
 
         public IEnumerable<RsurParticipFullInfo> Get(int? areaCode, string schoolId)
@@ -82,16 +91,7 @@ namespace Monit95App.Services.Rsur
 
             //return newParticipCode;
         }
-        public void Update(RsurParticipFullInfo model)
-        {
-            //if (model == null)
-            //{
-            //    throw new ArgumentNullException(nameof(model));
-            //}
 
-            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
-            Validator.ValidateObject(model, validContext);            
-        }
         public IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode)
         {
             return _testResultRepository.GetAll().Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode).ToList()
@@ -99,9 +99,45 @@ namespace Monit95App.Services.Rsur
                                                         .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
         }
 
-        public RsurParticipFullInfo Update(RsurParticipFullInfo model, bool? isAdmin)
+        public RsurParticipFullInfo Update(RsurParticipFullInfo fullInfo, bool isAdmin)
         {
-            throw new NotImplementedException();
+            if (fullInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fullInfo));
+            }
+
+            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(fullInfo);
+            Validator.ValidateObject(fullInfo, validContext);
+
+            var entity = _rsurParticipRepository.GetById(fullInfo.ParticipCode);
+
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(fullInfo.ParticipCode));
+            }
+
+            IMapper mapper;            
+
+            if (isAdmin)
+            {
+                mapper = _adminMapperConfiguration.CreateMapper();
+                mapper.Map(fullInfo, entity);
+            }
+            else
+            {
+                
+                entity.ProjectParticipEdit?.Surname != fullInfo.Surname
+                mapper = _noAdminMapperConfiguration.CreateMapper();
+
+
+
+            }
+
+            mapper.Map(fullInfo, entity);
+            _rsurParticipRepository.Update(entity);
+            _rsurParticipRepository.Save();
+            
+            return fullInfo;
         }
 
         public ProjectParticip GetEntity(string participCode)

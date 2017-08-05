@@ -40,7 +40,7 @@ namespace Monit95App.Infrastructure.Data
         public void Update(T entity)
         {            
             var entry = Context.Entry(entity);
-            entry.State = System.Data.Entity.EntityState.Modified;
+            entry.State = System.Data.Entity.EntityState.Modified;            
         }
 
         public void Delete(int id)
