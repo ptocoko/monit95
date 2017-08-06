@@ -61,7 +61,7 @@ namespace Monit95App.Services.Rsur
             .ForMember( 
                 
                    )
-                .ForMember(dist => dist.SchoolIdWithName, opt => opt.MapFrom(s => $"{s.School.Id} - {s.School.Name.Trim()}")));
+                .ForMember(dist => dist.SchoolIdWithName, opt => opt.MapFrom(s => $"{s.School.Id} - {s.School.Name.Trim()}")));            
             Mapper.Map(entity, this);
         }        
    

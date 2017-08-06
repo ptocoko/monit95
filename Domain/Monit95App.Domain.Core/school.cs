@@ -18,7 +18,7 @@ namespace Monit95App.Domain.Core
         public School()
         {
             this.ProjectParticips = new HashSet<ProjectParticip>();
-            this.ProjectParticipsV2 = new HashSet<ProjectParticipsV2>();
+            this.Particips = new HashSet<Particip>();
         }
     
         public string Id { get; set; }
@@ -44,9 +44,9 @@ namespace Monit95App.Domain.Core
         public virtual Area Area { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectParticipsV2> ProjectParticipsV2 { get; set; }
         public virtual TownType TownType { get; set; }
         public virtual SchoolEdit SchoolEdit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Particip> Particips { get; set; }
     }
 }

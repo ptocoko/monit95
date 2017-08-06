@@ -88,6 +88,9 @@
     <Compile Include="NsurSubject.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Particip.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ParticipTest.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
@@ -98,9 +101,6 @@
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectParticipEdit.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectParticipsV2.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectTest.cs">

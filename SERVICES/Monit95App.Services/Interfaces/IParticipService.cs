@@ -11,7 +11,7 @@ namespace Monit95App.Services.Interfaces
     public interface IParticipService
     {
         Task<ParticipModel> AddAsync(ParticipModel dto);                //C
-        Task<List<ParticipModel>> GetBySchoolIdAsync(string schoolId);//R
+        List<ParticipModel> GetBySchoolIdAsync(string schoolId);//R
         Task<ParticipModel> GetByParticipIdAsync(int participId);
         Task<bool> UpdateAsync(ParticipModel dto);                    //U
         Task<bool> DeleteAsync(int id);                             //D

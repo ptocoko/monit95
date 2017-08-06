@@ -12,17 +12,16 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectParticipsV2
+    public partial class Particip
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProjectParticipsV2()
+        public Particip()
         {
             this.ExerciseMarks = new HashSet<ExerciseMark>();
         }
     
         public int Id { get; set; }
         public int ProjectCode { get; set; }
-        public string ParticipCode { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
         public string SecondName { get; set; }

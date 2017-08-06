@@ -43,3 +43,4 @@ namespace Monit95App.Domain.Core
         public virtual Category Category { get; set; }
     }
 }
+    

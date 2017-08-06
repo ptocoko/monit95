@@ -21,57 +21,51 @@ namespace Monit95App.Api
             _participService = participService;
         }
         
-        public async Task<HttpResponseMessage> Post(ParticipModel model)
+        public HttpResponseMessage Post(ParticipModel model)
         {
-            if (model != null)
-            {
-                await _participService.AddAsync(model);
-                return Request.CreateResponse(HttpStatusCode.Created, model);
-            }
-            else
+            if (model == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось добавить участника");
             }
+                
+            _participService.AddAsync(model);
+            return Request.CreateResponse(HttpStatusCode.Created, model);
         }
 
         //read
-        public async Task<IEnumerable<ParticipModel>> GetBySchoolId(string id)
+        public IEnumerable<ParticipModel> GetBySchoolId(string id)
         {
-            if (!string.IsNullOrEmpty(id))
-            {
-                return await _participService.GetBySchoolIdAsync(id);
-            }
-            return null;
+            return !string.IsNullOrEmpty(id) ? _participService.GetBySchoolIdAsync(id) : null;
         }
 
         //delete
-        public async Task<HttpResponseMessage> Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
-            if (id != 0)
+            if (id == 0)
             {
-                await _participService.DeleteAsync(id);
-                return Request.CreateResponse(HttpStatusCode.OK);
+                throw new ArgumentNullException("async Task<HttpResponseMessage> Delete(int id)");
             }
-            throw new ArgumentNullException("async Task<HttpResponseMessage> Delete(int id)");
+            _participService.DeleteAsync(id);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> Update(ParticipModel dto)
+        public HttpResponseMessage Update(ParticipModel dto)
         {
-            if (dto != null)
+            if (dto == null)
             {
-                try
-                {
-                    await _participService.UpdateAsync(dto);
-                }
-                catch (ArgumentNullException)
-                {
-                    Request.CreateResponse(HttpStatusCode.Conflict);
-                }
-                return Request.CreateResponse(HttpStatusCode.OK);
+                throw new ArgumentNullException("async Task<HttpResponseMessage> Update(ProjectParticipV2Dto dto)");
             }
-
-            throw new ArgumentNullException("async Task<HttpResponseMessage> Update(ProjectParticipV2Dto dto)");
+                
+            try
+            {
+                _participService.UpdateAsync(dto);
+            }
+            catch (ArgumentNullException)
+            {
+                Request.CreateResponse(HttpStatusCode.Conflict);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

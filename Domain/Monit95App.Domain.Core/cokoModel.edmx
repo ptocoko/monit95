@@ -69,6 +69,19 @@
           <Property Name="Code" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Particips">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectCode" Type="int" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="SchoolId" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="ClassCode" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="TeachContextId" Type="int" />
+        </EntityType>
         <EntityType Name="ParticipTests">
           <Key>
             <PropertyRef Name="Id" />
@@ -111,20 +124,6 @@
           <Property Name="Birthday" Type="datetime" />
           <Property Name="ClassNumbers" Type="varchar" MaxLength="30" />
           <Property Name="ProjectCode" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProjectParticipsV2">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProjectCode" Type="int" Nullable="false" />
-          <Property Name="ParticipCode" Type="varchar" MaxLength="50" />
-          <Property Name="Surname" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="SecondName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="SchoolId" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="ClassCode" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="TeachContextId" Type="int" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -228,12 +227,12 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_ExerciseMarks_ProjectParticipsV2">
-          <End Role="ProjectParticipsV2" Type="Self.ProjectParticipsV2" Multiplicity="1">
+          <End Role="Particips" Type="Self.Particips" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="ExerciseMarks" Type="Self.ExerciseMarks" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectParticipsV2">
+            <Principal Role="Particips">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ExerciseMarks">
@@ -351,24 +350,24 @@
         </Association>
         <Association Name="FK_ProjectParticipsV2_Classes">
           <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
-          <End Role="ProjectParticipsV2" Type="Self.ProjectParticipsV2" Multiplicity="*" />
+          <End Role="Particips" Type="Self.Particips" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Classes">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ProjectParticipsV2">
+            <Dependent Role="Particips">
               <PropertyRef Name="ClassCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectParticipsV2_Schools">
           <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
-          <End Role="ProjectParticipsV2" Type="Self.ProjectParticipsV2" Multiplicity="*" />
+          <End Role="Particips" Type="Self.Particips" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Schools">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ProjectParticipsV2">
+            <Dependent Role="Particips">
               <PropertyRef Name="SchoolId" />
             </Dependent>
           </ReferentialConstraint>
@@ -490,10 +489,10 @@
           <EntitySet Name="ExerciseMarks" EntityType="Self.ExerciseMarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Grades" EntityType="Self.Grades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NsurSubjects" EntityType="Self.NsurSubjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Particips" EntityType="Self.Particips" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParticipTests" EntityType="Self.ParticipTests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectParticipEdits" EntityType="Self.ProjectParticipEdits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectParticips" EntityType="Self.ProjectParticips" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProjectParticipsV2" EntityType="Self.ProjectParticipsV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectTests" EntityType="Self.ProjectTests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
@@ -504,7 +503,7 @@
           <EntitySet Name="TestResultsV2" EntityType="Self.TestResultsV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TownTypes" EntityType="Self.TownTypes" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ExerciseMarks_ProjectParticipsV2" Association="Self.FK_ExerciseMarks_ProjectParticipsV2">
-            <End Role="ProjectParticipsV2" EntitySet="ProjectParticipsV2" />
+            <End Role="Particips" EntitySet="Particips" />
             <End Role="ExerciseMarks" EntitySet="ExerciseMarks" />
           </AssociationSet>
           <AssociationSet Name="FK_ExerciseMarks_Tests" Association="Self.FK_ExerciseMarks_Tests">
@@ -545,11 +544,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_ProjectParticipsV2_Classes" Association="Self.FK_ProjectParticipsV2_Classes">
             <End Role="Classes" EntitySet="Classes" />
-            <End Role="ProjectParticipsV2" EntitySet="ProjectParticipsV2" />
+            <End Role="Particips" EntitySet="Particips" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectParticipsV2_Schools" Association="Self.FK_ProjectParticipsV2_Schools">
             <End Role="Schools" EntitySet="Schools" />
-            <End Role="ProjectParticipsV2" EntitySet="ProjectParticipsV2" />
+            <End Role="Particips" EntitySet="Particips" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectTests_Projects" Association="Self.FK_ProjectTests_Projects">
             <End Role="Projects" EntitySet="Projects" />
@@ -608,9 +607,9 @@
           <Property Name="ProjectParticipId" Type="Int32" Nullable="false" />
           <Property Name="TestId" Type="Guid" Nullable="false" />
           <Property Name="Marks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ProjectParticipsV2" Relationship="cokoModel.FK_ExerciseMarks_ProjectParticipsV2" FromRole="ExerciseMark" ToRole="ProjectParticipsV2" />
           <NavigationProperty Name="TestResultsV2" Relationship="cokoModel.FK_TestResultsV2_ExerciseMarks" FromRole="ExerciseMark" ToRole="TestResultsV2" />
           <NavigationProperty Name="Test" Relationship="cokoModel.FK_ExerciseMarks_Tests" FromRole="ExerciseMark" ToRole="Test" />
+          <NavigationProperty Name="Particip" Relationship="cokoModel.FK_ExerciseMarks_ProjectParticipsV21" FromRole="ExerciseMark" ToRole="Particip" />
         </EntityType>
         <EntityType Name="NsurSubject">
           <Key>
@@ -680,15 +679,6 @@
             <End Role="ProjectTests" EntitySet="ProjectTests" />
           </AssociationSet>
           <EntitySet Name="Classes" EntityType="cokoModel.Class" />
-          <EntitySet Name="ProjectParticipsV2" EntityType="cokoModel.ProjectParticipsV2" />
-          <AssociationSet Name="FK_ProjectParticipsV2_Classes" Association="cokoModel.FK_ProjectParticipsV2_Classes">
-            <End Role="Class" EntitySet="Classes" />
-            <End Role="ProjectParticipsV2" EntitySet="ProjectParticipsV2" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExerciseMarks_ProjectParticipsV2" Association="cokoModel.FK_ExerciseMarks_ProjectParticipsV2">
-            <End Role="ProjectParticipsV2" EntitySet="ProjectParticipsV2" />
-            <End Role="ExerciseMark" EntitySet="ExerciseMarks" />
-          </AssociationSet>
           <EntitySet Name="TestResultsV2" EntityType="cokoModel.TestResultsV2" />
           <AssociationSet Name="FK_TestResultsV2_ExerciseMarks" Association="cokoModel.FK_TestResultsV2_ExerciseMarks">
             <End Role="ExerciseMark" EntitySet="ExerciseMarks" />
@@ -756,10 +746,6 @@
             <End Role="School" EntitySet="Schools" />
             <End Role="ProjectParticip" EntitySet="ProjectParticips" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectParticipsV2_Schools" Association="cokoModel.FK_ProjectParticipsV2_Schools">
-            <End Role="School" EntitySet="Schools" />
-            <End Role="ProjectParticipsV2" EntitySet="ProjectParticipsV2" />
-          </AssociationSet>
           <AssociationSet Name="FK_Schools_TownTypes" Association="cokoModel.FK_Schools_TownTypes">
             <End Role="TownType" EntitySet="TownTypes" />
             <End Role="School" EntitySet="Schools" />
@@ -774,6 +760,19 @@
             <End Role="School" EntitySet="Schools" />
             <End Role="SchoolEdit" EntitySet="SchoolEdits" />
           </AssociationSet>
+          <EntitySet Name="Particips" EntityType="cokoModel.Particip" />
+          <AssociationSet Name="FK_ProjectParticipsV2_Classes1" Association="cokoModel.FK_ProjectParticipsV2_Classes1">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="Particip" EntitySet="Particips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExerciseMarks_ProjectParticipsV21" Association="cokoModel.FK_ExerciseMarks_ProjectParticipsV21">
+            <End Role="Particip" EntitySet="Particips" />
+            <End Role="ExerciseMark" EntitySet="ExerciseMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectParticipsV2_Schools1" Association="cokoModel.FK_ProjectParticipsV2_Schools1">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="Particip" EntitySet="Particips" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Class">
           <Key>
@@ -781,49 +780,8 @@
           </Key>
           <Property Name="Id" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProjectParticipsV2" Relationship="cokoModel.FK_ProjectParticipsV2_Classes" FromRole="Class" ToRole="ProjectParticipsV2" />
+          <NavigationProperty Name="Particips" Relationship="cokoModel.FK_ProjectParticipsV2_Classes1" FromRole="Class" ToRole="Particip" />
         </EntityType>
-        <EntityType Name="ProjectParticipsV2">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectCode" Type="Int32" Nullable="false" />
-          <Property Name="ParticipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Surname" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="SchoolId" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
-          <Property Name="ClassCode" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Class" Relationship="cokoModel.FK_ProjectParticipsV2_Classes" FromRole="ProjectParticipsV2" ToRole="Class" />
-          <NavigationProperty Name="ExerciseMarks" Relationship="cokoModel.FK_ExerciseMarks_ProjectParticipsV2" FromRole="ProjectParticipsV2" ToRole="ExerciseMark" />
-          <Property Name="TeachContextId" Type="Int32" />
-          <NavigationProperty Name="School" Relationship="cokoModel.FK_ProjectParticipsV2_Schools" FromRole="ProjectParticipsV2" ToRole="School" />
-        </EntityType>
-        <Association Name="FK_ProjectParticipsV2_Classes">
-          <End Type="cokoModel.Class" Role="Class" Multiplicity="1" />
-          <End Type="cokoModel.ProjectParticipsV2" Role="ProjectParticipsV2" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Class">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProjectParticipsV2">
-              <PropertyRef Name="ClassCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExerciseMarks_ProjectParticipsV2">
-          <End Type="cokoModel.ProjectParticipsV2" Role="ProjectParticipsV2" Multiplicity="1" />
-          <End Type="cokoModel.ExerciseMark" Role="ExerciseMark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectParticipsV2">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExerciseMark">
-              <PropertyRef Name="ProjectParticipId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="TestResultsV2">
           <Key>
             <PropertyRef Name="Id" />
@@ -1115,9 +1073,9 @@
           <Property Name="Monit95Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Area" Relationship="cokoModel.FK_Schools_Areas" FromRole="School" ToRole="Area" />
           <NavigationProperty Name="ProjectParticips" Relationship="cokoModel.FK_ProjectParticips_Schools" FromRole="School" ToRole="ProjectParticip" />
-          <NavigationProperty Name="ProjectParticipsV2" Relationship="cokoModel.FK_ProjectParticipsV2_Schools" FromRole="School" ToRole="ProjectParticipsV2" />
           <NavigationProperty Name="TownType" Relationship="cokoModel.FK_Schools_TownTypes" FromRole="School" ToRole="TownType" />
           <NavigationProperty Name="SchoolEdit" Relationship="cokoModel.FK_SchoolEdits_Schools" FromRole="School" ToRole="SchoolEdit" />
+          <NavigationProperty Name="Particips" Relationship="cokoModel.FK_ProjectParticipsV2_Schools1" FromRole="School" ToRole="Particip" />
         </EntityType>
         <EntityType Name="TownType">
           <Key>
@@ -1147,18 +1105,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectParticip">
-              <PropertyRef Name="SchoolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectParticipsV2_Schools">
-          <End Type="cokoModel.School" Role="School" Multiplicity="1" />
-          <End Type="cokoModel.ProjectParticipsV2" Role="ProjectParticipsV2" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="School">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProjectParticipsV2">
               <PropertyRef Name="SchoolId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1212,6 +1158,60 @@
             </Principal>
             <Dependent Role="SchoolEdit">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Particip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectCode" Type="Int32" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolId" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ClassCode" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="TeachContextId" Type="Int32" />
+          <NavigationProperty Name="Class" Relationship="cokoModel.FK_ProjectParticipsV2_Classes1" FromRole="Particip" ToRole="Class" />
+          <NavigationProperty Name="ExerciseMarks" Relationship="cokoModel.FK_ExerciseMarks_ProjectParticipsV21" FromRole="Particip" ToRole="ExerciseMark" />
+          <NavigationProperty Name="School" Relationship="cokoModel.FK_ProjectParticipsV2_Schools1" FromRole="Particip" ToRole="School" />
+        </EntityType>
+        <Association Name="FK_ProjectParticipsV2_Classes1">
+          <End Type="cokoModel.Class" Role="Class" Multiplicity="1" />
+          <End Type="cokoModel.Particip" Role="Particip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Particip">
+              <PropertyRef Name="ClassCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExerciseMarks_ProjectParticipsV21">
+          <End Type="cokoModel.Particip" Role="Particip" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cokoModel.ExerciseMark" Role="ExerciseMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Particip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExerciseMark">
+              <PropertyRef Name="ProjectParticipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectParticipsV2_Schools1">
+          <End Type="cokoModel.School" Role="School" Multiplicity="1" />
+          <End Type="cokoModel.Particip" Role="Particip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Particip">
+              <PropertyRef Name="SchoolId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1285,21 +1285,6 @@
             <EntityTypeMapping TypeName="cokoModel.Class">
               <MappingFragment StoreEntitySet="Classes">
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectParticipsV2">
-            <EntityTypeMapping TypeName="cokoModel.ProjectParticipsV2">
-              <MappingFragment StoreEntitySet="ProjectParticipsV2">
-                <ScalarProperty Name="TeachContextId" ColumnName="TeachContextId" />
-                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
-                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="ParticipCode" ColumnName="ParticipCode" />
-                <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1460,6 +1445,20 @@
             <EntityTypeMapping TypeName="cokoModel.SchoolEdit">
               <MappingFragment StoreEntitySet="SchoolEdits">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Particips">
+            <EntityTypeMapping TypeName="cokoModel.Particip">
+              <MappingFragment StoreEntitySet="Particips">
+                <ScalarProperty Name="TeachContextId" ColumnName="TeachContextId" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

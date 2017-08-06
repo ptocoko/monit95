@@ -15,8 +15,8 @@ namespace Monit95App.Services.Rsur
     {
         #region Fields        
 
-        private readonly MapperConfiguration _adminMapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>());
-        private readonly MapperConfiguration _noAdminMapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>()
+        private readonly MapperConfiguration _mapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>());
+        private readonly MapperConfiguration _editMapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>()
                                                                                                       .ForMember(member => member.Name, opt => opt.Ignore())
                                                                                                       .ForMember(member => member.Surname, opt => opt.Ignore()));
         #endregion
@@ -69,11 +69,10 @@ namespace Monit95App.Services.Rsur
 
             return rsurParticipFullInfoList;
         }
-        public RsurParticipBaseInfo GetByParticipCode(string participCode)
+        public RsurParticipFullInfo GetByParticipCode(string participCode)
         {
-            return new RsurParticipBaseInfo();
 
-
+            return new RsurParticipFullInfo();
         }
         public void Add(RsurParticipBaseInfo model)
         {
@@ -99,7 +98,7 @@ namespace Monit95App.Services.Rsur
                                                         .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
         }
 
-        public RsurParticipFullInfo Update(RsurParticipFullInfo fullInfo, bool isAdmin)
+        public RsurParticipFullInfo Update(RsurParticipFullInfo fullInfo, bool doNotMustTakeEdit)
         {
             if (fullInfo == null)
             {
@@ -117,27 +116,35 @@ namespace Monit95App.Services.Rsur
             }
 
             IMapper mapper;            
-
-            if (isAdmin)
+            if (doNotMustTakeEdit)
             {
-                mapper = _adminMapperConfiguration.CreateMapper();
+                mapper = _mapperConfiguration.CreateMapper();
                 mapper.Map(fullInfo, entity);
             }
             else
-            {
-                
-                entity.ProjectParticipEdit?.Surname != fullInfo.Surname
-                mapper = _noAdminMapperConfiguration.CreateMapper();
+            {                                
+                mapper = _editMapperConfiguration.CreateMapper();                
+                if (entity.ProjectParticipEdit == null)
+                {
+                    entity.ProjectParticipEdit = new ProjectParticipEdit();
+                }
+                mapper.Map(fullInfo, entity);
 
-
-
+                //Check entity's properties on null
+                var isEntityEditPropertiesNull = entity.GetType().GetProperties()
+                                                       .Where(pi => pi.GetValue(entity) is string)
+                                                       .Select(pi => (string)pi.GetValue(entity))
+                                                       .All(value => value == null);
+                if (isEntityEditPropertiesNull)
+                {
+                    entity.ProjectParticipEdit = null;
+                }
             }
-
-            mapper.Map(fullInfo, entity);
+            
             _rsurParticipRepository.Update(entity);
             _rsurParticipRepository.Save();
             
-            return fullInfo;
+            return GetByParticipCode(fullInfo.ParticipCode);
         }
 
         public ProjectParticip GetEntity(string participCode)

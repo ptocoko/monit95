@@ -49,17 +49,17 @@ namespace Monit95App.Api
 
         [HttpGet]
         [Route("{ParticipCode}")]
-        public async Task<HttpResponseMessage> Get(string participCode)
+        public HttpResponseMessage GetByParticipCode()
         {
-            if (participCode == null)
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
+            var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();   
+                
+            var fullInfo = _rsurParticipService.GetByParticipCode(participCode);
 
-            RsurParticipBaseInfo resultModel = await Task.Run(() => _rsurParticipService.GetByParticipCode(participCode));
-
-            if (resultModel == null)
+            if (fullInfo == null)
+            {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, resultModel);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, fullInfo);
         }
 
         [HttpGet]
