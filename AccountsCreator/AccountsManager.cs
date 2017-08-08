@@ -14,15 +14,23 @@ namespace AccountsCreator
         public UserManager<ApplicationUser> UserManager { get; private set; } = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
         public RoleManager<IdentityRole> RoleManager { get; private set; } = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
 
-        public async Task CreateUser(string userName, string password)
+        public AccountsManager()
+        {
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
+        }
+
+        public void CreateUser(string userName, string password)
         {
             if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password))
             {
                 var user = new ApplicationUser { UserName = userName };
-                var result = await UserManager.CreateAsync(user, password);
+                var result = UserManager.Create(user, password);
                 if (!result.Succeeded)
                 {
-                    throw new Exception($"Ошибка при создании пользователя: { AddErrors(result) }");
+                    throw new IdentityException($"Ошибка при создании пользователя: { AddErrors(result) }");
                 }
             }
             else
@@ -31,39 +39,49 @@ namespace AccountsCreator
             }
         }
 
-        public async Task CreateRole(string roleName)
+        public void DeleteUser(string userName)
+        {
+            var user = UserManager.FindByName(userName);
+            var result = UserManager.Delete(user);
+            if (!result.Succeeded)
+            {
+                throw new IdentityException($"Ошибка при удалении пользователя: { AddErrors(result) }");
+            }
+        }
+
+        public void CreateRole(string roleName)
         {
             if (String.IsNullOrEmpty(roleName)) throw new ArgumentNullException();
 
             var role = new IdentityRole { Name = roleName };
-            var result = await RoleManager.CreateAsync(role);
+            var result = RoleManager.Create(role);
             if (!result.Succeeded)
             {
-                throw new Exception($"Ошибка при создании роли: { AddErrors(result) }");
+                throw new IdentityException($"Ошибка при создании роли: { AddErrors(result) }");
             }
         }
 
-        public async Task DeleteRole(string roleName)
+        public void DeleteRole(string roleName)
         {
             if (String.IsNullOrEmpty(roleName)) throw new ArgumentNullException();
 
-            var role = await RoleManager.FindByNameAsync(roleName);
-            var result = await RoleManager.DeleteAsync(role);
+            var role = RoleManager.FindByName(roleName);
+            var result = RoleManager.Delete(role);
             if (!result.Succeeded)
             {
-                throw new Exception($"Ошибка при удалении роли: { AddErrors(result) }");
+                throw new IdentityException($"Ошибка при удалении роли: { AddErrors(result) }");
             }
         }
 
-        public async Task AddRoleToUser(string userName, string role)
+        public void AddRoleToUser(string userName, string roleName)
         {
-            if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(role)) throw new ArgumentNullException();
+            if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(roleName)) throw new ArgumentNullException();
 
-            var user = await UserManager.FindByNameAsync(userName);
-            var result = await UserManager.AddToRoleAsync(user.Id, role);
+            var user = UserManager.FindByName(userName);
+            var result = UserManager.AddToRole(user.Id, roleName);
             if (!result.Succeeded)
             {
-                throw new Exception($"Ошибка при добавлении пользователю роли: { AddErrors(result) }");
+                throw new IdentityException($"Ошибка при добавлении пользователю роли: { AddErrors(result) }");
             }
         }
 

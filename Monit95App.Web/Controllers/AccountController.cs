@@ -28,6 +28,10 @@ namespace Monit95App.Controllers
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
@@ -51,8 +55,7 @@ namespace Monit95App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userName = model.UserName.Replace("-", string.Empty);
-                var user = await UserManager.FindAsync(userName, model.Password);
+                var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
