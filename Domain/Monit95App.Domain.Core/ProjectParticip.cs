@@ -21,7 +21,6 @@ namespace Monit95App.Domain.Core
         }
     
         public string ParticipCode { get; set; }
-        public int ProjectCode { get; set; }
         public string SchoolId { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
@@ -33,14 +32,13 @@ namespace Monit95App.Domain.Core
         public string Email { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public string ClassNumbers { get; set; }
+        public int ProjectCode { get; set; }
     
+        public virtual Category Category { get; set; }
         public virtual NsurSubject NsurSubject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParticipTest> ParticipTests { get; set; }
-        public virtual Project Project { get; set; }
         public virtual ProjectParticipEdit ProjectParticipEdit { get; set; }
         public virtual School School { get; set; }
-        public virtual Category Category { get; set; }
     }
 }
-    

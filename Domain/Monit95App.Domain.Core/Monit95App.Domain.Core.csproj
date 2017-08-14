@@ -82,6 +82,9 @@
     <Compile Include="ExerciseMark.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GiaResult.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Grade.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
@@ -94,13 +97,13 @@
     <Compile Include="ParticipTest.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Project.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ProjectParticip.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectParticipEdit.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectParticipsEdit.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectTest.cs">
@@ -117,6 +120,9 @@
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Test.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TestExercis.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TestResult.cs">
@@ -149,8 +155,8 @@
   <ItemGroup>
     <Content Include="cokoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>cokoModel.edmx</DependentUpon>
       <LastGenOutput>cokoModel.Context.cs</LastGenOutput>
+      <DependentUpon>cokoModel.edmx</DependentUpon>
     </Content>
     <Content Include="cokoModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -30,7 +30,6 @@ namespace Monit95App.Domain.Core
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParticipTest> ParticipTests { get; set; }
-        public virtual Project Project { get; set; }
         public virtual Test Test { get; set; }
     }
 }

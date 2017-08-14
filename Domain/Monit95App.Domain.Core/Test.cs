@@ -21,6 +21,7 @@ namespace Monit95App.Domain.Core
             this.ExerciseMarks = new HashSet<ExerciseMark>();
             this.Grades = new HashSet<Grade>();
             this.ProjectTests = new HashSet<ProjectTest>();
+            this.TestExercises = new HashSet<TestExercis>();
         }
     
         public System.Guid Id { get; set; }
@@ -37,5 +38,7 @@ namespace Monit95App.Domain.Core
         public virtual ICollection<Grade> Grades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTest> ProjectTests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestExercis> TestExercises { get; set; }
     }
 }

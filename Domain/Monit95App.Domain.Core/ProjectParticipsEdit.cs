@@ -12,15 +12,22 @@ namespace Monit95App.Domain.Core
     using System;
     using System.Collections.Generic;
     
-    public partial class ParticipTest
+    public partial class ProjectParticipsEdit
     {
-        public int Id { get; set; }
         public string ParticipCode { get; set; }
-        public int ProjectTestId { get; set; }
-        public int ProjectCode { get; set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string SecondName { get; set; }
+        public string ClassNumbers { get; set; }
+        public string SchoolId { get; set; }
+        public Nullable<int> CategId { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public Nullable<int> Experience { get; set; }
+        public Nullable<int> NSubjectCode { get; set; }
     
-        public virtual ProjectParticip ProjectParticip { get; set; }
-        public virtual ProjectTest ProjectTest { get; set; }
-        public virtual TestResult TestResult { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual NsurSubject NsurSubject { get; set; }
+        public virtual School School { get; set; }
     }
 }

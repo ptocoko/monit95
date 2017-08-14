@@ -11,7 +11,6 @@ using Newtonsoft.Json.Linq;
 using Autofac.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Domain.Core;
 
 namespace Monit95App.ConsoleApp
 {

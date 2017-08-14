@@ -18,9 +18,9 @@ namespace Monit95App.Domain.Core
         public School()
         {
             this.GiaResults = new HashSet<GiaResult>();
-            this.ProjectParticipsV2 = new HashSet<ProjectParticipsV2>();
-            this.ProjectParticipsEdits = new HashSet<ProjectParticipsEdit>();
+            this.Particips = new HashSet<Particip>();
             this.ProjectParticips = new HashSet<ProjectParticip>();
+            this.ProjectParticipsEdits = new HashSet<ProjectParticipsEdit>();
         }
     
         public string Id { get; set; }
@@ -47,11 +47,12 @@ namespace Monit95App.Domain.Core
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiaResult> GiaResults { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectParticipsV2> ProjectParticipsV2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectParticipsEdit> ProjectParticipsEdits { get; set; }
-        public virtual TownType TownType { get; set; }
+        public virtual ICollection<Particip> Particips { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectParticipsEdit> ProjectParticipsEdits { get; set; }
+        public virtual SchoolEdit SchoolEdit { get; set; }
+        public virtual TownType TownType { get; set; }
     }
 }
