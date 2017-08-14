@@ -9,6 +9,6 @@ namespace Monit95App.Services.Interfaces
 {
     public interface ISchoolReportFileNameSource
     {
-        IEnumerable<string> GetFileNames(School school); //return e.g. { "0001_201638.zip", "0001_201639.rar" }
+        IEnumerable<string> GetFileNames(Domain.Core.School school); //return e.g. { "0001_201638.zip", "0001_201639.rar" }
     }
 }

@@ -61,11 +61,13 @@ namespace Monit95App.Api
         [Route("")]
         public async Task<HttpResponseMessage> Get()
         {
+#warning here i try fix
+
             var _dbContext = new ApplicationDbContext();
             var user = _dbContext.Users.Find(User.Identity.GetUserId());
             var userName = User.Identity.Name;
-            var userRoles = user.Roles.Select(x => x.Role.Name).Single();            
-            
+            var userRoles = user.Roles.Select(x => _dbContext.Roles.Find(x.RoleId).Name).Single();
+
             var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
 
             if (models == null)

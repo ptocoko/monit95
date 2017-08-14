@@ -131,6 +131,9 @@
     <Compile Include="TownType.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Wish.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

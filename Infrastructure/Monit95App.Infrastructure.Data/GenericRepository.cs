@@ -10,38 +10,62 @@ namespace Monit95App.Infrastructure.Data
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected cokoContext _context;
+        protected readonly cokoContext Context;
 
         public GenericRepository(IUnitOfWork unitOfWork)
         {
-            _context = unitOfWork.DbContext;
+            Context = unitOfWork.DbContext;
         }
 
         public void Insert(T entity)
         {
-            _context.Set<T>().Add(entity);                        
+            Context.Set<T>().Add(entity);                        
         }
 
         public IQueryable<T> GetAll()
         {
-            IQueryable<T> query = _context.Set<T>();    
+            IQueryable<T> query = Context.Set<T>();    
             return query;
         }
         public T GetById(int id)
         {
-            return _context.Set<T>().Find(id);
+            return Context.Set<T>().Find(id);
         }
-       
+
+        public T GetById(string id)
+        {
+            return Context.Set<T>().Find(id);
+        }
+
         public void Update(T entity)
         {            
-            var entry = _context.Entry(entity);
+            var entry = Context.Entry(entity);
             entry.State = System.Data.Entity.EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            var entity = _context.Set<T>().Find(id);
-            _context.Set<T>().Remove(entity);                           
+            var entity = Context.Set<T>().Find(id);            
+            if (entity == null)
+            {
+                throw new ArgumentException("Объект с таким первичным ключем не найден в базе данных для удаления");
+            }
+            Context.Set<T>().Remove(entity);
+        }
+
+        public void Delete(string id)
+        {
+            var entity = Context.Set<T>().Find(id);
+            if (entity == null)
+            {
+                throw new ArgumentException("Объект с таким первичным ключем не найден в базе данных для удаления");
+            }
+            Context.Set<T>().Remove(entity);
+        }
+
+        public virtual void Save()
+        {
+            Context.SaveChanges();
         }
     }
 }

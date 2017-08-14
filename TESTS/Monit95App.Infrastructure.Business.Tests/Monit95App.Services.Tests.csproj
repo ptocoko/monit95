@@ -84,6 +84,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipProtocolServiceTests.cs" />
     <Compile Include="RsurReportModelXlsxConverterTests.cs" />
+    <Compile Include="SchoolServiceTests.cs" />
+    <Compile Include="TestIMarks.cs" />
+    <Compile Include="TestITypeReport.cs" />
+    <Compile Include="TestResultServiceTest.cs" />
+    <Compile Include="TestRszkVMmanager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

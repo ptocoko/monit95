@@ -11,36 +11,31 @@ namespace Monit95App.Infrastructure.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private cokoContext _context;
-
         public UnitOfWork(cokoContext context)
         {
-            _context = context;           
+            DbContext = context;           
         }
 
-        public cokoContext DbContext
-        {
-            get
-            {
-                return _context;
-            }
-        }
+        public cokoContext DbContext { get; private set; }    
 
         public int Save()
         {
-            return _context.SaveChanges();
+            return DbContext.SaveChanges();
         }
 
         public void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!disposing)
             {
-                if (this._context != null)
-                {
-                    this._context.Dispose();
-                    this._context = null;
-                }
+                return;
             }
+
+            if (DbContext == null)
+            {
+                return;
+            }
+            DbContext.Dispose();
+            DbContext = null;
         }
 
         public void Dispose()
