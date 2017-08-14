@@ -94,7 +94,7 @@ namespace Monit95App.Infrastructure.BusinessTests
             {
                 ParticipCode = "2016-200-000",
                 Surname = "oldShakhabov",
-                Name = "Adam",
+                Name = "Adam",                
             };
             _mockRsurParticipRespoitory.GetById("2016-200-000").Returns(mockEntity);       
 
@@ -111,7 +111,9 @@ namespace Monit95App.Infrastructure.BusinessTests
             var result2 = service.Update(fullInfo, false);
 
             //Assert
-            Assert.AreEqual(fullInfo, result);
+            Assert.AreEqual(fullInfo.Surname, result.Surname);
+            Assert.AreEqual(false, fullInfo.HasSurnameEdit);
+
             _mockRsurParticipRespoitory.Received().GetById("2016-200-000");
             _mockRsurParticipRespoitory.Received().Update(Arg.Is<ProjectParticip>(x => x.Surname == "Shakhabov"));            
         }

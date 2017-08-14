@@ -21,7 +21,7 @@ namespace Monit95App.Web.Tests
             {
                 new IdentityUserRole
                 {
-#warning role error
+                #warning role error
                     //Role = new IdentityRole { Name = "school" }
                 }
             };

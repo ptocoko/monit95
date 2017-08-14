@@ -6,11 +6,12 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.School;
 using NSubstitute;
+using System.Linq;
 
 namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
-    public class SchoolServiceTests
+    public class SchoolService_Tests
     {
         private readonly IGenericRepository<School> _mockSchoolRepository = Substitute.For<IGenericRepository<School>>();
         private readonly IGenericRepository<SchoolEdit> _mockSchoolEditRepository = Substitute.For<IGenericRepository<SchoolEdit>>();
@@ -28,7 +29,7 @@ namespace Monit95App.Infrastructure.BusinessTests
         };
         private readonly School _school;
 
-        public SchoolServiceTests()
+        public SchoolService_Tests()
         {
             _school = new School
             {
@@ -55,7 +56,7 @@ namespace Monit95App.Infrastructure.BusinessTests
             Assert.AreEqual(_school.Name, model.Name);
             Assert.AreEqual("205 - г. Грозный", model.AreaName);
             Assert.AreEqual(model.HasNameCorrection, true);
-        }
+        }   
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

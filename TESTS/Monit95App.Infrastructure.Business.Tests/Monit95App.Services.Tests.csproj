@@ -85,7 +85,7 @@
     <Compile Include="RsurParticipProtocolServiceTests.cs" />
     <Compile Include="RsurParticipService_Tests.cs" />
     <Compile Include="RsurReportModelXlsxConverterTests.cs" />
-    <Compile Include="SchoolServiceTests.cs" />
+    <Compile Include="SchoolService_Tests.cs" />
     <Compile Include="TestIMarks.cs" />
     <Compile Include="TestITypeReport.cs" />
     <Compile Include="TestResultServiceTest.cs" />

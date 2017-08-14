@@ -130,7 +130,7 @@ namespace Monit95App.Services.Rsur
                 }
                 mapper.Map(fullInfo, entity);
 
-                //Check entity's properties on null
+                //Check that all entity's properties are null
                 var isEntityEditPropertiesNull = entity.GetType().GetProperties()
                                                        .Where(pi => pi.GetValue(entity) is string)
                                                        .Select(pi => (string)pi.GetValue(entity))
