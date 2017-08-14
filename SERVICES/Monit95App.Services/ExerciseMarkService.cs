@@ -67,7 +67,7 @@ namespace Monit95App.Services
                 var dto = new List<ExerciseMarkModel>();
 
                 var res = _exerciseMarkRepository.GetAll()
-                                         .Where(x => x.ProjectParticipsV2.SchoolId == schoolId && tests.Contains(x.TestId.ToString()))
+                                         .Where(x => x.Particip.SchoolId == schoolId && tests.Contains(x.TestId.ToString()))
                                          .Select(s => new ExerciseMarkModel { Id = s.Id, ProjectParticipId = s.ProjectParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })
                                          .ToList();
                 dto.AddRange(res);

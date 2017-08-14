@@ -28,14 +28,14 @@ namespace Monit95App.Api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось добавить участника");
             }
                 
-            _participService.AddAsync(model);
+            _participService.Add(model);
             return Request.CreateResponse(HttpStatusCode.Created, model);
         }
 
         //read
         public IEnumerable<ParticipModel> GetBySchoolId(string id)
         {
-            return !string.IsNullOrEmpty(id) ? _participService.GetBySchoolIdAsync(id) : null;
+            return !string.IsNullOrEmpty(id) ? _participService.GetBySchoolId(id) : null;
         }
 
         //delete

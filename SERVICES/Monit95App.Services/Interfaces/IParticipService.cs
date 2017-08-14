@@ -10,8 +10,8 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IParticipService
     {
-        Task<ParticipModel> AddAsync(ParticipModel dto);                //C
-        List<ParticipModel> GetBySchoolIdAsync(string schoolId);//R
+        ParticipModel Add(ParticipModel model);
+        IEnumerable<ParticipModel> GetBySchoolId(string schoolId);
         Task<ParticipModel> GetByParticipIdAsync(int participId);
         Task<bool> UpdateAsync(ParticipModel dto);                    //U
         Task<bool> DeleteAsync(int id);                             //D
