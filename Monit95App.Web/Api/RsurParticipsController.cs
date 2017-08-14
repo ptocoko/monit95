@@ -1,12 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.JsonPatch;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Models;
-using Monit95App.Services.Models.Rsur;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -37,15 +30,7 @@ namespace Monit95App.Api
             _userService = userService;
         }
 
-        #region Api
-
-        [HttpPatch]
-        [Route("{ParticipCode}")]
-        public async Task<HttpResponseMessage> Patch([FromBody] JsonPatchDocument<RsurParticipBaseInfo> baseInfo)
-        {
-            //model.App
-            return new HttpResponseMessage();
-        }
+        #region Api 
 
         [HttpGet]
         [Route("{ParticipCode}")]
@@ -55,11 +40,8 @@ namespace Monit95App.Api
                 
             var fullInfo = _rsurParticipService.GetByParticipCode(participCode);
 
-            if (fullInfo == null)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом");
-            }
-            return Request.CreateResponse(HttpStatusCode.OK, fullInfo);
+            return fullInfo == null ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом") : 
+                                       Request.CreateResponse(HttpStatusCode.OK, fullInfo);
         }
 
         [HttpGet]
