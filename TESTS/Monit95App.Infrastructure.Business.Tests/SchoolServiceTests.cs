@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Interfaces;
 using Monit95App.Services.School;
 using NSubstitute;
 
@@ -12,7 +13,7 @@ namespace Monit95App.Infrastructure.BusinessTests
     public class SchoolServiceTests
     {
         private readonly IGenericRepository<School> _mockSchoolRepository = Substitute.For<IGenericRepository<School>>();
-        private readonly IGenericRepository<SchoolsEdit> _mockSchoolEditRepository = Substitute.For<IGenericRepository<SchoolsEdit>>();
+        private readonly IGenericRepository<SchoolEdit> _mockSchoolEditRepository = Substitute.For<IGenericRepository<SchoolEdit>>();
         private readonly ISchoolService _schoolService;
 
         private readonly Area _area = new Area()
@@ -45,7 +46,7 @@ namespace Monit95App.Infrastructure.BusinessTests
         {
             //Arrange                      
             _mockSchoolRepository.GetById(Arg.Any<string>()).Returns(_school);            
-            _mockSchoolEditRepository.GetById(Arg.Any<string>()).Returns(new SchoolsEdit());
+            _mockSchoolEditRepository.GetById(Arg.Any<string>()).Returns(new SchoolEdit());
             
             //Act
             var model = _schoolService.GetModel("0001");

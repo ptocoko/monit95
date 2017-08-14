@@ -23,7 +23,6 @@ export class EditModalComponent {
 
 	onSubmit() {
 		this.participService.postRequestToEdit(this.editParticip).subscribe(res => {
-			this.particip.hasRequestToEdit = true;
 			this.dialog.close(this.particip);
 		});
 		

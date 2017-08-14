@@ -82,13 +82,13 @@
     <Compile Include="ExerciseMark.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="GiaResult.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Grade.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NsurSubject.cs">
+      <DependentUpon>cokoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Particip.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ParticipTest.cs">
@@ -100,10 +100,7 @@
     <Compile Include="ProjectParticip.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProjectParticipsEdit.cs">
-      <DependentUpon>cokoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectParticipsV2.cs">
+    <Compile Include="ProjectParticipEdit.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectTest.cs">
@@ -116,7 +113,7 @@
     <Compile Include="School.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SchoolsEdit.cs">
+    <Compile Include="SchoolEdit.cs">
       <DependentUpon>cokoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Test.cs">

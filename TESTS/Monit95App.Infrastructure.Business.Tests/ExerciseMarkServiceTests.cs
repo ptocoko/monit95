@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Services.Models;
-using Monit95App.Services;
-using NSubstitute;
 using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Services;
+using Monit95App.Services.Models;
+using NSubstitute;
 
-namespace Monit95App.Services.Tests
+namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
     public class ExerciseMarkServiceTests

@@ -15,10 +15,8 @@ var UserService = (function () {
     function UserService(http) {
         this.http = http;
     }
-    UserService.prototype.getName = function () {
-        return this.http.get("account/getName").toPromise().then(function (response) {
-            return response.text();
-        });
+    UserService.prototype.getAccount = function () {
+        return this.http.get("api/account");
     };
     return UserService;
 }());

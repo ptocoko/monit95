@@ -8,18 +8,18 @@
     "tsc:w": "tsc -w"
   },
   "dependencies": {
-    "@angular/common": "^4.2.4",
-    "@angular/compiler": "^4.2.4",
-    "@angular/core": "^4.2.4",
-    "@angular/forms": "^4.2.4",
-    "@angular/http": "^4.2.4",
-    "@angular/platform-browser": "^4.2.4",
-    "@angular/platform-browser-dynamic": "^4.2.4",
-    "@angular/router": "^4.2.4",
+    "@angular/common": "^4.3.2",
+    "@angular/compiler": "^4.3.2",
+    "@angular/core": "^4.3.2",
+    "@angular/forms": "^4.3.2",
+    "@angular/http": "^4.3.2",
+    "@angular/platform-browser": "^4.3.2",
+    "@angular/platform-browser-dynamic": "^4.3.2",
+    "@angular/router": "^4.3.2",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.26",
     "@types/jquery": "2.0.46",
     "angular-in-memory-web-api": "~0.3.0",
-    "angular2-modal": "^2.0.3",
+    "angular2-modal": "^3.0.1",
     "core-js": "^2.4.1",
     "mydatepicker": "^2.0.21",
     "ng2-bs3-modal": "^0.10.4",
@@ -27,10 +27,10 @@
     "systemjs": "^0.20.14",
     "zone.js": "^0.8.12"
   },
-    "devDependencies": {
-        "@types/node": "^8.0.3",        
-        "concurrently": "^3.5.0",
-        "lite-server": "^2.2.2",
-        "typescript": "^2.3.2"
-    }
+  "devDependencies": {
+    "@types/node": "^8.0.3",
+    "concurrently": "^3.5.0",
+    "lite-server": "^2.2.2",
+    "typescript": "^2.3.2"
+  }
 }

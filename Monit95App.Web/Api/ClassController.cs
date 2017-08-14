@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Monit95App.Service.Interfaces;
+using Monit95App.Services.Interfaces;
 
 namespace Monit95App.Api
 {

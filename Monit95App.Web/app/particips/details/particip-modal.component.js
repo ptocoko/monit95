@@ -48,7 +48,7 @@ var ParticipModalComponent = (function () {
             var date = this.dateModel.date;
             this.particip.birthday = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
             this.particip.classNumbers = participClasses;
-            this.participService.updateParticip(this.particip).subscribe(function () {
+            this.participService.update(this.particip).subscribe(function () {
                 _this.dialog.close(_this.particip);
             }, function (error) {
                 _this.statusText = 'Ошибка доступа к серверу!';

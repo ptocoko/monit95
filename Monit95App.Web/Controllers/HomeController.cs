@@ -3,20 +3,34 @@ using Monit95App.ViewModels.Home;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Web.UI;
 using Monit95App.Domain.Core;
+using Monit95App.Web;
 using Monit95App.Models;
+using Monit95App.Services.Interfaces;
+using Monit95App.Services.School;
 
 namespace Monit95App.Controllers
 {
     //Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
-        private readonly cokoContext _context = new cokoContext();             
+        #region Fields
 
-        //public HomeController()
-        //{
-     
-        //}
+        private readonly cokoContext _context = new cokoContext();
+        private readonly ISchoolService _schoolService;
+
+        #endregion
+
+        public HomeController(ISchoolService schoolService)
+        {
+            _schoolService = schoolService;
+        }
+
+        public HomeController()
+        {
+            
+        }
 
         [Authorize(Roles = "coko")]
         public ActionResult Corrections()
@@ -62,10 +76,10 @@ namespace Monit95App.Controllers
         }
 
         [Authorize(Roles = "coko")]
-        public ActionResult GetSchoolinfoPv(string schoolId)
-        {
+        public ActionResult GetSchoolinfoPV(string schoolId)
+        {            
             var currentSchool = _context.Schools.Find(schoolId);
-            var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
+            var vm =  _schoolService.GetModel(schoolId);
             return PartialView("_Schoolinfo", vm);
         }
 
@@ -73,7 +87,7 @@ namespace Monit95App.Controllers
         public ActionResult Schoolinfo()
         {                                       
             var currentSchool = _context.Schools.Find(User.Identity.Name);
-            var vm = SchoolModelCreator.CreateFullVersion(currentSchool, _context);
+            var vm = _schoolService.GetModel(currentSchool.Id);
             return View(vm);
         }
 
@@ -83,9 +97,9 @@ namespace Monit95App.Controllers
             if (Session["footer"] == null)
                 Session["footer"] = _context.Schools.Find(User.Identity.Name);
 
-            var school = (School)Session["footer"];
+            School school = (School)Session["footer"];
 
-            var userInfo = $@"{school?.AreaCode}-{school?.Id} {school?.Name}";
+            string userInfo = $@"{school.AreaCode}-{school.Id} {school.Name}";
 
             var vm = new FooterVM(userInfo);
 
@@ -94,13 +108,18 @@ namespace Monit95App.Controllers
 
         public ActionResult Index()
         {
-            return !Request.IsAuthenticated ? View("Index", "~/Views/Shared/_GuestLayout.cshtml") : View();
+            if (!Request.IsAuthenticated)
+            {
+                return View("Index", "~/Views/Shared/_GuestLayout.cshtml");
+            }
+            
+            return View();
         }                                   
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-            return View();
+           return View();
         }
 
         public ActionResult Contact()

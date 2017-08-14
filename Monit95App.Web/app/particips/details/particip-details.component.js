@@ -20,7 +20,7 @@ var ParticipDetailsComponent = (function () {
         this.modal = modal;
     }
     ParticipDetailsComponent.prototype.ngOnInit = function () {
-        this.get();
+        //		this.get();		
     };
     ParticipDetailsComponent.prototype.modalOpen = function (particip) {
         var _this = this;
@@ -55,13 +55,6 @@ var ParticipDetailsComponent = (function () {
                 }
             });
         }
-    };
-    ParticipDetailsComponent.prototype.get = function () {
-        var _this = this;
-        this.participService.get().subscribe(function (particips) {
-            _this.particips = particips;
-            _this.setCountOfNotEnteredData();
-        });
     };
     return ParticipDetailsComponent;
 }());

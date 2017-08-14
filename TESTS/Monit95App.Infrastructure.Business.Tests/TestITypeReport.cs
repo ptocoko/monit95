@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Monit95App.Domain.Core;
-using System.Collections;
-using System.Linq;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
-using Monit95App.Services.Interfaces;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Monit95App.Domain.Core;
 using Monit95App.Services;
+using Monit95App.Services.Interfaces;
+using Moq;
 
-namespace Monit95App.Domain.Work.Tests
+namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
     public class TestITypeReport

@@ -1,95 +1,111 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.JsonPatch;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Models;
-using Monit95App.Services.Interfaces.Rsur;
-using Monit95App.Services.Models.Rsur;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
+using Monit95App.Services.Interfaces;
+using Monit95App.Services.Rsur;
+using Monit95App.Web.Services;
 using WebApi.OutputCache.V2;
 
 namespace Monit95App.Api
 {    
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/RsurParticips")]
     public class RsurParticipsController : ApiController
     {
         #region Fileds
 
         private readonly IRsurParticipService _rsurParticipService;
+        private readonly IUserService _userService;
 
         #endregion
-        public RsurParticipsController(IRsurParticipService rsurParticipService)
+        public RsurParticipsController(IRsurParticipService rsurParticipService,
+                                       IUserService userService)
         {
             _rsurParticipService = rsurParticipService;
+            _userService = userService;
         }
 
-        #region Api
+        #region Api 
 
-        [HttpPatch]
+        [HttpGet]
         [Route("{ParticipCode}")]
-        public async Task<HttpResponseMessage> Patch([FromBody] JsonPatchDocument<RsurParticipBaseInfo> baseInfo)
+        public HttpResponseMessage GetByParticipCode()
         {
-            //model.App
-            return new HttpResponseMessage();
+            var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();   
+                
+            var fullInfo = _rsurParticipService.GetByParticipCode(participCode);
+
+            return fullInfo == null ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом") : 
+                                       Request.CreateResponse(HttpStatusCode.OK, fullInfo);
         }
 
         [HttpGet]
-        [Route("{participCode}")]
-        public async Task<HttpResponseMessage> Get(string participCode)
-        {
-            if (participCode == null)
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
-
-            RsurParticipBaseInfo resultModel = await Task.Run(() => _rsurParticipService.GetByParticipCode(participCode));
-
-            if (resultModel == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, resultModel);
-        }
-
-        [CacheOutput(ClientTimeSpan = 100)]
-        [HttpGet]            
         [Route("")]
-        public async Task<HttpResponseMessage> Get()
+        [CacheOutput(ClientTimeSpan = 100)]                            
+        public IHttpActionResult Get() //get all participates who access for authorized user
         {
-#warning here i try fix
+            var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
+            var authorizedUserName = authorizedUserModel.UserName;
+            var authorizedUserRole = authorizedUserModel.UserRoleNames.Single();
 
-            var _dbContext = new ApplicationDbContext();
-            var user = _dbContext.Users.Find(User.Identity.GetUserId());
-            var userName = User.Identity.Name;
-            var userRoles = user.Roles.Select(x => _dbContext.Roles.Find(x.RoleId).Name).Single();
+            int? paramAreaCode = null;            
+            if (authorizedUserRole.Equals("area"))
+            {
+                paramAreaCode = Convert.ToInt32(authorizedUserName);
+            }
 
-            var models = await Task.Run(() => _rsurParticipService.GetByUserName(userName, userRoles));
+            string paramSchoolId = null;
+            if (authorizedUserRole.Equals("school"))
+            {
+                paramSchoolId = authorizedUserName;
+            }
+            
+            var baseInfoList = _rsurParticipService.Get(paramAreaCode, paramSchoolId);
 
-            if (models == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участников");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, models);
+            return Ok(baseInfoList);
         }
 
-        [HttpPut]
-        [Route("api/RsurParticips/PutParticip")]
-        public async Task<HttpResponseMessage> PutParticip([FromBody]RsurParticipBaseInfo model)
+        [HttpPut]        
+        [Route(@"{ParticipCode:regex(^2016-2\d{2}-\d{3})}")]
+        public IHttpActionResult Put([FromBody]RsurParticipFullInfo fullInfo)
         {
             if (!ModelState.IsValid)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Неверный запрос");
+                return BadRequest(ModelState);
             }
 
-            var isUpdated = await Task.Run(() => _rsurParticipService.Update(model));
-            if (isUpdated)
-                return Request.CreateResponse(HttpStatusCode.OK, "Ресурс успешно обновлен");
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось применить изменения");
+            var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
+            var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();     
+            
+            bool isAdmin = authorizedUserModel.UserName == "coko";
+            if (authorizedUserModel.UserRoleNames.Single() == "area")
+            {
+                var entity = _rsurParticipService.GetEntity(participCode);
+                if (entity == null)
+                {
+                    return NotFound();
+                }
+                if (entity.School.AreaCode.ToString() != authorizedUserModel.UserName)
+                {
+                    return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
+                }
+            }
+            if (authorizedUserModel.UserRoleNames.Single() == "school")
+            {
+                if(fullInfo.SchoolIdWithName.Substring(0, 4) != authorizedUserModel.UserName)
+                {
+                    return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
+                }
+            }
+
+            var updatedRsurParticipFullInfo = _rsurParticipService.Update(fullInfo, isAdmin);
+
+            return Ok(updatedRsurParticipFullInfo);
         }
 
         [HttpGet]

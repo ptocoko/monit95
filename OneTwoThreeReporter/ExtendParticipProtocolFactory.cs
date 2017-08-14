@@ -15,15 +15,13 @@ namespace ProtocolGenerator
         {
             var protocol = new ExtendParticipProtocol
             {               
-                Surname = result.ExerciseMark.ProjectParticipsV2.Surname,
-                Name = result.ExerciseMark.ProjectParticipsV2.Name,
-                SecondName = result.ExerciseMark.ProjectParticipsV2.SecondName,
-                ClassName = result.ExerciseMark.ProjectParticipsV2.Class.Name,
+                Surname = result.ExerciseMark.Particip.Surname,
+                Name = result.ExerciseMark.Particip.Name,
+                SecondName = result.ExerciseMark.Particip.SecondName,
+                ClassName = result.ExerciseMark.Particip.Class.Name,
                 Marks = result.ExerciseMark.Marks,
                 SubjecName = result.ExerciseMark.Test.Name,
 
-                Id = result.ExerciseMark.ProjectParticipsV2.ParticipCode
-                     ?? result.ExerciseMark.ProjectParticipsV2.Id.ToString(),
                 Grade5 = CheckGrade5(result) ?? result.Grade5.ToString(), //if the test has string's version Grade5 then get that via ConvertGrade5                             
                 //...
             };

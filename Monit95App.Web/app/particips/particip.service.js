@@ -10,45 +10,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+//import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from '@angular/http';
 var http_1 = require("@angular/http");
 require("rxjs/Rx");
-var particip_model_1 = require("./particip.model");
 var results_model_1 = require("./results/results.model");
 var ParticipService = (function () {
-    function ParticipService(_http) {
-        this._http = _http;
+    function ParticipService(http) {
+        this.http = http;
+        this.ROUTE_PREFIX = "api/RsurParticips";
     }
     ParticipService.prototype.downloadFile = function (data) {
         var blob = new Blob([data]);
         var url = window.URL.createObjectURL(blob);
         window.open(url);
     };
-    ParticipService.prototype.get = function () {
-        var _this = this;
-        return this._http.get("api/rsurParticips")
-            .map(function (resp) {
-            var participList = resp.json();
-            var particips = [];
-            for (var index in participList) {
-                var particip = participList[index];
-                particips.push(_this.getParticipModel(particip));
-            }
-            return particips;
-        });
+    ParticipService.prototype.getAll = function () {
+        return this.http.get(this.ROUTE_PREFIX);
     };
-    ParticipService.prototype.getParticip = function (participCode) {
-        var _this = this;
-        return this._http.get('api/rsurParticips/' + participCode)
-            .map(function (resp) {
-            var participResp = resp.json();
-            return _this.getParticipModel(participResp);
-        });
+    ParticipService.prototype.update = function (particip) {
+        return this.http.put(this.ROUTE_PREFIX + "/" + particip.participCode, particip);
     };
-    ParticipService.prototype.updateParticip = function (particip) {
-        return this._http.put('/api/RsurParticip/PutParticip', particip);
-    };
+    //getParticip(participCode: string): Observable<ParticipModel> {
+    //    return this.http.get('api/rsurParticips/' + participCode)
+    //        .map((resp: Response) => {
+    //            let participResp = resp.json();
+    //            return this.getParticipModel(participResp);
+    //        });
+    //}
     ParticipService.prototype.getParticipResults = function (participCode) {
-        return this._http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
+        return this.http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
             .map(function (res) {
             var resultsInJSON = res.json();
             var results = [];
@@ -66,10 +56,7 @@ var ParticipService = (function () {
         });
     };
     ParticipService.prototype.postRequestToEdit = function (editParticip) {
-        return this._http.post('/api/RsurParticipEdit/Post', editParticip);
-    };
-    ParticipService.prototype.getParticipModel = function (particip) {
-        return new particip_model_1.ParticipModel(particip.ParticipCode, particip.Surname, particip.Name, particip.SecondName, particip.SubjectName, particip.SchoolIdWithName, particip.CategName, particip.Birthday != null ? new Date(particip.Birthday) : null, particip.ClassNumbers, particip.HasRequestToEdit);
+        return this.http.post('/api/RsurParticipEdit/Post', editParticip);
     };
     return ParticipService;
 }());

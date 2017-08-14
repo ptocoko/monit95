@@ -1,7 +1,8 @@
-﻿import { Injectable, Component }                                           from '@angular/core';
-import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from '@angular/http';
+﻿import { Injectable, Component } from '@angular/core';
+//import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
-import { Observable }                                                      from 'rxjs/Observable';
+import { Observable }from 'rxjs/Observable';
 import { ParticipModel } from './particip.model';
 import { ParticipEditModel } from '../particips/edit-particip/edit-particip.model';
 import { ResultsModel, ResultDetailsModel } from './results/results.model';
@@ -11,44 +12,39 @@ import { ResultsModel, ResultDetailsModel } from './results/results.model';
 })
 
 @Injectable()
-export class ParticipService {
-    public headers: Headers;
-    constructor(private _http: Http) { }    
+export class ParticipService {    
+    ROUTE_PREFIX = "api/RsurParticips";
 
+    constructor(private http: Http) {
 
-    downloadFile(data: Response) {
-        var blob = new Blob([data]);        
-        var url = window.URL.createObjectURL(blob);
-        window.open(url);
     }    
 
-    get(): Observable<ParticipModel[]> {                        
-        return this._http.get("api/rsurParticips")
-            .map((resp: Response) => {                
-                let participList = resp.json();
-                let particips: ParticipModel[] = [];
-                for (let index in participList) {
-                    let particip = participList[index];
-                    particips.push(this.getParticipModel(particip));
-                }
-                return particips;
-            });        
-	}	
-
-    getParticip(participCode: string): Observable<ParticipModel> {
-        return this._http.get('api/rsurParticips/' + participCode)
-            .map((resp: Response) => {
-                let participResp = resp.json();
-                return this.getParticipModel(participResp);
-            });
+    downloadFile(data: Response) {
+        const blob = new Blob([data]);        
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
     }
 
-	updateParticip(particip: ParticipModel): Observable<any> {
-		return this._http.put('/api/RsurParticip/PutParticip', particip);
-	}
+    getAll() {
+        return this.http.get(this.ROUTE_PREFIX);
+    }
+
+    update(particip: ParticipModel) {
+        return this.http.put(`${this.ROUTE_PREFIX}/${particip.participCode}`, particip);
+    }    
+
+    //getParticip(participCode: string): Observable<ParticipModel> {
+    //    return this.http.get('api/rsurParticips/' + participCode)
+    //        .map((resp: Response) => {
+    //            let participResp = resp.json();
+    //            return this.getParticipModel(participResp);
+    //        });
+    //}
+
+	
 
 	getParticipResults(participCode: string): Observable<ResultsModel[]> {
-		return this._http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
+		return this.http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
 			.map((res: Response) =>
 			{
 				let resultsInJSON = res.json();
@@ -73,21 +69,21 @@ export class ParticipService {
 	}
 
 	postRequestToEdit(editParticip: ParticipEditModel): Observable<any> {
-		return this._http.post('/api/RsurParticipEdit/Post', editParticip);
+		return this.http.post('/api/RsurParticipEdit/Post', editParticip);
 	}
 
-	private getParticipModel(particip: any): ParticipModel {
-		return new ParticipModel(
-						particip.ParticipCode,
-						particip.Surname,
-						particip.Name,
-						particip.SecondName,
-						particip.SubjectName,
-						particip.SchoolIdWithName,
-						particip.CategName,
-						particip.Birthday != null ? new Date(particip.Birthday) : null,
-						particip.ClassNumbers,
-						particip.HasRequestToEdit
-					);
-	}
+	//private getParticipModel(particip: any): ParticipModel {
+	//	return new ParticipModel(
+	//					particip.ParticipCode,
+	//					particip.Surname,
+	//					particip.Name,
+	//					particip.SecondName,
+	//					particip.SubjectName,
+	//					particip.SchoolIdWithName,
+	//					particip.CategName,
+	//					particip.Birthday != null ? new Date(particip.Birthday) : null,
+	//					particip.ClassNumbers,
+	//					particip.HasRequestToEdit
+	//				);
+	//}
 }

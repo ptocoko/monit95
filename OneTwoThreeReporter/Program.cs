@@ -56,7 +56,7 @@ namespace OneTwoThreeReporter
                 SubjectName = exer.TestId.ToString(),
                 Marks = exer.Marks,
                 GradeStr = testRes.Grade5.ToString()
-            }).Join(_context.ProjectParticipsV2, ok => ok.ParticipId, ik => ik.Id, (temp, particip) => new OneTwoThreeReportDto
+            }).Join(_context.Particips, ok => ok.ParticipId, ik => ik.Id, (temp, particip) => new OneTwoThreeReportDto
             {
                 SchoolId = particip.SchoolId,
                 ExerciseMarkId = temp.ExerciseMarkId,

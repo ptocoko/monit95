@@ -26,17 +26,17 @@ export class ParticipCorrectionComponent implements OnInit {
 		});        
     };
 
-    applyCorrection(correction: ParticipCorrection) {
-		this._participService.getParticip(correction.participCode).subscribe(particip => {
-			particip.surname = correction.newParticipSurname;
-			particip.name = correction.newParticipName;
-			particip.secondName = correction.newParticipSecondName;
+ //   applyCorrection(correction: ParticipCorrection) {
+	//	this._participService.getParticip(correction.participCode).subscribe(particip => {
+	//		particip.surname = correction.newParticipSurname;
+	//		particip.name = correction.newParticipName;
+	//		particip.secondName = correction.newParticipSecondName;
 
-			this._participService.updateParticip(particip).subscribe(success => {
-				this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(success => this.successHandler(correction, 'Коррекция принята успешно!'))
-			})
-		});
-	}
+	//		this._participService.updateParticip(particip).subscribe(success => {
+	//			this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(success => this.successHandler(correction, 'Коррекция принята успешно!'))
+	//		})
+	//	});
+	//}
 
 	cancelCorrection(correction: ParticipCorrection) {
 		this._participCorrectionService.cancelCorrection(correction.participCode).subscribe(success => {

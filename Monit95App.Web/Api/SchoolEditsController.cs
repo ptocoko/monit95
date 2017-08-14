@@ -31,25 +31,25 @@ namespace Monit95App.Api
         [Authorize(Roles = "coko")]
         [Route("{id}")]
         [HttpDelete]
-        public async Task<HttpResponseMessage> DeleteAsync()
+        public HttpResponseMessage Delete()
         {
             var id = RequestContext.RouteData.Values["id"].ToString();
 
-            var wasDeleted = await _schoolEditService.DeleteEditTask(id);
+            var wasDeleted = _schoolEditService.DeleteEditTask(id);
 
             return wasDeleted ? Request.CreateResponse(HttpStatusCode.OK) :
                                 Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Cannot delete correction");
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> PostAsync(SchoolsEdit entity)
+        public HttpResponseMessage Post(SchoolEdit entity)
         {
             if (entity?.Id == null || entity.Name == null)
             {
                 throw new ArgumentException(nameof(entity));
             }
 
-            await _schoolEditService.AddEditTask(entity);
+            _schoolEditService.AddEditTask(entity);
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }       

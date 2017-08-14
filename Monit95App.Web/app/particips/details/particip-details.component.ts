@@ -20,7 +20,7 @@ export class ParticipDetailsComponent implements OnInit {
 	constructor(private participService: ParticipService, public modal: Modal) { }
 
 	ngOnInit() {		
-			this.get();		
+	//		this.get();		
 	}
 
 	modalOpen(particip: ParticipModel) {
@@ -58,13 +58,13 @@ export class ParticipDetailsComponent implements OnInit {
 		}
 	}
 	
-	get() {
-		this.participService.get().subscribe(
-			particips => {
-				this.particips = particips;
-				this.setCountOfNotEnteredData();
-			}
-		);
-	}
+	//get() {
+	//	this.participService.getAll().subscribe(
+	//		particips => {
+	//			this.particips = particips;
+	//			this.setCountOfNotEnteredData();
+	//		}
+	//	);
+	//}
 	
 }

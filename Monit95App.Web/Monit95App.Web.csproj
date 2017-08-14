@@ -318,7 +318,8 @@
     <Content Include="app\particips\edit-particip\edit-modal.css" />
     <Content Include="app\particips\edit-particip\edit-modal.html" />
     <Content Include="app\particips\edit-particip\edit-particip.html" />
-    <Content Include="app\particips\particip-list.html" />
+    <Content Include="app\particips\particip-form\particip-form.component.html" />
+    <Content Include="app\particips\particip-list.component.html" />
     <Content Include="app\particips\details\particip-modal.html" />
     <Content Include="app\particips\particips.html" />
     <Content Include="app\particips\results\results-modal.html" />
@@ -550,7 +551,7 @@
       <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
       <Name>Monit95App.Infrastructure.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Monit95App.Services\Monit95App.Services.csproj">
+    <ProjectReference Include="..\SERVICES\Monit95App.Services\Monit95App.Services.csproj">
       <Project>{5E38A333-C51E-4910-A650-440C8D7F0A94}</Project>
       <Name>Monit95App.Services</Name>
     </ProjectReference>
@@ -572,6 +573,7 @@
     <TypeScriptCompile Include="app\particips\mock-particips.ts" />
     <TypeScriptCompile Include="app\particips\details\particip-details.component.ts" />
     <TypeScriptCompile Include="app\limit-to.pipe.ts" />
+    <TypeScriptCompile Include="app\particips\particip-form\particip-form.component.ts" />
     <TypeScriptCompile Include="app\particips\particip-list.component.ts" />
     <TypeScriptCompile Include="app\particips\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particips\details\particip-modal.component.ts" />

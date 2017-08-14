@@ -26,6 +26,7 @@ var result_component_1 = require("./result/result.component");
 var particip_details_component_1 = require("./particips/details/particip-details.component");
 var edit_particip_component_1 = require("./particips/edit-particip/edit-particip.component");
 var particip_correction_component_1 = require("./particips/correction/particip-correction.component");
+var particip_form_component_1 = require("./particips/particip-form/particip-form.component");
 //Services
 var user_service_1 = require("./user.service");
 var particip_service_1 = require("./particips/particip.service");
@@ -59,14 +60,15 @@ AppModule = __decorate([
             particip_modal_component_1.ParticipModalComponent,
             results_modal_component_1.ResultsModalComponent,
             edit_modal_component_1.EditModalComponent,
-            particip_correction_component_1.ParticipCorrectionComponent
+            particip_correction_component_1.ParticipCorrectionComponent,
+            particip_form_component_1.ParticipFormComponent
         ],
         providers: [
             user_service_1.UserService, particip_service_1.ParticipService, particip_correction_service_1.ParticipCorrectionService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
-        entryComponents: [particip_modal_component_1.ParticipModalComponent, results_modal_component_1.ResultsModalComponent, edit_modal_component_1.EditModalComponent],
+        entryComponents: [particip_modal_component_1.ParticipModalComponent, results_modal_component_1.ResultsModalComponent, edit_modal_component_1.EditModalComponent, particip_form_component_1.ParticipFormComponent],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

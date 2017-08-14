@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Tests", "Tests\Monit95App.Infrastructure.Business.Tests\Monit95App.Services.Tests.csproj", "{EAFAB265-533C-46EC-82C9-F1E63873F611}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services", "Monit95App.Services\Monit95App.Services.csproj", "{5E38A333-C51E-4910-A650-440C8D7F0A94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services", "SERVICES\Monit95App.Services\Monit95App.Services.csproj", "{5E38A333-C51E-4910-A650-440C8D7F0A94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountsCreator", "AccountsCreator\AccountsCreator.csproj", "{8C1FC8FD-E2A4-4701-8CC4-C3A720E50087}"
 EndProject

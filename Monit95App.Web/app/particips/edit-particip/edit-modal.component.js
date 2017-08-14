@@ -23,7 +23,6 @@ var EditModalComponent = (function () {
     EditModalComponent.prototype.onSubmit = function () {
         var _this = this;
         this.participService.postRequestToEdit(this.editParticip).subscribe(function (res) {
-            _this.particip.hasRequestToEdit = true;
             _this.dialog.close(_this.particip);
         });
     };

@@ -79,7 +79,7 @@
       <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
       <Name>Monit95App.Infrastructure.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Monit95App.Services\Monit95App.Services.csproj">
+    <ProjectReference Include="..\SERVICES\Monit95App.Services\Monit95App.Services.csproj">
       <Project>{5E38A333-C51E-4910-A650-440C8D7F0A94}</Project>
       <Name>Monit95App.Services</Name>
     </ProjectReference>

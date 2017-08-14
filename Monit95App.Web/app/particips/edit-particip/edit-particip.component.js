@@ -21,10 +21,9 @@ var EditParticipComponent = (function () {
         this.userService = userService;
         this.modal = modal;
     }
-    EditParticipComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.participService.get().subscribe(function (particips) { return _this.particips = particips; });
-    };
+    //ngOnInit() {
+    //    this.participService.get().subscribe(particips => this.particips = particips);
+    //}
     EditParticipComponent.prototype.modalOpen = function (particip) {
         var _this = this;
         this.modal.open(edit_modal_component_1.EditModalComponent, angular2_modal_1.overlayConfigFactory(particip, bootstrap_1.BSModalContext)).then(function (dialog) {
@@ -37,7 +36,6 @@ var EditParticipComponent = (function () {
     EditParticipComponent.prototype.setDataByParticipCode = function (particip) {
         this.particips.forEach(function (val, i, arr) {
             if (val.participCode === particip.participCode) {
-                val.hasRequestToEdit = particip.hasRequestToEdit;
                 return;
             }
         });
