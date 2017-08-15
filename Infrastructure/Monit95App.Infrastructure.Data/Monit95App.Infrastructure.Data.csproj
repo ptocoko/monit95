@@ -56,9 +56,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="инфо.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
       <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
       <Name>Monit95App.Domain.Core</Name>
