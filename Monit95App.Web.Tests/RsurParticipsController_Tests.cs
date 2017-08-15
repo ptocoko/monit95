@@ -18,13 +18,13 @@ using Monit95App.Domain.Core;
 namespace Monit95App.Web.Tests
 {
     [TestClass]
-    public class RsurParticipsControllerTest
+    public class RsurParticipsController_Tests
     {
         private readonly IUserService _mockUserService;
         private readonly IRsurParticipService _mockRsurParticipService;
         private readonly RsurParticipsController _rsurParticipsController;
 
-        public RsurParticipsControllerTest()
+        public RsurParticipsController_Tests()
         {
             _mockUserService = Substitute.For<IUserService>();
             _mockRsurParticipService = Substitute.For<IRsurParticipService>();

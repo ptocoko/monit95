@@ -19,11 +19,11 @@ namespace Monit95App.Infrastructure.BusinessTests
         public void Add_Test()
         {
             //Arrange
-            var mockClassService = new Mock<IClassService>();
-            mockClassService.Setup(x => x.GetId("1 А")).Returns("0101");
+            var mockClassService = Substitute.For<IClassService>();
+            mockClassService.GetId("1 А").Returns("0101");
             var unitOfWork = new UnitOfWork(new cokoContext());
-            var participRepository = new GenericRepository<Particip>(unitOfWork);
-            var service = new ParticipService(unitOfWork, participRepository, mockClassService.Object);
+            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>(); 
+            var service = new ParticipService(unitOfWork, mockParticipRepository, mockClassService);
 
             //Act
             var dto = new ParticipModel
@@ -35,10 +35,9 @@ namespace Monit95App.Infrastructure.BusinessTests
                 SchoolId = "0005",
                 ClassName = "1 А"
             };
-
-            //Assert
             var addedDto = service.Add(dto);
-            Assert.IsTrue(addedDto.Id != 0);
+
+            //Assert            
             Assert.AreEqual("0005", addedDto.SchoolId);
         }
 

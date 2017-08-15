@@ -5,6 +5,7 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,19 +31,21 @@ namespace Monit95App.Services
 
         public ParticipModel Add(ParticipModel model)
         {
+            //Validation
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
-            }
-            #warning add validation
-            //...
+            }                        
+            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
+            Validator.ValidateObject(model, validContext);
+            
             Mapper.Initialize(cfg => cfg.CreateMap<ParticipModel, Particip>());
             var entity = mapper.Map<ParticipModel, Particip>(model);            
 
             entity.ClassCode = _classServise.GetId(model.ClassName); //ClassName => ClassCode
 
             _participRepository.Insert(entity);
-            _unitOfWork.Save();
+            _participRepository.Save();
 
             model.Id = entity.Id;
 
