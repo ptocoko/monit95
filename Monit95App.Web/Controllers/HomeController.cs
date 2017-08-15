@@ -9,6 +9,7 @@ using Monit95App.Web;
 using Monit95App.Models;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.School;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Controllers
 {
@@ -17,7 +18,7 @@ namespace Monit95App.Controllers
     {
         #region Fields
 
-        private readonly cokoContext _context = new cokoContext();
+        private readonly CokoContext _context = new CokoContext();
         private readonly ISchoolService _schoolService;
 
         #endregion

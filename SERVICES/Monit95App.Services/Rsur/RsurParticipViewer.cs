@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services
 {
     public class RsurParticipViewer : IRsurParticipViewer
     {
         private const string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
-        private readonly cokoContext _db = new cokoContext();
+        private readonly CokoContext _db = new CokoContext();
         
         public RsurParticipBaseInfo CreateModel(ProjectParticip entity)
         {

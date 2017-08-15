@@ -18,23 +18,21 @@ using System.Threading.Tasks;
 namespace OneTwoThreeReporter
 {
     class Program
-    {
-        static IUnitOfWork _unitOfWork;
+    {        
         static IGenericRepository<TestResultsV2> _testResults;
         static IGenericRepository<School> _schools;
         static List<Class> _classes;
         static IGrade5 _gradeConverter;
-        static cokoContext _context;
+        static CokoContext _context;
 
         static void Main(string[] args)
         {
-            _context = new cokoContext();
-            _unitOfWork = new UnitOfWork(_context);
-            _testResults = new GenericRepository<TestResultsV2>(_unitOfWork);
-            _schools = new GenericRepository<School>(_unitOfWork);
+            _context = new CokoContext();            
+            _testResults = new GenericRepository<TestResultsV2>();
+            _schools = new GenericRepository<School>();
             _gradeConverter = new OneTwoThreeGradeConverter();
 
-            var classService = new ClassService(new GenericRepository<Class>(_unitOfWork));
+            var classService = new ClassService(new GenericRepository<Class>());
             _classes = classService.GetAll();
             
             var reports = GetAllResults();

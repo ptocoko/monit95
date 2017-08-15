@@ -10,14 +10,12 @@ using Monit95App.Services.Models.Rsur;
 namespace Monit95App.Services.Rsur
 {
     public class RsurParticipEditService : IRsurParticipEditService
-    {
-        private readonly IUnitOfWork _unitOfWork;
+    {        
         private readonly IGenericRepository<ProjectParticipEdit> _participEditRepository;
         private readonly IGenericRepository<ProjectParticip> _participRepository;
 
-        public RsurParticipEditService(IUnitOfWork unitOfWork, IGenericRepository<ProjectParticipEdit> participEditRepository, IGenericRepository<ProjectParticip> participRepository)
-        {
-            this._unitOfWork = unitOfWork;
+        public RsurParticipEditService(IGenericRepository<ProjectParticipEdit> participEditRepository, IGenericRepository<ProjectParticip> participRepository)
+        {            
             this._participEditRepository = participEditRepository;
             _participRepository = participRepository;
         }
@@ -50,8 +48,7 @@ namespace Monit95App.Services.Rsur
                     SecondName = model.NewParticipSecondName
                 };
 
-                _participEditRepository.Insert(entity);
-                _unitOfWork.Save();
+                _participEditRepository.Insert(entity);                
             }
             catch (RetryLimitExceededException)
             {
@@ -65,8 +62,8 @@ namespace Monit95App.Services.Rsur
             try
             {
                 var entity = _participEditRepository.GetAll().Single(p => p.ParticipCode == participCode);
-                _unitOfWork.DbContext.ProjectParticipEdits.Remove(entity);
-                _unitOfWork.Save();
+               // _unitOfWork.DbContext.ProjectParticipEdits.Remove(entity);
+                _participEditRepository.Save();
             }
             catch (RetryLimitExceededException)
             {

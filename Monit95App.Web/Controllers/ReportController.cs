@@ -17,7 +17,7 @@ namespace Monit95App.Controllers
     [Authorize]
     public class ReportController : Controller
     {        
-        private readonly cokoContext cokoDb = new cokoContext();        
+        private readonly CokoContext cokoDb = new CokoContext();        
         private readonly AppCache appCache = new AppCache();        
 
         public ReportController()

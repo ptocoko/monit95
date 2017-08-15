@@ -12,8 +12,7 @@ namespace Monit95App.Services
     public class ExerciseMarkService : IExerciseMarkService
     {
         #region Fileds
-
-        private readonly IUnitOfWork _unitOfWork;
+        
         private readonly IGenericRepository<ExerciseMark> _exerciseMarkRepository;
         private readonly IGenericRepository<Test> _testRepository;
 
@@ -21,17 +20,14 @@ namespace Monit95App.Services
 
         #region Public methods
 
-        public ExerciseMarkService(IUnitOfWork unitOfWork, IGenericRepository<ExerciseMark> exerciseMarkRep)                                 
-        {
-            _unitOfWork = unitOfWork;
+        public ExerciseMarkService(IGenericRepository<ExerciseMark> exerciseMarkRep)                                 
+        {            
             _exerciseMarkRepository = exerciseMarkRep;            
         }
 
-        public ExerciseMarkService(IUnitOfWork unitOfWork, 
-                                   IGenericRepository<ExerciseMark> exerciseMarkRep, 
+        public ExerciseMarkService(IGenericRepository<ExerciseMark> exerciseMarkRep, 
                                    IGenericRepository<Test> testRep)
-        {
-            _unitOfWork = unitOfWork;
+        {            
             _exerciseMarkRepository = exerciseMarkRep;
             _testRepository = testRep;
         }
@@ -51,7 +47,7 @@ namespace Monit95App.Services
                     };
 
                     _exerciseMarkRepository.Insert(newEntity);
-                    _unitOfWork.Save();
+                    _exerciseMarkRepository.Save();                    
 
                     model.Id = newEntity.Id;
                     return model;
@@ -99,7 +95,7 @@ namespace Monit95App.Services
                     var entity = _exerciseMarkRepository.GetById(marks.Id);
                     entity.Marks = marks.Marks;
 
-                    _unitOfWork.Save();
+                    _exerciseMarkRepository.Save();
                 }
 
                 return true;

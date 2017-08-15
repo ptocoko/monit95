@@ -22,13 +22,10 @@ namespace ParticipReporter
         static string _blockName;
         static List<DescriptionDto> _partsDesc;
         static List<DescriptionDto> _elementsDesc;
-        static DateTime _testDate;
-        static IUnitOfWork _unitOfWork;
+        static DateTime _testDate;        
 
         static void Main(string[] args)
-        {
-            _unitOfWork = new UnitOfWork(new cokoContext());
-            
+        {                        
             Console.WriteLine("Process");
             GetReports(new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"), new DateTime(2017, 04, 20));
 
@@ -41,7 +38,7 @@ namespace ParticipReporter
 
         static void GetReports(Guid testId, DateTime testDate)
         {
-            ITestResultService testResultService = new TestResultService(new GenericRepository<Element>(_unitOfWork), new GenericRepository<TestResult>(_unitOfWork));
+            ITestResultService testResultService = new TestResultService(new GenericRepository<Element>(), new GenericRepository<TestResult>());
 
             var results = testResultService.SelectParticipsGroupResults(testId, testDate);
 

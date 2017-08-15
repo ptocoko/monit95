@@ -20,10 +20,9 @@ namespace Monit95App.Infrastructure.BusinessTests
         {
             //Arrange
             var mockClassService = Substitute.For<IClassService>();
-            mockClassService.GetId("1 А").Returns("0101");
-            var unitOfWork = new UnitOfWork(new cokoContext());
+            mockClassService.GetId("1 А").Returns("0101");            
             var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>(); 
-            var service = new ParticipService(unitOfWork, mockParticipRepository, mockClassService);
+            var service = new ParticipService(mockParticipRepository, mockClassService);
 
             //Act
             var dto = new ParticipModel
@@ -61,11 +60,10 @@ namespace Monit95App.Infrastructure.BusinessTests
                     SchoolId = "0001"
                 }
             }.AsQueryable();
-            var mockClassService = Substitute.For<IClassService>();            
-            var unitOfWork = new UnitOfWork(new cokoContext());
+            var mockClassService = Substitute.For<IClassService>();                        
             var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
             mockParticipRepository.GetAll().Returns(mockGetAllQuery);
-            var service = new ParticipService(unitOfWork, mockParticipRepository, mockClassService);
+            var service = new ParticipService(mockParticipRepository, mockClassService);
 
             //Act          
             var models = service.GetBySchoolId("0005");

@@ -17,9 +17,8 @@ namespace Monit95App.Infrastructure.Business.Tests
         [TestMethod()]
         public void GetTestResultsGroupByParticipCodeTest()
         {
-            //Arange
-            var unitOfWork = new UnitOfWork(new cokoContext());
-            var repository = new GenericRepository<Domain.Core.TestResult>(unitOfWork);
+            //Arange            
+            var repository = new GenericRepository<Domain.Core.TestResult>();
             var service = new RsurParticipProtocolService(repository);
 
             //Act

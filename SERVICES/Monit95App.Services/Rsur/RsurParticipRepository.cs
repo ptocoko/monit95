@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services.Rsur
 {   
     public class ProjectParticipRepository : IRepository<ProjectParticip>
     {
         //TODO: посмотреть где тут необходим try...catch
-        private cokoContext db;        
+        private CokoContext db;        
 
-        public ProjectParticipRepository(cokoContext db)
+        public ProjectParticipRepository(CokoContext db)
         {
             this.db = db;
         }

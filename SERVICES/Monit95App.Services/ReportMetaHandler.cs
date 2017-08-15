@@ -6,12 +6,13 @@ using System.Web;
 using System.IO;
 using Monit95App.Domain.Core;
 using Monit95App.Services.Interfaces;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services
 {  
     public class ReportMetaHandler
     {
-        private readonly cokoContext cokoDb = new cokoContext();                
+        private readonly CokoContext cokoDb = new CokoContext();                
              
         public static IEnumerable<ReportMeta> GetReportMetasBySchool(Domain.Core.School school, ISchoolReportFileNameSource iFileNames)
         {

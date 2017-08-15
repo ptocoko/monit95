@@ -14,14 +14,12 @@ namespace Monit95App.Services
 {
     public class ParticipService : IParticipService
     {
-        private readonly IMapper mapper;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper mapper;        
         private readonly IGenericRepository<Particip> _participRepository;
         private readonly IClassService _classServise;
 
-        public ParticipService(IUnitOfWork unitOfWork, IGenericRepository<Particip> participRepository, IClassService classService)
-        {
-            _unitOfWork = unitOfWork;
+        public ParticipService(IGenericRepository<Particip> participRepository, IClassService classService)
+        {            
             _participRepository = participRepository;
             _classServise = classService;
 
@@ -83,9 +81,9 @@ namespace Monit95App.Services
                     entity.SchoolId = dto.SchoolId;
                     entity.ClassCode = _classServise.GetId(dto.ClassName);
 
-                    _unitOfWork.Save();
+                    _participRepository.Save();
                 }
-                _unitOfWork.Save();
+                _participRepository.Save();
 
                 return true;
             });
@@ -97,8 +95,7 @@ namespace Monit95App.Services
             {
                 if (id != 0)
                 {
-                    _participRepository.Delete(id);
-                    _unitOfWork.Save();
+                    _participRepository.Delete(id);                    
                 }
                 return true;
             });

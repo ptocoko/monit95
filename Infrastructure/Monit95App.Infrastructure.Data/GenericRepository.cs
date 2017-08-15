@@ -10,16 +10,17 @@ namespace Monit95App.Infrastructure.Data
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly cokoContext Context;
+        protected readonly CokoContext Context;
 
-        public GenericRepository(IUnitOfWork unitOfWork)
+        public GenericRepository()
         {
-            Context = unitOfWork.DbContext;
+            Context = new CokoContext();
         }
 
         public void Insert(T entity)
         {
-            Context.Set<T>().Add(entity);                        
+            Context.Set<T>().Add(entity);
+            Save();
         }
 
         public IQueryable<T> GetAll()

@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Monit95App.Services
 {
     public class ProtectReportMeta : ITypeReport
     {
-        private cokoContext context = new cokoContext();
+        private CokoContext context = new CokoContext();
         private Domain.Core.School school;
         public ProtectReportMeta(Domain.Core.School school)
         {

@@ -12,9 +12,8 @@ namespace Monit95App.Domain.DTO.Tests
         [TestMethod]
         public void GetAllTest()
         {
-            //Arrange
-            var unitOfWork = new UnitOfWork(new cokoContext());
-            var classRepository = new GenericRepository<Class>(unitOfWork);
+            //Arrange            
+            var classRepository = new GenericRepository<Class>();
 
             var classService = new ClassService(classRepository);
 
@@ -29,9 +28,8 @@ namespace Monit95App.Domain.DTO.Tests
         [TestMethod]
         public void GetIdTest()
         {
-            //Arrange
-            var unitOfWork = new UnitOfWork(new cokoContext());
-            var classRepository = new GenericRepository<Class>(unitOfWork);
+            //Arrange            
+            var classRepository = new GenericRepository<Class>();
 
             var classService = new ClassService(classRepository);
 

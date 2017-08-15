@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace Monit95App.Models
 {
     public static class CorrectionModelCreator
     {
-        private static cokoContext _context;
+        private static CokoContext _context;
 
-        public static IEnumerable<CorrectionModel> CreateModels(cokoContext context)
+        public static IEnumerable<CorrectionModel> CreateModels(CokoContext context)
         {
             _context = context;
 

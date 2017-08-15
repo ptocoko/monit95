@@ -36,23 +36,20 @@ namespace Monit95App.Infrastructure.BusinessTests
                 TestId = new Guid("C0AAE792-9EE5-4A9F-B8CD-03AEF37032E1"),
                 Marks = "1;0;0;1"
             };
-
-            var unitOfWork = new UnitOfWork(new cokoContext());
-            var repository = new GenericRepository<ExerciseMark>(unitOfWork);
-            var testRep = new GenericRepository<Test>(unitOfWork);
             
-            //var mockExerciseMarkRepository = Substitute.For<IGenericRepository<ExerciseMark>>();
-            var mockUnitOfWork = Substitute.For<IUnitOfWork>();
+            var repository = new GenericRepository<ExerciseMark>();
+            var testRep = new GenericRepository<Test>();
+            
+            //var mockExerciseMarkRepository = Substitute.For<IGenericRepository<ExerciseMark>>();            
             var mockExerciseMarkRepository = Substitute.For<IGenericRepository<ExerciseMark>>();
-            var service = new ExerciseMarkService(mockUnitOfWork, mockExerciseMarkRepository);
+            var service = new ExerciseMarkService(mockExerciseMarkRepository);
 
             //Act
             var resultModel = await service.AddAsync(mockInModel);
 
             //Assert
             Assert.IsNotNull(resultModel);
-            mockExerciseMarkRepository.Received().Insert(Arg.Any<ExerciseMark>());
-            mockUnitOfWork.Received().Save();     
+            mockExerciseMarkRepository.Received().Insert(Arg.Any<ExerciseMark>());            
         }
     }
 }

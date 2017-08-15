@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services
 {
@@ -14,7 +15,7 @@ namespace Monit95App.Services
         private readonly Domain.Core.School school;
         private readonly ISchoolReportFileNameSource iFileNames;
 
-        private cokoContext context = new cokoContext();
+        private CokoContext context = new CokoContext();
         public PrivateReportMeta(Domain.Core.School school, ISchoolReportFileNameSource iFileNames)
         {
             this.school = school;

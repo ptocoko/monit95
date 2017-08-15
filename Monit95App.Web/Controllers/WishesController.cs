@@ -1,5 +1,6 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Monit95App.Controllers
     [System.Web.Mvc.Authorize]
     public class WishesController : Controller
     {
-        private readonly cokoContext _db = new cokoContext();
+        private readonly CokoContext _db = new CokoContext();
 
         [System.Web.Mvc.HttpGet]
         public ActionResult Index()

@@ -7,6 +7,7 @@ using Monit95App.Domain.Core;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using Moq;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Infrastructure.BusinessTests
 {
@@ -58,7 +59,7 @@ namespace Monit95App.Infrastructure.BusinessTests
             mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator);
 
-            var mockContext = new Mock<cokoContext>();
+            var mockContext = new Mock<CokoContext>();
             mockContext.Setup(m => m.Reports).Returns(mockSet.Object);
 
             // Act
