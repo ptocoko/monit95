@@ -185,7 +185,7 @@ namespace Monit95App.Services.Rsur
 
             _rsurParticipRepository.Update(entity);            
         }
-        public void PartUpdate(RsurParticipFullInfo fullInfo)
+        public RsurParticipFullInfo PartUpdate(RsurParticipFullInfo fullInfo)
         {
             //Validation
             if (fullInfo == null)
@@ -204,11 +204,24 @@ namespace Monit95App.Services.Rsur
             IMapper mapper = _partMapConfiguration.CreateMapper();
             mapper.Map(fullInfo, entity);
 
-
-
-
+            if(entity.ProjectParticipEdit == null)
+            {
+                entity.ProjectParticipEdit = new ProjectParticipEdit();
+            }
+            if(fullInfo.Surname != entity.Surname)
+            {
+                entity.ProjectParticipEdit.Surname = fullInfo.Surname;
+                fullInfo.HasSurnameEdit = true;
+            }
+            if (fullInfo.Name != entity.Name)
+            {
+                entity.ProjectParticipEdit.Name = fullInfo.Name;
+                fullInfo.HasNameEdit = true;
+            }
 
             _rsurParticipRepository.Update(entity);
+
+            return fullInfo;
         }
 
         #endregion
