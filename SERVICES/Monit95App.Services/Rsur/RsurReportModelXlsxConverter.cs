@@ -17,18 +17,22 @@ namespace Monit95App.Services
 {    
     public class RsurReportModelXlsxConverter : IRsurReportModelConverter
     {
+        #region Fields
+
         private readonly IGenericRepository<ProjectParticip> _projectParticipRepository;
-        private string tempalteFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\particips-template.xlsx";
+
+        #endregion
 
         public RsurReportModelXlsxConverter()
         {
 
         }
-
         public RsurReportModelXlsxConverter(IGenericRepository<ProjectParticip> projectParticipRepository)
         {
             _projectParticipRepository = projectParticipRepository;
         }
+
+        #region Services
 
         public RsurReportModel Create(int? areaCode = null, string schoolId = null)
         {        
@@ -56,7 +60,6 @@ namespace Monit95App.Services
 
             return rsurReportModel;
         }
-
         #warning multithreading
         public Stream Write(RsurReportModel rsurReportModel)
         {
@@ -88,12 +91,7 @@ namespace Monit95App.Services
                     templateSheet.Cell(rowNumber, 13).Value = info.Birthday?.ToShortDateString();
                     templateSheet.Cell(rowNumber, 14).Value = info.ClassNumbers;
 
-                    rowNumber++;
-                    //}
-
-
-
-
+                    rowNumber++;                    
                 }
 
                 var memoryStream = new MemoryStream();                
@@ -102,7 +100,6 @@ namespace Monit95App.Services
                 return memoryStream;
             }
         }
-
         public Task<Stream> GetStream(int? areaCode, string schoolId = null)
         {
             return Task.Run(() =>
@@ -113,5 +110,7 @@ namespace Monit95App.Services
                 return stream;
             });            
         }
+
+        #endregion
     }
 }

@@ -15,8 +15,8 @@ namespace Monit95App.Services.Rsur
     {
         #region Fields        
 
-        private readonly MapperConfiguration _mapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>());
-        private readonly MapperConfiguration _editMapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>()
+        private readonly MapperConfiguration _fullMapConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>());
+        private readonly MapperConfiguration _partMapConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>()
                                                                                                       .ForMember(member => member.Name, opt => opt.Ignore())
                                                                                                       .ForMember(member => member.Surname, opt => opt.Ignore()));
         #endregion
@@ -137,12 +137,12 @@ namespace Monit95App.Services.Rsur
             IMapper mapper;            
             if (doNotMustTakeEdit)
             {
-                mapper = _mapperConfiguration.CreateMapper();
+                mapper = _fullMapConfiguration.CreateMapper();
                 mapper.Map(fullInfo, entity);
             }
             else
             {                                
-                mapper = _editMapperConfiguration.CreateMapper();                
+                mapper = _partMapConfiguration.CreateMapper();                
                 if (entity.ProjectParticipEdit == null)
                 {
                     entity.ProjectParticipEdit = new ProjectParticipEdit();
@@ -164,9 +164,51 @@ namespace Monit95App.Services.Rsur
             
             return GetByParticipCode(fullInfo.ParticipCode);
         }
-        public ProjectParticip GetEntity(string participCode)
+        public void FullUpdate(RsurParticipFullInfo fullInfo)
         {
-            throw new NotImplementedException();
+            //Validation
+            if (fullInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fullInfo));
+            }
+            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(fullInfo);
+            Validator.ValidateObject(fullInfo, validContext);
+            var entity = _rsurParticipRepository.GetById(fullInfo.ParticipCode);
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(fullInfo.ParticipCode));
+            }
+
+            //Mapping
+            IMapper mapper = _fullMapConfiguration.CreateMapper();
+            mapper.Map(fullInfo, entity);
+
+            _rsurParticipRepository.Update(entity);            
+        }
+        public void PartUpdate(RsurParticipFullInfo fullInfo)
+        {
+            //Validation
+            if (fullInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fullInfo));
+            }
+            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(fullInfo);
+            Validator.ValidateObject(fullInfo, validContext);
+            var entity = _rsurParticipRepository.GetById(fullInfo.ParticipCode);
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(fullInfo.ParticipCode));
+            }
+
+            //Mapping
+            IMapper mapper = _partMapConfiguration.CreateMapper();
+            mapper.Map(fullInfo, entity);
+
+
+
+
+
+            _rsurParticipRepository.Update(entity);
         }
 
         #endregion
