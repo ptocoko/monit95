@@ -9,7 +9,7 @@ using Monit95App.Domain.Core;
 namespace Monit95App.Services.Interfaces
 {
     public interface IRsurParticipService
-    {
+    {        
         RsurParticipFullInfo GetByParticipCode(string participCode);
         RsurParticipFullInfo Update(RsurParticipFullInfo fullInfo, bool mustTakeEdit);
         void Add(RsurParticipBaseInfo model);

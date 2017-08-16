@@ -179,5 +179,11 @@ namespace Monit95App.Infrastructure.BusinessTests
             _mockRsurParticipEditService.AddOrUpdate(fullInfo);
             Assert.AreEqual(true, result.HasSurnameEdit);
         }
+
+        [TestMethod]
+        public void GetByParticipCode_Ok()
+        {
+
+        }
     }
 }

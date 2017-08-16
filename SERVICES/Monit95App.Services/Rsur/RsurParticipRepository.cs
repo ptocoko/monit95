@@ -7,12 +7,12 @@ using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Services.Rsur
 {   
-    public class ProjectParticipRepository : IRepository<ProjectParticip>
+    public class RsurParticipRepository : IRepository<ProjectParticip>
     {
         //TODO: посмотреть где тут необходим try...catch
         private CokoContext db;        
 
-        public ProjectParticipRepository(CokoContext db)
+        public RsurParticipRepository(CokoContext db)
         {
             this.db = db;
         }

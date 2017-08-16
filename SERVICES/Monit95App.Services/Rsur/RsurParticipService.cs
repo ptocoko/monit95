@@ -71,8 +71,29 @@ namespace Monit95App.Services.Rsur
         }
         public RsurParticipFullInfo GetByParticipCode(string participCode)
         {
+            if(participCode == null)
+            {
+                throw new ArgumentNullException(nameof(participCode));
+            }
 
-            return new RsurParticipFullInfo();
+            var entity = _rsurParticipRepository.GetById(participCode);
+            if(entity == null)
+            {
+                throw new ArgumentException(nameof(participCode));
+            }
+
+            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>());
+            var fullInfo = Mapper.Map<ProjectParticip, RsurParticipFullInfo>(entity);
+            
+            if (entity.ProjectParticipEdit != null)
+            {
+                if (entity.ProjectParticipEdit.Surname != null)
+                    fullInfo.HasSurnameEdit = true;
+                if (entity.ProjectParticipEdit.Name != null)
+                    fullInfo.HasNameEdit = true;
+            }                
+
+            return fullInfo;
         }
         public void Add(RsurParticipBaseInfo model)
         {
@@ -89,15 +110,13 @@ namespace Monit95App.Services.Rsur
             //string newParticipCode = $"2016-{newPParticip.School.AreaCode.ToString()}-{firstValidCode}";
 
             //return newParticipCode;
-        }
-
+        }    
         public IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode)
         {
             return _testResultRepository.GetAll().Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode).ToList()
                                                     .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
                                                         .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
         }
-
         public RsurParticipFullInfo Update(RsurParticipFullInfo fullInfo, bool doNotMustTakeEdit)
         {
             if (fullInfo == null)
@@ -141,12 +160,10 @@ namespace Monit95App.Services.Rsur
                 }
             }
             
-            _rsurParticipRepository.Update(entity);
-            _rsurParticipRepository.Save();
+            _rsurParticipRepository.Update(entity);            
             
             return GetByParticipCode(fullInfo.ParticipCode);
         }
-
         public ProjectParticip GetEntity(string participCode)
         {
             throw new NotImplementedException();

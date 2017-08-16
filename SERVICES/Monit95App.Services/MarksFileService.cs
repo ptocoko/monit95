@@ -20,13 +20,11 @@ namespace Monit95App.Domain.Mark
 
         public void SaveAsync(HttpPostedFile httpPostedFile, string userName)
         {
-
             var fileExten = Path.GetExtension(httpPostedFile.FileName);
             var fileName = $"{userName}{fileExten}";
             var fullFileName = Path.Combine(_collectFolder, fileName);
 
             httpPostedFile.SaveAs(fullFileName);
-
         }
 
         public Task<bool> IsExist(string userName)

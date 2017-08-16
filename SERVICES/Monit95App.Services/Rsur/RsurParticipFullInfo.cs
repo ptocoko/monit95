@@ -4,7 +4,7 @@ using Monit95App.Domain.Interfaces;
 namespace Monit95App.Services.Rsur
 {
     public class RsurParticipFullInfo : RsurParticipInfo
-    {        
+    {                
         public string AreaName { get; set; }        
 
         public bool HasSurnameEdit { get; set; }
