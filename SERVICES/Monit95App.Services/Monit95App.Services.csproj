@@ -76,6 +76,7 @@
     <Compile Include="Interfaces\IMarksFileService.cs" />
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
     <Compile Include="Interfaces\IParticipService.cs" />
+    <Compile Include="Interfaces\IParticipsImporterFromExcel.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Models\MaxRatesDto.cs" />
     <Compile Include="Models\ParticipModel.cs" />
     <Compile Include="Models\ParticipProtocol.cs" />
+    <Compile Include="ParticipsImporterFromExcel.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
     <Compile Include="Rsur\RsurParticipBaseInfo.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />
