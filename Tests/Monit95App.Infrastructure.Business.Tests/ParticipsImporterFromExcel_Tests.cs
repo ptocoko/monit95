@@ -26,7 +26,7 @@ namespace Monit95App.Infrastructure.BusinessTests
 
         [TestMethod]
         //[ExpectedException(typeof(FileFormatException))]
-        public void GetParticipsFromPath_TestWhenFileHasErrors()
+        public void GetParticipsFromExcelStream_TestWhenFileHasErrors()
         {
             var mockClasses = new List<Class>
             {
@@ -47,16 +47,21 @@ namespace Monit95App.Infrastructure.BusinessTests
             var actual = importer.GetParticipsFromExcelStream(_pathToMockExcel);
             
             Assert.AreEqual(2, actual.Count);
-            //Assert.AreNotEqual(string.Empty, actual[1].SecondName);
             Assert.AreEqual("0102", actual[0].ClassCode);
             Assert.AreEqual(true, importer.HasRowsWithErrors);
+            Assert.AreEqual(4, importer.RowsWithErrors.First().Key.RowNumber);
         }
 
         [TestMethod]
-        public void GetParticipsFromPath_Test()
+        public void GetParticipsFromExcelStream_Test()
         {
             var mockClasses = new List<Class>
             {
+                new Class
+                {
+                    Name = "1",
+                    Id = "0100"
+                },
                 new Class
                 {
                     Name = "1А",
@@ -74,8 +79,8 @@ namespace Monit95App.Infrastructure.BusinessTests
             var actual = importer.GetParticipsFromExcelStream(_pathToMockExcel);
 
             Assert.AreEqual(3, actual.Count);
-            Assert.AreEqual(string.Empty, actual[1].SecondName);
-            Assert.AreEqual("0102", actual[0].ClassCode);
+            Assert.AreEqual("Хусайн-Арбиевич-Круттт", actual[1].SecondName, false);
+            Assert.AreEqual("0100", actual[2].ClassCode);
             Assert.AreEqual(false, importer.HasRowsWithErrors);
         }
     }

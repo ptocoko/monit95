@@ -18,15 +18,16 @@ namespace Monit95App.Services
 {
     public class ParticipsImporterFromExcel : IParticipsImporterFromExcel
     {
-        public bool HasRowsWithErrors { get; set; } = false;
-        public List<ParticipModel> RowsWithErrors { get; set; } = new List<ParticipModel>(); // TODO: реализовать отображение строк с ошибочными данными
+        public bool HasRowsWithErrors { get; private set; } = false;
+        public Dictionary<ExcelRowAdress, ParticipModel> RowsWithErrors { get; private set; } = new Dictionary<ExcelRowAdress, ParticipModel>(); 
 
         private IMapper _mapper;
         private IEnumerable<Class> _allClasses;
 
         public ParticipsImporterFromExcel(IClassService classService)
         {
-            _allClasses = classService.GetAll(); //все классы загружаются заранее, чтобы не делать запрос в базу данных на каждое преобразование из ClassName в ClassCode
+            _allClasses = classService.GetAll(); //все классы загружаются заранее, 
+                                                //чтобы не делать запрос в базу данных на каждое преобразование из ClassName в ClassCode
 
             var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<ParticipModel, Particip>()
                                                              .ForMember(d => d.ClassCode, opt => opt.MapFrom(src => GetSchoolCodeByName(src.ClassName))));
@@ -45,25 +46,25 @@ namespace Monit95App.Services
         {
             if (excelFileStream == null) throw new ArgumentNullException(nameof(excelFileStream));
 
-            List<Particip> participModels = new List<Particip>();
+            List<Particip> particips = new List<Particip>();
             using(var workbook = new XLWorkbook(excelFileStream))
             {
-                int numberOfSheet = 1;
+                int numberOfList = 1;
                 foreach(var sheet in workbook.Worksheets)
                 {
-                    participModels.AddRange(GetParticipsFromWorksheet(sheet, numberOfSheet));
-                    numberOfSheet++;
+                    particips.AddRange(GetParticipsFromWorksheet(sheet, numberOfList));
+                    numberOfList++;
                 }
             }
 
-            return participModels;
+            return particips;
         }
 
-        private List<Particip> GetParticipsFromWorksheet(IXLWorksheet excelList, int numberOfSheet)
+        private List<Particip> GetParticipsFromWorksheet(IXLWorksheet excelList, int numberOfList)
         {
             List<Particip> participsFromExcelList = new List<Particip>();
 
-            int countOfRows = excelList.RowsUsed().Count() - 1;  // количество заполненных строк без учета первой строки - заголовка столбцов
+            int countOfRows = excelList.RowsUsed().Count() - 1;  // количество заполненных строк без учета первой строки - заголовка столбцов.
             if (countOfRows != excelList.LastRowUsed().RowNumber() - 1)       // проверяем номер последней заполненной строки с количеством всех строк
                 throw new FileFormatException("Файл заполнен неверно!");  //  чтобы исключить наличие пустых строк между заполненными
 
@@ -77,13 +78,13 @@ namespace Monit95App.Services
                     ClassName = NormalizeClassName(row.Cell(4).Value.ToString())
                 };
 
-                ValidateModel(ref participsFromExcelList, model);
+                ValidateModel(ref participsFromExcelList, model, numberOfList, row.RowNumber());
             }
 
             return participsFromExcelList;
         }
 
-        private void ValidateModel(ref List<Particip> participsFromExcelList, ParticipModel model)
+        private void ValidateModel(ref List<Particip> participsFromExcelList, ParticipModel model, int listNumber, int rowNumber)
         {
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
             var validationResults = new Collection<ValidationResult>();
@@ -97,13 +98,13 @@ namespace Monit95App.Services
                 catch (AutoMapperMappingException)
                 {
                     HasRowsWithErrors = true;
-                    RowsWithErrors.Add(model);
+                    RowsWithErrors.Add(new ExcelRowAdress(listNumber, rowNumber),  model);
                 }
             }
             else
             {
                 HasRowsWithErrors = true;
-                RowsWithErrors.Add(model);
+                RowsWithErrors.Add(new ExcelRowAdress(listNumber, rowNumber), model);
             }
         }
 
@@ -114,12 +115,15 @@ namespace Monit95App.Services
 
         private string NormalizeNames(string name)
         {
-            return name.Length > 1 ? name.Substring(0, 1).ToUpper() + name.Remove(0, 1).ToLower() : name;
-        }
-
-        private bool CheckModel(ParticipModel model)
-        {
-            return !model.GetType().GetProperties().Select(s => (string)s.GetValue(model)).Any(p => String.IsNullOrEmpty(p));
+            if(name.Length < 4)
+            {
+                return name;
+            }
+            else
+            {
+                return name.Replace(" ", "").Split('-').Select(s => s.Substring(0, 1).ToUpper() + s.Remove(0, 1).ToLower())
+                                                       .Aggregate((s1, s2) => $"{s1}-{s2}");
+            }
         }
 
         private string GetSchoolCodeByName(string schoolName)
