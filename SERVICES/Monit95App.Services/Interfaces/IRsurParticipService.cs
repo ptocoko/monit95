@@ -10,11 +10,12 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IRsurParticipService
     {        
-        RsurParticipFullInfo GetByParticipCode(string participCode);
-        RsurParticipFullInfo Update(RsurParticipFullInfo fullInfo, bool mustTakeEdit);
+        RsurParticipFullInfo GetByParticipCode(string participCode);        
         void Add(RsurParticipBaseInfo model);
         IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode);
-        IEnumerable<RsurParticipFullInfo> Get(int? areaCode, string schoolId);        
+        IEnumerable<RsurParticipFullInfo> Get(int? areaCode = null, string schoolId = null);
+        void FullUpdate(RsurParticipFullInfo fullInfo);
+        RsurParticipFullInfo PartUpdate(RsurParticipFullInfo fullInfo);
     }
 }
 

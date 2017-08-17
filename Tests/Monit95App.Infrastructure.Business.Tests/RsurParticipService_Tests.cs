@@ -17,86 +17,80 @@ namespace Monit95App.Infrastructure.BusinessTests
     [TestClass]
     public class RsurParticipService_Tests
     {        
-        private readonly IGenericRepository<ProjectParticip> _mockRsurParticipRespoitory;
-        private readonly IGenericRepository<ProjectParticipEdit> _mockRsurParticipEditRepository;
-        private readonly IGenericRepository<Domain.Core.TestResult> _testResultRepository;
-        RsurParticipViewer rsurParticipViewer;
-        IRsurParticipService service;
-        private readonly IRsurParticipEditService _mockRsurParticipEditService;
+        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
+        private readonly IGenericRepository<Domain.Core.TestResult> _testResultRepository;        
+        private readonly IRsurParticipViewer _rsurParticipViewer;
+
+        private IRsurParticipService service;        
 
         public RsurParticipService_Tests()
-        {            
-            _testResultRepository = Substitute.For<IGenericRepository<Domain.Core.TestResult>>();
-            rsurParticipViewer = new RsurParticipViewer();
-            _mockRsurParticipRespoitory = Substitute.For<IGenericRepository<ProjectParticip>>();
-            _mockRsurParticipEditRepository = Substitute.For<IGenericRepository<ProjectParticipEdit>>();
-            _mockRsurParticipEditService = Substitute.For<IRsurParticipEditService>();
-            service = new RsurParticipService(_mockRsurParticipRespoitory, _testResultRepository, rsurParticipViewer, _mockRsurParticipEditService);
+        {
+            _rsurParticipRepository = Substitute.For<IGenericRepository<ProjectParticip>>();
+            _testResultRepository = Substitute.For<IGenericRepository<Domain.Core.TestResult>>();            
+            _rsurParticipViewer = Substitute.For<IRsurParticipViewer>();
+                                    
+            service = new RsurParticipService(_rsurParticipRepository, _testResultRepository, _rsurParticipViewer);
         }
 
         [TestMethod]
-        public void Get_Test()
+        public void Get_TestAreaCall()
         {
             //Arrange
             var entities = new List<ProjectParticip>
             {
                 new ProjectParticip
                 {
-                    ParticipCode = "2016-206-001",
+                    ParticipCode = "2016-201-001",
                     Surname = "Shakhabov",
                     Name = "Adam",
                     SchoolId = "0005",
-                    School = new School {Area = new Area()}                    
+                    School = new School {Area = new Area (), AreaCode = 201},
+                       
                 },
                 new ProjectParticip
                 {
-                    ParticipCode = "2016-206-002",
+                    ParticipCode = "2016-202-002",
                     Surname = "Esembaev",
                     Name = "Husain",
                     SchoolId = "0006",
-                    School = new School {Area = new Area()}
+                    School = new School {Area = new Area (), AreaCode = 202},
                 }
             }.AsQueryable();            
-            _mockRsurParticipRespoitory.GetAll().Returns(entities);
-            _mockRsurParticipEditRepository.GetById(Arg.Any<string>()).Returns(new ProjectParticipEdit());
+            _rsurParticipRepository.GetAll().Returns(entities);
+            var rsurParticipService = Substitute.ForPartsOf<RsurParticipService>(_rsurParticipRepository, _testResultRepository, _rsurParticipViewer);
+            rsurParticipService.When(service => service.GetByParticipCode(Arg.Any<string>())).DoNotCallBase();            
 
             //Act
-            var rsurParticipFullInfoList = service.Get(null, "0005");
+            var resultRsurParticipFullInfoList = rsurParticipService.Get(201);
 
             //Asssert            
-            Assert.AreEqual(1, rsurParticipFullInfoList.Count());
-            Assert.AreEqual("Adam", rsurParticipFullInfoList.Single().Name);            
+            Assert.AreEqual(1, resultRsurParticipFullInfoList.Count());          
         }
 
         [TestMethod]
         [ExpectedException(typeof(ValidationException))]
-        public void UpdateByAdmin_ValidationException()
+        public void PartUpdate_TestValidationException()
         {
-            //Arrange                     
+            //Act
             var fullInfo = new RsurParticipFullInfo
             {
-                Surname = "Shakhabov",
-                Name = "Adam"
+                ParticipCode = "2016-200-000",
+                Surname = "Shakhabov"                
             };
-
-            //Act
-            var result = service.Update(fullInfo, true);
-
-            //Assert
-            //Excepted ValidationException
+            var result = service.PartUpdate(fullInfo);
         }
 
         [TestMethod]        
-        public void UpdateByAdmin_Ok()
+        public void PartUpdate_TestOk()
         {
-            //Arrange   
+            //Arrange
             var mockEntity = new ProjectParticip
             {
                 ParticipCode = "2016-200-000",
-                Surname = "oldShakhabov",
-                Name = "Adam",                
+                Surname = "Shakhabova",
+                Name = "Adam"
             };
-            _mockRsurParticipRespoitory.GetById("2016-200-000").Returns(mockEntity);       
+            _rsurParticipRepository.GetById("2016-200-000").Returns(mockEntity);
 
             //Act
             var fullInfo = new RsurParticipFullInfo
@@ -104,80 +98,16 @@ namespace Monit95App.Infrastructure.BusinessTests
                 ParticipCode = "2016-200-000",
                 Surname = "Shakhabov",
                 Name = "Adam",
-                NsurSubjectName = "Орфография",
-                SchoolIdWithName = "0005 - ",
+                NsurSubjectName = "NotNull",
+                SchoolIdWithName = "NotNull"
             };
-            var result = service.Update(fullInfo, true);
-            var result2 = service.Update(fullInfo, false);
+            var resultFullInfo = service.PartUpdate(fullInfo);
 
             //Assert
-            Assert.AreEqual(fullInfo.Surname, result.Surname);
-            Assert.AreEqual(false, fullInfo.HasSurnameEdit);
+            Assert.IsNotNull(resultFullInfo);
+            Assert.AreEqual(true, resultFullInfo.HasSurnameEdit);
+            Assert.AreEqual(false, resultFullInfo.HasNameEdit);
 
-            _mockRsurParticipRespoitory.Received().GetById("2016-200-000");
-            _mockRsurParticipRespoitory.Received().Update(Arg.Is<ProjectParticip>(x => x.Surname == "Shakhabov"));            
-        }
-
-        [TestMethod]
-        public void UpdateByAdmin_Fail()
-        {
-            //Arrange   
-            var mockEntity = new ProjectParticip
-            {
-                ParticipCode = "2016-200-000",
-                Surname = "oldShakhabov",
-                Name = "Adam",
-            };
-            _mockRsurParticipRespoitory.GetById("2016-200-000").Returns(mockEntity);
-
-            //Act
-            var fullInfo = new RsurParticipFullInfo
-            {
-                ParticipCode = "2016-200-000",
-                Surname = "Shakhabov",
-                Name = "Adam",
-                NsurSubjectName = "Орфография",
-                SchoolIdWithName = "0005 - ",
-            };
-            var result = service.Update(fullInfo, false);            
-
-            //Assert
-            Assert.AreEqual(fullInfo, result);
-            _mockRsurParticipRespoitory.Received().GetById("2016-200-000");
-            _mockRsurParticipRespoitory.DidNotReceive().Update(Arg.Is<ProjectParticip>(x => x.Surname == "Shakhabov"));
-        }
-
-        [TestMethod]
-        public void UpdateByNoAdmin_Ok()
-        {
-            //Arrange   
-            var mockEntity = new ProjectParticip
-            {
-                ParticipCode = "2016-200-000",
-                Surname = "oldShakhabov",
-                Name = "Adam",
-            };
-            _mockRsurParticipRespoitory.GetById("2016-200-000").Returns(mockEntity);
-
-            //Act
-            var fullInfo = new RsurParticipFullInfo
-            {
-                ParticipCode = "2016-200-000",
-                Surname = "Shakhabov",
-                Name = "Adam",
-                NsurSubjectName = "Орфография",
-                SchoolIdWithName = "0005 - ",
-                HasSurnameEdit = false
-            };
-            var result = service.Update(fullInfo, false);            
-
-            //Assert
-            Assert.AreEqual(fullInfo, result);            
-            _mockRsurParticipRespoitory.Received().GetById("2016-200-000");
-            _mockRsurParticipRespoitory.DidNotReceive().Update(Arg.Is<ProjectParticip>(x => x.Surname == "Shakhabov"));
-
-            _mockRsurParticipEditService.AddOrUpdate(fullInfo);
-            Assert.AreEqual(true, result.HasSurnameEdit);
         }
 
         [TestMethod]

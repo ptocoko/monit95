@@ -23,8 +23,7 @@ namespace Monit95App.Services.Rsur
 
         #region Dependency
 
-        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
-        private readonly IRsurParticipEditService _rsurParticipEditService;
+        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;        
         #warning separate 
         private readonly IGenericRepository<TestResult> _testResultRepository;
         #warning separate 
@@ -36,40 +35,42 @@ namespace Monit95App.Services.Rsur
 
         public RsurParticipService(IGenericRepository<ProjectParticip> rsurParticipRepository, 
                                    IGenericRepository<TestResult> testResultRepository,
-                                   IRsurParticipViewer rsurParticipViewer,
-                                   IRsurParticipEditService rsurParticipEditService)
+                                   IRsurParticipViewer rsurParticipViewer)
         {            
             _rsurParticipRepository = rsurParticipRepository;
             _testResultRepository = testResultRepository;
-            _rsurParticipViewer = rsurParticipViewer;
-            _rsurParticipEditService = rsurParticipEditService;
+            _rsurParticipViewer = rsurParticipViewer;            
         }
 
-        public IEnumerable<RsurParticipFullInfo> Get(int? areaCode, string schoolId)
+        public RsurParticipService(IGenericRepository<ProjectParticip> rsurParticipRepository)
         {
-            var queryToGetEntities = _rsurParticipRepository.GetAll();
+
+        }
+
+        public IEnumerable<RsurParticipFullInfo> Get(int? areaCode = null, string schoolId = null)
+        {
+            //If areaCode and schoolId are null then return for region
+
+            var queryToGetCodes = _rsurParticipRepository.GetAll();
             if (areaCode != null)
             {
-                queryToGetEntities = queryToGetEntities.Where(p => p.School.AreaCode == areaCode);
+                queryToGetCodes = queryToGetCodes.Where(pr => pr.School.AreaCode == areaCode);
             }
             if (schoolId != null)
             {
-                queryToGetEntities = queryToGetEntities.Where(p => p.SchoolId == schoolId);
+                queryToGetCodes = queryToGetCodes.Where(pr => pr.SchoolId == schoolId);
             }
-            var entities = queryToGetEntities.ToList();
+            var participCodes = queryToGetCodes.Select(pp => pp.ParticipCode).ToList();  
 
             var rsurParticipFullInfoList = new List<RsurParticipFullInfo>();
-
-            foreach (var entity in entities)
+            foreach (var participCode in participCodes)
             {
-                var fullInfo = new RsurParticipFullInfo();
-                fullInfo.TemplateMethod(entity);
-                rsurParticipFullInfoList.Add(fullInfo);
-            }                                    
+                rsurParticipFullInfoList.Add(GetByParticipCode(participCode));
+            }            
 
             return rsurParticipFullInfoList;
         }
-        public RsurParticipFullInfo GetByParticipCode(string participCode)
+        public virtual RsurParticipFullInfo GetByParticipCode(string participCode)
         {
             if(participCode == null)
             {
@@ -116,54 +117,7 @@ namespace Monit95App.Services.Rsur
             return _testResultRepository.GetAll().Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode).ToList()
                                                     .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
                                                         .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
-        }
-        public RsurParticipFullInfo Update(RsurParticipFullInfo fullInfo, bool doNotMustTakeEdit)
-        {
-            if (fullInfo == null)
-            {
-                throw new ArgumentNullException(nameof(fullInfo));
-            }
-
-            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(fullInfo);
-            Validator.ValidateObject(fullInfo, validContext);
-
-            var entity = _rsurParticipRepository.GetById(fullInfo.ParticipCode);
-
-            if (entity == null)
-            {
-                throw new ArgumentException(nameof(fullInfo.ParticipCode));
-            }
-
-            IMapper mapper;            
-            if (doNotMustTakeEdit)
-            {
-                mapper = _fullMapConfiguration.CreateMapper();
-                mapper.Map(fullInfo, entity);
-            }
-            else
-            {                                
-                mapper = _partMapConfiguration.CreateMapper();                
-                if (entity.ProjectParticipEdit == null)
-                {
-                    entity.ProjectParticipEdit = new ProjectParticipEdit();
-                }
-                mapper.Map(fullInfo, entity);
-
-                //Check that all entity's properties are null
-                var isEntityEditPropertiesNull = entity.GetType().GetProperties()
-                                                       .Where(pi => pi.GetValue(entity) is string)
-                                                       .Select(pi => (string)pi.GetValue(entity))
-                                                       .All(value => value == null);
-                if (isEntityEditPropertiesNull)
-                {
-                    entity.ProjectParticipEdit = null;
-                }
-            }
-            
-            _rsurParticipRepository.Update(entity);            
-            
-            return GetByParticipCode(fullInfo.ParticipCode);
-        }
+        }        
         public void FullUpdate(RsurParticipFullInfo fullInfo)
         {
             //Validation
@@ -217,6 +171,17 @@ namespace Monit95App.Services.Rsur
             {
                 entity.ProjectParticipEdit.Name = fullInfo.Name;
                 fullInfo.HasNameEdit = true;
+            }
+
+            //Check that all entity.ProjectParticipEdit's properties are null                                        
+            var isNullAllProperties = entity.ProjectParticipEdit.GetType()
+                                            .GetProperties()                                             
+                                            .Select(pi => pi.GetValue(entity.ProjectParticipEdit))
+                                            .All(ob => ob == null);
+
+            if (isNullAllProperties)
+            {
+                entity.ProjectParticipEdit = null;
             }
 
             _rsurParticipRepository.Update(entity);

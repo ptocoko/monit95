@@ -14,6 +14,7 @@ using Monit95App.Services.Rsur;
 using System.Web.Http.Routing;
 using System.Web.Routing;
 using Monit95App.Domain.Core;
+using Monit95App.Domain.Interfaces;
 
 namespace Monit95App.Web.Tests
 {
@@ -22,13 +23,17 @@ namespace Monit95App.Web.Tests
     {
         private readonly IUserService _mockUserService;
         private readonly IRsurParticipService _mockRsurParticipService;
+        private readonly IGenericRepository<ProjectParticip> _mockRsurParticipRepository;
         private readonly RsurParticipsController _rsurParticipsController;
 
         public RsurParticipsController_Tests()
         {
             _mockUserService = Substitute.For<IUserService>();
             _mockRsurParticipService = Substitute.For<IRsurParticipService>();
-            _rsurParticipsController = new RsurParticipsController(_mockRsurParticipService, _mockUserService);
+            _mockRsurParticipRepository = Substitute.For<IGenericRepository<ProjectParticip>>();
+        _rsurParticipsController = new RsurParticipsController(_mockRsurParticipService, 
+                                                               _mockUserService, 
+                                                               _mockRsurParticipRepository);
         }
 
         [TestMethod]
@@ -63,7 +68,7 @@ namespace Monit95App.Web.Tests
         }
 
         [TestMethod]
-        public void PutByAdmin_Test()
+        public void Put_TestAdminCall()
         {
             //Arrange            
             var stubUserModel = new UserModel
@@ -86,12 +91,12 @@ namespace Monit95App.Web.Tests
 
             //Assert
             Assert.IsInstanceOfType(actionResult, typeof(OkNegotiatedContentResult<RsurParticipFullInfo>));
-            _mockRsurParticipService.DidNotReceive().GetEntity(Arg.Any<string>());
-            _mockRsurParticipService.Received().Update(fullInfo, true);
+            _mockRsurParticipRepository.DidNotReceive().GetById(Arg.Any<string>());
+            _mockRsurParticipService.Received().FullUpdate(fullInfo);
         }
 
         [TestMethod]
-        public void PutByArea_Test_Ok()
+        public void Put_TestAreaCall()
         {
             //Arrange            
             var mockUserModel = new UserModel
@@ -104,7 +109,7 @@ namespace Monit95App.Web.Tests
                 School = new School {AreaCode = 201}
             };
             _mockUserService.GetModel(Arg.Any<string>()).Returns(mockUserModel);
-            _mockRsurParticipService.GetEntity("2016-201-000").Returns(mockEntity);
+            _mockRsurParticipRepository.GetById("2016-201-000").Returns(mockEntity);
             _rsurParticipsController.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
                 new HttpRouteValueDictionary { { "ParticipCode", "2016-201-000" } });
@@ -121,8 +126,8 @@ namespace Monit95App.Web.Tests
 
             //Assert
             Assert.IsInstanceOfType(actionResult, typeof(OkNegotiatedContentResult<RsurParticipFullInfo>));
-            _mockRsurParticipService.Received().GetEntity("2016-201-000");
-            _mockRsurParticipService.Received().Update(fullInfo, false);
+            _mockRsurParticipRepository.Received().GetById("2016-201-000");
+            _mockRsurParticipService.Received().PartUpdate(fullInfo);
         }
 
         [TestMethod]
@@ -139,7 +144,7 @@ namespace Monit95App.Web.Tests
                 School = new School { AreaCode = 202 }
             };
             _mockUserService.GetModel(Arg.Any<string>()).Returns(mockUserModel);
-            _mockRsurParticipService.GetEntity("2016-202-000").Returns(mockEntity);
+            _mockRsurParticipRepository.GetById("2016-202-000").Returns(mockEntity);
             _rsurParticipsController.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
                 new HttpRouteValueDictionary { { "ParticipCode", "2016-202-000" } });
@@ -157,12 +162,13 @@ namespace Monit95App.Web.Tests
 
             //Assert            
             Assert.AreEqual(HttpStatusCode.Forbidden, actionResultStatusCode.StatusCode);
-            _mockRsurParticipService.Received().GetEntity("2016-202-000");
-            _mockRsurParticipService.DidNotReceive().Update(Arg.Any<RsurParticipFullInfo>(), Arg.Any<bool>());
+            _mockRsurParticipRepository.Received().GetById("2016-202-000");
+            _mockRsurParticipService.DidNotReceive().PartUpdate(Arg.Any<RsurParticipFullInfo>());
+            _mockRsurParticipService.DidNotReceive().FullUpdate(Arg.Any<RsurParticipFullInfo>());
         }
 
         [TestMethod]
-        public void PutBySchool_Test_Ok()
+        public void Put_TestSchoolCall()
         {
             //Arrange            
             var mockUserModel = new UserModel
@@ -175,7 +181,7 @@ namespace Monit95App.Web.Tests
                 School = new School { AreaCode = 201 }
             };
             _mockUserService.GetModel(Arg.Any<string>()).Returns(mockUserModel);
-            _mockRsurParticipService.GetEntity("2016-201-000").Returns(mockEntity);
+            _mockRsurParticipRepository.GetById("2016-201-000").Returns(mockEntity);
             _rsurParticipsController.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
                 new HttpRouteValueDictionary { { "ParticipCode", "2016-201-000" } });
@@ -193,7 +199,7 @@ namespace Monit95App.Web.Tests
 
             //Assert
             Assert.IsInstanceOfType(actionResult, typeof(OkNegotiatedContentResult<RsurParticipFullInfo>));            
-            _mockRsurParticipService.Received().Update(fullInfo, false);
+            _mockRsurParticipService.Received().PartUpdate(fullInfo);
         }
 
         [TestMethod]
@@ -210,7 +216,7 @@ namespace Monit95App.Web.Tests
                 School = new School { AreaCode = 201 }
             };
             _mockUserService.GetModel(Arg.Any<string>()).Returns(mockUserModel);
-            _mockRsurParticipService.GetEntity("2016-201-000").Returns(mockEntity);
+            _mockRsurParticipRepository.GetById("2016-201-000").Returns(mockEntity);
             _rsurParticipsController.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
                 new HttpRouteValueDictionary { { "ParticipCode", "2016-201-000" } });
@@ -228,7 +234,8 @@ namespace Monit95App.Web.Tests
 
             //Assert
             Assert.IsInstanceOfType(actionResult, typeof(StatusCodeResult));
-            _mockRsurParticipService.DidNotReceive().Update(fullInfo, Arg.Any<bool>());
+            _mockRsurParticipService.DidNotReceive().PartUpdate(fullInfo);
+            _mockRsurParticipService.DidNotReceive().FullUpdate(fullInfo);
         }
 
         public void GetByUserNameTest()

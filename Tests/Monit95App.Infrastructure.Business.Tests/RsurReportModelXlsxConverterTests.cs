@@ -11,14 +11,7 @@ namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
     public class RsurReportModelXlsxConverterTests
-    {
-        [TestMethod]
-        public void CreateTest()
-        {
-            //Assert
-            Assert.Fail();
-        }      
-
+    { 
         [TestMethod]
         public void WriteTest()
         {

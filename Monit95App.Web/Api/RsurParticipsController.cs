@@ -10,6 +10,8 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
 using Monit95App.Web.Services;
 using WebApi.OutputCache.V2;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Domain.Core;
 
 namespace Monit95App.Api
 {    
@@ -21,13 +23,16 @@ namespace Monit95App.Api
 
         private readonly IRsurParticipService _rsurParticipService;
         private readonly IUserService _userService;
+        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
 
         #endregion
         public RsurParticipsController(IRsurParticipService rsurParticipService,
-                                       IUserService userService)
+                                       IUserService userService,
+                                       IGenericRepository<ProjectParticip> rsurParticipRepository)
         {
             _rsurParticipService = rsurParticipService;
             _userService = userService;
+            _rsurParticipRepository = rsurParticipRepository;
         }
 
         #region Api 
@@ -80,12 +85,17 @@ namespace Monit95App.Api
             }
 
             var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
-            var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();     
+            var routeParticipCode = RequestContext.RouteData.Values["ParticipCode"].ToString();     
             
-            bool isAdmin = authorizedUserModel.UserName == "coko";
+            if(authorizedUserModel.UserName == "coko")
+            {
+                _rsurParticipService.FullUpdate(fullInfo);
+                return Ok();
+            }
+
             if (authorizedUserModel.UserRoleNames.Single() == "area")
             {
-                var entity = _rsurParticipService.GetEntity(participCode);
+                var entity = _rsurParticipRepository.GetById(routeParticipCode);
                 if (entity == null)
                 {
                     return NotFound();
@@ -93,7 +103,7 @@ namespace Monit95App.Api
                 if (entity.School.AreaCode.ToString() != authorizedUserModel.UserName)
                 {
                     return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
-                }
+                }                
             }
             if (authorizedUserModel.UserRoleNames.Single() == "school")
             {
@@ -103,9 +113,7 @@ namespace Monit95App.Api
                 }
             }
 
-            var updatedRsurParticipFullInfo = _rsurParticipService.Update(fullInfo, isAdmin);
-
-            return Ok(updatedRsurParticipFullInfo);
+            return Ok(_rsurParticipService.PartUpdate(fullInfo));
         }
 
         [HttpGet]
