@@ -60,14 +60,6 @@ namespace Monit95App.Services
         {
             List<Particip> participsFromExcelList = new List<Particip>();
 
-            int countOfRows = excelList.RowsUsed().Count() - 1;  // количество заполненных строк без учета первой строки - заголовка столбцов.
-            if (countOfRows != excelList.LastRowUsed().RowNumber() - 1)       // проверяем номер последней заполненной строки с количеством всех строк
-                throw new FileFormatException("Файл заполнен неверно!");  //  чтобы исключить наличие пустых строк между заполненными
-
-            int countOfColumns = 4;
-            if (countOfColumns != excelList.LastColumnUsed().ColumnNumber())
-                throw new FileFormatException("Файл заполнен неверно!");
-
             foreach (var row in excelList.RowsUsed().Skip(1))
             {
                 var model = new ParticipModel
