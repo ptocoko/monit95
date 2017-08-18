@@ -54,6 +54,8 @@ namespace Monit95App.Infrastructure.Data
                 throw new ArgumentException("Объект с таким первичным ключем не найден в базе данных для удаления");
             }
             Context.Set<T>().Remove(entity);
+
+            Save();
         }
 
         public void Delete(string id)
@@ -64,6 +66,8 @@ namespace Monit95App.Infrastructure.Data
                 throw new ArgumentException("Объект с таким первичным ключем не найден в базе данных для удаления");
             }
             Context.Set<T>().Remove(entity);
+
+            Save();
         }
 
         public virtual void Save()

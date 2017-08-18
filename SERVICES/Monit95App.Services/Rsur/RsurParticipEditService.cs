@@ -6,23 +6,24 @@ using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models.Rsur;
+using AutoMapper;
 
 namespace Monit95App.Services.Rsur
 {
     public class RsurParticipEditService : IRsurParticipEditService
     {        
-        private readonly IGenericRepository<ProjectParticipEdit> _participEditRepository;
-        private readonly IGenericRepository<ProjectParticip> _participRepository;
+        private readonly IGenericRepository<ProjectParticipEdit> _rsurParticipEditRepository;
+        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
 
         public RsurParticipEditService(IGenericRepository<ProjectParticipEdit> participEditRepository, IGenericRepository<ProjectParticip> participRepository)
         {            
-            this._participEditRepository = participEditRepository;
-            _participRepository = participRepository;
+            _rsurParticipEditRepository = participEditRepository;
+            _rsurParticipRepository = participRepository;
         }
 
         public List<RsurParticipEditModel> GetModels()
         {
-            var models = _participEditRepository.GetAll().Join(_participRepository.GetAll(), ik => ik.ParticipCode, ok => ok.ParticipCode, (ik, ok) => new RsurParticipEditModel
+            var models = _rsurParticipEditRepository.GetAll().Join(_rsurParticipRepository.GetAll(), ik => ik.ParticipCode, ok => ok.ParticipCode, (ik, ok) => new RsurParticipEditModel
             {
                 ParticipCode = ik.ParticipCode,
                 NewParticipSurname = ik.Surname,
@@ -48,7 +49,7 @@ namespace Monit95App.Services.Rsur
                     SecondName = model.NewParticipSecondName
                 };
 
-                _participEditRepository.Insert(entity);                
+                _rsurParticipEditRepository.Insert(entity);                
             }
             catch (RetryLimitExceededException)
             {
@@ -57,24 +58,26 @@ namespace Monit95App.Services.Rsur
             return true;
         }
 
-        public bool DeleteModel(string participCode)
+        public void Apply(string participCode) //apply and delete edit
         {
-            try
+            if (participCode == null)
             {
-                var entity = _participEditRepository.GetAll().Single(p => p.ParticipCode == participCode);
-               // _unitOfWork.DbContext.ProjectParticipEdits.Remove(entity);
-                _participEditRepository.Save();
+                throw new ArgumentNullException(nameof(participCode));
             }
-            catch (RetryLimitExceededException)
-            {
-                return false;
-            }
-            return true;
-        }
 
-        public void AddOrUpdate(RsurParticipFullInfo fullInfo)
-        {
-            throw new NotImplementedException();
+            var entity = _rsurParticipRepository.GetById(participCode);
+            if (entity == null || entity.ProjectParticipEdit == null)
+            {
+                throw new ArgumentException(nameof(entity));
+            }
+
+            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticipEdit, ProjectParticip>()
+                .ForMember(dest => dest.Surname, opt => opt.Condition(src => !String.IsNullOrEmpty(src.Surname)))
+                .ForMember(dest => dest.Name, opt => opt.Condition(src => !String.IsNullOrEmpty(src.Name))));
+
+            Mapper.Map(entity.ProjectParticipEdit, entity);
+
+            _rsurParticipEditRepository.Delete(participCode);
         }
     }
 }

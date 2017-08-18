@@ -8,7 +8,6 @@ namespace Monit95App.Services.Interfaces
     {
         List<RsurParticipEditModel> GetModels();
         bool AddModel(RsurParticipEditModel model);
-        bool DeleteModel(string participCode);
-        void AddOrUpdate(RsurParticipFullInfo fullInfo);
+        void Apply(string participCode);        
     }
 }
