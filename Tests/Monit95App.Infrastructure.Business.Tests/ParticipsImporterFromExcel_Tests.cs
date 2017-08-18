@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Monit95App.Infrastructure.BusinessTests
     public class ParticipsImporterFromExcel_Tests
     {
         string _pathToMockExcel = @"D:\Work\mock_excel.xlsx";
-        ParticipsImporterFromExcel importer;
+        ExcelParticipImporter importer;
         IClassService mockClassService;
 
         public ParticipsImporterFromExcel_Tests()
@@ -24,8 +25,7 @@ namespace Monit95App.Infrastructure.BusinessTests
             mockClassService = Substitute.For<IClassService>();
         }
 
-        [TestMethod]
-        //[ExpectedException(typeof(FileFormatException))]
+        [TestMethod]        
         public void GetParticipsFromExcelStream_TestWhenFileHasErrors()
         {
             var mockClasses = new List<Class>
@@ -42,9 +42,10 @@ namespace Monit95App.Infrastructure.BusinessTests
                 }
             };
             mockClassService.GetAll().Returns(mockClasses);
-            importer = new ParticipsImporterFromExcel(mockClassService);
+            importer = new ExcelParticipImporter(mockClassService);
 
-            var actual = importer.GetParticipsFromExcelStream(_pathToMockExcel);
+            var assembly = Assembly.GetExecutingAssembly();
+            var actual = importer.GetFromStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.particip-list.xlsx"));
             
             Assert.AreEqual(2, actual.Count);
             Assert.AreEqual("0102", actual[0].ClassCode);
@@ -53,7 +54,7 @@ namespace Monit95App.Infrastructure.BusinessTests
         }
 
         [TestMethod]
-        public void GetParticipsFromExcelStream_Test()
+        public void GetParticipsFromXlsxFileStream_Test()
         {
             var mockClasses = new List<Class>
             {
@@ -74,9 +75,10 @@ namespace Monit95App.Infrastructure.BusinessTests
                 }
             };
             mockClassService.GetAll().Returns(mockClasses);
-            importer = new ParticipsImporterFromExcel(mockClassService);
+            importer = new ExcelParticipImporter(mockClassService);
 
-            var actual = importer.GetParticipsFromExcelStream(_pathToMockExcel);
+            var assembly = Assembly.GetAssembly(importer.GetType());
+            var actual = importer.GetFromStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"));
 
             Assert.AreEqual(3, actual.Count);
             Assert.AreEqual("Хусайн", actual[1].Name, false);

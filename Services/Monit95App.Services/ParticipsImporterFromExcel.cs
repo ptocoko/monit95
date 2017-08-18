@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services
 {
-    public class ParticipsImporterFromExcel : IParticipsImporterFromExcel
+    public class ExcelParticipImporter : IParticipsImporterFromExcel
     {
         public bool HasRowsWithErrors { get; private set; } = false;
         public Dictionary<ExcelRowAdress, ParticipModel> RowsWithErrors { get; private set; } = new Dictionary<ExcelRowAdress, ParticipModel>(); 
@@ -24,7 +24,7 @@ namespace Monit95App.Services
         private IMapper _mapper;
         private IEnumerable<Class> _allClasses;
 
-        public ParticipsImporterFromExcel(IClassService classService)
+        public ExcelParticipImporter(IClassService classService)
         {
             _allClasses = classService.GetAll(); //все классы загружаются заранее, 
                                                 //чтобы не делать запрос в базу данных на каждое преобразование из ClassName в ClassCode
@@ -34,20 +34,27 @@ namespace Monit95App.Services
             _mapper = mapperConfig.CreateMapper();
         }
 
-        public IList<Particip> GetParticipsFromExcelStream(string pathToFile)
+        public IList<Particip> GetParticipsFromFilePath(string filePath)
         {
-            using(Stream stream = new FileStream(pathToFile, FileMode.Open))
+            using(Stream stream = new FileStream(filePath, FileMode.Open))
             {
-                return GetParticipsFromExcelStream(stream);
+                return GetFromStream(stream);
             }
         }
 
-        public IList<Particip> GetParticipsFromExcelStream(Stream excelFileStream)
+        public (IList<ExcelRowParticip>, IEnumerable<int>) GetFromStream()
         {
-            if (excelFileStream == null) throw new ArgumentNullException(nameof(excelFileStream));
+            
+        }
+        public IList<Particip> GetFromStream(Stream stream)
+        {
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
 
             List<Particip> particips = new List<Particip>();
-            using(var workbook = new XLWorkbook(excelFileStream))
+            using(var workbook = new XLWorkbook(stream))
             {
                 int numberOfList = 1;
                 particips.AddRange(GetParticipsFromWorksheet(workbook.Worksheets.First(), numberOfList));

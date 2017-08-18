@@ -11,6 +11,6 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IParticipsImporterFromExcel
     {
-        IList<Particip> GetParticipsFromExcelStream(Stream excelFileStream);
+        IList<Particip> GetFromStream(Stream excelFileStream);
     }
 }
