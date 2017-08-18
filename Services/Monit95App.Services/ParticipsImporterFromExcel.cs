@@ -50,11 +50,7 @@ namespace Monit95App.Services
             using(var workbook = new XLWorkbook(excelFileStream))
             {
                 int numberOfList = 1;
-                foreach(var sheet in workbook.Worksheets)
-                {
-                    particips.AddRange(GetParticipsFromWorksheet(sheet, numberOfList));
-                    numberOfList++;
-                }
+                particips.AddRange(GetParticipsFromWorksheet(workbook.Worksheets.First(), numberOfList));
             }
 
             return particips;
@@ -68,7 +64,11 @@ namespace Monit95App.Services
             if (countOfRows != excelList.LastRowUsed().RowNumber() - 1)       // проверяем номер последней заполненной строки с количеством всех строк
                 throw new FileFormatException("Файл заполнен неверно!");  //  чтобы исключить наличие пустых строк между заполненными
 
-            foreach(var row in excelList.RowsUsed().Skip(1))
+            int countOfColumns = 4;
+            if (countOfColumns != excelList.LastColumnUsed().ColumnNumber())
+                throw new FileFormatException("Файл заполнен неверно!");
+
+            foreach (var row in excelList.RowsUsed().Skip(1))
             {
                 var model = new ParticipModel
                 {

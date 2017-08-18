@@ -79,7 +79,7 @@ namespace Monit95App.Infrastructure.BusinessTests
             var actual = importer.GetParticipsFromExcelStream(_pathToMockExcel);
 
             Assert.AreEqual(3, actual.Count);
-            Assert.AreEqual("Хусайн-Арбиевич-Круттт", actual[1].SecondName, false);
+            Assert.AreEqual("Хусайн", actual[1].Name, false);
             Assert.AreEqual("0100", actual[2].ClassCode);
             Assert.AreEqual(false, importer.HasRowsWithErrors);
         }
