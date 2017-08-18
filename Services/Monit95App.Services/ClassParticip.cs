@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services
 {
-    public class ExcelRowParticip
+    public class ClassParticip
     {
         public string Surname { get; set; }
         public string Name { get; set; }
