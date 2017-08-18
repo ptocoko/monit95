@@ -150,6 +150,7 @@
     <None Include="App.config" />
     <EmbeddedResource Include="Resource\particip-list.xlsx" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resource\mock-particips.xlsx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
