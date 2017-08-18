@@ -20,32 +20,14 @@ namespace Monit95App.Api
         {
             _rsurParticipEditService = particiEditService;
         }
-        
-        public async Task<HttpResponseMessage> Get()
+
+        [HttpGet]
+        public IHttpActionResult Get()
         {
-            var models = await Task.Run(() => _rsurParticipEditService.GetModels());
+            var edits = _rsurParticipEditService.GetAll();
 
-            if (models == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Коррекции отсутствуют");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, models);
+            return Ok(edits);
         }
-           
-        //[System.Web.Http.HttpPost]
-        //public async Task<HttpResponseMessage> Post([Bind(Include ="ParticipCode,NewParticipSurname,NewParticipName,NewParticipSecondName")]RsurParticipEditModel model)
-        //{
-        //    if(!ModelState.IsValid)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");                
-        //    }
-
-        //    var isAdded = await Task.Run(() => _participEditService.AddModel(model));
-
-        //    if (isAdded)
-        //        return Request.CreateResponse(HttpStatusCode.Created);
-        //    else
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Не удалось добавить коррекцию");
-        //}
 
         [HttpDelete]
         [Route(@"{ParticipCode:regex(^2016-2\d{2}-\d{3})}")]
