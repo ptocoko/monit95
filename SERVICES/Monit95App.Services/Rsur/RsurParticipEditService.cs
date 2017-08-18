@@ -11,17 +11,24 @@ using AutoMapper;
 namespace Monit95App.Services.Rsur
 {
     public class RsurParticipEditService : IRsurParticipEditService
-    {        
+    {
+        #region Dependencies
+
         private readonly IGenericRepository<ProjectParticipEdit> _rsurParticipEditRepository;
         private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
 
-        public RsurParticipEditService(IGenericRepository<ProjectParticipEdit> participEditRepository, IGenericRepository<ProjectParticip> participRepository)
+        #endregion
+
+        public RsurParticipEditService(IGenericRepository<ProjectParticipEdit> participEditRepository, 
+                                       IGenericRepository<ProjectParticip> participRepository)
         {            
             _rsurParticipEditRepository = participEditRepository;
             _rsurParticipRepository = participRepository;
         }
 
-        public List<RsurParticipEditModel> GetModels()
+        #region Services
+
+        public IEnumerable<RsurParticipEditModel> GetAll()
         {
             var models = _rsurParticipEditRepository.GetAll().Join(_rsurParticipRepository.GetAll(), ik => ik.ParticipCode, ok => ok.ParticipCode, (ik, ok) => new RsurParticipEditModel
             {
@@ -79,5 +86,7 @@ namespace Monit95App.Services.Rsur
 
             _rsurParticipEditRepository.Delete(participCode);
         }
+
+        #endregion
     }
 }

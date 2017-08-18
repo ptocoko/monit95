@@ -6,7 +6,7 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IRsurParticipEditService
     {
-        List<RsurParticipEditModel> GetModels();
+        IEnumerable<RsurParticipEditModel> GetAll();
         bool AddModel(RsurParticipEditModel model);
         void Apply(string participCode);        
     }

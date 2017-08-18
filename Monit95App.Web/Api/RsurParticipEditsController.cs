@@ -14,12 +14,18 @@ namespace Monit95App.Api
     [RoutePrefix("api/RsurParticipEdits")]
     public class RsurParticipEditsController : ApiController
     {
+        #region Dependencies
+
         private readonly IRsurParticipEditService _rsurParticipEditService;
+
+        #endregion
 
         public RsurParticipEditsController(IRsurParticipEditService particiEditService)
         {
             _rsurParticipEditService = particiEditService;
         }
+
+        #region Api
 
         [HttpGet]
         public IHttpActionResult Get()
@@ -31,7 +37,7 @@ namespace Monit95App.Api
 
         [HttpDelete]
         [Route(@"{ParticipCode:regex(^2016-2\d{2}-\d{3})}")]
-        public IHttpActionResult Delete() //Aplly edit 
+        public IHttpActionResult Delete() //Apply edit 
         {
             var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();
 
@@ -46,5 +52,7 @@ namespace Monit95App.Api
             
             return Ok();
         }
+
+        #endregion
     }
 }
