@@ -42,7 +42,7 @@ namespace Monit95App.Services
             }
         }
 
-        public (IList<ExcelRowParticip>, IEnumerable<int>) GetFromStream()
+        public (IList<ClassParticip>, IEnumerable<int>) GetFromStream()
         {
             
         }
