@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
 using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Interfaces;
@@ -44,7 +45,9 @@ namespace Monit95App.Services
 
         public (IList<ClassParticip>, IEnumerable<int>) GetFromStream()
         {
-            
+            var tuple = (new List<ClassParticip>(), new List<int>());
+
+            return tuple;
         }
         public IList<Particip> GetFromStream(Stream stream)
         {
