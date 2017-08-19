@@ -5,25 +5,19 @@ using AutoMapper;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Domain.Core.Abstract;
 
 namespace Monit95App.Services.Rsur
 {
-    public abstract class RsurParticipInfo
+    public abstract class RsurParticipInfo : Person
     {        
         #region Properties
 
         public int ProjectCode { get; set; }
 
         [Required]
-        public string ParticipCode { get; set; }
-
-        [Required]
-        public string Surname { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        public string SecondName { get; set; }
+        public string ParticipCode { get; set; }       
 
         [Required]
         public string NsurSubjectName { get; set; }

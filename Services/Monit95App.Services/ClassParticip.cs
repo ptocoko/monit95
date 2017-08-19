@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monit95App.Domain.Core.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services
 {
-    public class ClassParticip
+    public class ClassParticip : Person
     {
-        public string Surname { get; set; }
-        public string Name { get; set; }
-        public string SecondName { get; set; }
         public string ClassName { get; set; }
     }
 }

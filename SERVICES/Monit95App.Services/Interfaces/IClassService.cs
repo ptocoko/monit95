@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.Interfaces
 {

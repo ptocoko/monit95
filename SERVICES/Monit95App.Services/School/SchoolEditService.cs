@@ -5,19 +5,20 @@ using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
 using System.Threading.Tasks;
-    
+using Monit95App.Domain.Core.Entities;
+
 namespace Monit95App.Services.School
 {
     public class SchoolEditService : ISchoolEditService
     {
         #region Fileds
 
-        private readonly IGenericRepository<Domain.Core.School> _schoolRepository;
+        private readonly IGenericRepository<Domain.Core.Entities.School> _schoolRepository;
         private readonly IGenericRepository<SchoolEdit> _schoolEditRepository;
 
         #endregion      
 
-        public SchoolEditService(IGenericRepository<Domain.Core.School> schoolRepository, 
+        public SchoolEditService(IGenericRepository<Domain.Core.Entities.School> schoolRepository, 
                                  IGenericRepository<SchoolEdit> schoolEditRepository)
         {
             _schoolRepository = schoolRepository;

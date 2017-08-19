@@ -18,7 +18,7 @@ namespace Monit95App.Infrastructure.Business.Tests
         public void GetTestResultsGroupByParticipCodeTest()
         {
             //Arange            
-            var repository = new GenericRepository<Domain.Core.TestResult>();
+            var repository = new GenericRepository<Domain.Core.Entities.TestResult>();
             var service = new RsurParticipProtocolService(repository);
 
             //Act

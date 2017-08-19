@@ -11,6 +11,7 @@ using NSubstitute;
 using System.Linq;
 using Monit95App.Services.Rsur;
 using Monit95App.Services.Interfaces;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Infrastructure.BusinessTests
 {
@@ -18,7 +19,7 @@ namespace Monit95App.Infrastructure.BusinessTests
     public class RsurParticipService_Tests
     {        
         private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
-        private readonly IGenericRepository<Domain.Core.TestResult> _testResultRepository;        
+        private readonly IGenericRepository<Domain.Core.Entities.TestResult> _testResultRepository;        
         private readonly IRsurParticipViewer _rsurParticipViewer;
 
         private IRsurParticipService service;        
@@ -26,7 +27,7 @@ namespace Monit95App.Infrastructure.BusinessTests
         public RsurParticipService_Tests()
         {
             _rsurParticipRepository = Substitute.For<IGenericRepository<ProjectParticip>>();
-            _testResultRepository = Substitute.For<IGenericRepository<Domain.Core.TestResult>>();            
+            _testResultRepository = Substitute.For<IGenericRepository<Domain.Core.Entities.TestResult>>();            
             _rsurParticipViewer = Substitute.For<IRsurParticipViewer>();
                                     
             service = new RsurParticipService(_rsurParticipRepository, _testResultRepository, _rsurParticipViewer);

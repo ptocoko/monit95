@@ -3,6 +3,7 @@ using Monit95App.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Monit95App.Services.Interfaces;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services
 {

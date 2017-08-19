@@ -1,12 +1,13 @@
-namespace Monit95App.Domain.Core
+namespace Monit95App.Domain.Core.Entities
 {
+    using Monit95App.Domain.Core.Abstract;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ProjectParticip
+    public partial class ProjectParticip : Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProjectParticip()
@@ -22,16 +23,16 @@ namespace Monit95App.Domain.Core
         [StringLength(4)]
         public string SchoolId { get; set; }
 
-        [Required]
-        [StringLength(25)]
-        public string Surname { get; set; }
+        //[Required]
+        //[StringLength(25)]
+        //public string Surname { get; set; }
 
-        [Required]
-        [StringLength(25)]
-        public string Name { get; set; }
+        //[Required]
+        //[StringLength(25)]
+        //public string Name { get; set; }
 
-        [StringLength(25)]
-        public string SecondName { get; set; }
+        //[StringLength(25)]
+        //public string SecondName { get; set; }
 
         public int NSubjectCode { get; set; }
 

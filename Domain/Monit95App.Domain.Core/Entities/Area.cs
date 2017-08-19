@@ -1,4 +1,4 @@
-namespace Monit95App.Domain.Core
+namespace Monit95App.Domain.Core.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -6,16 +6,17 @@ namespace Monit95App.Domain.Core
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class TownType
+    public partial class Area
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TownType()
+        public Area()
         {
             Schools = new HashSet<School>();
         }
 
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
+        public int Code { get; set; }
 
         [Required]
         [StringLength(50)]

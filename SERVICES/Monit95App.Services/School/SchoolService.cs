@@ -4,15 +4,16 @@ using AutoMapper;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Domain.Core;
 using Monit95App.Services.Interfaces;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.School
 {
 	public class SchoolService : ISchoolService
 	{
-	    private readonly IGenericRepository<Domain.Core.School> _schoolRepository;
+	    private readonly IGenericRepository<Domain.Core.Entities.School> _schoolRepository;
 	    private readonly IGenericRepository<SchoolEdit> _schoolEditRepository;
 
-        public SchoolService(IGenericRepository<Domain.Core.School> schoolRepository,
+        public SchoolService(IGenericRepository<Domain.Core.Entities.School> schoolRepository,
                              IGenericRepository<SchoolEdit> schoolEditRepository)
 	    {
 	        _schoolRepository = schoolRepository;
@@ -30,8 +31,8 @@ namespace Monit95App.Services.School
             {
                 throw new ArgumentException("Нет организации с таким Id");
             }
-            Mapper.Initialize(cfg => cfg.CreateMap<Domain.Core.School, SchoolModel>());
-            var model = Mapper.Map<Domain.Core.School, SchoolModel>(entity);
+            Mapper.Initialize(cfg => cfg.CreateMap<Domain.Core.Entities.School, SchoolModel>());
+            var model = Mapper.Map<Domain.Core.Entities.School, SchoolModel>(entity);
             model.AreaName = $"{entity.Area.Code} - {entity.Area.Name}";
             model.HasNameCorrection = CheckHasNameCorrection(entity.Id);
 
@@ -51,7 +52,7 @@ namespace Monit95App.Services.School
                 throw new ArgumentException(nameof(schoolId));
             }
             
-            Mapper.Initialize(cfg => cfg.CreateMap<SchoolModel, Domain.Core.School>()
+            Mapper.Initialize(cfg => cfg.CreateMap<SchoolModel, Domain.Core.Entities.School>()
                         .ForMember(property => property.Name, opt => opt.Ignore())); //property Name set manually
             entity = Mapper.Map(model, entity);
 

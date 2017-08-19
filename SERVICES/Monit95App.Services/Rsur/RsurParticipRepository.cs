@@ -4,6 +4,7 @@ using System.Linq;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.Rsur
 {   

@@ -8,6 +8,7 @@ using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using Moq;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Infrastructure.BusinessTests
 {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monit95App.Services.Interfaces;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services
 {

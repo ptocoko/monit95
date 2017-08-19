@@ -1,4 +1,4 @@
-namespace Monit95App.Domain.Core
+namespace Monit95App.Domain.Core.Entities
 {
     using System;
     using System.Collections.Generic;

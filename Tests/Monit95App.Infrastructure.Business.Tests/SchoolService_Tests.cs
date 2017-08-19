@@ -7,6 +7,7 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Services.School;
 using NSubstitute;
 using System.Linq;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Infrastructure.BusinessTests
 {

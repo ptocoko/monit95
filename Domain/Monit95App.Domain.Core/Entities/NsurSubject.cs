@@ -1,4 +1,4 @@
-namespace Monit95App.Domain.Core
+namespace Monit95App.Domain.Core.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -6,21 +6,23 @@ namespace Monit95App.Domain.Core
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ElementType
+    public partial class NsurSubject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ElementType()
+        public NsurSubject()
         {
-            Elements = new HashSet<Element>();
+            ProjectParticips = new HashSet<ProjectParticip>();
         }
 
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Code { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(50)]
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Element> Elements { get; set; }
+        public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
     }
 }

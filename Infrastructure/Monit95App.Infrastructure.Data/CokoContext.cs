@@ -5,6 +5,7 @@ namespace Monit95App.Infrastructure.Data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using Monit95App.Domain.Core;
+    using Monit95App.Domain.Core.Entities;
 
     public partial class CokoContext : DbContext
     {

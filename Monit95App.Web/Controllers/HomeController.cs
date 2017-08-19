@@ -10,6 +10,7 @@ using Monit95App.Models;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.School;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Controllers
 {

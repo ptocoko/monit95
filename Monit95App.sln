@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Web", "Monit95App.Web\Monit95App.Web.csproj", "{F0E9BF7F-EA42-4B82-810C-B9FB8763E173}"
 EndProject
@@ -114,5 +114,8 @@ Global
 		{A8CD881C-FCF2-4326-B6BD-B9E587F28918} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
 		{EAFAB265-533C-46EC-82C9-F1E63873F611} = {A8F3FD56-402C-426A-A576-0026014F6F5B}
 		{5E38A333-C51E-4910-A650-440C8D7F0A94} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1A04B68-7B70-438D-A1AA-5E106F163D39}
 	EndGlobalSection
 EndGlobal

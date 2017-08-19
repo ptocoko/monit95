@@ -7,16 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services
 {
     public class PrivateReportMeta : ITypeReport
     {
-        private readonly Domain.Core.School school;
+        private readonly Domain.Core.Entities.School school;
         private readonly ISchoolReportFileNameSource iFileNames;
 
         private CokoContext context = new CokoContext();
-        public PrivateReportMeta(Domain.Core.School school, ISchoolReportFileNameSource iFileNames)
+        public PrivateReportMeta(Domain.Core.Entities.School school, ISchoolReportFileNameSource iFileNames)
         {
             this.school = school;
             this.iFileNames = iFileNames;

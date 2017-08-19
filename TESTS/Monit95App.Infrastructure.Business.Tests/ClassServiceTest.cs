@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Domain.Core;
 using Monit95App.Services;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Domain.DTO.Tests
 {

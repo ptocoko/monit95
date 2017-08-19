@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;

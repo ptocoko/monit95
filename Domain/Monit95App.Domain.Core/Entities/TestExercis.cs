@@ -1,4 +1,4 @@
-namespace Monit95App.Domain.Core
+namespace Monit95App.Domain.Core.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -6,27 +6,20 @@ namespace Monit95App.Domain.Core
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Element
+    [Table("TestExercises")]
+    public partial class TestExercis
     {
         public int Id { get; set; }
 
         public Guid TestId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Code { get; set; }
+        public int? Number { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(5)]
         public string Name { get; set; }
 
-        public int ElementTypeId { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string ExerNames { get; set; }
-
-        public virtual ElementType ElementType { get; set; }
+        public int MaxMark { get; set; }
 
         public virtual Test Test { get; set; }
     }

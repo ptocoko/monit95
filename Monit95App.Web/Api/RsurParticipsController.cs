@@ -12,6 +12,7 @@ using Monit95App.Web.Services;
 using WebApi.OutputCache.V2;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Api
 {    

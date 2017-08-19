@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;

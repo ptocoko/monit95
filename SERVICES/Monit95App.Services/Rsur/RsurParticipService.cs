@@ -8,6 +8,7 @@ using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using Monit95App.Services.Models.Rsur;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.Rsur
 {
