@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassService.cs" />
+    <Compile Include="ClassParticip.cs" />
     <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Interfaces\IMarksFileService.cs" />
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
     <Compile Include="Interfaces\IParticipService.cs" />
+    <Compile Include="Interfaces\IParticipsImporterFromExcel.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
@@ -94,11 +96,13 @@
     <Compile Include="MarksFormat1.cs" />
     <Compile Include="MarksFormat2.cs" />
     <Compile Include="Models\ElementResultModel.cs" />
+    <Compile Include="Models\ExcelRowAdress.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
     <Compile Include="Models\ParticipModel.cs" />
     <Compile Include="Models\ParticipProtocol.cs" />
+    <Compile Include="ParticipsImporterFromExcel.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
     <Compile Include="Rsur\RsurParticipBaseInfo.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />
@@ -149,6 +153,7 @@
     <None Include="App.config" />
     <EmbeddedResource Include="Resource\particip-list.xlsx" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resource\mock-particips.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

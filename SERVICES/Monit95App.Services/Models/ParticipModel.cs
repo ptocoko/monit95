@@ -9,22 +9,24 @@ namespace Monit95App.Services.Models
     public class ParticipModel
     {
         public int Id { get; set; }
+        public int ProjectCode { get; set; }
+        public string ParticipCode { get; set; }
 
         [Required]
-        public int ProjectCode { get; set; }
-
-        [Required]            
+        [StringLength(50, MinimumLength = 4)]
         public string Surname { get; set; }
 
         [Required]
+        [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
-
+        
+        [StringLength(50)]
         public string SecondName { get; set; }
 
-        [Required]
         public string SchoolId { get; set; }
-
-        [Required]
+        
+        
+        [StringLength(2)]
         public string ClassName { get; set; }        
     }
 }
