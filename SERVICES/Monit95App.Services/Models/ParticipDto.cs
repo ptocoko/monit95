@@ -6,11 +6,10 @@ using System.Web;
 
 namespace Monit95App.Services.Models
 {
-    public class ParticipModel
-    {
-        public int Id { get; set; }
-        public int ProjectCode { get; set; }
-        public string ParticipCode { get; set; }
+    public class ParticipDto
+    {        
+        [Required]
+        public int ProjectCode { get; set; }        
 
         [Required]
         [StringLength(50, MinimumLength = 4)]
@@ -19,14 +18,16 @@ namespace Monit95App.Services.Models
         [Required]
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
-        
-        [StringLength(50)]
+
+        [Required]
+        [StringLength(4)]
+        public string SchoolId { get; set; }
+                
+        [StringLength(2)]
+        public string ClassName { get; set; }
+
+        public int Id { get; set; }
         public string SecondName { get; set; }
 
-        public string SchoolId { get; set; }
-        
-        
-        [StringLength(2)]
-        public string ClassName { get; set; }        
     }
 }

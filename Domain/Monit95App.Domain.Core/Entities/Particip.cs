@@ -39,7 +39,7 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(4)]
         public string ClassCode { get; set; }
 
-        public int? TeachContextId { get; set; }
+        //public int? TeachContextId { get; set; }
 
         public virtual Class Class { get; set; }
 

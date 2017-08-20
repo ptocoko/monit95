@@ -24,33 +24,30 @@ namespace Monit95App.Services
             _participRepository = participRepository;
             _classServise = classService;
 
-            var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipModel>().ReverseMap());
+            var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>().ReverseMap());
             mapper = mapConfig.CreateMapper();
         }
 
-        public ParticipModel Add(ParticipModel model)
+        public int Add(ParticipDto dto)
         {
             //Validation
-            if (model == null)
+            if (dto == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                throw new ArgumentNullException(nameof(dto));
             }                        
-            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
-            Validator.ValidateObject(model, validContext);
+            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+            Validator.ValidateObject(dto, validContext);
             
-            Mapper.Initialize(cfg => cfg.CreateMap<ParticipModel, Particip>());
-            var entity = mapper.Map<ParticipModel, Particip>(model);            
+            Mapper.Initialize(cfg => cfg.CreateMap<ParticipDto, Particip>());
+            var entity = mapper.Map<ParticipDto, Particip>(dto);            
 
-            entity.ClassCode = _classServise.GetId(model.ClassName); //ClassName => ClassCode
+            entity.ClassCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode
 
-            _participRepository.Insert(entity);
-            _participRepository.Save();
+            _participRepository.Insert(entity);                        
 
-            model.Id = entity.Id;
-
-            return model;
+            return entity.Id;
         }
-        public IEnumerable<ParticipModel> GetBySchoolId(string schoolId)
+        public IEnumerable<ParticipDto> GetBySchoolId(string schoolId)
         {
             if(schoolId == null)
             {
@@ -63,33 +60,30 @@ namespace Monit95App.Services
                 throw new ArgumentException(nameof(schoolId));
             }
 
-            var models = mapper.Map<List<Particip>, List<ParticipModel>>(entities);
+            var models = mapper.Map<List<Particip>, List<ParticipDto>>(entities);
            
             return models;
         }
 
-        public Task<bool> UpdateAsync(ParticipModel dto)
+        public bool Update(ParticipDto dto)
         {
-            return Task.Run(() =>
+            if (dto != null && dto.Id != 0)
             {
-                if (dto != null && dto.Id != 0)
-                {
-                    var entity = _participRepository.GetById(dto.Id);
-                    entity.ProjectCode = dto.ProjectCode;                    
-                    entity.Surname = dto.Surname;
-                    entity.Name = dto.Name;
-                    entity.SecondName = dto.SecondName;
-                    entity.SchoolId = dto.SchoolId;
-                    entity.ClassCode = _classServise.GetId(dto.ClassName);
+                var entity = _participRepository.GetById(dto.Id);
+                entity.ProjectCode = dto.ProjectCode;
+                entity.Surname = dto.Surname;
+                entity.Name = dto.Name;
+                entity.SecondName = dto.SecondName;
+                entity.SchoolId = dto.SchoolId;
+                entity.ClassCode = _classServise.GetId(dto.ClassName);
 
-                    _participRepository.Save();
-                }
                 _participRepository.Save();
+            }
+            _participRepository.Save();
 
-                return true;
-            });
-            
+            return true;
         }
+
         public Task<bool> DeleteAsync(int id)
         {
             return Task.Run(() =>
@@ -104,7 +98,7 @@ namespace Monit95App.Services
 
             //throw new NotImplementedException();
         }
-        public Task<ParticipModel> GetByParticipIdAsync(int participId)
+        public Task<ParticipDto> GetByParticipIdAsync(int participId)
         {
             return Task.Run(() =>
             {
@@ -112,7 +106,7 @@ namespace Monit95App.Services
                 {
                     var particip = _participRepository.GetById(participId);
                     if (particip != null)
-                        return new ParticipModel { ClassName = _classServise.GetName(particip.ClassCode), Id = particip.Id, ProjectCode = particip.ProjectCode, Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, SchoolId = particip.SchoolId };
+                        return new ParticipDto { ClassName = _classServise.GetName(particip.ClassCode), Id = particip.Id, ProjectCode = particip.ProjectCode, Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, SchoolId = particip.SchoolId };
                     else
                         throw new NullReferenceException();
                 }
@@ -121,6 +115,16 @@ namespace Monit95App.Services
                     throw new ArgumentNullException();
                 }
             });
+        }
+
+        public ParticipDto GetById(int participId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

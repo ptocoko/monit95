@@ -17,20 +17,20 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services
 {
-    public class ExcelParticipImporter : IParticipsImporterFromExcel
+    public class ClassParticipImporter : IClassParticipImporter
     {
         public bool HasRowsWithErrors { get; private set; } = false;
-        public Dictionary<ExcelRowAdress, ParticipModel> RowsWithErrors { get; private set; } = new Dictionary<ExcelRowAdress, ParticipModel>(); 
+        public Dictionary<ExcelRowAdress, ParticipDto> RowsWithErrors { get; private set; } = new Dictionary<ExcelRowAdress, ParticipDto>(); 
 
         private IMapper _mapper;
         private IEnumerable<Class> _allClasses;
 
-        public ExcelParticipImporter(IClassService classService)
+        public ClassParticipImporter(IClassService classService)
         {
             _allClasses = classService.GetAll(); //все классы загружаются заранее, 
                                                 //чтобы не делать запрос в базу данных на каждое преобразование из ClassName в ClassCode
 
-            var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<ParticipModel, Particip>()
+            var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<ParticipDto, Particip>()
                                                              .ForMember(d => d.ClassCode, opt => opt.MapFrom(src => GetSchoolCodeByName(src.ClassName))));
             _mapper = mapperConfig.CreateMapper();
         }
@@ -43,7 +43,7 @@ namespace Monit95App.Services
             }
         }
 
-        public (IList<ClassParticip>, IEnumerable<int>) GetFromStream()
+        public (IList<ClassParticip>, IEnumerable<int>) ImportFromExcelFileStream()
         {
             var tuple = (new List<ClassParticip>(), new List<int>());
 
@@ -72,7 +72,7 @@ namespace Monit95App.Services
 
             foreach (var row in excelList.RowsUsed().Skip(1))
             {
-                var model = new ParticipModel
+                var model = new ParticipDto
                 {
                     Surname = NormalizeNames(row.Cell(1).Value.ToString()),
                     Name = NormalizeNames(row.Cell(2).Value.ToString()),
@@ -86,7 +86,7 @@ namespace Monit95App.Services
             return participsFromExcelList;
         }
 
-        private void ValidateModel(ref List<Particip> participsFromExcelList, ParticipModel model, int listNumber, int rowNumber)
+        private void ValidateModel(ref List<Particip> participsFromExcelList, ParticipDto model, int listNumber, int rowNumber)
         {
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
             var validationResults = new Collection<ValidationResult>();

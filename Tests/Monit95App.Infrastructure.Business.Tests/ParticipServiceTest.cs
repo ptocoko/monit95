@@ -26,7 +26,7 @@ namespace Monit95App.Infrastructure.BusinessTests
             var service = new ParticipService(mockParticipRepository, mockClassService);
 
             //Act
-            var dto = new ParticipModel
+            var dto = new ParticipDto
             {
                 ProjectCode = 201661,
                 Surname = "Testu",
@@ -38,7 +38,8 @@ namespace Monit95App.Infrastructure.BusinessTests
             var addedDto = service.Add(dto);
 
             //Assert            
-            Assert.AreEqual("0005", addedDto.SchoolId);
+            //Assert.AreEqual("0005", addedDto.SchoolId);
+            Assert.Fail();
         }
 
         [TestMethod]

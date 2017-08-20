@@ -12,30 +12,60 @@ using Monit95App.Services.Models;
 
 namespace Monit95App.Api
 {
-    public class ParticipController : ApiController
+    [RoutePrefix("api/particips")]
+    [Authorize]
+    public class ParticipsController : ApiController
     {
+        #region Dependencies
+
         private readonly IParticipService _participService;
 
-        public ParticipController(IParticipService participService)
+        #endregion    
+
+        public ParticipsController(IParticipService participService)
         {
             _participService = participService;
         }
-        
-        public HttpResponseMessage Post(ParticipModel model)
+
+        #region Api
+
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult Post([FromBody]ParticipDto dto)
         {
-            if (model == null)
+            if (!ModelState.IsValid)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не удалось добавить участника");
+                return BadRequest(ModelState);
             }
-                
-            _participService.Add(model);
-            return Request.CreateResponse(HttpStatusCode.Created, model);
+
+            var id = _participService.Add(dto);
+
+            return Ok(id);
         }
 
         //read
-        public IEnumerable<ParticipModel> GetBySchoolId(string id)
+        [HttpGet]
+        public IHttpActionResult Get(string schoolId) //bySchoolId
         {
-            return !string.IsNullOrEmpty(id) ? _participService.GetBySchoolId(id) : null;
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public IHttpActionResult Get()
+        {
+            var id = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            ParticipDto dto;
+            try
+            {
+                dto = _participService.GetById(id);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }            
+
+            return Ok(dto);
         }
 
         //delete
@@ -45,12 +75,12 @@ namespace Monit95App.Api
             {
                 throw new ArgumentNullException("async Task<HttpResponseMessage> Delete(int id)");
             }
-            _participService.DeleteAsync(id);
+            _participService.Delete(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPut]
-        public HttpResponseMessage Update(ParticipModel dto)
+        public HttpResponseMessage Update(ParticipDto dto)
         {
             if (dto == null)
             {
@@ -59,7 +89,7 @@ namespace Monit95App.Api
                 
             try
             {
-                _participService.UpdateAsync(dto);
+                _participService.Update(dto);
             }
             catch (ArgumentNullException)
             {
@@ -67,5 +97,7 @@ namespace Monit95App.Api
             }
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        #endregion
     }
 }

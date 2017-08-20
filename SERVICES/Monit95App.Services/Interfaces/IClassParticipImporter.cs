@@ -10,8 +10,8 @@ using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.Interfaces
 {
-    public interface IParticipsImporterFromExcel
+    public interface IClassParticipImporter
     {
-        IList<Particip> GetFromStream(Stream excelFileStream);
+        (IList<ClassParticip>, IEnumerable<int>) ImportFromExcelFileStream(); //IEnumerable<int> - numbers of excel's rows with error
     }
 }
