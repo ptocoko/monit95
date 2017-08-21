@@ -1,5 +1,4 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Domain.Core.Entities;
+﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
@@ -14,19 +13,19 @@ namespace Monit95App.Services
     {
         #region Fileds
         
-        private readonly IGenericRepository<ExerciseMark> _exerciseMarkRepository;
+        private readonly IGenericRepository<Domain.Core.Entities.ExerciseMark> _exerciseMarkRepository;
         private readonly IGenericRepository<Test> _testRepository;
 
         #endregion
 
         #region Public methods
 
-        public ExerciseMarkService(IGenericRepository<ExerciseMark> exerciseMarkRep)                                 
+        public ExerciseMarkService(IGenericRepository<Domain.Core.Entities.ExerciseMark> exerciseMarkRep)                                 
         {            
             _exerciseMarkRepository = exerciseMarkRep;            
         }
 
-        public ExerciseMarkService(IGenericRepository<ExerciseMark> exerciseMarkRep, 
+        public ExerciseMarkService(IGenericRepository<Domain.Core.Entities.ExerciseMark> exerciseMarkRep, 
                                    IGenericRepository<Test> testRep)
         {            
             _exerciseMarkRepository = exerciseMarkRep;
@@ -42,7 +41,7 @@ namespace Monit95App.Services
                 {
                     var newEntity = new ExerciseMark
                     {
-                        ProjectParticipId = model.ProjectParticipId,
+                        ParticipId = model.ProjectParticipId,
                         TestId = new Guid(model.TestId),
                         Marks = model.Marks                       
                     };
@@ -65,7 +64,7 @@ namespace Monit95App.Services
 
                 var res = _exerciseMarkRepository.GetAll()
                                          .Where(x => x.Particip.SchoolId == schoolId && tests.Contains(x.TestId.ToString()))
-                                         .Select(s => new ExerciseMarkModel { Id = s.Id, ProjectParticipId = s.ProjectParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })
+                                         .Select(s => new ExerciseMarkModel { Id = s.Id, ProjectParticipId = s.ParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })
                                          .ToList();
                 dto.AddRange(res);
 

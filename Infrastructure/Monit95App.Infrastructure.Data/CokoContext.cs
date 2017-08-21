@@ -19,7 +19,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
-        public virtual DbSet<ExerciseMark> ExerciseMarks { get; set; }
+        public virtual DbSet<Domain.Core.Entities.ExerciseMark> ExerciseMarks { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<NsurSubject> NsurSubjects { get; set; }
@@ -27,15 +27,15 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<ProjectParticipEdit> ProjectParticipEdits { get; set; }
         public virtual DbSet<ProjectParticip> ProjectParticips { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Domain.Core.Entities.Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
-        public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<Domain.Core.Entities.School> Schools { get; set; }
         public virtual DbSet<TestExercis> TestExercises { get; set; }
         public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<TestResultsV2> TestResultsV2 { get; set; }
-        public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<Domain.Core.Entities.Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
 
@@ -76,11 +76,11 @@ namespace Monit95App.Infrastructure.Data
                 .WithRequired(e => e.ElementType)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<ExerciseMark>()
+            modelBuilder.Entity<Domain.Core.Entities.ExerciseMark>()
                 .Property(e => e.Marks)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<ExerciseMark>()
+            modelBuilder.Entity<Domain.Core.Entities.ExerciseMark>()
                 .HasMany(e => e.TestResultsV2)
                 .WithRequired(e => e.ExerciseMark)
                 .WillCascadeOnDelete(false);
@@ -128,8 +128,7 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Particip>()
                 .HasMany(e => e.ExerciseMarks)
-                .WithRequired(e => e.Particip)
-                .HasForeignKey(e => e.ProjectParticipId);
+                .WithRequired(e => e.Particip);
 
             modelBuilder.Entity<ParticipTest>()
                 .Property(e => e.ParticipCode)

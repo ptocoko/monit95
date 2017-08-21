@@ -34,7 +34,7 @@ namespace OneTwoThreeReporter
             _gradeConverter = new OneTwoThreeGradeConverter();
 
             var classService = new ClassService(new GenericRepository<Class>());
-            _classes = classService.GetAll();
+            _classes = classService.GetAll().ToList();
             
             var reports = GetAllResults();
             foreach (var report in reports)
@@ -50,7 +50,7 @@ namespace OneTwoThreeReporter
         {
             var res = _context.TestResultsV2.Join(_context.ExerciseMarks, ok => ok.ExerciseMarkId, ik => ik.Id, (testRes, exer) => new
             {
-                ParticipId = exer.ProjectParticipId,
+                ParticipId = exer.ParticipId,
                 ExerciseMarkId = exer.Id,
                 SubjectName = exer.TestId.ToString(),
                 Marks = exer.Marks,

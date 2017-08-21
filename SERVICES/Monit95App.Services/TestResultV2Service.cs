@@ -13,9 +13,9 @@ namespace Monit95App.Services
     public class TestResultV2Service : ITestResultV2Service
     {
         private IGenericRepository<TestResultsV2> _testResultV2Rep;
-        private IGenericRepository<ExerciseMark> _exerciseMarkRep;
+        private IGenericRepository<Domain.Core.Entities.ExerciseMark> _exerciseMarkRep;
 
-        public TestResultV2Service(IGenericRepository<TestResultsV2> testResultV2Rep, IGenericRepository<ExerciseMark> exerciseMarkRep)
+        public TestResultV2Service(IGenericRepository<TestResultsV2> testResultV2Rep, IGenericRepository<Domain.Core.Entities.ExerciseMark> exerciseMarkRep)
         {
             _testResultV2Rep = testResultV2Rep;
             _exerciseMarkRep = exerciseMarkRep;
@@ -45,7 +45,7 @@ namespace Monit95App.Services
             {
                 if (participId != 0)
                 {
-                    var marksIds = _exerciseMarkRep.GetAll().Where(p => p.ProjectParticipId == participId).Select(s => s.Id).ToList();
+                    var marksIds = _exerciseMarkRep.GetAll().Where(p => p.ParticipId == participId).Select(s => s.Id).ToList();
                     var tempResults = _testResultV2Rep.GetAll().Where(p => marksIds.Contains(p.ExerciseMarkId)).ToList();
 
                     List<TestResultV2Dto> testResults = new List<TestResultV2Dto>();
