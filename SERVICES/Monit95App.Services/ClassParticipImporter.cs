@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ClosedXML.Excel;
+﻿using ClosedXML.Excel;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
@@ -19,60 +18,45 @@ namespace Monit95App.Services
 {
     public class ClassParticipImporter : IClassParticipImporter
     {
-        public bool HasRowsWithErrors { get; private set; } = false;
-        public Dictionary<ExcelRowAdress, ParticipDto> RowsWithErrors { get; private set; } = new Dictionary<ExcelRowAdress, ParticipDto>(); 
-
-        private IMapper _mapper;
         private IEnumerable<Class> _allClasses;
 
         public ClassParticipImporter(IClassService classService)
         {
             _allClasses = classService.GetAll(); //все классы загружаются заранее, 
-                                                //чтобы не делать запрос в базу данных на каждое преобразование из ClassName в ClassCode
-
-            var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<ParticipDto, Particip>()
-                                                             .ForMember(d => d.ClassCode, opt => opt.MapFrom(src => GetSchoolCodeByName(src.ClassName))));
-            _mapper = mapperConfig.CreateMapper();
+                                                //чтобы не делать запрос в базу данных на каждую валидацию ClassName
         }
 
-        public IList<Particip> GetParticipsFromFilePath(string filePath)
+        public (IList<ClassParticip>, IEnumerable<int>) GetParticipsFromFilePath(string filePath)
         {
             using(Stream stream = new FileStream(filePath, FileMode.Open))
             {
-                return GetFromStream(stream);
+                return ImportFromExcelFileStream(stream);
             }
         }
 
-        public (IList<ClassParticip>, IEnumerable<int>) ImportFromExcelFileStream()
-        {
-            var tuple = (new List<ClassParticip>(), new List<int>());
-
-            return tuple;
-        }
-        public IList<Particip> GetFromStream(Stream stream)
+        public (IList<ClassParticip>, IEnumerable<int>) ImportFromExcelFileStream(Stream stream)
         {
             if (stream == null)
             {
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            List<Particip> particips = new List<Particip>();
-            using(var workbook = new XLWorkbook(stream))
+            using (var workbook = new XLWorkbook(stream))
             {
-                int numberOfList = 1;
-                particips.AddRange(GetParticipsFromWorksheet(workbook.Worksheets.First(), numberOfList));
+                var (classParticips, rowNumbersWithErrors) = GetParticipsFromWorksheet(workbook.Worksheets.First());
+
+                return (classParticips, rowNumbersWithErrors);
             }
-
-            return particips;
         }
-
-        private List<Particip> GetParticipsFromWorksheet(IXLWorksheet excelList, int numberOfList)
+        
+        private (List<ClassParticip>, List<int>) GetParticipsFromWorksheet(IXLWorksheet excelList)
         {
-            List<Particip> participsFromExcelList = new List<Particip>();
+            List<ClassParticip> participsFromExcelList = new List<ClassParticip>();
+            List<int> rowNumbersWithErrors = new List<int>();
 
-            foreach (var row in excelList.RowsUsed().Skip(1))
+            foreach (var row in excelList.RowsUsed().Skip(1).Take(500))
             {
-                var model = new ParticipDto
+                var model = new ClassParticip
                 {
                     Surname = NormalizeNames(row.Cell(1).Value.ToString()),
                     Name = NormalizeNames(row.Cell(2).Value.ToString()),
@@ -80,34 +64,27 @@ namespace Monit95App.Services
                     ClassName = NormalizeClassName(row.Cell(4).Value.ToString())
                 };
 
-                ValidateModel(ref participsFromExcelList, model, numberOfList, row.RowNumber());
+                if (ValidateModel(model))
+                    participsFromExcelList.Add(model);
+                else
+                    rowNumbersWithErrors.Add(row.RowNumber());
             }
 
-            return participsFromExcelList;
+            return (participsFromExcelList, rowNumbersWithErrors.Count == 0 ? null : rowNumbersWithErrors);
         }
 
-        private void ValidateModel(ref List<Particip> participsFromExcelList, ParticipDto model, int listNumber, int rowNumber)
+        private bool ValidateModel(ClassParticip model)
         {
-            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
+            bool isValidModel = true;
+
+            var validContext = new ValidationContext(model);
             var validationResults = new Collection<ValidationResult>();
-            if (Validator.TryValidateObject(model, validContext, validationResults, true) && !String.IsNullOrEmpty(model.ClassName))
+            if (!Validator.TryValidateObject(model, validContext, validationResults, true) || !ValidateClassName(model.ClassName))
             {
-                try
-                {
-                    var particip = _mapper.Map<Particip>(model);
-                    participsFromExcelList.Add(particip);
-                }
-                catch (AutoMapperMappingException)
-                {
-                    HasRowsWithErrors = true;
-                    RowsWithErrors.Add(new ExcelRowAdress(listNumber, rowNumber),  model);
-                }
+                isValidModel = false;
             }
-            else
-            {
-                HasRowsWithErrors = true;
-                RowsWithErrors.Add(new ExcelRowAdress(listNumber, rowNumber), model);
-            }
+
+            return isValidModel;
         }
 
         private string NormalizeClassName(string className)
@@ -128,9 +105,9 @@ namespace Monit95App.Services
             }
         }
 
-        private string GetSchoolCodeByName(string schoolName)
+        private bool ValidateClassName(string className)
         {
-            return _allClasses.Where(p => p.Name.Trim() == schoolName).Select(s => s.Id).Single();
+            return _allClasses.Select(s => s.Name).Any(p => p == className);
         }
 
         (IEnumerable<ClassParticip>, IEnumerable<int>) IClassParticipImporter.ImportFromExcelFileStream()
