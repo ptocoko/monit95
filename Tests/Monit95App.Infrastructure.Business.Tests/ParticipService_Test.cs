@@ -11,10 +11,10 @@ using NSubstitute;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Monit95App.Infrastructure.BusinessTests
+namespace Monit95App.Services.Tests
 {
     [TestClass]
-    public class ParticipServiceTest
+    public class ParticipService_Test
     {
         [TestMethod]
         public void Add_Test()
@@ -29,17 +29,15 @@ namespace Monit95App.Infrastructure.BusinessTests
             var dto = new ParticipDto
             {
                 ProjectCode = 201661,
-                Surname = "Testu",
-                Name = "test",
-                SecondName = "test",
+                Surname = "Shakhabov",
+                Name = "Adam",                
                 SchoolId = "0005",
                 ClassName = "1 А"
             };
-            var addedDto = service.Add(dto);
+            var id = service.Add(dto);
 
             //Assert            
-            //Assert.AreEqual("0005", addedDto.SchoolId);
-            Assert.Fail();
+            mockParticipRepository.Received().Insert(Arg.Is<Particip>(x => x.Surname == "Shakhabov"));
         }
 
         [TestMethod]

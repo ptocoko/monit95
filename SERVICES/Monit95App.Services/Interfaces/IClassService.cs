@@ -6,7 +6,7 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IClassService
     {
-        List<Class> GetAll();
+        IEnumerable<Class> GetAll();
         string GetId(string className);
         string GetName(string classCode);
     }

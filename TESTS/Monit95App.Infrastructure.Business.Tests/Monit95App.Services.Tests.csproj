@@ -78,9 +78,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="ClassServiceTest.cs" />
+    <Compile Include="ClassService_Test.cs" />
     <Compile Include="ExerciseMarkServiceTests.cs" />
-    <Compile Include="ParticipServiceTest.cs" />
+    <Compile Include="ParticipService_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipProtocolServiceTests.cs" />
     <Compile Include="RsurParticipService_Tests.cs" />

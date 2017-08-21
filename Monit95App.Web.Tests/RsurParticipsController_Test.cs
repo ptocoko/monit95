@@ -20,14 +20,14 @@ using Monit95App.Domain.Core.Entities;
 namespace Monit95App.Web.Tests
 {
     [TestClass]
-    public class RsurParticipsController_Tests
+    public class RsurParticipsController_Test
     {
         private readonly IUserService _mockUserService;
         private readonly IRsurParticipService _mockRsurParticipService;
         private readonly IGenericRepository<ProjectParticip> _mockRsurParticipRepository;
         private readonly RsurParticipsController _rsurParticipsController;
 
-        public RsurParticipsController_Tests()
+        public RsurParticipsController_Test()
         {
             _mockUserService = Substitute.For<IUserService>();
             _mockRsurParticipService = Substitute.For<IRsurParticipService>();
@@ -65,7 +65,8 @@ namespace Monit95App.Web.Tests
             Assert.IsNotNull(actionResult);
             _mockUserService.Received().GetModel(null);
             _mockRsurParticipService.Received().Get(null, "0005");
-            Assert.IsInstanceOfType(actionResult, typeof(OkNegotiatedContentResult<IEnumerable<RsurParticipBaseInfo>>));
+
+            Assert.IsInstanceOfType(actionResult, typeof(OkNegotiatedContentResult<IEnumerable<RsurParticipFullInfo>>));
         }
 
         [TestMethod]

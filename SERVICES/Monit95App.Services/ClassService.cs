@@ -16,7 +16,7 @@ namespace Monit95App.Services
             _classRepository = classRepository;
         }
 
-        public List<Class> GetAll()
+        public IEnumerable<Class> GetAll()
         {
             return _classRepository.GetAll().ToList();
         }

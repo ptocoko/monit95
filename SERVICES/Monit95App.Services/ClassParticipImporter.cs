@@ -132,5 +132,10 @@ namespace Monit95App.Services
         {
             return _allClasses.Where(p => p.Name.Trim() == schoolName).Select(s => s.Id).Single();
         }
+
+        (IEnumerable<ClassParticip>, IEnumerable<int>) IClassParticipImporter.ImportFromExcelFileStream()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

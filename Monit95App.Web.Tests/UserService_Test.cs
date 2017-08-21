@@ -11,10 +11,10 @@ using System.Linq;
 namespace Monit95App.Web.Tests
 {
     [TestClass]
-    public class UserServiceTests
+    public class UserService_Test
     {
         [TestMethod]
-        public void GetModelTest()
+        public void GetModel_Test()
         {
             //Arrange         
             var mockRoles = new List<IdentityUserRole>
@@ -37,7 +37,7 @@ namespace Monit95App.Web.Tests
             
             //Act
             var userService = new UserService(mockContext.Object);
-            var result = userService.GetModel("12345");
+            var result = userService.GetModel("0005");
 
             //Assert
             Assert.IsTrue(result.UserRoleNames.First().Equals("school"));            

@@ -4,26 +4,23 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Domain.Core;
 using Monit95App.Services;
 using Monit95App.Domain.Core.Entities;
+using System.Linq;
 
 namespace Monit95App.Domain.DTO.Tests
 {
     [TestClass]
-    public class ClassServiceTest
+    public class ClassService_Test
     {
         [TestMethod]
-        public void GetAllTest()
-        {
-            //Arrange            
-            var classRepository = new GenericRepository<Class>();
-
-            var classService = new ClassService(classRepository);
-
+        public void GetAll_Test()
+        {            
             //Act
+            var classRepository = new GenericRepository<Class>();
+            var classService = new ClassService(classRepository);
             var result = classService.GetAll();
 
             //Assert
-
-            Assert.IsTrue(result.Count != 0);
+            Assert.IsTrue(result.Count() != 0);
         }
 
         [TestMethod]

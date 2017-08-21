@@ -12,7 +12,7 @@ using Monit95App.Web.Services;
 namespace Monit95App.Web.Tests
 {
     [TestClass]
-    public class FilesControllerTests
+    public class FilesController_Test
     {
         [TestMethod]
         public void  GetTest()

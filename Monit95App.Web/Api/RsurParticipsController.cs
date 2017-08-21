@@ -71,9 +71,9 @@ namespace Monit95App.Api
                 paramSchoolId = authorizedUserName;
             }
             
-            var baseInfoList = _rsurParticipService.Get(paramAreaCode, paramSchoolId);
+            var fullInfoList = _rsurParticipService.Get(paramAreaCode, paramSchoolId);
 
-            return Ok(baseInfoList);
+            return Ok(fullInfoList);
         }
 
         [HttpPut]        
