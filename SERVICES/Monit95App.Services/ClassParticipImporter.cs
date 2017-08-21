@@ -77,7 +77,7 @@ namespace Monit95App.Services
         {
             bool isValidModel = true;
 
-            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(model);
+            var validContext = new ValidationContext(model);
             var validationResults = new Collection<ValidationResult>();
             if (!Validator.TryValidateObject(model, validContext, validationResults, true) || !ValidateClassName(model.ClassName))
             {

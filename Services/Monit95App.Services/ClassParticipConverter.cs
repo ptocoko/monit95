@@ -3,6 +3,7 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,12 @@ namespace Monit95App.Services
         {
             if (classParticip == null) throw new ArgumentNullException(nameof(classParticip));
 
-            return _mapper.Map<ParticipDto>(classParticip);
+            var participDto = _mapper.Map<ParticipDto>(classParticip);
+
+            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(participDto);
+            Validator.ValidateObject(participDto, validContext, true);
+
+            return participDto;
         }
     }
 }
