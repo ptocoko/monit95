@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Entities;
+using System.Linq;
 
 namespace Monit95App.Infrastructure.Data.Tests
 {
@@ -8,10 +9,15 @@ namespace Monit95App.Infrastructure.Data.Tests
     public class ExerciseMarkRepository_Test
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Get_Test()
         {
+            //Act
             var repo = new GenericRepository<ExerciseMark>();
-            var items = repo.GetAll();
+            var item = repo.GetAll().Where(x => x.Id == 65).Single();
+
+            //Assert
+            Assert.IsNotNull(item);
+            Assert.IsNotNull(item.TestResultsV2);
         }
     }
 }

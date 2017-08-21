@@ -8,12 +8,6 @@ namespace Monit95App.Domain.Core.Entities
 
     public partial class ExerciseMark
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ExerciseMark()
-        {
-            TestResultsV2 = new HashSet<TestResultsV2>();
-        }
-
         public int Id { get; set; }
 
         public int ParticipId { get; set; }
@@ -28,7 +22,6 @@ namespace Monit95App.Domain.Core.Entities
 
         public virtual Test Test { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestResultsV2> TestResultsV2 { get; set; }
+        public virtual TestResultsV2 TestResultsV2 { get; set; }
     }
 }

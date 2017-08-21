@@ -78,10 +78,10 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Domain.Core.Entities.ExerciseMark>()
                 .Property(e => e.Marks)
-                .IsUnicode(false);
+                .IsUnicode(false);           
 
             modelBuilder.Entity<Domain.Core.Entities.ExerciseMark>()
-                .HasMany(e => e.TestResultsV2)
+                .HasOptional(e => e.TestResultsV2)
                 .WithRequired(e => e.ExerciseMark)
                 .WillCascadeOnDelete(false);
 
