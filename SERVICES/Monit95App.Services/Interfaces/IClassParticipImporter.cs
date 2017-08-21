@@ -12,6 +12,6 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IClassParticipImporter
     {
-        (IEnumerable<ClassParticip>, IEnumerable<int>) ImportFromExcelFileStream(); //IEnumerable<int> - numbers of excel's rows with error
+        (IList<ClassParticip>, IEnumerable<int>) ImportFromExcelFileStream(Stream stream); //IEnumerable<int> - numbers of excel's rows with error
     }
 }

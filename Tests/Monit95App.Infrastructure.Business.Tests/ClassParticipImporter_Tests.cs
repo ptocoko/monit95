@@ -1,5 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿    using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using NSubstitute;
@@ -14,13 +15,12 @@ using System.Threading.Tasks;
 namespace Monit95App.Infrastructure.BusinessTests
 {
     [TestClass]
-    public class ParticipsImporterFromExcel_Tests
+    public class ClassParticipImporter_Tests
     {
-        string _pathToMockExcel = @"D:\Work\mock_excel.xlsx";
-        ExcelParticipImporter importer;
+        ClassParticipImporter importer;
         IClassService mockClassService;
 
-        public ParticipsImporterFromExcel_Tests()
+        public ClassParticipImporter_Tests()
         {
             mockClassService = Substitute.For<IClassService>();
         }
@@ -42,15 +42,15 @@ namespace Monit95App.Infrastructure.BusinessTests
                 }
             };
             mockClassService.GetAll().Returns(mockClasses);
-            importer = new ExcelParticipImporter(mockClassService);
+            importer = new ClassParticipImporter(mockClassService);
 
-            var assembly = Assembly.GetExecutingAssembly();
-            var actual = importer.GetFromStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.particip-list.xlsx"));
+            var assembly = Assembly.GetAssembly(importer.GetType());
+            var (actualParticips, actualRowNumbersWithErrors) = importer
+                                .ImportFromExcelFileStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"));
             
-            Assert.AreEqual(2, actual.Count);
-            Assert.AreEqual("0102", actual[0].ClassCode);
-            Assert.AreEqual(true, importer.HasRowsWithErrors);
-            Assert.AreEqual(4, importer.RowsWithErrors.First().Key.RowNumber);
+            Assert.AreEqual(2, actualParticips.Count);
+            Assert.AreEqual("1Б", actualParticips[0].ClassName);
+            Assert.AreEqual(4, actualRowNumbersWithErrors.First());
         }
 
         [TestMethod]
@@ -75,15 +75,16 @@ namespace Monit95App.Infrastructure.BusinessTests
                 }
             };
             mockClassService.GetAll().Returns(mockClasses);
-            importer = new ExcelParticipImporter(mockClassService);
+            importer = new ClassParticipImporter(mockClassService);
 
             var assembly = Assembly.GetAssembly(importer.GetType());
-            var actual = importer.GetFromStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"));
+            var (actualParticips, actualRowNumbersWithErrors) = importer
+                                .ImportFromExcelFileStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"));
 
-            Assert.AreEqual(3, actual.Count);
-            Assert.AreEqual("Хусайн", actual[1].Name, false);
-            Assert.AreEqual("0100", actual[2].ClassCode);
-            Assert.AreEqual(false, importer.HasRowsWithErrors);
+            Assert.AreEqual(3, actualParticips.Count);
+            Assert.AreEqual("Хусайн", actualParticips[1].Name, false);
+            Assert.AreEqual("1", actualParticips[2].ClassName);
+            Assert.AreEqual(true, actualRowNumbersWithErrors == null);
         }
     }
 }

@@ -71,9 +71,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassParticipConverter.cs" />
     <Compile Include="ClassService.cs" />
     <Compile Include="ClassParticip.cs" />
     <Compile Include="ExerciseMarkService.cs" />
+    <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
     <Compile Include="Interfaces\IGrade5.cs" />
@@ -99,7 +101,6 @@
     <Compile Include="MarksFormat1.cs" />
     <Compile Include="MarksFormat2.cs" />
     <Compile Include="Models\ElementResultModel.cs" />
-    <Compile Include="Models\ExcelRowAdress.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
     <Compile Include="Models\MaxRatesDto.cs" />
