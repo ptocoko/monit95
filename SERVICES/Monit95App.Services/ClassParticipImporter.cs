@@ -109,10 +109,5 @@ namespace Monit95App.Services
         {
             return _allClasses.Select(s => s.Name).Any(p => p == className);
         }
-
-        (IEnumerable<ClassParticip>, IEnumerable<int>) IClassParticipImporter.ImportFromExcelFileStream()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
