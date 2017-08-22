@@ -41,7 +41,8 @@ namespace Monit95App.Services
             Mapper.Initialize(cfg => cfg.CreateMap<ParticipDto, Particip>());
             var entity = mapper.Map<ParticipDto, Particip>(dto);            
 
-            entity.ClassCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode
+            var classCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode
+            entity.ClassCode = classCode ?? throw new ArgumentException(nameof(dto.ClassName));
 
             _participRepository.Insert(entity);                        
 

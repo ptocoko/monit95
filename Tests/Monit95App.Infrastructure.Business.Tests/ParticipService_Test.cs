@@ -8,6 +8,7 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using Moq;
 using NSubstitute;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,6 +39,32 @@ namespace Monit95App.Services.Tests
 
             //Assert            
             mockParticipRepository.Received().Insert(Arg.Is<Particip>(x => x.Surname == "Shakhabov"));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Add_TestArgumentException()
+        {
+            //Arrange
+            string nullString = null;
+            var mockClassService = Substitute.For<IClassService>();
+            mockClassService.GetId("1 Аj").Returns(nullString);
+            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var service = new ParticipService(mockParticipRepository, mockClassService);
+
+            //Act
+            var dto = new ParticipDto
+            {
+                ProjectCode = 201661,
+                Surname = "Shakhabov",
+                Name = "Adam",
+                SchoolId = "0005",
+                ClassName = "1 Аj"
+            };
+            var id = service.Add(dto);
+
+            //Assert            
+            //Exception
         }
 
         [TestMethod]
