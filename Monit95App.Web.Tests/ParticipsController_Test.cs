@@ -4,6 +4,9 @@ using Monit95App.Services.Models;
 using Monit95App.Api;
 using NSubstitute;
 using Monit95App.Services.Interfaces;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace Monit95App.Web.Tests
 {
@@ -31,6 +34,23 @@ namespace Monit95App.Web.Tests
 
             //Assert
             mockService.Received().Add(dto);
+        }
+
+        [TestMethod]
+        public void Get_Test()
+        {
+            //Arrange
+            var mockService = Substitute.For<IParticipService>();
+            var controller = new ParticipsController(mockService);
+            controller.RequestContext.RouteData = new HttpRouteData(
+                new HttpRoute(),
+                new HttpRouteValueDictionary { { "id", "123" } });
+
+            //Act
+            var response = controller.Get();
+
+            //Assert
+            mockService.Received().GetById(123);
         }
     }
 }

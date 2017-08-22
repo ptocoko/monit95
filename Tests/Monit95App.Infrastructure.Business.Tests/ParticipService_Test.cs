@@ -126,9 +126,29 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
-        public void DeleteTest()
-        {            
+        public void GetById_Test()
+        {
+            //Arrange
+            var mockClassService = Substitute.For<IClassService>();            
+            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var entity = new Particip
+            {
+                Id = 123,
+                ProjectCode = 201661,
+                Surname = "Shakhabov",
+                Name = "Adam",
+                SchoolId = "0005",
+                Class = new Class { Id = "0101", Name = "1 А" }
+            };
+            mockParticipRepository.GetById(123).Returns(entity);
+            var service = new ParticipService(mockParticipRepository, mockClassService);
 
+            //Act
+            var dto = service.GetById(123);
+
+            //Assert
+            Assert.AreEqual("Shakhabov", dto.Surname);
+            Assert.AreEqual("1 А", dto.ClassName);
         }
 
         

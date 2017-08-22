@@ -15,9 +15,18 @@ namespace Monit95App.Services
 {
     public class ParticipService : IParticipService
     {
-        private readonly IMapper mapper;        
+        #region Fields
+
+        private readonly IMapper mapper;
+
+        #endregion
+
+        #region Dependencies
+
         private readonly IGenericRepository<Particip> _participRepository;
         private readonly IClassService _classServise;
+
+        #endregion
 
         public ParticipService(IGenericRepository<Particip> participRepository, IClassService classService)
         {            
@@ -48,6 +57,7 @@ namespace Monit95App.Services
 
             return entity.Id;
         }
+
         public IEnumerable<ParticipDto> GetBySchoolId(string schoolId)
         {
             if(schoolId == null)
@@ -98,29 +108,26 @@ namespace Monit95App.Services
             
 
             //throw new NotImplementedException();
-        }
-        public Task<ParticipDto> GetByParticipIdAsync(int participId)
-        {
-            return Task.Run(() =>
-            {
-                if (participId != 0)
-                {
-                    var particip = _participRepository.GetById(participId);
-                    if (particip != null)
-                        return new ParticipDto { ClassName = _classServise.GetName(particip.ClassCode), Id = particip.Id, ProjectCode = particip.ProjectCode, Surname = particip.Surname, Name = particip.Name, SecondName = particip.SecondName, SchoolId = particip.SchoolId };
-                    else
-                        throw new NullReferenceException();
-                }
-                else
-                {
-                    throw new ArgumentNullException();
-                }
-            });
-        }
+        }       
 
         public ParticipDto GetById(int participId)
         {
-            throw new NotImplementedException();
+            if(participId <= 0)
+            {
+                throw new ArgumentException(nameof(participId));
+            }
+
+            var entity = _participRepository.GetById(participId);
+            if(entity == null)
+            {
+                throw new ArgumentException(nameof(participId));
+            }
+
+            Mapper.Initialize(cfg => cfg.CreateMap<Particip, ParticipDto>());                
+
+            var dto = Mapper.Map<Particip, ParticipDto>(entity);
+
+            return dto;
         }
 
         public bool Delete(int id)

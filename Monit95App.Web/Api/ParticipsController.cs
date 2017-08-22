@@ -27,7 +27,7 @@ namespace Monit95App.Api
             _participService = participService;
         }
 
-        #region Api
+        #region APIs
 
         [HttpPost]
         [Route("")]
