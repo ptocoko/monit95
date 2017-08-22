@@ -18,14 +18,17 @@ namespace Monit95App.Api
 
         private readonly IClassParticipImporter _classParticipImporter;
         private readonly IClassParticipConverter _classParticipConverter;
+        private readonly IParticipService _participService;
 
         #endregion
 
         public ExcelFilesController(IClassParticipImporter classParticipImporter,
-                                    IClassParticipConverter classParticipConverter)
+                                    IClassParticipConverter classParticipConverter,
+                                    IParticipService participService)
         {
             _classParticipImporter = classParticipImporter;
             _classParticipConverter = classParticipConverter;
+            _participService = participService;
         }
 
         #region APIs
@@ -46,9 +49,20 @@ namespace Monit95App.Api
                 return BadRequest();
             }        
 
-            var stream = httpRequest.Files[0].InputStream;
+            var stream = httpPostedFile.InputStream;
 
-            return Ok();
+            var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream);
+            bool hasRowsWithError = rowNumbersWithError != null;
+            var particips = _classParticipConverter.ConvertToParticipDto(classParticips);
+
+            foreach (var particip in particips)
+                _participService.Add(particip);
+
+            return Ok(new {
+                              CountOfAddedParticips = particips.Count(),
+                              HasRowsWithError = hasRowsWithError,
+                              RowNumbersWithError = rowNumbersWithError
+                          });
         }
 
         #endregion

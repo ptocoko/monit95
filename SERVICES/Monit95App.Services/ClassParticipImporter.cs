@@ -43,9 +43,7 @@ namespace Monit95App.Services
 
             using (var workbook = new XLWorkbook(stream))
             {
-                var (classParticips, rowNumbersWithErrors) = GetParticipsFromWorksheet(workbook.Worksheets.First());
-
-                return (classParticips, rowNumbersWithErrors);
+                return GetParticipsFromWorksheet(workbook.Worksheets.First());
             }
         }
         

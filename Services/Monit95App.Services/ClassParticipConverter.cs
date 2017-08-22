@@ -36,5 +36,14 @@ namespace Monit95App.Services
 
             return participDto;
         }
+
+        public IEnumerable<ParticipDto> ConvertToParticipDto(IEnumerable<ClassParticip> classParticips)
+        {
+            List<ParticipDto> particips = new List<ParticipDto>();
+            foreach (var classParticip in classParticips)
+                particips.Add(ConvertToParticipDto(classParticip));
+
+            return particips;
+        }
     }
 }

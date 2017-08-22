@@ -43,10 +43,11 @@ namespace Monit95App.Services
 
             entity.ClassCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode
 
-            _participRepository.Insert(entity);                        
+            _participRepository.Insert(entity);
 
             return entity.Id;
         }
+        
         public IEnumerable<ParticipDto> GetBySchoolId(string schoolId)
         {
             if(schoolId == null)
