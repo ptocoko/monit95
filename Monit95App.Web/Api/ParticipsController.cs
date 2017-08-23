@@ -47,10 +47,10 @@ namespace Monit95App.Api
         [HttpGet]
         public IHttpActionResult GetAll(string schoolId = null) //bySchoolId
         {
-            var user = User.Identity.Name;
-            var roles = ((ClaimsIdentity)User.Identity).Claims
-                    .Where(c => c.Type == ClaimTypes.Role)
-                    .Select(c => c.Value);
+            //var user = User.Identity.Name;
+            //var roles = ((ClaimsIdentity)User.Identity).Claims
+            //        .Where(c => c.Type == ClaimTypes.Role)
+            //        .Select(c => c.Value);
 
             return Ok();
         }
