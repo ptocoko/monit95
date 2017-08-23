@@ -42,11 +42,12 @@ namespace Monit95App.Api
 
             return Ok(id);
         }
-
-        //read
+        
         [HttpGet]
-        public IHttpActionResult Get(string schoolId) //bySchoolId
+        public IHttpActionResult GetAll(string schoolId = null) //bySchoolId
         {
+            
+            
             return Ok();
         }
 

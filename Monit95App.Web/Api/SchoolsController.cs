@@ -14,7 +14,7 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Web.Services;
 using Monit95App.Services.School;
 
-namespace Monit95App.Api
+namespace Monit95App.Web.Api
 {
     //[Authorize(Roles = "coko, school")]
     [RoutePrefix("api/schools")]

@@ -10,7 +10,7 @@ using System.Web.Http;
 using Monit95App.Services.Interfaces;
 using Monit95App.Domain.Core.Entities;
 
-namespace Monit95App.Api
+namespace Monit95App.Web.Api
 {
     public class ClassController : ApiController
     {

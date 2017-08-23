@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Monit95App.Api
+namespace Monit95App.Web.Api
 {
     [Authorize]
     public class AccountController : ApiController

@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Monit95App.Api
+namespace Monit95App.Web.Api
 {
     [Authorize]
     public class ExerciseMarksController : ApiController

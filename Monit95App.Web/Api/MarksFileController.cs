@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
-namespace Monit95App.Api
+namespace Monit95App.Web.Api
 {    
     public class MarksFileController : ApiController
     {

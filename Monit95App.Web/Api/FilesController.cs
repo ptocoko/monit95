@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Monit95App.Services.Interfaces;
 
-namespace Monit95App.Api
+namespace Monit95App.Web.Api
 {    
     [Authorize]
     public class FilesController : ApiController

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Monit95App.Api;
 using Monit95App.Services.Interfaces;
 using Monit95App.Web.Services;
+using Monit95App.Web.Api;
 
 namespace Monit95App.Web.Tests
 {

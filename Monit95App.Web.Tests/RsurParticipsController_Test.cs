@@ -16,6 +16,7 @@ using System.Web.Routing;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Web.Api;
 
 namespace Monit95App.Web.Tests
 {
