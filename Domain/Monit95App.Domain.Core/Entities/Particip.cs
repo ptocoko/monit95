@@ -7,29 +7,18 @@ namespace Monit95App.Domain.Core.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Particip : Person
+    public class Particip : Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Particip()
         {
+            // ReSharper disable once VirtualMemberCallInConstructor
             ExerciseMarks = new HashSet<ExerciseMark>();
         }
 
         public int Id { get; set; }
 
         public int ProjectCode { get; set; }
-
-        //[Required]
-        //[StringLength(25)]
-        //public string Surname { get; set; }
-
-        //[Required]
-        //[StringLength(25)]
-        //public string Name { get; set; }
-
-        //[Required]
-        //[StringLength(25)]
-        //public string SecondName { get; set; }
 
         [Required]
         [StringLength(4)]
@@ -38,8 +27,6 @@ namespace Monit95App.Domain.Core.Entities
         [Required]
         [StringLength(4)]
         public string ClassCode { get; set; }
-
-        //public int? TeachContextId { get; set; }
 
         public virtual Class Class { get; set; }
 
