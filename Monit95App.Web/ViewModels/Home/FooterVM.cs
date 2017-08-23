@@ -11,7 +11,7 @@ namespace Monit95App.ViewModels.Home
 
         public FooterVM(string userInfo)
         {
-            this.UserInfo = userInfo;
+            UserInfo = userInfo;
         }
     }
 }

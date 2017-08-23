@@ -175,7 +175,7 @@ namespace AccountsCreator
 
         static void AddRU_206_Particips()
         {
-            var users = RU_206_Particips.GetLoginPasswordPairsOfParticips();
+            var users = Ru206Particips.GetLoginPasswordPairsOfParticips();
 
             foreach (var userNameAndPassword in users)
             {

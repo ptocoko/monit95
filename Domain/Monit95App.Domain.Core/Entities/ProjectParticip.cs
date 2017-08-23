@@ -1,11 +1,9 @@
 namespace Monit95App.Domain.Core.Entities
 {
-    using Monit95App.Domain.Core.Abstract;
+    using Abstract;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class ProjectParticip : Person
     {
@@ -22,17 +20,6 @@ namespace Monit95App.Domain.Core.Entities
         [Required]
         [StringLength(4)]
         public string SchoolId { get; set; }
-
-        //[Required]
-        //[StringLength(25)]
-        //public string Surname { get; set; }
-
-        //[Required]
-        //[StringLength(25)]
-        //public string Name { get; set; }
-
-        //[StringLength(25)]
-        //public string SecondName { get; set; }
 
         public int NSubjectCode { get; set; }
 

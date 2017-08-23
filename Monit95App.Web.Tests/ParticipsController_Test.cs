@@ -14,6 +14,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Routing;
 using System.Web.Http.Controllers;
+using Monit95App.Services.DTOs;
 
 namespace Monit95App.Web.Tests
 {

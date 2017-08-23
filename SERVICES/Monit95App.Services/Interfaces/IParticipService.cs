@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Monit95App.Services.DTOs;
 
 namespace Monit95App.Services.Interfaces
 {
     public interface IParticipService
     {
         int Add(ParticipDto dto);
-        IEnumerable<ParticipDto> GetBySchoolId(string schoolId);
+        IEnumerable<ParticipDto> GetAllDtos(int? areaCode, string schoolId);
         ParticipDto GetById(int participId);
         bool Update(ParticipDto dto);                    
         bool Delete(int id);                             

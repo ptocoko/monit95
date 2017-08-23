@@ -5,7 +5,6 @@ using System.Linq;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
-using Monit95App.Services.Models.Rsur;
 using AutoMapper;
 using Monit95App.Domain.Core.Entities;
 

@@ -11,6 +11,7 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Monit95App.Services.DTOs;
 
 namespace Monit95App.Services.Tests
 {
@@ -93,10 +94,11 @@ namespace Monit95App.Services.Tests
             var service = new ParticipService(mockParticipRepository, mockClassService);
 
             //Act          
-            var models = service.GetBySchoolId("0005");
+          //  var models = service.GetBySchoolId("0005");
 
             //Assert            
-            Assert.AreEqual(1, models.Count());
+            //Assert.AreEqual(1, models.Count());
+            Assert.Fail();
         }
 
         [TestMethod]

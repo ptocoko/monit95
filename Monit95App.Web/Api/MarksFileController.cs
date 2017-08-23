@@ -1,5 +1,4 @@
-﻿using Monit95App.Domain.Mark;
-using Monit95App.Services.Interfaces;
+﻿using Monit95App.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Monit95App.Services;
 
 namespace Monit95App.Web.Api
 {    

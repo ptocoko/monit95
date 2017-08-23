@@ -1,24 +1,18 @@
 ﻿using ClosedXML.Excel;
-using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Interfaces;
-using Monit95App.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Monit95App.Services
 {
     public class ClassParticipImporter : IClassParticipImporter
     {
-        private IEnumerable<Class> _allClasses;
+        private readonly IEnumerable<Class> _allClasses;
 
         public ClassParticipImporter(IClassService classService)
         {
@@ -51,8 +45,8 @@ namespace Monit95App.Services
         
         private (List<ClassParticip>, List<int>) GetParticipsFromWorksheet(IXLWorksheet excelList)
         {
-            List<ClassParticip> participsFromExcelList = new List<ClassParticip>();
-            List<int> rowNumbersWithErrors = new List<int>();
+            var participsFromExcelList = new List<ClassParticip>();
+            var rowNumbersWithErrors = new List<int>();
 
             foreach (var row in excelList.RowsUsed().Skip(1).Take(500))
             {

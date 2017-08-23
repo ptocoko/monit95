@@ -4,7 +4,6 @@ using System.Linq;
 using ClosedXML.Excel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Services;
-using Monit95App.Services.Models.Rsur;
 using Monit95App.Services.Rsur;
 
 namespace Monit95App.Infrastructure.BusinessTests
