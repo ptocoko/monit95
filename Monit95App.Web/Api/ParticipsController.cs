@@ -9,6 +9,7 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Domain.Core;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
+using System.Security.Claims;
 
 namespace Monit95App.Api
 {
@@ -46,8 +47,11 @@ namespace Monit95App.Api
         [HttpGet]
         public IHttpActionResult GetAll(string schoolId = null) //bySchoolId
         {
-            
-            
+            var user = User.Identity.Name;
+            var roles = ((ClaimsIdentity)User.Identity).Claims
+                    .Where(c => c.Type == ClaimTypes.Role)
+                    .Select(c => c.Value);
+
             return Ok();
         }
 

@@ -91,7 +91,7 @@ namespace Monit95App.Web.Tests
             var principal = Substitute.For<IPrincipal>();
             var identity = Substitute.For<IIdentity>();
             principal.Identity.Returns(identity);
-            identity.Name.Returns("Adam"); 
+            identity.Name.Returns("0005"); 
 
             controller.User = principal;
 
