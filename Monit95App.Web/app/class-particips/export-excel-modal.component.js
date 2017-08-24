@@ -33,10 +33,12 @@ var ExportExcelModalData = (function (_super) {
 exports.ExportExcelModalData = ExportExcelModalData;
 var ExportExcelModal = (function () {
     function ExportExcelModal(dialog, http) {
-        var _this = this;
         this.dialog = dialog;
         this.http = http;
         this.context = dialog.context;
+    }
+    ExportExcelModal.prototype.ngOnInit = function () {
+        var _this = this;
         this.isExporting = true;
         var formData = new FormData();
         formData.append('uploadFile', this.context.file, this.context.file.name);
@@ -44,8 +46,6 @@ var ExportExcelModal = (function () {
             console.log(res.json());
             _this.isExporting = false;
         });
-    }
-    ExportExcelModal.prototype.ngOnInit = function () {
     };
     return ExportExcelModal;
 }());

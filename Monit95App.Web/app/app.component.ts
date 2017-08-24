@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { UserService } from "./user.service";
-import { RouterOutlet, ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector: "app-root",
@@ -11,7 +10,7 @@ export class AppComponent implements OnInit {
 	isCokoRole = false;
 	isRsur: boolean = true;
 
-    constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+    constructor(private userService: UserService) { }
 
     ngOnInit() {
 		//this.userService.getName().subscribe(user => this.handler(user.userRoles));

@@ -32,7 +32,9 @@ export class ExportExcelModal implements ModalComponent<ExportExcelModalData>, O
 
 	constructor(public dialog: DialogRef<ExportExcelModalData>, private http: Http) {
 		this.context = dialog.context;
+	}
 
+	ngOnInit() {
 		this.isExporting = true;
 		let formData: FormData = new FormData();
 		formData.append('uploadFile', this.context.file, this.context.file.name);
@@ -41,9 +43,5 @@ export class ExportExcelModal implements ModalComponent<ExportExcelModalData>, O
 			console.log(res.json());
 			this.isExporting = false;
 		})
-	}
-
-	ngOnInit() {
-		
 	}
 }

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 //import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from '@angular/http';
 var http_1 = require("@angular/http");
-require("rxjs/Rx");
+require("rxjs/add/operator/map");
 var results_model_1 = require("./results/results.model");
 var ParticipService = (function () {
     function ParticipService(http) {

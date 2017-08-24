@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-require("rxjs/Rx");
+require("rxjs/add/operator/map");
 var particip_correction_1 = require("./particip-correction");
 var ParticipCorrectionService = (function () {
     function ParticipCorrectionService(_http) {

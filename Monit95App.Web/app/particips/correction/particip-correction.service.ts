@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 import { ParticipCorrection } from './particip-correction';
 import { PARTICIPCORRECTIONS } from './particip-correction.mock';
 

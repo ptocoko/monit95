@@ -1,6 +1,6 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
 import { ParticipModel } from "../particip.model";
-import 'rxjs/Rx';
+//import 'rxjs/Rx';
 
 @Pipe({ name: 'participsWithoutDetails' })
 export class ParticipsWithoutDetailsPipe implements PipeTransform {
