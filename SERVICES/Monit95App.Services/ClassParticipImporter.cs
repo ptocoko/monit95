@@ -114,7 +114,7 @@ namespace Monit95App.Services
 
         private bool ValidateClassName(string className)
         {
-            return _allClasses.Select(s => s.Name).Any(p => p == className);
+            return _allClasses.Select(s => s.Name.Trim()).Any(p => p == className);
         }
     }
 }

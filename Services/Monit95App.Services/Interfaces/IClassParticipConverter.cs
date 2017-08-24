@@ -9,7 +9,7 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IClassParticipConverter
     {
-        ParticipDto ConvertToParticipDto(ClassParticip classParticip);
-        IEnumerable<ParticipDto> ConvertToParticipDto(IEnumerable<ClassParticip> classParticips);
+        ParticipDto ConvertToParticipDto(ClassParticip classParticip, string schoolId, int projectCode);
+        IList<ParticipDto> ConvertToParticipDto(IList<ClassParticip> classParticips, string schoolId, int projectCode);
     }
 }

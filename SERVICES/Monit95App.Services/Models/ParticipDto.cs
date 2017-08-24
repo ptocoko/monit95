@@ -23,7 +23,7 @@ namespace Monit95App.Services.Models
         [StringLength(4)]
         public string SchoolId { get; set; }
                 
-        [StringLength(2)]
+        [StringLength(4, MinimumLength = 1)]
         public string ClassName { get; set; }
 
         public int Id { get; set; }

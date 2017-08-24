@@ -14,22 +14,20 @@ namespace Monit95App.Services
     {
         private IMapper _mapper;
 
-        public ClassParticipConverter(string schoolId, int projectCode)
+        public ClassParticipConverter()
         {
-            var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<ClassParticip, ParticipDto>()
-                                                                  .AfterMap((source, dest) => {
-                                                                      dest.SchoolId = schoolId;
-                                                                      dest.ProjectCode = projectCode;
-                                                                  }));
+            var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<ClassParticip, ParticipDto>());
 
             _mapper = mapperConfig.CreateMapper();
         }
 
-        public ParticipDto ConvertToParticipDto(ClassParticip classParticip)
+        public ParticipDto ConvertToParticipDto(ClassParticip classParticip, string schoolId, int projectCode)
         {
             if (classParticip == null) throw new ArgumentNullException(nameof(classParticip));
 
             var participDto = _mapper.Map<ParticipDto>(classParticip);
+            participDto.SchoolId = schoolId;
+            participDto.ProjectCode = projectCode;
 
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(participDto);
             Validator.ValidateObject(participDto, validContext, true);
@@ -37,11 +35,11 @@ namespace Monit95App.Services
             return participDto;
         }
 
-        public IEnumerable<ParticipDto> ConvertToParticipDto(IEnumerable<ClassParticip> classParticips)
+        public IList<ParticipDto> ConvertToParticipDto(IList<ClassParticip> classParticips, string schoolId, int projectCode)
         {
             List<ParticipDto> particips = new List<ParticipDto>();
             foreach (var classParticip in classParticips)
-                particips.Add(ConvertToParticipDto(classParticip));
+                particips.Add(ConvertToParticipDto(classParticip, schoolId, projectCode));
 
             return particips;
         }

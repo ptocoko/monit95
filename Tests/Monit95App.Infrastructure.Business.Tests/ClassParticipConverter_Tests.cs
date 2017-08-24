@@ -21,9 +21,9 @@ namespace Monit95App.Infrastructure.BusinessTests
                 SecondName = "Арбиевич",
                 ClassName = "1"
             };
-            _converter = new ClassParticipConverter("0000", 201767);
+            _converter = new ClassParticipConverter();
 
-            var actual = _converter.ConvertToParticipDto(mockClassParticip);
+            var actual = _converter.ConvertToParticipDto(mockClassParticip, "0000", 201767);
 
             Assert.IsNotNull(actual);
             Assert.AreEqual("0000", actual.SchoolId);
@@ -50,9 +50,9 @@ namespace Monit95App.Infrastructure.BusinessTests
                     ClassName = "1A"
                 }
             };
-            _converter = new ClassParticipConverter("0000", 201767);
+            _converter = new ClassParticipConverter();
 
-            var actual = _converter.ConvertToParticipDto(mockClassParticips);
+            var actual = _converter.ConvertToParticipDto(mockClassParticips, "0000", 201767);
 
             Assert.AreEqual(2, actual.Count());
             Assert.AreEqual("1A", actual.Skip(1).First().ClassName);
