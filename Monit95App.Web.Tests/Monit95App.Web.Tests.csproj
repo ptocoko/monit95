@@ -165,7 +165,6 @@
     <Compile Include="RsurParticipsController_Test.cs" />
     <Compile Include="FilesController_Test.cs" />
     <Compile Include="ParticipsController_Test.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="UserService_Test.cs" />
   </ItemGroup>
   <ItemGroup>
