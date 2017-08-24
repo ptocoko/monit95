@@ -88,14 +88,21 @@ namespace Monit95App.Services
 
         private string NormalizeClassName(string className)
         {
-            var newClassName = className.Replace("\"", "").Replace("'", "").Replace(" ", "").ToUpper();
-            if (char.IsLetter(newClassName.Last()))
+            if (className.Length > 0)
             {
-                return Regex.Replace(newClassName, "([A-я]$)", " $0");
+                var newClassName = className.Replace("\"", "").Replace("'", "").Replace(" ", "").ToUpper();
+                if (char.IsLetter(newClassName.Last()))
+                {
+                    return Regex.Replace(newClassName, "([A-я]$)", " $0");
+                }
+                else
+                {
+                    return newClassName;
+                }
             }
             else
             {
-                return newClassName;
+                return className;
             }
         }
 

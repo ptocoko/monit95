@@ -24,17 +24,13 @@ export class ClassParticipsListComponent implements OnInit {
 	exportParticips(event: any) {
 		let file: File = event.target.files[0];
 		if (file.name.split('.').pop() === 'xlsx') {
-			//let formData: FormData = new FormData();
-			//formData.append('uploadFile', file, file.name);
-
 			this.modal.open(ExportExcelModal, overlayConfigFactory({file: file}, BSModalContext)).then(modal => {
 				modal.result.then(result => {
 					//TODO: realize update list of particips;
+				}).catch(data => {
+					//console.log(data);
 				})
 			})
-			//this.http.post('/api/ExcelFiles/Upload', formData).subscribe(res => {
-			//	console.log(res.json());
-			//})
 		}
 	}
 }

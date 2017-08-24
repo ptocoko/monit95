@@ -30,16 +30,13 @@ var ClassParticipsListComponent = (function () {
     ClassParticipsListComponent.prototype.exportParticips = function (event) {
         var file = event.target.files[0];
         if (file.name.split('.').pop() === 'xlsx') {
-            //let formData: FormData = new FormData();
-            //formData.append('uploadFile', file, file.name);
             this.modal.open(export_excel_modal_component_1.ExportExcelModal, angular2_modal_1.overlayConfigFactory({ file: file }, bootstrap_1.BSModalContext)).then(function (modal) {
                 modal.result.then(function (result) {
                     //TODO: realize update list of particips;
+                }).catch(function (data) {
+                    console.log(data);
                 });
             });
-            //this.http.post('/api/ExcelFiles/Upload', formData).subscribe(res => {
-            //	console.log(res.json());
-            //})
         }
     };
     return ClassParticipsListComponent;
