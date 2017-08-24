@@ -10,6 +10,7 @@ var core_1 = require("@angular/core");
 var class_particips_list_component_1 = require("./class-particips-list.component");
 var class_particips_routing_1 = require("./class-particips.routing");
 var common_1 = require("@angular/common");
+var export_excel_modal_component_1 = require("./export-excel-modal.component");
 var ClassParticipsModule = (function () {
     function ClassParticipsModule() {
     }
@@ -18,9 +19,11 @@ var ClassParticipsModule = (function () {
 ClassParticipsModule = __decorate([
     core_1.NgModule({
         declarations: [
-            class_particips_list_component_1.ClassParticipsListComponent
+            class_particips_list_component_1.ClassParticipsListComponent,
+            export_excel_modal_component_1.ExportExcelModal
         ],
-        imports: [common_1.CommonModule, class_particips_routing_1.ClassParticipsRoutingModule]
+        imports: [common_1.CommonModule, class_particips_routing_1.ClassParticipsRoutingModule],
+        entryComponents: [export_excel_modal_component_1.ExportExcelModal]
     })
 ], ClassParticipsModule);
 exports.ClassParticipsModule = ClassParticipsModule;

@@ -12,12 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var user_service_1 = require("../user.service");
 var particip_service_1 = require("../particips/particip.service");
-var http_1 = require("@angular/http");
+var angular2_modal_1 = require("angular2-modal");
+var export_excel_modal_component_1 = require("./export-excel-modal.component");
+var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var ClassParticipsListComponent = (function () {
-    function ClassParticipsListComponent(userService, participService, http) {
+    function ClassParticipsListComponent(userService, participService, modal) {
         this.userService = userService;
         this.participService = participService;
-        this.http = http;
+        this.modal = modal;
     }
     ClassParticipsListComponent.prototype.ngOnInit = function () {
         this.userService.getAccount().subscribe(function (data) {
@@ -28,11 +30,16 @@ var ClassParticipsListComponent = (function () {
     ClassParticipsListComponent.prototype.exportParticips = function (event) {
         var file = event.target.files[0];
         if (file.name.split('.').pop() === 'xlsx') {
-            var formData = new FormData();
-            formData.append('uploadFile', file, file.name);
-            this.http.post('/api/ExcelFiles/Upload', formData).subscribe(function (res) {
-                console.log(res.json());
+            //let formData: FormData = new FormData();
+            //formData.append('uploadFile', file, file.name);
+            this.modal.open(export_excel_modal_component_1.ExportExcelModal, angular2_modal_1.overlayConfigFactory({ file: file }, bootstrap_1.BSModalContext)).then(function (modal) {
+                modal.result.then(function (result) {
+                    //TODO: realize update list of particips;
+                });
             });
+            //this.http.post('/api/ExcelFiles/Upload', formData).subscribe(res => {
+            //	console.log(res.json());
+            //})
         }
     };
     return ClassParticipsListComponent;
@@ -41,7 +48,7 @@ ClassParticipsListComponent = __decorate([
     core_1.Component({
         templateUrl: './app/class-particips/class-particips-list.component.html'
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService, particip_service_1.ParticipService, http_1.Http])
+    __metadata("design:paramtypes", [user_service_1.UserService, particip_service_1.ParticipService, angular2_modal_1.Modal])
 ], ClassParticipsListComponent);
 exports.ClassParticipsListComponent = ClassParticipsListComponent;
 //# sourceMappingURL=class-particips-list.component.js.map

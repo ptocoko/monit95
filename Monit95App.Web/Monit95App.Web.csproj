@@ -569,6 +569,7 @@
     <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips.module.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips.routing.ts" />
+    <TypeScriptCompile Include="app\class-particips\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.component.ts" />
