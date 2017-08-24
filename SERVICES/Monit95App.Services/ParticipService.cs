@@ -18,7 +18,7 @@ namespace Monit95App.Services
     {
         #region Fields
 
-        private readonly IMapper mapper;
+        private readonly IMapper _mapper;
 
         #endregion
 
@@ -30,13 +30,19 @@ namespace Monit95App.Services
         #endregion
 
         public ParticipService(IGenericRepository<Particip> participRepository, IClassService classService)
-        {            
+        {
             _participRepository = participRepository;
             _classServise = classService;
 
-            var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>().ReverseMap()
-                                                        .AfterMap((dto, entity) => entity.Class = null));
-            mapper = mapConfig.CreateMapper();
+            var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>()
+                .ReverseMap()
+                .AfterMap((dto, entity) =>
+                    {
+                        entity.Class = null;                        
+                    }
+                ));
+
+            _mapper = mapConfig.CreateMapper();
         }
 
         public int Add(ParticipDto dto)
@@ -49,11 +55,9 @@ namespace Monit95App.Services
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
             Validator.ValidateObject(dto, validContext, true);
             
-            var entity = mapper.Map<ParticipDto, Particip>(dto);
-            
-            #warning move to mapper
-            entity.ClassCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode            
-            
+            var entity = _mapper.Map<ParticipDto, Particip>(dto);
+            entity.ClassCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode 
+
             _participRepository.Insert(entity);                        
 
             return entity.Id;
@@ -72,7 +76,7 @@ namespace Monit95App.Services
             }
 
             var entities = query.ToList();        
-            var dtos = mapper.Map<List<Particip>, List<ParticipDto>>(entities);
+            var dtos = _mapper.Map<List<Particip>, List<ParticipDto>>(entities);
            
             return dtos;
         }
@@ -91,7 +95,7 @@ namespace Monit95App.Services
                 throw new ArgumentException(nameof(id));
             }
 
-            mapper.Map(dto, entity);
+            _mapper.Map(dto, entity);
 
             _participRepository.Update(entity);
         }
