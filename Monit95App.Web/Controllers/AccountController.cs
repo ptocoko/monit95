@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -12,7 +8,7 @@ using Monit95App.Models;
 
 namespace Monit95App.Controllers
 {
-    ///[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
         public string GetName()
@@ -53,19 +49,15 @@ namespace Monit95App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(model);
+            var user = await UserManager.FindAsync(model.UserName, model.Password);
+            if (user != null)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
-                {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
+                await SignInAsync(user, model.RememberMe);
+                return RedirectToLocal(returnUrl);
             }
+            ModelState.AddModelError("", "Invalid username or password.");
 
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
@@ -333,13 +325,7 @@ namespace Monit95App.Controllers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Threading.Tasks;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Domain.Core;
 using Monit95App.Services.Interfaces;
-using Monit95App.Services.Models;
-using System.Security.Claims;
+using Monit95App.Services.DTOs;
 
 namespace Monit95App.Api
 {
@@ -30,8 +24,7 @@ namespace Monit95App.Api
 
         #region APIs
 
-        [HttpPost]
-        [Route("")]
+        [HttpPost]        
         public IHttpActionResult Post([FromBody]ParticipDto dto)
         {
             if (!ModelState.IsValid)
@@ -45,14 +38,30 @@ namespace Monit95App.Api
         }
         
         [HttpGet]
-        public IHttpActionResult GetAll(string schoolId = null) //bySchoolId
+        [Authorize(Roles = "coko, area, school")]
+        public IHttpActionResult GetAll()
         {
+            int? areaCode = null;
+            string schoolId = null;
+
+            if (User.IsInRole("area"))
+            {
+                areaCode = Convert.ToInt32(User.Identity.Name);
+            }
+
+            if (User.IsInRole("school"))
+            {
+                schoolId = User.Identity.Name;
+            }
+
+            var dtos = _participService.GetAllDtos(areaCode, schoolId);
+
             //var user = User.Identity.Name;
             //var roles = ((ClaimsIdentity)User.Identity).Claims
             //        .Where(c => c.Type == ClaimTypes.Role)
             //        .Select(c => c.Value);
 
-            return Ok();
+            return Ok(dtos);
         }
 
         [HttpGet]

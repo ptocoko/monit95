@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AccountsCreator
 {
-    public static class RU_206_Particips
+    public static class Ru206Particips
     {
         public static Dictionary<string, string> GetLoginPasswordPairsOfParticips()
         {

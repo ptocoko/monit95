@@ -2,17 +2,14 @@
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Monit95App.Services.DTOs;
 
 namespace Monit95App.Services
 {
     public class ClassParticipConverter : IClassParticipConverter
     {
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public ClassParticipConverter(string schoolId, int projectCode)
         {

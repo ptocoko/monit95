@@ -1,28 +1,25 @@
-﻿using Monit95App.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Monit95App.Services.Interfaces;
 
-namespace Monit95App.Domain.Mark
+namespace Monit95App.Services
 {
     public class MarksFileService : IMarksFileService
     {
-        public string _collectFolder { get; set; }
+        public string CollectFolder { get; set; }
 
         public MarksFileService(string collectFolder)
         {
-            this._collectFolder = collectFolder;
+            CollectFolder = collectFolder;
         }
 
         public void SaveAsync(HttpPostedFile httpPostedFile, string userName)
         {
             var fileExten = Path.GetExtension(httpPostedFile.FileName);
             var fileName = $"{userName}{fileExten}";
-            var fullFileName = Path.Combine(_collectFolder, fileName);
+            var fullFileName = Path.Combine(CollectFolder, fileName);
 
             httpPostedFile.SaveAs(fullFileName);
         }
@@ -33,7 +30,7 @@ namespace Monit95App.Domain.Mark
             return Task.Run(() =>
             {
 
-                var filenames = Directory.GetFiles(_collectFolder, "*.xlsx")
+                var filenames = Directory.GetFiles(CollectFolder, "*.xlsx")
                                   .Select(x => Path.GetFileNameWithoutExtension(x)).ToList();
 
                 return true;

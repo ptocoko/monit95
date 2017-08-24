@@ -4,7 +4,6 @@ using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
 using Monit95App.Domain.Interfaces;
-using Monit95App.Services.Models.Rsur;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using NSubstitute;

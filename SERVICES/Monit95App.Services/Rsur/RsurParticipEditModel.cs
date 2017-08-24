@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Monit95App.Services.Models.Rsur
+﻿namespace Monit95App.Services.Rsur
 {
     public class RsurParticipEditModel
     {

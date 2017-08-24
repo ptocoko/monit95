@@ -25,7 +25,7 @@ namespace Monit95App.Web.Tests
             var userModel = new UserModel
             {
                 UserName = "0005",
-                UserRoleNames = new string[] { "school" }
+                UserRoleNames = new[] { "school" }
             };
             mockUserService.Setup(x => x.GetModel(It.IsAny<string>())).Returns(userModel);
 

@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Monit95App.Services.DTOs;
 
 namespace Monit95App.Services
 {
@@ -58,22 +59,22 @@ namespace Monit95App.Services
             return entity.Id;
         }
 
-        public IEnumerable<ParticipDto> GetBySchoolId(string schoolId)
+        public IEnumerable<ParticipDto> GetAllDtos(int? areaCode, string schoolId)
         {
-            if(schoolId == null)
+            var query = _participRepository.GetAll();
+            if(areaCode != null)
             {
-                throw new ArgumentNullException(nameof(schoolId));
+                query = query.Where(particip => particip.School.AreaCode == areaCode);
             }
-            
-            var entities = _participRepository.GetAll().Where(particip => particip.SchoolId == schoolId).ToList();
-            if(!entities.Any())
+            if (schoolId != null)
             {
-                throw new ArgumentException(nameof(schoolId));
+                query = query.Where(particip => particip.SchoolId == schoolId);
             }
 
-            var models = mapper.Map<List<Particip>, List<ParticipDto>>(entities);
+            var entities = query.ToList();        
+            var dtos = mapper.Map<List<Particip>, List<ParticipDto>>(entities);
            
-            return models;
+            return dtos;
         }
 
         public bool Update(ParticipDto dto)

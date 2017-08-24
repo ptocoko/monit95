@@ -1,17 +1,12 @@
-﻿using System;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
+﻿using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
-using System.Threading.Tasks;
 using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.School
 {
     public class SchoolEditService : ISchoolEditService
     {
-        #region Fileds
+        #region Fields
 
         private readonly IGenericRepository<Domain.Core.Entities.School> _schoolRepository;
         private readonly IGenericRepository<SchoolEdit> _schoolEditRepository;
@@ -29,7 +24,6 @@ namespace Monit95App.Services.School
 
         public bool DeleteEditTask(string schoolId) //schoolId = schoolEditId
         {
-
             var correction = _schoolEditRepository.GetById(schoolId);
             if (correction == null)
             {

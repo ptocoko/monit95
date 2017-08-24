@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
-using ClosedXML.Excel;
-using Monit95App.Services.Models.Rsur;
-using System.Resources;
+using System.Linq;
 using System.Reflection;
-using Monit95App.Services.Interfaces;
-using Monit95App.Services.Rsur;
+using System.Threading.Tasks;
+using ClosedXML.Excel;
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Services.Interfaces;
 
-namespace Monit95App.Services
+namespace Monit95App.Services.Rsur
 {    
     public class RsurReportModelXlsxConverter : IRsurReportModelConverter
     {

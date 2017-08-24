@@ -103,8 +103,8 @@
     <Compile Include="Models\ElementResultModel.cs" />
     <Compile Include="Models\ExerciseMarkModel.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
-    <Compile Include="Models\MaxRatesDto.cs" />
-    <Compile Include="Models\ParticipDto.cs" />
+    <Compile Include="DTOs\MaxRatesDto.cs" />
+    <Compile Include="DTOs\ParticipDto.cs" />
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="ClassParticipImporter.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
@@ -125,9 +125,7 @@
     <Compile Include="ReportMetaHandler.cs" />
     <Compile Include="ReportsDto.cs" />
     <Compile Include="Rsur\RsurParticipEditService.cs" />
-    <Compile Include="Rsur\RsurParticipPrimaryKey.cs" />
     <Compile Include="Rsur\RsurParticipProtocolService.cs" />
-    <Compile Include="Rsur\RsurParticipRepository.cs" />
     <Compile Include="Rsur\RsurParticipService.cs" />
     <Compile Include="Rsur\RsurParticipViewer.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />

@@ -1,7 +1,6 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Models;
-using Monit95App.Services.Models.Rsur;
 using Monit95App.Services.Rsur;
 
 namespace Monit95App.Services.Interfaces
