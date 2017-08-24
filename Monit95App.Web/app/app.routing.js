@@ -14,6 +14,7 @@ var appRoutes = [
     { path: 'details', component: particip_details_component_1.ParticipDetailsComponent },
     { path: 'edit-particip', component: edit_particip_component_1.EditParticipComponent },
     { path: 'particip-correction', component: particip_correction_component_1.ParticipCorrectionComponent },
+    //{ path: 'class-particips', component: ClassParticipsListComponent },
     { path: '', redirectTo: '/particips', pathMatch: 'full' } // redirect to home page on load
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

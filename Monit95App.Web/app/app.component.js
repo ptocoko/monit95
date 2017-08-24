@@ -11,11 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var user_service_1 = require("./user.service");
+var router_1 = require("@angular/router");
 var AppComponent = (function () {
-    function AppComponent(userService) {
+    function AppComponent(userService, route, router) {
         this.userService = userService;
+        this.route = route;
+        this.router = router;
         this.isAreaRole = false;
         this.isCokoRole = false;
+        this.isRsur = true;
     }
     AppComponent.prototype.ngOnInit = function () {
         //this.userService.getName().subscribe(user => this.handler(user.userRoles));
@@ -31,7 +35,7 @@ AppComponent = __decorate([
         selector: "app-root",
         templateUrl: "./app/app.component.html"
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

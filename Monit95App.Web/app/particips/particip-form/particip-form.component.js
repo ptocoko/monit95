@@ -22,7 +22,7 @@ var ParticipFormComponent = (function () {
     };
     ParticipFormComponent.prototype.onSubmit = function () {
         console.log(this.particip);
-        this.dialog.close();
+        this.dialog.close(this.particip);
     };
     ParticipFormComponent.prototype.cancel = function () {
         this.dialog.dismiss();

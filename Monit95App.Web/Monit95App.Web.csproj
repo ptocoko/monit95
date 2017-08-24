@@ -318,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.component.html" />
+    <Content Include="app\class-particips\class-particips-list.component.html" />
     <Content Include="app\particips\correction\particip-correction.html" />
     <Content Include="app\particips\details\particip-details.html" />
     <Content Include="app\particips\edit-particip\edit-modal.css" />
@@ -565,6 +566,9 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\class-particips.module.ts" />
+    <TypeScriptCompile Include="app\class-particips\class-particips.routing.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.component.ts" />

@@ -16,7 +16,7 @@ var UserService = (function () {
         this.http = http;
     }
     UserService.prototype.getAccount = function () {
-        return this.http.get("api/account");
+        return this.http.get("api/accounts");
     };
     return UserService;
 }());

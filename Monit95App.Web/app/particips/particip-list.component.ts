@@ -40,7 +40,7 @@ export class ParticipListComponent implements OnInit {
         //    console.log(this.particips);
         //});
 
-        this.particips = PARTICIPS as ParticipModel[];
+		this.particips = PARTICIPS;// as ParticipModel[];
           
         //Get user name
         this.userService.getAccount().subscribe((response: Response) => {

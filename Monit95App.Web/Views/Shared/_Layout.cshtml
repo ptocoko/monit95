@@ -86,24 +86,24 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")            
     @Scripts.Render("~/bundles/ajax")            
-    @Scripts.Render("~/bundles/angular")    
+   @* @Scripts.Render("~/bundles/angular")*@    
     
     <!-- AngularJS Code -->
     @*Modules*@  
-    <script src="~/Scripts/modules/nsurapp.js"></script>
-    <script src="~/Scripts/modules/onetwothreeapp.js"></script>    
+    @*<script src="~/Scripts/modules/nsurapp.js"></script>
+    <script src="~/Scripts/modules/onetwothreeapp.js"></script>*@    
     @*Controllers*@
-    <script src="~/Scripts/controllers/tabctrl.js"></script>
+    @*<script src="~/Scripts/controllers/tabctrl.js"></script>
     <script src="~/Scripts/controllers/participctrl.js"></script>
     <script src="~/Scripts/controllers/planctrl.js"></script>
     <script src="~/Scripts/controllers/marksctrl.js"></script>           
     <script src="~/Scripts/controllers/onetwothree_participctrl.js"></script>
-    <script src="~/Scripts/controllers/oneTwoThree_marksCtrl.js"></script>    
+    <script src="~/Scripts/controllers/oneTwoThree_marksCtrl.js"></script>*@    
     @*Services*@
-    <script src="~/Scripts/services/pparticipservice.js"></script>  
+    @*<script src="~/Scripts/services/pparticipservice.js"></script>  
     <script src="~/Scripts/services/schoolservice.js"></script>
     <script src="~/Scripts/services/tresultservice.js"></script>
-    <script src="~/Scripts/services/onetwothree_participservice.js"></script>
+    <script src="~/Scripts/services/onetwothree_participservice.js"></script>*@
     <!-- AngularJS Code -->
 
     
@@ -131,6 +131,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                     <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
+                    <li><a href="rsur/spa#class-particips">Первые классы</a></li>
                     }
                     @if (User.IsInRole("coko"))
                     {

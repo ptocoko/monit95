@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var mydatepicker_1 = require("mydatepicker");
+var class_particips_module_1 = require("./class-particips/class-particips.module");
 //Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./particips/details/particip-modal.component");
@@ -45,7 +46,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_1.routing, forms_1.FormsModule, angular2_modal_1.ModalModule.forRoot(), bootstrap_1.BootstrapModalModule, mydatepicker_1.MyDatePickerModule],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, class_particips_module_1.ClassParticipsModule, app_routing_1.routing, forms_1.FormsModule, angular2_modal_1.ModalModule.forRoot(), bootstrap_1.BootstrapModalModule, mydatepicker_1.MyDatePickerModule],
         declarations: [
             app_component_1.AppComponent,
             particips_component_1.ParticipsComponent,

@@ -32,13 +32,13 @@ namespace Monit95App.Infrastructure.BusinessTests
             {
                 new Class
                 {
-                    Name = "1А",
+                    Name = "1 А",
                     Id = "0101"
                 },
                 new Class
                 {
-                    Name = "1Б",
-                    Id = "0102"
+                    Name = "11 Б",
+                    Id = "1102"
                 }
             };
             mockClassService.GetAll().Returns(mockClasses);
@@ -49,7 +49,7 @@ namespace Monit95App.Infrastructure.BusinessTests
                                 .ImportFromExcelFileStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"));
             
             Assert.AreEqual(2, actualParticips.Count);
-            Assert.AreEqual("1Б", actualParticips[0].ClassName);
+            Assert.AreEqual("11 Б", actualParticips[0].ClassName);
             Assert.AreEqual(4, actualRowNumbersWithErrors.First());
         }
 
@@ -65,12 +65,12 @@ namespace Monit95App.Infrastructure.BusinessTests
                 },
                 new Class
                 {
-                    Name = "1А",
-                    Id = "0101"
+                    Name = "11 Б",
+                    Id = "1101"
                 },
                 new Class
                 {
-                    Name = "1Б",
+                    Name = "1 А",
                     Id = "0102"
                 }
             };

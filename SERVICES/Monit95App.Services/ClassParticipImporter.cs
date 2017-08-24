@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Monit95App.Services
@@ -87,7 +88,15 @@ namespace Monit95App.Services
 
         private string NormalizeClassName(string className)
         {
-            return className.Replace("\"", "").Replace("'", "").Replace(" ", "").ToUpper();
+            var newClassName = className.Replace("\"", "").Replace("'", "").Replace(" ", "").ToUpper();
+            if (char.IsLetter(newClassName.Last()))
+            {
+                return Regex.Replace(newClassName, "([A-я]$)", " $0");
+            }
+            else
+            {
+                return newClassName;
+            }
         }
 
         private string NormalizeNames(string name)

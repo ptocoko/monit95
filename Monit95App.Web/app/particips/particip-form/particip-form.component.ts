@@ -21,7 +21,7 @@ export class ParticipFormComponent implements OnInit {
 
     onSubmit() {
         console.log(this.particip);
-        this.dialog.close();
+        this.dialog.close(this.particip);
     }
 
     cancel() {

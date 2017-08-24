@@ -23,18 +23,18 @@ namespace Monit95App.Api
         #endregion
 
         public ExcelFilesController(IClassParticipImporter classParticipImporter,
-                                    IClassParticipConverter classParticipConverter,
+                                    //IClassParticipConverter classParticipConverter,
                                     IParticipService participService)
         {
             _classParticipImporter = classParticipImporter;
-            _classParticipConverter = classParticipConverter;
+           // _classParticipConverter = classParticipConverter;
             _participService = participService;
         }
 
         #region APIs
 
         [HttpPost]
-        [Route("")]
+        //[Route("")]
         public IHttpActionResult Upload()
         {            
             var httpRequest = HttpContext.Current.Request;
@@ -44,7 +44,7 @@ namespace Monit95App.Api
             }
             var httpPostedFile = httpRequest.Files[0];
 
-            if(Path.GetExtension(httpPostedFile.FileName) != "xlsx")
+            if(Path.GetExtension(httpPostedFile.FileName) != ".xlsx")
             {
                 return BadRequest();
             }        
