@@ -84,6 +84,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
     <Reference Include="System.IO.Abstractions, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Abstractions.1.2.0.0\lib\System.IO.Abstractions.dll</HintPath>
     </Reference>

@@ -19,7 +19,7 @@ namespace Monit95App.Services.DTOs
         [StringLength(4)]
         public string SchoolId { get; set; }
                 
-        [StringLength(2)]
+        [RegularExpression("([0-9]|10|11) [АБВГДЕЖЗИКЛ]")]
         public string ClassName { get; set; }
 
         public int Id { get; set; }

@@ -15,12 +15,29 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Http.Controllers;
 using Monit95App.Services.DTOs;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Domain.Core.Entities;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
+using Monit95App.Services;
 
 namespace Monit95App.Web.Tests
 {
     [TestClass]
     public class ParticipsController_Test
     {
+        GenericRepository<Particip> repo = new GenericRepository<Particip>();
+
+        [TestCleanup]
+        public void CleanUp()
+        {            
+            var testEntities = repo.GetAll().Where(x => x.Surname == "Test").ToList();
+            foreach (var testEntity in testEntities)
+            {
+                repo.Delete(testEntity.Id);
+            }
+        }
+
         [TestMethod]
         public void Post_Test()
         {
@@ -45,6 +62,40 @@ namespace Monit95App.Web.Tests
         }
 
         [TestMethod]
+        public void Post_TestConflictResultSqlException2627()
+        {
+            //Arrange   
+            CleanUp();
+            var entity = new Particip()
+            {
+                ProjectCode = 999,
+                Surname = "Test",
+                Name = "Test",
+                SchoolId = "0001",
+                ClassCode = "0101"
+            };
+            repo.Insert(entity);            
+
+            var mockClassService = Substitute.For<IClassService>();
+            mockClassService.GetId("1 А").Returns("0101");
+            var controller = new ParticipsController(new ParticipService(repo, mockClassService));
+
+            //Act
+            var dto = new ParticipDto()
+            {
+                ProjectCode = 999,
+                Surname = "Test",
+                Name = "Test",
+                SchoolId = "0001",
+                ClassName = "1 А"
+            };
+            var response = controller.Post(dto);
+
+            //Assert
+            Assert.IsInstanceOfType(response, typeof(ConflictResult));
+        }
+
+        [TestMethod]
         public void GetByIdFromRoute_Test()
         {
             //Arrange
@@ -62,7 +113,50 @@ namespace Monit95App.Web.Tests
         }
 
         [TestMethod]
-        public void GetAll_Test()
+        public void GetAll_CallByCokoTest()
+        {
+            //Arrange
+            var service = Substitute.For<IParticipService>();
+            var controller = new ParticipsController(service);
+            var dtos = new List<ParticipDto>
+            {
+                new ParticipDto
+                {
+                    ProjectCode = 201617,
+                    Surname = "Shakhabov",
+                    Name = "Adam",
+                    SchoolId = "0001",
+                    ClassName = "1 А",
+                    Id = 123
+                },
+                new ParticipDto
+                {
+                    ProjectCode = 201617,
+                    Surname = "Muciev",
+                    Name = "Adlan",
+                    SchoolId = "0005",
+                    ClassName = "1 А",
+                    Id = 124
+                }
+            };
+            
+            var principal = Substitute.For<IPrincipal>();
+            var identity = Substitute.For<IIdentity>();
+            identity.Name.Returns("coko");
+            principal.IsInRole("area").Returns(false);
+            principal.IsInRole("school").Returns(false);
+
+            controller.User = principal;
+
+            //Act            
+            var response = controller.GetAll();
+
+            //Assert            
+            service.GetAllDtos(null, null).Received();            
+        }
+
+        [TestMethod]
+        public void GetAll_CallByAreaTest()
         {
             //Arrange
             var mockService = Substitute.For<IParticipService>();
@@ -89,18 +183,71 @@ namespace Monit95App.Web.Tests
                 }
             };
 
-            var principal = Substitute.For<IPrincipal>();
-            var identity = Substitute.For<IIdentity>();
-            principal.Identity.Returns(identity);
-            identity.Name.Returns("0005"); 
+            var mockPrincipal = Substitute.For<IPrincipal>();
+            var mockIdentity = Substitute.For<IIdentity>();
+            mockPrincipal.Identity.Returns(mockIdentity);
+            mockIdentity.Name.Returns("201");
+            mockPrincipal.IsInRole("area").Returns(true);
+            mockPrincipal.IsInRole("school").Returns(false);
 
-            controller.User = principal;
+            controller.User = mockPrincipal;
 
             //Act            
-            var response = controller.GetAll() as OkNegotiatedContentResult<IEnumerable<ParticipDto>>;
+            var response = controller.GetAll();
 
             //Assert            
-            Assert.AreEqual(2, response.Content.Count());
+            mockService.GetAllDtos(201, null).Received();
+        }       
+
+        [TestMethod]
+        public void Put_Test()
+        {
+            //Arrange
+            var mockService = Substitute.For<IParticipService>();
+            var controller = new ParticipsController(mockService);
+
+            //Act
+            var dto = new ParticipDto()
+            {
+                ProjectCode = 1,
+                Surname = "Test",
+                Name = "Test",
+                SchoolId = "0001",
+                ClassName = "1 А"
+            };
+            controller.RequestContext.RouteData = new HttpRouteData(
+                new HttpRoute(),
+                new HttpRouteValueDictionary { { "id", "123" } });
+            var response = controller.Put(dto);
+
+            //Assert
+            mockService.Update(123, dto);
+        }
+
+        [TestMethod]
+        public void Put_TestNotFound()
+        {
+            //Arrange
+            var mockService = Substitute.For<IParticipService>();
+            mockService.When(x => x.Update(123, Arg.Any<ParticipDto>())).Do(x => { throw new ArgumentException(); });
+            var controller = new ParticipsController(mockService);
+
+            //Act
+            var dto = new ParticipDto()
+            {
+                ProjectCode = 1,
+                Surname = "Test",
+                Name = "Test",
+                SchoolId = "0001",
+                ClassName = "1 А"
+            };
+            controller.RequestContext.RouteData = new HttpRouteData(
+                new HttpRoute(),
+                new HttpRouteValueDictionary { { "id", "123" } });
+            var response = controller.Put(dto);
+
+            //Assert            
+            Assert.IsInstanceOfType(response, typeof(NotFoundResult));
         }
     }
 }

@@ -22,6 +22,9 @@ namespace Monit95App.Domain.Core.Entities
 
         public string Name { get; set; }
 
+        [StringLength(25)]
+        public string ClassNumbers { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiaResult> GiaResults { get; set; }
 

@@ -34,26 +34,27 @@ namespace Monit95App.Services
             _participRepository = participRepository;
             _classServise = classService;
 
-            var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>().ReverseMap());
+            var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>().ReverseMap()
+                                                        .AfterMap((dto, entity) => entity.Class = null));
             mapper = mapConfig.CreateMapper();
         }
 
         public int Add(ParticipDto dto)
         {
-            //Validation
-            if (dto == null)
+            //Validation       
+            if(dto == null)
             {
                 throw new ArgumentNullException(nameof(dto));
-            }                        
+            }
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
-            Validator.ValidateObject(dto, validContext);
+            Validator.ValidateObject(dto, validContext, true);
             
-            Mapper.Initialize(cfg => cfg.CreateMap<ParticipDto, Particip>());
-            var entity = mapper.Map<ParticipDto, Particip>(dto);            
+            var entity = mapper.Map<ParticipDto, Particip>(dto);
+            #warning refactoring
+            entity.Class = null;
+            var classCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode            
 
-            var classCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode
-            entity.ClassCode = classCode ?? throw new ArgumentException(nameof(dto.ClassName));
-
+            entity.Class = null;
             _participRepository.Insert(entity);                        
 
             return entity.Id;
@@ -77,23 +78,23 @@ namespace Monit95App.Services
             return dtos;
         }
 
-        public bool Update(ParticipDto dto)
-        {
-            if (dto != null && dto.Id != 0)
+        public void Update(int id, ParticipDto dto)
+        {           
+            if(dto == null)
             {
-                var entity = _participRepository.GetById(dto.Id);
-                entity.ProjectCode = dto.ProjectCode;
-                entity.Surname = dto.Surname;
-                entity.Name = dto.Name;
-                entity.SecondName = dto.SecondName;
-                entity.SchoolId = dto.SchoolId;
-                entity.ClassCode = _classServise.GetId(dto.ClassName);
-
-                _participRepository.Save();
+                throw new ArgumentNullException(nameof(dto));
             }
-            _participRepository.Save();
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+            Validator.ValidateObject(dto, validationContext, true);
+            var entity = _participRepository.GetById(id);
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(id));
+            }
 
-            return true;
+            mapper.Map(dto, entity);
+
+            _participRepository.Update(entity);
         }
 
         public Task<bool> DeleteAsync(int id)

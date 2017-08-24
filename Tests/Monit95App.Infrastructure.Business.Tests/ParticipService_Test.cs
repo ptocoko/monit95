@@ -102,29 +102,27 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public void Update_Test()
         {
-            //var dto = new ProjectParticipV2Dto
-            //{
-            //    Id = ""
-            //    ProjectCode = 201661,
-            //    Surname = "Test",
-            //    Name = "test",
-            //    SecondName = "test",
-            //    SchoolId = "0005",
-            //    ClassName = "1 А"
-            //};
+            //Arrange
+            var mockClassService = Substitute.For<IClassService>();
+            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
 
-            //var mockClassService = new Mock<IClassService>();
-            //mockClassService.Setup(x => x.GetId("1 А")).Returns("0101");
-            //var unitOfWork = new UnitOfWorkV2(new cokoContext());
-            //var projectParticipV2Repository = new Repository<ProjectParticipsV2>(unitOfWork);
-            //var service = new ProjectParticipV2Service(unitOfWork, projectParticipV2Repository, mockClassService.Object);
+            //Act
+            var dto = new ParticipDto
+            {
+                ProjectCode = 1,
+                //Surname = "Test",
+                Name = "Test",
+                SchoolId = "0001",
+                ClassName = "1 А"
+            };
+            var service = new ParticipService(mockParticipRepository, mockClassService);
+            service.Update(123, dto);
 
-            //var result = service.AddAsync(dto);
-
-            ////Assert
-            //Assert.IsTrue(result.Id != 0);
+            //Assert
+            mockParticipRepository.Received().Update(Arg.Is<Particip>(x => x.ClassCode == "0101"));
+            mockParticipRepository.Received().Update(Arg.Is<Particip>(x => x.ProjectCode == 1));
         }
 
         [TestMethod]
@@ -153,6 +151,44 @@ namespace Monit95App.Services.Tests
             Assert.AreEqual("1 А", dto.ClassName);
         }
 
-        
+        [TestMethod]
+        public void GetAllDtos_Test()
+        {
+            //Arrange
+            var mockClassService = Substitute.For<IClassService>();
+            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var service = new ParticipService(mockParticipRepository, mockClassService);
+            var dtos = new List<Particip>
+            {
+                new Particip
+                {
+                    ProjectCode = 201661,
+                    Surname = "Shakhabov",
+                    Name = "Adam",
+                    SchoolId = "0001",
+                    School = new Domain.Core.Entities.School {Id = "0001", AreaCode = 201 }
+            },
+                new Particip
+                {
+                    ProjectCode = 201661,
+                    Surname = "Esembaev",
+                    Name = "Husain",
+                    SchoolId = "0002",
+                    School = new Domain.Core.Entities.School {Id = "0002", AreaCode = 202 }
+                }
+            }.AsQueryable();
+            mockParticipRepository.GetAll().Returns(dtos);
+
+            //Act
+            var cokoDtos = service.GetAllDtos(null, null);
+            var areaDtos = service.GetAllDtos(201, null);
+            var schoolDtos = service.GetAllDtos(null, "0001");
+
+            //Assert
+            Assert.AreEqual(cokoDtos.Count(), 2);
+            Assert.AreEqual(1, areaDtos.Count());
+            Assert.IsTrue(schoolDtos.All(x => x.SchoolId == "0001"));
+            
+        }               
     }
 }
