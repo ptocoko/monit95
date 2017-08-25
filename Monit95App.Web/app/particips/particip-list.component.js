@@ -31,7 +31,7 @@ var ParticipListComponent = (function () {
         //    console.log(this.particips);
         //});
         var _this = this;
-        this.particips = mock_particips_1.PARTICIPS;
+        this.particips = mock_particips_1.PARTICIPS; // as ParticipModel[];
         //Get user name
         this.userService.getAccount().subscribe(function (response) {
             _this.userName = response.json().UserName;

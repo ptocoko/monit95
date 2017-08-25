@@ -4,8 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
+import { RouterModule } from "@angular/router";
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
+import { ClassParticipsModule } from "./class-particips/class-particips.module";
 
 //Components
 import { AppComponent } from './app.component';
@@ -19,7 +21,7 @@ import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './particips/details/particip-details.component';
 import { EditParticipComponent } from './particips/edit-particip/edit-particip.component';
 import { ParticipCorrectionComponent } from './particips/correction/particip-correction.component';
-import { ParticipFormComponent } from './particips/particip-form/particip-form.component'
+import { ParticipFormComponent } from './particips/particip-form/particip-form.component';
 
 //Services
 import { UserService } from './user.service'
@@ -37,7 +39,7 @@ import { GlobalErrorHandler } from "./error-handler";
 
 
 @NgModule({
-	imports: [BrowserModule, HttpModule, routing, FormsModule, ModalModule.forRoot(), BootstrapModalModule, MyDatePickerModule],
+	imports: [BrowserModule, HttpModule, ClassParticipsModule, routing, FormsModule, ModalModule.forRoot(), BootstrapModalModule, MyDatePickerModule],
 	declarations: [
 		AppComponent,
 		ParticipsComponent,
@@ -53,7 +55,7 @@ import { GlobalErrorHandler } from "./error-handler";
 		ResultsModalComponent,
         EditModalComponent,
         ParticipCorrectionComponent,
-        ParticipFormComponent
+		ParticipFormComponent
 	],
 	providers: [
         UserService, ParticipService, ParticipCorrectionService,

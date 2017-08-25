@@ -48,6 +48,8 @@ namespace Monit95App.Util
             builder.RegisterType<RsurReportModelXlsxConverter>().As<IRsurReportModelConverter>();
             builder.RegisterType<SchoolEditService>().As<ISchoolEditService>();
             builder.RegisterType<SchoolService>().As<ISchoolService>();
+            builder.RegisterType<ClassParticipImporter>().As<IClassParticipImporter>();
+            builder.RegisterType<ClassParticipConverter>().As<IClassParticipConverter>();
             builder.RegisterType<ApplicationDbContext>();
             //
 

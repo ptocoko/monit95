@@ -1,18 +1,25 @@
 ﻿using ClosedXML.Excel;
+using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Monit95App.Services
 {
     public class ClassParticipImporter : IClassParticipImporter
     {
-        private readonly IEnumerable<Class> _allClasses;
+        private IEnumerable<Class> _allClasses;
 
         public ClassParticipImporter(IClassService classService)
         {
@@ -37,16 +44,14 @@ namespace Monit95App.Services
 
             using (var workbook = new XLWorkbook(stream))
             {
-                var (classParticips, rowNumbersWithErrors) = GetParticipsFromWorksheet(workbook.Worksheets.First());
-
-                return (classParticips, rowNumbersWithErrors);
+                return GetParticipsFromWorksheet(workbook.Worksheets.First());
             }
         }
         
         private (List<ClassParticip>, List<int>) GetParticipsFromWorksheet(IXLWorksheet excelList)
         {
-            var participsFromExcelList = new List<ClassParticip>();
-            var rowNumbersWithErrors = new List<int>();
+            List<ClassParticip> participsFromExcelList = new List<ClassParticip>();
+            List<int> rowNumbersWithErrors = new List<int>();
 
             foreach (var row in excelList.RowsUsed().Skip(1).Take(500))
             {
@@ -83,7 +88,22 @@ namespace Monit95App.Services
 
         private string NormalizeClassName(string className)
         {
-            return className.Replace("\"", "").Replace("'", "").Replace(" ", "").ToUpper();
+            if (className.Length > 0)
+            {
+                var newClassName = className.Replace("\"", "").Replace("'", "").Replace(" ", "").ToUpper();
+                if (char.IsLetter(newClassName.Last()))
+                {
+                    return Regex.Replace(newClassName, "([A-я]$)", " $0");
+                }
+                else
+                {
+                    return newClassName;
+                }
+            }
+            else
+            {
+                return className;
+            }
         }
 
         private string NormalizeNames(string name)
@@ -101,7 +121,7 @@ namespace Monit95App.Services
 
         private bool ValidateClassName(string className)
         {
-            return _allClasses.Select(s => s.Name).Any(p => p == className);
+            return _allClasses.Select(s => s.Name.Trim()).Any(p => p == className);
         }
     }
 }

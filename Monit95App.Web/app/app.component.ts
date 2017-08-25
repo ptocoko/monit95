@@ -8,6 +8,7 @@ import { UserService } from "./user.service";
 export class AppComponent implements OnInit {
 	isAreaRole = false;
 	isCokoRole = false;
+	isRsur: boolean = true;
 
     constructor(private userService: UserService) { }
 

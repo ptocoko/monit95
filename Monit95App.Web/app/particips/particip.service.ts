@@ -1,8 +1,8 @@
 ﻿import { Injectable, Component } from '@angular/core';
 //import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from '@angular/http';
 import { Http, Response } from '@angular/http';
-import 'rxjs/Rx';
-import { Observable }from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 import { ParticipModel } from './particip.model';
 import { ParticipEditModel } from '../particips/edit-particip/edit-particip.model';
 import { ResultsModel, ResultDetailsModel } from './results/results.model';

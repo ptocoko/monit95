@@ -190,6 +190,7 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -317,6 +318,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.component.html" />
+    <Content Include="app\class-particips\class-particips-list.component.html" />
+    <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
     <Content Include="app\particips\correction\particip-correction.html" />
     <Content Include="app\particips\details\particip-details.html" />
     <Content Include="app\particips\edit-particip\edit-modal.css" />
@@ -564,6 +567,10 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\class-particips.module.ts" />
+    <TypeScriptCompile Include="app\class-particips\class-particips.routing.ts" />
+    <TypeScriptCompile Include="app\class-particips\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particips\correction\particip-correction.component.ts" />

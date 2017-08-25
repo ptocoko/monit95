@@ -28,11 +28,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let particip of particips | participFilter: searchText | limitTo: 100">
-                    <td>{{particip.ParticipCode}}</td>
-                    <td>{{particip.surname.value}}</td>
-                    <td>{{particip.Name}}</td>
-                    <td>{{particip.SecondName}}</td>
-                    <td>{{particip.NsurSubjectName}}</td>
+                    <td>{{particip.participCode}}</td>
+                    <td>{{particip.surname}}</td>
+                    <td>{{particip.name}}</td>
+                    <td>{{particip.secondName}}</td>
+                    <td>{{particip.subjectName}}</td>
                     <td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="edit(particip)"></a></td>
                     <td>
                         <button type="button" class="btn btn-default" (click)="openModal(particip)">

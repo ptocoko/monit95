@@ -16,6 +16,7 @@ var AppComponent = (function () {
         this.userService = userService;
         this.isAreaRole = false;
         this.isCokoRole = false;
+        this.isRsur = true;
     }
     AppComponent.prototype.ngOnInit = function () {
         //this.userService.getName().subscribe(user => this.handler(user.userRoles));
