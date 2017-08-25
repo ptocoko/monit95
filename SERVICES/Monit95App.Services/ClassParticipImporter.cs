@@ -19,15 +19,15 @@ namespace Monit95App.Services
 {
     public class ClassParticipImporter : IClassParticipImporter
     {
-        private IEnumerable<Class> _allClasses;
+        private List<Class> _allClasses;
+        private IClassService _classService;
 
         public ClassParticipImporter(IClassService classService)
         {
-            _allClasses = classService.GetAll(); //все классы загружаются заранее, 
-                                                //чтобы не делать запрос в базу данных на каждую валидацию ClassName
+            _classService = classService;
         }
 
-        public (IList<ClassParticip>, IEnumerable<int>) GetParticipsFromFilePath(string filePath)
+        public (IList<ClassParticip>, IEnumerable<int>) GetParticipsFromFilePath(string filePath, List<int> classNumbers = null)
         {
             using(Stream stream = new FileStream(filePath, FileMode.Open))
             {
@@ -35,11 +35,25 @@ namespace Monit95App.Services
             }
         }
 
-        public (IList<ClassParticip>, IEnumerable<int>) ImportFromExcelFileStream(Stream stream)
+        public (IList<ClassParticip>, IEnumerable<int>) ImportFromExcelFileStream(Stream stream, List<int> classNumbers = null)
         {
             if (stream == null)
             {
                 throw new ArgumentNullException(nameof(stream));
+            }
+
+            if(classNumbers == null)
+            {
+                _allClasses = _classService.GetAll().ToList();
+            }
+            else
+            {
+                _allClasses = new List<Class>();
+                var classes = _classService.GetAll();
+                foreach (var classNumber in classNumbers)
+                {
+                    _allClasses.AddRange(classes.Where(p => p.Name.StartsWith(classNumber.ToString()+" ")));
+                }
             }
 
             using (var workbook = new XLWorkbook(stream))
