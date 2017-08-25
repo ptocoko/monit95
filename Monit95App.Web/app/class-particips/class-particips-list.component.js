@@ -34,7 +34,7 @@ var ClassParticipsListComponent = (function () {
                 modal.result.then(function (result) {
                     //TODO: realize update list of particips;
                 }).catch(function (data) {
-                    console.log(data);
+                    //console.log(data);
                 });
             });
         }
@@ -43,7 +43,10 @@ var ClassParticipsListComponent = (function () {
 }());
 ClassParticipsListComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/class-particips-list.component.html'
+        templateUrl: './app/class-particips/class-particips-list.component.html',
+        styles: [
+            ".fileUploader {\n\t\t\t\toverflow: hidden;\n\t\t\t\tposition: relative;\n\t\t\t}\n\n\t\t\t.fileUploader [type=file] {\n\t\t\t\tcursor: inherit;\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-size: 999px;\n\t\t\t\tfilter: alpha(opacity=0);\n\t\t\t\tmin-height: 100%;\n\t\t\t\tmin-width: 100%;\n\t\t\t\topacity: 0;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\ttext-align: right;\n\t\t\t\ttop: 0;\n\t\t\t}"
+        ]
     }),
     __metadata("design:paramtypes", [user_service_1.UserService, particip_service_1.ParticipService, angular2_modal_1.Modal])
 ], ClassParticipsListComponent);

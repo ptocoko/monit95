@@ -7,7 +7,27 @@ import { ExportExcelModal, ExportExcelModalData } from "./export-excel-modal.com
 import { BSModalContext } from "angular2-modal/plugins/bootstrap";
 
 @Component({
-	templateUrl: './app/class-particips/class-particips-list.component.html'
+	templateUrl: './app/class-particips/class-particips-list.component.html',
+	styles: [
+		  `.fileUploader {
+				overflow: hidden;
+				position: relative;
+			}
+
+			.fileUploader [type=file] {
+				cursor: inherit;
+				display: block;
+				font-size: 999px;
+				filter: alpha(opacity=0);
+				min-height: 100%;
+				min-width: 100%;
+				opacity: 0;
+				position: absolute;
+				right: 0;
+				text-align: right;
+				top: 0;
+			}`
+	]
 })
 export class ClassParticipsListComponent implements OnInit {
 	constructor(private userService: UserService, private participService: ParticipService, private modal: Modal) {
