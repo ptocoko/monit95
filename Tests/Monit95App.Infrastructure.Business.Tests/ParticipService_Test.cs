@@ -107,12 +107,23 @@ namespace Monit95App.Services.Tests
             //Arrange
             var mockClassService = Substitute.For<IClassService>();
             var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var entity = new Particip
+            {
+                Id = 123,
+                Surname = "Testu",
+                Name = "test",
+                SecondName = "test",
+                SchoolId = "0005",
+                ClassCode = "0101"
+
+            };
+            mockParticipRepository.GetById(123).Returns(entity);
 
             //Act
             var dto = new ParticipDto
             {
                 ProjectCode = 1,
-                //Surname = "Test",
+                Surname = "Test",
                 Name = "Test",
                 SchoolId = "0001",
                 ClassName = "1 А"

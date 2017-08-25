@@ -34,38 +34,38 @@ namespace Monit95App.Services
         }
 
         #warning what about validate properties of model?
-        public Task<ExerciseMarkModel> AddAsync(ExerciseMarkModel model)
+        public int Add(ExerciseMarkDto dto)
         {
-            return Task.Run(() =>
-            {
-                if (model != null)
-                {
-                    var newEntity = new ExerciseMark
-                    {
-                        ParticipId = model.ProjectParticipId,
-                        TestId = new Guid(model.TestId),
-                        Marks = model.Marks                       
-                    };
+          
+                //if (model != null)
+                //{
+                //    var newEntity = new ExerciseMark
+                //    {
+                //        ParticipId = model.ParticipId,
+                //        TestId = new Guid(model.TestId),
+                //        Marks = model.Marks                       
+                //    };
 
-                    _exerciseMarkRepository.Insert(newEntity);
-                    _exerciseMarkRepository.Save();                    
+                //    _exerciseMarkRepository.Insert(newEntity);
+                //    _exerciseMarkRepository.Save();                    
 
-                    model.Id = newEntity.Id;
-                    return model;
-                }                
-                throw new ArgumentNullException("model");
-            });
-        } //C
+                //    model.Id = newEntity.Id;
+                //    return dto;
+                //}                
+                //throw new ArgumentNullException("model");
+            return 1;
+            
+        } 
 
-        public Task<List<ExerciseMarkModel>> GetBySchoolIdAsync(string schoolId, string [] tests) //R
+        public Task<List<ExerciseMarkDto>> GetBySchoolIdAsync(string schoolId, string [] tests) //R
         {                     
             return Task.Run(() =>
             {
-                var dto = new List<ExerciseMarkModel>();
+                var dto = new List<ExerciseMarkDto>();
 
                 var res = _exerciseMarkRepository.GetAll()
                                          .Where(x => x.Particip.SchoolId == schoolId && tests.Contains(x.TestId.ToString()))
-                                         .Select(s => new ExerciseMarkModel { Id = s.Id, ProjectParticipId = s.ParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })
+                                         .Select(s => new ExerciseMarkDto { Id = s.Id, ParticipId = s.ParticipId, TestId = s.TestId.ToString(), Marks = s.Marks })
                                          .ToList();
                 dto.AddRange(res);
 
@@ -87,7 +87,7 @@ namespace Monit95App.Services
             });
         }
 
-        public Task<bool> UpdateAsync(ExerciseMarkModel marks)
+        public Task<bool> UpdateAsync(ExerciseMarkDto marks)
         {
             return Task.Run(() =>
             {

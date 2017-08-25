@@ -56,8 +56,12 @@ namespace Monit95App.Web.Api
             bool hasRowsWithError = rowNumbersWithError != null;
             var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 201777);
 
-            //foreach (var particip in particips)
-            //    _participService.Add(particip);
+
+            foreach (var particip in particips)
+            {
+                _participService.Add(particip);
+            }
+                
 
             return Ok(new {
                               CountOfAddedParticips = particips.Count(),

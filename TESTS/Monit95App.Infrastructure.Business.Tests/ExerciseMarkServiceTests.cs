@@ -16,13 +16,13 @@ namespace Monit95App.Infrastructure.BusinessTests
         [TestMethod]
         public async Task AddAsyncTest()
         {
-            var mockInModel = new ExerciseMarkModel
+            var mockInModel = new ExerciseMarkDto
             {                
                 ProjectParticipId = 1018,
                 TestId = "C0AAE792-9EE5-4A9F-B8CD-03AEF37032E1",
                 Marks = "1;0;0;1"
             };
-            var mockOutModel = new ExerciseMarkModel
+            var mockOutModel = new ExerciseMarkDto
             {
                 Id = 11,
                 ProjectParticipId = 1018,

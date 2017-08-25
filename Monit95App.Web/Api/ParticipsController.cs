@@ -7,6 +7,8 @@ using Monit95App.Services.DTOs;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Web.Http.Results;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Api
 {
@@ -17,12 +19,14 @@ namespace Monit95App.Api
         #region Dependencies
 
         private readonly IParticipService _participService;
+        private readonly IGenericRepository<Particip> _participRepository;
 
         #endregion    
 
-        public ParticipsController(IParticipService participService)
+        public ParticipsController(IParticipService participService, IGenericRepository<Particip> participRepository)
         {
             _participService = participService;
+            _participRepository = participRepository;
         }
 
         #region APIs
@@ -93,14 +97,21 @@ namespace Monit95App.Api
             return Ok(dto);
         }
 
-        public HttpResponseMessage Delete(int id)
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IHttpActionResult Delete()
         {
-            if (id == 0)
+            var id = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            try
             {
-                throw new ArgumentNullException("async Task<HttpResponseMessage> Delete(int id)");
+                _participRepository.Delete(id);
             }
-            _participService.Delete(id);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            catch(ArgumentException)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
 
         [HttpPut]
@@ -125,6 +136,7 @@ namespace Monit95App.Api
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        
         #endregion
     }
 }

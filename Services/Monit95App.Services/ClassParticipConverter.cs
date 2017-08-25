@@ -4,6 +4,7 @@ using Monit95App.Services.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 using Monit95App.Services.DTOs;
+using System.Collections.Generic;
 
 namespace Monit95App.Services
 {

@@ -20,6 +20,7 @@ using Monit95App.Domain.Core.Entities;
 using System.Data.SqlClient;
 using System.Data.Entity.Infrastructure;
 using Monit95App.Services;
+using Monit95App.Domain.Interfaces;
 
 namespace Monit95App.Web.Tests
 {
@@ -27,6 +28,7 @@ namespace Monit95App.Web.Tests
     public class ParticipsController_Test
     {
         GenericRepository<Particip> repo = new GenericRepository<Particip>();
+        IGenericRepository<Particip> mockRepo = Substitute.For<IGenericRepository<Particip>>();
 
         [TestCleanup]
         public void CleanUp()
@@ -54,7 +56,7 @@ namespace Monit95App.Web.Tests
                 ClassName = "1 А",
                 Id = 123
             };
-            var controller = new ParticipsController(mockService);
+            var controller = new ParticipsController(mockService, mockRepo);
             controller.Post(dto);
 
             //Assert
@@ -78,7 +80,7 @@ namespace Monit95App.Web.Tests
 
             var mockClassService = Substitute.For<IClassService>();
             mockClassService.GetId("1 А").Returns("0101");
-            var controller = new ParticipsController(new ParticipService(repo, mockClassService));
+            var controller = new ParticipsController(new ParticipService(repo, mockClassService), mockRepo);
 
             //Act
             var dto = new ParticipDto()
@@ -100,7 +102,7 @@ namespace Monit95App.Web.Tests
         {
             //Arrange
             var mockService = Substitute.For<IParticipService>();
-            var controller = new ParticipsController(mockService);
+            var controller = new ParticipsController(mockService, mockRepo);
             controller.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
                 new HttpRouteValueDictionary { { "id", "123" } });
@@ -117,7 +119,7 @@ namespace Monit95App.Web.Tests
         {
             //Arrange
             var service = Substitute.For<IParticipService>();
-            var controller = new ParticipsController(service);
+            var controller = new ParticipsController(service, mockRepo);
             var dtos = new List<ParticipDto>
             {
                 new ParticipDto
@@ -160,7 +162,7 @@ namespace Monit95App.Web.Tests
         {
             //Arrange
             var mockService = Substitute.For<IParticipService>();
-            var controller = new ParticipsController(mockService);
+            var controller = new ParticipsController(mockService, mockRepo);
             var dtos = new List<ParticipDto>
             {
                 new ParticipDto
@@ -204,7 +206,7 @@ namespace Monit95App.Web.Tests
         {
             //Arrange
             var mockService = Substitute.For<IParticipService>();
-            var controller = new ParticipsController(mockService);
+            var controller = new ParticipsController(mockService, mockRepo);
 
             //Act
             var dto = new ParticipDto()
@@ -230,7 +232,7 @@ namespace Monit95App.Web.Tests
             //Arrange
             var mockService = Substitute.For<IParticipService>();
             mockService.When(x => x.Update(123, Arg.Any<ParticipDto>())).Do(x => { throw new ArgumentException(); });
-            var controller = new ParticipsController(mockService);
+            var controller = new ParticipsController(mockService, mockRepo);
 
             //Act
             var dto = new ParticipDto()
@@ -248,6 +250,24 @@ namespace Monit95App.Web.Tests
 
             //Assert            
             Assert.IsInstanceOfType(response, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public void Delete_Test()
+        {
+            //Arrange
+            var mockService = Substitute.For<IParticipService>();
+            var mockRepo = Substitute.For<IGenericRepository<Particip>>();
+            var controller = new ParticipsController(mockService, mockRepo);
+            controller.RequestContext.RouteData = new HttpRouteData(
+               new HttpRoute(),
+               new HttpRouteValueDictionary { { "id", "123" } });
+
+            //Act
+            var response = controller.Delete();
+
+            //Assert
+            mockRepo.Received().Delete(123);
         }
     }
 }

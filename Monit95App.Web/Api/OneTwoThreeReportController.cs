@@ -2,6 +2,7 @@
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
+using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using System;
@@ -33,11 +34,11 @@ namespace Monit95App.Web.Api
             if (!String.IsNullOrEmpty(schoolId) && participId != 0)
             {
                 var marks = await _exerciseMarkService.GetBySchoolIdAsync(schoolId, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.All));
-                var participMarks = marks.Where(p => p.ProjectParticipId == participId).ToList();
+                var participMarks = marks.Where(p => p.ParticipId == participId).ToList();
 
-                var participMarksRU = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.RU).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkModel { Id = 0, Marks = "Результаты не найдены" };
-                var participMarksMA = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkModel { Id = 0, Marks = "Результаты не найдены" };
-                var participMarksCHT = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkModel { Id = 0, Marks = "Результаты не найдены" };
+                var participMarksRU = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.RU).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
+                var participMarksMA = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.MA).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
+                var participMarksCHT = participMarks.SingleOrDefault(p => OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.CHT).Contains(p.TestId.ToUpper())) ?? new ExerciseMarkDto { Id = 0, Marks = "Результаты не найдены" };
 
                 var testResults = await _testResultV2Service.GetByParticipIdAsync(participId);
 
@@ -64,7 +65,7 @@ namespace Monit95App.Web.Api
             if (!String.IsNullOrEmpty(id))
             {
                 var marks = await _exerciseMarkService.GetBySchoolIdAsync(id, OneTwoThreeTestsKeeper.GetTestIds(OneTwoThreeTestAlias.RU));
-                return marks.Select(s => s.ProjectParticipId);
+                return marks.Select(s => s.ParticipId);
             }
             else
             {

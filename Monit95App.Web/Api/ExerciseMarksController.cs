@@ -1,6 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using System;
@@ -13,10 +14,14 @@ using System.Web.Http;
 
 namespace Monit95App.Web.Api
 {
-    [Authorize]
+    [Authorize(Roles = "school")]
     public class ExerciseMarksController : ApiController
     {
+        #region Dependencies
+
         private readonly IExerciseMarkService _exerciseMarksService;
+
+        #endregion
 
         public ExerciseMarksController(IExerciseMarkService exerciseMarkService)
         {
@@ -32,13 +37,15 @@ namespace Monit95App.Web.Api
         //    return null;
         //}
 
-        public async Task<ExerciseMarkModel> Post(ExerciseMarkModel model)
+        public IHttpActionResult Post([FromBody]ExerciseMarkDto dto)
         {
-            if (model != null)
+            if(!ModelState.IsValid)
             {
-                return await _exerciseMarksService.AddAsync(model);
+                return BadRequest(ModelState);
             }
-            return null;
+            var id = _exerciseMarksService.Add(dto);
+
+            return Ok(id);
         }
 
         //[HttpPut]

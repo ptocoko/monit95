@@ -10,9 +10,9 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IExerciseMarkService
     {
-        Task<ExerciseMarkModel> AddAsync(ExerciseMarkModel dto);
-        Task<List<ExerciseMarkModel>> GetBySchoolIdAsync(string schoolId, string[] tests);
-        Task<bool> UpdateAsync(ExerciseMarkModel marks);
+        int Add(ExerciseMarkDto dto);
+        Task<List<ExerciseMarkDto>> GetBySchoolIdAsync(string schoolId, string[] tests);
+        Task<bool> UpdateAsync(ExerciseMarkDto marks);
         Task<List<MaxRatesDto>> GetMaxRates(string[] testIds);
     }
 }

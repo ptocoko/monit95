@@ -101,7 +101,7 @@
     <Compile Include="MarksFormat1.cs" />
     <Compile Include="MarksFormat2.cs" />
     <Compile Include="Models\ElementResultModel.cs" />
-    <Compile Include="Models\ExerciseMarkModel.cs" />
+    <Compile Include="DTOs\ExerciseMarkDto.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
     <Compile Include="DTOs\MaxRatesDto.cs" />
     <Compile Include="DTOs\ParticipDto.cs" />

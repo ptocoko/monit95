@@ -98,22 +98,7 @@ namespace Monit95App.Services
             _mapper.Map(dto, entity);
 
             _participRepository.Update(entity);
-        }
-
-        public Task<bool> DeleteAsync(int id)
-        {
-            return Task.Run(() =>
-            {
-                if (id != 0)
-                {
-                    _participRepository.Delete(id);                    
-                }
-                return true;
-            });
-            
-
-            //throw new NotImplementedException();
-        }       
+        }          
 
         public ParticipDto GetById(int participId)
         {
