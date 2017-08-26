@@ -25,14 +25,14 @@ namespace Monit95App.Web.Tests
     {
         private readonly IUserService _mockUserService;
         private readonly IRsurParticipService _mockRsurParticipService;
-        private readonly IGenericRepository<ProjectParticip> _mockRsurParticipRepository;
+        private readonly IGenericRepository<RsurParticip> _mockRsurParticipRepository;
         private readonly RsurParticipsController _rsurParticipsController;
 
         public RsurParticipsController_Test()
         {
             _mockUserService = Substitute.For<IUserService>();
             _mockRsurParticipService = Substitute.For<IRsurParticipService>();
-            _mockRsurParticipRepository = Substitute.For<IGenericRepository<ProjectParticip>>();
+            _mockRsurParticipRepository = Substitute.For<IGenericRepository<RsurParticip>>();
         _rsurParticipsController = new RsurParticipsController(_mockRsurParticipService, 
                                                                _mockUserService, 
                                                                _mockRsurParticipRepository);
@@ -107,7 +107,7 @@ namespace Monit95App.Web.Tests
                 UserName = "201",
                 UserRoleNames = new[] { "area" }
             };
-            var mockEntity = new ProjectParticip
+            var mockEntity = new RsurParticip
             {
                 School = new School {AreaCode = 201}
             };
@@ -142,7 +142,7 @@ namespace Monit95App.Web.Tests
                 UserName = "201",
                 UserRoleNames = new[] { "area" }
             };
-            var mockEntity = new ProjectParticip
+            var mockEntity = new RsurParticip
             {
                 School = new School { AreaCode = 202 }
             };
@@ -179,7 +179,7 @@ namespace Monit95App.Web.Tests
                 UserName = "0005",
                 UserRoleNames = new[] { "school" }
             };
-            var mockEntity = new ProjectParticip
+            var mockEntity = new RsurParticip
             {
                 School = new School { AreaCode = 201 }
             };
@@ -214,7 +214,7 @@ namespace Monit95App.Web.Tests
                 UserName = "0005",
                 UserRoleNames = new[] { "school" }
             };
-            var mockEntity = new ProjectParticip
+            var mockEntity = new RsurParticip
             {
                 School = new School { AreaCode = 201 }
             };

@@ -24,12 +24,12 @@ namespace Monit95App.Web.Api
 
         private readonly IRsurParticipService _rsurParticipService;
         private readonly IUserService _userService;
-        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
+        private readonly IGenericRepository<RsurParticip> _rsurParticipRepository;
 
         #endregion
         public RsurParticipsController(IRsurParticipService rsurParticipService,
                                        IUserService userService,
-                                       IGenericRepository<ProjectParticip> rsurParticipRepository)
+                                       IGenericRepository<RsurParticip> rsurParticipRepository)
         {
             _rsurParticipService = rsurParticipService;
             _userService = userService;

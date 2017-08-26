@@ -19,6 +19,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
+        public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -35,6 +36,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<TestExercis> TestExercises { get; set; }
         public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -306,6 +308,11 @@ namespace Monit95App.Infrastructure.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Test>()
+                .HasMany(e => e.Grades)
+                .WithRequired(e => e.Test)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Test>()
                 .HasMany(e => e.ProjectTests)
                 .WithRequired(e => e.Test)
                 .WillCascadeOnDelete(false);
@@ -318,6 +325,11 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.TestExercises)
                 .WithRequired(e => e.Test)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TownType>()
+                .HasMany(e => e.Schools)
+                .WithRequired(e => e.TownType)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Wish>()

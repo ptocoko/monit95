@@ -80,7 +80,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ClassService_Test.cs" />
-    <Compile Include="ExerciseMarkServiceTests.cs" />
     <Compile Include="ClassParticipImporter_Tests.cs" />
     <Compile Include="ParticipService_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="SchoolService_Tests.cs" />
     <Compile Include="TestIMarks.cs" />
     <Compile Include="TestITypeReport.cs" />
-    <Compile Include="TestResultServiceTest.cs" />
     <Compile Include="TestRszkVMmanager.cs" />
     <Compile Include="RsurParticipFullInfo_Tests.cs" />
     <Compile Include="ClassParticipConverter_Tests.cs" />

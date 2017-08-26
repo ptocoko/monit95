@@ -20,7 +20,7 @@ namespace OneTwoThreeReporter
 {
     class Program
     {        
-        static IGenericRepository<TestResultsV2> _testResults;
+        static IGenericRepository<TestResult> _testResults;
         static IGenericRepository<School> _schools;
         static List<Class> _classes;
         static IGrade5 _gradeConverter;
@@ -29,7 +29,7 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             _context = new CokoContext();            
-            _testResults = new GenericRepository<TestResultsV2>();
+            _testResults = new GenericRepository<TestResult>();
             _schools = new GenericRepository<School>();
             _gradeConverter = new OneTwoThreeGradeConverter();
 
@@ -48,35 +48,36 @@ namespace OneTwoThreeReporter
 
         private static List<IGrouping<string, OneTwoThreeReportDto>> GetAllResults()
         {
-            var res = _context.TestResultsV2.Join(_context.ExerciseMarks, ok => ok.ExerciseMarkId, ik => ik.Id, (testRes, exer) => new
-            {
-                ParticipId = exer.ParticipId,
-                ExerciseMarkId = exer.Id,
-                SubjectName = exer.TestId.ToString(),
-                Marks = exer.Marks,
-                GradeStr = testRes.Grade5.ToString()
-            }).Join(_context.Particips, ok => ok.ParticipId, ik => ik.Id, (temp, particip) => new OneTwoThreeReportDto
-            {
-                SchoolId = particip.SchoolId,
-                ExerciseMarkId = temp.ExerciseMarkId,
-                Surname = particip.Surname,
-                Name = particip.Name,
-                SecondName = particip.SecondName,
-                ClassName = particip.ClassCode,
-                SubjectName = temp.SubjectName,
-                Marks = temp.Marks,
-                GradeStr = temp.GradeStr
-            }).OrderBy(o => o.SchoolId).ThenBy(o => o.ClassName).ThenBy(o => o.Surname).ThenBy(o => o.Name).ThenBy(o => o.SecondName).ThenBy(o => o.SubjectName).ToList();
+            return new List<IGrouping<string, OneTwoThreeReportDto>>();
+            //var res = _context.TestResults.Join(_context.ExerciseMarks, ok => ok.ExerciseMarkId, ik => ik.Id, (testRes, exer) => new
+            //{
+            //    ParticipId = exer.ParticipId,
+            //    ExerciseMarkId = exer.Id,
+            //    SubjectName = exer.TestId.ToString(),
+            //    Marks = exer.Marks,
+            //    GradeStr = testRes.Grade5.ToString()
+            //}).Join(_context.Particips, ok => ok.ParticipId, ik => ik.Id, (temp, particip) => new OneTwoThreeReportDto
+            //{
+            //    SchoolId = particip.SchoolId,
+            //    ExerciseMarkId = temp.ExerciseMarkId,
+            //    Surname = particip.Surname,
+            //    Name = particip.Name,
+            //    SecondName = particip.SecondName,
+            //    ClassName = particip.ClassCode,
+            //    SubjectName = temp.SubjectName,
+            //    Marks = temp.Marks,
+            //    GradeStr = temp.GradeStr
+            //}).OrderBy(o => o.SchoolId).ThenBy(o => o.ClassName).ThenBy(o => o.Surname).ThenBy(o => o.Name).ThenBy(o => o.SecondName).ThenBy(o => o.SubjectName).ToList();
 
-            for (int i = 0; i < res.Count; i++)
-            {
-                res[i].ClassName = GetClassName(res[i].ClassName);
-                res[i].SubjectName = OneTwoThreeTestsKeeper.GetSubjectName(res[i].SubjectName.ToUpper());
-                res[i].GradeStr = _gradeConverter.ConvertToString(Convert.ToInt32(res[i].GradeStr));
-            }
+            //for (int i = 0; i < res.Count; i++)
+            //{
+            //    res[i].ClassName = GetClassName(res[i].ClassName);
+            //    res[i].SubjectName = OneTwoThreeTestsKeeper.GetSubjectName(res[i].SubjectName.ToUpper());
+            //    res[i].GradeStr = _gradeConverter.ConvertToString(Convert.ToInt32(res[i].GradeStr));
+            //}
 
-            var groupedReports = res.GroupBy(s => s.SchoolId).ToList();
-            return groupedReports;
+            //var groupedReports = res.GroupBy(s => s.SchoolId).ToList();
+            //return groupedReports;
         }        
 
         private static void CreateSchoolReportInExcel(IGrouping<string, OneTwoThreeReportDto> schoolReport)

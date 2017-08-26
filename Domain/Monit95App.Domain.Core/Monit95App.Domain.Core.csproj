@@ -56,6 +56,7 @@
     <Compile Include="Entities\Element.cs" />
     <Compile Include="Entities\ElementType.cs" />
     <Compile Include="Entities\GiaResult.cs" />
+    <Compile Include="Entities\Grade.cs" />
     <Compile Include="Entities\Particip.cs" />
     <Compile Include="Entities\ParticipTest.cs" />
     <Compile Include="Entities\Project.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Entities\Test.cs" />
     <Compile Include="Entities\TestExercis.cs" />
     <Compile Include="Entities\TestResult.cs" />
+    <Compile Include="Entities\TownType.cs" />
     <Compile Include="Entities\Wish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

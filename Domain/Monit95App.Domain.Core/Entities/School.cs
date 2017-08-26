@@ -76,5 +76,7 @@ namespace Monit95App.Domain.Core.Entities
         public virtual ICollection<RsurParticip> RsurParticips { get; set; }
 
         public virtual SchoolEdit SchoolEdit { get; set; }
+
+        public virtual TownType TownType { get; set; }
     }
 }

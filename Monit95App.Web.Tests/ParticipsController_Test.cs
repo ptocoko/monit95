@@ -70,11 +70,11 @@ namespace Monit95App.Web.Tests
             CleanUp();
             var entity = new Particip()
             {
-                ProjectCode = 999,
+                ProjectId = 999,
                 Surname = "Test",
                 Name = "Test",
                 SchoolId = "0001",
-                ClassCode = "0101"
+                ClassId = "0101"
             };
             repo.Insert(entity);            
 

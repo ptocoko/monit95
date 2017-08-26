@@ -15,17 +15,17 @@ namespace Monit95App.Infrastructure.BusinessTests
         public void TemplateMethod_Test()
         {
             //Arrange
-            var entity = new ProjectParticip
+            var entity = new RsurParticip
             {
                 ParticipCode = "2016-206-001",
                 Surname = "Shakhabov",
                 Name = "Adam",
-                NsurSubject = new NsurSubject { Name = "Русккий язык"},                
+                RsurSubject = new RsurSubject { Name = "Русккий язык"},                
                 School = new School { Id = "0005", Name = "Школа № 1", Area = new Area {Code = 205, Name = "г. Грозный"}},
                 Category = new Category { Name = "Без категории"}
             };
-            var mockRsurParticipEditRepository = Substitute.For<IGenericRepository<ProjectParticipEdit>>();
-            mockRsurParticipEditRepository.GetById(Arg.Any<string>()).Returns(new ProjectParticipEdit());
+            var mockRsurParticipEditRepository = Substitute.For<IGenericRepository<RsurParticipEdit>>();
+            mockRsurParticipEditRepository.GetById(Arg.Any<string>()).Returns(new RsurParticipEdit());
             var rsurParticipFullInfo = new RsurParticipFullInfo();
             
             //Act

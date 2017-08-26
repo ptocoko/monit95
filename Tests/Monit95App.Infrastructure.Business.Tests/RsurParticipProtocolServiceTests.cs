@@ -1,15 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core;
-using Monit95App.Infrastructure.Business;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
+using Monit95App.Services.Rsur;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.Business.Tests
+namespace Monit95App.Services.Tests
 {
     [TestClass()]
     public class RsurParticipReportServiceTests
@@ -18,7 +19,7 @@ namespace Monit95App.Infrastructure.Business.Tests
         public void GetTestResultsGroupByParticipCodeTest()
         {
             //Arange            
-            var repository = new GenericRepository<Domain.Core.Entities.TestResult>();
+            var repository = new GenericRepository<RsurTestResult>();
             var service = new RsurParticipProtocolService(repository);
 
             //Act

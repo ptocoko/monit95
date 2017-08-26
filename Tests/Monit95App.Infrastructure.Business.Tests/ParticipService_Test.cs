@@ -114,7 +114,7 @@ namespace Monit95App.Services.Tests
                 Name = "test",
                 SecondName = "test",
                 SchoolId = "0005",
-                ClassCode = "0101"
+                ClassId = "0101"
 
             };
             mockParticipRepository.GetById(123).Returns(entity);
@@ -132,8 +132,8 @@ namespace Monit95App.Services.Tests
             service.Update(123, dto);
 
             //Assert
-            mockParticipRepository.Received().Update(Arg.Is<Particip>(x => x.ClassCode == "0101"));
-            mockParticipRepository.Received().Update(Arg.Is<Particip>(x => x.ProjectCode == 1));
+            mockParticipRepository.Received().Update(Arg.Is<Particip>(x => x.ClassId == "0101"));
+            mockParticipRepository.Received().Update(Arg.Is<Particip>(x => x.ProjectId == 1));
         }
 
         [TestMethod]
@@ -145,7 +145,7 @@ namespace Monit95App.Services.Tests
             var entity = new Particip
             {
                 Id = 123,
-                ProjectCode = 201661,
+                ProjectId = 201661,
                 Surname = "Shakhabov",
                 Name = "Adam",
                 SchoolId = "0005",
@@ -173,7 +173,7 @@ namespace Monit95App.Services.Tests
             {
                 new Particip
                 {
-                    ProjectCode = 201661,
+                    ProjectId = 201661,
                     Surname = "Shakhabov",
                     Name = "Adam",
                     SchoolId = "0001",
@@ -181,7 +181,7 @@ namespace Monit95App.Services.Tests
             },
                 new Particip
                 {
-                    ProjectCode = 201661,
+                    ProjectId = 201661,
                     Surname = "Esembaev",
                     Name = "Husain",
                     SchoolId = "0002",
