@@ -33,8 +33,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<RsurTest> RsurTests { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
         public virtual DbSet<School> Schools { get; set; }
-        public virtual DbSet<TestExercis> TestExercises { get; set; }
-        public virtual DbSet<TestResult> TestResults { get; set; }
+        public virtual DbSet<Exercise> Exercises { get; set; }
+        public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
@@ -282,15 +282,15 @@ namespace Monit95App.Infrastructure.Data
                 .HasOptional(e => e.SchoolEdit)
                 .WithRequired(e => e.School);
 
-            modelBuilder.Entity<TestExercis>()
+            modelBuilder.Entity<Exercise>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<TestResult>()
+            modelBuilder.Entity<Result>()
                 .Property(e => e.Marks)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<TestResult>()
+            modelBuilder.Entity<Result>()
                 .Property(e => e.ElementValues)
                 .IsUnicode(false);
 

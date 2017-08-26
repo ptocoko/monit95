@@ -1,3 +1,5 @@
+using Monit95App.Domain.Core.Abstract;
+
 namespace Monit95App.Domain.Core.Entities
 {
     using System;
@@ -6,7 +8,7 @@ namespace Monit95App.Domain.Core.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class RsurParticip
+    public partial class RsurParticip : Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RsurParticip()
@@ -21,17 +23,6 @@ namespace Monit95App.Domain.Core.Entities
         [Required]
         [StringLength(4)]
         public string SchoolId { get; set; }
-
-        [Required]
-        [StringLength(25)]
-        public string Surname { get; set; }
-
-        [Required]
-        [StringLength(25)]
-        public string Name { get; set; }
-
-        [StringLength(25)]
-        public string SecondName { get; set; }
 
         public int NSubjectCode { get; set; }
 

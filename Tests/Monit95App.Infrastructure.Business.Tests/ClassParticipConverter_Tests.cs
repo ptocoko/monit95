@@ -19,7 +19,7 @@ namespace Monit95App.Infrastructure.BusinessTests
                 Surname = "Эсамбаев",
                 Name = "Хусайн",
                 SecondName = "Арбиевич",
-                ClassName = "1"
+                ClassName = "1 А"
             };
             _converter = new ClassParticipConverter();
 
@@ -27,7 +27,7 @@ namespace Monit95App.Infrastructure.BusinessTests
 
             Assert.IsNotNull(actual);
             Assert.AreEqual("0000", actual.SchoolId);
-            Assert.AreEqual(201767, actual.ProjectCode);
+            Assert.AreEqual(201767, actual.Id);
         }
 
         [TestMethod]

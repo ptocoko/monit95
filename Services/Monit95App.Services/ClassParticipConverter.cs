@@ -25,7 +25,7 @@ namespace Monit95App.Services
 
             var participDto = _mapper.Map<ParticipDto>(classParticip);
             participDto.SchoolId = schoolId;
-            participDto.ProjectCode = projectCode;
+            participDto.ProjectId = projectCode;
 
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(participDto);
             Validator.ValidateObject(participDto, validContext, true);

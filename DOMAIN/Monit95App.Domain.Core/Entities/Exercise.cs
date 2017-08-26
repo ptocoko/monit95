@@ -7,7 +7,7 @@ namespace Monit95App.Domain.Core.Entities
     using System.Data.Entity.Spatial;
 
     [Table("TestExercises")]
-    public partial class TestExercis
+    public partial class Exercise
     {
         public int Id { get; set; }
 

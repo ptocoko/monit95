@@ -29,7 +29,7 @@ namespace Monit95App.Services
             return rsurParticipBaseInfo;
         }
 
-        public ParticipResultsModel CreateResultModel(TestResult entity, string participCode)
+        public ParticipResultsModel CreateResultModel(Result entity, string participCode)
         {
             return new ParticipResultsModel
             {

@@ -10,6 +10,7 @@ using Moq;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Monit95App.Services.DTOs;
 
@@ -30,11 +31,11 @@ namespace Monit95App.Services.Tests
             //Act
             var dto = new ParticipDto
             {
-                ProjectCode = 201661,
+                ProjectId = 201661,
                 Surname = "Shakhabov",
                 Name = "Adam",                
                 SchoolId = "0005",
-                ClassName = "1 А"
+                ClassName = "1А"
             };
             var id = service.Add(dto);
 
@@ -43,63 +44,29 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ValidationException))]
         public void Add_TestArgumentException()
         {
             //Arrange
             string nullString = null;
-            var mockClassService = Substitute.For<IClassService>();
-            mockClassService.GetId("1 Аj").Returns(nullString);
+            var mockClassService = Substitute.For<IClassService>();            
             var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
             var service = new ParticipService(mockParticipRepository, mockClassService);
 
             //Act
             var dto = new ParticipDto
             {
-                ProjectCode = 201661,
+                ProjectId = 201661,
                 Surname = "Shakhabov",
                 Name = "Adam",
                 SchoolId = "0005",
-                ClassName = "1 Аj"
+                ClassName = "1 _А"
             };
             var id = service.Add(dto);
 
             //Assert            
             //Exception
-        }
-
-        [TestMethod]
-        public void GetBySchoolId_Test()
-        {
-            //Arrange
-            var mockGetAllQuery = new List<Particip>
-            {
-                new Particip
-                {
-                    Surname = "Testu",
-                    Name = "test",
-                    SecondName = "test",
-                    SchoolId = "0005"
-                },
-                new Particip
-                {
-                    Surname = "Shakhabov",
-                    Name = "Adam",
-                    SchoolId = "0001"
-                }
-            }.AsQueryable();
-            var mockClassService = Substitute.For<IClassService>();                        
-            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
-            mockParticipRepository.GetAll().Returns(mockGetAllQuery);
-            var service = new ParticipService(mockParticipRepository, mockClassService);
-
-            //Act          
-          //  var models = service.GetBySchoolId("0005");
-
-            //Assert            
-            //Assert.AreEqual(1, models.Count());
-            Assert.Fail();
-        }
+        }       
 
         [TestMethod]
         public void Update_Test()
@@ -122,7 +89,7 @@ namespace Monit95App.Services.Tests
             //Act
             var dto = new ParticipDto
             {
-                ProjectCode = 1,
+                ProjectId = 1,
                 Surname = "Test",
                 Name = "Test",
                 SchoolId = "0001",

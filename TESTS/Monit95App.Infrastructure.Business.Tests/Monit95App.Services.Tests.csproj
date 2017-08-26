@@ -89,7 +89,6 @@
     <Compile Include="SchoolService_Tests.cs" />
     <Compile Include="TestIMarks.cs" />
     <Compile Include="TestITypeReport.cs" />
-    <Compile Include="TestRszkVMmanager.cs" />
     <Compile Include="RsurParticipFullInfo_Tests.cs" />
     <Compile Include="ClassParticipConverter_Tests.cs" />
   </ItemGroup>

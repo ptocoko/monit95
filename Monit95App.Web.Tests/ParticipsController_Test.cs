@@ -32,7 +32,7 @@ namespace Monit95App.Web.Tests
 
         [TestCleanup]
         public void CleanUp()
-        {            
+        {
             var testEntities = repo.GetAll().Where(x => x.Surname == "Test").ToList();
             foreach (var testEntity in testEntities)
             {
@@ -49,7 +49,7 @@ namespace Monit95App.Web.Tests
             //Act
             var dto = new ParticipDto
             {
-                ProjectCode = 201617,
+                ProjectId = 201617,
                 Surname = "Shakhabov",
                 Name = "Adam",
                 SchoolId = "0001",
@@ -70,13 +70,13 @@ namespace Monit95App.Web.Tests
             CleanUp();
             var entity = new Particip()
             {
-                ProjectId = 999,
+                ProjectId = 201677,
                 Surname = "Test",
                 Name = "Test",
                 SchoolId = "0001",
                 ClassId = "0101"
             };
-            repo.Insert(entity);            
+            repo.Insert(entity);
 
             var mockClassService = Substitute.For<IClassService>();
             mockClassService.GetId("1 А").Returns("0101");
@@ -85,7 +85,7 @@ namespace Monit95App.Web.Tests
             //Act
             var dto = new ParticipDto()
             {
-                ProjectCode = 999,
+                ProjectId = 201677,
                 Surname = "Test",
                 Name = "Test",
                 SchoolId = "0001",
@@ -105,7 +105,7 @@ namespace Monit95App.Web.Tests
             var controller = new ParticipsController(mockService, mockRepo);
             controller.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
-                new HttpRouteValueDictionary { { "id", "123" } });
+                new HttpRouteValueDictionary {{"id", "123"}});
 
             //Act
             var response = controller.Get();
@@ -124,7 +124,7 @@ namespace Monit95App.Web.Tests
             {
                 new ParticipDto
                 {
-                    ProjectCode = 201617,
+                    ProjectId = 201617,
                     Surname = "Shakhabov",
                     Name = "Adam",
                     SchoolId = "0001",
@@ -133,7 +133,7 @@ namespace Monit95App.Web.Tests
                 },
                 new ParticipDto
                 {
-                    ProjectCode = 201617,
+                    ProjectId = 201617,
                     Surname = "Muciev",
                     Name = "Adlan",
                     SchoolId = "0005",
@@ -141,7 +141,7 @@ namespace Monit95App.Web.Tests
                     Id = 124
                 }
             };
-            
+
             var principal = Substitute.For<IPrincipal>();
             var identity = Substitute.For<IIdentity>();
             identity.Name.Returns("coko");
@@ -154,7 +154,7 @@ namespace Monit95App.Web.Tests
             var response = controller.GetAll();
 
             //Assert            
-            service.GetAllDtos(null, null).Received();            
+            service.GetAllDtos(null, null).Received();
         }
 
         [TestMethod]
@@ -167,7 +167,7 @@ namespace Monit95App.Web.Tests
             {
                 new ParticipDto
                 {
-                    ProjectCode = 201617,
+                    ProjectId = 201617,
                     Surname = "Shakhabov",
                     Name = "Adam",
                     SchoolId = "0001",
@@ -176,7 +176,7 @@ namespace Monit95App.Web.Tests
                 },
                 new ParticipDto
                 {
-                    ProjectCode = 201617,
+                    ProjectId = 201617,
                     Surname = "Muciev",
                     Name = "Adlan",
                     SchoolId = "0005",
@@ -199,7 +199,7 @@ namespace Monit95App.Web.Tests
 
             //Assert            
             mockService.GetAllDtos(201, null).Received();
-        }       
+        }
 
         [TestMethod]
         public void Put_Test()
@@ -211,7 +211,7 @@ namespace Monit95App.Web.Tests
             //Act
             var dto = new ParticipDto()
             {
-                ProjectCode = 1,
+                ProjectId = 1,
                 Surname = "Test",
                 Name = "Test",
                 SchoolId = "0001",
@@ -219,7 +219,7 @@ namespace Monit95App.Web.Tests
             };
             controller.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
-                new HttpRouteValueDictionary { { "id", "123" } });
+                new HttpRouteValueDictionary {{"id", "123"}});
             var response = controller.Put(dto);
 
             //Assert
@@ -237,7 +237,7 @@ namespace Monit95App.Web.Tests
             //Act
             var dto = new ParticipDto()
             {
-                ProjectCode = 1,
+                ProjectId = 1,
                 Surname = "Test",
                 Name = "Test",
                 SchoolId = "0001",
@@ -245,7 +245,7 @@ namespace Monit95App.Web.Tests
             };
             controller.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
-                new HttpRouteValueDictionary { { "id", "123" } });
+                new HttpRouteValueDictionary {{"id", "123"}});
             var response = controller.Put(dto);
 
             //Assert            
@@ -260,8 +260,8 @@ namespace Monit95App.Web.Tests
             var mockRepo = Substitute.For<IGenericRepository<Particip>>();
             var controller = new ParticipsController(mockService, mockRepo);
             controller.RequestContext.RouteData = new HttpRouteData(
-               new HttpRoute(),
-               new HttpRouteValueDictionary { { "id", "123" } });
+                new HttpRoute(),
+                new HttpRouteValueDictionary {{"id", "123"}});
 
             //Act
             var response = controller.Delete();

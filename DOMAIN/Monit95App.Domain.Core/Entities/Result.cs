@@ -6,7 +6,7 @@ namespace Monit95App.Domain.Core.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class TestResult
+    public partial class Result
     {
         public int Id { get; set; }
 

@@ -15,7 +15,7 @@ namespace Monit95App.Domain.Core.Entities
             Grades = new HashSet<Grade>();
             ProjectTests = new HashSet<ProjectTest>();
             RsurTests = new HashSet<RsurTest>();
-            TestExercises = new HashSet<TestExercis>();
+            TestExercises = new HashSet<Exercise>();
         }
 
         public Guid Id { get; set; }
@@ -45,6 +45,6 @@ namespace Monit95App.Domain.Core.Entities
         public virtual ICollection<RsurTest> RsurTests { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestExercis> TestExercises { get; set; }
+        public virtual ICollection<Exercise> TestExercises { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace OneTwoThreeReporter
 {
     class Program
     {        
-        static IGenericRepository<TestResult> _testResults;
+        static IGenericRepository<Result> _testResults;
         static IGenericRepository<School> _schools;
         static List<Class> _classes;
         static IGrade5 _gradeConverter;
@@ -29,7 +29,7 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             _context = new CokoContext();            
-            _testResults = new GenericRepository<TestResult>();
+            _testResults = new GenericRepository<Result>();
             _schools = new GenericRepository<School>();
             _gradeConverter = new OneTwoThreeGradeConverter();
 

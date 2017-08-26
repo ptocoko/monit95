@@ -5,7 +5,7 @@ namespace Monit95App.Services.DTOs
     public class ParticipDto
     {        
         [Required]
-        public int ProjectCode { get; set; }        
+        public int ProjectId { get; set; }        
 
         [Required]
         [StringLength(50, MinimumLength = 4)]

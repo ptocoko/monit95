@@ -7,7 +7,7 @@ namespace ProtocolGenerator
 {
     public static class ExtendParticipProtocolFactory
     {
-        public static ExtendParticipProtocol Greate(TestResult result)
+        public static ExtendParticipProtocol Greate(Result result)
         {
             var protocol = new ExtendParticipProtocol
             {               
@@ -25,13 +25,13 @@ namespace ProtocolGenerator
             return protocol;
         }
 
-        private static string CheckGrade5(TestResult result)
+        private static string CheckGrade5(Result result)
         {
             var testGrades = result.ParticipTest.ProjectTest.Test.Grades; 
             return testGrades.Count != 0 ? testGrades.Single(x => x.Grade5 == result.Grade5).ToString() : null; 
         }
 
-        private static Dictionary<Element, double> ConvertElements(TestResult result)
+        private static Dictionary<Element, double> ConvertElements(Result result)
         {
             var elements = new Dictionary<Element, double>();
             var split = result.ElementValues.Split(';');

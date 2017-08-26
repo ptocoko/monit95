@@ -11,7 +11,7 @@ namespace Monit95App.Domain.Core.Abstract
         [Required]
         [StringLength(25)]
         public string Name { get; set; }
-        
+
         [StringLength(25)]
         public string SecondName { get; set; }
     }
