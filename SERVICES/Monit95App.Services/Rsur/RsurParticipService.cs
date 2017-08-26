@@ -15,17 +15,17 @@ namespace Monit95App.Services.Rsur
     {
         #region Fields        
 
-        private readonly MapperConfiguration _fullMapConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>());
-        private readonly MapperConfiguration _partMapConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, ProjectParticip>()
+        private readonly MapperConfiguration _fullMapConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, RsurParticip>());
+        private readonly MapperConfiguration _partMapConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipFullInfo, RsurParticip>()
                                                                                                       .ForMember(member => member.Name, opt => opt.Ignore())
                                                                                                       .ForMember(member => member.Surname, opt => opt.Ignore()));
         #endregion
 
         #region Dependency
 
-        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;        
+        private readonly IGenericRepository<RsurParticip> _rsurParticipRepository;        
         #warning separate 
-        private readonly IGenericRepository<TestResult> _testResultRepository;
+        private readonly IGenericRepository<RsurTestResult> _rsurTestResultRepository;
         #warning separate 
         private readonly IRsurParticipViewer _rsurParticipViewer;
 
@@ -33,16 +33,16 @@ namespace Monit95App.Services.Rsur
 
         #region Methods
 
-        public RsurParticipService(IGenericRepository<ProjectParticip> rsurParticipRepository, 
-                                   IGenericRepository<TestResult> testResultRepository,
+        public RsurParticipService(IGenericRepository<RsurParticip> rsurParticipRepository, 
+                                   IGenericRepository<RsurTestResult> rsurTestResultRepository,
                                    IRsurParticipViewer rsurParticipViewer)
         {            
             _rsurParticipRepository = rsurParticipRepository;
-            _testResultRepository = testResultRepository;
+            _rsurTestResultRepository = rsurTestResultRepository;
             _rsurParticipViewer = rsurParticipViewer;            
         }
 
-        public RsurParticipService(IGenericRepository<ProjectParticip> rsurParticipRepository)
+        public RsurParticipService(IGenericRepository<RsurParticip> rsurParticipRepository)
         {
 
         }
@@ -83,14 +83,14 @@ namespace Monit95App.Services.Rsur
                 throw new ArgumentException(nameof(participCode));
             }
 
-            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>());
-            var fullInfo = Mapper.Map<ProjectParticip, RsurParticipFullInfo>(entity);
+            Mapper.Initialize(cfg => cfg.CreateMap<RsurParticip, RsurParticipFullInfo>());
+            var fullInfo = Mapper.Map<RsurParticip, RsurParticipFullInfo>(entity);
             
-            if (entity.ProjectParticipEdit != null)
+            if (entity.RsurParticipEdit != null)
             {
-                if (entity.ProjectParticipEdit.Surname != null)
+                if (entity.RsurParticipEdit.Surname != null)
                     fullInfo.HasSurnameEdit = true;
-                if (entity.ProjectParticipEdit.Name != null)
+                if (entity.RsurParticipEdit.Name != null)
                     fullInfo.HasNameEdit = true;
             }                
 
@@ -114,10 +114,11 @@ namespace Monit95App.Services.Rsur
         }    
         public IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode)
         {
-            return _testResultRepository.GetAll().Where(s => s.ParticipTest.ProjectParticip.ParticipCode == participCode).ToList()
+            return _rsurTestResultRepository.GetAll().Where(s => s.RsurParticipTest.RsurParticip.ParticipCode == participCode).ToList()
                                                     .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
                                                         .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
         }        
+
         public void FullUpdate(RsurParticipFullInfo fullInfo)
         {
             //Validation
@@ -158,30 +159,30 @@ namespace Monit95App.Services.Rsur
             IMapper mapper = _partMapConfiguration.CreateMapper();
             mapper.Map(fullInfo, entity);
 
-            if(entity.ProjectParticipEdit == null)
+            if(entity.RsurParticipEdit == null)
             {
-                entity.ProjectParticipEdit = new ProjectParticipEdit();
+                entity.RsurParticipEdit = new RsurParticipEdit();
             }
             if(fullInfo.Surname != entity.Surname)
             {
-                entity.ProjectParticipEdit.Surname = fullInfo.Surname;
+                entity.RsurParticipEdit.Surname = fullInfo.Surname;
                 fullInfo.HasSurnameEdit = true;
             }
             if (fullInfo.Name != entity.Name)
             {
-                entity.ProjectParticipEdit.Name = fullInfo.Name;
+                entity.RsurParticipEdit.Name = fullInfo.Name;
                 fullInfo.HasNameEdit = true;
             }
 
             //Check that all entity.ProjectParticipEdit's properties are null                                        
-            var isNullAllProperties = entity.ProjectParticipEdit.GetType()
+            var isNullAllProperties = entity.RsurParticipEdit.GetType()
                                             .GetProperties()                                             
-                                            .Select(pi => pi.GetValue(entity.ProjectParticipEdit))
+                                            .Select(pi => pi.GetValue(entity.RsurParticipEdit))
                                             .All(ob => ob == null);
 
             if (isNullAllProperties)
             {
-                entity.ProjectParticipEdit = null;
+                entity.RsurParticipEdit = null;
             }
 
             _rsurParticipRepository.Update(entity);

@@ -15,7 +15,7 @@ namespace Monit95App.Services.Rsur
     {
         #region Fields
 
-        private readonly IGenericRepository<ProjectParticip> _projectParticipRepository;
+        private readonly IGenericRepository<RsurParticip> _projectParticipRepository;
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace Monit95App.Services.Rsur
         {
 
         }
-        public RsurReportModelXlsxConverter(IGenericRepository<ProjectParticip> projectParticipRepository)
+        public RsurReportModelXlsxConverter(IGenericRepository<RsurParticip> projectParticipRepository)
         {
             _projectParticipRepository = projectParticipRepository;
         }
@@ -38,7 +38,7 @@ namespace Monit95App.Services.Rsur
             if (schoolId != null)
                 query = query.Where(x => x.SchoolId == schoolId);
 
-            var projectParticips = new List<ProjectParticip>();
+            var projectParticips = new List<RsurParticip>();
             projectParticips = query.ToList();            
 
             var rsurReportModel = new RsurReportModel()

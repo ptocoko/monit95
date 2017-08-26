@@ -12,13 +12,13 @@ namespace Monit95App.Domain.Core.Entities
         public Project()
         {
             GiaResults = new HashSet<GiaResult>();
-            ProjectParticips = new HashSet<ProjectParticip>();
+            RsurParticips = new HashSet<RsurParticip>();
             ProjectTests = new HashSet<ProjectTest>();
+            RsurTests = new HashSet<RsurTest>();
         }
 
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Code { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -29,9 +29,12 @@ namespace Monit95App.Domain.Core.Entities
         public virtual ICollection<GiaResult> GiaResults { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
+        public virtual ICollection<RsurParticip> RsurParticips { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTest> ProjectTests { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RsurTest> RsurTests { get; set; }
     }
 }

@@ -1,24 +1,33 @@
 namespace Monit95App.Domain.Core.Entities
 {
-    using Monit95App.Domain.Core.Abstract;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public class Particip : Person
+    public partial class Particip
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Particip()
         {
-            // ReSharper disable once VirtualMemberCallInConstructor
-            ExerciseMarks = new HashSet<ExerciseMark>();
+            ParticipTests = new HashSet<ParticipTest>();
         }
 
         public int Id { get; set; }
 
-        public int ProjectCode { get; set; }
+        public int ProjectId { get; set; }
+
+        [Required]
+        [StringLength(25)]
+        public string Surname { get; set; }
+
+        [Required]
+        [StringLength(25)]
+        public string Name { get; set; }
+
+        [StringLength(25)]
+        public string SecondName { get; set; }
 
         [Required]
         [StringLength(4)]
@@ -26,13 +35,13 @@ namespace Monit95App.Domain.Core.Entities
 
         [Required]
         [StringLength(4)]
-        public string ClassCode { get; set; }
+        public string ClassId { get; set; }
 
         public virtual Class Class { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExerciseMark> ExerciseMarks { get; set; }
-
         public virtual School School { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ParticipTest> ParticipTests { get; set; }
     }
 }

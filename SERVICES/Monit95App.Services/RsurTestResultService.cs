@@ -1,27 +1,24 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
+﻿using Monit95App.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Monit95App.Services.Interfaces;
 using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services
 {
-    public class TestResultService : ITestResultService
+    public class RsurTestResultService : IRsurTestResultService
     {
-        private IGenericRepository<Element> _testElementRep;
-        private IGenericRepository<TestResult> _testResultRep;
-        public TestResultService(IGenericRepository<Element> testElementRep, IGenericRepository<TestResult> testResultRep)
+        private readonly IGenericRepository<Element> _testElementRep;
+        private readonly IGenericRepository<RsurTestResult> _testResultRep;
+        public RsurTestResultService(IGenericRepository<Element> testElementRep, IGenericRepository<RsurTestResult> testResultRep)
         {
             _testElementRep = testElementRep;
             _testResultRep = testResultRep;
         }
 
-        public TestResultService()
+        public RsurTestResultService()
         {
             
         }
@@ -29,12 +26,12 @@ namespace Monit95App.Services
         //Метод возвращает группу результатов участников по срезам на указанную дату (testDate) 
         public ReportsDto SelectParticipsGroupResults(Guid testId, DateTime testDate)
         {
-            var queryResults = _testResultRep.GetAll().Where(x => x.ParticipTest.ProjectTest.TestId == testId) //все результаты участников по данному экзамену 
-                                        .GroupBy(x => x.ParticipTest.ParticipCode)
-                                        .Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate == testDate)).ToList();
+            var queryResults = _testResultRep.GetAll().Where(x => x.RsurParticipTest.RsurTest.TestId == testId) //все результаты участников по данному экзамену 
+                                        .GroupBy(x => x.RsurParticipTest.ParticipCode)
+                                        .Where(x => x.Any(y => y.RsurParticipTest.RsurTest.TestDate == testDate)).ToList();
 
             ReportsDto reports = new ReportsDto();
-            reports.BlockName = queryResults.First().First().ParticipTest.ProjectTest.Test.Name.ToUpper();
+            reports.BlockName = queryResults.First().First().RsurParticipTest.RsurTest.Test.Name.ToUpper();
             reports.TestDate = testDate;
             reports.PartsDescription = _testElementRep.GetAll().Where(p => p.TestId == testId && p.ElementTypeId == 2).Select(s =>  new DescriptionDto { Code = s.Code, ExerNames = s.ExerNames.Replace(";", "; "), Name = s.Name  }).ToList();
             reports.ElementsDescription = _testElementRep.GetAll().Where(p => p.TestId == testId && p.ElementTypeId == 1).Select(s => new DescriptionDto { Code = s.Code, ExerNames = s.ExerNames.Replace(";", "; "), Name = s.Name }).ToList();

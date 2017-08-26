@@ -11,7 +11,7 @@ namespace Monit95App.Domain.Core.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
-            ProjectParticips = new HashSet<ProjectParticip>();
+            RsurParticips = new HashSet<RsurParticip>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -22,6 +22,6 @@ namespace Monit95App.Domain.Core.Entities
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
+        public virtual ICollection<RsurParticip> RsurParticips { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Monit95App.Domain.Core.Entities
         {
             GiaResults = new HashSet<GiaResult>();
             Particips = new HashSet<Particip>();
-            ProjectParticips = new HashSet<ProjectParticip>();
+            RsurParticips = new HashSet<RsurParticip>();
         }
 
         [StringLength(4)]
@@ -73,10 +73,8 @@ namespace Monit95App.Domain.Core.Entities
         public virtual ICollection<Particip> Particips { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectParticip> ProjectParticips { get; set; }
+        public virtual ICollection<RsurParticip> RsurParticips { get; set; }
 
         public virtual SchoolEdit SchoolEdit { get; set; }
-
-        public virtual TownType TownType { get; set; }
     }
 }

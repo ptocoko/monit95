@@ -74,7 +74,6 @@
     <Compile Include="ClassParticipConverter.cs" />
     <Compile Include="ClassService.cs" />
     <Compile Include="ClassParticip.cs" />
-    <Compile Include="ExerciseMarkService.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IExerciseMarkService.cs" />
@@ -85,11 +84,10 @@
     <Compile Include="Interfaces\IParticipService.cs" />
     <Compile Include="Interfaces\IClassParticipImporter.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
+    <Compile Include="Interfaces\IRsurTestResultService.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
     <Compile Include="Interfaces\ISchoolService.cs" />
-    <Compile Include="Interfaces\ITestResultService.cs" />
-    <Compile Include="Interfaces\ITestResultV2Service.cs" />
     <Compile Include="Interfaces\ITypeReport.cs" />
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\IRsurParticipService.cs" />
@@ -133,9 +131,7 @@
     <Compile Include="School\SchoolModel.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
-    <Compile Include="TestResultService.cs" />
-    <Compile Include="TestResultV2Dto.cs" />
-    <Compile Include="TestResultV2Service.cs" />
+    <Compile Include="RsurTestResultService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">

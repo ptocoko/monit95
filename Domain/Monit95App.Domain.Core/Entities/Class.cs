@@ -25,6 +25,3 @@ namespace Monit95App.Domain.Core.Entities
         public virtual ICollection<Particip> Particips { get; set; }
     }
 }
-
-
-

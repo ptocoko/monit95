@@ -11,6 +11,6 @@ namespace Monit95App.Services.Interfaces
     public interface IRsurParticipCodeCreator
     {
         //Метод возвращает код участника для нового участника
-        string FactoryMethod(ProjectParticip newEntity);
+        string FactoryMethod(RsurParticip newEntity);
     }
 }

@@ -1,7 +1,10 @@
 namespace Monit95App.Infrastructure.Data
 {
+    using System;
     using System.Data.Entity;
-    using Domain.Core.Entities;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+    using Monit95App.Domain.Core.Entities;
 
     public partial class CokoContext : DbContext
     {
@@ -15,24 +18,23 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
-        public virtual DbSet<Domain.Core.Entities.ExerciseMark> ExerciseMarks { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
-        public virtual DbSet<Grade> Grades { get; set; }
-        public virtual DbSet<NsurSubject> NsurSubjects { get; set; }
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
-        public virtual DbSet<ProjectParticipEdit> ProjectParticipEdits { get; set; }
-        public virtual DbSet<ProjectParticip> ProjectParticips { get; set; }
-        public virtual DbSet<Domain.Core.Entities.Project> Projects { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
+        public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
+        public virtual DbSet<RsurParticip> RsurParticips { get; set; }
+        public virtual DbSet<RsurParticipTest> RsurParticipTests { get; set; }
+        public virtual DbSet<RsurSubject> RsurSubjects { get; set; }
+        public virtual DbSet<RsurTestResult> RsurTestResults { get; set; }
+        public virtual DbSet<RsurTest> RsurTests { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
-        public virtual DbSet<Domain.Core.Entities.School> Schools { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<TestExercis> TestExercises { get; set; }
         public virtual DbSet<TestResult> TestResults { get; set; }
-        public virtual DbSet<TestResultsV2> TestResultsV2 { get; set; }
-        public virtual DbSet<Domain.Core.Entities.Test> Tests { get; set; }
-        public virtual DbSet<TownType> TownTypes { get; set; }
+        public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -43,7 +45,7 @@ namespace Monit95App.Infrastructure.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Category>()
-                .HasMany(e => e.ProjectParticips)
+                .HasMany(e => e.RsurParticips)
                 .WithRequired(e => e.Category)
                 .HasForeignKey(e => e.CategId)
                 .WillCascadeOnDelete(false);
@@ -56,7 +58,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Class>()
                 .HasMany(e => e.Particips)
                 .WithRequired(e => e.Class)
-                .HasForeignKey(e => e.ClassCode)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Element>()
@@ -70,15 +71,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<ElementType>()
                 .HasMany(e => e.Elements)
                 .WithRequired(e => e.ElementType)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Domain.Core.Entities.ExerciseMark>()
-                .Property(e => e.Marks)
-                .IsUnicode(false);           
-
-            modelBuilder.Entity<Domain.Core.Entities.ExerciseMark>()
-                .HasOptional(e => e.TestResultsV2)
-                .WithRequired(e => e.ExerciseMark)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<GiaResult>()
@@ -106,102 +98,50 @@ namespace Monit95App.Infrastructure.Data
                 .Property(e => e.Skills)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<NsurSubject>()
-                .HasMany(e => e.ProjectParticips)
-                .WithRequired(e => e.NsurSubject)
-                .HasForeignKey(e => e.NSubjectCode)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Particip>()
                 .Property(e => e.SchoolId)
                 .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Particip>()
-                .Property(e => e.ClassCode)
+                .Property(e => e.ClassId)
                 .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Particip>()
-                .HasMany(e => e.ExerciseMarks)
-                .WithRequired(e => e.Particip);
-
-            modelBuilder.Entity<ParticipTest>()
-                .Property(e => e.ParticipCode)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ParticipTest>()
-                .HasOptional(e => e.TestResult)
-                .WithRequired(e => e.ParticipTest);
-
-            modelBuilder.Entity<ProjectParticipEdit>()
-                .Property(e => e.ParticipCode)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticipEdit>()
-                .Property(e => e.ClassNumbers)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticipEdit>()
-                .Property(e => e.SchoolId)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticipEdit>()
-                .Property(e => e.Phone)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticipEdit>()
-                .Property(e => e.Email)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticip>()
-                .Property(e => e.ParticipCode)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticip>()
-                .Property(e => e.SchoolId)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticip>()
-                .Property(e => e.Phone)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticip>()
-                .Property(e => e.Email)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticip>()
-                .Property(e => e.ClassNumbers)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ProjectParticip>()
                 .HasMany(e => e.ParticipTests)
-                .WithRequired(e => e.ProjectParticip)
+                .WithRequired(e => e.Particip)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<ProjectParticip>()
-                .HasOptional(e => e.ProjectParticipEdit)
-                .WithRequired(e => e.ProjectParticip);
+            modelBuilder.Entity<ParticipTest>()
+                .HasMany(e => e.TestResults)
+                .WithRequired(e => e.ParticipTest)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Project>()
+                .Property(e => e.ClassNumbers)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Project>()
                 .HasMany(e => e.GiaResults)
                 .WithRequired(e => e.Project)
-                .HasForeignKey(e => e.ProjectId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Project>()
-                .HasMany(e => e.ProjectParticips)
+                .HasMany(e => e.RsurParticips)
                 .WithRequired(e => e.Project)
+                .HasForeignKey(e => e.ProjectCode)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Project>()
                 .HasMany(e => e.ProjectTests)
                 .WithRequired(e => e.Project)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Project>()
+                .HasMany(e => e.RsurTests)
+                .WithRequired(e => e.Project)
+                .HasForeignKey(e => e.ProjectCode)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProjectTest>()
@@ -216,6 +156,92 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Report>()
                 .Property(e => e.Available)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticipEdit>()
+                .Property(e => e.ParticipCode)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticipEdit>()
+                .Property(e => e.ClassNumbers)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticipEdit>()
+                .Property(e => e.SchoolId)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticipEdit>()
+                .Property(e => e.Phone)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticipEdit>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticip>()
+                .Property(e => e.ParticipCode)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticip>()
+                .Property(e => e.SchoolId)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticip>()
+                .Property(e => e.Phone)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticip>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticip>()
+                .Property(e => e.ClassNumbers)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticip>()
+                .HasOptional(e => e.RsurParticipEdit)
+                .WithRequired(e => e.RsurParticip);
+
+            modelBuilder.Entity<RsurParticip>()
+                .HasMany(e => e.RsurParticipTests)
+                .WithRequired(e => e.RsurParticip)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RsurParticipTest>()
+                .Property(e => e.ParticipCode)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurParticipTest>()
+                .HasOptional(e => e.RsurTestResult)
+                .WithRequired(e => e.RsurParticipTest);
+
+            modelBuilder.Entity<RsurSubject>()
+                .HasMany(e => e.RsurParticips)
+                .WithRequired(e => e.RsurSubject)
+                .HasForeignKey(e => e.NSubjectCode)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RsurTestResult>()
+                .Property(e => e.Marks)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurTestResult>()
+                .Property(e => e.Parts)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurTestResult>()
+                .Property(e => e.Elements)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurTest>()
+                .HasMany(e => e.RsurParticipTests)
+                .WithRequired(e => e.RsurTest)
+                .HasForeignKey(e => e.ProjectTestId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SchoolEdit>()
                 .Property(e => e.Id)
@@ -246,7 +272,7 @@ namespace Monit95App.Infrastructure.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<School>()
-                .HasMany(e => e.ProjectParticips)
+                .HasMany(e => e.RsurParticips)
                 .WithRequired(e => e.School)
                 .WillCascadeOnDelete(false);
 
@@ -263,23 +289,7 @@ namespace Monit95App.Infrastructure.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<TestResult>()
-                .Property(e => e.Parts)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TestResult>()
-                .Property(e => e.Elements)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TestResultsV2>()
-                .Property(e => e.Elements)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TestResultsV2>()
-                .Property(e => e.Skills)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TestResultsV2>()
-                .Property(e => e.Parts)
+                .Property(e => e.ElementValues)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Test>()
@@ -296,28 +306,18 @@ namespace Monit95App.Infrastructure.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Test>()
-                .HasMany(e => e.ExerciseMarks)
-                .WithRequired(e => e.Test)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Test>()
-                .HasMany(e => e.Grades)
-                .WithRequired(e => e.Test)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Test>()
                 .HasMany(e => e.ProjectTests)
+                .WithRequired(e => e.Test)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Test>()
+                .HasMany(e => e.RsurTests)
                 .WithRequired(e => e.Test)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.TestExercises)
                 .WithRequired(e => e.Test)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<TownType>()
-                .HasMany(e => e.Schools)
-                .WithRequired(e => e.TownType)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Wish>()

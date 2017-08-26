@@ -56,7 +56,7 @@ namespace Monit95App.Services
             Validator.ValidateObject(dto, validContext, true);
             
             var entity = _mapper.Map<ParticipDto, Particip>(dto);
-            entity.ClassCode = _classServise.GetId(dto.ClassName); //ClassName => ClassCode 
+            entity.ClassId = _classServise.GetId(dto.ClassName); //ClassName => ClassCode 
 
             _participRepository.Insert(entity);                        
 

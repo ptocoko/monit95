@@ -9,57 +9,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services
+namespace Monit95App.Services.Rsur
 {
     public class RsurParticipProtocolService : IParticipProtocolService
     {
         #region Fields
 
-        private readonly IGenericRepository<TestResult> _testResultRepository;
+        private readonly IGenericRepository<RsurTestResult> _testResultRepository;
 
         #endregion
 
         #region Methods
 
-        public RsurParticipProtocolService(IGenericRepository<TestResult> testResultRepository)
+        public RsurParticipProtocolService(IGenericRepository<RsurTestResult> testResultRepository)
         {            
-            this._testResultRepository = testResultRepository;
+            _testResultRepository = testResultRepository;
         }        
 
         /// <summary>
         /// Get test's result grouped by ParticipCode. If testDate is not null, then return to the specified date
         /// </summary>
         /// <returns>Grouped results</returns>
-        public IList<IGrouping<string, TestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null)
+        public IList<IGrouping<string, RsurTestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null)
         {
             var testId = new Guid(testIdStr);
             var participGroupResults = _testResultRepository.GetAll()
-                                        .Where(x => x.ParticipTest.ProjectTest.TestId == testId)
-                                        .GroupBy(x => x.ParticipTest.ParticipCode);
+                                        .Where(x => x.RsurParticipTest.RsurTest.TestId == testId)
+                                        .GroupBy(x => x.RsurParticipTest.ParticipCode);
             if(testDate != null)
             {
-                participGroupResults = participGroupResults.Where(x => x.Any(y => y.ParticipTest.ProjectTest.TestDate <= testDate));
+                participGroupResults = participGroupResults.Where(x => x.Any(y => y.RsurParticipTest.RsurTest.TestDate <= testDate));
             }            
 
             return participGroupResults.ToList();
         }
 
-        public IList<ParticipProtocol> CreateReportModel(IList<IGrouping<string, TestResult>> resultsGroupByParticipCode)
+        public IList<ParticipProtocol> CreateReportModel(IList<IGrouping<string, RsurTestResult>> resultsGroupByParticipCode)
         {
             var participProtocolModels = new List<ParticipProtocol>();
 
             foreach (var participResults in resultsGroupByParticipCode)
             {
                 var model = new ParticipProtocol();                
-                var lastResult = participResults.OrderBy(x => x.ParticipTest.ProjectTest.TestNumber).Single(); //get last result
+                var lastResult = participResults.OrderBy(x => x.RsurParticipTest.RsurTest.TestNumber).Single(); //get last result
 
-                model.ParticipCode = lastResult.ParticipTest.ProjectParticip.ParticipCode;
-                model.FullName = $"{lastResult.ParticipTest.ProjectParticip.Surname} {lastResult.ParticipTest.ProjectParticip.Name}";
-                if (!String.IsNullOrEmpty(lastResult.ParticipTest.ProjectParticip.SecondName))
+                model.ParticipCode = lastResult.RsurParticipTest.RsurParticip.ParticipCode;
+                model.FullName = $"{lastResult.RsurParticipTest.RsurParticip.Surname} {lastResult.RsurParticipTest.RsurParticip.Name}";
+                if (!String.IsNullOrEmpty(lastResult.RsurParticipTest.RsurParticip.SecondName))
                 {
-                    model.FullName = lastResult.ParticipTest.ProjectParticip.SecondName;
+                    model.FullName = lastResult.RsurParticipTest.RsurParticip.SecondName;
                 }
-                model.TestName = lastResult.ParticipTest.ProjectTest.Test.Name;
+                model.TestName = lastResult.RsurParticipTest.RsurTest.Test.Name;
             }
             return participProtocolModels;
         }

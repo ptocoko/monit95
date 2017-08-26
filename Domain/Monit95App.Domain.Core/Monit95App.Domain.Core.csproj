@@ -55,26 +55,25 @@
     <Compile Include="Entities\Class.cs" />
     <Compile Include="Entities\Element.cs" />
     <Compile Include="Entities\ElementType.cs" />
-    <Compile Include="Entities\ExerciseMark.cs" />
     <Compile Include="Entities\GiaResult.cs" />
-    <Compile Include="Entities\Grade.cs" />
-    <Compile Include="Entities\NsurSubject.cs" />
     <Compile Include="Entities\Particip.cs" />
     <Compile Include="Entities\ParticipTest.cs" />
     <Compile Include="Entities\Project.cs" />
-    <Compile Include="Entities\ProjectParticip.cs" />
-    <Compile Include="Entities\ProjectParticipEdit.cs" />
     <Compile Include="Entities\ProjectTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Report.cs" />
+    <Compile Include="Entities\RsurParticip.cs" />
+    <Compile Include="Entities\RsurParticipEdit.cs" />
+    <Compile Include="Entities\RsurParticipTest.cs" />
+    <Compile Include="Entities\RsurSubject.cs" />
+    <Compile Include="Entities\RsurTest.cs" />
+    <Compile Include="Entities\RsurTestResult.cs" />
     <Compile Include="Entities\School.cs" />
     <Compile Include="Entities\SchoolEdit.cs" />
     <Compile Include="Entities\Test.cs" />
     <Compile Include="Entities\TestExercis.cs" />
     <Compile Include="Entities\TestResult.cs" />
-    <Compile Include="Entities\TestResultsV2.cs" />
-    <Compile Include="Entities\TownType.cs" />
     <Compile Include="Entities\Wish.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

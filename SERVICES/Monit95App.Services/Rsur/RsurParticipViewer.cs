@@ -17,7 +17,7 @@ namespace Monit95App.Services
         private const string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
         private readonly CokoContext _db = new CokoContext();
         
-        public RsurParticipBaseInfo CreateModel(ProjectParticip entity)
+        public RsurParticipBaseInfo CreateModel(RsurParticip entity)
         {
             if (entity == null)
             {
@@ -41,6 +41,11 @@ namespace Monit95App.Services
                 NumberCode = entity.ParticipTest.ProjectTest.Test.NumberCode,
                 ReportExisting = ReportIsExist(entity.ParticipTest.ProjectTest.Test.Id.ToString(), participCode)
             };
+        }
+
+        public ParticipResultsModel CreateResultModel(RsurTestResult entity, string participCode)
+        {
+            throw new NotImplementedException();
         }
 
         private bool ReportIsExist(string testId, string participCode)

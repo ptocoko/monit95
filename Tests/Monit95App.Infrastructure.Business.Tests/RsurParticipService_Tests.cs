@@ -17,28 +17,28 @@ namespace Monit95App.Infrastructure.BusinessTests
     [TestClass]
     public class RsurParticipService_Tests
     {        
-        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
-        private readonly IGenericRepository<Domain.Core.Entities.TestResult> _testResultRepository;        
+        private readonly IGenericRepository<RsurParticip> _rsurParticipRepository;
+        private readonly IGenericRepository<Domain.Core.Entities.RsurTestResult> _rsurTestResultRepository;        
         private readonly IRsurParticipViewer _rsurParticipViewer;
 
         private IRsurParticipService service;        
 
         public RsurParticipService_Tests()
         {
-            _rsurParticipRepository = Substitute.For<IGenericRepository<ProjectParticip>>();
-            _testResultRepository = Substitute.For<IGenericRepository<Domain.Core.Entities.TestResult>>();            
+            _rsurParticipRepository = Substitute.For<IGenericRepository<RsurParticip>>();
+            _rsurTestResultRepository = Substitute.For<IGenericRepository<RsurTestResult>>();            
             _rsurParticipViewer = Substitute.For<IRsurParticipViewer>();
                                     
-            service = new RsurParticipService(_rsurParticipRepository, _testResultRepository, _rsurParticipViewer);
+            service = new RsurParticipService(_rsurParticipRepository, _rsurTestResultRepository, _rsurParticipViewer);
         }
 
         [TestMethod]
         public void Get_TestAreaCall()
         {
             //Arrange
-            var entities = new List<ProjectParticip>
+            var entities = new List<RsurParticip>
             {
-                new ProjectParticip
+                new RsurParticip
                 {
                     ParticipCode = "2016-201-001",
                     Surname = "Shakhabov",
@@ -47,7 +47,7 @@ namespace Monit95App.Infrastructure.BusinessTests
                     School = new School {Area = new Area (), AreaCode = 201},
                        
                 },
-                new ProjectParticip
+                new RsurParticip
                 {
                     ParticipCode = "2016-202-002",
                     Surname = "Esembaev",
@@ -57,7 +57,7 @@ namespace Monit95App.Infrastructure.BusinessTests
                 }
             }.AsQueryable();            
             _rsurParticipRepository.GetAll().Returns(entities);
-            var rsurParticipService = Substitute.ForPartsOf<RsurParticipService>(_rsurParticipRepository, _testResultRepository, _rsurParticipViewer);
+            var rsurParticipService = Substitute.ForPartsOf<RsurParticipService>(_rsurParticipRepository, _rsurTestResultRepository, _rsurParticipViewer);
             rsurParticipService.When(service => service.GetByParticipCode(Arg.Any<string>())).DoNotCallBase();            
 
             //Act
@@ -84,7 +84,7 @@ namespace Monit95App.Infrastructure.BusinessTests
         public void PartUpdate_TestOk()
         {
             //Arrange
-            var mockEntity = new ProjectParticip
+            var mockEntity = new RsurParticip
             {
                 ParticipCode = "2016-200-000",
                 Surname = "Shakhabova",

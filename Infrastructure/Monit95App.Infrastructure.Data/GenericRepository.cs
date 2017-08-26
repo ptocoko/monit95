@@ -1,4 +1,5 @@
-﻿using Monit95App.Domain.Interfaces;
+﻿using Monit95App.Domain.Core.Entities;
+using Monit95App.Domain.Interfaces;
 using System;
 using System.Linq;
 

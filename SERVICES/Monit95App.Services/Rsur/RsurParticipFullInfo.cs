@@ -11,12 +11,12 @@ namespace Monit95App.Services.Rsur
         public bool HasSurnameEdit { get; set; }
         public bool HasNameEdit { get; set; }
 
-        protected override void FillAdditionalInfo(ProjectParticip entity)
+        protected override void FillAdditionalInfo(RsurParticip entity)
         {
             AreaName = $"{entity.School.Area.Code} - {entity.School.Area.Name.Trim()}";
 
-            HasSurnameEdit = entity.ProjectParticipEdit?.Surname != null;
-            HasNameEdit = entity.ProjectParticipEdit?.Name != null;
+            HasSurnameEdit = entity.RsurParticipEdit?.Surname != null;
+            HasNameEdit = entity.RsurParticipEdit?.Name != null;
         }
     }
 }

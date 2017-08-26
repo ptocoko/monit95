@@ -6,7 +6,7 @@ namespace Monit95App.Domain.Core.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ProjectParticipEdit
+    public partial class RsurParticipEdit
     {
         [Key]
         [StringLength(12)]
@@ -39,6 +39,6 @@ namespace Monit95App.Domain.Core.Entities
 
         public int? NSubjectCode { get; set; }
 
-        public virtual ProjectParticip ProjectParticip { get; set; }
+        public virtual RsurParticip RsurParticip { get; set; }
     }
 }

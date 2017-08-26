@@ -14,16 +14,16 @@ namespace Monit95App.Services.Rsur
     {
         #region Dependencies
 
-        private readonly IGenericRepository<ProjectParticipEdit> _rsurParticipEditRepository;
-        private readonly IGenericRepository<ProjectParticip> _rsurParticipRepository;
+        private readonly IGenericRepository<RsurParticip> _rsurParticipRepository;
+        private readonly IGenericRepository<RsurParticipEdit> _rsurParticipEditRepository;        
 
         #endregion
 
-        public RsurParticipEditService(IGenericRepository<ProjectParticipEdit> participEditRepository, 
-                                       IGenericRepository<ProjectParticip> participRepository)
-        {            
-            _rsurParticipEditRepository = participEditRepository;
-            _rsurParticipRepository = participRepository;
+        public RsurParticipEditService(IGenericRepository<RsurParticip> rsurParticipRepository,
+                                       IGenericRepository<RsurParticipEdit> rsurParticipEditRepository)
+        {
+            _rsurParticipRepository = rsurParticipRepository;
+            _rsurParticipEditRepository = rsurParticipEditRepository;            
         }
 
         #region Services
@@ -48,7 +48,7 @@ namespace Monit95App.Services.Rsur
         {
             try
             {
-                var entity = new ProjectParticipEdit
+                var entity = new RsurParticipEdit
                 {
                     ParticipCode = model.ParticipCode,
                     Surname = model.NewParticipSurname,
@@ -73,16 +73,16 @@ namespace Monit95App.Services.Rsur
             }
 
             var entity = _rsurParticipRepository.GetById(participCode);
-            if (entity == null || entity.ProjectParticipEdit == null)
+            if (entity == null || entity.RsurParticipEdit == null)
             {
                 throw new ArgumentException(nameof(entity));
             }
 
-            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticipEdit, ProjectParticip>()
+            Mapper.Initialize(cfg => cfg.CreateMap<RsurParticipEdit, RsurParticip>()
                 .ForMember(dest => dest.Surname, opt => opt.Condition(src => !String.IsNullOrEmpty(src.Surname)))
                 .ForMember(dest => dest.Name, opt => opt.Condition(src => !String.IsNullOrEmpty(src.Name))));
 
-            Mapper.Map(entity.ProjectParticipEdit, entity);
+            Mapper.Map(entity.RsurParticipEdit, entity);
 
             _rsurParticipEditRepository.Delete(participCode);
         }

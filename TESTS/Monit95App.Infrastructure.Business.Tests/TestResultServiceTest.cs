@@ -16,7 +16,7 @@ namespace Monit95App.Infrastructure.BusinessTests
             var currentTestGuid = new Guid("595A73D4-F446-4916-A8C5-0E38BAB6A069"); //
             var currentTestDate = new DateTime(2017, 04, 10); //  
             
-            TestResultService testResultService = new TestResultService(new GenericRepository<Element>(), 
+            RsurTestResultService testResultService = new RsurTestResultService(new GenericRepository<Element>(), 
                                                                         new GenericRepository<Domain.Core.Entities.TestResult>());
 
             var results = testResultService.SelectParticipsGroupResults(currentTestGuid, currentTestDate);

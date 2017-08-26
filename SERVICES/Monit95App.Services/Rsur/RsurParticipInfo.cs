@@ -39,7 +39,7 @@ namespace Monit95App.Services.Rsur
 
         #endregion
 
-        public void TemplateMethod(ProjectParticip entity)
+        public void TemplateMethod(RsurParticip entity)
         {
             if (entity == null)
             {
@@ -49,13 +49,13 @@ namespace Monit95App.Services.Rsur
             FillAdditionalInfo(entity);            
         }
 
-        private void FillBaseInfo(ProjectParticip entity)
+        private void FillBaseInfo(RsurParticip entity)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<ProjectParticip, RsurParticipFullInfo>()            
+            Mapper.Initialize(cfg => cfg.CreateMap<RsurParticip, RsurParticipFullInfo>()            
                 .ForMember(dist => dist.SchoolIdWithName, opt => opt.MapFrom(s => $"{s.School.Id} - {s.School.Name.Trim()}")));            
             Mapper.Map(entity, this);
         }        
    
-        protected abstract void FillAdditionalInfo(ProjectParticip entity);
+        protected abstract void FillAdditionalInfo(RsurParticip entity);
     }
 }

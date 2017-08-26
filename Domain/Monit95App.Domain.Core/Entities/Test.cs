@@ -12,9 +12,8 @@ namespace Monit95App.Domain.Core.Entities
         public Test()
         {
             Elements = new HashSet<Element>();
-            ExerciseMarks = new HashSet<ExerciseMark>();
-            Grades = new HashSet<Grade>();
             ProjectTests = new HashSet<ProjectTest>();
+            RsurTests = new HashSet<RsurTest>();
             TestExercises = new HashSet<TestExercis>();
         }
 
@@ -36,13 +35,10 @@ namespace Monit95App.Domain.Core.Entities
         public virtual ICollection<Element> Elements { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExerciseMark> ExerciseMarks { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Grade> Grades { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTest> ProjectTests { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RsurTest> RsurTests { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestExercis> TestExercises { get; set; }

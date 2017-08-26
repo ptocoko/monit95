@@ -39,7 +39,7 @@ namespace ParticipReporter
 
         static void GetReports(Guid testId, DateTime testDate)
         {
-            ITestResultService testResultService = new TestResultService(new GenericRepository<Element>(), new GenericRepository<TestResult>());
+            ITestResultService testResultService = new RsurTestResultService(new GenericRepository<Element>(), new GenericRepository<TestResult>());
 
             var results = testResultService.SelectParticipsGroupResults(testId, testDate);
 
