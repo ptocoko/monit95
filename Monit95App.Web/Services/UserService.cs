@@ -16,8 +16,18 @@ namespace Monit95App.Web.Services
         }
 
         public UserModel GetModel(string userId)
-        {            
+        {
+            if (userId == null)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
             var applicationUser = _accountContext.Users.Find(userId);
+            if (applicationUser == null)
+            {
+                throw new ArgumentException(nameof(userId));
+            }
+
             var applicationUserModel = new UserModel
             {
                 UserName = applicationUser.UserName,

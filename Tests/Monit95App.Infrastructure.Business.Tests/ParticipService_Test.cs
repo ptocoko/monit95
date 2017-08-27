@@ -35,7 +35,7 @@ namespace Monit95App.Services.Tests
                 Surname = "Shakhabov",
                 Name = "Adam",                
                 SchoolId = "0005",
-                ClassName = "1А"
+                ClassName = "1 А"
             };
             var id = service.Add(dto);
 

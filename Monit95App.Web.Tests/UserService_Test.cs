@@ -11,36 +11,17 @@ using System.Linq;
 namespace Monit95App.Web.Tests
 {
     [TestClass]
-    public class UserService_Test
+    public class UserServiceTest
     {
         [TestMethod]
         public void GetModel_Test()
-        {
-            //Arrange         
-            var mockRoles = new List<IdentityUserRole>
-            {
-                new IdentityUserRole
-                {
-                #warning role error
-                    //Role = new IdentityRole { Name = "school" }
-                }
-            };
-
-            var mockContext = new Mock<ApplicationDbContext>();
-            var mockSet = new Mock<IDbSet<ApplicationUser>>();            
-            var mockAppUser = new Mock<ApplicationUser>();
-
-            mockAppUser.SetupGet(x => x.UserName).Returns("0005");
-            mockAppUser.SetupGet(x => x.Roles).Returns(mockRoles);
-            mockContext.Setup(x => x.Users).Returns(mockSet.Object);
-            mockSet.Setup(x => x.Find(It.IsAny<string>())).Returns(mockAppUser.Object);
-            
-            //Act
-            var userService = new UserService(mockContext.Object);
-            var result = userService.GetModel("0005");
+        {          
+            //Act            
+            var service = new UserService(new ApplicationDbContext());
+            var model = service.GetModel("5dcf65f5-2e42-4ad1-bfe2-6704af42eead");
 
             //Assert
-            Assert.IsTrue(result.UserRoleNames.First().Equals("school"));            
-        }
+            Assert.AreEqual("school", model.UserRoleNames.Single());
+        }        
     }
 }

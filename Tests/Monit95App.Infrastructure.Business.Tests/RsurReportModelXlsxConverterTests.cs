@@ -6,13 +6,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Services;
 using Monit95App.Services.Rsur;
 
-namespace Monit95App.Infrastructure.BusinessTests
+namespace Monit95App.Services.Tests
 {
     [TestClass]
     public class RsurReportModelXlsxConverterTests
     { 
         [TestMethod]
-        public void WriteTest()
+        public void Write_Test()
         {
             //Arrange
             var writer = new RsurReportModelXlsxConverter();
@@ -40,13 +40,6 @@ namespace Monit95App.Infrastructure.BusinessTests
             //Assert
             Assert.IsNotNull(stream);
             Assert.AreEqual("Test", c2Value);
-        }
-
-        [TestMethod]
-        public void GetStreamTest()
-        {
-            //Assert
-            Assert.Fail();
-        }
+        }    
     }
 }
