@@ -6,8 +6,8 @@ namespace Monit95App.Domain.Core.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("TestExercises")]
-    public partial class Exercise
+    [Table("Exercises")]
+    public partial class Exercis
     {
         public int Id { get; set; }
 

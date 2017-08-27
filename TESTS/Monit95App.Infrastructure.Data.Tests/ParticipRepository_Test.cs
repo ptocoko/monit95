@@ -6,17 +6,17 @@ using System.Linq;
 namespace Monit95App.Infrastructure.Data.Tests
 {
     [TestClass]
-    public class ExerciseMarkRepository_Test
+    public class ParticipRepository_Test
     {
         [TestMethod]
         public void GetAll_Test()
         {
             //Act
-            var repo = new GenericRepository<ExerciseMark>();
-            var items = repo.GetAll();
+            var repo = new GenericRepository<Particip>();
+            var items = repo.GetAll().First();
 
             //Assert
-            Assert.IsTrue(items.Count() > 0);
+            Assert.IsNotNull(items.School);            
         }
     }
 }

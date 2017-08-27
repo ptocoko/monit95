@@ -8,8 +8,8 @@ namespace Monit95App.Domain.Core.Entities
 
     public partial class Result
     {
-        public int Id { get; set; }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ParticipTestId { get; set; }
 
         [Required]
@@ -18,7 +18,7 @@ namespace Monit95App.Domain.Core.Entities
 
         public double? PrimaryMark { get; set; }
 
-        public int Grade5 { get; set; }
+        public int? Grade5 { get; set; }
 
         [StringLength(75)]
         public string ElementValues { get; set; }

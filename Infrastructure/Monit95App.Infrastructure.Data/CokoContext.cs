@@ -18,13 +18,16 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
+        public virtual DbSet<Exercis> Exercises { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
+        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
+        public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
         public virtual DbSet<RsurParticipTest> RsurParticipTests { get; set; }
@@ -33,8 +36,6 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<RsurTest> RsurTests { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
         public virtual DbSet<School> Schools { get; set; }
-        public virtual DbSet<Exercise> Exercises { get; set; }
-        public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
@@ -74,6 +75,10 @@ namespace Monit95App.Infrastructure.Data
                 .HasMany(e => e.Elements)
                 .WithRequired(e => e.ElementType)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Exercis>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
 
             modelBuilder.Entity<GiaResult>()
                 .Property(e => e.DocumNum)
@@ -116,9 +121,8 @@ namespace Monit95App.Infrastructure.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ParticipTest>()
-                .HasMany(e => e.TestResults)
-                .WithRequired(e => e.ParticipTest)
-                .WillCascadeOnDelete(false);
+                .HasOptional(e => e.Result)
+                .WithRequired(e => e.ParticipTest);
 
             modelBuilder.Entity<Project>()
                 .Property(e => e.ClassNumbers)
@@ -126,6 +130,11 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Project>()
                 .HasMany(e => e.GiaResults)
+                .WithRequired(e => e.Project)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Project>()
+                .HasMany(e => e.Particips)
                 .WithRequired(e => e.Project)
                 .WillCascadeOnDelete(false);
 
@@ -157,6 +166,14 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Report>()
                 .Property(e => e.Available)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Result>()
+                .Property(e => e.Marks)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Result>()
+                .Property(e => e.ElementValues)
                 .IsUnicode(false);
 
             modelBuilder.Entity<RsurParticipEdit>()
@@ -282,18 +299,6 @@ namespace Monit95App.Infrastructure.Data
                 .HasOptional(e => e.SchoolEdit)
                 .WithRequired(e => e.School);
 
-            modelBuilder.Entity<Exercise>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Result>()
-                .Property(e => e.Marks)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Result>()
-                .Property(e => e.ElementValues)
-                .IsUnicode(false);
-
             modelBuilder.Entity<Test>()
                 .Property(e => e.NumberCode)
                 .IsUnicode(false);
@@ -304,6 +309,11 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.Elements)
+                .WithRequired(e => e.Test)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Test>()
+                .HasMany(e => e.Exercises)
                 .WithRequired(e => e.Test)
                 .WillCascadeOnDelete(false);
 
@@ -319,11 +329,6 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.RsurTests)
-                .WithRequired(e => e.Test)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Test>()
-                .HasMany(e => e.TestExercises)
                 .WithRequired(e => e.Test)
                 .WillCascadeOnDelete(false);
 

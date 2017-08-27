@@ -36,7 +36,7 @@ namespace Monit95App.Services
                 SubjectName = entity.ParticipTest.ProjectTest.Test.Name,
                 TestDate = entity.ParticipTest.ProjectTest.TestDate,
                 Marks = entity.Marks,
-                Grade5 = entity.Grade5,
+                Grade5 = (int)entity.Grade5,
                 TestId = entity.ParticipTest.ProjectTest.Test.Id.ToString(),
                 NumberCode = entity.ParticipTest.ProjectTest.Test.NumberCode,
                 ReportExisting = ReportIsExist(entity.ParticipTest.ProjectTest.Test.Id.ToString(), participCode)

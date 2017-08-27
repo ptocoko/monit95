@@ -8,12 +8,6 @@ namespace Monit95App.Domain.Core.Entities
 
     public partial class ParticipTest
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ParticipTest()
-        {
-            TestResults = new HashSet<Result>();
-        }
-
         public int Id { get; set; }
 
         public int ProjectTestId { get; set; }
@@ -24,7 +18,6 @@ namespace Monit95App.Domain.Core.Entities
 
         public virtual ProjectTest ProjectTest { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Result> TestResults { get; set; }
+        public virtual Result Result { get; set; }
     }
 }

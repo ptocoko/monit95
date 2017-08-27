@@ -91,6 +91,7 @@
     <Compile Include="TestITypeReport.cs" />
     <Compile Include="RsurParticipFullInfo_Tests.cs" />
     <Compile Include="ClassParticipConverter_Tests.cs" />
+    <Compile Include="MarksService_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

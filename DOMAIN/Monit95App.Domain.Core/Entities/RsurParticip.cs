@@ -1,7 +1,6 @@
-using Monit95App.Domain.Core.Abstract;
-
 namespace Monit95App.Domain.Core.Entities
 {
+    using Monit95App.Domain.Core.Abstract;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -22,7 +21,7 @@ namespace Monit95App.Domain.Core.Entities
 
         [Required]
         [StringLength(4)]
-        public string SchoolId { get; set; }
+        public string SchoolId { get; set; }       
 
         public int NSubjectCode { get; set; }
 

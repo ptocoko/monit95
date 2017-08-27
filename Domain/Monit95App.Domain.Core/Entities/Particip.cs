@@ -17,7 +17,7 @@ namespace Monit95App.Domain.Core.Entities
 
         public int Id { get; set; }
 
-        public int ProjectId { get; set; }
+        public int ProjectId { get; set; }        
 
         [Required]
         [StringLength(4)]
@@ -28,6 +28,8 @@ namespace Monit95App.Domain.Core.Entities
         public string ClassId { get; set; }
 
         public virtual Class Class { get; set; }
+
+        public virtual Project Project { get; set; }
 
         public virtual School School { get; set; }
 
