@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 using Monit95App.Domain.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
-
+// ReSharper disable StyleCop.SA1600
+// ReSharper disable InconsistentNaming
+// ReSharper disable StyleCop.SA1101
+// ReSharper disable ArrangeThisQualifier
 namespace Monit95App.Services
 {
+    /// <summary>
+    /// The marks service.
+    /// </summary>
     public class MarksService : IMarksService
     {
         #region Dependencies
@@ -20,7 +23,7 @@ namespace Monit95App.Services
         private readonly IGenericRepository<Result> _resultRepository;
 
         #endregion
-
+     
         public MarksService(IGenericRepository<Result> resultRepository)
         {
             _resultRepository = resultRepository;
@@ -33,7 +36,7 @@ namespace Monit95App.Services
                 throw new ArgumentNullException();
             }
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
-            Validator.ValidateObject(dto, validContext, true); //TODO: SO. Why do not work without third parametr true?
+            Validator.ValidateObject(dto, validContext, true); // TODO: SO. Why do not work without third parametr true?
 
             Mapper.Initialize(cfg => cfg.CreateMap<PostMarksDto, Result>());
             var entity = Mapper.Map<PostMarksDto, Result>(dto);
@@ -47,6 +50,7 @@ namespace Monit95App.Services
             {
                 throw new ArgumentNullException(nameof(schoolId));
             }
+
             var entities = _resultRepository.GetAll().Where(x => x.ParticipTest.ProjectTestId == projectTestId
                                                               && x.ParticipTest.Particip.SchoolId == schoolId)
                                                               .ToList();
@@ -59,8 +63,7 @@ namespace Monit95App.Services
                     .ForMember(dist => dist.Surname, opt => opt.MapFrom(src => src.ParticipTest.Particip.Surname))
                     .ForMember(dist => dist.Name, opt => opt.MapFrom(src => src.ParticipTest.Particip.Name))
                     .ForMember(dist => dist.SecondName, opt => opt.MapFrom(src => src.ParticipTest.Particip.SecondName))
-                    .ForMember(dist => dist.ClassName, opt => opt.MapFrom(src => src.ParticipTest.Particip.Class.Name))            
-            );
+                .ForMember(dist => dist.ClassName, opt => opt.MapFrom(src => src.ParticipTest.Particip.Class.Name)));
 
             var dtos = Mapper.Map<IEnumerable<Result>, List<ParticipMarksDto>>(entities);
 
@@ -73,6 +76,7 @@ namespace Monit95App.Services
             {
                 throw new ArgumentNullException(nameof(dto));
             }
+
             var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
             Validator.ValidateObject(dto, validationContext, true);
 
