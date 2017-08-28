@@ -39,9 +39,11 @@ var AddClassParticipModal = (function () {
         this.isUpdate = dialog.context.isUpdate;
         if (this.isUpdate) {
             this.particip = dialog.context.particip;
+            this.actionText = "Изменить";
         }
         else {
             this.particip = new class_particip_model_1.ClassParticipModel("", "", "", "");
+            this.actionText = "Добавить";
         }
     }
     AddClassParticipModal.prototype.ngOnInit = function () {

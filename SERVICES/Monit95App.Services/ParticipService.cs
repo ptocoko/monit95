@@ -63,9 +63,9 @@ namespace Monit95App.Services
             return entity.Id;
         }
 
-        public IEnumerable<ParticipDto> GetAllDtos(int? areaCode, string schoolId)
+        public IEnumerable<ParticipDto> GetAll(int projectTestId, int? areaCode, string schoolId)
         {
-            var query = _participRepository.GetAll();
+            var query = _participRepository.GetAll().Where(x => x.ParticipTests.Any(y => y.ProjectTestId == projectTestId));
             if(areaCode != null)
             {
                 query = query.Where(particip => particip.School.AreaCode == areaCode);
@@ -75,7 +75,12 @@ namespace Monit95App.Services
                 query = query.Where(particip => particip.SchoolId == schoolId);
             }
 
-            var entities = query.ToList();        
+            var entities = query.ToList();
+            if(!entities.Any())
+            {
+                throw new ArgumentException();
+            }
+
             var dtos = _mapper.Map<List<Particip>, List<ParticipDto>>(entities);
            
             return dtos;

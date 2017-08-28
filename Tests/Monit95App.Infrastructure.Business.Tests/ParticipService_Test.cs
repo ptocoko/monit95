@@ -144,7 +144,7 @@ namespace Monit95App.Services.Tests
                     Surname = "Shakhabov",
                     Name = "Adam",
                     SchoolId = "0001",
-                    School = new Domain.Core.Entities.School {Id = "0001", AreaCode = 201 }
+                    School = new Domain.Core.Entities.School { Id = "0001", AreaCode = 201 }
             },
                 new Particip
                 {
@@ -152,15 +152,15 @@ namespace Monit95App.Services.Tests
                     Surname = "Esembaev",
                     Name = "Husain",
                     SchoolId = "0002",
-                    School = new Domain.Core.Entities.School {Id = "0002", AreaCode = 202 }
+                    School = new Domain.Core.Entities.School { Id = "0002", AreaCode = 202 }
                 }
             }.AsQueryable();
             mockParticipRepository.GetAll().Returns(dtos);
 
             //Act
-            var cokoDtos = service.GetAllDtos(null, null);
-            var areaDtos = service.GetAllDtos(201, null);
-            var schoolDtos = service.GetAllDtos(null, "0001");
+            var cokoDtos = service.GetAll(1, null, null);
+            var areaDtos = service.GetAll(1, 201, null);
+            var schoolDtos = service.GetAll(1, null, "0001");
 
             //Assert
             Assert.AreEqual(cokoDtos.Count(), 2);

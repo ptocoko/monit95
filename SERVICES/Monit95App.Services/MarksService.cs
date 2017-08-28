@@ -26,7 +26,7 @@ namespace Monit95App.Services
             _resultRepository = resultRepository;
         }
 
-        public void Add(MarksDto dto)
+        public void Add(PostMarksDto dto)
         {
             if (dto == null)
             {
@@ -35,8 +35,8 @@ namespace Monit95App.Services
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
             Validator.ValidateObject(dto, validContext, true); //TODO: SO. Why do not work without third parametr true?
 
-            Mapper.Initialize(cfg => cfg.CreateMap<MarksDto, Result>());
-            var entity = Mapper.Map<MarksDto, Result>(dto);
+            Mapper.Initialize(cfg => cfg.CreateMap<PostMarksDto, Result>());
+            var entity = Mapper.Map<PostMarksDto, Result>(dto);
 
             _resultRepository.Insert(entity);            
         }
@@ -67,9 +67,25 @@ namespace Monit95App.Services
             return dtos;
         }
 
-        public void Update(int participTestId, MarksDto dto)
+        public void Update(int participTestId, PutMarksDto dto)
         {
+            if (dto == null)
+            {
+                throw new ArgumentNullException(nameof(dto));
+            }
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+            Validator.ValidateObject(dto, validationContext, true);
 
+            var entity = _resultRepository.GetById(participTestId);
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(participTestId));
+            }
+
+            Mapper.Initialize(cfg => cfg.CreateMap<PutMarksDto, Result>());
+            Mapper.Map(dto, entity);            
+
+            _resultRepository.Update(entity);
         }
     }
 }

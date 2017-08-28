@@ -75,6 +75,7 @@
     <Compile Include="ClassService.cs" />
     <Compile Include="ClassParticip.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />
+    <Compile Include="DTOs\PutMarksDto.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IMarksService.cs" />
@@ -101,7 +102,7 @@
     <Compile Include="MarksFormat2.cs" />
     <Compile Include="MarksService.cs" />
     <Compile Include="Models\ElementResultModel.cs" />
-    <Compile Include="DTOs\MarksDto.cs" />
+    <Compile Include="DTOs\PostMarksDto.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
     <Compile Include="DTOs\MaxRatesDto.cs" />
     <Compile Include="DTOs\ParticipDto.cs" />

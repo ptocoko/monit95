@@ -13,7 +13,8 @@ var ParticipFilterPipe = (function () {
     ParticipFilterPipe.prototype.transform = function (particips, searchText) {
         if (searchText == null)
             return particips;
-        return particips.filter(function (particip) { return particip.surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1; });
+        return particips.filter(function (particip) { return particip.participCode.indexOf(searchText.toLowerCase()) > -1 ||
+            particip.surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1; });
     };
     return ParticipFilterPipe;
 }());

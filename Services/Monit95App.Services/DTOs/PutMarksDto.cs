@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.DTOs
 {
-    public class MarksDto
+    public class PutMarksDto
     {        
-        [Required]
-        public int ParticipTestId { get; set; }
-
         [Required]
         [RegularExpression(@"((\d;)|(\d,))+(\d)$")]
         public string Marks { get; set; }        

@@ -12,7 +12,7 @@ namespace Monit95App.Services.Interfaces
     public interface IParticipService
     {
         int Add(ParticipDto dto);
-        IEnumerable<ParticipDto> GetAllDtos(int? areaCode, string schoolId);
+        IEnumerable<ParticipDto> GetAll(int projectTestId, int? areaCode, string schoolId);
         ParticipDto GetById(int participId);
         void Update(int id, ParticipDto dto);                                                   
     }

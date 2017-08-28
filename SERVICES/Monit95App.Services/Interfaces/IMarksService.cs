@@ -10,8 +10,8 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IMarksService
     {
-        void Add(MarksDto dto);
+        void Add(PostMarksDto dto);
         IEnumerable<ParticipMarksDto> GetParticipMarksDtos(int projectTestId, string schoolId);
-        void Update(int participTestsId, MarksDto dto);
+        void Update(int participTestsId, PutMarksDto dto);
     }
 }

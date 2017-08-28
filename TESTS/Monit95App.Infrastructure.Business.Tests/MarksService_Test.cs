@@ -20,7 +20,7 @@ namespace Monit95App.Services.Tests
         {
             //Arrange
             var mockRepo = Substitute.For<IGenericRepository<Result>>();
-            var dto = new MarksDto
+            var dto = new PostMarksDto
             {
                 ParticipTestId = 123,
                 Marks = "1;0,5;"
@@ -36,7 +36,7 @@ namespace Monit95App.Services.Tests
         {
             //Arrange
             var mockRepo = Substitute.For<IGenericRepository<Result>>();
-            var dto = new MarksDto
+            var dto = new PostMarksDto
             {
                 ParticipTestId = 123,
                 Marks = "1;0,5"
@@ -92,7 +92,7 @@ namespace Monit95App.Services.Tests
                 }
             }.AsQueryable();
             mockRepo.GetAll().Returns(results);
-            
+
             //Act
             var service = new MarksService(mockRepo);
             var dto = service.GetParticipMarksDtos(1, "0001").Single();
@@ -103,6 +103,31 @@ namespace Monit95App.Services.Tests
             Assert.IsTrue(dto.SecondName == "...");
             Assert.IsTrue(dto.ClassName == "1 А");
             Assert.IsTrue(dto.Marks == "1;2;3");
+        }
+
+        [TestMethod]
+        public void Update_Test()
+        {
+            //Arrange            
+            var mockRepo = Substitute.For<IGenericRepository<Result>>();
+            var entity = new Result
+            {
+                ParticipTestId = 1,
+                Marks = "1;2;3"
+
+            };
+            mockRepo.GetById(1).Returns(entity);
+
+            //Act
+            var dto = new PutMarksDto
+            {
+                Marks = "1;2;4,6"
+            };
+            var service = new MarksService(mockRepo);
+            service.Update(1, dto);
+
+            //Assert
+            mockRepo.Received().Update(Arg.Is<Result>(x => x.Marks == "1;2;4,6"));
         }
     }
 }
