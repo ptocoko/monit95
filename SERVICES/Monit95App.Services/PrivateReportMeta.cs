@@ -1,13 +1,12 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Services.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using AutoMapper;
-using Monit95App.Infrastructure.Data;
+
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Interfaces;
 
 namespace Monit95App.Services
 {
