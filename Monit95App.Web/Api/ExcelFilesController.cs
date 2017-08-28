@@ -52,7 +52,7 @@ namespace Monit95App.Web.Api
             var stream = httpPostedFile.InputStream;
             stream.Position = 0;
 
-            var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream);
+            var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, new List<int> { 1 });
             bool hasRowsWithError = rowNumbersWithError != null;
             var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 201777);
 

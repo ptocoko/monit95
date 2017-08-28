@@ -38,18 +38,18 @@ export class ExportExcelModalData extends BSModalContext {
 `
 })
 export class ExportExcelModal implements CloseGuard, ModalComponent<ExportExcelModalData>, OnInit {
-	context: ExportExcelModalData;
+	exportedFile: File;
 	isExporting: boolean;
 	exportResults: any;
 
 	constructor(public dialog: DialogRef<ExportExcelModalData>, private http: Http) {
-		this.context = dialog.context;
+		this.exportedFile = dialog.context.file;
 	}
 
 	ngOnInit() {
 		this.isExporting = true;
 		let formData: FormData = new FormData();
-		formData.append('uploadFile', this.context.file, this.context.file.name);
+		formData.append('uploadFile', this.exportedFile, this.exportedFile.name);
 
 		this.http.post('/api/ExcelFiles/Upload', formData).subscribe(res => {
 			this.exportResults = res.json();

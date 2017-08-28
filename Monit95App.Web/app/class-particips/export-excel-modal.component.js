@@ -35,13 +35,13 @@ var ExportExcelModal = (function () {
     function ExportExcelModal(dialog, http) {
         this.dialog = dialog;
         this.http = http;
-        this.context = dialog.context;
+        this.exportedFile = dialog.context.file;
     }
     ExportExcelModal.prototype.ngOnInit = function () {
         var _this = this;
         this.isExporting = true;
         var formData = new FormData();
-        formData.append('uploadFile', this.context.file, this.context.file.name);
+        formData.append('uploadFile', this.exportedFile, this.exportedFile.name);
         this.http.post('/api/ExcelFiles/Upload', formData).subscribe(function (res) {
             _this.exportResults = res.json();
             console.log(_this.exportResults);
