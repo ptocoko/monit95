@@ -48,7 +48,12 @@ var AddClassParticipModal = (function () {
         this.classNames = ["1 A", "1 B", "1 E"];
     };
     AddClassParticipModal.prototype.onSubmit = function () {
-        console.log(this.particip);
+        if (this.isUpdate) {
+            //TODO: service for class particips
+        }
+        else {
+        }
+        this.dialog.close(this.particip);
     };
     return AddClassParticipModal;
 }());

@@ -17,14 +17,18 @@ export class AddClassParticipModal implements OnInit {
 	particip: ClassParticipModel;
 	classNames: string[];
 	isUpdate: boolean;
+	statusText: string;
+	actionText: string;
 
 	constructor(public dialog: DialogRef<AddClassParticipModalData>, private http: Http) {
 		this.isUpdate = dialog.context.isUpdate;
 		if (this.isUpdate) {
 			this.particip = dialog.context.particip;
+			this.actionText = "Изменить";
 		}
 		else {
 			this.particip = new ClassParticipModel("", "", "", "");
+			this.actionText = "Добавить"
 		}
 	}
 
@@ -33,12 +37,13 @@ export class AddClassParticipModal implements OnInit {
 	}
 
 	onSubmit() {
-		console.log(this.particip);
 		if (this.isUpdate) {
 			//TODO: service for class particips
+
 		}
 		else {
 
 		}
+		this.dialog.close(this.particip);
 	}
 }

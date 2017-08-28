@@ -1,5 +1,5 @@
 ﻿<div style="width:100%;padding:15px">
-    <h2>Изменить</h2>
+    <h2>{{actionText}}</h2>
     <hr />
     <form #participForm="ngForm" (ngSubmit)="onSubmit()">
 
@@ -28,7 +28,8 @@
         </div>
         <hr />
         <div style="text-align: right">
-            <button type="submit" class="btn btn-success" [disabled]="participForm.invalid">Сохранить</button>
+            <span>{{statusText}}</span>
+            <button type="submit" class="btn btn-success" [disabled]="participForm.invalid">{{actionText}}</button>
             <button type="button" class="btn btn-default btn-in-horizon" (click)="dialog.close()">Отменить</button>
         </div>
     </form>

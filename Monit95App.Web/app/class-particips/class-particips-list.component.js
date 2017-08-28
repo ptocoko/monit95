@@ -16,7 +16,6 @@ var angular2_modal_1 = require("angular2-modal");
 var export_excel_modal_component_1 = require("./export-excel-modal.component");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var add_class_particip_modal_1 = require("./add-class-particip.modal");
-var class_particip_model_1 = require("./class-particip.model");
 var ClassParticipsListComponent = (function () {
     function ClassParticipsListComponent(userService, participService, modal) {
         this.userService = userService;
@@ -28,6 +27,7 @@ var ClassParticipsListComponent = (function () {
             var user = data.json();
             //TODO: Get first class particips
         });
+        this.classParticips = new Array();
     };
     ClassParticipsListComponent.prototype.exportParticips = function (event) {
         var file = event.target.files[0];
@@ -42,7 +42,27 @@ var ClassParticipsListComponent = (function () {
         }
     };
     ClassParticipsListComponent.prototype.addClassParticip = function () {
-        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, particip: new class_particip_model_1.ClassParticipModel("esam", "hus", "arb", "1 B") }, bootstrap_1.BSModalContext));
+        var _this = this;
+        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: false }, bootstrap_1.BSModalContext)).then(function (dialog) {
+            dialog.result.then(function (classParticip) {
+                if (classParticip) {
+                    _this.classParticips.push(classParticip);
+                    console.log(_this.classParticips);
+                }
+            });
+        });
+    };
+    ClassParticipsListComponent.prototype.updateClassParticip = function (classParticip, index) {
+        var _this = this;
+        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, particip: classParticip }, bootstrap_1.BSModalContext)).then(function (dialog) {
+            dialog.result.then(function (particip) {
+                if (particip) {
+                    console.log(particip);
+                    _this.classParticips[index] = particip;
+                    console.log(_this.classParticips[index]);
+                }
+            });
+        });
     };
     return ClassParticipsListComponent;
 }());

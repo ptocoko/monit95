@@ -2,7 +2,7 @@
 import { UserService } from "../user.service";
 import { ParticipService } from "../particips/particip.service";
 import { UserModel } from "../user.model";
-import { Modal, overlayConfigFactory } from "angular2-modal";
+import { Modal, overlayConfigFactory, DialogRef } from "angular2-modal";
 import { ExportExcelModal, ExportExcelModalData } from "./export-excel-modal.component";
 import { BSModalContext } from "angular2-modal/plugins/bootstrap";
 import { AddClassParticipModal } from "./add-class-particip.modal";
@@ -32,6 +32,8 @@ import { ClassParticipModel } from "./class-particip.model";
 	]
 })
 export class ClassParticipsListComponent implements OnInit {
+	classParticips: ClassParticipModel[];
+
 	constructor(private userService: UserService, private participService: ParticipService, private modal: Modal) {
 
 	}
@@ -40,7 +42,9 @@ export class ClassParticipsListComponent implements OnInit {
 		this.userService.getAccount().subscribe(data => {
 			let user = data.json() as UserModel;
 			//TODO: Get first class particips
-		})
+		});
+
+		this.classParticips = new Array<ClassParticipModel>();
 	}
 
 	exportParticips(event: any) {
@@ -57,6 +61,26 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	addClassParticip() {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({isUpdate: false}, BSModalContext));
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false }, BSModalContext)).then(dialog => {
+			dialog.result.then(classParticip => {
+				if (classParticip) {
+					this.classParticips.push(classParticip);
+					console.log(this.classParticips)
+				}
+			})
+		});
+		
+	}
+
+	updateClassParticip(classParticip: ClassParticipModel, index: number) {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, particip: classParticip }, BSModalContext)).then(dialog => {
+			dialog.result.then(particip => {
+				if (particip) {
+					console.log(particip);
+					this.classParticips[index] = particip;
+					console.log(this.classParticips[index]);
+				}
+			})
+		});
 	}
 }
