@@ -15,6 +15,8 @@ var particip_service_1 = require("../particips/particip.service");
 var angular2_modal_1 = require("angular2-modal");
 var export_excel_modal_component_1 = require("./export-excel-modal.component");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var add_class_particip_modal_1 = require("./add-class-particip.modal");
+var class_particip_model_1 = require("./class-particip.model");
 var ClassParticipsListComponent = (function () {
     function ClassParticipsListComponent(userService, participService, modal) {
         this.userService = userService;
@@ -38,6 +40,9 @@ var ClassParticipsListComponent = (function () {
                 });
             });
         }
+    };
+    ClassParticipsListComponent.prototype.addClassParticip = function () {
+        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, particip: new class_particip_model_1.ClassParticipModel("esam", "hus", "arb", "1 B") }, bootstrap_1.BSModalContext));
     };
     return ClassParticipsListComponent;
 }());

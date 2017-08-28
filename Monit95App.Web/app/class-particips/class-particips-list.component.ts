@@ -5,6 +5,8 @@ import { UserModel } from "../user.model";
 import { Modal, overlayConfigFactory } from "angular2-modal";
 import { ExportExcelModal, ExportExcelModalData } from "./export-excel-modal.component";
 import { BSModalContext } from "angular2-modal/plugins/bootstrap";
+import { AddClassParticipModal } from "./add-class-particip.modal";
+import { ClassParticipModel } from "./class-particip.model";
 
 @Component({
 	templateUrl: './app/class-particips/class-particips-list.component.html',
@@ -52,5 +54,9 @@ export class ClassParticipsListComponent implements OnInit {
 				})
 			})
 		}
+	}
+
+	addClassParticip() {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({isUpdate: false}, BSModalContext));
 	}
 }
