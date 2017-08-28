@@ -14,7 +14,7 @@ using System.Web.Http;
 
 namespace Monit95App.Web.Api
 {
-    [Authorize(Roles = "school")]
+   // [Authorize(Roles = "school")]
     [RoutePrefix("api/marks")]
     public class MarksController : ApiController
     {
@@ -57,6 +57,14 @@ namespace Monit95App.Web.Api
             }            
 
             return Ok(participMarksDtos);
+        }
+
+        [HttpPut]
+        [Route("{participTestId}")]
+        public IHttpActionResult Put([FromBody]MarksDto dto)
+        {
+            //MarksDto dto = (MarksDto)marks;
+            return Ok();
         }
 
         #endregion

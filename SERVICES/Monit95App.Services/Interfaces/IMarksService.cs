@@ -12,5 +12,6 @@ namespace Monit95App.Services.Interfaces
     {
         void Add(MarksDto dto);
         IEnumerable<ParticipMarksDto> GetParticipMarksDtos(int projectTestId, string schoolId);
+        void Update(int participTestsId, MarksDto dto);
     }
 }

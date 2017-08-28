@@ -34,7 +34,7 @@ namespace Monit95App.Util
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             // Register individual components            
-            //builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().WithParameter("context", new CokoContext()).ExternallyOwned();       
+            
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>));                       
             builder.RegisterType<ParticipService>().As<IParticipService>();            
             builder.RegisterType<ClassService>().As<IClassService>();
@@ -48,6 +48,8 @@ namespace Monit95App.Util
             builder.RegisterType<SchoolService>().As<ISchoolService>();
             builder.RegisterType<ClassParticipImporter>().As<IClassParticipImporter>();
             builder.RegisterType<ClassParticipConverter>().As<IClassParticipConverter>();
+            builder.RegisterType<MarksService>().As<IMarksService>();
+             
             builder.RegisterType<ApplicationDbContext>();
             //
 

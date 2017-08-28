@@ -66,5 +66,10 @@ namespace Monit95App.Services
 
             return dtos;
         }
+
+        public void Update(int participTestId, MarksDto dto)
+        {
+
+        }
     }
 }

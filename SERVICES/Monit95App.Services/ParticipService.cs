@@ -119,10 +119,5 @@ namespace Monit95App.Services
 
             return dto;
         }
-
-        public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
