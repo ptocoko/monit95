@@ -11,27 +11,28 @@ import { ClassParticipsModule } from "./class-particips/class-particips.module";
 
 //Components
 import { AppComponent } from './app.component';
-import { ParticipModalComponent } from './particips/details/particip-modal.component';
-import { ResultsModalComponent } from './particips/results/results-modal.component';
-import { EditModalComponent } from './particips/edit-particip/edit-modal.component';
-import { ParticipsComponent } from './particips/particips.component';
-import { ParticipListComponent } from './particips/particip-list.component';
+import { ParticipModalComponent } from './rsur/details/particip-modal.component';
+import { ResultsModalComponent } from './rsur/results/results-modal.component';
+import { EditModalComponent } from './rsur/edit-particip/edit-modal.component';
+import { ParticipsComponent } from './rsur/particips.component';
+import { ParticipListComponent } from './rsur/particip-list.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
-import { ParticipDetailsComponent } from './particips/details/particip-details.component';
-import { EditParticipComponent } from './particips/edit-particip/edit-particip.component';
-import { ParticipCorrectionComponent } from './particips/correction/particip-correction.component';
-import { ParticipFormComponent } from './particips/particip-form/particip-form.component';
+import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
+import { EditParticipComponent } from './rsur/edit-particip/edit-particip.component';
+import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
+import { ParticipFormComponent } from './rsur/particip-form/particip-form.component';
 
 //Services
-import { UserService } from './user.service'
-import { ParticipService } from './particips/particip.service';
-import { ParticipCorrectionService } from './particips/correction/particip-correction.service';
+import { UserService } from './user.service';
+import { ParticipService } from './particip.service';
+import { RsurParticipService } from './rsur/rsur-particip.service';
+import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 
 //Pipes
-import { ParticipFilterPipe } from './particips/particip-filter.pipe';
+import { RsurParticipFilterPipe } from './rsur/rsur-particip-filter.pipe';
 import { LimitToPipe } from "./limit-to.pipe";
-import { ParticipsWithoutDetailsPipe } from "./particips/details/particips-without-details.filter";
+import { ParticipsWithoutDetailsPipe } from "./rsur/details/particips-without-details.filter";
 
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -44,7 +45,7 @@ import { GlobalErrorHandler } from "./error-handler";
 		AppComponent,
 		ParticipsComponent,
 		ParticipListComponent,
-		ParticipFilterPipe,
+		RsurParticipFilterPipe,
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
 		PlanComponent,
@@ -58,7 +59,7 @@ import { GlobalErrorHandler } from "./error-handler";
 		ParticipFormComponent
 	],
 	providers: [
-        UserService, ParticipService, ParticipCorrectionService,
+        UserService, ParticipService, RsurParticipService, ParticipCorrectionService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

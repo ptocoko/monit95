@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { UserService } from "../user.service";
-import { ParticipService } from "../particips/particip.service";
 import { UserModel } from "../user.model";
 import { Modal, overlayConfigFactory, DialogRef } from "angular2-modal";
 import { ExportExcelModal, ExportExcelModalData } from "./export-excel-modal.component";
@@ -34,7 +33,7 @@ import { ClassParticipModel } from "./class-particip.model";
 export class ClassParticipsListComponent implements OnInit {
 	classParticips: ClassParticipModel[];
 
-	constructor(private userService: UserService, private participService: ParticipService, private modal: Modal) {
+	constructor(private userService: UserService, private modal: Modal) {
 
 	}
 

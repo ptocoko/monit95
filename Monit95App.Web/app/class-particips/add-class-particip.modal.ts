@@ -3,7 +3,6 @@ import { DialogRef } from "angular2-modal";
 import { Http } from "@angular/http";
 import { ClassParticipModel } from "./class-particip.model";
 import { BSModalContext } from "angular2-modal/plugins/bootstrap";
-import { ParticipService } from "../particips/particip.service";
 
 export class AddClassParticipModalData extends BSModalContext {
 	particip: ClassParticipModel;
