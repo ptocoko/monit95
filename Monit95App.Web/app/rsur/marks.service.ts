@@ -2,6 +2,9 @@
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { RsurParticipModel } from "./rsur-particip.model";
+import { ResultsModel, ResultDetailsModel } from "./results/results.model";
+import { ParticipEditModel } from "./edit-particip/edit-particip.model";
 
 export class Marks {
     participTestId: number;
