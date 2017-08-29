@@ -22,8 +22,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var http_1 = require("@angular/http");
-var class_particip_model_1 = require("./class-particip.model");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var particip_model_1 = require("../particip.model");
 var AddClassParticipModalData = (function (_super) {
     __extends(AddClassParticipModalData, _super);
     function AddClassParticipModalData() {
@@ -37,12 +37,13 @@ var AddClassParticipModal = (function () {
         this.dialog = dialog;
         this.http = http;
         this.isUpdate = dialog.context.isUpdate;
+        this.schoolId = dialog.context.schoolId;
         if (this.isUpdate) {
             this.particip = dialog.context.particip;
             this.actionText = "Изменить";
         }
         else {
-            this.particip = new class_particip_model_1.ClassParticipModel("", "", "", "");
+            this.particip = new particip_model_1.ParticipModel();
             this.actionText = "Добавить";
         }
     }

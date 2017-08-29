@@ -1,12 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { UserService } from "../user.service";
-import { ParticipService } from "../particips/particip.service";
 import { UserModel } from "../user.model";
 import { Modal, overlayConfigFactory, DialogRef } from "angular2-modal";
 import { ExportExcelModal, ExportExcelModalData } from "./export-excel-modal.component";
 import { BSModalContext } from "angular2-modal/plugins/bootstrap";
 import { AddClassParticipModal } from "./add-class-particip.modal";
-import { ClassParticipModel } from "./class-particip.model";
+import { ParticipModel } from "../particip.model";
 
 @Component({
 	templateUrl: './app/class-particips/class-particips-list.component.html',
@@ -32,19 +31,20 @@ import { ClassParticipModel } from "./class-particip.model";
 	]
 })
 export class ClassParticipsListComponent implements OnInit {
-	classParticips: ClassParticipModel[];
+	classParticips: ParticipModel[];
+	user: UserModel;
 
-	constructor(private userService: UserService, private participService: ParticipService, private modal: Modal) {
+	constructor(private userService: UserService, private modal: Modal) {
 
 	}
 
 	ngOnInit() {
 		this.userService.getAccount().subscribe(data => {
-			let user = data.json() as UserModel;
+			this.user = data.json() as UserModel;
 			//TODO: Get first class particips
 		});
 
-		this.classParticips = new Array<ClassParticipModel>();
+		this.classParticips = new Array<ParticipModel>();
 	}
 
 	exportParticips(event: any) {
@@ -61,10 +61,11 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	addClassParticip() {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false }, BSModalContext)).then(dialog => {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false, schoolId: this.user.userName, projectId: 1 }, BSModalContext)).then(dialog => {
 			dialog.result.then(classParticip => {
 				if (classParticip) {
 					this.classParticips.push(classParticip);
+
 					console.log(this.classParticips)
 				}
 			})
@@ -72,12 +73,14 @@ export class ClassParticipsListComponent implements OnInit {
 		
 	}
 
-	updateClassParticip(classParticip: ClassParticipModel, index: number) {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, particip: classParticip }, BSModalContext)).then(dialog => {
+	updateClassParticip(classParticip: ParticipModel, index: number) {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, schoolId: this.user.userName }, BSModalContext)).then(dialog => {
 			dialog.result.then(particip => {
 				if (particip) {
 					console.log(particip);
+
 					this.classParticips[index] = particip;
+
 					console.log(this.classParticips[index]);
 				}
 			})

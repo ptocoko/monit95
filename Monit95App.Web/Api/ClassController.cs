@@ -25,8 +25,7 @@ namespace Monit95App.Web.Api
         [HttpGet]
         public IEnumerable<Class> Get()
         {
-            var res = _classService.GetAll().OrderBy(x => x.Id).Take(36).Select(s => new Class { Id = s.Id, Name = s.Name });
-            return res;
+            return _classService.GetAll().OrderBy(x => x.Id).Select(s => new Class { Id = s.Id.Trim(), Name = s.Name.Trim() });
         }
     }
 }

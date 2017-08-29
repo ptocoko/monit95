@@ -17,25 +17,26 @@ var mydatepicker_1 = require("mydatepicker");
 var class_particips_module_1 = require("./class-particips/class-particips.module");
 //Components
 var app_component_1 = require("./app.component");
-var particip_modal_component_1 = require("./particips/details/particip-modal.component");
-var results_modal_component_1 = require("./particips/results/results-modal.component");
-var edit_modal_component_1 = require("./particips/edit-particip/edit-modal.component");
-var particips_component_1 = require("./particips/particips.component");
-var particip_list_component_1 = require("./particips/particip-list.component");
+var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
+var results_modal_component_1 = require("./rsur/results/results-modal.component");
+var edit_modal_component_1 = require("./rsur/edit-particip/edit-modal.component");
+var particips_component_1 = require("./rsur/particips.component");
+var particip_list_component_1 = require("./rsur/particip-list.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
-var particip_details_component_1 = require("./particips/details/particip-details.component");
-var edit_particip_component_1 = require("./particips/edit-particip/edit-particip.component");
-var particip_correction_component_1 = require("./particips/correction/particip-correction.component");
-var particip_form_component_1 = require("./particips/particip-form/particip-form.component");
+var particip_details_component_1 = require("./rsur/details/particip-details.component");
+var edit_particip_component_1 = require("./rsur/edit-particip/edit-particip.component");
+var particip_correction_component_1 = require("./rsur/correction/particip-correction.component");
+var particip_form_component_1 = require("./rsur/particip-form/particip-form.component");
 //Services
 var user_service_1 = require("./user.service");
-var particip_service_1 = require("./particips/particip.service");
-var particip_correction_service_1 = require("./particips/correction/particip-correction.service");
+var particip_service_1 = require("./particip.service");
+var rsur_particip_service_1 = require("./rsur/rsur-particip.service");
+var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 //Pipes
-var particip_filter_pipe_1 = require("./particips/particip-filter.pipe");
+var rsur_particip_filter_pipe_1 = require("./rsur/rsur-particip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
-var particips_without_details_filter_1 = require("./particips/details/particips-without-details.filter");
+var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
@@ -51,7 +52,7 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             particips_component_1.ParticipsComponent,
             particip_list_component_1.ParticipListComponent,
-            particip_filter_pipe_1.ParticipFilterPipe,
+            rsur_particip_filter_pipe_1.RsurParticipFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
             plan_component_1.PlanComponent,
@@ -65,7 +66,7 @@ AppModule = __decorate([
             particip_form_component_1.ParticipFormComponent
         ],
         providers: [
-            user_service_1.UserService, particip_service_1.ParticipService, particip_correction_service_1.ParticipCorrectionService,
+            user_service_1.UserService, particip_service_1.ParticipService, rsur_particip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
