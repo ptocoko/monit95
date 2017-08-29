@@ -14,7 +14,7 @@ using System.Web.Http;
 
 namespace Monit95App.Web.Api
 {
-   // [Authorize(Roles = "school")]
+    [Authorize(Roles = "school")]
     [RoutePrefix("api/marks")]
     public class MarksController : ApiController
     {
@@ -32,7 +32,7 @@ namespace Monit95App.Web.Api
         #region  APIs
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody]MarksDto dto)
+        public IHttpActionResult Post([FromBody]PostMarksDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -43,13 +43,13 @@ namespace Monit95App.Web.Api
             return Ok();
         }
 
-        [HttpGet]
-        public IHttpActionResult GetAll(int projectTestId, string schoolId)
+        [HttpGet]        
+        public IHttpActionResult GetAll(int projectTestId)
         {
             IEnumerable<ParticipMarksDto> participMarksDtos;
             try
             {
-                participMarksDtos = _marksService.GetParticipMarksDtos(projectTestId, schoolId);
+                participMarksDtos = _marksService.GetParticipMarksDtos(projectTestId, User.Identity.Name);
             }
             catch (ArgumentException ex)
             {
@@ -60,10 +60,17 @@ namespace Monit95App.Web.Api
         }
 
         [HttpPut]
-        [Route("{participTestId}")]
-        public IHttpActionResult Put([FromBody]MarksDto dto)
+        [Route("{participTestId:int}")]
+        public IHttpActionResult Put([FromBody]PostMarksDto dto)
         {
-            //MarksDto dto = (MarksDto)marks;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
+
+            _marksService.Update(participTestId, dto);
+
             return Ok();
         }
 

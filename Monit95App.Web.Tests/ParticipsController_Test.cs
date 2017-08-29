@@ -115,7 +115,7 @@ namespace Monit95App.Web.Tests
         }
 
         [TestMethod]
-        public void GetAll_CallByCokoTest()
+        public void GetAll_Call_Coko_Test()
         {
             //Arrange
             var service = Substitute.For<IParticipService>();
@@ -151,14 +151,14 @@ namespace Monit95App.Web.Tests
             controller.User = principal;
 
             //Act            
-            var response = controller.GetAll();
+            var response = controller.GetAll(1);
 
             //Assert            
-            service.GetAllDtos(null, null).Received();
+            service.GetAll(1, null, null).Received();
         }
 
         [TestMethod]
-        public void GetAll_CallByAreaTest()
+        public void GetAll_Call_Area_Test()
         {
             //Arrange
             var mockService = Substitute.For<IParticipService>();
@@ -195,10 +195,10 @@ namespace Monit95App.Web.Tests
             controller.User = mockPrincipal;
 
             //Act            
-            var response = controller.GetAll();
+            var response = controller.GetAll(1);
 
             //Assert            
-            mockService.GetAllDtos(201, null).Received();
+            mockService.GetAll(1, 201, null).Received();
         }
 
         [TestMethod]
@@ -219,7 +219,7 @@ namespace Monit95App.Web.Tests
             };
             controller.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
-                new HttpRouteValueDictionary {{"id", "123"}});
+                new HttpRouteValueDictionary {{ "participTestId", "123"}});
             var response = controller.Put(dto);
 
             //Assert

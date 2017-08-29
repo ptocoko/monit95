@@ -1,26 +1,22 @@
-﻿using ClosedXML.Excel;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Services.Interfaces;
-using Monit95App.Services.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
+using ClosedXML.Excel;
+
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Services.Interfaces;
 
 namespace Monit95App.Services
 {
     public class ClassParticipImporter : IClassParticipImporter
     {
         private List<Class> _allClasses;
-        private IClassService _classService;
+        private readonly IClassService _classService;
 
         public ClassParticipImporter(IClassService classService)
         {
@@ -42,7 +38,7 @@ namespace Monit95App.Services
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            if(classNumbers == null)
+            if (classNumbers == null)
             {
                 _allClasses = _classService.GetAll().ToList();
             }
@@ -52,7 +48,7 @@ namespace Monit95App.Services
                 var classes = _classService.GetAll();
                 foreach (var classNumber in classNumbers)
                 {
-                    _allClasses.AddRange(classes.Where(p => p.Name.StartsWith(classNumber.ToString()+" ")));
+                    _allClasses.AddRange(classes.Where(p => p.Name.StartsWith(classNumber.ToString() + " ")));
                 }
             }
 

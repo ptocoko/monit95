@@ -20,7 +20,7 @@ namespace Monit95App.Web.Tests
             var mockService = Substitute.For<IMarksService>();
 
             //Act
-            var dto = new MarksDto
+            var dto = new PostMarksDto
             {
                 ParticipTestId = 123,                
                 Marks = "1;1;0,5"
@@ -40,7 +40,7 @@ namespace Monit95App.Web.Tests
 
             //Act         
             var controller = new MarksController(mockService);
-            var response = controller.GetAll(1, "0005");
+            var response = controller.GetAll(1);
 
             //Assert
             mockService.Received().GetParticipMarksDtos(1, "0005");
@@ -54,14 +54,14 @@ namespace Monit95App.Web.Tests
             var controller = new MarksController(mockService);
 
             //Act
-            var dto = new MarksDto()
+            var dto = new PostMarksDto()
             {
                 ParticipTestId = 123,
                 Marks = "1;2;3"                
             };
             controller.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
-                new HttpRouteValueDictionary { { "id", "123" } });
+                new HttpRouteValueDictionary { { "participTestId", "123" } });
             var response = controller.Put(dto);
 
             //Assert
