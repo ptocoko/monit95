@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { UserService } from "./user.service";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
     selector: "app-root",
@@ -19,5 +20,14 @@ export class AppComponent implements OnInit {
 	handler(userRoles: string[]) {
 		this.isAreaRole = userRoles.indexOf("area") >= 0;
 		this.isCokoRole = userRoles.indexOf("coko") >= 0;
+	}
+
+	onActivate(event: any) {
+		if (event.constructor.name === "ClassParticipsListComponent") {
+			this.isRsur = false;
+		}
+		else {
+			this.isRsur = true;
+		}
 	}
 }
