@@ -1,7 +1,7 @@
-﻿using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
-using System;
+﻿using System;
 using System.Linq;
+
+using Monit95App.Domain.Interfaces;
 
 namespace Monit95App.Infrastructure.Data
 {
@@ -25,6 +25,7 @@ namespace Monit95App.Infrastructure.Data
             IQueryable<T> query = Context.Set<T>();    
             return query;
         }
+
         public T GetById(int id)
         {
             return Context.Set<T>().Find(id);
@@ -36,8 +37,7 @@ namespace Monit95App.Infrastructure.Data
         }
 
         public void Update(T entity)
-        {            
-            
+        {                        
             Save();
         }
 
@@ -48,6 +48,7 @@ namespace Monit95App.Infrastructure.Data
             {
                 throw new ArgumentException("Объект с таким первичным ключем не найден в базе данных для удаления");
             }
+
             Context.Set<T>().Remove(entity);
 
             Save();
@@ -60,6 +61,7 @@ namespace Monit95App.Infrastructure.Data
             {
                 throw new ArgumentException("Объект с таким первичным ключем не найден в базе данных для удаления");
             }
+
             Context.Set<T>().Remove(entity);
 
             Save();
