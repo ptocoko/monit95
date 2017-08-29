@@ -43,7 +43,6 @@ export class ClassParticipsListComponent implements OnInit {
 		this.userService.getAccount().subscribe(data => {
 			this.user = data.json() as UserModel;
 			this.participService.getAll(1).subscribe(res => {
-				console.log(res);
 				this.classParticips = res;
 			});
 		});
@@ -54,7 +53,9 @@ export class ClassParticipsListComponent implements OnInit {
 		if (file.name.split('.').pop() === 'xlsx') {
 			this.modal.open(ExportExcelModal, overlayConfigFactory({file: file}, BSModalContext)).then(modal => {
 				modal.result.then(result => {
-					//TODO: realize update list of particips;
+					this.participService.getAll(1).subscribe(res => {
+						this.classParticips = res;
+					});
 				}).catch(data => {
 					//console.log(data);
 				})
@@ -67,8 +68,6 @@ export class ClassParticipsListComponent implements OnInit {
 			dialog.result.then(classParticip => {
 				if (classParticip) {
 					this.classParticips.push(classParticip);
-
-					console.log(this.classParticips)
 				}
 			})
 		});
@@ -79,11 +78,7 @@ export class ClassParticipsListComponent implements OnInit {
 		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, schoolId: this.user.UserName, particip: classParticip }, BSModalContext)).then(dialog => {
 			dialog.result.then(particip => {
 				if (particip) {
-					console.log(particip);
-
 					this.classParticips[index] = particip;
-
-					console.log(this.classParticips[index]);
 				}
 			})
 		});
