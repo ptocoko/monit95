@@ -15,10 +15,10 @@ var ParticipService = (function () {
     function ParticipService(http) {
         this.http = http;
         this.GET_ALL_PARTICIPS_URL = "/api/particips/GetAll?projectTestId=";
-        this.GET_PARTICIP_URL = "/api/particips/Get/";
-        this.ADD_PARTICIP_URL = "/api/particips/Post";
+        this.GET_PARTICIP_URL = "/api/particips/";
+        this.ADD_PARTICIP_URL = "/api/particips/post";
         this.UPDATE_PARTICIP_URL = "/api/particips/";
-        this.DELETE_PARTICIP_URL = "/api/particips/Delete/";
+        this.DELETE_PARTICIP_URL = "/api/particips/";
     }
     ParticipService.prototype.getAll = function (projectId) {
         return this.http.get(this.GET_ALL_PARTICIPS_URL + projectId.toString()).map(function (res) {

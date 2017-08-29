@@ -63,7 +63,7 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	addClassParticip() {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false, schoolId: this.user.userName, projectId: 1 }, BSModalContext)).then(dialog => {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false, schoolId: this.user.UserName, projectId: 1 }, BSModalContext)).then(dialog => {
 			dialog.result.then(classParticip => {
 				if (classParticip) {
 					this.classParticips.push(classParticip);
@@ -76,7 +76,7 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	updateClassParticip(classParticip: ParticipModel, index: number) {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, schoolId: this.user.userName, particip: classParticip }, BSModalContext)).then(dialog => {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, schoolId: this.user.UserName, particip: classParticip }, BSModalContext)).then(dialog => {
 			dialog.result.then(particip => {
 				if (particip) {
 					console.log(particip);

@@ -46,7 +46,7 @@ var ClassParticipsListComponent = (function () {
     };
     ClassParticipsListComponent.prototype.addClassParticip = function () {
         var _this = this;
-        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: false, schoolId: this.user.userName, projectId: 1 }, bootstrap_1.BSModalContext)).then(function (dialog) {
+        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: false, schoolId: this.user.UserName, projectId: 1 }, bootstrap_1.BSModalContext)).then(function (dialog) {
             dialog.result.then(function (classParticip) {
                 if (classParticip) {
                     _this.classParticips.push(classParticip);
@@ -57,7 +57,7 @@ var ClassParticipsListComponent = (function () {
     };
     ClassParticipsListComponent.prototype.updateClassParticip = function (classParticip, index) {
         var _this = this;
-        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, schoolId: this.user.userName, particip: classParticip }, bootstrap_1.BSModalContext)).then(function (dialog) {
+        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, schoolId: this.user.UserName, particip: classParticip }, bootstrap_1.BSModalContext)).then(function (dialog) {
             dialog.result.then(function (particip) {
                 if (particip) {
                     console.log(particip);

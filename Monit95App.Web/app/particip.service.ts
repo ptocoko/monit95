@@ -6,10 +6,10 @@ import { ParticipModel } from "./particip.model";
 @Injectable()
 export class ParticipService {
 	private GET_ALL_PARTICIPS_URL: string = "/api/particips/GetAll?projectTestId=";
-	private GET_PARTICIP_URL: string = "/api/particips/Get/";
-	private ADD_PARTICIP_URL: string = "/api/particips/Post";
+	private GET_PARTICIP_URL: string = "/api/particips/";
+	private ADD_PARTICIP_URL: string = "/api/particips/post";
 	private UPDATE_PARTICIP_URL: string = "/api/particips/";
-	private DELETE_PARTICIP_URL: string = "/api/particips/Delete/";
+	private DELETE_PARTICIP_URL: string = "/api/particips/";
 
 	constructor(private http: Http) { }
 
