@@ -19,7 +19,8 @@ namespace Monit95App.Services.Tests
         public void GetTestResultsGroupByParticipCodeTest()
         {
             //Arange            
-            var repository = new GenericRepository<RsurTestResult>();
+            var context = new CokoContext();
+            var repository = new GenericRepository<RsurTestResult>(context);
             var service = new RsurParticipProtocolService(repository);
 
             //Act

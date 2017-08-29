@@ -27,7 +27,8 @@ namespace Monit95App.Web.Tests
     [TestClass]
     public class ParticipsController_Test
     {
-        GenericRepository<Particip> repo = new GenericRepository<Particip>();
+        static CokoContext context = new CokoContext();
+        GenericRepository<Particip> repo = new GenericRepository<Particip>(context);
         IGenericRepository<Particip> mockRepo = Substitute.For<IGenericRepository<Particip>>();
 
         [TestCleanup]

@@ -9,9 +9,9 @@ namespace Monit95App.Infrastructure.Data
     {
         protected readonly CokoContext Context;
 
-        public GenericRepository()
+        public GenericRepository(CokoContext cokoContext)
         {
-            Context = new CokoContext();
+            Context = cokoContext;
         }
 
         public void Insert(T entity)
