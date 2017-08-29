@@ -568,11 +568,11 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\class-particips\add-class-particip.modal.ts" />
-    <TypeScriptCompile Include="app\class-particips\class-particip.model.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips.module.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips.routing.ts" />
     <TypeScriptCompile Include="app\class-particips\export-excel-modal.component.ts" />
+    <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />

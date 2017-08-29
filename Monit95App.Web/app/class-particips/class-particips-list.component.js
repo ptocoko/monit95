@@ -21,8 +21,9 @@ var ClassParticipsListComponent = (function () {
         this.modal = modal;
     }
     ClassParticipsListComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.userService.getAccount().subscribe(function (data) {
-            var user = data.json();
+            _this.user = data.json();
             //TODO: Get first class particips
         });
         this.classParticips = new Array();
@@ -41,7 +42,7 @@ var ClassParticipsListComponent = (function () {
     };
     ClassParticipsListComponent.prototype.addClassParticip = function () {
         var _this = this;
-        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: false }, bootstrap_1.BSModalContext)).then(function (dialog) {
+        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: false, schoolId: this.user.userName }, bootstrap_1.BSModalContext)).then(function (dialog) {
             dialog.result.then(function (classParticip) {
                 if (classParticip) {
                     _this.classParticips.push(classParticip);
@@ -52,7 +53,7 @@ var ClassParticipsListComponent = (function () {
     };
     ClassParticipsListComponent.prototype.updateClassParticip = function (classParticip, index) {
         var _this = this;
-        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, particip: classParticip }, bootstrap_1.BSModalContext)).then(function (dialog) {
+        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, particip: classParticip, schoolId: this.user.userName }, bootstrap_1.BSModalContext)).then(function (dialog) {
             dialog.result.then(function (particip) {
                 if (particip) {
                     console.log(particip);
