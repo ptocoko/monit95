@@ -27,17 +27,19 @@ var ClassParticipsListComponent = (function () {
         this.userService.getAccount().subscribe(function (data) {
             _this.user = data.json();
             _this.participService.getAll(1).subscribe(function (res) {
-                console.log(res);
                 _this.classParticips = res;
             });
         });
     };
     ClassParticipsListComponent.prototype.exportParticips = function (event) {
+        var _this = this;
         var file = event.target.files[0];
         if (file.name.split('.').pop() === 'xlsx') {
             this.modal.open(export_excel_modal_component_1.ExportExcelModal, angular2_modal_1.overlayConfigFactory({ file: file }, bootstrap_1.BSModalContext)).then(function (modal) {
                 modal.result.then(function (result) {
-                    //TODO: realize update list of particips;
+                    _this.participService.getAll(1).subscribe(function (res) {
+                        _this.classParticips = res;
+                    });
                 }).catch(function (data) {
                     //console.log(data);
                 });
@@ -50,7 +52,6 @@ var ClassParticipsListComponent = (function () {
             dialog.result.then(function (classParticip) {
                 if (classParticip) {
                     _this.classParticips.push(classParticip);
-                    console.log(_this.classParticips);
                 }
             });
         });
@@ -60,9 +61,7 @@ var ClassParticipsListComponent = (function () {
         this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, schoolId: this.user.UserName, particip: classParticip }, bootstrap_1.BSModalContext)).then(function (dialog) {
             dialog.result.then(function (particip) {
                 if (particip) {
-                    console.log(particip);
                     _this.classParticips[index] = particip;
-                    console.log(_this.classParticips[index]);
                 }
             });
         });
