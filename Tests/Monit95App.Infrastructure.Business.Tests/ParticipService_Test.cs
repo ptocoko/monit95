@@ -104,6 +104,32 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
+        public void Update_IntegrationTest()
+        {
+            //Arrange           
+
+            //Act
+            var dto = new ParticipDto
+            {
+                ProjectId = 201677,
+                Surname = "Test_new",
+                Name = "...",
+                SchoolId = "0000",
+                ClassName = "1 А"
+            };
+            var context = new CokoContext();
+            var service = new ParticipService(new GenericRepository<Particip>(context), new ClassService(new GenericRepository<Class>(context)));
+            service.Update(91281, dto);
+
+
+
+
+
+            //Assert
+         
+        }
+
+        [TestMethod]
         public void GetById_Test()
         {
             //Arrange

@@ -34,6 +34,7 @@ namespace Monit95App.Services
 
             var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>()
                 .ReverseMap()
+                .ForMember(dist=>dist.Id, opt=>opt.Ignore())
                 .AfterMap((dto, entity) =>
                     {
                         entity.Class = null;

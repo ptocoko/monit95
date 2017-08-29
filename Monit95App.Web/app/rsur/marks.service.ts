@@ -22,11 +22,16 @@ export class RsurParticipService {
 
     addMarks(marks: Marks)
     {
-
+        return this.http.post(this.ROUTE_PREFIX, marks);
     }
 
     getAll(projectTestId: number) {
         return this.http.get(`${this.ROUTE_PREFIX}/?projectTestId=${projectTestId}`);
+    }
+
+    update(marks: Marks)
+    {
+
     }
 
     update(particip: RsurParticipModel) {

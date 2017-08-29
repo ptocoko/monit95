@@ -9,9 +9,9 @@ namespace Monit95App.Infrastructure.Data
     {
         protected readonly CokoContext Context;
 
-        public GenericRepository()
+        public GenericRepository(CokoContext cokoContext)
         {
-            Context = new CokoContext();
+            Context = cokoContext;
         }
 
         public void Insert(T entity)
@@ -35,11 +35,16 @@ namespace Monit95App.Infrastructure.Data
             return Context.Set<T>().Find(id);
         }
 
-        public void Update(T entity)
-        {            
-            var entry = Context.Entry(entity);
-            entry.State = System.Data.Entity.EntityState.Modified;
+        //public void Update(T entity)
+        //{            
+        //    var entry = Context.Entry(entity);
+        //    entry.State = System.Data.Entity.EntityState.Modified;
 
+        //    Save();
+        //}
+
+        public void Update(T entity)
+        {           
             Save();
         }
 
