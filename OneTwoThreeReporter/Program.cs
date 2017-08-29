@@ -29,11 +29,11 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             _context = new CokoContext();            
-            _testResults = new GenericRepository<Result>();
-            _schools = new GenericRepository<School>();
+            _testResults = new GenericRepository<Result>(_context);
+            _schools = new GenericRepository<School>(_context);
             _gradeConverter = new OneTwoThreeGradeConverter();
 
-            var classService = new ClassService(new GenericRepository<Class>());
+            var classService = new ClassService(new GenericRepository<Class>(_context));
             _classes = classService.GetAll().ToList();
             
             var reports = GetAllResults();

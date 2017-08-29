@@ -12,7 +12,8 @@ namespace Monit95App.Infrastructure.Data.Tests
         public void GetAll_Test()
         {
             //Act
-            var repo = new GenericRepository<Particip>();
+            var context = new CokoContext();
+            var repo = new GenericRepository<Particip>(context);
             var items = repo.GetAll().First();
 
             //Assert

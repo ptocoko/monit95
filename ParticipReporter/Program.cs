@@ -39,7 +39,8 @@ namespace ParticipReporter
 
         static void GetReports(Guid testId, DateTime testDate)
         {
-            var testResultService = new RsurTestResultService(new GenericRepository<Element>(), new GenericRepository<RsurTestResult>());
+            var context = new CokoContext();
+            var testResultService = new RsurTestResultService(new GenericRepository<Element>(context), new GenericRepository<RsurTestResult>(context));
 
             var results = testResultService.SelectParticipsGroupResults(testId, testDate);
 

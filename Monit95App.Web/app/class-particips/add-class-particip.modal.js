@@ -24,6 +24,8 @@ var angular2_modal_1 = require("angular2-modal");
 var http_1 = require("@angular/http");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var particip_model_1 = require("../particip.model");
+var class_service_1 = require("../class.service");
+var particip_service_1 = require("../particip.service");
 var AddClassParticipModalData = (function (_super) {
     __extends(AddClassParticipModalData, _super);
     function AddClassParticipModalData() {
@@ -33,11 +35,12 @@ var AddClassParticipModalData = (function (_super) {
 }(bootstrap_1.BSModalContext));
 exports.AddClassParticipModalData = AddClassParticipModalData;
 var AddClassParticipModal = (function () {
-    function AddClassParticipModal(dialog, http) {
+    function AddClassParticipModal(dialog, http, classService, participService) {
         this.dialog = dialog;
         this.http = http;
+        this.classService = classService;
+        this.participService = participService;
         this.isUpdate = dialog.context.isUpdate;
-        this.schoolId = dialog.context.schoolId;
         if (this.isUpdate) {
             this.particip = dialog.context.particip;
             this.actionText = "Изменить";
@@ -45,18 +48,34 @@ var AddClassParticipModal = (function () {
         else {
             this.particip = new particip_model_1.ParticipModel();
             this.actionText = "Добавить";
+            this.schoolId = dialog.context.schoolId;
+            this.projectId = dialog.context.projectId;
         }
     }
     AddClassParticipModal.prototype.ngOnInit = function () {
-        this.classNames = ["1 A", "1 B", "1 E"];
+        var _this = this;
+        this.classService.getClassNames().subscribe(function (classNames) {
+            _this.classNames = classNames;
+            _this.classNames.length = 12;
+        });
     };
     AddClassParticipModal.prototype.onSubmit = function () {
+        var _this = this;
         if (this.isUpdate) {
-            //TODO: service for class particips
+            this.participService.updateParticip(this.particip).subscribe(function (res) {
+                console.log(res);
+                _this.dialog.close(_this.particip);
+            });
         }
         else {
+            this.particip.SchoolId = this.schoolId;
+            this.particip.ProjectId = this.projectId;
+            console.log(this.particip);
+            this.participService.addParticip(this.particip).subscribe(function (res) {
+                console.log(res);
+                _this.dialog.close(_this.particip);
+            });
         }
-        this.dialog.close(this.particip);
     };
     return AddClassParticipModal;
 }());
@@ -64,7 +83,7 @@ AddClassParticipModal = __decorate([
     core_1.Component({
         templateUrl: './app/class-particips/add-class-particip.modal.html'
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, http_1.Http])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, http_1.Http, class_service_1.ClassService, particip_service_1.ParticipService])
 ], AddClassParticipModal);
 exports.AddClassParticipModal = AddClassParticipModal;
 //# sourceMappingURL=add-class-particip.modal.js.map

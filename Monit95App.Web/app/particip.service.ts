@@ -5,9 +5,9 @@ import { ParticipModel } from "./particip.model";
 
 @Injectable()
 export class ParticipService {
-	private GET_ALL_PARTICIPS_URL: string = "/api/particips?projectCodeId=";
+	private GET_ALL_PARTICIPS_URL: string = "/api/particips/GetAll?projectTestId=";
 	private GET_PARTICIP_URL: string = "/api/particips/";
-	private ADD_PARTICIP_URL: string = "/api/particips";
+	private ADD_PARTICIP_URL: string = "/api/particips/post";
 	private UPDATE_PARTICIP_URL: string = "/api/particips/";
 	private DELETE_PARTICIP_URL: string = "/api/particips/";
 
@@ -15,12 +15,14 @@ export class ParticipService {
 
 	getAll(projectId: number): Observable<ParticipModel[]> {
 		return this.http.get(this.GET_ALL_PARTICIPS_URL + projectId.toString()).map((res: Response) => {
+			
 			return res.json() as ParticipModel[]
 		});
 	}
 
 	getParticip(participId: number): Observable<ParticipModel> {
 		return this.http.get(this.GET_PARTICIP_URL + participId.toString()).map((res: Response) => {
+			
 			return res.json() as ParticipModel;
 		});
 	}
@@ -32,7 +34,7 @@ export class ParticipService {
 	}
 
 	updateParticip(particip: ParticipModel): Observable<any> {
-		return this.http.put(this.UPDATE_PARTICIP_URL + particip.id.toString(), particip);
+		return this.http.put(this.UPDATE_PARTICIP_URL + particip.Id.toString(), particip);
 	}
 
 	deleteParticip(participId: number): Observable<any> {

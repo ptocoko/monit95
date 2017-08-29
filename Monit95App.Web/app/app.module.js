@@ -14,7 +14,6 @@ var forms_1 = require("@angular/forms");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var mydatepicker_1 = require("mydatepicker");
-var class_particips_module_1 = require("./class-particips/class-particips.module");
 //Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
@@ -28,11 +27,15 @@ var particip_details_component_1 = require("./rsur/details/particip-details.comp
 var edit_particip_component_1 = require("./rsur/edit-particip/edit-particip.component");
 var particip_correction_component_1 = require("./rsur/correction/particip-correction.component");
 var particip_form_component_1 = require("./rsur/particip-form/particip-form.component");
+var add_class_particip_modal_1 = require("./class-particips/add-class-particip.modal");
+var export_excel_modal_component_1 = require("./class-particips/export-excel-modal.component");
+var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 //Services
 var user_service_1 = require("./user.service");
 var particip_service_1 = require("./particip.service");
 var rsur_particip_service_1 = require("./rsur/rsur-particip.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
+var class_service_1 = require("./class.service");
 //Pipes
 var rsur_particip_filter_pipe_1 = require("./rsur/rsur-particip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -47,7 +50,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, class_particips_module_1.ClassParticipsModule, app_routing_1.routing, forms_1.FormsModule, angular2_modal_1.ModalModule.forRoot(), bootstrap_1.BootstrapModalModule, mydatepicker_1.MyDatePickerModule],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_1.routing, forms_1.FormsModule, angular2_modal_1.ModalModule.forRoot(), bootstrap_1.BootstrapModalModule, mydatepicker_1.MyDatePickerModule],
         declarations: [
             app_component_1.AppComponent,
             particips_component_1.ParticipsComponent,
@@ -63,14 +66,24 @@ AppModule = __decorate([
             results_modal_component_1.ResultsModalComponent,
             edit_modal_component_1.EditModalComponent,
             particip_correction_component_1.ParticipCorrectionComponent,
-            particip_form_component_1.ParticipFormComponent
+            particip_form_component_1.ParticipFormComponent,
+            class_particips_list_component_1.ClassParticipsListComponent,
+            export_excel_modal_component_1.ExportExcelModal,
+            add_class_particip_modal_1.AddClassParticipModal
         ],
         providers: [
-            user_service_1.UserService, particip_service_1.ParticipService, rsur_particip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService,
+            user_service_1.UserService, particip_service_1.ParticipService, rsur_particip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
-        entryComponents: [particip_modal_component_1.ParticipModalComponent, results_modal_component_1.ResultsModalComponent, edit_modal_component_1.EditModalComponent, particip_form_component_1.ParticipFormComponent],
+        entryComponents: [
+            particip_modal_component_1.ParticipModalComponent,
+            results_modal_component_1.ResultsModalComponent,
+            edit_modal_component_1.EditModalComponent,
+            particip_form_component_1.ParticipFormComponent,
+            export_excel_modal_component_1.ExportExcelModal,
+            add_class_particip_modal_1.AddClassParticipModal
+        ],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

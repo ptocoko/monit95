@@ -14,9 +14,9 @@ var http_1 = require("@angular/http");
 var ParticipService = (function () {
     function ParticipService(http) {
         this.http = http;
-        this.GET_ALL_PARTICIPS_URL = "/api/particips?projectCodeId=";
+        this.GET_ALL_PARTICIPS_URL = "/api/particips/GetAll?projectTestId=";
         this.GET_PARTICIP_URL = "/api/particips/";
-        this.ADD_PARTICIP_URL = "/api/particips";
+        this.ADD_PARTICIP_URL = "/api/particips/post";
         this.UPDATE_PARTICIP_URL = "/api/particips/";
         this.DELETE_PARTICIP_URL = "/api/particips/";
     }
@@ -36,7 +36,7 @@ var ParticipService = (function () {
         });
     };
     ParticipService.prototype.updateParticip = function (particip) {
-        return this.http.put(this.UPDATE_PARTICIP_URL + particip.id.toString(), particip);
+        return this.http.put(this.UPDATE_PARTICIP_URL + particip.Id.toString(), particip);
     };
     ParticipService.prototype.deleteParticip = function (participId) {
         return this.http.delete(this.DELETE_PARTICIP_URL + participId.toString());

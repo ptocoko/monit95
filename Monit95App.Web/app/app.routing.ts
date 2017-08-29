@@ -7,6 +7,7 @@ import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
 import { EditParticipComponent } from './rsur/edit-particip/edit-particip.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
+import { ClassParticipsListComponent } from "./class-particips/class-particips-list.component";
 
 const appRoutes: Routes = [
     { path: 'particips', component: ParticipListComponent },
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
 	{ path: 'details', component: ParticipDetailsComponent },
     { path: 'edit-particip', component: EditParticipComponent },
 	{ path: 'particip-correction', component: ParticipCorrectionComponent },
+	{ path: 'class-particips', component: ClassParticipsListComponent },
     { path: '', redirectTo: '/particips', pathMatch: 'full' } // redirect to home page on load
 ];
 

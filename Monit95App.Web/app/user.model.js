@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var UserModel = (function () {
-    function UserModel(userName, userRoles) {
-        this.userName = userName;
-        this.userRoles = userRoles;
+    function UserModel(UserName, UserRoles) {
+        this.UserName = UserName;
+        this.UserRoles = UserRoles;
     }
     return UserModel;
 }());

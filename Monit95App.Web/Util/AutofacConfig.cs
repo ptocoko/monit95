@@ -34,7 +34,8 @@ namespace Monit95App.Util
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             // Register individual components            
-            
+
+            builder.RegisterType<CokoContext>().ExternallyOwned();
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>));                       
             builder.RegisterType<ParticipService>().As<IParticipService>();            
             builder.RegisterType<ClassService>().As<IClassService>();

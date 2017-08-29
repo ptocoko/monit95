@@ -3,6 +3,8 @@ import { DialogRef } from "angular2-modal";
 import { Http } from "@angular/http";
 import { BSModalContext } from "angular2-modal/plugins/bootstrap";
 import { ParticipModel } from "../particip.model";
+import { ClassService } from "../class.service";
+import { ParticipService } from "../particip.service";
 
 export class AddClassParticipModalData extends BSModalContext {
 	particip: ParticipModel;
@@ -24,7 +26,7 @@ export class AddClassParticipModal implements OnInit {
 	statusText: string;
 	actionText: string;
 
-	constructor(public dialog: DialogRef<AddClassParticipModalData>, private http: Http) {
+	constructor(public dialog: DialogRef<AddClassParticipModalData>, private http: Http, private classService: ClassService, private participService: ParticipService) {
 		this.isUpdate = dialog.context.isUpdate;
 
 		if (this.isUpdate) {
@@ -40,17 +42,27 @@ export class AddClassParticipModal implements OnInit {
 	}
 
 	ngOnInit() {
-		this.classNames = ["1 A", "1 B", "1 E"]
+		this.classService.getClassNames().subscribe(classNames => {
+			this.classNames = classNames;
+			this.classNames.length = 12;
+		})
 	}
 
 	onSubmit() {
 		if (this.isUpdate) {
-			//TODO: service for class particips
-
+			this.participService.updateParticip(this.particip).subscribe(res => {
+				console.log(res);
+				this.dialog.close(this.particip);
+			});
 		}
 		else {
-
+			this.particip.SchoolId = this.schoolId;
+			this.particip.ProjectId = this.projectId;
+			console.log(this.particip);
+			this.participService.addParticip(this.particip).subscribe(res => {
+				console.log(res);
+				this.dialog.close(this.particip);
+			})
 		}
-		this.dialog.close(this.particip);
 	}
 }

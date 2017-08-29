@@ -1,6 +1,6 @@
 ﻿export class UserModel{
 	constructor(
-		public userName: string,
-		public userRoles: Array<string>
+		public UserName: string,
+		public UserRoles: Array<string>
 	) { }
 }
