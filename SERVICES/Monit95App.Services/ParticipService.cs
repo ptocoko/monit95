@@ -102,6 +102,7 @@ namespace Monit95App.Services
             }
 
             _mapper.Map(dto, entity);
+            entity.Class = null;
 
             _participRepository.Update(entity);
         }          

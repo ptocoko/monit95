@@ -592,6 +592,7 @@
     <TypeScriptCompile Include="app\rsur\particip-list.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-modal.component.ts" />
+    <TypeScriptCompile Include="app\rsur\marks.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-particip.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-particip.model.ts" />
     <TypeScriptCompile Include="app\rsur\particips.component.ts" />

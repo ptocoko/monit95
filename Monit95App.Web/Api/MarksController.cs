@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
@@ -21,6 +22,7 @@ namespace Monit95App.Web.Api
         #region Dependencies
 
         private readonly IMarksService _marksService;
+        private readonly IGenericRepository<Result> _resultRepository;
 
         #endregion
 
@@ -70,6 +72,23 @@ namespace Monit95App.Web.Api
             var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
 
             _marksService.Update(participTestId, dto);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("{participTestId:int}")]
+        public IHttpActionResult Delete()
+        {
+            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
+            try
+            {
+                _resultRepository.Delete(participTestId);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
 
             return Ok();
         }
