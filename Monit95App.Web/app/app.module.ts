@@ -28,6 +28,7 @@ import { UserService } from './user.service';
 import { ParticipService } from './particip.service';
 import { RsurParticipService } from './rsur/rsur-particip.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
+import { ClassService } from "./class.service";
 
 //Pipes
 import { RsurParticipFilterPipe } from './rsur/rsur-particip-filter.pipe';
@@ -59,7 +60,7 @@ import { GlobalErrorHandler } from "./error-handler";
 		ParticipFormComponent
 	],
 	providers: [
-        UserService, ParticipService, RsurParticipService, ParticipCorrectionService,
+        UserService, ParticipService, RsurParticipService, ParticipCorrectionService, ClassService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

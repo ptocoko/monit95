@@ -19,10 +19,10 @@
         <th></th>
     </tr>
     <tr *ngFor="let particip of classParticips; let i = index">
-        <td>{{particip.surname}}</td>
-        <td>{{particip.name}}</td>
-        <td>{{particip.secondName}}</td>
-        <td>{{particip.className}}</td>
+        <td>{{particip.Surname}}</td>
+        <td>{{particip.Name}}</td>
+        <td>{{particip.SecondName}}</td>
+        <td>{{particip.ClassName}}</td>
         <td><a class="glyphicon glyphicon-edit" (click)="updateClassParticip(particip, i)"></a></td>
     </tr>
 </table>

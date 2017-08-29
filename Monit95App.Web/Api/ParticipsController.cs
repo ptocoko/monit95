@@ -68,7 +68,7 @@ namespace Monit95App.Api
             {
                 areaCode = Convert.ToInt32(User.Identity.Name);
             }
-
+            
             if (User.IsInRole("school"))
             {
                 schoolId = User.Identity.Name;

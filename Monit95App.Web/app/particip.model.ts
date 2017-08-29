@@ -1,9 +1,9 @@
 ﻿export class ParticipModel {
-	public id: number;
-	public projectId: number;
-	public surname: string;
-	public name: string;
-	public secondName: string;
-	public className: string;
-	public schoolId: string;
+	public Id: number;
+	public ProjectId: number;
+	public Surname: string;
+	public Name: string;
+	public SecondName: string;
+	public ClassName: string;
+	public SchoolId: string;
 }
