@@ -16,7 +16,12 @@ namespace Monit95App.Controllers
     [System.Web.Mvc.Authorize]
     public class WishesController : Controller
     {
-        private readonly CokoContext _db = new CokoContext();
+        private readonly CokoContext _db;
+
+        public WishesController(CokoContext cokoContext)
+        {
+            _db = cokoContext;
+        }
 
         [System.Web.Mvc.HttpGet]
         public ActionResult Index()
@@ -47,7 +52,7 @@ namespace Monit95App.Controllers
         [System.Web.Mvc.HttpGet]
         public ActionResult ViewForAdmins()
         {
-            var models = _db.Wishes.ToList().Select(wish => WishModelCreator.Create(wish));
+            var models = _db.Wishes.ToList().Select(wish => WishModelCreator.Create(wish, _db));
             return View(models);
         }
 
@@ -63,7 +68,7 @@ namespace Monit95App.Controllers
             {
                 return HttpNotFound();
             }
-            var model = WishModelCreator.Create(wish);
+            var model = WishModelCreator.Create(wish, _db);
             return View(model);
         }
 

@@ -10,9 +10,10 @@ namespace Monit95App.Models
 {
     public static class WishModelCreator
     {
-        private static readonly CokoContext _db = new CokoContext();
-        public static WishModel Create(Wish wish)
+        private static CokoContext _db;
+        public static WishModel Create(Wish wish, CokoContext cokoContext)
         {
+            _db = cokoContext;
             bool isAreaCode = wish.UserId.Trim().Length == 3;
 
             return new WishModel

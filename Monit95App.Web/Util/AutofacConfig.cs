@@ -35,7 +35,7 @@ namespace Monit95App.Util
 
             // Register individual components            
 
-            builder.RegisterType<CokoContext>().ExternallyOwned();
+            builder.RegisterType<CokoContext>().SingleInstance().ExternallyOwned();
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>));                       
             builder.RegisterType<ParticipService>().As<IParticipService>();            
             builder.RegisterType<ClassService>().As<IClassService>();
