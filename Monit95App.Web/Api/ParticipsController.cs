@@ -59,7 +59,7 @@ namespace Monit95App.Api
 
         [HttpGet]
         [Authorize(Roles = "coko, area, school")]
-        public IHttpActionResult GetAll(int projectTestId)
+        public IHttpActionResult GetAll(int projectId)
         {
             int? areaCode = null;
             string schoolId = null;
@@ -74,7 +74,7 @@ namespace Monit95App.Api
                 schoolId = User.Identity.Name;
             }
 
-            var dtos = _participService.GetAll(projectTestId, areaCode, schoolId);
+            var dtos = _participService.GetAll(projectId, areaCode, schoolId);
 
             return Ok(dtos);
         }

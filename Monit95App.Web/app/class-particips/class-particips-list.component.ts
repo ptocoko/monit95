@@ -34,6 +34,7 @@ import { ParticipService } from "../particip.service";
 export class ClassParticipsListComponent implements OnInit {
 	classParticips: ParticipModel[];
 	user: UserModel;
+	isLoading: boolean = true;
 
 	constructor(private userService: UserService, private modal: Modal, private participService: ParticipService) {
 
@@ -44,6 +45,7 @@ export class ClassParticipsListComponent implements OnInit {
 			this.user = data.json() as UserModel;
 			this.participService.getAll(1).subscribe(res => {
 				this.classParticips = res;
+				this.isLoading = false;
 			});
 		});
 	}

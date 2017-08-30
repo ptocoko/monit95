@@ -33,11 +33,10 @@ namespace Monit95App.Services
             _classServise = classService;
 
             var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>()
+                //.ForMember(d => d.ClassName, opt => opt.Ignore())
                 .ReverseMap()
-                .AfterMap((dto, entity) =>
-                    {
-                        entity.Class = null;
-                    }));
+                .ForPath(d => d.Class.Name, opt => opt.Ignore())
+                .ForMember(d => d.ClassId, opt => opt.MapFrom(src => _classServise.GetId(src.ClassName))));
 
             _mapper = mapConfig.CreateMapper();
         }
@@ -54,17 +53,17 @@ namespace Monit95App.Services
             Validator.ValidateObject(dto, validContext, true);
             
             var entity = _mapper.Map<ParticipDto, Particip>(dto);
-            entity.ClassId = _classServise.GetId(dto.ClassName); // ClassName => ClassCode 
+            //entity.ClassId = _classServise.GetId(dto.ClassName); // ClassName => ClassCode 
 
             _participRepository.Insert(entity);                        
 
             return entity.Id;
         }
 
-        public IEnumerable<ParticipDto> GetAll(int projectTestId, int? areaCode, string schoolId)
+        public IEnumerable<ParticipDto> GetAll(int projectId, int? areaCode, string schoolId)
         {
             var query = _participRepository.GetAll()
-                                 .Where(x => x.ParticipTests.Any(y => y.ProjectTestId == projectTestId));
+                                 .Where(x => x.ProjectId == projectId);
             if (areaCode != null)
             {
                 query = query.Where(particip => particip.School.AreaCode == areaCode);
@@ -102,8 +101,8 @@ namespace Monit95App.Services
             }
 
             _mapper.Map(dto, entity);
-            entity.Class = null;
-            entity.ClassId = _classServise.GetId(dto.ClassName);
+            //entity.Class = null;
+            //entity.ClassId = _classServise.GetId(dto.ClassName);
 
             _participRepository.Update(entity);
         }          

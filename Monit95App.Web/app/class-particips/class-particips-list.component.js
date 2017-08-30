@@ -21,6 +21,7 @@ var ClassParticipsListComponent = (function () {
         this.userService = userService;
         this.modal = modal;
         this.participService = participService;
+        this.isLoading = true;
     }
     ClassParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -28,6 +29,7 @@ var ClassParticipsListComponent = (function () {
             _this.user = data.json();
             _this.participService.getAll(1).subscribe(function (res) {
                 _this.classParticips = res;
+                _this.isLoading = false;
             });
         });
     };

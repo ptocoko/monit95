@@ -42,26 +42,33 @@ export class AddClassParticipModal implements OnInit {
 	}
 
 	ngOnInit() {
+		this.statusText = "";
 		this.classService.getClassNames().subscribe(classNames => {
 			this.classNames = classNames;
 			this.classNames.length = 12;
-		})
+		}, error => {
+			this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+			throw error;
+		});
 	}
 
 	onSubmit() {
 		if (this.isUpdate) {
 			this.participService.updateParticip(this.particip).subscribe(res => {
-				console.log(res);
 				this.dialog.close(this.particip);
+			}, error => {
+				this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+				throw error;
 			});
 		}
 		else {
 			this.particip.SchoolId = this.schoolId;
 			this.particip.ProjectId = this.projectId;
-			console.log(this.particip);
 			this.participService.addParticip(this.particip).subscribe(res => {
-				console.log(res);
 				this.dialog.close(this.particip);
+			}, error => {
+				this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+				throw error;
 			})
 		}
 	}
