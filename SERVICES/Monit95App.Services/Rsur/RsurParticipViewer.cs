@@ -15,8 +15,13 @@ namespace Monit95App.Services
     public class RsurParticipViewer : IRsurParticipViewer
     {
         private const string reportFolder = @"\\192.168.88.220\файлы_пто\nsur_reports";
-        private readonly CokoContext _db = new CokoContext();
-        
+        private readonly CokoContext _db;
+
+        public RsurParticipViewer(CokoContext cokoContext)
+        {
+            _db = cokoContext;
+        }
+
         public RsurParticipBaseInfo CreateModel(RsurParticip entity)
         {
             if (entity == null)

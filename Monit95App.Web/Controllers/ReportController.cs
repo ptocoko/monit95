@@ -17,11 +17,12 @@ namespace Monit95App.Controllers
     [Authorize]
     public class ReportController : Controller
     {        
-        private readonly CokoContext cokoDb = new CokoContext();        
+        private readonly CokoContext cokoDb;        
         private readonly AppCache appCache = new AppCache();        
 
-        public ReportController()
-        {            
+        public ReportController(CokoContext cokoContext)
+        {
+            cokoDb = cokoContext;
         }
         
         [HttpGet]

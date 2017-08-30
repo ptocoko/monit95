@@ -19,14 +19,15 @@ namespace Monit95App.Controllers
     {
         #region Fields
 
-        private readonly CokoContext _context = new CokoContext();
+        private readonly CokoContext _context;
         private readonly ISchoolService _schoolService;
 
         #endregion
 
-        public HomeController(ISchoolService schoolService)
+        public HomeController(ISchoolService schoolService, CokoContext cokoContext)
         {
             _schoolService = schoolService;
+            _context = cokoContext;
         }
 
         public HomeController()
