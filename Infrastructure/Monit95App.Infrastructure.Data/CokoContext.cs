@@ -11,7 +11,6 @@ namespace Monit95App.Infrastructure.Data
         public CokoContext()
             : base("name=CokoContext")
         {
-            int i = 1;
         }
 
         public virtual DbSet<Area> Areas { get; set; }
