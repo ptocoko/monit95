@@ -36,10 +36,12 @@ import { ClassService } from "./class.service";
 import { RsurParticipFilterPipe } from './rsur/rsur-particip-filter.pipe';
 import { LimitToPipe } from "./limit-to.pipe";
 import { ParticipsWithoutDetailsPipe } from "./rsur/details/particips-without-details.filter";
+import { ParticipFilterPipe } from "./particip-filter.pipe";
 
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from "./error-handler";
+
 
 
 @NgModule({
@@ -51,6 +53,7 @@ import { GlobalErrorHandler } from "./error-handler";
 		RsurParticipFilterPipe,
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
+		ParticipFilterPipe,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,

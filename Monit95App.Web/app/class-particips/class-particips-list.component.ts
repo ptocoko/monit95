@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { UserService } from "../user.service";
 import { UserModel } from "../user.model";
-import { Modal, overlayConfigFactory, DialogRef } from "angular2-modal";
+import { overlayConfigFactory } from "angular2-modal";
 import { ExportExcelModal, ExportExcelModalData } from "./export-excel-modal.component";
-import { BSModalContext } from "angular2-modal/plugins/bootstrap";
+import { BSModalContext, Modal } from "angular2-modal/plugins/bootstrap";
 import { AddClassParticipModal } from "./add-class-particip.modal";
 import { ParticipModel } from "../particip.model";
 import { ParticipService } from "../particip.service";
@@ -76,13 +76,36 @@ export class ClassParticipsListComponent implements OnInit {
 		
 	}
 
-	updateClassParticip(classParticip: ParticipModel, index: number) {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, schoolId: this.user.UserName, particip: classParticip }, BSModalContext)).then(dialog => {
-			dialog.result.then(particip => {
-				if (particip) {
-					this.classParticips[index] = particip;
+	updateClassParticip(classParticip: ParticipModel) {
+		let index = this.classParticips.indexOf(classParticip);
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({
+			isUpdate: true,
+			schoolId: this.user.UserName,
+			particip: Object.assign({}, classParticip)
+		}, BSModalContext))
+			.then(dialog => {
+			dialog.result.then(changedParticip => {
+				if (changedParticip) {
+					this.classParticips[index] = changedParticip;
 				}
 			})
 		});
+	}
+
+	deleteClassParticip(particip: ParticipModel) {
+		let index = this.classParticips.indexOf(particip);
+		this.modal.confirm()
+			.title("Вы уверены, что хотите удалить данную запись?")
+			.body("Это действие нельзя будет отменить")
+			.open()
+			.then(dialog => {
+				dialog.result.then(res => {
+					this.participService.deleteParticip(particip.Id).subscribe(res => {
+						this.classParticips.splice(index, 1);
+					})
+				}).catch(() => {
+
+				})
+			});
 	}
 }

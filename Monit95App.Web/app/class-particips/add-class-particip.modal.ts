@@ -72,4 +72,8 @@ export class AddClassParticipModal implements OnInit {
 			})
 		}
 	}
+
+	cancel() {
+		this.dialog.close();
+	}
 }

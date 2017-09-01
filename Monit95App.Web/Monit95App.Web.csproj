@@ -573,6 +573,7 @@
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.component.ts" />
