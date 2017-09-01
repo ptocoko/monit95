@@ -8,6 +8,7 @@ using ClosedXML.Excel;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
+// ReSharper disable SuggestVarOrType_SimpleTypes
 
 namespace Monit95App.Services.Rsur
 {    
@@ -21,8 +22,8 @@ namespace Monit95App.Services.Rsur
 
         public RsurReportModelXlsxConverter()
         {
-
         }
+
         public RsurReportModelXlsxConverter(IGenericRepository<RsurParticip> projectParticipRepository)
         {
             _projectParticipRepository = projectParticipRepository;
@@ -32,35 +33,40 @@ namespace Monit95App.Services.Rsur
 
         public RsurReportModel Create(int? areaCode = null, string schoolId = null)
         {        
-            var query = _projectParticipRepository.GetAll();
-            if (areaCode != null)
-                query = query.Where(x => x.School.AreaCode == areaCode);
-            if (schoolId != null)
-                query = query.Where(x => x.SchoolId == schoolId);
+            //var query = _projectParticipRepository.GetAll();
+            //if (areaCode != null)
+            //    query = query.Where(x => x.School.AreaCode == areaCode);
+            //if (schoolId != null)
+            //    query = query.Where(x => x.SchoolId == schoolId);
 
-            var projectParticips = new List<RsurParticip>();
-            projectParticips = query.ToList();            
+            //var projectParticips = new List<RsurParticip>();
+            //projectParticips = query.ToList();            
 
-            var rsurReportModel = new RsurReportModel()
-            {
-                ReportCreatedDate = DateTime.Now,
-                ReportName = "Список участников РСУР"
-            };
+            //var rsurReportModel = new RsurReportModel()
+            //{
+            //    ReportCreatedDate = DateTime.Now,
+            //    ReportName = "Список участников РСУР"
+            //};
 
-            rsurReportModel.RsurParticipFullInfos = projectParticips.Select(x =>
-            {
-                var item = new RsurParticipFullInfo();
-                item.TemplateMethod(x);
-                return item;                
-            }).ToList();
+            //rsurReportModel.RsurParticipFullInfos = projectParticips.Select(x =>
+            //{
+            //    var item = new RsurParticipFullInfo();
+            //    item.TemplateMethod(x);
+            //    return item;                
+            //}).ToList();
 
-            return rsurReportModel;
+            //return rsurReportModel;
+            return new RsurReportModel();
         }
-        #warning multithreading
+
+        // TODO: multithreading
         public Stream Write(RsurReportModel rsurReportModel)
         {
             if (rsurReportModel == null)
-                throw new ArgumentNullException("rsurReportModel", "RsurReportModelXlsxConverter.Write");
+            {
+                throw new ArgumentNullException(nameof(rsurReportModel), "RsurReportModelXlsxConverter.Write");
+            }
+                
 
             var assembly = Assembly.GetExecutingAssembly();
             using (Stream stream = assembly.GetManifestResourceStream("Monit95App.Services.Resource.particip-list.xlsx"))
@@ -73,18 +79,18 @@ namespace Monit95App.Services.Rsur
                 int rowNumber = 5;
                 foreach (var info in rsurReportModel.RsurParticipFullInfos)
                 {
-                    templateSheet.Cell(rowNumber, 2).Value = info.ParticipCode;
+                    //templateSheet.Cell(rowNumber, 2).Value = info ParticipCode;
                     templateSheet.Cell(rowNumber, 3).Value = info.Surname;
                     templateSheet.Cell(rowNumber, 4).Value = info.Name;
                     templateSheet.Cell(rowNumber, 5).Value = info.SecondName;
-                    templateSheet.Cell(rowNumber, 6).Value = info.AreaName;
-                    templateSheet.Cell(rowNumber, 7).Value = info.SchoolIdWithName;
-                    templateSheet.Cell(rowNumber, 8).Value = info.NsurSubjectName;
-                    templateSheet.Cell(rowNumber, 9).Value = info.CategoryName;
+                    //templateSheet.Cell(rowNumber, 6).Value = info.AreaName;
+                    //templateSheet.Cell(rowNumber, 7).Value = info.SchoolIdWithName;
+                    //templateSheet.Cell(rowNumber, 8).Value = info.NsurSubjectName;
+                    //templateSheet.Cell(rowNumber, 9).Value = info.CategoryName;
                     templateSheet.Cell(rowNumber, 10).Value = info.Experience;
                     templateSheet.Cell(rowNumber, 11).Value = info.Phone;
                     templateSheet.Cell(rowNumber, 12).Value = info.Email;
-                    templateSheet.Cell(rowNumber, 13).Value = info.Birthday?.ToShortDateString();
+                    //templateSheet.Cell(rowNumber, 13).Value = info.Birthday?.ToShortDateString();
                     templateSheet.Cell(rowNumber, 14).Value = info.ClassNumbers;
 
                     rowNumber++;                    
@@ -96,6 +102,7 @@ namespace Monit95App.Services.Rsur
                 return memoryStream;
             }
         }
+
         public Task<Stream> GetStream(int? areaCode, string schoolId = null)
         {
             return Task.Run(() =>

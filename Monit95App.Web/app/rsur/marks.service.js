@@ -25,6 +25,7 @@ var RsurParticipService = (function () {
         this.ROUTE_PREFIX = "api/marks";
     }
     RsurParticipService.prototype.addMarks = function (marks) {
+        return this.http.post(this.ROUTE_PREFIX, marks);
     };
     RsurParticipService.prototype.getAll = function (projectTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/?projectTestId=" + projectTestId);

@@ -84,12 +84,10 @@
     <Compile Include="ParticipService_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsurParticipProtocolServiceTests.cs" />
-    <Compile Include="RsurParticipService_Tests.cs" />
     <Compile Include="RsurReportModelXlsxConverterTests.cs" />
     <Compile Include="SchoolService_Tests.cs" />
     <Compile Include="TestIMarks.cs" />
     <Compile Include="TestITypeReport.cs" />
-    <Compile Include="RsurParticipFullInfo_Tests.cs" />
     <Compile Include="ClassParticipConverter_Tests.cs" />
     <Compile Include="MarksService_Test.cs" />
   </ItemGroup>

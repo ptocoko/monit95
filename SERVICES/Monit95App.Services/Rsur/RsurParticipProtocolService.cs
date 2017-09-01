@@ -32,36 +32,30 @@ namespace Monit95App.Services.Rsur
         /// <returns>Grouped results</returns>
         public IList<IGrouping<string, RsurTestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null)
         {
-            var testId = new Guid(testIdStr);
-            var participGroupResults = _testResultRepository.GetAll()
-                                        .Where(x => x.RsurParticipTest.RsurTest.TestId == testId)
-                                        .GroupBy(x => x.RsurParticipTest.ParticipCode);
-            if(testDate != null)
-            {
-                participGroupResults = participGroupResults.Where(x => x.Any(y => y.RsurParticipTest.RsurTest.TestDate <= testDate));
-            }            
+                     
 
-            return participGroupResults.ToList();
+            return new List<IGrouping<string, RsurTestResult>>();
         }
 
         public IList<ParticipProtocol> CreateReportModel(IList<IGrouping<string, RsurTestResult>> resultsGroupByParticipCode)
         {
-            var participProtocolModels = new List<ParticipProtocol>();
+            //var participProtocolModels = new List<ParticipProtocol>();
 
-            foreach (var participResults in resultsGroupByParticipCode)
-            {
-                var model = new ParticipProtocol();                
-                var lastResult = participResults.OrderBy(x => x.RsurParticipTest.RsurTest.TestNumber).Single(); //get last result
+            //foreach (var participResults in resultsGroupByParticipCode)
+            //{
+            //    var model = new ParticipProtocol();                
+            //    var lastResult = participResults.OrderBy(x => x.RsurParticipTest.RsurTest.TestNumber).Single(); //get last result
 
-                model.ParticipCode = lastResult.RsurParticipTest.RsurParticip.ParticipCode;
-                model.FullName = $"{lastResult.RsurParticipTest.RsurParticip.Surname} {lastResult.RsurParticipTest.RsurParticip.Name}";
-                if (!String.IsNullOrEmpty(lastResult.RsurParticipTest.RsurParticip.SecondName))
-                {
-                    model.FullName = lastResult.RsurParticipTest.RsurParticip.SecondName;
-                }
-                model.TestName = lastResult.RsurParticipTest.RsurTest.Test.Name;
-            }
-            return participProtocolModels;
+            //    model.ParticipCode = lastResult.RsurParticipTest.RsurParticip.ParticipCode;
+            //    model.FullName = $"{lastResult.RsurParticipTest.RsurParticip.Surname} {lastResult.RsurParticipTest.RsurParticip.Name}";
+            //    if (!String.IsNullOrEmpty(lastResult.RsurParticipTest.RsurParticip.SecondName))
+            //    {
+            //        model.FullName = lastResult.RsurParticipTest.RsurParticip.SecondName;
+            //    }
+            //    model.TestName = lastResult.RsurParticipTest.RsurTest.Test.Name;
+            //}
+            //return participProtocolModels;
+            return new List<ParticipProtocol>();
         }
 
         #endregion

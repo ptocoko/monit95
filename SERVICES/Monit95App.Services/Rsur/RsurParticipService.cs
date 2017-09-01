@@ -44,22 +44,23 @@ namespace Monit95App.Services.Rsur
             Mapper.Initialize(cfg => cfg.CreateMap<RsurParticipPostDto, RsurParticip>());
             var entity = Mapper.Map<RsurParticipPostDto, RsurParticip>(dto);
 
+            return "...";
 
 
 
-            newPParticip.School = _db.Schools.Find(newPParticip.SchoolId);
+            //newPParticip.School = _db.Schools.Find(newPParticip.SchoolId);
 
-            var areaPParticips = _db.ProjectParticips.Where(x => x.School.AreaCode == newPParticip.School.AreaCode).ToList();
-            var areaParticipCodes = areaPParticips.Select(x => Int32.Parse(x.ParticipCode.Substring(9, 3)));
-            var validCodes = Enumerable.Range(1, 2000).Except(areaParticipCodes);
-            var firstValidCode = validCodes.OrderBy(x => x).First().ToString();
+            //var areaPParticips = _db.ProjectParticips.Where(x => x.School.AreaCode == newPParticip.School.AreaCode).ToList();
+            //var areaParticipCodes = areaPParticips.Select(x => Int32.Parse(x.ParticipCode.Substring(9, 3)));
+            //var validCodes = Enumerable.Range(1, 2000).Except(areaParticipCodes);
+            //var firstValidCode = validCodes.OrderBy(x => x).First().ToString();
 
-            if (firstValidCode.Length == 1) firstValidCode = "00" + firstValidCode;
-            if (firstValidCode.Length == 2) firstValidCode = "0" + firstValidCode;
+            //if (firstValidCode.Length == 1) firstValidCode = "00" + firstValidCode;
+            //if (firstValidCode.Length == 2) firstValidCode = "0" + firstValidCode;
 
-            string newParticipCode = $"2016-{newPParticip.School.AreaCode.ToString()}-{firstValidCode}";
+            //string newParticipCode = $"2016-{newPParticip.School.AreaCode.ToString()}-{firstValidCode}";
 
-            return newParticipCode;
+            //return newParticipCode;
         }
 
         //public IEnumerable<RsurParticipFullInfo> Get(int? areaCode = null, string schoolId = null)

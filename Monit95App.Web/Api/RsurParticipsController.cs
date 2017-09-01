@@ -58,99 +58,99 @@ namespace Monit95App.Web.Api
         }
 
 
-        [HttpGet]
-        [Route("{ParticipCode}")]
-        public HttpResponseMessage GetByParticipCode()
-        {
-            var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();   
+        //[HttpGet]
+        //[Route("{ParticipCode}")]
+        //public HttpResponseMessage GetByParticipCode()
+        //{
+        //    var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();   
                 
-            var fullInfo = _rsurParticipService.GetByParticipCode(participCode);
+        //    var fullInfo = _rsurParticipService.GetByParticipCode(participCode);
 
-            return fullInfo == null ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом") : 
-                                       Request.CreateResponse(HttpStatusCode.OK, fullInfo);
-        }
+        //    return fullInfo == null ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом") : 
+        //                               Request.CreateResponse(HttpStatusCode.OK, fullInfo);
+        //}
 
         [HttpGet]
         [Route("")]
         [CacheOutput(ClientTimeSpan = 100)]                            
         public IHttpActionResult Get() // get all participates who access for authorized user
         {
-            var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
-            var authorizedUserName = authorizedUserModel.UserName;
-            var authorizedUserRole = authorizedUserModel.UserRoleNames.Single();
+            //var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
+            //var authorizedUserName = authorizedUserModel.UserName;
+            //var authorizedUserRole = authorizedUserModel.UserRoleNames.Single();
 
-            int? paramAreaCode = null;            
-            if (authorizedUserRole.Equals("area"))
-            {
-                paramAreaCode = Convert.ToInt32(authorizedUserName);
-            }
+            //int? paramAreaCode = null;            
+            //if (authorizedUserRole.Equals("area"))
+            //{
+            //    paramAreaCode = Convert.ToInt32(authorizedUserName);
+            //}
 
-            string paramSchoolId = null;
-            if (authorizedUserRole.Equals("school"))
-            {
-                paramSchoolId = authorizedUserName;
-            }
+            //string paramSchoolId = null;
+            //if (authorizedUserRole.Equals("school"))
+            //{
+            //    paramSchoolId = authorizedUserName;
+            //}
             
-            var fullInfoList = _rsurParticipService.Get(paramAreaCode, paramSchoolId);
+            //var fullInfoList = _rsurParticipService.Get(paramAreaCode, paramSchoolId);
 
-            return Ok(fullInfoList);
+            return Ok();
         }
 
-        [HttpPut]        
-        [Route(@"{ParticipCode:regex(^2016-2\d{2}-\d{3})}")]
-        public IHttpActionResult Put([FromBody]RsurParticipFullInfo fullInfo)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPut]        
+        //[Route(@"{ParticipCode:regex(^2016-2\d{2}-\d{3})}")]
+        //public IHttpActionResult Put([FromBody]RsurParticipFullInfo fullInfo)
+        //{
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //    return BadRequest(ModelState);
+        //    //}
 
-            var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
-            var routeParticipCode = RequestContext.RouteData.Values["ParticipCode"].ToString();     
+        //    //var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
+        //    //var routeParticipCode = RequestContext.RouteData.Values["ParticipCode"].ToString();     
             
-            if(authorizedUserModel.UserName == "coko")
-            {
-                _rsurParticipService.FullUpdate(fullInfo);
-                return Ok();
-            }
+        //    //if(authorizedUserModel.UserName == "coko")
+        //    //{
+        //    //    _rsurParticipService.FullUpdate(fullInfo);
+        //    //    return Ok();
+        //    //}
 
-            if (authorizedUserModel.UserRoleNames.Single() == "area")
-            {
-                var entity = _rsurParticipRepository.GetById(routeParticipCode);
-                if (entity == null)
-                {
-                    return NotFound();
-                }
-                if (entity.School.AreaCode.ToString() != authorizedUserModel.UserName)
-                {
-                    return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
-                }                
-            }
-            if (authorizedUserModel.UserRoleNames.Single() == "school")
-            {
-                if(fullInfo.SchoolIdWithName.Substring(0, 4) != authorizedUserModel.UserName)
-                {
-                    return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
-                }
-            }
+        //    //if (authorizedUserModel.UserRoleNames.Single() == "area")
+        //    //{
+        //    //    var entity = _rsurParticipRepository.GetById(routeParticipCode);
+        //    //    if (entity == null)
+        //    //    {
+        //    //        return NotFound();
+        //    //    }
+        //    //    if (entity.School.AreaCode.ToString() != authorizedUserModel.UserName)
+        //    //    {
+        //    //        return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
+        //    //    }                
+        //    //}
+        //    //if (authorizedUserModel.UserRoleNames.Single() == "school")
+        //    //{
+        //    //    if(fullInfo.SchoolIdWithName.Substring(0, 4) != authorizedUserModel.UserName)
+        //    //    {
+        //    //        return new StatusCodeResult(HttpStatusCode.Forbidden, new HttpRequestMessage());
+        //    //    }
+        //    //}
 
-            return Ok(_rsurParticipService.PartUpdate(fullInfo));
-        }
+        //    return Ok();
+        //}
 
-        [HttpGet]
-        [Route("api/RsurParticips/GetParticipResults/{participCode}")]
-        public async Task<HttpResponseMessage> GetParticipResults(string participCode)
-        {
-            if (participCode == null)
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
+        //[HttpGet]
+        //[Route("api/RsurParticips/GetParticipResults/{participCode}")]
+        //public async Task<HttpResponseMessage> GetParticipResults(string participCode)
+        //{
+        //    if (participCode == null)
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Ошибка запроса");
 
-            var results = await Task.Run(() => _rsurParticipService.GetParticipResults(participCode));
+        //    var results = await Task.Run(() => _rsurParticipService.GetParticipResults(participCode));
 
-            if (results == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти результаты");
-            else
-                return Request.CreateResponse(HttpStatusCode.OK, results);
-        }
+        //    if (results == null)
+        //        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти результаты");
+        //    else
+        //        return Request.CreateResponse(HttpStatusCode.OK, results);
+        //}
 
         #endregion
     }

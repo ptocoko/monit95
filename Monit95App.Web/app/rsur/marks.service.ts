@@ -32,10 +32,6 @@ export class RsurParticipService {
         return this.http.get(`${this.ROUTE_PREFIX}/?projectTestId=${projectTestId}`);
     }
 
-    update(marks: Marks)
-    {
-
-    }
 
     update(particip: RsurParticipModel) {
         return this.http.put(`${this.ROUTE_PREFIX}/${particip.participCode}`, particip);

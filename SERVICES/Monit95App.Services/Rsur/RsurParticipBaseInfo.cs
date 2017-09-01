@@ -2,8 +2,10 @@
 
 namespace Monit95App.Services.Rsur
 {
-    public class RsurParticipBaseInfo : RsurParticipInfo
-    {    
-        protected override void FillAdditionalInfo(RsurParticip entity) { }
+    public class RsurParticipBaseInfo
+    {
+        protected void FillAdditionalInfo(RsurParticip entity)
+        {
+        }
     }
 }

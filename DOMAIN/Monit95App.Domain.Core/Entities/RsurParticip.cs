@@ -53,5 +53,7 @@ namespace Monit95App.Domain.Core.Entities
         public string SchoolFrom { get; set; }
 
         public DateTime? AddedDate { get; set; }
+
+        public School School { get; set; }
     }
 }

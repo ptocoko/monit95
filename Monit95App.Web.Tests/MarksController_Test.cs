@@ -1,12 +1,12 @@
-﻿using System;
+﻿using System.Web.Http.Routing;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.ComponentModel.DataAnnotations;
-using Monit95App.Web.Api;
-using NSubstitute;
-using Monit95App.Services.Interfaces;
+
 using Monit95App.Services.DTOs;
-using System.Web.Http.Results;
-using System.Web.Http.Routing;
+using Monit95App.Services.Interfaces;
+using Monit95App.Web.Api;
+
+using NSubstitute;
 
 namespace Monit95App.Web.Tests
 {
@@ -16,10 +16,10 @@ namespace Monit95App.Web.Tests
         [TestMethod]        
         public void Post_Test()
         {
-            //Arrange
+            // Arrange
             var mockService = Substitute.For<IMarksService>();
 
-            //Act
+            // Act
             var dto = new PostMarksDto
             {
                 ParticipTestId = 123,                
@@ -28,32 +28,32 @@ namespace Monit95App.Web.Tests
             var controller = new MarksController(mockService);
             var response = controller.Post(dto);
 
-            //Assert
+            // Assert
             mockService.Received().Add(dto);
         }
 
         [TestMethod]
         public void GetAll_Test()
         {
-            //Arrange
+            // Arrange
             var mockService = Substitute.For<IMarksService>();
 
-            //Act         
+            // Act         
             var controller = new MarksController(mockService);
             var response = controller.GetAll(1);
 
-            //Assert
+            // Assert
             mockService.Received().GetParticipMarksDtos(1, "0005");
         }
 
         [TestMethod]
         public void Put_Test()
         {
-            //Arrange
+            // Arrange
             var mockService = Substitute.For<IMarksService>();
             var controller = new MarksController(mockService);
 
-            //Act
+            // Act
             var dto = new PostMarksDto()
             {
                 ParticipTestId = 123,
@@ -64,7 +64,7 @@ namespace Monit95App.Web.Tests
                 new HttpRouteValueDictionary { { "participTestId", "123" } });
             var response = controller.Put(dto);
 
-            //Assert
+            // Assert
             mockService.Update(123, dto);
         }
     }

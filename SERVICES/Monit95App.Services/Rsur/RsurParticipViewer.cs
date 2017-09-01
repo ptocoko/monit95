@@ -23,15 +23,8 @@ namespace Monit95App.Services
         }
 
         public RsurParticipBaseInfo CreateModel(RsurParticip entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity), "RsurParticipViewer.CreateModel(ProjectParticip entity)");
-            }
-            var rsurParticipBaseInfo = new RsurParticipBaseInfo();
-            rsurParticipBaseInfo.TemplateMethod(entity);
-                                   
-            return rsurParticipBaseInfo;
+        {            
+            return new RsurParticipBaseInfo();
         }
 
         public ParticipResultsModel CreateResultModel(Result entity, string participCode)
