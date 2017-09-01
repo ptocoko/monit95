@@ -16,7 +16,7 @@ namespace Monit95App.Domain.Core.Entities
 
         public int Id { get; set; }
 
-        public int ProjectCode { get; set; }
+        public int ProjectId { get; set; }
 
         public Guid TestId { get; set; }
 

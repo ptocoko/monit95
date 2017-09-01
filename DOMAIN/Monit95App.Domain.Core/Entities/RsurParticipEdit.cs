@@ -38,7 +38,5 @@ namespace Monit95App.Domain.Core.Entities
         public int? Experience { get; set; }
 
         public int? NSubjectCode { get; set; }
-
-        public virtual RsurParticip RsurParticip { get; set; }
     }
 }

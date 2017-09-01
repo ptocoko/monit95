@@ -111,8 +111,7 @@
     <Compile Include="Rsur\ParticipResultsModel.cs" />
     <Compile Include="Rsur\RsurParticipBaseInfo.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />
-    <Compile Include="Rsur\RsurParticipFullInfo.cs" />
-    <Compile Include="Rsur\RsurParticipInfo.cs" />
+    <Compile Include="DTOs\RsurParticipPostDto.cs" />
     <Compile Include="Rsur\RsurReportModel.cs" />
     <Compile Include="OneTwoThreeGradeConverter.cs" />
     <Compile Include="OneTwoThreeReportDto.cs" />

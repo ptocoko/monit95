@@ -10,15 +10,12 @@ namespace Monit95App.Domain.Core.Entities
     {
         public int Id { get; set; }
 
-        [Required]
+        public int RsurTestId { get; set; }
+
+        public int RsurParticipCode { get; set; }
+
         [StringLength(12)]
-        public string ParticipCode { get; set; }
-
-        public int ProjectTestId { get; set; }
-
-        public int ProjectCode { get; set; }
-
-        public virtual RsurParticip RsurParticip { get; set; }
+        public string RsurParticipOldCode { get; set; }
 
         public virtual RsurTest RsurTest { get; set; }
 

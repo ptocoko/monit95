@@ -64,6 +64,7 @@
     <Compile Include="Entities\ProjectTest.cs" />
     <Compile Include="Entities\PropertyType.cs" />
     <Compile Include="Entities\Report.cs" />
+    <Compile Include="Entities\ReportStatistic.cs" />
     <Compile Include="Entities\Result.cs" />
     <Compile Include="Entities\RsurParticip.cs" />
     <Compile Include="Entities\RsurParticipEdit.cs" />
