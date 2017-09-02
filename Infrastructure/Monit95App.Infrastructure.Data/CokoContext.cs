@@ -1,9 +1,9 @@
+using System.Data.Entity;
+
+using Monit95App.Domain.Core.Entities;
+
 namespace Monit95App.Infrastructure.Data
 {
-    using System.Data.Entity;
-
-    using Monit95App.Domain.Core.Entities;
-
     public partial class CokoContext : DbContext
     {
         public CokoContext()

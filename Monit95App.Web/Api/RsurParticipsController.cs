@@ -41,7 +41,7 @@ namespace Monit95App.Web.Api
             _userService = userService;            
         }
 
-        #region Api 
+        #region APIs 
 
         [HttpPost]
         [Authorize(Roles = "school")]
@@ -52,9 +52,9 @@ namespace Monit95App.Web.Api
                 return this.BadRequest(ModelState);
             }
 
-            var code = this._rsurParticipService.Add(dto);
+            var rsurParticipCode = this._rsurParticipService.Add(dto);
 
-            return Ok();
+            return Ok(rsurParticipCode);
         }
 
 

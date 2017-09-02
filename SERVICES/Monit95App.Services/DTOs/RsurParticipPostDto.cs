@@ -5,19 +5,25 @@
 
     public class RsurParticipPostDto
     {        
+        [Required]
         [StringLength(25)]
         public string Surname { get; set; }
         
+        [Required]
         [StringLength(25)]
         public string Name { get; set; }
 
         [StringLength(25)]
         public string SecondName { get; set; }
         
+        [Required]
         public int RsurSubjectCode { get; set; }
         
+        [Required]
         public int CategId { get; set; }
                 
+        [Required]
+        [Range(0, 60)]
         public int Experience { get; set; }
 
         [Required]
@@ -31,7 +37,9 @@
 
         [Required]
         public string ClassNumbers { get; set; } // TODO: need custom attribute to avoide repetion class's numbers
-                        
+               
+        [Required]
+        [StringLength(4)]
         public string SchoolId { get; set; }
         
         public string SchoolIdFrom { get; set; }  // null - new teacher:

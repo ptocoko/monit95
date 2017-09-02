@@ -1,20 +1,20 @@
-﻿using System.Web.Mvc;
-using Monit95App.ViewModels.Home;
+﻿using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using System.Linq;
-using System;
-using System.Web.UI;
-using Monit95App.Domain.Core;
-using Monit95App.Web;
+
 using Monit95App.Models;
 using Monit95App.Services.Interfaces;
-using Monit95App.Services.School;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Domain.Core.Entities;
+using Monit95App.ViewModels.Home;
 
 namespace Monit95App.Controllers
 {
-    //Некоторые части необходи установить атрибуты
+    using System.Linq;
+
+    using Monit95App.Domain.Core.Entities;
+    using Monit95App.Infrastructure.Data;
+
+    // Некоторые части необходи установить атрибуты
     public class HomeController : Controller
     {
         #region Fields
@@ -49,7 +49,7 @@ namespace Monit95App.Controllers
             var vm = new SchoolsVM();
 
            var areas = _context.Areas.ToList();
-            //поместить из БД area в List<SelectListItem> areaNames
+            // поместить из БД area в List<SelectListItem> areaNames
             areas.ForEach(x =>
             {
                 areaNames.Add(new SelectListItem { Text = x.Code + " - " + x.Name, Value = x.Code.ToString() });

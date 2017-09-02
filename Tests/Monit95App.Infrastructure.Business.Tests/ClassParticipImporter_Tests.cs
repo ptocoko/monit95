@@ -1,24 +1,21 @@
-﻿    using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Core.Entities;
-using Monit95App.Services;
-using Monit95App.Services.Interfaces;
-using NSubstitute;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Monit95App.Infrastructure.BusinessTests
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Services.Interfaces;
+
+using NSubstitute;
+
+namespace Monit95App.Services.Tests
 {
     [TestClass]
     public class ClassParticipImporter_Tests
     {
-        ClassParticipImporter importer;
-        IClassService mockClassService;
+        private ClassParticipImporter importer;
+
+        private readonly IClassService mockClassService;
 
         public ClassParticipImporter_Tests()
         {

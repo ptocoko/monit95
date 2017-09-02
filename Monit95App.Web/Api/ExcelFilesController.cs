@@ -1,15 +1,14 @@
-﻿using Monit95App.Services.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-
+// ReSharper disable CheckNamespace
 namespace Monit95App.Web.Api
 {
+    using System.Linq;
+
+    using Monit95App.Services.Interfaces;
+
     [Authorize]
     [RoutePrefix("api/ExcelFiles")]
     public class ExcelFilesController : ApiController

@@ -1,15 +1,9 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Interfaces;
-using Monit95App.Domain.Core.Entities;
-
+using System.Linq;
+using System.Collections.Generic;
+using System.Web.Http;
+// ReSharper disable CheckNamespace
 namespace Monit95App.Web.Api
 {
     public class ClassController : ApiController

@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Monit95App</RootNamespace>
     <AssemblyName>Monit95App</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -190,7 +190,9 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -546,24 +548,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
-      <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
-      <Name>Monit95App.Domain.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain\Monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
-      <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
-      <Name>Monit95App.Domain.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
-      <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
-      <Name>Monit95App.Infrastructure.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SERVICES\Monit95App.Services\Monit95App.Services.csproj">
-      <Project>{5E38A333-C51E-4910-A650-440C8D7F0A94}</Project>
-      <Name>Monit95App.Services</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
@@ -605,6 +589,24 @@
     <EmbeddedResource Include="Migrations\201707251307178_ASPNet-Identity-Update.resx">
       <DependentUpon>201707251307178_ASPNet-Identity-Update.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
+      <Project>{84dc3950-0b35-4eb2-b534-93af0387ccdc}</Project>
+      <Name>Monit95App.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
+      <Project>{CB5E7793-7905-42A4-818D-0212A4EDDA43}</Project>
+      <Name>Monit95App.Domain.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj">
+      <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
+      <Name>Monit95App.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SERVICES\Monit95App.Services\Monit95App.Services.csproj">
+      <Project>{5e38a333-c51e-4910-a650-440c8d7f0a94}</Project>
+      <Name>Monit95App.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,14 +1,15 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Monit95App.Models;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Monit95App.Api;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Monit95App.Models;
 using Monit95App.Services.Interfaces;
-using Monit95App.Web.Services;
 using Monit95App.Web.Api;
+using Monit95App.Web.Services;
+
+using Moq;
 
 namespace Monit95App.Web.Tests
 {
@@ -16,9 +17,9 @@ namespace Monit95App.Web.Tests
     public class FilesController_Test
     {
         [TestMethod]
-        public void  GetTest()
+        public void GetTest()
         {
-            //Arrange
+            // Arrange
             var mockUserService = new Mock<IUserService>();
             var mockRsurReportModelService = new Mock<IRsurReportModelConverter>();
             mockRsurReportModelService.Setup(x => x.GetStream(null, "0005")).Returns(Task.FromResult((Stream)new MemoryStream(Encoding.UTF8.GetBytes("simple"))));

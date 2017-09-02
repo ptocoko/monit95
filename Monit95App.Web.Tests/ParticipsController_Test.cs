@@ -1,29 +1,25 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Services.Models;
-using Monit95App.Api;
-using NSubstitute;
-using Monit95App.Services.Interfaces;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Routing;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http.Results;
 using System.Security.Principal;
-using System.Web;
-using System.Web.Routing;
-using System.Web.Http.Controllers;
-using Monit95App.Services.DTOs;
-using Monit95App.Infrastructure.Data;
+using System.Web.Http.Results;
+using System.Web.Http.Routing;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Monit95App.Domain.Core.Entities;
-using System.Data.SqlClient;
-using System.Data.Entity.Infrastructure;
-using Monit95App.Services;
 using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Services;
+using Monit95App.Services.DTOs;
+using Monit95App.Services.Interfaces;
+
+using NSubstitute;
 
 namespace Monit95App.Web.Tests
 {
+    using Monit95App.Web.Api;
+
     [TestClass]
     public class ParticipsController_Test
     {

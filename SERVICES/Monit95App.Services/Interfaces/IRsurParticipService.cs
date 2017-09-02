@@ -11,7 +11,7 @@ namespace Monit95App.Services.Interfaces
 
     public interface IRsurParticipService
     {
-        string Add(RsurParticipPostDto dto); // return code
+        int Add(RsurParticipPostDto dto); // return code
     }
 }
 

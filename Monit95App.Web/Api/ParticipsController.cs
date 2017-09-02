@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Monit95App.Services.Interfaces;
-using Monit95App.Services.DTOs;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
-using System.Web.Http.Results;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Domain.Core.Entities;
+using System.Net;
+using System.Web.Http;
 
-namespace Monit95App.Api
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Services.DTOs;
+using Monit95App.Services.Interfaces;
+
+// ReSharper disable CheckNamespace
+namespace Monit95App.Web.Api
 {
     [RoutePrefix("api/particips")]
     [Authorize]
