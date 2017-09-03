@@ -6,13 +6,12 @@ using System.Linq;
 using AutoMapper;
 
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 
 namespace Monit95App.Services.Rsur
 {
-    using Monit95App.Infrastructure.Data;
-    using Monit95App.Services.DTOs;
-
     using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
     public class RsurParticipService : IRsurParticipService

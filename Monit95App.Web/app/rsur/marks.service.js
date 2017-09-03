@@ -31,7 +31,7 @@ var RsurParticipService = (function () {
         return this.http.get(this.ROUTE_PREFIX + "/?projectTestId=" + projectTestId);
     };
     RsurParticipService.prototype.update = function (particip) {
-        return this.http.put(this.ROUTE_PREFIX + "/" + particip.participCode, particip);
+        return this.http.put(this.ROUTE_PREFIX + "/" + particip.Code, particip);
     };
     //getParticip(participCode: string): Observable<ParticipModel> {
     //    return this.http.get('api/rsurParticips/' + participCode)

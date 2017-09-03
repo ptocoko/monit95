@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
-var rsur_particip_service_1 = require("../rsur-particip.service");
+var rsurparticip_service_1 = require("../rsurparticip.service");
 var ResultsModalComponent = (function () {
     function ResultsModalComponent(dialog, participService) {
         this.dialog = dialog;
@@ -22,7 +22,7 @@ var ResultsModalComponent = (function () {
     }
     ResultsModalComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.participService.getParticipResults(this.particip.participCode).subscribe(function (res) {
+        this.participService.getParticipResults(this.particip.Code).subscribe(function (res) {
             _this.results = res;
         });
     };
@@ -36,7 +36,7 @@ ResultsModalComponent = __decorate([
         selector: 'results-modal',
         templateUrl: './app/rsur/results/results-modal.html'
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsur_particip_service_1.RsurParticipService])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsurparticip_service_1.RsurParticipService])
 ], ResultsModalComponent);
 exports.ResultsModalComponent = ResultsModalComponent;
 //# sourceMappingURL=results-modal.component.js.map

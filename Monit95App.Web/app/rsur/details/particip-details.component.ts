@@ -3,11 +3,11 @@
 import { DialogRef, Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
-import { RsurParticipModel } from '../rsur-particip.model';
-import { UserModel } from '../../user.model';
+import { RsurParticip as RsurParticipModel } from '../rsurparticip';
+import { Account } from '../../account';
 import { ParticipModalComponent } from './particip-modal.component';
 
-import { RsurParticipService } from '../rsur-particip.service';
+import { RsurParticipService } from '../rsurparticip.service';
 
 @Component({
 	selector: 'particip-details',
@@ -39,9 +39,9 @@ export class ParticipDetailsComponent implements OnInit {
 
 	setDataByParticipCode(participCode: string, bDay: Date, participClasses: string) {
 		this.particips.forEach((val, i, arr) => {
-			if (val.participCode === participCode) {
-				val.birthday = bDay;
-				val.classNumbers = participClasses;
+			if (val.Code === participCode) {
+				val.Birthday = bDay;
+				val.ClassNumbers = participClasses;
 				return;
 			}
 		})
@@ -51,7 +51,7 @@ export class ParticipDetailsComponent implements OnInit {
 		this.countOfNotEnteredData = 0;
 		if (this.particips != null && this.particips.length > 0) {
 			this.particips.forEach((val, i, arr) => {
-				if (val.birthday == null || val.classNumbers.length == 0) {
+				if (val.Birthday == null || val.ClassNumbers.length == 0) {
 					this.countOfNotEnteredData++;
 				}
 			});

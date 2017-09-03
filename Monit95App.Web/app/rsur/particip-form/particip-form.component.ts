@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DialogRef } from 'angular2-modal';
 
-import { RsurParticipModel } from '../rsur-particip.model'
-import { RsurParticipService } from '../rsur-particip.service';
+import { RsurParticip as RsurParticipModel } from '../rsurparticip'
+import { RsurParticipService } from '../rsurparticip.service';
 
 @Component({
     selector: 'particip-form',

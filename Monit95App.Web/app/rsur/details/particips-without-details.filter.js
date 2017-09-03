@@ -15,7 +15,7 @@ var ParticipsWithoutDetailsPipe = (function () {
         if (particips == null || showOnlyWithoutDetails == null)
             return particips;
         if (showOnlyWithoutDetails)
-            return particips.filter(function (particip) { return particip.birthday == null || particip.classNumbers == null; });
+            return particips.filter(function (particip) { return particip.Birthday == null || particip.ClassNumbers == null; });
         else
             return particips;
     };

@@ -19,8 +19,7 @@ var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
 var results_modal_component_1 = require("./rsur/results/results-modal.component");
 var edit_modal_component_1 = require("./rsur/edit-particip/edit-modal.component");
-var particips_component_1 = require("./rsur/particips.component");
-var particip_list_component_1 = require("./rsur/particip-list.component");
+var rsurparticip_component_1 = require("./rsur/rsurparticip.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
 var particip_details_component_1 = require("./rsur/details/particip-details.component");
@@ -31,13 +30,12 @@ var add_class_particip_modal_1 = require("./class-particips/add-class-particip.m
 var export_excel_modal_component_1 = require("./class-particips/export-excel-modal.component");
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 //Services
-var user_service_1 = require("./user.service");
-var particip_service_1 = require("./particip.service");
-var rsur_particip_service_1 = require("./rsur/rsur-particip.service");
+var account_service_1 = require("./account.service");
+var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");
 //Pipes
-var rsur_particip_filter_pipe_1 = require("./rsur/rsur-particip-filter.pipe");
+var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 var app_routing_1 = require("./app.routing");
@@ -53,9 +51,8 @@ AppModule = __decorate([
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_1.routing, forms_1.FormsModule, angular2_modal_1.ModalModule.forRoot(), bootstrap_1.BootstrapModalModule, mydatepicker_1.MyDatePickerModule],
         declarations: [
             app_component_1.AppComponent,
-            particips_component_1.ParticipsComponent,
-            particip_list_component_1.ParticipListComponent,
-            rsur_particip_filter_pipe_1.RsurParticipFilterPipe,
+            rsurparticip_component_1.RsurParticipComponent,
+            rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
             plan_component_1.PlanComponent,
@@ -72,7 +69,7 @@ AppModule = __decorate([
             add_class_particip_modal_1.AddClassParticipModal
         ],
         providers: [
-            user_service_1.UserService, particip_service_1.ParticipService, rsur_particip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService,
+            account_service_1.AccountService, rsurparticip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

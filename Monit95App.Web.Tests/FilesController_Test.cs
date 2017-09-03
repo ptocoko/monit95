@@ -20,13 +20,13 @@ namespace Monit95App.Web.Tests
         public void GetTest()
         {
             // Arrange
-            var mockUserService = new Mock<IUserService>();
+            var mockUserService = new Mock<IAccountService>();
             var mockRsurReportModelService = new Mock<IRsurReportModelConverter>();
             mockRsurReportModelService.Setup(x => x.GetStream(null, "0005")).Returns(Task.FromResult((Stream)new MemoryStream(Encoding.UTF8.GetBytes("simple"))));
-            var userModel = new UserModel
+            var userModel = new AccountModel
             {
                 UserName = "0005",
-                UserRoleNames = new[] { "school" }
+                RoleNames = new[] { "school" }
             };
             mockUserService.Setup(x => x.GetModel(It.IsAny<string>())).Returns(userModel);
 

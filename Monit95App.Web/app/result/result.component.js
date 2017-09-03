@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var user_service_1 = require("../user.service");
+var account_service_1 = require("../account.service");
 var ResultComponent = (function () {
-    function ResultComponent(userService) {
-        this.userService = userService;
+    function ResultComponent(accountService) {
+        this.accountService = accountService;
     }
     ResultComponent.prototype.ngOnInit = function () {
         //this.userService.getName().subscribe(user => {
@@ -26,9 +26,9 @@ ResultComponent = __decorate([
     core_1.Component({
         selector: 'result',
         templateUrl: './app/result/result.html',
-        providers: [user_service_1.UserService]
+        providers: [account_service_1.AccountService]
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [account_service_1.AccountService])
 ], ResultComponent);
 exports.ResultComponent = ResultComponent;
 //# sourceMappingURL=result.component.js.map

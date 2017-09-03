@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var user_service_1 = require("./user.service");
+var account_service_1 = require("./account.service");
 var AppComponent = (function () {
-    function AppComponent(userService) {
-        this.userService = userService;
+    function AppComponent(accountService) {
+        this.accountService = accountService;
         this.isAreaRole = false;
         this.isCokoRole = false;
         this.isRsur = true;
@@ -22,7 +22,7 @@ var AppComponent = (function () {
         //this.userService.getName().subscribe(user => this.handler(user.userRoles));
     };
     AppComponent.prototype.handler = function (userRoles) {
-        this.isAreaRole = userRoles.indexOf("area") >= 0;
+        this.isAreaRole = userRoles.indexOf('area') >= 0;
         this.isCokoRole = userRoles.indexOf("coko") >= 0;
     };
     AppComponent.prototype.onActivate = function (event) {
@@ -40,7 +40,7 @@ AppComponent = __decorate([
         selector: "app-root",
         templateUrl: "./app/app.component.html"
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [account_service_1.AccountService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

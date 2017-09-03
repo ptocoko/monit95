@@ -12,13 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var edit_particip_model_1 = require("./edit-particip.model");
-var rsur_particip_service_1 = require("../rsur-particip.service");
+var rsurparticip_service_1 = require("../rsurparticip.service");
 var EditModalComponent = (function () {
     function EditModalComponent(dialog, participService) {
         this.dialog = dialog;
         this.participService = participService;
         this.particip = dialog.context;
-        this.editParticip = new edit_particip_model_1.ParticipEditModel(this.particip.participCode, this.particip.surname, this.particip.name, this.particip.secondName);
+        this.editParticip = new edit_particip_model_1.ParticipEditModel(this.particip.Code, this.particip.Surname, this.particip.Name, this.particip.SecondName);
     }
     EditModalComponent.prototype.onSubmit = function () {
         var _this = this;
@@ -37,7 +37,7 @@ EditModalComponent = __decorate([
         templateUrl: './app/rsur/edit-particip/edit-modal.html',
         styleUrls: ['./app/rsur/edit-particip/edit-modal.css']
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsur_particip_service_1.RsurParticipService])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsurparticip_service_1.RsurParticipService])
 ], EditModalComponent);
 exports.EditModalComponent = EditModalComponent;
 //# sourceMappingURL=edit-modal.component.js.map

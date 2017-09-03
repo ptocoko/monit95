@@ -5,8 +5,8 @@ import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 import { IMyDpOptions } from 'mydatepicker';
 
-import { RsurParticipModel } from '../rsur-particip.model';
-import { RsurParticipService } from '../rsur-particip.service';
+import { RsurParticip as RsurParticipModel } from '../rsurparticip';
+import { RsurParticipService } from '../rsurparticip.service';
 
 
 @Component({
@@ -27,8 +27,8 @@ export class ParticipModalComponent implements ModalComponent<RsurParticipModel>
 	constructor(public dialog: DialogRef<RsurParticipModel>, private participService: RsurParticipService) {
 		this.particip = dialog.context;
 		this.statusText = '';
-		if (this.particip.birthday != null) {
-			let BDay = this.particip.birthday;
+		if (this.particip.Birthday != null) {
+			let BDay = this.particip.Birthday;
 			this.dateModel = {
 				date: {
 					year: BDay.getFullYear(),
@@ -46,23 +46,23 @@ export class ParticipModalComponent implements ModalComponent<RsurParticipModel>
 	}
 
 	save() {
-		let participClasses = this.getClassesString();
-		if (this.dateModel != null && participClasses != null) {
+		//let participClasses = this.getClassesString();
+		//if (this.dateModel != null && participClasses != null) {
 
-			let date = this.dateModel.date;
-			this.particip.birthday = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
-			this.particip.classNumbers = participClasses;
+		//	let date = this.dateModel.date;
+		//	this.particip.birthday = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
+		//	this.particip.classNumbers = participClasses;
 
-			this.participService.update(this.particip).subscribe(() => {
-				this.dialog.close(this.particip);
-			}, (error) => {
-				this.statusText = 'Ошибка доступа к серверу!';
-				throw error;
-			});
-		}
-		else {
-			this.statusText = 'Не все значения указаны!'
-		}
+		//	this.participService.update(this.particip).subscribe(() => {
+		//		this.dialog.close(this.particip);
+		//	}, (error) => {
+		//		this.statusText = 'Ошибка доступа к серверу!';
+		//		throw error;
+		//	});
+		//}
+		//else {
+		//	this.statusText = 'Не все значения указаны!'
+		//}
 	}
 
 	getClassesString(): string {

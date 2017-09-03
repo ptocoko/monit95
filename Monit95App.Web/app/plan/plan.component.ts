@@ -1,16 +1,16 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import {UserService} from '../user.service';
+import { AccountService } from '../account.service';
 
 @Component({
     selector: 'plan',
     templateUrl: './app/plan/plan.html',
-    providers: [UserService]
+    providers: [AccountService]
 })
 export class PlanComponent implements OnInit
 {
     areaCode: number;
 
-    constructor(private userService: UserService) { }
+    constructor(private readonly  accountService: AccountService) { }
 
     ngOnInit() {
 		//this.userService.getName().subscribe(user => {

@@ -2,7 +2,7 @@
 import { ParticipCorrection } from "./particip-correction";
 
 import { ParticipCorrectionService } from "./particip-correction.service";
-import { RsurParticipService } from "../rsur-particip.service";
+import { RsurParticipService } from "../rsurparticip.service";
 
 @Component({
     selector: "particip-correction",

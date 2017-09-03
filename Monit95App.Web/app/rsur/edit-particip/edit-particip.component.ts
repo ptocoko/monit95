@@ -5,9 +5,9 @@ import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 import { EditModalComponent } from './edit-modal.component';
 
-import { RsurParticipService } from '../rsur-particip.service';
-import { UserService } from '../../user.service';
-import { RsurParticipModel } from '../rsur-particip.model';
+import { RsurParticipService } from '../rsurparticip.service';
+import { AccountService } from '../../account.service';
+import { RsurParticip as RsurParticipModel } from '../rsurparticip';
 
 @Component({
 	selector: 'edit-particip',
@@ -17,7 +17,10 @@ import { RsurParticipModel } from '../rsur-particip.model';
 export class EditParticipComponent {
 	private particips: RsurParticipModel[];
 
-	constructor(private participService: RsurParticipService, private userService: UserService, private modal: Modal) { }
+    constructor(
+        private readonly participService: RsurParticipService,
+        private readonly accountService: AccountService,
+        private readonly modal: Modal) { }
 
     //ngOnInit() {
     //    this.participService.get().subscribe(particips => this.particips = particips);
@@ -35,7 +38,7 @@ export class EditParticipComponent {
 
 	setDataByParticipCode(particip: RsurParticipModel) {
 		this.particips.forEach((val, i, arr) => {
-			if (val.participCode === particip.participCode) {				
+			if (val.Code === particip.Code) {				
 				return;
 			}
 		})

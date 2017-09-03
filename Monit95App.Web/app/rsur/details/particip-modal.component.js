@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
-var rsur_particip_service_1 = require("../rsur-particip.service");
+var rsurparticip_service_1 = require("../rsurparticip.service");
 var ParticipModalComponent = (function () {
     function ParticipModalComponent(dialog, participService) {
         this.dialog = dialog;
@@ -25,8 +25,8 @@ var ParticipModalComponent = (function () {
         this.dateModel = { date: { year: 1985, month: 1, day: 1 } };
         this.particip = dialog.context;
         this.statusText = '';
-        if (this.particip.birthday != null) {
-            var BDay = this.particip.birthday;
+        if (this.particip.Birthday != null) {
+            var BDay = this.particip.Birthday;
             this.dateModel = {
                 date: {
                     year: BDay.getFullYear(),
@@ -42,22 +42,21 @@ var ParticipModalComponent = (function () {
         this.dialog.dismiss();
     };
     ParticipModalComponent.prototype.save = function () {
-        var _this = this;
-        var participClasses = this.getClassesString();
-        if (this.dateModel != null && participClasses != null) {
-            var date = this.dateModel.date;
-            this.particip.birthday = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
-            this.particip.classNumbers = participClasses;
-            this.participService.update(this.particip).subscribe(function () {
-                _this.dialog.close(_this.particip);
-            }, function (error) {
-                _this.statusText = 'Ошибка доступа к серверу!';
-                throw error;
-            });
-        }
-        else {
-            this.statusText = 'Не все значения указаны!';
-        }
+        //let participClasses = this.getClassesString();
+        //if (this.dateModel != null && participClasses != null) {
+        //	let date = this.dateModel.date;
+        //	this.particip.birthday = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
+        //	this.particip.classNumbers = participClasses;
+        //	this.participService.update(this.particip).subscribe(() => {
+        //		this.dialog.close(this.particip);
+        //	}, (error) => {
+        //		this.statusText = 'Ошибка доступа к серверу!';
+        //		throw error;
+        //	});
+        //}
+        //else {
+        //	this.statusText = 'Не все значения указаны!'
+        //}
     };
     ParticipModalComponent.prototype.getClassesString = function () {
         var res = '';
@@ -79,7 +78,7 @@ ParticipModalComponent = __decorate([
         selector: 'modal-content',
         templateUrl: './app/rsur/details/particip-modal.html'
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsur_particip_service_1.RsurParticipService])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsurparticip_service_1.RsurParticipService])
 ], ParticipModalComponent);
 exports.ParticipModalComponent = ParticipModalComponent;
 //# sourceMappingURL=particip-modal.component.js.map

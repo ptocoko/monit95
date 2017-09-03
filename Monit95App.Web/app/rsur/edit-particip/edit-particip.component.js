@@ -13,12 +13,12 @@ var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var edit_modal_component_1 = require("./edit-modal.component");
-var rsur_particip_service_1 = require("../rsur-particip.service");
-var user_service_1 = require("../../user.service");
+var rsurparticip_service_1 = require("../rsurparticip.service");
+var account_service_1 = require("../../account.service");
 var EditParticipComponent = (function () {
-    function EditParticipComponent(participService, userService, modal) {
+    function EditParticipComponent(participService, accountService, modal) {
         this.participService = participService;
-        this.userService = userService;
+        this.accountService = accountService;
         this.modal = modal;
     }
     //ngOnInit() {
@@ -35,7 +35,7 @@ var EditParticipComponent = (function () {
     };
     EditParticipComponent.prototype.setDataByParticipCode = function (particip) {
         this.particips.forEach(function (val, i, arr) {
-            if (val.participCode === particip.participCode) {
+            if (val.Code === particip.Code) {
                 return;
             }
         });
@@ -48,7 +48,9 @@ EditParticipComponent = __decorate([
         templateUrl: './app/rsur/edit-particip/edit-particip.html',
         providers: [bootstrap_1.Modal]
     }),
-    __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService, user_service_1.UserService, bootstrap_1.Modal])
+    __metadata("design:paramtypes", [rsurparticip_service_1.RsurParticipService,
+        account_service_1.AccountService,
+        bootstrap_1.Modal])
 ], EditParticipComponent);
 exports.EditParticipComponent = EditParticipComponent;
 //# sourceMappingURL=edit-particip.component.js.map

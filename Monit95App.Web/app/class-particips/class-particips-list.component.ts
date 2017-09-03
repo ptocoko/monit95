@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { UserService } from "../user.service";
-import { UserModel } from "../user.model";
+import { AccountService } from '../account.service';
+import { Account } from '../account';
 import { Modal, overlayConfigFactory, DialogRef } from "angular2-modal";
 import { ExportExcelModal, ExportExcelModalData } from "./export-excel-modal.component";
 import { BSModalContext } from "angular2-modal/plugins/bootstrap";
@@ -33,15 +33,18 @@ import { ParticipService } from "../particip.service";
 })
 export class ClassParticipsListComponent implements OnInit {
 	classParticips: ParticipModel[];
-	user: UserModel;
+	account: Account;
 
-	constructor(private userService: UserService, private modal: Modal, private participService: ParticipService) {
+    constructor(
+        private readonly accountService: AccountService,
+        private readonly modal: Modal,
+        private readonly participService: ParticipService) {
 
 	}
 
 	ngOnInit() {
-		this.userService.getAccount().subscribe(data => {
-			this.user = data.json() as UserModel;
+		this.accountService.getAccount().subscribe(data => {
+			this.account = data.json() as Account;
 			this.participService.getAll(1).subscribe(res => {
 				this.classParticips = res;
 			});
@@ -64,7 +67,7 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	addClassParticip() {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false, schoolId: this.user.UserName, projectId: 1 }, BSModalContext)).then(dialog => {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false, schoolId: this.account.UserName, projectId: 1 }, BSModalContext)).then(dialog => {
 			dialog.result.then(classParticip => {
 				if (classParticip) {
 					this.classParticips.push(classParticip);
@@ -75,7 +78,7 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	updateClassParticip(classParticip: ParticipModel, index: number) {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, schoolId: this.user.UserName, particip: classParticip }, BSModalContext)).then(dialog => {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: true, schoolId: this.account.UserName, particip: classParticip }, BSModalContext)).then(dialog => {
 			dialog.result.then(particip => {
 				if (particip) {
 					this.classParticips[index] = particip;

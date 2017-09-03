@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var user_service_1 = require("../user.service");
+var account_service_1 = require("../account.service");
 var PlanComponent = (function () {
-    function PlanComponent(userService) {
-        this.userService = userService;
+    function PlanComponent(accountService) {
+        this.accountService = accountService;
     }
     PlanComponent.prototype.ngOnInit = function () {
         //this.userService.getName().subscribe(user => {
@@ -27,9 +27,9 @@ PlanComponent = __decorate([
     core_1.Component({
         selector: 'plan',
         templateUrl: './app/plan/plan.html',
-        providers: [user_service_1.UserService]
+        providers: [account_service_1.AccountService]
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [account_service_1.AccountService])
 ], PlanComponent);
 exports.PlanComponent = PlanComponent;
 ;

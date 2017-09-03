@@ -3,9 +3,9 @@
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
-import { RsurParticipModel } from '../rsur-particip.model';
+import { RsurParticip as RsurParticipModel } from '../rsurparticip';
 import { ParticipEditModel } from './edit-particip.model';
-import { RsurParticipService } from '../rsur-particip.service';
+import { RsurParticipService } from '../rsurparticip.service';
 
 @Component({
 	selector: 'edit-modal',
@@ -18,7 +18,7 @@ export class EditModalComponent {
 
 	constructor(private dialog: DialogRef<RsurParticipModel>, private participService: RsurParticipService) {
 		this.particip = dialog.context;
-		this.editParticip = new ParticipEditModel(this.particip.participCode, this.particip.surname, this.particip.name, this.particip.secondName);
+		this.editParticip = new ParticipEditModel(this.particip.Code, this.particip.Surname, this.particip.Name, this.particip.SecondName);
 	}
 
 	onSubmit() {

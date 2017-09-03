@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var particip_modal_component_1 = require("./particip-modal.component");
-var rsur_particip_service_1 = require("../rsur-particip.service");
+var rsurparticip_service_1 = require("../rsurparticip.service");
 var ParticipDetailsComponent = (function () {
     function ParticipDetailsComponent(participService, modal) {
         this.participService = participService;
@@ -38,9 +38,9 @@ var ParticipDetailsComponent = (function () {
     };
     ParticipDetailsComponent.prototype.setDataByParticipCode = function (participCode, bDay, participClasses) {
         this.particips.forEach(function (val, i, arr) {
-            if (val.participCode === participCode) {
-                val.birthday = bDay;
-                val.classNumbers = participClasses;
+            if (val.Code === participCode) {
+                val.Birthday = bDay;
+                val.ClassNumbers = participClasses;
                 return;
             }
         });
@@ -50,7 +50,7 @@ var ParticipDetailsComponent = (function () {
         this.countOfNotEnteredData = 0;
         if (this.particips != null && this.particips.length > 0) {
             this.particips.forEach(function (val, i, arr) {
-                if (val.birthday == null || val.classNumbers.length == 0) {
+                if (val.Birthday == null || val.ClassNumbers.length == 0) {
                     _this.countOfNotEnteredData++;
                 }
             });
@@ -64,7 +64,7 @@ ParticipDetailsComponent = __decorate([
         templateUrl: './app/rsur/details/particip-details.html',
         providers: [bootstrap_1.Modal]
     }),
-    __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService, bootstrap_1.Modal])
+    __metadata("design:paramtypes", [rsurparticip_service_1.RsurParticipService, bootstrap_1.Modal])
 ], ParticipDetailsComponent);
 exports.ParticipDetailsComponent = ParticipDetailsComponent;
 //# sourceMappingURL=particip-details.component.js.map

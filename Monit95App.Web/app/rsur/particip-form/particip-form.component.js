@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
-var rsur_particip_service_1 = require("../rsur-particip.service");
+var rsurparticip_service_1 = require("../rsurparticip.service");
 var ParticipFormComponent = (function () {
     function ParticipFormComponent(dialog, participService) {
         this.dialog = dialog;
@@ -34,7 +34,7 @@ ParticipFormComponent = __decorate([
         selector: 'particip-form',
         templateUrl: './app/rsur/particip-form/particip-form.component.html?v=${new Date().getTime()}'
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsur_particip_service_1.RsurParticipService])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsurparticip_service_1.RsurParticipService])
 ], ParticipFormComponent);
 exports.ParticipFormComponent = ParticipFormComponent;
 //# sourceMappingURL=particip-form.component.js.map

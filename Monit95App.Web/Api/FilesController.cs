@@ -21,13 +21,13 @@ namespace Monit95App.Web.Api
         #region Fields
 
         private readonly IRsurReportModelConverter _rsurReportModelConverter;        
-        private readonly IUserService _userService;
+        private readonly IAccountService _userService;
 
         #endregion
 
         #region Methods
 
-        public FilesController(IRsurReportModelConverter rsurReportModelConverter, IUserService userService)
+        public FilesController(IRsurReportModelConverter rsurReportModelConverter, IAccountService userService)
         {
             _rsurReportModelConverter = rsurReportModelConverter;
             _userService = userService;
@@ -52,14 +52,14 @@ namespace Monit95App.Web.Api
             }
 
             var authorizedUser = _userService.GetModel(User.Identity.GetUserId());
-            var authorizedUserRoleNames = authorizedUser.UserRoleNames;
+            var authorizedUserRoleNames = authorizedUser.RoleNames;
             if (!authorizedUser.UserName.Equals(id)) //compare request user and current (real) user           
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Не верный пользователь");
 
             Stream stream = null;
-            if (authorizedUser.UserRoleNames.Contains("area"))
+            if (authorizedUser.RoleNames.Contains("area"))
                 stream = await _rsurReportModelConverter.GetStream(Convert.ToInt32(id));
-            if (authorizedUser.UserRoleNames.Contains("school"))
+            if (authorizedUser.RoleNames.Contains("school"))
                 stream = await _rsurReportModelConverter.GetStream(schoolId: id);
 
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK)

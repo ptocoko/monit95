@@ -14,14 +14,14 @@ namespace Monit95App.Web.Api
         #region Dependencies
 
         private readonly ISchoolService _schoolService;
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
         #endregion
 
-        public SchoolsController(ISchoolService schoolService, IUserService userService)
+        public SchoolsController(ISchoolService schoolService, IAccountService accountService)
         {
             _schoolService = schoolService;
-            _userService = userService;
+            this._accountService = accountService;
         }
 
         #region APIs

@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var particip_correction_service_1 = require("./particip-correction.service");
-var rsur_particip_service_1 = require("../rsur-particip.service");
+var rsurparticip_service_1 = require("../rsurparticip.service");
 var ParticipCorrectionComponent = (function () {
     function ParticipCorrectionComponent(_participCorrectionService, _participService) {
         this._participCorrectionService = _participCorrectionService;
@@ -59,7 +59,7 @@ ParticipCorrectionComponent = __decorate([
         templateUrl: "./app/rsur/correction/particip-correction.html",
         providers: [particip_correction_service_1.ParticipCorrectionService]
     }),
-    __metadata("design:paramtypes", [particip_correction_service_1.ParticipCorrectionService, rsur_particip_service_1.RsurParticipService])
+    __metadata("design:paramtypes", [particip_correction_service_1.ParticipCorrectionService, rsurparticip_service_1.RsurParticipService])
 ], ParticipCorrectionComponent);
 exports.ParticipCorrectionComponent = ParticipCorrectionComponent;
 //# sourceMappingURL=particip-correction.component.js.map

@@ -2,8 +2,8 @@
 
 import { DialogRef, ModalComponent } from 'angular2-modal';
 
-import { RsurParticipModel } from '../rsur-particip.model';
-import { RsurParticipService } from '../rsur-particip.service';
+import { RsurParticip as RsurParticipModel } from '../rsurparticip';
+import { RsurParticipService } from '../rsurparticip.service';
 import { ResultsModel, ResultDetailsModel } from './results.model';
 
 @Component({
@@ -20,7 +20,7 @@ export class ResultsModalComponent implements ModalComponent<RsurParticipModel>,
 	}
 
 	ngOnInit() {
-        this.participService.getParticipResults(this.particip.participCode).subscribe(res => {
+        this.participService.getParticipResults(this.particip.Code).subscribe(res => {
             this.results = res;
         });
 	}
