@@ -11,7 +11,6 @@ namespace Monit95App.Domain.Core.Entities
         [Key]
         public int Code { get; set; }
 
-        [Required]
         [StringLength(12)]
         public string OldCode { get; set; }
 
@@ -32,7 +31,7 @@ namespace Monit95App.Domain.Core.Entities
 
         public int RsurSubjectCode { get; set; }
 
-        public int CategId { get; set; }
+        public int CategoryId { get; set; }
 
         public int Experience { get; set; }
 
@@ -54,6 +53,10 @@ namespace Monit95App.Domain.Core.Entities
 
         public DateTime? AddedDate { get; set; }
 
-        public School School { get; set; }
+        public virtual Category Category { get; set; }
+
+        public virtual RsurSubject RsurSubject { get; set; }
+
+        public virtual School School { get; set; }
     }
 }

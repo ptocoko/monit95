@@ -9,12 +9,11 @@ using Monit95App.Domain.Core.Entities;
 namespace Monit95App.Services
 {
     public class RsurTestResultService : IRsurTestResultService
-    {
-        private readonly IGenericRepository<Element> _testElementRep;
+    {        
         private readonly IGenericRepository<RsurTestResult> _testResultRep;
-        public RsurTestResultService(IGenericRepository<Element> testElementRep, IGenericRepository<RsurTestResult> testResultRep)
-        {
-            _testElementRep = testElementRep;
+
+        public RsurTestResultService(IGenericRepository<RsurTestResult> testResultRep)
+        {            
             _testResultRep = testResultRep;
         }
 

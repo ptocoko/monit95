@@ -26,8 +26,8 @@
         [Range(0, 60)]
         public int Experience { get; set; }
 
-        [Required]
-        [StringLength(11)] // e.g.: 89280168396
+        [Required] // e.g.: 89280168396
+        [StringLength(11, MinimumLength = 11)]
         public string Phone { get; set; }
                         
         public string Email { get; set; } // TODO: validate by MailAdress        

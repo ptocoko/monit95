@@ -1,2 +1,3 @@
 ﻿After update need:
 - inherite Particip, RsurParticip from Person
+- rename Exercis -> Exercise

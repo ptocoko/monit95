@@ -31,14 +31,14 @@ namespace ProtocolGenerator
             return testGrades.Count != 0 ? testGrades.Single(x => x.Grade5 == result.Grade5).ToString() : null; 
         }
 
-        private static Dictionary<Element, double> ConvertElements(Result result)
-        {
-            var elements = new Dictionary<Element, double>();
-            var split = result.ElementValues.Split(';');
-            //...
+        //private static Dictionary<Element, double> ConvertElements(Result result)
+        //{
+        //    var elements = new Dictionary<Element, double>();
+        //    var split = result.ElementValues.Split(';');
+        //    //...
 
 
-            return elements;
-        }
+        //    return elements;
+        //}
     }
 }

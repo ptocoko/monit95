@@ -11,7 +11,6 @@ namespace Monit95App.Domain.Core.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Test()
         {
-            Elements = new HashSet<Element>();
             Exercises = new HashSet<Exercis>();
             Grades = new HashSet<Grade>();
             ProjectTests = new HashSet<ProjectTest>();
@@ -31,9 +30,6 @@ namespace Monit95App.Domain.Core.Entities
 
         [StringLength(50)]
         public string ExcerMaxMarks { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Element> Elements { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exercis> Exercises { get; set; }

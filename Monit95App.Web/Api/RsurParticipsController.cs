@@ -28,17 +28,13 @@ namespace Monit95App.Web.Api
     {
         #region Dependencies
 
-        private readonly IRsurParticipService _rsurParticipService;
-        private readonly IUserService _userService;        
+        private readonly IRsurParticipService _rsurParticipService;              
 
         #endregion
 
-        public RsurParticipsController(
-            IRsurParticipService rsurParticipService,
-            IUserService userService)
+        public RsurParticipsController(IRsurParticipService rsurParticipService)
         {
             _rsurParticipService = rsurParticipService;
-            _userService = userService;            
         }
 
         #region APIs 
@@ -57,44 +53,96 @@ namespace Monit95App.Web.Api
             return Ok(rsurParticipCode);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "coko, area, school")]
+        public IHttpActionResult Get(int? areaCode = null, string schoolId = null)
+        {                        
+            var dtos = this._rsurParticipService.GetAll(areaCode, schoolId);
+
+            var userName = User.Identity.GetUserName();
+
+            if (User.IsInRole("area")
+                && !dtos.All(x => x.AreaCodeWithName.Substring(0, 3) == userName))
+            {
+                return this.Conflict();
+            }
+
+            if (User.IsInRole("school")
+                && !dtos.All(x => x.SchoolIdWithName.Substring(0, 4) == userName))
+            {
+                return this.Conflict();
+            }
+                              
+            return Ok(dtos);
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "school")]
+        [Route("{code:int}")]
+        public IHttpActionResult Put([FromBody] RsurParticipPutDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
+
+            this._rsurParticipService.Update(code, dto);
+
+            return this.Ok();
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "school")]
+        [Route("{code:int}")]
+        public IHttpActionResult Delete()
+        {
+            var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
+
+            this._rsurParticipService.Delete(code);
+
+            return this.Ok();
+        }
+
 
         //[HttpGet]
         //[Route("{ParticipCode}")]
         //public HttpResponseMessage GetByParticipCode()
         //{
         //    var participCode = RequestContext.RouteData.Values["ParticipCode"].ToString();   
-                
+
         //    var fullInfo = _rsurParticipService.GetByParticipCode(participCode);
 
         //    return fullInfo == null ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "Не удалось найти участника с данным кодом") : 
         //                               Request.CreateResponse(HttpStatusCode.OK, fullInfo);
         //}
 
-        [HttpGet]
-        [Route("")]
-        [CacheOutput(ClientTimeSpan = 100)]                            
-        public IHttpActionResult Get() // get all participates who access for authorized user
-        {
-            //var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
-            //var authorizedUserName = authorizedUserModel.UserName;
-            //var authorizedUserRole = authorizedUserModel.UserRoleNames.Single();
+        //[HttpGet]
+        //[Route("")]
+        //[CacheOutput(ClientTimeSpan = 100)]                            
+        //public IHttpActionResult Get() // get all participates who access for authorized user
+        //{
+        //var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
+        //var authorizedUserName = authorizedUserModel.UserName;
+        //var authorizedUserRole = authorizedUserModel.UserRoleNames.Single();
 
-            //int? paramAreaCode = null;            
-            //if (authorizedUserRole.Equals("area"))
-            //{
-            //    paramAreaCode = Convert.ToInt32(authorizedUserName);
-            //}
+        //int? paramAreaCode = null;            
+        //if (authorizedUserRole.Equals("area"))
+        //{
+        //    paramAreaCode = Convert.ToInt32(authorizedUserName);
+        //}
 
-            //string paramSchoolId = null;
-            //if (authorizedUserRole.Equals("school"))
-            //{
-            //    paramSchoolId = authorizedUserName;
-            //}
-            
-            //var fullInfoList = _rsurParticipService.Get(paramAreaCode, paramSchoolId);
+        //string paramSchoolId = null;
+        //if (authorizedUserRole.Equals("school"))
+        //{
+        //    paramSchoolId = authorizedUserName;
+        //}
 
-            return Ok();
-        }
+        //var fullInfoList = _rsurParticipService.Get(paramAreaCode, paramSchoolId);
+
+        // return Ok();
+        //}
 
         //[HttpPut]        
         //[Route(@"{ParticipCode:regex(^2016-2\d{2}-\d{3})}")]
@@ -107,7 +155,7 @@ namespace Monit95App.Web.Api
 
         //    //var authorizedUserModel = _userService.GetModel(User.Identity.GetUserId());
         //    //var routeParticipCode = RequestContext.RouteData.Values["ParticipCode"].ToString();     
-            
+
         //    //if(authorizedUserModel.UserName == "coko")
         //    //{
         //    //    _rsurParticipService.FullUpdate(fullInfo);

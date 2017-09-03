@@ -6,7 +6,6 @@ using System.Linq;
 using AutoMapper;
 
 using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
 
 namespace Monit95App.Services.Rsur
@@ -14,17 +13,10 @@ namespace Monit95App.Services.Rsur
     using Monit95App.Infrastructure.Data;
     using Monit95App.Services.DTOs;
 
+    using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
+
     public class RsurParticipService : IRsurParticipService
-    {
-        #region Fields        
-
-        // private readonly MapperConfiguration _fullMapConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipPostDto, RsurParticip>());
-        // private readonly MapperConfiguration _partMapConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<RsurParticipPostDto, RsurParticip>()
-        // .ForMember(member => member.Name, opt => opt.Ignore())
-        // .ForMember(member => member.Surname, opt => opt.Ignore()));
-
-        #endregion
-
+    {  
         #region Dependencies
 
         private readonly CokoContext _cokoContext;        
@@ -33,7 +25,15 @@ namespace Monit95App.Services.Rsur
 
         public RsurParticipService(CokoContext cokoContext)            
         {
-            _cokoContext = cokoContext;           
+            _cokoContext = cokoContext;
+            Mapper.Initialize(
+                cfg => cfg.CreateMap<RsurParticip, RsurParticipGetDto>()
+                    .ForMember(
+                        dist => dist.SchoolIdWithName,
+                        opt => opt.MapFrom(src => $"{src.SchoolId} - {src.School.Name.TrimEnd()}"))
+                    .ForMember(
+                        dist => dist.AreaCodeWithName,
+                        opt => opt.MapFrom(src => $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}")));
         }
 
         #region Methods
@@ -41,7 +41,7 @@ namespace Monit95App.Services.Rsur
         public int Add(RsurParticipPostDto dto)
         {
             _ = dto ?? throw new ArgumentNullException();
-            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+            var validContext = new ValidationContext(dto);
             Validator.ValidateObject(dto, validContext, true);
 
             Mapper.Initialize(cfg => cfg.CreateMap<RsurParticipPostDto, RsurParticip>()
@@ -51,152 +51,86 @@ namespace Monit95App.Services.Rsur
             this._cokoContext.RsurParticips.Add(entity);
             this._cokoContext.SaveChanges();
 
-            return entity.Code;
-
-
-
-            // newPParticip.School = _db.Schools.Find(newPParticip.SchoolId);
-
-            // var areaPParticips = _db.ProjectParticips.Where(x => x.School.AreaCode == newPParticip.School.AreaCode).ToList();
-            // var areaParticipCodes = areaPParticips.Select(x => Int32.Parse(x.ParticipCode.Substring(9, 3)));
-            // var validCodes = Enumerable.Range(1, 2000).Except(areaParticipCodes);
-            // var firstValidCode = validCodes.OrderBy(x => x).First().ToString();
-
-            // if (firstValidCode.Length == 1) firstValidCode = "00" + firstValidCode;
-            // if (firstValidCode.Length == 2) firstValidCode = "0" + firstValidCode;
-
-            // string newParticipCode = $"2016-{newPParticip.School.AreaCode.ToString()}-{firstValidCode}";
-
-            // return newParticipCode;
+            return entity.Code;            
         }
 
-        // public IEnumerable<RsurParticipFullInfo> Get(int? areaCode = null, string schoolId = null)
-        // {
-        // //If areaCode and schoolId are null then return for region
+        public RsurParticipGetDto GetByCode(int code)
+        {
+            if (code < 10_000 || code >= 100_000)
+            {
+                throw new ArgumentOutOfRangeException(nameof(code));
+            }
 
-        // var queryToGetCodes = _rsurParticipRepository.GetAll();
-        // if (areaCode != null)
-        // {
-        // queryToGetCodes = queryToGetCodes.Where(pr => pr.School.AreaCode == areaCode);
-        // }
-        // if (schoolId != null)
-        // {
-        // queryToGetCodes = queryToGetCodes.Where(pr => pr.SchoolId == schoolId);
-        // }
-        // var participCodes = queryToGetCodes.Select(pp => pp.ParticipCode).ToList();  
+            var entity = this._cokoContext.RsurParticips.Find(code);
+            if (entity == null)
+            {
+                throw new ArgumentException();
+            }
 
-        // var rsurParticipFullInfoList = new List<RsurParticipFullInfo>();
-        // foreach (var participCode in participCodes)
-        // {
-        // rsurParticipFullInfoList.Add(GetByParticipCode(participCode));
-        // }            
+            var dto = Mapper.Map<RsurParticip, RsurParticipGetDto>(entity);
 
-        // return rsurParticipFullInfoList;
-        // }
-        // public virtual RsurParticipFullInfo GetByParticipCode(string participCode)
-        // {
-        // if(participCode == null)
-        // {
-        // throw new ArgumentNullException(nameof(participCode));
-        // }
+            return dto;
+        }
 
-        // var entity = _rsurParticipRepository.GetById(participCode);
-        // if(entity == null)
-        // {
-        // throw new ArgumentException(nameof(participCode));
-        // }
+        public IEnumerable<RsurParticipGetDto> GetAll(int? areaCode = null, string schoolId = null)
+        {
+            var query = this._cokoContext.RsurParticips.AsQueryable();
 
-        // Mapper.Initialize(cfg => cfg.CreateMap<RsurParticip, RsurParticipFullInfo>());
-        // var fullInfo = Mapper.Map<RsurParticip, RsurParticipFullInfo>(entity);
-            
-        // if (entity.RsurParticipEdit != null)
-        // {
-        // if (entity.RsurParticipEdit.Surname != null)
-        // fullInfo.HasSurnameEdit = true;
-        // if (entity.RsurParticipEdit.Name != null)
-        // fullInfo.HasNameEdit = true;
-        // }                
+            if (areaCode != null)
+            {
+                query = query.Where(entity => entity.School.Area.Code == areaCode);
+            }
 
-        // return fullInfo;
-        // }
-        
-        // public IEnumerable<IGrouping<string, ParticipResultsModel>> GetParticipResults(string participCode)
-        // {
-        // return _rsurTestResultRepository.GetAll().Where(s => s.RsurParticipTest.RsurParticip.ParticipCode == participCode).ToList()
-        // .Select(s => _rsurParticipViewer.CreateResultModel(s, participCode))
-        // .GroupBy(x => x.NumberCode).OrderBy(o => o.Key).ToList();
-        // }        
+            if (schoolId != null)
+            {
+                query = query.Where(entity => entity.SchoolId == schoolId);
+            }
 
-        // public void FullUpdate(RsurParticipFullInfo fullInfo)
-        // {
-        // //Validation
-        // if (fullInfo == null)
-        // {
-        // throw new ArgumentNullException(nameof(fullInfo));
-        // }
-        // var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(fullInfo);
-        // Validator.ValidateObject(fullInfo, validContext);
-        // var entity = _rsurParticipRepository.GetById(fullInfo.ParticipCode);
-        // if (entity == null)
-        // {
-        // throw new ArgumentException(nameof(fullInfo.ParticipCode));
-        // }
+            var entities = query.ToList();
 
-        // //Mapping
-        // IMapper mapper = _fullMapConfiguration.CreateMapper();
-        // mapper.Map(fullInfo, entity);
+            var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);          
 
-        // _rsurParticipRepository.Update(entity);            
-        // }
-        // public RsurParticipFullInfo PartUpdate(RsurParticipFullInfo fullInfo)
-        // {
-        // //Validation
-        // if (fullInfo == null)
-        // {
-        // throw new ArgumentNullException(nameof(fullInfo));
-        // }
-        // var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(fullInfo);
-        // Validator.ValidateObject(fullInfo, validContext);
-        // var entity = _rsurParticipRepository.GetById(fullInfo.ParticipCode);
-        // if (entity == null)
-        // {
-        // throw new ArgumentException(nameof(fullInfo.ParticipCode));
-        // }
+            return dtos;
+        }
 
-        // //Mapping
-        // IMapper mapper = _partMapConfiguration.CreateMapper();
-        // mapper.Map(fullInfo, entity);
+        public void Update(int code, RsurParticipPutDto dto)
+        {
+            // Validate
+            if (code < 10_000 || code >= 100_000)
+            {
+                throw new ArgumentOutOfRangeException(nameof(code));
+            }
 
-        // if(entity.RsurParticipEdit == null)
-        // {
-        // entity.RsurParticipEdit = new RsurParticipEdit();
-        // }
-        // if(fullInfo.Surname != entity.Surname)
-        // {
-        // entity.RsurParticipEdit.Surname = fullInfo.Surname;
-        // fullInfo.HasSurnameEdit = true;
-        // }
-        // if (fullInfo.Name != entity.Name)
-        // {
-        // entity.RsurParticipEdit.Name = fullInfo.Name;
-        // fullInfo.HasNameEdit = true;
-        // }
+            var validContext = new ValidationContext(dto);
+            Validator.ValidateObject(dto, validContext, true);
+            var entity = this._cokoContext.RsurParticips.Find(code);
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(code));
+            }
 
-        // //Check that all entity.ProjectParticipEdit's properties are null                                        
-        // var isNullAllProperties = entity.RsurParticipEdit.GetType()
-        // .GetProperties()                                             
-        // .Select(pi => pi.GetValue(entity.RsurParticipEdit))
-        // .All(ob => ob == null);
+            Mapper.Initialize(cfg => cfg.CreateMap<RsurParticipPutDto, RsurParticip>());
+            Mapper.Map(dto, entity);
 
-        // if (isNullAllProperties)
-        // {
-        // entity.RsurParticipEdit = null;
-        // }
+            this._cokoContext.SaveChanges();
+        }
 
-        // _rsurParticipRepository.Update(entity);
+        public void Delete(int code)
+        {            
+            if (code < 10_000 || code >= 100_000)
+            {
+                throw new ArgumentOutOfRangeException(nameof(code));
+            }
 
-        // return fullInfo;
-        // }
+            var entity = this._cokoContext.RsurParticips.Find(code);
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(entity));
+            }
+
+            this._cokoContext.RsurParticips.Remove(entity);
+            this._cokoContext.SaveChanges();
+        }        
 
         #endregion
     }

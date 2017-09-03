@@ -53,8 +53,6 @@
     <Compile Include="Entities\Area.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Class.cs" />
-    <Compile Include="Entities\Element.cs" />
-    <Compile Include="Entities\ElementType.cs" />
     <Compile Include="Entities\Exercis.cs" />
     <Compile Include="Entities\GiaResult.cs" />
     <Compile Include="Entities\Grade.cs" />
@@ -62,7 +60,6 @@
     <Compile Include="Entities\ParticipTest.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectTest.cs" />
-    <Compile Include="Entities\PropertyType.cs" />
     <Compile Include="Entities\Report.cs" />
     <Compile Include="Entities\ReportStatistic.cs" />
     <Compile Include="Entities\Result.cs" />

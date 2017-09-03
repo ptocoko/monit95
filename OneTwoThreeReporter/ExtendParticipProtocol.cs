@@ -7,6 +7,6 @@ namespace ProtocolGenerator
 {
     public class ExtendParticipProtocol : ParticipProtocol
     {        
-          public Dictionary<Element, double> ElementValues { get; set; } = new Dictionary<Element, double>();
+          //public Dictionary<Element, double> ElementValues { get; set; } = new Dictionary<Element, double>();
     }
 }

@@ -1,9 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Monit95App.Services.Models;
-using Monit95App.Services.Rsur;
-using Monit95App.Domain.Core;
 
 namespace Monit95App.Services.Interfaces
 {
@@ -12,6 +7,14 @@ namespace Monit95App.Services.Interfaces
     public interface IRsurParticipService
     {
         int Add(RsurParticipPostDto dto); // return code
+
+        RsurParticipGetDto GetByCode(int code);
+
+        IEnumerable<RsurParticipGetDto> GetAll(int? areaCode = null, string schoolId = null);
+
+        void Update(int code, RsurParticipPutDto dto);
+
+        void Delete(int code);
     }
 }
 

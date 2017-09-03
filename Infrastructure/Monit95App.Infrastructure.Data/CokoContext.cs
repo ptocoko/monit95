@@ -1,9 +1,12 @@
-using System.Data.Entity;
-
-using Monit95App.Domain.Core.Entities;
-
 namespace Monit95App.Infrastructure.Data
 {
+    using System;
+    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
+    using Monit95App.Domain.Core.Entities;
+
     public partial class CokoContext : DbContext
     {
         public CokoContext()
@@ -12,57 +15,28 @@ namespace Monit95App.Infrastructure.Data
         }
 
         public virtual DbSet<Area> Areas { get; set; }
-
         public virtual DbSet<Category> Categories { get; set; }
-
         public virtual DbSet<Class> Classes { get; set; }
-
-        public virtual DbSet<Element> Elements { get; set; }
-
-        public virtual DbSet<ElementType> ElementTypes { get; set; }
-
         public virtual DbSet<Exercis> Exercises { get; set; }
-
         public virtual DbSet<GiaResult> GiaResults { get; set; }
-
         public virtual DbSet<Grade> Grades { get; set; }
-
         public virtual DbSet<Particip> Particips { get; set; }
-
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
-
         public virtual DbSet<Project> Projects { get; set; }
-
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
-
-        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
-
         public virtual DbSet<Report> Reports { get; set; }
-
         public virtual DbSet<ReportStatistic> ReportStatistics { get; set; }
-
         public virtual DbSet<Result> Results { get; set; }
-
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
-
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
-
         public virtual DbSet<RsurParticipTest> RsurParticipTests { get; set; }
-
         public virtual DbSet<RsurSubject> RsurSubjects { get; set; }
-
         public virtual DbSet<RsurTestResult> RsurTestResults { get; set; }
-
         public virtual DbSet<RsurTest> RsurTests { get; set; }
-
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
-
         public virtual DbSet<School> Schools { get; set; }
-
         public virtual DbSet<Test> Tests { get; set; }
-
         public virtual DbSet<TownType> TownTypes { get; set; }
-
         public virtual DbSet<Wish> Wishes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -70,6 +44,11 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Area>()
                 .HasMany(e => e.Schools)
                 .WithRequired(e => e.Area)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(e => e.RsurParticips)
+                .WithRequired(e => e.Category)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Class>()
@@ -80,19 +59,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Class>()
                 .HasMany(e => e.Particips)
                 .WithRequired(e => e.Class)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Element>()
-                .Property(e => e.Code)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Element>()
-                .Property(e => e.ExerNames)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ElementType>()
-                .HasMany(e => e.Elements)
-                .WithRequired(e => e.ElementType)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Exercis>()
@@ -251,6 +217,11 @@ namespace Monit95App.Infrastructure.Data
                 .HasOptional(e => e.RsurTestResult)
                 .WithRequired(e => e.RsurParticipTest);
 
+            modelBuilder.Entity<RsurSubject>()
+                .HasMany(e => e.RsurParticips)
+                .WithRequired(e => e.RsurSubject)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<RsurTestResult>()
                 .Property(e => e.Marks)
                 .IsUnicode(false);
@@ -297,6 +268,11 @@ namespace Monit95App.Infrastructure.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<School>()
+                .HasMany(e => e.RsurParticips)
+                .WithRequired(e => e.School)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<School>()
                 .HasOptional(e => e.SchoolEdit)
                 .WithRequired(e => e.School);
 
@@ -307,11 +283,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Test>()
                 .Property(e => e.ExcerMaxMarks)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Test>()
-                .HasMany(e => e.Elements)
-                .WithRequired(e => e.Test)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.Exercises)

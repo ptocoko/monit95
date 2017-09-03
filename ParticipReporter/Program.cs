@@ -39,21 +39,21 @@ namespace ParticipReporter
 
         static void GetReports(Guid testId, DateTime testDate)
         {
-            var context = new CokoContext();
-            var testResultService = new RsurTestResultService(new GenericRepository<Element>(context), new GenericRepository<RsurTestResult>(context));
+            //var context = new CokoContext();
+            //var testResultService = new RsurTestResultService(new GenericRepository<Element>(context), new GenericRepository<RsurTestResult>(context));
 
-            var results = testResultService.SelectParticipsGroupResults(testId, testDate);
+            //var results = testResultService.SelectParticipsGroupResults(testId, testDate);
 
-            SetInstances(results);
+            //SetInstances(results);
 
-            _reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\participResults\{results.BlockName}");
-            if (!Directory.Exists(_reportFolder))
-                Directory.CreateDirectory(_reportFolder);
+            //_reportFolder = String.Format(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\participResults\{results.BlockName}");
+            //if (!Directory.Exists(_reportFolder))
+            //    Directory.CreateDirectory(_reportFolder);
 
-            foreach (var result in results.ParticipReports)
-            {
-                BuildReport(result);
-            }
+            //foreach (var result in results.ParticipReports)
+            //{
+            //    BuildReport(result);
+            //}
         }
 
         private static void SetInstances(ReportsDto results)

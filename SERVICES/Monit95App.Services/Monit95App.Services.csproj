@@ -76,6 +76,7 @@
     <Compile Include="ClassParticip.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />
     <Compile Include="DTOs\PutMarksDto.cs" />
+    <Compile Include="DTOs\RsurParticipPutDto.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IMarksService.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Interfaces\IRsurReportModelConverter.cs" />
     <Compile Include="Interfaces\IRsurReportModelCreator.cs" />
     <Compile Include="Interfaces\IRsurReportModelWriter.cs" />
+    <Compile Include="DTOs\RsurParticipGetDto.cs" />
     <Compile Include="MarksFileService.cs" />
     <Compile Include="MarksFormat1.cs" />
     <Compile Include="MarksFormat2.cs" />
