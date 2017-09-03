@@ -1,12 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../account.service';
-import { Account } from '../account';
+import { AccountService } from '../account/account.service';
+import { Account } from '../account/account';
 import { Modal, overlayConfigFactory, DialogRef } from "angular2-modal";
 import { ExportExcelModal, ExportExcelModalData } from "./export-excel-modal.component";
-import { BSModalContext } from "angular2-modal/plugins/bootstrap";
-import { AddClassParticipModal } from "./add-class-particip.modal";
-import { ParticipModel } from "../particip.model";
-import { ParticipService } from "../particip.service";
+import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import { AddClassParticipModal } from './add-class-particip.modal';
+import { ParticipModel } from '../particip.model';
+import { ParticipService } from '../particip.service';
 
 @Component({
 	templateUrl: './app/class-particips/class-particips-list.component.html',

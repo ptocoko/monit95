@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var rsurparticip_service_1 = require("./rsurparticip.service");
-var account_service_1 = require("../account.service");
+var account_service_1 = require("../account/account.service");
 var RsurParticipComponent = (function () {
     function RsurParticipComponent(rsurParticipService, accountService, modal) {
         this.rsurParticipService = rsurParticipService;

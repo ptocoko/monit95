@@ -30,7 +30,7 @@ var add_class_particip_modal_1 = require("./class-particips/add-class-particip.m
 var export_excel_modal_component_1 = require("./class-particips/export-excel-modal.component");
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 //Services
-var account_service_1 = require("./account.service");
+var account_service_1 = require("./account/account.service");
 var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");

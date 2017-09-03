@@ -25,7 +25,7 @@ import { ExportExcelModal } from './class-particips/export-excel-modal.component
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 
 //Services
-import { AccountService } from './account.service';
+import { AccountService } from './account/account.service';
 import { RsurParticipService } from './rsur/rsurparticip.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';

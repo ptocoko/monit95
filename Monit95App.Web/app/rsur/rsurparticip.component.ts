@@ -8,7 +8,7 @@ import { RsurParticip } from './rsurparticip';
 import { ParticipFormComponent } from './particip-form/particip-form.component'
 
 import { RsurParticipService } from './rsurparticip.service';
-import { AccountService } from '../account.service';
+import { AccountService } from '../account/account.service';
 import Editmodalcomponent = require('./edit-particip/edit-modal.component');
 import EditModalComponent = Editmodalcomponent.EditModalComponent;
 

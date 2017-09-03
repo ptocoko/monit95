@@ -6,7 +6,7 @@ import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { EditModalComponent } from './edit-modal.component';
 
 import { RsurParticipService } from '../rsurparticip.service';
-import { AccountService } from '../../account.service';
+import { AccountService } from '../../account/account.service';
 import { RsurParticip as RsurParticipModel } from '../rsurparticip';
 
 @Component({

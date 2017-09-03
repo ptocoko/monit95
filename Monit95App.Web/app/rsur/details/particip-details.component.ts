@@ -4,7 +4,6 @@ import { DialogRef, Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 import { RsurParticip as RsurParticipModel } from '../rsurparticip';
-import { Account } from '../../account';
 import { ParticipModalComponent } from './particip-modal.component';
 
 import { RsurParticipService } from '../rsurparticip.service';

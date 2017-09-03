@@ -8,9 +8,9 @@
                 <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />
             </div>
             <div style="display:inline-block;">                
-                <a class="btn btn-default" href="/api/files/rsurParticipLists/{{userName}}" target="_blank">
+                <!--<a class="btn btn-default" href="/api/files/rsurParticipLists/{{userName}}" target="_blank">
                     <i class="fa fa-file-excel-o fa-lg"></i> Экспорт
-                </a>
+                </a>-->
             </div>
         </div>
         <br />
@@ -22,23 +22,23 @@
                     <th>Имя</th>
                     <th>Отчеcтво</th>
                     <th>Предмет</th>
-                    <th>Редактировать</th>
-                    <th>Результаты</th>                    
+                    <th>Актуальность</th>                    
                 </tr>
             </thead>
             <tbody>
+                <!--<tr *ngFor="let particip of particips | rsurParticipFilter: searchText | limitTo: 100">-->
                 <tr *ngFor="let particip of particips | rsurParticipFilter: searchText | limitTo: 100">
-                    <td>{{particip.participCode}}</td>
-                    <td>{{particip.surname}}</td>
-                    <td>{{particip.name}}</td>
-                    <td>{{particip.secondName}}</td>
-                    <td>{{particip.subjectName}}</td>
-                    <td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="edit(particip)"></a></td>
-                    <td>
-                        <button type="button" class="btn btn-default" (click)="openModal(particip)">
-                            <span class="glyphicon glyphicon-menu-right"></span>запросить
-                        </button>
-                    </td>
+                    <td>{{particip.Code}}</td>
+                    <td>{{particip.Surname}}</td>
+                    <td>{{particip.Name}}</td>
+                    <td>{{particip.SecondName}}</td>
+                    <td>{{particip.RsurSubjectName}}</td>
+                    <!--<td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="edit(particip)"></a></td>
+            <td>
+                <button type="button" class="btn btn-default" (click)="openModal(particip)">
+                    <span class="glyphicon glyphicon-menu-right"></span>запросить
+                </button>
+            </td>-->
                 </tr>
             </tbody>
         </table>

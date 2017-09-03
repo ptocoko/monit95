@@ -10,25 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var account_service_1 = require("../account/account.service");
-var ResultComponent = (function () {
-    function ResultComponent(accountService) {
-        this.accountService = accountService;
+var http_1 = require("@angular/http");
+var AccountService = (function () {
+    function AccountService(http) {
+        this.http = http;
     }
-    ResultComponent.prototype.ngOnInit = function () {
-        //this.userService.getName().subscribe(user => {
-        //	if (user.userRoles.indexOf('area') >= 0)
-        //		this.areaCode = Number.parseInt(user.userName);
+    AccountService.prototype.getAccount = function () {
+        return this.http.get('/api/accounts');
     };
-    return ResultComponent;
+    return AccountService;
 }());
-ResultComponent = __decorate([
-    core_1.Component({
-        selector: 'result',
-        templateUrl: './app/result/result.html',
-        providers: [account_service_1.AccountService]
-    }),
-    __metadata("design:paramtypes", [account_service_1.AccountService])
-], ResultComponent);
-exports.ResultComponent = ResultComponent;
-//# sourceMappingURL=result.component.js.map
+AccountService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], AccountService);
+exports.AccountService = AccountService;
+//# sourceMappingURL=account.service.js.map
