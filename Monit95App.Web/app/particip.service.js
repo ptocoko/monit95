@@ -14,7 +14,7 @@ var http_1 = require("@angular/http");
 var ParticipService = (function () {
     function ParticipService(http) {
         this.http = http;
-        this.GET_ALL_PARTICIPS_URL = "/api/particips/GetAll?projectTestId=";
+        this.GET_ALL_PARTICIPS_URL = "/api/particips/GetAll?projectId=";
         this.GET_PARTICIP_URL = "/api/particips/";
         this.ADD_PARTICIP_URL = "/api/particips/post";
         this.UPDATE_PARTICIP_URL = "/api/particips/";

@@ -54,28 +54,38 @@ var AddClassParticipModal = (function () {
     }
     AddClassParticipModal.prototype.ngOnInit = function () {
         var _this = this;
+        this.statusText = "";
         this.classService.getClassNames().subscribe(function (classNames) {
             _this.classNames = classNames;
             _this.classNames.length = 12;
+        }, function (error) {
+            _this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+            throw error;
         });
     };
     AddClassParticipModal.prototype.onSubmit = function () {
         var _this = this;
         if (this.isUpdate) {
             this.participService.updateParticip(this.particip).subscribe(function (res) {
-                console.log(res);
                 _this.dialog.close(_this.particip);
+            }, function (error) {
+                _this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+                throw error;
             });
         }
         else {
             this.particip.SchoolId = this.schoolId;
             this.particip.ProjectId = this.projectId;
-            console.log(this.particip);
             this.participService.addParticip(this.particip).subscribe(function (res) {
-                console.log(res);
                 _this.dialog.close(_this.particip);
+            }, function (error) {
+                _this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+                throw error;
             });
         }
+    };
+    AddClassParticipModal.prototype.cancel = function () {
+        this.dialog.close();
     };
     return AddClassParticipModal;
 }());

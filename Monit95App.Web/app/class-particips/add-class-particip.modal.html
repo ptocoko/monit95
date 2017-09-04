@@ -28,9 +28,9 @@
         </div>
         <hr />
         <div style="text-align: right">
-            <span>{{statusText}}</span>
+            <span style="color:red">{{statusText}}</span>
             <button type="submit" class="btn btn-success" [disabled]="participForm.invalid">{{actionText}}</button>
-            <button type="button" class="btn btn-default btn-in-horizon" (click)="dialog.close()">Отменить</button>
+            <button type="button" class="btn btn-default btn-in-horizon" (click)="cancel()">Отменить</button>
         </div>
     </form>
 </div>

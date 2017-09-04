@@ -1,28 +1,36 @@
 ﻿<h1>Hello World!</h1>
-<hr/>
-    <div style="display:flex;flex-direction:row;text-align:right">
-        <button style="margin-right:15px" class="btn btn-default" (click)="addClassParticip()">Добавить участника...</button>
+<div *ngIf="isLoading">Загрузка...</div>
+<div *ngIf="!isLoading">
+    <hr />
+    <div style="display:flex;flex-direction:row;justify-content:space-between">
+        <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..."/>
 
-        <label class="fileUploader btn btn-default">
-            <i class="fa fa-file-excel-o fa-lg"></i>
-            Отправить в .xlsx...
-            <input class="form-control" type="file" (change)="exportParticips($event)" placeholder="Отправить из .XLSX" accept=".xlsx" value="Отправить из .XLSX" />
-        </label>
+        <div style="display:flex;flex-direction:row;text-align:right">
+            <button style="margin-right:15px" class="btn btn-default" (click)="addClassParticip()">Добавить участника...</button>
+            <label class="fileUploader btn btn-default">
+                <i class="fa fa-file-excel-o fa-lg"></i>
+                Отправить в .xlsx...
+                <input class="form-control" type="file" (change)="exportParticips($event)" placeholder="Отправить из .XLSX" accept=".xlsx" value="Отправить из .XLSX" />
+            </label>
+        </div>
     </div>
-<br />
-<table class="table table-striped table-bordered">
-    <tr>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Отчество</th>
-        <th>Класс</th>
-        <th></th>
-    </tr>
-    <tr *ngFor="let particip of classParticips; let i = index">
-        <td>{{particip.Surname}}</td>
-        <td>{{particip.Name}}</td>
-        <td>{{particip.SecondName}}</td>
-        <td>{{particip.ClassName}}</td>
-        <td><a class="glyphicon glyphicon-edit" (click)="updateClassParticip(particip, i)"></a></td>
-    </tr>
-</table>
+    <br />
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Класс</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let particip of classParticips | participFilter : searchText">
+            <td>{{particip.Surname}}</td>
+            <td>{{particip.Name}}</td>
+            <td>{{particip.SecondName}}</td>
+            <td>{{particip.ClassName}}</td>
+            <td><a class="glyphicon glyphicon-edit" (click)="updateClassParticip(particip)"></a></td>
+            <td><a class="glyphicon glyphicon-trash" (click)="deleteClassParticip(particip)"></a></td>
+        </tr>
+    </table>
+</div>

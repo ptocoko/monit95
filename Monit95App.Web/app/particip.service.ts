@@ -5,7 +5,7 @@ import { ParticipModel } from "./particip.model";
 
 @Injectable()
 export class ParticipService {
-	private GET_ALL_PARTICIPS_URL: string = "/api/particips/GetAll?projectTestId=";
+	private GET_ALL_PARTICIPS_URL: string = "/api/particips/GetAll?projectId=";
 	private GET_PARTICIP_URL: string = "/api/particips/";
 	private ADD_PARTICIP_URL: string = "/api/particips/post";
 	private UPDATE_PARTICIP_URL: string = "/api/particips/";
