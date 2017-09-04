@@ -54,12 +54,22 @@ namespace Monit95App.Web.Api
         }
 
         [HttpGet]
+        [Route("")]
         [Authorize(Roles = "coko, area, school")]
         public IHttpActionResult Get(int? areaCode = null, string schoolId = null)
-        {                        
-            var dtos = this._rsurParticipService.GetAll(areaCode, schoolId);
-
+        {
             var userName = User.Identity.GetUserName();
+            if (User.IsInRole("area"))
+            {
+                areaCode = Convert.ToInt32(userName);
+            }
+
+            if (User.IsInRole("school"))
+            {
+                schoolId = userName;
+            }
+
+            var dtos = this._rsurParticipService.GetAll(areaCode, schoolId);            
 
             if (User.IsInRole("area")
                 && !dtos.All(x => x.AreaCodeWithName.Substring(0, 3) == userName))

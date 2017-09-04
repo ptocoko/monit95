@@ -34,6 +34,7 @@ import { ClassService } from './class.service';
 import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
+import { ParticipFilterPipe } from './particip-filter.pipe';
 
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -45,7 +46,8 @@ import { GlobalErrorHandler } from './error-handler';
 	declarations: [
 		AppComponent,
 		RsurParticipComponent,		
-		RsurParticipFilterPipe,
+        RsurParticipFilterPipe,
+	    ParticipFilterPipe,
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
 		PlanComponent,

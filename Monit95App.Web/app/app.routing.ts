@@ -7,7 +7,7 @@ import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
 import { EditParticipComponent } from './rsur/edit-particip/edit-particip.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
-import { ClassParticipsListComponent } from "./class-particips/class-particips-list.component";
+import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 
 const appRoutes: Routes = [
     { path: 'rsurparticips', component: RsurParticipComponent },
@@ -20,4 +20,4 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+export const routing = RouterModule.forRoot(appRoutes);

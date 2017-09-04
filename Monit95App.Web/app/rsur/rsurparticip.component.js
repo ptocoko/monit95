@@ -10,26 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var rsurparticip_service_1 = require("./rsurparticip.service");
 var account_service_1 = require("../account/account.service");
 var RsurParticipComponent = (function () {
-    function RsurParticipComponent(rsurParticipService, accountService, modal) {
+    function RsurParticipComponent(rsurParticipService, accountService) {
         this.rsurParticipService = rsurParticipService;
         this.accountService = accountService;
-        this.modal = modal;
         this.particips = [];
     }
     RsurParticipComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // Get participList
+        // Get particips
         this.rsurParticipService.getAll()
             .subscribe(function (response) {
+            console.log(response);
             _this.particips = response.json();
         });
-        //this.particips = PARTICIPS;// as ParticipModel[];
-        //Get user name
-        this.accountService.getAccount().subscribe(function (response) {
+        // Get userName
+        this.accountService.getAccount()
+            .subscribe(function (response) {
             _this.userName = response.json().UserName;
         });
     };
@@ -38,12 +37,10 @@ var RsurParticipComponent = (function () {
 RsurParticipComponent = __decorate([
     core_1.Component({
         selector: 'particip-list',
-        templateUrl: './app/rsur/particip-list.component.html?v=${new Date().getTime()}',
-        providers: [bootstrap_1.Modal]
+        templateUrl: './app/rsur/rsurparticip.component.html?v=${new Date().getTime()}',
     }),
     __metadata("design:paramtypes", [rsurparticip_service_1.RsurParticipService,
-        account_service_1.AccountService,
-        bootstrap_1.Modal])
+        account_service_1.AccountService])
 ], RsurParticipComponent);
 exports.RsurParticipComponent = RsurParticipComponent;
 ;

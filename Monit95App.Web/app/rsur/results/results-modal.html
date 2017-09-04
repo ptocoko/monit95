@@ -1,5 +1,5 @@
 ﻿<div style="width:100%;padding:15px">
-    <h3>{{particip.surname}} {{particip.name}} {{particip.secondName}}</h3>
+    <!--<h3>{{particip.surname}} {{particip.name}} {{particip.secondName}}</h3>
     <hr/>
     <table class="table table-bordered">
         <tr>
@@ -9,7 +9,7 @@
             <th>Оценка</th>
             <th>Карта</th>
         </tr>
-        <template ngFor let-res [ngForOf]="results">
+        <ng-template ngFor let-res [ngForOf]="results">
             <tr>
                 <td>{{res.resultDetails[0].subjectName}}</td>
                 <td>{{res.resultDetails[0].testDate.toLocaleDateString('ru-RU')}}</td>
@@ -25,10 +25,10 @@
                 <td>{{subres.marks.split('|')[0]}}</td>
                 <td>{{subres.grade5}}</td>
             </tr>
-        </template>
+        </ng-template>
     </table>
     <hr/>
     <div style="text-align:right">
         <button class="btn btn-default" (click)="close()">Закрыть</button>
-    </div>
+    </div>-->
 </div>

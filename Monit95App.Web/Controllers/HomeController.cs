@@ -30,8 +30,7 @@ namespace Monit95App.Controllers
         }
 
         public HomeController()
-        {
-            
+        {            
         }
 
         [Authorize(Roles = "coko")]

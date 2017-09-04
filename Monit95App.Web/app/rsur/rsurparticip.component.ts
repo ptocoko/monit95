@@ -1,46 +1,36 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { overlayConfigFactory } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
 import { Response } from '@angular/http';
 
-import { ResultsModalComponent } from './results/results-modal.component';
 import { RsurParticip } from './rsurparticip';
-import { ParticipFormComponent } from './particip-form/particip-form.component'
 
 import { RsurParticipService } from './rsurparticip.service';
 import { AccountService } from '../account/account.service';
-import Editmodalcomponent = require('./edit-particip/edit-modal.component');
-import EditModalComponent = Editmodalcomponent.EditModalComponent;
 
-import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import { DialogRef } from 'angular2-modal';
 
 @Component({
     selector: 'particip-list',
-    templateUrl: './app/rsur/particip-list.component.html?v=${new Date().getTime()}',
-    providers: [Modal]    
+    templateUrl: './app/rsur/rsurparticip.component.html?v=${new Date().getTime()}',
 })
 export class RsurParticipComponent implements OnInit {
     particips: RsurParticip[] = [];	
     userName: string;
         
     constructor(private readonly rsurParticipService: RsurParticipService,
-                private readonly accountService: AccountService,
-                public modal: Modal) {        
-    }
+                private readonly accountService: AccountService) { }
 
-    ngOnInit() {
-        // Get participList
+    ngOnInit()
+    {
+        // Get particips
         this.rsurParticipService.getAll()
             .subscribe((response: Response) => {
+                console.log(response);
                 this.particips = response.json() as RsurParticip[];                
         });
-
-		//this.particips = PARTICIPS;// as ParticipModel[];
-          
-        //Get user name
-        this.accountService.getAccount().subscribe((response: Response) => {
-            this.userName = response.json().UserName;
+	          
+        // Get userName
+        this.accountService.getAccount()
+            .subscribe((response: Response) => {
+                this.userName = response.json().UserName;
         });
     } 
 
