@@ -1,17 +1,17 @@
-﻿import { Component, OnInit } from "@angular/core";
-import { AccountService } from "./account/account.service";
-import { RouterOutlet } from "@angular/router";
+﻿import { Component, OnInit } from '@angular/core';
+import { AccountService } from './account/account.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app/app.component.html"
+    selector: 'app-root',
+    templateUrl: './app/app.component.html'
 })
 export class AppComponent implements OnInit {
 	isAreaRole = false;
 	isCokoRole = false;
 	isRsur: boolean = true;
 
-    constructor(private accountService: AccountService) { }
+    constructor(private readonly accountService: AccountService) { }
 
     ngOnInit() {
 		//this.userService.getName().subscribe(user => this.handler(user.userRoles));
@@ -19,11 +19,11 @@ export class AppComponent implements OnInit {
 
 	handler(userRoles: string[]) {
 		this.isAreaRole = userRoles.indexOf('area') >= 0;
-		this.isCokoRole = userRoles.indexOf("coko") >= 0;
+		this.isCokoRole = userRoles.indexOf('coko') >= 0;
 	}
 
 	onActivate(event: any) {
-		if (event.constructor.name === "ClassParticipsListComponent") {
+		if (event.constructor.name === 'ClassParticipsListComponent') {
 			this.isRsur = false;
 		}
 		else {

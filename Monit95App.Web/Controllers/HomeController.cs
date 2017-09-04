@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Linq;
 
 using Monit95App.Models;
 using Monit95App.Services.Interfaces;

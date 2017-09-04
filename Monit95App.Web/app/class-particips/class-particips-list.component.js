@@ -21,6 +21,7 @@ var ClassParticipsListComponent = (function () {
         this.accountService = accountService;
         this.modal = modal;
         this.participService = participService;
+        this.isLoading = true;
     }
     ClassParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -28,6 +29,7 @@ var ClassParticipsListComponent = (function () {
             _this.account = data.json();
             _this.participService.getAll(1).subscribe(function (res) {
                 _this.classParticips = res;
+                _this.isLoading = false;
             });
         });
     };
@@ -56,13 +58,35 @@ var ClassParticipsListComponent = (function () {
             });
         });
     };
-    ClassParticipsListComponent.prototype.updateClassParticip = function (classParticip, index) {
+    ClassParticipsListComponent.prototype.updateClassParticip = function (classParticip) {
         var _this = this;
-        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: true, schoolId: this.account.UserName, particip: classParticip }, bootstrap_1.BSModalContext)).then(function (dialog) {
-            dialog.result.then(function (particip) {
-                if (particip) {
-                    _this.classParticips[index] = particip;
+        var index = this.classParticips.indexOf(classParticip);
+        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({
+            isUpdate: true,
+            schoolId: this.account.UserName,
+            particip: Object.assign({}, classParticip)
+        }, bootstrap_1.BSModalContext))
+            .then(function (dialog) {
+            dialog.result.then(function (changedParticip) {
+                if (changedParticip) {
+                    _this.classParticips[index] = changedParticip;
                 }
+            });
+        });
+    };
+    ClassParticipsListComponent.prototype.deleteClassParticip = function (particip) {
+        var _this = this;
+        var index = this.classParticips.indexOf(particip);
+        this.modal.confirm()
+            .title("Вы уверены, что хотите удалить данную запись?")
+            .body("Это действие нельзя будет отменить")
+            .open()
+            .then(function (dialog) {
+            dialog.result.then(function (res) {
+                _this.participService.deleteParticip(particip.Id).subscribe(function (res) {
+                    _this.classParticips.splice(index, 1);
+                });
+            }).catch(function () {
             });
         });
     };
@@ -76,7 +100,7 @@ ClassParticipsListComponent = __decorate([
         ]
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService,
-        angular2_modal_1.Modal,
+        bootstrap_1.Modal,
         particip_service_1.ParticipService])
 ], ClassParticipsListComponent);
 exports.ClassParticipsListComponent = ClassParticipsListComponent;

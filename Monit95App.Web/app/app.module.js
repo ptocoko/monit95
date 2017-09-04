@@ -38,7 +38,6 @@ var class_service_1 = require("./class.service");
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
-var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
@@ -56,7 +55,6 @@ AppModule = __decorate([
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
-            particip_filter_pipe_1.ParticipFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,

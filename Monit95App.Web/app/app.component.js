@@ -23,10 +23,10 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.handler = function (userRoles) {
         this.isAreaRole = userRoles.indexOf('area') >= 0;
-        this.isCokoRole = userRoles.indexOf("coko") >= 0;
+        this.isCokoRole = userRoles.indexOf('coko') >= 0;
     };
     AppComponent.prototype.onActivate = function (event) {
-        if (event.constructor.name === "ClassParticipsListComponent") {
+        if (event.constructor.name === 'ClassParticipsListComponent') {
             this.isRsur = false;
         }
         else {
@@ -37,8 +37,8 @@ var AppComponent = (function () {
 }());
 AppComponent = __decorate([
     core_1.Component({
-        selector: "app-root",
-        templateUrl: "./app/app.component.html"
+        selector: 'app-root',
+        templateUrl: './app/app.component.html'
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService])
 ], AppComponent);

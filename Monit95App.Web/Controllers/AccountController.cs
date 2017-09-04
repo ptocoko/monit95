@@ -32,17 +32,15 @@ namespace Monit95App.Controllers
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
 
-        //Вход
+        // Вход
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            //return View();
+            ViewBag.ReturnUrl = returnUrl;            
             return View("Login", "~/Views/Shared/_GuestLayout.cshtml");
         }
-
-        //
+        
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -63,7 +61,7 @@ namespace Monit95App.Controllers
             return View(model);
         }
 
-        //
+        // 
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -71,7 +69,7 @@ namespace Monit95App.Controllers
             return View();
         }
 
-        //
+        // 
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -97,7 +95,7 @@ namespace Monit95App.Controllers
             return View(model);
         }
 
-        //
+        // 
         // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -116,7 +114,7 @@ namespace Monit95App.Controllers
             return RedirectToAction("Manage", new { Message = message });
         }
 
-        //
+        // 
         // GET: /Account/Manage
         public ActionResult Manage(ManageMessageId? message)
         {
@@ -131,7 +129,7 @@ namespace Monit95App.Controllers
             return View();
         }
 
-        //
+        // 
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -182,7 +180,7 @@ namespace Monit95App.Controllers
             return View(model);
         }
 
-        //
+        // 
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -193,7 +191,7 @@ namespace Monit95App.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "AccountsApi", new { ReturnUrl = returnUrl }));
         }
 
-        //
+        // 
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
@@ -220,7 +218,7 @@ namespace Monit95App.Controllers
             }
         }
 
-        //
+        // 
         // POST: /Account/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -230,7 +228,7 @@ namespace Monit95App.Controllers
             return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "AccountsApi"), User.Identity.GetUserId());
         }
 
-        //
+        // 
         // GET: /Account/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
@@ -247,7 +245,7 @@ namespace Monit95App.Controllers
             return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
 
-        //
+        // 
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
@@ -285,7 +283,7 @@ namespace Monit95App.Controllers
             return View(model);
         }
 
-        //
+        // 
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -295,7 +293,7 @@ namespace Monit95App.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
+        // 
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
