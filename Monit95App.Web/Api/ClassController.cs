@@ -1,8 +1,10 @@
-﻿using Monit95App.Domain.Core.Entities;
-using Monit95App.Services.Interfaces;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
 using System.Web.Http;
+
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Services.Interfaces;
+
 // ReSharper disable CheckNamespace
 namespace Monit95App.Web.Api
 {

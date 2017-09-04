@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using Monit95App.Services.Interfaces;
 using Monit95App.ViewModels.Home;
 
 namespace Monit95App.Controllers
-{
-    using System.Linq;
-
-    using Monit95App.Domain.Core.Entities;
-    using Monit95App.Infrastructure.Data;
-
-    // Некоторые части необходи установить атрибуты
+{        
     public class HomeController : Controller
     {
         #region Fields

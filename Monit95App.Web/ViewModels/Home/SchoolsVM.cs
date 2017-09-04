@@ -9,6 +9,7 @@ namespace Monit95App.ViewModels.Home
     public class SchoolsVM
     {
         public IList<SelectListItem> AreaNames { get; set; }
+
         public IList<SelectListItem> SchoolNames { get; set; }
     }
 }

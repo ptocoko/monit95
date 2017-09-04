@@ -24,8 +24,11 @@ namespace Monit95App.Util
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            // Register individual components            
+            // Register DbContext
             builder.RegisterType<CokoContext>().SingleInstance().ExternallyOwned();
+            builder.RegisterType<ApplicationDbContext>();
+            
+            // Register individual components            
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>));                       
             builder.RegisterType<ParticipService>().As<IParticipService>();            
             builder.RegisterType<ClassService>().As<IClassService>();
@@ -39,9 +42,7 @@ namespace Monit95App.Util
             builder.RegisterType<SchoolService>().As<ISchoolService>();
             builder.RegisterType<ClassParticipImporter>().As<IClassParticipImporter>();
             builder.RegisterType<ClassParticipConverter>().As<IClassParticipConverter>();
-            builder.RegisterType<MarksService>().As<IMarksService>();
-             
-            builder.RegisterType<ApplicationDbContext>();
+            builder.RegisterType<MarksService>().As<IMarksService>();                         
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
