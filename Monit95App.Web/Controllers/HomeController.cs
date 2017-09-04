@@ -46,8 +46,7 @@ namespace Monit95App.Controllers
             var areaNames = new List<SelectListItem>();
             var vm = new SchoolsVM();
 
-           var areas = _context.Areas.ToList();
-            // поместить из БД area в List<SelectListItem> areaNames
+            var areas = _context.Areas.ToList();
             areas.ForEach(x =>
             {
                 areaNames.Add(new SelectListItem { Text = x.Code + " - " + x.Name, Value = x.Code.ToString() });

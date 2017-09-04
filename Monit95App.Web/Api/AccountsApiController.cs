@@ -13,9 +13,7 @@ namespace Monit95App.Web.Api
     {
         #region Dependencies
 
-        private readonly IAccountService accountService;
-
-        //private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
+        private readonly IAccountService accountService;        
 
         #endregion
 
@@ -24,7 +22,7 @@ namespace Monit95App.Web.Api
             this.accountService = accountService;
         }
 
-        #region Api
+        #region APIs
 
         [HttpGet]
         [Route("")]
@@ -33,27 +31,7 @@ namespace Monit95App.Web.Api
             var model = this.accountService.GetModel(User.Identity.GetUserId());
 
             return this.Ok(model);
-        }
-
-        //[HttpGet]
-        //public HttpResponseMessage Get()
-        //{
-        //    #warning here i try fix
-        //    var user = _dbContext.Users.Find(User.Identity.GetUserId());
-
-        //    if (user.Roles.Count > 0)
-        //    {
-        //        var userRoles = user.Roles.Select(x => _dbContext.Roles.First(s => s.Id == x.RoleId).Name);
-        //        var model = new UserModel
-        //        {
-        //            UserName = User.Identity.Name,
-        //            UserRoleNames = userRoles
-        //        };
-        //        return Request.CreateResponse(HttpStatusCode.OK, model);
-        //    }
-
-        //    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "The user has no one role");
-        //}
+        }       
 
         #endregion
     }

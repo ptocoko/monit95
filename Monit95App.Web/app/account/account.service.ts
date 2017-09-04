@@ -7,6 +7,6 @@ export class AccountService {
     constructor(private readonly http: Http) { }
 
     getAccount() {
-		return this.http.get('/api/account');
+		return this.http.get('api/account');
     }
 }

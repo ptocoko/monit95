@@ -16,7 +16,7 @@ var AccountService = (function () {
         this.http = http;
     }
     AccountService.prototype.getAccount = function () {
-        return this.http.get('/api/account');
+        return this.http.get('api/account');
     };
     return AccountService;
 }());
