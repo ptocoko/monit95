@@ -47,7 +47,7 @@ export class AddClassParticipModal implements OnInit {
 			this.classNames = classNames;
 			this.classNames.length = 12;
 		}, error => {
-			this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+			this.statusText = "Ошибка соединения с базой данных! ";
 			throw error;
 		});
 	}
@@ -57,7 +57,7 @@ export class AddClassParticipModal implements OnInit {
 			this.participService.updateParticip(this.particip).subscribe(res => {
 				this.dialog.close(this.particip);
 			}, error => {
-				this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+				this.statusText = "Ошибка при обновлении участника!";
 				throw error;
 			});
 		}
@@ -65,9 +65,10 @@ export class AddClassParticipModal implements OnInit {
 			this.particip.SchoolId = this.schoolId;
 			this.particip.ProjectId = this.projectId;
 			this.participService.addParticip(this.particip).subscribe(res => {
+				this.particip.Id = res;
 				this.dialog.close(this.particip);
 			}, error => {
-				this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+				this.statusText = "Ошибка при добавлении участника!";
 				throw error;
 			})
 		}

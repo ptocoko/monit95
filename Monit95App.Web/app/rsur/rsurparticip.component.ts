@@ -17,7 +17,7 @@ import { DialogRef } from 'angular2-modal';
 
 @Component({
     selector: 'particip-list',
-    templateUrl: './app/rsur/particip-list.component.html?v=${new Date().getTime()}',
+    templateUrl: './app/rsur/rsurparticip.component.html?v=${new Date().getTime()}',
     providers: [Modal]    
 })
 export class RsurParticipComponent implements OnInit {

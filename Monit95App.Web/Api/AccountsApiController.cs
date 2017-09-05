@@ -27,6 +27,7 @@ namespace Monit95App.Web.Api
         #region Api
 
         [HttpGet]
+        [Route]
         public IHttpActionResult Get()
         {
             var model = this.accountService.GetModel(User.Identity.GetUserId());

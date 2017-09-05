@@ -31,6 +31,7 @@ var export_excel_modal_component_1 = require("./class-particips/export-excel-mod
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 //Services
 var account_service_1 = require("./account/account.service");
+var particip_service_1 = require("./particip.service");
 var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");
@@ -54,9 +55,9 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             rsurparticip_component_1.RsurParticipComponent,
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
+            particip_filter_pipe_1.ParticipFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
-            particip_filter_pipe_1.ParticipFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,
@@ -71,7 +72,7 @@ AppModule = __decorate([
             add_class_particip_modal_1.AddClassParticipModal
         ],
         providers: [
-            account_service_1.AccountService, rsurparticip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService,
+            account_service_1.AccountService, rsurparticip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService, particip_service_1.ParticipService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

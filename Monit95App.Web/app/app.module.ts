@@ -26,6 +26,7 @@ import { ClassParticipsListComponent } from './class-particips/class-particips-l
 
 //Services
 import { AccountService } from './account/account.service';
+import { ParticipService } from "./particip.service";
 import { RsurParticipService } from './rsur/rsurparticip.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
@@ -34,6 +35,7 @@ import { ClassService } from './class.service';
 import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
+import { ParticipFilterPipe } from "./particip-filter.pipe";
 
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -46,6 +48,7 @@ import { GlobalErrorHandler } from './error-handler';
 		AppComponent,
 		RsurParticipComponent,		
 		RsurParticipFilterPipe,
+		ParticipFilterPipe,
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
 		PlanComponent,
@@ -62,7 +65,7 @@ import { GlobalErrorHandler } from './error-handler';
 		AddClassParticipModal
 	],
 	providers: [
-        AccountService, RsurParticipService, ParticipCorrectionService, ClassService,
+        AccountService, RsurParticipService, ParticipCorrectionService, ClassService, ParticipService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
