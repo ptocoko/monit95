@@ -7,6 +7,7 @@ import { BSModalContext, Modal } from 'angular2-modal/plugins/bootstrap';
 import { AddClassParticipModal } from './add-class-particip.modal';
 import { ParticipModel } from '../particip.model';
 import { ParticipService } from '../particip.service';
+import { ClassParticip } from "./ClassParticip";
 
 @Component({
 	templateUrl: './app/class-particips/class-particips-list.component.html',
@@ -32,7 +33,7 @@ import { ParticipService } from '../particip.service';
 	]
 })
 export class ClassParticipsListComponent implements OnInit {
-	classParticips: ParticipModel[];
+	classParticips: ClassParticip[];
     account: Account;
 	isLoading: boolean = true;
 
@@ -47,7 +48,7 @@ export class ClassParticipsListComponent implements OnInit {
         this.accountService.getAccount().subscribe(data => {
             this.account = data.json() as Account;
             this.participService.getAll(1).subscribe(res => {
-				this.classParticips = res;
+				this.classParticips = res.json() as ClassParticip[];
 				this.isLoading = false;
 			});
 		});
@@ -59,7 +60,7 @@ export class ClassParticipsListComponent implements OnInit {
 			this.modal.open(ExportExcelModal, overlayConfigFactory({file: file}, BSModalContext)).then(modal => {
 				modal.result.then(result => {
 					this.participService.getAll(1).subscribe(res => {
-						this.classParticips = res;
+						this.classParticips = res.json() as ClassParticip[];
 					});
 				}).catch(data => {
 					//console.log(data);

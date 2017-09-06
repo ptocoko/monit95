@@ -75,10 +75,10 @@ namespace Monit95App.Services
             }
 
             var entities = query.ToList();
-            if (!entities.Any())
-            {
-                throw new ArgumentException();
-            }
+            //if (!entities.Any())
+            //{
+            //    throw new ArgumentException();
+            //}
 
             var dtos = _mapper.Map<List<Particip>, List<ParticipDto>>(entities);
            

@@ -23,6 +23,7 @@ import { ParticipFormComponent } from './rsur/particip-form/particip-form.compon
 import { AddClassParticipModal } from './class-particips/add-class-particip.modal';
 import { ExportExcelModal } from './class-particips/export-excel-modal.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
+import { ClassParticipMarksComponent } from "./class-particips/class-particip-marks.component";
 
 //Services
 import { AccountService } from './account/account.service';
@@ -63,7 +64,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ParticipFormComponent,
 		ClassParticipsListComponent,
 		ExportExcelModal,
-		AddClassParticipModal
+		AddClassParticipModal,
+		ClassParticipMarksComponent
 	],
 	providers: [
         AccountService, RsurParticipService, ParticipCorrectionService, ClassService, ParticipService, MarksService,

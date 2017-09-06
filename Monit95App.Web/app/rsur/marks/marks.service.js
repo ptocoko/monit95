@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,63 +22,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var results_model_1 = require("../results/results.model");
+var particip_model_1 = require("../../particip.model");
 var Marks = (function () {
     function Marks() {
     }
     return Marks;
 }());
 exports.Marks = Marks;
-var RsurParticipService = (function () {
-    function RsurParticipService(http) {
+var ParticipWithMarks = (function (_super) {
+    __extends(ParticipWithMarks, _super);
+    function ParticipWithMarks() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return ParticipWithMarks;
+}(particip_model_1.ParticipModel));
+exports.ParticipWithMarks = ParticipWithMarks;
+var MarksService = (function () {
+    function MarksService(http) {
         this.http = http;
         this.ROUTE_PREFIX = "api/marks";
     }
-    RsurParticipService.prototype.addMarks = function (marks) {
+    MarksService.prototype.addMarks = function (marks) {
         return this.http.post(this.ROUTE_PREFIX, marks);
     };
-    RsurParticipService.prototype.getAll = function (projectTestId) {
-        return this.http.get(this.ROUTE_PREFIX + "/?projectTestId=" + projectTestId);
+    MarksService.prototype.getAll = function (projectTestId) {
+        return this.http.get(this.ROUTE_PREFIX + "/GetAll?projectTestId=" + projectTestId);
     };
-    RsurParticipService.prototype.update = function (particip) {
-        return this.http.put(this.ROUTE_PREFIX + "/" + particip.Code, particip);
-    };
-    //getParticip(participCode: string): Observable<ParticipModel> {
-    //    return this.http.get('api/rsurParticips/' + participCode)
-    //        .map((resp: Response) => {
-    //            let participResp = resp.json();
-    //            return this.getParticipModel(participResp);
-    //        });
-    //}
-    RsurParticipService.prototype.getParticipResults = function (participCode) {
-        return this.http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
-            .map(function (res) {
-            var resultsInJSON = res.json();
-            var results = [];
-            var resultDetail;
-            for (var index1 in resultsInJSON) {
-                var resultDetailsInJSON = resultsInJSON[Number.parseInt(index1)];
-                resultDetail = [];
-                for (var index2 in resultDetailsInJSON) {
-                    var detailInJSON = resultDetailsInJSON[Number.parseInt(index2)];
-                    resultDetail.push(new results_model_1.ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId, detailInJSON.ReportExisting));
-                }
-                results.push(new results_model_1.ResultsModel(resultDetail));
-            }
-            return results;
-        });
-    };
-    RsurParticipService.prototype.postRequestToEdit = function (editParticip) {
-        return this.http.post('/api/RsurParticipEdit/Post', editParticip);
-    };
-    return RsurParticipService;
+    return MarksService;
 }());
-RsurParticipService = __decorate([
+MarksService = __decorate([
     core_1.Component({
         providers: [http_1.Http]
     }),
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], RsurParticipService);
-exports.RsurParticipService = RsurParticipService;
+], MarksService);
+exports.MarksService = MarksService;
 //# sourceMappingURL=marks.service.js.map
