@@ -25,7 +25,7 @@
             'angular2-modal/plugins/bootstrap': 'npm:angular2-modal/plugins/bootstrap/bundle/angular2-modal-bootstrap.rollup.umd.js',            
 
             //'angular2-modal': 'npm:angular2-modal/bundle/angular2-modal.js',
-            //'angular2-modal/plugins/bootstrap': 'npm:angular2-modal/bundle/angular2-modal.bootstrap.umd.js',
+            //'angular2-modal/plugins/bootstrap': 'npm:angular2-modal/plugins/bootstrap/bundle/angular2-modal.bootstrap.js',
 			
             //datepicker
 			'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js',
