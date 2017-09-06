@@ -30,6 +30,7 @@ import { ParticipService } from "./particip.service";
 import { RsurParticipService } from './rsur/rsurparticip.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
+import { MarksService } from "./rsur/marks/marks.service";
 
 //Pipes
 import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
@@ -65,7 +66,7 @@ import { GlobalErrorHandler } from './error-handler';
 		AddClassParticipModal
 	],
 	providers: [
-        AccountService, RsurParticipService, ParticipCorrectionService, ClassService, ParticipService,
+        AccountService, RsurParticipService, ParticipCorrectionService, ClassService, ParticipService, MarksService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

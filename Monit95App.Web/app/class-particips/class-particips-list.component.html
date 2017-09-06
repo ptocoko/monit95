@@ -21,14 +21,16 @@
             <th>Имя</th>
             <th>Отчество</th>
             <th>Класс</th>
+            <th>Оценки</th>
             <th></th>
             <th></th>
         </tr>
-        <tr *ngFor="let particip of classParticips | participFilter : searchText">
+        <tr *ngFor="let particip of classParticips | participFilter : searchText; let i = index">
             <td>{{particip.Surname}}</td>
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
+            <td>{{sayHello(i)}}</td>
             <td><a class="glyphicon glyphicon-edit" (click)="updateClassParticip(particip)"></a></td>
             <td><a class="glyphicon glyphicon-trash" (click)="deleteClassParticip(particip)"></a></td>
         </tr>

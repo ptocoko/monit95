@@ -7,6 +7,7 @@ import { BSModalContext, Modal } from "angular2-modal/plugins/bootstrap";
 import { AddClassParticipModal } from "./add-class-particip.modal";
 import { ParticipModel } from "../particip.model";
 import { ParticipService } from "../particip.service";
+import { MarksService } from "../rsur/marks/marks.service";
 
 @Component({
 	templateUrl: './app/class-particips/class-particips-list.component.html',
@@ -36,7 +37,10 @@ export class ClassParticipsListComponent implements OnInit {
 	account: Account;
 	isLoading: boolean = true;
 
-	constructor(private userService: AccountService, private modal: Modal, private participService: ParticipService) {
+	constructor(private userService: AccountService,
+				private modal: Modal,
+				private participService: ParticipService,
+				private marksService: MarksService) {
 
 	}
 
@@ -108,5 +112,9 @@ export class ClassParticipsListComponent implements OnInit {
 
 				})
 			});
+	}
+
+	sayHello(index: any) {
+		return "Hello " + index;
 	}
 }

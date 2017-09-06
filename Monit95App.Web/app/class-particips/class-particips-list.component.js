@@ -91,6 +91,9 @@ var ClassParticipsListComponent = (function () {
             });
         });
     };
+    ClassParticipsListComponent.prototype.sayHello = function (index) {
+        return "Hello " + index;
+    };
     return ClassParticipsListComponent;
 }());
 ClassParticipsListComponent = __decorate([
