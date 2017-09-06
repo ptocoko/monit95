@@ -17,7 +17,7 @@ var results_model_1 = require("./results/results.model");
 var RsurParticipService = (function () {
     function RsurParticipService(http) {
         this.http = http;
-        this.ROUTE_PREFIX = '/api/RsurParticips';
+        this.ROUTE_PREFIX = 'api/RsurParticips';
     }
     RsurParticipService.prototype.createParticip = function (obj) {
         return this.http.post(this.ROUTE_PREFIX, obj);

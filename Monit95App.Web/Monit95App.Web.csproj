@@ -322,9 +322,9 @@
     <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
     <Content Include="app\rsur\correction\particip-correction.html" />
     <Content Include="app\rsur\details\particip-details.html" />
-    <Content Include="app\rsur\edit-particip\edit-modal.css" />
-    <Content Include="app\rsur\edit-particip\edit-modal.html" />
-    <Content Include="app\rsur\edit-particip\edit-particip.html" />
+    <Content Include="app\rsur\edit-modal-form\edit-modal.css" />
+    <Content Include="app\rsur\edit-modal-form\edit-modal.html" />
+    <Content Include="app\rsur\edit-modal-form\edit-particip.html" />
     <Content Include="app\rsur\particip-form\particip-form.component.html" />
     <Content Include="app\rsur\rsurparticip.component.html" />
     <Content Include="app\rsur\details\particip-modal.html" />
@@ -562,9 +562,9 @@
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.service.ts" />
     <TypeScriptCompile Include="app\rsur\details\particips-without-details.filter.ts" />
-    <TypeScriptCompile Include="app\rsur\edit-particip\edit-modal.component.ts" />
-    <TypeScriptCompile Include="app\rsur\edit-particip\edit-particip.component.ts" />
-    <TypeScriptCompile Include="app\rsur\edit-particip\edit-particip.model.ts" />
+    <TypeScriptCompile Include="app\rsur\edit-modal-form\edit-modal.component.ts" />
+    <TypeScriptCompile Include="app\rsur\edit-modal-form\edit-particip.component.ts" />
+    <TypeScriptCompile Include="app\rsur\edit-modal-form\edit-particip.model.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-details.component.ts" />
     <TypeScriptCompile Include="app\limit-to.pipe.ts" />
     <TypeScriptCompile Include="app\rsur\particip-form\particip-form.component.ts" />

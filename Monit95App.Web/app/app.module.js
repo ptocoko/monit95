@@ -35,6 +35,7 @@ var particip_service_1 = require("./particip.service");
 var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");
+var marks_service_1 = require("./rsur/marks/marks.service");
 //Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -72,7 +73,7 @@ AppModule = __decorate([
             add_class_particip_modal_1.AddClassParticipModal
         ],
         providers: [
-            account_service_1.AccountService, rsurparticip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService, particip_service_1.ParticipService,
+            account_service_1.AccountService, rsurparticip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService, particip_service_1.ParticipService, marks_service_1.MarksService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
