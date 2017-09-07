@@ -5,10 +5,15 @@ import { Observable } from 'rxjs/Observable';
 import { RsurParticip } from '../rsurparticip';
 import { ResultsModel, ResultDetailsModel } from '../results/results.model';
 import { ParticipEditModel } from '../edit-particip/edit-particip.model';
+import { ParticipModel } from "../../particip.model";
 
 export class Marks {
     participTestId: number;
     marks: string;
+}
+
+export class ParticipWithMarks extends ParticipModel {
+	public Marks: string;
 }
 
 @Component({
@@ -29,6 +34,6 @@ export class MarksService {
     }
 
     getAll(projectTestId: number) {
-        return this.http.get(`${this.ROUTE_PREFIX}/?projectTestId=${projectTestId}`);
+        return this.http.get(`${this.ROUTE_PREFIX}/GetAll?projectTestId=${projectTestId}`);
     }
 }

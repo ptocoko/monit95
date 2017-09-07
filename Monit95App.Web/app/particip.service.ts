@@ -13,18 +13,12 @@ export class ParticipService {
 
 	constructor(private http: Http) { }
 
-	getAll(projectId: number): Observable<ParticipModel[]> {
-		return this.http.get(this.GET_ALL_PARTICIPS_URL + projectId.toString()).map((res: Response) => {
-			
-			return res.json() as ParticipModel[]
-		});
+	getAll(projectId: number) {
+		return this.http.get(this.GET_ALL_PARTICIPS_URL + projectId.toString());
 	}
 
-	getParticip(participId: number): Observable<ParticipModel> {
-		return this.http.get(this.GET_PARTICIP_URL + participId.toString()).map((res: Response) => {
-			
-			return res.json() as ParticipModel;
-		});
+	getParticip(participId: number) {
+		return this.http.get(this.GET_PARTICIP_URL + participId.toString());
 	}
 
 	addParticip(particip: ParticipModel): Observable<number> {

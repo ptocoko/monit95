@@ -8,16 +8,18 @@ import { ParticipDetailsComponent } from './rsur/details/particip-details.compon
 import { EditParticipComponent } from './rsur/edit-particip/edit-particip.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
+import { ClassParticipMarksComponent } from "./class-particips/class-particip-marks.component";
 
 const appRoutes: Routes = [
-    { path: 'rsurparticip', component: RsurParticipComponent },
+    { path: 'rsurparticips', component: RsurParticipComponent },
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },
     { path: 'edit-particip', component: EditParticipComponent },
 	{ path: 'particip-correction', component: ParticipCorrectionComponent },
 	{ path: 'class-particips', component: ClassParticipsListComponent },
-    { path: '', redirectTo: '/rsurparticip', pathMatch: 'full' } // redirect to home page on load
+	{ path: 'classparticip-marks', component: ClassParticipMarksComponent },
+    { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

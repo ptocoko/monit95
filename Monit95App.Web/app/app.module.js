@@ -29,6 +29,7 @@ var particip_form_component_1 = require("./rsur/particip-form/particip-form.comp
 var add_class_particip_modal_1 = require("./class-particips/add-class-particip.modal");
 var export_excel_modal_component_1 = require("./class-particips/export-excel-modal.component");
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
+var class_particip_marks_component_1 = require("./class-particips/class-particip-marks.component");
 //Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -70,7 +71,8 @@ AppModule = __decorate([
             particip_form_component_1.ParticipFormComponent,
             class_particips_list_component_1.ClassParticipsListComponent,
             export_excel_modal_component_1.ExportExcelModal,
-            add_class_particip_modal_1.AddClassParticipModal
+            add_class_particip_modal_1.AddClassParticipModal,
+            class_particip_marks_component_1.ClassParticipMarksComponent
         ],
         providers: [
             account_service_1.AccountService, rsurparticip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService, particip_service_1.ParticipService, marks_service_1.MarksService,

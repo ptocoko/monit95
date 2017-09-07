@@ -318,6 +318,7 @@
   <ItemGroup>
     <Content Include="app\app.component.html" />
     <Content Include="app\class-particips\add-class-particip.modal.html" />
+    <Content Include="app\class-particips\class-particip-marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
     <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
     <Content Include="app\rsur\add-form\add-modal-form.component.html" />
@@ -551,7 +552,9 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\class-particips\add-class-particip.modal.ts" />
+    <TypeScriptCompile Include="app\class-particips\class-particip-marks.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\ClassParticip.ts" />
     <TypeScriptCompile Include="app\class-particips\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
