@@ -27,14 +27,26 @@
             </thead>
             <tbody>
                 <!--<tr *ngFor="let particip of particips | rsurParticipFilter: searchText | limitTo: 100">-->
-                <tr *ngFor="let particip of particips">
+            <tr *ngFor="let particip of particips" [class.red]="particip.ActualCode == 0"                                                    
+                                                   [class.yellow]="particip.ActualCode == 2">
                     <td>{{particip.Code}}</td>
                     <td>{{particip.Surname}}</td>
                     <td>{{particip.Name}}</td>
                     <td>{{particip.SecondName}}</td>
                     <td>{{particip.RsurSubjectName}}</td>
-                    <!--<td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="edit(particip)"></a></td>
-            <td>
+                    <td>
+                        <div *ngIf="particip.ActualCode != 2">
+                            <div class="radio">
+                                <label><input type="radio" name="{{particip.Code}}" checked="checked"> без изменений</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="{{particip.Code}}"/> выбыл</label>
+                            </div>    
+                        </div>
+                        <div *ngIf="particip.ActualCode == 2">новый</div>
+                    </td>
+                    <td *ngIf="particip.ActualCode == 2"><a style="cursor:pointer" class="glyphicon glyphicon-trash" (click)="delete(particip.Code)"></a></td>                    
+            <!--<td>
                 <button type="button" class="btn btn-default" (click)="openModal(particip)">
                     <span class="glyphicon glyphicon-menu-right"></span>запросить
                 </button>

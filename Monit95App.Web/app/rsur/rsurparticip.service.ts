@@ -13,26 +13,33 @@ import { ResultsModel, ResultDetailsModel } from './results/results.model';
 
 @Injectable()
 export class RsurParticipService {    
-    private ROUTE_PREFIX = '/api/RsurParticips'; 
+    private ROUTE_PREFIX = 'api/RsurParticips'; 
 
-    constructor(private readonly http: Http) { }
+    constructor(private readonly http: Http) { }       
 
-    createParticip(obj: RsurParticip): Observable<Response> {                
+    createParticip(obj: RsurParticip): Observable<Response> {
         return this.http.post(this.ROUTE_PREFIX, obj);
-    }
-
-    downloadFile(data: Response) {
-        const blob = new Blob([data]);        
-        const url = window.URL.createObjectURL(blob);
-        window.open(url);
     }
 
     getAll() {
         return this.http.get(this.ROUTE_PREFIX);
     }
 
+    update(code: number, particip: RsurParticip) {
+        return this.http.put(`${this.ROUTE_PREFIX}/${particip.Code}`, particip);
+    }
+
+    delete(code: number) {
+        return this.http.delete(`${this.ROUTE_PREFIX}/${code}`);
+    }
+
+    downloadFile(data: Response) {
+        const blob = new Blob([data]);
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+    }
     //update(particip: RsurParticipModel) {
-    //    return this.http.put(`${this.ROUTE_PREFIX}/${particip.participCode}`, particip);
+    
     //}    
 
     //getParticip(participCode: string): Observable<ParticipModel> {
