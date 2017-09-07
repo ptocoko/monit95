@@ -39,6 +39,11 @@ export class RsurParticipComponent implements OnInit {
 
     }
 
+    setActualCode(particip: RsurParticip, actualCode: number) {
+        particip.ActualCode = actualCode;
+        
+    }
+
     //edit(particip: RsurParticip) {
     //    this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))
     //        .then((dialog: DialogRef<RsurParticip>) => {
