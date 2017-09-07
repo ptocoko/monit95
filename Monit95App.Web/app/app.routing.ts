@@ -10,14 +10,14 @@ import { ParticipCorrectionComponent } from './rsur/correction/particip-correcti
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 
 const appRoutes: Routes = [
-    { path: 'rsurparticips', component: RsurParticipComponent },
+    { path: 'rsurparticip', component: RsurParticipComponent },
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },
     { path: 'edit-particip', component: EditParticipComponent },
 	{ path: 'particip-correction', component: ParticipCorrectionComponent },
 	{ path: 'class-particips', component: ClassParticipsListComponent },
-    { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
+    { path: '', redirectTo: '/rsurparticip', pathMatch: 'full' } // redirect to home page on load
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

@@ -8,8 +8,9 @@ import { AccountService } from '../account/account.service';
 
 
 @Component({
-    selector: 'particip-list',
+    selector: 'rsurparticip',
     templateUrl: './app/rsur/rsurparticip.component.html?v=${new Date().getTime()}',
+    styleUrls: ['./app/rsur/rsurparticip.component.css']
 })
 export class RsurParticipComponent implements OnInit {
     particips: RsurParticip[] = [];	
