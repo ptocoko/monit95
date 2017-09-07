@@ -32,6 +32,8 @@ var RsurParticipComponent = (function () {
             _this.userName = response.json().UserName;
         });
     };
+    RsurParticipComponent.prototype.update = function (particip) {
+    };
     return RsurParticipComponent;
 }());
 RsurParticipComponent = __decorate([
