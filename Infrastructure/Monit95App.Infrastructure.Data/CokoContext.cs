@@ -4,7 +4,6 @@ namespace Monit95App.Infrastructure.Data
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-
     using Monit95App.Domain.Core.Entities;
 
     public partial class CokoContext : DbContext
@@ -24,6 +23,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
+        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<ReportStatistic> ReportStatistics { get; set; }
         public virtual DbSet<Result> Results { get; set; }
