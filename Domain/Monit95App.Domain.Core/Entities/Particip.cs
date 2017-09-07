@@ -37,6 +37,11 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(4)]
         public string ClassId { get; set; }
 
+        public bool? WasDoo { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? Birthday { get; set; }
+
         public virtual Class Class { get; set; }
 
         public virtual Project Project { get; set; }
