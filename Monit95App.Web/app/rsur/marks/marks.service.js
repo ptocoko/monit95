@@ -12,63 +12,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var results_model_1 = require("../results/results.model");
 var Marks = (function () {
     function Marks() {
     }
     return Marks;
 }());
 exports.Marks = Marks;
-var RsurParticipService = (function () {
-    function RsurParticipService(http) {
+var MarksService = (function () {
+    function MarksService(http) {
         this.http = http;
         this.ROUTE_PREFIX = "api/marks";
     }
-    RsurParticipService.prototype.addMarks = function (marks) {
+    MarksService.prototype.addMarks = function (marks) {
         return this.http.post(this.ROUTE_PREFIX, marks);
     };
-    RsurParticipService.prototype.getAll = function (projectTestId) {
+    MarksService.prototype.getAll = function (projectTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/?projectTestId=" + projectTestId);
     };
-    RsurParticipService.prototype.update = function (particip) {
-        return this.http.put(this.ROUTE_PREFIX + "/" + particip.Code, particip);
-    };
-    //getParticip(participCode: string): Observable<ParticipModel> {
-    //    return this.http.get('api/rsurParticips/' + participCode)
-    //        .map((resp: Response) => {
-    //            let participResp = resp.json();
-    //            return this.getParticipModel(participResp);
-    //        });
-    //}
-    RsurParticipService.prototype.getParticipResults = function (participCode) {
-        return this.http.get('/api/rsurParticips/GetParticipResults?participCode=' + participCode)
-            .map(function (res) {
-            var resultsInJSON = res.json();
-            var results = [];
-            var resultDetail;
-            for (var index1 in resultsInJSON) {
-                var resultDetailsInJSON = resultsInJSON[Number.parseInt(index1)];
-                resultDetail = [];
-                for (var index2 in resultDetailsInJSON) {
-                    var detailInJSON = resultDetailsInJSON[Number.parseInt(index2)];
-                    resultDetail.push(new results_model_1.ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId, detailInJSON.ReportExisting));
-                }
-                results.push(new results_model_1.ResultsModel(resultDetail));
-            }
-            return results;
-        });
-    };
-    RsurParticipService.prototype.postRequestToEdit = function (editParticip) {
-        return this.http.post('/api/RsurParticipEdit/Post', editParticip);
-    };
-    return RsurParticipService;
+    return MarksService;
 }());
-RsurParticipService = __decorate([
+MarksService = __decorate([
     core_1.Component({
         providers: [http_1.Http]
     }),
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], RsurParticipService);
-exports.RsurParticipService = RsurParticipService;
+], MarksService);
+exports.MarksService = MarksService;
 //# sourceMappingURL=marks.service.js.map

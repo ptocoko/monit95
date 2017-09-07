@@ -59,7 +59,7 @@ var AddClassParticipModal = (function () {
             _this.classNames = classNames;
             _this.classNames.length = 12;
         }, function (error) {
-            _this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+            _this.statusText = "Ошибка соединения с базой данных! ";
             throw error;
         });
     };
@@ -69,7 +69,7 @@ var AddClassParticipModal = (function () {
             this.participService.updateParticip(this.particip).subscribe(function (res) {
                 _this.dialog.close(_this.particip);
             }, function (error) {
-                _this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+                _this.statusText = "Ошибка при обновлении участника!";
                 throw error;
             });
         }
@@ -77,9 +77,10 @@ var AddClassParticipModal = (function () {
             this.particip.SchoolId = this.schoolId;
             this.particip.ProjectId = this.projectId;
             this.participService.addParticip(this.particip).subscribe(function (res) {
+                _this.particip.Id = res;
                 _this.dialog.close(_this.particip);
             }, function (error) {
-                _this.statusText = "Ошибка! " + error.message ? error.message : error.toString();
+                _this.statusText = "Ошибка при добавлении участника!";
                 throw error;
             });
         }

@@ -35,6 +35,10 @@ export class RsurParticipComponent implements OnInit {
         });
     } 
 
+    update(particip: RsurParticip) {
+
+    }
+
     //edit(particip: RsurParticip) {
     //    this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))
     //        .then((dialog: DialogRef<RsurParticip>) => {
