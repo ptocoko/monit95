@@ -7,6 +7,7 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Interfaces;
 
 using NSubstitute;
+using System.Linq;
 
 namespace Monit95App.Services.Tests
 {
@@ -29,6 +30,11 @@ namespace Monit95App.Services.Tests
             {
                 new Class
                 {
+                    Name = "1",
+                    Id = "0100"
+                },
+                new Class
+                {
                     Name = "1 А",
                     Id = "0101"
                 },
@@ -49,10 +55,8 @@ namespace Monit95App.Services.Tests
             var assembly = Assembly.GetAssembly(importer.GetType());
             var (actualParticips, actualRowNumbersWithErrors) = importer
                                 .ImportFromExcelFileStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"), new List<int> { 1, 11 });
-            
-            Assert.AreEqual(3, actualParticips.Count);
-            Assert.AreEqual("11 Б", actualParticips[0].ClassName);
-            //Assert.AreEqual(2, actualRowNumbersWithErrors.First());
+
+            Assert.IsNotNull(actualRowNumbersWithErrors);
         }
 
         [TestMethod]
@@ -87,6 +91,7 @@ namespace Monit95App.Services.Tests
             Assert.AreEqual("Хусайн", actualParticips[1].Name, false);
             Assert.AreEqual("1", actualParticips[2].ClassName);
             Assert.AreEqual(true, actualRowNumbersWithErrors == null);
+            Assert.AreEqual(2, actualParticips[1].Birthday.Value.Month);
         }
     }
 }

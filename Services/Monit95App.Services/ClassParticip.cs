@@ -11,7 +11,7 @@ namespace Monit95App.Services
         [Required]
         public DateTime? Birthday { get; set; }
 
-        [Required]
+        //[Required]
         public bool? WasDoo { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using ClosedXML.Excel;
 
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Interfaces;
+using System.Globalization;
 
 namespace Monit95App.Services
 {
@@ -86,7 +87,7 @@ namespace Monit95App.Services
         private DateTime? NormalizeDateString(string v)
         {
             string dateString = Regex.Replace(v, @"[A-я]", "");
-            if (DateTime.TryParse(dateString, out DateTime resultDate))
+            if (DateTime.TryParse(dateString, new DateTimeFormatInfo() { ShortDatePattern = "dd.MM.yyyy" }, DateTimeStyles.None, out DateTime resultDate))
             {
                 return resultDate;
             }
@@ -100,7 +101,7 @@ namespace Monit95App.Services
         {
             var validContext = new ValidationContext(model);
             var validationResults = new Collection<ValidationResult>();
-            return (!Validator.TryValidateObject(model, validContext, validationResults, true) || !ValidateClassName(model.ClassName));
+            return (Validator.TryValidateObject(model, validContext, validationResults, true) && ValidateClassName(model.ClassName));
         }
 
         private string NormalizeClassName(string className)
