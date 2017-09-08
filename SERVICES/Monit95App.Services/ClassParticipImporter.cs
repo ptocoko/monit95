@@ -70,7 +70,8 @@ namespace Monit95App.Services
                     Surname = NormalizeNames(row.Cell(1).Value.ToString()),
                     Name = NormalizeNames(row.Cell(2).Value.ToString()),
                     SecondName = NormalizeNames(row.Cell(3).Value.ToString()),
-                    ClassName = NormalizeClassName(row.Cell(4).Value.ToString())
+                    ClassName = NormalizeClassName(row.Cell(4).Value.ToString()),
+                    Birthday = NormalizeDateString(row.Cell(5).Value.ToString())
                 };
 
                 if (ValidateModel(model))
@@ -82,18 +83,24 @@ namespace Monit95App.Services
             return (participsFromExcelList, rowNumbersWithErrors.Count == 0 ? null : rowNumbersWithErrors);
         }
 
+        private DateTime? NormalizeDateString(string v)
+        {
+            string dateString = Regex.Replace(v, @"[A-я]", "");
+            if (DateTime.TryParse(dateString, out DateTime resultDate))
+            {
+                return resultDate;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         private bool ValidateModel(ClassParticip model)
         {
-            bool isValidModel = true;
-
             var validContext = new ValidationContext(model);
             var validationResults = new Collection<ValidationResult>();
-            if (!Validator.TryValidateObject(model, validContext, validationResults, true) || !ValidateClassName(model.ClassName))
-            {
-                isValidModel = false;
-            }
-
-            return isValidModel;
+            return (!Validator.TryValidateObject(model, validContext, validationResults, true) || !ValidateClassName(model.ClassName));
         }
 
         private string NormalizeClassName(string className)
