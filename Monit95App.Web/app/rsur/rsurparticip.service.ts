@@ -4,7 +4,6 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { RsurParticip } from './rsurparticip';
-import { ParticipEditModel } from '../rsur/edit-particip/edit-particip.model';
 import { ResultsModel, ResultDetailsModel } from './results/results.model';
 
 @Component({
@@ -75,10 +74,6 @@ export class RsurParticipService {
 				}
 				return results;
 			})
-	}
-
-	postRequestToEdit(editParticip: ParticipEditModel): Observable<any> {
-		return this.http.post('/api/RsurParticipEdit/Post', editParticip);
 	}
 
 	//private getParticipModel(particip: any): ParticipModel {

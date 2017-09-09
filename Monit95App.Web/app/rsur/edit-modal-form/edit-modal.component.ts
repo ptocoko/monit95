@@ -18,15 +18,15 @@ export class EditModalComponent {
 
 	constructor(private dialog: DialogRef<RsurParticipModel>, private participService: RsurParticipService) {
 		this.particip = dialog.context;
-		this.editParticip = new ParticipEditModel(this.particip.Code, this.particip.Surname, this.particip.Name, this.particip.SecondName);
+		//this.editParticip = new ParticipEditModel(this.particip.Code, this.particip.Surname, this.particip.Name, this.particip.SecondName);
 	}
 
-	onSubmit() {
-		this.participService.postRequestToEdit(this.editParticip).subscribe(res => {
-			this.dialog.close(this.particip);
-		});
+	//onSubmit() {
+	//	this.participService.postRequestToEdit(this.editParticip).subscribe(res => {
+	//		this.dialog.close(this.particip);
+	//	});
 		
-	}
+	//}
 
 	cancel() {
 		this.dialog.dismiss();

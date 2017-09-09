@@ -5,5 +5,5 @@
 	public Name: string;
 	public SecondName: string;
 	public ClassName: string;
-	public SchoolId: string;
+    public SchoolId: string;    
 }

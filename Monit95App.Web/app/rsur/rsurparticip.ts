@@ -3,7 +3,7 @@
 export class RsurParticip extends BSModalContext {
    
     constructor(
-        public Code: string,
+        public Code: number,
         public Surname: string,        
         public Name: string,        
 		public RsurSubjectName: string,

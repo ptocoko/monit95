@@ -12,29 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var rsurparticip_service_1 = require("../rsurparticip.service");
-var ParticipFormComponent = (function () {
-    function ParticipFormComponent(dialog, participService) {
+var AddModalFormComponent = (function () {
+    function AddModalFormComponent(dialog, participService) {
         this.dialog = dialog;
         this.participService = participService;
     }
-    ParticipFormComponent.prototype.ngOnInit = function () {
+    AddModalFormComponent.prototype.ngOnInit = function () {
         this.particip = this.dialog.context;
     };
-    ParticipFormComponent.prototype.onSubmit = function () {
+    AddModalFormComponent.prototype.onSubmit = function () {
         console.log(this.particip);
         this.dialog.close(this.particip);
     };
-    ParticipFormComponent.prototype.cancel = function () {
+    AddModalFormComponent.prototype.cancel = function () {
         this.dialog.dismiss();
     };
-    return ParticipFormComponent;
+    return AddModalFormComponent;
 }());
-ParticipFormComponent = __decorate([
+AddModalFormComponent = __decorate([
     core_1.Component({
-        selector: 'particip-form',
-        templateUrl: './app/rsur/particip-form/particip-form.component.html?v=${new Date().getTime()}'
+        selector: 'add-modal-form',
+        templateUrl: './app/rsur/add-modal-form/add-modal-form.html?v=${new Date().getTime()}'
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsurparticip_service_1.RsurParticipService])
-], ParticipFormComponent);
-exports.ParticipFormComponent = ParticipFormComponent;
-//# sourceMappingURL=particip-form.component.js.map
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef,
+        rsurparticip_service_1.RsurParticipService])
+], AddModalFormComponent);
+exports.AddModalFormComponent = AddModalFormComponent;
+//# sourceMappingURL=add-modal-form.component.js.map

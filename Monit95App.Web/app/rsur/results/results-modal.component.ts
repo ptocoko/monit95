@@ -20,9 +20,9 @@ export class ResultsModalComponent implements ModalComponent<RsurParticipModel>,
 	}
 
 	ngOnInit() {
-        this.participService.getParticipResults(this.particip.Code).subscribe(res => {
-            this.results = res;
-        });
+        //this.participService.getParticipResults(this.particip.Code).subscribe(res => {
+        //    this.results = res;
+        //});
 	}
 
 	close() {

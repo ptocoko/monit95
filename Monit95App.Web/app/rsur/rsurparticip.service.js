@@ -22,16 +22,21 @@ var RsurParticipService = (function () {
     RsurParticipService.prototype.createParticip = function (obj) {
         return this.http.post(this.ROUTE_PREFIX, obj);
     };
+    RsurParticipService.prototype.getAll = function () {
+        return this.http.get(this.ROUTE_PREFIX);
+    };
+    RsurParticipService.prototype.update = function (code, particip) {
+        return this.http.put(this.ROUTE_PREFIX + "/" + particip.Code, particip);
+    };
+    RsurParticipService.prototype.delete = function (code) {
+        return this.http.delete(this.ROUTE_PREFIX + "/" + code);
+    };
     RsurParticipService.prototype.downloadFile = function (data) {
         var blob = new Blob([data]);
         var url = window.URL.createObjectURL(blob);
         window.open(url);
     };
-    RsurParticipService.prototype.getAll = function () {
-        return this.http.get(this.ROUTE_PREFIX);
-    };
     //update(particip: RsurParticipModel) {
-    //    return this.http.put(`${this.ROUTE_PREFIX}/${particip.participCode}`, particip);
     //}    
     //getParticip(participCode: string): Observable<ParticipModel> {
     //    return this.http.get('api/rsurParticips/' + participCode)
@@ -57,9 +62,6 @@ var RsurParticipService = (function () {
             }
             return results;
         });
-    };
-    RsurParticipService.prototype.postRequestToEdit = function (editParticip) {
-        return this.http.post('/api/RsurParticipEdit/Post', editParticip);
     };
     return RsurParticipService;
 }());

@@ -13,15 +13,14 @@ export class AddModalFormComponent implements OnInit {
 
     constructor(
         private readonly dialog: DialogRef<RsurParticip>,
-        private readonly participService: RsurParticipService) {
+        private readonly rsurParticipService: RsurParticipService) {
     }
 
     ngOnInit() {
         this.particip = this.dialog.context;
     }
 
-    onSubmit() {
-        console.log(this.particip);
+    onSubmit() {        
         this.dialog.close(this.particip);
     }
 

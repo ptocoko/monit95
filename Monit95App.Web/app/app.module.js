@@ -18,12 +18,10 @@ var mydatepicker_1 = require("mydatepicker");
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
 var results_modal_component_1 = require("./rsur/results/results-modal.component");
-var edit_modal_component_1 = require("./rsur/edit-particip/edit-modal.component");
 var rsurparticip_component_1 = require("./rsur/rsurparticip.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
 var particip_details_component_1 = require("./rsur/details/particip-details.component");
-var edit_particip_component_1 = require("./rsur/edit-particip/edit-particip.component");
 var particip_correction_component_1 = require("./rsur/correction/particip-correction.component");
 var particip_form_component_1 = require("./rsur/particip-form/particip-form.component");
 var add_class_particip_modal_1 = require("./class-particips/add-class-particip.modal");
@@ -63,10 +61,8 @@ AppModule = __decorate([
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,
-            edit_particip_component_1.EditParticipComponent,
             particip_modal_component_1.ParticipModalComponent,
             results_modal_component_1.ResultsModalComponent,
-            edit_modal_component_1.EditModalComponent,
             particip_correction_component_1.ParticipCorrectionComponent,
             particip_form_component_1.ParticipFormComponent,
             class_particips_list_component_1.ClassParticipsListComponent,
@@ -82,7 +78,6 @@ AppModule = __decorate([
         entryComponents: [
             particip_modal_component_1.ParticipModalComponent,
             results_modal_component_1.ResultsModalComponent,
-            edit_modal_component_1.EditModalComponent,
             particip_form_component_1.ParticipFormComponent,
             export_excel_modal_component_1.ExportExcelModal,
             add_class_particip_modal_1.AddClassParticipModal

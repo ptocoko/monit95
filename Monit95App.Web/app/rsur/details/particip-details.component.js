@@ -37,13 +37,13 @@ var ParticipDetailsComponent = (function () {
         });
     };
     ParticipDetailsComponent.prototype.setDataByParticipCode = function (participCode, bDay, participClasses) {
-        this.particips.forEach(function (val, i, arr) {
-            if (val.Code === participCode) {
-                val.Birthday = bDay;
-                val.ClassNumbers = participClasses;
-                return;
-            }
-        });
+        //this.particips.forEach((val, i, arr) => {
+        //	if (val.Code === participCode) {
+        //		val.Birthday = bDay;
+        //		val.ClassNumbers = participClasses;
+        //		return;
+        //	}
+        //})
     };
     ParticipDetailsComponent.prototype.setCountOfNotEnteredData = function () {
         var _this = this;

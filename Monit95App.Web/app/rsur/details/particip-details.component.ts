@@ -37,13 +37,13 @@ export class ParticipDetailsComponent implements OnInit {
 	}
 
 	setDataByParticipCode(participCode: string, bDay: Date, participClasses: string) {
-		this.particips.forEach((val, i, arr) => {
-			if (val.Code === participCode) {
-				val.Birthday = bDay;
-				val.ClassNumbers = participClasses;
-				return;
-			}
-		})
+		//this.particips.forEach((val, i, arr) => {
+		//	if (val.Code === participCode) {
+		//		val.Birthday = bDay;
+		//		val.ClassNumbers = participClasses;
+		//		return;
+		//	}
+		//})
 	}
 
 	setCountOfNotEnteredData() {

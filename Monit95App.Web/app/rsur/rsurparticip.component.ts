@@ -19,14 +19,8 @@ export class RsurParticipComponent implements OnInit {
     constructor(private readonly rsurParticipService: RsurParticipService,
                 private readonly accountService: AccountService) { }
 
-    ngOnInit()
-    {
-        // Get particips
-        this.rsurParticipService.getAll()
-            .subscribe((response: Response) => {
-                console.log(response);
-                this.particips = response.json() as RsurParticip[];                
-        });
+    ngOnInit() {
+        this.getAllParticips();       
 	          
         // Get userName
         this.accountService.getAccount()
@@ -35,14 +29,21 @@ export class RsurParticipComponent implements OnInit {
         });
     } 
 
-    update(particip: RsurParticip) {
-
+    getAllParticips() {
+        this.rsurParticipService.getAll()
+            .subscribe((response: Response) => {                
+                this.particips = response.json() as RsurParticip[];
+            });
     }
 
     setActualCode(particip: RsurParticip, actualCode: number) {
         particip.ActualCode = actualCode;
-        
+        this.rsurParticipService.update(particip.Code, particip)
+            .subscribe(() => {
+                this.getAllParticips();
+            });
     }
+
 
     //edit(particip: RsurParticip) {
     //    this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))

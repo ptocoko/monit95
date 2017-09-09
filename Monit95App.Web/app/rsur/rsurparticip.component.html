@@ -37,10 +37,12 @@
                     <td>
                         <div *ngIf="particip.ActualCode != 2">
                             <div class="radio">
-                                <label><input type="radio" name="{{particip.Code}}" checked="checked"> без изменений</label>
+                                <label><input type="radio" name="{{particip.Code}}" (click)="setActualCode(particip, 1)"
+                                              [checked]="particip.ActualCode == 1"> без изменений</label>
                             </div>
                             <div class="radio">
-                                <label><input type="radio" name="{{particip.Code}}"/> выбыл</label>
+                                <label><input type="radio" name="{{particip.Code}}" (click)="setActualCode(particip, 0)"
+                                              [checked]="particip.ActualCode == 0"/> выбыл</label>
                             </div>    
                         </div>
                         <div *ngIf="particip.ActualCode == 2">новый</div>

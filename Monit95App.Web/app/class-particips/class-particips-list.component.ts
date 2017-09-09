@@ -80,7 +80,7 @@ export class ClassParticipsListComponent implements OnInit {
 		
 	}
 
-	updateClassParticip(classParticip: ParticipModel) {
+	updateClassParticip(classParticip: ClassParticip) {
 		let index = this.classParticips.indexOf(classParticip);
 		this.modal.open(AddClassParticipModal, overlayConfigFactory({
 			isUpdate: true,
@@ -96,11 +96,11 @@ export class ClassParticipsListComponent implements OnInit {
 		});
 	}
 
-	deleteClassParticip(particip: ParticipModel) {
+    deleteClassParticip(particip: ClassParticip) {
 		let index = this.classParticips.indexOf(particip);
 		this.modal.confirm()
-			.title("Вы уверены, что хотите удалить данную запись?")
-			.body("Это действие нельзя будет отменить")
+			.title('Вы уверены, что хотите удалить данную запись?')
+			.body('Это действие нельзя будет отменить')
 			.open()
 			.then(dialog => {
 				dialog.result.then(res => {

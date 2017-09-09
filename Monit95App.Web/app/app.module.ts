@@ -12,12 +12,10 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { AppComponent } from './app.component';
 import { ParticipModalComponent } from './rsur/details/particip-modal.component';
 import { ResultsModalComponent } from './rsur/results/results-modal.component';
-import { EditModalComponent } from './rsur/edit-particip/edit-modal.component';
 import { RsurParticipComponent } from './rsur/rsurparticip.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
-import { EditParticipComponent } from './rsur/edit-particip/edit-particip.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
 import { ParticipFormComponent } from './rsur/particip-form/particip-form.component';
 import { AddClassParticipModal } from './class-particips/add-class-particip.modal';
@@ -55,11 +53,9 @@ import { GlobalErrorHandler } from './error-handler';
 		ParticipsWithoutDetailsPipe,
 		PlanComponent,
 		ResultComponent,
-		ParticipDetailsComponent,
-		EditParticipComponent,
+		ParticipDetailsComponent,		
 		ParticipModalComponent,
-		ResultsModalComponent,
-        EditModalComponent,
+		ResultsModalComponent,        
         ParticipCorrectionComponent,
 		ParticipFormComponent,
 		ClassParticipsListComponent,
@@ -74,8 +70,7 @@ import { GlobalErrorHandler } from './error-handler';
 	],  
 	entryComponents: [
 		ParticipModalComponent,
-		ResultsModalComponent,
-		EditModalComponent,
+		ResultsModalComponent,		
 		ParticipFormComponent,
 		ExportExcelModal,
 		AddClassParticipModal

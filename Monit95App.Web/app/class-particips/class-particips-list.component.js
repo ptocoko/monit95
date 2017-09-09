@@ -28,7 +28,7 @@ var ClassParticipsListComponent = (function () {
         this.accountService.getAccount().subscribe(function (data) {
             _this.account = data.json();
             _this.participService.getAll(1).subscribe(function (res) {
-                _this.classParticips = res;
+                _this.classParticips = res.json();
                 _this.isLoading = false;
             });
         });
@@ -40,7 +40,7 @@ var ClassParticipsListComponent = (function () {
             this.modal.open(export_excel_modal_component_1.ExportExcelModal, angular2_modal_1.overlayConfigFactory({ file: file }, bootstrap_1.BSModalContext)).then(function (modal) {
                 modal.result.then(function (result) {
                     _this.participService.getAll(1).subscribe(function (res) {
-                        _this.classParticips = res;
+                        _this.classParticips = res.json();
                     });
                 }).catch(function (data) {
                     //console.log(data);
@@ -78,8 +78,8 @@ var ClassParticipsListComponent = (function () {
         var _this = this;
         var index = this.classParticips.indexOf(particip);
         this.modal.confirm()
-            .title("Вы уверены, что хотите удалить данную запись?")
-            .body("Это действие нельзя будет отменить")
+            .title('Вы уверены, что хотите удалить данную запись?')
+            .body('Это действие нельзя будет отменить')
             .open()
             .then(function (dialog) {
             dialog.result.then(function (res) {

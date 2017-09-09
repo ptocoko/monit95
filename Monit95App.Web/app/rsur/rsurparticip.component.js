@@ -20,16 +20,26 @@ var RsurParticipComponent = (function () {
     }
     RsurParticipComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // Get particips
-        this.rsurParticipService.getAll()
-            .subscribe(function (response) {
-            console.log(response);
-            _this.particips = response.json();
-        });
+        this.getAllParticips();
         // Get userName
         this.accountService.getAccount()
             .subscribe(function (response) {
             _this.userName = response.json().UserName;
+        });
+    };
+    RsurParticipComponent.prototype.getAllParticips = function () {
+        var _this = this;
+        this.rsurParticipService.getAll()
+            .subscribe(function (response) {
+            _this.particips = response.json();
+        });
+    };
+    RsurParticipComponent.prototype.setActualCode = function (particip, actualCode) {
+        var _this = this;
+        particip.ActualCode = actualCode;
+        this.rsurParticipService.update(particip.Code, particip)
+            .subscribe(function () {
+            _this.getAllParticips();
         });
     };
     return RsurParticipComponent;

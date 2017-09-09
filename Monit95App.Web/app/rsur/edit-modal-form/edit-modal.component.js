@@ -11,21 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
-var edit_particip_model_1 = require("./edit-particip.model");
 var rsurparticip_service_1 = require("../rsurparticip.service");
 var EditModalComponent = (function () {
     function EditModalComponent(dialog, participService) {
         this.dialog = dialog;
         this.participService = participService;
         this.particip = dialog.context;
-        this.editParticip = new edit_particip_model_1.ParticipEditModel(this.particip.Code, this.particip.Surname, this.particip.Name, this.particip.SecondName);
+        //this.editParticip = new ParticipEditModel(this.particip.Code, this.particip.Surname, this.particip.Name, this.particip.SecondName);
     }
-    EditModalComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.participService.postRequestToEdit(this.editParticip).subscribe(function (res) {
-            _this.dialog.close(_this.particip);
-        });
-    };
+    //onSubmit() {
+    //	this.participService.postRequestToEdit(this.editParticip).subscribe(res => {
+    //		this.dialog.close(this.particip);
+    //	});
+    //}
     EditModalComponent.prototype.cancel = function () {
         this.dialog.dismiss();
     };
