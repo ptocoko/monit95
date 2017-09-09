@@ -60,9 +60,8 @@ AppModule = __decorate([
             bootstrap_1.BootstrapModalModule,
             mydatepicker_1.MyDatePickerModule,
             material_1.MdDialogModule,
-            material_1.MdDialogModule
+            material_1.MdButtonModule
         ],
-        exports: [material_1.MdDialogModule, material_1.MdDialogModule],
         declarations: [
             app_component_1.AppComponent,
             rsurparticip_component_1.RsurParticipComponent,

@@ -53,9 +53,9 @@ import { GlobalErrorHandler } from './error-handler';
         BootstrapModalModule,
         MyDatePickerModule,
         MdDialogModule,
-        MdDialogModule
+        MdButtonModule
     ],
-    exports: [MdDialogModule, MdDialogModule],
+
 	declarations: [
 		AppComponent,
 		RsurParticipComponent,		

@@ -8,7 +8,7 @@
     "tsc:w": "tsc -w"
   },
   "dependencies": {
-    "@angular/animations": "^4.4.0-RC.0",
+    "@angular/animations": "^5.0.0-beta.6",
     "@angular/cdk": "^2.0.0-beta.10",
     "@angular/common": "^4.3.6",
     "@angular/compiler": "^4.3.6",
@@ -20,8 +20,8 @@
     "@angular/platform-browser-dynamic": "^4.3.6",
     "@angular/router": "^4.3.6",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.26",
-    "@types/jquery": "2.0.46",
-    "angular-in-memory-web-api": "~0.3.0",
+    "@types/jquery": "^3.2.12",
+    "angular-in-memory-web-api": "^0.4.1",
     "angular2-modal": "^3.0.3",
     "core-js": "^2.5.1",
     "mydatepicker": "^2.0.29",
