@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@angular/router");
 var rsurparticip_component_1 = require("./rsur/rsurparticip.component");
+var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
 var particip_details_component_1 = require("./rsur/details/particip-details.component");
@@ -10,6 +11,7 @@ var class_particips_list_component_1 = require("./class-particips/class-particip
 var class_particip_marks_component_1 = require("./class-particips/class-particip-marks.component");
 var appRoutes = [
     { path: 'rsurparticips', component: rsurparticip_component_1.RsurParticipComponent },
+    { path: 'rsurparticips/new', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
     { path: 'plan', component: plan_component_1.PlanComponent },
     { path: 'result', component: result_component_1.ResultComponent },
     { path: 'details', component: particip_details_component_1.ParticipDetailsComponent },

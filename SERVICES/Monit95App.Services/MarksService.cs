@@ -68,6 +68,7 @@ namespace Monit95App.Services
             var dtos = Mapper.Map<IEnumerable<Result>, List<ParticipMarksDto>>(entities);
 
             return dtos;
+
         }
 
         public void Update(int participTestId, PutMarksDto dto)
