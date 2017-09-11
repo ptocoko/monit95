@@ -20,7 +20,7 @@
         public int RsurSubjectCode { get; set; }
         
         [Required]
-        public int CategId { get; set; }
+        public int CategoryId { get; set; }
                 
         [Required]
         [Range(0, 60)]

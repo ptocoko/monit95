@@ -12,7 +12,7 @@ import { BasicValidators } from '../../shared/basic-validators';
     templateUrl: './rsurparticip-add-form.component.html',
     styleUrls: ['./rsurparticip-add-form.component.css']
 })
-export class RsurAddFormComponent implements OnInit {
+export class RsurParticipAddFormComponent implements OnInit {
 
     form: FormGroup;
     title: string;
@@ -36,7 +36,7 @@ export class RsurAddFormComponent implements OnInit {
             secondName: ['', [                
                 Validators.minLength(3)
             ]],
-            categoryName: ['', [
+            categoryId: ['', [
                 Validators.required,
                 Validators.minLength(3)
             ]],
@@ -52,7 +52,7 @@ export class RsurAddFormComponent implements OnInit {
                 Validators.required,
                 Validators.pattern('[0-9]')
             ]],
-            subjectName: ['', [
+            rsurSubjectCode: ['', [
                 Validators.required                
             ]],
             birthday: ['', [
@@ -61,45 +61,44 @@ export class RsurAddFormComponent implements OnInit {
             classNumbers: ['', [
                 Validators.required
             ]],
-            address: formBuilder.group({
-                street: ['', Validators.minLength(3)],
-                suite: [],
-                city: ['', Validators.maxLength(30)],
-                zipcode: ['', Validators.pattern('^([0-9]){5}([-])([0-9]){4}$')]
-            })
+            schoolIdFrom: ['', [                
+            ]],
         });
     }
 
     ngOnInit() {
-        var id = this.route.params.subscribe(params => {
-            var id = params['id'];
+        //var id = this.route.params.subscribe(params => {
+        //    var id = params['id'];
 
-            this.title = id ? 'Edit User' : 'New User';
+        //    this.title = id ? 'Edit User' : 'New User';
 
-            if (!id)
-                return;
+        //    if (!id)
+        //        return;
 
-            this.usersService.getUser(id)
-                .subscribe(
-                user => this.user = user,
-                response => {
-                    if (response.status == 404) {
-                        this.router.navigate(['NotFound']);
-                    }
-                });
-        });
+        //    this.usersService.getUser(id)
+        //        .subscribe(
+        //        user => this.user = user,
+        //        response => {
+        //            if (response.status == 404) {
+        //                this.router.navigate(['NotFound']);
+        //            }
+        //        });
+        //});
     }
 
     save() {
-        var result,
-            userValue = this.form.value;
+        this.rsurParticipService.createParticip(this.form.value).
+            subscribe(data => this.router.navigate(['rsurparticips']));        
 
-        if (userValue.id) {
-            result = this.usersService.updateUser(userValue);
-        } else {
-            result = this.usersService.addUser(userValue);
-        }
+        //var result,
+        //    userValue = this.form.value;
 
-        result.subscribe(data => this.router.navigate(['users']));
+        //if (userValue.id) {
+        //    result = this.usersService.updateUser(userValue);
+        //} else {
+        //    result = this.usersService.addUser(userValue);
+        //}
+
+        //result.subscribe(data => this.router.navigate(['users']));
     }
 }

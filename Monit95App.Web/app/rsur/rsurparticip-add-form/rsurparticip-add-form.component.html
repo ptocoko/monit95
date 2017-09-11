@@ -1,32 +1,86 @@
-﻿
+﻿<h5>Новый участник</h5>
+<div class="row">
+    <form materialize class="col s12" [formGroup]="form" (ngSubmit)="save()">
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="name" type="text" class="validate"
+                       [(ngModel)]="particip.surname" formControlName="surname"
+                       [class.invalid]="form.controls['surname'].touched && !form.controls['surname'].valid">
+                <label for="surname"
+                       [class.active]="particip.surname"
 
 
 
-<!--<div style="width:100%;padding:15px">
-    <h2>Добавить</h2>
-    <hr />
-    <form #participForm="ngForm" (ngSubmit)="onSubmit(participForm)">
-
-        <div class="form-group">
-            <label for="surname">Фамилия</label>
-            <input type="text" class="form-control" id="surname" required [(ngModel)]="particip.Surname" #surname="ngModel" name="surname"/>
-            <div [hidden]="surname.valid || surname.pristine" class="alert alert-danger">Введите фамилию!</div>
+                       data-error="Фамилия должна состоять минимум из 3 символов">
+                    Фамилия
+                </label>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="name">Имя</label>
-            <input type="text" class="form-control" id="name" required [(ngModel)]="particip.name" #name="ngModel" name="name" [disabled]="!particip.hasNameEdit" />
-            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Введите имя!</div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">Email</i>
+                <input id="email" type="email" class="validate"
+                       [(ngModel)]="particip.email" formControlName="email"
+                       [class.invalid]="form.controls['email'].touched && !form.controls['email'].valid">
+                <label for="email"
+                       [class.active]="particip.email"
+                       data-error="Некорректынй Email">
+                    Email
+                </label>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="secondName">Отчество</label>
-            <input type="text" class="form-control" id="secondName" [(ngModel)]="particip.secondName" #secondName="ngModel" name="secondName" />
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">Телефон</i>
+                <input id="phone" type="text" class="validate"
+                       [(ngModel)]="particip.phone" formControlName="phone">
+                <label for="phone" [class.active]="user.phone">Phone</label>
+            </div>
         </div>
-        <hr />
-        <div style="text-align: right">
-            <button type="submit" class="btn btn-success" [disabled]="participForm.invalid">Сохранить</button>
-            <button type="button" class="btn btn-default btn-in-horizon" (click)="cancel()">Отменить</button>
+        <div formGroupName="address">
+            <div class="row">
+                <div class="input-field col s8">
+                    <i class="material-icons prefix">place</i>
+                    <input id="street" type="text" class="validate"
+                           [(ngModel)]="user.address.street" formControlName="street"
+                           [class.invalid]="form.controls['address'].controls['street'].touched
+                  && !form.controls['address'].controls['street'].valid">
+                    <label for="street"
+                           [class.active]="user.address.street"
+                           data-error="Invalid Street">
+                        Street
+                    </label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="suite" type="text" class="validate"
+                           [(ngModel)]="user.address.suite" formControlName="suite">
+                    <label for="suite" [class.active]="user.address.suite">Suite</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s8">
+                    <i class="material-icons prefix">map</i>
+                    <input id="city" type="text" class="validate"
+                           [(ngModel)]="user.address.city" formControlName="city">
+                    <label for="city" [class.active]="user.address.city">City</label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="zipcode" type="text" class="validate"
+                           [(ngModel)]="user.address.zipcode" formControlName="zipcode"
+                           [class.invalid]="form.controls['address'].controls['zipcode'].touched
+                  && !form.controls['address'].controls['zipcode'].valid">
+                    <label for="zipcode"
+                           [class.active]="user.address.zipcode"
+                           data-error="Invalid ZipCode">
+                        ZipCode
+                    </label>
+                </div>
+            </div>
         </div>
+        <button class="btn waves-effect waves-light" type="submit"
+                [disabled]="!form.valid">
+            Отправить<i class="material-icons right">send</i>
+        </button>
     </form>
-</div>-->
+</div>
