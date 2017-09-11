@@ -41,6 +41,7 @@ var ClassParticipsListComponent = (function () {
                 modal.result.then(function (result) {
                     _this.participService.getAll(1).subscribe(function (res) {
                         _this.classParticips = res.json();
+                        var stri = "stri";
                     });
                 }).catch(function (data) {
                     //console.log(data);

@@ -31,7 +31,7 @@
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
-            <td>{{particip.Birthday?.toLocaleDateString('ru-RU')}}</td>
+            <td>{{particip.Birthday?.substring(0, 10)}}</td>
             <td><span *ngIf="particip.WasDoo">Да</span><span *ngIf="!particip.WasDoo">Нет</span></td>
             <td><a class="glyphicon glyphicon-edit" (click)="updateClassParticip(particip)"></a></td>
             <td><a class="glyphicon glyphicon-trash" (click)="deleteClassParticip(particip)"></a></td>

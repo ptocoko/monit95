@@ -61,7 +61,7 @@ export class ClassParticipsListComponent implements OnInit {
 				modal.result.then(result => {
 					this.participService.getAll(1).subscribe(res => {
 						this.classParticips = res.json() as ClassParticip[];
-						
+						let stri: string = "stri";
 					});
 				}).catch(data => {
 					//console.log(data);
