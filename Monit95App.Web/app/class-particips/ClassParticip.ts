@@ -2,4 +2,5 @@
 
 export class ClassParticip extends ParticipModel {
 	public Birthday: Date;
+	public WasDoo: boolean;
 }

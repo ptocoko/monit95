@@ -45,7 +45,7 @@ var EditParticipComponent = (function () {
 EditParticipComponent = __decorate([
     core_1.Component({
         selector: 'edit-particip',
-        templateUrl: './app/rsur/edit-particip/edit-particip.html',
+        templateUrl: './app/rsur/edit-modal-form/edit-particip.html',
         providers: [bootstrap_1.Modal]
     }),
     __metadata("design:paramtypes", [rsurparticip_service_1.RsurParticipService,

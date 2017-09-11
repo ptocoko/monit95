@@ -12,30 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var rsurparticip_service_1 = require("../rsurparticip.service");
-var EditModalComponent = (function () {
-    function EditModalComponent(dialog, participService) {
+var AddModalFormComponent = (function () {
+    function AddModalFormComponent(dialog, participService) {
         this.dialog = dialog;
         this.participService = participService;
-        this.particip = dialog.context;
-        //this.editParticip = new ParticipEditModel(this.particip.Code, this.particip.Surname, this.particip.Name, this.particip.SecondName);
     }
-    //onSubmit() {
-    //	this.participService.postRequestToEdit(this.editParticip).subscribe(res => {
-    //		this.dialog.close(this.particip);
-    //	});
-    //}
-    EditModalComponent.prototype.cancel = function () {
+    AddModalFormComponent.prototype.ngOnInit = function () {
+        this.particip = this.dialog.context;
+    };
+    AddModalFormComponent.prototype.onSubmit = function () {
+        console.log(this.particip);
+        this.dialog.close(this.particip);
+    };
+    AddModalFormComponent.prototype.cancel = function () {
         this.dialog.dismiss();
     };
-    return EditModalComponent;
+    return AddModalFormComponent;
 }());
-EditModalComponent = __decorate([
+AddModalFormComponent = __decorate([
     core_1.Component({
-        selector: 'edit-modal',
-        templateUrl: './app/rsur/edit-modal-form/edit-modal.html',
-        styleUrls: ['./app/rsur/edit-modal-form/edit-modal.css']
+        selector: 'add-modal-form',
+        templateUrl: './app/rsur/add-modal-form/add-modal-form.html?v=${new Date().getTime()}'
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsurparticip_service_1.RsurParticipService])
-], EditModalComponent);
-exports.EditModalComponent = EditModalComponent;
-//# sourceMappingURL=edit-modal.component.js.map
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef,
+        rsurparticip_service_1.RsurParticipService])
+], AddModalFormComponent);
+exports.AddModalFormComponent = AddModalFormComponent;
+//# sourceMappingURL=add-modal-form.component.js.map

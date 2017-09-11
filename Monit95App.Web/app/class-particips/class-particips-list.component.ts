@@ -57,10 +57,11 @@ export class ClassParticipsListComponent implements OnInit {
 	exportParticips(event: any) {
 		let file: File = event.target.files[0];
 		if (file.name.split('.').pop() === 'xlsx') {
-			this.modal.open(ExportExcelModal, overlayConfigFactory({file: file}, BSModalContext)).then(modal => {
+			this.modal.open(ExportExcelModal, overlayConfigFactory({ file: file, size: 'lg'}, BSModalContext)).then(modal => {
 				modal.result.then(result => {
 					this.participService.getAll(1).subscribe(res => {
 						this.classParticips = res.json() as ClassParticip[];
+						let stri: string = "stri";
 					});
 				}).catch(data => {
 					//console.log(data);
@@ -96,11 +97,11 @@ export class ClassParticipsListComponent implements OnInit {
 		});
 	}
 
-    deleteClassParticip(particip: ClassParticip) {
+	deleteClassParticip(particip: ClassParticip) {
 		let index = this.classParticips.indexOf(particip);
 		this.modal.confirm()
-			.title('Вы уверены, что хотите удалить данную запись?')
-			.body('Это действие нельзя будет отменить')
+			.title("Вы уверены, что хотите удалить данную запись?")
+			.body("Это действие нельзя будет отменить")
 			.open()
 			.then(dialog => {
 				dialog.result.then(res => {
