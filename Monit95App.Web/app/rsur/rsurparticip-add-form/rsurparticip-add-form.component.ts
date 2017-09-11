@@ -8,9 +8,8 @@ import { RsurParticipService } from '../rsurparticip.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
 @Component({
-    selector: 'rsur-add-form',
-    templateUrl: './rsurparticip-add-form.component.html',
-    styleUrls: ['./rsurparticip-add-form.component.css']
+    selector: 'rsurparticip-add-form',
+    templateUrl: './app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html',    
 })
 export class RsurParticipAddFormComponent implements OnInit {
 

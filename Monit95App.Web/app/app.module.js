@@ -20,6 +20,7 @@ var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
 var results_modal_component_1 = require("./rsur/results/results-modal.component");
 var rsurparticip_component_1 = require("./rsur/rsurparticip.component");
+var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
 var particip_details_component_1 = require("./rsur/details/particip-details.component");
@@ -56,6 +57,7 @@ AppModule = __decorate([
             http_1.HttpModule,
             app_routing_1.routing,
             forms_1.FormsModule,
+            forms_1.ReactiveFormsModule,
             angular2_modal_1.ModalModule.forRoot(),
             bootstrap_1.BootstrapModalModule,
             mydatepicker_1.MyDatePickerModule,
@@ -65,6 +67,7 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             rsurparticip_component_1.RsurParticipComponent,
+            rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
             particip_filter_pipe_1.ParticipFilterPipe,
             limit_to_pipe_1.LimitToPipe,

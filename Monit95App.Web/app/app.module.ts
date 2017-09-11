@@ -2,7 +2,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { RouterModule } from '@angular/router';
@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { ParticipModalComponent } from './rsur/details/particip-modal.component';
 import { ResultsModalComponent } from './rsur/results/results-modal.component';
 import { RsurParticipComponent } from './rsur/rsurparticip.component';
+import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
@@ -49,6 +50,7 @@ import { GlobalErrorHandler } from './error-handler';
         HttpModule,
         routing,
         FormsModule,
+        ReactiveFormsModule,
         ModalModule.forRoot(),
         BootstrapModalModule,
         MyDatePickerModule,
@@ -58,7 +60,8 @@ import { GlobalErrorHandler } from './error-handler';
 
 	declarations: [
 		AppComponent,
-		RsurParticipComponent,		
+        RsurParticipComponent,	
+        RsurParticipAddFormComponent,
 		RsurParticipFilterPipe,
 		ParticipFilterPipe,
 		LimitToPipe,

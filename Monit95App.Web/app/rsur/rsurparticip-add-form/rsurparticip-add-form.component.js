@@ -92,9 +92,8 @@ var RsurParticipAddFormComponent = (function () {
 }());
 RsurParticipAddFormComponent = __decorate([
     core_1.Component({
-        selector: 'rsur-add-form',
-        templateUrl: './rsurparticip-add-form.component.html',
-        styleUrls: ['./rsurparticip-add-form.component.css']
+        selector: 'rsurparticip-add-form',
+        templateUrl: './app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html',
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder,
         router_1.Router,

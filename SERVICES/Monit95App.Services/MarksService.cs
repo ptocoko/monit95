@@ -92,11 +92,12 @@ namespace Monit95App.Services
 
             ///////////////////////////////////////////////////////////////////////////////////
 
-            var dtos = _participTestRepository.GetAll().Where(p => p.ProjectTestId == projectTestId && p.Particip.SchoolId == schoolId).ToList();
+            //var dtos = _participTestRepository.GetAll().Where(p => p.ProjectTestId == projectTestId && p.Particip.SchoolId == schoolId).ToList();
 
-            Mapper.Initialize(cfg => cfg.CreateMap<ParticipTest, ParticipMarksDto>()
-                .ForMember(dest => dest.Marks, opt => opt.Al));
-            return dtos;
+            //Mapper.Initialize(cfg => cfg.CreateMap<ParticipTest, ParticipMarksDto>()
+            //    .ForMember(dest => dest.Marks, opt => opt.Al));
+
+            return new List<ParticipMarksDto>();
 
         }
 
