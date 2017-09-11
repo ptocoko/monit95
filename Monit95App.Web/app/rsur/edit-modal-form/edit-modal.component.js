@@ -34,8 +34,8 @@ var EditModalComponent = (function () {
 EditModalComponent = __decorate([
     core_1.Component({
         selector: 'edit-modal',
-        templateUrl: './app/rsur/edit-particip/edit-modal.html',
-        styleUrls: ['./app/rsur/edit-particip/edit-modal.css']
+        templateUrl: './app/rsur/edit-modal-form/edit-modal.html',
+        styleUrls: ['./app/rsur/edit-modal-form/edit-modal.css']
     }),
     __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsurparticip_service_1.RsurParticipService])
 ], EditModalComponent);

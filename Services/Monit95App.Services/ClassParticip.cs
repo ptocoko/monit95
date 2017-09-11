@@ -6,12 +6,13 @@ namespace Monit95App.Services
 {
     public class ClassParticip : Person
     {
+        [Required]
         public string ClassName { get; set; }
 
         [Required]
         public DateTime? Birthday { get; set; }
 
-        //[Required]
+        [Required]
         public bool? WasDoo { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace Monit95App.Services
         {
             using(Stream stream = new FileStream(filePath, FileMode.Open))
             {
-                return ImportFromExcelFileStream(stream);
+                return ImportFromExcelFileStream(stream, classNumbers);
             }
         }
 
@@ -72,7 +72,8 @@ namespace Monit95App.Services
                     Name = NormalizeNames(row.Cell(2).Value.ToString()),
                     SecondName = NormalizeNames(row.Cell(3).Value.ToString()),
                     ClassName = NormalizeClassName(row.Cell(4).Value.ToString()),
-                    Birthday = NormalizeDateString(row.Cell(5).Value.ToString())
+                    Birthday = NormalizeDateString(row.Cell(5).Value.ToString()),
+                    WasDoo = NormalizeDooValue(row.Cell(6).Value.ToString())
                 };
 
                 if (ValidateModel(model))
@@ -84,12 +85,15 @@ namespace Monit95App.Services
             return (participsFromExcelList, rowNumbersWithErrors.Count == 0 ? null : rowNumbersWithErrors);
         }
 
-        private DateTime? NormalizeDateString(string v)
+        private bool? NormalizeDooValue(string v)
         {
-            string dateString = Regex.Replace(v, @"[A-я]", "");
-            if (DateTime.TryParse(dateString, new DateTimeFormatInfo() { ShortDatePattern = "dd.MM.yyyy" }, DateTimeStyles.None, out DateTime resultDate))
+            if(v.Trim().ToUpper() == "ДА" || v.Trim().ToUpper() == "1")
             {
-                return resultDate;
+                return true;
+            }
+            else if(v.Trim().ToUpper() == "НЕТ" || v.Trim().ToUpper() == "0")
+            {
+                return false;
             }
             else
             {
@@ -126,7 +130,7 @@ namespace Monit95App.Services
 
         private string NormalizeNames(string name)
         {
-            if(name.Length < 4)
+            if(name.Length < 1)
             {
                 return name;
             }
@@ -134,6 +138,19 @@ namespace Monit95App.Services
             {
                 return name.Replace(" ", "").Split('-').Select(s => s.Substring(0, 1).ToUpper() + s.Remove(0, 1).ToLower())
                                                        .Aggregate((s1, s2) => $"{s1}-{s2}");
+            }
+        }
+
+        private DateTime? NormalizeDateString(string v)
+        {
+            string dateString = Regex.Replace(v, @"[A-я]", "");
+            if (DateTime.TryParse(dateString, new DateTimeFormatInfo() { ShortDatePattern = "dd.MM.yyyy" }, DateTimeStyles.None, out DateTime resultDate))
+            {
+                return resultDate;
+            }
+            else
+            {
+                return null;
             }
         }
 

@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { RsurParticip } from './rsurparticip';
-import { ParticipEditModel } from '../rsur/edit-particip/edit-particip.model';
+import { ParticipEditModel } from '../rsur/edit-modal-form/edit-particip.model';
 import { ResultsModel, ResultDetailsModel } from './results/results.model';
 
 @Component({

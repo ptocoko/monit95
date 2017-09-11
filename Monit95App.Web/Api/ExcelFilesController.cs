@@ -8,6 +8,7 @@ namespace Monit95App.Web.Api
     using System.Linq;
 
     using Monit95App.Services.Interfaces;
+    using System.Data.Entity.Infrastructure;
 
     [Authorize]
     [RoutePrefix("api/ExcelFiles")]
@@ -53,19 +54,32 @@ namespace Monit95App.Web.Api
 
             var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, new List<int> { 1 });
             bool hasRowsWithError = rowNumbersWithError != null;
-            var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 201777);
+            var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 1);
 
-
-            foreach (var particip in particips)
+            int countOfAddedParticips = 0;
+            List<string> repetitionNames = null;
+            for (int i = 0; i < particips.Count; i++)
             {
-                _participService.Add(particip);
+                try
+                {
+                    _participService.Add(particips[i]);
+                    countOfAddedParticips++;
+                }
+                catch (DbUpdateException)
+                {
+                    hasRowsWithError = true;
+                    
+                    if (repetitionNames == null)
+                        repetitionNames = new List<string>();
+                    repetitionNames.Add($"{particips[i].Surname} {particips[i].Name} {particips[i].SecondName}");
+                }
             }
-                
-
-            return Ok(new {
-                              CountOfAddedParticips = particips.Count(),
+            
+            return Ok(content: new {
+                              CountOfAddedParticips = countOfAddedParticips,
                               HasRowsWithError = hasRowsWithError,
-                              RowNumbersWithError = rowNumbersWithError
+                              RowNumbersWithError = rowNumbersWithError,
+                              RepetitionNames = repetitionNames
                           });
         }
 

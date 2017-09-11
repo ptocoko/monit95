@@ -5,7 +5,7 @@ import { RsurParticipComponent } from './rsur/rsurparticip.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
-import { EditParticipComponent } from './rsur/edit-particip/edit-particip.component';
+import { EditParticipComponent } from './rsur/edit-modal-form/edit-particip.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from "./class-particips/class-particip-marks.component";

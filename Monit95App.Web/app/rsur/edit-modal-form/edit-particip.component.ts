@@ -11,7 +11,7 @@ import { RsurParticip as RsurParticipModel } from '../rsurparticip';
 
 @Component({
 	selector: 'edit-particip',
-	templateUrl: './app/rsur/edit-particip/edit-particip.html',
+	templateUrl: './app/rsur/edit-modal-form/edit-particip.html',
 	providers: [Modal]
 })
 export class EditParticipComponent {

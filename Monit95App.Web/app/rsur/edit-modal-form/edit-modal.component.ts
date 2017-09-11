@@ -9,8 +9,8 @@ import { RsurParticipService } from '../rsurparticip.service';
 
 @Component({
 	selector: 'edit-modal',
-	templateUrl: './app/rsur/edit-particip/edit-modal.html',
-	styleUrls: ['./app/rsur/edit-particip/edit-modal.css']
+	templateUrl: './app/rsur/edit-modal-form/edit-modal.html',
+	styleUrls: ['./app/rsur/edit-modal-form/edit-modal.css']
 })
 export class EditModalComponent {
 	private particip: RsurParticipModel;

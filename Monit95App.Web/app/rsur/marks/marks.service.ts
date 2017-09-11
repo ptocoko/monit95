@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { RsurParticip } from '../rsurparticip';
 import { ResultsModel, ResultDetailsModel } from '../results/results.model';
-import { ParticipEditModel } from '../edit-particip/edit-particip.model';
+import { ParticipEditModel } from '../edit-modal-form/edit-particip.model';
 import { ParticipModel } from "../../particip.model";
 
 export class Marks {

@@ -30,7 +30,7 @@ namespace Monit95App.Services.Tests
             {
                 new Class
                 {
-                    Name = "1",
+                    Name = "1 ",
                     Id = "0100"
                 },
                 new Class
@@ -56,7 +56,8 @@ namespace Monit95App.Services.Tests
             var (actualParticips, actualRowNumbersWithErrors) = importer
                                 .ImportFromExcelFileStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"), new List<int> { 1, 11 });
 
-            Assert.IsNotNull(actualRowNumbersWithErrors);
+            Assert.AreEqual(1, actualRowNumbersWithErrors.Count());
+
         }
 
         [TestMethod]
