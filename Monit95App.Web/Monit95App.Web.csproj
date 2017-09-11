@@ -321,7 +321,7 @@
     <Content Include="app\class-particips\class-particip-marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
     <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
-    <Content Include="app\rsur\rsurparticip-add-dialog\rsurparticip-add-dialog.component.html" />
+    <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />
     <Content Include="app\rsur\correction\particip-correction.html" />
     <Content Include="app\rsur\details\particip-details.html" />
     <Content Include="app\rsur\edit-modal-form\edit-modal.css" />
@@ -561,7 +561,7 @@
     <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
-    <TypeScriptCompile Include="app\rsur\rsurparticip-add-dialog\rsurparticip-add-dialog.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.mock.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.ts" />

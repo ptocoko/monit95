@@ -1,15 +1,10 @@
-﻿using Monit95App.App_Start;
-using Monit95App.Models;
-using Monit95App.Util;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+
+using Monit95App.App_Start;
+using Monit95App.Util;
 
 namespace Monit95App
 {
@@ -18,7 +13,7 @@ namespace Monit95App
         protected void Application_Start()
         {
             AutofacConfig.ConfigureContainer();
-            AreaRegistration.RegisterAllAreas(); //Autofac
+            AreaRegistration.RegisterAllAreas(); // Autofac
 
             // Manually installed WebAPI 2.2 after making an MVC project.
             GlobalConfiguration.Configure(WebApiConfig.Register); // NEW way
