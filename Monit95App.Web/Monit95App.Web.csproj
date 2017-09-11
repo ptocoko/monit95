@@ -584,6 +584,7 @@
     <TypeScriptCompile Include="app\result\result.component.ts" />
     <TypeScriptCompile Include="app\account\account.ts" />
     <TypeScriptCompile Include="app\account\account.service.ts" />
+    <TypeScriptCompile Include="app\shared\basic-validators.ts" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707251307178_ASPNet-Identity-Update.resx">
