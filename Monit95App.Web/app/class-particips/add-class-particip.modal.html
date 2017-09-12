@@ -26,6 +26,36 @@
                 <option *ngFor="let className of classNames" [value]="className">{{className}}</option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label>Дата рождения</label>
+            <div class="form-inline">
+                <input name="day" #day="ngModel" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="4" required />
+                <select name="month" #month="ngModel" class="form-control" [(ngModel)]="newMonth" required>
+                    <option value="-1" disabled selected>Mecяц</option>
+                    <option value="0">Январь</option>
+                    <option value="1">Февраль</option>
+                    <option value="2">Март</option>
+                    <option value="3">Апрель</option>
+                    <option value="4">Май</option>
+                    <option value="5">Июнь</option>
+                    <option value="6">Июль</option>
+                    <option value="7">Август</option>
+                    <option value="8">Сентябрь</option>
+                    <option value="9">Октябрь</option>
+                    <option value="10">Ноябрь</option>
+                    <option value="11">Декабрь</option>
+                </select>
+                <input name="year" #year="ngModel" type="text" placeholder="Год" size="6" [(ngModel)]="newYear" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="checkbox">
+            <label for="wasDoo">
+                <input id="wasDoo" name="wasDoo" #wasDoo="ngModel" type="checkbox" [(ngModel)]="particip.WasDoo" /> Учился(-ась) в дошкольном учреждении
+            </label>
+        </div>
+
         <hr />
         <div style="text-align: right">
             <span style="color:red">{{statusText}}</span>

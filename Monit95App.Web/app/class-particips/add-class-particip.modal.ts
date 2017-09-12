@@ -2,12 +2,12 @@
 import { DialogRef } from "angular2-modal";
 import { Http } from "@angular/http";
 import { BSModalContext } from "angular2-modal/plugins/bootstrap";
-import { ParticipModel } from "../particip.model";
 import { ClassService } from "../class.service";
 import { ParticipService } from "../particip.service";
+import { ClassParticip } from "./ClassParticip";
 
 export class AddClassParticipModalData extends BSModalContext {
-	particip: ParticipModel;
+	particip: ClassParticip;
 	isUpdate: boolean;
 	schoolId: string;
 	projectId: number;
@@ -17,24 +17,39 @@ export class AddClassParticipModalData extends BSModalContext {
 	templateUrl: './app/class-particips/add-class-particip.modal.html'
 })
 export class AddClassParticipModal implements OnInit {
-	particip: ParticipModel;
+	particip: ClassParticip;
 	classNames: string[];
 	isUpdate: boolean;
 	schoolId: string;
 	projectId: number;
 
+	newDay: number;
+	newMonth: number;
+	newYear: number;
+
 	statusText: string;
 	actionText: string;
 
-	constructor(public dialog: DialogRef<AddClassParticipModalData>, private http: Http, private classService: ClassService, private participService: ParticipService) {
+	constructor(public dialog: DialogRef<AddClassParticipModalData>,
+				private http: Http,
+				private classService: ClassService,
+				private participService: ParticipService) {
 		this.isUpdate = dialog.context.isUpdate;
+		this.newMonth = -1;
 
 		if (this.isUpdate) {
 			this.particip = dialog.context.particip;
+
+			if (this.particip.Birthday) {
+				this.newDay = this.particip.Birthday.getDate();
+				this.newMonth = this.particip.Birthday.getMonth();
+				this.newYear = this.particip.Birthday.getFullYear();
+			}
+
 			this.actionText = "Изменить";
 		}
 		else {
-			this.particip = new ParticipModel();
+			this.particip = new ClassParticip();
 			this.actionText = "Добавить"
 			this.schoolId = dialog.context.schoolId;
 			this.projectId = dialog.context.projectId;
@@ -49,10 +64,14 @@ export class AddClassParticipModal implements OnInit {
 		}, error => {
 			this.statusText = "Ошибка соединения с базой данных! ";
 			throw error;
-		});
+			});
 	}
 
 	onSubmit() {
+		if (this.newMonth === -1) {
+			this.newMonth = 0;
+		}
+		this.particip.Birthday = new Date(this.newYear, this.newMonth, this.newDay);
 		if (this.isUpdate) {
 			this.participService.updateParticip(this.particip).subscribe(res => {
 				this.dialog.close(this.particip);
