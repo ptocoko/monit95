@@ -49,6 +49,11 @@ export class ClassParticipsListComponent implements OnInit {
             this.account = data.json() as Account;
             this.participService.getAll(1).subscribe(res => {
 				this.classParticips = res.json() as ClassParticip[];
+				this.classParticips.forEach((val, i, arr) => {
+					if (val.Birthday) {
+						val.Birthday = new Date(val.Birthday);
+					}
+				})
 				this.isLoading = false;
 			});
 		});
@@ -61,7 +66,7 @@ export class ClassParticipsListComponent implements OnInit {
 				modal.result.then(result => {
 					this.participService.getAll(1).subscribe(res => {
 						this.classParticips = res.json() as ClassParticip[];
-						let stri: string = "stri";
+						//TODO: reset upload button
 					});
 				}).catch(data => {
 					//console.log(data);

@@ -56,7 +56,7 @@ namespace Monit95App.Services
             {
                 throw new ArgumentNullException(nameof(schoolId));
             }
-
+            throw new NotImplementedException();
             //var entities = _resultRepository.GetAll().Where(x => x.ParticipTest.ProjectTestId == projectTestId
             //&& x.ParticipTest.Particip.SchoolId == schoolId)
             //.ToList();
@@ -92,11 +92,11 @@ namespace Monit95App.Services
 
             ///////////////////////////////////////////////////////////////////////////////////
 
-            var dtos = _participTestRepository.GetAll().Where(p => p.ProjectTestId == projectTestId && p.Particip.SchoolId == schoolId).ToList();
+            //var dtos = _participTestRepository.GetAll().Where(p => p.ProjectTestId == projectTestId && p.Particip.SchoolId == schoolId).ToList();
 
-            Mapper.Initialize(cfg => cfg.CreateMap<ParticipTest, ParticipMarksDto>()
-                .ForMember(dest => dest.Marks, opt => opt.Al));
-            return dtos;
+            //Mapper.Initialize(cfg => cfg.CreateMap<ParticipTest, ParticipMarksDto>()
+            //    .ForMember(dest => dest.Marks, opt => opt.Al));
+            //return dtos;
 
         }
 

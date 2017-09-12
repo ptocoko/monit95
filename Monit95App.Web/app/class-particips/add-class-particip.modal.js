@@ -23,9 +23,9 @@ var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var http_1 = require("@angular/http");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
-var particip_model_1 = require("../particip.model");
 var class_service_1 = require("../class.service");
 var particip_service_1 = require("../particip.service");
+var ClassParticip_1 = require("./ClassParticip");
 var AddClassParticipModalData = (function (_super) {
     __extends(AddClassParticipModalData, _super);
     function AddClassParticipModalData() {
@@ -43,10 +43,18 @@ var AddClassParticipModal = (function () {
         this.isUpdate = dialog.context.isUpdate;
         if (this.isUpdate) {
             this.particip = dialog.context.particip;
+            if (this.particip.Birthday) {
+                this.newDay = this.particip.Birthday.getDate();
+                this.newMonth = this.particip.Birthday.getMonth();
+                this.newYear = this.particip.Birthday.getFullYear();
+            }
+            else {
+                this.newMonth = -1;
+            }
             this.actionText = "Изменить";
         }
         else {
-            this.particip = new particip_model_1.ParticipModel();
+            this.particip = new ClassParticip_1.ClassParticip();
             this.actionText = "Добавить";
             this.schoolId = dialog.context.schoolId;
             this.projectId = dialog.context.projectId;
@@ -65,6 +73,7 @@ var AddClassParticipModal = (function () {
     };
     AddClassParticipModal.prototype.onSubmit = function () {
         var _this = this;
+        this.particip.Birthday = new Date(this.newYear, this.newMonth, this.newDay);
         if (this.isUpdate) {
             this.participService.updateParticip(this.particip).subscribe(function (res) {
                 _this.dialog.close(_this.particip);
@@ -94,7 +103,10 @@ AddClassParticipModal = __decorate([
     core_1.Component({
         templateUrl: './app/class-particips/add-class-particip.modal.html'
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, http_1.Http, class_service_1.ClassService, particip_service_1.ParticipService])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef,
+        http_1.Http,
+        class_service_1.ClassService,
+        particip_service_1.ParticipService])
 ], AddClassParticipModal);
 exports.AddClassParticipModal = AddClassParticipModal;
 //# sourceMappingURL=add-class-particip.modal.js.map

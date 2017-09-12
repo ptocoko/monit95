@@ -1,4 +1,4 @@
-﻿<h1>Hello World!</h1>
+﻿<h1>Сбор информации об учащихся 1-х классов</h1>
 <div *ngIf="isLoading">Загрузка...</div>
 <div *ngIf="!isLoading">
     <hr />
@@ -22,7 +22,7 @@
             <th>Отчество</th>
             <th>Класс</th>
             <th>Дата рождения</th>
-            <th></th>
+            <th width="1">ДОО</th>
             <th width="1">Изменить</th>
             <th width="1">Удалить</th>
         </tr>
@@ -31,7 +31,7 @@
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
-            <td>{{particip.Birthday?.substring(0, 10)}}</td>
+            <td>{{particip.Birthday?.toLocaleDateString('ru-RU')}}</td>
             <td><span *ngIf="particip.WasDoo">Да</span><span *ngIf="!particip.WasDoo">Нет</span></td>
             <td><a class="glyphicon glyphicon-edit" (click)="updateClassParticip(particip)"></a></td>
             <td><a class="glyphicon glyphicon-trash" (click)="deleteClassParticip(particip)"></a></td>
