@@ -29,6 +29,11 @@ var ClassParticipsListComponent = (function () {
             _this.account = data.json();
             _this.participService.getAll(1).subscribe(function (res) {
                 _this.classParticips = res.json();
+                _this.classParticips.forEach(function (val, i, arr) {
+                    if (val.Birthday) {
+                        val.Birthday = new Date(val.Birthday);
+                    }
+                });
                 _this.isLoading = false;
             });
         });
@@ -41,7 +46,6 @@ var ClassParticipsListComponent = (function () {
                 modal.result.then(function (result) {
                     _this.participService.getAll(1).subscribe(function (res) {
                         _this.classParticips = res.json();
-                        var stri = "stri";
                     });
                 }).catch(function (data) {
                     //console.log(data);
