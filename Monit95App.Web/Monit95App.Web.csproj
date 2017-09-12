@@ -324,6 +324,7 @@
     <Content Include="app\class-particips\export-excel-modal.component.html" />
     <Content Include="app\rsur\add-form\add-modal-form.component.html" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component - Копировать.html" />
+    <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />
     <Content Include="app\rsur\correction\particip-correction.html" />
     <Content Include="app\rsur\details\particip-details.html" />

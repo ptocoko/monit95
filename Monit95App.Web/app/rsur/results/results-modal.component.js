@@ -18,7 +18,7 @@ var ResultsModalComponent = (function () {
         this.participService = participService;
         this.results = [];
         this.particip = dialog.context;
-        dialog.context.dialogClass = 'modal-dialog modal-mySize';
+        //dialog.context.dialogClass = 'modal-dialog modal-mySize';
     }
     ResultsModalComponent.prototype.ngOnInit = function () {
         //this.participService.getParticipResults(this.particip.Code).subscribe(res => {
