@@ -57,6 +57,9 @@ export class RsurParticipAddFormComponent implements OnInit {
     formGroup: FormGroup;
     categories: Category[] = CATEGORIES;
     rsurSubjects: RsurSubject[] = RSURSUBJECTS;
+    newDay: number;
+    newMonth: number;
+    newYear: number;
 
     constructor(        
         private router: Router,
@@ -75,11 +78,12 @@ export class RsurParticipAddFormComponent implements OnInit {
             "phone": new FormControl("", Validators.pattern("[0-9]{11}")),
             "categoryId": new FormControl(),
             "rsurSubjectCode": new FormControl(),
-            "birthday": new FormControl("", Validators.)
+            "birthday": new FormControl()
         });       
     }
 
     ngOnInit() {
+        
         //var id = this.route.params.subscribe(params => {
         //    var id = params['id'];
 
@@ -113,5 +117,23 @@ export class RsurParticipAddFormComponent implements OnInit {
         //}
 
         //result.subscribe(data => this.router.navigate(['users']));
+    }
+
+    classesChange() { //TODO: remove this method
+        console.log(this.getClassesString());
+    }
+
+    getClassesString(): string {
+        let res: string = '';
+        var checkboxes = $('#classes').find(':checkbox:checked');
+        checkboxes.each(function (i, elem) {
+            res += elem.id + ';';
+        });
+        if (res.length > 0) {
+            res = res.slice(0, res.length - 2);
+            return res;
+        }
+        else
+            return null;
     }
 }

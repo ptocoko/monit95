@@ -61,7 +61,8 @@ var RsurParticipAddFormComponent = (function () {
             ]),
             "phone": new forms_1.FormControl("", forms_1.Validators.pattern("[0-9]{11}")),
             "categoryId": new forms_1.FormControl(),
-            "rsurSubjectCode": new forms_1.FormControl()
+            "rsurSubjectCode": new forms_1.FormControl(),
+            "birthday": new forms_1.FormControl()
         });
     }
     RsurParticipAddFormComponent.prototype.ngOnInit = function () {
@@ -92,6 +93,22 @@ var RsurParticipAddFormComponent = (function () {
         //    result = this.usersService.addUser(userValue);
         //}
         //result.subscribe(data => this.router.navigate(['users']));
+    };
+    RsurParticipAddFormComponent.prototype.classesChange = function () {
+        console.log(this.getClassesString());
+    };
+    RsurParticipAddFormComponent.prototype.getClassesString = function () {
+        var res = '';
+        var checkboxes = $('#classes').find(':checkbox:checked');
+        checkboxes.each(function (i, elem) {
+            res += elem.id + ';';
+        });
+        if (res.length > 0) {
+            res = res.slice(0, res.length - 2);
+            return res;
+        }
+        else
+            return null;
     };
     return RsurParticipAddFormComponent;
 }());

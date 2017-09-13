@@ -86,12 +86,37 @@
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Дата рождения</label>
-        <div class="col-sm-10">
-            <input class="form-control" name="birthday" formControlName="birthday" />
-            <div class="alert alert-danger"
-                 *ngIf="formGroup.controls['birthday'].invalid && formGroup.controls['birthday'].touched">
-                Указан слишком малый или слишком высокий возвраст
-            </div>
+        <div class="col-sm-10 form-inline">            
+                <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="2" [ngModelOptions]="{standalone: true}"/>
+                <select name="month" class="form-control" [(ngModel)]="newMonth" [ngModelOptions]="{standalone: true}">
+                    <option value="-1" disabled selected>Mecяц</option>
+                    <option value="0">Январь</option>
+                    <option value="1">Февраль</option>
+                    <option value="2">Март</option>
+                    <option value="3">Апрель</option>
+                    <option value="4">Май</option>
+                    <option value="5">Июнь</option>
+                    <option value="6">Июль</option>
+                    <option value="7">Август</option>
+                    <option value="8">Сентябрь</option>
+                    <option value="9">Октябрь</option>
+                    <option value="10">Ноябрь</option>
+                    <option value="11">Декабрь</option>
+                </select>
+                <input name="year" type="text" placeholder="Год" size="4" [(ngModel)]="newYear" class="form-control" [ngModelOptions]="{standalone: true}"/>            
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">В каких классах препадает</label>
+        <div id="classes" class="col-sm-10 form-inline">
+            <label class="checkbox-inline"><input (change)="classesChange()" id="5" type="checkbox"/>5</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="6" type="checkbox"/>6</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="7" type="checkbox"/>7</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="8" type="checkbox" />8</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="9" type="checkbox" />9</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="10" type="checkbox" />10</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="11" type="checkbox" />11</label>
         </div>
     </div>
 
