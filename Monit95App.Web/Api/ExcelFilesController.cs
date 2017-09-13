@@ -9,6 +9,10 @@ namespace Monit95App.Web.Api
 
     using Monit95App.Services.Interfaces;
     using System.Data.Entity.Infrastructure;
+    using System.Net.Http;
+    using System.Reflection;
+    using System.Net.Http.Headers;
+    using Monit95App.Services;
 
     [Authorize]
     [RoutePrefix("api/ExcelFiles")]
@@ -81,6 +85,44 @@ namespace Monit95App.Web.Api
                               RowNumbersWithError = rowNumbersWithError,
                               RepetitionNames = repetitionNames
                           });
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetExcelTemplate()
+        {
+            var assembly = Assembly.GetAssembly(typeof(IClassParticipImporter));
+            var buffer = new byte[16 * 1024];
+            byte[] bytes;
+
+            using (Stream s = assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"))
+            {
+                if (s is MemoryStream)
+                {
+                    bytes = ((MemoryStream)s).ToArray();
+                }
+                else
+                {
+                    s.Position = 0;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        int read;
+                        while ((read = s.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            ms.Write(buffer, 0, read);
+                        }
+                        bytes = ms.ToArray();
+                    }
+                }
+            }
+
+            HttpResponseMessage response = new HttpResponseMessage
+            {
+                Content = new ByteArrayContent(bytes),
+                StatusCode = System.Net.HttpStatusCode.OK
+            };
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            return response;
         }
 
         #endregion

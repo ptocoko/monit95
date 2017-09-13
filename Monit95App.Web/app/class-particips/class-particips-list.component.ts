@@ -8,6 +8,8 @@ import { AddClassParticipModal } from './add-class-particip.modal';
 import { ParticipModel } from '../particip.model';
 import { ParticipService } from '../particip.service';
 import { ClassParticip } from "./ClassParticip";
+import { Http, Response, ResponseContentType } from "@angular/http";
+import 'rxjs/Rx';
 
 @Component({
 	templateUrl: './app/class-particips/class-particips-list.component.html',
@@ -40,7 +42,8 @@ export class ClassParticipsListComponent implements OnInit {
     constructor(
         private readonly accountService: AccountService,
         private readonly modal: Modal,
-        private readonly participService: ParticipService) {
+		private readonly participService: ParticipService,
+		private readonly http: Http) {
 
 	}
 
@@ -117,5 +120,16 @@ export class ClassParticipsListComponent implements OnInit {
 
 				})
 			});
+	}
+
+	downloadExcelTemplate() {
+		this.http.get('/api/ExcelFiles/GetExcelTemplate', { responseType: ResponseContentType.Blob }).subscribe(data => this.downloadFile(data));
+	}
+
+	downloadFile(data: Response) {
+		var a = document.createElement("a");
+		a.href = URL.createObjectURL(data.blob());
+		a.download = 'excel';
+		a.click();
 	}
 }

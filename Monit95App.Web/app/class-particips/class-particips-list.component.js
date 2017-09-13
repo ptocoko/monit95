@@ -16,11 +16,14 @@ var export_excel_modal_component_1 = require("./export-excel-modal.component");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var add_class_particip_modal_1 = require("./add-class-particip.modal");
 var particip_service_1 = require("../particip.service");
+var http_1 = require("@angular/http");
+require("rxjs/Rx");
 var ClassParticipsListComponent = (function () {
-    function ClassParticipsListComponent(accountService, modal, participService) {
+    function ClassParticipsListComponent(accountService, modal, participService, http) {
         this.accountService = accountService;
         this.modal = modal;
         this.participService = participService;
+        this.http = http;
         this.isLoading = true;
     }
     ClassParticipsListComponent.prototype.ngOnInit = function () {
@@ -96,6 +99,19 @@ var ClassParticipsListComponent = (function () {
             });
         });
     };
+    ClassParticipsListComponent.prototype.downloadExcelTemplate = function () {
+        var _this = this;
+        this.http.get('/api/ExcelFiles/GetExcelTemplate', { responseType: http_1.ResponseContentType.Blob }).subscribe(function (data) { return _this.downloadFile(data); });
+    };
+    ClassParticipsListComponent.prototype.downloadFile = function (data) {
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(data.blob());
+        a.download = 'excel';
+        a.click();
+        //var blob = new Blob([data.arrayBuffer()], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        //var url = window.URL.createObjectURL(blob);
+        //window.open(url, 'excel');
+    };
     return ClassParticipsListComponent;
 }());
 ClassParticipsListComponent = __decorate([
@@ -107,7 +123,8 @@ ClassParticipsListComponent = __decorate([
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService,
         bootstrap_1.Modal,
-        particip_service_1.ParticipService])
+        particip_service_1.ParticipService,
+        http_1.Http])
 ], ClassParticipsListComponent);
 exports.ClassParticipsListComponent = ClassParticipsListComponent;
 //# sourceMappingURL=class-particips-list.component.js.map
