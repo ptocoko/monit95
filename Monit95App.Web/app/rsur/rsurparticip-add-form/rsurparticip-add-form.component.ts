@@ -70,7 +70,8 @@ export class RsurParticipAddFormComponent implements OnInit {
     classNumbersTouched: boolean;
     newDay: number;
     newMonth: number;
-    newYear: number;    
+    newYear: number;
+    areaCodeWithNames: Array<any>;
 
     constructor(        
         private readonly router: Router,
@@ -91,7 +92,7 @@ export class RsurParticipAddFormComponent implements OnInit {
             "categoryId": new FormControl(),
             "rsurSubjectCode": new FormControl(),
             "birthday": new FormControl(),
-            "AreaCodeWithName": new FormControl()
+            "areaCodeWithName": new FormControl()
         });       
     }
 
@@ -99,7 +100,13 @@ export class RsurParticipAddFormComponent implements OnInit {
         this.schoolService.getAll()
             .subscribe((response: Response) => {
                 this.schools = response.json() as School[];
-                console.log(this.schools);
+                this.areaCodeWithNames = this.schools.map(({ AreaCodeWithName }) => AreaCodeWithName);
+                this.areaCodeWithNames = this.areaCodeWithNames.filter((el: any, index: any, array: any) => array.indexOf(el) === index);
+
+                //let uniqueArray = value.filter(function (el, index, array) {
+                //    return array.indexOf(el) == index;
+                //});
+                console.log(this.areaCodeWithNames);
             });
     }
 

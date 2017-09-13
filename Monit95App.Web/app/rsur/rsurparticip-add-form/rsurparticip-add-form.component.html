@@ -1,16 +1,30 @@
-﻿<form class="form-horizontal" [formGroup]="formGroup" novalidate (ngSubmit)="submit()">
-  
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Фамилия</label>
-        <div class="col-sm-10">
-            <input class="form-control" name="surname" formControlName="surname" />
-            <div class="alert alert-danger"
-                 *ngIf="formGroup.controls['surname'].invalid && formGroup.controls['surname'].touched">
-                Не указана фамилия
+﻿<form class="form-horizontal container" [formGroup]="formGroup" novalidate (ngSubmit)="submit()">
+    <div class="row">
+
+        <div class="form-group col-md-6">
+            <label class="col-sm-2 control-label">Фамилия</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="surname" formControlName="surname" />
+                <div class="alert alert-danger"
+                     *ngIf="formGroup.controls['surname'].invalid && formGroup.controls['surname'].touched">
+                    Не указана фамилия
+                </div>
             </div>
         </div>
+
+        <div class="form-group col-md-6">
+            <label class="col-sm-2 control-label">Фамилия</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="surname" formControlName="surname" />
+                <div class="alert alert-danger"
+                     *ngIf="formGroup.controls['surname'].invalid && formGroup.controls['surname'].touched">
+                    Не указана фамилия
+                </div>
+            </div>
+        </div>
+
     </div>
-   
+
     <div class="form-group">
         <label class="col-sm-2 control-label">Имя</label>
         <div class="col-sm-10">
@@ -59,7 +73,7 @@
                  *ngIf="formGroup.controls['experience'].invalid && formGroup.controls['experience'].touched">
                 Педагогический стаж должен быть в пределах 0-60 лет
             </div>
-        </div>        
+        </div>
     </div>
 
     <div class="form-group">
@@ -70,7 +84,7 @@
                  *ngIf="formGroup.controls['email'].invalid && formGroup.controls['email'].touched">
                 Некорректный email
             </div>
-        </div>       
+        </div>
     </div>
 
     <div class="form-group">
@@ -86,64 +100,66 @@
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Дата рождения</label>
-        <div class="col-sm-10 form-inline">            
-                <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="2" [ngModelOptions]="{standalone: true}"/>
-                <select name="month" class="form-control" [(ngModel)]="newMonth" [ngModelOptions]="{standalone: true}">
-                    <option value="-1" disabled selected>Mecяц</option>
-                    <option value="0">Январь</option>
-                    <option value="1">Февраль</option>
-                    <option value="2">Март</option>
-                    <option value="3">Апрель</option>
-                    <option value="4">Май</option>
-                    <option value="5">Июнь</option>
-                    <option value="6">Июль</option>
-                    <option value="7">Август</option>
-                    <option value="8">Сентябрь</option>
-                    <option value="9">Октябрь</option>
-                    <option value="10">Ноябрь</option>
-                    <option value="11">Декабрь</option>
-                </select>
-                <input name="year" type="text" placeholder="Год" size="4" [(ngModel)]="newYear" class="form-control" [ngModelOptions]="{standalone: true}"/>            
+        <div class="col-sm-10 form-inline">
+            <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="2" [ngModelOptions]="{standalone: true}" />
+            <select name="month" class="form-control" [(ngModel)]="newMonth" [ngModelOptions]="{standalone: true}">
+                <option value="-1" disabled selected>Mecяц</option>
+                <option value="0">Январь</option>
+                <option value="1">Февраль</option>
+                <option value="2">Март</option>
+                <option value="3">Апрель</option>
+                <option value="4">Май</option>
+                <option value="5">Июнь</option>
+                <option value="6">Июль</option>
+                <option value="7">Август</option>
+                <option value="8">Сентябрь</option>
+                <option value="9">Октябрь</option>
+                <option value="10">Ноябрь</option>
+                <option value="11">Декабрь</option>
+            </select>
+            <input name="year" type="text" placeholder="Год" size="4" [(ngModel)]="newYear" class="form-control" [ngModelOptions]="{standalone: true}" />
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Классы где ведет предмет</label>
         <div id="classes" class="col-sm-10 form-inline">
-            <label class="checkbox-inline"><input (change)="classesChange()" id="5" type="checkbox"/>5</label>
-            <label class="checkbox-inline"><input (change)="classesChange()" id="6" type="checkbox"/>6</label>
-            <label class="checkbox-inline"><input (change)="classesChange()" id="7" type="checkbox"/>7</label>
-            <label class="checkbox-inline"><input (change)="classesChange()" id="8" type="checkbox"/>8</label>
-            <label class="checkbox-inline"><input (change)="classesChange()" id="9" type="checkbox"/>9</label>
-            <label class="checkbox-inline"><input (change)="classesChange()" id="10" type="checkbox"/>10</label>
-            <label class="checkbox-inline"><input (change)="classesChange()" id="11" type="checkbox"/>11</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="5" type="checkbox" />5</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="6" type="checkbox" />6</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="7" type="checkbox" />7</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="8" type="checkbox" />8</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="9" type="checkbox" />9</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="10" type="checkbox" />10</label>
+            <label class="checkbox-inline"><input (change)="classesChange()" id="11" type="checkbox" />11</label>
         </div>
         <div class="alert alert-danger"
              *ngIf="particip.ClassNumbers == ''">
             Необходимо выбрать хотя бы один класс где учитель ведет урок по данному учебному предмету
         </div>
     </div>
-    
+
     <div class="form-group">
         <label class="col-sm-2 control-label">Место предыдущей работы</label>
-        <div class="radio">
-            <label><input type="radio" name="where" checked="checked">известно</label>                                     
-        </div>
+        <!--<div class="radio">
+            <label><input type="radio" name="where" checked="checked">известно</label>
+        </div>-->
+
         <div class="col-sm-10">
-            <select class="form-control" id="area" [(ngModel)]="areaCode" name="area" formControlName="AreaCodeWithName">
-                <option *ngFor="let school of schools | uniqFilter: 'AreaCodeWithName'" 
-                        [value]="school.AreaCodeWithName">{{school.AreaCodeWithName}}</option>
+            <select class="form-control" id="aaa" [(ngModel)]="aaa" name="aaa" formControlName="areaCodeWithName">
+                <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
             </select>
-        </div>  
+        </div>
+
+
         <!--<li *ngFor="let account of accounts | uniqFilter: 'accountNumber'">{{ account.accountNumber }}</li>-->
-        <div class="radio">
+        <!--<div class="radio">
             <label><input type="radio" name="where">не известно</label>
-        </div>         
+        </div>-->
     </div>
 
     <!--<div class="form-group">
         <label>Телефон</label>
-        <input class="form-control" name="phone" formControlName="userPhone" />
+        <input class="form-control" name="phone" formControlName="userPhone"/>
     </div>-->
 
     <div class="form-group">
@@ -151,4 +167,10 @@
             Отправить
         </button>
     </div>
+
+    <!--<div class="col-sm-10">
+        <select class="form-control" id="aaa" [(ngModel)]="aaa" name="aaa" formControlName="areaCodeWithName">
+            <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
+        </select>
+    </div>-->
 </form>

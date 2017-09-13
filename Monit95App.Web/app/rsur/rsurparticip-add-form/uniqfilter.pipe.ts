@@ -1,17 +1,20 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
 import { Injectable } from '@angular/core';
 
-declare var _: any; // lodash, not strictly typed
-
 @Pipe({
     name: 'uniqFilter',
     pure: false
 })
 @Injectable()
 export class UniqFilter implements PipeTransform {
-    transform(items: any[], args: any[]): any {
-        
-        // lodash uniqBy function
-        return _.uniqBy(items, args);
+    transform(items: any[], filter: Object): any {
+        //if (!items || !filter) {
+        //    return items;
+        //}
+
+        //var r: any;
+        //r.filter(
+        //// filter items array, items which match and return true will be kept, false will be filtered out
+        //return items.filter(item => item.AreaCodeWithName.indexOf(filter.Area) !== -1);
     }
 }

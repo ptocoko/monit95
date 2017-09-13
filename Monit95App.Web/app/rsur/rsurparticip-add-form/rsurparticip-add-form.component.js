@@ -68,7 +68,7 @@ var RsurParticipAddFormComponent = (function () {
             "categoryId": new forms_1.FormControl(),
             "rsurSubjectCode": new forms_1.FormControl(),
             "birthday": new forms_1.FormControl(),
-            "AreaCodeWithName": new forms_1.FormControl()
+            "areaCodeWithName": new forms_1.FormControl()
         });
     }
     RsurParticipAddFormComponent.prototype.ngOnInit = function () {
@@ -76,7 +76,15 @@ var RsurParticipAddFormComponent = (function () {
         this.schoolService.getAll()
             .subscribe(function (response) {
             _this.schools = response.json();
-            console.log(_this.schools);
+            _this.areaCodeWithNames = _this.schools.map(function (_a) {
+                var AreaCodeWithName = _a.AreaCodeWithName;
+                return AreaCodeWithName;
+            });
+            _this.areaCodeWithNames = _this.areaCodeWithNames.filter(function (el, index, array) { return array.indexOf(el) === index; });
+            //let uniqueArray = value.filter(function (el, index, array) {
+            //    return array.indexOf(el) == index;
+            //});
+            console.log(_this.areaCodeWithNames);
         });
     };
     RsurParticipAddFormComponent.prototype.save = function () {
