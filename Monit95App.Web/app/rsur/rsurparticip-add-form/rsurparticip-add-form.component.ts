@@ -7,14 +7,56 @@ import { RsurParticip } from '../rsurparticip';
 import { RsurParticipService } from '../rsurparticip.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
+export class AddRsurParticip {
+    public Code: number;
+    public Surname: string;
+    public Name: string;
+    public RsurSubjectCode: number;
+    public SchoolIdWithName: string;
+    public CategoryId: number;
+    public AreaCodeWithName: string;
+    public Birthday: Date;
+    public Experience: number;
+    public Phone: string;
+    public ClassNumbers: string;
+    public ActualCode: number;
+    public Email: string;
+    public SecondName?: string;
+    public SchoolIdFrom?: string;
+}
+
+export class Category {
+    Id: number;
+    Name: string;
+}
+
+export class RsurSubject {
+    Code: number;
+    Name: string;
+}
+
+const CATEGORIES: Category[] = [
+    { Id: 0, Name: 'Без категории' },
+    { Id: 1, Name: 'Первая категория' },
+    { Id: 2, Name: 'Высшая категория' }
+]
+
+const RSURSUBJECTS: RsurSubject[] = [
+    { Code: 1, Name: 'Русский язык' },
+    { Code: 2, Name: 'Математика' },
+    { Code: 7, Name: 'История' }
+]
+
 @Component({
     selector: 'rsurparticip-add-form',
     templateUrl: './app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=${new Date().getTime()}',      
     styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']
 })
 export class RsurParticipAddFormComponent implements OnInit {      
-    public particip: RsurParticip = new RsurParticip();    
+    public particip: AddRsurParticip = new AddRsurParticip();    
     formGroup: FormGroup;
+    categories: Category[] = CATEGORIES;
+    rsurSubjects: RsurSubject[] = RSURSUBJECTS;
 
     constructor(        
         private router: Router,
@@ -30,48 +72,11 @@ export class RsurParticipAddFormComponent implements OnInit {
                 Validators.required,
                 BasicValidators.email
             ]),  
-            "phone": new FormControl("", Validators.pattern("[0-9]{11}"))            
-        });
-        //this.form = formBuilder.group({
-        //    surname: ['', [
-        //        Validators.required,
-        //        Validators.minLength(3)
-        //    ]],
-        //    name: ['', [
-        //        Validators.required,
-        //        Validators.minLength(3)
-        //    ]],
-        //    secondName: ['', [                
-        //        Validators.minLength(3)
-        //    ]],
-        //    categoryId: ['', [
-        //        Validators.required,
-        //        Validators.minLength(3)
-        //    ]],
-        //    experience: ['', [
-        //        Validators.required                
-        //    ]],
-        //    email: ['', [
-        //        Validators.required,
-        //        BasicValidators.email
-        //        //Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-        //    ]],
-        //    phone: ['', [
-        //        Validators.required,
-        //        Validators.pattern('[0-9]')
-        //    ]],
-        //    rsurSubjectCode: ['', [
-        //        Validators.required                
-        //    ]],
-        //    birthday: ['', [
-        //        Validators.required
-        //    ]],
-        //    classNumbers: ['', [
-        //        Validators.required
-        //    ]],
-        //    schoolIdFrom: ['', [                
-        //    ]],
-        //});
+            "phone": new FormControl("", Validators.pattern("[0-9]{11}")),
+            "categoryId": new FormControl(),
+            "rsurSubjectCode": new FormControl(),
+            "birthday": new FormControl("", Validators.)
+        });       
     }
 
     ngOnInit() {

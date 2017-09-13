@@ -322,7 +322,6 @@
     <Content Include="app\class-particips\class-particips-list.component.html" />
     <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
     <Content Include="app\class-particips\export-excel-modal.component.html" />
-    <Content Include="app\rsur\add-form\add-modal-form.component.html" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component - Копировать.html" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />

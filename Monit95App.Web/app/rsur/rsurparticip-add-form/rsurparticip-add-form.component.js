@@ -12,66 +12,57 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var rsurparticip_1 = require("../rsurparticip");
 var rsurparticip_service_1 = require("../rsurparticip.service");
 var basic_validators_1 = require("../../shared/basic-validators");
+var AddRsurParticip = (function () {
+    function AddRsurParticip() {
+    }
+    return AddRsurParticip;
+}());
+exports.AddRsurParticip = AddRsurParticip;
+var Category = (function () {
+    function Category() {
+    }
+    return Category;
+}());
+exports.Category = Category;
+var RsurSubject = (function () {
+    function RsurSubject() {
+    }
+    return RsurSubject;
+}());
+exports.RsurSubject = RsurSubject;
+var CATEGORIES = [
+    { Id: 0, Name: 'Без категории' },
+    { Id: 1, Name: 'Первая категория' },
+    { Id: 2, Name: 'Высшая категория' }
+];
+var RSURSUBJECTS = [
+    { Code: 1, Name: 'Русский язык' },
+    { Code: 2, Name: 'Математика' },
+    { Code: 7, Name: 'История' }
+];
 var RsurParticipAddFormComponent = (function () {
     function RsurParticipAddFormComponent(router, route, rsurParticipService) {
         this.router = router;
         this.route = route;
         this.rsurParticipService = rsurParticipService;
-        this.particip = new rsurparticip_1.RsurParticip();
+        this.particip = new AddRsurParticip();
+        this.categories = CATEGORIES;
+        this.rsurSubjects = RSURSUBJECTS;
         this.formGroup = new forms_1.FormGroup({
             "surname": new forms_1.FormControl("", forms_1.Validators.required),
             "name": new forms_1.FormControl("", forms_1.Validators.required),
             "secondName": new forms_1.FormControl("", forms_1.Validators.minLength(3)),
-            "experience": new forms_1.FormControl("", [forms_1.Validators.required, forms_1.Validators.max(60)]),
+            "experience": new forms_1.FormControl("", [forms_1.Validators.required, forms_1.Validators.min(0), forms_1.Validators.max(60)]),
             "email": new forms_1.FormControl("", [
                 forms_1.Validators.required,
                 basic_validators_1.BasicValidators.email
             ]),
-            "phone": new forms_1.FormControl("", forms_1.Validators.pattern("[0-9]{11}"))
+            "phone": new forms_1.FormControl("", forms_1.Validators.pattern("[0-9]{11}")),
+            "categoryId": new forms_1.FormControl(),
+            "rsurSubjectCode": new forms_1.FormControl()
         });
-        //this.form = formBuilder.group({
-        //    surname: ['', [
-        //        Validators.required,
-        //        Validators.minLength(3)
-        //    ]],
-        //    name: ['', [
-        //        Validators.required,
-        //        Validators.minLength(3)
-        //    ]],
-        //    secondName: ['', [                
-        //        Validators.minLength(3)
-        //    ]],
-        //    categoryId: ['', [
-        //        Validators.required,
-        //        Validators.minLength(3)
-        //    ]],
-        //    experience: ['', [
-        //        Validators.required                
-        //    ]],
-        //    email: ['', [
-        //        Validators.required,
-        //        BasicValidators.email
-        //        //Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-        //    ]],
-        //    phone: ['', [
-        //        Validators.required,
-        //        Validators.pattern('[0-9]')
-        //    ]],
-        //    rsurSubjectCode: ['', [
-        //        Validators.required                
-        //    ]],
-        //    birthday: ['', [
-        //        Validators.required
-        //    ]],
-        //    classNumbers: ['', [
-        //        Validators.required
-        //    ]],
-        //    schoolIdFrom: ['', [                
-        //    ]],
-        //});
     }
     RsurParticipAddFormComponent.prototype.ngOnInit = function () {
         //var id = this.route.params.subscribe(params => {

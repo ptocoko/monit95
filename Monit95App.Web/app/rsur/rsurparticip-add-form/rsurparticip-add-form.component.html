@@ -1,29 +1,97 @@
-﻿<form [formGroup]="formGroup" novalidate (ngSubmit)="submit()">
+﻿<form class="form-horizontal" [formGroup]="formGroup" novalidate (ngSubmit)="submit()">
   
     <div class="form-group">
-        <label>Фамилия</label>
-        <input class="form-control" name="surname" formControlName="surname" />
-        <div class="alert alert-danger"
-             *ngIf="formGroup.controls['surname'].invalid && formGroup.controls['surname'].touched">
-            Не указана фамилия
+        <label class="col-sm-2 control-label">Фамилия</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="surname" formControlName="surname" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['surname'].invalid && formGroup.controls['surname'].touched">
+                Не указана фамилия
+            </div>
+        </div>
+    </div>
+   
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Имя</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="name" formControlName="name" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['name'].invalid && formGroup.controls['name'].touched">
+                Не указано имя
+            </div>
         </div>
     </div>
 
     <div class="form-group">
-        <label>Email</label>
-        <input class="form-control" name="email" formControlName="email" />
-        <div class="alert alert-danger"
-             *ngIf="formGroup.controls['email'].invalid && formGroup.controls['email'].touched">
-            Некорректный email
+        <label class="col-sm-2 control-label">Отчество</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="secondName" formControlName="secondName" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['secondName'].invalid && formGroup.controls['secondName'].touched">
+                Не указано отчество
+            </div>
         </div>
     </div>
 
     <div class="form-group">
-        <label>Педагогический стаж</label>
-        <input class="form-control" name="experience" formControlName="experience" />
-        <div class="alert alert-danger"
-             *ngIf="formGroup.controls['experience'].invalid && formGroup.controls['experience'].touched">
-            Педагогический стаж должен быть в пределах 0-60 лет
+        <label class="col-sm-2 control-label">Категория</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="categoryId" [(ngModel)]="particip.CategoryId" name="categoryId" formControlName="categoryId">
+                <option *ngFor="let category of categories" [value]="category.Id">{{category.Name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Предмет</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="rsurSubjectCode" [(ngModel)]="particip.RsurSubjectCode" name="rsurSubjectCode" formControlName="rsurSubjectCode">
+                <option *ngFor="let rsurSubject of rsurSubjects" [value]="rsurSubject.Code">{{rsurSubject.Name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Педагогический стаж</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="experience" formControlName="experience" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['experience'].invalid && formGroup.controls['experience'].touched">
+                Педагогический стаж должен быть в пределах 0-60 лет
+            </div>
+        </div>        
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="email" formControlName="email" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['email'].invalid && formGroup.controls['email'].touched">
+                Некорректный email
+            </div>
+        </div>       
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Телефон</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="phone" formControlName="phone" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['phone'].invalid && formGroup.controls['phone'].touched">
+                Мобильный телефон должен состоять из 11 цифр в формате 8XXXXXXXXXX
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Дата рождения</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="birthday" formControlName="birthday" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['birthday'].invalid && formGroup.controls['birthday'].touched">
+                Указан слишком малый или слишком высокий возвраст
+            </div>
         </div>
     </div>
 
@@ -31,6 +99,7 @@
         <label>Телефон</label>
         <input class="form-control" name="phone" formControlName="userPhone" />
     </div>-->
+
     <div class="form-group">
         <button class="btn btn-default" [disabled]="formGroup.invalid">
             Отправить
