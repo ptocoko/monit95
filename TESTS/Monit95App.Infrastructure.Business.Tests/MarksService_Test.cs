@@ -70,7 +70,7 @@ namespace Monit95App.Services.Tests
                 {
                     Id = 1,
                     ProjectTestId = 1,
-                    ParticipId = 1,
+                    ParticipId = 21,
                     Particip = new Particip
                     {
                         SchoolId = "0001"
@@ -80,7 +80,7 @@ namespace Monit95App.Services.Tests
                 {
                     Id = 2,
                     ProjectTestId = 1,
-                    ParticipId = 2,
+                    ParticipId = 12,
                     Particip = new Particip
                     {
                         SchoolId = "0001"
@@ -92,7 +92,7 @@ namespace Monit95App.Services.Tests
             {
                 new Particip
                 {
-                    Id = 2,
+                    Id = 12,
                     Surname = "Esambaev",
                     Name = "Husain",
                     SecondName = "Arbievich",
@@ -104,7 +104,7 @@ namespace Monit95App.Services.Tests
                 },
                 new Particip
                 {
-                    Id = 1,
+                    Id = 21,
                     Surname = "Shakhabov",
                     Name = "Adam",
                     SecondName = "...",
@@ -122,10 +122,6 @@ namespace Monit95App.Services.Tests
                 {
                     ParticipTestId = 1,
                     Marks = "1;2;3"
-                },
-                new Result
-                {
-                    ParticipTestId = 2
                 }
             }.AsQueryable();
             mockParticipTestRepo.GetAll().Returns(participTests);
