@@ -1,139 +1,125 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Response } from '@angular/http';
 
-import { RsurParticip } from '../rsurparticip';
-
+import { SchoolService } from '../../school.service';
 import { RsurParticipService } from '../rsurparticip.service';
+
 import { BasicValidators } from '../../shared/basic-validators';
 
+import { UniqFilter } from './uniqfilter.pipe';
+
 export class AddRsurParticip {
-    public Code: number;
-    public Surname: string;
-    public Name: string;
-    public RsurSubjectCode: number;
-    public SchoolIdWithName: string;
-    public CategoryId: number;
-    public AreaCodeWithName: string;
-    public Birthday: Date;
-    public Experience: number;
-    public Phone: string;
-    public ClassNumbers: string;
-    public ActualCode: number;
-    public Email: string;
-    public SecondName?: string;
-    public SchoolIdFrom?: string;
-}
-
-export class Category {
-    Id: number;
-    Name: string;
-}
-
-export class RsurSubject {
     Code: number;
+    Surname: string;
     Name: string;
+    RsurSubjectCode: number;
+    SchoolIdWithName: string;
+    CategoryId: number;
+    AreaCodeWithName: string;
+    Birthday: Date;
+    Experience: number;
+    Phone: string;
+    ClassNumbers: string;
+    ActualCode: number;
+    Email: string;
+    SecondName?: string;
+    SchoolIdFrom?: string;
 }
 
-const CATEGORIES: Category[] = [
+export class School {
+    Id: string;
+    SchoolIdWithName: string;
+    AreaCodeWithName: string;
+}
+
+//export class Category {
+//    Id: number;
+//    Name: string;
+//}
+
+//export class RsurSubject {
+//    Code: number;
+//    Name: string;
+//}
+
+const CATEGORIES: any[] = [
     { Id: 0, Name: 'Без категории' },
     { Id: 1, Name: 'Первая категория' },
     { Id: 2, Name: 'Высшая категория' }
-]
+];
 
-const RSURSUBJECTS: RsurSubject[] = [
+const RSURSUBJECTS: any[] = [
     { Code: 1, Name: 'Русский язык' },
     { Code: 2, Name: 'Математика' },
     { Code: 7, Name: 'История' }
-]
+];
 
 @Component({
     selector: 'rsurparticip-add-form',
     templateUrl: './app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=${new Date().getTime()}',      
-    styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']
+    styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']    
 })
 export class RsurParticipAddFormComponent implements OnInit {      
-    public particip: AddRsurParticip = new AddRsurParticip();    
+    particip = new AddRsurParticip();    
     formGroup: FormGroup;
-    categories: Category[] = CATEGORIES;
-    rsurSubjects: RsurSubject[] = RSURSUBJECTS;
+    categories = CATEGORIES;
+    rsurSubjects = RSURSUBJECTS;
+    schools: School[] = [];
+    classNumbersTouched: boolean;
     newDay: number;
     newMonth: number;
-    newYear: number;
+    newYear: number;    
 
     constructor(        
-        private router: Router,
-        private route: ActivatedRoute,
-        private rsurParticipService: RsurParticipService
+        private readonly router: Router,
+        private readonly route: ActivatedRoute,
+        private readonly rsurParticipService: RsurParticipService,
+        private readonly schoolService: SchoolService
     ) {
         this.formGroup = new FormGroup({
-            "surname": new FormControl("", Validators.required),
-            "name": new FormControl("", Validators.required),
-            "secondName": new FormControl("", Validators.minLength(3)),
-            "experience": new FormControl("", [Validators.required, Validators.min(0), Validators.max(60)]),
-            "email": new FormControl("", [
+            "surname": new FormControl('', Validators.required),
+            "name": new FormControl('', Validators.required),
+            "secondName": new FormControl('', Validators.minLength(3)),
+            "experience": new FormControl('', [Validators.required, Validators.min(0), Validators.max(60)]),
+            "email": new FormControl('', [
                 Validators.required,
                 BasicValidators.email
             ]),  
-            "phone": new FormControl("", Validators.pattern("[0-9]{11}")),
+            "phone": new FormControl('', Validators.pattern('[0-9]{11}')),
             "categoryId": new FormControl(),
             "rsurSubjectCode": new FormControl(),
-            "birthday": new FormControl()
+            "birthday": new FormControl(),
+            "AreaCodeWithName": new FormControl()
         });       
     }
 
-    ngOnInit() {
-        
-        //var id = this.route.params.subscribe(params => {
-        //    var id = params['id'];
-
-        //    this.title = id ? 'Edit User' : 'New User';
-
-        //    if (!id)
-        //        return;
-
-        //    this.usersService.getUser(id)
-        //        .subscribe(
-        //        user => this.user = user,
-        //        response => {
-        //            if (response.status == 404) {
-        //                this.router.navigate(['NotFound']);
-        //            }
-        //        });
-        //});
+    ngOnInit() {                  
+        this.schoolService.getAll()
+            .subscribe((response: Response) => {
+                this.schools = response.json() as School[];
+                console.log(this.schools);
+            });
     }
 
     save() {
         this.rsurParticipService.createParticip(this.formGroup.value).
             subscribe(data => this.router.navigate(['rsurparticips']));        
-
-        //var result,
-        //    userValue = this.form.value;
-
-        //if (userValue.id) {
-        //    result = this.usersService.updateUser(userValue);
-        //} else {
-        //    result = this.usersService.addUser(userValue);
-        //}
-
-        //result.subscribe(data => this.router.navigate(['users']));
     }
 
-    classesChange() { //TODO: remove this method
-        console.log(this.getClassesString());
-    }
-
-    getClassesString(): string {
-        let res: string = '';
-        var checkboxes = $('#classes').find(':checkbox:checked');
-        checkboxes.each(function (i, elem) {
-            res += elem.id + ';';
+    classesChange(): void {
+        console.log(this.particip.ClassNumbers);
+        this.classNumbersTouched = true;
+        this.particip.ClassNumbers = '';
+        const checkboxes = $('#classes').find(':checkbox:checked');
+        checkboxes.each((index, element) => {
+            this.particip.ClassNumbers += element.id + ';';
         });
-        if (res.length > 0) {
-            res = res.slice(0, res.length - 2);
-            return res;
+        if (this.particip.ClassNumbers.length > 0) {
+            this.particip.ClassNumbers = this.particip.ClassNumbers.slice(0, this.particip.ClassNumbers.length - 1);            
         }
-        else
-            return null;
+
+        console.log(this.particip.ClassNumbers);
     }
 }

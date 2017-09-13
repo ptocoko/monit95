@@ -33,6 +33,7 @@ var class_particip_marks_component_1 = require("./class-particips/class-particip
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
 var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
+var school_service_1 = require("./school.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");
 var marks_service_1 = require("./rsur/marks/marks.service");
@@ -41,6 +42,7 @@ var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 var particip_filter_pipe_1 = require("./particip-filter.pipe");
+var uniqfilter_pipe_1 = require("./rsur/rsurparticip-add-form/uniqfilter.pipe");
 // Additional 
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
@@ -72,6 +74,7 @@ AppModule = __decorate([
             particip_filter_pipe_1.ParticipFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
+            uniqfilter_pipe_1.UniqFilter,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,
@@ -84,7 +87,13 @@ AppModule = __decorate([
             class_particip_marks_component_1.ClassParticipMarksComponent
         ],
         providers: [
-            account_service_1.AccountService, rsurparticip_service_1.RsurParticipService, particip_correction_service_1.ParticipCorrectionService, class_service_1.ClassService, particip_service_1.ParticipService, marks_service_1.MarksService,
+            account_service_1.AccountService,
+            rsurparticip_service_1.RsurParticipService,
+            school_service_1.SchoolService,
+            particip_correction_service_1.ParticipCorrectionService,
+            class_service_1.ClassService,
+            particip_service_1.ParticipService,
+            marks_service_1.MarksService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

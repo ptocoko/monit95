@@ -28,6 +28,7 @@ import { ClassParticipMarksComponent } from './class-particips/class-particip-ma
 import { AccountService } from './account/account.service';
 import { ParticipService } from './particip.service';
 import { RsurParticipService } from './rsur/rsurparticip.service';
+import { SchoolService } from './school.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
 import { MarksService } from './rsur/marks/marks.service';
@@ -37,6 +38,7 @@ import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
+import { UniqFilter } from './rsur/rsurparticip-add-form/uniqfilter.pipe';
 
 // Additional 
 import { routing } from './app.routing';
@@ -65,7 +67,8 @@ import { GlobalErrorHandler } from './error-handler';
 		RsurParticipFilterPipe,
 		ParticipFilterPipe,
 		LimitToPipe,
-		ParticipsWithoutDetailsPipe,
+        ParticipsWithoutDetailsPipe,
+        UniqFilter,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,		
@@ -78,7 +81,13 @@ import { GlobalErrorHandler } from './error-handler';
 		ClassParticipMarksComponent
 	],
 	providers: [
-        AccountService, RsurParticipService, ParticipCorrectionService, ClassService, ParticipService, MarksService,
+        AccountService,
+        RsurParticipService,
+        SchoolService,
+        ParticipCorrectionService,
+        ClassService,
+        ParticipService,
+        MarksService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

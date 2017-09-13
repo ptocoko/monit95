@@ -6,7 +6,9 @@ using Monit95App.Web.Services;
 
 // ReSharper disable CheckNamespace
 namespace Monit95App.Web.Api
-{    
+{
+    using Monit95App.Services.DTOs;
+
     [Authorize(Roles = "coko, school")]
     [RoutePrefix("api/schools")]
     public class SchoolsController : ApiController
@@ -26,16 +28,23 @@ namespace Monit95App.Web.Api
 
         #region APIs
 
+        [HttpGet]
+        [Route("")]
+        public IHttpActionResult GetAll()
+        {
+            return this.Ok(this._schoolService.GetAll());
+        }
+
         [HttpPut]
         [Route("{id:length(4)}")]
-        public IHttpActionResult Put([FromBody] SchoolModel model)
+        public IHttpActionResult Put([FromBody] SchoolDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            return Ok(model);
+            return Ok(dto);
         }
 
         #endregion     

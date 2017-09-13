@@ -563,6 +563,8 @@
     <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
+    <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\uniqfilter.pipe.ts" />
+    <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.mock.ts" />

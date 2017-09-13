@@ -54,8 +54,8 @@ namespace Monit95App.Infrastructure.BusinessTests
             var model = _schoolService.GetModel("0001");
 
             //Assert
-            Assert.AreEqual(_school.Name, model.Name);
-            Assert.AreEqual("205 - г. Грозный", model.AreaName);
+            Assert.AreEqual(_school.Name, model.SchoolIdWithName);
+            Assert.AreEqual("205 - г. Грозный", model.AreaCodeWithName);
             Assert.AreEqual(model.HasNameCorrection, true);
         }   
 
