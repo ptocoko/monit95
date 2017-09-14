@@ -21,7 +21,7 @@ import { ParticipCorrectionComponent } from './rsur/correction/particip-correcti
 import { AddClassParticipModal } from './class-particips/add-class-particip.modal';
 import { ExportExcelModal } from './class-particips/excel-export/export-excel-modal.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
-import { ClassParticipMarksComponent } from './class-particips/class-particip-marks.component';
+import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
 
 // Services
