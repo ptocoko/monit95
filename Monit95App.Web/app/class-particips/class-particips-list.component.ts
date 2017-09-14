@@ -1,36 +1,17 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../account/account.service';
 import { Account } from '../account/account';
-import { overlayConfigFactory } from 'angular2-modal';
-import { ExportExcelModal, ExportExcelModalData } from './export-excel-modal.component';
 import { BSModalContext, Modal } from 'angular2-modal/plugins/bootstrap';
+import { overlayConfigFactory } from 'angular2-modal';
 import { AddClassParticipModal } from './add-class-particip.modal';
-import { ParticipModel } from '../particip.model';
 import { ParticipService } from '../particip.service';
 import { ClassParticip } from "./ClassParticip";
+import { Http } from "@angular/http";
+
+const PROJECT_ID: number = 1;
 
 @Component({
-	templateUrl: './app/class-particips/class-particips-list.component.html',
-	styles: [
-		  `.fileUploader {
-				overflow: hidden;
-				position: relative;
-			}
-
-			.fileUploader [type=file] {
-				cursor: inherit;
-				display: block;
-				font-size: 999px;
-				filter: alpha(opacity=0);
-				min-height: 100%;
-				min-width: 100%;
-				opacity: 0;
-				position: absolute;
-				right: 0;
-				text-align: right;
-				top: 0;
-			}`
-	]
+	templateUrl: './app/class-particips/class-particips-list.component.html'
 })
 export class ClassParticipsListComponent implements OnInit {
 	classParticips: ClassParticip[];
@@ -39,44 +20,29 @@ export class ClassParticipsListComponent implements OnInit {
 
     constructor(
         private readonly accountService: AccountService,
-        private readonly modal: Modal,
-        private readonly participService: ParticipService) {
+		private readonly participService: ParticipService,
+		private readonly modal: Modal,
+		private readonly http: Http) {
 
 	}
 
 	ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
             this.account = data.json() as Account;
-            this.participService.getAll(1).subscribe(res => {
+            this.participService.getAll(PROJECT_ID).subscribe(res => {
 				this.classParticips = res.json() as ClassParticip[];
 				this.classParticips.forEach((val, i, arr) => {
 					if (val.Birthday) {
 						val.Birthday = new Date(val.Birthday);
 					}
-				})
+				});
 				this.isLoading = false;
 			});
 		});
 	}
 
-	exportParticips(event: any) {
-		let file: File = event.target.files[0];
-		if (file.name.split('.').pop() === 'xlsx') {
-			this.modal.open(ExportExcelModal, overlayConfigFactory({ file: file, size: 'lg'}, BSModalContext)).then(modal => {
-				modal.result.then(result => {
-					this.participService.getAll(1).subscribe(res => {
-						this.classParticips = res.json() as ClassParticip[];
-						//TODO: reset upload button
-					});
-				}).catch(data => {
-					//console.log(data);
-				})
-			})
-		}
-	}
-
 	addClassParticip() {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false, schoolId: this.account.UserName, projectId: 1 }, BSModalContext)).then(dialog => {
+		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false, schoolId: this.account.UserName, projectId: PROJECT_ID }, BSModalContext)).then(dialog => {
 			dialog.result.then(classParticip => {
 				if (classParticip) {
 					this.classParticips.push(classParticip);
@@ -90,7 +56,6 @@ export class ClassParticipsListComponent implements OnInit {
 		let index = this.classParticips.indexOf(classParticip);
 		this.modal.open(AddClassParticipModal, overlayConfigFactory({
 			isUpdate: true,
-			schoolId: this.account.UserName,
 			particip: Object.assign({}, classParticip)
 		}, BSModalContext))
 			.then(dialog => {

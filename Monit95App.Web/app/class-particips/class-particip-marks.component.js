@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var marks_service_1 = require("../rsur/marks/marks.service");
 var particip_service_1 = require("../particip.service");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
+var PROJECT_TEST_ID = 11;
 var ClassParticipMarksComponent = (function () {
     function ClassParticipMarksComponent(marksService, participService, modal) {
         this.marksService = marksService;
@@ -22,7 +23,7 @@ var ClassParticipMarksComponent = (function () {
     }
     ClassParticipMarksComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.marksService.getAll(1).subscribe(function (res) {
+        this.marksService.getAll(PROJECT_TEST_ID).subscribe(function (res) {
             _this.particips = res.json();
         });
     };

@@ -41,15 +41,13 @@ var AddClassParticipModal = (function () {
         this.classService = classService;
         this.participService = participService;
         this.isUpdate = dialog.context.isUpdate;
+        this.newMonth = -1;
         if (this.isUpdate) {
             this.particip = dialog.context.particip;
             if (this.particip.Birthday) {
                 this.newDay = this.particip.Birthday.getDate();
                 this.newMonth = this.particip.Birthday.getMonth();
                 this.newYear = this.particip.Birthday.getFullYear();
-            }
-            else {
-                this.newMonth = -1;
             }
             this.actionText = "Изменить";
         }
@@ -73,6 +71,9 @@ var AddClassParticipModal = (function () {
     };
     AddClassParticipModal.prototype.onSubmit = function () {
         var _this = this;
+        if (this.newMonth === -1) {
+            this.newMonth = 0;
+        }
         this.particip.Birthday = new Date(this.newYear, this.newMonth, this.newDay);
         if (this.isUpdate) {
             this.participService.updateParticip(this.particip).subscribe(function (res) {

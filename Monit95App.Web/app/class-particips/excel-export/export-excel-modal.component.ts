@@ -13,7 +13,7 @@ export class ExportExcelModalData extends BSModalContext {
 			padding: 15px;
 		}
 	`],
-	templateUrl: './app/class-particips/export-excel-modal.component.html'
+	templateUrl: './app/class-particips/excel-export/export-excel-modal.component.html'
 })
 export class ExportExcelModal implements CloseGuard, ModalComponent<ExportExcelModalData>, OnInit {
 	exportedFile: File;
@@ -31,10 +31,6 @@ export class ExportExcelModal implements CloseGuard, ModalComponent<ExportExcelM
 
 		this.http.post('/api/ExcelFiles/Upload', formData).subscribe(res => {
 			this.exportResults = res.json();
-			console.log(this.exportResults);
-
-			
-
 			this.isExporting = false;
 		})
 	}

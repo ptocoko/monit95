@@ -56,48 +56,24 @@ namespace Monit95App.Services
             {
                 throw new ArgumentNullException(nameof(schoolId));
             }
-            throw new NotImplementedException();
-            //var entities = _resultRepository.GetAll().Where(x => x.ParticipTest.ProjectTestId == projectTestId
-            //&& x.ParticipTest.Particip.SchoolId == schoolId)
-            //.ToList();
-            //if (!entities.Any())
-            //{
-            //    throw new ArgumentException("projectTestId or schoolId is incorrect");
-            //}
 
-            //Mapper.Initialize(cfg => cfg.CreateMap<Result, ParticipMarksDto>()
-            //        .ForMember(dist => dist.Surname, opt => opt.MapFrom(src => src.ParticipTest.Particip.Surname))
-            //        .ForMember(dist => dist.Name, opt => opt.MapFrom(src => src.ParticipTest.Particip.Name))
-            //        .ForMember(dist => dist.SecondName, opt => opt.MapFrom(src => src.ParticipTest.Particip.SecondName))
-            //    .ForMember(dist => dist.ClassName, opt => opt.MapFrom(src => src.ParticipTest.Particip.Class.Name)));
+            var dtos = from participTest in _participTestRepository.GetAll()
+                       where participTest.ProjectTestId == projectTestId && participTest.Particip.SchoolId == schoolId
+                       join particip in _participRepository.GetAll() on participTest.ParticipId equals particip.Id
+                       join a in _resultRepository.GetAll() on participTest.Id equals a.ParticipTestId
+                       into b
+                       from result in b.DefaultIfEmpty()
+                       select new ParticipMarksDto
+                       {
+                           ParticipTestId = participTest.Id,
+                           Surname = particip.Surname,
+                           Name = particip.Name,
+                           SecondName = particip.SecondName,
+                           ClassName = particip.Class.Name,
+                           Marks = result == null ? null : result.Marks
+                       };
 
-            //var dtos = Mapper.Map<IEnumerable<Result>, List<ParticipMarksDto>>(entities);
-
-            /////////////////////////////////////////////////////////////////////////////
-
-            //var dtos = from particips in _participRepository.GetAll()
-            //           where particips.ProjectId == projectTestId && particips.SchoolId == schoolId
-            //           join participTest in _participTestRepository.GetAll() on particips.Id equals participTest.ParticipId
-            //           into a
-            //           from participMarks in a.DefaultIfEmpty()
-            //           select new ParticipMarksDto
-            //           {
-            //               ParticipTestId = participMarks.Id,
-            //               Surname = particips.Surname,
-            //               Name = particips.Name,
-            //               SecondName = particips.SecondName,
-            //               ClassName = particips.Class.Name,
-            //               Marks = participMarks.Result.Marks
-            //           };
-
-            ///////////////////////////////////////////////////////////////////////////////////
-
-            //var dtos = _participTestRepository.GetAll().Where(p => p.ProjectTestId == projectTestId && p.Particip.SchoolId == schoolId).ToList();
-
-            //Mapper.Initialize(cfg => cfg.CreateMap<ParticipTest, ParticipMarksDto>()
-            //    .ForMember(dest => dest.Marks, opt => opt.Al));
-            //return dtos;
-
+            return dtos.ToList();
         }
 
         public void Update(int participTestId, PutMarksDto dto)

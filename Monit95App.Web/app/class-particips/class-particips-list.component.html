@@ -1,17 +1,16 @@
 ﻿<h1>Сбор информации об учащихся 1-х классов</h1>
+<hr />
 <div *ngIf="isLoading">Загрузка...</div>
 <div *ngIf="!isLoading">
-    <hr />
     <div style="display:flex;flex-direction:row;justify-content:space-between">
         <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..."/>
 
-        <div style="display:flex;flex-direction:row;text-align:right">
-            <button style="margin-right:15px" class="btn btn-default" (click)="addClassParticip()">Добавить ученика...</button>
-            <label class="fileUploader btn btn-default">
+        <div class="pull-right">
+            <button class="btn btn-default" (click)="addClassParticip()">Добавить ученика...</button>
+            <button class="btn btn-default" routerLink="/class-particips/upload-excel">
                 <i class="fa fa-file-excel-o fa-lg"></i>
-                Отправить в .xlsx...
-                <input class="form-control" type="file" (change)="exportParticips($event)" placeholder="Отправить из .XLSX" accept=".xlsx" value="Отправить из .XLSX" />
-            </label>
+                 Добавить из .xlsx...
+            </button>
         </div>
     </div>
     <br />
