@@ -70,7 +70,7 @@ namespace Monit95App.Services
                            Name = particip.Name,
                            SecondName = particip.SecondName,
                            ClassName = particip.Class.Name,
-                           Marks = result.Marks
+                           Marks = result == null ? null : result.Marks
                        };
 
             return dtos.ToList();

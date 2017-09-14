@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 	}
 
 	onActivate(event: any) {
-		if (event.constructor.name === 'ClassParticipsListComponent') {
+		if (['ClassParticipsListComponent', 'ClassParticipsExportExcelComponent'].indexOf(event.constructor.name) !== -1) {
 			this.isRsur = false;
 		}
 		else {

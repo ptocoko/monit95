@@ -321,8 +321,9 @@
     <Content Include="app\class-particips\class-particip-marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
     <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
-    <Content Include="app\class-particips\export-excel-modal.component.html" />
-    <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.css" />
+    <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
+    <Content Include="app\class-particips\excel-export\export-excel.component.html" />
+    <Content Include="app\rsur\add-form\add-modal-form.component.html" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />
     <Content Include="app\rsur\correction\particip-correction.html" />
     <Content Include="app\rsur\details\particip-details.html" />
@@ -391,6 +392,7 @@
     <Content Include="Content\site.css" />
     <Content Include="Images\check_no.png" />
     <Content Include="Images\check_yes.png" />
+    <EmbeddedResource Include="Images\excel-template.jpg" />
     <Content Include="Images\image.jpg" />
     <Content Include="Images\new_back.png" />
     <Content Include="Images\new_back2.png" />
@@ -556,15 +558,14 @@
     <TypeScriptCompile Include="app\class-particips\class-particip-marks.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
     <TypeScriptCompile Include="app\class-particips\ClassParticip.ts" />
-    <TypeScriptCompile Include="app\class-particips\export-excel-modal.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\excel-export\export-excel-modal.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\excel-export\export-excel.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
-    <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\uniqfilter.pipe.ts" />
-    <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.mock.ts" />

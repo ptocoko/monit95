@@ -1,0 +1,24 @@
+﻿<div style="display:flex;flex-direction:row;align-items:center">
+    <button style="margin-right:20px" class="btn btn-default btn-lg" routerLink="/class-particips">
+        <span class="glyphicon glyphicon-chevron-left"></span> Назад к списку
+    </button>
+    <h1 style="display:inline-block">Добавление учеников из excel</h1>
+</div>
+<div style="display:inline-block">
+    <h3 class="text-center"><span class="glyphicon glyphicon-info-sign"></span> Внимание!</h3>
+    <p class="lead">Для экспорта данных из excel-документа скачайте образец документа по ссылке ниже, заполните его начиная со второй строки согласно описанию в заголовках, и отправьте на сайт с помощью кнопки "Отправить .xlsx". </p>
+    <p class="lead">По всем вопросам обращаться в группу техподдержки!</p>
+    <br />
+    <p class="text-center text-muted"><i>Пример заполнения excel-документа.</i></p>
+    <img class="img-responsive center-block img-thumbnail" src="../../../Images/excel-template.jpg" />
+    <br />
+    <br />
+    <div class="pull-right">
+        <button class="btn btn-default" (click)="downloadExcelTemplate()">Скачать образец</button>
+        <label class="fileUploader btn btn-default">
+            <i class="fa fa-file-excel-o fa-lg"></i>
+            Отправить .xlsx...
+            <input class="form-control" type="file" (change)="exportParticips($event)" placeholder="Добавить из .XLSX" accept=".xlsx" value="Добавить из .XLSX" />
+        </label>
+    </div>
+</div>

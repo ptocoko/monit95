@@ -20,9 +20,10 @@ import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
 import { AddClassParticipModal } from './class-particips/add-class-particip.modal';
-import { ExportExcelModal } from './class-particips/export-excel-modal.component';
+import { ExportExcelModal } from './class-particips/excel-export/export-excel-modal.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/class-particip-marks.component';
+import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
 
 // Services
 import { AccountService } from './account/account.service';
@@ -78,7 +79,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ClassParticipsListComponent,
 		ExportExcelModal,
 		AddClassParticipModal,
-		ClassParticipMarksComponent
+		ClassParticipMarksComponent,
+		ClassParticipsExportExcelComponent
 	],
 	providers: [
         AccountService,
