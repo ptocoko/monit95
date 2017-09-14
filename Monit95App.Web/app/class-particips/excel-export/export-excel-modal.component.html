@@ -9,7 +9,7 @@
         <div class="col-xs-12" *ngIf="exportResults.HasRowsWithError">
             <div class="jumbotron">
                 <h2>Внимание!</h2>
-                <p>Данные из строк <b>{{exportResults.RowNumbersWithError?.join(', ')}}</b> содержат ошибки и не были добавлены в базу!</p>
+                <p ngIf="exportResults.RowNumbersWithError">Данные из строк под номерами: <b>{{exportResults.RowNumbersWithError?.join(', ')}}</b> содержат ошибки и не были добавлены в базу!</p>
                 <div *ngIf="exportResults.RepetitionNames">
                     <p>Обнаружена попытка добавления уже имеющихся в базе участников.</p>
                     <a style="text-decoration:underline;cursor:pointer" data-toggle="collapse" data-target="#repetitions">Показать повторяющиеся данные <span class="caret"></span></a>

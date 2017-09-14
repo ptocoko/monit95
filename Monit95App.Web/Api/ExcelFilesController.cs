@@ -24,6 +24,8 @@ namespace Monit95App.Web.Api
         private readonly IClassParticipConverter _classParticipConverter;
         private readonly IParticipService _participService;
 
+        private readonly List<int> CLASS_NUMBERS = new List<int> { 1 };
+
         #endregion
 
         public ExcelFilesController(IClassParticipImporter classParticipImporter,
@@ -56,7 +58,7 @@ namespace Monit95App.Web.Api
             var stream = httpPostedFile.InputStream;
             stream.Position = 0;
 
-            var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, new List<int> { 1 });
+            var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, CLASS_NUMBERS);
             bool hasRowsWithError = rowNumbersWithError != null;
             var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 1);
 
@@ -94,7 +96,7 @@ namespace Monit95App.Web.Api
             var buffer = new byte[16 * 1024];
             byte[] bytes;
 
-            using (Stream s = assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"))
+            using (Stream s = assembly.GetManifestResourceStream("Monit95App.Services.Resource.template.xlsx"))
             {
                 if (s is MemoryStream)
                 {
