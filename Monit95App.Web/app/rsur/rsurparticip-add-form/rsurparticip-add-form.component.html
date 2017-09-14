@@ -149,11 +149,11 @@
             <label class="col-sm-4 control-label">Место предыдущей работы</label>
             <div class="col-sm-8">
                 <div class="radio">
-                    <label><input type="radio" name="where" [(ngModel)]="radioValue" value="yes" checked="checked"
+                    <label><input type="radio" name="where" [(ngModel)]="radioValue" [value]="1"
                                   [ngModelOptions]="{standalone: true}"> известно</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio" name="where" [(ngModel)]="radioValue" value="no" checked="checked"
+                    <label><input type="radio" name="where" [(ngModel)]="radioValue" [value]="0"
                                   [ngModelOptions]="{standalone: true}"> не известно</label>
                 </div>
             </div>
@@ -166,7 +166,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="radioValue == 'yes'">
+    <div class="row" *ngIf="radioValue == 1">
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Район:</label>
             <div class="col-sm-8">

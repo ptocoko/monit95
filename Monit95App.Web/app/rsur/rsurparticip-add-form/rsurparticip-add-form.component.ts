@@ -25,7 +25,7 @@ export class AddRsurParticip {
     ActualCode: number;
     Email: string;
     SecondName?: string;
-    SchoolIdFrom?: string;
+    SchoolIdFrom?: string;    
 }
 
 export class School {
@@ -72,6 +72,7 @@ export class RsurParticipAddFormComponent implements OnInit {
     newMonth: number;
     newYear: number;
     areaCodeWithNames: Array<any>;
+    radioValue: number;
 
     constructor(        
         private readonly router: Router,
@@ -96,7 +97,8 @@ export class RsurParticipAddFormComponent implements OnInit {
         });       
     }
 
-    ngOnInit() {                  
+    ngOnInit() {   
+        this.radioValue = 1;
         this.schoolService.getAll()
             .subscribe((response: Response) => {
                 this.schools = response.json() as School[];

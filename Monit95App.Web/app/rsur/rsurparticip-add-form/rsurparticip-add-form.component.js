@@ -73,6 +73,7 @@ var RsurParticipAddFormComponent = (function () {
     }
     RsurParticipAddFormComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.radioValue = 1;
         this.schoolService.getAll()
             .subscribe(function (response) {
             _this.schools = response.json();
