@@ -2,10 +2,16 @@
 
 namespace Monit95App.Services.Interfaces
 {
+    using System.Collections.Generic;
+
+    using Monit95App.Services.DTOs;
+
     public interface ISchoolService
     {
-        SchoolModel GetModel(string id);
+        SchoolDto GetModel(string id);
 
-        void Update(string schoolId, SchoolModel model, bool isAdmin);
+        IEnumerable<SchoolDto> GetAll();
+
+        void Update(string schoolId, SchoolDto dto, bool isAdmin);
     }
 }

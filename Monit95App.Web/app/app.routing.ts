@@ -13,7 +13,7 @@ import { ClassParticipsExportExcelComponent } from "./class-particips/excel-expo
 
 const appRoutes: Routes = [
     { path: 'rsurparticips', component: RsurParticipComponent },
-    //{ path: 'rsurparticips/new', component: RsurParticipAddFormComponent },
+    { path: 'rsurparticips/new', component: RsurParticipAddFormComponent },
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },    

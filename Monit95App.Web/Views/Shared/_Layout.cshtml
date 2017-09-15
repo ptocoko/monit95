@@ -1,22 +1,22 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>    
+<head>
     <style>
         /*Рамка вокруг форм*/
         .class1 {
             border: 1px solid red;
             padding: 10px;
-            display: inline-block;            
+            display: inline-block;
         }
 
         .navbar-nav a.active {
             background-color: #e7e7e7 !important;
             color: #555 !important;
         }
-         
-        .actual {            
+
+        .actual {
             color: burlywood; /*желтый цвет*/
-        }        
+        }
 
         .myLi {
             list-style-image: url(../../Images/check_yes.png); /* Путь к файлу с маркером */
@@ -79,19 +79,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title – Monit95</title>
-        
-    @Scripts.Render("~/bundles/modernizr")        
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")    
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryui")            
-    @Scripts.Render("~/bundles/ajax")                     
 
-    @Styles.Render("~/Content/css")                 
-    <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />    
-    <link href='@Url.Content("~/Content/site.css")' rel="stylesheet" type="text/css" />    
-    <link href='@Url.Content("~/Content/mystyle.css")' rel="stylesheet" type="text/css" />    
-    <link href='@Url.Content("~/Content/font-awesome.css")' rel="stylesheet" type="text/css" />        
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/ajax")
+
+    @Styles.Render("~/Content/css")
+    <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/Content/site.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/Content/mystyle.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/Content/font-awesome.css")' rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -104,12 +104,24 @@
                 </button>
                 @Html.ActionLink("Главная", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">                
-                <ul class="nav navbar-nav">                    
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    @*<li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
+                        <li><a href="rsur/spa#class-particips">Первые классы</a></li>*@
+
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
-                    <li><a href="rsur/spa#class-particips">Первые классы</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Проекты
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
+                                <li><a href="rsur/spa#class-particips">Готовность 1-х классов</a></li>
+                            </ul>
+                        </li>
                     }
                     @if (User.IsInRole("coko"))
                     {
@@ -117,10 +129,10 @@
                         <li>@Html.ActionLink(@"Коррекции", "Corrections", "Home")</li>
                     }
                     @if (User.IsInRole("school"))
-                    {                        
+                    {
                         @*<li>@Html.ActionLink(@"Информация", "Schoolinfo", "Home")</li>*@
-                        <li>@Html.ActionLink("Файлы", "Report", "Report")</li>                     
-                    }                  
+                        <li>@Html.ActionLink("Файлы", "Report", "Report")</li>
+                    }
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -134,15 +146,15 @@
 
     </div>
     <div class="container body-content">
-        @RenderBody()        
-        <hr />        
-        
+        @RenderBody()
+        <hr />
+
         <footer>
-            <p>Логин: @User.Identity.Name</p>            
+            <p>Логин: @User.Identity.Name</p>
             <p>&copy; 2015-@DateTime.Now.Year, Monit95App v1.1.0</p>
         </footer>
-    </div>            
-           
+    </div>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

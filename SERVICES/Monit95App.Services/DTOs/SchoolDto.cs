@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Monit95App.Services.School
-{
-    public class SchoolModel
+namespace Monit95App.Services.DTOs
+{    
+    public class SchoolDto
     {
         [Display(Name = "Логин на сайте www.monit95.ru:")]
         public string Id { get; set; }
 
         [Required]
         [Display(Name = "Краткое наименование:")]
-        public string Name { get; set; }       
+        public string SchoolIdWithName { get; set; }       
 
         [Display(Name = "Район:")]
-        public string AreaName { get; set; }
+        public string AreaCodeWithName { get; set; }
 
         [Display(Name = "Тип населенного пункта:")]
         public string TownTypeName { get; set; }
@@ -21,8 +21,7 @@ namespace Monit95App.Services.School
         [Display(Name = "Email:")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
-        #warning отображение телефона
+        
         [Required]
         [Display(Name = "Телефон:")]
         public string Phone { get; set; }

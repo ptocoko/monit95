@@ -1,83 +1,188 @@
-﻿<h5>Новый участник</h5>
-<div class="row">
-    <form materialize class="col s12" [formGroup]="form" (ngSubmit)="save()">
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="name" type="text" class="validate"
-                       [(ngModel)]="particip.surname" formControlName="surname"
-                       [class.invalid]="form.controls['surname'].touched && !form.controls['surname'].valid">
-                <label for="surname"
-                       [class.active]="particip.surname"
-                       data-error="Фамилия должна состоять минимум из 3 символов">
-                    Фамилия
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">Email</i>
-                <input id="email" type="email" class="validate"
-                       [(ngModel)]="particip.email" formControlName="email"
-                       [class.invalid]="form.controls['email'].touched && !form.controls['email'].valid">
-                <label for="email"
-                       [class.active]="particip.email"
-                       data-error="Некорректынй Email">
-                    Email
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">Телефон</i>
-                <input id="phone" type="text" class="validate"
-                       [(ngModel)]="particip.phone" formControlName="phone">
-                <label for="phone" [class.active]="user.phone">Phone</label>
-            </div>
-        </div>
-        <div formGroupName="address">
-            <div class="row">
-                <div class="input-field col s8">
-                    <i class="material-icons prefix">place</i>
-                    <input id="street" type="text" class="validate"
-                           [(ngModel)]="user.address.street" formControlName="street"
-                           [class.invalid]="form.controls['address'].controls['street'].touched
-                  && !form.controls['address'].controls['street'].valid">
-                    <label for="street"
-                           [class.active]="user.address.street"
-                           data-error="Invalid Street">
-                        Street
-                    </label>
-                </div>
-                <div class="input-field col s4">
-                    <input id="suite" type="text" class="validate"
-                           [(ngModel)]="user.address.suite" formControlName="suite">
-                    <label for="suite" [class.active]="user.address.suite">Suite</label>
+﻿<form class="form-horizontal container" [formGroup]="formGroup" novalidate (ngSubmit)="submit()">
+    <div class="row">
+
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Фамилия</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="surname" formControlName="surname" />
+                <div class="alert alert-danger"
+                     *ngIf="formGroup.controls['surname'].invalid && formGroup.controls['surname'].touched">
+                    Не указана фамилия
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s8">
-                    <i class="material-icons prefix">map</i>
-                    <input id="city" type="text" class="validate"
-                           [(ngModel)]="user.address.city" formControlName="city">
-                    <label for="city" [class.active]="user.address.city">City</label>
-                </div>
-                <div class="input-field col s4">
-                    <input id="zipcode" type="text" class="validate"
-                           [(ngModel)]="user.address.zipcode" formControlName="zipcode"
-                           [class.invalid]="form.controls['address'].controls['zipcode'].touched
-                  && !form.controls['address'].controls['zipcode'].valid">
-                    <label for="zipcode"
-                           [class.active]="user.address.zipcode"
-                           data-error="Invalid ZipCode">
-                        ZipCode
-                    </label>
+        </div>       
+
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Имя</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="name" formControlName="name" />
+                <div class="alert alert-danger"
+                     *ngIf="formGroup.controls['name'].invalid && formGroup.controls['name'].touched">
+                    Не указано имя
                 </div>
             </div>
         </div>
-        <button class="btn waves-effect waves-light" type="submit"
-                [disabled]="!form.valid">
-            Отправить<i class="material-icons right">send</i>
-        </button>
-    </form>
-</div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Отчество</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="secondName" formControlName="secondName" />
+                <div class="alert alert-danger"
+                     *ngIf="formGroup.controls['secondName'].invalid && formGroup.controls['secondName'].touched">
+                    Не указано отчество
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Категория</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="categoryId" [(ngModel)]="particip.CategoryId" name="categoryId" formControlName="categoryId">
+                    <option *ngFor="let category of CATEGORIES" [value]="category.Id">{{category.Name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Предмет</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="rsurSubjectCode" [(ngModel)]="particip.RsurSubjectCode" name="rsurSubjectCode" formControlName="rsurSubjectCode">
+                    <option *ngFor="let rsurSubject of rsurSubjects" [value]="rsurSubject.Code">{{rsurSubject.Name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Педагогический стаж</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="experience" formControlName="experience" />
+                <div class="alert alert-danger"
+                     *ngIf="formGroup.controls['experience'].invalid && formGroup.controls['experience'].touched">
+                    Педагогический стаж должен быть в пределах 0-60 лет
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Email</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="email" formControlName="email" />
+                <div class="alert alert-danger"
+                     *ngIf="formGroup.controls['email'].invalid && formGroup.controls['email'].touched">
+                    Некорректный email
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Телефон</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="phone" formControlName="phone" />
+                <div class="alert alert-danger"
+                     *ngIf="formGroup.controls['phone'].invalid && formGroup.controls['phone'].touched">
+                    Мобильный телефон должен состоять из 11 цифр в формате 8XXXXXXXXXX
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Дата рождения</label>
+            <div class="col-sm-8 form-inline">
+                <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="2" [ngModelOptions]="{standalone: true}" />
+                <select name="month" class="form-control" [(ngModel)]="newMonth" [ngModelOptions]="{standalone: true}">
+                    <option value="-1" disabled selected>Mecяц</option>
+                    <option value="0">Январь</option>
+                    <option value="1">Февраль</option>
+                    <option value="2">Март</option>
+                    <option value="3">Апрель</option>
+                    <option value="4">Май</option>
+                    <option value="5">Июнь</option>
+                    <option value="6">Июль</option>
+                    <option value="7">Август</option>
+                    <option value="8">Сентябрь</option>
+                    <option value="9">Октябрь</option>
+                    <option value="10">Ноябрь</option>
+                    <option value="11">Декабрь</option>
+                </select>
+                <input name="year" type="text" placeholder="Год" size="4" [(ngModel)]="newYear" class="form-control" [ngModelOptions]="{standalone: true}" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Классы где ведет предмет</label>
+            <div id="classes" class="col-sm-8 form-inline">
+                <label class="checkbox-inline"><input (change)="classesChange()" id="5" type="checkbox" />5</label>
+                <label class="checkbox-inline"><input (change)="classesChange()" id="6" type="checkbox" />6</label>
+                <label class="checkbox-inline"><input (change)="classesChange()" id="7" type="checkbox" />7</label>
+                <label class="checkbox-inline"><input (change)="classesChange()" id="8" type="checkbox" />8</label>
+                <label class="checkbox-inline"><input (change)="classesChange()" id="9" type="checkbox" />9</label>
+                <label class="checkbox-inline"><input (change)="classesChange()" id="10" type="checkbox" />10</label>
+                <label class="checkbox-inline"><input (change)="classesChange()" id="11" type="checkbox" />11</label>
+            </div>
+            <div class="alert alert-danger"
+                 *ngIf="particip.ClassNumbers == ''">
+                Необходимо выбрать хотя бы один класс где учитель ведет урок по данному учебному предмету
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6 form-inline">
+            <label class="col-sm-4 control-label">Место предыдущей работы</label>
+            <div class="col-sm-8">
+                <div class="radio">
+                    <label><input type="radio" name="where" [(ngModel)]="radioValue" [value]="1"
+                                  [ngModelOptions]="{standalone: true}"> известно</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="where" [(ngModel)]="radioValue" [value]="0"
+                                  [ngModelOptions]="{standalone: true}"> не известно</label>
+                </div>
+            </div>
+
+            <!--<div class="col-sm-8">
+                <select class="form-control" id="aaa" [(ngModel)]="aaa" name="aaa" formControlName="areaCodeWithName">
+                    <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
+                </select>
+            </div>-->       
+        </div>
+    </div>
+
+    <div class="row" *ngIf="radioValue == 1">
+        <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Район:</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="aaa" [(ngModel)]="aaa" name="aaa" formControlName="areaCodeWithName">
+                    <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <button class="btn btn-success" [disabled]="formGroup.invalid && particip.ClassNumbers == ''">
+                Отправить
+            </button>
+        </div>
+    </div>
+</form>

@@ -2,7 +2,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { RouterModule } from '@angular/router';
@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { ParticipModalComponent } from './rsur/details/particip-modal.component';
 import { ResultsModalComponent } from './rsur/results/results-modal.component';
 import { RsurParticipComponent } from './rsur/rsurparticip.component';
+import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
@@ -29,6 +30,7 @@ import { ClassParticipMarksEditModal } from "./class-particips/marks/marks-edit.
 import { AccountService } from './account/account.service';
 import { ParticipService } from './particip.service';
 import { RsurParticipService } from './rsur/rsurparticip.service';
+import { SchoolService } from './school.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
 import { MarksService } from './rsur/marks/marks.service';
@@ -38,6 +40,7 @@ import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
+import { UniqFilter } from './rsur/rsurparticip-add-form/uniqfilter.pipe';
 
 // Additional 
 import { routing } from './app.routing';
@@ -51,6 +54,7 @@ import { GlobalErrorHandler } from './error-handler';
         HttpModule,
         routing,
         FormsModule,
+        ReactiveFormsModule,
         ModalModule.forRoot(),
         BootstrapModalModule,
         MyDatePickerModule,
@@ -60,11 +64,13 @@ import { GlobalErrorHandler } from './error-handler';
 
 	declarations: [
 		AppComponent,
-		RsurParticipComponent,		
+        RsurParticipComponent,	
+        RsurParticipAddFormComponent,
 		RsurParticipFilterPipe,
 		ParticipFilterPipe,
 		LimitToPipe,
-		ParticipsWithoutDetailsPipe,
+        ParticipsWithoutDetailsPipe,
+        UniqFilter,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,		
@@ -79,7 +85,13 @@ import { GlobalErrorHandler } from './error-handler';
 		ClassParticipMarksEditModal
 	],
 	providers: [
-        AccountService, RsurParticipService, ParticipCorrectionService, ClassService, ParticipService, MarksService,
+        AccountService,
+        RsurParticipService,
+        SchoolService,
+        ParticipCorrectionService,
+        ClassService,
+        ParticipService,
+        MarksService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

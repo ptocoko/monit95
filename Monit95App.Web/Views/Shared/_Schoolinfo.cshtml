@@ -1,4 +1,4 @@
-﻿@model Monit95App.Services.School.SchoolModel
+﻿@model Monit95App.Services.DTOs.SchoolDto
 <style>
     .glyphicon{
         font-size: 16px;
@@ -11,12 +11,12 @@
 </style>
 <div class="form-horizontal">
     <div class="form-inline">
-        @Html.LabelFor(x => x.Name, new { @class = "control-label col-md-3" })
+        @Html.LabelFor(x => x.SchoolIdWithName, new { @class = "control-label col-md-3" })
 
         <div id="NameDiv" style="display:inline-block" class="form-control-static">
-            @Model.Name
+            @Model.SchoolIdWithName
         </div>
-        <input size="30" id="NameInput" style="display:none" type="text" value="@Model.Name"  class="form-control"/>
+        <input size="30" id="NameInput" style="display:none" type="text" value="@Model.SchoolIdWithName"  class="form-control"/>
         @if (Model.HasNameCorrection)
         {
         <span style="color:gray" title="Коррекция обрабатывается..." class="glyphicon glyphicon-refresh"></span>
@@ -33,9 +33,9 @@
     <div id="schoolId" class="form-control-static">
         @Model.Id
     </div>
-    @Html.LabelFor(x => x.AreaName, new { @class = "control-label col-md-3" })
+    @Html.LabelFor(x => x.AreaCodeWithName, new { @class = "control-label col-md-3" })
     <div class="form-control-static">
-        @Model.AreaName
+        @Model.AreaCodeWithName
     </div>
     @Html.LabelFor(x => x.TownTypeName, new { @class = "control-label col-md-3" })
     <div class="form-control-static">

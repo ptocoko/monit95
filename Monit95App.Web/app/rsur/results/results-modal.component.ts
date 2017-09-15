@@ -16,7 +16,7 @@ export class ResultsModalComponent implements ModalComponent<RsurParticipModel>,
 
 	constructor(public dialog: DialogRef<RsurParticipModel>, private participService: RsurParticipService) {
 		this.particip = dialog.context;
-		dialog.context.dialogClass = 'modal-dialog modal-mySize';
+		//dialog.context.dialogClass = 'modal-dialog modal-mySize';
 	}
 
 	ngOnInit() {

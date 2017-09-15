@@ -1,0 +1,13 @@
+﻿input.ng-touched.ng-invalid {
+    border: solid red 2px;
+}
+
+input.ng-touched.ng-valid {
+    border: solid green 2px;
+}
+
+.dd {
+    border: 2px solid #000;
+    border-color: black;
+    background: #fc0; /* Цвет фона */
+}

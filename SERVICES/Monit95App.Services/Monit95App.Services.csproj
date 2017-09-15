@@ -132,7 +132,7 @@
     <Compile Include="Rsur\RsurParticipViewer.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />
     <Compile Include="School\SchoolEditService.cs" />
-    <Compile Include="School\SchoolModel.cs" />
+    <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
     <Compile Include="RsurTestResultService.cs" />
