@@ -40,6 +40,7 @@ var AddClassParticipModal = (function () {
         this.http = http;
         this.classService = classService;
         this.participService = participService;
+        this.wasDoo = 'no';
         this.isUpdate = dialog.context.isUpdate;
         this.newMonth = -1;
         if (this.isUpdate) {
@@ -48,6 +49,9 @@ var AddClassParticipModal = (function () {
                 this.newDay = this.particip.Birthday.getDate();
                 this.newMonth = this.particip.Birthday.getMonth();
                 this.newYear = this.particip.Birthday.getFullYear();
+            }
+            if (this.particip.WasDoo) {
+                this.wasDoo = 'yes';
             }
             this.actionText = "Изменить";
         }
@@ -71,6 +75,7 @@ var AddClassParticipModal = (function () {
     };
     AddClassParticipModal.prototype.onSubmit = function () {
         var _this = this;
+        this.particip.WasDoo = this.wasDoo === 'yes';
         if (this.newMonth === -1) {
             this.newMonth = 0;
         }

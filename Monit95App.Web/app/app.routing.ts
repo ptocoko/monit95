@@ -8,7 +8,7 @@ import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
-import { ClassParticipMarksComponent } from './class-particips/class-particip-marks.component';
+import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
 
 const appRoutes: Routes = [
@@ -20,7 +20,7 @@ const appRoutes: Routes = [
 	{ path: 'particip-correction', component: ParticipCorrectionComponent },
 	{ path: 'class-particips', component: ClassParticipsListComponent },
 	{ path: 'class-particips/upload-excel', component: ClassParticipsExportExcelComponent },
-	{ path: 'classparticip-marks', component: ClassParticipMarksComponent },
+	{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
     { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];
 

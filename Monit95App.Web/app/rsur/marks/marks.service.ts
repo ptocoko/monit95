@@ -12,6 +12,7 @@ export class Marks {
 }
 
 export class ParticipWithMarks extends ParticipModel {
+	public ParticipTestId: number;
 	public Marks: string;
 }
 

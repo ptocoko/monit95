@@ -50,11 +50,19 @@
             </div>
         </div>
 
-        <div class="checkbox">
+        <p>Посещал(-а) дошкольное образовательное учреждение</p>
+        <label class="radio-inline">
+            <input type="radio" name="wasDoo" value="no" [(ngModel)]="wasDoo" /> Нет
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="wasDoo" value="yes" [(ngModel)]="wasDoo" /> Да
+        </label>
+
+        <!--<div class="checkbox">
             <label for="wasDoo">
                 <input id="wasDoo" name="wasDoo" #wasDoo="ngModel" type="checkbox" [(ngModel)]="particip.WasDoo" /> Учился(-ась) в дошкольном учреждении
             </label>
-        </div>
+        </div>-->
 
         <hr />
         <div style="text-align: right">
