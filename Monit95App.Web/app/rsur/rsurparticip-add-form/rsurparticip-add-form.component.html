@@ -183,8 +183,8 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Школа:</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="school" [(ngModel)]="school" name="school" formControlName="areaCodeWithName">
-                                <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
+                            <select class="form-control" id="school" [(ngModel)]="school" name="school" formControlName="schoolIdWithName">
+                                <option *ngFor="let ob of schools | schoolFilter: area" [value]="ob.Id">{{ob}}</option>
                             </select>
                         </div>
                     </div>
