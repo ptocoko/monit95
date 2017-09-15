@@ -20,7 +20,7 @@ var RsurParticipService = (function () {
         this.ROUTE_PREFIX = 'api/RsurParticips';
     }
     RsurParticipService.prototype.createParticip = function (obj) {
-        return this.http.post(this.ROUTE_PREFIX, obj);
+        return this.http.post(this.ROUTE_PREFIX + '/Post', obj);
     };
     RsurParticipService.prototype.getAll = function () {
         return this.http.get(this.ROUTE_PREFIX);

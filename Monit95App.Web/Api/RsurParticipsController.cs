@@ -43,11 +43,15 @@ namespace Monit95App.Web.Api
         [Authorize(Roles = "school")]
         public IHttpActionResult Post([FromBody]RsurParticipPostDto dto)
         {
+            if (dto == null) throw new ArgumentNullException(nameof(dto));
+
+            dto.SchoolId = User.Identity.Name;
+
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
             }
-
+            
             var rsurParticipCode = this._rsurParticipService.Add(dto);
 
             return Ok(rsurParticipCode);

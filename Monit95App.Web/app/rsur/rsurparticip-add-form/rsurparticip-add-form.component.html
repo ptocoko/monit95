@@ -44,8 +44,8 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Категория</label>
             <div class="col-sm-8">
-                <select class="form-control" id="categoryId" [(ngModel)]="particip.CategoryId" name="categoryId" formControlName="categoryId">
-                    <option *ngFor="let category of CATEGORIES" [value]="category.Id">{{category.Name}}</option>
+                <select class="form-control" id="categoryId" name="categoryId" formControlName="categoryId">
+                    <option *ngFor="let category of categories" [value]="category.Id">{{category.Name}}</option>
                 </select>
             </div>
         </div>
@@ -55,7 +55,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Предмет</label>
             <div class="col-sm-8">
-                <select class="form-control" id="rsurSubjectCode" [(ngModel)]="particip.RsurSubjectCode" name="rsurSubjectCode" formControlName="rsurSubjectCode">
+                <select class="form-control" id="rsurSubjectCode" name="rsurSubjectCode" formControlName="rsurSubjectCode">
                     <option *ngFor="let rsurSubject of rsurSubjects" [value]="rsurSubject.Code">{{rsurSubject.Name}}</option>
                 </select>
             </div>
@@ -139,7 +139,7 @@
                 <label class="checkbox-inline"><input (change)="classesChange()" id="11" type="checkbox" />11</label>
             </div>
             <div class="alert alert-danger"
-                 *ngIf="particip.ClassNumbers == ''">
+                 *ngIf="classNumbers == ''">
                 Необходимо выбрать хотя бы один класс где учитель ведет урок по данному учебному предмету
             </div>
         </div>
@@ -153,15 +153,15 @@
                     <label class="col-sm-4 control-label">Место предыдущей работы</label>
                     <div class="col-sm-8">
                         <div class="radio">
-                            <label>
+                            <label class="radio-inline">
                                 <input type="radio" name="where" [(ngModel)]="radioValue" [value]="1"
-                                       [ngModelOptions]="{standalone: true}"> известно
+                                        [ngModelOptions]="{standalone: true}" > известно
                             </label>
                         </div>
                         <div class="radio">
-                            <label>
+                            <label class="radio-inline">
                                 <input type="radio" name="where" [(ngModel)]="radioValue" [value]="0"
-                                       [ngModelOptions]="{standalone: true}"> не известно
+                                        [ngModelOptions]="{standalone: true}" > не известно
                             </label>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                         <label class="col-sm-4 control-label">Район:</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="area" [(ngModel)]="area" name="area" formControlName="areaCodeWithName">
-                                <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
+                                <option *ngFor="let area of areaCodeWithNames" [value]="area">{{area}}</option>
                             </select>
                         </div>
                     </div>
@@ -183,8 +183,8 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Школа:</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="school" [(ngModel)]="school" name="school" formControlName="schoolIdWithName">
-                                <option *ngFor="let ob of schools | schoolFilter: area" [value]="ob.Id">{{ob}}</option>
+                            <select class="form-control" id="school" [(ngModel)]="school" name="schoolIdFrom" formControlName="schoolIdFrom">
+                                <option *ngFor="let school of schools | schoolFilter: area" [value]="school.Id">{{school.SchoolIdWithName}}</option>
                             </select>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
 
     <div class="row">
         <div class="form-group col-sm-6">
-            <button class="btn btn-success" [disabled]="formGroup.invalid && particip.ClassNumbers == ''">
+            <button type="submit" class="btn btn-success" [disabled]="formGroup.invalid || particip.ClassNumbers == ''">
                 Отправить
             </button>
         </div>

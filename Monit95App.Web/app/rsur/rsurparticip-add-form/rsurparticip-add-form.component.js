@@ -66,9 +66,10 @@ var RsurParticipAddFormComponent = (function () {
             ]),
             "phone": new forms_1.FormControl('', forms_1.Validators.pattern('[0-9]{11}')),
             "categoryId": new forms_1.FormControl(),
-            "rsurSubjectCode": new forms_1.FormControl(),
+            "rsurSubjectCode": new forms_1.FormControl('', forms_1.Validators.required),
             "birthday": new forms_1.FormControl(),
-            "areaCodeWithName": new forms_1.FormControl()
+            "areaCodeWithName": new forms_1.FormControl(),
+            "schoolIdFrom": new forms_1.FormControl('', this.schoolValidator())
         });
     }
     RsurParticipAddFormComponent.prototype.ngOnInit = function () {
@@ -85,27 +86,48 @@ var RsurParticipAddFormComponent = (function () {
             //let uniqueArray = value.filter(function (el, index, array) {
             //    return array.indexOf(el) == index;
             //});
-            console.log(_this.areaCodeWithNames);
         });
     };
-    RsurParticipAddFormComponent.prototype.save = function () {
+    RsurParticipAddFormComponent.prototype.submit = function () {
         var _this = this;
-        this.rsurParticipService.createParticip(this.formGroup.value).
+        var value = this.formGroup.value;
+        var milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
+        value.birthday = new Date(milliseconds + 10800000);
+        value.classNumbers = this.classNumbers;
+        value.schoolId = '9999';
+        console.log(value);
+        this.rsurParticipService.createParticip(value).
             subscribe(function (data) { return _this.router.navigate(['rsurparticips']); });
     };
     RsurParticipAddFormComponent.prototype.classesChange = function () {
         var _this = this;
-        console.log(this.particip.ClassNumbers);
         this.classNumbersTouched = true;
-        this.particip.ClassNumbers = '';
+        this.classNumbers = '';
         var checkboxes = $('#classes').find(':checkbox:checked');
         checkboxes.each(function (index, element) {
-            _this.particip.ClassNumbers += element.id + ';';
+            _this.classNumbers += element.id + ';';
         });
-        if (this.particip.ClassNumbers.length > 0) {
-            this.particip.ClassNumbers = this.particip.ClassNumbers.slice(0, this.particip.ClassNumbers.length - 1);
+        if (this.classNumbers.length > 0) {
+            this.classNumbers = this.classNumbers.slice(0, this.classNumbers.length - 1);
         }
-        console.log(this.particip.ClassNumbers);
+    };
+    RsurParticipAddFormComponent.prototype.schoolValidator = function () {
+        var _this = this;
+        return function (control) {
+            var valid;
+            if (_this.radioValue == 0 || (_this.radioValue == 1 && control.value)) {
+                valid = true;
+            }
+            else {
+                valid = false;
+            }
+            console.log(valid);
+            return valid ? null : {
+                validateSchool: {
+                    valid: false
+                }
+            };
+        };
     };
     return RsurParticipAddFormComponent;
 }());

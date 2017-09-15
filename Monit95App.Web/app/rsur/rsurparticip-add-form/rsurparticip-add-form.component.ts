@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
@@ -66,7 +66,9 @@ export class RsurParticipAddFormComponent implements OnInit {
     formGroup: FormGroup;
     categories = CATEGORIES;
     rsurSubjects = RSURSUBJECTS;
-    schools: School[] = [];
+	schools: School[] = [];
+	schoolId: string;
+	classNumbers: string;
     classNumbersTouched: boolean;
     newDay: number;
     newMonth: number;
@@ -91,9 +93,10 @@ export class RsurParticipAddFormComponent implements OnInit {
             ]),  
             "phone": new FormControl('', Validators.pattern('[0-9]{11}')),
             "categoryId": new FormControl(),
-            "rsurSubjectCode": new FormControl(),
+            "rsurSubjectCode": new FormControl('', Validators.required),
             "birthday": new FormControl(),
-            "areaCodeWithName": new FormControl()
+			"areaCodeWithName": new FormControl(),
+			"schoolIdFrom": new FormControl('', this.schoolValidator())
         });       
     }
 
@@ -108,27 +111,52 @@ export class RsurParticipAddFormComponent implements OnInit {
                 //let uniqueArray = value.filter(function (el, index, array) {
                 //    return array.indexOf(el) == index;
                 //});
-                console.log(this.areaCodeWithNames);
             });
     }
 
-    save() {
-        this.rsurParticipService.createParticip(this.formGroup.value).
-            subscribe(data => this.router.navigate(['rsurparticips']));        
+	submit() {
+		let value = this.formGroup.value;
+		let milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
+
+		value.birthday = new Date(milliseconds + 10800000);
+		value.classNumbers = this.classNumbers;
+		value.schoolId = '9999';
+		console.log(value);
+		this.rsurParticipService.createParticip(value).
+            subscribe(data => this.router.navigate(['rsurparticips']));     
+		
+		
     }
 
     classesChange(): void {
-        console.log(this.particip.ClassNumbers);
         this.classNumbersTouched = true;
-        this.particip.ClassNumbers = '';
+        this.classNumbers = '';
         const checkboxes = $('#classes').find(':checkbox:checked');
         checkboxes.each((index, element) => {
-            this.particip.ClassNumbers += element.id + ';';
+            this.classNumbers += element.id + ';';
         });
-        if (this.particip.ClassNumbers.length > 0) {
-            this.particip.ClassNumbers = this.particip.ClassNumbers.slice(0, this.particip.ClassNumbers.length - 1);            
+        if (this.classNumbers.length > 0) {
+            this.classNumbers = this.classNumbers.slice(0, this.classNumbers.length - 1);            
         }
+	}
 
-        console.log(this.particip.ClassNumbers);
-    }
+	schoolValidator(): ValidatorFn {
+		
+		return (control: FormControl) => {
+			let valid: boolean;
+			
+			if (this.radioValue == 0 || (this.radioValue == 1 && control.value)) {
+				valid = true;
+			}
+			else {
+				valid = false;
+			}
+			console.log(valid)
+			return valid ? null : {
+				validateSchool: {
+					valid: false
+				}
+			}
+		}
+	}
 }

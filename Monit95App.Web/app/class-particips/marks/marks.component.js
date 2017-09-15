@@ -15,7 +15,7 @@ var particip_service_1 = require("../../particip.service");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var angular2_modal_1 = require("angular2-modal");
 var marks_edit_modal_1 = require("./marks-edit.modal");
-var PROJECT_TEST_ID = 11;
+var PROJECT_TEST_ID = 12;
 var ClassParticipMarksComponent = (function () {
     function ClassParticipMarksComponent(marksService, participService, modal) {
         this.marksService = marksService;
