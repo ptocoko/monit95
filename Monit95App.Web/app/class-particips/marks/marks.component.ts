@@ -3,6 +3,7 @@ import { MarksService, ParticipWithMarks } from "../../rsur/marks/marks.service"
 import { ParticipService } from "../../particip.service";
 import { BSModalContext, Modal } from 'angular2-modal/plugins/bootstrap';
 import { overlayConfigFactory } from 'angular2-modal';
+import { ClassParticipMarksEditModal, ClassParticipMarksEditModalData } from "./marks-edit.modal";
 
 const PROJECT_TEST_ID: number = 11;
 
@@ -20,6 +21,14 @@ export class ClassParticipMarksComponent {
 	ngOnInit() {
 		this.marksService.getAll(PROJECT_TEST_ID).subscribe(res => {
 			this.particips = res.json() as ParticipWithMarks[];
+		})
+	}
+
+	changeMarks(marksParticip: ParticipWithMarks) {
+		this.modal.open(ClassParticipMarksEditModal, overlayConfigFactory({ particip: marksParticip }, BSModalContext)).then(dialog => {
+			dialog.result.then(particip => {
+				//TODO: release that!
+			}).catch(() => { });
 		})
 	}
 }

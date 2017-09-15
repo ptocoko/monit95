@@ -1,7 +1,7 @@
 ﻿<h2>Заполнение оценочного протокола (я не знаю что это значит, но звучит солидно)</h2>
+<hr />
 <div *ngIf="isLoading">Загрузка...</div>
 <div *ngIf="!isLoading">
-    <hr />
     <div style="display:flex;flex-direction:row">
         <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..." />
     </div>
@@ -21,7 +21,7 @@
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
             <td>{{particip.Marks}}</td>
-            <td><button class="btn btn-default" (click)="changeMarks(particip)"></button></td>
+            <td><a class="glyphicon glyphicon-edit" (click)="changeMarks(particip)"></a></td>
         </tr>
     </table>
 </div>

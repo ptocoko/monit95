@@ -23,6 +23,7 @@ import { ExportExcelModal } from './class-particips/excel-export/export-excel-mo
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
+import { ClassParticipMarksEditModal } from "./class-particips/marks/marks-edit.modal";
 
 // Services
 import { AccountService } from './account/account.service';
@@ -74,7 +75,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ExportExcelModal,
 		AddClassParticipModal,
 		ClassParticipMarksComponent,
-		ClassParticipsExportExcelComponent
+		ClassParticipsExportExcelComponent,
+		ClassParticipMarksEditModal
 	],
 	providers: [
         AccountService, RsurParticipService, ParticipCorrectionService, ClassService, ParticipService, MarksService,
@@ -85,7 +87,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ParticipModalComponent,
 		ResultsModalComponent,				
 		ExportExcelModal,
-		AddClassParticipModal
+		AddClassParticipModal,
+		ClassParticipMarksEditModal
 	],
     bootstrap: [AppComponent]
 })
