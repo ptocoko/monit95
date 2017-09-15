@@ -26,6 +26,7 @@ export class AddClassParticipModal implements OnInit {
 	newDay: number;
 	newMonth: number;
 	newYear: number;
+	wasDoo: string = 'no';
 
 	statusText: string;
 	actionText: string;
@@ -44,6 +45,10 @@ export class AddClassParticipModal implements OnInit {
 				this.newDay = this.particip.Birthday.getDate();
 				this.newMonth = this.particip.Birthday.getMonth();
 				this.newYear = this.particip.Birthday.getFullYear();
+			}
+
+			if (this.particip.WasDoo) {
+				this.wasDoo = 'yes';
 			}
 
 			this.actionText = "Изменить";
@@ -68,6 +73,8 @@ export class AddClassParticipModal implements OnInit {
 	}
 
 	onSubmit() {
+		this.particip.WasDoo = this.wasDoo === 'yes';
+
 		if (this.newMonth === -1) {
 			this.newMonth = 0;
 		}
