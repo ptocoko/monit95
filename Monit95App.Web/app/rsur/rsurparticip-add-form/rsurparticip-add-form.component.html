@@ -105,7 +105,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Дата рождения</label>
             <div class="col-sm-8 form-inline">
-                <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="2" [ngModelOptions]="{standalone: true}" />
+                <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="3" [ngModelOptions]="{standalone: true}" />
                 <select name="month" class="form-control" [(ngModel)]="newMonth" [ngModelOptions]="{standalone: true}">
                     <option value="-1" disabled selected>Mecяц</option>
                     <option value="0">Январь</option>
@@ -144,39 +144,55 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="form-group col-sm-6 form-inline">
-            <label class="col-sm-4 control-label">Место предыдущей работы</label>
-            <div class="col-sm-8">
-                <div class="radio">
-                    <label><input type="radio" name="where" [(ngModel)]="radioValue" [value]="1"
-                                  [ngModelOptions]="{standalone: true}"> известно</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" name="where" [(ngModel)]="radioValue" [value]="0"
-                                  [ngModelOptions]="{standalone: true}"> не известно</label>
-                </div>
-            </div>
-
-            <!--<div class="col-sm-8">
-                <select class="form-control" id="aaa" [(ngModel)]="aaa" name="aaa" formControlName="areaCodeWithName">
-                    <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
-                </select>
-            </div>-->       
-        </div>
-    </div>
-
-    <div class="row" *ngIf="radioValue == 1">
-        <div class="form-group col-sm-6">
-            <label class="col-sm-4 control-label">Район:</label>
-            <div class="col-sm-8">
-                <select class="form-control" id="aaa" [(ngModel)]="aaa" name="aaa" formControlName="areaCodeWithName">
-                    <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
-                </select>
-            </div>
-        </div>
-    </div>
     
+    <div class="row">
+        <div class="panel panel-default col-sm-6">
+            <div class="panel-body">
+
+                <div class="form-group form-inline">
+                    <label class="col-sm-4 control-label">Место предыдущей работы</label>
+                    <div class="col-sm-8">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="where" [(ngModel)]="radioValue" [value]="1"
+                                       [ngModelOptions]="{standalone: true}"> известно
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="where" [(ngModel)]="radioValue" [value]="0"
+                                       [ngModelOptions]="{standalone: true}"> не известно
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" *ngIf="radioValue == 1">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Район:</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="area" [(ngModel)]="area" name="area" formControlName="areaCodeWithName">
+                                <option *ngFor="let ob of areaCodeWithNames" [value]="ob">{{ob}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row" *ngIf="radioValue == 1">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Школа:</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="school" [(ngModel)]="school" name="school" formControlName="schoolIdWithName">
+                                <option *ngFor="let ob of schools | schoolFilter: area" [value]="ob.Id">{{ob}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="form-group col-sm-6">
