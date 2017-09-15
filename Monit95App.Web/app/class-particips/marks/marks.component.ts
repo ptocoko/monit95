@@ -5,7 +5,7 @@ import { BSModalContext, Modal } from 'angular2-modal/plugins/bootstrap';
 import { overlayConfigFactory } from 'angular2-modal';
 import { ClassParticipMarksEditModal, ClassParticipMarksEditModalData } from "./marks-edit.modal";
 
-const PROJECT_TEST_ID: number = 11;
+const PROJECT_TEST_ID: number = 12;
 
 @Component({
 	templateUrl: './app/class-particips/marks/marks.component.html'
