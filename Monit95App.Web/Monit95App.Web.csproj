@@ -589,6 +589,7 @@
     <TypeScriptCompile Include="app\result\result.component.ts" />
     <TypeScriptCompile Include="app\account\account.ts" />
     <TypeScriptCompile Include="app\account\account.service.ts" />
+    <TypeScriptCompile Include="app\school-filter.pipe.ts" />
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
   </ItemGroup>
   <ItemGroup>

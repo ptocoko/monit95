@@ -39,7 +39,7 @@ import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
-import { UniqFilter } from './rsur/rsurparticip-add-form/uniqfilter.pipe';
+import { SchoolFilter } from './school-filter.pipe';
 
 // Additional 
 import { routing } from './app.routing';
@@ -69,7 +69,7 @@ import { GlobalErrorHandler } from './error-handler';
 		ParticipFilterPipe,
 		LimitToPipe,
         ParticipsWithoutDetailsPipe,
-        UniqFilter,
+        SchoolFilter,        
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,		
