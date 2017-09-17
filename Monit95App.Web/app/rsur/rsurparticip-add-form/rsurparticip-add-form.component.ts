@@ -75,6 +75,9 @@ export class RsurParticipAddFormComponent implements OnInit {
     newYear: number;
     areaCodeWithNames: Array<any>;
     radioValue: number;
+    selectedArea: string;
+    selectedSchool: string;
+    tempB: boolean;
 
     constructor(        
         private readonly router: Router,
@@ -83,49 +86,46 @@ export class RsurParticipAddFormComponent implements OnInit {
         private readonly schoolService: SchoolService
     ) {
         this.formGroup = new FormGroup({
-            "surname": new FormControl('', Validators.required),
-            "name": new FormControl('', Validators.required),
-            "secondName": new FormControl('', Validators.minLength(3)),
+            "surname": new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(25)]),
+            "name": new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(25)]),
+            "secondName": new FormControl('', [Validators.minLength(4), Validators.maxLength(25)]),
             "experience": new FormControl('', [Validators.required, Validators.min(0), Validators.max(60)]),
-            "email": new FormControl('', [
-                Validators.required,
-                BasicValidators.email
-            ]),  
-            "phone": new FormControl('', Validators.pattern('[0-9]{11}')),
+            "email": new FormControl('', BasicValidators.emailOrEmpty),  
+            "phone": new FormControl('', [Validators.required, Validators.pattern('[0-9]{11}')]),
             "categoryId": new FormControl(),
-            "rsurSubjectCode": new FormControl('', Validators.required),
+            "rsurSubjectCode": new FormControl(''),
             "birthday": new FormControl(),
 			"areaCodeWithName": new FormControl(),
-			"schoolIdFrom": new FormControl('', this.schoolValidator())
+			"schoolIdFrom": new FormControl('', this.schoolIdFromValidator())
         });       
     }
 
-    ngOnInit() {   
-        this.radioValue = 1;
+    ngOnInit() {
+        this.tempB = true;
+        this.radioValue = 1;        
+        this.selectedSchool = '';
         this.schoolService.getAll()
             .subscribe((response: Response) => {
                 this.schools = response.json() as School[];
                 this.areaCodeWithNames = this.schools.map(({ AreaCodeWithName }) => AreaCodeWithName);
-                this.areaCodeWithNames = this.areaCodeWithNames.filter((el: any, index: any, array: any) => array.indexOf(el) === index);
+                this.areaCodeWithNames = this.areaCodeWithNames.filter((el: any, index: any, array: any) => array.indexOf(el) === index
+                    && el !== '1000 - Fake Area');
 
-                //let uniqueArray = value.filter(function (el, index, array) {
-                //    return array.indexOf(el) == index;
-                //});
+                this.areaCodeWithNames.push('Неизвестно');
+                this.areaCodeWithNames.sort();
+                this.selectedArea = 'Неизвестно';
             });
     }
 
 	submit() {
-		let value = this.formGroup.value;
-		let milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
+		const value = this.formGroup.value;
+		const milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
 
 		value.birthday = new Date(milliseconds + 10800000);
 		value.classNumbers = this.classNumbers;
-		value.schoolId = '9999';
-		console.log(value);
+
 		this.rsurParticipService.createParticip(value).
-            subscribe(data => this.router.navigate(['rsurparticips']));     
-		
-		
+            subscribe(data => this.router.navigate(['rsurparticips']));     				
     }
 
     classesChange(): void {
@@ -140,23 +140,26 @@ export class RsurParticipAddFormComponent implements OnInit {
         }
 	}
 
-	schoolValidator(): ValidatorFn {
-		
-		return (control: FormControl) => {
+    schoolIdFromValidator(): ValidatorFn {
+        return (control: FormControl) => {
 			let valid: boolean;
-			
-			if (this.radioValue == 0 || (this.radioValue == 1 && control.value)) {
-				valid = true;
-			}
-			else {
-				valid = false;
-			}
-			console.log(valid)
-			return valid ? null : {
-				validateSchool: {
-					valid: false
-				}
-			}
-		}
+
+            if (this.radioValue === 0) {
+                valid = false;
+            }
+            //if (this.radioValue === 0 || (this.radioValue === 1 && control.value)) {
+            //	valid = true;
+            //}
+            //else {
+            //	valid = false;
+            //}
+            
+            //console.log(valid);
+            return valid ? null : {
+            	validateSchoolIdFrom: {
+            		valid: false
+            	}
+            }
+        }
 	}
 }

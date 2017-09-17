@@ -60,21 +60,20 @@ var RsurParticipAddFormComponent = (function () {
             "name": new forms_1.FormControl('', forms_1.Validators.required),
             "secondName": new forms_1.FormControl('', forms_1.Validators.minLength(3)),
             "experience": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.min(0), forms_1.Validators.max(60)]),
-            "email": new forms_1.FormControl('', [
-                forms_1.Validators.required,
-                basic_validators_1.BasicValidators.email
-            ]),
-            "phone": new forms_1.FormControl('', forms_1.Validators.pattern('[0-9]{11}')),
+            "email": new forms_1.FormControl('', basic_validators_1.BasicValidators.emailOrEmpty),
+            "phone": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern('[0-9]{11}')]),
             "categoryId": new forms_1.FormControl(),
             "rsurSubjectCode": new forms_1.FormControl('', forms_1.Validators.required),
             "birthday": new forms_1.FormControl(),
             "areaCodeWithName": new forms_1.FormControl(),
-            "schoolIdFrom": new forms_1.FormControl('', this.schoolValidator())
+            "schoolIdFrom": new forms_1.FormControl('', this.schoolIdFromValidator())
         });
     }
     RsurParticipAddFormComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.tempB = true;
         this.radioValue = 1;
+        this.selectedSchool = '';
         this.schoolService.getAll()
             .subscribe(function (response) {
             _this.schools = response.json();
@@ -82,10 +81,11 @@ var RsurParticipAddFormComponent = (function () {
                 var AreaCodeWithName = _a.AreaCodeWithName;
                 return AreaCodeWithName;
             });
-            _this.areaCodeWithNames = _this.areaCodeWithNames.filter(function (el, index, array) { return array.indexOf(el) === index; });
-            //let uniqueArray = value.filter(function (el, index, array) {
-            //    return array.indexOf(el) == index;
-            //});
+            _this.areaCodeWithNames = _this.areaCodeWithNames.filter(function (el, index, array) { return array.indexOf(el) === index
+                && el !== '1000 - Fake Area'; });
+            _this.areaCodeWithNames.push('Неизвестно');
+            _this.areaCodeWithNames.sort();
+            _this.selectedArea = 'Неизвестно';
         });
     };
     RsurParticipAddFormComponent.prototype.submit = function () {
@@ -94,8 +94,6 @@ var RsurParticipAddFormComponent = (function () {
         var milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
         value.birthday = new Date(milliseconds + 10800000);
         value.classNumbers = this.classNumbers;
-        value.schoolId = '9999';
-        console.log(value);
         this.rsurParticipService.createParticip(value).
             subscribe(function (data) { return _this.router.navigate(['rsurparticips']); });
     };
@@ -111,19 +109,22 @@ var RsurParticipAddFormComponent = (function () {
             this.classNumbers = this.classNumbers.slice(0, this.classNumbers.length - 1);
         }
     };
-    RsurParticipAddFormComponent.prototype.schoolValidator = function () {
+    RsurParticipAddFormComponent.prototype.schoolIdFromValidator = function () {
         var _this = this;
         return function (control) {
             var valid;
-            if (_this.radioValue == 0 || (_this.radioValue == 1 && control.value)) {
-                valid = true;
-            }
-            else {
+            if (_this.radioValue === 0) {
                 valid = false;
             }
-            console.log(valid);
+            //if (this.radioValue === 0 || (this.radioValue === 1 && control.value)) {
+            //	valid = true;
+            //}
+            //else {
+            //	valid = false;
+            //}
+            //console.log(valid);
             return valid ? null : {
-                validateSchool: {
+                validateSchoolIdFrom: {
                     valid: false
                 }
             };

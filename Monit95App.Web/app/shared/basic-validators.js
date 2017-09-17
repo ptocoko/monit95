@@ -11,6 +11,14 @@ var BasicValidators = (function () {
             }
         };
     };
+    BasicValidators.emailOrEmpty = function (control) {
+        var EMAIL_OR_EMPTY_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))|^$/;
+        return EMAIL_OR_EMPTY_REGEXP.test(control.value) ? null : {
+            validateEmail: {
+                valid: false
+            }
+        };
+    };
     return BasicValidators;
 }());
 exports.BasicValidators = BasicValidators;
