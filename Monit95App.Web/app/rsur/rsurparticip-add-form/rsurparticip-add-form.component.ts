@@ -8,8 +8,6 @@ import { RsurParticipService } from '../rsurparticip.service';
 
 import { BasicValidators } from '../../shared/basic-validators';
 
-import { UniqFilter } from './uniqfilter.pipe';
-
 export class AddRsurParticip {
     Code: number;
     Surname: string;

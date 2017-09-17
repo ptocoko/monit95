@@ -65,8 +65,10 @@ AppModule = __decorate([
             angular2_modal_1.ModalModule.forRoot(),
             bootstrap_1.BootstrapModalModule,
             mydatepicker_1.MyDatePickerModule,
-            material_1.MdDialogModule,
-            material_1.MdButtonModule
+            material_1.MdButtonModule,
+            material_1.MdDatepickerModule,
+            material_1.MdNativeDateModule,
+            material_1.MdInputModule
         ],
         declarations: [
             app_component_1.AppComponent,

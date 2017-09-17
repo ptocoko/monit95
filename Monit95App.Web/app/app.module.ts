@@ -5,9 +5,13 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
-import { RouterModule } from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MdDialogModule, MdButtonModule } from '@angular/material';
+import {
+    MdButtonModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
+    MdInputModule
+    } from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -57,9 +61,11 @@ import { GlobalErrorHandler } from './error-handler';
         ReactiveFormsModule,
         ModalModule.forRoot(),
         BootstrapModalModule,
-        MyDatePickerModule,
-        MdDialogModule,
-        MdButtonModule
+        MyDatePickerModule,        
+        MdButtonModule,
+        MdDatepickerModule,
+        MdNativeDateModule,
+        MdInputModule
     ],
 
 	declarations: [

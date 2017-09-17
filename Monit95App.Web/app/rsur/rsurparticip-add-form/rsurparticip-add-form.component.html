@@ -10,7 +10,7 @@
                     Не указана фамилия
                 </div>
             </div>
-        </div>       
+        </div>
 
     </div>
 
@@ -103,6 +103,18 @@
 
     <div class="row">
         <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">Телефон*</label>
+            <md-form-field class="col-sm-8">
+                <input mdInput [mdDatepicker]="picker" placeholder="Choose a date">
+                <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                <md-datepicker #picker></md-datepicker>
+            </md-form-field>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Дата рождения*</label>
             <div class="col-sm-8 form-inline">
                 <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="3" [ngModelOptions]="{standalone: true}" />
@@ -144,7 +156,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="panel panel-default col-sm-6">
             <div class="panel-body">
@@ -178,12 +190,12 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row" *ngIf="radioValue == 1">
                     <div class="form-group">
                         <label class="col-sm-4 control-label" style="font-weight: normal !important;">Школа:</label>
                         <div class="col-sm-8">
-                            <select [attr.disabled]="selectedArea == 'Неизвестно' ? true : null" class="form-control" id="schoolFrom" [(ngModel)]="schoolIdFrom" name="schoolIdFrom" formControlName="schoolIdFrom">                                    
+                            <select [attr.disabled]="selectedArea == 'Неизвестно' ? true : null" class="form-control" id="schoolFrom" [(ngModel)]="schoolIdFrom" name="schoolIdFrom" formControlName="schoolIdFrom">
                                 <option *ngFor="let school of schools | schoolFilter: selectedArea" [value]="school.Id">{{school.SchoolIdWithName}}</option>
                             </select>
                         </div>
