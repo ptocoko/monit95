@@ -77,9 +77,11 @@ var AddClassParticipModal = (function () {
         var _this = this;
         this.particip.WasDoo = this.wasDoo === 'yes';
         if (this.newMonth === -1) {
-            this.newMonth = 0;
+            this.statusText = "Выберите месяц рождения!";
+            return;
         }
-        this.particip.Birthday = new Date(this.newYear, this.newMonth, this.newDay);
+        var birthdayInMiSeconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
+        this.particip.Birthday = new Date(birthdayInMiSeconds + 10800000);
         if (this.isUpdate) {
             this.participService.updateParticip(this.particip).subscribe(function (res) {
                 _this.dialog.close(_this.particip);

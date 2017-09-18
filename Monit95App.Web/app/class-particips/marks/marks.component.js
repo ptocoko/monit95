@@ -27,6 +27,7 @@ var ClassParticipMarksComponent = (function () {
         var _this = this;
         this.marksService.getAll(PROJECT_TEST_ID).subscribe(function (res) {
             _this.particips = res.json();
+            _this.isLoading = false;
         });
     };
     ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {

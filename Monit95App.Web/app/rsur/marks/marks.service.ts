@@ -5,14 +5,16 @@ import { Observable } from 'rxjs/Observable';
 import { RsurParticip } from '../rsurparticip';
 import { ResultsModel, ResultDetailsModel } from '../results/results.model';
 import { ParticipModel } from "../../particip.model";
+import { Person } from "../../shared/Person";
 
 export class Marks {
     participTestId: number;
     marks: string;
 }
 
-export class ParticipWithMarks extends ParticipModel {
+export class ParticipWithMarks extends Person {
 	public ParticipTestId: number;
+	public ClassName: string;
 	public Marks: string;
 }
 

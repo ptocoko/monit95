@@ -21,6 +21,7 @@ export class ClassParticipMarksComponent {
 	ngOnInit() {
 		this.marksService.getAll(PROJECT_TEST_ID).subscribe(res => {
 			this.particips = res.json() as ParticipWithMarks[];
+			this.isLoading = false;
 		})
 	}
 
