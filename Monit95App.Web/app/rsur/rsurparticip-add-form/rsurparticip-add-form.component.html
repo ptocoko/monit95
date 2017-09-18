@@ -188,7 +188,7 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label" style="font-weight: normal !important;">Школа:</label>
                         <div class="col-sm-8">
-                            <select [attr.disabled]="selectedArea == 'Неизвестно' ? true : null" class="form-control" id="schoolFrom" [(ngModel)]="schoolIdFrom" name="schoolIdFrom" formControlName="schoolIdFrom">
+                            <select [attr.disabled]="selectedArea == 'Неизвестно' ? true : null" class="form-control" id="schoolFrom" [(ngModel)]="particip.SchoolIdFrom" name="schoolIdFrom" formControlName="schoolIdFrom">
                                 <option *ngFor="let school of schools | schoolFilter: selectedArea" [value]="school.Id">{{school.SchoolIdWithName}}</option>
                             </select>
                         </div>

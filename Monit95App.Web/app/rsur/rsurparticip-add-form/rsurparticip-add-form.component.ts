@@ -23,8 +23,8 @@ export class AddRsurParticip {
     ClassNumbers: string;
     ActualCode: number;
     Email: string;
-    SecondName?: string;
-    SchoolIdFrom?: string;    
+    SecondName: string;
+    SchoolIdFrom: string;    
 }
 
 export class School {

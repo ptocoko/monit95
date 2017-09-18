@@ -49,7 +49,7 @@ namespace Monit95App.Domain.Core.Entities
         public short ActualCode { get; set; }
 
         [StringLength(4)]
-        public string SchoolFrom { get; set; }
+        public string SchoolIdFrom { get; set; }
 
         public DateTime? AddedDate { get; set; }
 

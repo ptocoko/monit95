@@ -5,9 +5,10 @@
 <div class="panel">
     <div class="form-group">
         <div>
-            <div *ngIf="particips" style="display:inline-block;">
+            <!--<div *ngIf="particips" style="display:inline-block;">
                 <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск по фамилии..." />
-            </div>
+            </div>-->
+
             <div style="display:inline-block;">                
                 <!--<a class="btn btn-default" href="/api/files/rsurParticipLists/{{userName}}" target="_blank">
                     <i class="fa fa-file-excel-o fa-lg"></i> Экспорт
@@ -15,7 +16,7 @@
             </div>
         </div>
         <div>
-            <button style="position:fixed;left:80%;top:80%" md-fab color="primary" routerLink="/rsurparticips/new">+</button>
+            <button style="position:fixed;left:80%;top:80%; background-color: green" md-fab color="primary" routerLink="/rsurparticips/new">+</button>
         </div>        
         <br />
         <table class="table table-striped table-bordered">

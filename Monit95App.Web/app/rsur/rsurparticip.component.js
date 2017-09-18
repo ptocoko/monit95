@@ -42,6 +42,12 @@ var RsurParticipComponent = (function () {
             _this.getAllParticips();
         });
     };
+    RsurParticipComponent.prototype.delete = function (code) {
+        var _this = this;
+        this.rsurParticipService.delete(code).subscribe(function () {
+            _this.getAllParticips();
+        });
+    };
     return RsurParticipComponent;
 }());
 RsurParticipComponent = __decorate([

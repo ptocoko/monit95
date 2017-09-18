@@ -38,7 +38,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'app-root',
-        templateUrl: './app/app.component.html'
+        templateUrl: './app/app.component.html?v=${new Date().getTime()}'
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService])
 ], AppComponent);

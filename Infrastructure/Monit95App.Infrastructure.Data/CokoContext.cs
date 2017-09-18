@@ -16,6 +16,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Element> Elements { get; set; }
+        public virtual DbSet<ElementType> ElementTypes { get; set; }
         public virtual DbSet<Exercis> Exercises { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
@@ -59,6 +61,19 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Class>()
                 .HasMany(e => e.Particips)
                 .WithRequired(e => e.Class)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Element>()
+                .Property(e => e.Code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Element>()
+                .Property(e => e.ExerNames)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ElementType>()
+                .HasMany(e => e.Elements)
+                .WithRequired(e => e.ElementType)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Exercis>()
@@ -204,7 +219,7 @@ namespace Monit95App.Infrastructure.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<RsurParticip>()
-                .Property(e => e.SchoolFrom)
+                .Property(e => e.SchoolIdFrom)
                 .IsFixedLength()
                 .IsUnicode(false);
 
@@ -283,6 +298,11 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Test>()
                 .Property(e => e.ExcerMaxMarks)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Test>()
+                .HasMany(e => e.Elements)
+                .WithRequired(e => e.Test)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.Exercises)

@@ -44,7 +44,11 @@ export class RsurParticipComponent implements OnInit {
             });
     }
 
-
+    delete(code: number) {
+        this.rsurParticipService.delete(code).subscribe(() => {
+            this.getAllParticips();
+        });
+    }
     //edit(particip: RsurParticip) {
     //    this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))
     //        .then((dialog: DialogRef<RsurParticip>) => {

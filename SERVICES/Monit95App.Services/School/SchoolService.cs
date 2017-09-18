@@ -9,6 +9,7 @@ using Monit95App.Services.Interfaces;
 
 namespace Monit95App.Services.School
 {
+    using Monit95App.Infrastructure.Data;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -50,7 +51,9 @@ namespace Monit95App.Services.School
 
         public IEnumerable<SchoolDto> GetAll()
         {
-            var entities = this._schoolRepository.GetAll().ToList();
+            var context = new CokoContext();
+            var entities = context.Schools.ToList();
+            //var entities = this._schoolRepository.GetAll().ToList();
 
             Mapper.Initialize(
                 cfg => cfg.CreateMap<School, SchoolDto>()

@@ -6,24 +6,27 @@ namespace Monit95App.Domain.Core.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Exercises")]
-    public partial class Exercis
+    public partial class Element
     {
         public int Id { get; set; }
 
         public Guid TestId { get; set; }
 
-        public int? Number { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Code { get; set; }
 
         [Required]
-        [StringLength(5)]
+        [StringLength(500)]
         public string Name { get; set; }
 
-        public int MaxMark { get; set; }
+        public int ElementTypeId { get; set; }
 
-        public string Elements { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string ExerNames { get; set; }
 
-        public string Skills { get; set; }
+        public virtual ElementType ElementType { get; set; }
 
         public virtual Test Test { get; set; }
     }
