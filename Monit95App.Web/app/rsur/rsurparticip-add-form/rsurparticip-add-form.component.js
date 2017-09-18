@@ -48,10 +48,15 @@ var RsurParticipAddFormComponent = (function () {
         this.rsurSubjects = RSURSUBJECTS;
         this.schools = [];
         this.formGroup = new forms_1.FormGroup({
-            "surname": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.maxLength(25)]),
+            "surname": new forms_1.FormControl('', [forms_1.Validators.required,
+                forms_1.Validators.minLength(4),
+                forms_1.Validators.maxLength(25)]),
             "name": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.maxLength(25)]),
             "secondName": new forms_1.FormControl('', [forms_1.Validators.minLength(4), forms_1.Validators.maxLength(25)]),
-            "experience": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.min(0), forms_1.Validators.max(60)]),
+            "experience": new forms_1.FormControl('', [forms_1.Validators.required,
+                forms_1.Validators.min(0),
+                forms_1.Validators.max(60),
+                forms_1.Validators.pattern('[0-9]+')]),
             "email": new forms_1.FormControl('', basic_validators_1.BasicValidators.emailOrEmpty),
             "phone": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern('[0-9]{11}')]),
             "categoryId": new forms_1.FormControl(),
