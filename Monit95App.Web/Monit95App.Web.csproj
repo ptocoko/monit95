@@ -325,6 +325,7 @@
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\rsur\add-form\add-modal-form.component.html" />
+    <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />
     <Content Include="app\rsur\correction\particip-correction.html" />
     <Content Include="app\rsur\details\particip-details.html" />
@@ -592,6 +593,7 @@
     <TypeScriptCompile Include="app\account\account.ts" />
     <TypeScriptCompile Include="app\account\account.service.ts" />
     <TypeScriptCompile Include="app\school-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
     <TypeScriptCompile Include="app\shared\Person.ts" />
   </ItemGroup>
