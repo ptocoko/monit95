@@ -6,7 +6,7 @@
         <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..."/>
 
         <div class="pull-right">
-            <button class="btn btn-default" (click)="addClassParticip()">Добавить ученика...</button>
+            <!--<button class="btn btn-default" (click)="addClassParticip()">Добавить ученика...</button>-->
             <button class="btn btn-default" routerLink="/class-particips/upload-excel">
                 <i class="fa fa-file-excel-o fa-lg"></i>
                  Добавить из .xlsx...
@@ -15,6 +15,9 @@
         </div>
     </div>
     <br />
+    <div>
+        <button style="position:fixed;left:80%;top:80%;color:white; background-color:green; z-index:10; font-size:x-large" md-fab color="primary" (click)="addClassParticip()">+</button>
+    </div>
     <table class="table table-striped table-bordered">
         <tr>
             <th>Фамилия</th>
