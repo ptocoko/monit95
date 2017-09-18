@@ -24,7 +24,12 @@ namespace Monit95App.Controllers
         {
             cokoDb = cokoContext;
         }
-        
+
+        public ReportController()
+        {
+            cokoDb = new CokoContext();
+        }
+
         [HttpGet]
         public ActionResult Report()
         {
