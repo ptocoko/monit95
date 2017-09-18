@@ -47,6 +47,7 @@ import { SchoolFilter } from './school-filter.pipe';
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
+import { SchoolCollectorService } from "./shared/school-collector.service";
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { GlobalErrorHandler } from './error-handler';
         ParticipCorrectionService,
         ClassService,
         ParticipService,
-        MarksService,
+		MarksService,
+		SchoolCollectorService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

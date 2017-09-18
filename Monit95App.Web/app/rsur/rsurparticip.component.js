@@ -12,20 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsurparticip_service_1 = require("./rsurparticip.service");
 var account_service_1 = require("../account/account.service");
+var school_collector_service_1 = require("../shared/school-collector.service");
+var COLLECTOR_ID = 1;
 var RsurParticipComponent = (function () {
-    function RsurParticipComponent(rsurParticipService, accountService) {
+    function RsurParticipComponent(rsurParticipService, accountService, schoolCollectorService) {
         this.rsurParticipService = rsurParticipService;
         this.accountService = accountService;
+        this.schoolCollectorService = schoolCollectorService;
         this.particips = [];
     }
     RsurParticipComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.getAllParticips();
-        // Get userName
-        this.accountService.getAccount()
-            .subscribe(function (response) {
-            _this.userName = response.json().UserName;
-        });
+        //this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(res => {
+        //	this.isFinished = res;
+        //})
     };
     RsurParticipComponent.prototype.getAllParticips = function () {
         var _this = this;
@@ -48,6 +48,12 @@ var RsurParticipComponent = (function () {
             _this.getAllParticips();
         });
     };
+    RsurParticipComponent.prototype.onFinished = function () {
+        alert('are u uvereny?');
+        //this.schoolCollectorService.isFinished(COLLECTOR_ID).subscribe(() => {
+        //	this.isFinishedCollectoring = true;
+        //});
+    };
     return RsurParticipComponent;
 }());
 RsurParticipComponent = __decorate([
@@ -57,7 +63,8 @@ RsurParticipComponent = __decorate([
         styleUrls: ['./app/rsur/rsurparticip.component.css']
     }),
     __metadata("design:paramtypes", [rsurparticip_service_1.RsurParticipService,
-        account_service_1.AccountService])
+        account_service_1.AccountService,
+        school_collector_service_1.SchoolCollectorService])
 ], RsurParticipComponent);
 exports.RsurParticipComponent = RsurParticipComponent;
 ;

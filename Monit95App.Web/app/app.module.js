@@ -49,6 +49,7 @@ var school_filter_pipe_1 = require("./school-filter.pipe");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
+var school_collector_service_1 = require("./shared/school-collector.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -97,6 +98,7 @@ AppModule = __decorate([
             class_service_1.ClassService,
             particip_service_1.ParticipService,
             marks_service_1.MarksService,
+            school_collector_service_1.SchoolCollectorService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

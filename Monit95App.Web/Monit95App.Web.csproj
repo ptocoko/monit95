@@ -593,6 +593,7 @@
     <TypeScriptCompile Include="app\school-filter.pipe.ts" />
     <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
+    <TypeScriptCompile Include="app\shared\school-collector.service.ts" />
     <TypeScriptCompile Include="app\shared\Person.ts" />
   </ItemGroup>
   <ItemGroup>
