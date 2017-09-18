@@ -25,15 +25,17 @@ export class RsurParticipComponent implements OnInit {
     ngOnInit() {
 		this.getAllParticips(); 
 		
-		this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(res => {
-			this.isFinished = res;
-		});
-    } 
+    }
 
     getAllParticips() {
         this.rsurParticipService.getAll()
             .subscribe((response: Response) => {                
-                this.particips = response.json() as RsurParticip[];
+				this.particips = response.json() as RsurParticip[];
+
+				this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(res => {
+					console.log(res);
+					this.isFinished = res;
+				});
             });
     }
 

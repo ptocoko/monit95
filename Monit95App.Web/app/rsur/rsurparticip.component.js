@@ -23,15 +23,16 @@ var RsurParticipComponent = (function () {
     }
     RsurParticipComponent.prototype.ngOnInit = function () {
         this.getAllParticips();
-        //this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(res => {
-        //	this.isFinished = res;
-        //})
     };
     RsurParticipComponent.prototype.getAllParticips = function () {
         var _this = this;
         this.rsurParticipService.getAll()
             .subscribe(function (response) {
             _this.particips = response.json();
+            _this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(function (res) {
+                console.log(res);
+                _this.isFinished = res;
+            });
         });
     };
     RsurParticipComponent.prototype.setActualCode = function (particip, actualCode) {
@@ -49,10 +50,13 @@ var RsurParticipComponent = (function () {
         });
     };
     RsurParticipComponent.prototype.onFinished = function () {
-        alert('are u uvereny?');
-        //this.schoolCollectorService.isFinished(COLLECTOR_ID).subscribe(() => {
-        //	this.isFinishedCollectoring = true;
-        //});
+        var _this = this;
+        var action = confirm('Вы уверены?');
+        if (action) {
+            this.schoolCollectorService.isFinished(COLLECTOR_ID, true).subscribe(function () {
+                _this.isFinished = true;
+            });
+        }
     };
     return RsurParticipComponent;
 }());

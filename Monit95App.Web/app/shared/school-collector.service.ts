@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response } from "@angular/http";
+import { Http, Response, RequestOptionsArgs, RequestOptions, Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 
 const SCHOOL_COLLECTOR_API: string = '/api/collectors'
@@ -14,11 +14,15 @@ export class SchoolCollectorService {
 
 	getSchoolCollectorState(collectorId: number): Observable<boolean> {
 		return this.http.get(SCHOOL_COLLECTOR_API + `/${collectorId}`).map((response: Response) => {
-			return response.json() as boolean;
+			return response.json().IsFinished as boolean;
 		});
 	}
 
 	isFinished(collectorId: number, isFinished: boolean) {
-		return this.http.put(SCHOOL_COLLECTOR_API + `/${collectorId}`, isFinished);
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		let options = new RequestOptions({ headers: headers });
+
+		return this.http.put(SCHOOL_COLLECTOR_API + `/${collectorId}`, { 'IsFinished': isFinished }, options);
 	}
 }

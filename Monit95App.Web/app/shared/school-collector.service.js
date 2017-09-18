@@ -26,11 +26,14 @@ var SchoolCollectorService = (function () {
     }
     SchoolCollectorService.prototype.getSchoolCollectorState = function (collectorId) {
         return this.http.get(SCHOOL_COLLECTOR_API + ("/" + collectorId)).map(function (response) {
-            return response.json();
+            return response.json().IsFinished;
         });
     };
     SchoolCollectorService.prototype.isFinished = function (collectorId, isFinished) {
-        return this.http.put(SCHOOL_COLLECTOR_API + ("/" + collectorId), isFinished);
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.put(SCHOOL_COLLECTOR_API + ("/" + collectorId), { 'IsFinished': isFinished }, options);
     };
     return SchoolCollectorService;
 }());
