@@ -74,10 +74,15 @@ export class RsurParticipAddFormComponent implements OnInit {
         private readonly schoolService: SchoolService
     ) {
         this.formGroup = new FormGroup({
-            "surname": new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(25)]),
+            "surname": new FormControl('', [Validators.required,
+                                            Validators.minLength(4),
+                                            Validators.maxLength(25)]),                                            
             "name": new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(25)]),
             "secondName": new FormControl('', [Validators.minLength(4), Validators.maxLength(25)]),
-            "experience": new FormControl('', [Validators.required, Validators.min(0), Validators.max(60)]),
+            "experience": new FormControl('', [Validators.required,
+                                               Validators.min(0),
+                                               Validators.max(60),
+                                               Validators.pattern('[0-9]+')]),
             "email": new FormControl('', BasicValidators.emailOrEmpty),  
             "phone": new FormControl('', [Validators.required, Validators.pattern('[0-9]{11}')]),
             "categoryId": new FormControl(),
