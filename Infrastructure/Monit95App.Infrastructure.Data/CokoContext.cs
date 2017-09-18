@@ -16,11 +16,13 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Collector> Collectors { get; set; }
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
         public virtual DbSet<Exercis> Exercises { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
+        public virtual DbSet<OldGroup> OldGroups { get; set; }
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -35,6 +37,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<RsurSubject> RsurSubjects { get; set; }
         public virtual DbSet<RsurTestResult> RsurTestResults { get; set; }
         public virtual DbSet<RsurTest> RsurTests { get; set; }
+        public virtual DbSet<SchoolCollector> SchoolCollectors { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
@@ -61,6 +64,11 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Class>()
                 .HasMany(e => e.Particips)
                 .WithRequired(e => e.Class)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Collector>()
+                .HasMany(e => e.SchoolCollectors)
+                .WithRequired(e => e.Collector)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Element>()
@@ -254,6 +262,11 @@ namespace Monit95App.Infrastructure.Data
                 .WithRequired(e => e.RsurTest)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<SchoolCollector>()
+                .Property(e => e.SchoolId)
+                .IsFixedLength()
+                .IsUnicode(false);
+
             modelBuilder.Entity<SchoolEdit>()
                 .Property(e => e.Id)
                 .IsFixedLength()
@@ -284,6 +297,11 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<School>()
                 .HasMany(e => e.RsurParticips)
+                .WithRequired(e => e.School)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<School>()
+                .HasMany(e => e.SchoolCollectors)
                 .WithRequired(e => e.School)
                 .WillCascadeOnDelete(false);
 
