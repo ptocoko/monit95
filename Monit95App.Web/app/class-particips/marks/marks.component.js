@@ -27,8 +27,6 @@ var ClassParticipMarksComponent = (function () {
         var _this = this;
         this.marksService.getAll(PROJECT_TEST_ID).subscribe(function (res) {
             _this.particips = res.json();
-            console.log(res.json());
-            console.log(_this.particips);
             _this.isLoading = false;
         });
     };
