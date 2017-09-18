@@ -120,7 +120,11 @@ export class RsurParticipAddFormComponent implements OnInit {
 
 	    this.rsurParticipService.createParticip(this.particip).
 	              subscribe(data => this.router.navigate(['rsurparticips']));     				
-	}
+    }
+
+    back() {
+        this.router.navigate(['rsurparticips'])
+    }
 
     classesChange(): void {
         this.classNumbersTouched = true;

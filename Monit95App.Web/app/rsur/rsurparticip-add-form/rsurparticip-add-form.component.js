@@ -94,6 +94,9 @@ var RsurParticipAddFormComponent = (function () {
         this.rsurParticipService.createParticip(this.particip).
             subscribe(function (data) { return _this.router.navigate(['rsurparticips']); });
     };
+    RsurParticipAddFormComponent.prototype.back = function () {
+        this.router.navigate(['rsurparticips']);
+    };
     RsurParticipAddFormComponent.prototype.classesChange = function () {
         var _this = this;
         this.classNumbersTouched = true;

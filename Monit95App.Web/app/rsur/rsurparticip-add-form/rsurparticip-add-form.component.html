@@ -199,10 +199,13 @@
     </div>
 
     <div class="row">
-        <div class="form-group col-sm-6">
+        <div class="form-group form-inline col-sm-6">
             <button type="submit" class="btn btn-success" [disabled]="formGroup.invalid || particip.ClassNumbers === ''">
                 Отправить
-            </button>
+            </button>            
+            <a class="btn btn-danger" (click)="back()">
+                Отмена
+            </a>
         </div>
     </div>
 </form>

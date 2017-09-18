@@ -12,7 +12,7 @@ import { ClassParticipMarksComponent } from './class-particips/marks/marks.compo
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
 
 const appRoutes: Routes = [
-    { path: 'rsurparticips', component: RsurParticipComponent },
+    { path: 'rsurparticips', component: RsurParticipComponent },    
     { path: 'rsurparticips/new', component: RsurParticipAddFormComponent },
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
