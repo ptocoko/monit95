@@ -16,6 +16,7 @@ export class AddRsurParticip {
     SchoolIdWithName: string;
     CategoryId: number;
     AreaCodeWithName: string;
+    //Birthday: string;
     Birthday: Date;
     Experience: number;
     Phone: string;
@@ -31,16 +32,6 @@ export class School {
     SchoolIdWithName: string;
     AreaCodeWithName: string;
 }
-
-//export class Category {
-//    Id: number;
-//    Name: string;
-//}
-
-//export class RsurSubject {
-//    Code: number;
-//    Name: string;
-//}
 
 const CATEGORIES: any[] = [
     { Id: 0, Name: 'Без категории' },
@@ -65,8 +56,7 @@ export class RsurParticipAddFormComponent implements OnInit {
     categories = CATEGORIES;
     rsurSubjects = RSURSUBJECTS;
 	schools: School[] = [];
-	schoolId: string;
-	classNumbers: string;
+	schoolId: string;	
     classNumbersTouched: boolean;
     newDay: number;
     newMonth: number;
@@ -92,14 +82,20 @@ export class RsurParticipAddFormComponent implements OnInit {
             "phone": new FormControl('', [Validators.required, Validators.pattern('[0-9]{11}')]),
             "categoryId": new FormControl(),
             "rsurSubjectCode": new FormControl(''),
-            "birthday": new FormControl(),
+            "newday": new FormControl('', [Validators.required, Validators.min(1), Validators.max(31)]),
+            "newmonth": new FormControl('', Validators.required),
+            "newyear": new FormControl('', [Validators.required, Validators.min(1930), Validators.max(1999)]),
 			"areaCodeWithName": new FormControl(),
-			"schoolIdFrom": new FormControl('', this.schoolIdFromValidator())
+			"schoolIdFrom": new FormControl()
         });       
     }
 
     ngOnInit() {
-        this.tempB = true;
+        this.particip.ClassNumbers = '';
+        this.particip.CategoryId = 0;
+        this.particip.RsurSubjectCode = 1;
+        this.particip.Email = '';
+        
         this.radioValue = 1;        
         this.selectedSchool = '';
         this.schoolService.getAll()
@@ -115,26 +111,26 @@ export class RsurParticipAddFormComponent implements OnInit {
             });
     }
 
-	submit() {
-		const value = this.formGroup.value;
+	submit() {		
 		const milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
+	    this.particip.Birthday = new Date(milliseconds + 10800000);		
 
-		value.birthday = new Date(milliseconds + 10800000);
-		value.classNumbers = this.classNumbers;
+	    //this.particip.Birthday = this.newYear + '-' + this.newMonth + '-' + this.newDay;
+	    console.log(this.particip);
 
-		this.rsurParticipService.createParticip(value).
-            subscribe(data => this.router.navigate(['rsurparticips']));     				
-    }
+	    this.rsurParticipService.createParticip(this.particip).
+	              subscribe(data => this.router.navigate(['rsurparticips']));     				
+	}
 
     classesChange(): void {
         this.classNumbersTouched = true;
-        this.classNumbers = '';
+        this.particip.ClassNumbers = '';
         const checkboxes = $('#classes').find(':checkbox:checked');
         checkboxes.each((index, element) => {
-            this.classNumbers += element.id + ';';
+            this.particip.ClassNumbers += element.id + ';';
         });
-        if (this.classNumbers.length > 0) {
-            this.classNumbers = this.classNumbers.slice(0, this.classNumbers.length - 1);            
+        if (this.particip.ClassNumbers.length > 0) {
+            this.particip.ClassNumbers = this.particip.ClassNumbers.slice(0, this.particip.ClassNumbers.length - 1);            
         }
 	}
 

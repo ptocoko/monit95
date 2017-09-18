@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
 
 using Microsoft.AspNet.Identity;
 
-using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
 using Monit95App.Services.Interfaces;
-using Monit95App.Services.Rsur;
-using Monit95App.Web.Services;
 
-using WebApi.OutputCache.V2;
 // ReSharper disable StyleCop.SA1126
 
 // ReSharper disable once CheckNamespace
@@ -42,14 +33,14 @@ namespace Monit95App.Web.Api
         [HttpPost]
         [Authorize(Roles = "school")]
         public IHttpActionResult Post([FromBody]RsurParticipPostDto dto)
-        {
+        {                      
+            dto.SchoolId = User.Identity.Name;
+
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
-            }            
+            }
 
-            dto.SchoolId = User.Identity.Name;            
-            
             var rsurParticipCode = this._rsurParticipService.Add(dto);
 
             return Ok(rsurParticipCode);

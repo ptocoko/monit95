@@ -37,8 +37,7 @@
 
         [Required]
         public string ClassNumbers { get; set; } // TODO: need custom attribute to avoide repetion class's numbers
-               
-        [Required]
+                       
         [StringLength(4)]
         public string SchoolId { get; set; }
         

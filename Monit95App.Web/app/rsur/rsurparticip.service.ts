@@ -16,7 +16,7 @@ export class RsurParticipService {
 
     constructor(private readonly http: Http) { }       
 
-    createParticip(obj: RsurParticip): Observable<Response> {
+    createParticip(obj: any): Observable<Response> {
         return this.http.post(this.ROUTE_PREFIX + '/Post', obj);
     }
 

@@ -4,7 +4,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Фамилия*</label>
             <div class="col-sm-8">
-                <input class="form-control" name="surname" formControlName="surname" />
+                <input class="form-control" [(ngModel)]="particip.Surname" name="surname"  formControlName="surname" />
                 <div class="alert alert-danger"
                      *ngIf="formGroup.controls['surname'].invalid && formGroup.controls['surname'].touched">
                     Не указана фамилия
@@ -18,7 +18,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Имя*</label>
             <div class="col-sm-8">
-                <input class="form-control" name="name" formControlName="name" />
+                <input class="form-control" [(ngModel)]="particip.Name" name="name" formControlName="name" />
                 <div class="alert alert-danger"
                      *ngIf="formGroup.controls['name'].invalid && formGroup.controls['name'].touched">
                     Не указано имя
@@ -31,7 +31,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Отчество</label>
             <div class="col-sm-8">
-                <input class="form-control" name="secondName" formControlName="secondName" />
+                <input class="form-control" [(ngModel)]="particip.SecondName"  name="secondName" formControlName="secondName" />
                 <div class="alert alert-danger"
                      *ngIf="formGroup.controls['secondName'].invalid && formGroup.controls['secondName'].touched">
                     Не указано отчество
@@ -44,7 +44,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Категория*</label>
             <div class="col-sm-8">
-                <select class="form-control" id="categoryId" name="categoryId" formControlName="categoryId">
+                <select class="form-control" id="categoryId" [(ngModel)]="particip.CategoryId" name="categoryId" formControlName="categoryId">
                     <option *ngFor="let category of categories" [value]="category.Id">{{category.Name}}</option>
                 </select>
             </div>
@@ -55,7 +55,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Предмет*</label>
             <div class="col-sm-8">
-                <select class="form-control" id="rsurSubjectCode" name="rsurSubjectCode" formControlName="rsurSubjectCode">
+                <select class="form-control" id="rsurSubjectCode" [(ngModel)]="particip.RsurSubjectCode" name="rsurSubjectCode" formControlName="rsurSubjectCode">
                     <option *ngFor="let rsurSubject of rsurSubjects" [value]="rsurSubject.Code">{{rsurSubject.Name}}</option>
                 </select>
             </div>
@@ -66,7 +66,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Педагогический стаж*</label>
             <div class="col-sm-8">
-                <input class="form-control" name="experience" formControlName="experience" />
+                <input class="form-control" [(ngModel)]="particip.Experience" name="experience" formControlName="experience" />
                 <div class="alert alert-danger"
                      *ngIf="formGroup.controls['experience'].invalid && formGroup.controls['experience'].touched">
                     Педагогический стаж должен быть в пределах 0-60 лет
@@ -79,7 +79,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Email</label>
             <div class="col-sm-8">
-                <input class="form-control" name="email" formControlName="email" />
+                <input class="form-control" [(ngModel)]="particip.Email" name="email" formControlName="email" />
                 <div class="alert alert-danger"
                      *ngIf="formGroup.controls['email'].invalid && formGroup.controls['email'].touched">
                     Некорректный email
@@ -92,7 +92,7 @@
         <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Телефон*</label>
             <div class="col-sm-8">
-                <input class="form-control" name="phone" formControlName="phone" />
+                <input class="form-control" [(ngModel)]="particip.Phone" name="phone" formControlName="phone" />
                 <div class="alert alert-danger"
                      *ngIf="formGroup.controls['phone'].invalid && formGroup.controls['phone'].touched">
                     Мобильный телефон должен состоять из 11 цифр в формате 8XXXXXXXXXX
@@ -103,23 +103,10 @@
 
     <div class="row">
         <div class="form-group col-sm-6">
-            <label class="col-sm-4 control-label">Телефон*</label>
-            <md-form-field class="col-sm-8">
-                <input mdInput [mdDatepicker]="picker" placeholder="Choose a date">
-                <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-                <md-datepicker #picker></md-datepicker>
-            </md-form-field>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="form-group col-sm-6">
             <label class="col-sm-4 control-label">Дата рождения*</label>
             <div class="col-sm-8 form-inline">
-                <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="3" [ngModelOptions]="{standalone: true}" />
-                <select name="month" class="form-control" [(ngModel)]="newMonth" [ngModelOptions]="{standalone: true}">
-                    <option value="-1" disabled selected>Mecяц</option>
+                <input name="day" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="3" formControlName="newday" />
+                <select name="month" class="form-control" [(ngModel)]="newMonth" formControlName="newmonth">                    
                     <option value="0">Январь</option>
                     <option value="1">Февраль</option>
                     <option value="2">Март</option>
@@ -133,7 +120,13 @@
                     <option value="10">Ноябрь</option>
                     <option value="11">Декабрь</option>
                 </select>
-                <input name="year" type="text" placeholder="Год" size="4" [(ngModel)]="newYear" class="form-control" [ngModelOptions]="{standalone: true}" />
+                <input name="year" type="text" placeholder="Год" size="4" [(ngModel)]="newYear" class="form-control" formControlName="newyear" />
+            </div>
+            <div class="alert alert-danger"
+                 *ngIf="(formGroup.controls['newday'].invalid && formGroup.controls['newday'].touched)
+                     || (formGroup.controls['newmonth'].invalid && formGroup.controls['newmonth'].touched)
+                     || (formGroup.controls['newyear'].invalid && formGroup.controls['newyear'].touched)">
+                Не верно указана дата рождения
             </div>
         </div>
     </div>
@@ -151,7 +144,7 @@
                 <label class="checkbox-inline"><input (change)="classesChange()" id="11" type="checkbox" />11</label>
             </div>
             <div class="alert alert-danger"
-                 *ngIf="classNumbers == ''">
+                 *ngIf="particip.ClassNumbers == '' && classNumbersTouched">
                 Необходимо выбрать хотя бы один класс где учитель ведет урок по данному учебному предмету
             </div>
         </div>
@@ -208,7 +201,7 @@
 
     <div class="row">
         <div class="form-group col-sm-6">
-            <button type="submit" class="btn btn-success" [disabled]="formGroup.invalid || particip.ClassNumbers == ''">
+            <button type="submit" class="btn btn-success" [disabled]="formGroup.invalid || particip.ClassNumbers === ''">
                 Отправить
             </button>
         </div>

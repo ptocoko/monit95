@@ -7,10 +7,7 @@ import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
 import {
-    MdButtonModule,
-    MdDatepickerModule,
-    MdNativeDateModule,
-    MdInputModule
+    MdButtonModule,            
     } from '@angular/material';
 
 // Components
@@ -62,10 +59,7 @@ import { GlobalErrorHandler } from './error-handler';
         ModalModule.forRoot(),
         BootstrapModalModule,
         MyDatePickerModule,        
-        MdButtonModule,
-        MdDatepickerModule,
-        MdNativeDateModule,
-        MdInputModule
+        MdButtonModule
     ],
 
 	declarations: [
