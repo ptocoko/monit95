@@ -50,8 +50,7 @@ var RsurParticipAddFormComponent = (function () {
         this.formGroup = new forms_1.FormGroup({
             "surname": new forms_1.FormControl('', [forms_1.Validators.required,
                 forms_1.Validators.minLength(4),
-                forms_1.Validators.maxLength(25),
-                forms_1.Validators.pattern('[а-Я-]{25}')]),
+                forms_1.Validators.maxLength(25)]),
             "name": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.maxLength(25)]),
             "secondName": new forms_1.FormControl('', [forms_1.Validators.minLength(4), forms_1.Validators.maxLength(25)]),
             "experience": new forms_1.FormControl('', [forms_1.Validators.required,
