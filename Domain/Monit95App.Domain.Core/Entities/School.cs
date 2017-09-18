@@ -14,6 +14,7 @@ namespace Monit95App.Domain.Core.Entities
             GiaResults = new HashSet<GiaResult>();
             Particips = new HashSet<Particip>();
             RsurParticips = new HashSet<RsurParticip>();
+            SchoolCollectors = new HashSet<SchoolCollector>();
         }
 
         [StringLength(4)]
@@ -74,6 +75,9 @@ namespace Monit95App.Domain.Core.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RsurParticip> RsurParticips { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SchoolCollector> SchoolCollectors { get; set; }
 
         public virtual SchoolEdit SchoolEdit { get; set; }
 
