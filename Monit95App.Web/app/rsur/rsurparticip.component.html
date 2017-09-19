@@ -62,9 +62,7 @@
         </table>
         <br />
         <div>
-            <button class="btn" [ngClass]="{'btn-primary': !isFinished, 'btn-success': isFinished}" [disabled]="isFinished" (click)="onFinished()">
-                Актуализация окончена            
-            </button>
+            <button [disabled]="isFinished" class="btn btn-primary" (click)="onFinished()">Актуализация окончена</button>
         </div>
     </div>
 <!--</div>-->
