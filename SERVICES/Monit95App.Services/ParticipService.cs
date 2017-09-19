@@ -52,11 +52,21 @@ namespace Monit95App.Services
             var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
             Validator.ValidateObject(dto, validContext, true);
             
-            var entity = _mapper.Map<ParticipDto, Particip>(dto);
-            //entity.ClassId = _classServise.GetId(dto.ClassName); // ClassName => ClassCode 
+            var entity = _mapper.Map<ParticipDto, Particip>(dto);            
 
-            _participRepository.Insert(entity);                        
+            var schoolClassEntities = _participRepository.GetAll().Where(x => x.ProjectId == entity.ProjectId
+                                                                           && x.SchoolId == entity.SchoolId
+                                                                           && x.ClassId == entity.ClassId
+                                                                           && x.Surname == entity.Surname
+                                                                           && x.Name == entity.Name
+                                                                           && x.SecondName == entity.SecondName).ToList();
+            
+            if (schoolClassEntities.Any())
+            {               
+                return -1;
+            }
 
+            _participRepository.Insert(entity);
             return entity.Id;
         }
 
