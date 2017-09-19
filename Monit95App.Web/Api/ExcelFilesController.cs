@@ -63,29 +63,20 @@ namespace Monit95App.Web.Api
             var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 1);
 
             int countOfAddedParticips = 0;
-            List<string> repetitionNames = null;
             for (int i = 0; i < particips.Count; i++)
             {
-                
-                    _participService.Add(particips[i]);
+                int addingResult = _participService.Add(particips[i]);
+                if(addingResult != -1)
+                {
                     countOfAddedParticips++;
-                
-                    
-                        //hasRowsWithError = true;
-
-                        //if (repetitionNames == null)
-                        //    repetitionNames = new List<string>();
-                        //repetitionNames.Add($"{particips[i].Surname} {particips[i].Name} {particips[i].SecondName}");
-                    
-                    
-                
+                }
             }
             
             return Ok(content: new {
+                              CountOfReadParticips = particips.Count,
                               CountOfAddedParticips = countOfAddedParticips,
                               HasRowsWithError = hasRowsWithError,
-                              RowNumbersWithError = rowNumbersWithError,
-                              RepetitionNames = repetitionNames
+                              RowNumbersWithError = rowNumbersWithError
                           });
         }
 

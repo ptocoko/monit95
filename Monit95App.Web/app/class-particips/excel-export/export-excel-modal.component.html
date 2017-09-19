@@ -4,19 +4,13 @@
         <h1 style="display:inline;margin-left:10px;vertical-align:middle;">Добавление участников...</h1>
     </div>
     <div *ngIf="!isExporting">
-        <h2 style="text-align:center"><b>{{exportResults.CountOfAddedParticips}}</b> участников добавлено успешно!</h2>
+        <h2>Считано строк из excel-документа: <b>{{exportResults.CountOfReadParticips}}</b></h2>
+        <h2>Добавлено участников: <b>{{exportResults.CountOfAddedParticips}}</b></h2>
         <br />
         <div class="col-xs-12" *ngIf="exportResults.HasRowsWithError">
             <div class="jumbotron">
                 <h2>Внимание!</h2>
-                <p *ngIf="exportResults.RowNumbersWithError">Данные из строк под номерами: <b>{{exportResults.RowNumbersWithError?.join(', ')}}</b> содержат ошибки и не были добавлены в базу!</p>
-                <div *ngIf="exportResults.RepetitionNames">
-                    <p>Обнаружена попытка добавления уже имеющихся в базе участников.</p>
-                    <a style="text-decoration:underline;cursor:pointer" data-toggle="collapse" data-target="#repetitions">Показать повторяющиеся данные <span class="caret"></span></a>
-                    <div id="repetitions" class="collapse">
-                        <p *ngFor="let repetition of exportResults.RepetitionNames">{{repetition}}</p>
-                    </div>
-                </div>
+                <p *ngIf="exportResults.RowNumbersWithError">Данные из строк под номерами: <b>{{exportResults.RowNumbersWithError?.join(', ')}}</b> содержат ошибки!</p>
             </div>
         </div>
         <hr />
