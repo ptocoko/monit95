@@ -70,10 +70,6 @@ namespace Monit95App.Web.Api
                 {
                     countOfAddedParticips++;
                 }
-                else
-                {
-
-                }
             }
             
             return Ok(content: new {
