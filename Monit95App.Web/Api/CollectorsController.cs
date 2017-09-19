@@ -1,4 +1,5 @@
-﻿using Monit95App.Infrastructure.Data;
+﻿using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,7 +35,7 @@ namespace Monit95App.Api
             var collectorId = Convert.ToInt32(RequestContext.RouteData.Values["collectorId"]);
             var schoolId = User.Identity.Name;
 
-            var schoolCollector = _context.SchoolCollectors.Where(x => x.CollectorId == collectorId && x.SchoolId == schoolId).Single();
+            var schoolCollector = _context.SchoolCollectors.AsNoTracking().Where(x => x.CollectorId == collectorId && x.SchoolId == schoolId).Single();
 
             var dto = new CollectorDto
             {
@@ -59,6 +60,7 @@ namespace Monit95App.Api
             var entity = _context.SchoolCollectors.Where(x=>x.CollectorId == collectorId && x.SchoolId == schoolId).Single();
 
             entity.IsFinished = dto.IsFinished;
+            _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();            
 
             return StatusCode(HttpStatusCode.NoContent);
