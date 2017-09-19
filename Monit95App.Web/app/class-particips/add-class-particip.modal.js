@@ -45,6 +45,7 @@ var AddClassParticipModal = (function () {
         this.newMonth = -1;
         if (this.isUpdate) {
             this.particip = dialog.context.particip;
+            this.particip.ClassName = this.particip.ClassName.trim();
             if (this.particip.Birthday) {
                 this.newDay = this.particip.Birthday.getDate();
                 this.newMonth = this.particip.Birthday.getMonth();

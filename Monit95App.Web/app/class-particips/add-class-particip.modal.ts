@@ -40,6 +40,7 @@ export class AddClassParticipModal implements OnInit {
 
 		if (this.isUpdate) {
 			this.particip = dialog.context.particip;
+			this.particip.ClassName = this.particip.ClassName.trim();
 
 			if (this.particip.Birthday) {
 				this.newDay = this.particip.Birthday.getDate();
