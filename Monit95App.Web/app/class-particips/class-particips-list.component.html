@@ -3,13 +3,13 @@
 <div *ngIf="isLoading">Загрузка...</div>
 <div *ngIf="!isLoading">
     <div style="display:flex;flex-direction:row;justify-content:space-between">
-        <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..."/>
+        <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника по ФИО..."/>
 
         <div class="pull-right">
-            <!--<button class="btn btn-default" (click)="addClassParticip()">Добавить ученика...</button>-->
+            <button class="btn btn-default" (click)="addClassParticip()">Добавить одного ученика...</button>
             <button class="btn btn-default" routerLink="/class-particips/upload-excel">
                 <i class="fa fa-file-excel-o fa-lg"></i>
-                 Добавить из .xlsx...
+                 Добавить список учеников из .xlsx...
             </button>
             <!--<button class="btn btn-primary" routerLink="/class-particips/marks">Перейти к заполнению оценок</button>-->
         </div>
@@ -17,6 +17,7 @@
     <br />
     <div>
         <button style="position:fixed;left:80%;top:80%;color:white; background-color:green; z-index:10; font-size:x-large" md-fab color="primary" (click)="addClassParticip()">+</button>
+        <span>Количество добавленных учеников: {{classParticips.length}}</span>
     </div>
     <table class="table table-striped table-bordered">
         <tr>
@@ -36,8 +37,8 @@
             <td>{{particip.ClassName}}</td>
             <td>{{particip.Birthday?.toLocaleDateString('ru-RU')}}</td>
             <td><span *ngIf="particip.WasDoo">Да</span><span *ngIf="!particip.WasDoo">Нет</span></td>
-            <td><a class="glyphicon glyphicon-edit" (click)="updateClassParticip(particip)"></a></td>
-            <td><a class="glyphicon glyphicon-trash" (click)="deleteClassParticip(particip)"></a></td>
+            <td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="updateClassParticip(particip)"></a></td>
+            <td><a style="cursor:pointer" class="glyphicon glyphicon-trash" (click)="deleteClassParticip(particip)"></a></td>
         </tr>
     </table>
     <p class="text-center" *ngIf="classParticips?.length === 0">Данные об учениках первых классов отсутсвуют</p>
