@@ -31,6 +31,7 @@ var class_particips_list_component_1 = require("./class-particips/class-particip
 var marks_component_1 = require("./class-particips/marks/marks.component");
 var export_excel_component_1 = require("./class-particips/excel-export/export-excel.component");
 var marks_edit_modal_1 = require("./class-particips/marks/marks-edit.modal");
+var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -88,7 +89,8 @@ AppModule = __decorate([
             add_class_particip_modal_1.AddClassParticipModal,
             marks_component_1.ClassParticipMarksComponent,
             export_excel_component_1.ClassParticipsExportExcelComponent,
-            marks_edit_modal_1.ClassParticipMarksEditModal
+            marks_edit_modal_1.ClassParticipMarksEditModal,
+            class_particips_plan_component_1.ClassParticipsPlanComponent
         ],
         providers: [
             account_service_1.AccountService,
