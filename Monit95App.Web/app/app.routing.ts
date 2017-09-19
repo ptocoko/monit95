@@ -22,7 +22,7 @@ const appRoutes: Routes = [
 	{ path: 'class-particips', component: ClassParticipsPlanComponent },
 	{ path: 'class-particips/list', component: ClassParticipsListComponent },
 	{ path: 'class-particips/upload-excel', component: ClassParticipsExportExcelComponent },
-	{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
+	//{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
     { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];
 
