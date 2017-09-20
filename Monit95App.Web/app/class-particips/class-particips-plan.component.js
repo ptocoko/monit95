@@ -14,7 +14,7 @@ var ClassParticipsPlanComponent = (function () {
 }());
 ClassParticipsPlanComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/class-particips-plan.component.html?v=${new Date().getTime()}'
+        templateUrl: "./app/class-particips/class-particips-plan.component.html?v=" + new Date().getTime()
     })
 ], ClassParticipsPlanComponent);
 exports.ClassParticipsPlanComponent = ClassParticipsPlanComponent;

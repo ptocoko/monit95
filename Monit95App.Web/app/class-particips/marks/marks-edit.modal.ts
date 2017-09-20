@@ -15,7 +15,7 @@ export class ClassParticipMarksEditModalData extends BSModalContext {
 }
 
 @Component({
-	templateUrl: './app/class-particips/marks/marks-edit.modal.html?v=${new Date().getTime()}'
+	templateUrl: `./app/class-particips/marks/marks-edit.modal.html?v=${new Date().getTime()}`
 })
 export class ClassParticipMarksEditModal {
 	particip: ParticipWithMarks;

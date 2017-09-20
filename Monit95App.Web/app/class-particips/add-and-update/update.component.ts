@@ -8,7 +8,7 @@ const CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж'
 const PROJECT_ID: number = 1;
 
 @Component({
-	templateUrl: './app/class-particips/add-and-update/update.component.html?v=${new Date().getTime()}'
+	templateUrl: `./app/class-particips/add-and-update/update.component.html?v=${new Date().getTime()}`
 })
 export class UpdateClassParticipComponent implements OnInit {
 	particip: ClassParticip = new ClassParticip();
@@ -54,7 +54,7 @@ export class UpdateClassParticipComponent implements OnInit {
 		}
 		let birthdayInMiSeconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
 		this.particip.Birthday = new Date(birthdayInMiSeconds + 10800000);
-		console.log(this.particip);
+
 		this.participService.updateParticip(this.particip).subscribe(res => {
 			this.router.navigate(['class-particips/list'])
 		});

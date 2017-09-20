@@ -40,7 +40,6 @@ export class AddClassParticipComponent implements OnInit {
 		}
 		let birthdayInMiSeconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
 		this.particip.Birthday = new Date(birthdayInMiSeconds + 10800000);
-		console.log(this.particip);
 		this.participService.addParticip(this.particip).subscribe(res => {
 			this.router.navigate(['class-particips/list'])
 		});

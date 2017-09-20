@@ -37,6 +37,9 @@ var ClassParticipsExportExcelComponent = (function () {
                 //console.log(data);
             });
         }
+        else {
+            alert('Неверный тип файла. Загрузите файл с расширением ".xlsx"');
+        }
     };
     ClassParticipsExportExcelComponent.prototype.downloadExcelTemplate = function () {
         var _this = this;

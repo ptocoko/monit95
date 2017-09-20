@@ -42,7 +42,6 @@ var AddClassParticipComponent = (function () {
         }
         var birthdayInMiSeconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
         this.particip.Birthday = new Date(birthdayInMiSeconds + 10800000);
-        console.log(this.particip);
         this.participService.addParticip(this.particip).subscribe(function (res) {
             _this.router.navigate(['class-particips/list']);
         });

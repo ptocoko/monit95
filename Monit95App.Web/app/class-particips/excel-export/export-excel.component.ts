@@ -49,6 +49,9 @@ export class ClassParticipsExportExcelComponent {
 				//console.log(data);
 			})
 		}
+		else {
+			alert('Неверный тип файла. Загрузите файл с расширением ".xlsx"');
+		}
 	}
 	
 	downloadExcelTemplate() {
