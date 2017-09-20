@@ -25,7 +25,7 @@ namespace Monit95App.Util
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             // Register DbContext
-            builder.RegisterType<CokoContext>().SingleInstance().ExternallyOwned();
+            builder.RegisterType<CokoContext>().InstancePerRequest();
             builder.RegisterType<ApplicationDbContext>();
             
             // Register individual components            

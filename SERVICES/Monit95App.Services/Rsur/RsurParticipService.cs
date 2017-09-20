@@ -26,7 +26,9 @@ namespace Monit95App.Services.Rsur
         {
             _cokoContext = new CokoContext();
             Mapper.Initialize(
-                cfg => cfg.CreateMap<RsurParticip, RsurParticipGetDto>()
+                cfg => cfg.CreateMap<RsurParticip, RsurPartic
+                
+                ipGetDto>()
                     .ForMember(
                         dist => dist.SchoolIdWithName,
                         opt => opt.MapFrom(src => $"{src.SchoolId} - {src.School.Name.TrimEnd()}"))
