@@ -26,7 +26,7 @@ var AppComponent = (function () {
         this.isCokoRole = userRoles.indexOf('coko') >= 0;
     };
     AppComponent.prototype.onActivate = function (event) {
-        if (['ClassParticipsListComponent', 'ClassParticipsExportExcelComponent', 'UpdateClassParticipComponent', 'AddClassParticipComponent'].indexOf(event.constructor.name) !== -1) {
+        if (['ClassParticipsListComponent', 'ClassParticipsExportExcelComponent', 'UpdateClassParticipComponent', 'AddClassParticipComponent', 'ClassParticipsPlanComponent'].indexOf(event.constructor.name) !== -1) {
             this.isRsur = false;
         }
         else {

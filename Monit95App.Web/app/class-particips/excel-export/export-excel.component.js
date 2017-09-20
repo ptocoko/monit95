@@ -52,7 +52,7 @@ var ClassParticipsExportExcelComponent = (function () {
 }());
 ClassParticipsExportExcelComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/excel-export/export-excel.component.html',
+        templateUrl: './app/class-particips/excel-export/export-excel.component.html?v=${new Date().getTime()}',
         styles: [
             ".fileUploader {\n\t\t\t\toverflow: hidden;\n\t\t\t\tposition: relative;\n\t\t\t}\n\n\t\t\t.fileUploader [type=file] {\n\t\t\t\tcursor: inherit;\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-size: 999px;\n\t\t\t\tfilter: alpha(opacity=0);\n\t\t\t\tmin-height: 100%;\n\t\t\t\tmin-width: 100%;\n\t\t\t\topacity: 0;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\ttext-align: right;\n\t\t\t\ttop: 0;\n\t\t\t}"
         ]

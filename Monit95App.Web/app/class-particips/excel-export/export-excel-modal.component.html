@@ -4,13 +4,13 @@
         <h1 style="display:inline;margin-left:10px;vertical-align:middle;">Добавление участников...</h1>
     </div>
     <div *ngIf="!isExporting">
-        <h2>Считано строк из excel-документа: <b>{{exportResults.CountOfReadParticips}}</b></h2>
-        <h2>Добавлено участников: <b>{{exportResults.CountOfAddedParticips}}</b></h2>
+        <h2>Прочитано: <b>{{exportResults.CountOfReadParticips}}</b></h2>
+        <h2>Добавлено: <b>{{exportResults.CountOfAddedParticips}}</b></h2>
         <br />
         <div class="col-xs-12" *ngIf="exportResults.HasRowsWithError">
             <div class="jumbotron">
                 <h2>Внимание!</h2>
-                <p *ngIf="exportResults.RowNumbersWithError">Данные из строк под номерами: <b>{{exportResults.RowNumbersWithError?.join(', ')}}</b> содержат ошибки!</p>
+                <p *ngIf="exportResults.RowNumbersWithError">Данные из строк под номером(-ами): <b>{{exportResults.RowNumbersWithError?.join(', ')}}</b> содержит(-ат) ошибки!</p>
             </div>
         </div>
         <hr />

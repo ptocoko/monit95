@@ -65,7 +65,7 @@ var UpdateClassParticipComponent = (function () {
 }());
 UpdateClassParticipComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/add-and-update/update.component.html'
+        templateUrl: './app/class-particips/add-and-update/update.component.html?v=${new Date().getTime()}'
     }),
     __metadata("design:paramtypes", [particip_service_1.ParticipService,
         account_service_1.AccountService,
