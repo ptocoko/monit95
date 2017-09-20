@@ -538,6 +538,7 @@
     <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\class-particips\add-or-update\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\ParticipReport\" />

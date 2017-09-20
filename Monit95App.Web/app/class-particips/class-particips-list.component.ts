@@ -9,7 +9,6 @@ import { ClassParticip } from "./ClassParticip";
 import { Http } from "@angular/http";
 
 const PROJECT_ID: number = 1;
-const CLASS_NAMES = []
 
 @Component({
 	templateUrl: './app/class-particips/class-particips-list.component.html'
