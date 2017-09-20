@@ -6,9 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
-import {
-    MdButtonModule,            
-    } from '@angular/material';
+import { MdButtonModule } from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
