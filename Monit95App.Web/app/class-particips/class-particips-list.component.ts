@@ -7,6 +7,7 @@ import { AddClassParticipModal } from './add-class-particip.modal';
 import { ParticipService } from '../particip.service';
 import { ClassParticip } from "./ClassParticip";
 import { Http } from "@angular/http";
+import { Router } from "@angular/router";
 
 const PROJECT_ID: number = 1;
 
@@ -22,7 +23,7 @@ export class ClassParticipsListComponent implements OnInit {
         private readonly accountService: AccountService,
 		private readonly participService: ParticipService,
 		private readonly modal: Modal,
-		private readonly http: Http) {
+		private readonly router: Router) {
 
 	}
 
@@ -42,45 +43,20 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	addClassParticip() {
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({ isUpdate: false, schoolId: this.account.UserName, projectId: PROJECT_ID }, BSModalContext)).then(dialog => {
-			dialog.result.then(classParticip => {
-				if (classParticip) {
-					this.classParticips.push(classParticip);
-				}
-			}).catch(() => { })
-		});
-		
+		this.router.navigate(['class-particips/new'])
 	}
 
 	updateClassParticip(classParticip: ClassParticip) {
-		let index = this.classParticips.indexOf(classParticip);
-		this.modal.open(AddClassParticipModal, overlayConfigFactory({
-			isUpdate: true,
-			particip: Object.assign({}, classParticip)
-		}, BSModalContext))
-			.then(dialog => {
-			dialog.result.then(changedParticip => {
-				if (changedParticip) {
-					this.classParticips[index] = changedParticip;
-				}
-			}).catch(() => { })
-		});
+		this.router.navigate(['/class-particips/update', classParticip.Id]);
 	}
 
 	deleteClassParticip(particip: ClassParticip) {
 		let index = this.classParticips.indexOf(particip);
-		this.modal.confirm()
-			.title("Вы уверены, что хотите удалить данную запись?")
-			.body("Это действие нельзя будет отменить")
-			.open()
-			.then(dialog => {
-				dialog.result.then(res => {
-					this.participService.deleteParticip(particip.Id).subscribe(res => {
-						this.classParticips.splice(index, 1);
-					})
-				}).catch(() => {
-
-				})
-			});
+		let isDelete = confirm('Вы уверены что хотите удалить данную запись?');
+		if (isDelete) {
+			this.participService.deleteParticip(particip.Id).subscribe(res => {
+				this.classParticips.splice(index, 1);
+			})
+		}
 	}
 }

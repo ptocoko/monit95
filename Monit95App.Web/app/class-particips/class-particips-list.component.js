@@ -12,17 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var account_service_1 = require("../account/account.service");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
-var angular2_modal_1 = require("angular2-modal");
-var add_class_particip_modal_1 = require("./add-class-particip.modal");
 var particip_service_1 = require("../particip.service");
-var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
 var PROJECT_ID = 1;
 var ClassParticipsListComponent = (function () {
-    function ClassParticipsListComponent(accountService, participService, modal, http) {
+    function ClassParticipsListComponent(accountService, participService, modal, router) {
         this.accountService = accountService;
         this.participService = participService;
         this.modal = modal;
-        this.http = http;
+        this.router = router;
         this.isLoading = true;
     }
     ClassParticipsListComponent.prototype.ngOnInit = function () {
@@ -41,57 +39,31 @@ var ClassParticipsListComponent = (function () {
         });
     };
     ClassParticipsListComponent.prototype.addClassParticip = function () {
-        var _this = this;
-        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({ isUpdate: false, schoolId: this.account.UserName, projectId: PROJECT_ID }, bootstrap_1.BSModalContext)).then(function (dialog) {
-            dialog.result.then(function (classParticip) {
-                if (classParticip) {
-                    _this.classParticips.push(classParticip);
-                }
-            }).catch(function () { });
-        });
+        this.router.navigate(['class-particips/new']);
     };
     ClassParticipsListComponent.prototype.updateClassParticip = function (classParticip) {
-        var _this = this;
-        var index = this.classParticips.indexOf(classParticip);
-        this.modal.open(add_class_particip_modal_1.AddClassParticipModal, angular2_modal_1.overlayConfigFactory({
-            isUpdate: true,
-            particip: Object.assign({}, classParticip)
-        }, bootstrap_1.BSModalContext))
-            .then(function (dialog) {
-            dialog.result.then(function (changedParticip) {
-                if (changedParticip) {
-                    _this.classParticips[index] = changedParticip;
-                }
-            }).catch(function () { });
-        });
+        this.router.navigate(['/class-particips/update', classParticip.Id]);
     };
     ClassParticipsListComponent.prototype.deleteClassParticip = function (particip) {
         var _this = this;
         var index = this.classParticips.indexOf(particip);
-        this.modal.confirm()
-            .title("Вы уверены, что хотите удалить данную запись?")
-            .body("Это действие нельзя будет отменить")
-            .open()
-            .then(function (dialog) {
-            dialog.result.then(function (res) {
-                _this.participService.deleteParticip(particip.Id).subscribe(function (res) {
-                    _this.classParticips.splice(index, 1);
-                });
-            }).catch(function () {
+        var isDelete = confirm('Вы уверены что хотите удалить данную запись?');
+        if (isDelete) {
+            this.participService.deleteParticip(particip.Id).subscribe(function (res) {
+                _this.classParticips.splice(index, 1);
             });
-        });
+        }
     };
     return ClassParticipsListComponent;
 }());
 ClassParticipsListComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/class-particips-list.component.html',
-        providers: [bootstrap_1.Modal]
+        templateUrl: './app/class-particips/class-particips-list.component.html'
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService,
         particip_service_1.ParticipService,
         bootstrap_1.Modal,
-        http_1.Http])
+        router_1.Router])
 ], ClassParticipsListComponent);
 exports.ClassParticipsListComponent = ClassParticipsListComponent;
 //# sourceMappingURL=class-particips-list.component.js.map

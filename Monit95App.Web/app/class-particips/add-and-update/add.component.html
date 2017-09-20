@@ -1,0 +1,71 @@
+﻿<h2>{{actionText}}</h2>
+<hr />
+<form #participForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+        <label for="surname">Фамилия*</label>
+        <input type="text" class="form-control" id="surname" required [(ngModel)]="particip.Surname" #surname="ngModel" name="surname" />
+        <div [hidden]="surname.valid || surname.pristine" class="alert alert-danger">Введите фамилию!</div>
+    </div>
+
+    <div class="form-group">
+        <label for="name">Имя*</label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="particip.Name" #name="ngModel" name="name" />
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Введите имя!</div>
+    </div>
+
+    <div class="form-group">
+        <label for="secondName">Отчество</label>
+        <input type="text" class="form-control" id="secondName" [(ngModel)]="particip.SecondName" #secondName="ngModel" name="secondName" />
+    </div>
+
+    <div class="form-group">
+        <label for="className">Класс*</label>
+        <select class="form-control" id="className" required [(ngModel)]="particip.ClassName" name="className" #className="ngModel">
+            <option *ngFor="let className of classNames" [value]="className">{{className}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Дата рождения*</label>
+        <div class="form-inline">
+            <input name="day" #day="ngModel" class="form-control" type="text" [(ngModel)]="newDay" placeholder="День" size="4" required />
+            <select name="month" #month="ngModel" class="form-control" [(ngModel)]="newMonth" required>
+                <option value="-1" disabled selected>Mecяц</option>
+                <option value="0">Январь</option>
+                <option value="1">Февраль</option>
+                <option value="2">Март</option>
+                <option value="3">Апрель</option>
+                <option value="4">Май</option>
+                <option value="5">Июнь</option>
+                <option value="6">Июль</option>
+                <option value="7">Август</option>
+                <option value="8">Сентябрь</option>
+                <option value="9">Октябрь</option>
+                <option value="10">Ноябрь</option>
+                <option value="11">Декабрь</option>
+            </select>
+            <input name="year" #year="ngModel" type="text" placeholder="Год" size="6" [(ngModel)]="newYear" class="form-control" required />
+        </div>
+    </div>
+
+    <p><b>Посещал(-а) дошкольное образовательное учреждение*</b></p>
+    <label class="radio-inline">
+        <input type="radio" name="wasDoo" value="no" [(ngModel)]="wasDoo" /> Нет
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="wasDoo" value="yes" [(ngModel)]="wasDoo" /> Да
+    </label>
+
+    <!--<div class="checkbox">
+        <label for="wasDoo">
+            <input id="wasDoo" name="wasDoo" #wasDoo="ngModel" type="checkbox" [(ngModel)]="particip.WasDoo" /> Учился(-ась) в дошкольном учреждении
+        </label>
+    </div>-->
+
+    <hr />
+    <div style="text-align: right">
+        <button type="submit" class="btn btn-success" [disabled]="participForm.invalid">{{actionText}}</button>
+        <button type="button" class="btn btn-default btn-in-horizon" (click)="cancel()">Отменить</button>
+    </div>
+</form>

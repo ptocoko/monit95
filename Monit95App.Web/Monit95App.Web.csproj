@@ -317,7 +317,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.component.html" />
+    <Content Include="app\class-particips\add-and-update\update.component.html" />
     <Content Include="app\class-particips\add-class-particip.modal.html" />
+    <Content Include="app\class-particips\add-and-update\add.component.html" />
     <Content Include="app\class-particips\marks\marks-edit.modal.html" />
     <Content Include="app\class-particips\marks\marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
@@ -538,7 +540,6 @@
     <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\class-particips\add-or-update\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\ParticipReport\" />
@@ -557,7 +558,9 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\class-particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\class-particips\add-class-particip.modal.ts" />
+    <TypeScriptCompile Include="app\class-particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-plan.component.ts" />
     <TypeScriptCompile Include="app\class-particips\ClassParticip.ts" />

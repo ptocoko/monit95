@@ -19,13 +19,13 @@ import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
-import { AddClassParticipModal } from './class-particips/add-class-particip.modal';
 import { ExportExcelModal } from './class-particips/excel-export/export-excel-modal.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
 import { ClassParticipMarksEditModal } from "./class-particips/marks/marks-edit.modal";
 import { ClassParticipsPlanComponent } from "./class-particips/class-particips-plan.component";
+import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
 
 // Services
 import { AccountService } from './account/account.service';
@@ -47,6 +47,7 @@ import { SchoolFilter } from './school-filter.pipe';
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
+import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 
 
 @NgModule({
@@ -80,11 +81,12 @@ import { GlobalErrorHandler } from './error-handler';
         ParticipCorrectionComponent,		
 		ClassParticipsListComponent,
 		ExportExcelModal,
-		AddClassParticipModal,
 		ClassParticipMarksComponent,
 		ClassParticipsExportExcelComponent,
 		ClassParticipMarksEditModal,
-		ClassParticipsPlanComponent
+		ClassParticipsPlanComponent,
+		AddClassParticipComponent,
+		UpdateClassParticipComponent
 	],
 	providers: [
         AccountService,
@@ -101,7 +103,6 @@ import { GlobalErrorHandler } from './error-handler';
 		ParticipModalComponent,
 		ResultsModalComponent,				
 		ExportExcelModal,
-		AddClassParticipModal,
 		ClassParticipMarksEditModal
 	],
     bootstrap: [AppComponent]
