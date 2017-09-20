@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 const PROJECT_ID: number = 1;
 
 @Component({
-	templateUrl: './app/class-particips/class-particips-list.component.html'
+	templateUrl: './app/class-particips/class-particips-list.component.html?v=${new Date().getTime()}'
 })
 export class ClassParticipsListComponent implements OnInit {
 	classParticips: ClassParticip[];

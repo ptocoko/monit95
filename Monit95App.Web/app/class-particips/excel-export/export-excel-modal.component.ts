@@ -13,7 +13,7 @@ export class ExportExcelModalData extends BSModalContext {
 			padding: 15px;
 		}
 	`],
-	templateUrl: './app/class-particips/excel-export/export-excel-modal.component.html'
+	templateUrl: './app/class-particips/excel-export/export-excel-modal.component.html?v=${new Date().getTime()}'
 })
 export class ExportExcelModal implements CloseGuard, ModalComponent<ExportExcelModalData>, OnInit {
 	exportedFile: File;
