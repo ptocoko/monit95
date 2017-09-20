@@ -11,7 +11,7 @@ const COLLECTOR_ID: number = 1;
 
 @Component({
     selector: 'rsurparticip',
-    templateUrl: './app/rsur/rsurparticip.component.html?v=${new Date().getTime()}',
+    templateUrl: `./app/rsur/rsurparticip.component.html?v=${new Date().getTime()}`,
     styleUrls: ['./app/rsur/rsurparticip.component.css']
 })
 export class RsurParticipComponent implements OnInit {

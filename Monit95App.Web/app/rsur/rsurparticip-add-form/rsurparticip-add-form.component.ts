@@ -47,7 +47,7 @@ const RSURSUBJECTS: any[] = [
 
 @Component({
     selector: 'rsurparticip-add-form',
-    templateUrl: './app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=${new Date().getTime()}',      
+    templateUrl: `./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=${new Date().getTime()}`,      
     styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']    
 })
 export class RsurParticipAddFormComponent implements OnInit {      
