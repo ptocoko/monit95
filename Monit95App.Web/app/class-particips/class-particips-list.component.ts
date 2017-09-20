@@ -9,6 +9,7 @@ import { ClassParticip } from "./ClassParticip";
 import { Http } from "@angular/http";
 
 const PROJECT_ID: number = 1;
+const CLASS_NAMES = []
 
 @Component({
 	templateUrl: './app/class-particips/class-particips-list.component.html'
@@ -47,7 +48,7 @@ export class ClassParticipsListComponent implements OnInit {
 				if (classParticip) {
 					this.classParticips.push(classParticip);
 				}
-			})
+			}).catch(() => { })
 		});
 		
 	}
@@ -63,7 +64,7 @@ export class ClassParticipsListComponent implements OnInit {
 				if (changedParticip) {
 					this.classParticips[index] = changedParticip;
 				}
-			})
+			}).catch(() => { })
 		});
 	}
 

@@ -47,7 +47,7 @@ var ClassParticipsListComponent = (function () {
                 if (classParticip) {
                     _this.classParticips.push(classParticip);
                 }
-            });
+            }).catch(function () { });
         });
     };
     ClassParticipsListComponent.prototype.updateClassParticip = function (classParticip) {
@@ -62,7 +62,7 @@ var ClassParticipsListComponent = (function () {
                 if (changedParticip) {
                     _this.classParticips[index] = changedParticip;
                 }
-            });
+            }).catch(function () { });
         });
     };
     ClassParticipsListComponent.prototype.deleteClassParticip = function (particip) {
