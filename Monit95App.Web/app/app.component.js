@@ -37,6 +37,7 @@ var AppComponent = (function () {
 }());
 AppComponent = __decorate([
     core_1.Component({
+        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
         selector: 'app-root',
         templateUrl: './app/app.component.html?v=${new Date().getTime()}'
     }),

@@ -63,7 +63,7 @@ var RsurParticipComponent = (function () {
 RsurParticipComponent = __decorate([
     core_1.Component({
         selector: 'rsurparticip',
-        templateUrl: './app/rsur/rsurparticip.component.html?v=${new Date().getTime()}',
+        templateUrl: "./app/rsur/rsurparticip.component.html?v=" + new Date().getTime(),
         styleUrls: ['./app/rsur/rsurparticip.component.css']
     }),
     __metadata("design:paramtypes", [rsurparticip_service_1.RsurParticipService,

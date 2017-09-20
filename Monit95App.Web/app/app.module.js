@@ -25,13 +25,13 @@ var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
 var particip_details_component_1 = require("./rsur/details/particip-details.component");
 var particip_correction_component_1 = require("./rsur/correction/particip-correction.component");
-var add_class_particip_modal_1 = require("./class-particips/add-class-particip.modal");
 var export_excel_modal_component_1 = require("./class-particips/excel-export/export-excel-modal.component");
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 var marks_component_1 = require("./class-particips/marks/marks.component");
 var export_excel_component_1 = require("./class-particips/excel-export/export-excel.component");
 var marks_edit_modal_1 = require("./class-particips/marks/marks-edit.modal");
 var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
+var add_component_1 = require("./class-particips/add-and-update/add.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -50,6 +50,7 @@ var school_filter_pipe_1 = require("./school-filter.pipe");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
+var update_component_1 = require("./class-particips/add-and-update/update.component");
 var school_collector_service_1 = require("./shared/school-collector.service");
 var AppModule = (function () {
     function AppModule() {
@@ -86,11 +87,12 @@ AppModule = __decorate([
             particip_correction_component_1.ParticipCorrectionComponent,
             class_particips_list_component_1.ClassParticipsListComponent,
             export_excel_modal_component_1.ExportExcelModal,
-            add_class_particip_modal_1.AddClassParticipModal,
             marks_component_1.ClassParticipMarksComponent,
             export_excel_component_1.ClassParticipsExportExcelComponent,
             marks_edit_modal_1.ClassParticipMarksEditModal,
-            class_particips_plan_component_1.ClassParticipsPlanComponent
+            class_particips_plan_component_1.ClassParticipsPlanComponent,
+            add_component_1.AddClassParticipComponent,
+            update_component_1.UpdateClassParticipComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -108,7 +110,6 @@ AppModule = __decorate([
             particip_modal_component_1.ParticipModalComponent,
             results_modal_component_1.ResultsModalComponent,
             export_excel_modal_component_1.ExportExcelModal,
-            add_class_particip_modal_1.AddClassParticipModal,
             marks_edit_modal_1.ClassParticipMarksEditModal
         ],
         bootstrap: [app_component_1.AppComponent]
