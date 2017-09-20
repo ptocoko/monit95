@@ -4,7 +4,8 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app/app.component.html?v=${new Date().getTime()}'
+    templateUrl: './app/app.component.html?v=${new Date().getTime()}',
+    changeDetection: Cha
 })
 export class AppComponent implements OnInit {
 	isAreaRole = false;

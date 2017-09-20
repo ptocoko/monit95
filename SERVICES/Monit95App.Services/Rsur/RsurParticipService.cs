@@ -22,9 +22,9 @@ namespace Monit95App.Services.Rsur
 
         #endregion
 
-        public RsurParticipService(CokoContext cokoContext)            
+        public RsurParticipService()            
         {
-            _cokoContext = cokoContext;
+            _cokoContext = new CokoContext();
             Mapper.Initialize(
                 cfg => cfg.CreateMap<RsurParticip, RsurParticipGetDto>()
                     .ForMember(

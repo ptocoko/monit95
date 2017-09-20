@@ -30,7 +30,7 @@ namespace Monit95App.Services.Tests
             mockParticips.Find(10_000).Returns(entity);
 
             // Act
-            var service = new RsurParticipService(mockContext);
+            var service = new RsurParticipService();
             service.Update(10_000, new RsurParticipPutDto { ActualCode = 0 });
 
             // Assert
@@ -41,7 +41,7 @@ namespace Monit95App.Services.Tests
         public void GetAll_TestForSchool()
         {
             // Arrange
-            var service = new RsurParticipService(new CokoContext());
+            var service = new RsurParticipService();
 
             // Act
             var dtos = service.GetAll(null, "0010");
@@ -54,7 +54,7 @@ namespace Monit95App.Services.Tests
         public void GetAll_TestForCoko()
         {
             // Arrange
-            var service = new RsurParticipService(new CokoContext());
+            var service = new RsurParticipService();
 
             // Act
             var dtos = service.GetAll();
@@ -67,7 +67,7 @@ namespace Monit95App.Services.Tests
         public void GetByCode_TestMapping()
         {
             // Arrange
-            var service = new RsurParticipService(new CokoContext());
+            var service = new RsurParticipService();
 
             // Act
             var dto = service.GetByCode(11000);
@@ -83,7 +83,7 @@ namespace Monit95App.Services.Tests
         public void GetByCode_TestArgumentOutOfRangeException()
         {
             // Arrange
-            var service = new RsurParticipService(new CokoContext());
+            var service = new RsurParticipService();
 
             // Act
             service.GetByCode(1);
@@ -93,7 +93,7 @@ namespace Monit95App.Services.Tests
         public void Add_Test()
         {       
             // Act
-            var service = new RsurParticipService(context);
+            var service = new RsurParticipService();
             var dto = new RsurParticipPostDto
                           {
                               Surname = "test",
@@ -123,7 +123,7 @@ namespace Monit95App.Services.Tests
             mockContext.RsurParticips.Returns(mockRsurParticips);
 
             // Act
-            var service = new RsurParticipService(mockContext);
+            var service = new RsurParticipService();
             var dto = new RsurParticipPostDto
                           {
                               Surname = "test",
