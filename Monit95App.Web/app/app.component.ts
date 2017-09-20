@@ -1,8 +1,9 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AccountService } from './account/account.service';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-root',
     templateUrl: './app/app.component.html?v=${new Date().getTime()}'    
 })
@@ -28,6 +29,6 @@ export class AppComponent implements OnInit {
 		}
 		else {
 			this.isRsur = true;
-		}
+        }
 	}
 }
