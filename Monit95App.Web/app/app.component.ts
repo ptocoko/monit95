@@ -3,9 +3,8 @@ import { AccountService } from './account/account.service';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-root',
-    templateUrl: './app/app.component.html?v=${new Date().getTime()}'    
+    templateUrl: `./app/app.component.html?v=${new Date().getTime()}`
 })
 export class AppComponent implements OnInit {
 	isAreaRole = false;
