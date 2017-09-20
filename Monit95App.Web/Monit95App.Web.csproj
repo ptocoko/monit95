@@ -321,6 +321,7 @@
     <Content Include="app\class-particips\add-and-update\update.component.html" />
     <Content Include="app\class-particips\add-class-particip.modal.html" />
     <Content Include="app\class-particips\add-and-update\add.component.html" />
+    <Content Include="app\class-particips\class-particips-plan.component.html" />
     <Content Include="app\class-particips\marks\marks-edit.modal.html" />
     <Content Include="app\class-particips\marks\marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
