@@ -42,7 +42,6 @@ var AddClassParticipComponent = (function () {
         }
         var birthdayInMiSeconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
         this.particip.Birthday = new Date(birthdayInMiSeconds + 10800000);
-        console.log(this.particip);
         this.participService.addParticip(this.particip).subscribe(function (res) {
             _this.router.navigate(['class-particips/list']);
         });
@@ -54,7 +53,7 @@ var AddClassParticipComponent = (function () {
 }());
 AddClassParticipComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/add-and-update/add.component.html?v=${new Date().getTime()}'
+        templateUrl: "./app/class-particips/add-and-update/add.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [particip_service_1.ParticipService,
         account_service_1.AccountService,

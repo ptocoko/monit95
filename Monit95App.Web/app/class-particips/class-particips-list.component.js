@@ -58,7 +58,7 @@ var ClassParticipsListComponent = (function () {
 }());
 ClassParticipsListComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/class-particips-list.component.html?v=${new Date().getTime()}'
+        templateUrl: "./app/class-particips/class-particips-list.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService,
         particip_service_1.ParticipService,

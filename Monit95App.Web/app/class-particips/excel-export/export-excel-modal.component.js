@@ -52,7 +52,7 @@ var ExportExcelModal = (function () {
 ExportExcelModal = __decorate([
     core_1.Component({
         styles: ["\n\t\t.custom-modal-container {\n\t\t\tpadding: 15px;\n\t\t}\n\t"],
-        templateUrl: './app/class-particips/excel-export/export-excel-modal.component.html?v=${new Date().getTime()}'
+        templateUrl: "./app/class-particips/excel-export/export-excel-modal.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [angular2_modal_1.DialogRef, http_1.Http])
 ], ExportExcelModal);

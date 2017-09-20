@@ -60,7 +60,7 @@ var ClassParticipMarksEditModal = (function () {
 }());
 ClassParticipMarksEditModal = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/marks/marks-edit.modal.html?v=${new Date().getTime()}'
+        templateUrl: "./app/class-particips/marks/marks-edit.modal.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [angular2_modal_1.DialogRef, marks_service_1.MarksService])
 ], ClassParticipMarksEditModal);
