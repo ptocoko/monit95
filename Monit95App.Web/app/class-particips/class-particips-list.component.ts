@@ -22,7 +22,6 @@ export class ClassParticipsListComponent implements OnInit {
     constructor(
         private readonly accountService: AccountService,
 		private readonly participService: ParticipService,
-		private readonly modal: Modal,
 		private readonly router: Router) {
 
 	}
