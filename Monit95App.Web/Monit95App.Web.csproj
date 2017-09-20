@@ -319,6 +319,7 @@
   <ItemGroup>
     <Content Include="app\app.component.html" />
     <Content Include="app\class-particips\add-class-particip.modal.html" />
+    <Content Include="app\class-particips\class-particips-plan.component.html" />
     <Content Include="app\class-particips\marks\marks-edit.modal.html" />
     <Content Include="app\class-particips\marks\marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
@@ -557,6 +558,7 @@
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\class-particips\add-class-particip.modal.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\class-particips-plan.component.ts" />
     <TypeScriptCompile Include="app\class-particips\ClassParticip.ts" />
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel.component.ts" />
