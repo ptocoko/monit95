@@ -10,6 +10,8 @@ var particip_correction_component_1 = require("./rsur/correction/particip-correc
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 var export_excel_component_1 = require("./class-particips/excel-export/export-excel.component");
 var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
+var add_component_1 = require("./class-particips/add-and-update/add.component");
+var update_component_1 = require("./class-particips/add-and-update/update.component");
 var appRoutes = [
     { path: 'rsurparticips', component: rsurparticip_component_1.RsurParticipComponent },
     { path: 'rsurparticips/new', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
@@ -20,6 +22,8 @@ var appRoutes = [
     { path: 'class-particips', component: class_particips_plan_component_1.ClassParticipsPlanComponent },
     { path: 'class-particips/list', component: class_particips_list_component_1.ClassParticipsListComponent },
     { path: 'class-particips/upload-excel', component: export_excel_component_1.ClassParticipsExportExcelComponent },
+    { path: 'class-particips/new', component: add_component_1.AddClassParticipComponent },
+    { path: 'class-particips/update/:id', component: update_component_1.UpdateClassParticipComponent },
     //{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
     { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];

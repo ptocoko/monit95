@@ -8,7 +8,7 @@ import { ClassParticipMarksEditModal, ClassParticipMarksEditModalData } from "./
 const PROJECT_TEST_ID: number = 12;
 
 @Component({
-	templateUrl: './app/class-particips/marks/marks.component.html'
+	templateUrl: `./app/class-particips/marks/marks.component.html?v=${new Date().getTime()}`
 })
 export class ClassParticipMarksComponent {
 	isLoading: boolean = true;

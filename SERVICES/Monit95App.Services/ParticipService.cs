@@ -85,14 +85,10 @@ namespace Monit95App.Services
             }
 
             var entities = query.ToList();
-            //if (!entities.Any())
-            //{
-            //    throw new ArgumentException();
-            //}
-
+            
             var dtos = _mapper.Map<List<Particip>, List<ParticipDto>>(entities);
-           
-            return dtos;
+
+            return dtos.OrderBy(x => x.ClassName).ThenBy(x => x.Surname).ThenBy(x => x.Name);
         }
 
         public void Update(int id, ParticipDto dto)

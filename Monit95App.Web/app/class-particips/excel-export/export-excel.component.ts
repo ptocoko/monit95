@@ -8,7 +8,7 @@ import { ParticipService } from "../../particip.service";
 import { Router } from "@angular/router";
 
 @Component({
-	templateUrl: './app/class-particips/excel-export/export-excel.component.html',
+	templateUrl: `./app/class-particips/excel-export/export-excel.component.html?v=${new Date().getTime()}`,
 	styles: [
 		`.fileUploader {
 				overflow: hidden;
@@ -48,6 +48,9 @@ export class ClassParticipsExportExcelComponent {
 			}).catch(data => {
 				//console.log(data);
 			})
+		}
+		else {
+			alert('Неверный тип файла. Загрузите файл с расширением ".xlsx"');
 		}
 	}
 	

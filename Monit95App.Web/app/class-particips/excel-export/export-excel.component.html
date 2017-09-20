@@ -1,21 +1,26 @@
-﻿<div style="display:flex;flex-direction:row;align-items:center">
+﻿<h1>Исследование готовности 1-х классов</h1>
+<h2>Загрузка списка участников</h2>
+<hr />
+<div style="display:flex;flex-direction:row;align-items:center">
     <button style="margin-right:20px" class="btn btn-default btn-lg" routerLink="/class-particips/list">
         <span class="glyphicon glyphicon-chevron-left"></span> Назад к списку
     </button>
-    <h1 style="display:inline-block">Добавление учеников из excel</h1>
 </div>
-<div style="display:inline-block">
-    <h3 class="text-center"><span class="glyphicon glyphicon-info-sign"></span> Внимание!</h3>
+<br />
+<div class="lead">
+    Чтобы загрузить список участников из Excel-документа (.xlsx) необходимо чтобы первый лист книги excel был в формате как показано ниже. Создайте такой список и подгрузите его в систему, используя кнопку «Загрузить .xlsx…»
+    <!--<h3 class="text-center"><span class="glyphicon glyphicon-info-sign"></span> Внимание!</h3>
     <p class="lead">Чтобы добавить данные об учениках из excel-документа создайте документ и заполните его согласно примеру на картинке ниже, после чего сохраните и загрузите этот документ на сайт с помощью кнопки "Загрузить .xlsx". </p>
-    <p class="lead">По всем вопросам обращаться в группу техподдержки!</p>
+    <p class="lead">По всем вопросам обращаться в группу техподдержки!</p>-->
     <br />
-    <p class="text-center text-muted"><i>Пример заполнения excel-документа.</i></p>
+    <br />
+    <!--<p class="text-center text-muted"><i>Пример заполнения excel-документа.</i></p>-->
     <img class="img-responsive center-block img-thumbnail" src="../../../Images/excel-template.jpg" />
     <br />
     <br />
     <div class="pull-right">
         <!--<button class="btn btn-default" (click)="downloadExcelTemplate()">Скачать образец</button>-->
-        <label class="fileUploader btn btn-default">
+        <label class="fileUploader btn btn-success">
             <i class="fa fa-file-excel-o fa-lg"></i>
             Загрузить .xlsx...
             <input class="form-control" type="file" (change)="exportParticips($event)" placeholder="Добавить из .XLSX" accept=".xlsx" value="Добавить из .XLSX" />

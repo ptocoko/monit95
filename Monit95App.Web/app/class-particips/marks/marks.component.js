@@ -41,7 +41,7 @@ var ClassParticipMarksComponent = (function () {
 }());
 ClassParticipMarksComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/marks/marks.component.html'
+        templateUrl: "./app/class-particips/marks/marks.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [marks_service_1.MarksService,
         particip_service_1.ParticipService,
