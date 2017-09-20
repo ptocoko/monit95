@@ -6,6 +6,8 @@ import { ClassService } from "../class.service";
 import { ParticipService } from "../particip.service";
 import { ClassParticip } from "./ClassParticip";
 
+const CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
+
 export class AddClassParticipModalData extends BSModalContext {
 	particip: ClassParticip;
 	isUpdate: boolean;
@@ -34,12 +36,17 @@ export class AddClassParticipModal implements OnInit {
 	constructor(public dialog: DialogRef<AddClassParticipModalData>,
 				private http: Http,
 				private classService: ClassService,
-				private participService: ParticipService) {
-		this.isUpdate = dialog.context.isUpdate;
+				private participService: ParticipService) { }
+
+	ngOnInit() {
+		this.statusText = "";
+		this.classNames = CLASS_NAMES;
+
+		this.isUpdate = this.dialog.context.isUpdate;
 		this.newMonth = -1;
 
 		if (this.isUpdate) {
-			this.particip = dialog.context.particip;
+			this.particip = this.dialog.context.particip;
 			this.particip.ClassName = this.particip.ClassName.trim();
 
 			if (this.particip.Birthday) {
@@ -57,20 +64,9 @@ export class AddClassParticipModal implements OnInit {
 		else {
 			this.particip = new ClassParticip();
 			this.actionText = "Добавить"
-			this.schoolId = dialog.context.schoolId;
-			this.projectId = dialog.context.projectId;
+			this.schoolId = this.dialog.context.schoolId;
+			this.projectId = this.dialog.context.projectId;
 		}
-	}
-
-	ngOnInit() {
-		this.statusText = "";
-		this.classService.getClassNames().subscribe(classNames => {
-			this.classNames = classNames;
-			this.classNames.length = 12;
-		}, error => {
-			this.statusText = "Ошибка соединения с базой данных! ";
-			throw error;
-			});
 	}
 
 	onSubmit() {

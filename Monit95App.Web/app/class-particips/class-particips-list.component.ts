@@ -47,7 +47,7 @@ export class ClassParticipsListComponent implements OnInit {
 				if (classParticip) {
 					this.classParticips.push(classParticip);
 				}
-			})
+			}).catch(() => { })
 		});
 		
 	}
@@ -63,7 +63,7 @@ export class ClassParticipsListComponent implements OnInit {
 				if (changedParticip) {
 					this.classParticips[index] = changedParticip;
 				}
-			})
+			}).catch(() => { })
 		});
 	}
 
