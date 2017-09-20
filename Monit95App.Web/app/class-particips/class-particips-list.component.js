@@ -11,15 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var account_service_1 = require("../account/account.service");
-var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var particip_service_1 = require("../particip.service");
 var router_1 = require("@angular/router");
 var PROJECT_ID = 1;
 var ClassParticipsListComponent = (function () {
-    function ClassParticipsListComponent(accountService, participService, modal, router) {
+    function ClassParticipsListComponent(accountService, participService, router) {
         this.accountService = accountService;
         this.participService = participService;
-        this.modal = modal;
         this.router = router;
         this.isLoading = true;
     }
@@ -62,7 +60,6 @@ ClassParticipsListComponent = __decorate([
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService,
         particip_service_1.ParticipService,
-        bootstrap_1.Modal,
         router_1.Router])
 ], ClassParticipsListComponent);
 exports.ClassParticipsListComponent = ClassParticipsListComponent;
