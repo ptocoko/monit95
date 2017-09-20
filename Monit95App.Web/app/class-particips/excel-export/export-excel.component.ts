@@ -43,7 +43,7 @@ export class ClassParticipsExportExcelComponent {
 			this.modal.open(ExportExcelModal, overlayConfigFactory({ file: file, size: 'lg' }, BSModalContext)).then(modal => {
 				modal.result.then(result => {
 					//TODO: redirect to classParticipList component
-					this.router.navigate(['/class-particips'])
+					this.router.navigate(['/class-particips/list'])
 				});
 			}).catch(data => {
 				//console.log(data);

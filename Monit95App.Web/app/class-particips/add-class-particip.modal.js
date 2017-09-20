@@ -26,6 +26,7 @@ var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var class_service_1 = require("../class.service");
 var particip_service_1 = require("../particip.service");
 var ClassParticip_1 = require("./ClassParticip");
+var CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 var AddClassParticipModalData = (function (_super) {
     __extends(AddClassParticipModalData, _super);
     function AddClassParticipModalData() {
@@ -41,10 +42,15 @@ var AddClassParticipModal = (function () {
         this.classService = classService;
         this.participService = participService;
         this.wasDoo = 'no';
-        this.isUpdate = dialog.context.isUpdate;
+    }
+    AddClassParticipModal.prototype.ngOnInit = function () {
+        this.statusText = "";
+        this.classNames = CLASS_NAMES;
+        this.isUpdate = this.dialog.context.isUpdate;
         this.newMonth = -1;
         if (this.isUpdate) {
-            this.particip = dialog.context.particip;
+            this.particip = this.dialog.context.particip;
+            this.particip.ClassName = this.particip.ClassName.trim();
             if (this.particip.Birthday) {
                 this.newDay = this.particip.Birthday.getDate();
                 this.newMonth = this.particip.Birthday.getMonth();
@@ -58,20 +64,9 @@ var AddClassParticipModal = (function () {
         else {
             this.particip = new ClassParticip_1.ClassParticip();
             this.actionText = "Добавить";
-            this.schoolId = dialog.context.schoolId;
-            this.projectId = dialog.context.projectId;
+            this.schoolId = this.dialog.context.schoolId;
+            this.projectId = this.dialog.context.projectId;
         }
-    }
-    AddClassParticipModal.prototype.ngOnInit = function () {
-        var _this = this;
-        this.statusText = "";
-        this.classService.getClassNames().subscribe(function (classNames) {
-            _this.classNames = classNames;
-            _this.classNames.length = 12;
-        }, function (error) {
-            _this.statusText = "Ошибка соединения с базой данных! ";
-            throw error;
-        });
     };
     AddClassParticipModal.prototype.onSubmit = function () {
         var _this = this;

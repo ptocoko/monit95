@@ -7,6 +7,7 @@ namespace Monit95App.Services
     public class ClassParticip : Person
     {
         [Required]
+        [RegularExpression("^([0-9]|10|11)$|^(([0-9]|10|11) [АБВГДЕЖЗИКЛ])$")]
         public string ClassName { get; set; }
 
         [Required]

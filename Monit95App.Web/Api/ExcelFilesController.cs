@@ -13,6 +13,7 @@ namespace Monit95App.Web.Api
     using System.Reflection;
     using System.Net.Http.Headers;
     using Monit95App.Services;
+    using System.Data.SqlClient;
 
     [Authorize]
     [RoutePrefix("api/ExcelFiles")]
@@ -56,36 +57,26 @@ namespace Monit95App.Web.Api
             }        
 
             var stream = httpPostedFile.InputStream;
-            stream.Position = 0;
 
             var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, CLASS_NUMBERS);
             bool hasRowsWithError = rowNumbersWithError != null;
             var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 1);
 
             int countOfAddedParticips = 0;
-            List<string> repetitionNames = null;
             for (int i = 0; i < particips.Count; i++)
             {
-                try
+                int addingResult = _participService.Add(particips[i]);
+                if(addingResult != -1)
                 {
-                    _participService.Add(particips[i]);
                     countOfAddedParticips++;
-                }
-                catch (DbUpdateException)
-                {
-                    hasRowsWithError = true;
-                    
-                    if (repetitionNames == null)
-                        repetitionNames = new List<string>();
-                    repetitionNames.Add($"{particips[i].Surname} {particips[i].Name} {particips[i].SecondName}");
                 }
             }
             
             return Ok(content: new {
+                              CountOfReadParticips = particips.Count,
                               CountOfAddedParticips = countOfAddedParticips,
                               HasRowsWithError = hasRowsWithError,
-                              RowNumbersWithError = rowNumbersWithError,
-                              RepetitionNames = repetitionNames
+                              RowNumbersWithError = rowNumbersWithError
                           });
         }
 

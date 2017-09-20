@@ -19,9 +19,9 @@ namespace Monit95App.Web.Api
 
         [Route("api/classes")]
         [HttpGet]
-        public IEnumerable<Class> Get()
+        public IEnumerable<object> Get()
         {
-            return _classService.GetAll().OrderBy(x => x.Id).Select(s => new Class { Id = s.Id.Trim(), Name = s.Name.Trim() });
+            return _classService.GetAll().OrderBy(x => x.Id).Select(s => new { Id = s.Id.Trim(), Name = s.Name.Trim() });
         }
     }
 }

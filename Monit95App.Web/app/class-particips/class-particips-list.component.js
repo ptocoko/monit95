@@ -47,7 +47,7 @@ var ClassParticipsListComponent = (function () {
                 if (classParticip) {
                     _this.classParticips.push(classParticip);
                 }
-            });
+            }).catch(function () { });
         });
     };
     ClassParticipsListComponent.prototype.updateClassParticip = function (classParticip) {
@@ -62,7 +62,7 @@ var ClassParticipsListComponent = (function () {
                 if (changedParticip) {
                     _this.classParticips[index] = changedParticip;
                 }
-            });
+            }).catch(function () { });
         });
     };
     ClassParticipsListComponent.prototype.deleteClassParticip = function (particip) {
@@ -85,7 +85,8 @@ var ClassParticipsListComponent = (function () {
 }());
 ClassParticipsListComponent = __decorate([
     core_1.Component({
-        templateUrl: './app/class-particips/class-particips-list.component.html'
+        templateUrl: './app/class-particips/class-particips-list.component.html',
+        providers: [bootstrap_1.Modal]
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService,
         particip_service_1.ParticipService,
