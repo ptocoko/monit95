@@ -136,7 +136,7 @@ namespace Monit95App.Services
             }
             else
             {
-                return name.Replace(" ", "").Split('-').Select(s => s.Substring(0, 1).ToUpper() + s.Remove(0, 1).ToLower())
+                return name.Replace(" ", "").Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Substring(0, 1).ToUpper() + s.Remove(0, 1).ToLower())
                                                        .Aggregate((s1, s2) => $"{s1}-{s2}");
             }
         }
