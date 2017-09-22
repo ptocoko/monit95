@@ -3,8 +3,9 @@ import { MarksService, ParticipWithMarks } from "../../rsur/marks/marks.service"
 import { ParticipService } from "../../particip.service";
 import { ClassParticipMarksEditModal } from "./marks-edit.modal";
 import { MdDialog } from "@angular/material";
+import { CLASS_NAMES } from "../add-and-update/add.component";
 
-const PROJECT_TEST_ID: number = 12;
+const PROJECT_TEST_ID: number = 12; //TODO: IT'S TEST FAKE NUMBER!!!
 
 @Component({
 	templateUrl: `./app/class-particips/marks/marks.component.html?v=${new Date().getTime()}`
@@ -12,6 +13,9 @@ const PROJECT_TEST_ID: number = 12;
 export class ClassParticipMarksComponent {
 	isLoading: boolean = true;
 	particips: ParticipWithMarks[];
+
+	classes: string[] = CLASS_NAMES;
+	searchClass: string;
 
 	constructor(private marksService: MarksService,
 		private participService: ParticipService,

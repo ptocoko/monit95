@@ -12,7 +12,7 @@
             <hr />
             <div class="pull-right">
                 <span style="color:red">{{statusText}}</span>
-                <button type="button" class="btn btn-primary" (click)="save(true)">Сохранить и перейти к следующему</button>
+                <button type="button" class="btn btn-primary" [disabled]="marksForm.invalid" (click)="save(true)">Сохранить и перейти к следующему</button>
                 <button type="button" class="btn btn-success" [disabled]="marksForm.invalid" (click)="save(false)">Сохранить</button>
                 <button type="button" class="btn btn-default" (click)="cancel()">Отменить</button>
             </div>

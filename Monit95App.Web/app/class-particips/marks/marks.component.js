@@ -22,13 +22,15 @@ var marks_service_1 = require("../../rsur/marks/marks.service");
 var particip_service_1 = require("../../particip.service");
 var marks_edit_modal_1 = require("./marks-edit.modal");
 var material_1 = require("@angular/material");
-var PROJECT_TEST_ID = 12;
+var add_component_1 = require("../add-and-update/add.component");
+var PROJECT_TEST_ID = 12; //TODO: IT'S TEST FAKE NUMBER!!!
 var ClassParticipMarksComponent = (function () {
     function ClassParticipMarksComponent(marksService, participService, dialog) {
         this.marksService = marksService;
         this.participService = participService;
         this.dialog = dialog;
         this.isLoading = true;
+        this.classes = add_component_1.CLASS_NAMES;
     }
     ClassParticipMarksComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -37,17 +39,19 @@ var ClassParticipMarksComponent = (function () {
             _this.isLoading = false;
         });
     };
-    ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {
+    ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip, particips) {
         var _this = this;
-        var index = this.particips.indexOf(marksParticip);
+        console.log(particips);
+        this.particips = this.particips;
+        var index = particips.indexOf(marksParticip);
         var dialogRef = this.dialog.open(marks_edit_modal_1.ClassParticipMarksEditModal, { data: { particip: __assign({}, marksParticip) } });
         dialogRef.afterClosed().subscribe(function (res) {
             if (res ? res.particip : res) {
-                _this.particips[index] = res.particip;
+                particips[index] = res.particip;
                 if (res.toNext) {
-                    for (var i = index + 1; i < _this.particips.length; i++) {
-                        if (!_this.particips[i].Marks) {
-                            _this.changeMarks(_this.particips[i]);
+                    for (var i = index + 1; i < particips.length; i++) {
+                        if (!particips[i].Marks) {
+                            _this.changeMarks(particips[i], particips);
                             return;
                         }
                     }

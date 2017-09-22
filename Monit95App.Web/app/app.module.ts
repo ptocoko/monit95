@@ -44,6 +44,7 @@ import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
+import { ClassNameFilterPipe } from "./shared/class-name-filter.pipe";
 
 // Additional 
 import { routing } from './app.routing';
@@ -72,6 +73,7 @@ import { GlobalErrorHandler } from './error-handler';
         RsurParticipAddFormComponent,
 		RsurParticipFilterPipe,
 		ParticipFilterPipe,
+		ClassNameFilterPipe,
 		LimitToPipe,
         ParticipsWithoutDetailsPipe,
         SchoolFilter,        

@@ -49,6 +49,7 @@ var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var school_filter_pipe_1 = require("./school-filter.pipe");
+var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 // Additional 
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
@@ -79,6 +80,7 @@ AppModule = __decorate([
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
             particip_filter_pipe_1.ParticipFilterPipe,
+            class_name_filter_pipe_1.ClassNameFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
             school_filter_pipe_1.SchoolFilter,
