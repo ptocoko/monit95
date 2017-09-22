@@ -29,7 +29,6 @@ var ClassParticipMarksEditModal = (function () {
         this.marksService = marksService;
         this.marksArray = [];
         this.particip = data.particip;
-        //this.particip.Marks = '1; 2; 3.5; 0.5';
         this.maxMarks = MAX_MARKS;
         if (this.particip.Marks) {
             var marks = this.particip.Marks;
@@ -38,12 +37,9 @@ var ClassParticipMarksEditModal = (function () {
             });
         }
     }
-    ClassParticipMarksEditModal.prototype.onSubmit = function () {
-        console.log(this.marksArray);
+    ClassParticipMarksEditModal.prototype.save = function (toNext) {
         this.particip.Marks = this.marksArray.join('; ');
-    };
-    ClassParticipMarksEditModal.prototype.toNext = function () {
-        this.dialogRef.close({ toNext: true });
+        this.dialogRef.close({ toNext: toNext, particip: this.particip });
     };
     ClassParticipMarksEditModal.prototype.cancel = function () {
         this.dialogRef.close();

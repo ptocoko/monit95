@@ -27,14 +27,18 @@ export class ClassParticipMarksComponent {
 	changeMarks(marksParticip: ParticipWithMarks) {
 		let index = this.particips.indexOf(marksParticip);
 
-		let dialogRef = this.dialog.open(ClassParticipMarksEditModal, { data: { particip: marksParticip } });
+		let dialogRef = this.dialog.open(ClassParticipMarksEditModal, { data: { particip: { ...marksParticip } } });
 
 		dialogRef.afterClosed().subscribe(res => {
-			if (res ? res.toNext : res) {
-				for (var i = index + 1; i < this.particips.length; i++) {
-					if (!this.particips[i].Marks) {
-						this.changeMarks(this.particips[i]);
-						return;
+			if (res ? res.particip : res) {
+				this.particips[index] = res.particip
+
+				if (res.toNext) {
+					for (var i = index + 1; i < this.particips.length; i++) {
+						if (!this.particips[i].Marks) {
+							this.changeMarks(this.particips[i]);
+							return;
+						}
 					}
 				}
 			}

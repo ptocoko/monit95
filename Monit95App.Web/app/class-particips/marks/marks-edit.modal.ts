@@ -31,16 +31,11 @@ export class ClassParticipMarksEditModal {
 		}
 	}
 
-	onSubmit() {
-		console.log(this.marksArray);
+	save(toNext: boolean) {
 		this.particip.Marks = this.marksArray.join('; ');
+		this.dialogRef.close({ toNext: toNext,  particip: this.particip });
 	}
-
-	toNext() {
-		this.particip.Marks = this.marksArray.join('; ');
-		this.dialogRef.close({ toNext: true });
-	}
-
+	
 	cancel() {
 		this.dialogRef.close();
 	}

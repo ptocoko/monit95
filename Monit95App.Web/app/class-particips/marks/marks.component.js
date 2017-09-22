@@ -1,4 +1,12 @@
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -32,21 +40,19 @@ var ClassParticipMarksComponent = (function () {
     ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {
         var _this = this;
         var index = this.particips.indexOf(marksParticip);
-        var dialogRef = this.dialog.open(marks_edit_modal_1.ClassParticipMarksEditModal, { data: { particip: marksParticip } });
+        var dialogRef = this.dialog.open(marks_edit_modal_1.ClassParticipMarksEditModal, { data: { particip: __assign({}, marksParticip) } });
         dialogRef.afterClosed().subscribe(function (res) {
-            if (res ? res.toNext : res) {
-                for (var i = index + 1; i < _this.particips.length; i++) {
-                    if (!_this.particips[i].Marks) {
-                        _this.changeMarks(_this.particips[i]);
-                        return;
+            if (res ? res.particip : res) {
+                _this.particips[index] = res.particip;
+                if (res.toNext) {
+                    for (var i = index + 1; i < _this.particips.length; i++) {
+                        if (!_this.particips[i].Marks) {
+                            _this.changeMarks(_this.particips[i]);
+                            return;
+                        }
                     }
                 }
             }
-            //if (index < this.particips.length) {
-            //	if (!this.particips[index].Marks) {
-            //		this.changeMarks(this.particips[index]);
-            //	}
-            //}
         });
     };
     return ClassParticipMarksComponent;
