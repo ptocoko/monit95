@@ -12,15 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var marks_service_1 = require("../../rsur/marks/marks.service");
 var particip_service_1 = require("../../particip.service");
-var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
-var angular2_modal_1 = require("angular2-modal");
 var marks_edit_modal_1 = require("./marks-edit.modal");
+var material_1 = require("@angular/material");
 var PROJECT_TEST_ID = 12;
 var ClassParticipMarksComponent = (function () {
-    function ClassParticipMarksComponent(marksService, participService, modal) {
+    function ClassParticipMarksComponent(marksService, participService, dialog) {
         this.marksService = marksService;
         this.participService = participService;
-        this.modal = modal;
+        this.dialog = dialog;
         this.isLoading = true;
     }
     ClassParticipMarksComponent.prototype.ngOnInit = function () {
@@ -31,10 +30,23 @@ var ClassParticipMarksComponent = (function () {
         });
     };
     ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {
-        this.modal.open(marks_edit_modal_1.ClassParticipMarksEditModal, angular2_modal_1.overlayConfigFactory({ particip: marksParticip }, bootstrap_1.BSModalContext)).then(function (dialog) {
-            dialog.result.then(function (particip) {
-                //TODO: release that!
-            }).catch(function () { });
+        var _this = this;
+        var index = this.particips.indexOf(marksParticip);
+        var dialogRef = this.dialog.open(marks_edit_modal_1.ClassParticipMarksEditModal, { data: { particip: marksParticip } });
+        dialogRef.afterClosed().subscribe(function (res) {
+            if (res ? res.toNext : res) {
+                for (var i = index + 1; i < _this.particips.length; i++) {
+                    if (!_this.particips[i].Marks) {
+                        _this.changeMarks(_this.particips[i]);
+                        return;
+                    }
+                }
+            }
+            //if (index < this.particips.length) {
+            //	if (!this.particips[index].Marks) {
+            //		this.changeMarks(this.particips[index]);
+            //	}
+            //}
         });
     };
     return ClassParticipMarksComponent;
@@ -45,7 +57,7 @@ ClassParticipMarksComponent = __decorate([
     }),
     __metadata("design:paramtypes", [marks_service_1.MarksService,
         particip_service_1.ParticipService,
-        bootstrap_1.Modal])
+        material_1.MdDialog])
 ], ClassParticipMarksComponent);
 exports.ClassParticipMarksComponent = ClassParticipMarksComponent;
 //# sourceMappingURL=marks.component.js.map

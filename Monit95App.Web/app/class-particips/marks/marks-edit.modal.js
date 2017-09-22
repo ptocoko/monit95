@@ -1,14 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,43 +8,45 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
-var angular2_modal_1 = require("angular2-modal");
 var marks_service_1 = require("../../rsur/marks/marks.service");
+var material_1 = require("@angular/material");
 var MAX_MARKS = [
     { Name: '1', MaxMark: 2 },
     { Name: '2', MaxMark: 3 },
     { Name: '3', MaxMark: 4 },
     { Name: '4', MaxMark: 1 }
 ];
-var ClassParticipMarksEditModalData = (function (_super) {
-    __extends(ClassParticipMarksEditModalData, _super);
-    function ClassParticipMarksEditModalData() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return ClassParticipMarksEditModalData;
-}(bootstrap_1.BSModalContext));
-exports.ClassParticipMarksEditModalData = ClassParticipMarksEditModalData;
 var ClassParticipMarksEditModal = (function () {
-    function ClassParticipMarksEditModal(dialog, marksService) {
+    function ClassParticipMarksEditModal(dialogRef, data, marksService) {
         var _this = this;
-        this.dialog = dialog;
+        this.dialogRef = dialogRef;
+        this.data = data;
         this.marksService = marksService;
         this.marksArray = [];
-        this.particip = dialog.context.particip;
-        this.particip.Marks = '1; 2; 3.5; 0.5';
+        this.particip = data.particip;
+        //this.particip.Marks = '1; 2; 3.5; 0.5';
         this.maxMarks = MAX_MARKS;
         if (this.particip.Marks) {
             var marks = this.particip.Marks;
             marks.split(';').map(function (mark) {
-                _this.marksArray.push(parseInt(mark.trim()));
+                _this.marksArray.push(mark.trim());
             });
         }
     }
     ClassParticipMarksEditModal.prototype.onSubmit = function () {
-        //TODO: releaze that!
+        console.log(this.marksArray);
+        this.particip.Marks = this.marksArray.join('; ');
+    };
+    ClassParticipMarksEditModal.prototype.toNext = function () {
+        this.dialogRef.close({ toNext: true });
+    };
+    ClassParticipMarksEditModal.prototype.cancel = function () {
+        this.dialogRef.close();
     };
     return ClassParticipMarksEditModal;
 }());
@@ -62,7 +54,8 @@ ClassParticipMarksEditModal = __decorate([
     core_1.Component({
         templateUrl: "./app/class-particips/marks/marks-edit.modal.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, marks_service_1.MarksService])
+    __param(1, core_1.Inject(material_1.MD_DIALOG_DATA)),
+    __metadata("design:paramtypes", [material_1.MdDialogRef, Object, marks_service_1.MarksService])
 ], ClassParticipMarksEditModal);
 exports.ClassParticipMarksEditModal = ClassParticipMarksEditModal;
 //# sourceMappingURL=marks-edit.modal.js.map

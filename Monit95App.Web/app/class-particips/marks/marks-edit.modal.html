@@ -1,16 +1,21 @@
-﻿<div style="width:100%;padding:15px">
+﻿<div style="padding:15px">
     <h2>{{particip.Surname}} {{particip.Name}} {{particip.SecondName}}</h2>
     <hr />
     <form #marksForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="form-group" *ngFor="let mark of maxMarks; let i = index">
-            <label>{{mark.Name}}</label>
-            <input type="number" max="{{mark.MaxMark}}" min="0" class="form-control" size="2" [(ngModel)]="marksArray[i]" name="{{mark.Name}}mark" #{{mark.Name}}mark="ngModel" required/>
-        </div>
-        <hr />
-        <div style="text-align: right">
-            <span style="color:red">{{statusText}}</span>
-            <button type="submit" class="btn btn-success" [disabled]="marksForm.invalid">Сохранить</button>
-            <button type="button" class="btn btn-default btn-in-horizon" (click)="cancel()">Отменить</button>
+        <div class="center-block">
+            <div class="form-group" *ngFor="let mark of maxMarks; let i = index">
+                <label class="form-inline">
+                    Ответ №{{mark.Name}}
+                    <input type="text" size="1" class="form-control" [(ngModel)]="marksArray[i]" name="{{mark.Name}}mark" #{{mark.Name}}mark="ngModel" required />
+                </label>
+            </div>
+            <hr />
+            <div class="pull-right">
+                <span style="color:red">{{statusText}}</span>
+                <button type="button" class="btn btn-primary" (click)="toNext()">Сохранить и перейти к следующему</button>
+                <button type="submit" class="btn btn-success" [disabled]="marksForm.invalid">Сохранить</button>
+                <button type="button" class="btn btn-default" (click)="cancel()">Отменить</button>
+            </div>
         </div>
     </form>
 </div>

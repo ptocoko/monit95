@@ -1,9 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { MarksService, ParticipWithMarks } from "../../rsur/marks/marks.service";
 import { ParticipService } from "../../particip.service";
-import { BSModalContext, Modal } from 'angular2-modal/plugins/bootstrap';
-import { overlayConfigFactory } from 'angular2-modal';
-import { ClassParticipMarksEditModal, ClassParticipMarksEditModalData } from "./marks-edit.modal";
+import { ClassParticipMarksEditModal } from "./marks-edit.modal";
+import { MdDialog } from "@angular/material";
 
 const PROJECT_TEST_ID: number = 12;
 
@@ -16,7 +15,7 @@ export class ClassParticipMarksComponent {
 
 	constructor(private marksService: MarksService,
 		private participService: ParticipService,
-		private modal: Modal) { }
+		private dialog: MdDialog) { }
 
 	ngOnInit() {
 		this.marksService.getAll(PROJECT_TEST_ID).subscribe(res => {
@@ -26,10 +25,19 @@ export class ClassParticipMarksComponent {
 	}
 
 	changeMarks(marksParticip: ParticipWithMarks) {
-		this.modal.open(ClassParticipMarksEditModal, overlayConfigFactory({ particip: marksParticip }, BSModalContext)).then(dialog => {
-			dialog.result.then(particip => {
-				//TODO: release that!
-			}).catch(() => { });
-		})
+		let index = this.particips.indexOf(marksParticip);
+
+		let dialogRef = this.dialog.open(ClassParticipMarksEditModal, { data: { particip: marksParticip } });
+
+		dialogRef.afterClosed().subscribe(res => {
+			if (res ? res.toNext : res) {
+				for (var i = index + 1; i < this.particips.length; i++) {
+					if (!this.particips[i].Marks) {
+						this.changeMarks(this.particips[i]);
+						return;
+					}
+				}
+			}
+		});
 	}
 }

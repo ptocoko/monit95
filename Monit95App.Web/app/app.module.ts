@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MdButtonModule } from '@angular/material';
+import { MdButtonModule, MdDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // Components
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { ClassParticipsExportExcelComponent } from "./class-particips/excel-expo
 import { ClassParticipMarksEditModal } from "./class-particips/marks/marks-edit.modal";
 import { ClassParticipsPlanComponent } from "./class-particips/class-particips-plan.component";
 import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
+import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 
 // Services
 import { AccountService } from './account/account.service';
@@ -34,6 +36,7 @@ import { SchoolService } from './school.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
 import { MarksService } from './rsur/marks/marks.service';
+import { SchoolCollectorService } from "./shared/school-collector.service";
 
 // Pipes
 import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
@@ -46,8 +49,6 @@ import { SchoolFilter } from './school-filter.pipe';
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
-import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
-import { SchoolCollectorService } from "./shared/school-collector.service";
 
 
 @NgModule({
@@ -59,8 +60,10 @@ import { SchoolCollectorService } from "./shared/school-collector.service";
         ReactiveFormsModule,
         ModalModule.forRoot(),
         BootstrapModalModule,
-        MyDatePickerModule,        
-        MdButtonModule
+        MyDatePickerModule, 
+		BrowserAnimationsModule,
+		MdButtonModule,
+		MdDialogModule
     ],
 
 	declarations: [

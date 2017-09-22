@@ -15,6 +15,7 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var mydatepicker_1 = require("mydatepicker");
 var material_1 = require("@angular/material");
+var animations_1 = require("@angular/platform-browser/animations");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
@@ -32,6 +33,7 @@ var export_excel_component_1 = require("./class-particips/excel-export/export-ex
 var marks_edit_modal_1 = require("./class-particips/marks/marks-edit.modal");
 var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
 var add_component_1 = require("./class-particips/add-and-update/add.component");
+var update_component_1 = require("./class-particips/add-and-update/update.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -40,6 +42,7 @@ var school_service_1 = require("./school.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");
 var marks_service_1 = require("./rsur/marks/marks.service");
+var school_collector_service_1 = require("./shared/school-collector.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -50,8 +53,6 @@ var school_filter_pipe_1 = require("./school-filter.pipe");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
-var update_component_1 = require("./class-particips/add-and-update/update.component");
-var school_collector_service_1 = require("./shared/school-collector.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -68,7 +69,9 @@ AppModule = __decorate([
             angular2_modal_1.ModalModule.forRoot(),
             bootstrap_1.BootstrapModalModule,
             mydatepicker_1.MyDatePickerModule,
-            material_1.MdButtonModule
+            animations_1.BrowserAnimationsModule,
+            material_1.MdButtonModule,
+            material_1.MdDialogModule
         ],
         declarations: [
             app_component_1.AppComponent,

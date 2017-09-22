@@ -8,6 +8,7 @@ var result_component_1 = require("./result/result.component");
 var particip_details_component_1 = require("./rsur/details/particip-details.component");
 var particip_correction_component_1 = require("./rsur/correction/particip-correction.component");
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
+var marks_component_1 = require("./class-particips/marks/marks.component");
 var export_excel_component_1 = require("./class-particips/excel-export/export-excel.component");
 var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
 var add_component_1 = require("./class-particips/add-and-update/add.component");
@@ -24,7 +25,7 @@ var appRoutes = [
     { path: 'class-particips/upload-excel', component: export_excel_component_1.ClassParticipsExportExcelComponent },
     { path: 'class-particips/new', component: add_component_1.AddClassParticipComponent },
     { path: 'class-particips/update/:id', component: update_component_1.UpdateClassParticipComponent },
-    //{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
+    { path: 'class-particips/marks', component: marks_component_1.ClassParticipMarksComponent },
     { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
