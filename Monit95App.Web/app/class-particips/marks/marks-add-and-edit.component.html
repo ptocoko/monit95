@@ -1,25 +1,32 @@
-﻿<div>
-    <h2>{{marksAddAndEditModel.Fio}}</h2>
+﻿<h2>Исследование готовности 1-х классов</h2>
+<h3>Баллы за задания</h3>
+<hr />
+<div>
+    <h4>{{marksAddAndEditModel.Fio}}</h4>
     <hr />
     <form [formGroup]="formGroup" novalidate (ngSubmit)="submit()">
         <div class="form-group form-inline">
-            <label>Ответ №1</label>
+            <label>Задание №1</label>
             <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question1Mark" name="question1Mark" formControlName="question1Mark" size="2" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['question1Mark'].invalid && formGroup.controls['question1Mark'].touched">
+                Возможные варианты: 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4
+            </div>
         </div>
         <div class="form-group form-inline">
-            <label>Ответ №2</label>
+            <label>Задание №2</label>
             <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question2Mark" name="question2Mark" formControlName="question2Mark" size="2" />
         </div>
         <div class="form-group form-inline">
-            <label>Ответ №3</label>
+            <label>Задание №3</label>
             <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question3Mark" name="question3Mark" formControlName="question3Mark" size="2" />
         </div>
         <div class="form-group form-inline">
-            <label>Ответ №4</label>
+            <label>Задание №4</label>
             <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question4Mark" name="question4Mark" formControlName="question4Mark" size="2" />
         </div>
         <div class="form-group form-inline">
-            <label>Ответ №5</label>
+            <label>Задание №5</label>
             <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question5Mark" name="question5Mark" formControlName="question5Mark" size="2" />
         </div>
         <hr />
