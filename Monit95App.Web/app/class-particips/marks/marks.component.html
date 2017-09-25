@@ -26,7 +26,7 @@
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
             <td [ngClass]="{'red': !particip.Marks}">{{particip.Marks}}</td>
-            <td><a class="glyphicon glyphicon-edit" (click)="changeMarks(particip)"></a></td>
+            <td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="changeMarks(particip)"></a></td>
         </tr>
     </table>
 </div>

@@ -52,7 +52,7 @@ namespace Monit95App.Web.Api
             IEnumerable<ParticipMarksDto> participMarksDtos;
             try
             {
-                participMarksDtos = _marksService.GetParticipMarksDtos(projectTestId, User.Identity.Name);
+                participMarksDtos = _marksService.GetParticipMarksDtos(projectTestId, User.Identity.Name).OrderBy(o => o.ClassName).ThenBy(o => o.Surname).ThenBy(o => o.Name);
             }
             catch (ArgumentException ex)
             {
