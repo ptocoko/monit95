@@ -47,7 +47,7 @@
         </div>
         <hr />
         <div class="pull-left">
-            <button id="submitBtn" (click)="submit()" class="btn btn-success" [disabled]="formGroup.invalid">Сохранить</button>
+            <input id="submitBtn" type="button" (click)="submit()" class="btn btn-success" [disabled]="formGroup.invalid" value="Сохранить" />
             <a class="btn btn-default" (click)="back()">Отмена</a>
         </div>
     </form>
