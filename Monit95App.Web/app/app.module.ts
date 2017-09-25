@@ -23,7 +23,6 @@ import { ExportExcelModal } from './class-particips/excel-export/export-excel-mo
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
-import { ClassParticipMarksEditModal } from "./class-particips/marks/marks-edit.modal";
 import { ClassParticipsPlanComponent } from "./class-particips/class-particips-plan.component";
 import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
@@ -107,8 +106,7 @@ import { GlobalErrorHandler } from './error-handler';
 	entryComponents: [
 		ParticipModalComponent,
 		ResultsModalComponent,				
-		ExportExcelModal,
-		ClassParticipMarksEditModal
+		ExportExcelModal
 	],
     bootstrap: [AppComponent]
 })

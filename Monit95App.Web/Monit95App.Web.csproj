@@ -321,7 +321,8 @@
     <Content Include="app\class-particips\add-and-update\update.component.html" />
     <Content Include="app\class-particips\add-and-update\add.component.html" />
     <Content Include="app\class-particips\class-particips-plan.component.html" />
-    <Content Include="app\class-particips\marks\marks-edit.modal.html" />
+    <Content Include="app\class-particips\marks\marks-add.component.html" />
+    <Content Include="app\class-particips\marks\marks-edit.component.html" />
     <Content Include="app\class-particips\marks\marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
     <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
@@ -564,7 +565,8 @@
     <TypeScriptCompile Include="app\class-particips\ClassParticip.ts" />
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel.component.ts" />
-    <TypeScriptCompile Include="app\class-particips\marks\marks-edit.modal.ts" />
+    <TypeScriptCompile Include="app\class-particips\marks\marks-add.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\marks\marks-edit.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />

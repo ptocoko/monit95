@@ -6,6 +6,13 @@ import { MdDialog } from "@angular/material";
 import { CLASS_NAMES } from "../add-and-update/add.component";
 
 const PROJECT_TEST_ID: number = 12; //TODO: IT'S TEST FAKE NUMBER!!!
+export const MAX_MARKS = [
+	{ Name: '1', MaxMark: 2 },
+	{ Name: '2', MaxMark: 3 },
+	{ Name: '3', MaxMark: 4 },
+	{ Name: '4', MaxMark: 1 }
+]
+
 
 @Component({
 	templateUrl: `./app/class-particips/marks/marks.component.html?v=${new Date().getTime()}`

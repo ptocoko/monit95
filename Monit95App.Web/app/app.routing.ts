@@ -13,6 +13,7 @@ import { ClassParticipsExportExcelComponent } from "./class-particips/excel-expo
 import { ClassParticipsPlanComponent } from "./class-particips/class-particips-plan.component";
 import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
+import { ClassParticipMarksEditComponent } from "./class-particips/marks/marks-edit.component";
 
 const appRoutes: Routes = [
     { path: 'rsurparticips', component: RsurParticipComponent },    
@@ -27,6 +28,8 @@ const appRoutes: Routes = [
 	{ path: 'class-particips/new', component: AddClassParticipComponent },
 	{ path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
 	{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
+	{ path: 'class-particips/marks-add/:id', component: ClassParticipMarksComponent },
+	{ path: 'class-particips/marks-edit/:id', component: ClassParticipMarksEditComponent },
     { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];
 
