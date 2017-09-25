@@ -1,23 +1,18 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Services.DTOs;
-using Monit95App.Services.Interfaces;
-using Monit95App.Services.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Domain.Interfaces;
+using Monit95App.Services.DTOs;
+using Monit95App.Services.Interfaces;
+
+// ReSharper disable once CheckNamespace
 namespace Monit95App.Web.Api
 {
     [Authorize(Roles = "school")]
-    [RoutePrefix("api/marks")]
+    [RoutePrefix("api/Marks")]
     public class MarksController : ApiController
     {
         #region Dependencies
@@ -41,6 +36,7 @@ namespace Monit95App.Web.Api
             {
                 return BadRequest(ModelState);
             }
+
             _marksService.Add(dto);
 
             return Ok();
@@ -65,7 +61,7 @@ namespace Monit95App.Web.Api
         [HttpGet]
         public IHttpActionResult GetByParticipTestId(int participTestId)
         {
-            ParticipMarksDto participMarksDto = _marksService.GetByParticipTestId(participTestId);
+            var participMarksDto = _marksService.GetByParticipTestId(participTestId);
             var Fio = $"{participMarksDto.Surname} {participMarksDto.Name} {participMarksDto.SecondName}";
             var marksArray = participMarksDto.Marks?.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToArray();
 
@@ -81,16 +77,17 @@ namespace Monit95App.Web.Api
         }
 
         [HttpPut]
-        //[Route("{participTestId:int}")]
-        public IHttpActionResult Put([FromBody]PostMarksDto dto)
+        [Route("{participTestId:int}")]
+        public IHttpActionResult Put([FromBody]PutMarksDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            //var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
 
-            _marksService.Update(dto.ParticipTestId, dto);
+            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
+
+            _marksService.Update(participTestId, dto);
 
             return Ok();
         }

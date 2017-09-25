@@ -24,9 +24,9 @@ export class ParticipWithMarks extends Person {
 
 @Injectable()
 export class MarksService {    
-    ROUTE_PREFIX = "api/marks";
+    ROUTE_PREFIX = 'api/marks';
 
-    constructor(private http: Http) {
+    constructor(private readonly http: Http) {
 
     }    
 
@@ -36,7 +36,7 @@ export class MarksService {
     }
 
 	updateMarks(marks: Marks) {
-		return this.http.put(this.ROUTE_PREFIX + '/Put', marks);
+		return this.http.put(`${this.ROUTE_PREFIX}/${marks.participTestId}`, marks);
 	}
 
     getAll(projectTestId: number) {

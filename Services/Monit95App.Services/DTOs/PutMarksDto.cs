@@ -10,7 +10,7 @@ namespace Monit95App.Services.DTOs
     public class PutMarksDto
     {        
         [Required]
-        [RegularExpression(@"((\d;)|(\d,))+(\d)$")]
+        //[RegularExpression(@"((\d;)|(\d,))+(\d)$")] add also X;X;X;X;X
         public string Marks { get; set; }        
     }
 }

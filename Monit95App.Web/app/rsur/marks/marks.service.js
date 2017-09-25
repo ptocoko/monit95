@@ -40,13 +40,13 @@ exports.ParticipWithMarks = ParticipWithMarks;
 var MarksService = (function () {
     function MarksService(http) {
         this.http = http;
-        this.ROUTE_PREFIX = "api/marks";
+        this.ROUTE_PREFIX = 'api/marks';
     }
     MarksService.prototype.addMarks = function (marks) {
         return this.http.post(this.ROUTE_PREFIX + '/Post', marks);
     };
     MarksService.prototype.updateMarks = function (marks) {
-        return this.http.put(this.ROUTE_PREFIX + '/Put', marks);
+        return this.http.put(this.ROUTE_PREFIX + "/" + marks.participTestId, marks);
     };
     MarksService.prototype.getAll = function (projectTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/GetAll?projectTestId=" + projectTestId);

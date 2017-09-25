@@ -26,7 +26,7 @@ var MarksAddAndEditComponent = (function () {
         this.marksService = marksService;
         this.marksAddAndEditModel = new MarksAddAndEditModel();
         this.formGroup = new forms_1.FormGroup({
-            "question1Mark": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern('^(0|0.5|0,5|1|1.5|1,5|2|2.5|2,5|3|3.5|3,5|4)$')]),
+            "question1Mark": new forms_1.FormControl({ disabled: true }, [forms_1.Validators.required, forms_1.Validators.pattern('^(0|0.5|0,5|1|1.5|1,5|2|2.5|2,5|3|3.5|3,5|4)$')]),
             "question2Mark": new forms_1.FormControl('', [forms_1.Validators.pattern('^(0|0.5|0,5|1)$'), forms_1.Validators.required]),
             "question3Mark": new forms_1.FormControl('', [forms_1.Validators.pattern('^(0|1|2|3)$'), forms_1.Validators.required]),
             "question4Mark": new forms_1.FormControl('', [forms_1.Validators.pattern('^(0|0.5|0,5|1)$'), forms_1.Validators.required]),
@@ -35,10 +35,19 @@ var MarksAddAndEditComponent = (function () {
     }
     MarksAddAndEditComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.wasNot = false;
         this.activatedRoute.params.subscribe(function (params) {
             _this.participTestId = params['participTestId'];
             _this.marksService.getMarksByParticipTestId(_this.participTestId).subscribe(function (marksAddAndEditModel) {
                 _this.marksAddAndEditModel = marksAddAndEditModel.json();
+                if (_this.marksAddAndEditModel.Question1Mark === 'X') {
+                    _this.marksAddAndEditModel.Question1Mark = '';
+                    _this.marksAddAndEditModel.Question2Mark = '';
+                    _this.marksAddAndEditModel.Question3Mark = '';
+                    _this.marksAddAndEditModel.Question4Mark = '';
+                    _this.marksAddAndEditModel.Question5Mark = '';
+                    _this.wasNot = true;
+                }
                 _this.isUpdate = _this.marksAddAndEditModel.Question1Mark != null;
                 $.ready.then(function () {
                     $('#question1Mark').focus().select();
@@ -73,7 +82,13 @@ var MarksAddAndEditComponent = (function () {
     };
     MarksAddAndEditComponent.prototype.submit = function () {
         var _this = this;
-        var marksString = this.marksAddAndEditModel.Question1Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question2Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question3Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question4Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question5Mark.replace(',', '.');
+        var marksString = '';
+        if (this.wasNot) {
+            marksString = 'X;X;X;X;X';
+        }
+        else {
+            marksString = this.marksAddAndEditModel.Question1Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question2Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question3Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question4Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question5Mark.replace(',', '.');
+        }
         var marksDto = {
             participTestId: this.participTestId,
             marks: marksString
