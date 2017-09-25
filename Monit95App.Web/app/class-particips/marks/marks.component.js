@@ -23,7 +23,7 @@ var particip_service_1 = require("../../particip.service");
 var marks_edit_modal_1 = require("./marks-edit.modal");
 var material_1 = require("@angular/material");
 var add_component_1 = require("../add-and-update/add.component");
-var PROJECT_TEST_ID = 12; //TODO: IT'S TEST FAKE NUMBER!!!
+var PROJECT_TEST_ID = 1011;
 var ClassParticipMarksComponent = (function () {
     function ClassParticipMarksComponent(marksService, participService, dialog) {
         this.marksService = marksService;
