@@ -39,19 +39,17 @@ var ClassParticipMarksComponent = (function () {
             _this.isLoading = false;
         });
     };
-    ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip, particips) {
+    ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {
         var _this = this;
-        console.log(particips);
-        this.particips = this.particips;
-        var index = particips.indexOf(marksParticip);
+        var index = this.particips.indexOf(marksParticip);
         var dialogRef = this.dialog.open(marks_edit_modal_1.ClassParticipMarksEditModal, { data: { particip: __assign({}, marksParticip) } });
         dialogRef.afterClosed().subscribe(function (res) {
             if (res ? res.particip : res) {
-                particips[index] = res.particip;
+                _this.particips[index] = res.particip;
                 if (res.toNext) {
-                    for (var i = index + 1; i < particips.length; i++) {
-                        if (!particips[i].Marks) {
-                            _this.changeMarks(particips[i], particips);
+                    for (var i = index + 1; i < _this.particips.length; i++) {
+                        if (!_this.particips[i].Marks) {
+                            _this.changeMarks(_this.particips[i]);
                             return;
                         }
                     }
