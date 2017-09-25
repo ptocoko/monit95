@@ -29,6 +29,7 @@ export class ClassParticipMarksComponent {
 	}
 
 	changeMarks(marksParticip: ParticipWithMarks) {
+		this.particips = [...this.particips];
 		let index = this.particips.indexOf(marksParticip);
 
 		let dialogRef = this.dialog.open(ClassParticipMarksEditModal, { data: { particip: { ...marksParticip } } });

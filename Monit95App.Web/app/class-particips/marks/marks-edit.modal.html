@@ -6,8 +6,12 @@
             <div class="form-group" *ngFor="let mark of maxMarks; let i = index">
                 <label class="form-inline">
                     Ответ №{{mark.Name}}
-                    <input type="text" size="1" class="form-control" [(ngModel)]="marksArray[i]" name="{{mark.Name}}mark" #{{mark.Name}}mark="ngModel" required />
                 </label>
+                    <input type="text" size="1" class="form-control" [(ngModel)]="marksArray[i]" name="{{mark.Name}}mark" #{{mark.Name}}mark="ngModel" required />
+                    <div [hidden]="name.valid || name.pristine"
+                         class="alert alert-danger">
+                        Больше максимального значения за это задание
+                    </div>
             </div>
             <hr />
             <div class="pull-right">
