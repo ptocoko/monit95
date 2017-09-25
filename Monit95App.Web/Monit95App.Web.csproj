@@ -321,6 +321,7 @@
     <Content Include="app\class-particips\add-and-update\update.component.html" />
     <Content Include="app\class-particips\add-and-update\add.component.html" />
     <Content Include="app\class-particips\class-particips-plan.component.html" />
+    <Content Include="app\class-particips\marks\marks-add-and-edit.component.html" />
     <Content Include="app\class-particips\marks\marks-add.component.html" />
     <Content Include="app\class-particips\marks\marks-edit.component.html" />
     <Content Include="app\class-particips\marks\marks.component.html" />
@@ -565,6 +566,7 @@
     <TypeScriptCompile Include="app\class-particips\ClassParticip.ts" />
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\marks\marks-add-and-edit.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks-add.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks-edit.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks.component.ts" />

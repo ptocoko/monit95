@@ -33,7 +33,8 @@ export class ClassParticipMarksComponent {
 		})
 	}
 
-	changeMarks(marksParticip: ParticipWithMarks) {
+    changeMarks(marksParticip: ParticipWithMarks) {
+
 		this.particips = [...this.particips];
 		let index = this.particips.indexOf(marksParticip);
 
