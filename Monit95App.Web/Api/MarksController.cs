@@ -7,6 +7,7 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -59,6 +60,20 @@ namespace Monit95App.Web.Api
             }            
 
             return Ok(participMarksDtos);
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetByParticipTestId(int participTestId)
+        {
+            ParticipMarksDto participMarksDto = _marksService.GetByParticipTestId(participTestId);
+            var Fio = $"{participMarksDto.Surname} {participMarksDto.Name} {participMarksDto.SecondName}";
+            var marksArray = participMarksDto.Marks?.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+
+            return Ok(new {
+                ParticipTestId = participTestId,
+                Fio = Fio,
+                QuestionMarks = marksArray
+            });
         }
 
         [HttpPut]

@@ -30,10 +30,10 @@ var export_excel_modal_component_1 = require("./class-particips/excel-export/exp
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 var marks_component_1 = require("./class-particips/marks/marks.component");
 var export_excel_component_1 = require("./class-particips/excel-export/export-excel.component");
-var marks_edit_modal_1 = require("./class-particips/marks/marks-edit.modal");
 var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
 var add_component_1 = require("./class-particips/add-and-update/add.component");
 var update_component_1 = require("./class-particips/add-and-update/update.component");
+var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -94,10 +94,10 @@ AppModule = __decorate([
             export_excel_modal_component_1.ExportExcelModal,
             marks_component_1.ClassParticipMarksComponent,
             export_excel_component_1.ClassParticipsExportExcelComponent,
-            marks_edit_modal_1.ClassParticipMarksEditModal,
             class_particips_plan_component_1.ClassParticipsPlanComponent,
             add_component_1.AddClassParticipComponent,
-            update_component_1.UpdateClassParticipComponent
+            update_component_1.UpdateClassParticipComponent,
+            marks_add_and_edit_component_1.MarksAddAndEditComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -114,8 +114,7 @@ AppModule = __decorate([
         entryComponents: [
             particip_modal_component_1.ParticipModalComponent,
             results_modal_component_1.ResultsModalComponent,
-            export_excel_modal_component_1.ExportExcelModal,
-            marks_edit_modal_1.ClassParticipMarksEditModal
+            export_excel_modal_component_1.ExportExcelModal
         ],
         bootstrap: [app_component_1.AppComponent]
     })

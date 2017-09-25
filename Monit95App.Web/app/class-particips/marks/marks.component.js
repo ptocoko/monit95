@@ -1,12 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,15 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var marks_service_1 = require("../../rsur/marks/marks.service");
 var particip_service_1 = require("../../particip.service");
-var marks_edit_modal_1 = require("./marks-edit.modal");
-var material_1 = require("@angular/material");
 var add_component_1 = require("../add-and-update/add.component");
-var PROJECT_TEST_ID = 1011;
+var router_1 = require("@angular/router");
+var PROJECT_TEST_ID = 1011; //TODO: IT'S TEST FAKE NUMBER!!!
+exports.MAX_MARKS = [
+    { Name: '1', MaxMark: 2 },
+    { Name: '2', MaxMark: 3 },
+    { Name: '3', MaxMark: 4 },
+    { Name: '4', MaxMark: 1 }
+];
 var ClassParticipMarksComponent = (function () {
-    function ClassParticipMarksComponent(marksService, participService, dialog) {
+    function ClassParticipMarksComponent(marksService, participService, router) {
         this.marksService = marksService;
         this.participService = participService;
-        this.dialog = dialog;
+        this.router = router;
         this.isLoading = true;
         this.classes = add_component_1.CLASS_NAMES;
     }
@@ -40,23 +37,7 @@ var ClassParticipMarksComponent = (function () {
         });
     };
     ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {
-        var _this = this;
-        this.particips = this.particips.slice();
-        var index = this.particips.indexOf(marksParticip);
-        var dialogRef = this.dialog.open(marks_edit_modal_1.ClassParticipMarksEditModal, { data: { particip: __assign({}, marksParticip) } });
-        dialogRef.afterClosed().subscribe(function (res) {
-            if (res ? res.particip : res) {
-                _this.particips[index] = res.particip;
-                if (res.toNext) {
-                    for (var i = index + 1; i < _this.particips.length; i++) {
-                        if (!_this.particips[i].Marks) {
-                            _this.changeMarks(_this.particips[i]);
-                            return;
-                        }
-                    }
-                }
-            }
-        });
+        this.router.navigate(['/class-particips/marks', marksParticip.ParticipTestId]);
     };
     return ClassParticipMarksComponent;
 }());
@@ -66,7 +47,7 @@ ClassParticipMarksComponent = __decorate([
     }),
     __metadata("design:paramtypes", [marks_service_1.MarksService,
         particip_service_1.ParticipService,
-        material_1.MdDialog])
+        router_1.Router])
 ], ClassParticipMarksComponent);
 exports.ClassParticipMarksComponent = ClassParticipMarksComponent;
 //# sourceMappingURL=marks.component.js.map

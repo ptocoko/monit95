@@ -45,8 +45,14 @@ var MarksService = (function () {
     MarksService.prototype.addMarks = function (marks) {
         return this.http.post(this.ROUTE_PREFIX, marks);
     };
+    MarksService.prototype.updateMarks = function (marks) {
+        return this.http.put(this.ROUTE_PREFIX, marks);
+    };
     MarksService.prototype.getAll = function (projectTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/GetAll?projectTestId=" + projectTestId);
+    };
+    MarksService.prototype.getMarksByParticipTestId = function (participTestId) {
+        return this.http.get(this.ROUTE_PREFIX + "/GetByParticipTestId?participTestId=" + participTestId);
     };
     return MarksService;
 }());

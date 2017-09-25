@@ -44,6 +44,6 @@ export class MarksService {
 	}
 
 	getMarksByParticipTestId(participTestId: number) {
-		return this.http.get(`${this.ROUTE_PREFIX}/GetByParticipTestId=${participTestId}`);
+		return this.http.get(`${this.ROUTE_PREFIX}/GetByParticipTestId?participTestId=${participTestId}`);
 	}
 }
