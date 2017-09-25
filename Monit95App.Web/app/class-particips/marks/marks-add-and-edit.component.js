@@ -40,6 +40,34 @@ var MarksAddAndEditComponent = (function () {
             _this.marksService.getMarksByParticipTestId(_this.participTestId).subscribe(function (marksAddAndEditModel) {
                 _this.marksAddAndEditModel = marksAddAndEditModel.json();
                 _this.isUpdate = _this.marksAddAndEditModel.Question1Mark != null;
+                $.ready.then(function () {
+                    $('#question1Mark').focus().select();
+                    $('#question1Mark').keypress(function (event) {
+                        if (event.keyCode === 13) {
+                            $('#question2Mark').focus().select();
+                        }
+                    });
+                    $('#question2Mark').keypress(function (event) {
+                        if (event.keyCode === 13) {
+                            $('#question3Mark').focus().select();
+                        }
+                    });
+                    $('#question3Mark').keypress(function (event) {
+                        if (event.keyCode === 13) {
+                            $('#question4Mark').focus().select();
+                        }
+                    });
+                    $('#question4Mark').keypress(function (event) {
+                        if (event.keyCode === 13) {
+                            $('#question5Mark').focus().select();
+                        }
+                    });
+                    $('#question5Mark').keypress(function (event) {
+                        if (event.keyCode === 13) {
+                            $('#submitBtn').focus();
+                        }
+                    });
+                });
             });
         });
     };

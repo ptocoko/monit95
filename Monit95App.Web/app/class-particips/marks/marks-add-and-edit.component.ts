@@ -46,6 +46,40 @@ export class MarksAddAndEditComponent implements OnInit {
 				this.marksAddAndEditModel = marksAddAndEditModel.json() as MarksAddAndEditModel;
 
 				this.isUpdate = this.marksAddAndEditModel.Question1Mark != null;
+
+				$.ready.then(() => {
+					$('#question1Mark').focus().select();
+
+					$('#question1Mark').keypress((event) => {
+						if (event.keyCode === 13) {
+							$('#question2Mark').focus().select()
+						}
+					})
+
+					$('#question2Mark').keypress((event) => {
+						if (event.keyCode === 13) {
+							$('#question3Mark').focus().select()
+						}
+					})
+
+					$('#question3Mark').keypress((event) => {
+						if (event.keyCode === 13) {
+							$('#question4Mark').focus().select()
+						}
+					})
+
+					$('#question4Mark').keypress((event) => {
+						if (event.keyCode === 13) {
+							$('#question5Mark').focus().select()
+						}
+					})
+
+					$('#question5Mark').keypress((event) => {
+						if (event.keyCode === 13) {
+							$('#submitBtn').focus()
+						}
+					})
+				})
 			});
         });
     }
