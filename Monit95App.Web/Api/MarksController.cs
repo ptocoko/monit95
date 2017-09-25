@@ -62,16 +62,16 @@ namespace Monit95App.Web.Api
         }
 
         [HttpPut]
-        [Route("{participTestId:int}")]
+        //[Route("{participTestId:int}")]
         public IHttpActionResult Put([FromBody]PostMarksDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
+            //var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
 
-            _marksService.Update(participTestId, dto);
+            _marksService.Update(dto.ParticipTestId, dto);
 
             return Ok();
         }

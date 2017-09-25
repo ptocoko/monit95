@@ -3,9 +3,8 @@ import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
-import { MarksService } from '';
-
 import { BasicValidators } from '../../shared/basic-validators';
+import { MarksService, Marks } from "../../rsur/marks/marks.service";
 
 export class MarksAddAndEditModel {
     ParticipTestId: number;
@@ -23,96 +22,54 @@ export class MarksAddAndEditModel {
     styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']
 })
 export class MarksAddAndEditComponent implements OnInit {
-  
-    marksAddAndEditModel = new MarksAddAndEditModel();
+	isUpdate: boolean;
+	marksAddAndEditModel = new MarksAddAndEditModel();
+	participTestId: number;
     formGroup: FormGroup;    
 
     constructor(
         private readonly router: Router,
         private readonly activatedRoute: ActivatedRoute,
-        private readonly marksService: MarksService,        
-    ) {
-        this.formGroup = new FormGroup({
-            "question1Mark": new FormControl('', [Validators.required, Validators.pattern('(^0$)|(0.5)|(0,5)|(^1$)|(^1.5$)|(^1,5$)')]),           
-            "question2Mark": new FormControl('', Validators.pattern('(0)|(0.5)|(0,5)')),          
-            "question3Mark": new FormControl('', Validators.pattern('(0)|(0.5)|(0,5)')),           
-            "question4Mark": new FormControl('', Validators.pattern('(0)|(0.5)|(0,5)')),           
-            "question5Mark": new FormControl('', [Validators.min(0), Validators.max(1)])           
-        });
-    }
+        private readonly marksService: MarksService) { }
 
     ngOnInit() {        
-        var participTestId = this.activatedRoute.params.subscribe(params => {
-            var participTestId = params['participTestId'];
+        this.activatedRoute.params.subscribe(params => {
+            this.participTestId = params['participTestId'];
 
-            this.marksService.getMarksByParticipTestId(participTestId).subcribe(marksAddAndEditModel => {
-                this.marksAddAndEditModel = marksAddAndEditModel as MarksAddAndEditModel;
-            }
-                )
+			this.marksService.getMarksByParticipTestId(this.participTestId).subscribe((marksAddAndEditModel: Response) => {
+				this.marksAddAndEditModel = marksAddAndEditModel.json() as MarksAddAndEditModel;
 
-            this.title = id ? 'Edit User' : 'New User';
+				this.isUpdate = this.marksAddAndEditModel.Question1Mark != null;
 
-            if (!id)
-                return;
-
-            this.usersService.getUser(id)
-                .subscribe(
-                user => this.user = user,
-                response => {
-                    if (response.status == 404) {
-                        this.router.navigate(['NotFound']);
-                    }
-                });
+				this.formGroup = new FormGroup({
+					"question1Mark": new FormControl(this.marksAddAndEditModel.Question1Mark, [Validators.required, Validators.pattern('^(0|0.5|0,5|1|1.5|1,5|2|2.5|2,5|3|3.5|3,5|4)$')]),
+					"question2Mark": new FormControl(this.marksAddAndEditModel.Question2Mark, [Validators.pattern('^(0|0.5|0,5|1)$'), Validators.required]),
+					"question3Mark": new FormControl(this.marksAddAndEditModel.Question3Mark, [Validators.pattern('^(0|1|2|3)$'), Validators.required]),
+					"question4Mark": new FormControl(this.marksAddAndEditModel.Question4Mark, [Validators.pattern('^(0|0.5|0,5|1)$'), Validators.required]),
+					"question5Mark": new FormControl(this.marksAddAndEditModel.Question5Mark, [Validators.pattern('^(0|1)$'), Validators.required])
+				});
+			});
         });
     }
 
     submit() {
-        const milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
-        this.particip.Birthday = new Date(milliseconds + 10800000);
+		let marksString = `${this.marksAddAndEditModel.Question1Mark};${this.marksAddAndEditModel.Question2Mark};${this.marksAddAndEditModel.Question3Mark};${this.marksAddAndEditModel.Question4Mark};${this.marksAddAndEditModel.Question5Mark};`;
 
-        //this.particip.Birthday = this.newYear + '-' + this.newMonth + '-' + this.newDay;
-        console.log(this.particip);
+		let marksDto: Marks = {
+			participTestId: this.participTestId,
+			marks: marksString
+		};
 
-        this.rsurParticipService.createParticip(this.particip).
-            subscribe(data => this.router.navigate(['rsurparticips']));
+		if (this.isUpdate) {
+			this.marksService.updateMarks(marksDto);
+			this.router.navigate(['/class-particips/marks']);
+		} else {
+			this.marksService.addMarks(marksDto);
+			this.router.navigate(['/class-particips/marks']);
+		}
     }
 
     back() {
-        this.router.navigate(['rsurparticips'])
-    }
-
-    classesChange(): void {
-        this.classNumbersTouched = true;
-        this.particip.ClassNumbers = '';
-        const checkboxes = $('#classes').find(':checkbox:checked');
-        checkboxes.each((index, element) => {
-            this.particip.ClassNumbers += element.id + ';';
-        });
-        if (this.particip.ClassNumbers.length > 0) {
-            this.particip.ClassNumbers = this.particip.ClassNumbers.slice(0, this.particip.ClassNumbers.length - 1);
-        }
-    }
-
-    schoolIdFromValidator(): ValidatorFn {
-        return (control: FormControl) => {
-            let valid: boolean;
-
-            if (this.radioValue === 0) {
-                valid = false;
-            }
-            //if (this.radioValue === 0 || (this.radioValue === 1 && control.value)) {
-            //	valid = true;
-            //}
-            //else {
-            //	valid = false;
-            //}
-
-            //console.log(valid);
-            return valid ? null : {
-                validateSchoolIdFrom: {
-                    valid: false
-                }
-            }
-        }
+		this.router.navigate(['/class-particips/marks']);
     }
 }

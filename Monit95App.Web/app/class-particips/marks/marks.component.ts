@@ -3,6 +3,7 @@ import { MarksService, ParticipWithMarks } from "../../rsur/marks/marks.service"
 import { ParticipService } from "../../particip.service";
 import { MdDialog } from "@angular/material";
 import { CLASS_NAMES } from "../add-and-update/add.component";
+import { Router } from "@angular/router";
 
 const PROJECT_TEST_ID: number = 1011; //TODO: IT'S TEST FAKE NUMBER!!!
 export const MAX_MARKS = [
@@ -23,8 +24,8 @@ export class ClassParticipMarksComponent {
 	searchClass: string;
 
 	constructor(private marksService: MarksService,
-		private participService: ParticipService,
-		private dialog: MdDialog) { }
+				private participService: ParticipService,
+				private router: Router) { }
 
 	ngOnInit() {
 		this.marksService.getAll(PROJECT_TEST_ID).subscribe(res => {
@@ -34,25 +35,6 @@ export class ClassParticipMarksComponent {
 	}
 
     changeMarks(marksParticip: ParticipWithMarks) {
-
-		this.particips = [...this.particips];
-		let index = this.particips.indexOf(marksParticip);
-
-		let dialogRef = this.dialog.open(ClassParticipMarksEditModal, { data: { particip: { ...marksParticip } } });
-
-		dialogRef.afterClosed().subscribe(res => {
-			if (res ? res.particip : res) {
-				this.particips[index] = res.particip
-
-				if (res.toNext) {
-					for (var i = index + 1; i < this.particips.length; i++) {
-						if (!this.particips[i].Marks) {
-							this.changeMarks(this.particips[i]);
-							return;
-						}
-					}
-				}
-			}
-		});
+		this.router.navigate(['/class-particips/marks', marksParticip.ParticipTestId])
 	}
 }
