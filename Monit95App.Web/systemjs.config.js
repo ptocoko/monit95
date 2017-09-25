@@ -37,7 +37,8 @@
             '@angular/cdk/portal': 'npm:@angular/cdk/bundles/cdk-portal.umd.js',
             '@angular/cdk/rxjs': 'npm:@angular/cdk/bundles/cdk-rxjs.umd.js',
             '@angular/cdk/scrolling': 'npm:@angular/cdk/bundles/cdk-scrolling.umd.js',
-            '@angular/cdk/table': 'npm:@angular/cdk/bundles/cdk-table.umd.js',
+			'@angular/cdk/table': 'npm:@angular/cdk/bundles/cdk-table.umd.js',
+			'@angular/cdk/stepper': 'npm:@angular/cdk/bundles/cdk-stepper.umd.js',
 
             // пакеты angular2-modal     
             'angular2-modal': 'npm:angular2-modal/bundle/angular2-modal.rollup.umd.js',

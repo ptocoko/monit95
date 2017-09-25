@@ -41,6 +41,7 @@ var ClassParticipMarksComponent = (function () {
     };
     ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {
         var _this = this;
+        this.particips = this.particips.slice();
         var index = this.particips.indexOf(marksParticip);
         var dialogRef = this.dialog.open(marks_edit_modal_1.ClassParticipMarksEditModal, { data: { particip: __assign({}, marksParticip) } });
         dialogRef.afterClosed().subscribe(function (res) {
