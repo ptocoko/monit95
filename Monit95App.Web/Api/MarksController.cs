@@ -67,12 +67,16 @@ namespace Monit95App.Web.Api
         {
             ParticipMarksDto participMarksDto = _marksService.GetByParticipTestId(participTestId);
             var Fio = $"{participMarksDto.Surname} {participMarksDto.Name} {participMarksDto.SecondName}";
-            var marksArray = participMarksDto.Marks?.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            var marksArray = participMarksDto.Marks?.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToArray();
 
             return Ok(new {
                 ParticipTestId = participTestId,
                 Fio = Fio,
-                QuestionMarks = marksArray
+                Question1Mark = marksArray?[0],
+                Question2Mark = marksArray?[1],
+                Question3Mark = marksArray?[2],
+                Question4Mark = marksArray?[3],
+                Question5Mark = marksArray?[4],
             });
         }
 

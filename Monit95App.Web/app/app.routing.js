@@ -27,7 +27,7 @@ var appRoutes = [
     { path: 'class-particips/new', component: add_component_1.AddClassParticipComponent },
     { path: 'class-particips/update/:id', component: update_component_1.UpdateClassParticipComponent },
     { path: 'class-particips/marks', component: marks_component_1.ClassParticipMarksComponent },
-    { path: 'class-particips/marks/:participTestId', component: marks_add_and_edit_component_1.MarksAddAndEditComponent },
+    { path: 'class-particips/marks-edit/:participTestId', component: marks_add_and_edit_component_1.MarksAddAndEditComponent },
     { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

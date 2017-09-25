@@ -9,16 +9,14 @@ import { MarksService, Marks } from "../../rsur/marks/marks.service";
 export class MarksAddAndEditModel {
     ParticipTestId: number;
 	Fio: string;
-	QuestionMarks: string[];
-    //Question1Mark: string;
-    //Question2Mark: string;
-    //Question3Mark: string;
-    //Question4Mark: string;
-    //Question5Mark: string;  
+    Question1Mark: string;
+    Question2Mark: string;
+    Question3Mark: string;
+    Question4Mark: string;
+    Question5Mark: string;  
 }
 
 @Component({
-    selector: 'marks-add-and-edit',
     templateUrl: `./app/class-particips/marks/marks-add-and-edit.component.html?v=${new Date().getTime()}`
 })
 export class MarksAddAndEditComponent implements OnInit {
@@ -47,13 +45,13 @@ export class MarksAddAndEditComponent implements OnInit {
 			this.marksService.getMarksByParticipTestId(this.participTestId).subscribe((marksAddAndEditModel: Response) => {
 				this.marksAddAndEditModel = marksAddAndEditModel.json() as MarksAddAndEditModel;
 
-				this.isUpdate = this.marksAddAndEditModel.QuestionMarks[0] != null;
+				this.isUpdate = this.marksAddAndEditModel.Question1Mark != null;
 			});
         });
     }
 
     submit() {
-		let marksString = this.marksAddAndEditModel.QuestionMarks.map(s => s.replace(',', '.')).join('; ');
+		let marksString = `${this.marksAddAndEditModel.Question1Mark.replace(',', '.')}; ${this.marksAddAndEditModel.Question2Mark.replace(',', '.')}; ${this.marksAddAndEditModel.Question3Mark.replace(',', '.')}; ${this.marksAddAndEditModel.Question4Mark.replace(',', '.')}; ${this.marksAddAndEditModel.Question5Mark.replace(',', '.')}`;
 
 		let marksDto: Marks = {
 			participTestId: this.participTestId,

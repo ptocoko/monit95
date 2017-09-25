@@ -39,12 +39,12 @@ var MarksAddAndEditComponent = (function () {
             _this.participTestId = params['participTestId'];
             _this.marksService.getMarksByParticipTestId(_this.participTestId).subscribe(function (marksAddAndEditModel) {
                 _this.marksAddAndEditModel = marksAddAndEditModel.json();
-                _this.isUpdate = _this.marksAddAndEditModel.QuestionMarks[0] != null;
+                _this.isUpdate = _this.marksAddAndEditModel.Question1Mark != null;
             });
         });
     };
     MarksAddAndEditComponent.prototype.submit = function () {
-        var marksString = this.marksAddAndEditModel.QuestionMarks.map(function (s) { return s.replace(',', '.'); }).join('; ');
+        var marksString = this.marksAddAndEditModel.Question1Mark.replace(',', '.') + "; " + this.marksAddAndEditModel.Question2Mark.replace(',', '.') + "; " + this.marksAddAndEditModel.Question3Mark.replace(',', '.') + "; " + this.marksAddAndEditModel.Question4Mark.replace(',', '.') + "; " + this.marksAddAndEditModel.Question5Mark.replace(',', '.');
         var marksDto = {
             participTestId: this.participTestId,
             marks: marksString
@@ -65,9 +65,7 @@ var MarksAddAndEditComponent = (function () {
 }());
 MarksAddAndEditComponent = __decorate([
     core_1.Component({
-        selector: 'marks-add-and-edit',
-        templateUrl: "./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=" + new Date().getTime(),
-        styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']
+        templateUrl: "./app/class-particips/marks/marks-add-and-edit.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,

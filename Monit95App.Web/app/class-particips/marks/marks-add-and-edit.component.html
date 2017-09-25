@@ -1,26 +1,26 @@
 ﻿<div>
-    <h2>{{particip.Surname}} {{particip.Name}} {{particip.SecondName}}</h2>
+    <h2>{{marksAddAndEditModel.Fio}}</h2>
     <hr />
     <form [formGroup]="formGroup" novalidate (ngSubmit)="submit()">
         <div class="form-group">
-            <label>Ответ №1</label>
-            <input class="form-control" [(ngModel)]="marksAddAndEditModel.QuestionMarks[0]" name="question1Mark" formControlName="question1Mark" size="2" />
+            <label class="form-inline">Ответ №1</label>
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question1Mark" name="question1Mark" formControlName="question1Mark" size="2" />
         </div>
         <div class="form-group">
             <label>Ответ №2</label>
-            <input class="form-control" [(ngModel)]="marksAddAndEditModel.QuestionMarks[1]" name="question2Mark" formControlName="question2Mark" size="2" />
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question2Mark" name="question2Mark" formControlName="question2Mark" size="2" />
         </div>
         <div class="form-group">
             <label>Ответ №3</label>
-            <input class="form-control" [(ngModel)]="marksAddAndEditModel.QuestionMarks[2]" name="question3Mark" formControlName="question3Mark" size="2" />
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question3Mark" name="question3Mark" formControlName="question3Mark" size="2" />
         </div>
         <div class="form-group">
             <label>Ответ №4</label>
-            <input class="form-control" [(ngModel)]="marksAddAndEditModel.QuestionMarks[3]" name="question4Mark" formControlName="question4Mark" size="2" />
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question4Mark" name="question4Mark" formControlName="question4Mark" size="2" />
         </div>
         <div class="form-group">
             <label>Ответ №5</label>
-            <input class="form-control" [(ngModel)]="marksAddAndEditModel.QuestionMarks[4]" name="question5Mark" formControlName="question5Mark" size="2" />
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question5Mark" name="question5Mark" formControlName="question5Mark" size="2" />
         </div>
         <hr />
         <div class="pull-right">

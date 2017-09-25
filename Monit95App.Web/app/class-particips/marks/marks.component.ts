@@ -35,6 +35,6 @@ export class ClassParticipMarksComponent {
 	}
 
     changeMarks(marksParticip: ParticipWithMarks) {
-		this.router.navigate(['/class-particips/marks', marksParticip.ParticipTestId])
+		this.router.navigate(['/class-particips/marks-edit', marksParticip.ParticipTestId])
 	}
 }

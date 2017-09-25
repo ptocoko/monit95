@@ -37,7 +37,7 @@ var ClassParticipMarksComponent = (function () {
         });
     };
     ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {
-        this.router.navigate(['/class-particips/marks', marksParticip.ParticipTestId]);
+        this.router.navigate(['/class-particips/marks-edit', marksParticip.ParticipTestId]);
     };
     return ClassParticipMarksComponent;
 }());

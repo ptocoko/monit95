@@ -22,12 +22,12 @@ export class AppComponent implements OnInit {
 		this.isCokoRole = userRoles.indexOf('coko') >= 0;
 	}
 
-	onActivate(event: any) {
-        if (['ClassParticipsListComponent', 'ClassParticipsExportExcelComponent', 'UpdateClassParticipComponent', 'AddClassParticipComponent', 'ClassParticipsPlanComponent'].indexOf(event.constructor.name) !== -1) {
-			this.isRsur = false;
-		}
-		else {
-			this.isRsur = true;
-        }
-	}
+	//onActivate(event: any) {
+ //       if (['ClassParticipsListComponent', 'ClassParticipsExportExcelComponent', 'UpdateClassParticipComponent', 'AddClassParticipComponent', 'ClassParticipsPlanComponent'].indexOf(event.constructor.name) !== -1) {
+	//		this.isRsur = false;
+	//	}
+	//	else {
+	//		this.isRsur = true;
+ //       }
+	//}
 }
