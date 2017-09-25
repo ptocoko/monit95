@@ -5,7 +5,7 @@ import { ClassParticipMarksEditModal } from "./marks-edit.modal";
 import { MdDialog } from "@angular/material";
 import { CLASS_NAMES } from "../add-and-update/add.component";
 
-const PROJECT_TEST_ID: number = 12; //TODO: IT'S TEST FAKE NUMBER!!!
+const PROJECT_TEST_ID: number = 1011; //TODO: IT'S TEST FAKE NUMBER!!!
 export const MAX_MARKS = [
 	{ Name: '1', MaxMark: 2 },
 	{ Name: '2', MaxMark: 3 },
