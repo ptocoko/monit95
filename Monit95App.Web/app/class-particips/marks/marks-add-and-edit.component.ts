@@ -51,19 +51,22 @@ export class MarksAddAndEditComponent implements OnInit {
     }
 
     submit() {
-		let marksString = `${this.marksAddAndEditModel.Question1Mark.replace(',', '.')}; ${this.marksAddAndEditModel.Question2Mark.replace(',', '.')}; ${this.marksAddAndEditModel.Question3Mark.replace(',', '.')}; ${this.marksAddAndEditModel.Question4Mark.replace(',', '.')}; ${this.marksAddAndEditModel.Question5Mark.replace(',', '.')}`;
+		let marksString = `${this.marksAddAndEditModel.Question1Mark.replace(',', '.')};${this.marksAddAndEditModel.Question2Mark.replace(',', '.')};${this.marksAddAndEditModel.Question3Mark.replace(',', '.')};${this.marksAddAndEditModel.Question4Mark.replace(',', '.')};${this.marksAddAndEditModel.Question5Mark.replace(',', '.')}`;
 
 		let marksDto: Marks = {
 			participTestId: this.participTestId,
 			marks: marksString
 		};
-
+		console.log(this.isUpdate);
+		console.log(marksDto);
 		if (this.isUpdate) {
-			this.marksService.updateMarks(marksDto);
-			this.router.navigate(['/class-particips/marks']);
+			this.marksService.updateMarks(marksDto).subscribe(res => {
+				this.router.navigate(['/class-particips/marks']);
+			});
 		} else {
-			this.marksService.addMarks(marksDto);
-			this.router.navigate(['/class-particips/marks']);
+			this.marksService.addMarks(marksDto).subscribe(res => {
+				this.router.navigate(['/class-particips/marks']);
+			});
 		}
     }
 

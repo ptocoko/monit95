@@ -43,10 +43,10 @@ var MarksService = (function () {
         this.ROUTE_PREFIX = "api/marks";
     }
     MarksService.prototype.addMarks = function (marks) {
-        return this.http.post(this.ROUTE_PREFIX, marks);
+        return this.http.post(this.ROUTE_PREFIX + '/Post', marks);
     };
     MarksService.prototype.updateMarks = function (marks) {
-        return this.http.put(this.ROUTE_PREFIX, marks);
+        return this.http.put(this.ROUTE_PREFIX + '/Put', marks);
     };
     MarksService.prototype.getAll = function (projectTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/GetAll?projectTestId=" + projectTestId);

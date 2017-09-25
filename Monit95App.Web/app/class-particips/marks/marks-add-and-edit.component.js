@@ -44,18 +44,23 @@ var MarksAddAndEditComponent = (function () {
         });
     };
     MarksAddAndEditComponent.prototype.submit = function () {
-        var marksString = this.marksAddAndEditModel.Question1Mark.replace(',', '.') + "; " + this.marksAddAndEditModel.Question2Mark.replace(',', '.') + "; " + this.marksAddAndEditModel.Question3Mark.replace(',', '.') + "; " + this.marksAddAndEditModel.Question4Mark.replace(',', '.') + "; " + this.marksAddAndEditModel.Question5Mark.replace(',', '.');
+        var _this = this;
+        var marksString = this.marksAddAndEditModel.Question1Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question2Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question3Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question4Mark.replace(',', '.') + ";" + this.marksAddAndEditModel.Question5Mark.replace(',', '.');
         var marksDto = {
             participTestId: this.participTestId,
             marks: marksString
         };
+        console.log(this.isUpdate);
+        console.log(marksDto);
         if (this.isUpdate) {
-            this.marksService.updateMarks(marksDto);
-            this.router.navigate(['/class-particips/marks']);
+            this.marksService.updateMarks(marksDto).subscribe(function (res) {
+                _this.router.navigate(['/class-particips/marks']);
+            });
         }
         else {
-            this.marksService.addMarks(marksDto);
-            this.router.navigate(['/class-particips/marks']);
+            this.marksService.addMarks(marksDto).subscribe(function (res) {
+                _this.router.navigate(['/class-particips/marks']);
+            });
         }
     };
     MarksAddAndEditComponent.prototype.back = function () {
