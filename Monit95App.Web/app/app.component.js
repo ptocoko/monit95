@@ -25,14 +25,6 @@ var AppComponent = (function () {
         this.isAreaRole = userRoles.indexOf('area') >= 0;
         this.isCokoRole = userRoles.indexOf('coko') >= 0;
     };
-    AppComponent.prototype.onActivate = function (event) {
-        if (['ClassParticipsListComponent', 'ClassParticipsExportExcelComponent', 'UpdateClassParticipComponent', 'AddClassParticipComponent', 'ClassParticipsPlanComponent'].indexOf(event.constructor.name) !== -1) {
-            this.isRsur = false;
-        }
-        else {
-            this.isRsur = true;
-        }
-    };
     return AppComponent;
 }());
 AppComponent = __decorate([

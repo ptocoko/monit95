@@ -76,6 +76,18 @@ namespace Monit95App.Services
             return dtos.ToList();
         }
 
+        public ParticipMarksDto GetByParticipTestId(int participTestId)
+        {
+            return _participTestRepository.GetAll().Where(p => p.Id == participTestId).Select(s => new ParticipMarksDto {
+                ParticipTestId = participTestId,
+                Surname = s.Particip.Surname,
+                Name= s.Particip.Name,
+                SecondName = s.Particip.SecondName,
+                ClassName = s.Particip.Class.Name.Trim(),
+                Marks = s.Result == null ? null: s.Result.Marks
+            }).Single();
+        }
+
         public void Update(int participTestId, PutMarksDto dto)
         {
             if (dto == null)

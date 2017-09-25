@@ -15,6 +15,7 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var mydatepicker_1 = require("mydatepicker");
 var material_1 = require("@angular/material");
+var animations_1 = require("@angular/platform-browser/animations");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
@@ -29,9 +30,10 @@ var export_excel_modal_component_1 = require("./class-particips/excel-export/exp
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 var marks_component_1 = require("./class-particips/marks/marks.component");
 var export_excel_component_1 = require("./class-particips/excel-export/export-excel.component");
-var marks_edit_modal_1 = require("./class-particips/marks/marks-edit.modal");
 var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
 var add_component_1 = require("./class-particips/add-and-update/add.component");
+var update_component_1 = require("./class-particips/add-and-update/update.component");
+var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -40,18 +42,18 @@ var school_service_1 = require("./school.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");
 var marks_service_1 = require("./rsur/marks/marks.service");
+var school_collector_service_1 = require("./shared/school-collector.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var school_filter_pipe_1 = require("./school-filter.pipe");
+var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 // Additional 
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
-var update_component_1 = require("./class-particips/add-and-update/update.component");
-var school_collector_service_1 = require("./shared/school-collector.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -68,7 +70,9 @@ AppModule = __decorate([
             angular2_modal_1.ModalModule.forRoot(),
             bootstrap_1.BootstrapModalModule,
             mydatepicker_1.MyDatePickerModule,
-            material_1.MdButtonModule
+            animations_1.BrowserAnimationsModule,
+            material_1.MdButtonModule,
+            material_1.MdDialogModule
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -76,6 +80,7 @@ AppModule = __decorate([
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
             particip_filter_pipe_1.ParticipFilterPipe,
+            class_name_filter_pipe_1.ClassNameFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
             school_filter_pipe_1.SchoolFilter,
@@ -89,10 +94,10 @@ AppModule = __decorate([
             export_excel_modal_component_1.ExportExcelModal,
             marks_component_1.ClassParticipMarksComponent,
             export_excel_component_1.ClassParticipsExportExcelComponent,
-            marks_edit_modal_1.ClassParticipMarksEditModal,
             class_particips_plan_component_1.ClassParticipsPlanComponent,
             add_component_1.AddClassParticipComponent,
-            update_component_1.UpdateClassParticipComponent
+            update_component_1.UpdateClassParticipComponent,
+            marks_add_and_edit_component_1.MarksAddAndEditComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -109,8 +114,7 @@ AppModule = __decorate([
         entryComponents: [
             particip_modal_component_1.ParticipModalComponent,
             results_modal_component_1.ResultsModalComponent,
-            export_excel_modal_component_1.ExportExcelModal,
-            marks_edit_modal_1.ClassParticipMarksEditModal
+            export_excel_modal_component_1.ExportExcelModal
         ],
         bootstrap: [app_component_1.AppComponent]
     })

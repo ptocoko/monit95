@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MdButtonModule } from '@angular/material';
+import { MdButtonModule, MdDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // Components
 import { AppComponent } from './app.component';
@@ -22,9 +23,10 @@ import { ExportExcelModal } from './class-particips/excel-export/export-excel-mo
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
-import { ClassParticipMarksEditModal } from "./class-particips/marks/marks-edit.modal";
 import { ClassParticipsPlanComponent } from "./class-particips/class-particips-plan.component";
 import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
+import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
+import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 
 // Services
 import { AccountService } from './account/account.service';
@@ -34,6 +36,7 @@ import { SchoolService } from './school.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
 import { MarksService } from './rsur/marks/marks.service';
+import { SchoolCollectorService } from "./shared/school-collector.service";
 
 // Pipes
 import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
@@ -41,13 +44,12 @@ import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
+import { ClassNameFilterPipe } from "./shared/class-name-filter.pipe";
 
 // Additional 
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
-import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
-import { SchoolCollectorService } from "./shared/school-collector.service";
 
 
 @NgModule({
@@ -59,8 +61,10 @@ import { SchoolCollectorService } from "./shared/school-collector.service";
         ReactiveFormsModule,
         ModalModule.forRoot(),
         BootstrapModalModule,
-        MyDatePickerModule,        
-        MdButtonModule
+        MyDatePickerModule, 
+		BrowserAnimationsModule,
+		MdButtonModule,
+		MdDialogModule
     ],
 
 	declarations: [
@@ -69,6 +73,7 @@ import { SchoolCollectorService } from "./shared/school-collector.service";
         RsurParticipAddFormComponent,
 		RsurParticipFilterPipe,
 		ParticipFilterPipe,
+		ClassNameFilterPipe,
 		LimitToPipe,
         ParticipsWithoutDetailsPipe,
         SchoolFilter,        
@@ -82,10 +87,10 @@ import { SchoolCollectorService } from "./shared/school-collector.service";
 		ExportExcelModal,
 		ClassParticipMarksComponent,
 		ClassParticipsExportExcelComponent,
-		ClassParticipMarksEditModal,
 		ClassParticipsPlanComponent,
 		AddClassParticipComponent,
-		UpdateClassParticipComponent
+		UpdateClassParticipComponent,
+		MarksAddAndEditComponent
 	],
 	providers: [
         AccountService,
@@ -102,8 +107,7 @@ import { SchoolCollectorService } from "./shared/school-collector.service";
 	entryComponents: [
 		ParticipModalComponent,
 		ResultsModalComponent,				
-		ExportExcelModal,
-		ClassParticipMarksEditModal
+		ExportExcelModal
 	],
     bootstrap: [AppComponent]
 })

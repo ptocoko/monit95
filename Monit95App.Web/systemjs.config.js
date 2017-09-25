@@ -12,15 +12,17 @@
             // пакеты angular
             '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
             '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
-            '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
-            '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+			'@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
+			'@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
+			'@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+			'@angular/animations/browser': 'npm:@angular/animations/bundles/animations-browser.umd.js',
+			'@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
             '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
             '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
             '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
-            '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
 
             // CDK individual packages            
             '@angular/cdk': 'npm:@angular/cdk/bundles/cdk.umd.js',
@@ -35,7 +37,8 @@
             '@angular/cdk/portal': 'npm:@angular/cdk/bundles/cdk-portal.umd.js',
             '@angular/cdk/rxjs': 'npm:@angular/cdk/bundles/cdk-rxjs.umd.js',
             '@angular/cdk/scrolling': 'npm:@angular/cdk/bundles/cdk-scrolling.umd.js',
-            '@angular/cdk/table': 'npm:@angular/cdk/bundles/cdk-table.umd.js',
+			'@angular/cdk/table': 'npm:@angular/cdk/bundles/cdk-table.umd.js',
+			'@angular/cdk/stepper': 'npm:@angular/cdk/bundles/cdk-stepper.umd.js',
 
             // пакеты angular2-modal     
             'angular2-modal': 'npm:angular2-modal/bundle/angular2-modal.rollup.umd.js',

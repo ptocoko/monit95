@@ -1,4 +1,6 @@
-﻿.tabsdemoDynamicHeight md-content {
+﻿@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+
+.tabsdemoDynamicHeight md-content {
   background-color: transparent !important; }
   .tabsdemoDynamicHeight md-content md-tabs {
     background: #f6f6f6;

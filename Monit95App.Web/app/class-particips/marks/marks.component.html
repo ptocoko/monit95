@@ -1,11 +1,16 @@
-﻿<h2>Заполнение оценочного протокола (я не знаю что это значит, но звучит солидно)</h2>
+﻿<h2>Исследование готовности 1-х классов</h2>
+<h3>Протокол проверки заданий</h3>
 <hr />
 <div *ngIf="isLoading">Загрузка...</div>
 <div *ngIf="!isLoading">
     <div style="display:flex;flex-direction:row">
         <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..." />
+        <select style="margin-left:15px; width:70px" class="form-control" [(ngModel)]="searchClass">
+            <option [value]="class" *ngFor="let class of classes">{{class}}</option>
+        </select>
     </div>
     <br />
+
     <table class="table table-striped table-bordered">
         <tr>
             <th>Фамилия</th>
@@ -15,13 +20,13 @@
             <th>Оценки</th>
             <th width="1">Изменить</th>
         </tr>
-        <tr *ngFor="let particip of particips | participFilter : searchText">
+        <tr *ngFor="let particip of particips | participFilter : searchText | classNameFilter : searchClass">
             <td>{{particip.Surname}}</td>
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
             <td>{{particip.ClassName}}</td>
             <td [ngClass]="{'red': !particip.Marks}">{{particip.Marks}}</td>
-            <td><a class="glyphicon glyphicon-edit" (click)="changeMarks(particip)"></a></td>
+            <td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="changeMarks(particip)"></a></td>
         </tr>
     </table>
 </div>

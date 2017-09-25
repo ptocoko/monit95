@@ -12,16 +12,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var marks_service_1 = require("../../rsur/marks/marks.service");
 var particip_service_1 = require("../../particip.service");
-var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
-var angular2_modal_1 = require("angular2-modal");
-var marks_edit_modal_1 = require("./marks-edit.modal");
-var PROJECT_TEST_ID = 12;
+var add_component_1 = require("../add-and-update/add.component");
+var router_1 = require("@angular/router");
+var PROJECT_TEST_ID = 1011; //TODO: IT'S TEST FAKE NUMBER!!!
+exports.MAX_MARKS = [
+    { Name: '1', MaxMark: 2 },
+    { Name: '2', MaxMark: 3 },
+    { Name: '3', MaxMark: 4 },
+    { Name: '4', MaxMark: 1 }
+];
 var ClassParticipMarksComponent = (function () {
-    function ClassParticipMarksComponent(marksService, participService, modal) {
+    function ClassParticipMarksComponent(marksService, participService, router) {
         this.marksService = marksService;
         this.participService = participService;
-        this.modal = modal;
+        this.router = router;
         this.isLoading = true;
+        this.classes = add_component_1.CLASS_NAMES;
     }
     ClassParticipMarksComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -31,11 +37,7 @@ var ClassParticipMarksComponent = (function () {
         });
     };
     ClassParticipMarksComponent.prototype.changeMarks = function (marksParticip) {
-        this.modal.open(marks_edit_modal_1.ClassParticipMarksEditModal, angular2_modal_1.overlayConfigFactory({ particip: marksParticip }, bootstrap_1.BSModalContext)).then(function (dialog) {
-            dialog.result.then(function (particip) {
-                //TODO: release that!
-            }).catch(function () { });
-        });
+        this.router.navigate(['/class-particips/marks-edit', marksParticip.ParticipTestId]);
     };
     return ClassParticipMarksComponent;
 }());
@@ -45,7 +47,7 @@ ClassParticipMarksComponent = __decorate([
     }),
     __metadata("design:paramtypes", [marks_service_1.MarksService,
         particip_service_1.ParticipService,
-        bootstrap_1.Modal])
+        router_1.Router])
 ], ClassParticipMarksComponent);
 exports.ClassParticipMarksComponent = ClassParticipMarksComponent;
 //# sourceMappingURL=marks.component.js.map

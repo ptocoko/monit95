@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../account/account.service';
 import { Account } from '../account/account';
-import { AddClassParticipModal } from './add-class-particip.modal';
 import { ParticipService } from '../particip.service';
 import { ClassParticip } from "./ClassParticip";
 import { Http } from "@angular/http";

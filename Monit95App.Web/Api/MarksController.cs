@@ -7,6 +7,7 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Services.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -51,7 +52,7 @@ namespace Monit95App.Web.Api
             IEnumerable<ParticipMarksDto> participMarksDtos;
             try
             {
-                participMarksDtos = _marksService.GetParticipMarksDtos(projectTestId, User.Identity.Name);
+                participMarksDtos = _marksService.GetParticipMarksDtos(projectTestId, User.Identity.Name).OrderBy(o => o.ClassName).ThenBy(o => o.Surname).ThenBy(o => o.Name);
             }
             catch (ArgumentException ex)
             {
@@ -61,17 +62,35 @@ namespace Monit95App.Web.Api
             return Ok(participMarksDtos);
         }
 
+        [HttpGet]
+        public IHttpActionResult GetByParticipTestId(int participTestId)
+        {
+            ParticipMarksDto participMarksDto = _marksService.GetByParticipTestId(participTestId);
+            var Fio = $"{participMarksDto.Surname} {participMarksDto.Name} {participMarksDto.SecondName}";
+            var marksArray = participMarksDto.Marks?.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToArray();
+
+            return Ok(new {
+                ParticipTestId = participTestId,
+                Fio = Fio,
+                Question1Mark = marksArray?[0],
+                Question2Mark = marksArray?[1],
+                Question3Mark = marksArray?[2],
+                Question4Mark = marksArray?[3],
+                Question5Mark = marksArray?[4],
+            });
+        }
+
         [HttpPut]
-        [Route("{participTestId:int}")]
+        //[Route("{participTestId:int}")]
         public IHttpActionResult Put([FromBody]PostMarksDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
+            //var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
 
-            _marksService.Update(participTestId, dto);
+            _marksService.Update(dto.ParticipTestId, dto);
 
             return Ok();
         }

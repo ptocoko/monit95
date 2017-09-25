@@ -14,7 +14,7 @@ var particip_service_1 = require("../../particip.service");
 var ClassParticip_1 = require("../ClassParticip");
 var account_service_1 = require("../../account/account.service");
 var router_1 = require("@angular/router");
-var CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
+exports.CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 var PROJECT_ID = 1;
 var AddClassParticipComponent = (function () {
     function AddClassParticipComponent(participService, accountService, router) {
@@ -22,7 +22,7 @@ var AddClassParticipComponent = (function () {
         this.accountService = accountService;
         this.router = router;
         this.particip = new ClassParticip_1.ClassParticip();
-        this.classNames = CLASS_NAMES;
+        this.classNames = exports.CLASS_NAMES;
         this.wasDoo = 'no';
         this.actionText = 'Добавить';
     }

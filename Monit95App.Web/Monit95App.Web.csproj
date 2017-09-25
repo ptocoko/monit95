@@ -319,10 +319,9 @@
   <ItemGroup>
     <Content Include="app\app.component.html" />
     <Content Include="app\class-particips\add-and-update\update.component.html" />
-    <Content Include="app\class-particips\add-class-particip.modal.html" />
     <Content Include="app\class-particips\add-and-update\add.component.html" />
     <Content Include="app\class-particips\class-particips-plan.component.html" />
-    <Content Include="app\class-particips\marks\marks-edit.modal.html" />
+    <Content Include="app\class-particips\marks\marks-add-and-edit.component.html" />
     <Content Include="app\class-particips\marks\marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
     <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
@@ -559,14 +558,13 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\class-particips\add-and-update\update.component.ts" />
-    <TypeScriptCompile Include="app\class-particips\add-class-particip.modal.ts" />
     <TypeScriptCompile Include="app\class-particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-plan.component.ts" />
     <TypeScriptCompile Include="app\class-particips\ClassParticip.ts" />
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel.component.ts" />
-    <TypeScriptCompile Include="app\class-particips\marks\marks-edit.modal.ts" />
+    <TypeScriptCompile Include="app\class-particips\marks\marks-add-and-edit.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
@@ -600,6 +598,7 @@
     <TypeScriptCompile Include="app\school-filter.pipe.ts" />
     <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
+    <TypeScriptCompile Include="app\shared\class-name-filter.pipe.ts" />
     <TypeScriptCompile Include="app\shared\school-collector.service.ts" />
     <TypeScriptCompile Include="app\shared\Person.ts" />
   </ItemGroup>

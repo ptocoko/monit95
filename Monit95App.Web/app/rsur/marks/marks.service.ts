@@ -32,10 +32,18 @@ export class MarksService {
 
     addMarks(marks: Marks)
     {
-        return this.http.post(this.ROUTE_PREFIX, marks);
+        return this.http.post(this.ROUTE_PREFIX + '/Post', marks);
     }
+
+	updateMarks(marks: Marks) {
+		return this.http.put(this.ROUTE_PREFIX + '/Put', marks);
+	}
 
     getAll(projectTestId: number) {
         return this.http.get(`${this.ROUTE_PREFIX}/GetAll?projectTestId=${projectTestId}`);
-    }
+	}
+
+	getMarksByParticipTestId(participTestId: number) {
+		return this.http.get(`${this.ROUTE_PREFIX}/GetByParticipTestId?participTestId=${participTestId}`);
+	}
 }

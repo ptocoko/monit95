@@ -1,0 +1,54 @@
+﻿<h2>Исследование готовности 1-х классов</h2>
+<h3>Баллы участника по заданиям</h3>
+<hr />
+<div>
+    <h4>{{marksAddAndEditModel.Fio}}</h4>   
+    <br />
+    <form [formGroup]="formGroup" novalidate>
+        <div class="form-group form-inline">
+            <label>Задание №1</label>
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question1Mark" id="question1Mark" name="question1Mark" formControlName="question1Mark" size="2" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['question1Mark'].invalid && formGroup.controls['question1Mark'].touched">
+                Возможные варианты: 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5 или 4
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label>Задание №2</label>
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question2Mark" id="question2Mark" name="question2Mark" formControlName="question2Mark" size="2" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['question2Mark'].invalid && formGroup.controls['question2Mark'].touched">
+                Возможные варианты: 0, 0.5 или 1
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label>Задание №3</label>
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question3Mark" id="question3Mark" name="question3Mark" formControlName="question3Mark" size="2" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['question3Mark'].invalid && formGroup.controls['question3Mark'].touched">
+                Возможные варианты: 0, 1, 2 или 3
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label>Задание №4</label>
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question4Mark" id="question4Mark" name="question4Mark" formControlName="question4Mark" size="2" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['question4Mark'].invalid && formGroup.controls['question4Mark'].touched">
+                Возможные варианты: 0, 0.5 или 1
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label>Задание №5</label>
+            <input class="form-control" [(ngModel)]="marksAddAndEditModel.Question5Mark" id="question5Mark" name="question5Mark" formControlName="question5Mark" size="2" />
+            <div class="alert alert-danger"
+                 *ngIf="formGroup.controls['question5Mark'].invalid && formGroup.controls['question5Mark'].touched">
+                Возможные варианты: 0 или 1
+            </div>
+        </div>
+        <hr />
+        <div class="pull-left">
+            <button id="submitBtn" (click)="submit()" class="btn btn-success" [disabled]="formGroup.invalid ">Сохранить</button>
+            <a class="btn btn-default" (click)="back()">Отмена</a>
+        </div>
+    </form>
+</div>
