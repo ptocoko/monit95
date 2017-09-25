@@ -1,7 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { MarksService, ParticipWithMarks } from "../../rsur/marks/marks.service";
 import { ParticipService } from "../../particip.service";
-import { ClassParticipMarksEditModal } from "./marks-edit.modal";
 import { MdDialog } from "@angular/material";
 import { CLASS_NAMES } from "../add-and-update/add.component";
 
@@ -12,7 +11,6 @@ export const MAX_MARKS = [
 	{ Name: '3', MaxMark: 4 },
 	{ Name: '4', MaxMark: 1 }
 ]
-
 
 @Component({
 	templateUrl: `./app/class-particips/marks/marks.component.html?v=${new Date().getTime()}`
