@@ -27,12 +27,14 @@ var ClassParticipMarksComponent = (function () {
         this.participService = participService;
         this.router = router;
         this.isLoading = true;
+        this.participsWithoutMarks = 0;
         this.classes = CLASS_NAMES;
     }
     ClassParticipMarksComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.marksService.getAll(PROJECT_TEST_ID).subscribe(function (res) {
             _this.particips = res.json();
+            _this.participsWithoutMarks = _this.particips.filter(function (f) { return !f.Marks; }).length;
             _this.isLoading = false;
         });
     };

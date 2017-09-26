@@ -8,19 +8,22 @@
         <select style="margin-left:15px; width:150px" class="form-control" [(ngModel)]="searchClass">
             <option [value]="class" *ngFor="let class of classes">{{class}}</option>
         </select>
+        <div *ngIf="participsWithoutMarks!==0" style="margin-top:6px; color: red; margin-left:15px"><b>Осталось: {{participsWithoutMarks}}</b></div>
+        <div *ngIf="participsWithoutMarks===0" style="margin-top:6px; margin-left:15px"><b>Протокол заполнен!</b></div>
     </div>
     <br />
-
     <table class="table table-striped table-bordered">
         <tr>
+            <th width="60px">№ п/п</th>
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчество</th>
             <th width="1">Класс</th>
-            <th>Оценки</th>
+            <th>Баллы</th>
             <th width="1">Изменить</th>
         </tr>
-        <tr *ngFor="let particip of particips | participFilter : searchText | classNameFilter : searchClass">
+        <tr *ngFor="let particip of particips | participFilter : searchText | classNameFilter : searchClass; let i = index">
+            <td align="right">{{i+1}}</td>
             <td>{{particip.Surname}}</td>
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>

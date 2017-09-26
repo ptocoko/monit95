@@ -19,6 +19,7 @@ export const MAX_MARKS = [
 export class ClassParticipMarksComponent {
 	isLoading: boolean = true;
 	particips: ParticipWithMarks[];
+	participsWithoutMarks: number = 0;
 
 	classes: string[] = CLASS_NAMES;
 	searchClass: string;
@@ -30,6 +31,7 @@ export class ClassParticipMarksComponent {
 	ngOnInit() {
 		this.marksService.getAll(PROJECT_TEST_ID).subscribe(res => {
 			this.particips = res.json() as ParticipWithMarks[];
+			this.participsWithoutMarks = this.particips.filter(f => !f.Marks).length;
 			this.isLoading = false;
 		})
 	}
