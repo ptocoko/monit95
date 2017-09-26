@@ -1,11 +1,11 @@
 ﻿import { Component } from '@angular/core';
 import { MarksService, ParticipWithMarks } from "../../rsur/marks/marks.service";
 import { ParticipService } from "../../particip.service";
-import { MdDialog } from "@angular/material";
-import { CLASS_NAMES } from "../add-and-update/add.component";
 import { Router } from "@angular/router";
 
-const PROJECT_TEST_ID: number = 1011; //TODO: IT'S TEST FAKE NUMBER!!!
+const CLASS_NAMES: string[] = ['Все классы', '1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
+
+const PROJECT_TEST_ID: number = 1011;
 export const MAX_MARKS = [
 	{ Name: '1', MaxMark: 2 },
 	{ Name: '2', MaxMark: 3 },

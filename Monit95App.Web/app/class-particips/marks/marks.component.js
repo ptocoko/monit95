@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var marks_service_1 = require("../../rsur/marks/marks.service");
 var particip_service_1 = require("../../particip.service");
-var add_component_1 = require("../add-and-update/add.component");
 var router_1 = require("@angular/router");
-var PROJECT_TEST_ID = 1011; //TODO: IT'S TEST FAKE NUMBER!!!
+var CLASS_NAMES = ['Все классы', '1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
+var PROJECT_TEST_ID = 1011;
 exports.MAX_MARKS = [
     { Name: '1', MaxMark: 2 },
     { Name: '2', MaxMark: 3 },
@@ -27,7 +27,7 @@ var ClassParticipMarksComponent = (function () {
         this.participService = participService;
         this.router = router;
         this.isLoading = true;
-        this.classes = add_component_1.CLASS_NAMES;
+        this.classes = CLASS_NAMES;
     }
     ClassParticipMarksComponent.prototype.ngOnInit = function () {
         var _this = this;

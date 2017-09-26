@@ -5,7 +5,7 @@
 <div *ngIf="!isLoading">
     <div style="display:flex;flex-direction:row">
         <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..." />
-        <select style="margin-left:15px; width:70px" class="form-control" [(ngModel)]="searchClass">
+        <select style="margin-left:15px; width:150px" class="form-control" [(ngModel)]="searchClass">
             <option [value]="class" *ngFor="let class of classes">{{class}}</option>
         </select>
     </div>

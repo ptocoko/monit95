@@ -11,7 +11,7 @@ var ClassNameFilterPipe = (function () {
     function ClassNameFilterPipe() {
     }
     ClassNameFilterPipe.prototype.transform = function (particips, searchText) {
-        if (searchText == null)
+        if (searchText === 'Все классы' || searchText == null)
             return particips;
         return particips.filter(function (particip) { return particip.ClassName.trim() == searchText; });
     };
