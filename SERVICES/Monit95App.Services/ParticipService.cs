@@ -23,13 +23,21 @@ namespace Monit95App.Services
         #region Dependencies
 
         private readonly IGenericRepository<Particip> _participRepository;
+        private readonly IGenericRepository<ParticipTest> _participTestRepository;
+        private readonly IGenericRepository<Result> _resultRepository;
         private readonly IClassService _classServise;
 
         #endregion
 
-        public ParticipService(IGenericRepository<Particip> participRepository, IClassService classService)
+        public ParticipService(IGenericRepository<Particip> participRepository, 
+                               IGenericRepository<ParticipTest> participTestRepository, 
+                               IGenericRepository<Result> resultRepository, 
+                               IClassService classService)
         {
             _participRepository = participRepository;
+            _participTestRepository = participTestRepository;
+            _resultRepository = resultRepository;
+
             _classServise = classService;
 
             var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>()
@@ -67,6 +75,13 @@ namespace Monit95App.Services
             }
 
             _participRepository.Insert(entity);
+
+            _participTestRepository.Insert(new ParticipTest
+            {
+                ProjectTestId = 1011,  //TODO: It is static ID of ProjectTest. Change for next project tests!
+                ParticipId = entity.Id
+            });
+
             return entity.Id;
         }
 
@@ -131,6 +146,11 @@ namespace Monit95App.Services
             var dto = Mapper.Map<Particip, ParticipDto>(entity);
 
             return dto;
+        }
+
+        public void Delete(int participId)
+        {
+            _participRepository.Delete(participId);
         }
     }
 }

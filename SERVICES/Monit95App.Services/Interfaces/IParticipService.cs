@@ -14,6 +14,7 @@ namespace Monit95App.Services.Interfaces
         int Add(ParticipDto dto);
         IEnumerable<ParticipDto> GetAll(int projectTestId, int? areaCode, string schoolId);
         ParticipDto GetById(int participId);
-        void Update(int id, ParticipDto dto);                                                   
+        void Update(int id, ParticipDto dto);
+        void Delete(int participId);
     }
 }

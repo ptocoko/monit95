@@ -104,7 +104,7 @@ namespace Monit95App.Web.Api
             var id = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             try
             {
-                _participRepository.Delete(id);
+                _participService.Delete(id);
             }
             catch(ArgumentException)
             {
