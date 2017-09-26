@@ -76,8 +76,14 @@ namespace Monit95App.Web.Tests
             repo.Insert(entity);
 
             var mockClassService = Substitute.For<IClassService>();
+            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
+            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
+
+            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
+
             mockClassService.GetId("1 А").Returns("0101");
-            var controller = new ParticipsController(new ParticipService(repo, mockClassService), mockRepo);
+            var controller = new ParticipsController(new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService), mockRepo);
 
             //Act
             var dto = new ParticipDto()

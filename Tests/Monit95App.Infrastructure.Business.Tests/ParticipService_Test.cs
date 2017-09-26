@@ -25,8 +25,11 @@ namespace Monit95App.Services.Tests
             //Arrange
             var mockClassService = Substitute.For<IClassService>();
             mockClassService.GetId("1 А").Returns("0101");            
-            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>(); 
-            var service = new ParticipService(mockParticipRepository, mockClassService);
+
+            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
+            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
+            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
 
             //Act
             var dto = new ParticipDto
@@ -49,9 +52,12 @@ namespace Monit95App.Services.Tests
         {
             //Arrange
             string nullString = null;
-            var mockClassService = Substitute.For<IClassService>();            
+
+            var mockClassService = Substitute.For<IClassService>();
             var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
-            var service = new ParticipService(mockParticipRepository, mockClassService);
+            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
+            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
+            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
 
             //Act
             var dto = new ParticipDto
@@ -72,8 +78,12 @@ namespace Monit95App.Services.Tests
         public void Update_Test()
         {
             //Arrange
+
             var mockClassService = Substitute.For<IClassService>();
             var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
+            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
+
             var entity = new Particip
             {
                 Id = 123,
@@ -95,7 +105,7 @@ namespace Monit95App.Services.Tests
                 SchoolId = "0001",
                 ClassName = "1 А"
             };
-            var service = new ParticipService(mockParticipRepository, mockClassService);
+            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
             service.Update(123, dto);
 
             //Assert
@@ -107,6 +117,10 @@ namespace Monit95App.Services.Tests
         public void Update_IntegrationTest()
         {
             //Arrange           
+            var mockClassService = Substitute.For<IClassService>();
+            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
+            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
 
             //Act
             var dto = new ParticipDto
@@ -118,7 +132,7 @@ namespace Monit95App.Services.Tests
                 ClassName = "1 А"
             };
             var context = new CokoContext();
-            var service = new ParticipService(new GenericRepository<Particip>(context), new ClassService(new GenericRepository<Class>(context)));
+            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
             service.Update(91281, dto);
 
 
@@ -133,8 +147,11 @@ namespace Monit95App.Services.Tests
         public void GetById_Test()
         {
             //Arrange
-            var mockClassService = Substitute.For<IClassService>();            
+            var mockClassService = Substitute.For<IClassService>();
             var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
+            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
+            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
+
             var entity = new Particip
             {
                 Id = 123,
@@ -145,7 +162,7 @@ namespace Monit95App.Services.Tests
                 Class = new Class { Id = "0101", Name = "1 А" }
             };
             mockParticipRepository.GetById(123).Returns(entity);
-            var service = new ParticipService(mockParticipRepository, mockClassService);
+            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
 
             //Act
             var dto = service.GetById(123);
@@ -161,7 +178,10 @@ namespace Monit95App.Services.Tests
             //Arrange
             var mockClassService = Substitute.For<IClassService>();
             var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
-            var service = new ParticipService(mockParticipRepository, mockClassService);
+            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
+            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
+
+            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
             var dtos = new List<Particip>
             {
                 new Particip
