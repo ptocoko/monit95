@@ -13,7 +13,7 @@ namespace Monit95App.Controllers
 {        
     public class HomeController : Controller
     {
-        #region Fields
+        #region Dependecies
 
         private readonly CokoContext _context;
         private readonly ISchoolService _schoolService;
@@ -105,11 +105,6 @@ namespace Monit95App.Controllers
 
         public ActionResult Index()
         {
-            if (!Request.IsAuthenticated)
-            {
-                return View("Index", "~/Views/Shared/_GuestLayout.cshtml");
-            }
-            
             return View();
         }                                   
 
@@ -122,7 +117,6 @@ namespace Monit95App.Controllers
         public ActionResult Contact()
         {            
             return View();
-        }
-        
+        }        
     }
 }
