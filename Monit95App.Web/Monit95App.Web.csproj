@@ -334,6 +334,7 @@
     <Content Include="app\rsur\edit-modal-form\edit-modal.css" />
     <Content Include="app\rsur\edit-modal-form\edit-modal.html" />
     <Content Include="app\rsur\edit-modal-form\edit-particip.html" />
+    <Content Include="app\rsur\rsurparticip-actualization.component.html" />
     <Content Include="app\rsur\rsurparticip.component.css" />
     <Content Include="app\rsur\rsurparticip.component.html" />
     <Content Include="app\rsur\details\particip-modal.html" />
