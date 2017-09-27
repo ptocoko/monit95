@@ -110,7 +110,7 @@
                     @*<li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
                         <li><a href="rsur/spa#class-particips">Первые классы</a></li>*@
 
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.IsInRole("school"))
                     {
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">

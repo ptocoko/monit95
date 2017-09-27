@@ -13,7 +13,7 @@ using Monit95App.Services.Interfaces;
 namespace Monit95App.Web.Api
 {
     [RoutePrefix("api/particips")]
-    [Authorize]
+    [Authorize(Roles = "school")]
     public class ParticipsController : ApiController
     {
         #region Dependencies
@@ -58,7 +58,7 @@ namespace Monit95App.Web.Api
         }
 
         [HttpGet]
-        [Authorize(Roles = "coko, area, school")]
+        //[Authorize(Roles = "coko, area, school")]
         public IHttpActionResult GetAll(int projectId)
         {
             int? areaCode = null;
@@ -115,7 +115,7 @@ namespace Monit95App.Web.Api
         }
 
         [HttpPut]
-        [Authorize(Roles = "school")]
+        //[Authorize(Roles = "school")]
         [Route("{id:int}")]
         public IHttpActionResult Put([FromBody]ParticipDto dto)
         {

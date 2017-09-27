@@ -15,7 +15,7 @@ namespace Monit95App.Web.Api
     using Monit95App.Services;
     using System.Data.SqlClient;
 
-    [Authorize]
+    [Authorize(Roles = "school")]
     [RoutePrefix("api/ExcelFiles")]
     public class ExcelFilesController : ApiController
     {

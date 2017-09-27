@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Monit95App.Controllers
 {
+    [Authorize(Roles = "school")] //TODO: изменить если проект будет требовать
     public class RsurController : Controller
     {
         // GET: Angular
