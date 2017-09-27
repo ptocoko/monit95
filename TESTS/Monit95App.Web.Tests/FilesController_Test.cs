@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Monit95App.Models;
-using Monit95App.Services.Interfaces;
-using Monit95App.Web.Api;
-using Monit95App.Web.Services;
-
-using Moq;
-
 namespace Monit95App.Web.Tests
 {
+    using Monit95App.Models;
+    using Monit95App.Services.Interfaces;
+    using Monit95App.Web.Api;
+    using Monit95App.Web.Services;
+
+    using Moq;
+
     [TestClass]
     public class FilesController_Test
     {
@@ -30,15 +30,16 @@ namespace Monit95App.Web.Tests
             };
             mockUserService.Setup(x => x.GetModel(It.IsAny<string>())).Returns(userModel);
 
-            //Act
+            // Act
             var filesController = new FilesController(mockRsurReportModelService.Object, mockUserService.Object);
             var httpResponseMessage =  filesController.Get("0005").Result;
             var contentAsString = httpResponseMessage.Content.ReadAsStringAsync().Result;
 
-            //Assert
+            // Assert
             Assert.IsNotNull(httpResponseMessage);
             Assert.AreEqual("simple", contentAsString);
-            //Assert.Fail();
+            
+            // Assert.Fail();
             mockUserService.Verify(x => x.GetModel(It.IsAny<string>()));
             
         }

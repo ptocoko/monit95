@@ -7,18 +7,18 @@ using System.Web.Http.Routing;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 
-using NSubstitute;
-
 namespace Monit95App.Web.Tests
 {
+    using Monit95App.Domain.Core.Entities;
+    using Monit95App.Domain.Interfaces;
+    using Monit95App.Infrastructure.Data;
     using Monit95App.Web.Api;
+
+    using NSubstitute;
 
     [TestClass]
     public class ParticipsController_Test
@@ -40,10 +40,10 @@ namespace Monit95App.Web.Tests
         [TestMethod]
         public void Post_Test()
         {
-            //Arrange
+            // Arrange
             var mockService = Substitute.For<IParticipService>();
 
-            //Act
+            // Act
             var dto = new ParticipDto
             {
                 ProjectId = 201617,
@@ -56,14 +56,14 @@ namespace Monit95App.Web.Tests
             var controller = new ParticipsController(mockService, mockRepo);
             controller.Post(dto);
 
-            //Assert
+            // Assert
             mockService.Received().Add(dto);
         }
 
         [TestMethod]
         public void Post_TestConflictResultSqlException2627()
         {
-            //Arrange   
+            // Arrange   
             CleanUp();
             var entity = new Particip()
             {
@@ -85,7 +85,7 @@ namespace Monit95App.Web.Tests
             mockClassService.GetId("1 А").Returns("0101");
             var controller = new ParticipsController(new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService), mockRepo);
 
-            //Act
+            // Act
             var dto = new ParticipDto()
             {
                 ProjectId = 201677,
@@ -96,24 +96,24 @@ namespace Monit95App.Web.Tests
             };
             var response = controller.Post(dto);
 
-            //Assert
+            // Assert
             Assert.IsInstanceOfType(response, typeof(ConflictResult));
         }
 
         [TestMethod]
         public void GetByIdFromRoute_Test()
         {
-            //Arrange
+            // Arrange
             var mockService = Substitute.For<IParticipService>();
             var controller = new ParticipsController(mockService, mockRepo);
             controller.RequestContext.RouteData = new HttpRouteData(
                 new HttpRoute(),
                 new HttpRouteValueDictionary {{"id", "123"}});
 
-            //Act
+            // Act
             var response = controller.Get();
 
-            //Assert
+            // Assert
             mockService.Received().GetById(123);
         }
 

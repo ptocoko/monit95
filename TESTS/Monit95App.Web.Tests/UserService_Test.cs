@@ -1,11 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Data.Entity;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Monit95App.Models;
-using Moq;
 using Monit95App.Web.Services;
-using System.Collections.Generic;
-using Microsoft.AspNet.Identity.EntityFramework;
+
 using System.Linq;
 
 namespace Monit95App.Web.Tests
