@@ -37,8 +37,8 @@ namespace Monit95App.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;            
-            return View("Login", "~/Views/Shared/_GuestLayout.cshtml");
+            ViewBag.ReturnUrl = returnUrl;
+            return View();//"Login", "~/Views/Shared/_GuestLayout.cshtml");
         }
         
         // POST: /Account/Login

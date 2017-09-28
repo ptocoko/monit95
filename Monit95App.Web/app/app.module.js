@@ -34,6 +34,7 @@ var class_particips_plan_component_1 = require("./class-particips/class-particip
 var add_component_1 = require("./class-particips/add-and-update/add.component");
 var update_component_1 = require("./class-particips/add-and-update/update.component");
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
+var results_component_1 = require("./class-particips/results/results.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -43,6 +44,7 @@ var particip_correction_service_1 = require("./rsur/correction/particip-correcti
 var class_service_1 = require("./class.service");
 var marks_service_1 = require("./rsur/marks/marks.service");
 var school_collector_service_1 = require("./shared/school-collector.service");
+var results_service_1 = require("./shared/results.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -97,7 +99,8 @@ AppModule = __decorate([
             class_particips_plan_component_1.ClassParticipsPlanComponent,
             add_component_1.AddClassParticipComponent,
             update_component_1.UpdateClassParticipComponent,
-            marks_add_and_edit_component_1.MarksAddAndEditComponent
+            marks_add_and_edit_component_1.MarksAddAndEditComponent,
+            results_component_1.ClassParticipResultsComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -108,6 +111,7 @@ AppModule = __decorate([
             particip_service_1.ParticipService,
             marks_service_1.MarksService,
             school_collector_service_1.SchoolCollectorService,
+            results_service_1.ResultsService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

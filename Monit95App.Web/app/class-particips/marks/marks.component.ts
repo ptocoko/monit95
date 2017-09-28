@@ -6,12 +6,6 @@ import { Router } from "@angular/router";
 const CLASS_NAMES: string[] = ['Все классы', '1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 
 const PROJECT_TEST_ID: number = 1011;
-export const MAX_MARKS = [
-	{ Name: '1', MaxMark: 2 },
-	{ Name: '2', MaxMark: 3 },
-	{ Name: '3', MaxMark: 4 },
-	{ Name: '4', MaxMark: 1 }
-]
 
 @Component({
 	templateUrl: `./app/class-particips/marks/marks.component.html?v=${new Date().getTime()}`
