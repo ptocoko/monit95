@@ -73,7 +73,7 @@ namespace Monit95App.Services.Rsur
 
         public IEnumerable<RsurParticipGetDto> GetAll(int? areaCode = null, string schoolId = null)
         {
-            var query = this._cokoContext.RsurParticips.AsQueryable();
+            var query = this._cokoContext.RsurParticips.AsQueryable().Where(x => x.ActualCode != 0);
 
             if (areaCode != null)
             {

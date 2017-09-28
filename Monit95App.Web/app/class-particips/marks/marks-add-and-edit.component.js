@@ -26,11 +26,11 @@ var MarksAddAndEditComponent = (function () {
         this.marksService = marksService;
         this.marksAddAndEditModel = new MarksAddAndEditModel();
         this.formGroup = new forms_1.FormGroup({
-            "question1Mark": new forms_1.FormControl({ disabled: true }, [forms_1.Validators.required, forms_1.Validators.pattern('^(0|0.5|0,5|1|1.5|1,5|2|2.5|2,5|3|3.5|3,5|4)$')]),
-            "question2Mark": new forms_1.FormControl('', [forms_1.Validators.pattern('^(0|0.5|0,5|1)$'), forms_1.Validators.required]),
-            "question3Mark": new forms_1.FormControl('', [forms_1.Validators.pattern('^(0|1|2|3)$'), forms_1.Validators.required]),
-            "question4Mark": new forms_1.FormControl('', [forms_1.Validators.pattern('^(0|0.5|0,5|1)$'), forms_1.Validators.required]),
-            "question5Mark": new forms_1.FormControl('', [forms_1.Validators.pattern('^(0|1)$'), forms_1.Validators.required])
+            "question1Mark": new forms_1.FormControl({ disabled: true }, [forms_1.Validators.required, forms_1.Validators.pattern(/^(0|0\.5|0,5|1|1\.5|1,5|2|2\.5|2,5|3|3\.5|3,5|4)$/)]),
+            "question2Mark": new forms_1.FormControl('', [forms_1.Validators.pattern(/^(0|0\.5|0,5|1)$/), forms_1.Validators.required]),
+            "question3Mark": new forms_1.FormControl('', [forms_1.Validators.pattern(/^(0|1|2|3)$/), forms_1.Validators.required]),
+            "question4Mark": new forms_1.FormControl('', [forms_1.Validators.pattern(/^(0|0\.5|0,5|1)$/), forms_1.Validators.required]),
+            "question5Mark": new forms_1.FormControl('', [forms_1.Validators.pattern(/^(0|1)$/), forms_1.Validators.required])
         });
     }
     MarksAddAndEditComponent.prototype.ngOnInit = function () {
