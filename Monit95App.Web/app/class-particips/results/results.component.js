@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var results_service_1 = require("../../shared/results.service");
 var router_1 = require("@angular/router");
 var jsPDF = require("jspdf");
+var html2canvas = require("html2canvas");
 var ClassParticipResult = (function () {
     function ClassParticipResult() {
     }
@@ -36,10 +37,14 @@ var ClassParticipResultsComponent = (function () {
     };
     ClassParticipResultsComponent.prototype.download = function () {
         var _this = this;
-        var element = document.getElementById('classParticip-reportContainer');
+        //let element = document.getElementById('classParticip-reportContainer');
         var doc = new jsPDF('p', 'pt', 'a4');
-        doc.addHTML(element, 20, 20, { 'width': 770 }, function () {
-            doc.save(_this.particip.Fio);
+        html2canvas($('.classParticip-reportContainer').get(0), { background: '#fff', letterRendering: true }).then(function (canvas) {
+            document.body.appendChild(canvas);
+            doc.addHTML(canvas, 0, 0, {}, function () {
+                document.body.removeChild(canvas);
+                doc.save(_this.particip.Fio + '.pdf');
+            });
         });
     };
     return ClassParticipResultsComponent;

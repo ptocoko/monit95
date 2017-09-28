@@ -38,11 +38,14 @@ export class ClassParticipResultsComponent implements OnInit {
 	}
 
 	download() {
-		let element = document.getElementById('classParticip-reportContainer');
+		//let element = document.getElementById('classParticip-reportContainer');
 		let doc = new jsPDF('p', 'pt', 'a4');
-
-		doc.addHTML(element, 20, 20, {'width': 750}, () => {
-			doc.save(this.particip.Fio);
+		html2canvas($('.classParticip-reportContainer').get(0), {background: '#fff', letterRendering: true}).then(canvas => {
+			document.body.appendChild(canvas);
+			doc.addHTML(canvas, () => {
+				document.body.removeChild(canvas);
+				doc.save(this.particip.Fio + '.pdf');
+			});
 		});
 	}
 }
