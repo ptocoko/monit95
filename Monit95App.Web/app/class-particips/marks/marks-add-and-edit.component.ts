@@ -31,11 +31,11 @@ export class MarksAddAndEditComponent implements OnInit {
         private readonly activatedRoute: ActivatedRoute,
 		private readonly marksService: MarksService) {
 		this.formGroup = new FormGroup({
-            "question1Mark": new FormControl({ disabled: true}, [Validators.required, Validators.pattern('^(0|0.5|0,5|1|1.5|1,5|2|2.5|2,5|3|3.5|3,5|4)$')]),
-			"question2Mark": new FormControl('', [Validators.pattern('^(0|0.5|0,5|1)$'), Validators.required]),
-			"question3Mark": new FormControl('', [Validators.pattern('^(0|1|2|3)$'), Validators.required]),
-			"question4Mark": new FormControl('', [Validators.pattern('^(0|0.5|0,5|1)$'), Validators.required]),
-            "question5Mark": new FormControl('', [Validators.pattern('^(0|1)$'), Validators.required])            
+            "question1Mark": new FormControl({ disabled: true}, [Validators.required, Validators.pattern(/^(0|0\.5|0,5|1|1\.5|1,5|2|2\.5|2,5|3|3\.5|3,5|4)$/)]),
+			"question2Mark": new FormControl('', [Validators.pattern(/^(0|0\.5|0,5|1)$/), Validators.required]),
+			"question3Mark": new FormControl('', [Validators.pattern(/^(0|1|2|3)$/), Validators.required]),
+			"question4Mark": new FormControl('', [Validators.pattern(/^(0|0\.5|0,5|1)$/), Validators.required]),
+            "question5Mark": new FormControl('', [Validators.pattern(/^(0|1)$/), Validators.required])            
 		});
 	}
 
