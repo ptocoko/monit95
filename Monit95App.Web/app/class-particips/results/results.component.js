@@ -39,9 +39,9 @@ var ClassParticipResultsComponent = (function () {
         var _this = this;
         //let element = document.getElementById('classParticip-reportContainer');
         var doc = new jsPDF('p', 'pt', 'a4');
-        html2canvas($('.classParticip-reportContainer').get(0), { background: '#fff', letterRendering: true }).then(function (canvas) {
+        html2canvas($('.classParticip-reportContainer').get(0), { background: '#fff' }).then(function (canvas) {
             document.body.appendChild(canvas);
-            doc.addHTML(canvas, 0, 0, {}, function () {
+            doc.addHTML(canvas, function () {
                 document.body.removeChild(canvas);
                 doc.save(_this.particip.Fio + '.pdf');
             });

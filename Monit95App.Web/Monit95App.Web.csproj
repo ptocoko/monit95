@@ -400,6 +400,7 @@
     <Content Include="Images\check_no.png" />
     <Content Include="Images\check_yes.png" />
     <EmbeddedResource Include="Images\excel-template.jpg" />
+    <EmbeddedResource Include="Images\coko_logo.jpg" />
     <Content Include="Images\image.jpg" />
     <Content Include="Images\new_back.png" />
     <Content Include="Images\new_back2.png" />

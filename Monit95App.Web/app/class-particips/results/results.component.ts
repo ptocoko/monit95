@@ -40,7 +40,7 @@ export class ClassParticipResultsComponent implements OnInit {
 	download() {
 		//let element = document.getElementById('classParticip-reportContainer');
 		let doc = new jsPDF('p', 'pt', 'a4');
-		html2canvas($('.classParticip-reportContainer').get(0), {background: '#fff', letterRendering: true}).then(canvas => {
+		html2canvas($('.classParticip-reportContainer').get(0), {background: '#fff'}).then(canvas => {
 			document.body.appendChild(canvas);
 			doc.addHTML(canvas, () => {
 				document.body.removeChild(canvas);
