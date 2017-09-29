@@ -26,7 +26,7 @@ var ClassParticipResultsComponent = (function () {
         this.resultService = resultService;
         this.route = route;
         this.maxMarks = MAX_MARKS;
-        this.testDate = new Date(2017, 8, 17);
+        this.testDate = "17 Сентября, 2017 г.";
     }
     ClassParticipResultsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -39,7 +39,7 @@ var ClassParticipResultsComponent = (function () {
         var _this = this;
         //let element = document.getElementById('classParticip-reportContainer');
         var doc = new jsPDF('p', 'pt', 'a4');
-        html2canvas($('.classParticip-reportContainer').get(0), { background: '#fff' }).then(function (canvas) {
+        html2canvas($('.classParticip-reportContainer').get(0), { background: '#fff', letterRendering: true }).then(function (canvas) {
             document.body.appendChild(canvas);
             doc.addHTML(canvas, function () {
                 document.body.removeChild(canvas);

@@ -23,7 +23,7 @@ const MAX_MARKS = [4, 1, 3, 1, 1];
 export class ClassParticipResultsComponent implements OnInit {
 	maxMarks: number[] = MAX_MARKS;
 	particip: ClassParticipResult;
-	testDate: Date = new Date(2017, 8, 17);
+	testDate: string = "17 Сентября, 2017 г.";
 
 	constructor(private resultService: ResultsService, private route: ActivatedRoute) { }
 
@@ -31,7 +31,7 @@ export class ClassParticipResultsComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			let participTestId: number = params['participTestId'];
 
-			this.resultService.getClassParticipResult(participTestId).subscribe(res => this.particip = res);
+			this.resultService.getClassParticipResult(participTestId).subscribe(res => this.particip = res as ClassParticipResult);
 		});
 
 		
