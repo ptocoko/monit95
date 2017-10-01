@@ -74,11 +74,14 @@
     <Compile Include="ClassParticipConverter.cs" />
     <Compile Include="ClassService.cs" />
     <Compile Include="ClassParticip.cs" />
+    <Compile Include="Document\DocumentDto.cs" />
+    <Compile Include="Document\DocumentService.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />
     <Compile Include="DTOs\PutMarksDto.cs" />
     <Compile Include="DTOs\RsurParticipPutDto.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
+    <Compile Include="Interfaces\IDocumentService.cs" />
     <Compile Include="Interfaces\IMarksService.cs" />
     <Compile Include="Interfaces\IGrade5.cs" />
     <Compile Include="Interfaces\IMarks.cs" />

@@ -50,36 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\Person.cs" />
-    <Compile Include="Entities\Area.cs" />
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\Class.cs" />
-    <Compile Include="Entities\Collector.cs" />
-    <Compile Include="Entities\Element.cs" />
-    <Compile Include="Entities\ElementType.cs" />
-    <Compile Include="Entities\Exercis.cs" />
-    <Compile Include="Entities\GiaResult.cs" />
-    <Compile Include="Entities\Grade.cs" />
-    <Compile Include="Entities\OldGroup.cs" />
-    <Compile Include="Entities\Particip.cs" />
-    <Compile Include="Entities\ParticipTest.cs" />
-    <Compile Include="Entities\Project.cs" />
-    <Compile Include="Entities\ProjectTest.cs" />
-    <Compile Include="Entities\PropertyType.cs" />
-    <Compile Include="Entities\Report.cs" />
-    <Compile Include="Entities\ReportStatistic.cs" />
-    <Compile Include="Entities\Result.cs" />
-    <Compile Include="Entities\RsurParticip.cs" />
-    <Compile Include="Entities\RsurParticipEdit.cs" />
-    <Compile Include="Entities\RsurParticipTest.cs" />
-    <Compile Include="Entities\RsurSubject.cs" />
-    <Compile Include="Entities\RsurTest.cs" />
-    <Compile Include="Entities\RsurTestResult.cs" />
-    <Compile Include="Entities\School.cs" />
-    <Compile Include="Entities\SchoolCollector.cs" />
-    <Compile Include="Entities\SchoolEdit.cs" />
-    <Compile Include="Entities\Test.cs" />
-    <Compile Include="Entities\TownType.cs" />
-    <Compile Include="Entities\Wish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
