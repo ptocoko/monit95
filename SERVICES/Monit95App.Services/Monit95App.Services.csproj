@@ -76,6 +76,8 @@
     <Compile Include="ClassParticip.cs" />
     <Compile Include="Document\DocumentDto.cs" />
     <Compile Include="Document\DocumentService.cs" />
+    <Compile Include="Document\IPrivateFileService.cs" />
+    <Compile Include="Document\PrivateFileService.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />
     <Compile Include="DTOs\PutMarksDto.cs" />
     <Compile Include="DTOs\RsurParticipPutDto.cs" />
