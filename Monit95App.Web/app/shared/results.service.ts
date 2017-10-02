@@ -16,9 +16,13 @@ export class ResultsService {
 	constructor (private http: Http) { }
 
 	getClassParticipResult(participTestId: number) {
-		//return this.http.get('/api/Results/' + participTestId.toString());
+		//return this.http.get('/api/ResultReport/' + participTestId.toString());
 		return Observable.of(MOCK_RESULT).map(MOCK => {
 			return { ClassName: MOCK.ClassName + participTestId, ...MOCK}
 		});
+	}
+
+	getClassParticipResultReport(participTestId: number) {
+		return this.http.get('/api/ResultReport/Get?participTestId=' + participTestId);
 	}
 }

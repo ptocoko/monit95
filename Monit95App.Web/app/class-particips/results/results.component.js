@@ -12,8 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var results_service_1 = require("../../shared/results.service");
 var router_1 = require("@angular/router");
-var jsPDF = require("jspdf");
-var html2canvas = require("html2canvas");
+var http_1 = require("@angular/http");
 var ClassParticipResult = (function () {
     function ClassParticipResult() {
     }
@@ -22,29 +21,35 @@ var ClassParticipResult = (function () {
 exports.ClassParticipResult = ClassParticipResult;
 var MAX_MARKS = [4, 1, 3, 1, 1];
 var ClassParticipResultsComponent = (function () {
-    function ClassParticipResultsComponent(resultService, route) {
+    function ClassParticipResultsComponent(resultService, route, http) {
         this.resultService = resultService;
         this.route = route;
+        this.http = http;
         this.maxMarks = MAX_MARKS;
         this.testDate = "17 Сентября, 2017 г.";
     }
     ClassParticipResultsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
-            var participTestId = params['participTestId'];
-            _this.resultService.getClassParticipResult(participTestId).subscribe(function (res) { return _this.particip = res; });
+            _this.participTestId = params['participTestId'];
+            _this.resultService.getClassParticipResult(_this.participTestId).subscribe(function (res) { return _this.particip = res; });
         });
     };
     ClassParticipResultsComponent.prototype.download = function () {
-        var _this = this;
         //let element = document.getElementById('classParticip-reportContainer');
-        var doc = new jsPDF('p', 'pt', 'a4');
-        html2canvas($('.classParticip-reportContainer').get(0), { background: '#fff', letterRendering: true }).then(function (canvas) {
-            document.body.appendChild(canvas);
-            doc.addHTML(canvas, function () {
-                document.body.removeChild(canvas);
-                doc.save(_this.particip.Fio + '.pdf');
-            });
+        //let doc = new jsPDF('p', 'pt', 'a4');
+        //html2canvas($('.classParticip-reportContainer').get(0), {background: '#fff'}).then(canvas => {
+        //	document.body.appendChild(canvas);
+        //	doc.addHTML(canvas, () => {
+        //		document.body.removeChild(canvas);
+        //		doc.save(this.particip.Fio + '.pdf');
+        //	});
+        //});
+        this.http.get('/api/ResultReport/Get?participTestId=' + this.participTestId, { responseType: http_1.ResponseContentType.Blob }).subscribe(function (data) {
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(data.blob());
+            a.download = 'excel';
+            a.click();
         });
     };
     return ClassParticipResultsComponent;
@@ -54,7 +59,7 @@ ClassParticipResultsComponent = __decorate([
         templateUrl: "./app/class-particips/results/results.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/class-particips/results/results.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [results_service_1.ResultsService, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [results_service_1.ResultsService, router_1.ActivatedRoute, http_1.Http])
 ], ClassParticipResultsComponent);
 exports.ClassParticipResultsComponent = ClassParticipResultsComponent;
 //# sourceMappingURL=results.component.js.map

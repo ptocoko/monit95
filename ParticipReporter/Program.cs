@@ -26,12 +26,32 @@ namespace ParticipReporter
         static DateTime _testDate;        
 
         static void Main(string[] args)
-        {                        
-            Console.WriteLine("Process");
-            GetReports(new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"), new DateTime(2017, 04, 20));
+        {
+            var classParticip = new ClassParticipReportDto
+            {
+                Fio = "Эсамбаев Хусайн Арбиевич",
+                ClassName = "1 А",
+                SchoolName = "Школа Крутости №1",
+                GradeGroup = "Группа самых крутых",
+                Marks = new string[] { "4", "1", "2", "1", "1" },
+                PrimaryMark = 17
+            };
 
-            var htmlProcessor = new HtmlProcessor(_reportFolder);
-            htmlProcessor.Process();
+            Console.WriteLine("Process");
+
+            var htmlText = (new SchoolParticipReporter()).GetReportHtml(classParticip, new string[] { "4", "1", "2", "1", "1" }, "17 Сентября 2017 г.");
+
+            var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmlText);
+
+            using (StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + $@"/{classParticip.Fio}.html"))
+            {
+                sw.Write(htmlText);
+            }
+
+            //GetReports(new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"), new DateTime(2017, 04, 20));
+
+            //var htmlProcessor = new HtmlProcessor(_reportFolder);
+            //htmlProcessor.Process();
 
             Console.WriteLine("End");
             Console.ReadKey();

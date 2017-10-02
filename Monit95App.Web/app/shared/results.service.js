@@ -33,10 +33,13 @@ var ResultsService = (function () {
         this.http = http;
     }
     ResultsService.prototype.getClassParticipResult = function (participTestId) {
-        //return this.http.get('/api/Results/' + participTestId.toString());
+        //return this.http.get('/api/ResultReport/' + participTestId.toString());
         return Rx_1.Observable.of(MOCK_RESULT).map(function (MOCK) {
             return __assign({ ClassName: MOCK.ClassName + participTestId }, MOCK);
         });
+    };
+    ResultsService.prototype.getClassParticipResultReport = function (participTestId) {
+        return this.http.get('/api/ResultReport/Get?participTestId=' + participTestId);
     };
     return ResultsService;
 }());
