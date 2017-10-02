@@ -1,7 +1,7 @@
 ﻿import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RsurParticipComponent } from './rsur/rsurparticip.component';
+import { RsurParticipsComponent } from './rsur/rsur-particips/rsur-particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
@@ -16,8 +16,8 @@ import { UpdateClassParticipComponent } from "./class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 
 const appRoutes: Routes = [
-    { path: 'rsurparticips', component: RsurParticipComponent },    
-    { path: 'rsurparticips/new', component: RsurParticipAddFormComponent },
+    { path: 'rsurparticips/get', component: RsurParticipsComponent },    
+    { path: 'rsurparticiplist/new', component: RsurParticipAddFormComponent },
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },    

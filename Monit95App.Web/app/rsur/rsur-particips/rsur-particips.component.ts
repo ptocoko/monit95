@@ -10,11 +10,11 @@ import { SchoolCollectorService, SchoolCollector } from "../shared/school-collec
 const COLLECTOR_ID: number = 1;
 
 @Component({
-    selector: 'rsurparticip',
-    templateUrl: `./app/rsur/rsurparticip.component.html?v=${new Date().getTime()}`,
-    styleUrls: ['./app/rsur/rsurparticip.component.css']
+    selector: 'rsurparticips/get',
+    templateUrl: `./app/rsur/rsur-particips/rsur-particips.component.html?v=${new Date().getTime()}`,
+    styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
 })
-export class RsurParticipComponent implements OnInit {
+export class RsurParticipsComponent implements OnInit {
 	particips: RsurParticip[] = [];
 	isFinished: boolean;
 

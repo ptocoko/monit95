@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppComponent } from './app.component';
 import { ParticipModalComponent } from './rsur/details/particip-modal.component';
 import { ResultsModalComponent } from './rsur/results/results-modal.component';
-import { RsurParticipComponent } from './rsur/rsurparticip.component';
+import { RsurParticipsComponent } from './rsur/rsur-particips/rsurs-particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
@@ -69,7 +69,7 @@ import { GlobalErrorHandler } from './error-handler';
 
 	declarations: [
 		AppComponent,
-        RsurParticipComponent,	
+        RsurParticipsComponent,	
         RsurParticipAddFormComponent,
 		RsurParticipFilterPipe,
 		ParticipFilterPipe,
