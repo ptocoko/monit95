@@ -40,6 +40,11 @@ namespace Monit95App.Services
                 text-align: center;
             }
 
+            .cell-center {
+                vertical-align: middle;
+                text-align: center;
+            }
+
             .red-background {
                 background-color: red;
                 color: white;
@@ -102,56 +107,56 @@ namespace Monit95App.Services
         <table style='width:710px' class='table table-bordered'>
             <caption class='text-center' style='color:black'>Выполнение заданий</caption>
             <tr>
-                <th width='60px'>№ п/п</th>
-                <th>Наименование задания</th>
-                <th class='text-center'>Диагностируемые качества</th>
-                <th>Балл за задание</th>
-                <th>Макс. балл за задание</th>
+                <th style='text-align:center; vertical-align:middle' width='60px'>№ п/п</th>
+                <th style='text-align:center; vertical-align:middle'>Наименование задания</th>
+                <th style='text-align:center; vertical-align:middle'>Диагностируемые качества</th>
+                <th style='text-align:center; vertical-align:middle'>Балл за задание</th>
+                <th style='text-align:center; vertical-align:middle'>Макс. балл за задание</th>
             </tr>
             <tr>
-                <td>1</td>
+                <td style='text-align:center; vertical-align:middle'>1</td>
                 <td>""Графические ряды""</td>
                 <td>
                     - перцептивно-двигательные навыки;
                     <br />- уровень внимания;
                     <br />- самоконтроль, планирование и организация произвольной деятельности.
                 </td>
-                <td class='{firstMarkColor}'>{particip.Marks[0]}</td>
-                <td>{maxMarks[0]}</td>
+                <td class='{firstMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[0]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[0]}</td>
             </tr>
             <tr>
-                <td>2</td>
+                <td style='text-align:center; vertical-align:middle'>2</td>
                 <td>""Узор из точек""</td>
                 <td>
                     - ориентация на плоскости;
                     <br />- восприятие зрительного образа.
                 </td>
-                <td class='{secondMarkColor}'>{particip.Marks[1]}</td>
-                <td>{maxMarks[1]}</td>
+                <td class='{secondMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[1]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[1]}</td>
             </tr>
             <tr>
-                <td>3</td>
+                <td style='text-align:center; vertical-align:middle'>3</td>
                 <td>""Рисунок человека""</td>
                 <td>
                     - сформированность первычных представлений о мире;
                     <br />- ориентация в пространстве.
                 </td>
-                <td class='{thirdMarkColor}'>{particip.Marks[2]}</td>
-                <td>{maxMarks[2]}</td>
+                <td class='{thirdMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[2]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[2]}</td>
             </tr>
             <tr>
-                <td>4</td>
+                <td style='text-align:center; vertical-align:middle'>4</td>
                 <td>""Дорожка звуков""</td>
                 <td>- уровень и особенности развития фонетического слуха.</td>
-                <td class='{fourthMarkColor}'>{particip.Marks[3]}</td>
-                <td>{maxMarks[3]}</td>
+                <td class='{fourthMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[3]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[3]}</td>
             </tr>
             <tr>
-                <td>5</td>
+                <td style='text-align:center; vertical-align:middle'>5</td>
                 <td>Моторика</td>
                 <td>- способность выполнять мелкие и точные движения кистями и пальцами рук.</td>
-                <td class='{fifthMarkColor}'>{particip.Marks[4]}</td>
-                <td>{maxMarks[4]}</td>
+                <td class='{fifthMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[4]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[4]}</td>
             </tr>
         </table>
     </div>

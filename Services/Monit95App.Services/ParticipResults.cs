@@ -53,13 +53,13 @@ namespace Monit95App.Services
             switch (grade5)
             {
                 case "2":
-                    return "группа экстра-риска";
+                    return "Группа экстра-риска";
                 case "3":
-                    return "группа риска";
+                    return "Группа риска";
                 case "4":
-                    return "стабильная группа";
+                    return "Стабильная группа";
                 case "5":
-                    return "высокая возрастная группа";
+                    return "Высокая возрастная группа";
                 default:
                     throw new FormatException("Недопустимое значение Grade5");
             }
