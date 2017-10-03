@@ -11,7 +11,6 @@ namespace Monit95App.Domain.Core.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public School()
         {
-            GiaResults = new HashSet<GiaResult>();
             Particips = new HashSet<Particip>();
             RsurParticips = new HashSet<RsurParticip>();
             RsurParticips1 = new HashSet<RsurParticip>();
@@ -67,9 +66,6 @@ namespace Monit95App.Domain.Core.Entities
         public string Monit95Login { get; set; }
 
         public virtual Area Area { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GiaResult> GiaResults { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Particip> Particips { get; set; }

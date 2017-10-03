@@ -15,10 +15,14 @@ import { AddClassParticipComponent } from "./class-particips/add-and-update/add.
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 import { ClassParticipResultsComponent } from "./class-particips/results/results.component";
+import { RsurHomeComponent } from './rsur/rsur-home/rsur-home.component';
 
 const appRoutes: Routes = [
-    { path: 'rsurparticips/get', component: RsurParticipsComponent },    
+
+    { path: 'rsur', component: RsurHomeComponent },
+    { path: 'rsur/particips', component: RsurParticipsComponent },    
     { path: 'rsurparticiplist/new', component: RsurParticipAddFormComponent },
+
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },    
@@ -31,8 +35,9 @@ const appRoutes: Routes = [
 	{ path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
 	{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
 	{ path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },
-	{ path: 'class-particips/result/:participTestId', component: ClassParticipResultsComponent,  },
-    { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
+    { path: 'class-particips/result/:participTestId', component: ClassParticipResultsComponent, },
+
+    { path: '', redirectTo: '/rsur', pathMatch: 'full' } // redirect to home page on load
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

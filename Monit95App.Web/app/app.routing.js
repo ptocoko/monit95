@@ -15,8 +15,10 @@ var add_component_1 = require("./class-particips/add-and-update/add.component");
 var update_component_1 = require("./class-particips/add-and-update/update.component");
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var results_component_1 = require("./class-particips/results/results.component");
+var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
 var appRoutes = [
-    { path: 'rsurparticips/get', component: rsur_particips_component_1.RsurParticipsComponent },
+    { path: 'rsur', component: rsur_home_component_1.RsurHomeComponent },
+    { path: 'rsur/particips', component: rsur_particips_component_1.RsurParticipsComponent },
     { path: 'rsurparticiplist/new', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
     { path: 'plan', component: plan_component_1.PlanComponent },
     { path: 'result', component: result_component_1.ResultComponent },
@@ -30,7 +32,7 @@ var appRoutes = [
     { path: 'class-particips/marks', component: marks_component_1.ClassParticipMarksComponent },
     { path: 'class-particips/marks-edit/:participTestId', component: marks_add_and_edit_component_1.MarksAddAndEditComponent },
     { path: 'class-particips/result/:participTestId', component: results_component_1.ClassParticipResultsComponent, },
-    { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
+    { path: '', redirectTo: '/rsur', pathMatch: 'full' } // redirect to home page on load
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routing.js.map

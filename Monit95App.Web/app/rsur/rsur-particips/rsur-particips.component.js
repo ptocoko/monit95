@@ -62,7 +62,7 @@ var RsurParticipsComponent = (function () {
 }());
 RsurParticipsComponent = __decorate([
     core_1.Component({
-        selector: 'rsurparticips/get',
+        selector: 'rsur/particips',
         templateUrl: "./app/rsur/rsur-particips/rsur-particips.component.html?v=" + new Date().getTime(),
         styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
     }),

@@ -35,6 +35,7 @@ var add_component_1 = require("./class-particips/add-and-update/add.component");
 var update_component_1 = require("./class-particips/add-and-update/update.component");
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var results_component_1 = require("./class-particips/results/results.component");
+var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -78,6 +79,7 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
+            rsur_home_component_1.RsurHomeComponent,
             rsur_particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,

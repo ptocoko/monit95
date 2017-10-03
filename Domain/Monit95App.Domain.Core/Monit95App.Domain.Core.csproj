@@ -54,11 +54,9 @@
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Class.cs" />
     <Compile Include="Entities\Collector.cs" />
-    <Compile Include="Entities\Document.cs" />
     <Compile Include="Entities\Element.cs" />
     <Compile Include="Entities\ElementType.cs" />
     <Compile Include="Entities\Exercis.cs" />
-    <Compile Include="Entities\GiaResult.cs" />
     <Compile Include="Entities\Grade.cs" />
     <Compile Include="Entities\OldGroup.cs" />
     <Compile Include="Entities\Particip.cs" />
@@ -78,7 +76,6 @@
     <Compile Include="Entities\School.cs" />
     <Compile Include="Entities\SchoolCollector.cs" />
     <Compile Include="Entities\SchoolEdit.cs" />
-    <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\Test.cs" />
     <Compile Include="Entities\TownType.cs" />
     <Compile Include="Entities\Wish.cs" />

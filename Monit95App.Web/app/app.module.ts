@@ -28,6 +28,7 @@ import { AddClassParticipComponent } from "./class-particips/add-and-update/add.
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 import { ClassParticipResultsComponent } from "./class-particips/results/results.component";
+import { RsurHomeComponent } from './rsur/rsur-home/rsur-home.component';
 
 // Services
 import { AccountService } from './account/account.service';
@@ -70,7 +71,8 @@ import { GlobalErrorHandler } from './error-handler';
     ],
 
 	declarations: [
-		AppComponent,
+        AppComponent,
+        RsurHomeComponent,
         RsurParticipsComponent,	
         RsurParticipAddFormComponent,
 		RsurParticipFilterPipe,
