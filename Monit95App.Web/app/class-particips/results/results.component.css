@@ -1,0 +1,9 @@
+﻿.myhead {
+    background-color: SteelBlue;
+}
+
+.myhead p {
+    color: white;
+    font-weight: 600;
+    text-align: center;
+}

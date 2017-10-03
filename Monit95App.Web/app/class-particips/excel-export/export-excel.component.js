@@ -30,7 +30,6 @@ var ClassParticipsExportExcelComponent = (function () {
         if (file.name.split('.').pop() === 'xlsx') {
             this.modal.open(export_excel_modal_component_1.ExportExcelModal, angular2_modal_1.overlayConfigFactory({ file: file, size: 'lg' }, bootstrap_1.BSModalContext)).then(function (modal) {
                 modal.result.then(function (result) {
-                    //TODO: redirect to classParticipList component
                     _this.router.navigate(['/class-particips/list']);
                 });
             }).catch(function (data) {
