@@ -39,18 +39,25 @@ namespace ParticipReporter
                 var schoolParticipIds = context.ParticipTests.Where(p => p.ProjectTestId == 1011 && p.Particip.SchoolId == schoolId).Select(s => s.Id).ToArray();
                 var classParticipDtos = resultsService.GetListClassParticipReportDto(schoolParticipIds);
 
-                string htmlText;
-                string reportFolderPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/{schoolId} reports/";
+                //string htmlText;
+                byte[] pdfBytes;
+                string reportFolderPath = $"D:/Work/{schoolId}/";
                 if (!Directory.Exists(reportFolderPath))
                     Directory.CreateDirectory(reportFolderPath);
 
-                foreach (var classParticip in classParticipDtos)
+                foreach (var classParticip in classParticipDtos.Skip(1).Take(1))
                 {
-                    htmlText = reporter.GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 г.");
-                    using (StreamWriter sw = new StreamWriter(reportFolderPath + $"{classParticip.Fio}.html"))
+                    pdfBytes = reporter.GetClassParticipReportBytes(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 г.");
+                    using (FileStream fs = new FileStream(reportFolderPath + $"{classParticip.ClassName.Replace(" ", "")}-{classParticip.Surnane}-{classParticip.Name}.pdf", FileMode.Create))
                     {
-                        sw.Write(htmlText);
+                        fs.Write(pdfBytes, 0, pdfBytes.Length);
                     }
+
+                    //htmlText = reporter.GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 г.");
+                    //using (StreamWriter sw = new StreamWriter(reportFolderPath + $"{classParticip.Fio}.html"))
+                    //{
+                    //    sw.Write(htmlText);
+                    //}
                 }
             }
             //var htmlText = (new SchoolParticipReporter()).GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "17 Сентября 2017 г.");

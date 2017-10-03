@@ -38,7 +38,9 @@ namespace Monit95App.Services
         {
             return s => new ClassParticipReportDto
             {
-                Fio = $"{s.ParticipTest.Particip.Surname.Trim()} {s.ParticipTest.Particip.Name.Trim()} {s.ParticipTest.Particip.SecondName?.Trim()}",
+                Surnane = s.ParticipTest.Particip.Surname.Trim(),
+                Name = s.ParticipTest.Particip.Name.Trim(),
+                SecondName = s.ParticipTest.Particip.SecondName?.Trim(),
                 ClassName = s.ParticipTest.Particip.Class.Name.Trim(),
                 ParticipTestId = s.ParticipTestId,
                 PrimaryMark = s.PrimaryMark,

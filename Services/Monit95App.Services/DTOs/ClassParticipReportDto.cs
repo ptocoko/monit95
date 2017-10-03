@@ -9,7 +9,9 @@ namespace Monit95App.Services.DTOs
     public class ClassParticipReportDto
     {
         public int ParticipTestId { get; set; }
-        public string Fio { get; set; }
+        public string Surnane { get; set; }
+        public string Name { get; set; }
+        public string SecondName { get; set; }
         public string ClassName { get; set; }
         public string SchoolName { get; set; }
         public double? PrimaryMark { get; set; }
