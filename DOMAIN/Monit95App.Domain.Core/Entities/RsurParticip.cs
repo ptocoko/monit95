@@ -55,14 +55,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public virtual Category Category { get; set; }
 
-        public virtual RsurParticip RsurParticips1 { get; set; }
-
-        public virtual RsurParticip RsurParticip1 { get; set; }
-
         public virtual RsurSubject RsurSubject { get; set; }
 
         public virtual School School { get; set; }
-
-        public virtual School School1 { get; set; }
     }
 }

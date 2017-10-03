@@ -4,6 +4,7 @@ namespace Monit95App.Infrastructure.Data
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+
     using Monit95App.Domain.Core.Entities;
 
     public partial class CokoContext : DbContext
@@ -17,9 +18,11 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Collector> Collectors { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
         public virtual DbSet<Exercis> Exercises { get; set; }
+        public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<OldGroup> OldGroups { get; set; }
         public virtual DbSet<Particip> Particips { get; set; }
@@ -70,6 +73,10 @@ namespace Monit95App.Infrastructure.Data
                 .WithRequired(e => e.Collector)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Document>()
+                .Property(e => e.Available)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Element>()
                 .Property(e => e.Code)
                 .IsUnicode(false);
@@ -85,6 +92,31 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Exercis>()
                 .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaResult>()
+                .Property(e => e.DocumNum)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaResult>()
+                .Property(e => e.SchoolId)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaResult>()
+                .Property(e => e.Marks)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaResult>()
+                .Property(e => e.Parts)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaResult>()
+                .Property(e => e.Elements)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaResult>()
+                .Property(e => e.Skills)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Particip>()
@@ -105,6 +137,11 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Project>()
                 .Property(e => e.ClassNumbers)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Project>()
+                .HasMany(e => e.GiaResults)
+                .WithRequired(e => e.Project)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Project>()
                 .HasMany(e => e.Particips)
@@ -196,10 +233,6 @@ namespace Monit95App.Infrastructure.Data
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<RsurParticip>()
-                .HasOptional(e => e.RsurParticips1)
-                .WithRequired(e => e.RsurParticip1);
-
             modelBuilder.Entity<RsurParticipTest>()
                 .Property(e => e.RsurParticipOldCode)
                 .IsFixedLength()
@@ -255,6 +288,11 @@ namespace Monit95App.Infrastructure.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<School>()
+                .HasMany(e => e.GiaResults)
+                .WithRequired(e => e.School)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<School>()
                 .HasMany(e => e.Particips)
                 .WithRequired(e => e.School)
                 .WillCascadeOnDelete(false);
@@ -262,13 +300,7 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<School>()
                 .HasMany(e => e.RsurParticips)
                 .WithRequired(e => e.School)
-                .HasForeignKey(e => e.SchoolId)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<School>()
-                .HasMany(e => e.RsurParticips1)
-                .WithOptional(e => e.School1)
-                .HasForeignKey(e => e.SchoolIdFrom);
 
             modelBuilder.Entity<School>()
                 .HasMany(e => e.SchoolCollectors)
