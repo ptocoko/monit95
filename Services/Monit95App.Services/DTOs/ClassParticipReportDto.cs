@@ -12,7 +12,7 @@ namespace Monit95App.Services.DTOs
         public string Fio { get; set; }
         public string ClassName { get; set; }
         public string SchoolName { get; set; }
-        public int PrimaryMark { get; set; }
+        public double? PrimaryMark { get; set; }
         public string GradeGroup { get; set; }
         public string[] Marks { get; set; }
     }

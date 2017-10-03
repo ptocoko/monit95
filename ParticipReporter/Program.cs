@@ -3,6 +3,7 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
+using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 using SelectPdf;
 using System;
@@ -27,26 +28,39 @@ namespace ParticipReporter
 
         static void Main(string[] args)
         {
-            var classParticip = new ClassParticipReportDto
-            {
-                Fio = "Эсамбаев Хусайн Арбиевич",
-                ClassName = "1 А",
-                SchoolName = "Школа Крутости №1",
-                GradeGroup = "Группа самых крутых",
-                Marks = new string[] { "4", "1", "2", "1", "1" },
-                PrimaryMark = 17
-            };
-
             Console.WriteLine("Process");
 
-            var htmlText = (new SchoolParticipReporter()).GetReportHtml(classParticip, new string[] { "4", "1", "2", "1", "1" }, "17 Сентября 2017 г.");
-
-            var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmlText);
-
-            using (StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + $@"/{classParticip.Fio}.html"))
+            CokoContext context = new CokoContext();
+            ParticipResults resultsService = new ParticipResults(new GenericRepository<Result>(context));
+            ClassParticipReporter reporter = new ClassParticipReporter();
+            string[] schoolIds = new string[] { "0005" };
+            foreach (var schoolId in schoolIds)
             {
-                sw.Write(htmlText);
+                var schoolParticipIds = context.ParticipTests.Where(p => p.ProjectTestId == 1011 && p.Particip.SchoolId == schoolId).Select(s => s.Id).ToArray();
+                var classParticipDtos = resultsService.GetListClassParticipReportDto(schoolParticipIds);
+
+                string htmlText;
+                string reportFolderPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/{schoolId} reports/";
+                if (!Directory.Exists(reportFolderPath))
+                    Directory.CreateDirectory(reportFolderPath);
+
+                foreach (var classParticip in classParticipDtos)
+                {
+                    htmlText = reporter.GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 г.");
+                    using (StreamWriter sw = new StreamWriter(reportFolderPath + $"{classParticip.Fio}.html"))
+                    {
+                        sw.Write(htmlText);
+                    }
+                }
             }
+            //var htmlText = (new SchoolParticipReporter()).GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "17 Сентября 2017 г.");
+
+            //var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmlText);
+
+            //using (StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + $@"/{classParticip.Fio}.html"))
+            //{
+            //    sw.Write(htmlText);
+            //}
 
             //GetReports(new Guid("873D064B-8039-4255-8FC5-C0CE7F711B59"), new DateTime(2017, 04, 20));
 

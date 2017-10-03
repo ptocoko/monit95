@@ -21,7 +21,7 @@ namespace Monit95App.Api
                 ClassName = "1 А",
                 SchoolName = "Школа Крутости №1",
                 GradeGroup = "Группа самых крутых",
-                Marks = new string[] { "4", "1", "2", "1", "1" },
+                Marks = new double[] { 4, 1, 2, 0.5, 1 },
                 PrimaryMark = 17
             },
             new ClassParticipReportDto
@@ -31,7 +31,7 @@ namespace Monit95App.Api
                 ClassName = "1 Б",
                 SchoolName = "Школа Крутости №1",
                 GradeGroup = "Группа самых крутых",
-                Marks = new string[] { "4", "1", "2", "1", "1" },
+                Marks = new double[] { 4, 1, 2, 0.5, 1 },
                 PrimaryMark = 17
             }
         };
@@ -43,7 +43,7 @@ namespace Monit95App.Api
 
             var particip = particips.Single(s => s.ParticipTestId == participTestId);
 
-            var pdfBytes = (new SchoolParticipReporter()).GetClassParticipReportBytes(particip, new string[] { "4", "1", "2", "1", "1" }, "17 Сентября 2017 г.");
+            var pdfBytes = (new ClassParticipReporter()).GetClassParticipReportBytes(particip, new string[] { "4", "1", "2", "1", "1" }, "17 Сентября 2017 г.");
 
             HttpResponseMessage response = new HttpResponseMessage
             {

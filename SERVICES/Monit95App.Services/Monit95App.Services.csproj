@@ -88,6 +88,7 @@
     <Compile Include="Interfaces\IMarks.cs" />
     <Compile Include="Interfaces\IMarksFileService.cs" />
     <Compile Include="Interfaces\IParticipProtocolService.cs" />
+    <Compile Include="Interfaces\IParticipResults.cs" />
     <Compile Include="Interfaces\IParticipService.cs" />
     <Compile Include="Interfaces\IClassParticipImporter.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="DTOs\ParticipDto.cs" />
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="ClassParticipImporter.cs" />
+    <Compile Include="ParticipResults.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
     <Compile Include="Rsur\RsurParticipBaseInfo.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />
@@ -135,7 +137,7 @@
     <Compile Include="Rsur\RsurParticipService.cs" />
     <Compile Include="Rsur\RsurParticipViewer.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />
-    <Compile Include="SchoolParticipReporter.cs" />
+    <Compile Include="ClassParticipReporter.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />

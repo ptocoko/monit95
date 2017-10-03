@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services
 {
-    public class SchoolParticipReporter
+    public class ClassParticipReporter
     {
         public byte[] GetClassParticipReportBytes(ClassParticipReportDto particip, string[] maxMarks, string testDate)
         {
@@ -17,6 +17,12 @@ namespace Monit95App.Services
 
         public string GetReportHtml(ClassParticipReportDto particip, string[] maxMarks, string testDate)
         {
+            string firstMarkColor = double.Parse(particip.Marks[0]) > 1.5 ? "" : "red-background";
+            string secondMarkColor = double.Parse(particip.Marks[1]) > 0.5 ? "" : "red-background";
+            string thirdMarkColor = double.Parse(particip.Marks[2]) > 1 ? "" : "red-background";
+            string fourthMarkColor = double.Parse(particip.Marks[3]) > 0.5 ? "" : "red-background";
+            string fifthMarkColor = double.Parse(particip.Marks[4]) > 0 ? "" : "red-background";
+
             return $@"
 <!doctype html>
 <html>
@@ -32,6 +38,11 @@ namespace Monit95App.Services
                 color: white;
                 font-weight: 600;
                 text-align: center;
+            }
+
+            .red-background {
+                background-color: red;
+                color: white;
             }" + $@"
         </style>
     </head>
@@ -105,7 +116,7 @@ namespace Monit95App.Services
                     <br />- уровень внимания;
                     <br />- самоконтроль, планирование и организация произвольной деятельности.
                 </td>
-                <td>{particip.Marks[0]}</td>
+                <td class='{firstMarkColor}'>{particip.Marks[0]}</td>
                 <td>{maxMarks[0]}</td>
             </tr>
             <tr>
@@ -115,7 +126,7 @@ namespace Monit95App.Services
                     - ориентация на плоскости;
                     <br />- восприятие зрительного образа.
                 </td>
-                <td>{particip.Marks[1]}</td>
+                <td class='{secondMarkColor}'>{particip.Marks[1]}</td>
                 <td>{maxMarks[1]}</td>
             </tr>
             <tr>
@@ -125,22 +136,22 @@ namespace Monit95App.Services
                     - сформированность первычных представлений о мире;
                     <br />- ориентация в пространстве.
                 </td>
-                <td>{particip.Marks[2]}</td>
+                <td class='{thirdMarkColor}'>{particip.Marks[2]}</td>
                 <td>{maxMarks[2]}</td>
             </tr>
             <tr>
                 <td>4</td>
                 <td>""Дорожка звуков""</td>
                 <td>- уровень и особенности развития фонетического слуха.</td>
-                <td>{particip.Marks[3]}</td>
+                <td class='{fourthMarkColor}'>{particip.Marks[3]}</td>
                 <td>{maxMarks[3]}</td>
             </tr>
             <tr>
                 <td>5</td>
                 <td>Моторика</td>
                 <td>- способность выполнять мелкие и точные движения кистями и пальцами рук.</td>
-                <td>{particip.Marks[3]}</td>
-                <td>{maxMarks[3]}</td>
+                <td class='{fifthMarkColor}'>{particip.Marks[4]}</td>
+                <td>{maxMarks[4]}</td>
             </tr>
         </table>
     </div>
