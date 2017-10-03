@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
 
-import { RsurParticip } from './rsurparticip';
+import { RsurParticip } from '../rsurparticip';
 
-import { RsurParticipService } from './rsurparticip.service';
-import { AccountService } from '../account/account.service';
-import { SchoolCollectorService, SchoolCollector } from "../shared/school-collector.service";
+import { RsurParticipService } from '../rsurparticip.service';
+import { AccountService } from '../../account/account.service';
+import { SchoolCollectorService, SchoolCollector } from "../../shared/school-collector.service";
 
 const COLLECTOR_ID: number = 1;
 

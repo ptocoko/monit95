@@ -20,7 +20,7 @@ var animations_1 = require("@angular/platform-browser/animations");
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
 var results_modal_component_1 = require("./rsur/results/results-modal.component");
-var rsurs_particips_component_1 = require("./rsur/rsur-particips/rsurs-particips.component");
+var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
@@ -76,7 +76,7 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            rsurs_particips_component_1.RsurParticipsComponent,
+            rsur_particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
             particip_filter_pipe_1.ParticipFilterPipe,
