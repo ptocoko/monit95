@@ -19,12 +19,12 @@ namespace ParticipReporter
 {
     class Program
     {
-        static string _reportFolder;
+        //static string _reportFolder;
         
-        static string _blockName;
-        static List<DescriptionDto> _partsDesc;
-        static List<DescriptionDto> _elementsDesc;
-        static DateTime _testDate;        
+        //static string _blockName;
+        //static List<DescriptionDto> _partsDesc;
+        //static List<DescriptionDto> _elementsDesc;
+        //static DateTime _testDate;        
 
         static void Main(string[] args)
         {
@@ -37,6 +37,9 @@ namespace ParticipReporter
             foreach (var schoolId in schoolIds)
             {
                 var schoolParticipIds = context.ParticipTests.Where(p => p.ProjectTestId == 1011 && p.Particip.SchoolId == schoolId).Select(s => s.Id).ToArray();
+                if (schoolParticipIds == null || schoolParticipIds.Count() == 0)
+                    continue;
+
                 var classParticipDtos = resultsService.GetListClassParticipReportDto(schoolParticipIds);
 
                 //string htmlText;
@@ -45,9 +48,9 @@ namespace ParticipReporter
                 if (!Directory.Exists(reportFolderPath))
                     Directory.CreateDirectory(reportFolderPath);
 
-                foreach (var classParticip in classParticipDtos.Skip(1).Take(1))
+                foreach (var classParticip in classParticipDtos.Skip(25).Take(1))
                 {
-                    pdfBytes = reporter.GetClassParticipReportBytes(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 г.");
+                    pdfBytes = reporter.GetClassParticipReportBytes(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 года");
                     using (FileStream fs = new FileStream(reportFolderPath + $"{classParticip.ClassName.Replace(" ", "")}-{classParticip.Surnane}-{classParticip.Name}.pdf", FileMode.Create))
                     {
                         fs.Write(pdfBytes, 0, pdfBytes.Length);
@@ -97,26 +100,26 @@ namespace ParticipReporter
             //}
         }
 
-        private static void SetInstances(ReportsDto results)
-        {
-            _blockName = results.BlockName;
-            _partsDesc = results.PartsDescription;
-            _elementsDesc = results.ElementsDescription;
-            _testDate = results.TestDate;
-        }
+        //private static void SetInstances(ReportsDto results)
+        //{
+        //    _blockName = results.BlockName;
+        //    _partsDesc = results.PartsDescription;
+        //    _elementsDesc = results.ElementsDescription;
+        //    _testDate = results.TestDate;
+        //}
 
-        static void BuildReport(ParticipReportDto reportDto)
-        {
-            string htmlHeader = HtmlBuilder.GetHeader(reportDto.ParticipCode, _blockName, _testDate);
-            string resultTable = HtmlBuilder.GetTable(reportDto.Results, _partsDesc, _elementsDesc);
-            string htmlFooter = HtmlBuilder.GetFooter();
+        //static void BuildReport(ParticipReportDto reportDto)
+        //{
+        //    string htmlHeader = HtmlBuilder.GetHeader(reportDto.ParticipCode, _blockName, _testDate);
+        //    string resultTable = HtmlBuilder.GetTable(reportDto.Results, _partsDesc, _elementsDesc);
+        //    string htmlFooter = HtmlBuilder.GetFooter();
 
-            using (StreamWriter sw = new StreamWriter(_reportFolder + $@"\{reportDto.ParticipCode}.html", false))
-            {
-                sw.Write(htmlHeader);
-                sw.Write(resultTable);
-                sw.Write(htmlFooter);
-            }
-        }          
+        //    using (StreamWriter sw = new StreamWriter(_reportFolder + $@"\{reportDto.ParticipCode}.html", false))
+        //    {
+        //        sw.Write(htmlHeader);
+        //        sw.Write(resultTable);
+        //        sw.Write(htmlFooter);
+        //    }
+        //}          
     }
 }

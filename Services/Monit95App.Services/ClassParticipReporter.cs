@@ -40,9 +40,17 @@ namespace Monit95App.Services
                 text-align: center;
             }
 
-            .cell-center {
-                vertical-align: middle;
-                text-align: center;
+            .green-bgrd{
+                background-color:green;
+                color:white;
+            }
+
+            .lightgreen-bgrd{
+                background-color:lightgreen;
+            }
+
+            .yellow-bgrd{
+                background-color:yellow;
             }
 
             .red-background {
@@ -97,7 +105,7 @@ namespace Monit95App.Services
             <tr>
                 <td>
                     <p class='col-xs-4 col-sm-4'>Группа:</p>
-                    <p class='col-xs-8 col-sm-8'>{particip.GradeGroup}</p>
+                    <p class='col-xs-8 col-sm-8'><span style='padding:10px 15px 20px' class='{GetGradeGroupBgrd(particip.PrimaryMark)}'>{particip.GradeGroup}</span></p>
                 </td>
             </tr>
         </table>
@@ -115,46 +123,46 @@ namespace Monit95App.Services
             </tr>
             <tr>
                 <td style='text-align:center; vertical-align:middle'>1</td>
-                <td style='vertical-align:middle'>""Графические ряды""</td>
+                <td style='vertical-align:middle'>«Графические ряды»</td>
                 <td>
-                    - перцептивно-двигательные навыки;
-                    <br />- уровень внимания;
-                    <br />- самоконтроль, планирование и организация произвольной деятельности.
+                    - перцептивно-двигательные навыки
+                    <br />- уровень внимания
+                    <br />- самоконтроль, планирование и организация произвольной деятельности
                 </td>
                 <td class='{firstMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[0]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[0]}</td>
             </tr>
             <tr>
                 <td style='text-align:center; vertical-align:middle'>2</td>
-                <td style='vertical-align:middle'>""Узор из точек""</td>
+                <td style='vertical-align:middle'>«Узор из точек»</td>
                 <td>
-                    - ориентация на плоскости;
-                    <br />- восприятие зрительного образа.
+                    - ориентация на плоскости
+                    <br />- восприятие зрительного образа
                 </td>
                 <td class='{secondMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[1]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[1]}</td>
             </tr>
             <tr>
                 <td style='text-align:center; vertical-align:middle'>3</td>
-                <td style='vertical-align:middle'>""Рисунок человека""</td>
+                <td style='vertical-align:middle'>«Рисунок человека»</td>
                 <td>
-                    - сформированность первычных представлений о мире;
-                    <br />- ориентация в пространстве.
+                    - сформированность первичных представлений о мире
+                    <br />- ориентация в пространстве
                 </td>
                 <td class='{thirdMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[2]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[2]}</td>
             </tr>
             <tr>
                 <td style='text-align:center; vertical-align:middle'>4</td>
-                <td style='vertical-align:middle'>""Дорожка звуков""</td>
-                <td>- уровень и особенности развития фонетического слуха.</td>
+                <td style='vertical-align:middle'>«Дорожка звуков»</td>
+                <td>- уровень и особенности развития фонематического слуха</td>
                 <td class='{fourthMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[3]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[3]}</td>
             </tr>
             <tr>
                 <td style='text-align:center; vertical-align:middle'>5</td>
                 <td style='vertical-align:middle'>Моторика</td>
-                <td>- способность выполнять мелкие и точные движения кистями и пальцами рук.</td>
+                <td>- способность выполнять мелкие и точные движения кистями и пальцами рук</td>
                 <td class='{fifthMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[4]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[4]}</td>
             </tr>
@@ -172,5 +180,18 @@ namespace Monit95App.Services
             return generator.GeneratePdf(htmlContent);
         }
 
+        private string GetGradeGroupBgrd(double? primaryMark)
+        {
+            if (primaryMark <= 3)
+                return "red-background";
+			else if (primaryMark > 3 && primaryMark <= 6)
+                return "yellow-bgrd";
+			else if (primaryMark > 6 && primaryMark <= 8)
+                return "lightgreen-bgrd";
+			else if (primaryMark > 8)
+                return "green-bgrd";
+            else
+                throw new FormatException("Неверный формат PrimaryMark");
+        }
     }
 }

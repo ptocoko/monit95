@@ -26,14 +26,26 @@ var ClassParticipResultsComponent = (function () {
         this.route = route;
         this.http = http;
         this.maxMarks = MAX_MARKS;
-        this.testDate = "17 Сентября, 2017 г.";
+        this.testDate = "26 сентября 2017 года";
     }
     ClassParticipResultsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             _this.participTestId = params['participTestId'];
-            _this.resultService.getClassParticipResult(_this.participTestId).subscribe(function (res) { return _this.particip = res; });
+            _this.resultService.getClassParticipResultDto(_this.participTestId).subscribe(function (res) { return _this.particip = res; });
         });
+    };
+    ClassParticipResultsComponent.prototype.getPrimaryMarkBgrd = function (primaryMark) {
+        if (primaryMark <= 3)
+            return { 'red-background': true };
+        else if (primaryMark > 3 && primaryMark <= 6)
+            return { 'yellow-bgrd': true };
+        else if (primaryMark > 6 && primaryMark <= 8)
+            return { 'lightgreen-bgrd': true };
+        else if (primaryMark > 8)
+            return { 'green-bgrd': true };
+        else
+            throw new Error('Ошибка');
     };
     ClassParticipResultsComponent.prototype.download = function () {
         //let element = document.getElementById('classParticip-reportContainer');
@@ -45,10 +57,11 @@ var ClassParticipResultsComponent = (function () {
         //		doc.save(this.particip.Fio + '.pdf');
         //	});
         //});
+        var _this = this;
         this.http.get('/api/ResultReport/Get?participTestId=' + this.participTestId, { responseType: http_1.ResponseContentType.Blob }).subscribe(function (data) {
             var a = document.createElement("a");
             a.href = URL.createObjectURL(data.blob());
-            a.download = 'excel';
+            a.download = _this.particip.ClassName.replace(' ', '') + "-" + _this.particip.Surname + "-" + _this.particip.Name;
             a.click();
         });
     };

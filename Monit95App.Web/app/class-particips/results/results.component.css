@@ -1,9 +1,27 @@
 ﻿.myhead {
-    background-color: SteelBlue;
+    background-color: #4682b4;
 }
 
 .myhead p {
     color: white;
     font-weight: 600;
     text-align: center;
+}
+
+.green-bgrd{
+    background-color:green;
+    color:white;
+}
+
+.lightgreen-bgrd{
+    background-color:lightgreen;
+}
+
+.yellow-bgrd{
+    background-color:yellow;
+}
+
+.red-background {
+    background-color: red;
+    color: white;
 }
