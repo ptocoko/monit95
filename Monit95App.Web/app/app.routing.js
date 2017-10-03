@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@angular/router");
+var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
+var rsur_exams_component_1 = require("./rsur/rsur-exams/rsur-exams.component");
 var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
@@ -15,9 +17,9 @@ var add_component_1 = require("./class-particips/add-and-update/add.component");
 var update_component_1 = require("./class-particips/add-and-update/update.component");
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var results_component_1 = require("./class-particips/results/results.component");
-var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
 var appRoutes = [
     { path: 'rsur', component: rsur_home_component_1.RsurHomeComponent },
+    { path: 'rsur/exams', component: rsur_exams_component_1.RsurExamsComponent },
     { path: 'rsur/particips', component: rsur_particips_component_1.RsurParticipsComponent },
     { path: 'rsurparticiplist/new', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
     { path: 'plan', component: plan_component_1.PlanComponent },
