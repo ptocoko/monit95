@@ -31,7 +31,7 @@ var appRoutes = [
     { path: 'class-particips/update/:id', component: update_component_1.UpdateClassParticipComponent },
     { path: 'class-particips/marks', component: marks_component_1.ClassParticipMarksComponent },
     { path: 'class-particips/marks-edit/:participTestId', component: marks_add_and_edit_component_1.MarksAddAndEditComponent },
-    { path: 'class-particips/result/:participTestId', component: results_component_1.ClassParticipResultsComponent, },
+    { path: 'class-particips/result/:participTestId', component: results_component_1.ClassParticipResultsComponent },
     { path: '', redirectTo: '/rsur', pathMatch: 'full' } // redirect to home page on load
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

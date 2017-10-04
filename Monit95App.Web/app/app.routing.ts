@@ -35,7 +35,7 @@ const appRoutes: Routes = [
 	{ path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
 	{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
 	{ path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },
-    { path: 'class-particips/result/:participTestId', component: ClassParticipResultsComponent, },
+    { path: 'class-particips/result/:participTestId', component: ClassParticipResultsComponent },
 
     { path: '', redirectTo: '/rsur', pathMatch: 'full' } // redirect to home page on load
 ];

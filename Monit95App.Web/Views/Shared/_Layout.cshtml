@@ -107,7 +107,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    @if (User.IsInRole("school"))
+                    @if (User.IsInRole("school") || User.IsInRole("area"))
                     {
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -116,7 +116,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
-                                <li><a href="rsur/spa#class-particips">Готовность 1-х классов</a></li>
+                                @if (User.IsInRole("school"))
+                                {
+                                    <li><a href="rsur/spa#class-particips">Готовность 1-х классов</a></li>    
+                                }                                
                             </ul>
                         </li>
                     }

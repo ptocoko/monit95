@@ -1,6 +1,4 @@
-﻿export class Account{
-	constructor(
-		public UserName: string,
-        public RoleNames: Array<string>
-	) { }
+﻿export class Account {	
+		UserName: string;
+        RoleNames: Array<string>;	
 }
