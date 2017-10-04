@@ -21,10 +21,10 @@ export class ClassParticipResult {
 const MAX_MARKS = [4, 1, 3, 1, 1];
 
 @Component({
-	templateUrl: `./app/class-particips/results/results.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/class-particips/results/results.component.css?v=${new Date().getTime()}`]
+	templateUrl: `./app/class-particips/results/particip-report.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/class-particips/results/particip-report.component.css?v=${new Date().getTime()}`]
 })
-export class ClassParticipResultsComponent implements OnInit {
+export class ClassParticipReportComponent implements OnInit {
 	maxMarks: number[] = MAX_MARKS;
 	participTestId: number;
 	particip: ClassParticipResult;

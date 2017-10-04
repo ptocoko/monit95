@@ -60,6 +60,9 @@
       <HintPath>..\packages\DelegateDecompiler.0.9.1.0\lib\net40-Client\DelegateDecompiler.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DotNetZip, Version=1.10.1.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -67,9 +70,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\packages\DotNetZip.1.9.6\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -331,8 +331,8 @@
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\file\file.component.html" />
     <Content Include="app\rsur\rsur-home\rsur-home.component.html" />
-    <Content Include="app\class-particips\results\results.component.css" />
-    <Content Include="app\class-particips\results\results.component.html" />
+    <Content Include="app\class-particips\results\particip-report.component.css" />
+    <Content Include="app\class-particips\results\particip-report.component.html" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />
     <Content Include="app\rsur\correction\particip-correction.html" />
@@ -573,7 +573,7 @@
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks-add-and-edit.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks.component.ts" />
-    <TypeScriptCompile Include="app\class-particips\results\results.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\results\particip-report.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\file\file.component.ts" />

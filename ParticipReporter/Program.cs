@@ -1,4 +1,5 @@
-﻿using Monit95App.Domain.Core;
+﻿using Ionic.Zip;
+using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
@@ -28,7 +29,8 @@ namespace ParticipReporter
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Process");
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.WriteLine("Процесс");
 
             CokoContext context = new CokoContext();
             ParticipResults resultsService = new ParticipResults(new GenericRepository<Result>(context));
@@ -47,21 +49,22 @@ namespace ParticipReporter
                 string reportFolderPath = $"D:/Work/{schoolId}/";
                 if (!Directory.Exists(reportFolderPath))
                     Directory.CreateDirectory(reportFolderPath);
-
-                foreach (var classParticip in classParticipDtos.Skip(25).Take(1))
+                using (FileStream fs = new FileStream(reportFolderPath + $"{schoolId}.zip", FileMode.Create))
                 {
-                    pdfBytes = reporter.GetClassParticipReportBytes(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 года");
-                    using (FileStream fs = new FileStream(reportFolderPath + $"{classParticip.ClassName.Replace(" ", "")}-{classParticip.Surnane}-{classParticip.Name}.pdf", FileMode.Create))
+                    using (ZipFile zip = new ZipFile())
                     {
-                        fs.Write(pdfBytes, 0, pdfBytes.Length);
-                    }
+                        zip.AlternateEncoding = Encoding.UTF8;
+                        zip.AlternateEncodingUsage = ZipOption.Always;
 
-                    //htmlText = reporter.GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 г.");
-                    //using (StreamWriter sw = new StreamWriter(reportFolderPath + $"{classParticip.Fio}.html"))
-                    //{
-                    //    sw.Write(htmlText);
-                    //}
+                        foreach (var classParticip in classParticipDtos)
+                        {
+                            pdfBytes = reporter.GetClassParticipReportBytes(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 года");
+                            zip.AddEntry($"{classParticip.ClassName.Replace(" ", "")}-{classParticip.Surname}-{classParticip.Name}.pdf", pdfBytes);
+                        }
+                        zip.Save(fs);
+                    }
                 }
+                
             }
             //var htmlText = (new SchoolParticipReporter()).GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "17 Сентября 2017 г.");
 

@@ -14,7 +14,7 @@ import { ClassParticipsPlanComponent } from "./class-particips/class-particips-p
 import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
-import { ClassParticipResultsComponent } from "./class-particips/results/results.component";
+import { ClassParticipReportComponent } from "./class-particips/results/particip-report.component";
 
 const appRoutes: Routes = [
     { path: 'rsurparticips/get', component: RsurParticipsComponent },    
@@ -31,7 +31,7 @@ const appRoutes: Routes = [
 	{ path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
 	{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
 	{ path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },
-	{ path: 'class-particips/result/:participTestId', component: ClassParticipResultsComponent,  },
+	{ path: 'class-particips/report/:participTestId', component: ClassParticipReportComponent, },
     { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
 ];
 

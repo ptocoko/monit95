@@ -17,10 +17,10 @@ namespace Monit95App.Services
 
         public string GetReportHtml(ClassParticipReportDto particip, string[] maxMarks, string testDate)
         {
-            string firstMarkColor = double.Parse(particip.Marks[0]) > 1.5 ? "" : "red-background";
+            string firstMarkColor = double.Parse(particip.Marks[0]) > 2 ? "" : "red-background";
             string secondMarkColor = double.Parse(particip.Marks[1]) > 0.5 ? "" : "red-background";
-            string thirdMarkColor = double.Parse(particip.Marks[2]) > 1 ? "" : "red-background";
-            string fourthMarkColor = double.Parse(particip.Marks[3]) > 0.5 ? "" : "red-background";
+            string thirdMarkColor = double.Parse(particip.Marks[2]) > 2 ? "" : "red-background";
+            string fourthMarkColor = double.Parse(particip.Marks[3]) > 0 ? "" : "red-background";
             string fifthMarkColor = double.Parse(particip.Marks[4]) > 0 ? "" : "red-background";
 
             return $@"
@@ -76,7 +76,7 @@ namespace Monit95App.Services
         <br />
         <div class='row particip-about'>
             <p class='col-xs-4 col-sm-4'>ФИО:</p>
-            <p class='col-xs-8 col-sm-8 text-uppercase'>{particip.Surnane} {particip.Name} {particip.SecondName}</p>
+            <p class='col-xs-8 col-sm-8 text-uppercase'>{particip.Surname} {particip.Name} {particip.SecondName}</p>
             <br />
             <br />
             <p class='col-xs-4 col-sm-4'>Образовательная организация:</p>

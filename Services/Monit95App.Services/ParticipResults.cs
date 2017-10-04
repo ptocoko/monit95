@@ -38,7 +38,7 @@ namespace Monit95App.Services
         {
             return s => new ClassParticipReportDto
             {
-                Surnane = s.ParticipTest.Particip.Surname.Trim(),
+                Surname = s.ParticipTest.Particip.Surname.Trim(),
                 Name = s.ParticipTest.Particip.Name.Trim(),
                 SecondName = s.ParticipTest.Particip.SecondName?.Trim(),
                 ClassName = s.ParticipTest.Particip.Class.Name.Trim(),
@@ -59,9 +59,9 @@ namespace Monit95App.Services
                 case "3":
                     return "«Группа риска»";
                 case "4":
-                    return "«Стабильная группа»";
+                    return "«Стабильная середина»";
                 case "5":
-                    return "«Высокая возрастная группа»";
+                    return "«Высокая возрастная норма»";
                 default:
                     throw new FormatException("Недопустимое значение Grade5");
             }

@@ -26,4 +26,8 @@ export class ResultsService {
 	getClassParticipResultReport(participTestId: number) {
 		return this.http.get('/api/ResultReport/Get?participTestId=' + participTestId);
 	}
+
+	getResultsZipForSchool(schoolId: string) {
+		return this.http.get('/api/ResultReport/GetForSchool?schoolId=' + schoolId);
+	}
 }
