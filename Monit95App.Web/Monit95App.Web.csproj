@@ -334,6 +334,7 @@
     <Content Include="app\rsur\rsur-home\rsur-home.component.html" />
     <Content Include="app\class-particips\results\results.component.css" />
     <Content Include="app\class-particips\results\results.component.html" />
+    <Content Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />
     <Content Include="app\rsur\correction\particip-correction.html" />
@@ -341,7 +342,7 @@
     <Content Include="app\rsur\edit-modal-form\edit-modal.css" />
     <Content Include="app\rsur\edit-modal-form\edit-modal.html" />
     <Content Include="app\rsur\edit-modal-form\edit-particip.html" />
-    <Content Include="app\rsur\rsurparticip-actualization.component.html" />
+    <Content Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.html" />
     <Content Include="app\rsur\rsur-particips\rsur-particips.component.css" />
     <Content Include="app\rsur\rsur-particips\rsur-particips.component.html" />
     <Content Include="app\rsur\details\particip-modal.html" />
@@ -585,6 +586,7 @@
     <TypeScriptCompile Include="app\particip.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-exams\rsur-exams.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-home\rsur-home.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.mock.ts" />

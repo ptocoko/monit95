@@ -18,12 +18,13 @@ var RsurHomeComponent = (function () {
         this.account = new account_1.Account();
     }
     RsurHomeComponent.prototype.ngOnInit = function () {
-        //this.accountService.getAccount().subscribe(data => {
-        //    console.log(data);
-        //    this.account = data.json() as Account;
-        //    console.log(this.account);
-        //    console.log(this.account.RoleNames.indexOf('school') !== -1);
-        //});
+        var _this = this;
+        this.accountService.getAccount().subscribe(function (data) {
+            console.log(data);
+            _this.account = data.json();
+            console.log(_this.account);
+            console.log(_this.account.RoleNames.indexOf('school') !== -1);
+        });
     };
     RsurHomeComponent.prototype.isArea = function () {
         if (this.account.RoleNames != null)

@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
 
+// Models
 import { RsurParticip } from '../rsurparticip';
+import { Account } from '../../account/account';
 
+// Services
 import { RsurParticipService } from '../rsurparticip.service';
 import { AccountService } from '../../account/account.service';
-import { SchoolCollectorService, SchoolCollector } from "../../shared/school-collector.service";
-
-const COLLECTOR_ID: number = 1;
 
 @Component({
     selector: 'rsur/particips',
@@ -15,62 +15,31 @@ const COLLECTOR_ID: number = 1;
     styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
 })
 export class RsurParticipsComponent implements OnInit {
-	particips: RsurParticip[] = [];
-	isFinished: boolean;
+    particips: RsurParticip[] = [];	
+    account = new Account();
 
     constructor(private readonly rsurParticipService: RsurParticipService,
-				private readonly accountService: AccountService,
-				private readonly schoolCollectorService: SchoolCollectorService) { }
+                private readonly accountService: AccountService) {        
+    }
 
     ngOnInit() {
-		this.getAllParticips(); 
-		
+        this.getAllParticips(); 
+        this.accountService.getAccount().subscribe(data => {            
+            this.account = data.json() as Account;           
+        });
     }
 
     getAllParticips() {
         this.rsurParticipService.getAll()
-            .subscribe((response: Response) => {                
-				this.particips = response.json() as RsurParticip[];
-
-				this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(res => {
-					console.log(res);
-					this.isFinished = res;
-				});
+            .subscribe((response: Response) => {
+                this.particips = response.json() as RsurParticip[];
             });
     }
 
-    setActualCode(particip: RsurParticip, actualCode: number) {
-        particip.ActualCode = actualCode;
-        this.rsurParticipService.update(particip.Code, particip)
-            .subscribe(() => {
-                this.getAllParticips();
-            });
+    isArea() {        
+        if (this.account.RoleNames != null)
+            return this.account.RoleNames.indexOf('area') > -1;
+        return null;
     }
-
-    delete(code: number) {
-        this.rsurParticipService.delete(code).subscribe(() => {
-            this.getAllParticips();
-        });
-	}
-
-	onFinished() {
-		let action = confirm('Вы уверены?');
-
-		if (action) {
-			this.schoolCollectorService.isFinished(COLLECTOR_ID, true).subscribe(() => {
-				this.isFinished = true;
-			});
-		}
-	}
-    //edit(particip: RsurParticip) {
-    //    this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))
-    //        .then((dialog: DialogRef<RsurParticip>) => {
-    //            dialog.result.then(dialogResponse => {
-    //                this.participService.update(dialogResponse).subscribe((serviceResponse: Response) => {
-    //                    var index = this.particips.indexOf(particip);
-    //                    this.particips[index] = serviceResponse.json() as RsurParticip;
-    //                });
-    //            });
-    //        });
-    //}
 };
+
