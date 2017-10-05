@@ -4,6 +4,7 @@ namespace Monit95App.Infrastructure.Data
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+
     using Monit95App.Domain.Core.Entities;
 
     public partial class CokoContext : DbContext
@@ -17,6 +18,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Collector> Collectors { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
         public virtual DbSet<Exercis> Exercises { get; set; }
@@ -71,6 +73,10 @@ namespace Monit95App.Infrastructure.Data
                 .WithRequired(e => e.Collector)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Document>()
+                .Property(e => e.Available)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Element>()
                 .Property(e => e.Code)
                 .IsUnicode(false);
@@ -123,14 +129,10 @@ namespace Monit95App.Infrastructure.Data
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Particip>()
-                .HasMany(e => e.ParticipTests)
-                .WithRequired(e => e.Particip)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<ParticipTest>()
                 .HasOptional(e => e.Result)
-                .WithRequired(e => e.ParticipTest);
+                .WithRequired(e => e.ParticipTest)
+                .WillCascadeOnDelete();
 
             modelBuilder.Entity<Project>()
                 .Property(e => e.ClassNumbers)

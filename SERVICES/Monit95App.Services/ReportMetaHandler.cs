@@ -16,7 +16,7 @@ namespace Monit95App.Services
              
         public static IEnumerable<ReportMeta> GetReportMetasBySchool(Domain.Core.Entities.School school, ISchoolReportFileNameSource iFileNames)
         {
-            //TODO: здесь надо сделать Dependency Injection
+            
             ITypeReport privateReportMeta = new PrivateReportMeta(school, iFileNames);
             ITypeReport protectReportMeta = new ProtectReportMeta(school);
             ITypeReport publicReportMeta = new PublicReportMeta();

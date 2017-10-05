@@ -1,20 +1,20 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
 
-import { RsurParticip } from './rsurparticip';
+import { RsurParticip } from '../rsurparticip';
 
-import { RsurParticipService } from './rsurparticip.service';
-import { AccountService } from '../account/account.service';
-import { SchoolCollectorService, SchoolCollector } from "../shared/school-collector.service";
+import { RsurParticipService } from '../rsurparticip.service';
+import { AccountService } from '../../account/account.service';
+import { SchoolCollectorService, SchoolCollector } from "../../shared/school-collector.service";
 
 const COLLECTOR_ID: number = 1;
 
 @Component({
-    selector: 'rsurparticip',
-    templateUrl: `./app/rsur/rsurparticip.component.html?v=${new Date().getTime()}`,
-    styleUrls: ['./app/rsur/rsurparticip.component.css']
+    selector: 'rsur/particips',
+    templateUrl: `./app/rsur/rsur-particips/rsur-particips.component.html?v=${new Date().getTime()}`,
+    styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
 })
-export class RsurParticipComponent implements OnInit {
+export class RsurParticipsActualizationComponent implements OnInit {
 	particips: RsurParticip[] = [];
 	isFinished: boolean;
 

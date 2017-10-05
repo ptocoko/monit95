@@ -62,16 +62,16 @@ namespace Monit95App.Web.Api
                 schoolId = userName;
             }
 
-            var dtos = this._rsurParticipService.GetAll(areaCode, schoolId);            
+            var dtos = this._rsurParticipService.GetAll(areaCode, schoolId).ToList();            
 
             if (User.IsInRole("area")
-                && !dtos.All(x => x.AreaCodeWithName.Substring(0, 3) == userName))
+                && dtos.Any(x => x.AreaCodeWithName.Substring(0, 3) != userName))
             {
                 return this.Conflict();
-            }
+            }         
 
             if (User.IsInRole("school")
-                && !dtos.All(x => x.SchoolIdWithName.Substring(0, 4) == userName))
+                && dtos.Any(x => x.SchoolIdWithName.Substring(0, 4) != userName))
             {
                 return this.Conflict();
             }

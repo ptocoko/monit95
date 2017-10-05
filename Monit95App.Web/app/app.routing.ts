@@ -1,7 +1,9 @@
 ﻿import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RsurParticipComponent } from './rsur/rsurparticip.component';
+import { RsurHomeComponent } from './rsur/rsur-home/rsur-home.component';
+import { RsurExamsComponent } from './rsur/rsur-exams/rsur-exams.component';
+import { RsurParticipsComponent } from './rsur/rsur-particips/rsur-particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
@@ -14,14 +16,21 @@ import { ClassParticipsPlanComponent } from "./class-particips/class-particips-p
 import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
+import { ClassParticipResultsComponent } from "./class-particips/results/results.component";
+
 
 const appRoutes: Routes = [
-    { path: 'rsurparticips', component: RsurParticipComponent },    
-    { path: 'rsurparticips/new', component: RsurParticipAddFormComponent },
+
+    { path: 'rsur', component: RsurHomeComponent },
+    { path: 'rsur/exams', component: RsurExamsComponent },    
+    { path: 'rsur/particips', component: RsurParticipsComponent },    
+    { path: 'rsurparticiplist/new', component: RsurParticipAddFormComponent },
+
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },    
 	{ path: 'particip-correction', component: ParticipCorrectionComponent },
+
 	{ path: 'class-particips', component: ClassParticipsPlanComponent },
 	{ path: 'class-particips/list', component: ClassParticipsListComponent },
 	{ path: 'class-particips/upload-excel', component: ClassParticipsExportExcelComponent },
@@ -29,7 +38,9 @@ const appRoutes: Routes = [
 	{ path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
 	{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
 	{ path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },
-    { path: '', redirectTo: '/rsurparticips', pathMatch: 'full' } // redirect to home page on load
+    { path: 'class-particips/result/:participTestId', component: ClassParticipResultsComponent },
+
+    { path: '', redirectTo: '/rsur', pathMatch: 'full' } // redirect to home page on load
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

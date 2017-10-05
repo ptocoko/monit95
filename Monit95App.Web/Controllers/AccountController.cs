@@ -1,11 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-
 using Monit95App.Models;
 
 namespace Monit95App.Controllers
@@ -14,7 +12,7 @@ namespace Monit95App.Controllers
     public class AccountController : Controller
     {
         public string GetName()
-        {
+        {            
             return User.Identity.Name;
         }
 
@@ -26,8 +24,10 @@ namespace Monit95App.Controllers
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
-            UserManager.UserValidator =
-                new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
@@ -38,29 +38,30 @@ namespace Monit95App.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View("Login");
+            return View();//"Login", "~/Views/Shared/_GuestLayout.cshtml");
         }
-
+        
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
             var user = await UserManager.FindAsync(model.UserName, model.Password);
             if (user != null)
             {
                 await SignInAsync(user, model.RememberMe);
                 return RedirectToLocal(returnUrl);
             }
-
-            ModelState.AddModelError(string.Empty, "Invalid username or password.");
+            ModelState.AddModelError("", "Invalid username or password.");
 
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
         }
 
+        // 
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -68,6 +69,7 @@ namespace Monit95App.Controllers
             return View();
         }
 
+        // 
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -93,15 +95,14 @@ namespace Monit95App.Controllers
             return View(model);
         }
 
+        // 
         // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             ManageMessageId? message = null;
-            IdentityResult result = await UserManager.RemoveLoginAsync(
-                                        User.Identity.GetUserId(),
-                                        new UserLoginInfo(loginProvider, providerKey));
+            IdentityResult result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
             if (result.Succeeded)
             {
                 message = ManageMessageId.RemoveLoginSuccess;
@@ -110,27 +111,25 @@ namespace Monit95App.Controllers
             {
                 message = ManageMessageId.Error;
             }
-
             return RedirectToAction("Manage", new { Message = message });
         }
 
+        // 
         // GET: /Account/Manage
         public ActionResult Manage(ManageMessageId? message)
         {
-            ViewBag.StatusMessage = message == ManageMessageId.ChangePasswordSuccess
-                                        ? "Ваш пароль изменен."
-                                        : message == ManageMessageId.SetPasswordSuccess
-                                            ? "Пароль задан."
-                                            : message == ManageMessageId.RemoveLoginSuccess
-                                                ? "Внешнее имя входа удалено."
-                                                : message == ManageMessageId.Error
-                                                    ? "Произошла ошибка."
-                                                    : string.Empty;
+            ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess ? "Ваш пароль изменен."
+                : message == ManageMessageId.SetPasswordSuccess ? "Пароль задан."
+                : message == ManageMessageId.RemoveLoginSuccess ? "Внешнее имя входа удалено."
+                : message == ManageMessageId.Error ? "Произошла ошибка."
+                : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
         }
 
+        // 
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -143,10 +142,7 @@ namespace Monit95App.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.ChangePasswordAsync(
-                                                User.Identity.GetUserId(),
-                                                model.OldPassword,
-                                                model.NewPassword);
+                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
@@ -168,9 +164,7 @@ namespace Monit95App.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.AddPasswordAsync(
-                                                User.Identity.GetUserId(),
-                                                model.NewPassword);
+                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
@@ -186,6 +180,7 @@ namespace Monit95App.Controllers
             return View(model);
         }
 
+        // 
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -193,11 +188,10 @@ namespace Monit95App.Controllers
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Запрос перенаправления к внешнему поставщику входа
-            return new ChallengeResult(
-                provider,
-                Url.Action("ExternalLoginCallback", "AccountsApi", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "AccountsApi", new { ReturnUrl = returnUrl }));
         }
 
+        // 
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
@@ -220,24 +214,21 @@ namespace Monit95App.Controllers
                 // If the user does not have an account, then prompt the user to create an account
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                return View(
-                    "ExternalLoginConfirmation",
-                    new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
+                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
             }
         }
 
+        // 
         // POST: /Account/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
-            return new ChallengeResult(
-                provider,
-                Url.Action("LinkLoginCallback", "AccountsApi"),
-                User.Identity.GetUserId());
+            return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "AccountsApi"), User.Identity.GetUserId());
         }
 
+        // 
         // GET: /Account/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
@@ -246,23 +237,20 @@ namespace Monit95App.Controllers
             {
                 return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
             }
-
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             if (result.Succeeded)
             {
                 return RedirectToAction("Manage");
             }
-
             return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
 
+        // 
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(
-            ExternalLoginConfirmationViewModel model,
-            string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -277,7 +265,6 @@ namespace Monit95App.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-
                 var user = new ApplicationUser() { UserName = model.UserName };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -289,7 +276,6 @@ namespace Monit95App.Controllers
                         return RedirectToLocal(returnUrl);
                     }
                 }
-
                 AddErrors(result);
             }
 
@@ -297,6 +283,7 @@ namespace Monit95App.Controllers
             return View(model);
         }
 
+        // 
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -306,6 +293,7 @@ namespace Monit95App.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // 
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
@@ -328,12 +316,10 @@ namespace Monit95App.Controllers
                 UserManager.Dispose();
                 UserManager = null;
             }
-
             base.Dispose(disposing);
         }
 
         #region Вспомогательные приложения
-
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -350,7 +336,7 @@ namespace Monit95App.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error);
+                ModelState.AddModelError("", error);
             }
         }
 
@@ -361,18 +347,14 @@ namespace Monit95App.Controllers
             {
                 return user.PasswordHash != null;
             }
-
             return false;
         }
 
         public enum ManageMessageId
         {
             ChangePasswordSuccess,
-
             SetPasswordSuccess,
-
             RemoveLoginSuccess,
-
             Error
         }
 
@@ -390,8 +372,7 @@ namespace Monit95App.Controllers
 
         private class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
             {
             }
 
@@ -403,9 +384,7 @@ namespace Monit95App.Controllers
             }
 
             public string LoginProvider { get; set; }
-
             public string RedirectUri { get; set; }
-
             public string UserId { get; set; }
 
             public override void ExecuteResult(ControllerContext context)
@@ -415,11 +394,9 @@ namespace Monit95App.Controllers
                 {
                     properties.Dictionary[XsrfKey] = UserId;
                 }
-
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-
         #endregion
     }
 }

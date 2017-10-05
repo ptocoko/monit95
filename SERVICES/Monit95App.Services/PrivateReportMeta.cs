@@ -16,7 +16,7 @@ namespace Monit95App.Services
         private readonly ISchoolReportFileNameSource iFileNames;
 
         private CokoContext context = new CokoContext();
-        public PrivateReportMeta(Domain.Core.Entities.School school, ISchoolReportFileNameSource iFileNames)
+        public  PrivateReportMeta(Domain.Core.Entities.School school, ISchoolReportFileNameSource iFileNames)
         {
             this.school = school;
             this.iFileNames = iFileNames;

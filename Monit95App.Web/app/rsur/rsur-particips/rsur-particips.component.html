@@ -8,7 +8,7 @@
             <th class="text-center">Имя</th>
             <th class="text-center">Отчеcтво</th>
             <th class="text-center">Предмет</th>
-            <th class="text-center">Актуальность</th>
+            <th *ngIf="isArea()" class="text-center">Школа</th>
         </tr>
     </thead>
     <tbody>
@@ -18,9 +18,7 @@
             <td style="vertical-align:middle">{{particip.Name}}</td>
             <td style="vertical-align:middle">{{particip.SecondName}}</td>
             <td style="vertical-align:middle">{{particip.RsurSubjectName}}</td>
-            <td>
-                <div *ngIf="particip.ActualCode == 2">новый</div>
-            </td>
+            <td *ngIf="isArea()" style="vertical-align:middle">{{particip.SchoolIdWithName}}</td>
         </tr>
     </tbody>
 </table>

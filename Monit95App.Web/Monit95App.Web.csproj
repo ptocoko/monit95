@@ -270,10 +270,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\ClassController.cs" />
+    <Compile Include="Api\DocumentsController.cs" />
     <Compile Include="Api\ExcelFilesController.cs" />
     <Compile Include="Api\MarksController.cs" />
     <Compile Include="Api\FilesController.cs" />
     <Compile Include="Api\MarksFileController.cs" />
+    <Compile Include="Api\ResultReportController.cs" />
     <Compile Include="Api\RsurParticipsController.cs" />
     <Compile Include="Api\RsurParticipEditsController.cs" />
     <Compile Include="Api\ParticipsController.cs" />
@@ -327,6 +329,12 @@
     <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
+    <Content Include="app\file\file.component.html" />
+    <Content Include="app\rsur\rsur-exams\rsur-exams.component.html" />
+    <Content Include="app\rsur\rsur-home\rsur-home.component.html" />
+    <Content Include="app\class-particips\results\results.component.css" />
+    <Content Include="app\class-particips\results\results.component.html" />
+    <Content Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />
     <Content Include="app\rsur\correction\particip-correction.html" />
@@ -334,9 +342,9 @@
     <Content Include="app\rsur\edit-modal-form\edit-modal.css" />
     <Content Include="app\rsur\edit-modal-form\edit-modal.html" />
     <Content Include="app\rsur\edit-modal-form\edit-particip.html" />
-    <Content Include="app\rsur\rsurparticip-actualization.component.html" />
-    <Content Include="app\rsur\rsurparticip.component.css" />
-    <Content Include="app\rsur\rsurparticip.component.html" />
+    <Content Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.html" />
+    <Content Include="app\rsur\rsur-particips\rsur-particips.component.css" />
+    <Content Include="app\rsur\rsur-particips\rsur-particips.component.html" />
     <Content Include="app\rsur\details\particip-modal.html" />
     <Content Include="app\rsur\results\results-modal.html" />
     <Content Include="app\plan\plan.html" />
@@ -398,6 +406,7 @@
     <Content Include="Images\check_no.png" />
     <Content Include="Images\check_yes.png" />
     <EmbeddedResource Include="Images\excel-template.jpg" />
+    <EmbeddedResource Include="Images\coko_logo.jpg" />
     <Content Include="Images\image.jpg" />
     <Content Include="Images\new_back.png" />
     <Content Include="Images\new_back2.png" />
@@ -566,12 +575,18 @@
     <TypeScriptCompile Include="app\class-particips\excel-export\export-excel.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks-add-and-edit.component.ts" />
     <TypeScriptCompile Include="app\class-particips\marks\marks.component.ts" />
+    <TypeScriptCompile Include="app\class-particips\results\results.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
+    <TypeScriptCompile Include="app\file\file.component.ts" />
+    <TypeScriptCompile Include="app\file\file.service.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-exams\rsur-exams.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-home\rsur-home.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.mock.ts" />
@@ -583,7 +598,7 @@
     <TypeScriptCompile Include="app\rsur\edit-modal-form\edit-particip.model.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-details.component.ts" />
     <TypeScriptCompile Include="app\limit-to.pipe.ts" />
-    <TypeScriptCompile Include="app\rsur\rsurparticip.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-particips\rsur-particips.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-modal.component.ts" />
     <TypeScriptCompile Include="app\rsur\marks\marks.service.ts" />
@@ -599,6 +614,7 @@
     <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
     <TypeScriptCompile Include="app\shared\class-name-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\shared\results.service.ts" />
     <TypeScriptCompile Include="app\shared\school-collector.service.ts" />
     <TypeScriptCompile Include="app\shared\Person.ts" />
   </ItemGroup>

@@ -56,9 +56,9 @@ export class MarksAddAndEditComponent implements OnInit {
                     this.wasNot = true;
                 }
 
-				this.isUpdate = this.marksAddAndEditModel.Question1Mark != null;
+				this.isUpdate = this.marksAddAndEditModel.Question1Mark != null;                                
 
-			    $.ready.then(() => {
+			    $(document).ready(() => {
 			        $('#question1Mark').focus().select();
 
 			        $('#question1Mark').keypress((event) => {

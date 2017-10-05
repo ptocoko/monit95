@@ -54,6 +54,7 @@
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Class.cs" />
     <Compile Include="Entities\Collector.cs" />
+    <Compile Include="Entities\Document.cs" />
     <Compile Include="Entities\Element.cs" />
     <Compile Include="Entities\ElementType.cs" />
     <Compile Include="Entities\Exercis.cs" />

@@ -13,7 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppComponent } from './app.component';
 import { ParticipModalComponent } from './rsur/details/particip-modal.component';
 import { ResultsModalComponent } from './rsur/results/results-modal.component';
-import { RsurParticipComponent } from './rsur/rsurparticip.component';
+import { RsurHomeComponent } from './rsur/rsur-home/rsur-home.component';
+import { RsurExamsComponent } from './rsur/rsur-exams/rsur-exams.component';
+import { RsurParticipsComponent } from './rsur/rsur-particips/rsur-particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
@@ -27,6 +29,8 @@ import { ClassParticipsPlanComponent } from "./class-particips/class-particips-p
 import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
+import { ClassParticipResultsComponent } from "./class-particips/results/results.component";
+
 
 // Services
 import { AccountService } from './account/account.service';
@@ -37,6 +41,7 @@ import { ParticipCorrectionService } from './rsur/correction/particip-correction
 import { ClassService } from './class.service';
 import { MarksService } from './rsur/marks/marks.service';
 import { SchoolCollectorService } from "./shared/school-collector.service";
+import { ResultsService } from "./shared/results.service";
 
 // Pipes
 import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
@@ -68,8 +73,10 @@ import { GlobalErrorHandler } from './error-handler';
     ],
 
 	declarations: [
-		AppComponent,
-        RsurParticipComponent,	
+        AppComponent,
+        RsurHomeComponent,
+	    RsurExamsComponent,
+        RsurParticipsComponent,	
         RsurParticipAddFormComponent,
 		RsurParticipFilterPipe,
 		ParticipFilterPipe,
@@ -90,7 +97,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ClassParticipsPlanComponent,
 		AddClassParticipComponent,
 		UpdateClassParticipComponent,
-		MarksAddAndEditComponent
+		MarksAddAndEditComponent,
+		ClassParticipResultsComponent
 	],
 	providers: [
         AccountService,
@@ -101,6 +109,7 @@ import { GlobalErrorHandler } from './error-handler';
         ParticipService,
 		MarksService,
 		SchoolCollectorService,
+		ResultsService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
