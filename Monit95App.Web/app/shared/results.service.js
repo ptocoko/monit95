@@ -34,6 +34,9 @@ var ResultsService = (function () {
     ResultsService.prototype.getClassParticipResultReport = function (participTestId) {
         return this.http.get('/api/ResultReport/Get?participTestId=' + participTestId);
     };
+    ResultsService.prototype.getResultsZipForSchool = function (schoolId) {
+        return this.http.get('/api/ResultReport/GetForSchool?schoolId=' + schoolId);
+    };
     return ResultsService;
 }());
 ResultsService = __decorate([

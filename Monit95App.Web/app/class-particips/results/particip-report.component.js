@@ -20,22 +20,22 @@ var ClassParticipResult = (function () {
 }());
 exports.ClassParticipResult = ClassParticipResult;
 var MAX_MARKS = [4, 1, 3, 1, 1];
-var ClassParticipResultsComponent = (function () {
-    function ClassParticipResultsComponent(resultService, route, http) {
+var ClassParticipReportComponent = (function () {
+    function ClassParticipReportComponent(resultService, route, http) {
         this.resultService = resultService;
         this.route = route;
         this.http = http;
         this.maxMarks = MAX_MARKS;
         this.testDate = "26 сентября 2017 года";
     }
-    ClassParticipResultsComponent.prototype.ngOnInit = function () {
+    ClassParticipReportComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             _this.participTestId = params['participTestId'];
             _this.resultService.getClassParticipResultDto(_this.participTestId).subscribe(function (res) { return _this.particip = res; });
         });
     };
-    ClassParticipResultsComponent.prototype.getPrimaryMarkBgrd = function (primaryMark) {
+    ClassParticipReportComponent.prototype.getPrimaryMarkBgrd = function (primaryMark) {
         if (primaryMark <= 3)
             return { 'red-background': true };
         else if (primaryMark > 3 && primaryMark <= 6)
@@ -47,7 +47,7 @@ var ClassParticipResultsComponent = (function () {
         else
             throw new Error('Ошибка');
     };
-    ClassParticipResultsComponent.prototype.download = function () {
+    ClassParticipReportComponent.prototype.download = function () {
         //let element = document.getElementById('classParticip-reportContainer');
         //let doc = new jsPDF('p', 'pt', 'a4');
         //html2canvas($('.classParticip-reportContainer').get(0), {background: '#fff'}).then(canvas => {
@@ -65,14 +65,14 @@ var ClassParticipResultsComponent = (function () {
             a.click();
         });
     };
-    return ClassParticipResultsComponent;
+    return ClassParticipReportComponent;
 }());
-ClassParticipResultsComponent = __decorate([
+ClassParticipReportComponent = __decorate([
     core_1.Component({
-        templateUrl: "./app/class-particips/results/results.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/class-particips/results/results.component.css?v=" + new Date().getTime()]
+        templateUrl: "./app/class-particips/results/particip-report.component.html?v=" + new Date().getTime(),
+        styleUrls: ["./app/class-particips/results/particip-report.component.css?v=" + new Date().getTime()]
     }),
     __metadata("design:paramtypes", [results_service_1.ResultsService, router_1.ActivatedRoute, http_1.Http])
-], ClassParticipResultsComponent);
-exports.ClassParticipResultsComponent = ClassParticipResultsComponent;
-//# sourceMappingURL=results.component.js.map
+], ClassParticipReportComponent);
+exports.ClassParticipReportComponent = ClassParticipReportComponent;
+//# sourceMappingURL=particip-report.component.js.map
