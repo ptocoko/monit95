@@ -1,4 +1,5 @@
-﻿using Monit95App.Domain.Core;
+﻿using Ionic.Zip;
+using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
@@ -19,39 +20,56 @@ namespace ParticipReporter
 {
     class Program
     {
-        static string _reportFolder;
+        //static string _reportFolder;
         
-        static string _blockName;
-        static List<DescriptionDto> _partsDesc;
-        static List<DescriptionDto> _elementsDesc;
-        static DateTime _testDate;        
+        //static string _blockName;
+        //static List<DescriptionDto> _partsDesc;
+        //static List<DescriptionDto> _elementsDesc;
+        //static DateTime _testDate;        
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Process");
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.WriteLine("Процесс");
 
             CokoContext context = new CokoContext();
             ParticipResults resultsService = new ParticipResults(new GenericRepository<Result>(context));
             ClassParticipReporter reporter = new ClassParticipReporter();
-            string[] schoolIds = new string[] { "0005" };
+            string[] schoolIds = new string[] { "0335" };
             foreach (var schoolId in schoolIds)
             {
+                Console.WriteLine("Начата работа для школы " + schoolId);
+
                 var schoolParticipIds = context.ParticipTests.Where(p => p.ProjectTestId == 1011 && p.Particip.SchoolId == schoolId).Select(s => s.Id).ToArray();
+                if (schoolParticipIds == null || schoolParticipIds.Count() == 0)
+                {
+                    Console.WriteLine("\tУ этой школы нет участников, участвовавших в диагностике\n");
+                    continue;
+                }
+
                 var classParticipDtos = resultsService.GetListClassParticipReportDto(schoolParticipIds);
 
-                string htmlText;
-                string reportFolderPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/{schoolId} reports/";
+                //string htmlText;
+                byte[] pdfBytes;
+                string reportFolderPath = $"D:/Work/карты/{schoolId}/";
                 if (!Directory.Exists(reportFolderPath))
                     Directory.CreateDirectory(reportFolderPath);
 
-                foreach (var classParticip in classParticipDtos)
+                using (FileStream fs = new FileStream(reportFolderPath + $"{schoolId}_201692.zip", FileMode.Create))
                 {
-                    htmlText = reporter.GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 г.");
-                    using (StreamWriter sw = new StreamWriter(reportFolderPath + $"{classParticip.Fio}.html"))
+                    using (ZipFile zip = new ZipFile())
                     {
-                        sw.Write(htmlText);
+                        zip.AlternateEncoding = Encoding.UTF8;
+                        zip.AlternateEncodingUsage = ZipOption.Always;
+                        classParticipDtos.AsParallel().ForAll(classParticip =>
+                        {
+                            pdfBytes = reporter.GetClassParticipReportBytes(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 года");
+                            zip.AddEntry($"{classParticip.ClassName.Replace(" ", "")}-{classParticip.Surname}-{classParticip.Name}-{classParticip.SecondName}.pdf", pdfBytes);
+                        });
+                        zip.Save(fs);
                     }
                 }
+                Console.WriteLine("\tРабота с этой школой закончена!\n");
             }
             //var htmlText = (new SchoolParticipReporter()).GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "17 Сентября 2017 г.");
 
@@ -90,26 +108,26 @@ namespace ParticipReporter
             //}
         }
 
-        private static void SetInstances(ReportsDto results)
-        {
-            _blockName = results.BlockName;
-            _partsDesc = results.PartsDescription;
-            _elementsDesc = results.ElementsDescription;
-            _testDate = results.TestDate;
-        }
+        //private static void SetInstances(ReportsDto results)
+        //{
+        //    _blockName = results.BlockName;
+        //    _partsDesc = results.PartsDescription;
+        //    _elementsDesc = results.ElementsDescription;
+        //    _testDate = results.TestDate;
+        //}
 
-        static void BuildReport(ParticipReportDto reportDto)
-        {
-            string htmlHeader = HtmlBuilder.GetHeader(reportDto.ParticipCode, _blockName, _testDate);
-            string resultTable = HtmlBuilder.GetTable(reportDto.Results, _partsDesc, _elementsDesc);
-            string htmlFooter = HtmlBuilder.GetFooter();
+        //static void BuildReport(ParticipReportDto reportDto)
+        //{
+        //    string htmlHeader = HtmlBuilder.GetHeader(reportDto.ParticipCode, _blockName, _testDate);
+        //    string resultTable = HtmlBuilder.GetTable(reportDto.Results, _partsDesc, _elementsDesc);
+        //    string htmlFooter = HtmlBuilder.GetFooter();
 
-            using (StreamWriter sw = new StreamWriter(_reportFolder + $@"\{reportDto.ParticipCode}.html", false))
-            {
-                sw.Write(htmlHeader);
-                sw.Write(resultTable);
-                sw.Write(htmlFooter);
-            }
-        }          
+        //    using (StreamWriter sw = new StreamWriter(_reportFolder + $@"\{reportDto.ParticipCode}.html", false))
+        //    {
+        //        sw.Write(htmlHeader);
+        //        sw.Write(resultTable);
+        //        sw.Write(htmlFooter);
+        //    }
+        //}          
     }
 }

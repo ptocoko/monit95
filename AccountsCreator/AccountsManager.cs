@@ -84,7 +84,7 @@ namespace AccountsCreator
                 throw new IdentityException($"Ошибка при добавлении пользователю роли: { AddErrors(result) }");
             }
         }
-
+        
         private string AddErrors(IdentityResult result)
         {
             return result.Errors.Aggregate((error1, error2) => $"\n\t{error1} \n\t{error2}");

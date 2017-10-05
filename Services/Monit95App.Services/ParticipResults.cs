@@ -38,12 +38,14 @@ namespace Monit95App.Services
         {
             return s => new ClassParticipReportDto
             {
-                Fio = $"{s.ParticipTest.Particip.Surname.Trim()} {s.ParticipTest.Particip.Name.Trim()} {s.ParticipTest.Particip.SecondName?.Trim()}",
+                Surname = s.ParticipTest.Particip.Surname.Trim(),
+                Name = s.ParticipTest.Particip.Name.Trim(),
+                SecondName = s.ParticipTest.Particip.SecondName?.Trim(),
                 ClassName = s.ParticipTest.Particip.Class.Name.Trim(),
                 ParticipTestId = s.ParticipTestId,
                 PrimaryMark = s.PrimaryMark,
                 SchoolName = s.ParticipTest.Particip.School.Name.Trim(),
-                Marks = s.Marks.Split(';'),
+                Marks = s.Marks.Split(';').Select(sel => sel.Replace('/', '.').Replace(@"\", ".")).ToArray(),
                 GradeGroup = SetGradeGroupName(s.Grade5.ToString())
             };
         }
@@ -53,13 +55,13 @@ namespace Monit95App.Services
             switch (grade5)
             {
                 case "2":
-                    return "группа экстра-риска";
+                    return "«Группа экстра-риска»";
                 case "3":
-                    return "группа риска";
+                    return "«Группа риска»";
                 case "4":
-                    return "стабильная группа";
+                    return "«Стабильная середина»";
                 case "5":
-                    return "высокая возрастная группа";
+                    return "«Высокая возрастная норма»";
                 default:
                     throw new FormatException("Недопустимое значение Grade5");
             }

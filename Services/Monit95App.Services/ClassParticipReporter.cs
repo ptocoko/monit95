@@ -17,10 +17,10 @@ namespace Monit95App.Services
 
         public string GetReportHtml(ClassParticipReportDto particip, string[] maxMarks, string testDate)
         {
-            string firstMarkColor = double.Parse(particip.Marks[0]) > 1.5 ? "" : "red-background";
+            string firstMarkColor = double.Parse(particip.Marks[0]) > 2 ? "" : "red-background";
             string secondMarkColor = double.Parse(particip.Marks[1]) > 0.5 ? "" : "red-background";
-            string thirdMarkColor = double.Parse(particip.Marks[2]) > 1 ? "" : "red-background";
-            string fourthMarkColor = double.Parse(particip.Marks[3]) > 0.5 ? "" : "red-background";
+            string thirdMarkColor = double.Parse(particip.Marks[2]) > 2 ? "" : "red-background";
+            string fourthMarkColor = double.Parse(particip.Marks[3]) > 0 ? "" : "red-background";
             string fifthMarkColor = double.Parse(particip.Marks[4]) > 0 ? "" : "red-background";
 
             return $@"
@@ -38,6 +38,19 @@ namespace Monit95App.Services
                 color: white;
                 font-weight: 600;
                 text-align: center;
+            }
+
+            .green-bgrd{
+                background-color:green;
+                color:white;
+            }
+
+            .lightgreen-bgrd{
+                background-color:lightgreen;
+            }
+
+            .yellow-bgrd{
+                background-color:yellow;
             }
 
             .red-background {
@@ -63,7 +76,7 @@ namespace Monit95App.Services
         <br />
         <div class='row particip-about'>
             <p class='col-xs-4 col-sm-4'>ФИО:</p>
-            <p class='col-xs-8 col-sm-8 text-uppercase'>{particip.Fio}</p>
+            <p class='col-xs-8 col-sm-8 text-uppercase'>{particip.Surname} {particip.Name} {particip.SecondName}</p>
             <br />
             <br />
             <p class='col-xs-4 col-sm-4'>Образовательная организация:</p>
@@ -92,7 +105,7 @@ namespace Monit95App.Services
             <tr>
                 <td>
                     <p class='col-xs-4 col-sm-4'>Группа:</p>
-                    <p class='col-xs-8 col-sm-8'>{particip.GradeGroup}</p>
+                    <p class='col-xs-8 col-sm-8'><span style='padding:10px 15px 20px' class='{GetGradeGroupBgrd(particip.PrimaryMark)}'>{particip.GradeGroup}</span></p>
                 </td>
             </tr>
         </table>
@@ -102,56 +115,56 @@ namespace Monit95App.Services
         <table style='width:710px' class='table table-bordered'>
             <caption class='text-center' style='color:black'>Выполнение заданий</caption>
             <tr>
-                <th width='60px'>№ п/п</th>
-                <th>Наименование задания</th>
-                <th class='text-center'>Диагностируемые качества</th>
-                <th>Балл за задание</th>
-                <th>Макс. балл за задание</th>
+                <th style='text-align:center; vertical-align:middle' width='60px'>№ п/п</th>
+                <th style='text-align:center; vertical-align:middle'>Наименование задания</th>
+                <th style='text-align:center; vertical-align:middle'>Диагностируемые качества</th>
+                <th style='text-align:center; vertical-align:middle'>Балл за задание</th>
+                <th style='text-align:center; vertical-align:middle'>Макс. балл за задание</th>
             </tr>
             <tr>
-                <td>1</td>
-                <td>""Графические ряды""</td>
+                <td style='text-align:center; vertical-align:middle'>1</td>
+                <td style='vertical-align:middle'>«Графические ряды»</td>
                 <td>
-                    - перцептивно-двигательные навыки;
-                    <br />- уровень внимания;
-                    <br />- самоконтроль, планирование и организация произвольной деятельности.
+                    - перцептивно-двигательные навыки
+                    <br />- уровень внимания
+                    <br />- самоконтроль, планирование и организация произвольной деятельности
                 </td>
-                <td class='{firstMarkColor}'>{particip.Marks[0]}</td>
-                <td>{maxMarks[0]}</td>
+                <td class='{firstMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[0]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[0]}</td>
             </tr>
             <tr>
-                <td>2</td>
-                <td>""Узор из точек""</td>
+                <td style='text-align:center; vertical-align:middle'>2</td>
+                <td style='vertical-align:middle'>«Узор из точек»</td>
                 <td>
-                    - ориентация на плоскости;
-                    <br />- восприятие зрительного образа.
+                    - ориентация на плоскости
+                    <br />- восприятие зрительного образа
                 </td>
-                <td class='{secondMarkColor}'>{particip.Marks[1]}</td>
-                <td>{maxMarks[1]}</td>
+                <td class='{secondMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[1]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[1]}</td>
             </tr>
             <tr>
-                <td>3</td>
-                <td>""Рисунок человека""</td>
+                <td style='text-align:center; vertical-align:middle'>3</td>
+                <td style='vertical-align:middle'>«Рисунок человека»</td>
                 <td>
-                    - сформированность первычных представлений о мире;
-                    <br />- ориентация в пространстве.
+                    - сформированность первичных представлений о мире
+                    <br />- ориентация в пространстве
                 </td>
-                <td class='{thirdMarkColor}'>{particip.Marks[2]}</td>
-                <td>{maxMarks[2]}</td>
+                <td class='{thirdMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[2]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[2]}</td>
             </tr>
             <tr>
-                <td>4</td>
-                <td>""Дорожка звуков""</td>
-                <td>- уровень и особенности развития фонетического слуха.</td>
-                <td class='{fourthMarkColor}'>{particip.Marks[3]}</td>
-                <td>{maxMarks[3]}</td>
+                <td style='text-align:center; vertical-align:middle'>4</td>
+                <td style='vertical-align:middle'>«Дорожка звуков»</td>
+                <td>- уровень и особенности развития фонематического слуха</td>
+                <td class='{fourthMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[3]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[3]}</td>
             </tr>
             <tr>
-                <td>5</td>
-                <td>Моторика</td>
-                <td>- способность выполнять мелкие и точные движения кистями и пальцами рук.</td>
-                <td class='{fifthMarkColor}'>{particip.Marks[4]}</td>
-                <td>{maxMarks[4]}</td>
+                <td style='text-align:center; vertical-align:middle'>5</td>
+                <td style='vertical-align:middle'>Моторика</td>
+                <td>- способность выполнять мелкие и точные движения кистями и пальцами рук</td>
+                <td class='{fifthMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[4]}</td>
+                <td style='text-align:center; vertical-align:middle'>{maxMarks[4]}</td>
             </tr>
         </table>
     </div>
@@ -167,5 +180,18 @@ namespace Monit95App.Services
             return generator.GeneratePdf(htmlContent);
         }
 
+        private string GetGradeGroupBgrd(double? primaryMark)
+        {
+            if (primaryMark <= 3)
+                return "red-background";
+			else if (primaryMark > 3 && primaryMark <= 6)
+                return "yellow-bgrd";
+			else if (primaryMark > 6 && primaryMark <= 8)
+                return "lightgreen-bgrd";
+			else if (primaryMark > 8)
+                return "green-bgrd";
+            else
+                throw new FormatException("Неверный формат PrimaryMark");
+        }
     }
 }
