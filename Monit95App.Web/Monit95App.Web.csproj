@@ -334,8 +334,6 @@
     <Content Include="app\rsur\rsur-home\rsur-home.component.html" />
     <Content Include="app\class-particips\results\particip-report.component.css" />
     <Content Include="app\class-particips\results\particip-report.component.html" />
-    <Content Include="app\class-particips\results\results.component.css" />
-    <Content Include="app\class-particips\results\results.component.html" />
     <Content Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.css" />
     <Content Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.html" />
