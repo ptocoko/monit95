@@ -45,7 +45,7 @@ namespace Monit95App.Services
                 ParticipTestId = s.ParticipTestId,
                 PrimaryMark = s.PrimaryMark,
                 SchoolName = s.ParticipTest.Particip.School.Name.Trim(),
-                Marks = s.Marks.Split(';'),
+                Marks = s.Marks.Split(';').Select(sel => sel.Replace('/', '.').Replace(@"\", ".")).ToArray(),
                 GradeGroup = SetGradeGroupName(s.Grade5.ToString())
             };
         }

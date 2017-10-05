@@ -35,36 +35,41 @@ namespace ParticipReporter
             CokoContext context = new CokoContext();
             ParticipResults resultsService = new ParticipResults(new GenericRepository<Result>(context));
             ClassParticipReporter reporter = new ClassParticipReporter();
-            string[] schoolIds = new string[] { "0005" };
+            string[] schoolIds = new string[] { "0335" };
             foreach (var schoolId in schoolIds)
             {
+                Console.WriteLine("Начата работа для школы " + schoolId);
+
                 var schoolParticipIds = context.ParticipTests.Where(p => p.ProjectTestId == 1011 && p.Particip.SchoolId == schoolId).Select(s => s.Id).ToArray();
                 if (schoolParticipIds == null || schoolParticipIds.Count() == 0)
+                {
+                    Console.WriteLine("\tУ этой школы нет участников, участвовавших в диагностике\n");
                     continue;
+                }
 
                 var classParticipDtos = resultsService.GetListClassParticipReportDto(schoolParticipIds);
 
                 //string htmlText;
                 byte[] pdfBytes;
-                string reportFolderPath = $"D:/Work/{schoolId}/";
+                string reportFolderPath = $"D:/Work/карты/{schoolId}/";
                 if (!Directory.Exists(reportFolderPath))
                     Directory.CreateDirectory(reportFolderPath);
-                using (FileStream fs = new FileStream(reportFolderPath + $"{schoolId}.zip", FileMode.Create))
+
+                using (FileStream fs = new FileStream(reportFolderPath + $"{schoolId}_201692.zip", FileMode.Create))
                 {
                     using (ZipFile zip = new ZipFile())
                     {
                         zip.AlternateEncoding = Encoding.UTF8;
                         zip.AlternateEncodingUsage = ZipOption.Always;
-
-                        foreach (var classParticip in classParticipDtos)
+                        classParticipDtos.AsParallel().ForAll(classParticip =>
                         {
                             pdfBytes = reporter.GetClassParticipReportBytes(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 года");
-                            zip.AddEntry($"{classParticip.ClassName.Replace(" ", "")}-{classParticip.Surname}-{classParticip.Name}.pdf", pdfBytes);
-                        }
+                            zip.AddEntry($"{classParticip.ClassName.Replace(" ", "")}-{classParticip.Surname}-{classParticip.Name}-{classParticip.SecondName}.pdf", pdfBytes);
+                        });
                         zip.Save(fs);
                     }
                 }
-                
+                Console.WriteLine("\tРабота с этой школой закончена!\n");
             }
             //var htmlText = (new SchoolParticipReporter()).GetReportHtml(classParticip, new string[] { "4", "1", "3", "1", "1" }, "17 Сентября 2017 г.");
 
