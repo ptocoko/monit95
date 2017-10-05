@@ -20,10 +20,7 @@ var RsurHomeComponent = (function () {
     RsurHomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.accountService.getAccount().subscribe(function (data) {
-            console.log(data);
             _this.account = data.json();
-            console.log(_this.account);
-            console.log(_this.account.RoleNames.indexOf('school') !== -1);
         });
     };
     RsurHomeComponent.prototype.isArea = function () {

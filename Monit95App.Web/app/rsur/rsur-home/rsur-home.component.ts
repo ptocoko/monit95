@@ -14,10 +14,7 @@ export class RsurHomeComponent implements  OnInit {
 
     ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
-            console.log(data);
             this.account = data.json() as Account;
-            console.log(this.account);
-            console.log(this.account.RoleNames.indexOf('school') !== -1);
         });
     }
 
