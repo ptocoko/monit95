@@ -8,6 +8,7 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
 import { MdButtonModule, MdDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Components
 import { AppComponent } from './app.component';
@@ -69,7 +70,8 @@ import { GlobalErrorHandler } from './error-handler';
         MyDatePickerModule, 
 		BrowserAnimationsModule,
 		MdButtonModule,
-		MdDialogModule
+        MdDialogModule,
+        NgbModule.forRoot()
     ],
 
 	declarations: [

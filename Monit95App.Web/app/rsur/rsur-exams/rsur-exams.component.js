@@ -32,7 +32,9 @@ var RsurExamsComponent = (function () {
 }());
 RsurExamsComponent = __decorate([
     core_1.Component({
-        templateUrl: "./app/rsur/rsur-exams/rsur-exams.component.html?v=" + new Date().getTime()
+        selector: 'progre',
+        templateUrl: "./app/rsur/rsur-exams/rsur-exams.component.html?v=" + new Date().getTime(),
+        styleUrls: ["./app/rsur/rsur-exams/rsur-exams.component.css?v=" + new Date().getTime()]
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService])
 ], RsurExamsComponent);

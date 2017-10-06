@@ -16,6 +16,7 @@ var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var mydatepicker_1 = require("mydatepicker");
 var material_1 = require("@angular/material");
 var animations_1 = require("@angular/platform-browser/animations");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
@@ -76,7 +77,8 @@ AppModule = __decorate([
             mydatepicker_1.MyDatePickerModule,
             animations_1.BrowserAnimationsModule,
             material_1.MdButtonModule,
-            material_1.MdDialogModule
+            material_1.MdDialogModule,
+            ng_bootstrap_1.NgbModule.forRoot()
         ],
         declarations: [
             app_component_1.AppComponent,

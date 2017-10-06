@@ -1,0 +1,13 @@
+﻿.progressbar-container {
+    display:flex;
+    justify-content:space-between;
+}
+
+.progressbar-item{
+    margin-left:15px;
+    flex-grow:1;
+}
+
+ngb-progressbar {
+    margin-top: 5rem;
+}

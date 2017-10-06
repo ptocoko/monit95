@@ -4,7 +4,9 @@ import { AccountService } from '../../account/account.service';
 import { Account } from '../../account/account';
 
 @Component({
-    templateUrl: `./app/rsur/rsur-exams/rsur-exams.component.html?v=${new Date().getTime()}`
+    selector:'progre',
+    templateUrl: `./app/rsur/rsur-exams/rsur-exams.component.html?v=${new Date().getTime()}`,
+    styleUrls: [`./app/rsur/rsur-exams/rsur-exams.component.css?v=${new Date().getTime()}`]
 })
 export class RsurExamsComponent implements OnInit {
     account = new Account();
