@@ -23,11 +23,11 @@ export class ClassParticipMarksComponent {
 				private router: Router) { }
 
 	ngOnInit() {
-		this.marksService.getAll(PROJECT_TEST_ID).subscribe(res => {
-			this.particips = res.json() as ParticipWithMarks[];
-			this.participsWithoutMarks = this.particips.filter(f => !f.Marks).length;
-			this.isLoading = false;
-		})
+	    this.marksService.getAll(PROJECT_TEST_ID).subscribe(res => {
+	        this.particips = res.json() as ParticipWithMarks[];
+	        this.participsWithoutMarks = this.particips.filter(f => !f.Marks).length;
+	        this.isLoading = false;
+	    });
 	}
 
     changeMarks(marksParticip: ParticipWithMarks) {

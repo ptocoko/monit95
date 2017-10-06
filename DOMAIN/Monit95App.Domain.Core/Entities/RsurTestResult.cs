@@ -10,15 +10,16 @@ namespace Monit95App.Domain.Core.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ParticipTestId { get; set; }
-
-        public double PrimaryMark { get; set; }
-
-        public int Grade5 { get; set; }
+        public int RsurParticipTestId { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string Marks { get; set; }
+        public string RsurQuestionValues { get; set; }
+
+        [StringLength(255)]
+        public string EgeQuestionValues { get; set; }
+
+        public int Grade5 { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -26,6 +27,8 @@ namespace Monit95App.Domain.Core.Entities
 
         [StringLength(255)]
         public string Elements { get; set; }
+
+        public double PrimaryMark { get; set; }
 
         public virtual RsurParticipTest RsurParticipTest { get; set; }
     }

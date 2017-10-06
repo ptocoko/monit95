@@ -42,6 +42,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<SchoolCollector> SchoolCollectors { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
         public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
@@ -171,11 +172,6 @@ namespace Monit95App.Infrastructure.Data
                 .Property(e => e.Available)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Report>()
-                .HasMany(e => e.ReportStatistics)
-                .WithRequired(e => e.Report)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Result>()
                 .Property(e => e.Marks)
                 .IsUnicode(false);
@@ -233,6 +229,11 @@ namespace Monit95App.Infrastructure.Data
                 .IsFixedLength()
                 .IsUnicode(false);
 
+            modelBuilder.Entity<RsurParticip>()
+                .HasMany(e => e.RsurParticipTests)
+                .WithRequired(e => e.RsurParticip)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<RsurParticipTest>()
                 .Property(e => e.RsurParticipOldCode)
                 .IsFixedLength()
@@ -248,7 +249,11 @@ namespace Monit95App.Infrastructure.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<RsurTestResult>()
-                .Property(e => e.Marks)
+                .Property(e => e.RsurQuestionValues)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RsurTestResult>()
+                .Property(e => e.EgeQuestionValues)
                 .IsUnicode(false);
 
             modelBuilder.Entity<RsurTestResult>()

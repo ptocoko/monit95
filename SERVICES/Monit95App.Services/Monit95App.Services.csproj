@@ -98,6 +98,7 @@
     <Compile Include="Interfaces\IClassParticipImporter.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
     <Compile Include="Interfaces\IRsurTestResultService.cs" />
+    <Compile Include="Interfaces\IRsurTestService.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
     <Compile Include="Interfaces\ISchoolService.cs" />
@@ -143,6 +144,8 @@
     <Compile Include="Rsur\RsurParticipViewer.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />
     <Compile Include="ClassParticipReporter.cs" />
+    <Compile Include="Rsur\RsurTestService.cs" />
+    <Compile Include="Rsur\RsurTestStatisticsDto.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />

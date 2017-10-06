@@ -6,15 +6,13 @@ namespace Monit95App.Domain.Core.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ReportStatistic
+    [Table("Subject")]
+    public partial class Subject
     {
-        public Guid Id { get; set; }
-
-        public int ReportId { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public string UserName { get; set; }
-
-        public DateTime Date { get; set; }
+        [StringLength(30)]
+        public string Name { get; set; }
     }
 }
