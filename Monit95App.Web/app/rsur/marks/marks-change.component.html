@@ -1,0 +1,19 @@
+﻿<h2>{{rsurParticip.TestNumberCodeWithName}} — результаты</h2>
+<h3>{{rsurParticip.Fio}}</h3>
+<hr />
+<div>
+    <h4>Баллы участника по заданиям</h4>   
+    <br />
+    <form #marksForm="ngForm" (ngSubmit)="onSubmit()">
+        <div *ngFor="let markName of rsurParticip.MarkNames; let i = index" class="form-group form-inline">
+            <label>{{markName}}</label>
+            <input (keyup)="onMarkChanged($event)" size="1" class="form-control markInput" [(ngModel)]="marks[i]" name="mark{{i}}" #mark{{i}}="ngModel" required/>
+        </div>
+        <hr />
+        <div class="pull-left">
+            <input type="submit" class="btn btn-success" id="submitBtn" value="Сохранить" [disabled]="marksForm.invalid || marksForm.pristine"/>
+            <a class="btn btn-default" (click)="cancel()">Отмена</a>
+        </div>
+    </form>
+    <button (click)="getCurrentMarksArray()">get</button>
+</div>

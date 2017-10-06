@@ -6,6 +6,7 @@ import { RsurParticip } from '../rsurparticip';
 import { ResultsModel, ResultDetailsModel } from '../results/results.model';
 import { ParticipModel } from "../../particip.model";
 import { Person } from "../../shared/Person";
+import { RsurParticipMarks } from "./marks-change.component";
 
 export class Marks {
     participTestId: number;
@@ -45,5 +46,17 @@ export class MarksService {
 
 	getMarksByParticipTestId(participTestId: number) {
 		return this.http.get(`${this.ROUTE_PREFIX}/GetByParticipTestId?participTestId=${participTestId}`);
+	}
+
+	getMarksByRsurParticipId(participId: number) {
+		let MOCK: RsurParticipMarks = {
+			ParticipTestId: 17,
+			Fio: 'Эсамбаев Хус Арбиевич',
+			TestNumberCodeWithName: '0101 - Орфография',
+			MarkNames: ['1.2', '1.3', '1.2', '1.3', '1.2', '1.3', '1.2', '1.3'],
+			
+		};
+
+		return Observable.of(MOCK);
 	}
 }
