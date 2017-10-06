@@ -105,7 +105,6 @@
     <Compile Include="Interfaces\ITypeReport.cs" />
     <Compile Include="Interfaces\IRsurParticipEditService.cs" />
     <Compile Include="Interfaces\IRsurParticipService.cs" />
-    <Compile Include="Interfaces\IRsurParticipViewer.cs" />
     <Compile Include="Interfaces\IRsurReportModelConverter.cs" />
     <Compile Include="Interfaces\IRsurReportModelCreator.cs" />
     <Compile Include="Interfaces\IRsurReportModelWriter.cs" />
@@ -123,7 +122,6 @@
     <Compile Include="ClassParticipImporter.cs" />
     <Compile Include="ParticipResults.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
-    <Compile Include="Rsur\RsurParticipBaseInfo.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />
     <Compile Include="DTOs\RsurParticipPostDto.cs" />
     <Compile Include="Rsur\RsurReportModel.cs" />
@@ -141,7 +139,6 @@
     <Compile Include="Rsur\RsurParticipEditService.cs" />
     <Compile Include="Rsur\RsurParticipProtocolService.cs" />
     <Compile Include="Rsur\RsurParticipService.cs" />
-    <Compile Include="Rsur\RsurParticipViewer.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />
     <Compile Include="ClassParticipReporter.cs" />
     <Compile Include="Rsur\RsurTestService.cs" />

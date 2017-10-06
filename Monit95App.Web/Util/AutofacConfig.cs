@@ -35,7 +35,6 @@ namespace Monit95App.Util
             builder.RegisterType<RsurParticipService>().As<IRsurParticipService>();
             builder.RegisterType<RsurParticipEditService>().As<IRsurParticipEditService>();
             builder.RegisterType<OneTwoThreeGradeConverter>().As<IGrade5>();
-            builder.RegisterType<RsurParticipViewer>().As<IRsurParticipViewer>();
             builder.RegisterType<AccountService>().As<IAccountService>();
             builder.RegisterType<RsurReportModelXlsxConverter>().As<IRsurReportModelConverter>();
             builder.RegisterType<SchoolEditService>().As<ISchoolEditService>();
