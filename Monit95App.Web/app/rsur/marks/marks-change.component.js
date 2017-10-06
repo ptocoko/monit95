@@ -18,6 +18,12 @@ var RsurParticipMarks = (function () {
     return RsurParticipMarks;
 }());
 exports.RsurParticipMarks = RsurParticipMarks;
+var RsurParticipMarksUpload = (function () {
+    function RsurParticipMarksUpload() {
+    }
+    return RsurParticipMarksUpload;
+}());
+exports.RsurParticipMarksUpload = RsurParticipMarksUpload;
 var RsurParticipMarksChange = (function () {
     function RsurParticipMarksChange(route, router, marksService) {
         this.route = route;
@@ -41,8 +47,8 @@ var RsurParticipMarksChange = (function () {
         });
     };
     RsurParticipMarksChange.prototype.onMarkChanged = function (event) {
-        var elemIndex = this.marksInputs.index(event.target);
         var elem = event.target;
+        var elemIndex = this.marksInputs.index(elem);
         if (elem.value) {
             if (elem.value.match(/^(1|0)$/)) {
                 this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
@@ -64,6 +70,10 @@ var RsurParticipMarksChange = (function () {
         }
     };
     RsurParticipMarksChange.prototype.onSubmit = function () {
+        var rsurParticipUpload = {
+            ParticipTestId: this.rsurParticip.ParticipTestId,
+            Marks: this.marks.join(';')
+        };
     };
     RsurParticipMarksChange.prototype.getCurrentMarksArray = function () {
         console.log(this.marks);

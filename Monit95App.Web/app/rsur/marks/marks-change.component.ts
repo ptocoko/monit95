@@ -10,6 +10,11 @@ export class RsurParticipMarks {
 	Marks?: string;
 }
 
+export class RsurParticipMarksUpload {
+	ParticipTestId: number;
+	Marks: string;
+}
+
 @Component({
 	templateUrl: `./app/rsur/marks/marks-change.component.html?v=${new Date().getTime()}`
 })
@@ -72,10 +77,15 @@ export class RsurParticipMarksChange implements OnInit {
 	}
 
 	onSubmit() {
+		let rsurParticipUpload: RsurParticipMarksUpload = {
+			ParticipTestId: this.rsurParticip.ParticipTestId,
+			Marks: this.marks.join(';')
+		};
+
 
 	}
 
-	getCurrentMarksArray() {
+	getCurrentMarksArray() { //this is method for tests and should be removed after tests
 		console.log(this.marks);
 	}
 }
