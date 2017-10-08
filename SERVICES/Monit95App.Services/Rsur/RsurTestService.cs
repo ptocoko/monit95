@@ -35,7 +35,12 @@ namespace Monit95App.Services.Rsur
                 particips = particips.Where(x => x.RsurParticip.School.AreaCode == areaCode);
             }
 
-            double countParticips = particips.Count();
+            var countParticips = particips.Count();
+            if (countParticips == 0)
+            {
+                throw new ArgumentException(nameof(rsurTestId));
+            }
+
             double countParticipsWithResults = particips.Count(x => x.RsurTest != null);
             var result = Math.Round(countParticipsWithResults / countParticips * 100, 0);
 
