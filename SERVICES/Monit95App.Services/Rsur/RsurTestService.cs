@@ -44,7 +44,7 @@ namespace Monit95App.Services.Rsur
             double countParticipsWithResults = particips.Count(x => x.RsurTest != null);
             var result = Math.Round(countParticipsWithResults / countParticips * 100, 0);
 
-            return new RsurTestStatisticsDto { MarksProtocolPercentStatus = (int)result };
+            return new RsurTestStatisticsDto { ProtocolStatus = (int)result };
         }
 
         #endregion

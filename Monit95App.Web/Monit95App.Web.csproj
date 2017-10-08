@@ -331,9 +331,9 @@
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\file\file.component.html" />
-    <Content Include="app\rsur\rsur-exams\rsur-exams.component.css" />
+    <Content Include="app\rsur\rsur-test\rsur-test.component.css" />
     <Content Include="app\rsur\marks\marks-change.component.html" />
-    <Content Include="app\rsur\rsur-exams\rsur-exams.component.html" />
+    <Content Include="app\rsur\rsur-test\rsur-test.component.html" />
     <Content Include="app\rsur\rsur-home\rsur-home.component.html" />
     <Content Include="app\class-particips\results\particip-report.component.css" />
     <Content Include="app\class-particips\results\particip-report.component.html" />
@@ -589,8 +589,9 @@
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
     <TypeScriptCompile Include="app\rsur\marks\marks-change.component.ts" />
-    <TypeScriptCompile Include="app\rsur\rsur-exams\rsur-exams.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-home\rsur-home.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.ts" />
     <TypeScriptCompile Include="app\rsur\correction\particip-correction.component.ts" />

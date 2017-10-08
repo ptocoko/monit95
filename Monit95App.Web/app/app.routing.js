@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@angular/router");
 var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
-var rsur_exams_component_1 = require("./rsur/rsur-exams/rsur-exams.component");
+var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
@@ -19,7 +19,7 @@ var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-
 var marks_change_component_1 = require("./rsur/marks/marks-change.component");
 var appRoutes = [
     { path: 'rsur', component: rsur_home_component_1.RsurHomeComponent },
-    { path: 'rsur/exams', component: rsur_exams_component_1.RsurExamsComponent },
+    { path: 'rsur/test', component: rsur_test_component_1.RsurTestComponent },
     { path: 'rsur/particips', component: rsur_particips_component_1.RsurParticipsComponent },
     { path: 'rsurparticiplist/new', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
     { path: 'rsur/marks-edit/:participId', component: marks_change_component_1.RsurParticipMarksChange },

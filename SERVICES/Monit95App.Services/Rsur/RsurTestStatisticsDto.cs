@@ -8,6 +8,6 @@ namespace Monit95App.Services.Rsur
 {
     public class RsurTestStatisticsDto
     {
-        public int MarksProtocolPercentStatus { get; set; }
+        public int ProtocolStatus { get; set; }
     }
 }

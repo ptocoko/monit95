@@ -29,7 +29,7 @@ namespace Monit95App.Api
         #region APIs
 
         [HttpGet]
-        [Route("{id:int}/Statistics")]
+        [Route("~/api/RsurTests/{id:int}/Statistics")]        
         public IHttpActionResult GetStatistics()
         {
             var userName = User.Identity.GetUserName();

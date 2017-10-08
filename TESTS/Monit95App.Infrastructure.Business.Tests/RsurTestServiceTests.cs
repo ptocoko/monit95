@@ -59,8 +59,8 @@ namespace Monit95App.Services.Tests
             // var rsultltEmpty = service.GetStatistics(0);
 
             // Assert
-            Assert.AreEqual(33, result123.MarksProtocolPercentStatus);
-            Assert.AreEqual(50, resutl123Area.MarksProtocolPercentStatus);
+            Assert.AreEqual(33, result123.ProtocolStatus);
+            Assert.AreEqual(50, resutl123Area.ProtocolStatus);
         }
     }
 }
