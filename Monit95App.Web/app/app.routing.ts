@@ -17,6 +17,7 @@ import { AddClassParticipComponent } from "./class-particips/add-and-update/add.
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 import { RsurParticipMarksChange } from "./rsur/marks/marks-change.component";
+import { RsurMarksListComponent } from "./rsur/marks/marks-list.component";
 
 const appRoutes: Routes = [
 
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
     { path: 'rsur/exams', component: RsurExamsComponent },    
     { path: 'rsur/particips', component: RsurParticipsComponent },    
 	{ path: 'rsurparticiplist/new', component: RsurParticipAddFormComponent },
-	{ path: 'rsur/marks-edit/:participId', component: RsurParticipMarksChange },
+	{ path: 'rsur/marks/:rsurTestId', component: RsurMarksListComponent},
+	{ path: 'rsur/marks-edit/:participTestId', component: RsurParticipMarksChange },
 
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },

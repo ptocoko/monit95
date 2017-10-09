@@ -76,5 +76,16 @@ namespace Monit95App.Api
 
             return Ok();
         }
+
+        [HttpGet]
+        public IHttpActionResult GetValueOfFilling(int rsurTestId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var areaCode = int.Parse(User.Identity.Name);
+            var value = _rsurMarksService.GetValueOfFilling(rsurTestId, areaCode);
+
+            return Ok(value);
+        }
     }
 }

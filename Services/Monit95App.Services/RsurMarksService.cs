@@ -83,5 +83,20 @@ namespace Monit95App.Services
                 _resultRepository.Update(rsurResult);
             }
         }
+
+        public int GetValueOfFilling(int rsurTestId, int areaCode)
+        {
+            var participsActual = from participTest in _participTestRepository.GetAll()
+                                 join particips in _participRepository.GetAll() on participTest.RsurParticipCode equals particips.Code
+                                 where participTest.RsurTestId == rsurTestId && particips.School.AreaCode == areaCode
+                                 select participTest.Id;
+
+            var participsResult = from results in _resultRepository.GetAll()
+                                  join particip in _participRepository.GetAll() on results.RsurParticipTest.RsurParticipCode equals particip.Code
+                                  where results.RsurParticipTest.RsurTestId == rsurTestId && particip.School.AreaCode == areaCode
+                                  select results.PrimaryMark;
+
+            return (participsActual.Count() / participsResult.Count()) * 100;
+        }
     }
 }

@@ -48,15 +48,23 @@ export class MarksService {
 		return this.http.get(`${this.ROUTE_PREFIX}/GetByParticipTestId?participTestId=${participTestId}`);
 	}
 
-	getMarksByRsurParticipId(participId: number) {
-		let MOCK: RsurParticipMarks = {
-			ParticipTestId: 17,
-			Fio: 'Эсамбаев Хус Арбиевич',
-			TestNumberCodeWithName: '0101 - Орфография',
-			MarkNames: ['1.2', '1.3', '1.2', '1.3', '1.2', '1.3', '1.2', '1.3'],
-			
-		};
+	getMarksByRsurParticipTestId(participTestId: number) {
+		return this.http.get('api/rsurMarks/Get?participTestId=' + participTestId);
+	}
 
-		return Observable.of(MOCK);
+	getRsurMarksByRsurTestId(rsurTestId: number) {
+		return this.http.get('api/rsurMarks/GetByTestId?rsurTestId=' + rsurTestId);
+	}
+
+	addRsurMarks(marks: Marks) {
+		return this.http.post('api/rsurMarks/Post', marks);
+	}
+
+	updateRsurMarks(marks: Marks) {
+		return this.http.put('api/rsurMarks/' + marks.participTestId, marks);
+	}
+
+	getValueOfFilling(rsurTestId: number) {
+		return this.http.get('api/rsurMarks/GetValueOfFilling?rsurTestId=' + rsurTestId);
 	}
 }
