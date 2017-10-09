@@ -25,7 +25,8 @@
                         <tr>
                             <td>@report.ProjectName</td>
                             <td>
-                                <a><div onclick="openInNewTab('@report.Link', '@report.Id');" style="color:royalblue">@report.Name</div></a>
+                                <a style="color:royalblue" target="_blank" href=@report.Link>@report.Name</a>
+                                @*<a><div onclick="openInNewTab('@report.Link', '@report.Id');" style="color:royalblue">@report.Name</div></a>*@
                             </td>
                             <td>@report.Year</td>
                         </tr>
@@ -37,14 +38,14 @@
 </body>
 
 <script>
-    function openInNewTab(url, reportId) {        
-        $.ajax({
-            url: "/Report/AddReportDownload?_reportId=" + reportId,
-            type: "post"
-        });
-        var win = window.open(url, '_blank');
-        win.focus();
-    }
+    //function openInNewTab(url, reportId) {        
+    //    $.ajax({
+    //        url: "/Report/AddReportDownload?_reportId=" + reportId,
+    //        type: "post"
+    //    });
+    //    var win = window.open(url, '_blank');
+    //    win.focus();
+    //}
     $(function () {
         $("#accordion").accordion({
             collapsible: true

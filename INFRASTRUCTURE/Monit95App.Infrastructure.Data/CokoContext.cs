@@ -30,8 +30,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
-        public virtual DbSet<Report> Reports { get; set; }
-        public virtual DbSet<ReportStatistic> ReportStatistics { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }        
         public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
@@ -170,11 +169,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Report>()
                 .Property(e => e.Available)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Report>()
-                .HasMany(e => e.ReportStatistics)
-                .WithRequired(e => e.Report)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Result>()
                 .Property(e => e.Marks)
