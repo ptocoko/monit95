@@ -84,7 +84,11 @@
     <Compile Include="DTOs\ClassParticipReportDto.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />
     <Compile Include="DTOs\PutMarksDto.cs" />
+    <Compile Include="DTOs\RsurGetMarksDto.cs" />
+    <Compile Include="DTOs\RsurParticipMarksListDto.cs" />
     <Compile Include="DTOs\RsurParticipPutDto.cs" />
+    <Compile Include="DTOs\RsurPostMarksDto.cs" />
+    <Compile Include="DTOs\RsurPutMarksDto.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IDocumentService.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="Interfaces\IParticipResults.cs" />
     <Compile Include="Interfaces\IParticipService.cs" />
     <Compile Include="Interfaces\IClassParticipImporter.cs" />
+    <Compile Include="Interfaces\IRsurMarksService.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
     <Compile Include="Interfaces\IRsurTestResultService.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
@@ -121,6 +126,7 @@
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="ClassParticipImporter.cs" />
     <Compile Include="ParticipResults.cs" />
+    <Compile Include="RsurMarksService.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
     <Compile Include="Rsur\RsurParticipBaseInfo.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />

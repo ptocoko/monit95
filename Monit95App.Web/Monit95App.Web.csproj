@@ -276,6 +276,7 @@
     <Compile Include="Api\FilesController.cs" />
     <Compile Include="Api\MarksFileController.cs" />
     <Compile Include="Api\ResultReportController.cs" />
+    <Compile Include="Api\RsurMarksController.cs" />
     <Compile Include="Api\RsurParticipsController.cs" />
     <Compile Include="Api\RsurParticipEditsController.cs" />
     <Compile Include="Api\ParticipsController.cs" />
