@@ -8,6 +8,12 @@ namespace Monit95App.Domain.Core.Entities
 
     public partial class RsurParticip
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RsurParticip()
+        {
+            RsurParticipTests = new HashSet<RsurParticipTest>();
+        }
+
         [Key]
         public int Code { get; set; }
 
@@ -58,5 +64,8 @@ namespace Monit95App.Domain.Core.Entities
         public virtual RsurSubject RsurSubject { get; set; }
 
         public virtual School School { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RsurParticipTest> RsurParticipTests { get; set; }
     }
 }

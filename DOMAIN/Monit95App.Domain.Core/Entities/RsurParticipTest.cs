@@ -17,6 +17,8 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(12)]
         public string RsurParticipOldCode { get; set; }
 
+        public virtual RsurParticip RsurParticip { get; set; }
+
         public virtual RsurTest RsurTest { get; set; }
 
         public virtual RsurTestResult RsurTestResult { get; set; }

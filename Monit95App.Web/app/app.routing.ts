@@ -1,8 +1,7 @@
-﻿import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+﻿import { Routes, RouterModule } from '@angular/router';
 
 import { RsurHomeComponent } from './rsur/rsur-home/rsur-home.component';
-import { RsurExamsComponent } from './rsur/rsur-exams/rsur-exams.component';
+import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 import { RsurParticipsComponent } from './rsur/rsur-particips/rsur-particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
@@ -22,7 +21,7 @@ import { RsurMarksListComponent } from "./rsur/marks/marks-list.component";
 const appRoutes: Routes = [
 
     { path: 'rsur', component: RsurHomeComponent },
-    { path: 'rsur/exams', component: RsurExamsComponent },    
+    { path: 'rsur/test', component: RsurTestComponent },    
     { path: 'rsur/particips', component: RsurParticipsComponent },    
 	{ path: 'rsurparticiplist/new', component: RsurParticipAddFormComponent },
 	{ path: 'rsur/marks/:rsurTestId', component: RsurMarksListComponent},

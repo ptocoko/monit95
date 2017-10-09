@@ -8,12 +8,6 @@ namespace Monit95App.Domain.Core.Entities
 
     public partial class Report
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Report()
-        {
-            ReportStatistics = new HashSet<ReportStatistic>();
-        }
-
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
@@ -32,8 +26,5 @@ namespace Monit95App.Domain.Core.Entities
         public string Available { get; set; }
 
         public short? TypeCode { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReportStatistic> ReportStatistics { get; set; }
     }
 }

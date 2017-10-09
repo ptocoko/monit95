@@ -22,7 +22,7 @@ var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
 var results_modal_component_1 = require("./rsur/results/results-modal.component");
 var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
-var rsur_exams_component_1 = require("./rsur/rsur-exams/rsur-exams.component");
+var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
@@ -42,6 +42,7 @@ var marks_change_component_1 = require("./rsur/marks/marks-change.component");
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
 var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
+var rsur_test_service_1 = require("./rsur/rsur-test/rsur-test.service");
 var school_service_1 = require("./school.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");
@@ -83,7 +84,7 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             rsur_home_component_1.RsurHomeComponent,
-            rsur_exams_component_1.RsurExamsComponent,
+            rsur_test_component_1.RsurTestComponent,
             rsur_particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
@@ -111,6 +112,7 @@ AppModule = __decorate([
         providers: [
             account_service_1.AccountService,
             rsurparticip_service_1.RsurParticipService,
+            rsur_test_service_1.RsurTestService,
             school_service_1.SchoolService,
             particip_correction_service_1.ParticipCorrectionService,
             class_service_1.ClassService,
