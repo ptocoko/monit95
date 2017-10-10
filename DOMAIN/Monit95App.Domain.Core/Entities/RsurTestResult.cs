@@ -19,16 +19,15 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(255)]
         public string EgeQuestionValues { get; set; }
 
-        public int Grade5 { get; set; }
-
-        [Required]
+        public int? Grade5 { get; set; }
+        
         [StringLength(100)]
         public string Parts { get; set; }
 
         [StringLength(255)]
         public string Elements { get; set; }
 
-        public double PrimaryMark { get; set; }
+        public double? PrimaryMark { get; set; }
 
         public virtual RsurParticipTest RsurParticipTest { get; set; }
     }

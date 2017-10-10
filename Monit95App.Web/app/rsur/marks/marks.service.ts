@@ -49,7 +49,7 @@ export class MarksService {
 	}
 
 	getMarksByRsurParticipTestId(participTestId: number) {
-		return this.http.get('api/rsurMarks/Get?participTestId=' + participTestId);
+		return this.http.get('api/rsurMarks/' + participTestId);
 	}
 
 	getRsurMarksByRsurTestId(rsurTestId: number) {
@@ -62,9 +62,5 @@ export class MarksService {
 
 	updateRsurMarks(marks: Marks) {
 		return this.http.put('api/rsurMarks/' + marks.participTestId, marks);
-	}
-
-	getValueOfFilling(rsurTestId: number) {
-		return this.http.get('api/rsurMarks/GetValueOfFilling?rsurTestId=' + rsurTestId);
 	}
 }

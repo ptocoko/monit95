@@ -14,19 +14,19 @@
     <div class="panel-body">
         <p>01 - Русский язык: Протоколы проверки заданий <i>(доступно 12-13.10.2017)</i></p>
         <ul class="list-group">            
-            <li *ngIf="!isArea206()" class="list-group-item progressbar-container"><a [disabled]="isLinkDisabled(1082)" routerLink="/rsur/marks/1082"><b>Орфография</b></a>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1082)"></ngb-progressbar></span>
+            <li *ngIf="!isArea206()" class="list-group-item progressbar-container"><a routerLink="/rsur/marks/1082"><b>Орфография</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="50"></ngb-progressbar></span>
             </li>   
             <li *ngIf="isArea206()" class="list-group-item progressbar-container">
-                <a [disabled]="isLinkDisabled(1082)" routerLink="/rsur/marks/1082"><b>Орфография</b></a>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1078)"></ngb-progressbar></span>
+                <a routerLink="/rsur/marks/1078"><b>Орфография</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="50"></ngb-progressbar></span>
             </li>
 
-            <li *ngIf="!isArea206()" class="list-group-item progressbar-container"><a [disabled]="isLinkDisabled(1079)" routerLink="/rsur/marks/1079"><b>Пунктуация</b></a>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1079)"></ngb-progressbar></span>
+            <li *ngIf="!isArea206()" class="list-group-item progressbar-container"><a routerLink="/rsur/marks/1079"><b>Пунктуация</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="50"></ngb-progressbar></span>
             </li>  
-            <li *ngIf="isArea206()" class="list-group-item progressbar-container"><a [disabled]="isLinkDisabled(1079)" routerLink="/rsur/marks/1079"><b>Пунктуация</b></a>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1079)"></ngb-progressbar></span>
+            <li *ngIf="isArea206()" class="list-group-item progressbar-container"><a routerLink="/rsur/marks/1079"><b>Пунктуация</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="50"></ngb-progressbar></span>
             </li>
 
             <li *ngIf="isArea206()" class="list-group-item"><a><b>Лексика и фразеология && Обработка текстов</b></a></li>      

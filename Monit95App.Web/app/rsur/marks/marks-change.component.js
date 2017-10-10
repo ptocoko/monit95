@@ -24,6 +24,7 @@ var RsurParticipMarksChange = (function () {
         this.route = route;
         this.location = location;
         this.marksService = marksService;
+        this.rsurParticip = new RsurParticipMarks();
     }
     RsurParticipMarksChange.prototype.ngOnInit = function () {
         var _this = this;
@@ -31,13 +32,14 @@ var RsurParticipMarksChange = (function () {
             var participTestId = params['participTestId'];
             _this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(function (res) {
                 _this.rsurParticip = res.json();
+                _this.markNames = _this.rsurParticip.MarkNames;
                 if (_this.rsurParticip.Marks) {
                     _this.marks = _this.rsurParticip.Marks.split(';');
-                    _this.isUpdate = false;
+                    _this.isUpdate = true;
                 }
                 else {
-                    _this.marks = new Array(_this.rsurParticip.MarkNames.length);
-                    _this.isUpdate = true;
+                    _this.marks = new Array(_this.markNames.length);
+                    _this.isUpdate = false;
                 }
                 $(document).ready(function () {
                     _this.marksInputs = $('.markInput');
@@ -86,6 +88,9 @@ var RsurParticipMarksChange = (function () {
     };
     RsurParticipMarksChange.prototype.getCurrentMarksArray = function () {
         console.log(this.marks);
+    };
+    RsurParticipMarksChange.prototype.cancel = function () {
+        this.location.back();
     };
     return RsurParticipMarksChange;
 }());

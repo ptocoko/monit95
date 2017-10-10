@@ -8,6 +8,6 @@ namespace Monit95App.Services.DTOs
 {
     public class RsurPostMarksDto : RsurPutMarksDto
     {
-        public int RsurParticipTestId { get; set; }
+        public int ParticipTestId { get; set; }
     }
 }

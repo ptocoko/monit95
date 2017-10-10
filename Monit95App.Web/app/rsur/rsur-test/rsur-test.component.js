@@ -18,13 +18,15 @@ var RsurTestComponent = (function () {
         this.accountService = accountService;
         this.rsurTestService = rsurTestService;
         this.account = new account_1.Account();
+        this.componentIsShowing = false;
     }
     RsurTestComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.accountService.getAccount().subscribe(function (data) {
             _this.account = data.json();
+            _this.componentIsShowing = true;
         });
-        this.getProtocolStatus(1082);
+        //this.getProtocolStatus(1082);
     };
     RsurTestComponent.prototype.isArea206 = function () {
         if (this.account.RoleNames != null)
@@ -37,6 +39,11 @@ var RsurTestComponent = (function () {
             console.log(response.json());
             _this.percent = response.json().ProtocolStatus;
         });
+    };
+    RsurTestComponent.prototype.getProgressValue = function (rsurTestId) {
+        if (this.componentIsShowing) {
+            this.rsurTestService.getProtocolStatus(rsurTestId).subscribe;
+        }
     };
     return RsurTestComponent;
 }());

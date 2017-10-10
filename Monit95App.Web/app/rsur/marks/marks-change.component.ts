@@ -15,8 +15,9 @@ export class RsurParticipMarks {
 	templateUrl: `./app/rsur/marks/marks-change.component.html?v=${new Date().getTime()}`
 })
 export class RsurParticipMarksChange implements OnInit {
-	rsurParticip: RsurParticipMarks;
+	rsurParticip: RsurParticipMarks = new RsurParticipMarks();
 	marks: string[];
+	markNames: string[];
 	isUpdate: boolean;
 
 	marksInputs: JQuery<HTMLInputElement>;
@@ -31,13 +32,15 @@ export class RsurParticipMarksChange implements OnInit {
 
 			this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(res => {
 				this.rsurParticip = res.json() as RsurParticipMarks;
+				this.markNames = this.rsurParticip.MarkNames;
+
 				if (this.rsurParticip.Marks) {
 					this.marks = this.rsurParticip.Marks.split(';');
-					this.isUpdate = false;
+					this.isUpdate = true;
 				}
 				else {
-					this.marks = new Array<string>(this.rsurParticip.MarkNames.length);
-					this.isUpdate = true;
+					this.marks = new Array<string>(this.markNames.length);
+					this.isUpdate = false;
 				}
 
 				$(document).ready(() => {
@@ -96,5 +99,9 @@ export class RsurParticipMarksChange implements OnInit {
 
 	getCurrentMarksArray() { //this is method for tests and should be removed after tests
 		console.log(this.marks);
+	}
+
+	cancel() {
+		this.location.back();
 	}
 }

@@ -25,7 +25,7 @@ export class RsurTestComponent implements OnInit {
 			this.account = data.json() as Account;
 			this.componentIsShowing = true;
         });
-        this.getProtocolStatus(1082);
+        //this.getProtocolStatus(1082);
     }
 
     isArea206() {

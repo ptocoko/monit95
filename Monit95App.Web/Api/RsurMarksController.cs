@@ -13,6 +13,8 @@ namespace Monit95App.Api
     [RoutePrefix("api/RsurMarks")]
     public class RsurMarksController : ApiController
     {
+        private readonly string[] ORF_Mark_Names = new string[] { "1.1", "1.2", "1.3", "1.6", "2.1", "2.2", "6.2", "6.6" };
+
         private readonly IRsurMarksService _rsurMarksService;
 
         public RsurMarksController(IRsurMarksService rsurMarksService)
@@ -21,14 +23,17 @@ namespace Monit95App.Api
         }
 
         [HttpGet]
-        public IHttpActionResult Get(int participTestId)
+        [Route("~/api/RsurMarks/{participTestId:int}")]
+        public IHttpActionResult Get()
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
+            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
             var result = _rsurMarksService.GetByParticipTestId(participTestId);
 
             if(result != null)
             {
+                result.MarkNames = ORF_Mark_Names;
                 return Ok(result);
             }
             else
@@ -58,11 +63,12 @@ namespace Monit95App.Api
         }
 
         [HttpPost]
+        [Route("Post")]
         public IHttpActionResult Post([FromBody]RsurPostMarksDto marksDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            _rsurMarksService.AddOrUpdateMarks(marksDto.RsurParticipTestId, marksDto.Marks);
+            _rsurMarksService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
             return Ok();
         }
@@ -77,17 +83,6 @@ namespace Monit95App.Api
             _rsurMarksService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
 
             return Ok();
-        }
-
-        [HttpGet]
-        public IHttpActionResult GetValueOfFilling(int rsurTestId)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            var areaCode = int.Parse(User.Identity.Name);
-            var value = _rsurMarksService.GetValueOfFilling(rsurTestId, areaCode);
-
-            return Ok(value);
         }
     }
 }
