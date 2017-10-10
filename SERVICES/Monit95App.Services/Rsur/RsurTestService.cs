@@ -55,6 +55,40 @@ namespace Monit95App.Services.Rsur
             return resultDto;
         }
 
+        public IDictionary<int, RsurTestStatisticsDto> GetStatistics2(int areaCode)
+        {
+            var particips = this.context.RsurParticipTests.Where(x => x.RsurTest.IsOpen && x.RsurParticip.School.AreaCode == areaCode).GroupBy(x => x.RsurTestId);
+
+            var resultDict = new Dictionary<int, RsurTestStatisticsDto>();
+            foreach(var particip in particips)
+            {
+                var countParticips = particip.Count();
+                var resultDto = new RsurTestStatisticsDto();
+                double result;
+                if (countParticips == 0)
+                {
+                    //throw new ArgumentException(nameof(rsurTestId));
+                    resultDto.HasAnyParticip = false;
+                    result = 0;
+                }
+                else
+                {
+                    resultDto.HasAnyParticip = true;
+                    double countParticipsWithResults = particip.Count(x => x.RsurTestResult != null);
+                    result = Math.Round(countParticipsWithResults / countParticips * 100, 0);
+                }
+
+                resultDto.ProtocolStatus = (int)result;
+                resultDict.Add(particip.Key, resultDto);
+            }
+            return resultDict;
+        }
+
+        public string GetTestName(int rsurTestId)
+        {
+            return context.RsurTests.Where(x => x.Id == rsurTestId).Select(s => s.Test.Name.Trim()).Single();
+        }
+
         #endregion
     }
 }

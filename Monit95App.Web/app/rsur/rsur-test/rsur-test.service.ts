@@ -11,5 +11,13 @@ export class RsurTestService {
 
     getProtocolStatus(rsurTestId: number) {
         return this.http.get(`${this.ROUTE_PREFIX}/${rsurTestId}/Statistics`);
-    }  
+	}  
+
+	getProtocolStatus2() {
+		return this.http.get(`${this.ROUTE_PREFIX}/Statistics`);
+	}
+
+	getTestName(rsurTestId: number) {
+		return this.http.get(`${this.ROUTE_PREFIX}/${rsurTestId}/Name`);
+	}
 }

@@ -12,6 +12,5 @@ namespace Monit95App.Services.Interfaces
         RsurGetMarksDto GetByParticipTestId(int participTestId);
         IEnumerable<RsurParticipMarksListDto> GetByAreaCodeAndRsurTestId(int areaCode, int rsurTestId);
         void AddOrUpdateMarks(int participTestId, string marks);
-        int GetValueOfFilling(int rsurTestId, int areaCode);
     }
 }

@@ -11,5 +11,7 @@ namespace Monit95App.Services.Interfaces
     public interface IRsurTestService
     {
         RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null);
+        IDictionary<int, RsurTestStatisticsDto> GetStatistics2(int areaCode);
+        string GetTestName(int rsurTestId);
     }
 }

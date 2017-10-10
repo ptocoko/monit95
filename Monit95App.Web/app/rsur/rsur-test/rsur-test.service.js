@@ -19,6 +19,12 @@ var RsurTestService = (function () {
     RsurTestService.prototype.getProtocolStatus = function (rsurTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/" + rsurTestId + "/Statistics");
     };
+    RsurTestService.prototype.getProtocolStatus2 = function () {
+        return this.http.get(this.ROUTE_PREFIX + "/Statistics");
+    };
+    RsurTestService.prototype.getTestName = function (rsurTestId) {
+        return this.http.get(this.ROUTE_PREFIX + "/" + rsurTestId + "/Name");
+    };
     return RsurTestService;
 }());
 RsurTestService = __decorate([

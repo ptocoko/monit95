@@ -35,7 +35,7 @@ namespace Monit95App.Services
                 SecondName = s.RsurParticip.SecondName,
                 Marks = s.RsurTestResult.RsurQuestionValues
             });
-            return resutls;
+            return resutls.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name);
         }
 
         public RsurGetMarksDto GetByParticipTestId(int participTestId)
@@ -50,23 +50,6 @@ namespace Monit95App.Services
             });
 
             return result.SingleOrDefault();
-
-            //var res = from participTest in _participTestRepository.GetAll()
-            //          where participTest.Id == participTestId
-            //          join particips in _participRepository.GetAll() on participTest.RsurParticipCode equals particips.Code
-            //          join a in _resultRepository.GetAll() on participTest.Id equals a.RsurParticipTestId
-            //          into b
-            //          from result in b.DefaultIfEmpty()
-            //          select new RsurGetMarksDto
-            //          {
-            //              ParticipTestId = participTest.Id,
-            //              Fio = particips.Surname + " " + particips.Name + " " + particips.SecondName,
-            //              TestNumberCodeWithName = participTest.RsurTest.Test.NumberCode + " - " + participTest.RsurTest.Test.Name.Trim(),
-            //              //TODO: realize MarksNames
-            //              Marks = result == null ? null : result.RsurQuestionValues
-            //          };
-
-            //return res.SingleOrDefault();
         }
 
         public void AddOrUpdateMarks(int participTestId, string marks)

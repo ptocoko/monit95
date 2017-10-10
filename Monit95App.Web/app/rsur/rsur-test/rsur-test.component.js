@@ -13,6 +13,11 @@ var core_1 = require("@angular/core");
 var account_service_1 = require("../../account/account.service");
 var rsur_test_service_1 = require("./rsur-test.service");
 var account_1 = require("../../account/account");
+var RsurTestStatistics = (function () {
+    function RsurTestStatistics() {
+    }
+    return RsurTestStatistics;
+}());
 var RsurTestComponent = (function () {
     function RsurTestComponent(accountService, rsurTestService) {
         this.accountService = accountService;
@@ -24,7 +29,10 @@ var RsurTestComponent = (function () {
         var _this = this;
         this.accountService.getAccount().subscribe(function (data) {
             _this.account = data.json();
-            _this.componentIsShowing = true;
+            _this.rsurTestService.getProtocolStatus2().subscribe(function (res) {
+                _this.protocolValues = res.json();
+                _this.componentIsShowing = true;
+            });
         });
         //this.getProtocolStatus(1082);
     };
@@ -42,7 +50,10 @@ var RsurTestComponent = (function () {
     };
     RsurTestComponent.prototype.getProgressValue = function (rsurTestId) {
         if (this.componentIsShowing) {
-            this.rsurTestService.getProtocolStatus(rsurTestId).subscribe;
+            return this.protocolValues[rsurTestId].ProtocolStatus;
+        }
+        else {
+            return 0;
         }
     };
     return RsurTestComponent;

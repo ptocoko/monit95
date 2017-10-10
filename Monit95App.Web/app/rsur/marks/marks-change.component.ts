@@ -29,7 +29,7 @@ export class RsurParticipMarksChange implements OnInit {
 	ngOnInit() {
 		this.route.params.subscribe(params => {
 			let participTestId = params['participTestId'];
-
+			
 			this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(res => {
 				this.rsurParticip = res.json() as RsurParticipMarks;
 				this.markNames = this.rsurParticip.MarkNames;

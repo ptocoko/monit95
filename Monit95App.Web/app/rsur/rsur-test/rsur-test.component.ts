@@ -5,6 +5,11 @@ import { RsurTestService } from './rsur-test.service';
 
 import { Account } from '../../account/account';
 
+class RsurTestStatistics {
+	HasAnyParticip: string;
+	ProtocolStatus: number;
+}
+
 @Component({
     selector:'test',
     templateUrl: `./app/rsur/rsur-test/rsur-test.component.html?v=${new Date().getTime()}`,
@@ -12,8 +17,9 @@ import { Account } from '../../account/account';
 })
 export class RsurTestComponent implements OnInit {
     account = new Account();  
-    percent: number;
+	percent: number;
 	componentIsShowing: boolean = false;
+	protocolValues: any;
 
     constructor(
         private readonly accountService: AccountService,
@@ -23,7 +29,10 @@ export class RsurTestComponent implements OnInit {
     ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
 			this.account = data.json() as Account;
-			this.componentIsShowing = true;
+			this.rsurTestService.getProtocolStatus2().subscribe(res => {
+				this.protocolValues = res.json();
+				this.componentIsShowing = true;
+			})
         });
         //this.getProtocolStatus(1082);
     }
@@ -43,7 +52,10 @@ export class RsurTestComponent implements OnInit {
 
 	getProgressValue(rsurTestId: number) {
 		if (this.componentIsShowing) {
-			this.rsurTestService.getProtocolStatus(rsurTestId).subscribe
+			return this.protocolValues[rsurTestId].ProtocolStatus;
+		}
+		else {
+			return 0;
 		}
 	}
 }

@@ -66,9 +66,6 @@ var MarksService = (function () {
     MarksService.prototype.updateRsurMarks = function (marks) {
         return this.http.put('api/rsurMarks/' + marks.participTestId, marks);
     };
-    MarksService.prototype.getValueOfFilling = function (rsurTestId) {
-        return this.http.get('api/rsurMarks/GetValueOfFilling?rsurTestId=' + rsurTestId);
-    };
     return MarksService;
 }());
 MarksService = __decorate([

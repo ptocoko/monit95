@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { MarksService } from "./marks.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { RsurTestService } from "../rsur-test/rsur-test.service";
 
 export class RsurParticipMarks {
 	ParticipTestId: number;
@@ -17,15 +18,24 @@ export class RsurMarksListComponent implements OnInit {
 	rsurParticips: RsurParticipMarks[];
 	isLoading: boolean;
 	participsWithoutMarks: number = 0;
+	testName: string;
 
-	constructor(private readonly marksService: MarksService, private readonly route: ActivatedRoute, private readonly router: Router) { }
+	constructor(private readonly marksService: MarksService, 
+				private readonly route: ActivatedRoute,
+				private readonly router: Router,
+				private readonly rsurTestService: RsurTestService) { }
 
 	ngOnInit() {
+		this.isLoading = true;
 		this.route.params.subscribe(params => {
 			let rsurTestId = params['rsurTestId'];
+
+			this.rsurTestService.getTestName(rsurTestId).subscribe(res => this.testName = res.json());
+
 			this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(res => {
 				this.rsurParticips = res.json() as RsurParticipMarks[];
 				this.participsWithoutMarks = this.rsurParticips.filter(f => !f.Marks).length;
+				this.isLoading = false;
 			})
 		})
 	}
