@@ -8,6 +8,12 @@ namespace Monit95App.Domain.Core.Entities
 
     public partial class Report
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Report()
+        {
+            
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
@@ -25,6 +31,6 @@ namespace Monit95App.Domain.Core.Entities
 
         public string Available { get; set; }
 
-        public short? TypeCode { get; set; }
+        public short? TypeCode { get; set; }      
     }
 }
