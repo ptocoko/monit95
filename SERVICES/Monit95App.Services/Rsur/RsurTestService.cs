@@ -36,15 +36,23 @@ namespace Monit95App.Services.Rsur
             }
 
             var countParticips = particips.Count();
+            var resultDto = new RsurTestStatisticsDto();
+            double result;
             if (countParticips == 0)
             {
-                throw new ArgumentException(nameof(rsurTestId));
+                //throw new ArgumentException(nameof(rsurTestId));
+                resultDto.HasAnyParticip = false;
+                result = 0;
+            }
+            else
+            {
+                resultDto.HasAnyParticip = true;
+                double countParticipsWithResults = particips.Count(x => x.RsurTest != null);
+                result = Math.Round(countParticipsWithResults / countParticips * 100, 0);
             }
 
-            double countParticipsWithResults = particips.Count(x => x.RsurTest != null);
-            var result = Math.Round(countParticipsWithResults / countParticips * 100, 0);
-
-            return new RsurTestStatisticsDto { ProtocolStatus = (int)result };
+            resultDto.ProtocolStatus = (int)result;
+            return resultDto;
         }
 
         #endregion

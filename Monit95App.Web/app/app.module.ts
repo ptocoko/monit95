@@ -31,6 +31,7 @@ import { AddClassParticipComponent } from "./class-particips/add-and-update/add.
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 import { RsurParticipMarksChange } from "./rsur/marks/marks-change.component";
+import { RsurMarksListComponent } from "./rsur/marks/marks-list.component";
 
 
 // Services
@@ -101,7 +102,8 @@ import { GlobalErrorHandler } from './error-handler';
 		AddClassParticipComponent,
 		UpdateClassParticipComponent,
 		MarksAddAndEditComponent,
-		RsurParticipMarksChange
+		RsurParticipMarksChange,
+		RsurMarksListComponent
 	],
 	providers: [
         AccountService,

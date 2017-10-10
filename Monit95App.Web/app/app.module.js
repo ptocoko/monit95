@@ -38,6 +38,7 @@ var add_component_1 = require("./class-particips/add-and-update/add.component");
 var update_component_1 = require("./class-particips/add-and-update/update.component");
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var marks_change_component_1 = require("./rsur/marks/marks-change.component");
+var marks_list_component_1 = require("./rsur/marks/marks-list.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -107,7 +108,8 @@ AppModule = __decorate([
             add_component_1.AddClassParticipComponent,
             update_component_1.UpdateClassParticipComponent,
             marks_add_and_edit_component_1.MarksAddAndEditComponent,
-            marks_change_component_1.RsurParticipMarksChange
+            marks_change_component_1.RsurParticipMarksChange,
+            marks_list_component_1.RsurMarksListComponent
         ],
         providers: [
             account_service_1.AccountService,

@@ -53,7 +53,7 @@ export class MarksService {
 	}
 
 	getRsurMarksByRsurTestId(rsurTestId: number) {
-		return this.http.get('api/rsurMarks/GetByTestId?rsurTestId=' + rsurTestId);
+		return this.http.get('api/rsurMarks/GetByTestId/' + rsurTestId);
 	}
 
 	addRsurMarks(marks: Marks) {
