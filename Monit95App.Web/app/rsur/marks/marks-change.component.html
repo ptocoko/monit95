@@ -5,6 +5,11 @@
     <h4>Баллы участника по заданиям</h4>   
     <br />
     <form #marksForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="checkbox">
+            <label>
+                <input name="absentStatus" #absentStatus="ngModel" (change)="setAbsentStatus()" [(ngModel)]="isAbsent" type="checkbox"> Отсутствовал на тесте
+            </label>
+        </div>
         <div *ngFor="let markName of markNames; let i = index" class="form-group form-inline">
             <label>{{markName}}</label>
             <input (keyup)="onMarkChanged($event)" size="1" class="form-control markInput" [(ngModel)]="marks[i]" name="mark{{i}}" #mark{{i}}="ngModel" required/>

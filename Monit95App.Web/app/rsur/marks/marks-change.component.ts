@@ -19,6 +19,7 @@ export class RsurParticipMarksChange implements OnInit {
 	marks: string[];
 	markNames: string[];
 	isUpdate: boolean;
+	isAbsent: boolean;
 
 	marksInputs: JQuery<HTMLInputElement>;
 
@@ -37,6 +38,9 @@ export class RsurParticipMarksChange implements OnInit {
 				if (this.rsurParticip.Marks) {
 					this.marks = this.rsurParticip.Marks.split(';');
 					this.isUpdate = true;
+					if (this.marks[0] === 'X') {
+						this.isAbsent = true;
+					}
 				}
 				else {
 					this.marks = new Array<string>(this.markNames.length);
@@ -54,6 +58,10 @@ export class RsurParticipMarksChange implements OnInit {
 		});
 
 		
+	}
+
+	setAbsentStatus() {
+		//TODO: realize that!!
 	}
 
 	onMarkChanged(event: any) {

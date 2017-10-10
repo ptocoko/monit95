@@ -36,6 +36,9 @@ var RsurParticipMarksChange = (function () {
                 if (_this.rsurParticip.Marks) {
                     _this.marks = _this.rsurParticip.Marks.split(';');
                     _this.isUpdate = true;
+                    if (_this.marks[0] === 'X') {
+                        _this.isAbsent = true;
+                    }
                 }
                 else {
                     _this.marks = new Array(_this.markNames.length);
@@ -49,6 +52,18 @@ var RsurParticipMarksChange = (function () {
                 });
             });
         });
+    };
+    RsurParticipMarksChange.prototype.setAbsentStatus = function () {
+        if (this.isAbsent) {
+            this.marks = this.marks.fill('');
+            this.marksInputs.each(function (i, el) { return el.removeAttribute('disabled'); });
+            this.isAbsent = false;
+        }
+        else {
+            this.marks = this.marks.fill('X');
+            this.marksInputs.each(function (i, el) { return el.setAttribute('disabled', 'disabled'); });
+            this.isAbsent = true;
+        }
     };
     RsurParticipMarksChange.prototype.onMarkChanged = function (event) {
         var elem = event.target;
