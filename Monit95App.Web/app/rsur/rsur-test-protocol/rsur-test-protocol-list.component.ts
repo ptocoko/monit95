@@ -10,9 +10,9 @@ export class RsurParticipMarks {
 }
 
 @Component({
-	templateUrl: `./app/rsur/marks/marks-list.component.html?v=${new Date().getTime()}`
+    templateUrl: `./app/rsur/rsur-test-protocol/rsur-test-protocol.component.html?v=${new Date().getTime()}`
 })
-export class RsurMarksListComponent implements OnInit {
+export class RsurTestProtocolListComponent implements OnInit {
 	rsurParticips: RsurParticipMarks[];
 	isLoading: boolean;
 	participsWithoutMarks: number = 0;

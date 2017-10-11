@@ -6,7 +6,7 @@ import { RsurParticip } from '../rsurparticip';
 import { ResultsModel, ResultDetailsModel } from '../results/results.model';
 import { ParticipModel } from "../../particip.model";
 import { Person } from "../../shared/Person";
-import { RsurParticipMarks } from "./marks-change.component";
+import { RsurTestProtocolComponent } from "./rsur-test-protocol.component";
 
 export class Marks {
     participTestId: number;
@@ -31,8 +31,7 @@ export class MarksService {
 
     }    
 
-    addMarks(marks: Marks)
-    {
+    addMarks(marks: Marks) {
         return this.http.post(this.ROUTE_PREFIX + '/Post', marks);
     }
 

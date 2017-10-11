@@ -333,9 +333,8 @@
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\file\file.component.html" />
     <Content Include="app\rsur\rsur-test\rsur-test.component.css" />
-    <Content Include="app\rsur\marks\marks-list.component.html" />
-    <Content Include="app\rsur\rsur-exams\rsur-exams.component.css" />
-    <Content Include="app\rsur\marks\marks-change.component.html" />
+    <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.html" />
+    <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.html" />
     <Content Include="app\rsur\rsur-test\rsur-test.component.html" />
     <Content Include="app\rsur\rsur-home\rsur-home.component.html" />
     <Content Include="app\class-particips\results\particip-report.component.css" />
@@ -591,9 +590,8 @@
     <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
-    <TypeScriptCompile Include="app\rsur\marks\marks-change.component.ts" />
-    <TypeScriptCompile Include="app\rsur\marks\marks-list.component.ts" />
-    <TypeScriptCompile Include="app\rsur\rsur-exams\rsur-exams.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-home\rsur-home.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.service.ts" />
@@ -612,7 +610,7 @@
     <TypeScriptCompile Include="app\rsur\rsur-particips\rsur-particips.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-modal.component.ts" />
-    <TypeScriptCompile Include="app\rsur\marks\marks.service.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-test-protocol\marks.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip.ts" />
     <TypeScriptCompile Include="app\rsur\results\results-modal.component.ts" />
