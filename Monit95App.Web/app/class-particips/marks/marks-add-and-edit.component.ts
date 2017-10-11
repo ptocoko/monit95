@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { BasicValidators } from '../../shared/basic-validators';
-import { MarksService, Marks } from "../../rsur/marks/marks.service";
+import { MarksService, Marks } from "../../rsur/rsur-test-protocol/marks.service";
 
 export class MarksAddAndEditModel {
     ParticipTestId: number;

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var marks_service_1 = require("../../rsur/marks/marks.service");
+var marks_service_1 = require("../../rsur/rsur-test-protocol/marks.service");
 var MarksAddAndEditModel = (function () {
     function MarksAddAndEditModel() {
     }

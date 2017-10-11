@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-import { MarksService, ParticipWithMarks } from "../../rsur/marks/marks.service";
+import { MarksService, ParticipWithMarks } from "../../rsur/rsur-test-protocol/marks.service";
 import { ParticipService } from "../../particip.service";
 import { Router } from "@angular/router";
 

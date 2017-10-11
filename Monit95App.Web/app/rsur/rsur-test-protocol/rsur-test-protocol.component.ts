@@ -12,9 +12,9 @@ export class RsurParticipMarks {
 }
 
 @Component({
-	templateUrl: `./app/rsur/marks/marks-change.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/rsur/rsur-test-protocol/rsur-test-protocol.component.html?v=${new Date().getTime()}`
 })
-export class RsurParticipMarksChange implements OnInit {
+export class RsurTestProtocolComponent implements OnInit {
 	rsurParticip: RsurParticipMarks = new RsurParticipMarks();
 	marks: string[];
 	markNames: string[];
@@ -29,7 +29,7 @@ export class RsurParticipMarksChange implements OnInit {
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
-			let participTestId = params['participTestId'];
+			let participTestId = params['id'];
 			
 			this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(res => {
 				this.rsurParticip = res.json() as RsurParticipMarks;

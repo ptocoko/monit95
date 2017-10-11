@@ -37,8 +37,8 @@ var class_particips_plan_component_1 = require("./class-particips/class-particip
 var add_component_1 = require("./class-particips/add-and-update/add.component");
 var update_component_1 = require("./class-particips/add-and-update/update.component");
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
-var marks_change_component_1 = require("./rsur/marks/marks-change.component");
-var marks_list_component_1 = require("./rsur/marks/marks-list.component");
+var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
+var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -47,7 +47,7 @@ var rsur_test_service_1 = require("./rsur/rsur-test/rsur-test.service");
 var school_service_1 = require("./school.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
 var class_service_1 = require("./class.service");
-var marks_service_1 = require("./rsur/marks/marks.service");
+var marks_service_1 = require("./rsur/rsur-test-protocol/marks.service");
 var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
 // Pipes
@@ -108,8 +108,8 @@ AppModule = __decorate([
             add_component_1.AddClassParticipComponent,
             update_component_1.UpdateClassParticipComponent,
             marks_add_and_edit_component_1.MarksAddAndEditComponent,
-            marks_change_component_1.RsurParticipMarksChange,
-            marks_list_component_1.RsurMarksListComponent
+            rsur_test_protocol_list_component_1.RsurTestProtocolListComponent,
+            rsur_test_protocol_component_1.RsurTestProtocolComponent
         ],
         providers: [
             account_service_1.AccountService,

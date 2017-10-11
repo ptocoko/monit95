@@ -1,5 +1,5 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
-import { ParticipWithMarks } from "../rsur/marks/marks.service";
+import { ParticipWithMarks } from "../rsur/rsur-test-protocol/marks.service";
 
 @Pipe({ name: 'classNameFilter' })
 export class ClassNameFilterPipe implements PipeTransform {

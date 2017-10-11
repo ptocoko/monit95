@@ -10,28 +10,31 @@ import { ParticipDetailsComponent } from './rsur/details/particip-details.compon
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
-import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
-import { ClassParticipsPlanComponent } from "./class-particips/class-particips-plan.component";
-import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
-import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
-import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
-import { RsurParticipMarksChange } from "./rsur/marks/marks-change.component";
-import { RsurMarksListComponent } from "./rsur/marks/marks-list.component";
+import { ClassParticipsExportExcelComponent } from './class-particips/excel-export/export-excel.component';
+import { ClassParticipsPlanComponent } from './class-particips/class-particips-plan.component';
+import { AddClassParticipComponent } from './class-particips/add-and-update/add.component';
+import { UpdateClassParticipComponent } from './class-particips/add-and-update/update.component';
+import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
+import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
+import { RsurTestProtocolComponent }     from './rsur/rsur-test-protocol/rsur-test-protocol.component';
 
 const appRoutes: Routes = [
 
     { path: 'rsur', component: RsurHomeComponent },
     { path: 'rsur/test', component: RsurTestComponent },    
     { path: 'rsur/particips', component: RsurParticipsComponent },    
-	{ path: 'rsurparticiplist/new', component: RsurParticipAddFormComponent },
-	{ path: 'rsur/marks/:rsurTestId', component: RsurMarksListComponent},
-	{ path: 'rsur/marks-edit/:participTestId', component: RsurParticipMarksChange },
+    { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
+
+    { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
+    { path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
+    
+	//{ path: 'rsur/testprotocols/:rsurTestId', component: RsurTestProtocolListComponent},
+    //{ path: 'rsur/marks-edit/:participTestId', component: RsurTestProtocolComponent },
 
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },    
 	{ path: 'particip-correction', component: ParticipCorrectionComponent },
-
 	{ path: 'class-particips', component: ClassParticipsPlanComponent },
 	{ path: 'class-particips/list', component: ClassParticipsListComponent },
 	{ path: 'class-particips/upload-excel', component: ClassParticipsExportExcelComponent },

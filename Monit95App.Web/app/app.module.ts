@@ -30,8 +30,8 @@ import { ClassParticipsPlanComponent } from "./class-particips/class-particips-p
 import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
 import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
-import { RsurParticipMarksChange } from "./rsur/marks/marks-change.component";
-import { RsurMarksListComponent } from "./rsur/marks/marks-list.component";
+import { RsurTestProtocolListComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol-list.component";
+import { RsurTestProtocolComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol.component";
 
 
 // Services
@@ -42,7 +42,7 @@ import { RsurTestService } from './rsur/rsur-test/rsur-test.service';
 import { SchoolService } from './school.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
-import { MarksService } from './rsur/marks/marks.service';
+import { MarksService } from './rsur/rsur-test-protocol/marks.service';
 import { SchoolCollectorService } from "./shared/school-collector.service";
 import { ResultsService } from "./shared/results.service";
 
@@ -102,8 +102,8 @@ import { GlobalErrorHandler } from './error-handler';
 		AddClassParticipComponent,
 		UpdateClassParticipComponent,
 		MarksAddAndEditComponent,
-		RsurParticipMarksChange,
-		RsurMarksListComponent
+        RsurTestProtocolListComponent,
+        RsurTestProtocolComponent		
 	],
 	providers: [
         AccountService,
