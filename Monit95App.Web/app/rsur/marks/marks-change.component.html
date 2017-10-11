@@ -6,7 +6,7 @@
     <form #marksForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="checkbox">
             <label>
-                <input name="absentStatus" #absentStatus="ngModel" (change)="setAbsentStatus()" [(ngModel)]="isAbsent" type="checkbox"> Отсутствовал на диагностике
+                <input name="absentStatus" #absentStatus="ngModel" (change)="setAbsentStatus()" [(ngModel)]="isAbsent" type="checkbox"> Отсутствовал(-а) на диагностике
             </label>
         </div>
         <div> <!--*ngIf="!isAbsent">-->
