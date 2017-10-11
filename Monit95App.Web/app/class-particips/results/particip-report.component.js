@@ -48,15 +48,6 @@ var ClassParticipReportComponent = (function () {
             throw new Error('Ошибка');
     };
     ClassParticipReportComponent.prototype.download = function () {
-        //let element = document.getElementById('classParticip-reportContainer');
-        //let doc = new jsPDF('p', 'pt', 'a4');
-        //html2canvas($('.classParticip-reportContainer').get(0), {background: '#fff'}).then(canvas => {
-        //	document.body.appendChild(canvas);
-        //	doc.addHTML(canvas, () => {
-        //		document.body.removeChild(canvas);
-        //		doc.save(this.particip.Fio + '.pdf');
-        //	});
-        //});
         var _this = this;
         this.http.get('/api/ResultReport/Get?participTestId=' + this.participTestId, { responseType: http_1.ResponseContentType.Blob }).subscribe(function (data) {
             var a = document.createElement("a");

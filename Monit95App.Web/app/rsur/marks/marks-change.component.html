@@ -10,9 +10,11 @@
                 <input name="absentStatus" #absentStatus="ngModel" (change)="setAbsentStatus()" [(ngModel)]="isAbsent" type="checkbox"> Отсутствовал на тесте
             </label>
         </div>
-        <div *ngFor="let markName of markNames; let i = index" class="form-group form-inline">
-            <label>{{markName}}</label>
-            <input (keyup)="onMarkChanged($event)" size="1" class="form-control markInput" [(ngModel)]="marks[i]" name="mark{{i}}" #mark{{i}}="ngModel" required/>
+        <div> <!--*ngIf="!isAbsent">-->
+            <div *ngFor="let markName of markNames; let i = index" class="form-group form-inline">
+                <label>{{markName}}</label>
+                <input (keyup)="onMarkChanged($event)" size="1" class="form-control markInput" [(ngModel)]="marks[i]" name="mark{{i}}" #mark{{i}}="ngModel" required />
+            </div>
         </div>
         <hr />
         <div class="pull-left">

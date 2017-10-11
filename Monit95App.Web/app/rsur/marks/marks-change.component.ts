@@ -53,6 +53,9 @@ export class RsurParticipMarksChange implements OnInit {
 					this.marksInputs.get(0).select();
 
 					this.marksInputs.focus((event) => event.target.select());
+					if (this.isAbsent) {
+						this.marksInputs.each((i, elem) => elem.setAttribute('disabled', 'disabled'));
+					}
 				});
 			});
 		});
@@ -61,7 +64,14 @@ export class RsurParticipMarksChange implements OnInit {
 	}
 
 	setAbsentStatus() {
-		//TODO: realize that!!
+		if (this.isAbsent) {
+			this.marks.fill('X');
+			this.marksInputs.each((i, elem) => elem.setAttribute('disabled', 'disabled'));
+		}
+		else {
+			this.marks.fill('');
+			this.marksInputs.each((i, elem) => elem.removeAttribute('disabled'));
+		}
 	}
 
 	onMarkChanged(event: any) {
