@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 
 export class RsurParticipMarks {
 	ParticipTestId: number;
-	Fio: string;
+	Code: number;
 	TestNumberCodeWithName: string;
 	MarkNames?: string[];
 	Marks?: string;

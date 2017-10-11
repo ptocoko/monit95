@@ -5,9 +5,7 @@ import { RsurTestService } from "../rsur-test/rsur-test.service";
 
 export class RsurParticipMarks {
 	ParticipTestId: number;
-	Surname: string;
-	Name: string;
-	SecondName: string;
+	Code: number;
 	Marks: string;
 }
 
@@ -18,7 +16,7 @@ export class RsurMarksListComponent implements OnInit {
 	rsurParticips: RsurParticipMarks[];
 	isLoading: boolean;
 	participsWithoutMarks: number = 0;
-	testName: string;
+	testNumberCodeWithName: string;
 
 	constructor(private readonly marksService: MarksService, 
 				private readonly route: ActivatedRoute,
@@ -30,7 +28,7 @@ export class RsurMarksListComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			let rsurTestId = params['rsurTestId'];
 
-			this.rsurTestService.getTestName(rsurTestId).subscribe(res => this.testName = res.json());
+			this.rsurTestService.getTestName(rsurTestId).subscribe(res => this.testNumberCodeWithName = res.json());
 
 			this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(res => {
 				this.rsurParticips = res.json() as RsurParticipMarks[];

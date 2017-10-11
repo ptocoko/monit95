@@ -32,7 +32,7 @@ var RsurMarksListComponent = (function () {
         this.isLoading = true;
         this.route.params.subscribe(function (params) {
             var rsurTestId = params['rsurTestId'];
-            _this.rsurTestService.getTestName(rsurTestId).subscribe(function (res) { return _this.testName = res.json(); });
+            _this.rsurTestService.getTestName(rsurTestId).subscribe(function (res) { return _this.testNumberCodeWithName = res.json(); });
             _this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(function (res) {
                 _this.rsurParticips = res.json();
                 _this.participsWithoutMarks = _this.rsurParticips.filter(function (f) { return !f.Marks; }).length;

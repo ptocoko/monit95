@@ -6,6 +6,7 @@
 .progressbar-item{
     margin-left:15px;
     flex-grow:1;
+    height: 15px;
 }
 
 ngb-progressbar {

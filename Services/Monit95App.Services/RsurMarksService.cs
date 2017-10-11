@@ -35,12 +35,10 @@ namespace Monit95App.Services
             var resutls = _participTestRepository.GetAll().Where(x => x.RsurParticip.School.AreaCode == areaCode && x.RsurTestId == rsurTestId).Select(s => new RsurParticipMarksListDto
             {
                 ParticipTestId = s.Id,
-                Surname = s.RsurParticip.Surname,
-                Name = s.RsurParticip.Name,
-                SecondName = s.RsurParticip.SecondName,
+                Code = s.RsurParticip.Code,
                 Marks = s.RsurTestResult.RsurQuestionValues
             });
-            return resutls.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name);
+            return resutls.OrderBy(ob => ob.Code);
         }
 
         public RsurGetMarksDto GetByParticipTestId(int participTestId)
@@ -48,8 +46,8 @@ namespace Monit95App.Services
             var result = _participTestRepository.GetAll().Where(x => x.Id == participTestId).ToList().Select(s => new RsurGetMarksDto
             {
                 ParticipTestId = s.Id,
-                Fio = s.RsurParticip.Surname + " " + s.RsurParticip.Name + " " + s.RsurParticip.SecondName,
-                TestNumberCodeWithName = s.RsurTest.Test.NumberCode + " - " + s.RsurTest.Test.Name.Trim(),
+                Code = s.RsurParticip.Code,
+                TestNumberCodeWithName = s.RsurTest.Test.NumberCode + " — " + s.RsurTest.Test.Name.Trim(),
                 MarkNames = GetMarkNamesByTestId(s.RsurTestId),
                 Marks = s.RsurTestResult == null ? null : s.RsurTestResult.RsurQuestionValues
             });

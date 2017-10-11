@@ -9,9 +9,7 @@ namespace Monit95App.Services.DTOs
     public class RsurParticipMarksListDto
     {
         public int ParticipTestId { get; set; }
-        public string Surname { get; set; }
-        public string Name { get; set; }
-        public string SecondName { get; set; }
+        public int Code { get; set; }
         public string Marks { get; set; }
     }
 }

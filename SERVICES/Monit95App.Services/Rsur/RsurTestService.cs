@@ -86,7 +86,7 @@ namespace Monit95App.Services.Rsur
 
         public string GetTestName(int rsurTestId)
         {
-            return context.RsurTests.Where(x => x.Id == rsurTestId).Select(s => s.Test.Name.Trim()).Single();
+            return context.RsurTests.Where(x => x.Id == rsurTestId).Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
         }
 
         #endregion
