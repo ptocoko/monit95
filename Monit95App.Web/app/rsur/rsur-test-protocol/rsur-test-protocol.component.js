@@ -29,7 +29,7 @@ var RsurTestProtocolComponent = (function () {
     RsurTestProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
-            var participTestId = params['participTestId'];
+            var participTestId = params['id'];
             _this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(function (res) {
                 _this.rsurParticip = res.json();
                 _this.markNames = _this.rsurParticip.MarkNames;

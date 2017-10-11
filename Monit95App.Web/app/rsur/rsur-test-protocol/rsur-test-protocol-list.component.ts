@@ -10,7 +10,7 @@ export class RsurParticipMarks {
 }
 
 @Component({
-    templateUrl: `./app/rsur/rsur-test-protocol/rsur-test-protocol.component.html?v=${new Date().getTime()}`
+    templateUrl: `./app/rsur/rsur-test-protocol/rsur-test-protocol-list.component.html?v=${new Date().getTime()}`
 })
 export class RsurTestProtocolListComponent implements OnInit {
 	rsurParticips: RsurParticipMarks[];
@@ -26,8 +26,8 @@ export class RsurTestProtocolListComponent implements OnInit {
 	ngOnInit() {
 		this.isLoading = true;
 		this.route.params.subscribe(params => {
-			let rsurTestId = params['rsurTestId'];
-
+			let rsurTestId = params['id'];
+            console.log(rsurTestId);
 			this.rsurTestService.getTestName(rsurTestId).subscribe(res => this.testNumberCodeWithName = res.json());
 
 			this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(res => {
@@ -38,7 +38,7 @@ export class RsurTestProtocolListComponent implements OnInit {
 		})
 	}
 
-	changeMarks(participTestId: number) {
-		this.router.navigate(['/rsur/marks-edit', participTestId]);
+    changeMarks(participTestId: number) {        
+        this.router.navigate(['/rsur/testprotocols', participTestId]);		
 	}
 }

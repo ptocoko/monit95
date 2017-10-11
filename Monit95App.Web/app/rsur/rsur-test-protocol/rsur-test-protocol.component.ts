@@ -29,7 +29,7 @@ export class RsurTestProtocolComponent implements OnInit {
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
-			let participTestId = params['participTestId'];
+			let participTestId = params['id'];
 			
 			this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(res => {
 				this.rsurParticip = res.json() as RsurParticipMarks;

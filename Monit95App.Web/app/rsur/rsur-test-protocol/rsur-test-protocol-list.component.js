@@ -31,7 +31,8 @@ var RsurTestProtocolListComponent = (function () {
         var _this = this;
         this.isLoading = true;
         this.route.params.subscribe(function (params) {
-            var rsurTestId = params['rsurTestId'];
+            var rsurTestId = params['id'];
+            console.log(rsurTestId);
             _this.rsurTestService.getTestName(rsurTestId).subscribe(function (res) { return _this.testNumberCodeWithName = res.json(); });
             _this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(function (res) {
                 _this.rsurParticips = res.json();
@@ -41,13 +42,14 @@ var RsurTestProtocolListComponent = (function () {
         });
     };
     RsurTestProtocolListComponent.prototype.changeMarks = function (participTestId) {
-        this.router.navigate(['/rsur/marks-edit', participTestId]);
+        this.router.navigate(['/rsur/testprotocols', participTestId]);
+        //this.router.navigate(['/rsur/marks-edit', participTestId]);
     };
     return RsurTestProtocolListComponent;
 }());
 RsurTestProtocolListComponent = __decorate([
     core_1.Component({
-        templateUrl: "./app/rsur/rsur-test-protocol/rsur-test-protocol.component.html?v=" + new Date().getTime()
+        templateUrl: "./app/rsur/rsur-test-protocol/rsur-test-protocol-list.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [marks_service_1.MarksService,
         router_1.ActivatedRoute,
