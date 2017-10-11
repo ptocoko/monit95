@@ -12,6 +12,11 @@ namespace Monit95App.Services
 {
     public class RsurMarksService : IRsurMarksService
     {
+        private readonly string[] ORF_Mark_Names = new string[] { "8.1", "8.2", "8.3", "9.1", "9.2", "9.3", "10.1", "10.2", "10.3", "11.1", "11.2", "11.3", "12.1", "12.2", "12.3", "13.1", "13.2", "13.3", "14.1", "14.2", "14.3" };
+        private readonly string[] PUNC_Mark_Names = new string[] { "15.1", "15.2", "15.3", "15.4", "16.1", "16.2", "16.3", "16.4", "17.1", "17.2", "17.3", "17.4", "18.1", "18.2", "18.3", "18.4", "19.1", "19.2", "19.3", "19.4" };
+        private readonly string[] LEKS_Mark_Names = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
+        private readonly string[] RECH_Mark_Names = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27" };
+
         private readonly IGenericRepository<RsurParticipTest> _participTestRepository;
         private readonly IGenericRepository<RsurParticip> _participRepository;
         private readonly IGenericRepository<RsurTestResult> _resultRepository;
@@ -27,42 +32,29 @@ namespace Monit95App.Services
 
         public IEnumerable<RsurParticipMarksListDto> GetByAreaCodeAndRsurTestId(int areaCode, int rsurTestId)
         {
-            var res = from particips in _participRepository.GetAll()
-                      join participTest in _participTestRepository.GetAll() on particips.Code equals participTest.RsurParticipCode
-                      where particips.School.AreaCode == areaCode && participTest.RsurTestId == rsurTestId
-                      join a in _resultRepository.GetAll() on participTest.Id equals a.RsurParticipTestId
-                      into b
-                      from result in b.DefaultIfEmpty()
-                      select new RsurParticipMarksListDto
-                      {
-                          ParticipTestId = participTest.Id,
-                          Surname = particips.Surname,
-                          Name = particips.Name,
-                          SecondName = particips.SecondName,
-                          Marks = result == null ? null : result.RsurQuestionValues
-                      };
-
-            return res;
+            var resutls = _participTestRepository.GetAll().Where(x => x.RsurParticip.School.AreaCode == areaCode && x.RsurTestId == rsurTestId).Select(s => new RsurParticipMarksListDto
+            {
+                ParticipTestId = s.Id,
+                Surname = s.RsurParticip.Surname,
+                Name = s.RsurParticip.Name,
+                SecondName = s.RsurParticip.SecondName,
+                Marks = s.RsurTestResult.RsurQuestionValues
+            });
+            return resutls.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name);
         }
 
         public RsurGetMarksDto GetByParticipTestId(int participTestId)
         {
-            var res = from participTest in _participTestRepository.GetAll()
-                      where participTest.Id == participTestId
-                      join particips in _participRepository.GetAll() on participTest.RsurParticipCode equals particips.Code
-                      join a in _resultRepository.GetAll() on participTest.Id equals a.RsurParticipTestId
-                      into b
-                      from result in b.DefaultIfEmpty()
-                      select new RsurGetMarksDto
-                      {
-                          ParticipTestId = participTest.Id,
-                          Fio = particips.Surname + " " + particips.Name + " " + particips.SecondName,
-                          TestNumberCodeWithName = participTest.RsurTest.Test.NumberCode + " - " + participTest.RsurTest.Test.Name.Trim(),
-                          //TODO: realize MarksNames
-                          Marks = result == null ? null : result.RsurQuestionValues
-                      };
+            var result = _participTestRepository.GetAll().Where(x => x.Id == participTestId).ToList().Select(s => new RsurGetMarksDto
+            {
+                ParticipTestId = s.Id,
+                Fio = s.RsurParticip.Surname + " " + s.RsurParticip.Name + " " + s.RsurParticip.SecondName,
+                TestNumberCodeWithName = s.RsurTest.Test.NumberCode + " - " + s.RsurTest.Test.Name.Trim(),
+                MarkNames = GetMarkNamesByTestId(s.RsurTestId),
+                Marks = s.RsurTestResult == null ? null : s.RsurTestResult.RsurQuestionValues
+            });
 
-            return res.SingleOrDefault();
+            return result.SingleOrDefault();
         }
 
         public void AddOrUpdateMarks(int participTestId, string marks)
@@ -84,19 +76,13 @@ namespace Monit95App.Services
             }
         }
 
-        public int GetValueOfFilling(int rsurTestId, int areaCode)
+        private string[] GetMarkNamesByTestId(int testId)
         {
-            var participsActual = from participTest in _participTestRepository.GetAll()
-                                 join particips in _participRepository.GetAll() on participTest.RsurParticipCode equals particips.Code
-                                 where participTest.RsurTestId == rsurTestId && particips.School.AreaCode == areaCode
-                                 select participTest.Id;
-
-            var participsResult = from results in _resultRepository.GetAll()
-                                  join particip in _participRepository.GetAll() on results.RsurParticipTest.RsurParticipCode equals particip.Code
-                                  where results.RsurParticipTest.RsurTestId == rsurTestId && particip.School.AreaCode == areaCode
-                                  select results.PrimaryMark;
-
-            return (participsActual.Count() / participsResult.Count()) * 100;
+            if (testId == 1078 || testId == 1082) return ORF_Mark_Names;
+            else if (testId == 1079 || testId == 1083) return PUNC_Mark_Names;
+            else if (testId == 1080) return LEKS_Mark_Names;
+            else if (testId == 1081) return RECH_Mark_Names;
+            else throw new ArgumentException(nameof(testId));
         }
     }
 }

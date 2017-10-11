@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MdButtonModule, MdDialogModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -71,8 +71,8 @@ import { GlobalErrorHandler } from './error-handler';
         BootstrapModalModule,
         MyDatePickerModule, 
 		BrowserAnimationsModule,
-		MdButtonModule,
-        MdDialogModule,
+		MatButtonModule,
+        MatDialogModule,
         NgbModule.forRoot()
     ],
 

@@ -15,9 +15,11 @@ export class RsurParticipMarks {
 	templateUrl: `./app/rsur/marks/marks-change.component.html?v=${new Date().getTime()}`
 })
 export class RsurParticipMarksChange implements OnInit {
-	rsurParticip: RsurParticipMarks;
+	rsurParticip: RsurParticipMarks = new RsurParticipMarks();
 	marks: string[];
+	markNames: string[];
 	isUpdate: boolean;
+	isAbsent: boolean;
 
 	marksInputs: JQuery<HTMLInputElement>;
 
@@ -28,16 +30,21 @@ export class RsurParticipMarksChange implements OnInit {
 	ngOnInit() {
 		this.route.params.subscribe(params => {
 			let participTestId = params['participTestId'];
-
+			
 			this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(res => {
 				this.rsurParticip = res.json() as RsurParticipMarks;
+				this.markNames = this.rsurParticip.MarkNames;
+
 				if (this.rsurParticip.Marks) {
 					this.marks = this.rsurParticip.Marks.split(';');
-					this.isUpdate = false;
+					this.isUpdate = true;
+					if (this.marks[0] === 'X') {
+						this.isAbsent = true;
+					}
 				}
 				else {
-					this.marks = new Array<string>(this.rsurParticip.MarkNames.length);
-					this.isUpdate = true;
+					this.marks = new Array<string>(this.markNames.length);
+					this.isUpdate = false;
 				}
 
 				$(document).ready(() => {
@@ -46,11 +53,25 @@ export class RsurParticipMarksChange implements OnInit {
 					this.marksInputs.get(0).select();
 
 					this.marksInputs.focus((event) => event.target.select());
+					if (this.isAbsent) {
+						this.marksInputs.each((i, elem) => elem.setAttribute('disabled', 'disabled'));
+					}
 				});
 			});
 		});
 
 		
+	}
+
+	setAbsentStatus() {
+		if (this.isAbsent) {
+			this.marks.fill('X');
+			this.marksInputs.each((i, elem) => elem.setAttribute('disabled', 'disabled'));
+		}
+		else {
+			this.marks.fill('');
+			this.marksInputs.each((i, elem) => elem.removeAttribute('disabled'));
+		}
 	}
 
 	onMarkChanged(event: any) {
@@ -96,5 +117,9 @@ export class RsurParticipMarksChange implements OnInit {
 
 	getCurrentMarksArray() { //this is method for tests and should be removed after tests
 		console.log(this.marks);
+	}
+
+	cancel() {
+		this.location.back();
 	}
 }

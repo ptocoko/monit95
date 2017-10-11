@@ -55,7 +55,7 @@ var MarksService = (function () {
         return this.http.get(this.ROUTE_PREFIX + "/GetByParticipTestId?participTestId=" + participTestId);
     };
     MarksService.prototype.getMarksByRsurParticipTestId = function (participTestId) {
-        return this.http.get('api/rsurMarks/Get?participTestId=' + participTestId);
+        return this.http.get('api/rsurMarks/' + participTestId);
     };
     MarksService.prototype.getRsurMarksByRsurTestId = function (rsurTestId) {
         return this.http.get('api/rsurMarks/GetByTestId/' + rsurTestId);
@@ -65,9 +65,6 @@ var MarksService = (function () {
     };
     MarksService.prototype.updateRsurMarks = function (marks) {
         return this.http.put('api/rsurMarks/' + marks.participTestId, marks);
-    };
-    MarksService.prototype.getValueOfFilling = function (rsurTestId) {
-        return this.http.get('api/rsurMarks/GetValueOfFilling?rsurTestId=' + rsurTestId);
     };
     return MarksService;
 }());

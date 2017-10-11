@@ -76,7 +76,7 @@ namespace Monit95App.Services
         <br />
         <div class='row particip-about'>
             <p class='col-xs-4 col-sm-4'>ФИО:</p>
-            <p class='col-xs-8 col-sm-8 text-uppercase'>{particip.Surname} {particip.Name} {particip.SecondName}</p>
+            <p class='col-xs-8 col-sm-8 text-uppercase'></p>
             <br />
             <br />
             <p class='col-xs-4 col-sm-4'>Образовательная организация:</p>

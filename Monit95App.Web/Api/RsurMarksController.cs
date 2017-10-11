@@ -21,10 +21,12 @@ namespace Monit95App.Api
         }
 
         [HttpGet]
-        public IHttpActionResult Get(int participTestId)
+        [Route("~/api/RsurMarks/{participTestId:int}")]
+        public IHttpActionResult Get()
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
+            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
             var result = _rsurMarksService.GetByParticipTestId(participTestId);
 
             if(result != null)
@@ -58,11 +60,12 @@ namespace Monit95App.Api
         }
 
         [HttpPost]
+        [Route("Post")]
         public IHttpActionResult Post([FromBody]RsurPostMarksDto marksDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            _rsurMarksService.AddOrUpdateMarks(marksDto.RsurParticipTestId, marksDto.Marks);
+            _rsurMarksService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
             return Ok();
         }
@@ -77,17 +80,6 @@ namespace Monit95App.Api
             _rsurMarksService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
 
             return Ok();
-        }
-
-        [HttpGet]
-        public IHttpActionResult GetValueOfFilling(int rsurTestId)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            var areaCode = int.Parse(User.Identity.Name);
-            var value = _rsurMarksService.GetValueOfFilling(rsurTestId, areaCode);
-
-            return Ok(value);
         }
     }
 }

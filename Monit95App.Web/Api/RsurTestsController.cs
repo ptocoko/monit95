@@ -46,6 +46,23 @@ namespace Monit95App.Api
             return this.Ok(dto);
         }
 
+        [HttpGet]
+        [Route("~/api/RsurTests/Statistics")]
+        public IHttpActionResult GetStatistics2()
+        {
+            var userName = User.Identity.GetUserName();
+            var areaCode = Convert.ToInt32(userName);
+            return Ok(rsurTestService.GetStatistics2(areaCode));
+        }
+
+        [HttpGet]
+        [Route("~/api/RsurTests/{rsurTestId:int}/Name")]
+        public IHttpActionResult GetTestName()
+        {
+            var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurTestId"]);
+
+            return Ok(rsurTestService.GetTestName(rsurTestId));
+        }
         #endregion
     }
 }

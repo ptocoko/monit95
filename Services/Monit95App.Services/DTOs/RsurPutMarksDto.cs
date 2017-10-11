@@ -4,7 +4,7 @@ namespace Monit95App.Services.DTOs
 {
     public class RsurPutMarksDto
     {
-        [RegularExpression(@"^([0-1];)([0-1];)*([0-1])$")]
+        [RegularExpression(@"^([0-1X];)([0-1X];)*([0-1X])$")]
         public string Marks { get; set; }
     }
 }

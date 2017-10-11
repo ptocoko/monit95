@@ -78,8 +78,8 @@ AppModule = __decorate([
             bootstrap_1.BootstrapModalModule,
             mydatepicker_1.MyDatePickerModule,
             animations_1.BrowserAnimationsModule,
-            material_1.MdButtonModule,
-            material_1.MdDialogModule,
+            material_1.MatButtonModule,
+            material_1.MatDialogModule,
             ng_bootstrap_1.NgbModule.forRoot()
         ],
         declarations: [

@@ -5,8 +5,8 @@ export class RsurParticipFilterPipe implements PipeTransform {
     transform(particips: any, searchText: any): any {
         if (searchText == null) return particips;
 
-        return particips.filter((particip: any) => particip.participCode.indexOf(searchText.toLowerCase()) > -1 ||
-            particip.surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+        return particips.filter((particip: any) => particip.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+            particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
     }
 }
 
