@@ -12,15 +12,15 @@
     <table class="table table-striped table-bordered">
         <tr>
             <th width="60px">№ п/п</th>
-            <th style="width:150px">Код участника</th>
-            <th>Баллы</th>
+            <th style="width:150px; text-align:center">Код участника</th>
+            <th style="text-align:center">Баллы</th>
             <th width="1">Изменить</th>
         </tr>
         <tr *ngFor="let particip of rsurParticips | rsurParticipFilter : searchText; let i = index">
-            <td align="right">{{i+1}}</td>
-            <td>{{particip.Code}}</td>
+            <td align="center">{{i+1}}</td>
+            <td align="center">{{particip.Code}}</td>
             <td [ngClass]="{'red': !particip.Marks}">{{particip.Marks}}</td>
-            <td><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="changeMarks(particip.ParticipTestId)"></a></td>
+            <td align="center"><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="changeMarks(particip.ParticipTestId)"></a></td>
         </tr>
     </table>
 </div>
