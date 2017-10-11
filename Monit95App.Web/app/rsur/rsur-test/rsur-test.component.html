@@ -7,23 +7,23 @@
         <ul class="list-group">
             <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/{{account.UserName}}_распределение_ру_11.10.2017.xlsx"><b>Распределение</b><i></i></a></li>                        
             <!--<li class="list-group-item"><a><b>Индивидуальные комплекты</b><i> (доступно 10.10.2017)</i></a></li>-->                        
-            <li class="list-group-item"><a><b>Ключи</b><i> (доступно 12.10.2017)</i></a></li>                                    
+            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/CMFs/Z5V2j8NZE"><b>Ключи</b><i></i></a></li>                                    
         </ul>
     </div>
     
     <div class="panel-body">
         <p>01 - Русский язык: Протоколы проверки заданий <i>(доступно 12-13.10.2017)</i></p>
         <ul *ngIf="isArea206(); else rsur16" class="list-group">                           
-            <li *ngIf="isArea206()" class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1078"><b>Орфография</b></a>
+            <li *ngIf="isArea206()" class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1078/protocols"><b>Орфография</b></a>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1078)"></ngb-progressbar></span>
             </li>  
-            <li class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1079"><b>Пунктуация</b></a>
+            <li class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1079/protocols"><b>Пунктуация</b></a>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1079)"></ngb-progressbar></span>
             </li>
-            <li class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1080"><b>Лексика и фразеология && Обработка текстов</b></a>
+            <li class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1080/protocols"><b>Лексика и фразеология && Обработка текстов</b></a>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1080)"></ngb-progressbar></span>
             </li>      
-            <li class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1081"><b>Речь && Языковые нормы && Выразительность речи</b></a>
+            <li class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1081/protocols"><b>Речь && Языковые нормы && Выразительность речи</b></a>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1081)"></ngb-progressbar></span>
             </li>                                                             
         </ul>
@@ -31,7 +31,7 @@
         <ng-template #rsur16>
             <ul class="list-group">
                 <li class="list-group-item progressbar-container">
-                    <a routerLink="/rsur/tests/1082"><b>Орфография</b></a>
+                    <a routerLink="/rsur/tests/1082/protocols"><b>Орфография</b></a>
                     <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1082)"></ngb-progressbar></span>
                 </li>
                 <li class="list-group-item progressbar-container">

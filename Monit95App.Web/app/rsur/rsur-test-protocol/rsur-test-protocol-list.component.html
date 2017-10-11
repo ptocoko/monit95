@@ -1,4 +1,4 @@
-﻿<h1>РСУР</h1>
+﻿<h2>РСУР</h2>
 <h3>{{testNumberCodeWithName}}. Протокол проверки заданий</h3>
 <hr />
 <div *ngIf="isLoading">Загрузка...</div>
@@ -13,7 +13,7 @@
         <tr>
             <th width="60px">№ п/п</th>
             <th style="width:150px; text-align:center">Код участника</th>
-            <th style="text-align:center">Баллы</th>
+            <th style="text-align:center">Баллы по заданиям</th>
             <th width="1">Изменить</th>
         </tr>
         <tr *ngFor="let particip of rsurParticips | rsurParticipFilter : searchText; let i = index">
