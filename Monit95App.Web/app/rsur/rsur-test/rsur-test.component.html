@@ -29,8 +29,14 @@
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1079)"></ngb-progressbar></span>
             </li>
 
-            <li *ngIf="isArea206()" class="list-group-item"><a routerLink="/rsur/marks/1080"><b>Лексика и фразеология && Обработка текстов</b></a></li>      
-            <li *ngIf="isArea206()" class="list-group-item"><a routerLink="/rsur/marks/1081"><b>Речь && Языковые нормы && Выразительность речи</b></a></li>      
+            <li *ngIf="isArea206()" class="list-group-item">
+                <a routerLink="/rsur/marks/1080"><b>Лексика и фразеология && Обработка текстов</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1080)"></ngb-progressbar></span>
+            </li>      
+            <li *ngIf="isArea206()" class="list-group-item">
+                <a routerLink="/rsur/marks/1081"><b>Речь && Языковые нормы && Выразительность речи</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1081)"></ngb-progressbar></span>
+            </li>      
             <!--<li class="list-group-item"><a><b>Ключи</b><i> (доступно 12.10.2017)</i></a></li>-->                        
             <!--<li class="list-group-item"><a><b>Протокол проверки заданий</b> <i>(доступно 12-13.10.2017)</i></a></li>-->    
             <!--<li class="list-group-item"><a [routerLink]="['/rsur/marks-edit/17']"><b>Протокол проверки заданий</b> <i>(доступно 12-13.10.2017)</i></a></li>-->
