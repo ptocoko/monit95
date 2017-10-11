@@ -43,7 +43,6 @@ var RsurTestProtocolListComponent = (function () {
     };
     RsurTestProtocolListComponent.prototype.changeMarks = function (participTestId) {
         this.router.navigate(['/rsur/testprotocols', participTestId]);
-        //this.router.navigate(['/rsur/marks-edit', participTestId]);
     };
     return RsurTestProtocolListComponent;
 }());
