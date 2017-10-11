@@ -13,8 +13,6 @@ namespace Monit95App.Api
     [RoutePrefix("api/RsurMarks")]
     public class RsurMarksController : ApiController
     {
-        private readonly string[] ORF_Mark_Names = new string[] { "1.1", "1.2", "1.3", "1.6", "2.1", "2.2", "6.2", "6.6" };
-
         private readonly IRsurMarksService _rsurMarksService;
 
         public RsurMarksController(IRsurMarksService rsurMarksService)
@@ -33,7 +31,6 @@ namespace Monit95App.Api
 
             if(result != null)
             {
-                result.MarkNames = ORF_Mark_Names;
                 return Ok(result);
             }
             else
