@@ -1,19 +1,18 @@
-﻿<h2>{{rsurParticip.TestNumberCodeWithName}} — результаты</h2>
-<h3>{{rsurParticip.Fio}}</h3>
+﻿<h1>РСУР</h1>
+<h3>{{rsurParticip.TestNumberCodeWithName}}. Протокол проверки заданий участника</h3>
 <hr />
-<div>
-    <h4>Баллы участника по заданиям</h4>   
-    <br />
+<h4>Код участника: {{rsurParticip.Code}}</h4>
+<div> 
     <form #marksForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="checkbox">
             <label>
-                <input name="absentStatus" #absentStatus="ngModel" (change)="setAbsentStatus()" [(ngModel)]="isAbsent" type="checkbox"> Отсутствовал на тесте
+                <input name="absentStatus" #absentStatus="ngModel" (change)="setAbsentStatus()" [(ngModel)]="isAbsent" type="checkbox"> Отсутствовал на диагностике
             </label>
         </div>
         <div> <!--*ngIf="!isAbsent">-->
-            <div *ngFor="let markName of markNames; let i = index" class="form-group form-inline">
+            <div *ngFor="let markName of markNames; let i = index" class="form-inline">
                 <label>{{markName}}</label>
-                <input (keyup)="onMarkChanged($event)" size="1" class="form-control markInput" [(ngModel)]="marks[i]" name="mark{{i}}" #mark{{i}}="ngModel" required />
+                <input style="height:20px; width:20px; text-align:center" (keyup)="onMarkChanged($event)" size="1" class="markInput" [(ngModel)]="marks[i]" name="mark{{i}}" #mark{{i}}="ngModel" required />
             </div>
         </div>
         <hr />
