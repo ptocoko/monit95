@@ -12,31 +12,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var marks_service_1 = require("./marks.service");
+var common_1 = require("@angular/common");
 var RsurParticipMarks = (function () {
     function RsurParticipMarks() {
     }
     return RsurParticipMarks;
 }());
 exports.RsurParticipMarks = RsurParticipMarks;
-var RsurParticipMarksUpload = (function () {
-    function RsurParticipMarksUpload() {
-    }
-    return RsurParticipMarksUpload;
-}());
-exports.RsurParticipMarksUpload = RsurParticipMarksUpload;
 var RsurParticipMarksChange = (function () {
-    function RsurParticipMarksChange(route, router, marksService) {
+    function RsurParticipMarksChange(route, location, marksService) {
         this.route = route;
-        this.router = router;
+        this.location = location;
         this.marksService = marksService;
     }
     RsurParticipMarksChange.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
-            var participId = params['participId'];
-            _this.marksService.getMarksByRsurParticipId(participId).subscribe(function (res) {
-                _this.rsurParticip = res;
-                _this.marks = res.Marks ? res.Marks.split(';') : new Array(res.MarkNames.length);
+            var participTestId = params['participTestId'];
+            _this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(function (res) {
+                _this.rsurParticip = res.json();
+                if (_this.rsurParticip.Marks) {
+                    _this.marks = _this.rsurParticip.Marks.split(';');
+                    _this.isUpdate = false;
+                }
+                else {
+                    _this.marks = new Array(_this.rsurParticip.MarkNames.length);
+                    _this.isUpdate = true;
+                }
                 $(document).ready(function () {
                     _this.marksInputs = $('.markInput');
                     _this.marksInputs.get(0).focus();
@@ -70,10 +72,17 @@ var RsurParticipMarksChange = (function () {
         }
     };
     RsurParticipMarksChange.prototype.onSubmit = function () {
+        var _this = this;
         var rsurParticipUpload = {
-            ParticipTestId: this.rsurParticip.ParticipTestId,
-            Marks: this.marks.join(';')
+            participTestId: this.rsurParticip.ParticipTestId,
+            marks: this.marks.join(';')
         };
+        if (this.isUpdate) {
+            this.marksService.updateRsurMarks(rsurParticipUpload).subscribe(function (res) { return _this.location.back(); });
+        }
+        else {
+            this.marksService.addRsurMarks(rsurParticipUpload).subscribe(function (res) { return _this.location.back(); });
+        }
     };
     RsurParticipMarksChange.prototype.getCurrentMarksArray = function () {
         console.log(this.marks);
@@ -85,7 +94,7 @@ RsurParticipMarksChange = __decorate([
         templateUrl: "./app/rsur/marks/marks-change.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
-        router_1.Router,
+        common_1.Location,
         marks_service_1.MarksService])
 ], RsurParticipMarksChange);
 exports.RsurParticipMarksChange = RsurParticipMarksChange;

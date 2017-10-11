@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { MarksService } from "./marks.service";
+import { MarksService, Marks } from "./marks.service";
+import { Location } from '@angular/common';
 
 export class RsurParticipMarks {
 	ParticipTestId: number;
@@ -10,31 +11,34 @@ export class RsurParticipMarks {
 	Marks?: string;
 }
 
-export class RsurParticipMarksUpload {
-	ParticipTestId: number;
-	Marks: string;
-}
-
 @Component({
 	templateUrl: `./app/rsur/marks/marks-change.component.html?v=${new Date().getTime()}`
 })
 export class RsurParticipMarksChange implements OnInit {
 	rsurParticip: RsurParticipMarks;
 	marks: string[];
+	isUpdate: boolean;
 
 	marksInputs: JQuery<HTMLInputElement>;
 
 	constructor(private readonly route: ActivatedRoute,
-				private readonly router: Router,
+				private readonly location: Location,
 				private readonly marksService: MarksService) { }
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
-			let participId = params['participId'];
+			let participTestId = params['participTestId'];
 
-			this.marksService.getMarksByRsurParticipId(participId).subscribe(res => {
-				this.rsurParticip = res;
-				this.marks = res.Marks ? res.Marks.split(';') : new Array<string>(res.MarkNames.length);
+			this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(res => {
+				this.rsurParticip = res.json() as RsurParticipMarks;
+				if (this.rsurParticip.Marks) {
+					this.marks = this.rsurParticip.Marks.split(';');
+					this.isUpdate = false;
+				}
+				else {
+					this.marks = new Array<string>(this.rsurParticip.MarkNames.length);
+					this.isUpdate = true;
+				}
 
 				$(document).ready(() => {
 					this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
@@ -77,12 +81,17 @@ export class RsurParticipMarksChange implements OnInit {
 	}
 
 	onSubmit() {
-		let rsurParticipUpload: RsurParticipMarksUpload = {
-			ParticipTestId: this.rsurParticip.ParticipTestId,
-			Marks: this.marks.join(';')
+		let rsurParticipUpload: Marks = {
+			participTestId: this.rsurParticip.ParticipTestId,
+			marks: this.marks.join(';')
 		};
 
-
+		if (this.isUpdate) {
+			this.marksService.updateRsurMarks(rsurParticipUpload).subscribe(res => this.location.back());
+		}
+		else {
+			this.marksService.addRsurMarks(rsurParticipUpload).subscribe(res => this.location.back());
+		}
 	}
 
 	getCurrentMarksArray() { //this is method for tests and should be removed after tests

@@ -13,6 +13,7 @@ import { Account } from '../../account/account';
 export class RsurTestComponent implements OnInit {
     account = new Account();  
     percent: number;
+	componentIsShowing: boolean = false;
 
     constructor(
         private readonly accountService: AccountService,
@@ -21,7 +22,8 @@ export class RsurTestComponent implements OnInit {
 
     ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
-            this.account = data.json() as Account;
+			this.account = data.json() as Account;
+			this.componentIsShowing = true;
         });
         this.getProtocolStatus(1082);
     }
@@ -37,5 +39,11 @@ export class RsurTestComponent implements OnInit {
             console.log(response.json());
             this.percent = response.json().ProtocolStatus;
         });        
-    }
+	}
+
+	getProgressValue(rsurTestId: number) {
+		if (this.componentIsShowing) {
+			this.rsurTestService.getProtocolStatus(rsurTestId).subscribe
+		}
+	}
 }

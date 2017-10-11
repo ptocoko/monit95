@@ -42,6 +42,7 @@ namespace Monit95App.Util
             builder.RegisterType<ClassParticipImporter>().As<IClassParticipImporter>();
             builder.RegisterType<ClassParticipConverter>().As<IClassParticipConverter>();
             builder.RegisterType<MarksService>().As<IMarksService>();
+            builder.RegisterType<RsurMarksService>().As<IRsurMarksService>();
             builder.RegisterType<ParticipResults>().As<IParticipResults>();
             builder.RegisterType<RsurTestService>().As<IRsurTestService>();
 

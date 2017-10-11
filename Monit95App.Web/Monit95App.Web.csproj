@@ -276,6 +276,7 @@
     <Compile Include="Api\FilesController.cs" />
     <Compile Include="Api\MarksFileController.cs" />
     <Compile Include="Api\ResultReportController.cs" />
+    <Compile Include="Api\RsurMarksController.cs" />
     <Compile Include="Api\RsurParticipsController.cs" />
     <Compile Include="Api\RsurParticipEditsController.cs" />
     <Compile Include="Api\ParticipsController.cs" />
@@ -332,6 +333,8 @@
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\file\file.component.html" />
     <Content Include="app\rsur\rsur-test\rsur-test.component.css" />
+    <Content Include="app\rsur\marks\marks-list.component.html" />
+    <Content Include="app\rsur\rsur-exams\rsur-exams.component.css" />
     <Content Include="app\rsur\marks\marks-change.component.html" />
     <Content Include="app\rsur\rsur-test\rsur-test.component.html" />
     <Content Include="app\rsur\rsur-home\rsur-home.component.html" />
@@ -589,6 +592,8 @@
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
     <TypeScriptCompile Include="app\rsur\marks\marks-change.component.ts" />
+    <TypeScriptCompile Include="app\rsur\marks\marks-list.component.ts" />
+    <TypeScriptCompile Include="app\rsur\rsur-exams\rsur-exams.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-home\rsur-home.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.service.ts" />

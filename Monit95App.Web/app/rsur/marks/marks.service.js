@@ -22,7 +22,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var Observable_1 = require("rxjs/Observable");
 var Person_1 = require("../../shared/Person");
 var Marks = (function () {
     function Marks() {
@@ -55,14 +54,20 @@ var MarksService = (function () {
     MarksService.prototype.getMarksByParticipTestId = function (participTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/GetByParticipTestId?participTestId=" + participTestId);
     };
-    MarksService.prototype.getMarksByRsurParticipId = function (participId) {
-        var MOCK = {
-            ParticipTestId: 17,
-            Fio: 'Эсамбаев Хус Арбиевич',
-            TestNumberCodeWithName: '0101 - Орфография',
-            MarkNames: ['1.2', '1.3', '1.2', '1.3', '1.2', '1.3', '1.2', '1.3'],
-        };
-        return Observable_1.Observable.of(MOCK);
+    MarksService.prototype.getMarksByRsurParticipTestId = function (participTestId) {
+        return this.http.get('api/rsurMarks/Get?participTestId=' + participTestId);
+    };
+    MarksService.prototype.getRsurMarksByRsurTestId = function (rsurTestId) {
+        return this.http.get('api/rsurMarks/GetByTestId/' + rsurTestId);
+    };
+    MarksService.prototype.addRsurMarks = function (marks) {
+        return this.http.post('api/rsurMarks/Post', marks);
+    };
+    MarksService.prototype.updateRsurMarks = function (marks) {
+        return this.http.put('api/rsurMarks/' + marks.participTestId, marks);
+    };
+    MarksService.prototype.getValueOfFilling = function (rsurTestId) {
+        return this.http.get('api/rsurMarks/GetValueOfFilling?rsurTestId=' + rsurTestId);
     };
     return MarksService;
 }());

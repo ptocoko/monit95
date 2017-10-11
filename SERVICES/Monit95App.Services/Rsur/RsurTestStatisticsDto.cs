@@ -9,5 +9,6 @@ namespace Monit95App.Services.Rsur
     public class RsurTestStatisticsDto
     {
         public int ProtocolStatus { get; set; }
+        public bool HasAnyParticip { get; set; }
     }
 }
