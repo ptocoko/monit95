@@ -7,7 +7,8 @@
         <ul class="list-group">
             <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/{{account.UserName}}_распределение_ру_11.10.2017.xlsx"><b>Распределение</b><i></i></a></li>                        
             <!--<li class="list-group-item"><a><b>Индивидуальные комплекты</b><i> (доступно 10.10.2017)</i></a></li>-->                        
-            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/CMFs/Z5V2j8NZE"><b>Ключи</b><i></i></a></li>                                    
+            <li *ngIf="isArea206()" class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/Lft3/VpXCAKhe6"><b>Ключи</b><i></i></a></li>                                    
+            <li *ngIf="!isArea206()" class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/CMFs/Z5V2j8NZE"><b>Ключи</b><i></i></a></li>                                    
         </ul>
     </div>
     
