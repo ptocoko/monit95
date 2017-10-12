@@ -27,7 +27,6 @@ export class RsurTestProtocolListComponent implements OnInit {
 		this.isLoading = true;
 		this.route.params.subscribe(params => {
 			let rsurTestId = params['id'];
-            console.log(rsurTestId);
 			this.rsurTestService.getTestName(rsurTestId).subscribe(res => this.testNumberCodeWithName = res.json());
 
 			this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(res => {
