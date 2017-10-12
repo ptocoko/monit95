@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Monit95App.Models;
-using Monit95App.Services;
-using Monit95App.Web.Services;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,14 +6,19 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Monit95App.Services.Interfaces;
 
+using Microsoft.AspNet.Identity;
+
+using Monit95App.Services.Interfaces;
+using Monit95App.Web.Services;
+
+// ReSharper disable once CheckNamespace
 namespace Monit95App.Web.Api
 {    
-    [Authorize]
+    [Authorize]    
     public class FilesController : ApiController
     {
-        #region Fields
+        #region Dependencies
 
         private readonly IRsurReportModelConverter _rsurReportModelConverter;        
         private readonly IAccountService _userService;
@@ -33,14 +33,12 @@ namespace Monit95App.Web.Api
             _userService = userService;
         }
 
-        public FilesController()
-        {
-
-        }
-
         #endregion
 
-        #region Api
+        #region APIs
+
+
+
 
         #warning readable is bad
         [Route("api/files/rsurParticipLists/{id}")]

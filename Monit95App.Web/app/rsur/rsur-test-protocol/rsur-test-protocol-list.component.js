@@ -32,7 +32,6 @@ var RsurTestProtocolListComponent = (function () {
         this.isLoading = true;
         this.route.params.subscribe(function (params) {
             var rsurTestId = params['id'];
-            console.log(rsurTestId);
             _this.rsurTestService.getTestName(rsurTestId).subscribe(function (res) { return _this.testNumberCodeWithName = res.json(); });
             _this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(function (res) {
                 _this.rsurParticips = res.json();
