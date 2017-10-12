@@ -84,6 +84,18 @@ namespace AccountsCreator
                 throw new IdentityException($"Ошибка при добавлении пользователю роли: { AddErrors(result) }");
             }
         }
+
+        public void ChangePassword(string userName, string currentPassword, string newPassword)
+        {
+            if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(currentPassword) || String.IsNullOrEmpty(newPassword)) throw new ArgumentNullException();
+
+            var user = UserManager.FindByName(userName);
+            var result = UserManager.ChangePassword(user.Id, currentPassword, newPassword);
+            if (!result.Succeeded)
+            {
+                throw new IdentityException($"Ошибка при изменении пароля пользователя: { AddErrors(result) }");
+            }
+        }
         
         private string AddErrors(IdentityResult result)
         {
