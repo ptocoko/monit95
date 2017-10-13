@@ -272,7 +272,7 @@
     <Compile Include="Api\ClassController.cs" />
     <Compile Include="Api\DocumentsController.cs" />
     <Compile Include="Api\ExcelFilesController.cs" />
-    <Compile Include="Api\FileRepositoriesController.cs" />
+    <Compile Include="Api\FileRepositoryController.cs" />
     <Compile Include="Api\MarksController.cs" />
     <Compile Include="Api\FilesController.cs" />
     <Compile Include="Api\MarksFileController.cs" />
