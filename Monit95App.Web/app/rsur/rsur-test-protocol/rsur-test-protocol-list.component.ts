@@ -18,6 +18,8 @@ export class RsurTestProtocolListComponent implements OnInit {
 	participsWithoutMarks: number = 0;
 	testNumberCodeWithName: string;
 
+	searchText: string;
+
 	constructor(private readonly marksService: MarksService, 
 				private readonly route: ActivatedRoute,
 				private readonly router: Router,
@@ -33,11 +35,33 @@ export class RsurTestProtocolListComponent implements OnInit {
 				this.rsurParticips = res.json() as RsurParticipMarks[];
 				this.participsWithoutMarks = this.rsurParticips.filter(f => !f.Marks).length;
 				this.isLoading = false;
+
+				$.ready.then(() => {
+					$('#searchInput').find('input').focus();
+					$('#searchInput').find('span').hide();
+				});
 			})
 		})
 	}
 
     changeMarks(participTestId: number) {        
         this.router.navigate(['/rsur/testprotocols', participTestId]);		
+	}
+
+	onSearchTextChange() {
+		if (this.rsurParticips.filter(x => x.Code.toString().indexOf(this.searchText) !== -1).length === 1) {
+			$('#searchInput').find('input').keyup(event => {
+				if (event.keyCode === 13) {
+					this.changeMarks(this.rsurParticips.find(x => x.Code.toString().indexOf(this.searchText) !== -1).ParticipTestId);
+				}
+			});
+			$('#searchInput').addClass('has-success');
+			$('#searchInput').find('span').show();
+		}
+		else {
+			$('#searchInput').find('input').keyup(event => { });
+			$('#searchInput').removeClass('has-success');
+			$('#searchInput').find('span').hide();
+		}
 	}
 }

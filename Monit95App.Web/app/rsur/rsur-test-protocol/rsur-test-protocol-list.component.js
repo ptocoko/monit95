@@ -37,11 +37,32 @@ var RsurTestProtocolListComponent = (function () {
                 _this.rsurParticips = res.json();
                 _this.participsWithoutMarks = _this.rsurParticips.filter(function (f) { return !f.Marks; }).length;
                 _this.isLoading = false;
+                $.ready.then(function () {
+                    $('#searchInput').find('input').focus();
+                    $('#searchInput').find('span').hide();
+                });
             });
         });
     };
     RsurTestProtocolListComponent.prototype.changeMarks = function (participTestId) {
         this.router.navigate(['/rsur/testprotocols', participTestId]);
+    };
+    RsurTestProtocolListComponent.prototype.onSearchTextChange = function () {
+        var _this = this;
+        if (this.rsurParticips.filter(function (x) { return x.Code.toString().indexOf(_this.searchText) !== -1; }).length === 1) {
+            $('#searchInput').find('input').keyup(function (event) {
+                if (event.keyCode === 13) {
+                    _this.changeMarks(_this.rsurParticips.find(function (x) { return x.Code.toString().indexOf(_this.searchText) !== -1; }).ParticipTestId);
+                }
+            });
+            $('#searchInput').addClass('has-success');
+            $('#searchInput').find('span').show();
+        }
+        else {
+            $('#searchInput').find('input').keyup(function (event) { });
+            $('#searchInput').removeClass('has-success');
+            $('#searchInput').find('span').hide();
+        }
     };
     return RsurTestProtocolListComponent;
 }());

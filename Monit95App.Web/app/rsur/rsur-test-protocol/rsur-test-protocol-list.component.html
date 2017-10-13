@@ -4,7 +4,10 @@
 <div *ngIf="isLoading">Загрузка...</div>
 <div style="width:750px; margin-right:auto" *ngIf="!isLoading">
     <div style="display:flex;flex-direction:row">
-        <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника по коду..." />
+        <div id="searchInput" class="form-group has-feedback">
+            <input type="text" [(ngModel)]="searchText" (keyup)="onSearchTextChange()" class="form-control" placeholder="Поиск участника по коду..." />
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
         <div *ngIf="participsWithoutMarks!==0" style="margin-top:6px; color: red; margin-left:15px"><b>Осталось: {{participsWithoutMarks}}</b></div>
         <div *ngIf="participsWithoutMarks===0" style="margin-top:6px; margin-left:15px; color:green"><b>Протокол заполнен!</b></div>
     </div>
