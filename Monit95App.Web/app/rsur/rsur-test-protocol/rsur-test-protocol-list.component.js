@@ -47,21 +47,23 @@ var RsurTestProtocolListComponent = (function () {
     RsurTestProtocolListComponent.prototype.changeMarks = function (participTestId) {
         this.router.navigate(['/rsur/testprotocols', participTestId]);
     };
-    RsurTestProtocolListComponent.prototype.onSearchTextChange = function () {
+    RsurTestProtocolListComponent.prototype.onSearchTextChange = function (event) {
         var _this = this;
-        if (this.rsurParticips.filter(function (x) { return x.Code.toString().indexOf(_this.searchText) !== -1; }).length === 1) {
-            $('#searchInput').find('input').keyup(function (event) {
-                if (event.keyCode === 13) {
-                    _this.changeMarks(_this.rsurParticips.find(function (x) { return x.Code.toString().indexOf(_this.searchText) !== -1; }).ParticipTestId);
-                }
-            });
-            $('#searchInput').addClass('has-success');
-            $('#searchInput').find('span').show();
-        }
-        else {
-            $('#searchInput').find('input').keyup(function (event) { });
-            $('#searchInput').removeClass('has-success');
-            $('#searchInput').find('span').hide();
+        if (event.keyCode !== 13) {
+            if (this.rsurParticips.filter(function (x) { return x.Code.toString().indexOf(_this.searchText) !== -1; }).length === 1) {
+                $('#searchInput').find('input').keyup(function (event) {
+                    if (event.keyCode === 13) {
+                        _this.changeMarks(_this.rsurParticips.find(function (x) { return x.Code.toString().indexOf(_this.searchText) !== -1; }).ParticipTestId);
+                    }
+                });
+                $('#searchInput').addClass('has-success');
+                $('#searchInput').find('span').show();
+            }
+            else {
+                $('#searchInput').find('input').keyup(function (event) { });
+                $('#searchInput').removeClass('has-success');
+                $('#searchInput').find('span').hide();
+            }
         }
     };
     return RsurTestProtocolListComponent;

@@ -48,20 +48,22 @@ export class RsurTestProtocolListComponent implements OnInit {
         this.router.navigate(['/rsur/testprotocols', participTestId]);		
 	}
 
-	onSearchTextChange() {
-		if (this.rsurParticips.filter(x => x.Code.toString().indexOf(this.searchText) !== -1).length === 1) {
-			$('#searchInput').find('input').keyup(event => {
-				if (event.keyCode === 13) {
-					this.changeMarks(this.rsurParticips.find(x => x.Code.toString().indexOf(this.searchText) !== -1).ParticipTestId);
-				}
-			});
-			$('#searchInput').addClass('has-success');
-			$('#searchInput').find('span').show();
-		}
-		else {
-			$('#searchInput').find('input').keyup(event => { });
-			$('#searchInput').removeClass('has-success');
-			$('#searchInput').find('span').hide();
+	onSearchTextChange(event: KeyboardEvent) {
+		if (event.keyCode !== 13) {
+			if (this.rsurParticips.filter(x => x.Code.toString().indexOf(this.searchText) !== -1).length === 1) {
+				$('#searchInput').find('input').keyup(event => {
+					if (event.keyCode === 13) {
+						this.changeMarks(this.rsurParticips.find(x => x.Code.toString().indexOf(this.searchText) !== -1).ParticipTestId);
+					}
+				});
+				$('#searchInput').addClass('has-success');
+				$('#searchInput').find('span').show();
+			}
+			else {
+				$('#searchInput').find('input').keyup(event => { });
+				$('#searchInput').removeClass('has-success');
+				$('#searchInput').find('span').hide();
+			}
 		}
 	}
 }

@@ -5,7 +5,7 @@
 <div style="width:750px; margin-right:auto" *ngIf="!isLoading">
     <div style="display:flex;flex-direction:row">
         <div id="searchInput" class="form-group has-feedback">
-            <input type="text" [(ngModel)]="searchText" (keyup)="onSearchTextChange()" class="form-control" placeholder="Поиск участника по коду..." />
+            <input type="text" [(ngModel)]="searchText" (keyup)="onSearchTextChange($event)" class="form-control" placeholder="Поиск участника по коду..." />
             <span class="glyphicon glyphicon-ok form-control-feedback"></span>
         </div>
         <div *ngIf="participsWithoutMarks!==0" style="margin-top:6px; color: red; margin-left:15px"><b>Осталось: {{participsWithoutMarks}}</b></div>
