@@ -1,4 +1,5 @@
-﻿using Monit95App.Services.DTOs;
+﻿using Monit95App.Infrastructure.Data;
+using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace Monit95App.Api
     public class RsurMarksController : ApiController
     {
         private readonly IRsurMarksService _rsurMarksService;
+        private readonly CokoContext _context;
 
-        public RsurMarksController(IRsurMarksService rsurMarksService)
+        public RsurMarksController(IRsurMarksService rsurMarksService, CokoContext context)
         {
             _rsurMarksService = rsurMarksService;
+            _context = context;
         }
 
         [HttpGet]
@@ -65,6 +68,9 @@ namespace Monit95App.Api
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
+            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurTest.IsOpen;
+            if (!isTestOpen) return BadRequest("Редактирование результатов для данного теста закрыто!");
+
             _rsurMarksService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
             return Ok();
@@ -77,6 +83,10 @@ namespace Monit95App.Api
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurParticipTestId"]);
+
+            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurTest.IsOpen;
+            if (!isTestOpen) return BadRequest("Редактирование результатов для данного теста закрыто!");
+
             _rsurMarksService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
 
             return Ok();
