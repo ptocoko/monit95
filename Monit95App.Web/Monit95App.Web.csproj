@@ -269,23 +269,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\ClassController.cs" />
-    <Compile Include="Api\DocumentsController.cs" />
-    <Compile Include="Api\ExcelFilesController.cs" />
-    <Compile Include="Api\FileRepositoriesController.cs" />
-    <Compile Include="Api\MarksController.cs" />
-    <Compile Include="Api\FilesController.cs" />
-    <Compile Include="Api\MarksFileController.cs" />
-    <Compile Include="Api\ResultReportController.cs" />
-    <Compile Include="Api\RsurMarksController.cs" />
-    <Compile Include="Api\RsurParticipsController.cs" />
-    <Compile Include="Api\RsurParticipEditsController.cs" />
-    <Compile Include="Api\ParticipsController.cs" />
-    <Compile Include="Api\CollectorsController.cs" />
-    <Compile Include="Api\RsurTestsController.cs" />
-    <Compile Include="Api\SchoolsController.cs" />
-    <Compile Include="Api\AccountsApiController.cs" />
-    <Compile Include="Api\SchoolEditsController.cs" />
+    <Compile Include="RESTful_API\ClassController.cs" />
+    <Compile Include="RESTful_API\DocumentsController.cs" />
+    <Compile Include="RESTful_API\ExcelFilesController.cs" />
+    <Compile Include="RESTful_API\FileRepositoriesController.cs" />
+    <Compile Include="RESTful_API\MarksController.cs" />
+    <Compile Include="RESTful_API\FilesController.cs" />
+    <Compile Include="RESTful_API\MarksFileController.cs" />
+    <Compile Include="RESTful_API\ResultReportController.cs" />
+    <Compile Include="RESTful_API\RsurMarksController.cs" />
+    <Compile Include="RESTful_API\RsurParticipsController.cs" />
+    <Compile Include="RESTful_API\RsurParticipEditsController.cs" />
+    <Compile Include="RESTful_API\ParticipsController.cs" />
+    <Compile Include="RESTful_API\CollectorsController.cs" />
+    <Compile Include="RESTful_API\RsurTestsController.cs" />
+    <Compile Include="RESTful_API\SchoolsController.cs" />
+    <Compile Include="RESTful_API\AccountsApiController.cs" />
+    <Compile Include="RESTful_API\SchoolEditsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
