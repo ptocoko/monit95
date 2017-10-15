@@ -72,6 +72,7 @@
     <Compile Include="MarksController_Test.cs" />
     <Compile Include="ParticipsController_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FileRepositoriyControllerTest.cs" />
     <Compile Include="UserService_Test.cs" />
   </ItemGroup>
   <ItemGroup>
