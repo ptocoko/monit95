@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { MarksService } from "./marks.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { RsurTestService } from "../rsur-test/rsur-test.service";
+import { MarksService } from './marks.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RsurTestService } from '../rsur-test/rsur-test.service';
 
 export class RsurParticipMarks {
 	ParticipTestId: number;
@@ -20,10 +20,12 @@ export class RsurTestProtocolListComponent implements OnInit {
 
 	searchText: string;
 
-	constructor(private readonly marksService: MarksService, 
-				private readonly route: ActivatedRoute,
-				private readonly router: Router,
-				private readonly rsurTestService: RsurTestService) { }
+    constructor(private readonly marksService: MarksService,
+                private readonly rsurTestService: RsurTestService,
+                private readonly route: ActivatedRoute,
+                private readonly router: Router) {
+        
+    }
 
 	ngOnInit() {
 		this.isLoading = true;
@@ -40,8 +42,8 @@ export class RsurTestProtocolListComponent implements OnInit {
 					$('#searchInput').find('input').focus();
 					$('#searchInput').find('span').hide();
 				});
-			})
-		})
+			});
+		});
 	}
 
     changeMarks(participTestId: number) {        
