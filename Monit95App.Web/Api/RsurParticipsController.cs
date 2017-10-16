@@ -96,17 +96,17 @@ namespace Monit95App.Web.Api
             return this.Ok();
         }
 
-        [HttpDelete]
-        [Authorize(Roles = "school")]
-        [Route("{code:int}")]
-        public IHttpActionResult Delete()
-        {
-            var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
+        //[HttpDelete]
+        //[Authorize(Roles = "school")]
+        //[Route("{code:int}")]
+        //public IHttpActionResult Delete()
+        //{
+        //    var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
 
-            this._rsurParticipService.Delete(code);
+        //    this._rsurParticipService.Delete(code);
 
-            return this.Ok();
-        }
+        //    return this.Ok();
+        //}
 
 
         //[HttpGet]

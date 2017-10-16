@@ -89,6 +89,7 @@ AppModule = __decorate([
             rsur_particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
             rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
+            rsurparticip_filter_pipe_1.RsurShowNotActualParticips,
             particip_filter_pipe_1.ParticipFilterPipe,
             class_name_filter_pipe_1.ClassNameFilterPipe,
             limit_to_pipe_1.LimitToPipe,
