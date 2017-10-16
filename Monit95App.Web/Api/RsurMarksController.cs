@@ -2,16 +2,13 @@
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Monit95App.Api
 {
     [Authorize(Roles = "area")]
-    [RoutePrefix("api/RsurMarks")]
+    [RoutePrefix("api/rsurMarks")]
     public class RsurMarksController : ApiController
     {
         private readonly IRsurMarksService _rsurMarksService;
@@ -26,9 +23,7 @@ namespace Monit95App.Api
         [HttpGet]
         [Route("~/api/RsurMarks/{participTestId:int}")]
         public IHttpActionResult Get()
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
+        {            
             var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
             var result = _rsurMarksService.GetByParticipTestId(participTestId);
 

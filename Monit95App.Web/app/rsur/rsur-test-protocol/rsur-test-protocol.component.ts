@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { MarksService, Marks } from "./marks.service";
+import { ActivatedRoute } from '@angular/router';
+import { MarksService, Marks } from './marks.service';
 import { Location } from '@angular/common';
 
 export class RsurParticipMarks {
@@ -15,7 +15,7 @@ export class RsurParticipMarks {
 	templateUrl: `./app/rsur/rsur-test-protocol/rsur-test-protocol.component.html?v=${new Date().getTime()}`
 })
 export class RsurTestProtocolComponent implements OnInit {
-	rsurParticip: RsurParticipMarks = new RsurParticipMarks();
+	rsurParticip = new RsurParticipMarks();
 	marks: string[];
 	markNames: string[];
 	isUpdate: boolean;
@@ -29,9 +29,9 @@ export class RsurTestProtocolComponent implements OnInit {
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
-			let participTestId = params['id'];
+		    const participTestId = params['id'];
 			
-			this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(res => {
+		    this.marksService.getMarksByRsurParticipTestId(participTestId).subscribe(res => {
 				this.rsurParticip = res.json() as RsurParticipMarks;
 				this.markNames = this.rsurParticip.MarkNames;
 
