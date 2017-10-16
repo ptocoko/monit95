@@ -37,12 +37,10 @@ namespace Monit95App.Api
             }
         }
 
-        [HttpGet]
-        [Route("~/api/RsurMarks/GetByTestId/{rsurTestId:int}")]
+        [HttpGet]        
+        [Route("{rsurTestId:int}")]
         public IHttpActionResult GetByTestId()
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
+        {            
             var areaCode = int.Parse(User.Identity.Name);
             var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurTestId"]);
             var rsurParticips = _rsurMarksService.GetByAreaCodeAndRsurTestId(areaCode, rsurTestId);
@@ -51,10 +49,7 @@ namespace Monit95App.Api
             {
                 return Ok(rsurParticips);
             }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
 
         [HttpPost]

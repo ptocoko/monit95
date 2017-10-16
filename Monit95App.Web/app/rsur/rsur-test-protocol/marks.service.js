@@ -58,7 +58,7 @@ var MarksService = (function () {
         return this.http.get("api/rsurMarks/" + rsurParticipTestId);
     };
     MarksService.prototype.getRsurMarksByRsurTestId = function (rsurTestId) {
-        return this.http.get('api/rsurMarks/GetByTestId/' + rsurTestId);
+        return this.http.get("api/rsurMarks/GetByTestId/" + rsurTestId);
     };
     MarksService.prototype.addRsurMarks = function (marks) {
         return this.http.post('api/rsurMarks/Post', marks);
