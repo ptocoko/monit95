@@ -85,6 +85,7 @@
     <Compile Include="DTOs\ParticipMarksDto.cs" />
     <Compile Include="DTOs\PutMarksDto.cs" />
     <Compile Include="DTOs\RsurGetMarksDto.cs" />
+    <Compile Include="DTOs\RsurTestProtocol.cs" />
     <Compile Include="DTOs\RsurParticipMarksListDto.cs" />
     <Compile Include="DTOs\RsurParticipPutDto.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />

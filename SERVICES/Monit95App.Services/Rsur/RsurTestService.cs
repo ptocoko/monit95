@@ -24,7 +24,7 @@ namespace Monit95App.Services.Rsur
             this.context = context;
         }
 
-        #region Services
+        #region Service methods
 
         public RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null)
         {

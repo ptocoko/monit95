@@ -11,8 +11,8 @@ namespace Monit95App.Api
 
     using Monit95App.Services.Interfaces;
 
-    [Authorize(Roles = "coko, area")]
-    [RoutePrefix("api/RsurTests")]
+    [Authorize(Roles = "area")]
+    [RoutePrefix("api/rsurTests")]
     public class RsurTestsController : ApiController
     {
         #region Dependencies
@@ -26,35 +26,30 @@ namespace Monit95App.Api
             this.rsurTestService = rsurTestService;
         }
 
-        #region APIs
-
+        #region APIs        
+        
         [HttpGet]
-        [Route("~/api/RsurTests/{id:int}/Statistics")]        
-        public IHttpActionResult GetStatistics()
+        [Route("{id}/protocols")]
+        public IHttpActionResult GetProtocols()
         {
-            var userName = User.Identity.GetUserName();
+            var areaCode = int.Parse(User.Identity.Name);
             var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            int? areaCode = null;
+            var protocols = rsurTestService.GetProtocols(rsurTestId, areaCode);
 
-            if (User.IsInRole("area"))
-            {
-                areaCode = Convert.ToInt32(userName);
-            }
-
-            var dto = rsurTestService.GetStatistics(rsurTestId, areaCode);
-
-            return this.Ok(dto);
+            return Ok(protocols);
         }
 
+        //TODO: need refactoring
         [HttpGet]
         [Route("~/api/RsurTests/Statistics")]
-        public IHttpActionResult GetStatistics2()
+        public IHttpActionResult GetStatistics()
         {
             var userName = User.Identity.GetUserName();
             var areaCode = Convert.ToInt32(userName);
             return Ok(rsurTestService.GetStatistics2(areaCode));
         }
 
+        //TODO: need refactoring
         [HttpGet]
         [Route("~/api/RsurTests/{rsurTestId:int}/Name")]
         public IHttpActionResult GetTestName()
