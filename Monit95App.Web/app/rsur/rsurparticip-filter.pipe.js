@@ -13,7 +13,9 @@ var RsurParticipFilterPipe = (function () {
     RsurParticipFilterPipe.prototype.transform = function (particips, searchText) {
         if (searchText == null)
             return particips;
-        return particips.filter(function (particip) { return particip.Code.toString().indexOf(searchText) > -1; });
+        return particips.filter(function (particip) { return particip.Code.toString().indexOf(searchText) > -1
+            || particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+            || particip.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1; });
     };
     return RsurParticipFilterPipe;
 }());
@@ -21,6 +23,22 @@ RsurParticipFilterPipe = __decorate([
     core_1.Pipe({ name: 'rsurParticipFilter' })
 ], RsurParticipFilterPipe);
 exports.RsurParticipFilterPipe = RsurParticipFilterPipe;
+var RsurShowNotActualParticips = (function () {
+    function RsurShowNotActualParticips() {
+    }
+    RsurShowNotActualParticips.prototype.transform = function (particips, isShowNotActual) {
+        if (isShowNotActual)
+            return particips;
+        else {
+            return particips.filter(function (particip) { return particip.ActualCode === 1; });
+        }
+    };
+    return RsurShowNotActualParticips;
+}());
+RsurShowNotActualParticips = __decorate([
+    core_1.Pipe({ name: 'rsurIsShowNotActual' })
+], RsurShowNotActualParticips);
+exports.RsurShowNotActualParticips = RsurShowNotActualParticips;
 //return particips.filter(function (particip: any) {
 //    return particip.participCode.indexOf(searchText.toLowerCase()) > -1
 //        || particip.surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1;

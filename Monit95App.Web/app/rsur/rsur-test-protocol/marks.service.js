@@ -54,11 +54,11 @@ var MarksService = (function () {
     MarksService.prototype.getMarksByParticipTestId = function (participTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/GetByParticipTestId?participTestId=" + participTestId);
     };
-    MarksService.prototype.getMarksByRsurParticipTestId = function (participTestId) {
-        return this.http.get('api/rsurMarks/' + participTestId);
+    MarksService.prototype.getMarksByRsurParticipTestId = function (rsurParticipTestId) {
+        return this.http.get("api/rsurMarks/" + rsurParticipTestId);
     };
     MarksService.prototype.getRsurMarksByRsurTestId = function (rsurTestId) {
-        return this.http.get('api/rsurMarks/GetByTestId/' + rsurTestId);
+        return this.http.get("api/rsurMarks/GetByTestId/" + rsurTestId);
     };
     MarksService.prototype.addRsurMarks = function (marks) {
         return this.http.post('api/rsurMarks/Post', marks);

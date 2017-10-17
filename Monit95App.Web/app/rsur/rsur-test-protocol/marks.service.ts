@@ -1,12 +1,8 @@
 ﻿import { Injectable, Component } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { RsurParticip } from '../rsurparticip';
-import { ResultsModel, ResultDetailsModel } from '../results/results.model';
-import { ParticipModel } from "../../particip.model";
-import { Person } from "../../shared/Person";
-import { RsurTestProtocolComponent } from "./rsur-test-protocol.component";
+
+import { Person } from '../../shared/Person';
 
 export class Marks {
     participTestId: number;
@@ -14,9 +10,9 @@ export class Marks {
 }
 
 export class ParticipWithMarks extends Person {
-	public ParticipTestId: number;
-	public ClassName: string;
-	public Marks: string;
+	ParticipTestId: number;
+	ClassName: string;
+	Marks: string;
 }
 
 @Component({
@@ -47,12 +43,12 @@ export class MarksService {
 		return this.http.get(`${this.ROUTE_PREFIX}/GetByParticipTestId?participTestId=${participTestId}`);
 	}
 
-	getMarksByRsurParticipTestId(participTestId: number) {
-		return this.http.get('api/rsurMarks/' + participTestId);
+	getMarksByRsurParticipTestId(rsurParticipTestId: number) {
+        return this.http.get(`api/rsurMarks/${rsurParticipTestId}`);
 	}
 
 	getRsurMarksByRsurTestId(rsurTestId: number) {
-		return this.http.get('api/rsurMarks/GetByTestId/' + rsurTestId);
+		return this.http.get(`api/rsurMarks/GetByTestId/${rsurTestId}`);
 	}
 
 	addRsurMarks(marks: Marks) {

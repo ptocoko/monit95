@@ -73,7 +73,7 @@ namespace Monit95App.Services.Rsur
 
         public IEnumerable<RsurParticipGetDto> GetAll(int? areaCode = null, string schoolId = null)
         {
-            var query = this._cokoContext.RsurParticips.AsQueryable().Where(x => x.ActualCode != 0);
+            var query = this._cokoContext.RsurParticips.AsQueryable();
 
             if (areaCode != null)
             {
@@ -87,9 +87,9 @@ namespace Monit95App.Services.Rsur
 
             var entities = query.ToList();
 
-            var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);          
+            var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);
 
-            return dtos;
+            return dtos.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.SecondName);
         }
 
         public void Update(int code, RsurParticipPutDto dto)

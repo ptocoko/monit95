@@ -10,3 +10,7 @@
     background-color:#123456 !important;
     color: white;
 }
+
+.notActual {
+    color: lightslategray;
+}

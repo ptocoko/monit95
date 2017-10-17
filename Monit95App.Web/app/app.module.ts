@@ -47,7 +47,7 @@ import { SchoolCollectorService } from "./shared/school-collector.service";
 import { ResultsService } from "./shared/results.service";
 
 // Pipes
-import { RsurParticipFilterPipe } from './rsur/rsurparticip-filter.pipe';
+import { RsurParticipFilterPipe, RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
@@ -82,7 +82,8 @@ import { GlobalErrorHandler } from './error-handler';
 	    RsurTestComponent,
         RsurParticipsComponent,	
         RsurParticipAddFormComponent,
-		RsurParticipFilterPipe,
+        RsurParticipFilterPipe,
+        RsurShowNotActualParticips,
 		ParticipFilterPipe,
 		ClassNameFilterPipe,
 		LimitToPipe,
