@@ -21,7 +21,7 @@ export class ParticipWithMarks extends Person {
 
 @Injectable()
 export class MarksService {    
-    ROUTE_PREFIX = 'api/marks';
+    ROUTE_PREFIX = 'api/rsurMarks';
 
     constructor(private readonly http: Http) {
 
@@ -44,18 +44,18 @@ export class MarksService {
 	}
 
 	getMarksByRsurParticipTestId(rsurParticipTestId: number) {
-        return this.http.get(`api/rsurMarks/${rsurParticipTestId}`);
+        return this.http.get(`${this.ROUTE_PREFIX}/${rsurParticipTestId}`);
 	}
 
 	getRsurMarksByRsurTestId(rsurTestId: number) {
-		return this.http.get(`api/rsurMarks/GetByTestId/${rsurTestId}`);
+		return this.http.get(`${this.ROUTE_PREFIX}/ByTestId/${rsurTestId}`);
 	}
 
 	addRsurMarks(marks: Marks) {
-		return this.http.post('api/rsurMarks/Post', marks);
+		return this.http.post(`${this.ROUTE_PREFIX}/Post`, marks);
 	}
 
 	updateRsurMarks(marks: Marks) {
-		return this.http.put('api/rsurMarks/' + marks.participTestId, marks);
+		return this.http.put(`${this.ROUTE_PREFIX}/${marks.participTestId}`, marks);
 	}
 }

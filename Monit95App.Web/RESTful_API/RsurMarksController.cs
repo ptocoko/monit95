@@ -37,8 +37,8 @@ namespace Monit95App.Api
             }
         }
 
-        [HttpGet]        
-        [Route("{rsurTestId:int}")]
+        [HttpGet]
+        [Route("~/api/RsurMarks/ByTestId/{rsurTestId:int}")]
         public IHttpActionResult GetByTestId()
         {            
             var areaCode = int.Parse(User.Identity.Name);

@@ -40,7 +40,7 @@ exports.ParticipWithMarks = ParticipWithMarks;
 var MarksService = (function () {
     function MarksService(http) {
         this.http = http;
-        this.ROUTE_PREFIX = 'api/marks';
+        this.ROUTE_PREFIX = 'api/rsurMarks';
     }
     MarksService.prototype.addMarks = function (marks) {
         return this.http.post(this.ROUTE_PREFIX + '/Post', marks);
@@ -55,16 +55,16 @@ var MarksService = (function () {
         return this.http.get(this.ROUTE_PREFIX + "/GetByParticipTestId?participTestId=" + participTestId);
     };
     MarksService.prototype.getMarksByRsurParticipTestId = function (rsurParticipTestId) {
-        return this.http.get("api/rsurMarks/" + rsurParticipTestId);
+        return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
     };
     MarksService.prototype.getRsurMarksByRsurTestId = function (rsurTestId) {
-        return this.http.get("api/rsurMarks/GetByTestId/" + rsurTestId);
+        return this.http.get(this.ROUTE_PREFIX + "/ByTestId/" + rsurTestId);
     };
     MarksService.prototype.addRsurMarks = function (marks) {
-        return this.http.post('api/rsurMarks/Post', marks);
+        return this.http.post(this.ROUTE_PREFIX + "/Post", marks);
     };
     MarksService.prototype.updateRsurMarks = function (marks) {
-        return this.http.put('api/rsurMarks/' + marks.participTestId, marks);
+        return this.http.put(this.ROUTE_PREFIX + "/" + marks.participTestId, marks);
     };
     return MarksService;
 }());
