@@ -2,16 +2,13 @@
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Monit95App.Api
 {
     [Authorize(Roles = "area")]
-    [RoutePrefix("api/RsurMarks")]
+    [RoutePrefix("api/rsurMarks")]
     public class RsurMarksController : ApiController
     {
         private readonly IRsurMarksService _rsurMarksService;
@@ -26,9 +23,7 @@ namespace Monit95App.Api
         [HttpGet]
         [Route("~/api/RsurMarks/{participTestId:int}")]
         public IHttpActionResult Get()
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
+        {            
             var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
             var result = _rsurMarksService.GetByParticipTestId(participTestId);
 
@@ -42,12 +37,10 @@ namespace Monit95App.Api
             }
         }
 
-        [HttpGet]
-        [Route("~/api/RsurMarks/GetByTestId/{rsurTestId:int}")]
+        [HttpGet]        
+        [Route("{rsurTestId:int}")]
         public IHttpActionResult GetByTestId()
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
+        {            
             var areaCode = int.Parse(User.Identity.Name);
             var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurTestId"]);
             var rsurParticips = _rsurMarksService.GetByAreaCodeAndRsurTestId(areaCode, rsurTestId);
@@ -56,10 +49,7 @@ namespace Monit95App.Api
             {
                 return Ok(rsurParticips);
             }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
 
         [HttpPost]

@@ -5,8 +5,7 @@
     <div *ngIf="0 == 1" class="panel-body">
         <p>01 - Русский язык: Проведение и проверка</p>
         <ul class="list-group">
-            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/{{account.UserName}}_распределение_ру_11.10.2017.xlsx"><b>Распределение</b><i></i></a></li>                        
-            <!--<li class="list-group-item"><a><b>Индивидуальные комплекты</b><i> (доступно 10.10.2017)</i></a></li>-->                        
+            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/{{account.UserName}}_распределение_ру_11.10.2017.xlsx"><b>Распределение</b><i></i></a></li>                                                            
             <li *ngIf="isArea206()" class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/Lft3/VpXCAKhe6"><b>Ключи</b><i></i></a></li>                                    
             <li *ngIf="!isArea206()" class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/CMFs/Z5V2j8NZE"><b>Ключи</b><i></i></a></li>                                    
         </ul>
@@ -48,8 +47,12 @@
         <p>02 - Математика: Проведение и проверка</p>
         <ul class="list-group">
             <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/{{account.UserName}}_распределение_ма_16.10.2017.xlsx"><b>Распределение</b><i></i></a></li>                                
+            
             <li *ngIf="isArea206()" class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/Lft3/VpXCAKhe6"><b>Индивидуальные комплекты</b><i></i></a></li>                                                
             <li *ngIf="!isArea206()" class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/AFCK/wVbRNbwj8"><b>Индивидуальные комплекты</b><i></i></a></li>                           
+            
+            <li *ngIf="isArea206()" class="list-group-item"><a target="_blank" href=""><b>Ключи</b><i></i></a></li>                                    
+            <li *ngIf="!isArea206()" class="list-group-item"><a target="_blank" href=""><b>Ключи</b><i></i></a></li>
         </ul>
     </div>
 
@@ -85,6 +88,39 @@
 
     </div> 
     
+    <div *ngIf="0 == 1" class="panel-body">
+        <p>02 - Математика: Протоколы проверки заданий <i></i></p>
+        <ul *ngIf="isArea206(); else rsur16ma" class="list-group">
+            <li class="list-group-item progressbar-container">
+                <a routerLink="/rsur/tests/1084/protocols"><b>Алгебра</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1084)"></ngb-progressbar></span>
+            </li>
+            <li class="list-group-item progressbar-container">
+                <a routerLink="/rsur/tests/1085/protocols"><b>Геометрия</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1085)"></ngb-progressbar></span>
+            </li>
+            <li class="list-group-item progressbar-container">
+                <a routerLink="/rsur/tests/1086/protocols"><b>Функции && Матанализ && Комбинаторика && Уравнения и неравенства</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1086)"></ngb-progressbar></span>
+            </li>           
+        </ul>
+
+        <ng-template #rsur16ma>
+            <ul class="list-group">
+                <li class="list-group-item progressbar-container">
+                    <a routerLink="/rsur/tests/1088/protocols"><b>Алгебра</b></a>
+                    <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1088)"></ngb-progressbar></span>
+                </li>
+                <li class="list-group-item progressbar-container">
+                    <a routerLink="/rsur/tests/1089/protocols"><b>Геометрия</b></a>
+                    <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1089)"></ngb-progressbar></span>
+                </li>                        
+            </ul>
+        </ng-template>
+
+    </div>    
+    
+
     <div *ngIf="0 == 1" class="panel-body">
         <p>07 - История</p>
         <ul class="list-group">
