@@ -20,11 +20,11 @@ var RsurParticipMarks = (function () {
 }());
 exports.RsurParticipMarks = RsurParticipMarks;
 var RsurTestProtocolListComponent = (function () {
-    function RsurTestProtocolListComponent(marksService, route, router, rsurTestService) {
+    function RsurTestProtocolListComponent(marksService, rsurTestService, route, router) {
         this.marksService = marksService;
+        this.rsurTestService = rsurTestService;
         this.route = route;
         this.router = router;
-        this.rsurTestService = rsurTestService;
         this.participsWithoutMarks = 0;
     }
     RsurTestProtocolListComponent.prototype.ngOnInit = function () {
@@ -73,9 +73,9 @@ RsurTestProtocolListComponent = __decorate([
         templateUrl: "./app/rsur/rsur-test-protocol/rsur-test-protocol-list.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [marks_service_1.MarksService,
+        rsur_test_service_1.RsurTestService,
         router_1.ActivatedRoute,
-        router_1.Router,
-        rsur_test_service_1.RsurTestService])
+        router_1.Router])
 ], RsurTestProtocolListComponent);
 exports.RsurTestProtocolListComponent = RsurTestProtocolListComponent;
 //# sourceMappingURL=rsur-test-protocol-list.component.js.map
