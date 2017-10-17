@@ -68,8 +68,11 @@ namespace Monit95App.Api
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurTest.IsOpen;
-            if (!isTestOpen) return BadRequest("Редактирование результатов для данного теста закрыто!");
+            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurTest.IsOpen; //проверяем открыт ли тест для изменений
+            if (!isTestOpen) return Conflict();
+
+            var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurParticip.School.AreaCode; //сравниваем код района участника и код района, под которым
+            if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();                                                    //редактируются данные
 
             _rsurMarksService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
@@ -85,7 +88,10 @@ namespace Monit95App.Api
             var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurParticipTestId"]);
 
             var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurTest.IsOpen;
-            if (!isTestOpen) return BadRequest("Редактирование результатов для данного теста закрыто!");
+            if (!isTestOpen) return Conflict();
+
+            var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurParticip.School.AreaCode;
+            if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();
 
             _rsurMarksService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
 
