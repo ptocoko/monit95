@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Monit95App.Services.Rsur
 {
-    using DocumentFormat.OpenXml.Drawing;
 
     using Monit95App.Infrastructure.Data;
+    using Monit95App.Services.DTOs;
     using Monit95App.Services.Interfaces;
 
     public class RsurTestService : IRsurTestService
@@ -22,6 +20,20 @@ namespace Monit95App.Services.Rsur
         public RsurTestService(CokoContext context)
         {
             this.context = context;
+        }
+
+        public IEnumerable<RsurTestProtocol> GetProtocols(int rsurTestId, int areaCode)
+        {
+            var protocols = context.RsurTestResults.Where(x => x.RsurParticipTest.RsurTestId == rsurTestId && x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode)
+                                                   .Select(x => new RsurTestProtocol
+                                                   {
+                                                       RsurParticipTestId = x.RsurParticipTestId,
+                                                       RsurQuestionValues = x.RsurQuestionValues,
+                                                       RsurParticipCode = x.RsurParticipTest.RsurParticipCode
+                                                   })
+                                                   .OrderBy(x => x.RsurParticipCode).ToList();
+
+            return protocols;
         }
 
         #region Service methods
