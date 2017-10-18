@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace Monit95App.Api
 {
     using Microsoft.AspNet.Identity;
-
+    using Monit95App.Services.DTOs;
     using Monit95App.Services.Interfaces;
 
     [Authorize(Roles = "area")]
@@ -34,7 +34,16 @@ namespace Monit95App.Api
         {
             var areaCode = int.Parse(User.Identity.Name);
             var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            var protocols = rsurTestService.GetProtocols(rsurTestId, areaCode);
+
+            IEnumerable<RsurTestProtocol> protocols;
+            try
+            {
+                protocols = rsurTestService.GetProtocols(rsurTestId, areaCode);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok(protocols);
         }

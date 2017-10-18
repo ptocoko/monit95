@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Monit95App.Services.Rsur
 {
-
     using Monit95App.Infrastructure.Data;
     using Monit95App.Services.DTOs;
     using Monit95App.Services.Interfaces;
@@ -22,21 +21,26 @@ namespace Monit95App.Services.Rsur
             this.context = context;
         }
 
+        #region Service methods
+
         public IEnumerable<RsurTestProtocol> GetProtocols(int rsurTestId, int areaCode)
         {
-            var protocols = context.RsurTestResults.Where(x => x.RsurParticipTest.RsurTestId == rsurTestId && x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode)
-                                                   .Select(x => new RsurTestProtocol
-                                                   {
-                                                       RsurParticipTestId = x.RsurParticipTestId,
-                                                       RsurQuestionValues = x.RsurQuestionValues,
-                                                       RsurParticipCode = x.RsurParticipTest.RsurParticipCode
-                                                   })
-                                                   .OrderBy(x => x.RsurParticipCode).ToList();
+            var protocols = context.RsurParticipTests.Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
+                                                  .Select(x => new RsurTestProtocol
+                                                  {
+                                                      RsurParticipTestId = x.Id,
+                                                      RsurParticipCode = x.RsurParticipCode,
+                                                      RsurQuestionValues = x.RsurTestResult.RsurQuestionValues                                                      
+                                                  })
+                                                  .OrderBy(x => x.RsurParticipCode).ToList();
+
+            if (!protocols.Any())
+            {
+                throw new ArgumentException("Parameters rsurTestId or areaCode is incorrect");
+            }
 
             return protocols;
         }
-
-        #region Service methods
 
         public RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null)
         {

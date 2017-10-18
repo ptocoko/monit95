@@ -62,5 +62,15 @@ namespace Monit95App.Services.Tests
             Assert.AreEqual(33, result123.ProtocolStatus);
             Assert.AreEqual(50, resutl123Area.ProtocolStatus);
         }
+
+        [TestMethod]
+        public void GetProtocolTest()
+        {
+            // Arrange
+
+            // Act
+
+            //Assert
+        }
     }
 }
