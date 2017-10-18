@@ -45,12 +45,14 @@ namespace Monit95App.Api
             return Ok(protocols);
         }
 
+        // Get particular particip protocol
+        // TODO: set rsurParticipTestId as 5 chatachters number
         [HttpGet]
         [Route("{id:int}/protocols/{rsurParticipTestId:int}")]
         public IHttpActionResult GetParticipProtocol()
-        {
-            var areaCode = int.Parse(User.Identity.Name);
+        {            
             var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
 
             IEnumerable<RsurTestProtocol> protocols;
             try
