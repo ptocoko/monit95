@@ -19,8 +19,11 @@ var RsurParticipFilterPipe = (function () {
                     || particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1
                     || particip.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
             }
+            else if (particip.RsurParticipCode) {
+                return particip.RsurParticipCode.toString().indexOf(searchText) > -1;
+            }
             else {
-                return particip.Code.toString().indexOf(searchText) > -1;
+                throw Error('something went wrong in rsurParticipFilter pipe');
             }
         });
     };
