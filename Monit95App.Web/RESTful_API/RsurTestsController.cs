@@ -45,6 +45,26 @@ namespace Monit95App.Api
             return Ok(protocols);
         }
 
+        [HttpGet]
+        [Route("{id:int}/protocols/{rsurParticipTest}")]
+        public IHttpActionResult GetParticipProtocol()
+        {
+            var areaCode = int.Parse(User.Identity.Name);
+            var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+
+            IEnumerable<RsurTestProtocol> protocols;
+            try
+            {
+                protocols = rsurTestService.GetProtocols(rsurTestId, areaCode);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(protocols);
+        }
+
         //TODO: need refactoring
         [HttpGet]
         [Route("~/api/RsurTests/Statistics")]
