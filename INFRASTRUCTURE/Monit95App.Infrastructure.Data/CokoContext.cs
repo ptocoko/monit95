@@ -30,6 +30,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Report> Reports { get; set; }        
         public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
@@ -48,6 +49,7 @@ namespace Monit95App.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Area>()
                 .HasMany(e => e.Schools)
                 .WithRequired(e => e.Area)
