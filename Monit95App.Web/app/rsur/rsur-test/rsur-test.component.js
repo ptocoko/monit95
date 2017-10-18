@@ -50,23 +50,10 @@ var RsurTestComponent = (function () {
     };
     RsurTestComponent.prototype.getProgressValue = function (rsurTestId) {
         if (this.componentIsShowing) {
-            if (this.protocolValues[rsurTestId]) {
-                return this.protocolValues[rsurTestId].ProtocolStatus;
-            }
-            else {
-                return 0;
-            }
+            return this.protocolValues[rsurTestId].ProtocolStatus;
         }
         else {
             return 0;
-        }
-    };
-    RsurTestComponent.prototype.hasValues = function (rsurTestId) {
-        if (this.componentIsShowing) {
-            return this.protocolValues[rsurTestId];
-        }
-        else {
-            return true;
         }
     };
     return RsurTestComponent;

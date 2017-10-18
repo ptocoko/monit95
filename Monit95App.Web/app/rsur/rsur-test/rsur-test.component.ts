@@ -52,24 +52,10 @@ export class RsurTestComponent implements OnInit {
 
 	getProgressValue(rsurTestId: number) {
 		if (this.componentIsShowing) {
-			if (this.protocolValues[rsurTestId]) {
-				return this.protocolValues[rsurTestId].ProtocolStatus;
-			}
-			else {
-				return 0;
-			}
+			return this.protocolValues[rsurTestId].ProtocolStatus;
 		}
 		else {
 			return 0;
-		}
-	}
-
-	hasValues(rsurTestId: number) {
-		if (this.componentIsShowing) {
-			return this.protocolValues[rsurTestId]
-		}
-		else {
-			return true;
 		}
 	}
 }

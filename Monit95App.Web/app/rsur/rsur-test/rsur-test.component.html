@@ -59,15 +59,15 @@
     <div class="panel-body">
         <p>02 - Математика: Протоколы проверки заданий <i></i></p>
         <ul *ngIf="isArea206(); else rsur16ma" class="list-group">
-            <li class="list-group-item progressbar-container" *ngIf="hasValues(1084)">
+            <li class="list-group-item progressbar-container">
                 <a routerLink="/rsur/tests/1084/protocols"><b>Алгебра</b></a>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1084)"></ngb-progressbar></span>
             </li>
-            <li class="list-group-item progressbar-container" *ngIf="hasValues(1085)">
+            <li class="list-group-item progressbar-container">
                 <a routerLink="/rsur/tests/1085/protocols"><b>Геометрия</b></a>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1085)"></ngb-progressbar></span>
             </li>
-            <li class="list-group-item progressbar-container" *ngIf="hasValues(1086)">
+            <li class="list-group-item progressbar-container">
                 <a routerLink="/rsur/tests/1086/protocols"><b>Функции && Матанализ && Комбинаторика && Уравнения и неравенства</b></a>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1086)"></ngb-progressbar></span>
             </li>           
@@ -75,11 +75,11 @@
 
         <ng-template #rsur16ma>
             <ul class="list-group">
-                <li class="list-group-item progressbar-container" *ngIf="hasValues(1088)">
+                <li class="list-group-item progressbar-container">
                     <a routerLink="/rsur/tests/1088/protocols"><b>Алгебра</b></a>
                     <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1088)"></ngb-progressbar></span>
                 </li>
-                <li class="list-group-item progressbar-container" *ngIf="hasValues(1089)">
+                <li class="list-group-item progressbar-container">
                     <a routerLink="/rsur/tests/1089/protocols"><b>Геометрия</b></a>
                     <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1089)"></ngb-progressbar></span>
                 </li>                        
