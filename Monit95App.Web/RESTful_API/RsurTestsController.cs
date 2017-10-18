@@ -46,7 +46,7 @@ namespace Monit95App.Api
         }
 
         [HttpGet]
-        [Route("{id:int}/protocols/{rsurParticipTest}")]
+        [Route("{id:int}/protocols/{rsurParticipTestId:int}")]
         public IHttpActionResult GetParticipProtocol()
         {
             var areaCode = int.Parse(User.Identity.Name);
