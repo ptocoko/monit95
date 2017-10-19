@@ -26,7 +26,6 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(500)]
         public string SkillNames { get; set; }
 
-        public string SchoolId { get; set; }
         public virtual School School { get; set; }
     }
 }

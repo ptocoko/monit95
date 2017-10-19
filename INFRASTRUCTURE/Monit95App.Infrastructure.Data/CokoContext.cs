@@ -49,6 +49,11 @@ namespace Monit95App.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<School>()
+                .HasMany(e => e.Questions)
+                .WithRequired(e => e.School)
+                .HasForeignKey(e => e.CreatorSchoolId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Area>()
                 .HasMany(e => e.Schools)
