@@ -43,7 +43,7 @@
         
     </div>    
 
-    <div class="panel-body">
+    <div *ngIf="0 == 1" class="panel-body">
         <p>02 - Математика: Проведение и проверка</p>
         <ul class="list-group">
             <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/{{account.UserName}}_распределение_ма_16.10.2017.xlsx"><b>Распределение</b><i></i></a></li>                                
@@ -56,7 +56,7 @@
         </ul>
     </div>   
     
-    <div class="panel-body">
+    <div *ngIf="0 == 1"class="panel-body">
         <p>02 - Математика: Протоколы проверки заданий <i></i></p>
         <ul *ngIf="isArea206(); else rsur16ma" class="list-group">
             <li class="list-group-item progressbar-container" *ngIf="hasValues(1084)">
@@ -93,6 +93,7 @@
         <p>07 - История</p>
         <ul class="list-group">
             <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/ис_19.10.2017_распределение_{{account.UserName}}.xlsx"><b>Распределение</b><i></i></a></li>                                
+            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg//ис_19.10.2017_ик_{{account.UserName}}.rar"><b>Индивидуальные комплекты</b><i></i></a></li>                                                
             <!--<li class="list-group-item"><a><b>Индивидуальные комплекты</b><i> (доступно 19.10.2017)</i></a></li>
             <li class="list-group-item"><a><b>Ключи</b><i> (доступно 20.10.2017)</i></a></li>
             <li class="list-group-item"><a><b>Протокол проверки заданий</b> <i>(доступно 20-21.10.2017)</i></a></li>-->
