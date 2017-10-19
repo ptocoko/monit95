@@ -9,6 +9,12 @@ namespace Monit95App.Domain.Core.Entities
 {
     public class Question
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Question()
+        {
+            TestQuestions = new HashSet<TestQuestion>();
+        }
+
         public int Id { get; set; }
 
         [StringLength(1000)]
@@ -27,5 +33,8 @@ namespace Monit95App.Domain.Core.Entities
         public string SkillNames { get; set; }
 
         public virtual School School { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestQuestion> TestQuestions { get; set; }
     }
 }

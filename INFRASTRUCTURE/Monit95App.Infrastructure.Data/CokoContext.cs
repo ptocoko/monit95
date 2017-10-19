@@ -43,12 +43,25 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<TestQuestion> TestQuestions { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Test>()
+                .HasMany(e => e.TestQuestions)
+                .WithRequired(e => e.Test)
+                .HasForeignKey(e => e.TestId)
+                .WillCascadeOnDelete();
+
+            modelBuilder.Entity<Question>()
+                .HasMany(e => e.TestQuestions)
+                .WithRequired(e => e.Question)
+                .HasForeignKey(e => e.QuestionId)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<School>()
                 .HasMany(e => e.Questions)
                 .WithRequired(e => e.School)

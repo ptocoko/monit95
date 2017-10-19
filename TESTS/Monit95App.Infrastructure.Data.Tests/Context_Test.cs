@@ -23,5 +23,15 @@ namespace Monit95App.Infrastructure.Data.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestQuestionEntity_Test()
+        {
+            var expected = "Fake Test";
+
+            var actual = _context.TestQuestions.Find(2).Test.Name;
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

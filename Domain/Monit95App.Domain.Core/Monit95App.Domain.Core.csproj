@@ -80,6 +80,7 @@
     <Compile Include="Entities\SchoolEdit.cs" />
     <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\Test.cs" />
+    <Compile Include="Entities\TestQuestion.cs" />
     <Compile Include="Entities\TownType.cs" />
     <Compile Include="Entities\Wish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
