@@ -52,7 +52,7 @@ namespace Monit95App.Api
         {
             var userName = User.Identity.GetUserName();
             var areaCode = Convert.ToInt32(userName);
-            return Ok(rsurTestService.GetStatistics2(areaCode));
+            return Ok(rsurTestService.GetStatistics(areaCode));
         }
 
         //TODO: need refactoring

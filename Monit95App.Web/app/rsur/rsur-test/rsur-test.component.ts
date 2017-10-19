@@ -19,7 +19,7 @@ export class RsurTestComponent implements OnInit {
     account = new Account();  
 	percent: number;
 	componentIsShowing: boolean = false;
-	protocolValues: any;
+	protocolValues: { [id: number]: RsurTestStatistics };
 
     constructor(
         private readonly accountService: AccountService,
@@ -29,8 +29,8 @@ export class RsurTestComponent implements OnInit {
     ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
 			this.account = data.json() as Account;
-			this.rsurTestService.getProtocolStatus2().subscribe(res => {
-				this.protocolValues = res.json();
+			this.rsurTestService.getProtocolStatus().subscribe(res => {
+				this.protocolValues = res.json() as { [id: number]: RsurTestStatistics };
 				this.componentIsShowing = true;
 			})
         });
@@ -43,21 +43,9 @@ export class RsurTestComponent implements OnInit {
         return null;
     }
 
-    getProtocolStatus(rsurTestId: number) {   
-        this.rsurTestService.getProtocolStatus(rsurTestId).subscribe(response => {
-            console.log(response.json());
-            this.percent = response.json().ProtocolStatus;
-        });        
-	}
-
 	getProgressValue(rsurTestId: number) {
 		if (this.componentIsShowing) {
-			if (this.protocolValues[rsurTestId]) {
-				return this.protocolValues[rsurTestId].ProtocolStatus;
-			}
-			else {
-				return 0;
-			}
+			return this.protocolValues[rsurTestId].ProtocolStatus;
 		}
 		else {
 			return 0;
@@ -66,7 +54,7 @@ export class RsurTestComponent implements OnInit {
 
 	hasValues(rsurTestId: number) {
 		if (this.componentIsShowing) {
-			return this.protocolValues[rsurTestId]
+			return this.protocolValues[rsurTestId].HasAnyParticip
 		}
 		else {
 			return true;

@@ -37,21 +37,6 @@ namespace Monit95App.Api
             }
         }
 
-        [HttpGet]
-        [Route("~/api/RsurMarks/ByTestId/{rsurTestId:int}")]
-        public IHttpActionResult GetByTestId()
-        {            
-            var areaCode = int.Parse(User.Identity.Name);
-            var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurTestId"]);
-            var rsurParticips = _rsurMarksService.GetByAreaCodeAndRsurTestId(areaCode, rsurTestId);
-
-            if(rsurParticips != null)
-            {
-                return Ok(rsurParticips);
-            }
-            return NotFound();
-        }
-
         [HttpPost]
         [Route("Post")]
         public IHttpActionResult Post([FromBody]RsurPostMarksDto marksDto)
@@ -77,7 +62,7 @@ namespace Monit95App.Api
 
             var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurParticipTestId"]);
 
-            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurTest.IsOpen;
+            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurTest.IsOpen; //аналогично методу POST
             if (!isTestOpen) return Conflict();
 
             var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurParticip.School.AreaCode;

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Monit95App.Infrastructure.Data.Tests
 {
@@ -19,7 +20,7 @@ namespace Monit95App.Infrastructure.Data.Tests
         {
             var expected = "Fake School Fake Name";
 
-            var actual = _context.Questions.Find(1).School.Name;
+            var actual = _context.Questions.First().School.Name;
 
             Assert.AreEqual(expected, actual);
         }
@@ -29,7 +30,7 @@ namespace Monit95App.Infrastructure.Data.Tests
         {
             var expected = "Fake Test";
 
-            var actual = _context.TestQuestions.Find(2).Test.Name;
+            var actual = _context.TestQuestions.First().Test.Name;
 
             Assert.AreEqual(expected, actual);
         }

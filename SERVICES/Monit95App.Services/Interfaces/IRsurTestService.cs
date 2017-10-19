@@ -7,10 +7,7 @@ namespace Monit95App.Services.Interfaces
 
     public interface IRsurTestService
     {
-        //TODO: delete
-        RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null);
-
-        IDictionary<int, RsurTestStatisticsDto> GetStatistics2(int areaCode);
+        IDictionary<int, RsurTestStatisticsDto> GetStatistics(int areaCode);
         string GetTestName(int rsurTestId);
 
         IEnumerable<RsurTestProtocol> GetProtocols(int rsurTestId, int areaCode);

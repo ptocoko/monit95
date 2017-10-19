@@ -42,60 +42,32 @@ namespace Monit95App.Services.Rsur
             return protocols;
         }
 
-        public RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null)
+        public IDictionary<int, RsurTestStatisticsDto> GetStatistics(int areaCode)
         {
-            var particips = this.context.RsurParticipTests.Where(x => x.RsurTestId == rsurTestId);
-
-            if (areaCode != null)
-            {
-                particips = particips.Where(x => x.RsurParticip.School.AreaCode == areaCode);
-            }
-
-            var countParticips = particips.Count();
-            var resultDto = new RsurTestStatisticsDto();
-            double result;
-            if (countParticips == 0)
-            {
-                //throw new ArgumentException(nameof(rsurTestId));
-                resultDto.HasAnyParticip = false;
-                result = 0;
-            }
-            else
-            {
-                resultDto.HasAnyParticip = true;
-                double countParticipsWithResults = particips.Count(x => x.RsurTest != null);
-                result = Math.Round(countParticipsWithResults / countParticips * 100, 0);
-            }
-
-            resultDto.ProtocolStatus = (int)result;
-            return resultDto;
-        }
-
-        public IDictionary<int, RsurTestStatisticsDto> GetStatistics2(int areaCode)
-        {
-            var particips = this.context.RsurParticipTests.Where(x => x.RsurTest.IsOpen && x.RsurParticip.School.AreaCode == areaCode).GroupBy(x => x.RsurTestId);
+            var rsurTests = this.context.RsurTests.Where(x => x.IsOpen).Select(s => s.Id); //получаем testId для всех открытых тестов
 
             var resultDict = new Dictionary<int, RsurTestStatisticsDto>();
-            foreach(var particip in particips)
+            foreach(var rsurTestId in rsurTests)
             {
-                var countParticips = particip.Count();
+                var particips = context.RsurParticipTests.Where(x => x.RsurParticip.School.AreaCode == areaCode  //получаем список всех участников для данного testId
+                                                                  && x.RsurTestId == rsurTestId); 
+                var participsCount = particips.Count();
+
                 var resultDto = new RsurTestStatisticsDto();
                 double result;
-                if (countParticips == 0)
+                if (particips == null || participsCount == 0) 
                 {
-                    //throw new ArgumentException(nameof(rsurTestId));
                     resultDto.HasAnyParticip = false;
                     result = 0;
                 }
                 else
                 {
                     resultDto.HasAnyParticip = true;
-                    double countParticipsWithResults = particip.Count(x => x.RsurTestResult != null);
-                    result = Math.Round(countParticipsWithResults / countParticips * 100, 0);
+                    result = Math.Round((double)(particips.Count(s => s.RsurTestResult.RsurQuestionValues != null) / participsCount) * 100, 0); 
                 }
 
                 resultDto.ProtocolStatus = (int)result;
-                resultDict.Add(particip.Key, resultDto);
+                resultDict.Add(rsurTestId, resultDto);
             }
             return resultDict;
         }

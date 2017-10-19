@@ -72,5 +72,15 @@ namespace Monit95App.Services.Tests
 
             //Assert
         }
+
+        [TestMethod]
+        public void GetProtocolStatistics_Test()
+        {
+            var service = new RsurTestService(new CokoContext());
+
+            var statistics = service.GetStatistics2(205);
+
+            Assert.AreEqual(false, statistics[1089].HasAnyParticip);
+        }
     }
 }
