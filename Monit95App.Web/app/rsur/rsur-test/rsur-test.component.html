@@ -56,7 +56,7 @@
         </ul>
     </div>   
     
-    <div *ngIf="0 == 0" class="panel-body">
+    <div *ngIf="0 == 1" class="panel-body">
         <p>02 - Математика: Протоколы проверки заданий <i></i></p>
         <ul *ngIf="isArea206(); else rsur16ma" class="list-group">
             <li class="list-group-item progressbar-container" *ngIf="hasValues(1084)">
@@ -99,5 +99,18 @@
             <li class="list-group-item"><a><b>Протокол проверки заданий</b> <i>(доступно 20-21.10.2017)</i></a></li>-->
         </ul>
     </div>
+    <div *ngIf="0 == 0" class="panel-body">
+        <p>07 - История: Протоколы проверки заданий <i></i></p>
+        <ul class="list-group">
+            <li class="list-group-item progressbar-container" *ngIf="hasValues(1090)">
+                <a routerLink="/rsur/tests/1090/protocols"><b>Даты. Основные факты, процессы и явления</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1090)"></ngb-progressbar></span>
+            </li>
+            <li class="list-group-item progressbar-container" *ngIf="hasValues(1091)">
+                <a routerLink="/rsur/tests/1091/protocols"><b>Термины. Исторические детали</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1091)"></ngb-progressbar></span>
+            </li>
+        </ul>
+    </div> 
 
 </div>

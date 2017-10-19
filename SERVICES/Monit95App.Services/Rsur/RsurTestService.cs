@@ -51,7 +51,8 @@ namespace Monit95App.Services.Rsur
             {
                 var particips = context.RsurParticipTests.Where(x => x.RsurParticip.School.AreaCode == areaCode  //получаем список всех участников для данного testId
                                                                   && x.RsurTestId == rsurTestId); 
-                var participsCount = particips.Count();
+                double participsCount = particips.Count();
+                double participsWithoutMarks;
 
                 var resultDto = new RsurTestStatisticsDto();
                 double result;
@@ -63,7 +64,8 @@ namespace Monit95App.Services.Rsur
                 else
                 {
                     resultDto.HasAnyParticip = true;
-                    result = Math.Round((double)(particips.Count(s => s.RsurTestResult.RsurQuestionValues != null) / participsCount) * 100, 0); 
+                    participsWithoutMarks = particips.Count(s => s.RsurTestResult.RsurQuestionValues != null);
+                    result = Math.Round(participsWithoutMarks/participsCount * 100, 0); 
                 }
 
                 resultDto.ProtocolStatus = (int)result;
