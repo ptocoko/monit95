@@ -7,13 +7,9 @@ export class RsurTestService {
 
     constructor(private readonly http: Http) {
         
-    }       
+	} 
 
-    getProtocolStatus(rsurTestId: number) {
-        return this.http.get(`${this.ROUTE_PREFIX}/${rsurTestId}/Statistics`);
-	}  
-
-	getProtocolStatus2() {
+	getProtocolStatus() {
 		return this.http.get(`${this.ROUTE_PREFIX}/Statistics`);
 	}
 

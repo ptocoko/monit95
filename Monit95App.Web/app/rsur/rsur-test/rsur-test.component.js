@@ -29,8 +29,9 @@ var RsurTestComponent = (function () {
         var _this = this;
         this.accountService.getAccount().subscribe(function (data) {
             _this.account = data.json();
-            _this.rsurTestService.getProtocolStatus2().subscribe(function (res) {
+            _this.rsurTestService.getProtocolStatus().subscribe(function (res) {
                 _this.protocolValues = res.json();
+                console.log(_this.protocolValues);
                 _this.componentIsShowing = true;
             });
         });
@@ -41,21 +42,9 @@ var RsurTestComponent = (function () {
             return this.account.UserName === '206';
         return null;
     };
-    RsurTestComponent.prototype.getProtocolStatus = function (rsurTestId) {
-        var _this = this;
-        this.rsurTestService.getProtocolStatus(rsurTestId).subscribe(function (response) {
-            console.log(response.json());
-            _this.percent = response.json().ProtocolStatus;
-        });
-    };
     RsurTestComponent.prototype.getProgressValue = function (rsurTestId) {
         if (this.componentIsShowing) {
-            if (this.protocolValues[rsurTestId]) {
-                return this.protocolValues[rsurTestId].ProtocolStatus;
-            }
-            else {
-                return 0;
-            }
+            return this.protocolValues[rsurTestId].ProtocolStatus;
         }
         else {
             return 0;
@@ -63,7 +52,7 @@ var RsurTestComponent = (function () {
     };
     RsurTestComponent.prototype.hasValues = function (rsurTestId) {
         if (this.componentIsShowing) {
-            return this.protocolValues[rsurTestId];
+            return this.protocolValues[rsurTestId].HasAnyParticip;
         }
         else {
             return true;

@@ -89,6 +89,7 @@
     <Compile Include="DTOs\RsurParticipPutDto.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
+    <Compile Include="DTOs\RsurTestProtocol.cs" />
     <Compile Include="FileRespository\FileRespositoryManager.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />

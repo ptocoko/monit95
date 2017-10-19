@@ -66,6 +66,7 @@
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectTest.cs" />
     <Compile Include="Entities\PropertyType.cs" />
+    <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Report.cs" />
     <Compile Include="Entities\Result.cs" />
     <Compile Include="Entities\RsurParticip.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Entities\SchoolEdit.cs" />
     <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\Test.cs" />
+    <Compile Include="Entities\TestQuestion.cs" />
     <Compile Include="Entities\TownType.cs" />
     <Compile Include="Entities\Wish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

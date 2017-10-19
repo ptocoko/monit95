@@ -33,9 +33,9 @@ var RsurTestProtocolListComponent = (function () {
         this.route.params.subscribe(function (params) {
             var rsurTestId = params['id'];
             _this.rsurTestService.getTestName(rsurTestId).subscribe(function (res) { return _this.testNumberCodeWithName = res.json(); });
-            _this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(function (res) {
+            _this.marksService.getRsurProtocols(rsurTestId).subscribe(function (res) {
                 _this.rsurParticips = res.json();
-                _this.participsWithoutMarks = _this.rsurParticips.filter(function (f) { return !f.Marks; }).length;
+                _this.participsWithoutMarks = _this.rsurParticips.filter(function (f) { return !f.RsurQuestionValues; }).length;
                 _this.isLoading = false;
                 $.ready.then(function () {
                     $('#searchInput').find('input').focus();
@@ -50,10 +50,10 @@ var RsurTestProtocolListComponent = (function () {
     RsurTestProtocolListComponent.prototype.onSearchTextChange = function (event) {
         var _this = this;
         if (event.keyCode !== 13) {
-            if (this.rsurParticips.filter(function (x) { return x.Code.toString().indexOf(_this.searchText) !== -1; }).length === 1) {
+            if (this.rsurParticips.filter(function (x) { return x.RsurParticipCode.toString().indexOf(_this.searchText) !== -1; }).length === 1) {
                 $('#searchInput').find('input').keyup(function (event) {
                     if (event.keyCode === 13) {
-                        _this.changeMarks(_this.rsurParticips.find(function (x) { return x.Code.toString().indexOf(_this.searchText) !== -1; }).ParticipTestId);
+                        _this.changeMarks(_this.rsurParticips.find(function (x) { return x.RsurParticipCode.toString().indexOf(_this.searchText) !== -1; }).RsurParticipTestId);
                     }
                 });
                 $('#searchInput').addClass('has-success');

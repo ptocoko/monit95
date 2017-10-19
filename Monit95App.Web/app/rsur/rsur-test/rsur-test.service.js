@@ -16,10 +16,7 @@ var RsurTestService = (function () {
         this.http = http;
         this.ROUTE_PREFIX = 'api/RsurTests';
     }
-    RsurTestService.prototype.getProtocolStatus = function (rsurTestId) {
-        return this.http.get(this.ROUTE_PREFIX + "/" + rsurTestId + "/Statistics");
-    };
-    RsurTestService.prototype.getProtocolStatus2 = function () {
+    RsurTestService.prototype.getProtocolStatus = function () {
         return this.http.get(this.ROUTE_PREFIX + "/Statistics");
     };
     RsurTestService.prototype.getTestName = function (rsurTestId) {

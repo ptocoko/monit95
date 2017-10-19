@@ -15,6 +15,7 @@ namespace Monit95App.Domain.Core.Entities
             Particips = new HashSet<Particip>();
             RsurParticips = new HashSet<RsurParticip>();
             SchoolCollectors = new HashSet<SchoolCollector>();
+            Questions = new HashSet<Question>();
         }
 
         [StringLength(4)]
@@ -78,6 +79,9 @@ namespace Monit95App.Domain.Core.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SchoolCollector> SchoolCollectors { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Question> Questions { get; set; }
 
         public virtual SchoolEdit SchoolEdit { get; set; }
 

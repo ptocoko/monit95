@@ -1,4 +1,5 @@
 ﻿(function (global) {
+	System.appVersion = '1.0';
     System.config({
         paths: {
             // псевдоним для пути к модулям
@@ -56,8 +57,8 @@
         // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
         packages: {
             app: {
-                main: './main.js',
-                defaultExtension: 'js'
+                main: './main',
+                defaultExtension: 'js?v=' + System.appVersion
             },
             rxjs: {
                 defaultExtension: 'js'

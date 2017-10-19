@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RsurTestService } from '../rsur-test/rsur-test.service';
 
 export class RsurParticipMarks {
-	ParticipTestId: number;
-	Code: number;
-	Marks: string;
+	RsurParticipTestId: number;
+	RsurParticipCode: number;
+	RsurQuestionValues: string;
 }
 
 @Component({
@@ -33,9 +33,9 @@ export class RsurTestProtocolListComponent implements OnInit {
 			const rsurTestId = params['id'];
 			this.rsurTestService.getTestName(rsurTestId).subscribe(res => this.testNumberCodeWithName = res.json());
 
-			this.marksService.getRsurMarksByRsurTestId(rsurTestId).subscribe(res => {
+			this.marksService.getRsurProtocols(rsurTestId).subscribe(res => {
 				this.rsurParticips = res.json() as RsurParticipMarks[];
-				this.participsWithoutMarks = this.rsurParticips.filter(f => !f.Marks).length;
+				this.participsWithoutMarks = this.rsurParticips.filter(f => !f.RsurQuestionValues).length;
 				this.isLoading = false;
 
 				$.ready.then(() => {
@@ -52,10 +52,10 @@ export class RsurTestProtocolListComponent implements OnInit {
 
 	onSearchTextChange(event: KeyboardEvent) {
 		if (event.keyCode !== 13) {
-			if (this.rsurParticips.filter(x => x.Code.toString().indexOf(this.searchText) !== -1).length === 1) {
+			if (this.rsurParticips.filter(x => x.RsurParticipCode.toString().indexOf(this.searchText) !== -1).length === 1) {
 				$('#searchInput').find('input').keyup(event => {
 					if (event.keyCode === 13) {
-						this.changeMarks(this.rsurParticips.find(x => x.Code.toString().indexOf(this.searchText) !== -1).ParticipTestId);
+						this.changeMarks(this.rsurParticips.find(x => x.RsurParticipCode.toString().indexOf(this.searchText) !== -1).RsurParticipTestId);
 					}
 				});
 				$('#searchInput').addClass('has-success');

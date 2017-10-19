@@ -57,8 +57,8 @@ var MarksService = (function () {
     MarksService.prototype.getMarksByRsurParticipTestId = function (rsurParticipTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
     };
-    MarksService.prototype.getRsurMarksByRsurTestId = function (rsurTestId) {
-        return this.http.get(this.ROUTE_PREFIX + "/ByTestId/" + rsurTestId);
+    MarksService.prototype.getRsurProtocols = function (rsurTestId) {
+        return this.http.get("api/rsurTests/" + rsurTestId + "/protocols");
     };
     MarksService.prototype.addRsurMarks = function (marks) {
         return this.http.post(this.ROUTE_PREFIX + "/Post", marks);

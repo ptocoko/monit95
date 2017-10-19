@@ -21,9 +21,9 @@
         </tr>
         <tr *ngFor="let particip of rsurParticips | rsurParticipFilter : searchText; let i = index">
             <td align="center">{{i+1}}</td>
-            <td align="center">{{particip.Code}}</td>
-            <td [ngClass]="{'red': !particip.Marks}" (click)="changeMarks(particip.ParticipTestId)" style="cursor:pointer">{{particip.Marks}}</td>
-            <td align="center"><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="changeMarks(particip.ParticipTestId)"></a></td>
+            <td align="center">{{particip.RsurParticipCode}}</td>
+            <td [ngClass]="{'red': !particip.RsurQuestionValues}" (click)="changeMarks(particip.RsurParticipTestId)" style="cursor:pointer">{{particip.RsurQuestionValues}}</td>
+            <td align="center"><a style="cursor:pointer" class="glyphicon glyphicon-edit" (click)="changeMarks(particip.RsurParticipTestId)"></a></td>
         </tr>
     </table>
 </div>

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Monit95App.Api
 {
     using Microsoft.AspNet.Identity;
-
+    using Monit95App.Services.DTOs;
     using Monit95App.Services.Interfaces;
 
-    [Authorize(Roles = "coko, area")]
-    [RoutePrefix("api/RsurTests")]
+    [Authorize(Roles = "area")]
+    [RoutePrefix("api/rsurTests")]
     public class RsurTestsController : ApiController
     {
         #region Dependencies
@@ -26,35 +23,39 @@ namespace Monit95App.Api
             this.rsurTestService = rsurTestService;
         }
 
-        #region APIs
-
+        #region APIs        
+        
         [HttpGet]
-        [Route("~/api/RsurTests/{id:int}/Statistics")]        
+        [Route("{id}/protocols")]
+        public IHttpActionResult GetProtocols()
+        {
+            var areaCode = int.Parse(User.Identity.Name);
+            var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+
+            IEnumerable<RsurTestProtocol> protocols;
+            try
+            {
+                protocols = rsurTestService.GetProtocols(rsurTestId, areaCode);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(protocols);
+        }
+
+        //TODO: need refactoring
+        [HttpGet]
+        [Route("~/api/RsurTests/Statistics")]
         public IHttpActionResult GetStatistics()
         {
             var userName = User.Identity.GetUserName();
-            var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            int? areaCode = null;
-
-            if (User.IsInRole("area"))
-            {
-                areaCode = Convert.ToInt32(userName);
-            }
-
-            var dto = rsurTestService.GetStatistics(rsurTestId, areaCode);
-
-            return this.Ok(dto);
-        }
-
-        [HttpGet]
-        [Route("~/api/RsurTests/Statistics")]
-        public IHttpActionResult GetStatistics2()
-        {
-            var userName = User.Identity.GetUserName();
             var areaCode = Convert.ToInt32(userName);
-            return Ok(rsurTestService.GetStatistics2(areaCode));
+            return Ok(rsurTestService.GetStatistics(areaCode));
         }
 
+        //TODO: need refactoring
         [HttpGet]
         [Route("~/api/RsurTests/{rsurTestId:int}/Name")]
         public IHttpActionResult GetTestName()

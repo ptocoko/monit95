@@ -30,6 +30,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Report> Reports { get; set; }        
         public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
@@ -42,12 +43,31 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<TestQuestion> TestQuestions { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Test>()
+                .HasMany(e => e.TestQuestions)
+                .WithRequired(e => e.Test)
+                .HasForeignKey(e => e.TestId)
+                .WillCascadeOnDelete();
+
+            modelBuilder.Entity<Question>()
+                .HasMany(e => e.TestQuestions)
+                .WithRequired(e => e.Question)
+                .HasForeignKey(e => e.QuestionId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<School>()
+                .HasMany(e => e.Questions)
+                .WithRequired(e => e.School)
+                .HasForeignKey(e => e.CreatorSchoolId)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Area>()
                 .HasMany(e => e.Schools)
                 .WithRequired(e => e.Area)
