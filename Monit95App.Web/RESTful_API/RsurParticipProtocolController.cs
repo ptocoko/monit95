@@ -10,32 +10,31 @@ namespace Monit95App.Api
 
     [Authorize(Roles = "area")]
     [RoutePrefix("api/rsurTests")]
-    public class RsurTestsController : ApiController
+    public class RsurParticipProtocolController : ApiController
     {
         #region Dependencies
 
-        private readonly IRsurTestService rsurTestService;
+        private readonly IRsurParticipProtocolService rsurParticipProtocolService;
 
         #endregion
 
-        public RsurTestsController(IRsurTestService rsurTestService)
+        public RsurParticipProtocolController(IRsurParticipProtocolService rsurParticipProtocolService)
         {
-            this.rsurTestService = rsurTestService;
+            this.rsurParticipProtocolService = rsurParticipProtocolService;
         }
 
         #region APIs        
         
         [HttpGet]
-        [Route("{id}/protocols")]
-        public IHttpActionResult GetProtocols()
+        [Route("")]
+        public IHttpActionResult GetProtocols(int rsurTestId)
         {
-            var areaCode = int.Parse(User.Identity.Name);
-            var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            var areaCode = int.Parse(User.Identity.Name);            
 
-            IEnumerable<RsurTestProtocol> protocols;
+            IEnumerable<RsurParticipShowProtocol> protocols;
             try
             {
-                protocols = rsurTestService.GetProtocols(rsurTestId, areaCode);
+                protocols = rsurParticipProtocolService.GetProtocols(rsurTestId, areaCode);
             }
             catch(ArgumentException ex)
             {
@@ -44,6 +43,43 @@ namespace Monit95App.Api
 
             return Ok(protocols);
         }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public IHttpActionResult GetProtocol()
+        {            
+            var rsurParticipTestId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
+
+            RsurParticipEditProtocol protocol;
+            try
+            {
+                protocol = rsurParticipProtocolService.GetProtocol(rsurParticipTestId);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            var areaCode = int.Parse(User.Identity.Name);
+            if(protocol.AreaCode != areaCode)
+            {
+                return BadRequest("Resource is not access current user");
+            }
+
+            return Ok(protocol);
+        }
+
+
+        //var result = _participTestRepository.GetAll().Where(x => x.Id == participTestId).ToList().Select(s => new RsurGetMarksDto
+        //{
+        //    ParticipTestId = s.Id,
+        //    Code = s.RsurParticip.Code,
+        //    TestNumberCodeWithName = s.RsurTest.Test.NumberCode + " — " + s.RsurTest.Test.Name.Trim(),
+        //    MarkNames = GetMarkNamesByTestId(s.RsurTestId),
+        //    Marks = s.RsurTestResult == null ? null : s.RsurTestResult.RsurQuestionValues
+        //});
+
+        //    return result.SingleOrDefault();
 
         // Get particular particip protocol
         // TODO: set rsurParticipTestId as 5 chatachters number
@@ -54,7 +90,7 @@ namespace Monit95App.Api
             var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
 
-            IEnumerable<RsurTestProtocol> protocols;
+            IEnumerable<RsurParticipShowProtocol> protocols;
             try
             {
                 protocols = rsurTestService.GetProtocols(rsurTestId, areaCode);

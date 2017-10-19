@@ -8,7 +8,7 @@ namespace Monit95App.Services.Rsur
     using Monit95App.Services.DTOs;
     using Monit95App.Services.Interfaces;
 
-    public class RsurTestService : IRsurTestService
+    public class RsurTestService : IRsurParticipProtocolService
     {
         #region Dependencies
 
@@ -23,10 +23,10 @@ namespace Monit95App.Services.Rsur
 
         #region Service methods
 
-        public IEnumerable<RsurTestProtocol> GetProtocols(int rsurTestId, int areaCode)
+        public IEnumerable<RsurParticipShowProtocol> GetProtocols(int rsurTestId, int areaCode)
         {
             var protocols = context.RsurParticipTests.Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
-                                                  .Select(x => new RsurTestProtocol
+                                                  .Select(x => new RsurParticipShowProtocol
                                                   {
                                                       RsurParticipTestId = x.Id,
                                                       RsurParticipCode = x.RsurParticipCode,

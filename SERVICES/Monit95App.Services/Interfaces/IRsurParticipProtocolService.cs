@@ -5,14 +5,15 @@ namespace Monit95App.Services.Interfaces
     using Monit95App.Services.DTOs;
     using Monit95App.Services.Rsur;
 
-    public interface IRsurTestService
+    public interface IRsurParticipProtocolService
     {
         //TODO: delete
-        RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null);
+        RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null);        
 
         IDictionary<int, RsurTestStatisticsDto> GetStatistics2(int areaCode);
         string GetTestName(int rsurTestId);
 
-        IEnumerable<RsurTestProtocol> GetProtocols(int rsurTestId, int areaCode);
+        IEnumerable<RsurParticipShowProtocol> GetProtocols(int rsurTestId, int areaCode);
+        RsurParticipEditProtocol GetProtocol(int rsurParticipTestId);
     }
 }
