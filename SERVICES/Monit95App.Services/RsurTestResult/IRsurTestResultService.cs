@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using Monit95App.Services.DTOs;
+using Monit95App.Services.Rsur;
 
-namespace Monit95App.Services.Interfaces
+namespace Monit95App.Services.RsurTestResult
 {
-    using Monit95App.Services.DTOs;
-    using Monit95App.Services.Rsur;
-
-    public interface IRsurParticipProtocolService
+    public interface IRsurTestResultService
     {
         //TODO: delete
         RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null);        

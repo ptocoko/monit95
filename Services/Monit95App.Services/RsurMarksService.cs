@@ -17,11 +17,11 @@ namespace Monit95App.Services
 
         private readonly IGenericRepository<RsurParticipTest> _participTestRepository;
         private readonly IGenericRepository<RsurParticip> _participRepository;
-        private readonly IGenericRepository<RsurTestResult> _resultRepository;
+        private readonly IGenericRepository<Domain.Core.Entities.RsurTestResult> _resultRepository;
 
         public RsurMarksService(IGenericRepository<RsurParticipTest> participTestRepository, 
                                 IGenericRepository<RsurParticip> participRepository,
-                                IGenericRepository<RsurTestResult> resultRepository)
+                                IGenericRepository<Domain.Core.Entities.RsurTestResult> resultRepository)
         {
             _participTestRepository = participTestRepository;
             _participRepository = participRepository;
@@ -58,7 +58,7 @@ namespace Monit95App.Services
             var rsurResult = _resultRepository.GetById(participTestId);
             if(rsurResult == null)
             {
-                var rsurTestResult = new RsurTestResult
+                var rsurTestResult = new Domain.Core.Entities.RsurTestResult
                 {
                     RsurParticipTestId = participTestId,
                     RsurQuestionValues = marks

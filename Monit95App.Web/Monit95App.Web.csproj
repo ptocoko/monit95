@@ -282,7 +282,7 @@
     <Compile Include="RESTful_API\RsurParticipEditsController.cs" />
     <Compile Include="RESTful_API\ParticipsController.cs" />
     <Compile Include="RESTful_API\CollectorsController.cs" />
-    <Compile Include="RESTful_API\RsurParticipProtocolController.cs" />
+    <Compile Include="RESTful_API\RsurTestResultsController.cs" />
     <Compile Include="RESTful_API\SchoolsController.cs" />
     <Compile Include="RESTful_API\AccountsApiController.cs" />
     <Compile Include="RESTful_API\SchoolEditsController.cs" />
@@ -541,7 +541,6 @@
     <Content Include="Views\Shared\_OnlineReports.cshtml" />
     <Content Include="Views\Report\Report.cshtml" />
     <Content Include="Views\Home\Schoolinfo.cshtml" />
-    <Content Include="Views\Shared\_LearnerTable.cshtml" />
     <Content Include="Scripts\smart-table.min.js.map" />
     <Content Include="Views\CollectorMarks\Index.cshtml" />
     <Content Include="Templates\onetwothree_particip.html" />
