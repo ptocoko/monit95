@@ -59,6 +59,9 @@
       <HintPath>..\..\packages\FastMember.Signed.1.1.0\lib\net40\FastMember.Signed.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Monit95App.Infrastructure.Business">
+      <HintPath>..\..\Monit95App.Web\Bin\Monit95App.Infrastructure.Business.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.7.99.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Moq.4.7.99\lib\net45\Moq.dll</HintPath>
     </Reference>
@@ -85,7 +88,6 @@
     <Compile Include="ClassParticipImporter_Tests.cs" />
     <Compile Include="ParticipService_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RsurParticipProtocolServiceTests.cs" />
     <Compile Include="RsurReportModelXlsxConverterTests.cs" />
     <Compile Include="SchoolService_Tests.cs" />
     <Compile Include="TestIMarks.cs" />
