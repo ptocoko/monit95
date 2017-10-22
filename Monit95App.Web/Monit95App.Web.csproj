@@ -282,7 +282,7 @@
     <Compile Include="RESTful_API\RsurParticipEditsController.cs" />
     <Compile Include="RESTful_API\ParticipsController.cs" />
     <Compile Include="RESTful_API\CollectorsController.cs" />
-    <Compile Include="RESTful_API\RsurTestsController.cs" />
+    <Compile Include="RESTful_API\RsurParticipProtocolController.cs" />
     <Compile Include="RESTful_API\SchoolsController.cs" />
     <Compile Include="RESTful_API\AccountsApiController.cs" />
     <Compile Include="RESTful_API\SchoolEditsController.cs" />
