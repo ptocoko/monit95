@@ -12,6 +12,3 @@ namespace Monit95App
         }
     }
 }
-
-
-
