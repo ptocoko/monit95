@@ -8,39 +8,39 @@ using Monit95App.Services.RsurTestResult;
 namespace Monit95App.RESTful_API
 {
     [Authorize(Roles = "area")]
-    [RoutePrefix("api/rsurTestResults")]
-    public class RsurParticipProtocolController : ApiController
+    [RoutePrefix("api/rsur/testProtocols")]
+    public class RsurTestResultsController : ApiController
     {
         #region Dependencies
 
-        private readonly IRsurTestResultService rsurTestResultService;
+        private readonly ITestProtocolService testProtocolService;
 
         #endregion
 
-        public RsurParticipProtocolController(IRsurTestResultService rsurTestResultService)
+        public RsurTestResultsController(ITestProtocolService testProtocolService)
         {
-            this.rsurTestResultService = rsurTestResultService;
+            this.testProtocolService = testProtocolService;
         }
 
         #region APIs        
         
         [HttpGet]
         [Route("")]
-        public IHttpActionResult GetProtocols(int rsurTestId)
+        public IHttpActionResult GetResults(int rsurTestId)
         {
             var areaCode = int.Parse(User.Identity.Name);            
 
-            IEnumerable<RsurParticipShowProtocol> protocols;
+            IEnumerable<RsurTestResultDto> rsurTestResultDtos;
             try
             {
-                protocols = rsurTestResultService.GetProtocols(rsurTestId, areaCode);
+                rsurTestResultDtos = rsurTestResultService.GetResults(rsurTestId, areaCode);
             }
             catch(ArgumentException ex)
             {
                 return BadRequest(ex.Message);
             }
 
-            return Ok(protocols);
+            return Ok(); //
         }
 
         [HttpGet]

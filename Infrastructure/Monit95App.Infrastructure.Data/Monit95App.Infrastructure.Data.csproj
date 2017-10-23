@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
-      <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
+      <Project>{84dc3950-0b35-4eb2-b534-93af0387ccdc}</Project>
       <Name>Monit95App.Domain.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Domain\Monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj">
