@@ -10,6 +10,7 @@ using Monit95App.Models;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
+using Monit95App.Services.RsurTestResult;
 using Monit95App.Services.School;
 using Monit95App.Web.Services;
 
@@ -44,7 +45,7 @@ namespace Monit95App.Util
             builder.RegisterType<MarksService>().As<IMarksService>();
             builder.RegisterType<RsurMarksService>().As<IRsurMarksService>();
             builder.RegisterType<ParticipResults>().As<IParticipResults>();
-            builder.RegisterType<RsurTestService>().As<IRsurTestService>();
+            builder.RegisterType<Services.RsurTestResultService>().As<IRsurTestResultService>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Monit95App.Services.RsurTestResult;
 
 namespace Monit95App.Services.Tests
 {
@@ -51,7 +52,7 @@ namespace Monit95App.Services.Tests
 
             var mockContext = Substitute.For<CokoContext>();
             mockContext.RsurParticipTests.Returns(mockSet);
-            var service = new RsurTestService(mockContext);
+            var service = new RsurTestResultService(mockContext);
 
             // Act
             var result123 = service.GetStatistics(123); // coko
@@ -76,7 +77,7 @@ namespace Monit95App.Services.Tests
         [TestMethod]
         public void GetProtocolStatistics_Test()
         {
-            var service = new RsurTestService(new CokoContext());
+            var service = new RsurTestResultService(new CokoContext());
 
             var statistics = service.GetStatistics2(205);
 

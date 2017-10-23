@@ -11,7 +11,7 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IParticipProtocolService
     {
-        IList<IGrouping<string, RsurTestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null);
-        IList<ParticipProtocol> CreateReportModel(IList<IGrouping<string, RsurTestResult>> resultsGroupByParticipCode);
+        IList<IGrouping<string, Domain.Core.Entities.RsurTestResult>> GetTestResultsGroupByParticipCode(string testIdStr, DateTime? testDate = null);
+        IList<ParticipProtocol> CreateReportModel(IList<IGrouping<string, Domain.Core.Entities.RsurTestResult>> resultsGroupByParticipCode);
     }
 }

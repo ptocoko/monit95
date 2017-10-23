@@ -49,6 +49,9 @@
     <Reference Include="FastMember.Signed, Version=1.0.0.9, Culture=neutral, PublicKeyToken=9e8f22703bef9a29, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FastMember.Signed.1.1.0\lib\net40\FastMember.Signed.dll</HintPath>
     </Reference>
+    <Reference Include="Monit95App.Infrastructure.Business">
+      <HintPath>..\..\Monit95App.Web\Bin\Monit95App.Infrastructure.Business.dll</HintPath>
+    </Reference>
     <Reference Include="NReco.PdfGenerator, Version=1.1.15.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NReco.PdfGenerator.1.1.15\lib\net20\NReco.PdfGenerator.dll</HintPath>
     </Reference>
@@ -87,9 +90,10 @@
     <Compile Include="DTOs\RsurGetMarksDto.cs" />
     <Compile Include="DTOs\RsurParticipMarksListDto.cs" />
     <Compile Include="DTOs\RsurParticipPutDto.cs" />
+    <Compile Include="DTOs\RsurParticipEditProtocol.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
-    <Compile Include="DTOs\RsurTestProtocol.cs" />
+    <Compile Include="RsurTestResult\RsurParticipShowProtocol.cs" />
     <Compile Include="FileRespository\FileRespositoryManager.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
@@ -105,8 +109,7 @@
     <Compile Include="Interfaces\IClassParticipImporter.cs" />
     <Compile Include="Interfaces\IRsurMarksService.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
-    <Compile Include="Interfaces\IRsurTestResultService.cs" />
-    <Compile Include="Interfaces\IRsurTestService.cs" />
+    <Compile Include="RsurTestResult\IRsurTestResultService.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
     <Compile Include="Interfaces\ISchoolService.cs" />
@@ -146,11 +149,10 @@
     <Compile Include="ReportMetaHandler.cs" />
     <Compile Include="ReportsDto.cs" />
     <Compile Include="Rsur\RsurParticipEditService.cs" />
-    <Compile Include="Rsur\RsurParticipProtocolService.cs" />
     <Compile Include="Rsur\RsurParticipService.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />
     <Compile Include="ClassParticipReporter.cs" />
-    <Compile Include="Rsur\RsurTestService.cs" />
+    <Compile Include="RsurTestResult\RsurTestResultService.cs" />
     <Compile Include="Rsur\RsurTestStatisticsDto.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
