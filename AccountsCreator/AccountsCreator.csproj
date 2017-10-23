@@ -61,6 +61,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccountsManager.cs" />
+    <Compile Include="RSUR-accaunts.cs" />
     <Compile Include="RU-206-Particips.cs" />
   </ItemGroup>
   <ItemGroup>

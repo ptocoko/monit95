@@ -31,7 +31,6 @@ var RsurTestComponent = (function () {
             _this.account = data.json();
             _this.rsurTestService.getProtocolStatus().subscribe(function (res) {
                 _this.protocolValues = res.json();
-                console.log(_this.protocolValues);
                 _this.componentIsShowing = true;
             });
         });
