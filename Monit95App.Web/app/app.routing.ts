@@ -26,10 +26,7 @@ const appRoutes: Routes = [
     { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
 
     { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
-    { path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
-    
-	//{ path: 'rsur/testprotocols/:rsurTestId', component: RsurTestProtocolListComponent},
-    //{ path: 'rsur/marks-edit/:participTestId', component: RsurTestProtocolComponent },
+    { path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },   
 
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },

@@ -27,6 +27,10 @@ export class MarksService {
 
     }    
 
+    getMarksByRsurParticipTestId(rsurParticipTestId: number) {
+        return this.http.get(`${this.ROUTE_PREFIX}/${rsurParticipTestId}`);
+    }
+
     addMarks(marks: Marks) {
         return this.http.post(this.ROUTE_PREFIX + '/Post', marks);
     }
@@ -41,11 +45,7 @@ export class MarksService {
 
 	getMarksByParticipTestId(participTestId: number) {
 		return this.http.get(`${this.ROUTE_PREFIX}/GetByParticipTestId?participTestId=${participTestId}`);
-	}
-
-	getMarksByRsurParticipTestId(rsurParticipTestId: number) {
-        return this.http.get(`${this.ROUTE_PREFIX}/${rsurParticipTestId}`);
-	}
+	}	
 
 	getRsurProtocols(rsurTestId: number) {
 		return this.http.get(`api/rsurTests/${rsurTestId}/protocols`);

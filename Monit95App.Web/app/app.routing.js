@@ -25,8 +25,6 @@ var appRoutes = [
     { path: 'rsur/particips/add', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
     { path: 'rsur/tests/:id/protocols', component: rsur_test_protocol_list_component_1.RsurTestProtocolListComponent },
     { path: 'rsur/testprotocols/:id', component: rsur_test_protocol_component_1.RsurTestProtocolComponent },
-    //{ path: 'rsur/testprotocols/:rsurTestId', component: RsurTestProtocolListComponent},
-    //{ path: 'rsur/marks-edit/:participTestId', component: RsurTestProtocolComponent },
     { path: 'plan', component: plan_component_1.PlanComponent },
     { path: 'result', component: result_component_1.ResultComponent },
     { path: 'details', component: particip_details_component_1.ParticipDetailsComponent },

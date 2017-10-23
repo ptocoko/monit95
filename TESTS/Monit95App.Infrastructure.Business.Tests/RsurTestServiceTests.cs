@@ -56,12 +56,13 @@ namespace Monit95App.Services.Tests
 
             // Act
             var result123 = service.GetStatistics(123); // coko
-            var resutl123Area = service.GetStatistics(123, 201); // area
+            //var resutl123Area = service.GetStatistics(123, 201); // area
             // var rsultltEmpty = service.GetStatistics(0);
 
             // Assert
-            Assert.AreEqual(33, result123.ProtocolStatus);
-            Assert.AreEqual(50, resutl123Area.ProtocolStatus);
+            //Assert.AreEqual(33, result123.ProtocolStatus);
+            //Assert.AreEqual(50, resutl123Area.ProtocolStatus);
+            Assert.Fail();
         }
 
         [TestMethod]
@@ -79,9 +80,11 @@ namespace Monit95App.Services.Tests
         {
             var service = new RsurTestResultService(new CokoContext());
 
-            var statistics = service.GetStatistics2(205);
+            //var statistics = service.GetStatistics2(205);
 
-            Assert.AreEqual(false, statistics[1089].HasAnyParticip);
+            //Assert.AreEqual(false, statistics[1089].HasAnyParticip);
+
+            Assert.Fail();
         }
     }
 }

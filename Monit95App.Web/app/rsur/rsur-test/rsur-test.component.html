@@ -11,8 +11,8 @@
         </ul>
     </div>
     
-    <div *ngIf="0 == 1" class="panel-body">
-        <p>01 - Русский язык: Протоколы проверки заданий <i>(доступно 12-13.10.2017)</i></p>
+    <div class="panel-body">
+        <p>01 - Русский язык: Протоколы проверки заданий <i>(пересдача)</i></p>
         <ul *ngIf="isArea206(); else rsur16" class="list-group">                           
             <li *ngIf="isArea206()" class="list-group-item progressbar-container"><a routerLink="/rsur/tests/1078/protocols"><b>Орфография</b></a>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1078)"></ngb-progressbar></span>
@@ -34,7 +34,7 @@
                     <a routerLink="/rsur/tests/1082/protocols"><b>Орфография</b></a>
                     <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1082)"></ngb-progressbar></span>
                 </li>
-                <li class="list-group-item progressbar-container">
+                <li *ngIf="0 == 1" class="list-group-item progressbar-container">
                     <a routerLink="/rsur/tests/1083/protocols"><b>Пунктуация</b></a>
                     <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1083)"></ngb-progressbar></span>
                 </li>                              
@@ -89,7 +89,7 @@
     </div>    
     
 
-    <div class="panel-body">
+    <div *ngIf="0 == 1" class="panel-body">
         <p>07 - История</p>
         <ul class="list-group">
             <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/ис_19.10.2017_распределение_{{account.UserName}}.xlsx"><b>Распределение</b><i></i></a></li>                                

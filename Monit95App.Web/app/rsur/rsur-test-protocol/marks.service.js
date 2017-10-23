@@ -42,6 +42,9 @@ var MarksService = (function () {
         this.http = http;
         this.ROUTE_PREFIX = 'api/rsurMarks';
     }
+    MarksService.prototype.getMarksByRsurParticipTestId = function (rsurParticipTestId) {
+        return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
+    };
     MarksService.prototype.addMarks = function (marks) {
         return this.http.post(this.ROUTE_PREFIX + '/Post', marks);
     };
@@ -53,9 +56,6 @@ var MarksService = (function () {
     };
     MarksService.prototype.getMarksByParticipTestId = function (participTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/GetByParticipTestId?participTestId=" + participTestId);
-    };
-    MarksService.prototype.getMarksByRsurParticipTestId = function (rsurParticipTestId) {
-        return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
     };
     MarksService.prototype.getRsurProtocols = function (rsurTestId) {
         return this.http.get("api/rsurTests/" + rsurTestId + "/protocols");
