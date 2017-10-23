@@ -13,70 +13,62 @@ namespace AccountsCreator
         {
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
-            //Dictionary<string, string[]> myDict = new Dictionary<string, string[]>()
-            //{
-            //    ["203"] = new string[] { "86242627", "26385919" },
-            //    ["204"] = new string[] { "99657648", "74325364" },
-            //    ["205"] = new string[] { "71958861", "71707835" },
-            //    ["206"] = new string[] { "73018066", "42496439" },
-            //    ["207"] = new string[] { "85826952", "37916255" },
-            //    ["208"] = new string[] { "58358776", "31677492" },
-            //    ["209"] = new string[] { "11733201", "47471177" },
-            //    ["210"] = new string[] { "28846911", "63939787" },
-            //    ["211"] = new string[] { "60582180", "73500187" },
-            //    ["212"] = new string[] { "56676772", "76824121" },
-            //    ["213"] = new string[] { "99663829", "47445236" },
-            //    ["214"] = new string[] { "87846225", "45687718" },
-            //    ["215"] = new string[] { "11135345", "34062779" },
-            //    ["216"] = new string[] { "12770726", "30975180" },
-            //    ["217"] = new string[] { "23676069", "72655469" },
-            //};
 
-            //foreach(var dict in myDict)
-            //{
-            //    ChangePassword(dict.Key, dict.Value[0], dict.Value[1]);
-            //}
 
-            bool toExit = false;
-            while (!toExit)
+            foreach (var rsurParticip in RSUR_accaunts.LoginPasswordPairs)
             {
-                Console.Write("Введите команду -> ");
-                var command = Console.ReadLine();
-
-                switch (command.Trim().ToUpper())
+                try
                 {
-                    case "EXIT":
-                        toExit = true;
-                        break;
-                    case "CREATE USER":
-                        AddUser();
-                        break;
-                    case "DELETE USER":
-                        DeleteUser();
-                        break;
-                    case "CREATE ROLE":
-                        AddRole();
-                        break;
-                    case "DELETE ROLE":
-                        DeleteRole();
-                        break;
-                    case "ADD ROLE TO USER":
-                        AddRoleToUser();
-                        break;
-                    case "CHANGE PASSWORD":
-                        ChangePassword();
-                        break;
-                    case "CLEAR":
-                        Console.Clear();
-                        break;
-                    case "HELP":
-                        ShowAllCommands();
-                        break;
-                    default:
-                        Console.WriteLine($"Команда '{command}' не найдена. Для помощи воспользуйтесь командой 'help'\n");
-                        break;
+                    accountsManager.AddRoleToUser(rsurParticip.Key, "rsur-particip");
+                    Console.WriteLine($"Аккаунту {rsurParticip.Key} успешно добавлена роль!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.ReadKey();
                 }
             }
+
+            //bool toExit = false;
+            //while (!toExit)
+            //{
+            //    Console.Write("Введите команду -> ");
+            //    var command = Console.ReadLine();
+
+            //    switch (command.Trim().ToUpper())
+            //    {
+            //        case "EXIT":
+            //            toExit = true;
+            //            break;
+            //        case "CREATE USER":
+            //            AddUser();
+            //            break;
+            //        case "DELETE USER":
+            //            DeleteUser();
+            //            break;
+            //        case "CREATE ROLE":
+            //            AddRole();
+            //            break;
+            //        case "DELETE ROLE":
+            //            DeleteRole();
+            //            break;
+            //        case "ADD ROLE TO USER":
+            //            AddRoleToUser();
+            //            break;
+            //        case "CHANGE PASSWORD":
+            //            ChangePassword();
+            //            break;
+            //        case "CLEAR":
+            //            Console.Clear();
+            //            break;
+            //        case "HELP":
+            //            ShowAllCommands();
+            //            break;
+            //        default:
+            //            Console.WriteLine($"Команда '{command}' не найдена. Для помощи воспользуйтесь командой 'help'\n");
+            //            break;
+            //    }
+            //}
         }
 
         private static void AddUser()
