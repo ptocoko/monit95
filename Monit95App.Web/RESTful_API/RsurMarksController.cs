@@ -21,7 +21,8 @@ namespace Monit95App.Api
         }
 
         [HttpGet]
-        [Route("~/api/RsurMarks/{participTestId:int}")]
+        //[Route("~/api/RsurMarks/{participTestId:int}")]
+        [Route("{participTestId:int}")]
         public IHttpActionResult Get()
         {            
             var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);

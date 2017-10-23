@@ -6,7 +6,7 @@ import { Account } from '../../account/account';
     templateUrl: `./app/rsur/rsur-home/rsur-home.component.html?v=${new Date().getTime()}`
 })
 export class RsurHomeComponent implements  OnInit {
-    account = new Account();
+    account = new Account();    
 
     constructor(
         private readonly accountService: AccountService) {
@@ -14,7 +14,7 @@ export class RsurHomeComponent implements  OnInit {
 
     ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
-            this.account = data.json() as Account;
+            this.account = data.json() as Account;            
         });
     }
 
