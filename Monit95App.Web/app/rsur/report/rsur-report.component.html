@@ -3,7 +3,7 @@
         <div class="myhead">
             <p>ЦЕНТР ОЦЕНКИ КАЧЕСТВА ОБРАЗОВАНИЯ</p>
         </div>
-        <div class="row sub-head">
+        <div class="row">
             <div class="col-sm-2 col-xs-2">
                 <img height="105" src="/Images/coko_logo.jpg" />
             </div>
@@ -11,6 +11,7 @@
                 <h3 class="card-caption"><b>КАРТА <br/>ПРЕДМЕТНОЙ КОМПЕТЕНЦИИ УЧИТЕЛЯ</b></h3>
             </div>
         </div>
+        <div class="myhead"></div>
         <br />
         <div class="row particip-about">
             <p class="col-xs-4 col-sm-4">Код участника:</p>
@@ -32,11 +33,11 @@
         <br />
         <br />
 
-        <table style="width:710px" class="table table-bordered">
+        <table border="1" class="report-table">
             <tr>
                 <th class="section-head" colspan="3"><b>Выполнение блока</b></th>
             </tr>
-            <tr>
+            <tr style="background-color: #eee">
                 <td style="width: 20%"></td>
                 <td style="text-align: center">код — наименование блока</td>
                 <td style="width: 15%; text-align: center">выполнение</td>
@@ -45,27 +46,26 @@
                 <td></td>
                 <td class="text-uppercase" style="text-align:center"><b>{{reportData.TestNumberCodeWithName}}</b></td>
 
-                <td *ngIF="reportData.IsPassTest" class="high-grade text-uppercase">зачет</td>
-                <td *ngIF="!reportData.IsPassTest" class="red text-uppercase">незачет</td>
+                <td *ngIf="reportData.IsPassTest" class="high-grade text-uppercase cell-center">зачет</td>
+                <td *ngIf="!reportData.IsPassTest" class="red text-uppercase cell-center">незачет</td>
             </tr>
         </table>
 
         <br />
         <br />
-        <table style="width:710px" class="table table-bordered">
-            <caption class="text-center" style="color:black">Выполнение заданий</caption>
+        <table border="1" class="report-table">
             <tr>
                 <th class="section-head" colspan="4"><b>Выполнение заданий</b></th>
             </tr>
-            <tr style="background-color:lightgray">
-                <td width="10%">обозначение задания в КИМ ЕГЭ</td>
-                <td width="10%">номера заданий в КИМ РСУР</td>
+            <tr style="background-color: #eee">
+                <td style="width:10%" class="cell-center">обозначение задания в КИМ ЕГЭ</td>
+                <td style="width:10%" class="cell-center">номера заданий в КИМ РСУР</td>
                 <td class="cell-center">элементы содержания</td>
-                <td class="cell-center">выполнение</td>
+                <td style="width:15%" class="cell-center">выполнение</td>
             </tr>
             <tr *ngFor="let result of reportData.EgeQuestionResults">
-                <td class="cell-center">{{result.EgeQuestionNmber}}</td>
-                <td class="cell-center">
+                <td class="cell-center">{{result.EgeQuestionNumber}}</td>
+                <td style="font-size:10px" class="cell-center">
                     <span *ngFor="let rsurNumber of result.RsurQuestionNumbers.split(';')">{{rsurNumber}}<br /></span>
                 </td>
                 <td style="vertical-align:middle">{{result.ElementNames}}</td>
@@ -74,3 +74,4 @@
            
         </table>
     </div>
+</div>

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Monit95App.Controllers
 {
-    [Authorize(Roles = "school, area")]
+    [Authorize(Roles = "school, area, rsur-particip")]
     public class RsurController : Controller
     {
         // GET: Angular

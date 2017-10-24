@@ -32,6 +32,7 @@ import { UpdateClassParticipComponent } from "./class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 import { RsurTestProtocolListComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol-list.component";
 import { RsurTestProtocolComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol.component";
+import { RsurReportComponent } from "./rsur/report/rsur-report.component";
 
 
 // Services
@@ -45,6 +46,7 @@ import { ClassService } from './class.service';
 import { MarksService } from './rsur/rsur-test-protocol/marks.service';
 import { SchoolCollectorService } from "./shared/school-collector.service";
 import { ResultsService } from "./shared/results.service";
+import { RsurReportService } from "./rsur/report/rsur-report.service";
 
 // Pipes
 import { RsurParticipFilterPipe, RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
@@ -104,7 +106,8 @@ import { GlobalErrorHandler } from './error-handler';
 		UpdateClassParticipComponent,
 		MarksAddAndEditComponent,
         RsurTestProtocolListComponent,
-        RsurTestProtocolComponent		
+		RsurTestProtocolComponent,
+		RsurReportComponent
 	],
 	providers: [
         AccountService,
@@ -117,6 +120,7 @@ import { GlobalErrorHandler } from './error-handler';
 		MarksService,
 		SchoolCollectorService,
 		ResultsService,
+		RsurReportService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

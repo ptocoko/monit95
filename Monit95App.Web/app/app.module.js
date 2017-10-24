@@ -39,6 +39,7 @@ var update_component_1 = require("./class-particips/add-and-update/update.compon
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
+var rsur_report_component_1 = require("./rsur/report/rsur-report.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -50,6 +51,7 @@ var class_service_1 = require("./class.service");
 var marks_service_1 = require("./rsur/rsur-test-protocol/marks.service");
 var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
+var rsur_report_service_1 = require("./rsur/report/rsur-report.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -110,7 +112,8 @@ AppModule = __decorate([
             update_component_1.UpdateClassParticipComponent,
             marks_add_and_edit_component_1.MarksAddAndEditComponent,
             rsur_test_protocol_list_component_1.RsurTestProtocolListComponent,
-            rsur_test_protocol_component_1.RsurTestProtocolComponent
+            rsur_test_protocol_component_1.RsurTestProtocolComponent,
+            rsur_report_component_1.RsurReportComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -123,6 +126,7 @@ AppModule = __decorate([
             marks_service_1.MarksService,
             school_collector_service_1.SchoolCollectorService,
             results_service_1.ResultsService,
+            rsur_report_service_1.RsurReportService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
