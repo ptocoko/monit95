@@ -17,7 +17,7 @@ namespace Monit95App.Services.Rsur.Report
 
         public string RsurQuestionNumbers { get; set; } // e.g. 1.1; 1.2; 1.3
 
-        public string ElemenNames { get; set; }
+        public string ElementNames { get; set; }
 
         public int Value { get; set; } // %
     }
