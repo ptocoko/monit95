@@ -20,23 +20,23 @@ namespace Monit95App.Services
             _resultRepository = resultRepository;
         }
 
-        public ClassParticipReportDto GetClassParticipReportDto(int participTestId)
+        public ClassParticipReport GetClassParticipReportDto(int participTestId)
         {
             var participRes = _resultRepository.GetAll().Where(p => p.ParticipTestId == participTestId && p.PrimaryMark != null).ToList().Select(GetReportDto()).Single();
 
             return participRes;
         }
 
-        public IEnumerable<ClassParticipReportDto> GetListClassParticipReportDto(ICollection<int> participTestIds)
+        public IEnumerable<ClassParticipReport> GetListClassParticipReportDto(ICollection<int> participTestIds)
         {
             var participsRes = _resultRepository.GetAll().Where(p => participTestIds.Contains(p.ParticipTestId) && p.PrimaryMark != null).ToList().Select(GetReportDto()).ToList();
 
             return participsRes;
         }
 
-        private static Func<Result, ClassParticipReportDto> GetReportDto()
+        private static Func<Result, ClassParticipReport> GetReportDto()
         {
-            return s => new ClassParticipReportDto
+            return s => new ClassParticipReport
             {
                 Surname = s.ParticipTest.Particip.Surname.Trim(),
                 Name = s.ParticipTest.Particip.Name.Trim(),

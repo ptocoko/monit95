@@ -84,7 +84,7 @@
     <Compile Include="Document\DocumentService.cs" />
     <Compile Include="Document\IPrivateFileService.cs" />
     <Compile Include="Document\PrivateFileService.cs" />
-    <Compile Include="DTOs\ClassParticipReportDto.cs" />
+    <Compile Include="DTOs\ClassParticipReport.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />
     <Compile Include="DTOs\PutMarksDto.cs" />
     <Compile Include="DTOs\RsurGetMarksDto.cs" />

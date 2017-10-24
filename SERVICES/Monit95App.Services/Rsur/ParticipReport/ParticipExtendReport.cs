@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
     public class ParticipExtendReport : ParticipReport
     {
-        public string TestDate { get; set; }
+        public DateTime TestDate { get; set; }
 
-        public string TestNumberCodeWithName { get; set; } // e.g.: 0201 - Алгебра
+        public string TestName { get; set; } // e.g.: "Алгебра" || "0201 - Алгебра"
 
         IEnumerable<EgeQuestionResult> EgeQuestionResults { get; set; }
     }

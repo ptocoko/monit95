@@ -23,10 +23,18 @@ namespace Monit95App.Services.Rsur.ParticipReport
             var entity = context.RsurTestResults.Find(rsurParticipTestId);
             _ = entity ?? throw new ArgumentNullException(nameof(rsurParticipTestId));
 
-            report.Surname = entity.RsurParticipTest.RsurParticip.Surname;
-            report.Name = entity.RsurParticipTest.RsurParticip.Name;
-            report.SecondName = entity.RsurParticipTest.RsurParticip.SecondName;
-            report.SchoolName = entity.RsurParticipTest.RsurParticip.School.Name;
+            report.SchoolParticipInfo.Surname = entity.RsurParticipTest.RsurParticip.Surname;
+            report.SchoolParticipInfo.Name = entity.RsurParticipTest.RsurParticip.Name;
+            report.SchoolParticipInfo.SecondName = entity.RsurParticipTest.RsurParticip.SecondName;
+            report.SchoolParticipInfo.SchoolName = entity.RsurParticipTest.RsurParticip.School.Name;
+            report.Code = entity.RsurParticipTest.RsurParticipCode;
+            report.IsPassTest = entity.Grade5 == 5 ? "зачет" : "незачет";
+            report.TestDate = entity.RsurParticipTest.RsurTest.TestDate;
+            report.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}" +
+                              $" - {entity.RsurParticipTest.RsurTest.Test.Name}";
+
+            return report;
+
         }
     }
 }

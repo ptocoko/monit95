@@ -9,7 +9,7 @@ namespace Monit95App.Services.Interfaces
 {
     public interface IParticipResults
     {
-        ClassParticipReportDto GetClassParticipReportDto(int participTestId);
-        IEnumerable<ClassParticipReportDto> GetListClassParticipReportDto(ICollection<int> participTestIds);
+        ClassParticipReport GetClassParticipReportDto(int participTestId);
+        IEnumerable<ClassParticipReport> GetListClassParticipReportDto(ICollection<int> participTestIds);
     }
 }
