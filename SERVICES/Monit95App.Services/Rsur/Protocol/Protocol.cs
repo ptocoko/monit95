@@ -1,6 +1,6 @@
-﻿namespace Monit95App.Services.DTOs
+﻿namespace Monit95App.Services.Rsur.Protocol
 {
-    public class RsurParticipShowProtocol
+    public class Protocol
     {
         public int RsurParticipTestId { get; set; }
 

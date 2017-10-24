@@ -93,7 +93,10 @@
     <Compile Include="DTOs\RsurParticipEditProtocol.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
-    <Compile Include="RsurTestResult\RsurParticipShowProtocol.cs" />
+    <Compile Include="Rsur\Report\IParticipReportService.cs" />
+    <Compile Include="Rsur\Protocol\Protocol.cs" />
+    <Compile Include="Rsur\Report\ParticipExtendReport.cs" />
+    <Compile Include="Rsur\Report\ParticipReport.cs" />
     <Compile Include="FileRespository\FileRespositoryManager.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
@@ -109,7 +112,7 @@
     <Compile Include="Interfaces\IClassParticipImporter.cs" />
     <Compile Include="Interfaces\IRsurMarksService.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
-    <Compile Include="RsurTestResult\IRsurTestResultService.cs" />
+    <Compile Include="Rsur\Protocol\IProtocolService.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
     <Compile Include="Interfaces\ISchoolService.cs" />
@@ -152,13 +155,12 @@
     <Compile Include="Rsur\RsurParticipService.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />
     <Compile Include="ClassParticipReporter.cs" />
-    <Compile Include="RsurTestResult\RsurTestResultService.cs" />
+    <Compile Include="Rsur\Protocol\ProtocolService.cs" />
     <Compile Include="Rsur\RsurTestStatisticsDto.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
-    <Compile Include="RsurTestResultService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj">
@@ -183,5 +185,6 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
