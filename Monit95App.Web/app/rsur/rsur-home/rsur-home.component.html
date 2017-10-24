@@ -1,7 +1,7 @@
 ﻿<h2>РСУР</h2>
 <h3>Главное меню</h3>
 <div class="panel panel-default">
-    <div class="panel-body">
+    <div *ngIf="isArea()" class="panel-body">
         <p>Участники</p>
         <ul class="list-group">
             <li class="list-group-item"><a routerLink="/rsur/particips">Список участников</a></li>                        
@@ -23,4 +23,9 @@
         </ul>
     </div>      
 
+    <div *ngIf="isRsurParticip()" class="panel-body">
+        <ul class="list-group">
+            <li class="list-group-item"><a>Результаты диагностики</a></li>
+        </ul>
+    </div>
 </div>

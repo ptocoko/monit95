@@ -1,41 +1,4 @@
-﻿ .mytd {
-    font-family: 'Times New Roman'; 
-    font-size: 10pt; /* Размер шрифта в пунктах */ 
-   }
-
-#popup {
-    position: relative;
-    display: inline-block;
-}
-
-#popup #myPopup {
-    top: -20%;
-    left:-5px;
-    text-align: center;
-    position: absolute;
-    margin-left: 100px;
-    border: solid;
-    border-width: 1px;
-    border-color: rgba(0,0,0,0.2);
-    box-shadow: 5px 3px 5px rgba(0,0,0,0.2);
-    width: 160px;
-    padding:8px 2px;
-    border-radius:6px;
-    z-index: 1;
-    background-color: #555;
-    color: white;
-}
-
-#myPopup::after {
-    content: "";
-    position: absolute;
-    top: 40%;
-    right: 100%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent #555 transparent transparent;
-}
+﻿
 
 .cell {
     position: relative;

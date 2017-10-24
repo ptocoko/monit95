@@ -1,0 +1,76 @@
+﻿<div class="classParticip-reportContainer center-block" style="width:750px">
+    <div style="margin:20px">
+        <div class="myhead">
+            <p>ЦЕНТР ОЦЕНКИ КАЧЕСТВА ОБРАЗОВАНИЯ</p>
+        </div>
+        <div class="row sub-head">
+            <div class="col-sm-2 col-xs-2">
+                <img height="105" src="/Images/coko_logo.jpg" />
+            </div>
+            <div class="col-sm-10 col-xs-10">
+                <h3 class="card-caption"><b>КАРТА <br/>ПРЕДМЕТНОЙ КОМПЕТЕНЦИИ УЧИТЕЛЯ</b></h3>
+            </div>
+        </div>
+        <br />
+        <div class="row particip-about">
+            <p class="col-xs-4 col-sm-4">Код участника:</p>
+            <p class="col-xs-8 col-sm-8 text-uppercase">{{reportData.Code}}</p>
+            <br />
+            <br />
+            <p class="col-xs-4 col-sm-4">ФИО:</p>
+            <p class="col-xs-8 col-sm-8 text-uppercase">{{reportData.Surname}} {{reportData.Name}} {{reportData.SecondName}}</p>
+            <br />
+            <br />
+            <p class="col-xs-4 col-sm-4">Образовательная организация:</p>
+            <p class="col-xs-8 col-sm-8 text-uppercase">{{reportData.SchoolName}}</p>
+            <br />
+            <br />
+            <p class="col-xs-4 col-sm-4">Дата диагностики:</p>
+            <p class="col-xs-8 col-sm-8">{{reportData.TestDate}}</p>
+            <br />
+        </div>
+        <br />
+        <br />
+
+        <table style="width:710px" class="table table-bordered">
+            <tr>
+                <th class="section-head" colspan="3"><b>Выполнение блока</b></th>
+            </tr>
+            <tr>
+                <td style="width: 20%"></td>
+                <td style="text-align: center">код — наименование блока</td>
+                <td style="width: 15%; text-align: center">выполнение</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-uppercase" style="text-align:center"><b>{{reportData.TestNumberCodeWithName}}</b></td>
+
+                <td *ngIF="reportData.IsPassTest" class="high-grade text-uppercase">зачет</td>
+                <td *ngIF="!reportData.IsPassTest" class="red text-uppercase">незачет</td>
+            </tr>
+        </table>
+
+        <br />
+        <br />
+        <table style="width:710px" class="table table-bordered">
+            <caption class="text-center" style="color:black">Выполнение заданий</caption>
+            <tr>
+                <th class="section-head" colspan="4"><b>Выполнение заданий</b></th>
+            </tr>
+            <tr style="background-color:lightgray">
+                <td width="10%">обозначение задания в КИМ ЕГЭ</td>
+                <td width="10%">номера заданий в КИМ РСУР</td>
+                <td class="cell-center">элементы содержания</td>
+                <td class="cell-center">выполнение</td>
+            </tr>
+            <tr *ngFor="let result of reportData.EgeQuestionResults">
+                <td class="cell-center">{{result.EgeQuestionNmber}}</td>
+                <td class="cell-center">
+                    <span *ngFor="let rsurNumber of result.RsurQuestionNumbers.split(';')">{{rsurNumber}}<br /></span>
+                </td>
+                <td style="vertical-align:middle">{{result.ElementNames}}</td>
+                <td [ngClass]="{'low-grade': result.Value < 60, 'medium-grade': result.Value > 60 && result.Value < 81, 'high-grade': result.Value > 80}" class="cell-center">{{result.Value}}%</td>
+            </tr>
+           
+        </table>
+    </div>

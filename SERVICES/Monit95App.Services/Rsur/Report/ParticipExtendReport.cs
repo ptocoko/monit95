@@ -5,7 +5,7 @@ namespace Monit95App.Services.Rsur.Report
     public class ParticipExtendReport : ParticipReport
     {
         public string TestDate { get; set; }
-
+        
         public string TestNumberCodeWithName { get; set; } // e.g.: 0201 - Алгебра
 
         IEnumerable<EgeQuestionResult> EgeQuestionResults { get; set; }

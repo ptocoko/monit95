@@ -1,0 +1,16 @@
+﻿.section-head{
+    background-color: cornflowerblue;
+    text-align: center;
+    height: 50px;
+    vertical-align: middle;
+    color: white;
+}
+
+.card-caption{
+    font-family:'Times New Roman', Times, serif;
+}
+
+.cell-center{
+    text-align: center;
+    vertical-align: middle;
+}
