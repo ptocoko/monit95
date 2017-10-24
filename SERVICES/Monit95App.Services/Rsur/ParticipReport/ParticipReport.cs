@@ -1,4 +1,4 @@
-﻿namespace Monit95App.Services.Rsur.Report
+﻿namespace Monit95App.Services.Rsur.ParticipReport
 {
     public class ParticipReport
     {
@@ -10,7 +10,7 @@
 
         public string SecondName { get; set; }
 
-        public string SchoolIdWithName { get; set; }
+        public string SchoolName { get; set; }
 
         public string TestNameWithDate { get; set; } // e.g.: Орфография, 11.10.2017
 

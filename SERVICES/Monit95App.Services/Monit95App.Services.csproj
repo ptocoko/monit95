@@ -93,10 +93,11 @@
     <Compile Include="DTOs\RsurParticipEditProtocol.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
-    <Compile Include="Rsur\Report\IParticipReportService.cs" />
+    <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
+    <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />
     <Compile Include="Rsur\Protocol\Protocol.cs" />
-    <Compile Include="Rsur\Report\ParticipExtendReport.cs" />
-    <Compile Include="Rsur\Report\ParticipReport.cs" />
+    <Compile Include="Rsur\ParticipReport\ParticipExtendReport.cs" />
+    <Compile Include="Rsur\ParticipReport\ParticipReport.cs" />
     <Compile Include="FileRespository\FileRespositoryManager.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />

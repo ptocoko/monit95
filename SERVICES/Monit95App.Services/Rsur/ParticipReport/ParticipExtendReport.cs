@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Monit95App.Services.Rsur.Report
+namespace Monit95App.Services.Rsur.ParticipReport
 {
     public class ParticipExtendReport : ParticipReport
     {
