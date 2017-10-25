@@ -33,6 +33,9 @@ namespace Monit95App.Services.Rsur.ParticipReport
             report.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}" +
                               $" - {entity.RsurParticipTest.RsurTest.Test.Name}";
 
+            var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');
+
+
             return report;
 
         }
