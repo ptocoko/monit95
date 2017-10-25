@@ -1,11 +1,11 @@
-﻿<div class="classParticip-reportContainer center-block" style="width:750px">
+﻿<div class="classParticip-reportContainer center-block report-card">
     <div style="margin:20px">
         <div class="myhead">
             <p>ЦЕНТР ОЦЕНКИ КАЧЕСТВА ОБРАЗОВАНИЯ</p>
         </div>
-        <div class="row">
-            <div class="col-sm-2 col-xs-2">
-                <img height="105" src="/Images/coko_logo.jpg" />
+        <div class="row" style="background-color:#eee; margin:0">
+            <div class="col-sm-2 col-xs-2" style="padding-left:5px">
+                <img height="75" style="margin-top:4px" src="/Images/rsur_logo.png" />
             </div>
             <div class="col-sm-10 col-xs-10">
                 <h3 class="card-caption"><b>КАРТА <br/>ПРЕДМЕТНОЙ КОМПЕТЕНЦИИ УЧИТЕЛЯ</b></h3>
@@ -13,21 +13,29 @@
         </div>
         <div class="myhead"></div>
         <br />
-        <div class="row particip-about">
-            <p class="col-xs-4 col-sm-4">Код участника:</p>
-            <p class="col-xs-8 col-sm-8 text-uppercase">{{reportData.Code}}</p>
+        <div class="row particip-info">
+            <div>
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Код участника:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8 text-uppercase">{{reportData.Code}}</p>
+            </div>
             <br />
             <br />
-            <p class="col-xs-4 col-sm-4">ФИО:</p>
-            <p class="col-xs-8 col-sm-8 text-uppercase">{{reportData.Surname}} {{reportData.Name}} {{reportData.SecondName}}</p>
+            <div>
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">ФИО:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8 text-uppercase">{{reportData.Surname}} {{reportData.Name}} {{reportData.SecondName}}</p>
+            </div>
             <br />
             <br />
-            <p class="col-xs-4 col-sm-4">Образовательная организация:</p>
-            <p class="col-xs-8 col-sm-8 text-uppercase">{{reportData.SchoolName}}</p>
+            <div>
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Образовательная организация:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8 text-uppercase">{{reportData.SchoolName}}</p>
+            </div>
             <br />
             <br />
-            <p class="col-xs-4 col-sm-4">Дата диагностики:</p>
-            <p class="col-xs-8 col-sm-8">{{reportData.TestDate}}</p>
+            <div style="margin-top:20px">
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Дата диагностики:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8">{{reportData.TestDate}}</p>
+            </div>
             <br />
         </div>
         <br />
@@ -46,8 +54,8 @@
                 <td></td>
                 <td class="text-uppercase" style="text-align:center"><b>{{reportData.TestNumberCodeWithName}}</b></td>
 
-                <td *ngIf="reportData.IsPassTest" class="high-grade text-uppercase cell-center">зачет</td>
-                <td *ngIf="!reportData.IsPassTest" class="red text-uppercase cell-center">незачет</td>
+                <td *ngIf="reportData.IsPassTest" class="high-grade text-uppercase cell-center"><b>зачет</b></td>
+                <td *ngIf="!reportData.IsPassTest" class="red text-uppercase cell-center"><b>незачет</b></td>
             </tr>
         </table>
 
@@ -69,7 +77,7 @@
                     <span *ngFor="let rsurNumber of result.RsurQuestionNumbers.split(';')">{{rsurNumber}}<br /></span>
                 </td>
                 <td style="vertical-align:middle">{{result.ElementNames}}</td>
-                <td [ngClass]="{'low-grade': result.Value < 60, 'medium-grade': result.Value > 60 && result.Value < 81, 'high-grade': result.Value > 80}" class="cell-center">{{result.Value}}%</td>
+                <td [ngClass]="{'low-grade': result.Value < 60, 'medium-grade': result.Value > 59 && result.Value < 81, 'high-grade': result.Value > 80}" class="cell-center">{{result.Value}}%</td>
             </tr>
            
         </table>

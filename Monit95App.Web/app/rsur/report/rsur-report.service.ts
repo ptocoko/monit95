@@ -19,31 +19,31 @@ const MOCK_REPORT: RsurReportModel = {
 			EgeQuestionNumber: 1,
 			RsurQuestionNumbers: '1.1; 1.2; 1.3',
 			ElementNames: 'Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости',
-			Value: 100
+			Value: 59
 		},
 		{
 			EgeQuestionNumber: 2,
 			RsurQuestionNumbers: '2.1; 2.2; 2.3; 2.4; 2.5; 2.6; 2.7; 2.8; 2.9; 2.10',
 			ElementNames: 'Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости',
-			Value: 50
+			Value: 80
 		},
 		{
 			EgeQuestionNumber: 3,
 			RsurQuestionNumbers: '2.1; 2.2; 2.3; 2.4',
 			ElementNames: 'Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы',
-			Value: 70
+			Value: 60
 		},
 		{
 			EgeQuestionNumber: 4,
 			RsurQuestionNumbers: '2.1; 2.2; 2.3; 2.4',
 			ElementNames: 'Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы',
-			Value: 85
+			Value: 81
 		},
 		{
 			EgeQuestionNumber: 3,
 			RsurQuestionNumbers: '2.1; 2.2; 2.3; 2.4',
 			ElementNames: 'Основы крутости Основы крутости Основы крутости Основы крутости Основы крутости Основы',
-			Value: 70
+			Value: 61
 		},
 		{
 			EgeQuestionNumber: 3,
