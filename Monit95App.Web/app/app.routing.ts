@@ -18,6 +18,7 @@ import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-
 import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
 import { RsurTestProtocolComponent }     from './rsur/rsur-test-protocol/rsur-test-protocol.component';
 import { RsurReportComponent } from "./rsur/report/rsur-report.component";
+import { RsurResultsListComponent } from "./rsur/results/results-list.component";
 
 const appRoutes: Routes = [
 
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
 	{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },   
 
 	{ path: 'rsur/report', component: RsurReportComponent },
+	{ path: 'rsur/results-list', component: RsurResultsListComponent },
 
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },

@@ -28,4 +28,10 @@
             <li class="list-group-item"><a routerLink="/rsur/report">Результаты диагностики</a></li>
         </ul>
     </div>
+
+    <div *ngIf="isArea()" class="panel-body">
+        <ul class="list-group">
+            <li class="list-group-item"><a routerLink="/rsur/results-list">Результаты диагностики</a></li>
+        </ul>
+    </div>
 </div>

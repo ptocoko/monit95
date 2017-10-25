@@ -3,7 +3,7 @@
 //using System.Web.Http;
 //using Microsoft.AspNet.Identity;
 //using Monit95App.Services.DTOs;
-//using Monit95App.Services.Rsur.Protocol;
+//using Monit95App.Services.Rsur;
 
 //namespace Monit95App.RESTful_API
 //{
@@ -23,19 +23,19 @@
 //        }
 
 //        #region APIs        
-        
+
 //        [HttpGet]
 //        [Route("")]
 //        public IHttpActionResult GetResults(int rsurTestId)
 //        {
-//            var areaCode = int.Parse(User.Identity.Name);            
+//            var areaCode = int.Parse(User.Identity.Name);
 
 //            IEnumerable<RsurTestResultDto> rsurTestResultDtos;
 //            try
 //            {
 //                rsurTestResultDtos = rsurTestResultService.GetResults(rsurTestId, areaCode);
 //            }
-//            catch(ArgumentException ex)
+//            catch (ArgumentException ex)
 //            {
 //                return BadRequest(ex.Message);
 //            }
@@ -46,7 +46,7 @@
 //        [HttpGet]
 //        [Route("{id:int}")]
 //        public IHttpActionResult GetProtocol()
-//        {            
+//        {
 //            var rsurParticipTestId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
 
 //            RsurParticipEditProtocol protocol;
@@ -54,19 +54,19 @@
 //            {
 //                protocol = rsurTestResultService.GetProtocol(rsurParticipTestId);
 //            }
-//            catch(ArgumentException ex)
+//            catch (ArgumentException ex)
 //            {
 //                return BadRequest(ex.Message);
 //            }
 
 //            var areaCode = int.Parse(User.Identity.Name);
-//            if(protocol.AreaCode != areaCode)
+//            if (protocol.AreaCode != areaCode)
 //            {
 //                return BadRequest("Resource is not access current user");
 //            }
 
 //            return Ok(protocol);
-//        }                
+//        }
 
 //        //TODO: need refactoring
 //        [HttpGet]

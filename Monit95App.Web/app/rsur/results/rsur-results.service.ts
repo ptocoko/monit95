@@ -2,7 +2,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Rx";
-import { RsurReportModel } from "./rsur-report.model";
+import { RsurReportModel } from "../report/rsur-report.model";
+import { RsurResultModel } from "./rsur-result.model";
 
 const MOCK_REPORT: RsurReportModel = {
 	Code: 15204,
@@ -60,11 +61,57 @@ const MOCK_REPORT: RsurReportModel = {
 	]
 }
 
+const MOCK_RESULTS: RsurResultModel[] = [
+	{
+		Code: 10984,
+		Surname: 'Эсамбаев',
+		Name: 'Хусайн',
+		SecondName: 'Арбиевич',
+		SchoolName: 'Школа крутости',
+		IsPassTest: true,
+		RsurTestId: 1084
+	},
+	{
+		Code: 10985,
+		Surname: 'Эсамбаев',
+		Name: 'Хусайн',
+		SecondName: 'Арбиевич',
+		SchoolName: 'Школа крутости',
+		IsPassTest: true,
+		RsurTestId: 1085
+	},
+	{
+		Code: 10986,
+		Surname: 'Эсамбаев',
+		Name: 'Хусайн',
+		SecondName: 'Арбиевич',
+		SchoolName: 'Школа крутости',
+		IsPassTest: true,
+		RsurTestId: 1086
+	}
+];
+
+const MOCK_TESTS = [
+	{ Id: 1084, Name: 'Орфография' },
+	{ Id: 1085, Name: 'Пунктуация' },
+	{ Id: 1086, Name: 'Алгебра' }
+];
+
+
+
 @Injectable()
-export class RsurReportService {
+export class RsurResultsService {
 	constructor(private http: Http) { }
 
-	get(): Observable<RsurReportModel> {
+	getReport(): Observable<RsurReportModel> {
 		return Observable.of(MOCK_REPORT)
+	}
+
+	getResultsList() {
+		return Observable.of(MOCK_RESULTS);
+	}
+
+	getTests() {
+		return Observable.of(MOCK_TESTS);
 	}
 }

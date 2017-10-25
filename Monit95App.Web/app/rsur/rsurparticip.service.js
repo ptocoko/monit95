@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 //import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from '@angular/http';
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var results_model_1 = require("./results/results.model");
+var results_model_1 = require("./results/results-modal/results.model");
 var RsurParticipService = (function () {
     function RsurParticipService(http) {
         this.http = http;

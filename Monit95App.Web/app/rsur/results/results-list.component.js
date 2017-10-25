@@ -10,24 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var rsur_results_service_1 = require("../results/rsur-results.service");
-var RsurReportComponent = (function () {
-    function RsurReportComponent(rsurResultsService) {
+var rsur_results_service_1 = require("./rsur-results.service");
+var RsurResultsListComponent = (function () {
+    function RsurResultsListComponent(rsurResultsService) {
         this.rsurResultsService = rsurResultsService;
     }
-    RsurReportComponent.prototype.ngOnInit = function () {
+    RsurResultsListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.rsurResultsService.getReport().subscribe(function (res) { return _this.reportData = res; });
+        this.isLoading = true;
+        this.rsurResultsService.getResultsList().subscribe(function (res) {
+            _this.resultsList = res;
+            _this.rsurResultsService.getTests().subscribe(function (res) {
+                _this.rsurTests = res;
+                _this.isLoading = false;
+            });
+        });
     };
-    return RsurReportComponent;
+    return RsurResultsListComponent;
 }());
-RsurReportComponent = __decorate([
+RsurResultsListComponent = __decorate([
     core_1.Component({
-        selector: 'rsur-report',
-        templateUrl: "./app/rsur/report/rsur-report.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/rsur/report/rsur-report.component.css?v=" + new Date().getTime()]
+        selector: 'results-list',
+        templateUrl: "./app/rsur/results/results-list.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [rsur_results_service_1.RsurResultsService])
-], RsurReportComponent);
-exports.RsurReportComponent = RsurReportComponent;
-//# sourceMappingURL=rsur-report.component.js.map
+], RsurResultsListComponent);
+exports.RsurResultsListComponent = RsurResultsListComponent;
+//# sourceMappingURL=results-list.component.js.map

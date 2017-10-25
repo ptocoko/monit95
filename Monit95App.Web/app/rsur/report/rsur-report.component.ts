@@ -1,6 +1,6 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
-import { RsurReportService } from "./rsur-report.service";
+import { RsurResultsService } from "../results/rsur-results.service";
 import { RsurReportModel } from "./rsur-report.model";
 
 @Component({
@@ -11,9 +11,9 @@ import { RsurReportModel } from "./rsur-report.model";
 export class RsurReportComponent implements OnInit {
 	reportData: RsurReportModel
 
-	constructor(private readonly rsurReportService: RsurReportService) { }
+	constructor(private readonly rsurResultsService: RsurResultsService) { }
 
 	ngOnInit() {
-		this.rsurReportService.get().subscribe(res => this.reportData = res);
+		this.rsurResultsService.getReport().subscribe(res => this.reportData = res);
 	}
 }
