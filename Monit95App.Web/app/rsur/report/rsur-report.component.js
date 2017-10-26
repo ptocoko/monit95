@@ -29,8 +29,7 @@ var RsurReportComponent = (function () {
 RsurReportComponent = __decorate([
     core_1.Component({
         selector: 'rsur-report',
-        templateUrl: "./app/rsur/report/rsur-report.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/rsur/report/rsur-report.component.css?v=" + new Date().getTime()]
+        templateUrl: "./app/rsur/report/rsur-report.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [rsur_results_service_1.RsurResultsService,
         router_1.ActivatedRoute])
