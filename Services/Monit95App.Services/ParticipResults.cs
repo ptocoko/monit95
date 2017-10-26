@@ -38,13 +38,16 @@ namespace Monit95App.Services
         {
             return s => new ClassParticipReport
             {
-                Surname = s.ParticipTest.Particip.Surname.Trim(),
-                Name = s.ParticipTest.Particip.Name.Trim(),
-                SecondName = s.ParticipTest.Particip.SecondName?.Trim(),
+                SchoolParticipInfo = new Domain.Core.SchoolParticip
+                {
+                    Surname = s.ParticipTest.Particip.Surname.Trim(),
+                    Name = s.ParticipTest.Particip.Name.Trim(),
+                    SecondName = s.ParticipTest.Particip.SecondName?.Trim(),
+                    SchoolName = s.ParticipTest.Particip.School.Name.Trim()
+                },
                 ClassName = s.ParticipTest.Particip.Class.Name.Trim(),
                 ParticipTestId = s.ParticipTestId,
                 PrimaryMark = s.PrimaryMark,
-                SchoolName = s.ParticipTest.Particip.School.Name.Trim(),
                 Marks = s.Marks.Split(';').Select(sel => sel.Replace('/', '.').Replace(@"\", ".")).ToArray(),
                 GradeGroup = SetGradeGroupName(s.Grade5.ToString())
             };

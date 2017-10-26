@@ -11,12 +11,17 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Person_1 = require("../../shared/Person");
-var RsurResultModel = (function (_super) {
-    __extends(RsurResultModel, _super);
+var RsurResultModel = (function () {
     function RsurResultModel() {
-        return _super !== null && _super.apply(this, arguments) || this;
     }
     return RsurResultModel;
-}(Person_1.Person));
+}());
 exports.RsurResultModel = RsurResultModel;
+var SchoolModel = (function (_super) {
+    __extends(SchoolModel, _super);
+    function SchoolModel() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return SchoolModel;
+}(Person_1.Person));
 //# sourceMappingURL=rsur-result.model.js.map

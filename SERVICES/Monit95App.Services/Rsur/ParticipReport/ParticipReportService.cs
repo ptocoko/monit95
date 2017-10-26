@@ -1,5 +1,9 @@
 ﻿using Monit95App.Infrastructure.Data;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -38,6 +42,28 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
             return report;
 
+        }
+
+        public IEnumerable<ParticipReport> GetResultsByTestDate(int areaCode, DateTime testDate)
+        {
+            var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
+                                                          && p.RsurParticipTest.RsurTest.TestDate >= testDate
+                                                          && p.RsurQuestionValues.IndexOf("X") == -1).Include(s => s.RsurParticipTest.RsurParticip).Include(s => s.RsurParticipTest.RsurParticip.School).ToList()
+                        .Select(s => new ParticipReport
+                        {
+                            Code = s.RsurParticipTest.RsurParticip.Code,
+                            IsPassTest = s.Grade5 == 2 ? "незачет" : "зачет",
+                            TestNameWithDate = s.RsurParticipTest.RsurTest.Test.Name + " — " + s.RsurParticipTest.RsurTest.TestDate.ToShortDateString(),
+                            SchoolParticipInfo = new Domain.Core.SchoolParticip
+                            {
+                                Surname = s.RsurParticipTest.RsurParticip.Surname,
+                                Name = s.RsurParticipTest.RsurParticip.Name,
+                                SecondName = s.RsurParticipTest.RsurParticip.SecondName,
+                                SchoolName = s.RsurParticipTest.RsurParticip.School.Id + " — " + s.RsurParticipTest.RsurParticip.School.Name.Trim()
+                            }
+                        });
+
+            return results.OrderBy(tb => tb.SchoolParticipInfo.SchoolName).ThenBy(ob => ob.IsPassTest).ThenBy(tb => tb.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name);
         }
     }
 }

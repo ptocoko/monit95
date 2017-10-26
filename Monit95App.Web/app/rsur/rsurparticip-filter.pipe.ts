@@ -12,6 +12,11 @@ export class RsurParticipFilterPipe implements PipeTransform {
 					|| particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1
 					|| particip.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1
 			}
+			else if (particip.SchoolParticipInfo.Surname) {
+				return particip.Code.toString().indexOf(searchText) > -1
+					|| particip.SchoolParticipInfo.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+					|| particip.SchoolParticipInfo.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+			}
 			else if (particip.RsurParticipCode) {
 				return particip.RsurParticipCode.toString().indexOf(searchText) > -1;
 			}

@@ -67,44 +67,47 @@ var MOCK_REPORT = {
         }
     ]
 };
-var MOCK_RESULTS = [
-    {
-        Code: 10984,
-        Surname: 'Эсамбаев',
-        Name: 'Хусайн',
-        SecondName: 'Арбиевич',
-        SchoolName: 'Школа крутости',
-        IsPassTest: true,
-        TestName: 'Орфография, 11.10.2017'
-    },
-    {
-        Code: 10985,
-        Surname: 'Эсамбаев',
-        Name: 'Хусайн',
-        SecondName: 'Арбиевич',
-        SchoolName: 'Школа крутости',
-        IsPassTest: true,
-        TestName: 'Пунктуация, 11.10.2017'
-    },
-    {
-        Code: 10986,
-        Surname: 'Эсамбаев',
-        Name: 'Хусайн',
-        SecondName: 'Арбиевич',
-        SchoolName: 'Школа крутости',
-        IsPassTest: false,
-        TestName: 'Алгебра, 11.10.2017'
-    },
-    {
-        Code: 10986,
-        Surname: 'Эсамбаев',
-        Name: 'Хус',
-        SecondName: 'Арбиевич',
-        SchoolName: 'Школа крутости',
-        IsPassTest: true,
-        TestName: 'Алгебра, 11.10.2017'
-    }
-];
+//const MOCK_RESULTS: RsurResultModel[] = [
+//	{
+//		Code: 10984,
+//		Surname: 'Эсамбаев',
+//		Name: 'Хусайн',
+//		SecondName: 'Арбиевич',
+//		SchoolName: 'Школа крутости',
+//		IsPassTest: true,
+//		TestName: 'Орфография, 11.10.2017'
+//	},
+//	{
+//		Code: 10985,
+//		SchoolParticipInfo:
+//		{
+//			Surname: 'Эсамбаев',
+//			Name: 'Хусайн',
+//			SecondName: 'Арбиевич',
+//			SchoolName: 'Школа крутости',
+//		},
+//		IsPassTest: true,
+//		TestName: 'Пунктуация, 11.10.2017'
+//	},
+//	{
+//		Code: 10986,
+//		Surname: 'Эсамбаев',
+//		Name: 'Хусайн',
+//		SecondName: 'Арбиевич',
+//		SchoolName: 'Школа крутости',
+//		IsPassTest: false,
+//		TestName: 'Алгебра, 11.10.2017'
+//	},
+//	{
+//		Code: 10986,
+//		Surname: 'Эсамбаев',
+//		Name: 'Хус',
+//		SecondName: 'Арбиевич',
+//		SchoolName: 'Школа крутости',
+//		IsPassTest: true,
+//		TestName: 'Алгебра, 11.10.2017'
+//	}
+//];
 var RsurResultsService = (function () {
     function RsurResultsService(http) {
         this.http = http;
@@ -112,8 +115,8 @@ var RsurResultsService = (function () {
     RsurResultsService.prototype.getReport = function (rsurParticipCode) {
         return Rx_1.Observable.of(MOCK_REPORT);
     };
-    RsurResultsService.prototype.getResultsList = function () {
-        return Rx_1.Observable.of(MOCK_RESULTS);
+    RsurResultsService.prototype.getResultsList = function (testDate) {
+        return this.http.get('/api/rsurTestResults?testDate=' + testDate);
     };
     return RsurResultsService;
 }());

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsur_results_service_1 = require("./rsur-results.service");
 var router_1 = require("@angular/router");
+var TEST_DATE = '2017-10-11';
 var RsurResultsListComponent = (function () {
     function RsurResultsListComponent(rsurResultsService, route) {
         this.rsurResultsService = rsurResultsService;
@@ -21,9 +22,9 @@ var RsurResultsListComponent = (function () {
     RsurResultsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.rsurResultsService.getResultsList().subscribe(function (res) {
-            _this.resultsList = res;
-            _this.rsurTests = _this.resultsList.map(function (s) { return s.TestName; }).filter(function (val, i, self) { return self.indexOf(val) === i; });
+        this.rsurResultsService.getResultsList(TEST_DATE).subscribe(function (res) {
+            _this.resultsList = res.json();
+            _this.rsurTests = _this.resultsList.map(function (s) { return s.TestNameWithDate; }).filter(function (val, i, self) { return self.indexOf(val) === i; });
             _this.isLoading = false;
         });
     };

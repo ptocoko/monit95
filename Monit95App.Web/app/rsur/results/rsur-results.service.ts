@@ -61,44 +61,47 @@ const MOCK_REPORT: RsurReportModel = {
 	]
 }
 
-const MOCK_RESULTS: RsurResultModel[] = [
-	{
-		Code: 10984,
-		Surname: 'Эсамбаев',
-		Name: 'Хусайн',
-		SecondName: 'Арбиевич',
-		SchoolName: 'Школа крутости',
-		IsPassTest: true,
-		TestName: 'Орфография, 11.10.2017'
-	},
-	{
-		Code: 10985,
-		Surname: 'Эсамбаев',
-		Name: 'Хусайн',
-		SecondName: 'Арбиевич',
-		SchoolName: 'Школа крутости',
-		IsPassTest: true,
-		TestName: 'Пунктуация, 11.10.2017'
-	},
-	{
-		Code: 10986,
-		Surname: 'Эсамбаев',
-		Name: 'Хусайн',
-		SecondName: 'Арбиевич',
-		SchoolName: 'Школа крутости',
-		IsPassTest: false,
-		TestName: 'Алгебра, 11.10.2017'
-	},
-	{
-		Code: 10986,
-		Surname: 'Эсамбаев',
-		Name: 'Хус',
-		SecondName: 'Арбиевич',
-		SchoolName: 'Школа крутости',
-		IsPassTest: true,
-		TestName: 'Алгебра, 11.10.2017'
-	}
-];
+//const MOCK_RESULTS: RsurResultModel[] = [
+//	{
+//		Code: 10984,
+//		Surname: 'Эсамбаев',
+//		Name: 'Хусайн',
+//		SecondName: 'Арбиевич',
+//		SchoolName: 'Школа крутости',
+//		IsPassTest: true,
+//		TestName: 'Орфография, 11.10.2017'
+//	},
+//	{
+//		Code: 10985,
+//		SchoolParticipInfo:
+//		{
+//			Surname: 'Эсамбаев',
+//			Name: 'Хусайн',
+//			SecondName: 'Арбиевич',
+//			SchoolName: 'Школа крутости',
+//		},
+//		IsPassTest: true,
+//		TestName: 'Пунктуация, 11.10.2017'
+//	},
+//	{
+//		Code: 10986,
+//		Surname: 'Эсамбаев',
+//		Name: 'Хусайн',
+//		SecondName: 'Арбиевич',
+//		SchoolName: 'Школа крутости',
+//		IsPassTest: false,
+//		TestName: 'Алгебра, 11.10.2017'
+//	},
+//	{
+//		Code: 10986,
+//		Surname: 'Эсамбаев',
+//		Name: 'Хус',
+//		SecondName: 'Арбиевич',
+//		SchoolName: 'Школа крутости',
+//		IsPassTest: true,
+//		TestName: 'Алгебра, 11.10.2017'
+//	}
+//];
 
 
 @Injectable()
@@ -109,7 +112,7 @@ export class RsurResultsService {
 		return Observable.of(MOCK_REPORT)
 	}
 
-	getResultsList() {
-		return Observable.of(MOCK_RESULTS);
+	getResultsList(testDate: string) {
+		return this.http.get('/api/rsurTestResults?testDate=' + testDate);
 	}
 }

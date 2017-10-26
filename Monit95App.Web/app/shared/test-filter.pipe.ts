@@ -14,7 +14,7 @@ export class TestIdPipe implements PipeTransform {
 		//return results.filter((f: any) => f.RsurTestId === testId);		
 
 		if (testName && testName != 'Все результаты') {
-			let res: RsurResultModel[] = results.filter((s: RsurResultModel) => s.TestName == testName);
+			let res: RsurResultModel[] = results.filter((s: RsurResultModel) => s.TestNameWithDate == testName);
 			return res;
 		}
 		else {

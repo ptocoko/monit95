@@ -5,6 +5,8 @@ import { RsurReportModel } from "../report/rsur-report.model";
 import { RsurResultModel } from "./rsur-result.model";
 import { Router } from "@angular/router";
 
+const TEST_DATE = '2017-10-11';
+
 @Component({
 	selector: 'results-list',
 	templateUrl: `./app/rsur/results/results-list.component.html?v=${new Date().getTime()}`
@@ -20,9 +22,9 @@ export class RsurResultsListComponent implements OnInit {
 
 	ngOnInit() {
 		this.isLoading = true;
-		this.rsurResultsService.getResultsList().subscribe(res => {
-			this.resultsList = res;
-			this.rsurTests = this.resultsList.map(s => s.TestName).filter((val, i, self) => self.indexOf(val) === i);
+		this.rsurResultsService.getResultsList(TEST_DATE).subscribe(res => {
+			this.resultsList = res.json() as RsurResultModel[]
+			this.rsurTests = this.resultsList.map(s => s.TestNameWithDate).filter((val, i, self) => self.indexOf(val) === i);
 			this.isLoading = false;
 		})
 	}

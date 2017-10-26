@@ -7,7 +7,7 @@ using Monit95App.Services.Rsur;
 
 namespace Monit95App.Services.Rsur.Protocol
 {
-    public class ProtocolService
+    public class ProtocolService : IProtocolService
     {
         #region Dependencies
 
@@ -20,10 +20,10 @@ namespace Monit95App.Services.Rsur.Protocol
             this.context = context;
         }
 
-        //public RsurParticipEditProtocol GetProtocol(int rsurParticipTestId)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public RsurParticipEditProtocol GetProtocol(int rsurParticipTestId)
+        {
+            throw new NotImplementedException();
+        }
 
         #region Service methods
 

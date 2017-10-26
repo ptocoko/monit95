@@ -64,7 +64,7 @@ namespace Monit95App.Api
                     foreach (var participDto in participsDtos.Take(2))
                     {
                         pdfBytes = reporter.GetClassParticipReportBytes(participDto, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 года");
-                        zip.AddEntry($"{participDto.ClassName}/{participDto.Surname} {participDto.Name}.pdf", pdfBytes);
+                        zip.AddEntry($"{participDto.ClassName}/{participDto.SchoolParticipInfo.Surname} {participDto.SchoolParticipInfo.Name}.pdf", pdfBytes);
                     }
                     zip.Save(ms);
                 }

@@ -80,7 +80,7 @@ namespace Monit95App.Services
             <br />
             <br />
             <p class='col-xs-4 col-sm-4'>Образовательная организация:</p>
-            <p class='col-xs-8 col-sm-8 text-uppercase'>{particip.SchoolName}</p>
+            <p class='col-xs-8 col-sm-8 text-uppercase'>{particip.SchoolParticipInfo.SchoolName}</p>
             <br />
             <br />
             <p class='col-xs-4 col-sm-4'>Класс:</p>

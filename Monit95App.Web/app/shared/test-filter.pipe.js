@@ -17,7 +17,7 @@ var TestIdPipe = (function () {
         //	return results;
         //return results.filter((f: any) => f.RsurTestId === testId);		
         if (testName && testName != 'Все результаты') {
-            var res = results.filter(function (s) { return s.TestName == testName; });
+            var res = results.filter(function (s) { return s.TestNameWithDate == testName; });
             return res;
         }
         else {
