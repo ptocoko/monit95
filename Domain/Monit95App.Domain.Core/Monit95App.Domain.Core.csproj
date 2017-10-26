@@ -84,6 +84,7 @@
     <Compile Include="Entities\TownType.cs" />
     <Compile Include="Entities\Wish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchoolParticip.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
