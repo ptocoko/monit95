@@ -69,7 +69,7 @@ const MOCK_RESULTS: RsurResultModel[] = [
 		SecondName: 'Арбиевич',
 		SchoolName: 'Школа крутости',
 		IsPassTest: true,
-		RsurTestId: 1084
+		TestName: 'Орфография, 11.10.2017'
 	},
 	{
 		Code: 10985,
@@ -78,7 +78,7 @@ const MOCK_RESULTS: RsurResultModel[] = [
 		SecondName: 'Арбиевич',
 		SchoolName: 'Школа крутости',
 		IsPassTest: true,
-		RsurTestId: 1085
+		TestName: 'Пунктуация, 11.10.2017'
 	},
 	{
 		Code: 10986,
@@ -86,32 +86,30 @@ const MOCK_RESULTS: RsurResultModel[] = [
 		Name: 'Хусайн',
 		SecondName: 'Арбиевич',
 		SchoolName: 'Школа крутости',
+		IsPassTest: false,
+		TestName: 'Алгебра, 11.10.2017'
+	},
+	{
+		Code: 10986,
+		Surname: 'Эсамбаев',
+		Name: 'Хус',
+		SecondName: 'Арбиевич',
+		SchoolName: 'Школа крутости',
 		IsPassTest: true,
-		RsurTestId: 1086
+		TestName: 'Алгебра, 11.10.2017'
 	}
 ];
-
-const MOCK_TESTS = [
-	{ Id: 1084, Name: 'Орфография' },
-	{ Id: 1085, Name: 'Пунктуация' },
-	{ Id: 1086, Name: 'Алгебра' }
-];
-
 
 
 @Injectable()
 export class RsurResultsService {
 	constructor(private http: Http) { }
 
-	getReport(): Observable<RsurReportModel> {
+	getReport(rsurParticipCode: number): Observable<RsurReportModel> {
 		return Observable.of(MOCK_REPORT)
 	}
 
 	getResultsList() {
 		return Observable.of(MOCK_RESULTS);
-	}
-
-	getTests() {
-		return Observable.of(MOCK_TESTS);
 	}
 }

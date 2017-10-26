@@ -11,13 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsur_results_service_1 = require("../results/rsur-results.service");
+var router_1 = require("@angular/router");
 var RsurReportComponent = (function () {
-    function RsurReportComponent(rsurResultsService) {
+    function RsurReportComponent(rsurResultsService, router) {
         this.rsurResultsService = rsurResultsService;
+        this.router = router;
     }
     RsurReportComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.rsurResultsService.getReport().subscribe(function (res) { return _this.reportData = res; });
+        this.router.params.subscribe(function (params) {
+            var code = params['id'];
+            _this.rsurResultsService.getReport(code).subscribe(function (res) { return _this.reportData = res; });
+        });
     };
     return RsurReportComponent;
 }());
@@ -27,7 +32,8 @@ RsurReportComponent = __decorate([
         templateUrl: "./app/rsur/report/rsur-report.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/rsur/report/rsur-report.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [rsur_results_service_1.RsurResultsService])
+    __metadata("design:paramtypes", [rsur_results_service_1.RsurResultsService,
+        router_1.ActivatedRoute])
 ], RsurReportComponent);
 exports.RsurReportComponent = RsurReportComponent;
 //# sourceMappingURL=rsur-report.component.js.map

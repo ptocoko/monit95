@@ -30,7 +30,7 @@ const appRoutes: Routes = [
     { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
 	{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },   
 
-	{ path: 'rsur/report', component: RsurReportComponent },
+	{ path: 'rsur/report/:id', component: RsurReportComponent },
 	{ path: 'rsur/results-list', component: RsurResultsListComponent },
 
     { path: 'plan', component: PlanComponent },

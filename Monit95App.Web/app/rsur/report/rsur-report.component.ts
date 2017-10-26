@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RsurResultsService } from "../results/rsur-results.service";
 import { RsurReportModel } from "./rsur-report.model";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
 	selector: 'rsur-report',
@@ -11,9 +12,13 @@ import { RsurReportModel } from "./rsur-report.model";
 export class RsurReportComponent implements OnInit {
 	reportData: RsurReportModel
 
-	constructor(private readonly rsurResultsService: RsurResultsService) { }
+	constructor(private readonly rsurResultsService: RsurResultsService,
+				private readonly router: ActivatedRoute) { }
 
 	ngOnInit() {
-		this.rsurResultsService.getReport().subscribe(res => this.reportData = res);
+		this.router.params.subscribe(params => {
+			let code: number = params['id'];
+			this.rsurResultsService.getReport(code).subscribe(res => this.reportData = res);
+		});
 	}
 }

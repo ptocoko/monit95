@@ -4,5 +4,5 @@ export class RsurResultModel extends Person {
 	Code: number;
 	SchoolName: string;
 	IsPassTest: boolean;
-	RsurTestId: number;
+	TestName: string;
 }

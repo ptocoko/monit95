@@ -11,20 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsur_results_service_1 = require("./rsur-results.service");
+var router_1 = require("@angular/router");
 var RsurResultsListComponent = (function () {
-    function RsurResultsListComponent(rsurResultsService) {
+    function RsurResultsListComponent(rsurResultsService, route) {
         this.rsurResultsService = rsurResultsService;
+        this.route = route;
+        this.searchTest = 'Все результаты';
     }
     RsurResultsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
         this.rsurResultsService.getResultsList().subscribe(function (res) {
             _this.resultsList = res;
-            _this.rsurResultsService.getTests().subscribe(function (res) {
-                _this.rsurTests = res;
-                _this.isLoading = false;
-            });
+            _this.rsurTests = _this.resultsList.map(function (s) { return s.TestName; }).filter(function (val, i, self) { return self.indexOf(val) === i; });
+            _this.isLoading = false;
         });
+    };
+    RsurResultsListComponent.prototype.openReport = function (rsurParticipCode) {
+        this.route.navigate(['/rsur/report', rsurParticipCode]);
     };
     return RsurResultsListComponent;
 }());
@@ -33,7 +37,8 @@ RsurResultsListComponent = __decorate([
         selector: 'results-list',
         templateUrl: "./app/rsur/results/results-list.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [rsur_results_service_1.RsurResultsService])
+    __metadata("design:paramtypes", [rsur_results_service_1.RsurResultsService,
+        router_1.Router])
 ], RsurResultsListComponent);
 exports.RsurResultsListComponent = RsurResultsListComponent;
 //# sourceMappingURL=results-list.component.js.map

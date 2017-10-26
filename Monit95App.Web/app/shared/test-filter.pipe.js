@@ -10,22 +10,17 @@ var core_1 = require("@angular/core");
 var TestIdPipe = (function () {
     function TestIdPipe() {
     }
-    TestIdPipe.prototype.transform = function (results, testId) {
+    TestIdPipe.prototype.transform = function (results, testName) {
         //console.log(results);
         //console.log(testId);
         //if (!results)
         //	return results;
         //return results.filter((f: any) => f.RsurTestId === testId);		
-        if (testId && testId != 0) {
-            var res = results.filter(function (s) { return s.RsurTestId == testId; });
-            console.log('when testId is exist');
-            console.log('testId is -> ' + testId);
-            console.log('results is -> ' + JSON.stringify(res) + '\n');
+        if (testName && testName != 'Все результаты') {
+            var res = results.filter(function (s) { return s.TestName == testName; });
             return res;
         }
         else {
-            console.log('when testId isnt exist');
-            console.log('results is -> ' + JSON.stringify(results) + '\n');
             return results;
         }
     };
@@ -33,7 +28,7 @@ var TestIdPipe = (function () {
 }());
 TestIdPipe = __decorate([
     core_1.Pipe({
-        name: 'testIdFilter'
+        name: 'testNameFilter'
     })
 ], TestIdPipe);
 exports.TestIdPipe = TestIdPipe;

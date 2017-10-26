@@ -1,5 +1,5 @@
 ﻿<h2>РСУР</h2>
-<h3>Результаты участников</h3>
+<h3>Результаты диагностики «Октябрь 2017»</h3>
 <hr />
 <div *ngIf="isLoading">Загрузка...</div>
 <div *ngIf="!isLoading">
@@ -8,31 +8,31 @@
             <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..." />
         </div>
         <select class="form-control" [(ngModel)]="searchTest">
-            <option [value]="0" selected>Все результаты</option>
-            <option *ngFor="let rsurTest of rsurTests" [value]="rsurTest.Id">{{rsurTest.Name}}</option>
+            <option>Все результаты</option>
+            <option *ngFor="let rsurTest of rsurTests">{{rsurTest}}</option>
         </select>
     </div>
     <br />
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered table-hover">
         <tr>
             <th width="60px">№ п/п</th>
             <th style="width:150px; text-align:center">Код участника</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Школа</th>
+            <th style="text-align:center">Фамилия</th>
+            <th style="text-align:center">Имя</th>
+            <th style="text-align:center">Отчество</th>
+            <th style="text-align:center">Школа</th>
             <th style="text-align:center">зачет/незачет</th>
         </tr>
-        <tr *ngFor="let result of resultsList | testIdFilter : searchTest | rsurParticipFilter : searchText; let i = index">
+        <tr style="cursor:pointer" (click)="openReport(result.Code)" *ngFor="let result of resultsList | testNameFilter : searchTest | rsurParticipFilter : searchText; let i = index">
             <td align="center">{{i+1}}</td>
             <td align="center">{{result.Code}}</td>
             <td>{{result.Surname}}</td>
             <td>{{result.Name}}</td>
             <td>{{result.SecondName}}</td>
             <td>{{result.SchoolName}}</td>
-            <td [ngClass]="{ 'red': !result.IsPassTest, 'high-grade': result.IsPassTest }">
-                <span *ngIf="!result.IsPassTest">незачет</span>
-                <span *ngIf="result.IsPassTest">зачет</span>
+            <td align="center" class="text-uppercase" [ngClass]="{ 'low-grade': !result.IsPassTest, 'high-grade': result.IsPassTest }">
+                <span *ngIf="!result.IsPassTest"><b>незачет</b></span>
+                <span *ngIf="result.IsPassTest"><b>зачет</b></span>
             </td>
         </tr>
     </table>
