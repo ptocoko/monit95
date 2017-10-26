@@ -108,7 +108,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    @if (User.IsInRole("school") || User.IsInRole("area"))
+                    @if (User.IsInRole("school") || User.IsInRole("area") || User.IsInRole("rsur-particip"))
                     {
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">

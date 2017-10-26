@@ -436,6 +436,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Images\rsur_logo.png" />
     <Content Include="package.json" />
     <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\188.0.173.242.pubxml" />
