@@ -11,11 +11,23 @@ var TestIdPipe = (function () {
     function TestIdPipe() {
     }
     TestIdPipe.prototype.transform = function (results, testId) {
-        console.log(results);
-        console.log(testId);
-        if (results == null)
+        //console.log(results);
+        //console.log(testId);
+        //if (!results)
+        //	return results;
+        //return results.filter((f: any) => f.RsurTestId === testId);		
+        if (testId && testId != 0) {
+            var res = results.filter(function (s) { return s.RsurTestId == testId; });
+            console.log('when testId is exist');
+            console.log('testId is -> ' + testId);
+            console.log('results is -> ' + JSON.stringify(res) + '\n');
+            return res;
+        }
+        else {
+            console.log('when testId isnt exist');
+            console.log('results is -> ' + JSON.stringify(results) + '\n');
             return results;
-        return results.filter(function (f) { return f.RsurTestId === testId; });
+        }
     };
     return TestIdPipe;
 }());

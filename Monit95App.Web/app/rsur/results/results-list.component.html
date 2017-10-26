@@ -8,7 +8,7 @@
             <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..." />
         </div>
         <select class="form-control" [(ngModel)]="searchTest">
-            <option>Все результаты</option>
+            <option [value]="0" selected>Все результаты</option>
             <option *ngFor="let rsurTest of rsurTests" [value]="rsurTest.Id">{{rsurTest.Name}}</option>
         </select>
     </div>
