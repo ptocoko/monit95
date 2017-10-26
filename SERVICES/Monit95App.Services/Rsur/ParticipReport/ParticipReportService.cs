@@ -53,7 +53,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                         {
                             Code = s.RsurParticipTest.RsurParticip.Code,
                             IsPassTest = s.Grade5 == 2 ? "незачет" : "зачет",
-                            TestNameWithDate = s.RsurParticipTest.RsurTest.Test.Name + " — " + s.RsurParticipTest.RsurTest.TestDate.ToShortDateString(),
+                            TestNameWithDate = s.RsurParticipTest.RsurTest.Test.Name + ", " + s.RsurParticipTest.RsurTest.TestDate.ToShortDateString(),
                             SchoolParticipInfo = new Domain.Core.SchoolParticip
                             {
                                 Surname = s.RsurParticipTest.RsurParticip.Surname,
