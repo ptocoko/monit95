@@ -13,7 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // Components
 import { AppComponent } from './app.component';
 import { ParticipModalComponent } from './rsur/details/particip-modal.component';
-import { ResultsModalComponent } from './rsur/results/results-modal.component';
+//import { ResultsModalComponent } from './rsur/results/results-modal.component';
 import { RsurHomeComponent } from './rsur/rsur-home/rsur-home.component';
 import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 import { RsurParticipsComponent } from './rsur/rsur-particips/rsur-particips.component';
@@ -32,6 +32,8 @@ import { UpdateClassParticipComponent } from "./class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 import { RsurTestProtocolListComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol-list.component";
 import { RsurTestProtocolComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol.component";
+import { RsurReportComponent } from "./rsur/report/rsur-report.component";
+import { RsurResultsListComponent } from "./rsur/results/results-list.component";
 
 
 // Services
@@ -45,6 +47,7 @@ import { ClassService } from './class.service';
 import { MarksService } from './rsur/rsur-test-protocol/marks.service';
 import { SchoolCollectorService } from "./shared/school-collector.service";
 import { ResultsService } from "./shared/results.service";
+import { RsurResultsService } from "./rsur/results/rsur-results.service";
 
 // Pipes
 import { RsurParticipFilterPipe, RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
@@ -53,6 +56,7 @@ import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-de
 import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from "./shared/class-name-filter.pipe";
+import { TestIdPipe } from "./shared/test-filter.pipe";
 
 // Additional 
 import { routing } from './app.routing';
@@ -87,13 +91,14 @@ import { GlobalErrorHandler } from './error-handler';
 		ParticipFilterPipe,
 		ClassNameFilterPipe,
 		LimitToPipe,
-        ParticipsWithoutDetailsPipe,
+		ParticipsWithoutDetailsPipe,
+		TestIdPipe,
         SchoolFilter,        
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,		
 		ParticipModalComponent,
-		ResultsModalComponent,        
+		//ResultsModalComponent,        
         ParticipCorrectionComponent,		
 		ClassParticipsListComponent,
 		ExportExcelModal,
@@ -104,7 +109,9 @@ import { GlobalErrorHandler } from './error-handler';
 		UpdateClassParticipComponent,
 		MarksAddAndEditComponent,
         RsurTestProtocolListComponent,
-        RsurTestProtocolComponent		
+		RsurTestProtocolComponent,
+		RsurReportComponent,
+		RsurResultsListComponent
 	],
 	providers: [
         AccountService,
@@ -117,12 +124,13 @@ import { GlobalErrorHandler } from './error-handler';
 		MarksService,
 		SchoolCollectorService,
 		ResultsService,
+		RsurResultsService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
 	entryComponents: [
 		ParticipModalComponent,
-		ResultsModalComponent,				
+		//ResultsModalComponent,				
 		ExportExcelModal
 	],
     bootstrap: [AppComponent]

@@ -20,7 +20,7 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
-var results_modal_component_1 = require("./rsur/results/results-modal.component");
+//import { ResultsModalComponent } from './rsur/results/results-modal.component';
 var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
 var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
@@ -39,6 +39,8 @@ var update_component_1 = require("./class-particips/add-and-update/update.compon
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
+var rsur_report_component_1 = require("./rsur/report/rsur-report.component");
+var results_list_component_1 = require("./rsur/results/results-list.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -50,6 +52,7 @@ var class_service_1 = require("./class.service");
 var marks_service_1 = require("./rsur/rsur-test-protocol/marks.service");
 var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
+var rsur_results_service_1 = require("./rsur/results/rsur-results.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -57,6 +60,7 @@ var particips_without_details_filter_1 = require("./rsur/details/particips-witho
 var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
+var test_filter_pipe_1 = require("./shared/test-filter.pipe");
 // Additional 
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
@@ -94,12 +98,13 @@ AppModule = __decorate([
             class_name_filter_pipe_1.ClassNameFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
+            test_filter_pipe_1.TestIdPipe,
             school_filter_pipe_1.SchoolFilter,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,
             particip_modal_component_1.ParticipModalComponent,
-            results_modal_component_1.ResultsModalComponent,
+            //ResultsModalComponent,        
             particip_correction_component_1.ParticipCorrectionComponent,
             class_particips_list_component_1.ClassParticipsListComponent,
             export_excel_modal_component_1.ExportExcelModal,
@@ -110,7 +115,9 @@ AppModule = __decorate([
             update_component_1.UpdateClassParticipComponent,
             marks_add_and_edit_component_1.MarksAddAndEditComponent,
             rsur_test_protocol_list_component_1.RsurTestProtocolListComponent,
-            rsur_test_protocol_component_1.RsurTestProtocolComponent
+            rsur_test_protocol_component_1.RsurTestProtocolComponent,
+            rsur_report_component_1.RsurReportComponent,
+            results_list_component_1.RsurResultsListComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -123,12 +130,13 @@ AppModule = __decorate([
             marks_service_1.MarksService,
             school_collector_service_1.SchoolCollectorService,
             results_service_1.ResultsService,
+            rsur_results_service_1.RsurResultsService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
         entryComponents: [
             particip_modal_component_1.ParticipModalComponent,
-            results_modal_component_1.ResultsModalComponent,
+            //ResultsModalComponent,				
             export_excel_modal_component_1.ExportExcelModal
         ],
         bootstrap: [app_component_1.AppComponent]

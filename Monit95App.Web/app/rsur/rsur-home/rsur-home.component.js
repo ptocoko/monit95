@@ -28,6 +28,11 @@ var RsurHomeComponent = (function () {
             return this.account.RoleNames.indexOf('area') > -1;
         return null;
     };
+    RsurHomeComponent.prototype.isRsurParticip = function () {
+        if (this.account.RoleNames != null)
+            return this.account.RoleNames.indexOf('rsur-particip') > -1;
+        return null;
+    };
     return RsurHomeComponent;
 }());
 RsurHomeComponent = __decorate([

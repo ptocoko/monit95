@@ -17,6 +17,8 @@ import { UpdateClassParticipComponent } from './class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
 import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
 import { RsurTestProtocolComponent }     from './rsur/rsur-test-protocol/rsur-test-protocol.component';
+import { RsurReportComponent } from "./rsur/report/rsur-report.component";
+import { RsurResultsListComponent } from "./rsur/results/results-list.component";
 
 const appRoutes: Routes = [
 
@@ -26,7 +28,10 @@ const appRoutes: Routes = [
     { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
 
     { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
-    { path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },   
+	{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },   
+
+	{ path: 'rsur/report/:id', component: RsurReportComponent },
+	{ path: 'rsur/results-list', component: RsurResultsListComponent },
 
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },

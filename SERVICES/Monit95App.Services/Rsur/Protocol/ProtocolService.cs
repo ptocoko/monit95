@@ -7,7 +7,7 @@ using Monit95App.Services.Rsur;
 
 namespace Monit95App.Services.Rsur.Protocol
 {
-    public class RsurTestResultService
+    public class ProtocolService
     {
         #region Dependencies
 
@@ -15,15 +15,15 @@ namespace Monit95App.Services.Rsur.Protocol
 
         #endregion
 
-        public RsurTestResultService(CokoContext context)
+        public ProtocolService(CokoContext context)
         {
             this.context = context;
         }
 
-        public RsurParticipEditProtocol GetProtocol(int rsurParticipTestId)
-        {
-            throw new NotImplementedException();
-        }
+        //public RsurParticipEditProtocol GetProtocol(int rsurParticipTestId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         #region Service methods
 
@@ -82,15 +82,15 @@ namespace Monit95App.Services.Rsur.Protocol
             return resultDict;
         }
 
-        public RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null)
-        {
-            throw new NotImplementedException();
-        }
+        //public RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public IDictionary<int, RsurTestStatisticsDto> GetStatistics2(int areaCode)
-        {
-            throw new NotImplementedException();
-        }
+        //public IDictionary<int, RsurTestStatisticsDto> GetStatistics2(int areaCode)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public string GetTestName(int rsurTestId)
         {

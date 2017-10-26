@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { RsurParticip } from './rsurparticip';
-import { ResultsModel, ResultDetailsModel } from './results/results.model';
+import { ResultsModel, ResultDetailsModel } from './results/results-modal/results.model';
 
 @Component({
     providers: [Http]
