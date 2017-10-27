@@ -14,12 +14,14 @@ var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var MOCK_REPORT = {
     Code: 15204,
-    Surname: 'Эсамбаев',
-    Name: 'Хусайн',
-    SecondName: 'Арбиевич',
-    SchoolName: 'Школа Крутости',
+    SchoolParticipInfo: {
+        Surname: 'Эсамбаев',
+        Name: 'Хусайн',
+        SecondName: 'Арбиевич',
+        SchoolName: 'Школа крутости'
+    },
     TestNameWithDate: 'Экзамен на крутость, 17.11.2017',
-    IsPassTest: true,
+    IsPassTest: 'зачет',
     TestDate: '17.11.2017',
     TestNumberCodeWithName: '0101 — Экзамен на крутость',
     EgeQuestionResults: [
@@ -67,47 +69,6 @@ var MOCK_REPORT = {
         }
     ]
 };
-//const MOCK_RESULTS: RsurResultModel[] = [
-//	{
-//		Code: 10984,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хусайн',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: true,
-//		TestName: 'Орфография, 11.10.2017'
-//	},
-//	{
-//		Code: 10985,
-//		SchoolParticipInfo:
-//		{
-//			Surname: 'Эсамбаев',
-//			Name: 'Хусайн',
-//			SecondName: 'Арбиевич',
-//			SchoolName: 'Школа крутости',
-//		},
-//		IsPassTest: true,
-//		TestName: 'Пунктуация, 11.10.2017'
-//	},
-//	{
-//		Code: 10986,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хусайн',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: false,
-//		TestName: 'Алгебра, 11.10.2017'
-//	},
-//	{
-//		Code: 10986,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хус',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: true,
-//		TestName: 'Алгебра, 11.10.2017'
-//	}
-//];
 var RsurResultsService = (function () {
     function RsurResultsService(http) {
         this.http = http;

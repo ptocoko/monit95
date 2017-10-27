@@ -635,6 +635,7 @@
     <TypeScriptCompile Include="app\shared\results.service.ts" />
     <TypeScriptCompile Include="app\shared\school-collector.service.ts" />
     <TypeScriptCompile Include="app\shared\Person.ts" />
+    <TypeScriptCompile Include="app\shared\school-particip.model.ts" />
     <TypeScriptCompile Include="app\shared\test-filter.pipe.ts" />
   </ItemGroup>
   <ItemGroup>

@@ -1,16 +1,17 @@
 ﻿import { Person } from "../../shared/Person";
+import { SchoolParticip } from "../../shared/school-particip.model";
 
-export class RsurReportModel extends Person {
+export class RsurReportModel {
 	Code: number;
-	SchoolName: string;
+	SchoolParticipInfo: SchoolParticip;
 	TestNameWithDate: string;
-	IsPassTest: boolean;
+	IsPassTest: string;
 	TestDate: string;
 	TestNumberCodeWithName: string;
 	EgeQuestionResults: EgeQuestionResult[];
 }
 
-export class EgeQuestionResult {
+class EgeQuestionResult {
 	EgeQuestionNumber: number;
 	RsurQuestionNumbers: string;
 	ElementNames: string;

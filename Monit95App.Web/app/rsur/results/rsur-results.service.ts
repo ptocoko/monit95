@@ -7,12 +7,14 @@ import { RsurResultModel } from "./rsur-result.model";
 
 const MOCK_REPORT: RsurReportModel = {
 	Code: 15204,
-	Surname: 'Эсамбаев',
-	Name: 'Хусайн',
-	SecondName: 'Арбиевич',
-	SchoolName: 'Школа Крутости',
+	SchoolParticipInfo: {
+		Surname: 'Эсамбаев',
+		Name: 'Хусайн',
+		SecondName: 'Арбиевич',
+		SchoolName: 'Школа крутости'
+	},
 	TestNameWithDate: 'Экзамен на крутость, 17.11.2017',
-	IsPassTest: true,
+	IsPassTest: 'зачет',
 	TestDate: '17.11.2017',
 	TestNumberCodeWithName: '0101 — Экзамен на крутость',
 	EgeQuestionResults: [
@@ -60,48 +62,6 @@ const MOCK_REPORT: RsurReportModel = {
 		}
 	]
 }
-
-//const MOCK_RESULTS: RsurResultModel[] = [
-//	{
-//		Code: 10984,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хусайн',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: true,
-//		TestName: 'Орфография, 11.10.2017'
-//	},
-//	{
-//		Code: 10985,
-//		SchoolParticipInfo:
-//		{
-//			Surname: 'Эсамбаев',
-//			Name: 'Хусайн',
-//			SecondName: 'Арбиевич',
-//			SchoolName: 'Школа крутости',
-//		},
-//		IsPassTest: true,
-//		TestName: 'Пунктуация, 11.10.2017'
-//	},
-//	{
-//		Code: 10986,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хусайн',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: false,
-//		TestName: 'Алгебра, 11.10.2017'
-//	},
-//	{
-//		Code: 10986,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хус',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: true,
-//		TestName: 'Алгебра, 11.10.2017'
-//	}
-//];
 
 
 @Injectable()
