@@ -7,5 +7,6 @@ namespace Monit95App.Services.Rsur.ParticipReport
     {        
         ParticipExtendReport GetReport(int rsurParticipTestId);
         IEnumerable<ParticipReport> GetResultsByTestDate(int areaCode, DateTime testDate);
+        IEnumerable<EgeQuestionResult> GetEgeQuestionResults(Guid testId, int[] egeQuestionValuesArray);
     }
 }

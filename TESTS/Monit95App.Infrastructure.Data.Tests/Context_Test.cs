@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace Monit95App.Infrastructure.Data.Tests
@@ -18,9 +18,9 @@ namespace Monit95App.Infrastructure.Data.Tests
         [TestMethod]
         public void QuestionsEntity_Test()
         {
-            var expected = "Fake School Fake Name";
+            var expected = "8.1";
 
-            var actual = _context.Questions.First().School.Name;
+            var actual = _context.Questions.First().TestQuestions.First().Name;
 
             Assert.AreEqual(expected, actual);
         }
@@ -28,7 +28,7 @@ namespace Monit95App.Infrastructure.Data.Tests
         [TestMethod]
         public void TestQuestionEntity_Test()
         {
-            var expected = "Fake Test";
+            var expected = "Орфография";
 
             var actual = _context.TestQuestions.First().Test.Name;
 

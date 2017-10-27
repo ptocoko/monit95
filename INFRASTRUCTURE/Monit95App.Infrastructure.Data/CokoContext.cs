@@ -61,12 +61,6 @@ namespace Monit95App.Infrastructure.Data
                 .HasForeignKey(e => e.QuestionId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<School>()
-                .HasMany(e => e.Questions)
-                .WithRequired(e => e.School)
-                .HasForeignKey(e => e.CreatorSchoolId)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Area>()
                 .HasMany(e => e.Schools)
                 .WithRequired(e => e.Area)

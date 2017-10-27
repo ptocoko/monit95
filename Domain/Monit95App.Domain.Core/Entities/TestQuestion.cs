@@ -11,6 +11,7 @@ namespace Monit95App.Domain.Core.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public int QuestionId { get; set; }
+        public int Order { get; set; }
         public Guid TestId { get; set; }
 
         public virtual Test Test { get; set; }

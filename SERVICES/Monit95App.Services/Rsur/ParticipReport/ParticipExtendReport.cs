@@ -9,7 +9,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         public string TestName { get; set; } // e.g.: "Алгебра" || "0201 - Алгебра"
 
-        IEnumerable<EgeQuestionResult> EgeQuestionResults { get; set; }
+        public IEnumerable<EgeQuestionResult> EgeQuestionResults { get; set; }
     }
 
     public class EgeQuestionResult

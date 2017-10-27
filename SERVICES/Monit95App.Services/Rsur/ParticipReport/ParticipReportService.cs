@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -27,21 +28,54 @@ namespace Monit95App.Services.Rsur.ParticipReport
             var entity = context.RsurTestResults.Find(rsurParticipTestId);
             _ = entity ?? throw new ArgumentNullException(nameof(rsurParticipTestId));
 
-            report.SchoolParticipInfo.Surname = entity.RsurParticipTest.RsurParticip.Surname;
-            report.SchoolParticipInfo.Name = entity.RsurParticipTest.RsurParticip.Name;
-            report.SchoolParticipInfo.SecondName = entity.RsurParticipTest.RsurParticip.SecondName;
-            report.SchoolParticipInfo.SchoolName = entity.RsurParticipTest.RsurParticip.School.Name;
+            report.SchoolParticipInfo = new Domain.Core.SchoolParticip
+            {
+                Surname = entity.RsurParticipTest.RsurParticip.Surname,
+                Name = entity.RsurParticipTest.RsurParticip.Name,
+                SecondName = entity.RsurParticipTest.RsurParticip.SecondName,
+                SchoolName = entity.RsurParticipTest.RsurParticip.School.Name
+            };
+            
             report.Code = entity.RsurParticipTest.RsurParticipCode;
             report.IsPassTest = entity.Grade5 == 5 ? "зачет" : "незачет";
             report.TestDate = entity.RsurParticipTest.RsurTest.TestDate;
             report.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}" +
                               $" - {entity.RsurParticipTest.RsurTest.Test.Name}";
+            report.TestNameWithDate = $"{report.TestName}, {report.TestDate.ToShortDateString()}";
 
-            var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';'); //some regex https://regex101.com/r/og9F0q/1
 
+            var matches = Regex.Matches(entity.EgeQuestionValues, @"\([\d,]*%\)"); //с помощью регулярного выражения (https://regex101.com/r/og9F0q/2) 
+            List<int> egeQuestionValuesArray = new List<int>();               //выдергиваем все значения между скобок
+            foreach (Match match in matches)                                  //избавляемся от скобок и знака процента, оставляя только числа
+            {                                                                 //переводим все значения в int
+                var groups = match.Groups;
+                egeQuestionValuesArray.Add((int)double.Parse(groups[0].Value.Substring(1, groups[0].Value.Length - 3).Replace(",", ".")));
+            }
+
+            var testId = entity.RsurParticipTest.RsurTest.TestId;
+            report.EgeQuestionResults = GetEgeQuestionResults(testId, egeQuestionValuesArray.ToArray());
 
             return report;
 
+        }
+
+        public IEnumerable<EgeQuestionResult> GetEgeQuestionResults(Guid testId, int[] egeQuestionValuesArray)
+        {
+            var res = context.TestQuestions.Where(p => p.TestId == testId).GroupBy(gp => gp.QuestionId).ToList();
+
+            List<EgeQuestionResult> results = new List<EgeQuestionResult>();
+            for (int i = 0; i < res.Count(); i++)
+            {
+                results.Add(new EgeQuestionResult
+                {
+                    EgeQuestionNumber = i + 1, //TODO: FIX!!
+                    RsurQuestionNumbers = res[i].Select(s => s.Name).Aggregate((s1, s2) => $"{s1};{s2}"),
+                    ElementNames = res[i].First().Question.ElementNames,
+                    Value = egeQuestionValuesArray[i]
+                });
+            }
+
+            return results;
         }
 
         public IEnumerable<ParticipReport> GetResultsByTestDate(int areaCode, DateTime testDate)
