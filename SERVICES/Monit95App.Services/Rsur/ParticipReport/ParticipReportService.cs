@@ -37,7 +37,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
             report.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}" +
                               $" - {entity.RsurParticipTest.RsurTest.Test.Name}";
 
-            var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');
+            var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';'); //some regex https://regex101.com/r/og9F0q/1
 
 
             return report;
