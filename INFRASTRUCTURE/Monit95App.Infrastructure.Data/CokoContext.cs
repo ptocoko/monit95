@@ -1,11 +1,8 @@
+using System.Data.Entity;
+using Monit95App.Domain.Core.Entities;
+
 namespace Monit95App.Infrastructure.Data
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using Monit95App.Domain.Core.Entities;    
-
     public partial class CokoContext : DbContext
     {
         public CokoContext()
@@ -13,6 +10,7 @@ namespace Monit95App.Infrastructure.Data
         {
         }
 
+        public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
@@ -23,6 +21,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Exercis> Exercises { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
+        public virtual DbSet<Kim> Kims { get; set; }
+        public virtual DbSet<KimQuestion> KimQuestions { get; set; }
         public virtual DbSet<OldGroup> OldGroups { get; set; }
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
@@ -30,8 +30,11 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<Report> Reports { get; set; }        
+        public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Result> Results { get; set; }
+        public virtual DbSet<Roo> Roos { get; set; }
+        public virtual DbSet<RooDirect> RooDirects { get; set; }
+        public virtual DbSet<RsurEgeQuestion> RsurEgeQuestions { get; set; }
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
         public virtual DbSet<RsurParticipTest> RsurParticipTests { get; set; }
@@ -45,22 +48,11 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<TestQuestion> TestQuestions { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
+        public virtual DbSet<Umk> Umks { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Test>()
-                .HasMany(e => e.TestQuestions)
-                .WithRequired(e => e.Test)
-                .HasForeignKey(e => e.TestId)
-                .WillCascadeOnDelete();
-
-            modelBuilder.Entity<Question>()
-                .HasMany(e => e.TestQuestions)
-                .WithRequired(e => e.Question)
-                .HasForeignKey(e => e.QuestionId)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Area>()
                 .HasMany(e => e.Schools)
                 .WithRequired(e => e.Area)
@@ -132,6 +124,11 @@ namespace Monit95App.Infrastructure.Data
                 .Property(e => e.Skills)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Kim>()
+                .HasMany(e => e.KimQuestions)
+                .WithRequired(e => e.Kim)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Particip>()
                 .Property(e => e.SchoolId)
                 .IsFixedLength()
@@ -166,14 +163,14 @@ namespace Monit95App.Infrastructure.Data
                 .WithRequired(e => e.Project)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Project>()
-                .HasMany(e => e.RsurTests)
-                .WithRequired(e => e.Project)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<ProjectTest>()
                 .HasMany(e => e.ParticipTests)
                 .WithRequired(e => e.ProjectTest)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Question>()
+                .HasMany(e => e.TestQuestions)
+                .WithRequired(e => e.Question)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Report>()
@@ -191,6 +188,23 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Result>()
                 .Property(e => e.ElementValues)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Roo>()
+                .Property(e => e.GoverFullName)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Roo>()
+                .HasOptional(e => e.Roo1)
+                .WithRequired(e => e.Roo2);
+
+            modelBuilder.Entity<RooDirect>()
+                .HasMany(e => e.Roos)
+                .WithRequired(e => e.RooDirect)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RooDirect>()
+                .HasOptional(e => e.RooDirect1)
+                .WithRequired(e => e.RooDirect2);
 
             modelBuilder.Entity<RsurParticipEdit>()
                 .Property(e => e.ParticipCode)
@@ -327,6 +341,15 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<School>()
                 .HasOptional(e => e.SchoolEdit)
                 .WithRequired(e => e.School);
+
+            modelBuilder.Entity<TestQuestion>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TestQuestion>()
+                .HasMany(e => e.RsurEgeQuestions)
+                .WithRequired(e => e.TestQuestion)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Test>()
                 .Property(e => e.NumberCode)

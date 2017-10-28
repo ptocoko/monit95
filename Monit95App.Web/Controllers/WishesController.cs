@@ -1,13 +1,9 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
+﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 

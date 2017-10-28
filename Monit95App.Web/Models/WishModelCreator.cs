@@ -1,10 +1,6 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Domain.Core.Entities;
+﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Monit95App.Models
 {
