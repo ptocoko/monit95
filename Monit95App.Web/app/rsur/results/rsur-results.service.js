@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var Rx_1 = require("rxjs/Rx");
 var MOCK_REPORT = {
     Code: 15204,
     SchoolParticipInfo: {
@@ -23,7 +22,6 @@ var MOCK_REPORT = {
     TestNameWithDate: 'Экзамен на крутость, 17.11.2017',
     IsPassTest: 'зачет',
     TestDate: '17.11.2017',
-    TestNumberCodeWithName: '0101 — Экзамен на крутость',
     EgeQuestionResults: [
         {
             EgeQuestionNumber: 1,
@@ -72,12 +70,16 @@ var MOCK_REPORT = {
 var RsurResultsService = (function () {
     function RsurResultsService(http) {
         this.http = http;
+        this.ROUTE_PREFIX = 'api/rsur/participReports';
     }
-    RsurResultsService.prototype.getReport = function (rsurParticipCode) {
-        return Rx_1.Observable.of(MOCK_REPORT);
+    //getReport(rsurParticipCode: number): Observable<RsurReportModel> {
+    //    return Observable.of(MOCK_REPORT);
+    //}
+    RsurResultsService.prototype.getReports = function (testDate) {
+        return this.http.get(this.ROUTE_PREFIX + "?testDate=" + testDate);
     };
-    RsurResultsService.prototype.getResultsList = function (testDate) {
-        return this.http.get('/api/rsurTestResults?testDate=' + testDate);
+    RsurResultsService.prototype.getReport = function (rsurParticipTestId) {
+        return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
     };
     return RsurResultsService;
 }());

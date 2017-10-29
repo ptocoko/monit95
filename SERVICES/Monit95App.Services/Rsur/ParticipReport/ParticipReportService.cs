@@ -136,7 +136,8 @@ namespace Monit95App.Services.Rsur.ParticipReport
                                 Name = s.RsurParticipTest.RsurParticip.Name,
                                 SecondName = s.RsurParticipTest.RsurParticip.SecondName,
                                 SchoolName = s.RsurParticipTest.RsurParticip.School.Id + " — " + s.RsurParticipTest.RsurParticip.School.Name.Trim()
-                            }
+                            },
+                            RsurParticipTestId = s.RsurParticipTestId
                         });
 
             return results.OrderBy(tb => tb.SchoolParticipInfo.SchoolName).ThenBy(ob => ob.IsPassTest).ThenBy(tb => tb.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name);

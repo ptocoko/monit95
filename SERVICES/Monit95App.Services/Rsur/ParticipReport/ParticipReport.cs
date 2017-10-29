@@ -11,5 +11,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
         public string IsPassTest { get; set; } // "зачет" || "незачет"
 
         public SchoolParticip SchoolParticipInfo { get; set; }
+
+        public int RsurParticipTestId { get; set; }
     }
 }

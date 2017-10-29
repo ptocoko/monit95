@@ -69,28 +69,7 @@ namespace Monit95App.RESTful_API
             }
 
             return Ok(protocol);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "area")]
-        [Route("~/api/rsurTestResults")]
-        public IHttpActionResult GetResultsByTestDate(string testDate)
-        {
-            var areaCode = int.Parse(User.Identity.Name);
-            if (!DateTime.TryParse(testDate, out DateTime testDateObj)) return BadRequest("Cannot parse testDate string to DateTime object");
-
-            IEnumerable<ParticipReport> rsurResults;
-            try
-            {
-                rsurResults = participReportService.GetResultsByTestDate(areaCode, testDateObj);
-            }
-            catch(ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return Ok(rsurResults);
-        }
+        }        
 
         //TODO: need refactoring
         [HttpGet]

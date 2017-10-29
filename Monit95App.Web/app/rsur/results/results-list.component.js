@@ -22,9 +22,10 @@ var RsurResultsListComponent = (function () {
     RsurResultsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.rsurResultsService.getResultsList(TEST_DATE).subscribe(function (res) {
+        this.rsurResultsService.getReports(TEST_DATE).subscribe(function (res) {
             _this.resultsList = res.json();
-            _this.rsurTests = _this.resultsList.map(function (s) { return s.TestNameWithDate; }).filter(function (val, i, self) { return self.indexOf(val) === i; });
+            _this.rsurTests =
+                _this.resultsList.map(function (s) { return s.TestNameWithDate; }).filter(function (val, i, self) { return self.indexOf(val) === i; });
             _this.isLoading = false;
         });
     };

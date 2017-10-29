@@ -6,8 +6,7 @@ export class RsurReportModel {
 	SchoolParticipInfo: SchoolParticip;
 	TestNameWithDate: string;
 	IsPassTest: string;
-	TestDate: string;
-	TestNumberCodeWithName: string;
+	TestDate: string;	
 	EgeQuestionResults: EgeQuestionResult[];
 }
 

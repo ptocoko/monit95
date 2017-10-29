@@ -1,9 +1,7 @@
 ﻿
 import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
-import { Observable } from "rxjs/Rx";
 import { RsurReportModel } from "../report/rsur-report.model";
-import { RsurResultModel } from "./rsur-result.model";
 
 const MOCK_REPORT: RsurReportModel = {
 	Code: 15204,
@@ -15,8 +13,7 @@ const MOCK_REPORT: RsurReportModel = {
 	},
 	TestNameWithDate: 'Экзамен на крутость, 17.11.2017',
 	IsPassTest: 'зачет',
-	TestDate: '17.11.2017',
-	TestNumberCodeWithName: '0101 — Экзамен на крутость',
+	TestDate: '17.11.2017',	
 	EgeQuestionResults: [
 		{
 			EgeQuestionNumber: 1,
@@ -66,13 +63,21 @@ const MOCK_REPORT: RsurReportModel = {
 
 @Injectable()
 export class RsurResultsService {
-	constructor(private http: Http) { }
+    private ROUTE_PREFIX = 'api/rsur/participReports'; 
 
-	getReport(rsurParticipCode: number): Observable<RsurReportModel> {
-		return Observable.of(MOCK_REPORT)
+	constructor(private readonly http: Http) {
+	    
 	}
 
-	getResultsList(testDate: string) {
-		return this.http.get('/api/rsurTestResults?testDate=' + testDate);
-	}
+	//getReport(rsurParticipCode: number): Observable<RsurReportModel> {
+	//    return Observable.of(MOCK_REPORT);
+	//}
+
+    getReports(testDate: string) {
+        return this.http.get(`${this.ROUTE_PREFIX}?testDate=${testDate}`);		
+    }
+
+    getReport(rsurParticipTestId: number) {
+        return this.http.get(`${this.ROUTE_PREFIX}/${rsurParticipTestId}`);
+    }
 }

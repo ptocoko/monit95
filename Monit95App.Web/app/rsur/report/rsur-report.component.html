@@ -1,4 +1,4 @@
-﻿<div class="classParticip-reportContainer center-block report-card">
+﻿<div *ngIf="reportData != null" class="classParticip-reportContainer center-block report-card">
     <div style="margin:20px">
         <div class="myhead">
             <p>ЦЕНТР ОЦЕНКИ КАЧЕСТВА ОБРАЗОВАНИЯ</p>
@@ -32,10 +32,10 @@
             </div>
             <br />
             <br />
-            <div style="margin-top:20px">
+            <!--<div style="margin-top:20px">
                 <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Дата диагностики:</p>
                 <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8">{{reportData.TestDate}}</p>
-            </div>
+            </div>-->
             <br />
         </div>
         <br />
@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td class="text-uppercase" style="text-align:center"><b>{{reportData.TestNumberCodeWithName}}</b></td>
+                <td class="text-uppercase" style="text-align:center"><b>{{reportData.TestNameWithDate}}</b></td>
 
                 <td *ngIf="reportData.IsPassTest == 'зачет'" class="high-grade text-uppercase cell-center"><b>зачет</b></td>
                 <td *ngIf="reportData.IsPassTest != 'зачет'" class="red text-uppercase cell-center"><b>незачет</b></td>
@@ -67,7 +67,7 @@
             </tr>
             <tr style="background-color: #eee">
                 <td style="width:10%" class="cell-center">обозначение задания в КИМ ЕГЭ</td>
-                <td style="width:10%" class="cell-center">номера заданий в КИМ РСУР</td>
+                <td style="width:10%" class="cell-center">обозначение задания в КИМ РСУР</td>
                 <td class="cell-center">элементы содержания</td>
                 <td style="width:15%" class="cell-center">выполнение</td>
             </tr>

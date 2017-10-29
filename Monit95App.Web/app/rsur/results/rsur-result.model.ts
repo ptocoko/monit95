@@ -5,5 +5,6 @@ export class RsurResultModel {
 	Code: number;
 	SchoolParticipInfo: SchoolParticip;
 	IsPassTest: string;
-	TestNameWithDate: string;
+    TestNameWithDate: string;
+    RsurParticipTestId: number;
 }
