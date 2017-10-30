@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Monit95App.Services.Rsur.ParticipReport;
+using WebApi.OutputCache.V2;
 
 namespace Monit95App.RESTful_API.Rsur
 {
@@ -34,6 +35,7 @@ namespace Monit95App.RESTful_API.Rsur
 
         [HttpGet]   
         [Route("")]
+        [CacheOutput(ClientTimeSpan = 600)]
         public IHttpActionResult Get(string testDate)
         {
             if (!DateTime.TryParse(testDate, out DateTime testDateObj)) return BadRequest("Cannot parse testDate string to DateTime object");
