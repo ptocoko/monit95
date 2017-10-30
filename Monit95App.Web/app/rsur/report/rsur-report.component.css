@@ -1,5 +1,5 @@
 ﻿.report-card{
-    width: 690px;
+    width: 1000px;
 }
 
 .section-head{
@@ -29,7 +29,7 @@
 }
 
 .report-table {
-    width:650px;
+    width:960px;
     border: 1px solid black;
 }
 
