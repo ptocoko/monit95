@@ -1,5 +1,4 @@
-﻿
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { RsurResultsService } from "../results/rsur-results.service";
 import { RsurReportModel } from "./rsur-report.model";
 import { ActivatedRoute } from "@angular/router";
