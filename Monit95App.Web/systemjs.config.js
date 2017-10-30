@@ -1,4 +1,4 @@
-﻿(function (global) {
+﻿(function () {
 	System.appVersion = '1.2';
     System.config({
         paths: {
@@ -57,11 +57,11 @@
         packages: {
             app: {
                 main: './main',
-                defaultExtension: 'js?v=' + System.appVersion
+                defaultExtension: `js?v=${System.appVersion}`
             },
             rxjs: {
                 defaultExtension: 'js'
             }
         }
     });
-})(this);
+})();
