@@ -33,6 +33,8 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(50)]
         public string ExcerMaxMarks { get; set; }
 
+        public int? Number { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Element> Elements { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿<h2>РСУР</h2>
-<h3>Результаты диагностики «Октябрь 2017»</h3>
+<h3>Результаты диагностики «Октябрь-2017»</h3>
 <hr />
 <div *ngIf="isLoading">Загрузка...</div>
 <div *ngIf="!isLoading">
@@ -8,7 +8,7 @@
             <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Поиск участника..." />
         </div>
         <select class="form-control" [(ngModel)]="searchTest">
-            <option>Все результаты</option>
+            <option>Все блоки</option>
             <option *ngFor="let rsurTest of rsurTests">{{rsurTest}}</option>
         </select>
     </div>
@@ -17,13 +17,13 @@
         <tr>
             <th width="60px">№ п/п</th>
             <th style="width:140px; text-align:center">Код участника</th>
-            <th style="text-align:center">Фамилия</th>
-            <th style="text-align:center">Имя</th>
-            <th style="text-align:center">Отчество</th>
-            <th style="text-align:center">Школа</th>
+            <th style="text-align:center">фамилия</th>
+            <th style="text-align:center">имя</th>
+            <th style="text-align:center">отчество</th>
+            <th style="text-align:center">школа</th>
             <th style="text-align:center">зачет/незачет</th>
         </tr>
-        <tr style="cursor:pointer" (click)="openReport(result.Code)" *ngFor="let result of resultsList | testNameFilter : searchTest | rsurParticipFilter : searchText; let i = index">
+        <tr style="cursor:pointer" (click)="openReport(result.RsurParticipTestId)" *ngFor="let result of resultsList | testNameFilter : searchTest | rsurParticipFilter : searchText; let i = index">
             <td align="center">{{i+1}}</td>
             <td align="center">{{result.Code}}</td>
             <td>{{result.SchoolParticipInfo.Surname}}</td>

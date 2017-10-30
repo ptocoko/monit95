@@ -16,8 +16,6 @@ namespace Monit95App.Domain.Core.Entities
 
         public int Id { get; set; }
 
-        public int? ProjectId { get; set; }
-
         public Guid TestId { get; set; }
 
         public int TestNumber { get; set; }
@@ -29,6 +27,8 @@ namespace Monit95App.Domain.Core.Entities
 
         [StringLength(255)]
         public string Note { get; set; }
+
+        public int? ProjectId { get; set; }
 
         public virtual Project Project { get; set; }
 

@@ -65,6 +65,8 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(50)]
         public string Monit95Login { get; set; }
 
+        public bool? IsAlive { get; set; }
+
         public virtual Area Area { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -78,7 +80,7 @@ namespace Monit95App.Domain.Core.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SchoolCollector> SchoolCollectors { get; set; }
-        
+
         public virtual SchoolEdit SchoolEdit { get; set; }
 
         public virtual TownType TownType { get; set; }
