@@ -6,7 +6,7 @@ using Monit95App.Services.Rsur.ParticipReport;
 namespace Monit95App.RESTful_API.Rsur
 {
     [RoutePrefix("api/rsur/participReports")]
-    [Authorize(Roles = "area")]
+    [Authorize(Roles = "area, rsur-particip")]
     public class RsurParticipReportsController : ApiController
     {
         #region Dependencies

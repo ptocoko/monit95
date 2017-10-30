@@ -17,7 +17,7 @@ var RsurResultsListComponent = (function () {
     function RsurResultsListComponent(rsurResultsService, route) {
         this.rsurResultsService = rsurResultsService;
         this.route = route;
-        this.searchTest = 'Все результаты';
+        this.searchTest = 'Все блоки';
     }
     RsurResultsListComponent.prototype.ngOnInit = function () {
         var _this = this;

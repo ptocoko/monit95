@@ -16,7 +16,7 @@ var TestIdPipe = (function () {
         //if (!results)
         //	return results;
         //return results.filter((f: any) => f.RsurTestId === testId);		
-        if (testName && testName != 'Все результаты') {
+        if (testName && testName != 'Все блоки') {
             var res = results.filter(function (s) { return s.TestNameWithDate == testName; });
             return res;
         }
