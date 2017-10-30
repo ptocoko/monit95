@@ -20,7 +20,7 @@ namespace Monit95App.Domain.Core.Entities
         public string EgeQuestionValues { get; set; }
 
         public int? Grade5 { get; set; }
-        
+
         [StringLength(100)]
         public string Parts { get; set; }
 

@@ -1,12 +1,10 @@
 ﻿import { Person } from "../../shared/Person";
+import { SchoolParticip } from "../../shared/school-particip.model";
 
 export class RsurResultModel {
 	Code: number;
-	SchoolParticipInfo: SchoolModel;
+	SchoolParticipInfo: SchoolParticip;
 	IsPassTest: string;
-	TestNameWithDate: string;
-}
-
-class SchoolModel extends Person {
-	SchoolName: string;
+    TestNameWithDate: string;
+    RsurParticipTestId: number;
 }

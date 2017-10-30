@@ -1,20 +1,19 @@
 ﻿
 import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
-import { Observable } from "rxjs/Rx";
 import { RsurReportModel } from "../report/rsur-report.model";
-import { RsurResultModel } from "./rsur-result.model";
 
 const MOCK_REPORT: RsurReportModel = {
 	Code: 15204,
-	Surname: 'Эсамбаев',
-	Name: 'Хусайн',
-	SecondName: 'Арбиевич',
-	SchoolName: 'Школа Крутости',
+	SchoolParticipInfo: {
+		Surname: 'Эсамбаев',
+		Name: 'Хусайн',
+		SecondName: 'Арбиевич',
+		SchoolName: 'Школа крутости'
+	},
 	TestNameWithDate: 'Экзамен на крутость, 17.11.2017',
-	IsPassTest: true,
-	TestDate: '17.11.2017',
-	TestNumberCodeWithName: '0101 — Экзамен на крутость',
+	IsPassTest: 'зачет',
+	TestDate: '17.11.2017',	
 	EgeQuestionResults: [
 		{
 			EgeQuestionNumber: 1,
@@ -61,58 +60,24 @@ const MOCK_REPORT: RsurReportModel = {
 	]
 }
 
-//const MOCK_RESULTS: RsurResultModel[] = [
-//	{
-//		Code: 10984,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хусайн',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: true,
-//		TestName: 'Орфография, 11.10.2017'
-//	},
-//	{
-//		Code: 10985,
-//		SchoolParticipInfo:
-//		{
-//			Surname: 'Эсамбаев',
-//			Name: 'Хусайн',
-//			SecondName: 'Арбиевич',
-//			SchoolName: 'Школа крутости',
-//		},
-//		IsPassTest: true,
-//		TestName: 'Пунктуация, 11.10.2017'
-//	},
-//	{
-//		Code: 10986,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хусайн',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: false,
-//		TestName: 'Алгебра, 11.10.2017'
-//	},
-//	{
-//		Code: 10986,
-//		Surname: 'Эсамбаев',
-//		Name: 'Хус',
-//		SecondName: 'Арбиевич',
-//		SchoolName: 'Школа крутости',
-//		IsPassTest: true,
-//		TestName: 'Алгебра, 11.10.2017'
-//	}
-//];
-
 
 @Injectable()
 export class RsurResultsService {
-	constructor(private http: Http) { }
+    private ROUTE_PREFIX = 'api/rsur/participReports'; 
 
-	getReport(rsurParticipCode: number): Observable<RsurReportModel> {
-		return Observable.of(MOCK_REPORT)
+	constructor(private readonly http: Http) {
+	    
 	}
 
-	getResultsList(testDate: string) {
-		return this.http.get('/api/rsurTestResults?testDate=' + testDate);
-	}
+	//getReport(rsurParticipCode: number): Observable<RsurReportModel> {
+	//    return Observable.of(MOCK_REPORT);
+	//}
+
+    getReports(testDate: string) {
+        return this.http.get(`${this.ROUTE_PREFIX}?testDate=${testDate}`);		
+    }
+
+    getReport(rsurParticipTestId: number) {
+        return this.http.get(`${this.ROUTE_PREFIX}/${rsurParticipTestId}`);
+    }
 }

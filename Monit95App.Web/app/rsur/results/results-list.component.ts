@@ -1,7 +1,6 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
 import { RsurResultsService } from "./rsur-results.service";
-import { RsurReportModel } from "../report/rsur-report.model";
 import { RsurResultModel } from "./rsur-result.model";
 import { Router } from "@angular/router";
 
@@ -22,14 +21,15 @@ export class RsurResultsListComponent implements OnInit {
 
 	ngOnInit() {
 		this.isLoading = true;
-		this.rsurResultsService.getResultsList(TEST_DATE).subscribe(res => {
-			this.resultsList = res.json() as RsurResultModel[]
-			this.rsurTests = this.resultsList.map(s => s.TestNameWithDate).filter((val, i, self) => self.indexOf(val) === i);
-			this.isLoading = false;
-		})
+        this.rsurResultsService.getReports(TEST_DATE).subscribe(res => {
+            this.resultsList = res.json() as RsurResultModel[];
+            this.rsurTests =
+                this.resultsList.map(s => s.TestNameWithDate).filter((val, i, self) => self.indexOf(val) === i);
+	        this.isLoading = false;
+	    });
 	}
 
 	openReport(rsurParticipCode: number) {
-		this.route.navigate(['/rsur/report', rsurParticipCode])
+	    this.route.navigate(['/rsur/report', rsurParticipCode]);
 	}
 }

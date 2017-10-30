@@ -64,7 +64,7 @@ namespace ParticipReporter
                         classParticipDtos.Take(1).AsParallel().ForAll(classParticip =>
                         {
                             pdfBytes = reporter.GetClassParticipReportBytes(classParticip, new string[] { "4", "1", "3", "1", "1" }, "26 сентября 2017 года");
-                            zip.AddEntry($"{classParticip.ClassName.Replace(" ", "")}-{classParticip.Surname}-{classParticip.Name}-{classParticip.SecondName}.pdf", pdfBytes);
+                            zip.AddEntry($"{classParticip.ClassName.Replace(" ", "")}-{classParticip.SchoolParticipInfo.Surname}-{classParticip.SchoolParticipInfo.Name}-{classParticip.SchoolParticipInfo.SecondName}.pdf", pdfBytes);
                         });
                         zip.Save(fs);
                     }

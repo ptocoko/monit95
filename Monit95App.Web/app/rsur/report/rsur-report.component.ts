@@ -10,15 +10,17 @@ import { ActivatedRoute } from "@angular/router";
 	styleUrls: [`./app/rsur/report/rsur-report.component.css?v=${new Date().getTime()}`]
 })
 export class RsurReportComponent implements OnInit {
-	reportData: RsurReportModel
+    reportData: RsurReportModel;    
 
 	constructor(private readonly rsurResultsService: RsurResultsService,
 				private readonly router: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.router.params.subscribe(params => {
-			let code: number = params['id'];
-			this.rsurResultsService.getReport(code).subscribe(res => this.reportData = res);
+		    const code: number = params['id'];
+            this.rsurResultsService.getReport(code).subscribe(res => {
+                this.reportData = res.json() as RsurReportModel;                
+            });
 		});
 	}
 }

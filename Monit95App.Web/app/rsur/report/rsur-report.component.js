@@ -21,7 +21,9 @@ var RsurReportComponent = (function () {
         var _this = this;
         this.router.params.subscribe(function (params) {
             var code = params['id'];
-            _this.rsurResultsService.getReport(code).subscribe(function (res) { return _this.reportData = res; });
+            _this.rsurResultsService.getReport(code).subscribe(function (res) {
+                _this.reportData = res.json();
+            });
         });
     };
     return RsurReportComponent;
