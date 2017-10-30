@@ -98,36 +98,14 @@ namespace Monit95App.Services.Rsur.ParticipReport
             return egeQuestionResults;
         }
 
-
-        #endregion
-
-        public IEnumerable<EgeQuestionResult> GetEgeQuestionResults(Guid testId, int[] egeQuestionValuesArray)
-        {
-            var res = context.TestQuestions.Where(p => p.TestId == testId).GroupBy(gp => gp.QuestionId).ToList();
-
-            var results = new List<EgeQuestionResult>();
-            for (var i = 0; i < res.Count(); i++)
-            {
-                results.Add(new EgeQuestionResult
-                {
-                    EgeQuestionNumber = i + 1, //TODO: FIX!!
-                    RsurQuestionNumbers = res[i].Select(s => s.Name).Aggregate((s1, s2) => $"{s1};{s2}"),
-                    ElementNames = res[i].First().Question.ElementNames,
-                    Value = egeQuestionValuesArray[i]
-                });
-            }
-
-            return results;
-        }
-
-        public IEnumerable<ParticipReport> GetResultsByTestDate(int areaCode, DateTime testDate)
+        private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable, DateTime testDate)
         {
             var notShowedTestIds = new int[] { 1090, 1091, 1080, 1081 };
 
-            var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
-                                                          && p.RsurParticipTest.RsurTest.TestDate >= testDate
-                                                          && p.RsurQuestionValues.IndexOf("X") == -1
-                                                          && !notShowedTestIds.Contains(p.RsurParticipTest.RsurTestId)).Include(s => s.RsurParticipTest.RsurParticip).Include(s => s.RsurParticipTest.RsurParticip.School).ToList()
+            return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate
+                                     && p.RsurQuestionValues.IndexOf("X") == -1
+                                     && !notShowedTestIds.Contains(p.RsurParticipTest.RsurTestId))
+                        .Include(s => s.RsurParticipTest.RsurParticip).Include(s => s.RsurParticipTest.RsurParticip.School).ToList()
                         .Select(s => new ParticipReport
                         {
                             Code = s.RsurParticipTest.RsurParticip.Code,
@@ -141,9 +119,22 @@ namespace Monit95App.Services.Rsur.ParticipReport
                                 SchoolName = s.RsurParticipTest.RsurParticip.School.Id + " — " + s.RsurParticipTest.RsurParticip.School.Name.Trim()
                             },
                             RsurParticipTestId = s.RsurParticipTestId
-                        });
+                        })
+                        .OrderBy(tb => tb.SchoolParticipInfo.SchoolName).ThenBy(ob => ob.IsPassTest).ThenBy(tb => tb.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name);
+        }
 
-            return results.OrderBy(tb => tb.SchoolParticipInfo.SchoolName).ThenBy(ob => ob.IsPassTest).ThenBy(tb => tb.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name);
+        #endregion
+
+        public IEnumerable<ParticipReport> GetResultsForArea(int areaCode, DateTime testDate)
+        {
+            var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticip.School.AreaCode == areaCode);
+            return GetResults(results, testDate);
+        }
+
+        public IEnumerable<ParticipReport> GetResultsForSchool(string schoolId, DateTime testDate)
+        {
+            var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticip.SchoolId == schoolId);
+            return GetResults(results, testDate);
         }
     }
 }

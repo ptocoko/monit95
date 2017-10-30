@@ -29,7 +29,7 @@
         </ul>
     </div>
 
-    <div *ngIf="isArea()" class="panel-body">
+    <div *ngIf="isArea() || isSchool()" class="panel-body">
         <p>Отчеты</p>
         <ul class="list-group">
             <li class="list-group-item"><a routerLink="/rsur/results-list">Результаты диагностики «Октябрь-2017»</a></li>

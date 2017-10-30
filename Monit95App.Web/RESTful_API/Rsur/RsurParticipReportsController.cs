@@ -6,7 +6,7 @@ using Monit95App.Services.Rsur.ParticipReport;
 namespace Monit95App.RESTful_API.Rsur
 {
     [RoutePrefix("api/rsur/participReports")]
-    [Authorize(Roles = "area, rsur-particip")]
+    [Authorize(Roles = "area, rsur-particip, school")]
     public class RsurParticipReportsController : ApiController
     {
         #region Dependencies
@@ -36,17 +36,32 @@ namespace Monit95App.RESTful_API.Rsur
         [Route("")]
         public IHttpActionResult Get(string testDate)
         {
-            var areaCode = int.Parse(User.Identity.Name);
             if (!DateTime.TryParse(testDate, out DateTime testDateObj)) return BadRequest("Cannot parse testDate string to DateTime object");
 
-            IEnumerable<ParticipReport> rsurResults;
-            try
+            IEnumerable<ParticipReport> rsurResults = null;
+            if (User.IsInRole("area"))
             {
-                rsurResults = participReportService.GetResultsByTestDate(areaCode, testDateObj);
+                var areaCode = int.Parse(User.Identity.Name);
+                try
+                {
+                    rsurResults = participReportService.GetResultsForArea(areaCode, testDateObj);
+                }
+                catch (ArgumentException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
-            catch (ArgumentException ex)
+            else if(User.IsInRole("school"))
             {
-                return BadRequest(ex.Message);
+                var schoolId = User.Identity.Name;
+                try
+                {
+                    rsurResults = participReportService.GetResultsForSchool(schoolId, testDateObj);
+                }
+                catch (ArgumentException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
 
             return Ok(rsurResults);

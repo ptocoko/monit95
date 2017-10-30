@@ -24,6 +24,12 @@ export class RsurHomeComponent implements  OnInit {
         return null;
 	}
 
+	isSchool() {
+		if (this.account.RoleNames != null)
+			return this.account.RoleNames.indexOf('school') > -1;
+		return null;
+	}
+
 	isRsurParticip() {
 		if (this.account.RoleNames != null)
 			return this.account.RoleNames.indexOf('rsur-particip') > -1;
