@@ -122,9 +122,12 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         public IEnumerable<ParticipReport> GetResultsByTestDate(int areaCode, DateTime testDate)
         {
+            var notShowedTestIds = new int[] { 1090, 1091, 1080, 1081 };
+
             var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
                                                           && p.RsurParticipTest.RsurTest.TestDate >= testDate
-                                                          && p.RsurQuestionValues.IndexOf("X") == -1).Include(s => s.RsurParticipTest.RsurParticip).Include(s => s.RsurParticipTest.RsurParticip.School).ToList()
+                                                          && p.RsurQuestionValues.IndexOf("X") == -1
+                                                          && !notShowedTestIds.Contains(p.RsurParticipTest.RsurTestId)).Include(s => s.RsurParticipTest.RsurParticip).Include(s => s.RsurParticipTest.RsurParticip.School).ToList()
                         .Select(s => new ParticipReport
                         {
                             Code = s.RsurParticipTest.RsurParticip.Code,

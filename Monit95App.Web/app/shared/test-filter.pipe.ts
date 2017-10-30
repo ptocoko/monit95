@@ -13,7 +13,7 @@ export class TestIdPipe implements PipeTransform {
 		//	return results;
 		//return results.filter((f: any) => f.RsurTestId === testId);		
 
-		if (testName && testName != 'Все результаты') {
+		if (testName && testName != 'Все блоки') {
 			let res: RsurResultModel[] = results.filter((s: RsurResultModel) => s.TestNameWithDate == testName);
 			return res;
 		}

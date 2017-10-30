@@ -14,7 +14,7 @@ export class RsurResultsListComponent implements OnInit {
 	resultsList: RsurResultModel[];
 	rsurTests: string[];
 	isLoading: boolean;
-	searchTest: string = 'Все результаты';
+	searchTest: string = 'Все блоки';
 
 	constructor(private readonly rsurResultsService: RsurResultsService, 
 				private readonly route: Router) { }
