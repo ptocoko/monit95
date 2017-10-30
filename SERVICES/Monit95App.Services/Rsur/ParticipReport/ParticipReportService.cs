@@ -79,7 +79,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
             foreach (var egeQuestionValueString in egeQuestionValuesArray)
             {
                 var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - искоючить из результата открывающую скобку                
-                var egeQuestionValue = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d(?=%)").Value.Replace('.', ','));
+                var egeQuestionValue = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ','));
 
                 var egeQuestionResult = new EgeQuestionResult
                 {

@@ -29,17 +29,31 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void GetReportTestValidateTest()
+        public void GetReport10748Test()
         {
             // Arrange
             var context = new CokoContext();
             var service = new ParticipReportService(context);
 
             // Act
-            var report = service.GetReport(2625); // результат участника по «РСУР. Орфография (старая модель)»
+            var report = service.GetReport(10748);
+            //var reportEgeQuestion9Result = report.EgeQuestionResults.Single(x => x.EgeQuestionNumber == 9);
 
             // Assert
         }
+
+        //[TestMethod]
+        //[ExpectedException(typeof(ArgumentException))]
+        //public void GetReportTestValidateTest()
+        //{
+        //    // Arrange
+        //    var context = new CokoContext();
+        //    var service = new ParticipReportService(context);
+
+        //    // Act
+        //    var report = service.GetReport(2625); // результат участника по «РСУР. Орфография (старая модель)»
+
+        //    // Assert
+        //}
     }
 }
