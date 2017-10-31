@@ -89,7 +89,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable, DateTime testDate)
         {
-            var notShowedTestIds = new int[] { 1080, 1081 };
+            var notShowedTestIds = new int[] { };
 
             return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate
                                      && p.RsurQuestionValues.IndexOf("X") == -1
