@@ -46,17 +46,6 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
             report.EgeQuestionResults = GetEgeQuestionResults(entity.RsurParticipTest.RsurTest.Test, entity.EgeQuestionValues);
 
-            //var matches = Regex.Matches(entity.EgeQuestionValues, @"\([\d,]*%\)"); //с помощью регулярного выражения (https://regex101.com/r/og9F0q/2) 
-            //List<int> egeQuestionValuesArray = new List<int>();               //выдергиваем все значения между скобок
-            //foreach (Match match in matches)                                  //избавляемся от скобок и знака процента, оставляя только числа
-            //{                                                                 //переводим все значения в int
-            //    var groups = match.Groups;
-            //    egeQuestionValuesArray.Add((int)double.Parse(groups[0].Value.Substring(1, groups[0].Value.Length - 3).Replace(",", ".")));
-            //}
-
-            //var testId = entity.RsurParticipTest.RsurTest.TestId;
-            //report.EgeQuestionResults = GetEgeQuestionResults(testId, egeQuestionValuesArray.ToArray());
-
             return report;
 
         }
@@ -100,7 +89,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable, DateTime testDate)
         {
-            var notShowedTestIds = new int[] { 1090, 1091, 1080, 1081 };
+            var notShowedTestIds = new int[] { 1080, 1081 };
 
             return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate
                                      && p.RsurQuestionValues.IndexOf("X") == -1
@@ -134,6 +123,12 @@ namespace Monit95App.Services.Rsur.ParticipReport
         public IEnumerable<ParticipReport> GetResultsForSchool(string schoolId, DateTime testDate)
         {
             var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticip.SchoolId == schoolId);
+            return GetResults(results, testDate);
+        }
+
+        public IEnumerable<ParticipReport> GetResultsForParticip(int rsurParticipCode, DateTime testDate)
+        {
+            var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticipCode == rsurParticipCode);
             return GetResults(results, testDate);
         }
     }

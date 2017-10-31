@@ -16,6 +16,7 @@ var RsurHomeComponent = (function () {
     function RsurHomeComponent(accountService) {
         this.accountService = accountService;
         this.account = new account_1.Account();
+        this.test = 'test 2';
     }
     RsurHomeComponent.prototype.ngOnInit = function () {
         var _this = this;
