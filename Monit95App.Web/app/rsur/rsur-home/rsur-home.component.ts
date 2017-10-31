@@ -7,6 +7,7 @@ import { Account } from '../../account/account';
 })
 export class RsurHomeComponent implements  OnInit {
     account = new Account();    
+    test = 'test 2';
 
     constructor(
         private readonly accountService: AccountService) {

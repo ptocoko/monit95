@@ -440,6 +440,7 @@
     <Content Include="Images\rsur_logo.png" />
     <Content Include="package.json" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="package - Копировать.json" />
     <None Include="Properties\PublishProfiles\188.0.173.242.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
