@@ -35,7 +35,6 @@ namespace Monit95App.RESTful_API.Rsur
 
         [HttpGet]   
         [Route("")]
-        [CacheOutput(ClientTimeSpan = 600)]
         public IHttpActionResult Get(string testDate)
         {
             if (!DateTime.TryParse(testDate, out DateTime testDateObj)) return BadRequest("Cannot parse testDate string to DateTime object");
@@ -65,7 +64,19 @@ namespace Monit95App.RESTful_API.Rsur
                     return BadRequest(ex.Message);
                 }
             }
+            else if (User.IsInRole("rsur-particip"))
+            {
+                var participCode = int.Parse(User.Identity.Name);
+                try
+                {
+                    rsurResults = participReportService.GetResultsForParticip(participCode, testDateObj);
+                }
+                catch (ArgumentException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
 
+            }
             return Ok(rsurResults);
         }
 

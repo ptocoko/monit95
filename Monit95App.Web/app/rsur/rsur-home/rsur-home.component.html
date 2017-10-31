@@ -23,13 +23,13 @@
         </ul>
     </div>      
 
-    <div *ngIf="isRsurParticip()" class="panel-body">
+    <!--<div *ngIf="isRsurParticip()" class="panel-body">
         <ul class="list-group">
             <li class="list-group-item"><a routerLink="/rsur/report/{{account.UserName}}">Результаты диагностики</a></li>
         </ul>
-    </div>
+    </div>-->
 
-    <div *ngIf="isArea() || isSchool()" class="panel-body">
+    <div *ngIf="isArea() || isSchool() || isRsurParticip()" class="panel-body">
         <p>Отчеты</p>
         <ul class="list-group">
             <li class="list-group-item"><a routerLink="/rsur/results-list">Результаты диагностики «Октябрь-2017»</a></li>

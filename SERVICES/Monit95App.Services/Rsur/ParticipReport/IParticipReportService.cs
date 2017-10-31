@@ -8,6 +8,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
     {
         ParticipExtendReport GetReport(int rsurParticipTestId);
         IEnumerable<ParticipReport> GetResultsForArea(int areaCode, DateTime testDate);
-        IEnumerable<ParticipReport> GetResultsForSchool(string schoolId, DateTime testDate);     
+        IEnumerable<ParticipReport> GetResultsForSchool(string schoolId, DateTime testDate);
+        IEnumerable<ParticipReport> GetResultsForParticip(int rsurParticipCode, DateTime testDate);
     }
 }
