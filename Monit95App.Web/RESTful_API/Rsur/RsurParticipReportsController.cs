@@ -35,7 +35,7 @@ namespace Monit95App.RESTful_API.Rsur
 
         [HttpGet]   
         [Route("")]
-        [CacheOutput(ClientTimeSpan = 600)]
+        //[CacheOutput(ClientTimeSpan = 600)]
         public IHttpActionResult Get(string testDate)
         {
             if (!DateTime.TryParse(testDate, out DateTime testDateObj)) return BadRequest("Cannot parse testDate string to DateTime object");
