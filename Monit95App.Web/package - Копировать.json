@@ -2,9 +2,9 @@
   "name": "monit95app",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
+    "start": "concurrent \"npm run tsc -w\" \"npm run lite\" ",
     "lite": "lite-server",
-    "tsc": "tsc",
+    "tsc": "tsc", 
     "tsc:w": "tsc -w"
   },
   "dependencies": {
