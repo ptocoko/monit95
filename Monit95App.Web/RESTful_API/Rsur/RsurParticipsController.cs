@@ -33,7 +33,7 @@ namespace Monit95App.Web.Api
         [HttpPost]
         [Authorize(Roles = "school")]
         public IHttpActionResult Post([FromBody]RsurParticipPostDto dto)
-        {                      
+        {
             //dto.SchoolId = User.Identity.Name;
 
             //if (!ModelState.IsValid)
@@ -43,7 +43,8 @@ namespace Monit95App.Web.Api
 
             //var rsurParticipCode = this._rsurParticipService.Add(dto);
 
-            return Ok(rsurParticipCode);
+            //return Ok(rsurParticipCode);
+            return Ok();
         }
 
         [HttpGet]
