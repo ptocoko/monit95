@@ -65,6 +65,7 @@ var test_filter_pipe_1 = require("./shared/test-filter.pipe");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
+var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -117,7 +118,8 @@ AppModule = __decorate([
             rsur_test_protocol_list_component_1.RsurTestProtocolListComponent,
             rsur_test_protocol_component_1.RsurTestProtocolComponent,
             rsur_report_component_1.RsurReportComponent,
-            results_list_component_1.RsurResultsListComponent
+            results_list_component_1.RsurResultsListComponent,
+            upload_report_component_1.UploadReportComponent
         ],
         providers: [
             account_service_1.AccountService,

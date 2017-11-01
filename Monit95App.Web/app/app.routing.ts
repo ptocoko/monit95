@@ -19,6 +19,7 @@ import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-te
 import { RsurTestProtocolComponent }     from './rsur/rsur-test-protocol/rsur-test-protocol.component';
 import { RsurReportComponent } from "./rsur/report/rsur-report.component";
 import { RsurResultsListComponent } from "./rsur/results/results-list.component";
+import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
 
 const appRoutes: Routes = [
 
@@ -32,6 +33,8 @@ const appRoutes: Routes = [
 
 	{ path: 'rsur/report/:id', component: RsurReportComponent },
 	{ path: 'rsur/results-list', component: RsurResultsListComponent },
+
+	{ path: 'rsur/upload-report', component: UploadReportComponent },
 
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },

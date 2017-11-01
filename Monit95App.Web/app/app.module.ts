@@ -62,6 +62,7 @@ import { TestIdPipe } from "./shared/test-filter.pipe";
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
+import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
 
 
 @NgModule({
@@ -77,7 +78,7 @@ import { GlobalErrorHandler } from './error-handler';
 		BrowserAnimationsModule,
 		MatButtonModule,
         MatDialogModule,
-        NgbModule.forRoot()
+		NgbModule.forRoot()
     ],
 
 	declarations: [
@@ -111,7 +112,8 @@ import { GlobalErrorHandler } from './error-handler';
         RsurTestProtocolListComponent,
 		RsurTestProtocolComponent,
 		RsurReportComponent,
-		RsurResultsListComponent
+		RsurResultsListComponent,
+		UploadReportComponent
 	],
 	providers: [
         AccountService,

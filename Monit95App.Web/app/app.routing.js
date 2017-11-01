@@ -20,6 +20,7 @@ var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsu
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
 var rsur_report_component_1 = require("./rsur/report/rsur-report.component");
 var results_list_component_1 = require("./rsur/results/results-list.component");
+var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
 var appRoutes = [
     { path: 'rsur', component: rsur_home_component_1.RsurHomeComponent },
     { path: 'rsur/test', component: rsur_test_component_1.RsurTestComponent },
@@ -29,6 +30,7 @@ var appRoutes = [
     { path: 'rsur/testprotocols/:id', component: rsur_test_protocol_component_1.RsurTestProtocolComponent },
     { path: 'rsur/report/:id', component: rsur_report_component_1.RsurReportComponent },
     { path: 'rsur/results-list', component: results_list_component_1.RsurResultsListComponent },
+    { path: 'rsur/upload-report', component: upload_report_component_1.UploadReportComponent },
     { path: 'plan', component: plan_component_1.PlanComponent },
     { path: 'result', component: result_component_1.ResultComponent },
     { path: 'details', component: particip_details_component_1.ParticipDetailsComponent },
