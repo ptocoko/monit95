@@ -40,8 +40,7 @@ namespace Monit95App.Services
 
                 var newReportMeta = Mapper.Map<Report, ReportMeta>(report);
                 newReportMeta.Link = $@"{school.ReportLink}/{reportFileName}";
-                reportMetas.Add(newReportMeta);
-  
+                reportMetas.Add(newReportMeta);  
             }
             return reportMetas ?? Enumerable.Empty<ReportMeta>();
         }
