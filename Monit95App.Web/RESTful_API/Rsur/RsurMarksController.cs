@@ -42,15 +42,15 @@ namespace Monit95App.Api
         [Route("Post")]
         public IHttpActionResult Post([FromBody]RsurPostMarksDto marksDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            //if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurTest.IsOpen; //проверяем открыт ли тест для изменений
-            if (!isTestOpen) return Conflict();
+            //var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurTest.IsOpen; //проверяем открыт ли тест для изменений
+            //if (!isTestOpen) return Conflict();
 
-            var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurParticip.School.AreaCode; //сравниваем код района участника и код района, под которым
-            if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();                                                    //редактируются данные
+            //var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurParticip.School.AreaCode; //сравниваем код района участника и код района, под которым
+            //if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();                                                    //редактируются данные
 
-            _rsurMarksService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
+            //_rsurMarksService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
             return Ok();
         }
@@ -59,17 +59,17 @@ namespace Monit95App.Api
         [Route("{rsurParticipTestId:int}")]
         public IHttpActionResult Put([FromBody]RsurPutMarksDto marksDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            //if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurParticipTestId"]);
+            //var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurParticipTestId"]);
 
-            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurTest.IsOpen; //аналогично методу POST
-            if (!isTestOpen) return Conflict();
+            //var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurTest.IsOpen; //аналогично методу POST
+            //if (!isTestOpen) return Conflict();
 
-            var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurParticip.School.AreaCode;
-            if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();
+            //var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurParticip.School.AreaCode;
+            //if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();
 
-            _rsurMarksService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
+            //_rsurMarksService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
 
             return Ok();
         }

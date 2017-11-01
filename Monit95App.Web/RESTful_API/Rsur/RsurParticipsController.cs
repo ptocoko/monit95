@@ -34,14 +34,14 @@ namespace Monit95App.Web.Api
         [Authorize(Roles = "school")]
         public IHttpActionResult Post([FromBody]RsurParticipPostDto dto)
         {                      
-            dto.SchoolId = User.Identity.Name;
+            //dto.SchoolId = User.Identity.Name;
 
-            if (!ModelState.IsValid)
-            {
-                return this.BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return this.BadRequest(ModelState);
+            //}
 
-            var rsurParticipCode = this._rsurParticipService.Add(dto);
+            //var rsurParticipCode = this._rsurParticipService.Add(dto);
 
             return Ok(rsurParticipCode);
         }
@@ -84,14 +84,14 @@ namespace Monit95App.Web.Api
         [Route("{code:int}")]
         public IHttpActionResult Put([FromBody] RsurParticipPutDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return this.BadRequest();
+            //}
 
-            var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
+            //var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
 
-            this._rsurParticipService.Update(code, dto);
+            //this._rsurParticipService.Update(code, dto);
 
             return this.Ok();
         }
