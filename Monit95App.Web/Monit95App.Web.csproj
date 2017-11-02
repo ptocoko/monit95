@@ -334,9 +334,9 @@
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\file\file.component.html" />
-    <Content Include="app\rsur\report\rsur-report.component.css" />
-    <Content Include="app\rsur\report\rsur-report.component.html" />
-    <Content Include="app\rsur\results\results-list.component.html" />
+    <Content Include="app\rsur\reports\report\report.component.css" />
+    <Content Include="app\rsur\reports\report\report.component.html" />
+    <Content Include="app\rsur\reports\report-list\report-list.component.html" />
     <Content Include="app\rsur\rsur-test\rsur-test.component.css" />
     <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.html" />
     <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.html" />
@@ -356,7 +356,6 @@
     <Content Include="app\rsur\rsur-particips\rsur-particips.component.css" />
     <Content Include="app\rsur\rsur-particips\rsur-particips.component.html" />
     <Content Include="app\rsur\details\particip-modal.html" />
-    <Content Include="app\rsur\results\results-modal\results-modal.html" />
     <Content Include="app\plan\plan.html" />
     <Content Include="app\result\result.html" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -596,11 +595,11 @@
     <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
-    <TypeScriptCompile Include="app\rsur\report\rsur-report.component.ts" />
-    <TypeScriptCompile Include="app\rsur\report\rsur-report.model.ts" />
-    <TypeScriptCompile Include="app\rsur\results\rsur-result.model.ts" />
-    <TypeScriptCompile Include="app\rsur\results\rsur-results.service.ts" />
-    <TypeScriptCompile Include="app\rsur\results\results-list.component.ts" />
+    <TypeScriptCompile Include="app\rsur\reports\report\report.component.ts" />
+    <TypeScriptCompile Include="app\rsur\reports\report\report.model.ts" />
+    <TypeScriptCompile Include="app\rsur\reports\report-list\report.model.ts" />
+    <TypeScriptCompile Include="app\rsur\reports\shared\report.service.ts" />
+    <TypeScriptCompile Include="app\rsur\reports\report-list\report-list.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.component.ts" />
@@ -624,8 +623,6 @@
     <TypeScriptCompile Include="app\rsur\rsur-test-protocol\marks.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip.ts" />
-    <TypeScriptCompile Include="app\rsur\results\results-modal\results-modal.component.ts" />
-    <TypeScriptCompile Include="app\rsur\results\results-modal\results.model.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
     <TypeScriptCompile Include="app\result\result.component.ts" />
     <TypeScriptCompile Include="app\account\account.ts" />
@@ -636,7 +633,7 @@
     <TypeScriptCompile Include="app\shared\class-name-filter.pipe.ts" />
     <TypeScriptCompile Include="app\shared\results.service.ts" />
     <TypeScriptCompile Include="app\shared\school-collector.service.ts" />
-    <TypeScriptCompile Include="app\shared\Person.ts" />
+    <TypeScriptCompile Include="app\shared\person.ts" />
     <TypeScriptCompile Include="app\shared\school-particip.model.ts" />
     <TypeScriptCompile Include="app\shared\test-filter.pipe.ts" />
   </ItemGroup>

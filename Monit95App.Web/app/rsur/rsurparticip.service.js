@@ -10,10 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-//import { Http, Request, RequestMethod, Response, RequestOptions, Headers } from '@angular/http';
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var results_model_1 = require("./results/results-modal/results.model");
 var RsurParticipService = (function () {
     function RsurParticipService(http) {
         this.http = http;
@@ -35,33 +33,6 @@ var RsurParticipService = (function () {
         var blob = new Blob([data]);
         var url = window.URL.createObjectURL(blob);
         window.open(url);
-    };
-    //update(particip: RsurParticipModel) {
-    //}    
-    //getParticip(participCode: string): Observable<ParticipModel> {
-    //    return this.http.get('api/rsurParticips/' + participCode)
-    //        .map((resp: Response) => {
-    //            let participResp = resp.json();
-    //            return this.getParticipModel(participResp);
-    //        });
-    //}
-    RsurParticipService.prototype.getParticipResults = function (participCode) {
-        return this.http.get("/api/rsurParticips/GetParticipResults?participCode=" + participCode)
-            .map(function (res) {
-            var resultsInJSON = res.json();
-            var results = [];
-            var resultDetail;
-            for (var index1 in resultsInJSON) {
-                var resultDetailsInJSON = resultsInJSON[Number.parseInt(index1)];
-                resultDetail = [];
-                for (var index2 in resultDetailsInJSON) {
-                    var detailInJSON = resultDetailsInJSON[Number.parseInt(index2)];
-                    resultDetail.push(new results_model_1.ResultDetailsModel(detailInJSON.SubjectName, new Date(detailInJSON.TestDate), detailInJSON.Marks, detailInJSON.Grade5, detailInJSON.TestId, detailInJSON.ReportExisting));
-                }
-                results.push(new results_model_1.ResultsModel(resultDetail));
-            }
-            return results;
-        });
     };
     return RsurParticipService;
 }());

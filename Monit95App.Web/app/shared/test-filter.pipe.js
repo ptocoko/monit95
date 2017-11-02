@@ -11,13 +11,8 @@ var TestIdPipe = (function () {
     function TestIdPipe() {
     }
     TestIdPipe.prototype.transform = function (results, testName) {
-        //console.log(results);
-        //console.log(testId);
-        //if (!results)
-        //	return results;
-        //return results.filter((f: any) => f.RsurTestId === testId);		
-        if (testName && testName != 'Все блоки') {
-            var res = results.filter(function (s) { return s.TestNameWithDate == testName; });
+        if (testName && testName !== 'Все блоки') {
+            var res = results.filter(function (s) { return s.TestNameWithDate === testName; });
             return res;
         }
         else {

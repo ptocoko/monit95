@@ -10,32 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var rsur_results_service_1 = require("../results/rsur-results.service");
 var router_1 = require("@angular/router");
-var RsurReportComponent = (function () {
-    function RsurReportComponent(rsurResultsService, router) {
-        this.rsurResultsService = rsurResultsService;
+var report_service_1 = require("../shared/report.service");
+var ReportComponent = (function () {
+    function ReportComponent(reportService, router) {
+        this.reportService = reportService;
         this.router = router;
     }
-    RsurReportComponent.prototype.ngOnInit = function () {
+    ReportComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.router.params.subscribe(function (params) {
             var code = params['id'];
-            _this.rsurResultsService.getReport(code).subscribe(function (res) {
+            _this.reportService.getReport(code).subscribe(function (res) {
                 _this.reportData = res.json();
             });
         });
     };
-    return RsurReportComponent;
+    return ReportComponent;
 }());
-RsurReportComponent = __decorate([
+ReportComponent = __decorate([
     core_1.Component({
         selector: 'rsur-report',
-        templateUrl: "./app/rsur/report/rsur-report.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/rsur/report/rsur-report.component.css?v=" + new Date().getTime()]
+        templateUrl: "./app/rsur/reports/report/report.component.html?v=" + new Date().getTime(),
+        styleUrls: ["./app/rsur/reports/report/report.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [rsur_results_service_1.RsurResultsService,
+    __metadata("design:paramtypes", [report_service_1.ReportService,
         router_1.ActivatedRoute])
-], RsurReportComponent);
-exports.RsurReportComponent = RsurReportComponent;
-//# sourceMappingURL=rsur-report.component.js.map
+], ReportComponent);
+exports.ReportComponent = ReportComponent;
+//# sourceMappingURL=report.component.js.map

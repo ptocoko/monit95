@@ -17,22 +17,18 @@ import { UpdateClassParticipComponent } from './class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
 import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
 import { RsurTestProtocolComponent }     from './rsur/rsur-test-protocol/rsur-test-protocol.component';
-import { RsurReportComponent } from "./rsur/report/rsur-report.component";
-import { RsurResultsListComponent } from "./rsur/results/results-list.component";
+import { ReportComponent } from './rsur/reports/report/report.component';
+import { ReportListComponent } from './rsur/reports/report-list/report-list.component';
 
 const appRoutes: Routes = [
-
     { path: 'rsur', component: RsurHomeComponent },
     { path: 'rsur/test', component: RsurTestComponent },    
     { path: 'rsur/particips', component: RsurParticipsComponent },    
     { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
-
     { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
 	{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },   
-
-	{ path: 'rsur/report/:id', component: RsurReportComponent },
-	{ path: 'rsur/results-list', component: RsurResultsListComponent },
-
+	{ path: 'rsur/report/:id', component: ReportComponent },
+	{ path: 'rsur/results-list', component: ReportListComponent },
     { path: 'plan', component: PlanComponent },
 	{ path: 'result', component: ResultComponent },
 	{ path: 'details', component: ParticipDetailsComponent },    
@@ -44,7 +40,6 @@ const appRoutes: Routes = [
 	{ path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
 	{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
 	{ path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },   
-
     { path: '', redirectTo: '/rsur', pathMatch: 'full' } // redirect to home page on load
 ];
 

@@ -1,4 +1,4 @@
-﻿import { Person } from "./Person";
+﻿import { Person } from './Person';
 
 export class SchoolParticip extends Person {
 	SchoolName: string;

@@ -20,7 +20,6 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
-//import { ResultsModalComponent } from './rsur/results/results-modal.component';
 var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
 var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
@@ -39,8 +38,8 @@ var update_component_1 = require("./class-particips/add-and-update/update.compon
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
-var rsur_report_component_1 = require("./rsur/report/rsur-report.component");
-var results_list_component_1 = require("./rsur/results/results-list.component");
+var report_component_1 = require("./rsur/reports/report/report.component");
+var report_list_component_1 = require("./rsur/reports/report-list/report-list.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -52,7 +51,7 @@ var class_service_1 = require("./class.service");
 var marks_service_1 = require("./rsur/rsur-test-protocol/marks.service");
 var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
-var rsur_results_service_1 = require("./rsur/results/rsur-results.service");
+var report_service_1 = require("./rsur/reports/shared/report.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -104,7 +103,6 @@ AppModule = __decorate([
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,
             particip_modal_component_1.ParticipModalComponent,
-            //ResultsModalComponent,        
             particip_correction_component_1.ParticipCorrectionComponent,
             class_particips_list_component_1.ClassParticipsListComponent,
             export_excel_modal_component_1.ExportExcelModal,
@@ -116,8 +114,8 @@ AppModule = __decorate([
             marks_add_and_edit_component_1.MarksAddAndEditComponent,
             rsur_test_protocol_list_component_1.RsurTestProtocolListComponent,
             rsur_test_protocol_component_1.RsurTestProtocolComponent,
-            rsur_report_component_1.RsurReportComponent,
-            results_list_component_1.RsurResultsListComponent
+            report_component_1.ReportComponent,
+            report_list_component_1.ReportListComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -130,13 +128,12 @@ AppModule = __decorate([
             marks_service_1.MarksService,
             school_collector_service_1.SchoolCollectorService,
             results_service_1.ResultsService,
-            rsur_results_service_1.RsurResultsService,
+            report_service_1.ReportService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
         entryComponents: [
             particip_modal_component_1.ParticipModalComponent,
-            //ResultsModalComponent,				
             export_excel_modal_component_1.ExportExcelModal
         ],
         bootstrap: [app_component_1.AppComponent]

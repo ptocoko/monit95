@@ -1,7 +1,6 @@
-﻿import { Person } from "../../shared/Person";
-import { SchoolParticip } from "../../shared/school-particip.model";
+﻿import { SchoolParticip } from '../../../shared/school-particip.model';
 
-export class RsurReportModel {
+export class ReportModel {
 	Code: number;
 	SchoolParticipInfo: SchoolParticip;
 	TestNameWithDate: string;
