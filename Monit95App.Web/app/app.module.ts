@@ -55,6 +55,7 @@ import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { TestIdPipe } from './shared/test-filter.pipe';
+import { SchoolNameFilterPipe, TestNameWithDateFilterPipe } from './rsur/reports/report-list/report-filter.pipe';
 
 // Additional 
 import { routing } from './app.routing';
@@ -91,7 +92,9 @@ import { GlobalErrorHandler } from './error-handler';
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
-        SchoolFilter,        
+        SchoolFilter,    
+        SchoolNameFilterPipe,
+	    TestNameWithDateFilterPipe,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,		

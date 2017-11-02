@@ -11,9 +11,11 @@ const TEST_DATE = '2017-10-11';
 })
 export class ReportListComponent implements OnInit {
     resultsList: ReportModel[];
-	rsurTests: string[];
+    rsurTests: string[];
+    schools: string[];
 	isLoading: boolean;
-	searchTest: string = 'Все блоки';
+    searchTest: string = 'Все блоки';
+    searchSchool: string = 'Все организации';
 
 	constructor(private readonly reportService: ReportService, 
 				private readonly route: Router) { }
@@ -22,8 +24,10 @@ export class ReportListComponent implements OnInit {
 		this.isLoading = true;
         this.reportService.getReports(TEST_DATE).subscribe(res => {
             this.resultsList = res.json() as ReportModel[];
-            this.rsurTests =
-                this.resultsList.map(s => s.TestNameWithDate).filter((val, i, self) => self.indexOf(val) === i);
+            this.rsurTests = this.resultsList.map(s => s.TestNameWithDate)
+                .filter((val, i, self) => self.indexOf(val) === i); // distinct
+            //this.schools = this.resultsList.map(s => s.SchoolParticipInfo.SchoolName).filter((val, i, self) => self.indexOf(val) === i);
+            
 	        this.isLoading = false;
 	    });
 	}

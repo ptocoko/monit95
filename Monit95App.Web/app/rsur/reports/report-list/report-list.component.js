@@ -18,14 +18,16 @@ var ReportListComponent = (function () {
         this.reportService = reportService;
         this.route = route;
         this.searchTest = 'Все блоки';
+        this.searchSchool = 'Все организации';
     }
     ReportListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
         this.reportService.getReports(TEST_DATE).subscribe(function (res) {
             _this.resultsList = res.json();
-            _this.rsurTests =
-                _this.resultsList.map(function (s) { return s.TestNameWithDate; }).filter(function (val, i, self) { return self.indexOf(val) === i; });
+            _this.rsurTests = _this.resultsList.map(function (s) { return s.TestNameWithDate; })
+                .filter(function (val, i, self) { return self.indexOf(val) === i; }); // distinct
+            //this.schools = this.resultsList.map(s => s.SchoolParticipInfo.SchoolName).filter((val, i, self) => self.indexOf(val) === i);
             _this.isLoading = false;
         });
     };

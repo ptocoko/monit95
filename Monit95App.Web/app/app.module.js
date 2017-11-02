@@ -60,6 +60,7 @@ var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var test_filter_pipe_1 = require("./shared/test-filter.pipe");
+var report_filter_pipe_1 = require("./rsur/reports/report-list/report-filter.pipe");
 // Additional 
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
@@ -99,6 +100,8 @@ AppModule = __decorate([
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
             test_filter_pipe_1.TestIdPipe,
             school_filter_pipe_1.SchoolFilter,
+            report_filter_pipe_1.SchoolNameFilterPipe,
+            report_filter_pipe_1.TestNameWithDateFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,
