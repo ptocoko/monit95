@@ -80,6 +80,13 @@ namespace Monit95App.RESTful_API.Rsur
             return Ok(rsurResults);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "school")]
+        [Route("~/api/rsur/reports")]
+        public IHttpActionResult UploadText([FromBody]string text)
+        {
+
+        }
         #endregion
     }
 }

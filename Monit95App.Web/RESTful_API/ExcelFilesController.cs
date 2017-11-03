@@ -15,7 +15,7 @@ namespace Monit95App.Web.Api
     using Monit95App.Services;
     using System.Data.SqlClient;
 
-    //[Authorize(Roles = "school")]
+    [Authorize(Roles = "school")]
     [RoutePrefix("api/ExcelFiles")]
     public class ExcelFilesController : ApiController
     {
@@ -45,46 +45,41 @@ namespace Monit95App.Web.Api
         public IHttpActionResult Upload()
         {            
             var httpRequest = HttpContext.Current.Request;
-            
-            //if (httpRequest.Files.Count != 1)
-            //{
-            //    return BadRequest();
-            //}
-            //var httpPostedFile = httpRequest.Files[0];
 
-            //if(Path.GetExtension(httpPostedFile.FileName) != ".xlsx")
-            //{
-            //    return BadRequest();
-            //}        
-
-            //var stream = httpPostedFile.InputStream;
-
-            //var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, CLASS_NUMBERS);
-            //bool hasRowsWithError = rowNumbersWithError != null;
-            //var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 1);
-
-            //int countOfAddedParticips = 0;
-            //for (int i = 0; i < particips.Count; i++)
-            //{
-            //    int addingResult = _participService.Add(particips[i]);
-            //    if(addingResult != -1)
-            //    {
-            //        countOfAddedParticips++;
-            //    }
-            //}
-            
-            //return Ok(content: new {
-            //                  CountOfReadParticips = particips.Count,
-            //                  CountOfAddedParticips = countOfAddedParticips,
-            //                  HasRowsWithError = hasRowsWithError,
-            //                  RowNumbersWithError = rowNumbersWithError
-            //              });
-            for(int i = 0; i < httpRequest.Files.Count; i++)
+            if (httpRequest.Files.Count != 1)
             {
-                var file = httpRequest.Files[i];
-                file.SaveAs("D:\\image_" + i + Path.GetExtension(file.FileName));
+                return BadRequest();
             }
-            return Ok();
+            var httpPostedFile = httpRequest.Files[0];
+
+            if (Path.GetExtension(httpPostedFile.FileName) != ".xlsx")
+            {
+                return BadRequest();
+            }
+
+            var stream = httpPostedFile.InputStream;
+
+            var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, CLASS_NUMBERS);
+            bool hasRowsWithError = rowNumbersWithError != null;
+            var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 1);
+
+            int countOfAddedParticips = 0;
+            for (int i = 0; i < particips.Count; i++)
+            {
+                int addingResult = _participService.Add(particips[i]);
+                if (addingResult != -1)
+                {
+                    countOfAddedParticips++;
+                }
+            }
+
+            return Ok(content: new
+            {
+                CountOfReadParticips = particips.Count,
+                CountOfAddedParticips = countOfAddedParticips,
+                HasRowsWithError = hasRowsWithError,
+                RowNumbersWithError = rowNumbersWithError
+            });
         }
 
         [HttpGet]

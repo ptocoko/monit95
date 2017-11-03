@@ -50,7 +50,7 @@ export class UploadReportComponent {
 	send() {
 		let formData: FormData = new FormData();
 		this.images.forEach((val, i, arr) => formData.append('image' + i, val, val.name));
-		this.uploadReportService.post(formData).subscribe();
+		this.uploadReportService.post(formData).subscribe(() => this.location.back());
 	}
 
 	cancel() {
