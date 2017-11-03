@@ -9,6 +9,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { MatButtonModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 // Components
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { RsurTestProtocolListComponent } from "./rsur/rsur-test-protocol/rsur-te
 import { RsurTestProtocolComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol.component";
 import { RsurReportComponent } from "./rsur/report/rsur-report.component";
 import { RsurResultsListComponent } from "./rsur/results/results-list.component";
+import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
 
 
 // Services
@@ -48,6 +50,7 @@ import { MarksService } from './rsur/rsur-test-protocol/marks.service';
 import { SchoolCollectorService } from "./shared/school-collector.service";
 import { ResultsService } from "./shared/results.service";
 import { RsurResultsService } from "./rsur/results/rsur-results.service";
+import { UploadReportService } from "./rsur/upload-report/upload-report.service";
 
 // Pipes
 import { RsurParticipFilterPipe, RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
@@ -62,13 +65,13 @@ import { TestIdPipe } from "./shared/test-filter.pipe";
 import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
-import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
 
 
 @NgModule({
     imports: [
         BrowserModule,
-        HttpModule,
+		HttpModule,
+		HttpClientModule,
         routing,
         FormsModule,
         ReactiveFormsModule,
@@ -127,6 +130,7 @@ import { UploadReportComponent } from "./rsur/upload-report/upload-report.compon
 		SchoolCollectorService,
 		ResultsService,
 		RsurResultsService,
+		UploadReportService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

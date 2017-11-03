@@ -1,5 +1,8 @@
 ﻿
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from "@angular/router";
+import { Location } from '@angular/common';
+import { UploadReportService } from "./upload-report.service";
 
 @Component({
 	selector: 'upload-report',
@@ -10,7 +13,7 @@ export class UploadReportComponent {
 	images: File[] = new Array<File>();
 	protocolText: string = "";
 
-	constructor() { }
+	constructor(private readonly location: Location, private readonly uploadReportService: UploadReportService) { }
 
 	addPhoto(event: any) {
 		let files: FileList = event.target.files as FileList;
@@ -46,6 +49,11 @@ export class UploadReportComponent {
 
 	send() {
 		let formData: FormData = new FormData();
-		this.images.forEach((val, i, arr) => formData.append('images[]', val, val.name));
+		this.images.forEach((val, i, arr) => formData.append('image' + i, val, val.name));
+		this.uploadReportService.post(formData).subscribe();
+	}
+
+	cancel() {
+		this.location.back();
 	}
 }

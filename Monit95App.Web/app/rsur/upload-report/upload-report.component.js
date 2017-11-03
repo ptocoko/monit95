@@ -10,8 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+var upload_report_service_1 = require("./upload-report.service");
 var UploadReportComponent = (function () {
-    function UploadReportComponent() {
+    function UploadReportComponent(location, uploadReportService) {
+        this.location = location;
+        this.uploadReportService = uploadReportService;
         this.images = new Array();
         this.protocolText = "";
     }
@@ -46,7 +50,11 @@ var UploadReportComponent = (function () {
     };
     UploadReportComponent.prototype.send = function () {
         var formData = new FormData();
-        this.images.forEach(function (val, i, arr) { return formData.append('images[]', val, val.name); });
+        this.images.forEach(function (val, i, arr) { return formData.append('image' + i, val, val.name); });
+        this.uploadReportService.post(formData).subscribe(function (data) { return console.log(data); });
+    };
+    UploadReportComponent.prototype.cancel = function () {
+        this.location.back();
     };
     return UploadReportComponent;
 }());
@@ -56,7 +64,7 @@ UploadReportComponent = __decorate([
         templateUrl: "./app/rsur/upload-report/upload-report.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/rsur/upload-report/upload-report.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [common_1.Location, upload_report_service_1.UploadReportService])
 ], UploadReportComponent);
 exports.UploadReportComponent = UploadReportComponent;
 //# sourceMappingURL=upload-report.component.js.map

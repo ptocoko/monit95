@@ -24,9 +24,9 @@
         </div>
     </div>
     <br />
-    <textarea class="form-control" [(ngModel)]="protocolText"></textarea>
+    <textarea placeholder="Some text..." rows="10" style="width:600px" class="form-control" [(ngModel)]="protocolText"></textarea>
     <br />
-    <div class="pull-left">
+    <div class="pull-left" style="clear: both">
         <button class="btn btn-success" (click)="send()" [disabled]="images.length == 0 || protocolText.length < 1">Отправить</button>
         <button class="btn btn-default" (click)="cancel()">Отмена</button>
     </div>

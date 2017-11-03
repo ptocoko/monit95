@@ -17,6 +17,7 @@ var mydatepicker_1 = require("mydatepicker");
 var material_1 = require("@angular/material");
 var animations_1 = require("@angular/platform-browser/animations");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var http_2 = require("@angular/common/http");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
@@ -41,6 +42,7 @@ var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsu
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
 var rsur_report_component_1 = require("./rsur/report/rsur-report.component");
 var results_list_component_1 = require("./rsur/results/results-list.component");
+var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
 // Services
 var account_service_1 = require("./account/account.service");
 var particip_service_1 = require("./particip.service");
@@ -53,6 +55,7 @@ var marks_service_1 = require("./rsur/rsur-test-protocol/marks.service");
 var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
 var rsur_results_service_1 = require("./rsur/results/rsur-results.service");
+var upload_report_service_1 = require("./rsur/upload-report/upload-report.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -65,7 +68,6 @@ var test_filter_pipe_1 = require("./shared/test-filter.pipe");
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
-var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -76,6 +78,7 @@ AppModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
+            http_2.HttpClientModule,
             app_routing_1.routing,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
@@ -133,6 +136,7 @@ AppModule = __decorate([
             school_collector_service_1.SchoolCollectorService,
             results_service_1.ResultsService,
             rsur_results_service_1.RsurResultsService,
+            upload_report_service_1.UploadReportService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

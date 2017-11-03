@@ -633,6 +633,7 @@
     <TypeScriptCompile Include="app\account\account.ts" />
     <TypeScriptCompile Include="app\account\account.service.ts" />
     <TypeScriptCompile Include="app\rsur\upload-report\upload-report.component.ts" />
+    <TypeScriptCompile Include="app\rsur\upload-report\upload-report.service.ts" />
     <TypeScriptCompile Include="app\school-filter.pipe.ts" />
     <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
