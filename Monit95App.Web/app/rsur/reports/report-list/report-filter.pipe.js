@@ -11,23 +11,15 @@ var TestNameWithDateFilterPipe = (function () {
     function TestNameWithDateFilterPipe() {
     }
     TestNameWithDateFilterPipe.prototype.transform = function (reports, schoolName) {
-        console.log('Start testNameWithDateFilter');
         var result = [];
         if (reports === undefined || schoolName === undefined || schoolName === 'Все организации') {
-            console.log('if');
-            result = reports.map(function (report) { return report.TestNameWithDate; })
-                .filter(function (value, index, self) { return self.indexOf(value) === index; });
-            console.log(result);
+            result = reports.map(function (report) { return report.TestNameWithDate; });
         }
         else {
-            console.log('else');
             result = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === schoolName; })
-                .map(function (report) { return report.TestNameWithDate; })
-                .filter(function (value, index, self) { return self.indexOf(value) === index; });
-            console.log(result);
+                .map(function (report) { return report.TestNameWithDate; });
         }
-        console.log('End testNameWithDateFilter');
-        return result;
+        return result.filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
     return TestNameWithDateFilterPipe;
 }());
@@ -39,16 +31,15 @@ var SchoolNameFilterPipe = (function () {
     function SchoolNameFilterPipe() {
     }
     SchoolNameFilterPipe.prototype.transform = function (reports, testNameWithDate) {
-        console.log(reports);
+        var result = [];
         if (reports === undefined || testNameWithDate === undefined || testNameWithDate === 'Все блоки') {
-            return reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; })
-                .filter(function (value, index, self) { return self.indexOf(value) === index; });
+            result = reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; });
         }
         else {
-            return reports.filter(function (report) { return report.TestNameWithDate === testNameWithDate; })
-                .map(function (report) { return report.SchoolParticipInfo.SchoolName; })
-                .filter(function (value, index, self) { return self.indexOf(value) === index; });
+            result = reports.filter(function (report) { return report.TestNameWithDate === testNameWithDate; })
+                .map(function (report) { return report.SchoolParticipInfo.SchoolName; });
         }
+        return result.filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
     return SchoolNameFilterPipe;
 }());

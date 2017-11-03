@@ -32,8 +32,8 @@ import { UpdateClassParticipComponent } from "./class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 import { RsurTestProtocolListComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol-list.component";
 import { RsurTestProtocolComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol.component";
-import { RsurReportComponent } from "./rsur/report/rsur-report.component";
-import { RsurResultsListComponent } from "./rsur/results/results-list.component";
+import { ReportComponent } from "./rsur/reports/report/report.component";
+import { ReportListComponent } from "./rsur/reports/report-list/report-list.component";
 import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
 
 // Services
@@ -115,7 +115,7 @@ import { GlobalErrorHandler } from './error-handler';
         RsurTestProtocolListComponent,
 		RsurTestProtocolComponent,
 		ReportComponent,
-	    ReportListComponent				
+	    ReportListComponent,			
 		UploadReportComponent
 	],
 	providers: [

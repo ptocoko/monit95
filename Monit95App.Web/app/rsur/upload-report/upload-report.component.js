@@ -51,7 +51,7 @@ var UploadReportComponent = (function () {
     UploadReportComponent.prototype.send = function () {
         var formData = new FormData();
         this.images.forEach(function (val, i, arr) { return formData.append('image' + i, val, val.name); });
-        this.uploadReportService.post(formData).subscribe(function (data) { return console.log(data); });
+        this.uploadReportService.post(formData).subscribe();
     };
     UploadReportComponent.prototype.cancel = function () {
         this.location.back();
