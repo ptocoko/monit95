@@ -1,0 +1,33 @@
+﻿<h2>РСУР</h2>
+<h3>Отправка отчета</h3>
+<hr />
+<div class="center-block">
+    <div style="display:flex">
+        <button style="margin-bottom:10px; align-self:flex-start" class="fileUploader btn btn-default" [disabled]="images.length >= 4">
+            Добавить фото...
+            <input type="file" class="form-control" multiple accept=".png, .jpg, jpeg" (change)="addPhoto($event)" title="Добавить фото..." />
+        </button>
+
+        <div style="width:35%; margin-left: 30px">
+            <table class="table">
+                <tr>
+                    <th style="width:70%">Имя файла</th>
+                    <th>Размер</th>
+                </tr>
+                <tr *ngFor="let image of images">
+                    <td>{{image.name}}</td>
+                    <td>{{image.size/1024/1024 | number : '1.0-2'}} МБ</td>
+                    <td><a class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deletePhoto(image)"></a></td>
+                </tr>
+            </table>
+            <p *ngIf="images.length == 0" class="text-center text-muted"><i>Фотографий не добавлено</i></p>
+        </div>
+    </div>
+    <br />
+    <textarea placeholder="Some text..." rows="10" style="width:600px" class="form-control" [(ngModel)]="protocolText"></textarea>
+    <br />
+    <div class="pull-left" style="clear: both">
+        <button class="btn btn-success" (click)="send()" [disabled]="images.length == 0 || protocolText.length < 1">Отправить</button>
+        <button class="btn btn-default" (click)="cancel()">Отмена</button>
+    </div>
+</div>

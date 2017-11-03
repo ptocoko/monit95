@@ -9,6 +9,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { MatButtonModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 // Components
 import { AppComponent } from './app.component';
@@ -25,14 +26,15 @@ import { ExportExcelModal } from './class-particips/excel-export/export-excel-mo
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
-import { ClassParticipsPlanComponent } from './class-particips/class-particips-plan.component';
-import { AddClassParticipComponent } from './class-particips/add-and-update/add.component';
-import { UpdateClassParticipComponent } from './class-particips/add-and-update/update.component';
-import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
-import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
-import { RsurTestProtocolComponent } from './rsur/rsur-test-protocol/rsur-test-protocol.component';
-import { ReportComponent } from './rsur/reports/report/report.component';
-import { ReportListComponent } from './rsur/reports/report-list/report-list.component';
+import { ClassParticipsPlanComponent } from "./class-particips/class-particips-plan.component";
+import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
+import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
+import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
+import { RsurTestProtocolListComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol-list.component";
+import { RsurTestProtocolComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol.component";
+import { RsurReportComponent } from "./rsur/report/rsur-report.component";
+import { RsurResultsListComponent } from "./rsur/results/results-list.component";
+import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
 
 // Services
 import { AccountService } from './account/account.service';
@@ -43,8 +45,9 @@ import { SchoolService } from './school.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
 import { MarksService } from './rsur/rsur-test-protocol/marks.service';
-import { SchoolCollectorService } from './shared/school-collector.service';
-import { ResultsService } from './shared/results.service';
+import { SchoolCollectorService } from "./shared/school-collector.service";
+import { ResultsService } from "./shared/results.service";
+import { UploadReportService } from "./rsur/upload-report/upload-report.service";
 import { ReportService } from './rsur/reports/shared/report.service';
 
 // Pipes
@@ -66,7 +69,8 @@ import { GlobalErrorHandler } from './error-handler';
 @NgModule({
     imports: [
         BrowserModule,
-        HttpModule,
+		HttpModule,
+		HttpClientModule,
         routing,
         FormsModule,
         ReactiveFormsModule,
@@ -76,7 +80,7 @@ import { GlobalErrorHandler } from './error-handler';
 		BrowserAnimationsModule,
 		MatButtonModule,
         MatDialogModule,
-        NgbModule.forRoot()
+		NgbModule.forRoot()
     ],
 
 	declarations: [
@@ -111,7 +115,8 @@ import { GlobalErrorHandler } from './error-handler';
         RsurTestProtocolListComponent,
 		RsurTestProtocolComponent,
 		ReportComponent,
-	    ReportListComponent
+	    ReportListComponent				
+		UploadReportComponent
 	],
 	providers: [
         AccountService,
@@ -124,7 +129,8 @@ import { GlobalErrorHandler } from './error-handler';
 		MarksService,
 		SchoolCollectorService,
 		ResultsService,
-	    ReportService,
+	    ReportService,		
+		UploadReportService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

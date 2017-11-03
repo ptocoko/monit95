@@ -17,6 +17,7 @@ import { UpdateClassParticipComponent } from './class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
 import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
 import { RsurTestProtocolComponent }     from './rsur/rsur-test-protocol/rsur-test-protocol.component';
+import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
 import { ReportComponent } from './rsur/reports/report/report.component';
 import { ReportListComponent } from './rsur/reports/report-list/report-list.component';
 
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
     { path: 'rsur/particips', component: RsurParticipsComponent },    
     { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
     { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
-	{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },   
+	{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },   		
+	{ path: 'rsur/upload-report', component: UploadReportComponent },
 	{ path: 'rsur/report/:id', component: ReportComponent },
 	{ path: 'rsur/results-list', component: ReportListComponent },
     { path: 'plan', component: PlanComponent },
