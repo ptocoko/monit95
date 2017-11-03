@@ -14,9 +14,15 @@ var http_1 = require("@angular/common/http");
 var UploadReportService = (function () {
     function UploadReportService(http) {
         this.http = http;
+        console.log('hey yo!');
     }
-    UploadReportService.prototype.post = function (data) {
-        return this.http.post('/api/ExcelFiles/Upload', data);
+    UploadReportService.prototype.postText = function (text) {
+        return this.http.post('/api/rsur/reports', { text: text });
+    };
+    UploadReportService.prototype.postImages = function (images, reportId) {
+        var data = new FormData();
+        images.forEach(function (val, i, arr) { return data.append('image' + i, val, val.name); });
+        return this.http.post("/api/rsur/reports/" + reportId + "/files", data);
     };
     return UploadReportService;
 }());
