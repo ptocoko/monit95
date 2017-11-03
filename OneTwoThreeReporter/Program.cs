@@ -116,8 +116,8 @@ namespace OneTwoThreeReporter
                 zip.AddFile(currentFilePath + ".xlsx", "");
                 zip.Save(currentFilePath + ".zip");
             }
-            
-            File.Delete(currentFilePath + ".xlsx");
+
+            System.IO.File.Delete(currentFilePath + ".xlsx");
         }
 
         private static string GetClassName(string classCode)
