@@ -1,17 +1,17 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ReportService } from '../shared/report.service';
+import { RsurReportService } from '../../../../services/rsur-report.service';
 import { ReportModel } from './report.model';
 
 @Component({
-    selector: 'rsur-report',    
-	templateUrl: `./app/rsur/reports/report/report.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/rsur/reports/report/report.component.css?v=${new Date().getTime()}`]
+    selector: 'report',    
+	templateUrl: `./app/components/rsur/reports/report/report.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/reports/report/report.component.css?v=${new Date().getTime()}`]
 })
 export class ReportComponent implements OnInit {
     reportData: ReportModel;    
 
-    constructor(private readonly reportService: ReportService,
+    constructor(private readonly reportService: RsurReportService,
 				private readonly router: ActivatedRoute) { }
 
 	ngOnInit() {

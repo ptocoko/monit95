@@ -11,22 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var ReportService = (function () {
-    function ReportService(http) {
+var RsurReportService = (function () {
+    function RsurReportService(http) {
         this.http = http;
         this.ROUTE_PREFIX = 'api/rsur/participReports';
     }
-    ReportService.prototype.getReports = function (testDate) {
+    RsurReportService.prototype.getReports = function (testDate) {
         return this.http.get(this.ROUTE_PREFIX + "?testDate=" + testDate);
     };
-    ReportService.prototype.getReport = function (rsurParticipTestId) {
+    RsurReportService.prototype.getReport = function (rsurParticipTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
     };
-    return ReportService;
+    return RsurReportService;
 }());
-ReportService = __decorate([
+RsurReportService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], ReportService);
-exports.ReportService = ReportService;
-//# sourceMappingURL=report.service.js.map
+], RsurReportService);
+exports.RsurReportService = RsurReportService;
+//# sourceMappingURL=rsur-report.service.js.map

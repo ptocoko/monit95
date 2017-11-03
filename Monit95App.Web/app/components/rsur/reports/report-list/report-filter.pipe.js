@@ -47,4 +47,22 @@ SchoolNameFilterPipe = __decorate([
     core_1.Pipe({ name: 'schoolNameFilter' })
 ], SchoolNameFilterPipe);
 exports.SchoolNameFilterPipe = SchoolNameFilterPipe;
+var TestIdPipe = (function () {
+    function TestIdPipe() {
+    }
+    TestIdPipe.prototype.transform = function (results, testName) {
+        if (testName && testName !== 'Все блоки') {
+            var res = results.filter(function (s) { return s.TestNameWithDate === testName; });
+            return res;
+        }
+        else {
+            return results;
+        }
+    };
+    return TestIdPipe;
+}());
+TestIdPipe = __decorate([
+    core_1.Pipe({ name: 'testNameFilter' })
+], TestIdPipe);
+exports.TestIdPipe = TestIdPipe;
 //# sourceMappingURL=report-filter.pipe.js.map

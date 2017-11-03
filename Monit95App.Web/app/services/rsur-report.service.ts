@@ -2,7 +2,7 @@
 import { Http } from '@angular/http';
 
 @Injectable()
-export class ReportService {
+export class RsurReportService {
     private ROUTE_PREFIX = 'api/rsur/participReports'; 
 
 	constructor(private readonly http: Http) {

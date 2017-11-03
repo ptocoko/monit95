@@ -32,8 +32,8 @@ import { UpdateClassParticipComponent } from "./class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
 import { RsurTestProtocolListComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol-list.component";
 import { RsurTestProtocolComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol.component";
-import { ReportComponent } from "./rsur/reports/report/report.component";
-import { ReportListComponent } from "./rsur/reports/report-list/report-list.component";
+import { ReportComponent } from "./components/rsur/reports/report/report.component";
+import { ReportListComponent } from "./components/rsur/reports/report-list/report-list.component";
 import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
 
 // Services
@@ -46,9 +46,9 @@ import { ParticipCorrectionService } from './rsur/correction/particip-correction
 import { ClassService } from './class.service';
 import { MarksService } from './rsur/rsur-test-protocol/marks.service';
 import { SchoolCollectorService } from "./shared/school-collector.service";
-import { ResultsService } from "./shared/results.service";
-import { UploadReportService } from "./rsur/upload-report/upload-report.service";
-import { ReportService } from './rsur/reports/shared/report.service';
+import { ResultsService } from './shared/results.service';
+import { UploadReportService } from './rsur/upload-report/upload-report.service';
+import { RsurReportService } from './services/rsur-report.service';
 
 // Pipes
 import { RsurParticipFilterPipe, RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
@@ -57,8 +57,7 @@ import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-de
 import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
-import { TestIdPipe } from './shared/test-filter.pipe';
-import { SchoolNameFilterPipe, TestNameWithDateFilterPipe } from './rsur/reports/report-list/report-filter.pipe';
+import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe } from './components/rsur/reports/report-list/report-filter.pipe';
 
 // Additional 
 import { routing } from './app.routing';
@@ -129,7 +128,7 @@ import { GlobalErrorHandler } from './error-handler';
 		MarksService,
 		SchoolCollectorService,
 		ResultsService,
-	    ReportService,		
+	    RsurReportService,		
 		UploadReportService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }

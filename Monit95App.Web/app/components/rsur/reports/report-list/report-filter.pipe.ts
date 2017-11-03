@@ -32,3 +32,15 @@ export class SchoolNameFilterPipe implements PipeTransform {
         return result.filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
     }
 }
+
+@Pipe({ name: 'testNameFilter' })
+export class TestIdPipe implements PipeTransform {
+    transform(results: ReportModel[], testName: string): ReportModel[] {
+        if (testName && testName !== 'Все блоки') {
+            const res = results.filter((s: ReportModel) => s.TestNameWithDate === testName);
+            return res;
+        } else {
+            return results;
+        }
+    }
+}

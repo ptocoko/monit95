@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var report_service_1 = require("../shared/report.service");
+var rsur_report_service_1 = require("../../../../services/rsur-report.service");
 var router_1 = require("@angular/router");
 var TEST_DATE = '2017-10-11';
 var ReportListComponent = (function () {
-    function ReportListComponent(reportService, route) {
-        this.reportService = reportService;
+    function ReportListComponent(rsurReportService, route) {
+        this.rsurReportService = rsurReportService;
         this.route = route;
         this.searchTest = 'Все блоки';
         this.searchSchool = 'Все организации';
@@ -23,11 +23,10 @@ var ReportListComponent = (function () {
     ReportListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.reportService.getReports(TEST_DATE).subscribe(function (res) {
+        this.rsurReportService.getReports(TEST_DATE).subscribe(function (res) {
             _this.resultsList = res.json();
             _this.rsurTests = _this.resultsList.map(function (s) { return s.TestNameWithDate; })
-                .filter(function (val, i, self) { return self.indexOf(val) === i; }); // distinct
-            //this.schools = this.resultsList.map(s => s.SchoolParticipInfo.SchoolName).filter((val, i, self) => self.indexOf(val) === i);
+                .filter(function (val, i, self) { return self.indexOf(val) === i; }); // distinct            
             _this.isLoading = false;
         });
     };
@@ -39,9 +38,9 @@ var ReportListComponent = (function () {
 ReportListComponent = __decorate([
     core_1.Component({
         selector: 'report-list',
-        templateUrl: "./app/rsur/reports/report-list/report-list.component.html?v=" + new Date().getTime()
+        templateUrl: "./app/components/rsur/reports/report-list/report-list.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [report_service_1.ReportService,
+    __metadata("design:paramtypes", [rsur_report_service_1.RsurReportService,
         router_1.Router])
 ], ReportListComponent);
 exports.ReportListComponent = ReportListComponent;

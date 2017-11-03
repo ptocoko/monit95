@@ -19,8 +19,8 @@ var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-
 var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
 var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
-var report_component_1 = require("./rsur/reports/report/report.component");
-var report_list_component_1 = require("./rsur/reports/report-list/report-list.component");
+var report_component_1 = require("./components/rsur/reports/report/report.component");
+var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
 var appRoutes = [
     { path: 'rsur', component: rsur_home_component_1.RsurHomeComponent },
     { path: 'rsur/test', component: rsur_test_component_1.RsurTestComponent },

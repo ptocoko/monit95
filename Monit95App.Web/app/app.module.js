@@ -39,8 +39,8 @@ var update_component_1 = require("./class-particips/add-and-update/update.compon
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
-var report_component_1 = require("./rsur/reports/report/report.component");
-var report_list_component_1 = require("./rsur/reports/report-list/report-list.component");
+var report_component_1 = require("./components/rsur/reports/report/report.component");
+var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
 var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
 // Services
 var account_service_1 = require("./account/account.service");
@@ -54,7 +54,7 @@ var marks_service_1 = require("./rsur/rsur-test-protocol/marks.service");
 var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
 var upload_report_service_1 = require("./rsur/upload-report/upload-report.service");
-var report_service_1 = require("./rsur/reports/shared/report.service");
+var rsur_report_service_1 = require("./services/rsur-report.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -62,8 +62,7 @@ var particips_without_details_filter_1 = require("./rsur/details/particips-witho
 var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
-var test_filter_pipe_1 = require("./shared/test-filter.pipe");
-var report_filter_pipe_1 = require("./rsur/reports/report-list/report-filter.pipe");
+var report_filter_pipe_1 = require("./components/rsur/reports/report-list/report-filter.pipe");
 // Additional 
 var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
@@ -102,7 +101,7 @@ AppModule = __decorate([
             class_name_filter_pipe_1.ClassNameFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
-            test_filter_pipe_1.TestIdPipe,
+            report_filter_pipe_1.TestIdPipe,
             school_filter_pipe_1.SchoolFilter,
             report_filter_pipe_1.SchoolNameFilterPipe,
             report_filter_pipe_1.TestNameWithDateFilterPipe,
@@ -136,7 +135,7 @@ AppModule = __decorate([
             marks_service_1.MarksService,
             school_collector_service_1.SchoolCollectorService,
             results_service_1.ResultsService,
-            report_service_1.ReportService,
+            rsur_report_service_1.RsurReportService,
             upload_report_service_1.UploadReportService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }

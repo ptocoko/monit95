@@ -334,9 +334,9 @@
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\file\file.component.html" />
-    <Content Include="app\rsur\reports\report\report.component.css" />
-    <Content Include="app\rsur\reports\report\report.component.html" />
-    <Content Include="app\rsur\reports\report-list\report-list.component.html" />
+    <Content Include="app\components\rsur\reports\report\report.component.css" />
+    <Content Include="app\components\rsur\reports\report\report.component.html" />
+    <Content Include="app\components\rsur\reports\report-list\report-list.component.html" />
     <Content Include="app\rsur\rsur-test\rsur-test.component.css" />
     <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.html" />
     <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.html" />
@@ -561,6 +561,7 @@
     <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\directives\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\ParticipReport\" />
@@ -597,12 +598,12 @@
     <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
-    <TypeScriptCompile Include="app\rsur\reports\report-list\report-filter.pipe.ts" />
-    <TypeScriptCompile Include="app\rsur\reports\report\report.component.ts" />
-    <TypeScriptCompile Include="app\rsur\reports\report\report.model.ts" />
-    <TypeScriptCompile Include="app\rsur\reports\report-list\report.model.ts" />
-    <TypeScriptCompile Include="app\rsur\reports\shared\report.service.ts" />
-    <TypeScriptCompile Include="app\rsur\reports\report-list\report-list.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\reports\report-list\report-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\components\rsur\reports\report\report.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\reports\report\report.model.ts" />
+    <TypeScriptCompile Include="app\components\rsur\reports\report-list\report.model.ts" />
+    <TypeScriptCompile Include="app\services\rsur-report.service.ts" />
+    <TypeScriptCompile Include="app\components\rsur\reports\report-list\report-list.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.component.ts" />
@@ -640,7 +641,6 @@
     <TypeScriptCompile Include="app\shared\school-collector.service.ts" />
     <TypeScriptCompile Include="app\shared\person.ts" />
     <TypeScriptCompile Include="app\shared\school-particip.model.ts" />
-    <TypeScriptCompile Include="app\shared\test-filter.pipe.ts" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707251307178_ASPNet-Identity-Update.resx">

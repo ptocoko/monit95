@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var report_service_1 = require("../shared/report.service");
+var rsur_report_service_1 = require("../../../../services/rsur-report.service");
 var ReportComponent = (function () {
     function ReportComponent(reportService, router) {
         this.reportService = reportService;
@@ -30,11 +30,11 @@ var ReportComponent = (function () {
 }());
 ReportComponent = __decorate([
     core_1.Component({
-        selector: 'rsur-report',
-        templateUrl: "./app/rsur/reports/report/report.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/rsur/reports/report/report.component.css?v=" + new Date().getTime()]
+        selector: 'report',
+        templateUrl: "./app/components/rsur/reports/report/report.component.html?v=" + new Date().getTime(),
+        styleUrls: ["./app/components/rsur/reports/report/report.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [report_service_1.ReportService,
+    __metadata("design:paramtypes", [rsur_report_service_1.RsurReportService,
         router_1.ActivatedRoute])
 ], ReportComponent);
 exports.ReportComponent = ReportComponent;
