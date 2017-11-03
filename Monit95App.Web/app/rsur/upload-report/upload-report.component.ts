@@ -47,10 +47,10 @@ export class UploadReportComponent {
 		this.images.splice(index, 1);
 	}
 
-	send() {
-		let formData: FormData = new FormData();
-		this.images.forEach((val, i, arr) => formData.append('image' + i, val, val.name));
-		this.uploadReportService.post(formData).subscribe(() => this.location.back());
+	async send() {
+		this.uploadReportService.postText(this.protocolText).subscribe((reportId: number) => {
+			this.uploadReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
+		});
 	}
 
 	cancel() {

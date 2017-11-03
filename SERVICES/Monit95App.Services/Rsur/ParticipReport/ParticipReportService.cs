@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
+using System.IO;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -130,6 +131,43 @@ namespace Monit95App.Services.Rsur.ParticipReport
         {
             var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticipCode == rsurParticipCode);
             return GetResults(results, testDate);
+        }
+
+        public int SaveText(string text, string schoolId)
+        {
+            var entity = new RsurReport { Text = text, SchoolId = schoolId, Date = DateTime.Now };
+            context.RsurReports.Add(entity);
+            context.SaveChanges();
+            return entity.Id;
+        }
+
+        public int SaveFile(Stream fileStream, string fileExtension, int reportId)
+        {
+            const int repositoryId = 1;
+            var repository = context.Repositories.Find(repositoryId);
+            string directoryPath = repository.Path;
+
+            if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+
+            string fileName = $"{reportId}_{DateTime.Now.ToString("yyyyMMdd")}_{DateTime.Now.ToString("HHmmss")}";
+
+            using (var fs = System.IO.File.Create($"{directoryPath}{fileName}{fileExtension}"))
+            {
+                fileStream.Seek(0, SeekOrigin.Begin);
+                fileStream.CopyTo(fs);
+            }
+
+            var file = new Domain.Core.Entities.File { Name = fileName, RepositoryId = repositoryId };
+            context.Files.Add(file);
+            context.SaveChanges();
+            return file.Id;
+        }
+
+        public void CreateRsurReportFilesEntry(int reportId, int fileId)
+        {
+            var entity = new RsurReportFile { RsurReportId = reportId, FileId = fileId };
+            context.RsurReportFiles.Add(entity);
+            context.SaveChanges();
         }
     }
 }

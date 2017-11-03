@@ -19,6 +19,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Element> Elements { get; set; }
         public virtual DbSet<ElementType> ElementTypes { get; set; }
         public virtual DbSet<Exercis> Exercises { get; set; }
+        public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<Kim> Kims { get; set; }
@@ -31,6 +32,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
+        public virtual DbSet<Repository> Repositories { get; set; }
         public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<Roo> Roos { get; set; }
         public virtual DbSet<RooDirect> RooDirects { get; set; }
@@ -38,6 +40,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
         public virtual DbSet<RsurParticipTest> RsurParticipTests { get; set; }
+        public virtual DbSet<RsurReport> RsurReports { get; set; }
+        public virtual DbSet<RsurReportFile> RsurReportFiles { get; set; }
         public virtual DbSet<RsurSubject> RsurSubjects { get; set; }
         public virtual DbSet<RsurTestResult> RsurTestResults { get; set; }
         public virtual DbSet<RsurTest> RsurTests { get; set; }
@@ -53,6 +57,21 @@ namespace Monit95App.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<File>()
+                .HasMany(e => e.RsurReportFiles)
+                .WithRequired(e => e.File)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RsurReport>()
+                .HasMany(e => e.RsurReportFiles)
+                .WithRequired(e => e.RsurReport)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Repository>()
+                .HasMany(e => e.Files)
+                .WithRequired(e => e.Repository)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Area>()
                 .HasMany(e => e.Schools)
                 .WithRequired(e => e.Area)
