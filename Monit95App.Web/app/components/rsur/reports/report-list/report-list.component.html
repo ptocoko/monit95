@@ -21,7 +21,7 @@
             <th style="text-align:center">фамилия</th>
             <th style="text-align:center">имя</th>
             <th style="text-align:center">отчество</th>
-            <th style="text-align:center">школа</th>
+            <th style="text-align:center">организация</th>
             <th style="text-align:center">зачет/незачет</th>
         </tr>
         <tr style="cursor:pointer" (click)="openReport(result.RsurParticipTestId)" *ngFor="let result of resultsList | totalFilter : selectedSchool : selectedTest | rsurParticipFilter : searchParticip; let i = index">

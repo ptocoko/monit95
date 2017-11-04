@@ -23,7 +23,7 @@ import { ParticipCorrectionComponent } from './rsur/correction/particip-correcti
 import { ExportExcelModal } from './class-particips/excel-export/export-excel-modal.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
-import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
+import { ClassParticipsExportExcelComponent } from './class-particips/excel-export/export-excel.component';
 import { ClassParticipsPlanComponent } from './class-particips/class-particips-plan.component';
 import { AddClassParticipComponent } from './class-particips/add-and-update/add.component';
 import { UpdateClassParticipComponent } from './class-particips/add-and-update/update.component';
@@ -45,7 +45,7 @@ import { SchoolService } from './school.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './class.service';
 import { MarksService } from './rsur/rsur-test-protocol/marks.service';
-import { SchoolCollectorService } from "./shared/school-collector.service";
+import { SchoolCollectorService } from './shared/school-collector.service';
 import { ResultsService } from './shared/results.service';
 import { UploadReportService } from './rsur/upload-report/upload-report.service';
 import { RsurReportService } from './services/rsur-report.service';
@@ -58,6 +58,7 @@ import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, RsurParticipFilterPipe, TotalFilterPipe } from './components/rsur/reports/report-list/report-filter.pipe';
+import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 
 // Additional 
 import { routing } from './app.routing';
@@ -98,7 +99,8 @@ import { GlobalErrorHandler } from './error-handler';
         SchoolFilter,    
         SchoolNameFilterPipe,
         TestNameWithDateFilterPipe,
-	    TotalFilterPipe,
+        TotalFilterPipe,
+	    SubjectFilterPipe,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,		
