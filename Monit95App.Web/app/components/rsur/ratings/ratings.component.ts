@@ -5,7 +5,7 @@ import { RsurRatingService } from '../../../services/rsur-rating.service';
 	selector: 'ratings',
     templateUrl: `./app/components/rsur/ratings/ratings.component.html?v=${new Date().getTime()}`
 })
-export class Ratings implements OnInit {
+export class RatingsComponent implements OnInit {
     ratings: RatingItem[];        
 	isLoading: boolean = true;
     selectedSubject: string = 'Русский язык';    

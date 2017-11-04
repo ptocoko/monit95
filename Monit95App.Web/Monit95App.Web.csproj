@@ -581,7 +581,6 @@
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
-    <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\class-particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\class-particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\class-particips\class-particips-list.component.ts" />

@@ -10,6 +10,7 @@ import { MatButtonModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 // Components
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { HomeComponent } from './components/rsur/home/home.component';
 import { ReportComponent } from './components/rsur/reports/report/report.component';
 import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
 import { UploadReportComponent } from './rsur/upload-report/upload-report.component';
+import { RatingsComponent } from './components/rsur/ratings/ratings.component';
 
 // Services
 import { AccountService } from './services/account.service';
@@ -61,17 +63,14 @@ import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, RsurParti
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 
 // Additional 
-import { routing } from './app.routing';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
-
 
 @NgModule({
     imports: [
         BrowserModule,
 		HttpModule,
-		HttpClientModule,
-        routing,
+		HttpClientModule,        
         FormsModule,
         ReactiveFormsModule,
         ModalModule.forRoot(),
@@ -80,7 +79,32 @@ import { GlobalErrorHandler } from './error-handler';
 		BrowserAnimationsModule,
 		MatButtonModule,
         MatDialogModule,
-		NgbModule.forRoot()
+		NgbModule.forRoot(),
+        RouterModule.forRoot([
+                { path: 'rsur', component: HomeComponent },
+                { path: 'rsur/test', component: RsurTestComponent },
+                { path: 'rsur/particips', component: RsurParticipsComponent },
+                { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
+                { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
+                { path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
+                { path: 'rsur/upload-report', component: UploadReportComponent },
+                { path: 'rsur/report/:id', component: ReportComponent },
+                { path: 'rsur/results-list', component: ReportListComponent },
+                { path: 'rsur/ratings', component: RatingsComponent },
+                { path: 'plan', component: PlanComponent },
+                { path: 'result', component: ResultComponent },
+                { path: 'details', component: ParticipDetailsComponent },
+                { path: 'particip-correction', component: ParticipCorrectionComponent },
+                { path: 'class-particips', component: ClassParticipsPlanComponent },
+                { path: 'class-particips/list', component: ClassParticipsListComponent },
+                { path: 'class-particips/upload-excel', component: ClassParticipsExportExcelComponent },
+                { path: 'class-particips/new', component: AddClassParticipComponent },
+                { path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
+                { path: 'class-particips/marks', component: ClassParticipMarksComponent },
+                { path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },
+                { path: '', redirectTo: '/rsur', pathMatch: 'full' }
+            ]
+        )
     ],
 
 	declarations: [
@@ -118,7 +142,8 @@ import { GlobalErrorHandler } from './error-handler';
 		RsurTestProtocolComponent,
 		ReportComponent,
 	    ReportListComponent,			
-		UploadReportComponent
+        UploadReportComponent,
+        RatingsComponent
 	],
 	providers: [
         AccountService,
