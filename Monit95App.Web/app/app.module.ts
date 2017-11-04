@@ -14,8 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 // Components
 import { AppComponent } from './app.component';
 import { ParticipModalComponent } from './rsur/details/particip-modal.component';
-import { RsurHomeComponent } from './rsur/rsur-home/rsur-home.component';
-import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 import { RsurParticipsComponent } from './rsur/rsur-particips/rsur-particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
@@ -26,18 +24,20 @@ import { ExportExcelModal } from './class-particips/excel-export/export-excel-mo
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
 import { ClassParticipsExportExcelComponent } from "./class-particips/excel-export/export-excel.component";
-import { ClassParticipsPlanComponent } from "./class-particips/class-particips-plan.component";
-import { AddClassParticipComponent } from "./class-particips/add-and-update/add.component";
-import { UpdateClassParticipComponent } from "./class-particips/add-and-update/update.component";
-import { MarksAddAndEditComponent } from "./class-particips/marks/marks-add-and-edit.component";
-import { RsurTestProtocolListComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol-list.component";
-import { RsurTestProtocolComponent } from "./rsur/rsur-test-protocol/rsur-test-protocol.component";
-import { ReportComponent } from "./components/rsur/reports/report/report.component";
-import { ReportListComponent } from "./components/rsur/reports/report-list/report-list.component";
-import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
+import { ClassParticipsPlanComponent } from './class-particips/class-particips-plan.component';
+import { AddClassParticipComponent } from './class-particips/add-and-update/add.component';
+import { UpdateClassParticipComponent } from './class-particips/add-and-update/update.component';
+import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
+import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
+import { RsurTestProtocolComponent } from './rsur/rsur-test-protocol/rsur-test-protocol.component';
+import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
+import { HomeComponent } from './components/rsur/home/home.component';
+import { ReportComponent } from './components/rsur/reports/report/report.component';
+import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
+import { UploadReportComponent } from './rsur/upload-report/upload-report.component';
 
 // Services
-import { AccountService } from './account/account.service';
+import { AccountService } from './services/account.service';
 import { ParticipService } from './particip.service';
 import { RsurParticipService } from './rsur/rsurparticip.service';
 import { RsurTestService } from './rsur/rsur-test/rsur-test.service';
@@ -51,13 +51,13 @@ import { UploadReportService } from './rsur/upload-report/upload-report.service'
 import { RsurReportService } from './services/rsur-report.service';
 
 // Pipes
-import { RsurParticipFilterPipe, RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
+import { RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
-import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe } from './components/rsur/reports/report-list/report-filter.pipe';
+import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, RsurParticipFilterPipe, TotalFilterPipe } from './components/rsur/reports/report-list/report-filter.pipe';
 
 // Additional 
 import { routing } from './app.routing';
@@ -84,7 +84,7 @@ import { GlobalErrorHandler } from './error-handler';
 
 	declarations: [
         AppComponent,
-        RsurHomeComponent,
+        HomeComponent,
 	    RsurTestComponent,
         RsurParticipsComponent,	
         RsurParticipAddFormComponent,
@@ -97,7 +97,8 @@ import { GlobalErrorHandler } from './error-handler';
 		TestIdPipe,
         SchoolFilter,    
         SchoolNameFilterPipe,
-	    TestNameWithDateFilterPipe,
+        TestNameWithDateFilterPipe,
+	    TotalFilterPipe,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,		

@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var ClassParticip_1 = require("../ClassParticip");
 var particip_service_1 = require("../../particip.service");
-var account_service_1 = require("../../account/account.service");
-var router_1 = require("@angular/router");
+var account_service_1 = require("../../services/account.service");
 var CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 var PROJECT_ID = 1;
 var UpdateClassParticipComponent = (function () {
@@ -48,7 +48,7 @@ var UpdateClassParticipComponent = (function () {
         var _this = this;
         this.particip.WasDoo = this.wasDoo === 'yes';
         if (this.newMonth === -1) {
-            alert("Выберите месяц рождения!");
+            alert('Выберите месяц рождения!');
             return;
         }
         var birthdayInMiSeconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);

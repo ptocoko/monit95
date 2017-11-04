@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var particip_service_1 = require("../../particip.service");
 var ClassParticip_1 = require("../ClassParticip");
-var account_service_1 = require("../../account/account.service");
-var router_1 = require("@angular/router");
+var account_service_1 = require("../../services/account.service");
 exports.CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 var PROJECT_ID = 1;
 var AddClassParticipComponent = (function () {

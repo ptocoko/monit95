@@ -3,11 +3,11 @@ import { Response } from '@angular/http';
 
 // Models
 import { RsurParticip } from '../rsurparticip';
-import { Account } from '../../account/account';
+import { Account } from '../../shared/account';
 
 // Services
 import { RsurParticipService } from '../rsurparticip.service';
-import { AccountService } from '../../account/account.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
     selector: 'rsur/particips',

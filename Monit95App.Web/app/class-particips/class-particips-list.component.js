@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var account_service_1 = require("../account/account.service");
-var particip_service_1 = require("../particip.service");
 var router_1 = require("@angular/router");
+var account_service_1 = require("../services/account.service");
+var particip_service_1 = require("../particip.service");
 var PROJECT_ID = 1;
 var ClassParticipsListComponent = (function () {
     function ClassParticipsListComponent(accountService, participService, router) {

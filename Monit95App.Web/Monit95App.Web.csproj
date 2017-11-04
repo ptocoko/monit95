@@ -341,7 +341,7 @@
     <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.html" />
     <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.html" />
     <Content Include="app\rsur\rsur-test\rsur-test.component.html" />
-    <Content Include="app\rsur\rsur-home\rsur-home.component.html" />
+    <Content Include="app\components\rsur\home\home.component.html" />
     <Content Include="app\class-particips\results\particip-report.component.css" />
     <Content Include="app\class-particips\results\particip-report.component.html" />
     <Content Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.css" />
@@ -607,7 +607,7 @@
     <TypeScriptCompile Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.component.ts" />
-    <TypeScriptCompile Include="app\rsur\rsur-home\rsur-home.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\home\home.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test\rsur-test.service.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsurparticip-add-form\rsurparticip-add-form.component.ts" />
@@ -629,8 +629,8 @@
     <TypeScriptCompile Include="app\rsur\rsurparticip.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
     <TypeScriptCompile Include="app\result\result.component.ts" />
-    <TypeScriptCompile Include="app\account\account.ts" />
-    <TypeScriptCompile Include="app\account\account.service.ts" />
+    <TypeScriptCompile Include="app\shared\account.ts" />
+    <TypeScriptCompile Include="app\services\account.service.ts" />
     <TypeScriptCompile Include="app\rsur\upload-report\upload-report.component.ts" />
     <TypeScriptCompile Include="app\rsur\upload-report\upload-report.service.ts" />
     <TypeScriptCompile Include="app\school-filter.pipe.ts" />

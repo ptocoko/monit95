@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@angular/router");
-var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
+var home_component_1 = require("./components/rsur/home/home.component");
 var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
@@ -22,7 +22,7 @@ var upload_report_component_1 = require("./rsur/upload-report/upload-report.comp
 var report_component_1 = require("./components/rsur/reports/report/report.component");
 var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
 var appRoutes = [
-    { path: 'rsur', component: rsur_home_component_1.RsurHomeComponent },
+    { path: 'rsur', component: home_component_1.HomeComponent },
     { path: 'rsur/test', component: rsur_test_component_1.RsurTestComponent },
     { path: 'rsur/particips', component: rsur_particips_component_1.RsurParticipsComponent },
     { path: 'rsur/particips/add', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },

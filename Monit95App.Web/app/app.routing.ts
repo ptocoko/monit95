@@ -1,6 +1,6 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 
-import { RsurHomeComponent } from './rsur/rsur-home/rsur-home.component';
+import { HomeComponent } from './components/rsur/home/home.component';
 import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 import { RsurParticipsComponent } from './rsur/rsur-particips/rsur-particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
@@ -17,12 +17,12 @@ import { UpdateClassParticipComponent } from './class-particips/add-and-update/u
 import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
 import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
 import { RsurTestProtocolComponent }     from './rsur/rsur-test-protocol/rsur-test-protocol.component';
-import { UploadReportComponent } from "./rsur/upload-report/upload-report.component";
+import { UploadReportComponent } from './rsur/upload-report/upload-report.component';
 import { ReportComponent } from './components/rsur/reports/report/report.component';
 import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
 
 const appRoutes: Routes = [
-    { path: 'rsur', component: RsurHomeComponent },
+    { path: 'rsur', component: HomeComponent },
     { path: 'rsur/test', component: RsurTestComponent },    
     { path: 'rsur/particips', component: RsurParticipsComponent },    
     { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },

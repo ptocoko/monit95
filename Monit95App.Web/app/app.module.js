@@ -21,8 +21,6 @@ var http_2 = require("@angular/common/http");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
-var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
-var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
@@ -39,11 +37,13 @@ var update_component_1 = require("./class-particips/add-and-update/update.compon
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
+var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
+var home_component_1 = require("./components/rsur/home/home.component");
 var report_component_1 = require("./components/rsur/reports/report/report.component");
 var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
 var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
 // Services
-var account_service_1 = require("./account/account.service");
+var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
 var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
 var rsur_test_service_1 = require("./rsur/rsur-test/rsur-test.service");
@@ -91,11 +91,11 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            rsur_home_component_1.RsurHomeComponent,
+            home_component_1.HomeComponent,
             rsur_test_component_1.RsurTestComponent,
             rsur_particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
-            rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
+            report_filter_pipe_1.RsurParticipFilterPipe,
             rsurparticip_filter_pipe_1.RsurShowNotActualParticips,
             particip_filter_pipe_1.ParticipFilterPipe,
             class_name_filter_pipe_1.ClassNameFilterPipe,
@@ -105,6 +105,7 @@ AppModule = __decorate([
             school_filter_pipe_1.SchoolFilter,
             report_filter_pipe_1.SchoolNameFilterPipe,
             report_filter_pipe_1.TestNameWithDateFilterPipe,
+            report_filter_pipe_1.TotalFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,

@@ -10,16 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var account_service_1 = require("../account/account.service");
+var account_service_1 = require("../services/account.service");
 var PlanComponent = (function () {
     function PlanComponent(accountService) {
         this.accountService = accountService;
     }
     PlanComponent.prototype.ngOnInit = function () {
-        //this.userService.getName().subscribe(user => {
-        //	if (user.userRoles.indexOf('area') >= 0)
-        //		this.areaCode = Number.parseInt(user.userName);
-        //});
     };
     return PlanComponent;
 }());
