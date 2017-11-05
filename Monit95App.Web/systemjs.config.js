@@ -42,11 +42,13 @@
 			'@angular/cdk/table': 'npm:@angular/cdk/bundles/cdk-table.umd.js',
 			'@angular/cdk/stepper': 'npm:@angular/cdk/bundles/cdk-stepper.umd.js',
 
-            '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+            '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
 
             // пакеты angular2-modal     
             'angular2-modal': 'npm:angular2-modal/bundle/angular2-modal.rollup.umd.js',
-            'angular2-modal/plugins/bootstrap': 'npm:angular2-modal/plugins/bootstrap/bundle/angular2-modal-bootstrap.rollup.umd.js',            
+            'angular2-modal/plugins/bootstrap': 'npm:angular2-modal/plugins/bootstrap/bundle/angular2-modal-bootstrap.rollup.umd.js',   
+
+            'ngx-order-pipe': 'npm:ngx-order-pipe/dist/bundles/ngx-order-pipe.umd.js',
 			
             // datepicker
 			'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js',

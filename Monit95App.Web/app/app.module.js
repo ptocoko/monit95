@@ -19,6 +19,7 @@ var animations_1 = require("@angular/platform-browser/animations");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var http_2 = require("@angular/common/http");
 var router_1 = require("@angular/router");
+var ngx_order_pipe_1 = require("ngx-order-pipe");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
@@ -89,6 +90,7 @@ AppModule = __decorate([
             animations_1.BrowserAnimationsModule,
             material_1.MatButtonModule,
             material_1.MatDialogModule,
+            ngx_order_pipe_1.OrderModule,
             ng_bootstrap_1.NgbModule.forRoot(),
             router_1.RouterModule.forRoot([
                 { path: 'rsur', component: home_component_1.HomeComponent },

@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { OrderModule } from 'ngx-order-pipe';
 
 // Components
 import { AppComponent } from './app.component';
@@ -80,6 +81,7 @@ import { GlobalErrorHandler } from './error-handler';
 		BrowserAnimationsModule,
 		MatButtonModule,
         MatDialogModule,
+        OrderModule,
 		NgbModule.forRoot(),
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
