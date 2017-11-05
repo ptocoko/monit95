@@ -23,30 +23,58 @@ namespace Monit95App.Services.Rsur
             this.context = context;
         }
 
+        // TODO: need refactoring
         public IEnumerable<RatingItem> CreateRatings(int areaCode)
         {
-            var subjectResults = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.ActualCode == 1 // кто не выбыл
+            var allSubjectResults = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.ActualCode == 1 // кто не выбыл
                 && rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode 
-                && rtr.RsurParticipTest.RsurParticip.RsurSubjectCode == 1 
                 && rtr.Grade5 != null) // только тот, кто хотя бы раз участвовал в диагностике
-                .GroupBy(rtr => rtr.RsurParticipTest.RsurParticip.School.Name) // SchoolName уникальный, поэтому может группировать по этому полю
-                .ToList(); 
-            
-            var ratings = subjectResults.Select(g => new RatingItem
-                {
-                    SchoolName = g.Key,
-                    PercentPassFirstTest = ComputePercentPassTest(g, "0101"),
-                    PercentPassSecondTest = ComputePercentPassTest(g, "0102"),
-                    SubjectName = "Русский язык"
-                }).ToList();
+                .GroupBy(rtr => rtr.RsurParticipTest.RsurParticip.School.Name) // SchoolName уникальный, поэтому можно группировать по этому полю
+                .ToList();
 
             var place = 0;
-            foreach (var item in ratings.OrderByDescending(x => x.PercentPassSecondTest).ThenByDescending(x => x.PercentPassFirstTest))
+            // РУ
+            var rating1 = allSubjectResults.Select(g => new RatingItem
+                {
+                    SchoolName = g.Key,
+                    PercentPassFirstTest = ComputePercentPassTest(g.Where(d => d.RsurParticipTest.RsurParticip.RsurSubjectCode == 1), "0101"),
+                    PercentPassSecondTest = ComputePercentPassTest(g.Where(d => d.RsurParticipTest.RsurParticip.RsurSubjectCode == 1), "0102"),
+                    SubjectName = "Русский язык"
+                }).ToList();            
+            foreach (var item in rating1.OrderByDescending(x => x.PercentPassSecondTest).ThenByDescending(x => x.PercentPassFirstTest))
             {
                 item.Place = ++place;
             }
 
-            return ratings.OrderBy(x => x.Place);
+            // МА
+            place = 0;
+            var rating2 = allSubjectResults.Select(g => new RatingItem
+            {
+                SchoolName = g.Key,
+                PercentPassFirstTest = ComputePercentPassTest(g.Where(d => d.RsurParticipTest.RsurParticip.RsurSubjectCode == 2), "0201"),
+                PercentPassSecondTest = ComputePercentPassTest(g.Where(d => d.RsurParticipTest.RsurParticip.RsurSubjectCode == 2), "0202"),
+                SubjectName = "Математика"
+            }).ToList();
+            foreach (var item in rating2.OrderByDescending(x => x.PercentPassSecondTest).ThenByDescending(x => x.PercentPassFirstTest))
+            {
+                item.Place = ++place;
+            }
+
+            // ИС
+            place = 0;
+            var rating7 = allSubjectResults.Select(g => new RatingItem
+            {
+                SchoolName = g.Key,
+                PercentPassFirstTest = ComputePercentPassTest(g.Where(d => d.RsurParticipTest.RsurParticip.RsurSubjectCode == 7), "0701"),
+                PercentPassSecondTest = ComputePercentPassTest(g.Where(d => d.RsurParticipTest.RsurParticip.RsurSubjectCode == 7), "0702"),
+                SubjectName = "История"
+            }).ToList();
+            foreach (var item in rating7.OrderByDescending(x => x.PercentPassSecondTest).ThenByDescending(x => x.PercentPassFirstTest))
+            {
+                item.Place = ++place;
+            }
+
+            return rating1.Union(rating2).Union(rating7);
         }
 
         [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
