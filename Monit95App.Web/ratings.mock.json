@@ -1,0 +1,37 @@
+﻿[
+    {
+        "SubjectName": "Русский язык",
+        "Place": "1",
+        "SchoolName": "Школа №1",
+        "PercentPassFirstTest": "23,1%",
+        "PercentPassSecondTest": "90,2%"
+    },
+    {
+        "SubjectName": "Русский язык",
+        "Place": "2",
+        "SchoolName": "Школа №3",
+        "PercentPassFirstTest": "23,1%",
+        "PercentPassSecondTest": "80,2%"
+    },
+    {
+        "SubjectName": "Русский язык",
+        "Place": "3",
+        "SchoolName": "Школа №2",
+        "PercentPassFirstTest": "0,0%",
+        "PercentPassSecondTest": "10,1%"
+    },
+    {
+        "SubjectName": "Математика",
+        "Place": "1",
+        "SchoolName": "Школа №32",
+        "PercentPassFirstTest": "45,2%",
+        "PercentPassSecondTest": "90,2%"
+    },
+    {
+        "SubjectName": "Математика",
+        "Place": "2",
+        "SchoolName": "Школа №1",
+        "PercentPassFirstTest": "1,2%",
+        "PercentPassSecondTest": "90,4%"
+    }
+]

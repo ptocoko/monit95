@@ -57,6 +57,7 @@ var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
 var upload_report_service_1 = require("./rsur/upload-report/upload-report.service");
 var rsur_report_service_1 = require("./services/rsur-report.service");
+var rsur_rating_service_1 = require("./services/rsur-rating.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -67,7 +68,6 @@ var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var report_filter_pipe_1 = require("./components/rsur/reports/report-list/report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
 // Additional 
-//import { routing } from './app.routing';
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
 var AppModule = (function () {
@@ -81,7 +81,6 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
             http_2.HttpClientModule,
-            //routing,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
             angular2_modal_1.ModalModule.forRoot(),
@@ -167,6 +166,7 @@ AppModule = __decorate([
             results_service_1.ResultsService,
             rsur_report_service_1.RsurReportService,
             upload_report_service_1.UploadReportService,
+            rsur_rating_service_1.RsurRatingService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

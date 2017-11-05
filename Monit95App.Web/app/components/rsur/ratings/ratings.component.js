@@ -19,7 +19,8 @@ var RatingsComponent = (function () {
     }
     RatingsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.rsurRatingService.getRatings().subscribe(function (response) {
+        this.rsurRatingService.getMockRatings().subscribe(function (response) {
+            console.log(response);
             _this.ratings = response;
             _this.isLoading = false;
         });

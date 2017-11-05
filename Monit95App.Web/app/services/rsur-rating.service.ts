@@ -12,4 +12,8 @@ export class RsurRatingService {
     getRatings() {
         return this.http.get(`${this.ROUTE_PREFIX}`);		
     }  
+
+    getMockRatings() {
+        return this.http.get('/ratings.mock.json');
+    }
 }

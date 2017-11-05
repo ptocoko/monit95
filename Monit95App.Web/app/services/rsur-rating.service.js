@@ -19,6 +19,9 @@ var RsurRatingService = (function () {
     RsurRatingService.prototype.getRatings = function () {
         return this.http.get("" + this.ROUTE_PREFIX);
     };
+    RsurRatingService.prototype.getMockRatings = function () {
+        return this.http.get('/ratings.mock.json');
+    };
     return RsurRatingService;
 }());
 RsurRatingService = __decorate([

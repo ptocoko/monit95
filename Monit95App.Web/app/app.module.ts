@@ -51,6 +51,7 @@ import { SchoolCollectorService } from './shared/school-collector.service';
 import { ResultsService } from './shared/results.service';
 import { UploadReportService } from './rsur/upload-report/upload-report.service';
 import { RsurReportService } from './services/rsur-report.service';
+import { RsurRatingService } from './services/rsur-rating.service';
 
 // Pipes
 import { RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
@@ -157,7 +158,8 @@ import { GlobalErrorHandler } from './error-handler';
 		SchoolCollectorService,
 		ResultsService,
 	    RsurReportService,		
-		UploadReportService,
+        UploadReportService,
+	    RsurRatingService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
