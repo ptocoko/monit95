@@ -277,6 +277,7 @@
     <Compile Include="RESTful_API\FilesController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
+    <Compile Include="RESTful_API\Rsur\RatingsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurMarksController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipReportsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipsController.cs" />
@@ -330,7 +331,6 @@
     <Content Include="app\class-particips\marks\marks-add-and-edit.component.html" />
     <Content Include="app\class-particips\marks\marks.component.html" />
     <Content Include="app\class-particips\class-particips-list.component.html" />
-    <EmbeddedResource Include="app\class-particips\Eclipse.gif" />
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\components\rsur\ratings\ratings.component.html" />
@@ -411,6 +411,9 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
+    <EmbeddedResource Include="eclipse.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -443,6 +446,9 @@
     <Content Include="package.json" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="package - Копировать.json" />
+    <Content Include="progress.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ratings.mock.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

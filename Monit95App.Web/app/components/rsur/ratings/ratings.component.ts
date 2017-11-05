@@ -15,7 +15,7 @@ export class RatingsComponent implements OnInit {
     }
 
 	ngOnInit() {		
-        this.rsurRatingService.getMockRatings().subscribe(response => {
+        this.rsurRatingService.getRatings().subscribe(response => {
             console.log(response);
             this.ratings = response as RatingItem[];                       
 	        this.isLoading = false;

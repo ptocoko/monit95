@@ -93,6 +93,7 @@
     <Compile Include="DTOs\RsurParticipEditProtocol.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
+    <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="Rsur\ParticipReport\EgeQuestionResult.cs" />
     <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="ParticipResults.cs" />
     <Compile Include="RsurMarksService.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
+    <Compile Include="Rsur\RatingService.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />
     <Compile Include="DTOs\RsurParticipPostDto.cs" />
     <Compile Include="Rsur\RsurReportModel.cs" />
