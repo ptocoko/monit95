@@ -25,6 +25,10 @@ namespace Monit95App.RESTful_API.Rsur
         public IHttpActionResult Get()
         {
             var areaCode = int.Parse(User.Identity.GetUserName());
+            if (areaCode == 206)
+            {
+                return BadRequest("Для аккаунта 206 рейтинги не доступны");
+            }
             var ratings = ratingService.CreateRatings(areaCode);
 
             return Ok(ratings);

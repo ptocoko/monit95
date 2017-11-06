@@ -1,6 +1,6 @@
 ﻿<h2>РСУР: Результаты диагностики «Октябрь-2017»</h2>
 <hr />
-<div *ngIf="isLoading">Загрузка...</div>
+<div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif"/></div>
 <div *ngIf="!isLoading && resultsList.length > 0">
     <div class="form-inline">
         <select *ngIf="resultsList !== undefined" class="form-control" [(ngModel)]="selectedSchool">

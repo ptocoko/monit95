@@ -32,6 +32,11 @@ namespace Monit95App.Services.Rsur
                 .GroupBy(rtr => rtr.RsurParticipTest.RsurParticip.School.Name) // SchoolName уникальный, поэтому можно группировать по этому полю
                 .ToList();
 
+            if (!allSubjectResults.Any())
+            {
+                throw new ArgumentException(nameof(areaCode));
+            }
+
             var place = 0;
             // РУ
             var rating1 = allSubjectResults.Select(g => new RatingItem

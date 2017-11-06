@@ -1,23 +1,23 @@
 ﻿<h2>РСУР: Главное меню</h2>
 <div class="panel panel-default">
     <div *ngIf="isArea()" class="panel-body">
-        <p>Участники</p>
+        <p>участники</p>
         <ul class="list-group">
-            <li class="list-group-item"><a routerLink="/rsur/particips">Список участников</a></li>                        
+            <li class="list-group-item"><a routerLink="/rsur/particips"><b>Список участников</b></a></li>                        
         </ul>
     </div>
 
     <div class="panel-body">
-        <p>Вспомогательный материал</p>
+        <p>вспомогательный материал</p>
         <ul class="list-group">
-            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/E6sR/WAFY5mpEu">Спецификации КИМ</a></li>            
-            <li *ngIf="false" class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/H1cj/bQbLoHicw">Демо-версии КИМ</a></li>            
-            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/Mzu7/N3yRJLLzp">Рекомендации и материалы диагностики «Октябрь-2017»</a></li>            
+            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/E6sR/WAFY5mpEu"><b>Спецификации КИМ</b></a></li>            
+            <li *ngIf="false" class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/H1cj/bQbLoHicw"><b>Демо-версии КИМ</b></a></li>            
+            <li class="list-group-item"><a target="_blank" href="https://cloud.mail.ru/public/Mzu7/N3yRJLLzp"><b>Рекомендации и материалы диагностики «Октябрь-2017»</b></a></li>            
         </ul>
     </div>  
     
     <div *ngIf="0==1" class="panel-body">
-        <p>Диагностики</p>
+        <p>диагностики</p>
         <ul class="list-group">
             <li class="list-group-item"><a routerLink="/rsur/test">«Октябрь-2017»</a></li>           
         </ul>
@@ -30,11 +30,11 @@
     </div>-->
 
     <div *ngIf="isArea() || isSchool() || isRsurParticip()" class="panel-body">
-        <p>Отчеты</p>
+        <p>отчеты</p>
         <ul class="list-group">
-            <li class="list-group-item"><a routerLink="/rsur/results-list">Результаты диагностики «Октябрь-2017»</a></li>
-            <li *ngIf="isArea()" class="list-group-item"><a routerLink="/rsur/ratings">Рейтинги</a></li>
-            <li *ngIf="false && isSchool()" class="list-group-item"><a routerLink="/rsur/upload-report">Загрузить отчет</a></li>
+            <li class="list-group-item"><a routerLink="/rsur/results-list"><b>Результаты диагностики «Октябрь-2017»</b></a></li>
+            <li *ngIf="isArea() && account.UserName !== '206'" class="list-group-item"><a routerLink="/rsur/ratings"><b>Рейтинги</b></a></li>
+            <li *ngIf="false && isSchool()" class="list-group-item"><a routerLink="/rsur/upload-report"><b>Загрузить отчет</b></a></li>
         </ul>
     </div>    
 </div>

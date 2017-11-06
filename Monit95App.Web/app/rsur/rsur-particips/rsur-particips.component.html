@@ -1,15 +1,14 @@
-﻿    <h2>РСУР</h2>
-<h3>Список участников</h3>
+﻿<h2>РСУР: Список участников</h2>
 <hr />
 <div *ngIf="isArea()" class="form-inline">
-    <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Поиск..." />
+    <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="поиск..." />
     <div style="margin-left:15px" class="checkbox">
         <label>
             <input type="checkbox" [(ngModel)]="isShowNotActual"> выбывшие
         </label>
     </div>
 </div>
-<br/>
+<br />
 <table class="table table-bordered">
     <thead>
         <tr>
