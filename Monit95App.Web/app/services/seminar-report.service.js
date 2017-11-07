@@ -26,6 +26,9 @@ var SeminarReportService = (function () {
     SeminarReportService.prototype.getReportsList = function () {
         return this.http.get('/api/rsur/reports');
     };
+    SeminarReportService.prototype.getReport = function (reportId) {
+        return this.http.get('/api/rsur/reports/' + reportId);
+    };
     return SeminarReportService;
 }());
 SeminarReportService = __decorate([

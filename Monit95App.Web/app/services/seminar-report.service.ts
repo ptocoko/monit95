@@ -1,7 +1,7 @@
 ﻿
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { ReportsListModel } from "../components/rsur/seminar-report/reports-list.component";
+import { SeminarReportModel } from "../components/rsur/seminar-report/seminar-report.model";
 
 @Injectable()
 export class SeminarReportService {
@@ -18,6 +18,10 @@ export class SeminarReportService {
 	}
 
 	getReportsList() {
-		return this.http.get<ReportsListModel[]>('/api/rsur/reports');
+		return this.http.get<SeminarReportModel[]>('/api/rsur/reports');
+	}
+
+	getReport(reportId: number) {
+		return this.http.get<SeminarReportModel>('/api/rsur/reports/' + reportId)
 	}
 }

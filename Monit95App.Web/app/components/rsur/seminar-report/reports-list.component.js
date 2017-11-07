@@ -11,12 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var seminar_report_service_1 = require("../../../services/seminar-report.service");
-var ReportsListModel = (function () {
-    function ReportsListModel() {
-    }
-    return ReportsListModel;
-}());
-exports.ReportsListModel = ReportsListModel;
 var SeminarReportsListComponent = (function () {
     function SeminarReportsListComponent(seminarReportService) {
         this.seminarReportService = seminarReportService;

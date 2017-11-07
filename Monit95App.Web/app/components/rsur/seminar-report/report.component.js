@@ -12,13 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var seminar_report_service_1 = require("../../../services/seminar-report.service");
+var seminar_report_model_1 = require("./seminar-report.model");
 var SeminarReportComponent = (function () {
     function SeminarReportComponent(router, route, seminarReportService) {
         this.router = router;
         this.route = route;
         this.seminarReportService = seminarReportService;
+        this.report = new seminar_report_model_1.SeminarReportModel();
     }
     SeminarReportComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            var rsurReportId = params['id'];
+            _this.seminarReportService.getReport(rsurReportId).subscribe(function (res) { return _this.report = res; });
+        });
     };
     return SeminarReportComponent;
 }());

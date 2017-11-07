@@ -608,6 +608,7 @@
     <TypeScriptCompile Include="app\components\rsur\ratings\subject-filter.pipe.ts" />
     <TypeScriptCompile Include="app\components\rsur\seminar-report\report.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\seminar-report\reports-list.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\seminar-report\seminar-report.model.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\components\files\files.component.ts" />
     <TypeScriptCompile Include="app\components\files\file.service.ts" />
