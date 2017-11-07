@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var rsur_report_service_1 = require("../../../../services/rsur-report.service");
+var seminar_report_service_1 = require("../../../../services/seminar-report.service");
 var UploadReportComponent = (function () {
-    function UploadReportComponent(location, rsurReportService) {
+    function UploadReportComponent(location, seminarReportService) {
         this.location = location;
-        this.rsurReportService = rsurReportService;
+        this.seminarReportService = seminarReportService;
         this.images = new Array();
         this.protocolText = "";
     }
@@ -50,8 +50,8 @@ var UploadReportComponent = (function () {
     };
     UploadReportComponent.prototype.send = function () {
         var _this = this;
-        this.rsurReportService.postSeminarText(this.protocolText).subscribe(function (reportId) {
-            _this.rsurReportService.postSeminarImages(_this.images, reportId).subscribe(function () { return _this.location.back(); });
+        this.seminarReportService.postText(this.protocolText).subscribe(function (reportId) {
+            _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () { return _this.location.back(); });
         });
     };
     UploadReportComponent.prototype.cancel = function () {
@@ -65,7 +65,7 @@ UploadReportComponent = __decorate([
         templateUrl: "./app/components/rsur/seminar-report/add-form/upload-report.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/components/rsur/seminar-report/add-form/upload-report.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [common_1.Location, rsur_report_service_1.RsurReportService])
+    __metadata("design:paramtypes", [common_1.Location, seminar_report_service_1.SeminarReportService])
 ], UploadReportComponent);
 exports.UploadReportComponent = UploadReportComponent;
 //# sourceMappingURL=upload-report.component.js.map

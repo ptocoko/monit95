@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
 import { RsurReportService } from "../../../../services/rsur-report.service";
+import { SeminarReportService } from "../../../../services/seminar-report.service";
 
 @Component({
 	selector: 'upload-report',
@@ -13,7 +14,7 @@ export class UploadReportComponent {
 	images: File[] = new Array<File>();
 	protocolText: string = "";
 
-	constructor(private readonly location: Location, private readonly rsurReportService: RsurReportService) { }
+	constructor(private readonly location: Location, private readonly seminarReportService: SeminarReportService) { }
 
 	addPhoto(event: any) {
 		let files: FileList = event.target.files as FileList;
@@ -48,8 +49,8 @@ export class UploadReportComponent {
 	}
 
 	send() {
-		this.rsurReportService.postSeminarText(this.protocolText).subscribe((reportId: number) => {
-			this.rsurReportService.postSeminarImages(this.images, reportId).subscribe(() => this.location.back())
+		this.seminarReportService.postText(this.protocolText).subscribe((reportId: number) => {
+			this.seminarReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
 		});
 	}
 

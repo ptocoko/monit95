@@ -1,23 +1,18 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
-import { RsurReportService } from "../../../services/rsur-report.service";
-
-export class ReportsListModel {
-	RsurReportId: number;
-	DateText: string;
-	Text: string;
-}
+import { SeminarReportService } from "../../../services/seminar-report.service";
+import { SeminarReportModel } from "./seminar-report.model";
 
 @Component({
 	selector: 'reports-list',
 	templateUrl: `./app/components/rsur/seminar-report/reports-list.component.html?v=${new Date().getTime()}`
 })
 export class SeminarReportsListComponent implements OnInit{
-	reports: ReportsListModel[];
+	reports: SeminarReportModel[];
 
-	constructor(private readonly rsurReportService: RsurReportService) { }
+	constructor(private readonly seminarReportService: SeminarReportService) { }
 
 	ngOnInit() {
-		this.rsurReportService.getSeminarReportsList().subscribe(res => this.reports = res);
+		this.seminarReportService.getReportsList().subscribe(res => this.reports = res);
 	}
 }

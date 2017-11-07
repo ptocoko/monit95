@@ -10,20 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var rsur_report_service_1 = require("../../../services/rsur-report.service");
-var ReportsListModel = (function () {
-    function ReportsListModel() {
-    }
-    return ReportsListModel;
-}());
-exports.ReportsListModel = ReportsListModel;
+var seminar_report_service_1 = require("../../../services/seminar-report.service");
 var SeminarReportsListComponent = (function () {
-    function SeminarReportsListComponent(rsurReportService) {
-        this.rsurReportService = rsurReportService;
+    function SeminarReportsListComponent(seminarReportService) {
+        this.seminarReportService = seminarReportService;
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.rsurReportService.getSeminarReportsList().subscribe(function (res) { return _this.reports = res; });
+        this.seminarReportService.getReportsList().subscribe(function (res) { return _this.reports = res; });
     };
     return SeminarReportsListComponent;
 }());
@@ -32,7 +26,7 @@ SeminarReportsListComponent = __decorate([
         selector: 'reports-list',
         templateUrl: "./app/components/rsur/seminar-report/reports-list.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [rsur_report_service_1.RsurReportService])
+    __metadata("design:paramtypes", [seminar_report_service_1.SeminarReportService])
 ], SeminarReportsListComponent);
 exports.SeminarReportsListComponent = SeminarReportsListComponent;
 //# sourceMappingURL=reports-list.component.js.map
