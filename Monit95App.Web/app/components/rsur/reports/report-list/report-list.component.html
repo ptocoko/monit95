@@ -1,19 +1,17 @@
-﻿<h2>РСУР. Результаты диагностики «Октябрь-2017»</h2>
+﻿<h2>РСУР: Результаты диагностики «Октябрь-2017»</h2>
 <hr />
-<div *ngIf="isLoading">Загрузка...</div>
+<div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif"/></div>
 <div *ngIf="!isLoading && resultsList.length > 0">
     <div class="form-inline">
-        <select *ngIf="resultsList !== undefined" class="form-control" [(ngModel)]="searchSchool">
+        <select *ngIf="resultsList !== undefined" class="form-control" [(ngModel)]="selectedSchool">
             <option>Все организации</option>
-            <option *ngFor="let result of resultsList | schoolNameFilter : searchTest">{{result}}</option>
+            <option *ngFor="let result of resultsList | schoolNameFilter : selectedTest">{{result}}</option>
         </select>
-        <select class="form-control" [(ngModel)]="searchTest">
+        <select class="form-control" [(ngModel)]="selectedTest">
             <option>Все блоки</option>
-            <option *ngFor="let result of resultsList | testNameWithDateFilter : searchSchool">{{result}}</option>
+            <option *ngFor="let result of resultsList | testNameWithDateFilter : selectedSchool">{{result}}</option>
         </select>
-        <div class="form-group">
-            <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="поиск участника..." />
-        </div>
+        <input type="text" [(ngModel)]="searchParticip" class="form-control" placeholder="поиск участника..." />
     </div>
     <br />
     <table class="table table-striped table-bordered table-hover">
@@ -23,10 +21,10 @@
             <th style="text-align:center">фамилия</th>
             <th style="text-align:center">имя</th>
             <th style="text-align:center">отчество</th>
-            <th style="text-align:center">школа</th>
+            <th style="text-align:center">организация</th>
             <th style="text-align:center">зачет/незачет</th>
         </tr>
-        <tr style="cursor:pointer" (click)="openReport(result.RsurParticipTestId)" *ngFor="let result of resultsList | testNameFilter : searchTest | rsurParticipFilter : searchText; let i = index">
+        <tr style="cursor:pointer" (click)="openReport(result.RsurParticipTestId)" *ngFor="let result of resultsList | totalFilter : selectedSchool : selectedTest | rsurParticipFilter : searchParticip; let i = index">
             <td align="center">{{i+1}}</td>
             <td align="center">{{result.Code}}</td>
             <td>{{result.SchoolParticipInfo.Surname}}</td>

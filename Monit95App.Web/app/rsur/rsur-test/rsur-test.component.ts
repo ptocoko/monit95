@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { AccountService } from '../../account/account.service';
+import { AccountService } from '../../services/account.service';
 import { RsurTestService } from './rsur-test.service';
 
-import { Account } from '../../account/account';
+import { Account } from '../../shared/account';
 
 class RsurTestStatistics {
 	HasAnyParticip: string;
@@ -29,10 +29,10 @@ export class RsurTestComponent implements OnInit {
     ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
 			this.account = data.json() as Account;
-			this.rsurTestService.getProtocolStatus().subscribe(res => {
-				this.protocolValues = res.json() as { [id: number]: RsurTestStatistics };
-				this.componentIsShowing = true;
-			})
+            this.rsurTestService.getProtocolStatus().subscribe(res => {
+                this.protocolValues = res.json() as { [id: number]: RsurTestStatistics };
+                this.componentIsShowing = true;
+            });
         });
         //this.getProtocolStatus(1082);
     }

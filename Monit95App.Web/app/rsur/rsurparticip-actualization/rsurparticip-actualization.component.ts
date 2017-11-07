@@ -4,8 +4,8 @@ import { Response } from '@angular/http';
 import { RsurParticip } from '../rsurparticip';
 
 import { RsurParticipService } from '../rsurparticip.service';
-import { AccountService } from '../../account/account.service';
-import { SchoolCollectorService, SchoolCollector } from "../../shared/school-collector.service";
+import { AccountService } from '../../services/account.service';
+import { SchoolCollectorService } from '../../shared/school-collector.service';
 
 const COLLECTOR_ID: number = 1;
 
@@ -54,23 +54,12 @@ export class RsurParticipsActualizationComponent implements OnInit {
 	}
 
 	onFinished() {
-		let action = confirm('Вы уверены?');
+	    const action = confirm('Вы уверены?');
 
-		if (action) {
+	    if (action) {
 			this.schoolCollectorService.isFinished(COLLECTOR_ID, true).subscribe(() => {
 				this.isFinished = true;
 			});
 		}
-	}
-    //edit(particip: RsurParticip) {
-    //    this.modal.open(ParticipFormComponent, overlayConfigFactory(particip, BSModalContext))
-    //        .then((dialog: DialogRef<RsurParticip>) => {
-    //            dialog.result.then(dialogResponse => {
-    //                this.participService.update(dialogResponse).subscribe((serviceResponse: Response) => {
-    //                    var index = this.particips.indexOf(particip);
-    //                    this.particips[index] = serviceResponse.json() as RsurParticip;
-    //                });
-    //            });
-    //        });
-    //}
+    }
 };

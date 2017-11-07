@@ -14,16 +14,13 @@ var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var edit_modal_component_1 = require("./edit-modal.component");
 var rsurparticip_service_1 = require("../rsurparticip.service");
-var account_service_1 = require("../../account/account.service");
+var account_service_1 = require("../../services/account.service");
 var EditParticipComponent = (function () {
     function EditParticipComponent(participService, accountService, modal) {
         this.participService = participService;
         this.accountService = accountService;
         this.modal = modal;
     }
-    //ngOnInit() {
-    //    this.participService.get().subscribe(particips => this.particips = particips);
-    //}
     EditParticipComponent.prototype.modalOpen = function (particip) {
         var _this = this;
         this.modal.open(edit_modal_component_1.EditModalComponent, angular2_modal_1.overlayConfigFactory(particip, bootstrap_1.BSModalContext)).then(function (dialog) {

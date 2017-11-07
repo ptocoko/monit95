@@ -14,8 +14,8 @@ export class ReportListComponent implements OnInit {
     rsurTests: string[];
     schools: string[];
 	isLoading: boolean;
-    searchTest: string = 'Все блоки';
-    searchSchool: string = 'Все организации';
+    selectedTest: string = 'Все блоки';
+    selectedSchool: string = 'Все организации';
 
 	constructor(private readonly rsurReportService: RsurReportService, 
         private readonly route: Router) {

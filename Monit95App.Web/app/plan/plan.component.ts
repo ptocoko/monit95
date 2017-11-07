@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../account/account.service';
+import { AccountService } from '../services/account.service';
 
 @Component({
     selector: 'plan',
@@ -13,9 +13,6 @@ export class PlanComponent implements OnInit
     constructor(private readonly  accountService: AccountService) { }
 
     ngOnInit() {
-		//this.userService.getName().subscribe(user => {
-		//	if (user.userRoles.indexOf('area') >= 0)
-		//		this.areaCode = Number.parseInt(user.userName);
-		//});
+
     }
 };

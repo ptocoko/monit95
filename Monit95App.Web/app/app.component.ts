@@ -1,6 +1,5 @@
-﻿import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { AccountService } from './account/account.service';
-import { RouterOutlet } from '@angular/router';
+﻿import { Component, OnInit } from '@angular/core';
+import { AccountService } from './services/account.service';
 
 @Component({
     selector: 'app-root',

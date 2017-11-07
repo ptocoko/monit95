@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../account/account.service';
-import { Account } from '../account/account';
+import { Http } from '@angular/http';
+import { Router } from '@angular/router';
+import { AccountService } from '../services/account.service';
+import { Account } from '../shared/account';
 import { ParticipService } from '../particip.service';
-import { ClassParticip } from "./ClassParticip";
-import { Http } from "@angular/http";
-import { Router } from "@angular/router";
+import { ClassParticip } from './ClassParticip';
 
 const PROJECT_ID: number = 1;
 
@@ -39,7 +39,7 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	addClassParticip() {
-		this.router.navigate(['class-particips/new'])
+	    this.router.navigate(['class-particips/new']);
 	}
 
 	updateClassParticip(classParticip: ClassParticip) {
@@ -47,12 +47,12 @@ export class ClassParticipsListComponent implements OnInit {
 	}
 
 	deleteClassParticip(particip: ClassParticip) {
-		let index = this.classParticips.indexOf(particip);
-		let isDelete = confirm('Вы уверены что хотите удалить данную запись?');
+		const index = this.classParticips.indexOf(particip);
+		const isDelete = confirm('Вы уверены что хотите удалить данную запись?');
 		if (isDelete) {
-			this.participService.deleteParticip(particip.Id).subscribe(res => {
-				this.classParticips.splice(index, 1);
-			})
+		    this.participService.deleteParticip(particip.Id).subscribe(res => {
+		        this.classParticips.splice(index, 1);
+		    });
 		}
 	}
 }

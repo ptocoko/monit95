@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var account_service_1 = require("../../account/account.service");
+var account_service_1 = require("../../services/account.service");
 var rsur_test_service_1 = require("./rsur-test.service");
-var account_1 = require("../../account/account");
+var account_1 = require("../../shared/account");
 var RsurTestStatistics = (function () {
     function RsurTestStatistics() {
     }

@@ -18,11 +18,11 @@ var material_1 = require("@angular/material");
 var animations_1 = require("@angular/platform-browser/animations");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var http_2 = require("@angular/common/http");
+var router_1 = require("@angular/router");
+var ngx_order_pipe_1 = require("ngx-order-pipe");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
-var rsur_home_component_1 = require("./rsur/rsur-home/rsur-home.component");
-var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
@@ -39,11 +39,14 @@ var update_component_1 = require("./class-particips/add-and-update/update.compon
 var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
 var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
+var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
+var home_component_1 = require("./components/rsur/home/home.component");
 var report_component_1 = require("./components/rsur/reports/report/report.component");
 var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
 var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
+var ratings_component_1 = require("./components/rsur/ratings/ratings.component");
 // Services
-var account_service_1 = require("./account/account.service");
+var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
 var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
 var rsur_test_service_1 = require("./rsur/rsur-test/rsur-test.service");
@@ -55,6 +58,7 @@ var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
 var upload_report_service_1 = require("./rsur/upload-report/upload-report.service");
 var rsur_report_service_1 = require("./services/rsur-report.service");
+var rsur_rating_service_1 = require("./services/rsur-rating.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -63,8 +67,8 @@ var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var report_filter_pipe_1 = require("./components/rsur/reports/report-list/report-filter.pipe");
+var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
 // Additional 
-var app_routing_1 = require("./app.routing");
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
 var AppModule = (function () {
@@ -78,7 +82,6 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
             http_2.HttpClientModule,
-            app_routing_1.routing,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
             angular2_modal_1.ModalModule.forRoot(),
@@ -87,15 +90,40 @@ AppModule = __decorate([
             animations_1.BrowserAnimationsModule,
             material_1.MatButtonModule,
             material_1.MatDialogModule,
-            ng_bootstrap_1.NgbModule.forRoot()
+            ngx_order_pipe_1.OrderModule,
+            ng_bootstrap_1.NgbModule.forRoot(),
+            router_1.RouterModule.forRoot([
+                { path: 'rsur', component: home_component_1.HomeComponent },
+                { path: 'rsur/test', component: rsur_test_component_1.RsurTestComponent },
+                { path: 'rsur/particips', component: rsur_particips_component_1.RsurParticipsComponent },
+                { path: 'rsur/particips/add', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
+                { path: 'rsur/tests/:id/protocols', component: rsur_test_protocol_list_component_1.RsurTestProtocolListComponent },
+                { path: 'rsur/testprotocols/:id', component: rsur_test_protocol_component_1.RsurTestProtocolComponent },
+                { path: 'rsur/upload-report', component: upload_report_component_1.UploadReportComponent },
+                { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
+                { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
+                { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
+                { path: 'plan', component: plan_component_1.PlanComponent },
+                { path: 'result', component: result_component_1.ResultComponent },
+                { path: 'details', component: particip_details_component_1.ParticipDetailsComponent },
+                { path: 'particip-correction', component: particip_correction_component_1.ParticipCorrectionComponent },
+                { path: 'class-particips', component: class_particips_plan_component_1.ClassParticipsPlanComponent },
+                { path: 'class-particips/list', component: class_particips_list_component_1.ClassParticipsListComponent },
+                { path: 'class-particips/upload-excel', component: export_excel_component_1.ClassParticipsExportExcelComponent },
+                { path: 'class-particips/new', component: add_component_1.AddClassParticipComponent },
+                { path: 'class-particips/update/:id', component: update_component_1.UpdateClassParticipComponent },
+                { path: 'class-particips/marks', component: marks_component_1.ClassParticipMarksComponent },
+                { path: 'class-particips/marks-edit/:participTestId', component: marks_add_and_edit_component_1.MarksAddAndEditComponent },
+                { path: '', redirectTo: '/rsur', pathMatch: 'full' }
+            ])
         ],
         declarations: [
             app_component_1.AppComponent,
-            rsur_home_component_1.RsurHomeComponent,
+            home_component_1.HomeComponent,
             rsur_test_component_1.RsurTestComponent,
             rsur_particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
-            rsurparticip_filter_pipe_1.RsurParticipFilterPipe,
+            report_filter_pipe_1.RsurParticipFilterPipe,
             rsurparticip_filter_pipe_1.RsurShowNotActualParticips,
             particip_filter_pipe_1.ParticipFilterPipe,
             class_name_filter_pipe_1.ClassNameFilterPipe,
@@ -105,6 +133,8 @@ AppModule = __decorate([
             school_filter_pipe_1.SchoolFilter,
             report_filter_pipe_1.SchoolNameFilterPipe,
             report_filter_pipe_1.TestNameWithDateFilterPipe,
+            report_filter_pipe_1.TotalFilterPipe,
+            subject_filter_pipe_1.SubjectFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,
@@ -122,7 +152,8 @@ AppModule = __decorate([
             rsur_test_protocol_component_1.RsurTestProtocolComponent,
             report_component_1.ReportComponent,
             report_list_component_1.ReportListComponent,
-            upload_report_component_1.UploadReportComponent
+            upload_report_component_1.UploadReportComponent,
+            ratings_component_1.RatingsComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -137,6 +168,7 @@ AppModule = __decorate([
             results_service_1.ResultsService,
             rsur_report_service_1.RsurReportService,
             upload_report_service_1.UploadReportService,
+            rsur_rating_service_1.RsurRatingService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

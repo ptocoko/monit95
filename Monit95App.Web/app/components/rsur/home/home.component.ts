@@ -1,13 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../../account/account.service';
-import { Account } from '../../account/account';
+import { AccountService } from '../../../services/account.service';
+import { Account } from '../../../shared/account';
 
 @Component({
-    templateUrl: `./app/rsur/rsur-home/rsur-home.component.html?v=${new Date().getTime()}`
+    templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`
 })
-export class RsurHomeComponent implements  OnInit {
-    account = new Account();    
-    test = 'test 2';
+export class HomeComponent implements  OnInit {
+    account = new Account();        
 
     constructor(
         private readonly accountService: AccountService) {

@@ -7,20 +7,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var RsurShowNotActualParticips = (function () {
-    function RsurShowNotActualParticips() {
+var SubjectFilterPipe = (function () {
+    function SubjectFilterPipe() {
     }
-    RsurShowNotActualParticips.prototype.transform = function (particips, isShowNotActual) {
-        if (isShowNotActual)
-            return particips;
-        else {
-            return particips.filter(function (particip) { return particip.ActualCode === 1; });
+    SubjectFilterPipe.prototype.transform = function (ratings, selectedSubject) {
+        if (selectedSubject !== undefined) {
+            ratings = ratings.filter(function (item) { return item.SubjectName === selectedSubject; });
         }
+        return ratings;
     };
-    return RsurShowNotActualParticips;
+    return SubjectFilterPipe;
 }());
-RsurShowNotActualParticips = __decorate([
-    core_1.Pipe({ name: 'rsurIsShowNotActual' })
-], RsurShowNotActualParticips);
-exports.RsurShowNotActualParticips = RsurShowNotActualParticips;
-//# sourceMappingURL=rsurparticip-filter.pipe.js.map
+SubjectFilterPipe = __decorate([
+    core_1.Pipe({ name: 'subjectFilter' })
+], SubjectFilterPipe);
+exports.SubjectFilterPipe = SubjectFilterPipe;
+//# sourceMappingURL=subject-filter.pipe.js.map

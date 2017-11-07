@@ -65,4 +65,56 @@ TestIdPipe = __decorate([
     core_1.Pipe({ name: 'testNameFilter' })
 ], TestIdPipe);
 exports.TestIdPipe = TestIdPipe;
+var RsurParticipFilterPipe = (function () {
+    function RsurParticipFilterPipe() {
+    }
+    RsurParticipFilterPipe.prototype.transform = function (particips, searchText) {
+        if (searchText == null)
+            return particips;
+        return particips.filter(function (particip) {
+            if (particip.Surname) {
+                return particip.Code.toString().indexOf(searchText) > -1
+                    || particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+                    || particip.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+            }
+            else if (particip.SchoolParticipInfo.Surname) {
+                return particip.Code.toString().indexOf(searchText) > -1 ||
+                    particip.SchoolParticipInfo.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+                    particip.SchoolParticipInfo.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+            }
+            else if (particip.RsurParticipCode) {
+                return particip.RsurParticipCode.toString().indexOf(searchText) > -1;
+            }
+            else {
+                throw Error('something went wrong in rsurParticipFilter pipe');
+            }
+        });
+    };
+    return RsurParticipFilterPipe;
+}());
+RsurParticipFilterPipe = __decorate([
+    core_1.Pipe({ name: 'rsurParticipFilter' })
+], RsurParticipFilterPipe);
+exports.RsurParticipFilterPipe = RsurParticipFilterPipe;
+var TotalFilterPipe = (function () {
+    function TotalFilterPipe() {
+    }
+    TotalFilterPipe.prototype.transform = function (reports, selectedSchool, selectedTest) {
+        if (selectedSchool === undefined || selectedTest === undefined) {
+            return reports;
+        }
+        if (selectedSchool !== 'Все организации') {
+            reports = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === selectedSchool; });
+        }
+        if (selectedTest !== 'Все блоки') {
+            reports = reports.filter(function (report) { return report.TestNameWithDate === selectedTest; });
+        }
+        return reports;
+    };
+    return TotalFilterPipe;
+}());
+TotalFilterPipe = __decorate([
+    core_1.Pipe({ name: 'totalFilter' })
+], TotalFilterPipe);
+exports.TotalFilterPipe = TotalFilterPipe;
 //# sourceMappingURL=report-filter.pipe.js.map

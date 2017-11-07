@@ -10,23 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var account_service_1 = require("../services/account.service");
-var PlanComponent = (function () {
-    function PlanComponent(accountService) {
-        this.accountService = accountService;
+var http_1 = require("@angular/common/http");
+var RsurRatingService = (function () {
+    function RsurRatingService(http) {
+        this.http = http;
+        this.ROUTE_PREFIX = 'api/rsur/ratings';
     }
-    PlanComponent.prototype.ngOnInit = function () {
+    RsurRatingService.prototype.getRatings = function () {
+        return this.http.get("" + this.ROUTE_PREFIX);
     };
-    return PlanComponent;
+    RsurRatingService.prototype.getMockRatings = function () {
+        return this.http.get('/ratings.mock.json');
+    };
+    return RsurRatingService;
 }());
-PlanComponent = __decorate([
-    core_1.Component({
-        selector: 'plan',
-        templateUrl: './app/plan/plan.html',
-        providers: [account_service_1.AccountService]
-    }),
-    __metadata("design:paramtypes", [account_service_1.AccountService])
-], PlanComponent);
-exports.PlanComponent = PlanComponent;
-;
-//# sourceMappingURL=plan.component.js.map
+RsurRatingService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.HttpClient])
+], RsurRatingService);
+exports.RsurRatingService = RsurRatingService;
+//# sourceMappingURL=rsur-rating.service.js.map

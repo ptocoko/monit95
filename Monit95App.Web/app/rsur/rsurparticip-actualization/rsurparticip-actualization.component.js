@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsurparticip_service_1 = require("../rsurparticip.service");
-var account_service_1 = require("../../account/account.service");
+var account_service_1 = require("../../services/account.service");
 var school_collector_service_1 = require("../../shared/school-collector.service");
 var COLLECTOR_ID = 1;
 var RsurParticipsActualizationComponent = (function () {

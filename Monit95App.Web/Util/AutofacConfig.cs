@@ -47,9 +47,9 @@ namespace Monit95App.Util
             builder.RegisterType<MarksService>().As<IMarksService>();
             builder.RegisterType<RsurMarksService>().As<IRsurMarksService>();
             builder.RegisterType<ParticipResults>().As<IParticipResults>();
-
             builder.RegisterType<ProtocolService>().As<IProtocolService>();
             builder.RegisterType<ParticipReportService>().As<IParticipReportService>();
+            builder.RegisterType<RatingService>().As<IRatingService>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

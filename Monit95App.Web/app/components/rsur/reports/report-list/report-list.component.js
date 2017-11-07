@@ -17,8 +17,8 @@ var ReportListComponent = (function () {
     function ReportListComponent(rsurReportService, route) {
         this.rsurReportService = rsurReportService;
         this.route = route;
-        this.searchTest = 'Все блоки';
-        this.searchSchool = 'Все организации';
+        this.selectedTest = 'Все блоки';
+        this.selectedSchool = 'Все организации';
     }
     ReportListComponent.prototype.ngOnInit = function () {
         var _this = this;
