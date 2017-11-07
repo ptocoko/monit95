@@ -81,53 +81,7 @@ namespace Monit95App.RESTful_API.Rsur
             }
             return Ok(rsurResults);
         }
-
-        [HttpPost]
-        [Authorize(Roles = "school")]
-        [Route("~/api/rsur/reports")]
-        public IHttpActionResult UploadText([FromBody]ReportTextDto textDto)
-        {
-            string schoolId = User.Identity.Name;
-            if (ModelState.IsValid)
-            {
-                var reportId = participReportService.SaveText(textDto.Text, schoolId);
-                return Ok(reportId);
-            }
-            else
-            {
-                return BadRequest("Something wrong with text");
-            }
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "school")]
-        [Route("~/api/rsur/reports/{reportId:int}/files")]
-        public IHttpActionResult UploadFiles()
-        {
-            var reportId = int.Parse(RequestContext.RouteData.Values["reportId"].ToString());
-            var httpRequest = HttpContext.Current.Request;
-
-            for(int i = 0; i < httpRequest.Files.Count; i++)
-            {
-                HttpPostedFile file = httpRequest.Files[i];
-                string fileExtension = Path.GetExtension(file.FileName);
-                var fileId = participReportService.SaveFile(file.InputStream, fileExtension, reportId, i+1);
-
-                participReportService.CreateRsurReportFilesEntry(reportId, fileId);
-            }
-
-            return Ok();
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "school")]
-        [Route("~/api/rsur/reports")]
-        public IHttpActionResult GetSeminarReports()
-        {
-            string schoolId = User.Identity.Name;
-
-            return Ok(participReportService.GetSeminarReports(schoolId));
-        }
+        
         #endregion
     }
 

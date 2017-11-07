@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
-using System.IO;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -134,52 +133,5 @@ namespace Monit95App.Services.Rsur.ParticipReport
             return GetResults(results, testDate);
         }
 
-        public int SaveText(string text, string schoolId)
-        {
-            var entity = new RsurReport { Text = text, SchoolId = schoolId, Date = DateTime.Now };
-            context.RsurReports.Add(entity);
-            context.SaveChanges();
-            return entity.Id;
-        }
-
-        public int SaveFile(Stream fileStream, string fileExtension, int reportId, int order)
-        {
-            const int repositoryId = 1;
-            var repository = context.Repositories.Find(repositoryId);
-            string directoryPath = repository.Path;
-
-            if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-
-            string fileName = $"{reportId} - {order}{fileExtension}";
-
-            using (var fs = System.IO.File.Create($"{directoryPath}{fileName}"))
-            {
-                fileStream.Seek(0, SeekOrigin.Begin);
-                fileStream.CopyTo(fs);
-            }
-
-            var file = new Domain.Core.Entities.File { Name = fileName, RepositoryId = repositoryId };
-            context.Files.Add(file);
-            context.SaveChanges();
-            return file.Id;
-        }
-
-        public void CreateRsurReportFilesEntry(int reportId, int fileId)
-        {
-            var entity = new RsurReportFile { RsurReportId = reportId, FileId = fileId };
-            context.RsurReportFiles.Add(entity);
-            context.SaveChanges();
-        }
-
-        public IEnumerable<SeminarReportModel> GetSeminarReports(string schoolId)
-        {
-            return context.RsurReports.Where(p => p.SchoolId == schoolId).ToList().Select(s => new SeminarReportModel
-            {
-                RsurReportId = s.Id,
-                DateText = s.Date.ToString("dd.MM.yyyy"),
-                Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text + "..."
-            })
-            .OrderBy(ob => ob.RsurReportId);
-        }
     }
 }

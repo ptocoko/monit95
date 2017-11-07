@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Monit95App.Domain.Core.Entities;
 using System.IO;
+using Monit95App.Services.Rsur.SeminarReport;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -11,9 +12,5 @@ namespace Monit95App.Services.Rsur.ParticipReport
         IEnumerable<ParticipReport> GetResultsForArea(int areaCode, DateTime testDate);
         IEnumerable<ParticipReport> GetResultsForSchool(string schoolId, DateTime testDate);
         IEnumerable<ParticipReport> GetResultsForParticip(int rsurParticipCode, DateTime testDate);
-        int SaveText(string text, string schoolId);
-        int SaveFile(Stream fileStream, string fileExtension, int reportId, int order);
-        void CreateRsurReportFilesEntry(int reportId, int fileId);
-        IEnumerable<SeminarReportModel> GetSeminarReports(string schoolId);
     }
 }
