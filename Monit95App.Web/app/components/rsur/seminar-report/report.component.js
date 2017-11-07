@@ -10,29 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var seminar_report_service_1 = require("../../../services/seminar-report.service");
-var ReportsListModel = (function () {
-    function ReportsListModel() {
-    }
-    return ReportsListModel;
-}());
-exports.ReportsListModel = ReportsListModel;
-var SeminarReportsListComponent = (function () {
-    function SeminarReportsListComponent(seminarReportService) {
+var SeminarReportComponent = (function () {
+    function SeminarReportComponent(router, route, seminarReportService) {
+        this.router = router;
+        this.route = route;
         this.seminarReportService = seminarReportService;
     }
-    SeminarReportsListComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.seminarReportService.getReportsList().subscribe(function (res) { return _this.reports = res; });
+    SeminarReportComponent.prototype.ngOnInit = function () {
     };
-    return SeminarReportsListComponent;
+    return SeminarReportComponent;
 }());
-SeminarReportsListComponent = __decorate([
+SeminarReportComponent = __decorate([
     core_1.Component({
-        selector: 'reports-list',
-        templateUrl: "./app/components/rsur/seminar-report/reports-list.component.html?v=" + new Date().getTime()
+        selector: 'seminar-report',
+        templateUrl: "./app/components/rsur/seminar-report/report.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [seminar_report_service_1.SeminarReportService])
-], SeminarReportsListComponent);
-exports.SeminarReportsListComponent = SeminarReportsListComponent;
-//# sourceMappingURL=reports-list.component.js.map
+    __metadata("design:paramtypes", [router_1.Router,
+        router_1.ActivatedRoute,
+        seminar_report_service_1.SeminarReportService])
+], SeminarReportComponent);
+exports.SeminarReportComponent = SeminarReportComponent;
+//# sourceMappingURL=report.component.js.map

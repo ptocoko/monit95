@@ -1,6 +1,6 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
-import { RsurReportService } from "../../../services/rsur-report.service";
+import { SeminarReportService } from "../../../services/seminar-report.service";
 
 export class ReportsListModel {
 	RsurReportId: number;
@@ -15,9 +15,9 @@ export class ReportsListModel {
 export class SeminarReportsListComponent implements OnInit{
 	reports: ReportsListModel[];
 
-	constructor(private readonly rsurReportService: RsurReportService) { }
+	constructor(private readonly seminarReportService: SeminarReportService) { }
 
 	ngOnInit() {
-		this.rsurReportService.getSeminarReportsList().subscribe(res => this.reports = res);
+		this.seminarReportService.getReportsList().subscribe(res => this.reports = res);
 	}
 }
