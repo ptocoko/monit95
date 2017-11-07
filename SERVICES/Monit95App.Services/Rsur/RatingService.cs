@@ -79,8 +79,7 @@ namespace Monit95App.Services.Rsur
                 item.Place = ++place;
             }
 
-            //return rating1.Union(rating2).Union(rating7);
-            return rating2;
+            return rating1.Union(rating2).Union(rating7);            
         }
 
         [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
