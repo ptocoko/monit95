@@ -36,7 +36,7 @@ import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 import { HomeComponent } from './components/rsur/home/home.component';
 import { ReportComponent } from './components/rsur/reports/report/report.component';
 import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
-import { UploadReportComponent } from './rsur/upload-report/upload-report.component';
+import { UploadReportComponent } from './components/rsur/seminar-report/add-form/upload-report.component';
 import { RatingsComponent } from './components/rsur/ratings/ratings.component';
 
 // Services
@@ -50,7 +50,7 @@ import { ClassService } from './class.service';
 import { MarksService } from './rsur/rsur-test-protocol/marks.service';
 import { SchoolCollectorService } from './shared/school-collector.service';
 import { ResultsService } from './shared/results.service';
-import { UploadReportService } from './rsur/upload-report/upload-report.service';
+import { UploadReportService } from './components/rsur/seminar-report/add-form/upload-report.service';
 import { RsurReportService } from './services/rsur-report.service';
 import { RsurRatingService } from './services/rsur-rating.service';
 
@@ -67,6 +67,7 @@ import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
+import { SeminarReportsListComponent } from "./components/rsur/seminar-report/reports-list.component";
 
 @NgModule({
     imports: [
@@ -89,7 +90,8 @@ import { GlobalErrorHandler } from './error-handler';
                 { path: 'rsur/particips', component: RsurParticipsComponent },
                 { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
                 { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
-                { path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
+				{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
+				{ path: 'rsur/seminar-reports', component: SeminarReportsListComponent },
                 { path: 'rsur/upload-report', component: UploadReportComponent },
                 { path: 'rsur/report/:id', component: ReportComponent },
                 { path: 'rsur/results-list', component: ReportListComponent },
@@ -146,7 +148,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ReportComponent,
 	    ReportListComponent,			
         UploadReportComponent,
-        RatingsComponent
+		RatingsComponent,
+		SeminarReportsListComponent
 	],
 	providers: [
         AccountService,

@@ -15,14 +15,6 @@ var UploadReportService = (function () {
     function UploadReportService(http) {
         this.http = http;
     }
-    UploadReportService.prototype.postText = function (text) {
-        return this.http.post('/api/rsur/reports', { text: text });
-    };
-    UploadReportService.prototype.postImages = function (images, reportId) {
-        var data = new FormData();
-        images.forEach(function (val, i, arr) { return data.append('image' + i, val, val.name); });
-        return this.http.post("/api/rsur/reports/" + reportId + "/files", data, { responseType: 'text' });
-    };
     return UploadReportService;
 }());
 UploadReportService = __decorate([

@@ -111,12 +111,22 @@ namespace Monit95App.RESTful_API.Rsur
             {
                 HttpPostedFile file = httpRequest.Files[i];
                 string fileExtension = Path.GetExtension(file.FileName);
-                var fileId = participReportService.SaveFile(file.InputStream, fileExtension, reportId);
+                var fileId = participReportService.SaveFile(file.InputStream, fileExtension, reportId, i+1);
 
                 participReportService.CreateRsurReportFilesEntry(reportId, fileId);
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "school")]
+        [Route("~/api/rsur/reports")]
+        public IHttpActionResult GetSeminarReports()
+        {
+            string schoolId = User.Identity.Name;
+
+            return Ok(participReportService.GetSeminarReports(schoolId));
         }
         #endregion
     }

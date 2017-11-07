@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var http_2 = require("@angular/common/http");
 var RsurReportService = (function () {
-    function RsurReportService(http) {
+    function RsurReportService(http, _http) {
         this.http = http;
+        this._http = _http;
         this.ROUTE_PREFIX = 'api/rsur/participReports';
     }
     RsurReportService.prototype.getReports = function (testDate) {
@@ -22,11 +24,22 @@ var RsurReportService = (function () {
     RsurReportService.prototype.getReport = function (rsurParticipTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
     };
+    RsurReportService.prototype.postSeminarText = function (text) {
+        return this._http.post('/api/rsur/reports', { text: text });
+    };
+    RsurReportService.prototype.postSeminarImages = function (images, reportId) {
+        var data = new FormData();
+        images.forEach(function (val, i, arr) { return data.append('image' + i, val, val.name); });
+        return this._http.post("/api/rsur/reports/" + reportId + "/files", data, { responseType: 'text' });
+    };
+    RsurReportService.prototype.getSeminarReportsList = function () {
+        return this._http.get('/api/rsur/reports');
+    };
     return RsurReportService;
 }());
 RsurReportService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, http_2.HttpClient])
 ], RsurReportService);
 exports.RsurReportService = RsurReportService;
 //# sourceMappingURL=rsur-report.service.js.map

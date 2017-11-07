@@ -2,18 +2,18 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
-import { UploadReportService } from "./upload-report.service";
+import { RsurReportService } from "../../../../services/rsur-report.service";
 
 @Component({
 	selector: 'upload-report',
-	templateUrl: `./app/rsur/upload-report/upload-report.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/rsur/upload-report/upload-report.component.css?v=${new Date().getTime()}`]
+	templateUrl: `./app/components/rsur/seminar-report/add-form/upload-report.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/seminar-report/add-form/upload-report.component.css?v=${new Date().getTime()}`]
 })
 export class UploadReportComponent {
 	images: File[] = new Array<File>();
 	protocolText: string = "";
 
-	constructor(private readonly location: Location, private readonly uploadReportService: UploadReportService) { }
+	constructor(private readonly location: Location, private readonly rsurReportService: RsurReportService) { }
 
 	addPhoto(event: any) {
 		let files: FileList = event.target.files as FileList;
@@ -47,9 +47,9 @@ export class UploadReportComponent {
 		this.images.splice(index, 1);
 	}
 
-	async send() {
-		this.uploadReportService.postText(this.protocolText).subscribe((reportId: number) => {
-			this.uploadReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
+	send() {
+		this.rsurReportService.postSeminarText(this.protocolText).subscribe((reportId: number) => {
+			this.rsurReportService.postSeminarImages(this.images, reportId).subscribe(() => this.location.back())
 		});
 	}
 
