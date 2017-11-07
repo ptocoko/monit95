@@ -118,6 +118,16 @@ namespace Monit95App.RESTful_API.Rsur
 
             return Ok();
         }
+
+        [HttpGet]
+        [Authorize(Roles = "school")]
+        [Route("~/api/rsur/reports")]
+        public IHttpActionResult GetSeminarReports()
+        {
+            string schoolId = User.Identity.Name;
+
+            return Ok(participReportService.GetSeminarReports(schoolId));
+        }
         #endregion
     }
 

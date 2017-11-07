@@ -334,6 +334,7 @@
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\components\rsur\ratings\ratings.component.html" />
+    <Content Include="app\components\rsur\seminar-report\reports-list.component.html" />
     <Content Include="app\file\file.component.html" />
     <Content Include="app\components\rsur\reports\report\report.component.css" />
     <Content Include="app\components\rsur\reports\report\report.component.html" />
@@ -359,8 +360,8 @@
     <Content Include="app\rsur\details\particip-modal.html" />
     <Content Include="app\plan\plan.html" />
     <Content Include="app\result\result.html" />
-    <Content Include="app\rsur\upload-report\upload-report.component.css" />
-    <Content Include="app\rsur\upload-report\upload-report.component.html" />
+    <Content Include="app\components\rsur\seminar-report\add-form\upload-report.component.css" />
+    <Content Include="app\components\rsur\seminar-report\add-form\upload-report.component.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -571,8 +572,8 @@
     <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\components\rsur\seminar-report\" />
     <Folder Include="app\directives\" />
+    <Folder Include="app\rsur\upload-report\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\ParticipReport\" />
@@ -603,6 +604,7 @@
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\ratings\ratings.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\ratings\subject-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\components\rsur\seminar-report\reports-list.component.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\file\file.component.ts" />
     <TypeScriptCompile Include="app\file\file.service.ts" />
@@ -644,8 +646,8 @@
     <TypeScriptCompile Include="app\result\result.component.ts" />
     <TypeScriptCompile Include="app\shared\account.ts" />
     <TypeScriptCompile Include="app\services\account.service.ts" />
-    <TypeScriptCompile Include="app\rsur\upload-report\upload-report.component.ts" />
-    <TypeScriptCompile Include="app\rsur\upload-report\upload-report.service.ts" />
+    <TypeScriptCompile Include="app\components\rsur\seminar-report\add-form\upload-report.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\seminar-report\add-form\upload-report.service.ts" />
     <TypeScriptCompile Include="app\school-filter.pipe.ts" />
     <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />

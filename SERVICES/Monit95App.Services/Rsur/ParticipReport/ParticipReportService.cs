@@ -169,5 +169,16 @@ namespace Monit95App.Services.Rsur.ParticipReport
             context.RsurReportFiles.Add(entity);
             context.SaveChanges();
         }
+
+        public IEnumerable<SeminarReportModel> GetSeminarReports(string schoolId)
+        {
+            return context.RsurReports.Where(p => p.SchoolId == schoolId).ToList().Select(s => new SeminarReportModel
+            {
+                RsurReportId = s.Id,
+                DateText = s.Date.ToString("dd.MM.yyyy"),
+                Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text + "..."
+            })
+            .OrderBy(ob => ob.RsurReportId);
+        }
     }
 }

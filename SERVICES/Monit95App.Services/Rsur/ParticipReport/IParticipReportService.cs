@@ -14,5 +14,6 @@ namespace Monit95App.Services.Rsur.ParticipReport
         int SaveText(string text, string schoolId);
         int SaveFile(Stream fileStream, string fileExtension, int reportId, int order);
         void CreateRsurReportFilesEntry(int reportId, int fileId);
+        IEnumerable<SeminarReportModel> GetSeminarReports(string schoolId);
     }
 }

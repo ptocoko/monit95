@@ -43,7 +43,7 @@ var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var home_component_1 = require("./components/rsur/home/home.component");
 var report_component_1 = require("./components/rsur/reports/report/report.component");
 var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
-var upload_report_component_1 = require("./rsur/upload-report/upload-report.component");
+var upload_report_component_1 = require("./components/rsur/seminar-report/add-form/upload-report.component");
 var ratings_component_1 = require("./components/rsur/ratings/ratings.component");
 // Services
 var account_service_1 = require("./services/account.service");
@@ -56,7 +56,7 @@ var class_service_1 = require("./class.service");
 var marks_service_1 = require("./rsur/rsur-test-protocol/marks.service");
 var school_collector_service_1 = require("./shared/school-collector.service");
 var results_service_1 = require("./shared/results.service");
-var upload_report_service_1 = require("./rsur/upload-report/upload-report.service");
+var upload_report_service_1 = require("./components/rsur/seminar-report/add-form/upload-report.service");
 var rsur_report_service_1 = require("./services/rsur-report.service");
 var rsur_rating_service_1 = require("./services/rsur-rating.service");
 // Pipes
@@ -71,6 +71,7 @@ var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pi
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
+var reports_list_component_1 = require("./components/rsur/seminar-report/reports-list.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -99,6 +100,7 @@ AppModule = __decorate([
                 { path: 'rsur/particips/add', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
                 { path: 'rsur/tests/:id/protocols', component: rsur_test_protocol_list_component_1.RsurTestProtocolListComponent },
                 { path: 'rsur/testprotocols/:id', component: rsur_test_protocol_component_1.RsurTestProtocolComponent },
+                { path: 'rsur/seminar-reports', component: reports_list_component_1.SeminarReportsListComponent },
                 { path: 'rsur/upload-report', component: upload_report_component_1.UploadReportComponent },
                 { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
                 { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
@@ -153,7 +155,8 @@ AppModule = __decorate([
             report_component_1.ReportComponent,
             report_list_component_1.ReportListComponent,
             upload_report_component_1.UploadReportComponent,
-            ratings_component_1.RatingsComponent
+            ratings_component_1.RatingsComponent,
+            reports_list_component_1.SeminarReportsListComponent
         ],
         providers: [
             account_service_1.AccountService,

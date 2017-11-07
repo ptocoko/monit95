@@ -97,6 +97,7 @@
     <Compile Include="Rsur\ParticipReport\EgeQuestionResult.cs" />
     <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />
+    <Compile Include="Rsur\ParticipReport\SeminarReportModel.cs" />
     <Compile Include="Rsur\Protocol\Protocol.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipExtendReport.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReport.cs" />
