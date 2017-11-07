@@ -12,7 +12,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
         IEnumerable<ParticipReport> GetResultsForSchool(string schoolId, DateTime testDate);
         IEnumerable<ParticipReport> GetResultsForParticip(int rsurParticipCode, DateTime testDate);
         int SaveText(string text, string schoolId);
-        int SaveFile(Stream fileStream, string fileExtension, int reportId);
+        int SaveFile(Stream fileStream, string fileExtension, int reportId, int order);
         void CreateRsurReportFilesEntry(int reportId, int fileId);
     }
 }

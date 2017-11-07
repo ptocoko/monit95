@@ -141,7 +141,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
             return entity.Id;
         }
 
-        public int SaveFile(Stream fileStream, string fileExtension, int reportId)
+        public int SaveFile(Stream fileStream, string fileExtension, int reportId, int order)
         {
             const int repositoryId = 1;
             var repository = context.Repositories.Find(repositoryId);
@@ -149,9 +149,9 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
             if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
-            string fileName = $"{reportId}_{DateTime.Now.ToString("yyyyMMdd")}_{DateTime.Now.ToString("HHmmss")}";
+            string fileName = $"{reportId} - {order}{fileExtension}";
 
-            using (var fs = System.IO.File.Create($"{directoryPath}{fileName}{fileExtension}"))
+            using (var fs = System.IO.File.Create($"{directoryPath}{fileName}"))
             {
                 fileStream.Seek(0, SeekOrigin.Begin);
                 fileStream.CopyTo(fs);

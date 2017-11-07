@@ -47,7 +47,7 @@ export class UploadReportComponent {
 		this.images.splice(index, 1);
 	}
 
-	async send() {
+	send() {
 		this.uploadReportService.postText(this.protocolText).subscribe((reportId: number) => {
 			this.uploadReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
 		});
