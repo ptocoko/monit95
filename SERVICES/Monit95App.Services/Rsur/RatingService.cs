@@ -79,7 +79,8 @@ namespace Monit95App.Services.Rsur
                 item.Place = ++place;
             }
 
-            return rating1.Union(rating2).Union(rating7);
+            //return rating1.Union(rating2).Union(rating7);
+            return rating2;
         }
 
         [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
@@ -87,7 +88,7 @@ namespace Monit95App.Services.Rsur
         private double ComputePercentPassTest(IEnumerable<RsurTestResult> subjectResults, string testNumberCode)
         {
             var result = 0.0; // на тот случай если этот блок никто не сдавал            
-            var testCount = subjectResults.Where(rtr => rtr.RsurParticipTest.RsurTest.Test.NumberCode == testNumberCode).Select(x=>x.RsurParticipTest.RsurParticipCode).Distinct().Count() * 1.0;
+            var testCount = subjectResults.Where(rtr => rtr.RsurParticipTest.RsurTest.Test.NumberCode == testNumberCode).Select(x => x.RsurParticipTest.RsurParticipCode).Distinct().Count() * 1.0;
 
             // необходимо использовать Distinct() при получении количества участников по предмету, т.к. один и тот же блок мог сдавать один участник
             var subjectCount = subjectResults.Select(x => x.RsurParticipTest.RsurParticipCode).Distinct().Count() * 1.0;

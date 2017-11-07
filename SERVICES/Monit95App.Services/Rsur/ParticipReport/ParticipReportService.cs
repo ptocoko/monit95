@@ -93,6 +93,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
             var notShowedTestIds = new int[] { };
 
             return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate
+                                     && p.RsurParticipTest.RsurParticip.ActualCode == 1
                                      && p.RsurQuestionValues.IndexOf("X") == -1
                                      && !notShowedTestIds.Contains(p.RsurParticipTest.RsurTestId))
                         .Include(s => s.RsurParticipTest.RsurParticip).Include(s => s.RsurParticipTest.RsurParticip.School).ToList()
