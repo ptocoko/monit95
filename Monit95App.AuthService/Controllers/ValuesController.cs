@@ -7,10 +7,11 @@ using System.Web.Http;
 
 namespace Monit95App.AuthService.Controllers
 {
-    [Authorize]
+    [Authorize]    
     public class ValuesController : ApiController
     {
         // GET api/values
+        [Route("api/blabla")]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
