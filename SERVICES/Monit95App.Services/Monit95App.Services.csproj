@@ -94,11 +94,9 @@
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
-    <Compile Include="Rsur\SeminarReport\ISeminarReportService.cs" />
     <Compile Include="Rsur\ParticipReport\EgeQuestionResult.cs" />
     <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />
-    <Compile Include="Rsur\SeminarReport\SeminarReportModel.cs" />
     <Compile Include="Rsur\Protocol\Protocol.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipExtendReport.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReport.cs" />
@@ -163,6 +161,8 @@
     <Compile Include="ClassParticipReporter.cs" />
     <Compile Include="Rsur\Protocol\ProtocolService.cs" />
     <Compile Include="Rsur\RsurTestStatisticsDto.cs" />
+    <Compile Include="Rsur\SeminarReport\ISeminarReportService.cs" />
+    <Compile Include="Rsur\SeminarReport\SeminarReportModel.cs" />
     <Compile Include="Rsur\SeminarReport\SeminarReportService.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
