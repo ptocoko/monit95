@@ -38,7 +38,7 @@ var SeminarReportComponent = (function () {
     };
     SeminarReportComponent.prototype.downloadPhotos = function () {
         this.imageLinks.each(function (i, elem) {
-            elem.setAttribute('download', 'image_' + i + 1);
+            elem.setAttribute('download', 'image_' + (i + 1));
             elem.click();
             elem.removeAttribute('download');
         });
