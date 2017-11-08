@@ -119,7 +119,7 @@
                                 <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
                                 @if (User.IsInRole("school"))
                                 {
-                                    <li><a href="rsur/spa#class-particips">Готовность 1-х классов</a></li>    
+                                    <li><a href="/rsur/spa#class-particips">Готовность 1-х классов</a></li>    
                                 }                                
                             </ul>
                         </li>
@@ -132,7 +132,8 @@
                     @if (User.IsInRole("school"))
                     {
                         @*<li>@Html.ActionLink(@"Информация", "Schoolinfo", "Home")</li>*@
-                        <li>@Html.ActionLink("Файлы", "Report", "Report")</li>
+                        @*<li>@Html.ActionLink("Файлы", "Report", "Report")</li>*@
+                        <li><a href="/rsur/spa#school-files">Файлы</a></li>
                     }
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
                     @if (User.Identity.IsAuthenticated)

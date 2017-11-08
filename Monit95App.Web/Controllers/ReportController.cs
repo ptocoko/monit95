@@ -1,20 +1,11 @@
-﻿using System.Data.Entity;
-using Monit95App.Domain.Core;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using Monit95App.Infrastructure.Data;
 using System.Web.Mvc;
 using Monit95App.Models;
-using System.Web.UI;
 using Monit95App.Services;
 
 namespace Monit95App.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "school")]
     public class ReportController : Controller
     {        
         private readonly CokoContext cokoDb;        

@@ -47,6 +47,7 @@ var upload_report_component_1 = require("./components/rsur/seminar-report/add-fo
 var ratings_component_1 = require("./components/rsur/ratings/ratings.component");
 var reports_list_component_1 = require("./components/rsur/seminar-report/reports-list.component");
 var report_component_2 = require("./components/rsur/seminar-report/report.component");
+var school_files_component_1 = require("./components/school-files/school-files.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
@@ -61,6 +62,7 @@ var results_service_1 = require("./shared/results.service");
 var rsur_report_service_1 = require("./services/rsur-report.service");
 var rsur_rating_service_1 = require("./services/rsur-rating.service");
 var seminar_report_service_1 = require("./services/seminar-report.service");
+var school_file_service_1 = require("./services/school-file.service");
 // Pipes
 var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
@@ -107,6 +109,7 @@ AppModule = __decorate([
                 { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
                 { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
                 { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
+                { path: 'school-files', component: school_files_component_1.SchoolFilesComponent },
                 { path: 'plan', component: plan_component_1.PlanComponent },
                 { path: 'result', component: result_component_1.ResultComponent },
                 { path: 'details', component: particip_details_component_1.ParticipDetailsComponent },
@@ -159,7 +162,8 @@ AppModule = __decorate([
             upload_report_component_1.UploadReportComponent,
             ratings_component_1.RatingsComponent,
             reports_list_component_1.SeminarReportsListComponent,
-            report_component_2.SeminarReportComponent
+            report_component_2.SeminarReportComponent,
+            school_files_component_1.SchoolFilesComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -175,6 +179,7 @@ AppModule = __decorate([
             rsur_report_service_1.RsurReportService,
             rsur_rating_service_1.RsurRatingService,
             seminar_report_service_1.SeminarReportService,
+            school_file_service_1.SchoolFileService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],

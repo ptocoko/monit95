@@ -40,6 +40,7 @@ import { UploadReportComponent } from './components/rsur/seminar-report/add-form
 import { RatingsComponent } from './components/rsur/ratings/ratings.component';
 import { SeminarReportsListComponent } from "./components/rsur/seminar-report/reports-list.component";
 import { SeminarReportComponent } from "./components/rsur/seminar-report/report.component";
+import { SchoolFilesComponent } from "./components/school-files/school-files.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -55,6 +56,7 @@ import { ResultsService } from './shared/results.service';
 import { RsurReportService } from './services/rsur-report.service';
 import { RsurRatingService } from './services/rsur-rating.service';
 import { SeminarReportService } from "./services/seminar-report.service";
+import { SchoolFileService } from "./services/school-file.service";
 
 // Pipes
 import { RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
@@ -98,6 +100,7 @@ import { GlobalErrorHandler } from './error-handler';
                 { path: 'rsur/report/:id', component: ReportComponent },
                 { path: 'rsur/results-list', component: ReportListComponent },
                 { path: 'rsur/ratings', component: RatingsComponent },
+                { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },
                 { path: 'details', component: ParticipDetailsComponent },
@@ -152,7 +155,8 @@ import { GlobalErrorHandler } from './error-handler';
         UploadReportComponent,
 		RatingsComponent,
 		SeminarReportsListComponent,
-		SeminarReportComponent
+        SeminarReportComponent,
+        SchoolFilesComponent
 	],
 	providers: [
         AccountService,
@@ -167,7 +171,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ResultsService,
 	    RsurReportService,
 		RsurRatingService,
-		SeminarReportService,
+        SeminarReportService,
+        SchoolFileService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  

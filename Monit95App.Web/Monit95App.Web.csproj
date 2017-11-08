@@ -286,6 +286,7 @@
     <Compile Include="RESTful_API\CollectorsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurTestResultsController.cs" />
     <Compile Include="RESTful_API\Rsur\SeminarReportsController.cs" />
+    <Compile Include="RESTful_API\SchoolFilesController.cs" />
     <Compile Include="RESTful_API\SchoolsController.cs" />
     <Compile Include="RESTful_API\AccountsApiController.cs" />
     <Compile Include="RESTful_API\SchoolEditsController.cs" />
@@ -337,6 +338,7 @@
     <Content Include="app\components\rsur\ratings\ratings.component.html" />
     <Content Include="app\components\rsur\seminar-report\report.component.html" />
     <Content Include="app\components\rsur\seminar-report\reports-list.component.html" />
+    <Content Include="app\components\school-files\school-files.component.html" />
     <Content Include="app\file\file.component.html" />
     <Content Include="app\components\files\files.component.html" />
     <Content Include="app\components\rsur\reports\report\report.component.css" />
@@ -449,7 +451,6 @@
     <Content Include="Images\rsur_logo.png" />
     <Content Include="package.json" />
     <Content Include="ClassDiagram1.cd" />
-    <Content Include="package - Копировать.json" />
     <Content Include="progress.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -610,6 +611,7 @@
     <TypeScriptCompile Include="app\components\rsur\seminar-report\report.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\seminar-report\reports-list.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\seminar-report\seminar-report.model.ts" />
+    <TypeScriptCompile Include="app\components\school-files\school-files.component.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\components\files\files.component.ts" />
     <TypeScriptCompile Include="app\components\files\file.service.ts" />
@@ -621,6 +623,7 @@
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.model.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report-list\report.model.ts" />
+    <TypeScriptCompile Include="app\services\school-file.service.ts" />
     <TypeScriptCompile Include="app\services\rsur-rating.service.ts" />
     <TypeScriptCompile Include="app\services\rsur-report.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report-list\report-list.component.ts" />
