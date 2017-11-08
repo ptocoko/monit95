@@ -2,8 +2,8 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
-import { RsurReportService } from "../../../../services/rsur-report.service";
-import { SeminarReportService } from "../../../../services/seminar-report.service";
+import { RsurReportService } from '../../../../../services/rsur-report.service';
+import { SeminarReportService } from '../../../../../services/seminar-report.service';
 
 @Component({
 	selector: 'upload-report',

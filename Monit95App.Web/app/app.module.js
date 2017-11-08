@@ -43,10 +43,10 @@ var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var home_component_1 = require("./components/rsur/home/home.component");
 var report_component_1 = require("./components/rsur/reports/report/report.component");
 var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
-var upload_report_component_1 = require("./components/rsur/seminar-report/add-form/upload-report.component");
+var create_form_component_1 = require("./components/rsur/seminar-reports/seminar-report/create-form/create-form.component");
 var ratings_component_1 = require("./components/rsur/ratings/ratings.component");
-var reports_list_component_1 = require("./components/rsur/seminar-report/reports-list.component");
-var report_component_2 = require("./components/rsur/seminar-report/report.component");
+var seminar_report_list_component_1 = require("./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component");
+var seminar_report_component_1 = require("./components/rsur/seminar-reports/seminar-report/seminar-report.component");
 var school_files_component_1 = require("./components/school-files/school-files.component");
 // Services
 var account_service_1 = require("./services/account.service");
@@ -75,6 +75,7 @@ var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pi
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
+//import SeminarReportComponent = Seminarreportcomponent.SeminarReportComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -103,9 +104,9 @@ AppModule = __decorate([
                 { path: 'rsur/particips/add', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
                 { path: 'rsur/tests/:id/protocols', component: rsur_test_protocol_list_component_1.RsurTestProtocolListComponent },
                 { path: 'rsur/testprotocols/:id', component: rsur_test_protocol_component_1.RsurTestProtocolComponent },
-                { path: 'rsur/seminar-reports', component: reports_list_component_1.SeminarReportsListComponent },
-                { path: 'rsur/seminar-reports/:id', component: report_component_2.SeminarReportComponent },
-                { path: 'rsur/upload-report', component: upload_report_component_1.UploadReportComponent },
+                { path: 'rsur/seminar-reports', component: seminar_report_list_component_1.SeminarReportListComponent },
+                { path: 'rsur/seminar-reports/:id', component: seminar_report_component_1.SeminarReportComponent },
+                { path: 'rsur/upload-report', component: create_form_component_1.UploadReportComponent },
                 { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
                 { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
                 { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
@@ -159,10 +160,10 @@ AppModule = __decorate([
             rsur_test_protocol_component_1.RsurTestProtocolComponent,
             report_component_1.ReportComponent,
             report_list_component_1.ReportListComponent,
-            upload_report_component_1.UploadReportComponent,
+            create_form_component_1.UploadReportComponent,
             ratings_component_1.RatingsComponent,
-            reports_list_component_1.SeminarReportsListComponent,
-            report_component_2.SeminarReportComponent,
+            seminar_report_list_component_1.SeminarReportListComponent,
+            seminar_report_component_1.SeminarReportComponent,
             school_files_component_1.SchoolFilesComponent
         ],
         providers: [

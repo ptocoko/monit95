@@ -1,7 +1,7 @@
 ﻿
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { SeminarReportModel } from "../components/rsur/seminar-report/seminar-report.model";
+import { HttpClient } from '@angular/common/http';
+import { SeminarReportModel } from '../components/rsur/seminar-reports/shared/seminar-report.model';
 
 @Injectable()
 export class SeminarReportService {

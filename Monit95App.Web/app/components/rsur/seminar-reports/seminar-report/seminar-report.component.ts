@@ -1,8 +1,8 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
-import { SeminarReportService } from "../../../services/seminar-report.service";
-import { SeminarReportModel } from "./seminar-report.model";
+import { Router, ActivatedRoute } from '@angular/router';
+import { SeminarReportService } from '../../../../services/seminar-report.service';
+import { SeminarReportModel } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
 
 @Component({
