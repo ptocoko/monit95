@@ -336,8 +336,8 @@
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\components\rsur\ratings\ratings.component.html" />
-    <Content Include="app\components\rsur\seminar-report\report.component.html" />
-    <Content Include="app\components\rsur\seminar-report\reports-list.component.html" />
+    <Content Include="app\components\rsur\seminar-reports\seminar-report\seminar-report.component.html" />
+    <Content Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.html" />
     <Content Include="app\components\school-files\school-files.component.html" />
     <Content Include="app\file\file.component.html" />
     <Content Include="app\components\files\files.component.html" />
@@ -365,8 +365,8 @@
     <Content Include="app\rsur\details\particip-modal.html" />
     <Content Include="app\plan\plan.html" />
     <Content Include="app\result\result.html" />
-    <Content Include="app\components\rsur\seminar-report\add-form\upload-report.component.css" />
-    <Content Include="app\components\rsur\seminar-report\add-form\upload-report.component.html" />
+    <Content Include="app\components\rsur\seminar-reports\seminar-report\create-form\create-form.component.css" />
+    <Content Include="app\components\rsur\seminar-reports\seminar-report\create-form\create-form.component.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -609,9 +609,9 @@
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\ratings\ratings.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\ratings\subject-filter.pipe.ts" />
-    <TypeScriptCompile Include="app\components\rsur\seminar-report\report.component.ts" />
-    <TypeScriptCompile Include="app\components\rsur\seminar-report\reports-list.component.ts" />
-    <TypeScriptCompile Include="app\components\rsur\seminar-report\seminar-report.model.ts" />
+    <TypeScriptCompile Include="app\components\rsur\seminar-reports\seminar-report\seminar-report.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\seminar-reports\shared\seminar-report.model.ts" />
     <TypeScriptCompile Include="app\components\school-files\school-files.component.ts" />
     <TypeScriptCompile Include="app\error-handler.ts" />
     <TypeScriptCompile Include="app\components\files\files.component.ts" />
@@ -656,7 +656,7 @@
     <TypeScriptCompile Include="app\services\seminar-report.service.ts" />
     <TypeScriptCompile Include="app\shared\account.ts" />
     <TypeScriptCompile Include="app\services\account.service.ts" />
-    <TypeScriptCompile Include="app\components\rsur\seminar-report\add-form\upload-report.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\seminar-reports\seminar-report\create-form\create-form.component.ts" />
     <TypeScriptCompile Include="app\school-filter.pipe.ts" />
     <TypeScriptCompile Include="app\school.service.ts" />
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
