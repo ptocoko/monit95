@@ -1,4 +1,6 @@
-﻿namespace Monit95App.Services.Rsur.SeminarReport
+﻿using System.Collections.Generic;
+
+namespace Monit95App.Services.Rsur.SeminarReport
 {
     public class SeminarReportModel
     {
@@ -9,5 +11,7 @@
         public string DateText { get; set; }
 
         public string Text { get; set; }
+
+        public IEnumerable<string> ImagesUrls { get; set; }
     }
 }

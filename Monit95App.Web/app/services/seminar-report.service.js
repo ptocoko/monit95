@@ -16,18 +16,18 @@ var SeminarReportService = (function () {
         this.http = http;
     }
     SeminarReportService.prototype.postText = function (text) {
-        return this.http.post('/api/rsur/reports', { text: text });
+        return this.http.post('/api/rsur/seminarReports', { text: text });
     };
     SeminarReportService.prototype.postImages = function (images, reportId) {
         var data = new FormData();
         images.forEach(function (val, i, arr) { return data.append('image' + i, val, val.name); });
-        return this.http.post("/api/rsur/reports/" + reportId + "/files", data, { responseType: 'text' });
+        return this.http.post("/api/rsur/seminarReports/" + reportId + "/files", data, { responseType: 'text' });
     };
     SeminarReportService.prototype.getReportsList = function () {
-        return this.http.get('/api/rsur/reports');
+        return this.http.get('/api/rsur/seminarReports');
     };
     SeminarReportService.prototype.getReport = function (reportId) {
-        return this.http.get('/api/rsur/reports/' + reportId);
+        return this.http.get('/api/rsur/seminarReports/' + reportId);
     };
     return SeminarReportService;
 }());

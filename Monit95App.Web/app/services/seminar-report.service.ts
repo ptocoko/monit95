@@ -8,20 +8,20 @@ export class SeminarReportService {
 	constructor(private http: HttpClient){}
 	
 	postText(text: string) {
-		return this.http.post('/api/rsur/reports', { text });
+		return this.http.post('/api/rsur/seminarReports', { text });
 	}
 
 	postImages(images: File[], reportId: number) {
 		let data: FormData = new FormData();
 		images.forEach((val, i, arr) => data.append('image' + i, val, val.name));
-		return this.http.post(`/api/rsur/reports/${reportId}/files`, data, { responseType: 'text' });
+		return this.http.post(`/api/rsur/seminarReports/${reportId}/files`, data, { responseType: 'text' });
 	}
 
 	getReportsList() {
-		return this.http.get<SeminarReportModel[]>('/api/rsur/reports');
+		return this.http.get<SeminarReportModel[]>('/api/rsur/seminarReports');
 	}
 
 	getReport(reportId: number) {
-		return this.http.get<SeminarReportModel>('/api/rsur/reports/' + reportId)
+		return this.http.get<SeminarReportModel>('/api/rsur/seminarReports/' + reportId)
 	}
 }
