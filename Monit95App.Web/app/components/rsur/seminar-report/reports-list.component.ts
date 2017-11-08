@@ -8,7 +8,7 @@ import { SeminarReportModel } from "./seminar-report.model";
 	templateUrl: `./app/components/rsur/seminar-report/reports-list.component.html?v=${new Date().getTime()}`
 })
 export class SeminarReportsListComponent implements OnInit{
-	reports: SeminarReportModel[];
+	reports: SeminarReportModel[] = new Array<SeminarReportModel>();
 
 	constructor(private readonly seminarReportService: SeminarReportService) { }
 

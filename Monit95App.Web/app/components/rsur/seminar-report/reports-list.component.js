@@ -14,6 +14,7 @@ var seminar_report_service_1 = require("../../../services/seminar-report.service
 var SeminarReportsListComponent = (function () {
     function SeminarReportsListComponent(seminarReportService) {
         this.seminarReportService = seminarReportService;
+        this.reports = new Array();
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
         var _this = this;

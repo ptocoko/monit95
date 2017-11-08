@@ -13,11 +13,13 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var seminar_report_service_1 = require("../../../services/seminar-report.service");
 var seminar_report_model_1 = require("./seminar-report.model");
+var common_1 = require("@angular/common");
 var SeminarReportComponent = (function () {
-    function SeminarReportComponent(router, route, seminarReportService) {
+    function SeminarReportComponent(router, route, seminarReportService, location) {
         this.router = router;
         this.route = route;
         this.seminarReportService = seminarReportService;
+        this.location = location;
         this.report = new seminar_report_model_1.SeminarReportModel();
     }
     SeminarReportComponent.prototype.ngOnInit = function () {
@@ -28,7 +30,17 @@ var SeminarReportComponent = (function () {
             _this.seminarReportService.getReport(rsurReportId).subscribe(function (res) {
                 _this.report = res;
                 _this.isLoading = false;
+                $.ready.then(function () {
+                    _this.imageLinks = $("#photos").find("a");
+                });
             });
+        });
+    };
+    SeminarReportComponent.prototype.downloadPhotos = function () {
+        this.imageLinks.each(function (i, elem) {
+            elem.setAttribute('download', 'image_' + i + 1);
+            elem.click();
+            elem.removeAttribute('download');
         });
     };
     return SeminarReportComponent;
@@ -40,7 +52,8 @@ SeminarReportComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,
-        seminar_report_service_1.SeminarReportService])
+        seminar_report_service_1.SeminarReportService,
+        common_1.Location])
 ], SeminarReportComponent);
 exports.SeminarReportComponent = SeminarReportComponent;
 //# sourceMappingURL=report.component.js.map

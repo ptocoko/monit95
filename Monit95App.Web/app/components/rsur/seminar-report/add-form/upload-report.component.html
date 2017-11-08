@@ -5,7 +5,7 @@
     <div style="display:flex">
         <button style="margin-bottom:10px; align-self:flex-start" class="fileUploader btn btn-default" [disabled]="images.length >= 4">
             Добавить фото...
-            <input type="file" class="form-control" multiple accept=".png, .jpg, jpeg" (change)="addPhoto($event)" title="Добавить фото..." />
+            <input type="file" class="form-control" multiple accept=".png, .jpg, jpeg" (change)="addPhoto($event)" title="Добавить фото..." [disabled]="images.length >= 4"/>
         </button>
 
         <div style="width:35%; margin-left: 30px">

@@ -4,9 +4,16 @@
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>
 <div *ngIf="!isLoading">
-    <img *ngFor="let url of report.ImagesUrls" src="{{url}}" class="img-responsive img-thumbnail" style="height:150px; margin-right:10px" />
+    <div id="photos">
+        <a target="_blank" *ngFor="let url of report.ImagesUrls" href="{{url}}" style="text-decoration:none">
+            <img src="{{url}}" class="img-responsive img-thumbnail" style="height:150px; margin-right:10px" />
+        </a>
+    </div>
+    <button style="margin-top:10px" class="btn btn-default" (click)="downloadPhotos()"><span class="glyphicon glyphicon-download-alt"></span> Скачать все фотографии</button>
     <br />
     <br />
     <br />
-    <p>{{report.Text}}</p>
+    <p style="font-size:15pt; font-family:'Times New Roman'">{{report.Text}}</p>
+    <hr />
+    <button (click)="location.back()" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Назад</button>
 </div>
