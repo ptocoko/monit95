@@ -22,9 +22,13 @@ var SeminarReportComponent = (function () {
     }
     SeminarReportComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.isLoading = true;
         this.route.params.subscribe(function (params) {
             var rsurReportId = params['id'];
-            _this.seminarReportService.getReport(rsurReportId).subscribe(function (res) { return _this.report = res; });
+            _this.seminarReportService.getReport(rsurReportId).subscribe(function (res) {
+                _this.report = res;
+                _this.isLoading = false;
+            });
         });
     };
     return SeminarReportComponent;

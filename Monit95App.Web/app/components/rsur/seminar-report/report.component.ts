@@ -10,16 +10,21 @@ import { SeminarReportModel } from "./seminar-report.model";
 })
 export class SeminarReportComponent implements OnInit {
 	report: SeminarReportModel = new SeminarReportModel();
+	isLoading: boolean;
 
 	constructor(private router: Router, 
 				private route: ActivatedRoute,
 				private seminarReportService: SeminarReportService) { }
 
 	ngOnInit() {
+		this.isLoading = true;
 		this.route.params.subscribe(params => {
 			let rsurReportId = params['id'];
 
-			this.seminarReportService.getReport(rsurReportId).subscribe(res => this.report = res);
+			this.seminarReportService.getReport(rsurReportId).subscribe(res => {
+				this.report = res;
+				this.isLoading = false;
+			});
 		})
 	}
 }

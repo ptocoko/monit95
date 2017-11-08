@@ -1,1 +1,12 @@
 ﻿<h1>РСУР: отчет с семинара</h1>
+<hr />
+<div *ngIf="isLoading">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>
+<div *ngIf="!isLoading">
+    <img *ngFor="let url of report.ImagesUrls" src="{{url}}" class="img-responsive img-thumbnail" style="height:150px; margin-right:10px" />
+    <br />
+    <br />
+    <br />
+    <p>{{report.Text}}</p>
+</div>

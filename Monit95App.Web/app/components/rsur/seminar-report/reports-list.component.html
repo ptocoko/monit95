@@ -6,7 +6,7 @@
         <th style="text-align: center">Дата</th>
         <th style="text-align: center">Текст</th>
     </tr>
-    <tr *ngFor="let report of reports; let i = index" style="cursor:pointer">
+    <tr *ngFor="let report of reports; let i = index" style="cursor:pointer" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
         <td style="text-align:center; vertical-align:middle">{{i + 1}}</td>
         <td style="text-align:center; vertical-align:middle">{{report.DateText}}</td>
         <td>{{report.Text}}</td>

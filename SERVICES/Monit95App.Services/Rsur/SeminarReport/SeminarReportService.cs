@@ -45,7 +45,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             }).OrderBy(ob => ob.RsurReportId);
         }
 
-        public int SaveFile(Stream fileStream, string fileExtension, int reportId, int index)
+        public int SaveFile(Stream fileStream, string fileExtension, int reportId, int index, string imagesServerFolder)
         {
             const int repositoryId = 1;
             var repository = context.Repositories.Find(repositoryId);
@@ -56,6 +56,12 @@ namespace Monit95App.Services.Rsur.SeminarReport
             string fileName = $"{reportId} - {index}{fileExtension}";
 
             using (var fs = System.IO.File.Create($"{directoryPath}{fileName}"))
+            {
+                fileStream.Seek(0, SeekOrigin.Begin);
+                fileStream.CopyTo(fs);
+            }
+
+            using (var fs = System.IO.File.Create($"{imagesServerFolder}\\{fileName}"))
             {
                 fileStream.Seek(0, SeekOrigin.Begin);
                 fileStream.CopyTo(fs);
@@ -80,6 +86,19 @@ namespace Monit95App.Services.Rsur.SeminarReport
             context.SaveChanges();
 
             return entity.Id;
+        }
+
+        public SeminarReportModel GetReport(int reportId)
+        {
+            var model = context.RsurReports.Find(reportId);
+
+            return new SeminarReportModel
+            {
+                SchoolName = $"{model.SchoolId} - {model.School.Name}",
+                DateText = model.Date.ToString("dd.MM.yyyy"),
+                Text = model.Text,
+                ImagesUrls = model.RsurReportFiles.Select(s => $"/Images/seminar-photos/{s.File.Name}")
+            };
         }
 
         #endregion

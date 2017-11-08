@@ -1,6 +1,7 @@
 ﻿using Monit95App.Services.Rsur.SeminarReport;
 using System.IO;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 
 namespace Monit95App.RESTful_API.Rsur
@@ -45,12 +46,13 @@ namespace Monit95App.RESTful_API.Rsur
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
             var httpRequest = HttpContext.Current.Request;
 
+            var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
             HttpPostedFile file = null;
             for (int i = 0; i < httpRequest.Files.Count; i++)
             {
                 file = httpRequest.Files[i];
                 string fileExtension = Path.GetExtension(file.FileName);
-                var fileId = seminarReportService.SaveFile(file.InputStream, fileExtension, reportId, i + 1);
+                var fileId = seminarReportService.SaveFile(file.InputStream, fileExtension, reportId, i + 1, imagesFolder);
             }
 
             return Ok();
@@ -65,6 +67,13 @@ namespace Monit95App.RESTful_API.Rsur
             return Ok(seminarReportService.GetSeminarReports(schoolId));
         }
 
+        [HttpGet]
+        [Route("{id:int}")]
+        public IHttpActionResult GetReport()
+        {
+            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
 
+            return Ok(seminarReportService.GetReport(reportId));
+        }
     }
 }
