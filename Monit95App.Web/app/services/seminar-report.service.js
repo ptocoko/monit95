@@ -29,6 +29,9 @@ var SeminarReportService = (function () {
     SeminarReportService.prototype.getReport = function (reportId) {
         return this.http.get('/api/rsur/seminarReports/' + reportId);
     };
+    SeminarReportService.prototype.deleteReport = function (reportId) {
+        return this.http.delete('/api/rsur/seminarReports/' + reportId, { responseType: 'text' });
+    };
     return SeminarReportService;
 }());
 SeminarReportService = __decorate([

@@ -1,7 +1,7 @@
 ﻿
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { SeminarReportModel } from "../components/rsur/seminar-report/seminar-report.model";
+import { SeminarReportModel } from "../components/rsur/seminar-reports/shared/seminar-report.model";
 
 @Injectable()
 export class SeminarReportService {
@@ -23,5 +23,9 @@ export class SeminarReportService {
 
 	getReport(reportId: number) {
 		return this.http.get<SeminarReportModel>('/api/rsur/seminarReports/' + reportId)
+	}
+
+	deleteReport(reportId: number) {
+		return this.http.delete('/api/rsur/seminarReports/' + reportId, { responseType: 'text' });
 	}
 }
