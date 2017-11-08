@@ -1,5 +1,4 @@
-﻿<h2>РСУР</h2>
-<h3>Отправка отчета</h3>
+﻿<h2>РСУР: Создание отчета по семинару</h2>
 <hr />
 <div class="center-block">
     <div style="display:flex">
@@ -11,8 +10,8 @@
         <div style="width:35%; margin-left: 30px">
             <table class="table">
                 <tr>
-                    <th style="width:70%">Имя файла</th>
-                    <th>Размер</th>
+                    <th style="width:70%">имя файла</th>
+                    <th>размер</th>
                 </tr>
                 <tr *ngFor="let image of images">
                     <td>{{image.name}}</td>
@@ -20,14 +19,14 @@
                     <td><a class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deletePhoto(image)"></a></td>
                 </tr>
             </table>
-            <p *ngIf="images.length == 0" class="text-center text-muted"><i>Фотографий не добавлено</i></p>
+            <p *ngIf="images.length == 0" class="text-center text-muted"><i>фотографии не добавлены</i></p>
         </div>
     </div>
     <br />
-    <textarea placeholder="Some text..." rows="10" style="width:600px" class="form-control" [(ngModel)]="protocolText"></textarea>
+    <textarea placeholder="описание не добавлено" rows="10" style="width:600px" class="form-control" [(ngModel)]="protocolText"></textarea>
     <br />
     <div class="pull-left" style="clear: both">
-        <button class="btn btn-success" (click)="send()" [disabled]="images.length == 0 || protocolText.length < 1">Отправить</button>
-        <button class="btn btn-default" (click)="cancel()">Отмена</button>
+        <button class="btn btn-success" (click)="send()" [disabled]="images.length == 0 || protocolText.length < 1">Создать</button>
+        <button class="btn btn-danger" (click)="cancel()">Отмена</button>
     </div>
 </div>
