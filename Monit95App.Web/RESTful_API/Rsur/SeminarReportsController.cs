@@ -62,9 +62,20 @@ namespace Monit95App.RESTful_API.Rsur
         [Route("")]
         public IHttpActionResult GetSeminarReports()
         {
-            string schoolId = User.Identity.Name;
+            if (User.IsInRole("school"))
+            {
+                string schoolId = User.Identity.Name;
 
-            return Ok(seminarReportService.GetSeminarReports(schoolId));
+                return Ok(seminarReportService.GetSeminarReports(schoolId));
+            }
+            else if(User.IsInRole("area"))
+            {
+                int areaCode = int.Parse(User.Identity.Name);
+
+                return Ok(seminarReportService.GetSeminarReports(areaCode));
+            }
+
+            return BadRequest();
         }
 
         [HttpGet]

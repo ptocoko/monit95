@@ -1,12 +1,40 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Account } from '../shared/account';
 
 @Injectable()
 export class AccountService {    
+	account: Account = new Account();
 
-    constructor(private readonly http: Http) { }
+	constructor(private readonly http: Http) {
+		this.loadAccount();
+	}
 
-    getAccount() {
+    private loadAccount() {
+		this.http.get('api/account').subscribe(res => {
+			this.account = res.json() as Account;
+		})
+	}
+
+	getAccount() {
 		return this.http.get('api/account');
-    }
+	}
+
+	isArea() {
+		if (this.account.RoleNames != null)
+			return this.account.RoleNames.indexOf('area') > -1;
+		return null;
+	}
+
+	isSchool() {
+		if (this.account.RoleNames != null)
+			return this.account.RoleNames.indexOf('school') > -1;
+		return null;
+	}
+
+	isRsurParticip() {
+		if (this.account.RoleNames != null)
+			return this.account.RoleNames.indexOf('rsur-particip') > -1;
+		return null;
+	}
 }

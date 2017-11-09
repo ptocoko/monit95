@@ -33,7 +33,7 @@
         <ul class="list-group">
             <li class="list-group-item"><a routerLink="/rsur/results-list"><b>Результаты диагностики «Октябрь-2017»</b></a></li>
             <li *ngIf="isArea() && account.UserName !== '206'" class="list-group-item"><a routerLink="/rsur/ratings"><b>Рейтинги</b></a></li>
-            <li *ngIf="isSchool()" class="list-group-item"><a routerLink="/rsur/seminar-reports"><b>Отчеты по семинарам</b></a></li>
+            <li *ngIf="isSchool() || isArea()" class="list-group-item"><a routerLink="/rsur/seminar-reports"><b>Отчеты по семинарам</b></a></li>
         </ul>
     </div>    
 </div>

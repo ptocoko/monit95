@@ -11,12 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var account_1 = require("../shared/account");
 var AccountService = (function () {
     function AccountService(http) {
         this.http = http;
+        this.account = new account_1.Account();
+        this.loadAccount();
     }
+    AccountService.prototype.loadAccount = function () {
+        var _this = this;
+        this.http.get('api/account').subscribe(function (res) {
+            _this.account = res.json();
+        });
+    };
     AccountService.prototype.getAccount = function () {
         return this.http.get('api/account');
+    };
+    AccountService.prototype.isArea = function () {
+        if (this.account.RoleNames != null)
+            return this.account.RoleNames.indexOf('area') > -1;
+        return null;
+    };
+    AccountService.prototype.isSchool = function () {
+        if (this.account.RoleNames != null)
+            return this.account.RoleNames.indexOf('school') > -1;
+        return null;
+    };
+    AccountService.prototype.isRsurParticip = function () {
+        if (this.account.RoleNames != null)
+            return this.account.RoleNames.indexOf('rsur-particip') > -1;
+        return null;
     };
     return AccountService;
 }());
