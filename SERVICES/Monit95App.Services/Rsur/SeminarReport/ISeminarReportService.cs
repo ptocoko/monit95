@@ -14,5 +14,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         IEnumerable<SeminarReportModel> GetSeminarReports(int areaCode);
 
         SeminarReportModel GetReport(int reportId);
+
+        void DeleteReport(int reportId, string imagesServerFolder);
     }
 }

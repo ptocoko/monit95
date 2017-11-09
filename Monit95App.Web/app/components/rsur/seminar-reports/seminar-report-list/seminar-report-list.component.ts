@@ -15,4 +15,14 @@ export class SeminarReportsListComponent implements OnInit{
 	ngOnInit() {
 		this.seminarReportService.getReportsList().subscribe(res => this.reports = res);
 	}
+
+	deleteReport(reportId: number) {
+		if (confirm('Вы уверены что хотите удалить данный отчет?')) {
+			this.seminarReportService.deleteReport(reportId).subscribe(() => {
+				let report = this.reports.find(s => s.RsurReportId === reportId);
+				let index = this.reports.indexOf(report);
+				this.reports.splice(index, 1);
+			});
+		}
+	}
 }

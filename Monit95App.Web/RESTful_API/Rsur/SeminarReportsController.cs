@@ -75,5 +75,17 @@ namespace Monit95App.RESTful_API.Rsur
 
             return Ok(seminarReportService.GetReport(reportId));
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IHttpActionResult DeleteReport()
+        {
+            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
+            var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
+
+            seminarReportService.DeleteReport(reportId, imagesFolder);
+
+            return Ok();
+        }
     }
 }

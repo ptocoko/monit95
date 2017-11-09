@@ -20,6 +20,16 @@ var SeminarReportsListComponent = (function () {
         var _this = this;
         this.seminarReportService.getReportsList().subscribe(function (res) { return _this.reports = res; });
     };
+    SeminarReportsListComponent.prototype.deleteReport = function (reportId) {
+        var _this = this;
+        if (confirm('Вы уверены что хотите удалить данный отчет?')) {
+            this.seminarReportService.deleteReport(reportId).subscribe(function () {
+                var report = _this.reports.find(function (s) { return s.RsurReportId === reportId; });
+                var index = _this.reports.indexOf(report);
+                _this.reports.splice(index, 1);
+            });
+        }
+    };
     return SeminarReportsListComponent;
 }());
 SeminarReportsListComponent = __decorate([
