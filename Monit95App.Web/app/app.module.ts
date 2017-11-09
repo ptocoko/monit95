@@ -36,10 +36,10 @@ import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 import { HomeComponent } from './components/rsur/home/home.component';
 import { ReportComponent } from './components/rsur/reports/report/report.component';
 import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
-import { UploadReportComponent } from './components/rsur/seminar-report/add-form/upload-report.component';
+import { CreateReportFormComponent } from './components/rsur/seminar-reports/seminar-report/create-form/create-form.component';
 import { RatingsComponent } from './components/rsur/ratings/ratings.component';
-import { SeminarReportsListComponent } from "./components/rsur/seminar-report/reports-list.component";
-import { SeminarReportComponent } from "./components/rsur/seminar-report/report.component";
+import { SeminarReportsListComponent } from "./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component";
+import { SeminarReportComponent } from "./components/rsur/seminar-reports/seminar-report/seminar-report.component";
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
 
 // Services
@@ -96,7 +96,7 @@ import { GlobalErrorHandler } from './error-handler';
 				{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
 				{ path: 'rsur/seminar-reports', component: SeminarReportsListComponent },
 				{ path: 'rsur/seminar-reports/:id', component: SeminarReportComponent },
-                { path: 'rsur/upload-report', component: UploadReportComponent },
+				{ path: 'rsur/upload-report', component: CreateReportFormComponent },
                 { path: 'rsur/report/:id', component: ReportComponent },
                 { path: 'rsur/results-list', component: ReportListComponent },
                 { path: 'rsur/ratings', component: RatingsComponent },
@@ -152,7 +152,7 @@ import { GlobalErrorHandler } from './error-handler';
 		RsurTestProtocolComponent,
 		ReportComponent,
 	    ReportListComponent,			
-        UploadReportComponent,
+		CreateReportFormComponent,
 		RatingsComponent,
 		SeminarReportsListComponent,
         SeminarReportComponent,

@@ -1,19 +1,17 @@
-<<<<<<< HEAD
-﻿<h1>РСУР: отчеты с семинара</h<<
-=======
-﻿<h2>РСУР: Отчеты по семинарам</h2
->>>>>>> AuthorizationService
+<h2>РСУР: Отчеты по семинарам</h2>
 <hr />
 <table style="width:600px" class="table table-bordered table-hover table-striped">
     <tr>
         <th style="width: 60px; text-align: center">№ п/п</th>
         <th style="text-align: center">дата</th>
         <th style="text-align: center">описание</th>
+        <th style="width:30px"></th>
     </tr>
-    <tr *ngFor="let report of reports; let i = index" style="cursor:pointer" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
-        <td style="text-align:center; vertical-align:middle">{{i + 1}}</td>
-        <td style="text-align:center; vertical-align:middle">{{report.DateText}}</td>
-        <td>{{report.Text}}</td>
+    <tr *ngFor="let report of reports; let i = index" style="cursor:pointer">
+        <td style="text-align:center; vertical-align:middle" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">{{i + 1}}</td>
+        <td style="text-align:center; vertical-align:middle" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">{{report.DateText}}</td>
+        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]" style="vertical-align:middle">{{report.Text}}</td>
+        <td><button class="btn btn-default" (click)="deleteReport(report.RsurReportId)">Удалить</button></td>
     </tr>
 </table>
 <div *ngIf="reports?.length == 0" class="text-muted"><i>отчеты отсутствуют</i></div>

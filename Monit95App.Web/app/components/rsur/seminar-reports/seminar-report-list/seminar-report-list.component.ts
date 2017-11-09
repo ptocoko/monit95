@@ -1,11 +1,11 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
-import { SeminarReportService } from "../../../services/seminar-report.service";
-import { SeminarReportModel } from "./seminar-report.model";
+import { SeminarReportService } from "../../../../services/seminar-report.service";
+import { SeminarReportModel } from "../shared/seminar-report.model";
 
 @Component({
 	selector: 'reports-list',
-	templateUrl: `./app/components/rsur/seminar-report/reports-list.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component.html?v=${new Date().getTime()}`
 })
 export class SeminarReportsListComponent implements OnInit{
 	reports: SeminarReportModel[] = new Array<SeminarReportModel>();
@@ -14,5 +14,15 @@ export class SeminarReportsListComponent implements OnInit{
 
 	ngOnInit() {
 		this.seminarReportService.getReportsList().subscribe(res => this.reports = res);
+	}
+
+	deleteReport(reportId: number) {
+		if (confirm('Вы уверены что хотите удалить данный отчет?')) {
+			this.seminarReportService.deleteReport(reportId).subscribe(() => {
+				let report = this.reports.find(s => s.RsurReportId === reportId);
+				let index = this.reports.indexOf(report);
+				this.reports.splice(index, 1);
+			});
+		}
 	}
 }

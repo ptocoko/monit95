@@ -12,6 +12,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         #region
 
         private readonly CokoContext context;
+        private const int repositoryId = 1;
 
         #endregion
 
@@ -40,14 +41,13 @@ namespace Monit95App.Services.Rsur.SeminarReport
             {
                 RsurReportId = s.Id,
                 DateText = s.Date.ToString("dd.MM.yyyy"),
-                Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text + "...",
+                Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text,
                 SchoolName = $"{s.SchoolId} - {s.School.Name}"
             }).OrderBy(ob => ob.RsurReportId);
         }
 
         public int SaveFile(Stream fileStream, string fileExtension, int reportId, int index, string imagesServerFolder)
         {
-            const int repositoryId = 1;
             var repository = context.Repositories.Find(repositoryId);
             string directoryPath = repository.Path;
 
@@ -99,6 +99,26 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 Text = model.Text,
                 ImagesUrls = model.RsurReportFiles.Select(s => $"/Images/seminar-photos/{s.File.Name}")
             };
+        }
+
+        public void DeleteReport(int reportId, string imagesServerFolder)
+        {
+            var directoryPath = context.Repositories.Find(repositoryId).Path;
+            var fileNames = context.RsurReportFiles.Where(p => p.RsurReportId == reportId).Select(s => s.File.Name);
+            var fileIds = context.RsurReportFiles.Where(p => p.RsurReportId == reportId).Select(s => s.FileId);
+
+            foreach (var fileName in fileNames)
+            {
+                System.IO.File.Delete($"{directoryPath}{fileName}");
+                System.IO.File.Delete($"{imagesServerFolder}\\{fileName}");
+            }
+
+            var reportEntity = context.RsurReports.Find(reportId);
+            var fileEntities = context.Files.Where(p => fileIds.Contains(p.Id));
+
+            context.RsurReports.Remove(reportEntity);
+            context.Files.RemoveRange(fileEntities);
+            context.SaveChanges();
         }
 
         #endregion

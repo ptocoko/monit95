@@ -2,15 +2,14 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
-import { RsurReportService } from "../../../../services/rsur-report.service";
-import { SeminarReportService } from "../../../../services/seminar-report.service";
+import { SeminarReportService } from "../../../../../services/seminar-report.service";
 
 @Component({
 	selector: 'upload-report',
-	templateUrl: `./app/components/rsur/seminar-report/add-form/upload-report.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/seminar-report/add-form/upload-report.component.css?v=${new Date().getTime()}`]
+	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.css?v=${new Date().getTime()}`]
 })
-export class UploadReportComponent {
+export class CreateReportFormComponent {
 	images: File[] = new Array<File>();
 	protocolText: string = "";
 
@@ -23,6 +22,7 @@ export class UploadReportComponent {
 				this.images.push(files[i]);
 			}
 		}
+		event.target.value = '';
 	}
 
 	validateSelectedPhotos(files: FileList): boolean {
@@ -49,9 +49,23 @@ export class UploadReportComponent {
 	}
 
 	send() {
-		this.seminarReportService.postText(this.protocolText).subscribe((reportId: number) => {
-			this.seminarReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
-		});
+		if (this.validateForm()) {
+			this.seminarReportService.postText(this.protocolText).subscribe((reportId: number) => {
+				this.seminarReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
+			});
+		}
+	}
+
+	validateForm(): boolean {
+		if (this.images.length < 1) {
+			alert('Необходимо добавить хотя бы одну фотографию.');
+			return false;
+		}
+		if (this.protocolText.length < 100) {
+			alert('Текст должен состоять из минимум 100 символов.');
+			return false;
+		}
+		return true;
 	}
 
 	cancel() {
