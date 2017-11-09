@@ -75,7 +75,6 @@ var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pi
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
-//import SeminarReportComponent = Seminarreportcomponent.SeminarReportComponent;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -104,9 +103,9 @@ AppModule = __decorate([
                 { path: 'rsur/particips/add', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
                 { path: 'rsur/tests/:id/protocols', component: rsur_test_protocol_list_component_1.RsurTestProtocolListComponent },
                 { path: 'rsur/testprotocols/:id', component: rsur_test_protocol_component_1.RsurTestProtocolComponent },
-                { path: 'rsur/seminar-reports', component: seminar_report_list_component_1.SeminarReportListComponent },
+                { path: 'rsur/seminar-reports', component: seminar_report_list_component_1.SeminarReportsListComponent },
                 { path: 'rsur/seminar-reports/:id', component: seminar_report_component_1.SeminarReportComponent },
-                { path: 'rsur/upload-report', component: create_form_component_1.UploadReportComponent },
+                { path: 'rsur/upload-report', component: create_form_component_1.CreateReportFormComponent },
                 { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
                 { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
                 { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
@@ -160,9 +159,9 @@ AppModule = __decorate([
             rsur_test_protocol_component_1.RsurTestProtocolComponent,
             report_component_1.ReportComponent,
             report_list_component_1.ReportListComponent,
-            create_form_component_1.UploadReportComponent,
+            create_form_component_1.CreateReportFormComponent,
             ratings_component_1.RatingsComponent,
-            seminar_report_list_component_1.SeminarReportListComponent,
+            seminar_report_list_component_1.SeminarReportsListComponent,
             seminar_report_component_1.SeminarReportComponent,
             school_files_component_1.SchoolFilesComponent
         ],

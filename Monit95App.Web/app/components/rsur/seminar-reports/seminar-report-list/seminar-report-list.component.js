@@ -11,23 +11,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
-var SeminarReportListComponent = (function () {
-    function SeminarReportListComponent(seminarReportService) {
+var SeminarReportsListComponent = (function () {
+    function SeminarReportsListComponent(seminarReportService) {
         this.seminarReportService = seminarReportService;
         this.reports = new Array();
     }
-    SeminarReportListComponent.prototype.ngOnInit = function () {
+    SeminarReportsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.seminarReportService.getReportsList().subscribe(function (res) { return _this.reports = res; });
     };
-    return SeminarReportListComponent;
+    SeminarReportsListComponent.prototype.deleteReport = function (reportId) {
+        var _this = this;
+        if (confirm('Вы уверены что хотите удалить данный отчет?')) {
+            this.seminarReportService.deleteReport(reportId).subscribe(function () {
+                var report = _this.reports.find(function (s) { return s.RsurReportId === reportId; });
+                var index = _this.reports.indexOf(report);
+                _this.reports.splice(index, 1);
+            });
+        }
+    };
+    return SeminarReportsListComponent;
 }());
-SeminarReportListComponent = __decorate([
+SeminarReportsListComponent = __decorate([
     core_1.Component({
         selector: 'reports-list',
-        templateUrl: "./app/components/rsur/seminar-report/reports-list.component.html?v=" + new Date().getTime()
+        templateUrl: "./app/components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [seminar_report_service_1.SeminarReportService])
-], SeminarReportListComponent);
-exports.SeminarReportListComponent = SeminarReportListComponent;
+], SeminarReportsListComponent);
+exports.SeminarReportsListComponent = SeminarReportsListComponent;
 //# sourceMappingURL=seminar-report-list.component.js.map
