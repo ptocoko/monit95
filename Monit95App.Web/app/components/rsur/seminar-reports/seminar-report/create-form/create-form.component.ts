@@ -22,6 +22,7 @@ export class CreateReportFormComponent {
 				this.images.push(files[i]);
 			}
 		}
+		event.target.value = '';
 	}
 
 	validateSelectedPhotos(files: FileList): boolean {
@@ -48,9 +49,23 @@ export class CreateReportFormComponent {
 	}
 
 	send() {
-		this.seminarReportService.postText(this.protocolText).subscribe((reportId: number) => {
-			this.seminarReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
-		});
+		if (this.validateForm()) {
+			this.seminarReportService.postText(this.protocolText).subscribe((reportId: number) => {
+				this.seminarReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
+			});
+		}
+	}
+
+	validateForm(): boolean {
+		if (this.images.length < 1) {
+			alert('Необходимо добавить хотя бы одну фотографию.');
+			return false;
+		}
+		if (this.protocolText.length < 100) {
+			alert('Текст должен состоять из минимум 100 символов.');
+			return false;
+		}
+		return true;
 	}
 
 	cancel() {

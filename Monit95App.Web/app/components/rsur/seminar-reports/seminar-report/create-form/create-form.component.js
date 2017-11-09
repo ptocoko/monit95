@@ -26,6 +26,7 @@ var CreateReportFormComponent = (function () {
                 this.images.push(files[i]);
             }
         }
+        event.target.value = '';
     };
     CreateReportFormComponent.prototype.validateSelectedPhotos = function (files) {
         if (this.images.length + files.length > 4) {
@@ -50,9 +51,22 @@ var CreateReportFormComponent = (function () {
     };
     CreateReportFormComponent.prototype.send = function () {
         var _this = this;
-        this.seminarReportService.postText(this.protocolText).subscribe(function (reportId) {
-            _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () { return _this.location.back(); });
-        });
+        if (this.validateForm()) {
+            this.seminarReportService.postText(this.protocolText).subscribe(function (reportId) {
+                _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () { return _this.location.back(); });
+            });
+        }
+    };
+    CreateReportFormComponent.prototype.validateForm = function () {
+        if (this.images.length < 1) {
+            alert('Необходимо добавить хотя бы одну фотографию.');
+            return false;
+        }
+        if (this.protocolText.length < 100) {
+            alert('Текст должен состоять из минимум 100 символов.');
+            return false;
+        }
+        return true;
     };
     CreateReportFormComponent.prototype.cancel = function () {
         this.location.back();
