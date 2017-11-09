@@ -1,19 +1,28 @@
 ﻿
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
 import { SeminarReportService } from "../../../../../services/seminar-report.service";
+import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
 	selector: 'upload-report',
 	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.css?v=${new Date().getTime()}`]
 })
-export class CreateReportFormComponent {
+export class CreateReportFormComponent implements OnInit {
+	reportForm: FormGroup;
 	images: File[] = new Array<File>();
-	protocolText: string = "";
 
-	constructor(private readonly location: Location, private readonly seminarReportService: SeminarReportService) { }
+	constructor(private readonly location: Location,
+				private readonly seminarReportService: SeminarReportService,
+				private readonly fb: FormBuilder) { }
+
+	ngOnInit() {
+		this.reportForm = this.fb.group({
+			protocolText: ['', [Validators.required, Validators.minLength(100)]]
+		});
+	}
 
 	addPhoto(event: any) {
 		let files: FileList = event.target.files as FileList;
@@ -49,23 +58,11 @@ export class CreateReportFormComponent {
 	}
 
 	send() {
-		if (this.validateForm()) {
-			this.seminarReportService.postText(this.protocolText).subscribe((reportId: number) => {
+		if (this.reportForm.valid && this.images.length > 1) {
+			this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe((reportId: number) => {
 				this.seminarReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
 			});
 		}
-	}
-
-	validateForm(): boolean {
-		if (this.images.length < 1) {
-			alert('Необходимо добавить хотя бы одну фотографию.');
-			return false;
-		}
-		if (this.protocolText.length < 100) {
-			alert('Текст должен состоять из минимум 100 символов.');
-			return false;
-		}
-		return true;
 	}
 
 	cancel() {

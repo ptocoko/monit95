@@ -12,13 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var seminar_report_service_1 = require("../../../../../services/seminar-report.service");
+var forms_1 = require("@angular/forms");
 var CreateReportFormComponent = (function () {
-    function CreateReportFormComponent(location, seminarReportService) {
+    function CreateReportFormComponent(location, seminarReportService, fb) {
         this.location = location;
         this.seminarReportService = seminarReportService;
+        this.fb = fb;
         this.images = new Array();
-        this.protocolText = "";
     }
+    CreateReportFormComponent.prototype.ngOnInit = function () {
+        this.reportForm = this.fb.group({
+            protocolText: ['', [forms_1.Validators.required, forms_1.Validators.minLength(100)]]
+        });
+    };
     CreateReportFormComponent.prototype.addPhoto = function (event) {
         var files = event.target.files;
         if (this.validateSelectedPhotos(files)) {
@@ -51,22 +57,11 @@ var CreateReportFormComponent = (function () {
     };
     CreateReportFormComponent.prototype.send = function () {
         var _this = this;
-        if (this.validateForm()) {
-            this.seminarReportService.postText(this.protocolText).subscribe(function (reportId) {
+        if (this.reportForm.valid && this.images.length > 1) {
+            this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe(function (reportId) {
                 _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () { return _this.location.back(); });
             });
         }
-    };
-    CreateReportFormComponent.prototype.validateForm = function () {
-        if (this.images.length < 1) {
-            alert('Необходимо добавить хотя бы одну фотографию.');
-            return false;
-        }
-        if (this.protocolText.length < 100) {
-            alert('Текст должен состоять из минимум 100 символов.');
-            return false;
-        }
-        return true;
     };
     CreateReportFormComponent.prototype.cancel = function () {
         this.location.back();
@@ -79,7 +74,9 @@ CreateReportFormComponent = __decorate([
         templateUrl: "./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [common_1.Location, seminar_report_service_1.SeminarReportService])
+    __metadata("design:paramtypes", [common_1.Location,
+        seminar_report_service_1.SeminarReportService,
+        forms_1.FormBuilder])
 ], CreateReportFormComponent);
 exports.CreateReportFormComponent = CreateReportFormComponent;
 //# sourceMappingURL=create-form.component.js.map

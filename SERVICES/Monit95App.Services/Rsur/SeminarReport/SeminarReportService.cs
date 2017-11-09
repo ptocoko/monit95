@@ -26,24 +26,24 @@ namespace Monit95App.Services.Rsur.SeminarReport
         // TODO: refactoring
         public IEnumerable<SeminarReportModel> GetSeminarReports(string schoolId)
         {
-            return context.RsurReports.Where(p => p.SchoolId == schoolId).ToList().Select(s => new SeminarReportModel
+            return context.RsurReports.Where(p => p.SchoolId == schoolId).OrderByDescending(ob => ob.Date).ToList().Select(s => new SeminarReportModel
             {
                 RsurReportId = s.Id,
-                DateText = s.Date.ToString("dd.MM.yyyy"),
-                Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text + "...",
+                DateText = s.Date.ToString("dd.MM.yyyy, HH:mm"),
+                Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text,
                 SchoolName = $"{s.SchoolId} - {s.School.Name}"
-            }).OrderBy(ob => ob.RsurReportId);
+            });
         }
 
         public IEnumerable<SeminarReportModel> GetSeminarReports(int areaCode)
         {
-            return context.RsurReports.Where(p => p.School.AreaCode == areaCode).ToList().Select(s => new SeminarReportModel
+            return context.RsurReports.Where(p => p.School.AreaCode == areaCode).OrderByDescending(ob => ob.Date).ToList().Select(s => new SeminarReportModel
             {
                 RsurReportId = s.Id,
-                DateText = s.Date.ToString("dd.MM.yyyy"),
+                DateText = s.Date.ToString("dd.MM.yyyy, HH:mm"),
                 Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text,
                 SchoolName = $"{s.SchoolId} - {s.School.Name}"
-            }).OrderBy(ob => ob.RsurReportId);
+            });
         }
 
         public int SaveFile(Stream fileStream, string fileExtension, int reportId, int index, string imagesServerFolder)
@@ -95,7 +95,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             return new SeminarReportModel
             {
                 SchoolName = $"{model.SchoolId} - {model.School.Name}",
-                DateText = model.Date.ToString("dd.MM.yyyy"),
+                DateText = model.Date.ToString("dd.MM.yyyy, HH:mm"),
                 Text = model.Text,
                 ImagesUrls = model.RsurReportFiles.Select(s => $"/Images/seminar-photos/{s.File.Name}")
             };

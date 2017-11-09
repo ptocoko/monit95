@@ -1,32 +1,41 @@
 ﻿<h2>РСУР: Создание отчета по семинару</h2>
 <hr />
 <div class="center-block">
-    <div style="display:flex">
-        <button style="margin-bottom:10px; align-self:flex-start" class="fileUploader btn btn-default" [disabled]="images.length >= 4">
-            Добавить фото...
-            <input type="file" class="form-control" multiple accept=".png, .jpg, jpeg" (change)="addPhoto($event)" title="Добавить фото..." [disabled]="images.length >= 4"/>
-        </button>
-
-        <div style="width:35%; margin-left: 30px">
-            <table class="table">
-                <tr>
-                    <th style="width:70%">имя файла</th>
-                    <th>размер</th>
-                </tr>
-                <tr *ngFor="let image of images">
-                    <td>{{image.name}}</td>
-                    <td>{{image.size/1024/1024 | number : '1.0-2'}} МБ</td>
-                    <td><a class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deletePhoto(image)"></a></td>
-                </tr>
-            </table>
-            <p *ngIf="images.length == 0" class="text-center text-muted"><i>фотографии не добавлены</i></p>
+    <form (ngSubmit)="send()" [formGroup]="reportForm" novalidate>
+        <div class="panel panel-default panel-width">
+            <div class="panel-heading">1. Добавить фотографии</div>
+            <div class="panel-default">
+                <div style="width:50%; margin-left:10px">
+                    <table class="table table-bordered" style="margin-top:10px">
+                        <tr *ngFor="let image of images">
+                            <td>{{image.name}}</td>
+                            <td><a class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deletePhoto(image)"></a></td>
+                        </tr>
+                    </table>
+                    <p *ngIf="images.length == 0" class="alert alert-danger">
+                        фотографии не добавлены
+                    </p>
+                    <button type="button" style="margin-bottom:10px; margin-left:auto" class="fileUploader btn btn-default" [disabled]="images.length >= 4">
+                        Добавить фото...
+                        <input type="file" class="form-control" multiple accept=".png, .jpg, jpeg" (change)="addPhoto($event)" title="Добавить фото..." [disabled]="images.length >= 4" />
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-    <br />
-    <textarea placeholder="описание не добавлено" rows="10" style="width:600px" class="form-control" [(ngModel)]="protocolText"></textarea>
-    <br />
-    <div class="pull-left" style="clear: both">
-        <button class="btn btn-success" (click)="send()">Создать</button>
-        <button class="btn btn-danger" (click)="cancel()">Отмена</button>
-    </div>
+        <br />
+        <div class="panel panel-default panel-width">
+            <div class="panel-heading">2. Добавить описание</div>
+            <div class="panel-body">
+                <textarea placeholder="описание не добавлено" rows="10" style="width:600px" class="form-control" formControlName="protocolText"></textarea>
+                <div style="width:600px" class="alert alert-danger" *ngIf="!reportForm.controls['protocolText'].valid && reportForm.controls['protocolText'].touched">
+                    Текст должен состоять минимум из 100 символов
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="pull-left" style="clear: both">
+            <button type="submit" class="btn btn-success" [disabled]="reportForm.invalid || images.length < 1">Создать</button>
+            <button type="button" class="btn btn-danger" (click)="cancel()">Отмена</button>
+        </div>
+    </form>
 </div>
