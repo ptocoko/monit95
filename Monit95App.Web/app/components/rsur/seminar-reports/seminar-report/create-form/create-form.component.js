@@ -12,23 +12,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var seminar_report_service_1 = require("../../../../../services/seminar-report.service");
-var CreateReportFormComponent = (function () {
-    function CreateReportFormComponent(location, seminarReportService) {
+var UploadReportComponent = (function () {
+    function UploadReportComponent(location, seminarReportService) {
         this.location = location;
         this.seminarReportService = seminarReportService;
         this.images = new Array();
         this.protocolText = "";
     }
-    CreateReportFormComponent.prototype.addPhoto = function (event) {
+    UploadReportComponent.prototype.addPhoto = function (event) {
         var files = event.target.files;
         if (this.validateSelectedPhotos(files)) {
             for (var i = 0; i < files.length; i++) {
                 this.images.push(files[i]);
             }
         }
-        event.target.value = '';
     };
-    CreateReportFormComponent.prototype.validateSelectedPhotos = function (files) {
+    UploadReportComponent.prototype.validateSelectedPhotos = function (files) {
         if (this.images.length + files.length > 4) {
             alert('Нельзя отправить больше четырех файлов!');
             return false;
@@ -45,41 +44,28 @@ var CreateReportFormComponent = (function () {
         }
         return true;
     };
-    CreateReportFormComponent.prototype.deletePhoto = function (image) {
+    UploadReportComponent.prototype.deletePhoto = function (image) {
         var index = this.images.indexOf(image);
         this.images.splice(index, 1);
     };
-    CreateReportFormComponent.prototype.send = function () {
+    UploadReportComponent.prototype.send = function () {
         var _this = this;
-        if (this.validateForm()) {
-            this.seminarReportService.postText(this.protocolText).subscribe(function (reportId) {
-                _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () { return _this.location.back(); });
-            });
-        }
+        this.seminarReportService.postText(this.protocolText).subscribe(function (reportId) {
+            _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () { return _this.location.back(); });
+        });
     };
-    CreateReportFormComponent.prototype.validateForm = function () {
-        if (this.images.length < 1) {
-            alert('Необходимо добавить хотя бы одну фотографию.');
-            return false;
-        }
-        if (this.protocolText.length < 100) {
-            alert('Текст должен состоять из минимум 100 символов.');
-            return false;
-        }
-        return true;
-    };
-    CreateReportFormComponent.prototype.cancel = function () {
+    UploadReportComponent.prototype.cancel = function () {
         this.location.back();
     };
-    return CreateReportFormComponent;
+    return UploadReportComponent;
 }());
-CreateReportFormComponent = __decorate([
+UploadReportComponent = __decorate([
     core_1.Component({
         selector: 'upload-report',
-        templateUrl: "./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.css?v=" + new Date().getTime()]
+        templateUrl: "./app/components/rsur/seminar-report/add-form/upload-report.component.html?v=" + new Date().getTime(),
+        styleUrls: ["./app/components/rsur/seminar-report/add-form/upload-report.component.css?v=" + new Date().getTime()]
     }),
     __metadata("design:paramtypes", [common_1.Location, seminar_report_service_1.SeminarReportService])
-], CreateReportFormComponent);
-exports.CreateReportFormComponent = CreateReportFormComponent;
+], UploadReportComponent);
+exports.UploadReportComponent = UploadReportComponent;
 //# sourceMappingURL=create-form.component.js.map

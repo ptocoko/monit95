@@ -48,7 +48,7 @@ var SeminarReportComponent = (function () {
 SeminarReportComponent = __decorate([
     core_1.Component({
         selector: 'seminar-report',
-        templateUrl: "./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=" + new Date().getTime()
+        templateUrl: "./app/components/rsur/seminar-report/report.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,

@@ -1,13 +1,13 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
-import { SeminarReportService } from "../../../../services/seminar-report.service";
-import { SeminarReportModel } from "../shared/seminar-report.model";
+import { Router, ActivatedRoute } from '@angular/router';
+import { SeminarReportService } from '../../../../services/seminar-report.service';
+import { SeminarReportModel } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
 
 @Component({
 	selector: 'seminar-report',
-	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/components/rsur/seminar-report/report.component.html?v=${new Date().getTime()}`
 })
 export class SeminarReportComponent implements OnInit {
 	report: SeminarReportModel = new SeminarReportModel();
