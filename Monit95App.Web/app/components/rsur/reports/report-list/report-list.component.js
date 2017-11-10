@@ -23,7 +23,7 @@ var ReportListComponent = (function () {
         var schoolFromStorage = localStorage.getItem('selectedSchool');
         this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
         var testFromStorage = localStorage.getItem('selectedTest');
-        this.selectedTest = testFromStorage ? schoolFromStorage : 'Все блоки';
+        this.selectedTest = testFromStorage ? testFromStorage : 'Все блоки';
         this.isLoading = true;
         this.rsurReportService.getReports(TEST_DATE).subscribe(function (res) {
             _this.resultsList = res.json();
