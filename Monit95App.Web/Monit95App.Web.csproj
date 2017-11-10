@@ -340,7 +340,6 @@
     <Content Include="app\components\rsur\seminar-reports\seminar-report\seminar-report.component.html" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.html" />
     <Content Include="app\components\school-files\school-files.component.html" />
-    <Content Include="app\file\file.component.html" />
     <Content Include="app\components\files\files.component.html" />
     <Content Include="app\components\rsur\reports\report\report.component.css" />
     <Content Include="app\components\rsur\reports\report\report.component.html" />
