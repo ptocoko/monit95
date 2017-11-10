@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ParticipCorrection } from "./particip-correction";
 
-import { ParticipCorrectionService } from "./particip-correction.service";
-import { RsurParticipService } from "../rsurparticip.service";
+import { ParticipCorrectionService } from './particip-correction.service';
+import { RsurParticipService } from '../../services/rsur-particip.service';
 
 @Component({
     selector: "particip-correction",

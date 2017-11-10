@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
 
-import { RsurParticip } from '../rsurparticip';
+import { RsurParticip } from '../../models/rsur-particip.model';
 
-import { RsurParticipService } from '../rsurparticip.service';
+import { RsurParticipService } from '../../services/rsur-particip.service';
 import { AccountService } from '../../services/account.service';
 import { SchoolCollectorService } from '../../shared/school-collector.service';
 

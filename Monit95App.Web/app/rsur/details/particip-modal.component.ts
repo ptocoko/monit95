@@ -5,8 +5,8 @@ import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 import { IMyDpOptions } from 'mydatepicker';
 
-import { RsurParticip as RsurParticipModel } from '../rsurparticip';
-import { RsurParticipService } from '../rsurparticip.service';
+import { RsurParticip as RsurParticipModel } from '../../rsur-particip.model';
+import { RsurParticipService } from '../../services/rsurparticip.service';
 
 
 @Component({

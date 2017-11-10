@@ -360,8 +360,8 @@
     <Content Include="app\rsur\edit-modal-form\edit-modal.html" />
     <Content Include="app\rsur\edit-modal-form\edit-particip.html" />
     <Content Include="app\rsur\rsurparticip-actualization\rsurparticip-actualization.component.html" />
-    <Content Include="app\rsur\rsur-particips\rsur-particips.component.css" />
-    <Content Include="app\rsur\rsur-particips\rsur-particips.component.html" />
+    <Content Include="app\components\rsur\particips\particips.component.css" />
+    <Content Include="app\components\rsur\particips\particips.component.html" />
     <Content Include="app\rsur\details\particip-modal.html" />
     <Content Include="app\plan\plan.html" />
     <Content Include="app\result\result.html" />
@@ -577,7 +577,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\directives\" />
-    <Folder Include="app\pipes\" />
     <Folder Include="app\rsur\upload-report\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
@@ -621,7 +620,7 @@
     <TypeScriptCompile Include="app\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\particip.model.ts" />
     <TypeScriptCompile Include="app\particip.service.ts" />
-    <TypeScriptCompile Include="app\components\rsur\reports\report-list\report-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\pipes\rsur-report-filter.pipe.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.model.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report-list\report.model.ts" />
@@ -646,12 +645,12 @@
     <TypeScriptCompile Include="app\rsur\edit-modal-form\edit-particip.model.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-details.component.ts" />
     <TypeScriptCompile Include="app\limit-to.pipe.ts" />
-    <TypeScriptCompile Include="app\rsur\rsur-particips\rsur-particips.component.ts" />
-    <TypeScriptCompile Include="app\rsur\rsurparticip-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\components\rsur\particips\particips.component.ts" />
+    <TypeScriptCompile Include="app\pipes\rsur-particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-modal.component.ts" />
     <TypeScriptCompile Include="app\rsur\rsur-test-protocol\marks.service.ts" />
-    <TypeScriptCompile Include="app\rsur\rsurparticip.service.ts" />
-    <TypeScriptCompile Include="app\rsur\rsurparticip.ts" />
+    <TypeScriptCompile Include="app\services\rsur-particip.service.ts" />
+    <TypeScriptCompile Include="app\models\rsur-particip.model.ts" />
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
     <TypeScriptCompile Include="app\result\result.component.ts" />
     <TypeScriptCompile Include="app\services\seminar-report.service.ts" />

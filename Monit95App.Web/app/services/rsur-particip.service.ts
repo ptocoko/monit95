@@ -10,7 +10,7 @@ import { RsurParticip } from './rsurparticip';
 
 @Injectable()
 export class RsurParticipService {    
-    private ROUTE_PREFIX = 'api/RsurParticips'; 
+    private ROUTE_PREFIX = 'api/rsurParticips'; 
 
     constructor(private readonly http: Http) { }       
 

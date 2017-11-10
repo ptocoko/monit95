@@ -45,31 +45,6 @@ export class TestIdPipe implements PipeTransform {
     }
 }
 
-@Pipe({ name: 'rsurParticipFilter' })
-export class RsurParticipFilterPipe implements PipeTransform {
-    transform(particips: any, searchText: any): any {
-        if (searchText == null) return particips;
-        return particips.filter((particip: any) => {
-            if (particip.Surname) {
-                return particip.Code.toString().indexOf(searchText) > -1
-                    || particip.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-                    || particip.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
-            }
-            else if (particip.SchoolParticipInfo.Surname) {
-                return particip.Code.toString().indexOf(searchText) > -1 ||
-                    particip.SchoolParticipInfo.Surname.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
-                    particip.SchoolParticipInfo.Name.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
-            }
-            else if (particip.RsurParticipCode) {
-                return particip.RsurParticipCode.toString().indexOf(searchText) > -1;
-            }
-            else {
-                throw Error('something went wrong in rsurParticipFilter pipe');
-            }
-        });
-    }
-}
-
 @Pipe({ name: 'totalFilter' })
 export class TotalFilterPipe implements PipeTransform {
     transform(reports: ReportModel[], selectedSchool: string, selectedTest: string): ReportModel[] {

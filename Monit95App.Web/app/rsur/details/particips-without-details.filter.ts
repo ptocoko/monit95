@@ -1,5 +1,5 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
-import { RsurParticip as RsurParticipModel } from "../rsurparticip";
+import { RsurParticip as RsurParticipModel } from '../../models/rsur-particip.model';
 //import 'rxjs/Rx';
 
 @Pipe({ name: 'participsWithoutDetails' })

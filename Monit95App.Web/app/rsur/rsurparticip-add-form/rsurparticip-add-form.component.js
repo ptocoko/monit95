@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var school_service_1 = require("../../school.service");
-var rsurparticip_service_1 = require("../rsurparticip.service");
+var rsur_particip_service_1 = require("../../services/rsur-particip.service");
 var basic_validators_1 = require("../../shared/basic-validators");
 var AddRsurParticip = (function () {
     function AddRsurParticip() {
@@ -145,7 +145,7 @@ RsurParticipAddFormComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,
-        rsurparticip_service_1.RsurParticipService,
+        rsur_particip_service_1.RsurParticipService,
         school_service_1.SchoolService])
 ], RsurParticipAddFormComponent);
 exports.RsurParticipAddFormComponent = RsurParticipAddFormComponent;

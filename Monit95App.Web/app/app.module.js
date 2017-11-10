@@ -64,13 +64,12 @@ var rsur_rating_service_1 = require("./services/rsur-rating.service");
 var seminar_report_service_1 = require("./services/seminar-report.service");
 var school_file_service_1 = require("./services/school-file.service");
 // Pipes
-var rsurparticip_filter_pipe_1 = require("./rsur/rsurparticip-filter.pipe");
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
-var report_filter_pipe_1 = require("./components/rsur/reports/report-list/report-filter.pipe");
+var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
 // Additional 
 var common_1 = require("@angular/common");
@@ -130,17 +129,17 @@ AppModule = __decorate([
             rsur_test_component_1.RsurTestComponent,
             rsur_particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
-            report_filter_pipe_1.RsurParticipFilterPipe,
-            rsurparticip_filter_pipe_1.RsurShowNotActualParticips,
+            RsurParticipFilterPipe,
+            RsurShowNotActualParticips,
             particip_filter_pipe_1.ParticipFilterPipe,
             class_name_filter_pipe_1.ClassNameFilterPipe,
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
-            report_filter_pipe_1.TestIdPipe,
+            rsur_report_filter_pipe_1.TestIdPipe,
             school_filter_pipe_1.SchoolFilter,
-            report_filter_pipe_1.SchoolNameFilterPipe,
-            report_filter_pipe_1.TestNameWithDateFilterPipe,
-            report_filter_pipe_1.TotalFilterPipe,
+            rsur_report_filter_pipe_1.SchoolNameFilterPipe,
+            rsur_report_filter_pipe_1.TestNameWithDateFilterPipe,
+            rsur_report_filter_pipe_1.TotalFilterPipe,
             subject_filter_pipe_1.SubjectFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,

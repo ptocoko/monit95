@@ -1,4 +1,4 @@
-﻿export class RsurParticip {
+﻿export class RsurParticipModel {
     public Code: number;
     public Surname: string;
     public Name: string;     

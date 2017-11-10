@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var rsurparticip_service_1 = require("../rsurparticip.service");
+var rsur_particip_service_1 = require("../../services/rsur-particip.service");
 var account_service_1 = require("../../services/account.service");
 var school_collector_service_1 = require("../../shared/school-collector.service");
 var COLLECTOR_ID = 1;
@@ -66,7 +66,7 @@ RsurParticipsActualizationComponent = __decorate([
         templateUrl: "./app/rsur/rsur-particips/rsur-particips.component.html?v=" + new Date().getTime(),
         styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
     }),
-    __metadata("design:paramtypes", [rsurparticip_service_1.RsurParticipService,
+    __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
         account_service_1.AccountService,
         school_collector_service_1.SchoolCollectorService])
 ], RsurParticipsActualizationComponent);

@@ -5,9 +5,9 @@ import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 import { EditModalComponent } from './edit-modal.component';
 
-import { RsurParticipService } from '../rsurparticip.service';
+import { RsurParticipService } from '../../services/rsur-particip.service';
 import { AccountService } from '../../services/account.service';
-import { RsurParticip as RsurParticipModel } from '../rsurparticip';
+import { RsurParticip as RsurParticipModel } from '../../models/rsur-particip.model';
 
 @Component({
 	selector: 'edit-particip',

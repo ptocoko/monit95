@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { SchoolService } from '../../school.service';
-import { RsurParticipService } from '../rsurparticip.service';
+import { RsurParticipService } from '../../services/rsur-particip.service';
 
 import { BasicValidators } from '../../shared/basic-validators';
 

@@ -45,7 +45,7 @@ import { SchoolFilesComponent } from "./components/school-files/school-files.com
 // Services
 import { AccountService } from './services/account.service';
 import { ParticipService } from './particip.service';
-import { RsurParticipService } from './rsur/rsurparticip.service';
+import { RsurParticipService } from './services/rsur-particip.service';
 import { RsurTestService } from './rsur/rsur-test/rsur-test.service';
 import { SchoolService } from './school.service';
 import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
@@ -59,13 +59,12 @@ import { SeminarReportService } from "./services/seminar-report.service";
 import { SchoolFileService } from "./services/school-file.service";
 
 // Pipes
-import { RsurShowNotActualParticips } from './rsur/rsurparticip-filter.pipe';
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
-import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, RsurParticipFilterPipe, TotalFilterPipe } from './components/rsur/reports/report-list/report-filter.pipe';
+import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe } from './pipes/rsur-report-filter.pipe';
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 
 // Additional 

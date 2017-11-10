@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var angular2_modal_1 = require("angular2-modal");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var particip_modal_component_1 = require("./particip-modal.component");
-var rsurparticip_service_1 = require("../rsurparticip.service");
+var rsurparticip_service_1 = require("../../services/rsurparticip.service");
 var ParticipDetailsComponent = (function () {
     function ParticipDetailsComponent(participService, modal) {
         this.participService = participService;
@@ -64,7 +64,8 @@ ParticipDetailsComponent = __decorate([
         templateUrl: './app/rsur/details/particip-details.html',
         providers: [bootstrap_1.Modal]
     }),
-    __metadata("design:paramtypes", [rsurparticip_service_1.RsurParticipService, bootstrap_1.Modal])
+    __metadata("design:paramtypes", [typeof (_a = typeof rsurparticip_service_1.RsurParticipService !== "undefined" && rsurparticip_service_1.RsurParticipService) === "function" && _a || Object, bootstrap_1.Modal])
 ], ParticipDetailsComponent);
 exports.ParticipDetailsComponent = ParticipDetailsComponent;
+var _a;
 //# sourceMappingURL=particip-details.component.js.map
