@@ -59,7 +59,7 @@ var CreateReportFormComponent = (function () {
     };
     CreateReportFormComponent.prototype.send = function () {
         var _this = this;
-        if (this.reportForm.valid && this.images.length > 1) {
+        if (this.reportForm.valid && this.images.length > 0) {
             this.isSending = true;
             this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe(function (reportId) {
                 _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () {

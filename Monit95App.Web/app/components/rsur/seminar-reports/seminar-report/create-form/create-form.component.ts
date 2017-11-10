@@ -60,7 +60,7 @@ export class CreateReportFormComponent implements OnInit {
 	}
 
 	send() {
-		if (this.reportForm.valid && this.images.length > 1) {
+		if (this.reportForm.valid && this.images.length > 0) {
 			this.isSending = true;
 			this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe((reportId: number) => {
 				this.seminarReportService.postImages(this.images, reportId).subscribe(() => {
