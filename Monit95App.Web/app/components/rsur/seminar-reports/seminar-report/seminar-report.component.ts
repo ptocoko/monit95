@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 
 @Component({
 	selector: 'seminar-report',
-	templateUrl: `./app/components/rsur/seminar-report/report.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=${new Date().getTime()}`
 })
 export class SeminarReportComponent implements OnInit {
 	report: SeminarReportModel = new SeminarReportModel();
