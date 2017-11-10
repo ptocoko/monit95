@@ -23,10 +23,9 @@ export class ReportListComponent implements OnInit {
 
     ngOnInit() {        
         var schoolFromStorage = localStorage.getItem('selectedSchool');
-        var testFromStorage = localStorage.getItem('selectedTest');
         this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
-        this.selectedTest = testFromStorage ? schoolFromStorage : 'Все блоки';
-        this.selectedTest = localStorage.getItem('selectedTest');
+        var testFromStorage = localStorage.getItem('selectedTest');        
+        this.selectedTest = testFromStorage ? schoolFromStorage : 'Все блоки';        
 
 		this.isLoading = true;
         this.rsurReportService.getReports(TEST_DATE).subscribe(res => {
