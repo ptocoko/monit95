@@ -17,11 +17,14 @@ var ReportListComponent = (function () {
     function ReportListComponent(rsurReportService, route) {
         this.rsurReportService = rsurReportService;
         this.route = route;
-        this.selectedTest = 'Все блоки';
-        this.selectedSchool = 'Все организации';
     }
     ReportListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        var schoolFromStorage = localStorage.getItem('selectedSchool');
+        var testFromStorage = localStorage.getItem('selectedTest');
+        this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
+        this.selectedTest = testFromStorage ? schoolFromStorage : 'Все блоки';
+        this.selectedTest = localStorage.getItem('selectedTest');
         this.isLoading = true;
         this.rsurReportService.getReports(TEST_DATE).subscribe(function (res) {
             _this.resultsList = res.json();
@@ -31,6 +34,8 @@ var ReportListComponent = (function () {
         });
     };
     ReportListComponent.prototype.openReport = function (rsurParticipCode) {
+        localStorage.setItem('selectedSchool', this.selectedSchool);
+        localStorage.setItem('selectedTest', this.selectedTest);
         this.route.navigate(['/rsur/report', rsurParticipCode]);
     };
     return ReportListComponent;

@@ -577,6 +577,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\directives\" />
+    <Folder Include="app\pipes\" />
     <Folder Include="app\rsur\upload-report\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />

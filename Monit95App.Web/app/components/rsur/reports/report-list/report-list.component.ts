@@ -14,14 +14,20 @@ export class ReportListComponent implements OnInit {
     rsurTests: string[];
     schools: string[];
 	isLoading: boolean;
-    selectedTest: string = 'Все блоки';
-    selectedSchool: string = 'Все организации';
-
+    selectedSchool: string;
+    selectedTest: string;
+    
 	constructor(private readonly rsurReportService: RsurReportService, 
         private readonly route: Router) {
     }
 
-	ngOnInit() {
+    ngOnInit() {        
+        var schoolFromStorage = localStorage.getItem('selectedSchool');
+        var testFromStorage = localStorage.getItem('selectedTest');
+        this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
+        this.selectedTest = testFromStorage ? schoolFromStorage : 'Все блоки';
+        this.selectedTest = localStorage.getItem('selectedTest');
+
 		this.isLoading = true;
         this.rsurReportService.getReports(TEST_DATE).subscribe(res => {
             this.resultsList = res.json() as ReportModel[];
@@ -32,7 +38,9 @@ export class ReportListComponent implements OnInit {
 	    });
 	}
 
-	openReport(rsurParticipCode: number) {
+    openReport(rsurParticipCode: number) {
+        localStorage.setItem('selectedSchool', this.selectedSchool);
+        localStorage.setItem('selectedTest', this.selectedTest);
 	    this.route.navigate(['/rsur/report', rsurParticipCode]);
 	}
 }
