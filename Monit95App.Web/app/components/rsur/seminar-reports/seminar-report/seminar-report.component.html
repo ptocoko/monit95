@@ -4,16 +4,18 @@
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>
 <div *ngIf="!isLoading">
-    <div id="photos">
-        <a target="_blank" *ngFor="let url of report.ImagesUrls" href="{{url}}" style="text-decoration:none">
-            <img src="{{url}}" class="img-responsive img-thumbnail" style="height:150px; margin-right:10px" />
-        </a>
-    </div>
-    <button *ngIf="accountService.isArea()" style="margin-top:10px" class="btn btn-default" (click)="downloadPhotos()"><span class="glyphicon glyphicon-download-alt"></span> Скачать все фотографии</button>
-    <br />
-    <br />
-    <br />
-    <p style="font-size: 15pt; font-family: 'Times New Roman'; -ms-word-wrap: break-word; word-wrap: break-word;">{{report.Text}}</p>
-    <hr />
-    <button (click)="location.back()" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Назад</button>
+    <md-card class="report-card">
+        <div id="photos">
+            <a target="_blank" *ngFor="let url of report.ImagesUrls" href="{{url}}" style="text-decoration:none">
+                <img md-card-image src="{{url}}" class="img-responsive img-thumbnail" style="width:280px; margin-right:10px; " />
+            </a>
+        </div>
+        <md-card-content>
+            <p>{{report.Text}}</p>
+        </md-card-content>
+        <md-card-actions>
+            <button md-button (click)="location.back()">Назад</button>
+            <button md-button *ngIf="accountService.isArea()" (click)="downloadPhotos()">Скачать все фотографии</button>
+        </md-card-actions>
+    </md-card>
 </div>
