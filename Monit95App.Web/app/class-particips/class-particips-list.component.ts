@@ -2,7 +2,7 @@
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { AccountService } from '../services/account.service';
-import { Account } from '../shared/account';
+import { AccountModel } from '../models/account.model';
 import { ParticipService } from '../particip.service';
 import { ClassParticip } from './ClassParticip';
 
@@ -13,7 +13,7 @@ const PROJECT_ID: number = 1;
 })
 export class ClassParticipsListComponent implements OnInit {
 	classParticips: ClassParticip[];
-    account: Account;
+    account: AccountModel;
 	isLoading: boolean = true;
 
     constructor(
@@ -25,7 +25,7 @@ export class ClassParticipsListComponent implements OnInit {
 
 	ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
-            this.account = data.json() as Account;
+            this.account = data.json() as AccountModel;
             this.participService.getAll(PROJECT_ID).subscribe(res => {
 				this.classParticips = res.json() as ClassParticip[];
 				this.classParticips.forEach((val, i, arr) => {

@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var account_1 = require("../shared/account");
+var account_model_1 = require("../models/account.model");
 var AccountService = (function () {
     function AccountService(http) {
         this.http = http;
-        this.account = new account_1.Account();
+        this.account = new account_model_1.AccountModel();
         this.loadAccount();
     }
     AccountService.prototype.loadAccount = function () {

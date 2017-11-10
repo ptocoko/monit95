@@ -3,10 +3,10 @@
 import { DialogRef, Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
-import { RsurParticip as RsurParticipModel } from '../../rsur-particip.model';
+import { RsurParticipModel } from '../../models/rsur-particip.model';
 import { ParticipModalComponent } from './particip-modal.component';
 
-import { RsurParticipService } from '../../services/rsurparticip.service';
+import { RsurParticipService } from '../../services/rsur-particip.service';
 
 @Component({
 	selector: 'particip-details',

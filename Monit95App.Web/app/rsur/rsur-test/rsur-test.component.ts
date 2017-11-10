@@ -3,7 +3,7 @@
 import { AccountService } from '../../services/account.service';
 import { RsurTestService } from './rsur-test.service';
 
-import { Account } from '../../shared/account';
+import { AccountModel } from '../../models/account.model';
 
 class RsurTestStatistics {
 	HasAnyParticip: string;
@@ -16,7 +16,7 @@ class RsurTestStatistics {
     styleUrls: [`./app/rsur/rsur-test/rsur-test.component.css?v=${new Date().getTime()}`]
 })
 export class RsurTestComponent implements OnInit {
-    account = new Account();  
+    account = new AccountModel();  
 	percent: number;
 	componentIsShowing: boolean = false;
 	protocolValues: { [id: number]: RsurTestStatistics };
@@ -28,7 +28,7 @@ export class RsurTestComponent implements OnInit {
 
     ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
-			this.account = data.json() as Account;
+			this.account = data.json() as AccountModel;
             this.rsurTestService.getProtocolStatus().subscribe(res => {
                 this.protocolValues = res.json() as { [id: number]: RsurTestStatistics };
                 this.componentIsShowing = true;

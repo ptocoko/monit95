@@ -654,7 +654,7 @@
     <TypeScriptCompile Include="app\plan\plan.component.ts" />
     <TypeScriptCompile Include="app\result\result.component.ts" />
     <TypeScriptCompile Include="app\services\seminar-report.service.ts" />
-    <TypeScriptCompile Include="app\shared\account.ts" />
+    <TypeScriptCompile Include="app\models\account.model.ts" />
     <TypeScriptCompile Include="app\services\account.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\seminar-reports\seminar-report\create-form\create-form.component.ts" />
     <TypeScriptCompile Include="app\school-filter.pipe.ts" />

@@ -10,16 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var account_1 = require("../../shared/account");
+var account_model_1 = require("../../../models/account.model");
 // Services
-var rsurparticip_service_1 = require("../rsurparticip.service");
-var account_service_1 = require("../../services/account.service");
+var rsur_particip_service_1 = require("../../../services/rsur-particip.service");
+var account_service_1 = require("../../../services/account.service");
 var RsurParticipsComponent = (function () {
     function RsurParticipsComponent(rsurParticipService, accountService) {
         this.rsurParticipService = rsurParticipService;
         this.accountService = accountService;
         this.particips = [];
-        this.account = new account_1.Account();
+        this.account = new account_model_1.AccountModel();
     }
     RsurParticipsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -48,9 +48,9 @@ RsurParticipsComponent = __decorate([
         templateUrl: "./app/rsur/rsur-particips/rsur-particips.component.html?v=" + new Date().getTime(),
         styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof rsurparticip_service_1.RsurParticipService !== "undefined" && rsurparticip_service_1.RsurParticipService) === "function" && _a || Object, typeof (_b = typeof account_service_1.AccountService !== "undefined" && account_service_1.AccountService) === "function" && _b || Object])
+    __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
+        account_service_1.AccountService])
 ], RsurParticipsComponent);
 exports.RsurParticipsComponent = RsurParticipsComponent;
 ;
-var _a, _b;
 //# sourceMappingURL=particips.component.js.map

@@ -1,10 +1,10 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Account } from '../shared/account';
+import { AccountModel } from '../models/account.model';
 
 @Injectable()
 export class AccountService {    
-	account: Account = new Account();
+    account: Account = new AccountModel();
 
 	constructor(private readonly http: Http) {
 		this.loadAccount();

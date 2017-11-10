@@ -7,7 +7,7 @@ import { EditModalComponent } from './edit-modal.component';
 
 import { RsurParticipService } from '../../services/rsur-particip.service';
 import { AccountService } from '../../services/account.service';
-import { RsurParticip as RsurParticipModel } from '../../models/rsur-particip.model';
+import { RsurParticipModel } from '../../models/rsur-particip.model';
 
 @Component({
 	selector: 'edit-particip',

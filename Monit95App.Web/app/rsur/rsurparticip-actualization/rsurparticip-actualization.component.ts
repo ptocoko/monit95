@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
 
-import { RsurParticip } from '../../models/rsur-particip.model';
+import { RsurParticipModel } from '../../models/rsur-particip.model';
 
 import { RsurParticipService } from '../../services/rsur-particip.service';
 import { AccountService } from '../../services/account.service';
@@ -15,7 +15,7 @@ const COLLECTOR_ID: number = 1;
     styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
 })
 export class RsurParticipsActualizationComponent implements OnInit {
-	particips: RsurParticip[] = [];
+    particips: RsurParticipModel[] = [];
 	isFinished: boolean;
 
     constructor(private readonly rsurParticipService: RsurParticipService,
@@ -30,7 +30,7 @@ export class RsurParticipsActualizationComponent implements OnInit {
     getAllParticips() {
         this.rsurParticipService.getAll()
             .subscribe((response: Response) => {                
-				this.particips = response.json() as RsurParticip[];
+                this.particips = response.json() as RsurParticipModel[];
 
 				this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(res => {
 					console.log(res);
@@ -39,7 +39,7 @@ export class RsurParticipsActualizationComponent implements OnInit {
             });
     }
 
-    setActualCode(particip: RsurParticip, actualCode: number) {
+    setActualCode(particip: RsurParticipModel, actualCode: number) {
         particip.ActualCode = actualCode;
         this.rsurParticipService.update(particip.Code, particip)
             .subscribe(() => {

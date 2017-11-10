@@ -23,7 +23,7 @@ var ngx_order_pipe_1 = require("ngx-order-pipe");
 // Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
-var rsur_particips_component_1 = require("./rsur/rsur-particips/rsur-particips.component");
+var particips_component_1 = require("./components/rsur/particips/particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
@@ -51,7 +51,7 @@ var school_files_component_1 = require("./components/school-files/school-files.c
 // Services
 var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
-var rsurparticip_service_1 = require("./rsur/rsurparticip.service");
+var rsur_particip_service_1 = require("./services/rsur-particip.service");
 var rsur_test_service_1 = require("./rsur/rsur-test/rsur-test.service");
 var school_service_1 = require("./school.service");
 var particip_correction_service_1 = require("./rsur/correction/particip-correction.service");
@@ -71,6 +71,7 @@ var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
+var rsur_partcip_filter_pipe_1 = require("/pipes/rsur-partcip-filter.pipe");
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
@@ -98,7 +99,7 @@ AppModule = __decorate([
             router_1.RouterModule.forRoot([
                 { path: 'rsur', component: home_component_1.HomeComponent },
                 { path: 'rsur/test', component: rsur_test_component_1.RsurTestComponent },
-                { path: 'rsur/particips', component: rsur_particips_component_1.RsurParticipsComponent },
+                { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },
                 { path: 'rsur/particips/add', component: rsurparticip_add_form_component_1.RsurParticipAddFormComponent },
                 { path: 'rsur/tests/:id/protocols', component: rsur_test_protocol_list_component_1.RsurTestProtocolListComponent },
                 { path: 'rsur/testprotocols/:id', component: rsur_test_protocol_component_1.RsurTestProtocolComponent },
@@ -127,10 +128,9 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             home_component_1.HomeComponent,
             rsur_test_component_1.RsurTestComponent,
-            rsur_particips_component_1.RsurParticipsComponent,
+            particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
-            RsurParticipFilterPipe,
-            RsurShowNotActualParticips,
+            rsur_partcip_filter_pipe_1.RsurParticipFilterPipe,
             particip_filter_pipe_1.ParticipFilterPipe,
             class_name_filter_pipe_1.ClassNameFilterPipe,
             limit_to_pipe_1.LimitToPipe,
@@ -166,7 +166,7 @@ AppModule = __decorate([
         ],
         providers: [
             account_service_1.AccountService,
-            rsurparticip_service_1.RsurParticipService,
+            rsur_particip_service_1.RsurParticipService,
             rsur_test_service_1.RsurTestService,
             school_service_1.SchoolService,
             particip_correction_service_1.ParticipCorrectionService,

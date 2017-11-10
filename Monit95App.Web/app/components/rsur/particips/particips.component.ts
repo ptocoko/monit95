@@ -2,12 +2,12 @@
 import { Response } from '@angular/http';
 
 // Models
-import { RsurParticip } from '../rsurparticip';
-import { Account } from '../../shared/account';
+import { RsurParticipModel } from '../../../models/rsur-particip.model';
+import { AccountModel } from '../../../models/account.model';
 
 // Services
-import { RsurParticipService } from '../rsurparticip.service';
-import { AccountService } from '../../services/account.service';
+import { RsurParticipService } from '../../../services/rsur-particip.service';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
     selector: 'rsur/particips',
@@ -15,8 +15,8 @@ import { AccountService } from '../../services/account.service';
     styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
 })
 export class RsurParticipsComponent implements OnInit {
-    particips: RsurParticip[] = [];	
-    account = new Account();
+    particips: RsurParticipModel[] = [];	
+    account = new AccountModel();
 
     constructor(private readonly rsurParticipService: RsurParticipService,
                 private readonly accountService: AccountService) {        
@@ -25,14 +25,14 @@ export class RsurParticipsComponent implements OnInit {
     ngOnInit() {
         this.getAllParticips(); 
         this.accountService.getAccount().subscribe(data => {            
-            this.account = data.json() as Account;           
+            this.account = data.json() as AccountModel;           
         });
     }
 
     getAllParticips() {
         this.rsurParticipService.getAll()
             .subscribe((response: Response) => {
-                this.particips = response.json() as RsurParticip[];
+                this.particips = response.json() as RsurParticipModel[];
             });
     }
 

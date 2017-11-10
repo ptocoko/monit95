@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var account_service_1 = require("../../services/account.service");
 var rsur_test_service_1 = require("./rsur-test.service");
-var account_1 = require("../../shared/account");
+var account_model_1 = require("../../models/account.model");
 var RsurTestStatistics = (function () {
     function RsurTestStatistics() {
     }
@@ -22,7 +22,7 @@ var RsurTestComponent = (function () {
     function RsurTestComponent(accountService, rsurTestService) {
         this.accountService = accountService;
         this.rsurTestService = rsurTestService;
-        this.account = new account_1.Account();
+        this.account = new account_model_1.AccountModel();
         this.componentIsShowing = false;
     }
     RsurTestComponent.prototype.ngOnInit = function () {

@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var account_service_1 = require("../../../services/account.service");
-var account_1 = require("../../../shared/account");
+var account_model_1 = require("../../../models/account.model");
 var HomeComponent = (function () {
     function HomeComponent(accountService) {
         this.accountService = accountService;
-        this.account = new account_1.Account();
+        this.account = new account_model_1.AccountModel();
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;

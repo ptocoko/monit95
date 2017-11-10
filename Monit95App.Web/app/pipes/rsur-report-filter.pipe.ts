@@ -1,5 +1,5 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
-import { ReportModel } from './report.model'
+import { ReportModel } from '../models/report.model';
 
 @Pipe({ name: 'testNameWithDateFilter' })
 export class TestNameWithDateFilterPipe implements PipeTransform {
