@@ -21,10 +21,9 @@ var ReportListComponent = (function () {
     ReportListComponent.prototype.ngOnInit = function () {
         var _this = this;
         var schoolFromStorage = localStorage.getItem('selectedSchool');
-        var testFromStorage = localStorage.getItem('selectedTest');
         this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
+        var testFromStorage = localStorage.getItem('selectedTest');
         this.selectedTest = testFromStorage ? schoolFromStorage : 'Все блоки';
-        this.selectedTest = localStorage.getItem('selectedTest');
         this.isLoading = true;
         this.rsurReportService.getReports(TEST_DATE).subscribe(function (res) {
             _this.resultsList = res.json();
