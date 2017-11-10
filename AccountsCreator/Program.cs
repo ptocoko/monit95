@@ -14,61 +14,46 @@ namespace AccountsCreator
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
 
-
-            foreach (var rsurParticip in RSUR_accaunts.LoginPasswordPairs)
+            bool toExit = false;
+            while (!toExit)
             {
-                try
+                Console.Write("Введите команду -> ");
+                var command = Console.ReadLine();
+
+                switch (command.Trim().ToUpper())
                 {
-                    accountsManager.AddRoleToUser(rsurParticip.Key, "rsur-particip");
-                    Console.WriteLine($"Аккаунту {rsurParticip.Key} успешно добавлена роль!");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.ReadKey();
+                    case "EXIT":
+                        toExit = true;
+                        break;
+                    case "CREATE USER":
+                        AddUser();
+                        break;
+                    case "DELETE USER":
+                        DeleteUser();
+                        break;
+                    case "CREATE ROLE":
+                        AddRole();
+                        break;
+                    case "DELETE ROLE":
+                        DeleteRole();
+                        break;
+                    case "ADD ROLE TO USER":
+                        AddRoleToUser();
+                        break;
+                    case "CHANGE PASSWORD":
+                        ChangePassword();
+                        break;
+                    case "CLEAR":
+                        Console.Clear();
+                        break;
+                    case "HELP":
+                        ShowAllCommands();
+                        break;
+                    default:
+                        Console.WriteLine($"Команда '{command}' не найдена. Для помощи воспользуйтесь командой 'help'\n");
+                        break;
                 }
             }
-
-            //bool toExit = false;
-            //while (!toExit)
-            //{
-            //    Console.Write("Введите команду -> ");
-            //    var command = Console.ReadLine();
-
-            //    switch (command.Trim().ToUpper())
-            //    {
-            //        case "EXIT":
-            //            toExit = true;
-            //            break;
-            //        case "CREATE USER":
-            //            AddUser();
-            //            break;
-            //        case "DELETE USER":
-            //            DeleteUser();
-            //            break;
-            //        case "CREATE ROLE":
-            //            AddRole();
-            //            break;
-            //        case "DELETE ROLE":
-            //            DeleteRole();
-            //            break;
-            //        case "ADD ROLE TO USER":
-            //            AddRoleToUser();
-            //            break;
-            //        case "CHANGE PASSWORD":
-            //            ChangePassword();
-            //            break;
-            //        case "CLEAR":
-            //            Console.Clear();
-            //            break;
-            //        case "HELP":
-            //            ShowAllCommands();
-            //            break;
-            //        default:
-            //            Console.WriteLine($"Команда '{command}' не найдена. Для помощи воспользуйтесь командой 'help'\n");
-            //            break;
-            //    }
-            //}
         }
 
         private static void AddUser()

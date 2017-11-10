@@ -14,12 +14,14 @@ var router_1 = require("@angular/router");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
 var seminar_report_model_1 = require("../shared/seminar-report.model");
 var common_1 = require("@angular/common");
+var account_service_1 = require("../../../../services/account.service");
 var SeminarReportComponent = (function () {
-    function SeminarReportComponent(router, route, seminarReportService, location) {
+    function SeminarReportComponent(router, route, seminarReportService, location, accountService) {
         this.router = router;
         this.route = route;
         this.seminarReportService = seminarReportService;
         this.location = location;
+        this.accountService = accountService;
         this.report = new seminar_report_model_1.SeminarReportModel();
     }
     SeminarReportComponent.prototype.ngOnInit = function () {
@@ -53,7 +55,8 @@ SeminarReportComponent = __decorate([
     __metadata("design:paramtypes", [router_1.Router,
         router_1.ActivatedRoute,
         seminar_report_service_1.SeminarReportService,
-        common_1.Location])
+        common_1.Location,
+        account_service_1.AccountService])
 ], SeminarReportComponent);
 exports.SeminarReportComponent = SeminarReportComponent;
 //# sourceMappingURL=seminar-report.component.js.map

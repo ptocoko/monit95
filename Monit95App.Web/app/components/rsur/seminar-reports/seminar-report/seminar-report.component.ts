@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SeminarReportService } from '../../../../services/seminar-report.service';
 import { SeminarReportModel } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
+import { AccountService } from "../../../../services/account.service";
 
 @Component({
 	selector: 'seminar-report',
@@ -17,7 +18,8 @@ export class SeminarReportComponent implements OnInit {
 	constructor(private router: Router, 
 				private route: ActivatedRoute,
 				private seminarReportService: SeminarReportService,
-				private location: Location) { }
+				private location: Location,
+				private accountService: AccountService) { }
 
 	ngOnInit() {
 		this.isLoading = true;

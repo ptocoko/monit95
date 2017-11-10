@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 
 export class BasicValidators {
 
@@ -20,5 +20,12 @@ export class BasicValidators {
                 valid: false
             }
         };
-    }
+	}
+
+	static textMinLengthWithoutSpaces(minLen: number): ValidatorFn {
+		return (control: AbstractControl): { [key: string]: any } => {
+			let text = control.value as string;
+			return text.replace(/\s+/g, '').length < minLen ? { 'protocolText': { value: control.value } } : null;
+		}
+	}
 }

@@ -9,7 +9,7 @@
             <img src="{{url}}" class="img-responsive img-thumbnail" style="height:150px; margin-right:10px" />
         </a>
     </div>
-    <button style="margin-top:10px" class="btn btn-default" (click)="downloadPhotos()"><span class="glyphicon glyphicon-download-alt"></span> Скачать все фотографии</button>
+    <button *ngIf="accountService.isArea()" style="margin-top:10px" class="btn btn-default" (click)="downloadPhotos()"><span class="glyphicon glyphicon-download-alt"></span> Скачать все фотографии</button>
     <br />
     <br />
     <br />
