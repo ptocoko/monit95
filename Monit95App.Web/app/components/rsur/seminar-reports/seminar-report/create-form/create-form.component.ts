@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
 import { SeminarReportService } from "../../../../../services/seminar-report.service";
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { BasicValidators } from "../../../../../shared/basic-validators";
 
 @Component({
 	selector: 'upload-report',
@@ -13,6 +14,7 @@ import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms"
 export class CreateReportFormComponent implements OnInit {
 	reportForm: FormGroup;
 	images: File[] = new Array<File>();
+	isSending: boolean = false;
 
 	constructor(private readonly location: Location,
 				private readonly seminarReportService: SeminarReportService,
@@ -20,7 +22,7 @@ export class CreateReportFormComponent implements OnInit {
 
 	ngOnInit() {
 		this.reportForm = this.fb.group({
-			protocolText: ['', [Validators.required, Validators.minLength(100)]]
+			protocolText: ['', [Validators.required, BasicValidators.textMinLengthWithoutSpaces(100)]]
 		});
 	}
 
@@ -59,8 +61,12 @@ export class CreateReportFormComponent implements OnInit {
 
 	send() {
 		if (this.reportForm.valid && this.images.length > 1) {
+			this.isSending = true;
 			this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe((reportId: number) => {
-				this.seminarReportService.postImages(this.images, reportId).subscribe(() => this.location.back())
+				this.seminarReportService.postImages(this.images, reportId).subscribe(() => {
+					this.isSending = false;
+					this.location.back()
+				})
 			});
 		}
 	}

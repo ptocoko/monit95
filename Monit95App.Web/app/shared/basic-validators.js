@@ -19,6 +19,12 @@ var BasicValidators = (function () {
             }
         };
     };
+    BasicValidators.textMinLengthWithoutSpaces = function (minLen) {
+        return function (control) {
+            var text = control.value;
+            return text.replace(/\s+/g, '').length < minLen ? { 'protocolText': { value: control.value } } : null;
+        };
+    };
     return BasicValidators;
 }());
 exports.BasicValidators = BasicValidators;

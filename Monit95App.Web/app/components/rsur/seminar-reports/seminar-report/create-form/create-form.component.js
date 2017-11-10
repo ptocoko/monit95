@@ -13,16 +13,18 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var seminar_report_service_1 = require("../../../../../services/seminar-report.service");
 var forms_1 = require("@angular/forms");
+var basic_validators_1 = require("../../../../../shared/basic-validators");
 var CreateReportFormComponent = (function () {
     function CreateReportFormComponent(location, seminarReportService, fb) {
         this.location = location;
         this.seminarReportService = seminarReportService;
         this.fb = fb;
         this.images = new Array();
+        this.isSending = false;
     }
     CreateReportFormComponent.prototype.ngOnInit = function () {
         this.reportForm = this.fb.group({
-            protocolText: ['', [forms_1.Validators.required, forms_1.Validators.minLength(100)]]
+            protocolText: ['', [forms_1.Validators.required, basic_validators_1.BasicValidators.textMinLengthWithoutSpaces(100)]]
         });
     };
     CreateReportFormComponent.prototype.addPhoto = function (event) {
@@ -58,8 +60,12 @@ var CreateReportFormComponent = (function () {
     CreateReportFormComponent.prototype.send = function () {
         var _this = this;
         if (this.reportForm.valid && this.images.length > 1) {
+            this.isSending = true;
             this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe(function (reportId) {
-                _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () { return _this.location.back(); });
+                _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () {
+                    _this.isSending = false;
+                    _this.location.back();
+                });
             });
         }
     };
