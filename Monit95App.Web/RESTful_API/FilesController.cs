@@ -37,9 +37,6 @@ namespace Monit95App.Web.Api
 
         #region APIs
 
-
-
-
         #warning readable is bad
         [Route("api/files/rsurParticipLists/{id}")]
         public async Task<HttpResponseMessage> Get(string id) //id = userName

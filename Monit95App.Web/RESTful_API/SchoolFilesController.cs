@@ -22,11 +22,10 @@ namespace Monit95App.RESTful_API
 
         [Route("")]
         public IHttpActionResult Get()
-        {
-            var schoolId = User.Identity.Name;
+        {            
             var model = ReportMetaHandler.GetReportMetasBySchool(context.Schools.Find(User.Identity.Name), new SchoolReportFileNameOffline());
 
-            return Ok(model.OrderByDescending(x=>x.Year));
+            return Ok(model.Where(x => x.Year == "2017/2018").OrderByDescending(x => x.Date));
         }
 
     }
