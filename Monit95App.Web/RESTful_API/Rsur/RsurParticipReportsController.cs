@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Http;
 using Monit95App.Services.Rsur.ParticipReport;
 using WebApi.OutputCache.V2;
@@ -87,6 +88,7 @@ namespace Monit95App.RESTful_API.Rsur
 
     public class ReportTextDto
     {
+        [Required]
         public string Text { get; set; }
     }
 }
