@@ -278,7 +278,7 @@
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
     <Compile Include="RESTful_API\Rsur\RatingsController.cs" />
-    <Compile Include="RESTful_API\Rsur\RsurMarksController.cs" />
+    <Compile Include="RESTful_API\Rsur\MarksController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipReportsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipEditsController.cs" />

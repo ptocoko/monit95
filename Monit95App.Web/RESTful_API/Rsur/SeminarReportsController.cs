@@ -1,4 +1,5 @@
-﻿using Monit95App.Services.Rsur.SeminarReport;
+﻿using System.Diagnostics.CodeAnalysis;
+using Monit95App.Services.Rsur.SeminarReport;
 using System.IO;
 using System.Web;
 using System.Web.Hosting;
@@ -10,7 +11,7 @@ namespace Monit95App.RESTful_API.Rsur
     [RoutePrefix("api/rsur/seminarReports")]
     public class SeminarReportsController : ApiController
     {
-        #region
+        #region Dependencies
 
         private readonly ISeminarReportService seminarReportService;
 
@@ -21,26 +22,22 @@ namespace Monit95App.RESTful_API.Rsur
             this.seminarReportService = seminarReportService;
         }
 
-        [HttpPost]
-        [Authorize(Roles = "school")]
-        [Route("")]
+        [HttpPost, Route("")]
+        [Authorize(Roles = "school")]        
+        [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
         public IHttpActionResult PostReportText([FromBody]ReportTextDto textDto)
-        {
-            string schoolId = User.Identity.Name;
-            if (ModelState.IsValid)
-            {
-                var reportId = seminarReportService.SaveText(textDto.Text, schoolId);
-                return Ok(reportId);
-            }
-            else
+        {            
+            if (!ModelState.IsValid)
             {
                 return BadRequest("Something wrong with text");
             }
+            string schoolId = User.Identity.Name;
+            var reportId = seminarReportService.SaveText(textDto.Text, schoolId);
+            return Ok(reportId);
         }
 
-        [HttpPost]
-        [Authorize(Roles = "school")]
-        [Route("{id:int}/files")]
+        [HttpPost, Route("{id:int}/files")]
+        [Authorize(Roles = "school")]        
         public IHttpActionResult PostReportFiles()
         {
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
