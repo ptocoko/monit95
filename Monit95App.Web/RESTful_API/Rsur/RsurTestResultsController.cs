@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Monit95App.Services.DTOs;
-using Monit95App.Services.Rsur;
 using Monit95App.Services.Rsur.Protocol;
-using Monit95App.Services.Rsur.ParticipReport;
 
-namespace Monit95App.RESTful_API
+namespace Monit95App.RESTful_API.Rsur
 {
     [Authorize(Roles = "area")]
     [RoutePrefix("api/rsur/testProtocols")]
@@ -16,13 +13,12 @@ namespace Monit95App.RESTful_API
         #region Dependencies
 
         private readonly IProtocolService testProtocolService;
-        private readonly IParticipReportService participReportService;
+        
         #endregion
 
-        public RsurTestResultsController(IProtocolService testProtocolService, IParticipReportService participReportService)
+        public RsurTestResultsController(IProtocolService testProtocolService)
         {
-            this.testProtocolService = testProtocolService;
-            this.participReportService = participReportService;
+            this.testProtocolService = testProtocolService;            
         }
 
         #region APIs        
@@ -71,7 +67,7 @@ namespace Monit95App.RESTful_API
             return Ok(protocol);
         }        
 
-        //TODO: need refactoring
+        // TODO: need refactoring
         [HttpGet]
         [Route("~/api/RsurTests/Statistics")]
         public IHttpActionResult GetStatistics(int rsurTestId)
@@ -81,7 +77,7 @@ namespace Monit95App.RESTful_API
             return Ok(testProtocolService.GetStatistics(areaCode));
         }
 
-        //TODO: need refactoring
+        // TODO: need refactoring
         [HttpGet]
         [Route("~/api/RsurTests/{rsurTestId:int}/Name")]
         public IHttpActionResult GetTestName()
