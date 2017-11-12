@@ -7,8 +7,8 @@ using System.Web.Http;
 
 namespace Monit95App.RESTful_API.Rsur
 {
-    [Authorize(Roles = "area, school")]
     [RoutePrefix("api/rsur/seminarReports")]
+    [Authorize(Roles = "area, school")]    
     public class SeminarReportsController : ApiController
     {
         #region Dependencies
@@ -22,6 +22,8 @@ namespace Monit95App.RESTful_API.Rsur
             this.seminarReportService = seminarReportService;
         }
 
+        #region APIs                    
+
         [HttpPost, Route("")]
         [Authorize(Roles = "school")]        
         [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
@@ -33,6 +35,7 @@ namespace Monit95App.RESTful_API.Rsur
             }
             string schoolId = User.Identity.Name;
             var reportId = seminarReportService.SaveText(textDto.Text, schoolId);
+
             return Ok(reportId);
         }
 
@@ -44,39 +47,35 @@ namespace Monit95App.RESTful_API.Rsur
             var httpRequest = HttpContext.Current.Request;
 
             var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
-            HttpPostedFile file = null;
-            for (int i = 0; i < httpRequest.Files.Count; i++)
+            for (var i = 0; i < httpRequest.Files.Count; i++)
             {
-                file = httpRequest.Files[i];
-                string fileExtension = Path.GetExtension(file.FileName);
+                var file = httpRequest.Files[i];
+                var fileExtension = Path.GetExtension(file.FileName);
                 var fileId = seminarReportService.SaveFile(file.InputStream, fileExtension, reportId, i + 1, imagesFolder);
             }
 
             return Ok();
         }
 
-        [HttpGet]        
-        [Route("")]
+        [HttpGet, Route("")]                
         public IHttpActionResult GetSeminarReports()
         {
             if (User.IsInRole("school"))
             {
-                string schoolId = User.Identity.Name;
-
+                var schoolId = User.Identity.Name;
                 return Ok(seminarReportService.GetSeminarReports(schoolId));
             }
-            else if(User.IsInRole("area"))
+
+            if (!User.IsInRole("area"))
             {
-                int areaCode = int.Parse(User.Identity.Name);
-
-                return Ok(seminarReportService.GetSeminarReports(areaCode));
+                return BadRequest();
             }
+            var areaCode = int.Parse(User.Identity.Name);
 
-            return BadRequest();
+            return Ok(seminarReportService.GetSeminarReports(areaCode));
         }
 
-        [HttpGet]
-        [Route("{id:int}")]
+        [HttpGet, Route("{id:int}")]        
         public IHttpActionResult GetReport()
         {
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
@@ -84,8 +83,7 @@ namespace Monit95App.RESTful_API.Rsur
             return Ok(seminarReportService.GetReport(reportId));
         }
 
-        [HttpDelete]
-        [Route("{id:int}")]
+        [HttpDelete, Route("{id:int}")]        
         public IHttpActionResult DeleteReport()
         {
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
@@ -95,5 +93,7 @@ namespace Monit95App.RESTful_API.Rsur
 
             return Ok();
         }
+
+        #endregion
     }
 }
