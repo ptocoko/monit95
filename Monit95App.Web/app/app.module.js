@@ -71,7 +71,7 @@ var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
-var rsur_partcip_filter_pipe_1 = require("/pipes/rsur-partcip-filter.pipe");
+var rsur_particip_filter_pipe_1 = require("./pipes/rsur-particip-filter.pipe");
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
@@ -130,7 +130,7 @@ AppModule = __decorate([
             rsur_test_component_1.RsurTestComponent,
             particips_component_1.RsurParticipsComponent,
             rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
-            rsur_partcip_filter_pipe_1.RsurParticipFilterPipe,
+            rsur_particip_filter_pipe_1.RsurParticipFilterPipe,
             particip_filter_pipe_1.ParticipFilterPipe,
             class_name_filter_pipe_1.ClassNameFilterPipe,
             limit_to_pipe_1.LimitToPipe,
@@ -141,6 +141,7 @@ AppModule = __decorate([
             rsur_report_filter_pipe_1.TestNameWithDateFilterPipe,
             rsur_report_filter_pipe_1.TotalFilterPipe,
             subject_filter_pipe_1.SubjectFilterPipe,
+            rsur_particip_filter_pipe_1.RsurParticipActualFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,

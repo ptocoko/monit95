@@ -1,6 +1,6 @@
-﻿import { Person } from "./shared/Person";
+﻿import { PersonModel } from './models/person.model';
 
-export class ParticipModel extends Person {
+export class ParticipModel extends PersonModel {
 	public Id: number;
 	public ProjectId: number;
 

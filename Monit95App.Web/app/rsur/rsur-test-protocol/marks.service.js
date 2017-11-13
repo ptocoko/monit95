@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var Person_1 = require("../../shared/Person");
+var person_model_1 = require("../../models/person.model");
 var Marks = (function () {
     function Marks() {
     }
@@ -35,7 +35,7 @@ var ParticipWithMarks = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return ParticipWithMarks;
-}(Person_1.Person));
+}(person_model_1.PersonModel));
 exports.ParticipWithMarks = ParticipWithMarks;
 var MarksService = (function () {
     function MarksService(http) {

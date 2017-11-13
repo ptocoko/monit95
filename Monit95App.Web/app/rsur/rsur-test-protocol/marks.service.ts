@@ -2,14 +2,14 @@
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { Person } from '../../shared/Person';
+import { PersonModel } from '../../models/person.model';
 
 export class Marks {
     participTestId: number;
     marks: string;
 }
 
-export class ParticipWithMarks extends Person {
+export class ParticipWithMarks extends PersonModel {
 	ParticipTestId: number;
 	ClassName: string;
 	Marks: string;

@@ -66,7 +66,7 @@ import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe } from './pipes/rsur-report-filter.pipe';
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
-import { RsurParticipFilterPipe } from '/pipes/rsur-partcip-filter.pipe';
+import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rsur-particip-filter.pipe';
 
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -133,7 +133,8 @@ import { GlobalErrorHandler } from './error-handler';
         SchoolNameFilterPipe,
         TestNameWithDateFilterPipe,
         TotalFilterPipe,
-	    SubjectFilterPipe,
+        SubjectFilterPipe,
+        RsurParticipActualFilterPipe,
 		PlanComponent,
 		ResultComponent,
 		ParticipDetailsComponent,		

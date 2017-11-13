@@ -16,10 +16,27 @@ var core_1 = require("@angular/core");
 //        }
 //    }
 //}
+var RsurParticipActualFilterPipe = (function () {
+    function RsurParticipActualFilterPipe() {
+    }
+    RsurParticipActualFilterPipe.prototype.transform = function (particips, isShowNotActual) {
+        if (isShowNotActual == false) {
+            return particips.filter(function (particip) {
+                return particip.ActualCode === 1;
+            });
+        }
+        return particips;
+    };
+    return RsurParticipActualFilterPipe;
+}());
+RsurParticipActualFilterPipe = __decorate([
+    core_1.Pipe({ name: 'rsurParticipActualFilter' })
+], RsurParticipActualFilterPipe);
+exports.RsurParticipActualFilterPipe = RsurParticipActualFilterPipe;
 var RsurParticipFilterPipe = (function () {
     function RsurParticipFilterPipe() {
     }
-    RsurParticipFilterPipe.prototype.transform = function (particips, searchText, isShowNotActual) {
+    RsurParticipFilterPipe.prototype.transform = function (particips, searchText) {
         if (searchText == null) {
             return particips;
         }

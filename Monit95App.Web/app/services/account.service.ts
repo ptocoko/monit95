@@ -4,7 +4,7 @@ import { AccountModel } from '../models/account.model';
 
 @Injectable()
 export class AccountService {    
-    account: Account = new AccountModel();
+    account: AccountModel = new AccountModel();
 
 	constructor(private readonly http: Http) {
 		this.loadAccount();
@@ -12,7 +12,7 @@ export class AccountService {
 
     private loadAccount() {
 		this.http.get('api/account').subscribe(res => {
-			this.account = res.json() as Account;
+            this.account = res.json() as AccountModel;
 		})
 	}
 

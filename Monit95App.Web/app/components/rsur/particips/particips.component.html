@@ -4,7 +4,7 @@
     <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="поиск..." />
     <div style="margin-left:15px" class="checkbox">
         <label>
-            <input type="checkbox" [(ngModel)]="isShowNotActual"> выбывшие
+            <input type="checkbox" [(ngModel)]="isShowNotActual"> + показывать выбывших из базы
         </label>
     </div>
 </div>
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let particip of particips | rsurParticipFilter : isShowNotActual | rsurParticipFilter : searchText | limitTo: 100" [ngClass]="{'notActual' : particip.ActualCode === 0}">
+        <tr *ngFor="let particip of particips | rsurParticipActualFilter: isShowNotActual | rsurParticipFilter: searchText | limitTo: 100" [ngClass]="{'notActual' : particip.ActualCode === 0}">
             <td class="text-center" style="vertical-align:middle">{{particip.Code}}</td>
             <td style="vertical-align:middle">{{particip.Surname}}</td>
             <td style="vertical-align:middle">{{particip.Name}}</td>

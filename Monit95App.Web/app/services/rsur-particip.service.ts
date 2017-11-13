@@ -2,7 +2,7 @@
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { RsurParticipModel } from '../models/rsur-particip.models';
+import { RsurParticipModel } from '../models/rsur-particip.model';
 
 @Component({
     providers: [Http]

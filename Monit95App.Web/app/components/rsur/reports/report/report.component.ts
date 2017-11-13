@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RsurReportService } from '../../../../services/rsur-report.service';
-import { ReportModel } from './report.model';
+import { RsurReportModel } from '../../../../models/rsur-report.model';
 
 @Component({
     selector: 'report',    
@@ -9,7 +9,7 @@ import { ReportModel } from './report.model';
 	styleUrls: [`./app/components/rsur/reports/report/report.component.css?v=${new Date().getTime()}`]
 })
 export class ReportComponent implements OnInit {
-    reportData: ReportModel;    
+    reportData: RsurReportModel;    
 
     constructor(private readonly reportService: RsurReportService,
 				private readonly router: ActivatedRoute) { }
@@ -18,7 +18,7 @@ export class ReportComponent implements OnInit {
 		this.router.params.subscribe(params => {
 		    const code: number = params['id'];
             this.reportService.getReport(code).subscribe(res => {
-                this.reportData = res.json() as ReportModel;                
+                this.reportData = res.json() as RsurReportModel;                
             });
 		});
 	}

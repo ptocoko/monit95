@@ -12,9 +12,22 @@ import { RsurParticipModel } from '../models/rsur-particip.model';
 //    }
 //}
 
+
+@Pipe({ name: 'rsurParticipActualFilter' })
+export class RsurParticipActualFilterPipe implements PipeTransform {
+    transform(particips: RsurParticipModel[], isShowNotActual: boolean) {
+        if (isShowNotActual == false) {
+            return particips.filter((particip: any) => {
+                return particip.ActualCode === 1
+            });
+        }
+        return particips;
+    }
+}
+
 @Pipe({ name: 'rsurParticipFilter' })
 export class RsurParticipFilterPipe implements PipeTransform {
-    transform(particips: any, searchText: any, isShowNotActual?: boolean): any {
+    transform(particips: any, searchText: any): any {
         if (searchText == null) {
             return particips;
         }
@@ -45,3 +58,4 @@ export class RsurParticipFilterPipe implements PipeTransform {
         return particips;
     }
 }
+
