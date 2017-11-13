@@ -16,6 +16,7 @@ export class ReportListComponent implements OnInit {
 	isLoading: boolean;
     selectedSchool: string;
     selectedTest: string;
+    searchParticip: string;
     
 	constructor(private readonly rsurReportService: RsurReportService, 
         private readonly route: Router) {
