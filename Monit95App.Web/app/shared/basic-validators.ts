@@ -25,7 +25,7 @@ export class BasicValidators {
 	static textMinLengthWithoutSpaces(minLen: number): ValidatorFn {
 		return (control: AbstractControl): { [key: string]: any } => {
 			let text = control.value as string;
-			return text.replace(/\s+/g, '').length < minLen ? { 'protocolText': { value: control.value } } : null;
+			return text.replace(/\s+/g, '').length < minLen ? { 'textMinLengthWithoutSpaces': { value: control.value } } : null;
 		}
 	}
 }

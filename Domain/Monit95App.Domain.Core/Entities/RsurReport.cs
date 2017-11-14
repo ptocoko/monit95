@@ -21,7 +21,7 @@ namespace Monit95App.Domain.Core.Entities
         public DateTime Date { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(1000)]
         public string Text { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

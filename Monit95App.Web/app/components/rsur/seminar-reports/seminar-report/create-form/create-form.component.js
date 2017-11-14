@@ -24,7 +24,7 @@ var CreateReportFormComponent = (function () {
     }
     CreateReportFormComponent.prototype.ngOnInit = function () {
         this.reportForm = this.fb.group({
-            protocolText: ['', [forms_1.Validators.required, basic_validators_1.BasicValidators.textMinLengthWithoutSpaces(100)]]
+            protocolText: ['', [forms_1.Validators.required, basic_validators_1.BasicValidators.textMinLengthWithoutSpaces(100), forms_1.Validators.maxLength(1000)]]
         });
     };
     CreateReportFormComponent.prototype.addPhoto = function (event) {
@@ -58,16 +58,16 @@ var CreateReportFormComponent = (function () {
         this.images.splice(index, 1);
     };
     CreateReportFormComponent.prototype.send = function () {
-        var _this = this;
-        if (this.reportForm.valid && this.images.length > 0) {
-            this.isSending = true;
-            this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe(function (reportId) {
-                _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () {
-                    _this.isSending = false;
-                    _this.location.back();
-                });
-            });
-        }
+        //if (this.reportForm.valid && this.images.length > 0) {
+        //	this.isSending = true;
+        //	this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe((reportId: number) => {
+        //		this.seminarReportService.postImages(this.images, reportId).subscribe(() => {
+        //			this.isSending = false;
+        //			this.location.back()
+        //		})
+        //	});
+        //}
+        console.log(this.reportForm.controls['protocolText'].errors);
     };
     CreateReportFormComponent.prototype.cancel = function () {
         this.location.back();

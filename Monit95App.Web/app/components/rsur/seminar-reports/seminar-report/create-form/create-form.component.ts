@@ -22,7 +22,7 @@ export class CreateReportFormComponent implements OnInit {
 
 	ngOnInit() {
 		this.reportForm = this.fb.group({
-			protocolText: ['', [Validators.required, BasicValidators.textMinLengthWithoutSpaces(100)]]
+			protocolText: ['', [Validators.required, BasicValidators.textMinLengthWithoutSpaces(100), Validators.maxLength(1000)]]
 		});
 	}
 
