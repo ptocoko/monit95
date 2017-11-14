@@ -368,6 +368,7 @@
     <Content Include="app\result\result.html" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report\create-form\create-form.component.css" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report\create-form\create-form.component.html" />
+    <Content Include="app\styles\styles.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

@@ -1,0 +1,46 @@
+﻿.list-container {
+    margin-top: 50px;
+}
+
+.list-item-link {
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 5px 23px;
+    background-color: white;
+    border-radius: 5px;
+    position: relative;
+    border: 1px solid transparent;
+    transition: all .3s;
+}
+
+.list-item-link:hover {
+    text-decoration: none;
+    z-index: 10;
+    border-color: #2b85e7;
+    box-shadow: 0 8px 8px rgba(1,67,163,.24), 0 0 8px rgba(1,67,163,.12), 0 6px 18px rgba(43,133,231,.12);
+    transform: translateY(-2px);
+    color: black;
+}
+
+
+.list-item-link:link {
+    text-decoration: none;
+    color: black;
+}
+
+.list-item-description {
+    color: black;
+}
+
+
+.list-header {
+    padding: 15px 23px;
+    background-color: #eceff1;
+    margin: 0;
+}
+
+.list-container {
+    border: 1px solid lightgray;
+    box-shadow: 0 0 5px lightgray;
+}
