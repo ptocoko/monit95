@@ -42,7 +42,7 @@ var CreateReportFormComponent = (function () {
             return false;
         }
         for (var i = 0; i < files.length; i++) {
-            if (files[i].size / 1024 / 1024 > 10) {
+            if (files[i].size / 1024 / 1024 > 15) {
                 alert('Размер файла ' + files[i].name + ' превышает максимально разрешенный. \nМаксимально разрешенный размер файла — 10 МБ');
                 return false;
             }
