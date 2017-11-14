@@ -12,11 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsur_report_service_1 = require("../../../../services/rsur-report.service");
 var router_1 = require("@angular/router");
+var account_service_1 = require("../../../../services/account.service");
 var TEST_DATE = '2017-10-11';
 var ReportListComponent = (function () {
-    function ReportListComponent(rsurReportService, route) {
+    function ReportListComponent(rsurReportService, route, accountService) {
         this.rsurReportService = rsurReportService;
         this.route = route;
+        this.accountService = accountService;
     }
     ReportListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -45,7 +47,8 @@ ReportListComponent = __decorate([
         templateUrl: "./app/components/rsur/reports/report-list/report-list.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [rsur_report_service_1.RsurReportService,
-        router_1.Router])
+        router_1.Router,
+        account_service_1.AccountService])
 ], ReportListComponent);
 exports.ReportListComponent = ReportListComponent;
 //# sourceMappingURL=report-list.component.js.map

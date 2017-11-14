@@ -2,6 +2,7 @@
 import { RsurReportService } from '../../../../services/rsur-report.service';
 import { ReportModel } from './report.model';
 import { Router } from '@angular/router';
+import { AccountService } from '../../../../services/account.service';
 
 const TEST_DATE = '2017-10-11';
 
@@ -19,9 +20,10 @@ export class ReportListComponent implements OnInit {
     searchParticip: string;
     
 	constructor(private readonly rsurReportService: RsurReportService, 
-        private readonly route: Router) {
+                private readonly route: Router,
+                private readonly accountService: AccountService) {
     }
-
+    
     ngOnInit() {        
         var schoolFromStorage = localStorage.getItem('selectedSchool');
         this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';

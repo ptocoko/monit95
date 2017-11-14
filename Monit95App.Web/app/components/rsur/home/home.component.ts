@@ -1,12 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
-import { Account } from '../../../shared/account';
+import { AccountModel } from '../../../models/account.model';
 
 @Component({
     templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`
 })
 export class HomeComponent implements OnInit {
-    account = new Account(); 
+    account = new AccountModel(); 
     isLoading: boolean = true;
 
     constructor(        
@@ -15,8 +15,9 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {        
         this.accountService.getAccount().subscribe(data => {            
-            this.account = data.json() as Account;            
+            this.account = data.json() as AccountModel;            
             this.isLoading = false;
+            localStorage.clear();            
         });
     }
 

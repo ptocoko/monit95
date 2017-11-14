@@ -3,14 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Http;
 using Monit95App.Services.Rsur.ParticipReport;
-using WebApi.OutputCache.V2;
-using System.Web;
-using System.IO;
 using System.Runtime.Caching;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Web.Caching;
-
 namespace Monit95App.RESTful_API.Rsur
 {
     [RoutePrefix("api/rsur/participReports")]
@@ -26,7 +19,6 @@ namespace Monit95App.RESTful_API.Rsur
         private static string previousRequestUser = "";
 
         #endregion
-
 
         public RsurParticipReportsController(IParticipReportService participReportService)
         {
