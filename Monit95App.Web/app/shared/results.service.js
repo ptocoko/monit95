@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var Rx_1 = require("rxjs/Rx");
 var MOCK_RESULT = {
     ParticipTestId: 17,
     Surname: 'Эсамбаев',
@@ -29,7 +28,7 @@ var ResultsService = (function () {
     }
     ResultsService.prototype.getClassParticipResultDto = function (participTestId) {
         //return this.http.get('/api/ResultReport/' + participTestId.toString());
-        return Rx_1.Observable.of(MOCK_RESULT).map(function (MOCK) { return MOCK; });
+        //return Observable.of(MOCK_RESULT).map(MOCK => MOCK);
     };
     ResultsService.prototype.getClassParticipResultReport = function (participTestId) {
         return this.http.get('/api/ResultReport/Get?participTestId=' + participTestId);

@@ -14,7 +14,6 @@ var http_1 = require("@angular/http");
 var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var angular2_modal_1 = require("angular2-modal");
 var export_excel_modal_component_1 = require("./export-excel-modal.component");
-require("rxjs/Rx");
 var particip_service_1 = require("../../particip.service");
 var router_1 = require("@angular/router");
 var ClassParticipsExportExcelComponent = (function () {

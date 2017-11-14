@@ -22,7 +22,7 @@ const MAX_MARKS = [4, 1, 3, 1, 1];
 	templateUrl: `./app/class-particips/results/particip-report.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/class-particips/results/particip-report.component.css?v=${new Date().getTime()}`]
 })
-export class ClassParticipReportComponent implements OnInit {
+export class ClassParticipReportComponent implements OnInit { //TODO: Need to finish!!
 	maxMarks: number[] = MAX_MARKS;
 	participTestId: number;
 	particip: ClassParticipResult;
@@ -34,7 +34,7 @@ export class ClassParticipReportComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.participTestId = params['participTestId'];
 
-			this.resultService.getClassParticipResultDto(this.participTestId).subscribe(res => this.particip = res as ClassParticipResult);
+			//this.resultService.getClassParticipResultDto(this.participTestId).subscribe(res => this.particip = res as ClassParticipResult);
 		});
 
 		

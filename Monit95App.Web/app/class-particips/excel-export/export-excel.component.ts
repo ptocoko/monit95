@@ -3,7 +3,6 @@ import { Http, Response, ResponseContentType } from "@angular/http";
 import { BSModalContext, Modal } from 'angular2-modal/plugins/bootstrap';
 import { overlayConfigFactory } from 'angular2-modal';
 import { ExportExcelModal, ExportExcelModalData } from './export-excel-modal.component';
-import 'rxjs/Rx';
 import { ParticipService } from "../../particip.service";
 import { Router } from "@angular/router";
 

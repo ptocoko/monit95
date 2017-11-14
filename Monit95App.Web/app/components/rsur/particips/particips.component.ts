@@ -11,8 +11,8 @@ import { AccountService } from '../../../services/account.service';
 
 @Component({
     selector: 'rsur/particips',
-    templateUrl: `./app/rsur/rsur-particips/rsur-particips.component.html?v=${new Date().getTime()}`,
-    styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
+    templateUrl: `./app/components/rsur/particips/particips.component.html?v=${new Date().getTime()}`,
+	styleUrls: ['./app/components/rsur/particips/particips.component.css']
 })
 export class RsurParticipsComponent implements OnInit {
     particips: RsurParticipModel[] = [];	

@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Monit95App.Models;
+using System.Configuration;
 
 namespace Monit95App.Controllers
 {

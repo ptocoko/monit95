@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
-import { Observable } from "rxjs/Rx";
+import { Observable } from "rxjs/Observable";
 
 const MOCK_RESULT = {
 	ParticipTestId: 17,
@@ -20,7 +20,7 @@ export class ResultsService {
 
 	getClassParticipResultDto(participTestId: number) {
 		//return this.http.get('/api/ResultReport/' + participTestId.toString());
-		return Observable.of(MOCK_RESULT).map(MOCK => MOCK);
+		//return Observable.of(MOCK_RESULT).map(MOCK => MOCK);
 	}
 
 	getClassParticipResultReport(participTestId: number) {

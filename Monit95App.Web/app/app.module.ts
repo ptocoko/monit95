@@ -1,4 +1,4 @@
-﻿// Modules
+﻿// modules
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { OrderModule } from 'ngx-order-pipe';
 
-// Components
+// components
 import { AppComponent } from './app.component';
 import { ParticipModalComponent } from './rsur/details/particip-modal.component';
 import { RsurParticipsComponent } from './components/rsur/particips/particips.component';
@@ -42,7 +42,7 @@ import { SeminarReportsListComponent } from "./components/rsur/seminar-reports/s
 import { SeminarReportComponent } from "./components/rsur/seminar-reports/seminar-report/seminar-report.component";
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
 
-// Services
+// services
 import { AccountService } from './services/account.service';
 import { ParticipService } from './particip.service';
 import { RsurParticipService } from './services/rsur-particip.service';
@@ -58,7 +58,7 @@ import { RsurRatingService } from './services/rsur-rating.service';
 import { SeminarReportService } from "./services/seminar-report.service";
 import { SchoolFileService } from "./services/school-file.service";
 
-// Pipes
+// pipes
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 import { ParticipFilterPipe } from './particip-filter.pipe';
@@ -66,9 +66,9 @@ import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe } from './pipes/rsur-report-filter.pipe';
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
-import { RsurParticipFilterPipe } from '/pipes/rsur-partcip-filter.pipe';
+import { RsurParticipFilterPipe } from './pipes/rsur-particip-filter.pipe';
 
-// Additional 
+// additional
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
 
@@ -76,12 +76,12 @@ import { GlobalErrorHandler } from './error-handler';
     imports: [
         BrowserModule,
 		HttpModule,
-		HttpClientModule,        
+		HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
         ModalModule.forRoot(),
         BootstrapModalModule,
-        MyDatePickerModule, 
+        MyDatePickerModule,
 		BrowserAnimationsModule,
 		MatButtonModule,
         MatDialogModule,
@@ -121,24 +121,24 @@ import { GlobalErrorHandler } from './error-handler';
         AppComponent,
         HomeComponent,
 	    RsurTestComponent,
-        RsurParticipsComponent,	
+        RsurParticipsComponent,
         RsurParticipAddFormComponent,
-        RsurParticipFilterPipe,        
+        RsurParticipFilterPipe,
 		ParticipFilterPipe,
 		ClassNameFilterPipe,
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
-        SchoolFilter,    
+        SchoolFilter,
         SchoolNameFilterPipe,
         TestNameWithDateFilterPipe,
         TotalFilterPipe,
 	    SubjectFilterPipe,
 		PlanComponent,
 		ResultComponent,
-		ParticipDetailsComponent,		
-		ParticipModalComponent,		   
-        ParticipCorrectionComponent,		
+		ParticipDetailsComponent,
+		ParticipModalComponent,
+        ParticipCorrectionComponent,
 		ClassParticipsListComponent,
 		ExportExcelModal,
 		ClassParticipMarksComponent,
@@ -150,7 +150,7 @@ import { GlobalErrorHandler } from './error-handler';
         RsurTestProtocolListComponent,
 		RsurTestProtocolComponent,
 		ReportComponent,
-	    ReportListComponent,			
+	    ReportListComponent,
 		CreateReportFormComponent,
 		RatingsComponent,
 		SeminarReportsListComponent,
@@ -174,9 +174,9 @@ import { GlobalErrorHandler } from './error-handler';
         SchoolFileService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
-	],  
+	],
 	entryComponents: [
-		ParticipModalComponent,				
+		ParticipModalComponent,
 		ExportExcelModal
 	],
     bootstrap: [AppComponent]

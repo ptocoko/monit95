@@ -32,7 +32,7 @@ var ClassParticipReportComponent = (function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             _this.participTestId = params['participTestId'];
-            _this.resultService.getClassParticipResultDto(_this.participTestId).subscribe(function (res) { return _this.particip = res; });
+            //this.resultService.getClassParticipResultDto(this.participTestId).subscribe(res => this.particip = res as ClassParticipResult);
         });
     };
     ClassParticipReportComponent.prototype.getPrimaryMarkBgrd = function (primaryMark) {

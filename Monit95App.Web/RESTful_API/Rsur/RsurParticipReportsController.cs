@@ -6,6 +6,10 @@ using Monit95App.Services.Rsur.ParticipReport;
 using WebApi.OutputCache.V2;
 using System.Web;
 using System.IO;
+using System.Runtime.Caching;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Web.Caching;
 
 namespace Monit95App.RESTful_API.Rsur
 {
@@ -17,11 +21,26 @@ namespace Monit95App.RESTful_API.Rsur
 
         private readonly IParticipReportService participReportService;
 
+        private MemoryCache memoryCache = MemoryCache.Default;
+        private const string PROTOCOLS_CACHE_KEY = "testProtocols";
+        private static string previousRequestUser = "";
+
         #endregion
+
 
         public RsurParticipReportsController(IParticipReportService participReportService)
         {
             this.participReportService = participReportService;
+
+            //если UserName текущего запроса не совпадает с UserName предыдущего запроса, то удаляем данные из кэша
+            if (!String.Equals(previousRequestUser, User.Identity.Name, StringComparison.CurrentCultureIgnoreCase))
+            {
+                if (memoryCache.Contains(PROTOCOLS_CACHE_KEY))
+                {
+                    memoryCache.Remove(PROTOCOLS_CACHE_KEY);
+                }
+                previousRequestUser = User.Identity.Name;
+            }
         }
 
         #region APIs
@@ -40,6 +59,12 @@ namespace Monit95App.RESTful_API.Rsur
         [Route("")]
         public IHttpActionResult Get(string testDate)
         {
+            //если кэш содержит подходящие данные, то возвращаем их
+            if (memoryCache.Contains(PROTOCOLS_CACHE_KEY))
+            {
+                return Ok(memoryCache.Get(PROTOCOLS_CACHE_KEY));
+            }
+
             if (!DateTime.TryParse(testDate, out DateTime testDateObj)) return BadRequest("Cannot parse testDate string to DateTime object");
 
             IEnumerable<ParticipReport> rsurResults = null;
@@ -80,6 +105,9 @@ namespace Monit95App.RESTful_API.Rsur
                 }
 
             }
+
+            memoryCache.Add(PROTOCOLS_CACHE_KEY, rsurResults, DateTimeOffset.UtcNow.AddMinutes(10));
+
             return Ok(rsurResults);
         }
         
