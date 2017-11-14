@@ -1,6 +1,6 @@
-﻿import { SchoolParticip } from '../../../../shared/school-particip.model';
+﻿import { SchoolParticip } from '../models/school-particip.model';
 
-export class ReportModel {
+export class RsurReportModel {
 	Code: number;
 	SchoolParticipInfo: SchoolParticip;
 	TestNameWithDate: string;

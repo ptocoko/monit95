@@ -10,13 +10,13 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var person_model_1 = require("./models/person.model");
-var ParticipModel = (function (_super) {
-    __extends(ParticipModel, _super);
-    function ParticipModel() {
+var person_model_1 = require("./person.model");
+var SchoolParticip = (function (_super) {
+    __extends(SchoolParticip, _super);
+    function SchoolParticip() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return ParticipModel;
+    return SchoolParticip;
 }(person_model_1.PersonModel));
-exports.ParticipModel = ParticipModel;
-//# sourceMappingURL=particip.model.js.map
+exports.SchoolParticip = SchoolParticip;
+//# sourceMappingURL=school-particip.model.js.map

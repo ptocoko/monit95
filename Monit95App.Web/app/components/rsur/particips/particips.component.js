@@ -20,6 +20,7 @@ var RsurParticipsComponent = (function () {
         this.accountService = accountService;
         this.particips = [];
         this.account = new account_model_1.AccountModel();
+        this.isShowNotActual = false;
     }
     RsurParticipsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -46,7 +47,7 @@ RsurParticipsComponent = __decorate([
     core_1.Component({
         selector: 'rsur/particips',
         templateUrl: "./app/components/rsur/particips/particips.component.html?v=" + new Date().getTime(),
-        styleUrls: ['./app/components/rsur/particips/particips.component.css']
+        styleUrls: ["./app/components/rsur/particips/particips.component.css"]
     }),
     __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
         account_service_1.AccountService])

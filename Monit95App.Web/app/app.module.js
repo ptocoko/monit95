@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// modules
+// Modules
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
@@ -20,7 +20,7 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var http_2 = require("@angular/common/http");
 var router_1 = require("@angular/router");
 var ngx_order_pipe_1 = require("ngx-order-pipe");
-// components
+// Components
 var app_component_1 = require("./app.component");
 var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
@@ -48,7 +48,7 @@ var ratings_component_1 = require("./components/rsur/ratings/ratings.component")
 var seminar_report_list_component_1 = require("./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component");
 var seminar_report_component_1 = require("./components/rsur/seminar-reports/seminar-report/seminar-report.component");
 var school_files_component_1 = require("./components/school-files/school-files.component");
-// services
+// Services
 var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
@@ -63,7 +63,7 @@ var rsur_report_service_1 = require("./services/rsur-report.service");
 var rsur_rating_service_1 = require("./services/rsur-rating.service");
 var seminar_report_service_1 = require("./services/seminar-report.service");
 var school_file_service_1 = require("./services/school-file.service");
-// pipes
+// Pipes
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 var particip_filter_pipe_1 = require("./particip-filter.pipe");
@@ -72,7 +72,7 @@ var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
 var rsur_particip_filter_pipe_1 = require("./pipes/rsur-particip-filter.pipe");
-// additional
+// Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
 var AppModule = (function () {
@@ -141,6 +141,7 @@ AppModule = __decorate([
             rsur_report_filter_pipe_1.TestNameWithDateFilterPipe,
             rsur_report_filter_pipe_1.TotalFilterPipe,
             subject_filter_pipe_1.SubjectFilterPipe,
+            rsur_particip_filter_pipe_1.RsurParticipActualFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
             particip_details_component_1.ParticipDetailsComponent,

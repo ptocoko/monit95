@@ -1,4 +1,4 @@
-﻿import { SchoolParticip } from '../../../../shared/school-particip.model';
+﻿import { SchoolParticip } from '../../../../models/school-particip.model';
 
 export class ReportModel {
 	Code: number;
