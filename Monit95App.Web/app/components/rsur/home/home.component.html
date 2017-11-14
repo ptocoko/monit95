@@ -1,5 +1,6 @@
 ﻿<h2>РСУР: Главное меню</h2>
-<div class="panel panel-default">
+<div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" /></div>
+<div *ngIf="!isLoading" class="panel panel-default">
     <div *ngIf="isArea()" class="panel-body">
         <p>участники</p>
         <ul class="list-group">

@@ -3,7 +3,7 @@
 <div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif"/></div>
 <div *ngIf="!isLoading && resultsList.length > 0">
     <div class="form-inline">
-        <select *ngIf="resultsList !== undefined" class="form-control" [(ngModel)]="selectedSchool">
+        <select *ngIf="resultsList !== undefined && is" class="form-control" [(ngModel)]="selectedSchool">
             <option>Все организации</option>
             <option *ngFor="let result of resultsList | schoolNameFilter : selectedTest">{{result}}</option>
         </select>
