@@ -59,8 +59,8 @@ ClassParticipsListComponent = __decorate([
         templateUrl: "./app/class-particips/class-particips-list.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService,
-        particip_service_1.ParticipService,
-        router_1.Router])
+        particip_service_1.ParticipService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object])
 ], ClassParticipsListComponent);
 exports.ClassParticipsListComponent = ClassParticipsListComponent;
+var _a;
 //# sourceMappingURL=class-particips-list.component.js.map

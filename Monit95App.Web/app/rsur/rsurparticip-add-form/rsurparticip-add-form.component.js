@@ -143,10 +143,9 @@ RsurParticipAddFormComponent = __decorate([
         templateUrl: "./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=" + new Date().getTime(),
         styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']
     }),
-    __metadata("design:paramtypes", [router_1.Router,
-        router_1.ActivatedRoute,
-        rsur_particip_service_1.RsurParticipService,
+    __metadata("design:paramtypes", [typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object, rsur_particip_service_1.RsurParticipService,
         school_service_1.SchoolService])
 ], RsurParticipAddFormComponent);
 exports.RsurParticipAddFormComponent = RsurParticipAddFormComponent;
+var _a, _b;
 //# sourceMappingURL=rsurparticip-add-form.component.js.map

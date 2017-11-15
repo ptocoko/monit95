@@ -52,11 +52,8 @@ SeminarReportComponent = __decorate([
         selector: 'seminar-report',
         templateUrl: "./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [router_1.Router,
-        router_1.ActivatedRoute,
-        seminar_report_service_1.SeminarReportService,
-        common_1.Location,
-        account_service_1.AccountService])
+    __metadata("design:paramtypes", [typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object, seminar_report_service_1.SeminarReportService, typeof (_c = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _c || Object, account_service_1.AccountService])
 ], SeminarReportComponent);
 exports.SeminarReportComponent = SeminarReportComponent;
+var _a, _b, _c;
 //# sourceMappingURL=seminar-report.component.js.map

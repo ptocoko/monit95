@@ -39,7 +39,8 @@ var SchoolCollectorService = (function () {
 }());
 SchoolCollectorService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [typeof (_a = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _a || Object])
 ], SchoolCollectorService);
 exports.SchoolCollectorService = SchoolCollectorService;
+var _a;
 //# sourceMappingURL=school-collector.service.js.map

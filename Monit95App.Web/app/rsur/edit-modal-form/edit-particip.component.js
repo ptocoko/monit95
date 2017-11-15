@@ -46,8 +46,8 @@ EditParticipComponent = __decorate([
         providers: [bootstrap_1.Modal]
     }),
     __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
-        account_service_1.AccountService,
-        bootstrap_1.Modal])
+        account_service_1.AccountService, typeof (_a = typeof bootstrap_1.Modal !== "undefined" && bootstrap_1.Modal) === "function" && _a || Object])
 ], EditParticipComponent);
 exports.EditParticipComponent = EditParticipComponent;
+var _a;
 //# sourceMappingURL=edit-particip.component.js.map

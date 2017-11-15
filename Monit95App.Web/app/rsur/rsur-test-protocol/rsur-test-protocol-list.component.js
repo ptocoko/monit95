@@ -73,9 +73,8 @@ RsurTestProtocolListComponent = __decorate([
         templateUrl: "./app/rsur/rsur-test-protocol/rsur-test-protocol-list.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [marks_service_1.MarksService,
-        rsur_test_service_1.RsurTestService,
-        router_1.ActivatedRoute,
-        router_1.Router])
+        rsur_test_service_1.RsurTestService, typeof (_a = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _a || Object, typeof (_b = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _b || Object])
 ], RsurTestProtocolListComponent);
 exports.RsurTestProtocolListComponent = RsurTestProtocolListComponent;
+var _a, _b;
 //# sourceMappingURL=rsur-test-protocol-list.component.js.map

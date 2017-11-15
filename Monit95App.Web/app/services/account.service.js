@@ -46,7 +46,8 @@ var AccountService = (function () {
 }());
 AccountService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [typeof (_a = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _a || Object])
 ], AccountService);
 exports.AccountService = AccountService;
+var _a;
 //# sourceMappingURL=account.service.js.map
