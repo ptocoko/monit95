@@ -114,8 +114,9 @@ RsurTestProtocolComponent = __decorate([
     core_1.Component({
         templateUrl: "./app/rsur/rsur-test-protocol/rsur-test-protocol.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _a || Object, typeof (_b = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _b || Object, marks_service_1.MarksService])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute,
+        common_1.Location,
+        marks_service_1.MarksService])
 ], RsurTestProtocolComponent);
 exports.RsurTestProtocolComponent = RsurTestProtocolComponent;
-var _a, _b;
 //# sourceMappingURL=rsur-test-protocol.component.js.map

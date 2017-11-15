@@ -42,8 +42,8 @@ ClassParticipMarksComponent = __decorate([
         templateUrl: "./app/class-particips/marks/marks.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [marks_service_1.MarksService,
-        particip_service_1.ParticipService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object])
+        particip_service_1.ParticipService,
+        router_1.Router])
 ], ClassParticipMarksComponent);
 exports.ClassParticipMarksComponent = ClassParticipMarksComponent;
-var _a;
 //# sourceMappingURL=marks.component.js.map

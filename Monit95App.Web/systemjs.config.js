@@ -1,5 +1,5 @@
 ﻿(function () {
-	System.appVersion = '2';
+	System.appVersion = '99';
     System.config({
         paths: {
             // псевдоним для пути к модулям

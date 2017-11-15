@@ -78,8 +78,7 @@ ParticipModalComponent = __decorate([
         selector: 'modal-content',
         templateUrl: './app/rsur/details/particip-modal.html'
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof angular2_modal_1.DialogRef !== "undefined" && angular2_modal_1.DialogRef) === "function" && _a || Object, rsur_particip_service_1.RsurParticipService])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsur_particip_service_1.RsurParticipService])
 ], ParticipModalComponent);
 exports.ParticipModalComponent = ParticipModalComponent;
-var _a;
 //# sourceMappingURL=particip-modal.component.js.map

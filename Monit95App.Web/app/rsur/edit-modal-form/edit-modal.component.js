@@ -29,8 +29,7 @@ EditModalComponent = __decorate([
         templateUrl: './app/rsur/edit-modal-form/edit-modal.html',
         styleUrls: ['./app/rsur/edit-modal-form/edit-modal.css']
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof angular2_modal_1.DialogRef !== "undefined" && angular2_modal_1.DialogRef) === "function" && _a || Object, rsur_particip_service_1.RsurParticipService])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, rsur_particip_service_1.RsurParticipService])
 ], EditModalComponent);
 exports.EditModalComponent = EditModalComponent;
-var _a;
 //# sourceMappingURL=edit-modal.component.js.map

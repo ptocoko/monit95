@@ -26,8 +26,7 @@ var RsurRatingService = (function () {
 }());
 RsurRatingService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [typeof (_a = typeof http_1.HttpClient !== "undefined" && http_1.HttpClient) === "function" && _a || Object])
+    __metadata("design:paramtypes", [http_1.HttpClient])
 ], RsurRatingService);
 exports.RsurRatingService = RsurRatingService;
-var _a;
 //# sourceMappingURL=rsur-rating.service.js.map

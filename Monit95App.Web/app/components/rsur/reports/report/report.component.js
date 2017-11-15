@@ -34,8 +34,8 @@ ReportComponent = __decorate([
         templateUrl: "./app/components/rsur/reports/report/report.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/components/rsur/reports/report/report.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [rsur_report_service_1.RsurReportService, typeof (_a = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _a || Object])
+    __metadata("design:paramtypes", [rsur_report_service_1.RsurReportService,
+        router_1.ActivatedRoute])
 ], ReportComponent);
 exports.ReportComponent = ReportComponent;
-var _a;
 //# sourceMappingURL=report.component.js.map

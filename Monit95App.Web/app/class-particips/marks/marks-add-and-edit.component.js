@@ -115,8 +115,9 @@ MarksAddAndEditComponent = __decorate([
     core_1.Component({
         templateUrl: "./app/class-particips/marks/marks-add-and-edit.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object, marks_service_1.MarksService])
+    __metadata("design:paramtypes", [router_1.Router,
+        router_1.ActivatedRoute,
+        marks_service_1.MarksService])
 ], MarksAddAndEditComponent);
 exports.MarksAddAndEditComponent = MarksAddAndEditComponent;
-var _a, _b;
 //# sourceMappingURL=marks-add-and-edit.component.js.map

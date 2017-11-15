@@ -54,8 +54,7 @@ ExportExcelModal = __decorate([
         styles: ["\n\t\t.custom-modal-container {\n\t\t\tpadding: 15px;\n\t\t}\n\t"],
         templateUrl: "./app/class-particips/excel-export/export-excel-modal.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof angular2_modal_1.DialogRef !== "undefined" && angular2_modal_1.DialogRef) === "function" && _a || Object, typeof (_b = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _b || Object])
+    __metadata("design:paramtypes", [angular2_modal_1.DialogRef, http_1.Http])
 ], ExportExcelModal);
 exports.ExportExcelModal = ExportExcelModal;
-var _a, _b;
 //# sourceMappingURL=export-excel-modal.component.js.map

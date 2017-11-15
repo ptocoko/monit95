@@ -67,8 +67,9 @@ UpdateClassParticipComponent = __decorate([
         templateUrl: "./app/class-particips/add-and-update/update.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [particip_service_1.ParticipService,
-        account_service_1.AccountService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object])
+        account_service_1.AccountService,
+        router_1.Router,
+        router_1.ActivatedRoute])
 ], UpdateClassParticipComponent);
 exports.UpdateClassParticipComponent = UpdateClassParticipComponent;
-var _a, _b;
 //# sourceMappingURL=update.component.js.map
