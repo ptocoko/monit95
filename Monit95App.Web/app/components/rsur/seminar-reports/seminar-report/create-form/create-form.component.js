@@ -58,16 +58,16 @@ var CreateReportFormComponent = (function () {
         this.images.splice(index, 1);
     };
     CreateReportFormComponent.prototype.send = function () {
-        //if (this.reportForm.valid && this.images.length > 0) {
-        //	this.isSending = true;
-        //	this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe((reportId: number) => {
-        //		this.seminarReportService.postImages(this.images, reportId).subscribe(() => {
-        //			this.isSending = false;
-        //			this.location.back()
-        //		})
-        //	});
-        //}
-        console.log(this.reportForm.controls['protocolText'].errors);
+        var _this = this;
+        if (this.reportForm.valid && this.images.length > 0) {
+            this.isSending = true;
+            this.seminarReportService.postText(this.reportForm.get('protocolText').value).subscribe(function (reportId) {
+                _this.seminarReportService.postImages(_this.images, reportId).subscribe(function () {
+                    _this.isSending = false;
+                    _this.location.back();
+                });
+            });
+        }
     };
     CreateReportFormComponent.prototype.cancel = function () {
         this.location.back();
