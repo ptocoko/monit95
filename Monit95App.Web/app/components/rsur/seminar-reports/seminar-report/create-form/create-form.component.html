@@ -28,7 +28,9 @@
             <div class="panel-body">
                 <textarea placeholder="описание не добавлено" rows="10" style="width:600px" class="form-control" formControlName="protocolText"></textarea>
                 <div style="width:600px" class="alert alert-danger" *ngIf="!reportForm.controls['protocolText'].valid && reportForm.controls['protocolText'].touched">
-                    Текст должен состоять минимум из 100 символов
+                    <div *ngIf="reportForm.controls['protocolText'].errors.required">Описание обязательно</div>
+                    <div *ngIf="reportForm.controls['protocolText'].errors.textMinLengthWithoutSpaces">Текст должен состоять минимум из 100 символов</div>
+                    <div *ngIf="reportForm.controls['protocolText'].errors.maxlength">Текст должен состоять максимум из 1000 символов</div>
                 </div>
             </div>
         </div>
