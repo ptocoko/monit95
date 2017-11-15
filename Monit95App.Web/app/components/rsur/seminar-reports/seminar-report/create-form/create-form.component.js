@@ -24,7 +24,7 @@ var CreateReportFormComponent = (function () {
     }
     CreateReportFormComponent.prototype.ngOnInit = function () {
         this.reportForm = this.fb.group({
-            protocolText: ['', [forms_1.Validators.required, basic_validators_1.BasicValidators.textMinLengthWithoutSpaces(100)]]
+            protocolText: ['', [forms_1.Validators.required, basic_validators_1.BasicValidators.textMinLengthWithoutSpaces(100), forms_1.Validators.maxLength(1000)]]
         });
     };
     CreateReportFormComponent.prototype.addPhoto = function (event) {

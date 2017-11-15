@@ -337,7 +337,6 @@
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\components\rsur\ratings\ratings.component.html" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.css" />
-    <Content Include="app\components\rsur\seminar-reports\seminar-report\seminar-report.component.css" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report\seminar-report.component.html" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.html" />
     <Content Include="app\components\school-files\school-files.component.html" />
@@ -368,6 +367,7 @@
     <Content Include="app\result\result.html" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report\create-form\create-form.component.css" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report\create-form\create-form.component.html" />
+    <Content Include="app\styles\styles.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
