@@ -8,8 +8,7 @@ import { AccountService } from "../../../../services/account.service";
 
 @Component({
 	selector: 'seminar-report',
-	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.css?v=${new Date().getTime()}`]
+	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=${new Date().getTime()}`
 })
 export class SeminarReportComponent implements OnInit {
 	report: SeminarReportModel = new SeminarReportModel();
