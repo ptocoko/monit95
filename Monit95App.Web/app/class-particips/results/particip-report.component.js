@@ -63,8 +63,7 @@ ClassParticipReportComponent = __decorate([
         templateUrl: "./app/class-particips/results/particip-report.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/class-particips/results/particip-report.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [results_service_1.ResultsService, typeof (_a = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _a || Object, typeof (_b = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _b || Object])
+    __metadata("design:paramtypes", [results_service_1.ResultsService, router_1.ActivatedRoute, http_1.Http])
 ], ClassParticipReportComponent);
 exports.ClassParticipReportComponent = ClassParticipReportComponent;
-var _a, _b;
 //# sourceMappingURL=particip-report.component.js.map

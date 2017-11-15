@@ -46,7 +46,7 @@ var HomeComponent = (function () {
 }());
 HomeComponent = __decorate([
     core_1.Component({
-        templateUrl: "./app/components/rsur/home/home.component.html?v=" + new Date().getTime()
+        templateUrl: "./app/components/rsur/home/home.component.html"
     }),
     __metadata("design:paramtypes", [account_service_1.AccountService])
 ], HomeComponent);

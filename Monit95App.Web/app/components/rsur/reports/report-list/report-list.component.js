@@ -46,8 +46,9 @@ ReportListComponent = __decorate([
         selector: 'report-list',
         templateUrl: "./app/components/rsur/reports/report-list/report-list.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [rsur_report_service_1.RsurReportService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, account_service_1.AccountService])
+    __metadata("design:paramtypes", [rsur_report_service_1.RsurReportService,
+        router_1.Router,
+        account_service_1.AccountService])
 ], ReportListComponent);
 exports.ReportListComponent = ReportListComponent;
-var _a;
 //# sourceMappingURL=report-list.component.js.map

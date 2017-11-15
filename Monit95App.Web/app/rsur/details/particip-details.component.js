@@ -64,8 +64,7 @@ ParticipDetailsComponent = __decorate([
         templateUrl: './app/rsur/details/particip-details.html',
         providers: [bootstrap_1.Modal]
     }),
-    __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService, typeof (_a = typeof bootstrap_1.Modal !== "undefined" && bootstrap_1.Modal) === "function" && _a || Object])
+    __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService, bootstrap_1.Modal])
 ], ParticipDetailsComponent);
 exports.ParticipDetailsComponent = ParticipDetailsComponent;
-var _a;
 //# sourceMappingURL=particip-details.component.js.map

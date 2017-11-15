@@ -56,8 +56,8 @@ AddClassParticipComponent = __decorate([
         templateUrl: "./app/class-particips/add-and-update/add.component.html?v=" + new Date().getTime()
     }),
     __metadata("design:paramtypes", [particip_service_1.ParticipService,
-        account_service_1.AccountService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object])
+        account_service_1.AccountService,
+        router_1.Router])
 ], AddClassParticipComponent);
 exports.AddClassParticipComponent = AddClassParticipComponent;
-var _a;
 //# sourceMappingURL=add.component.js.map

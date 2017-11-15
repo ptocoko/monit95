@@ -23,8 +23,7 @@ var SchoolFileService = (function () {
 }());
 SchoolFileService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [typeof (_a = typeof http_1.HttpClient !== "undefined" && http_1.HttpClient) === "function" && _a || Object])
+    __metadata("design:paramtypes", [http_1.HttpClient])
 ], SchoolFileService);
 exports.SchoolFileService = SchoolFileService;
-var _a;
 //# sourceMappingURL=school-file.service.js.map

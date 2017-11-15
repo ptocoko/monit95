@@ -43,8 +43,7 @@ var ParticipCorrectionService = (function () {
 }());
 ParticipCorrectionService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [typeof (_a = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _a || Object])
+    __metadata("design:paramtypes", [http_1.Http])
 ], ParticipCorrectionService);
 exports.ParticipCorrectionService = ParticipCorrectionService;
-var _a;
 //# sourceMappingURL=particip-correction.service.js.map

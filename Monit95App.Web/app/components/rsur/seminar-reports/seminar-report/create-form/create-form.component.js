@@ -80,8 +80,9 @@ CreateReportFormComponent = __decorate([
         templateUrl: "./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _a || Object, seminar_report_service_1.SeminarReportService, typeof (_b = typeof forms_1.FormBuilder !== "undefined" && forms_1.FormBuilder) === "function" && _b || Object])
+    __metadata("design:paramtypes", [common_1.Location,
+        seminar_report_service_1.SeminarReportService,
+        forms_1.FormBuilder])
 ], CreateReportFormComponent);
 exports.CreateReportFormComponent = CreateReportFormComponent;
-var _a, _b;
 //# sourceMappingURL=create-form.component.js.map
