@@ -93,6 +93,7 @@
     <Compile Include="DTOs\RsurParticipEditProtocol.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
+    <Compile Include="DuplicatesService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="Rsur\ParticipReport\EgeQuestionResult.cs" />
     <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
