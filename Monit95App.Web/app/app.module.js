@@ -48,6 +48,7 @@ var ratings_component_1 = require("./components/rsur/ratings/ratings.component")
 var seminar_report_list_component_1 = require("./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component");
 var seminar_report_component_1 = require("./components/rsur/seminar-reports/seminar-report/seminar-report.component");
 var school_files_component_1 = require("./components/school-files/school-files.component");
+var matching_protocol_component_1 = require("./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
@@ -63,6 +64,7 @@ var rsur_report_service_1 = require("./services/rsur-report.service");
 var rsur_rating_service_1 = require("./services/rsur-rating.service");
 var seminar_report_service_1 = require("./services/seminar-report.service");
 var school_file_service_1 = require("./services/school-file.service");
+var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
 // Pipes
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
@@ -109,6 +111,7 @@ AppModule = __decorate([
                 { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
                 { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
                 { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
+                { path: 'rsur/match-protocol', component: matching_protocol_component_1.MatchingProtocolComponent },
                 { path: 'school-files', component: school_files_component_1.SchoolFilesComponent },
                 { path: 'plan', component: plan_component_1.PlanComponent },
                 { path: 'result', component: result_component_1.ResultComponent },
@@ -163,7 +166,8 @@ AppModule = __decorate([
             ratings_component_1.RatingsComponent,
             seminar_report_list_component_1.SeminarReportsListComponent,
             seminar_report_component_1.SeminarReportComponent,
-            school_files_component_1.SchoolFilesComponent
+            school_files_component_1.SchoolFilesComponent,
+            matching_protocol_component_1.MatchingProtocolComponent
         ],
         providers: [
             account_service_1.AccountService,
@@ -180,6 +184,7 @@ AppModule = __decorate([
             rsur_rating_service_1.RsurRatingService,
             seminar_report_service_1.SeminarReportService,
             school_file_service_1.SchoolFileService,
+            rsur_protocols_service_1.RsurProtocolsService,
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
