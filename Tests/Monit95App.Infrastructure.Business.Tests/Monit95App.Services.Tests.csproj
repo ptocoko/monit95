@@ -99,6 +99,7 @@
     <Compile Include="RsurParticipReportService_Test.cs" />
     <Compile Include="ParticipReportServiceTest.cs" />
     <Compile Include="RatingServiceTest.cs" />
+    <Compile Include="DuplicatesService_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
