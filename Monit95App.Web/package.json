@@ -25,8 +25,5 @@
     "systemjs": "^0.20.18",
     "zone.js": "^0.8.17"
   },
-  "devDependencies": {
-    "@types/node": "^8.0.26",
-    "typescript": "^2.5.2"
-  }
+  "devDependencies": { }
 }
