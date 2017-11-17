@@ -41,6 +41,7 @@ import { RatingsComponent } from './components/rsur/ratings/ratings.component';
 import { SeminarReportsListComponent } from "./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component";
 import { SeminarReportComponent } from "./components/rsur/seminar-reports/seminar-report/seminar-report.component";
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
+import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -57,6 +58,7 @@ import { RsurReportService } from './services/rsur-report.service';
 import { RsurRatingService } from './services/rsur-rating.service';
 import { SeminarReportService } from "./services/seminar-report.service";
 import { SchoolFileService } from "./services/school-file.service";
+import { RsurProtocolsService } from "./services/rsur-protocols.service";
 
 // Pipes
 import { LimitToPipe } from './limit-to.pipe';
@@ -99,7 +101,8 @@ import { GlobalErrorHandler } from './error-handler';
 				{ path: 'rsur/upload-report', component: CreateReportFormComponent },
                 { path: 'rsur/report/:id', component: ReportComponent },
                 { path: 'rsur/results-list', component: ReportListComponent },
-                { path: 'rsur/ratings', component: RatingsComponent },
+				{ path: 'rsur/ratings', component: RatingsComponent },
+				{ path: 'rsur/match-protocol', component: MatchingProtocolComponent },
                 { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },
@@ -156,7 +159,8 @@ import { GlobalErrorHandler } from './error-handler';
 		RatingsComponent,
 		SeminarReportsListComponent,
         SeminarReportComponent,
-        SchoolFilesComponent
+		SchoolFilesComponent,
+		MatchingProtocolComponent
 	],
 	providers: [
         AccountService,
@@ -172,7 +176,8 @@ import { GlobalErrorHandler } from './error-handler';
 	    RsurReportService,
 		RsurRatingService,
         SeminarReportService,
-        SchoolFileService,
+		SchoolFileService,
+		RsurProtocolsService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
