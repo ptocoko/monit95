@@ -11,16 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var school_file_service_1 = require("../../services/school-file.service");
+// material
+var table_1 = require("@angular/material/table");
 var SchoolFilesComponent = (function () {
     function SchoolFilesComponent(schoolFileService) {
         this.schoolFileService = schoolFileService;
         this.isLoading = true;
+        this.displayedColumns = ['проект', 'файл', 'учебный год'];
+        this.dataSource = new table_1.MatTableDataSource();
     }
     SchoolFilesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.schoolFileService.getFiles().subscribe(function (response) {
             console.log(response);
             _this.files = response;
+            _this.dataSource = new table_1.MatTableDataSource(_this.files);
             _this.isLoading = false;
         });
     };
@@ -29,7 +34,8 @@ var SchoolFilesComponent = (function () {
 SchoolFilesComponent = __decorate([
     core_1.Component({
         selector: 'school-files',
-        templateUrl: "./app/components/school-files/school-files.component.html?v=" + new Date().getTime()
+        templateUrl: "./app/components/school-files/school-files.component.html?v=" + new Date().getTime(),
+        styleUrls: ['school-files.component.css']
     }),
     __metadata("design:paramtypes", [school_file_service_1.SchoolFileService])
 ], SchoolFilesComponent);
