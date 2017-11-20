@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit,  } from '@angular/core';
 import { SchoolFileService } from '../../services/school-file.service';
 
 // material
@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material';
 @Component({
 	selector: 'school-files',
     templateUrl: `./app/components/school-files/school-files.component.html?v=${new Date().getTime()}`,
-    styleUrls: ['school-files.component.css']
+    styleUrls: [`./app/components/school-files/school-files.component.css?v=${new Date().getTime()}`]
     
 })
 export class SchoolFilesComponent implements OnInit {
