@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MatButtonModule, MatDialogModule, MatCardModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatCardModule, MatInputModule, MatFormFieldModule, MatTableModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
@@ -90,6 +90,7 @@ import { GlobalErrorHandler } from './error-handler';
 		MatCardModule,
 		MatInputModule,
 		MatFormFieldModule,
+        MatTableModule,
         OrderModule,
 		NgbModule.forRoot(),
         RouterModule.forRoot([
