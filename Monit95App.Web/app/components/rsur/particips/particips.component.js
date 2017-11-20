@@ -25,21 +25,24 @@ var RsurParticipsComponent = (function () {
         this.dataSource = new material_1.MatTableDataSource();
         this.isLoading = true;
     }
+    RsurParticipsComponent.prototype.ngAfterViewInit = function () {
+        //this.dataSource.sort = this.sort;
+    };
     RsurParticipsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.rsurParticipService.getAll()
             .subscribe(function (response) {
             _this.particips = response.json();
             _this.dataSource = new material_1.MatTableDataSource(_this.particips);
-            _this.dataSource.sort = _this.sort;
             _this.isLoading = false;
+            //this.dataSource.sort = this.sort;
+        }, function (error) { return console.log('error'); }, function () {
+            console.log('complete');
+            _this.dataSource.sort = _this.sort;
         });
         //this.accountService.getAccount().subscribe(data => {            
         //    this.account = data.json() as AccountModel;           
         //});
-    };
-    RsurParticipsComponent.prototype.ngAfterViewInit = function () {
-        this.dataSource.sort = this.sort;
     };
     return RsurParticipsComponent;
 }());

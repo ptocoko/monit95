@@ -20,32 +20,38 @@ export class RsurParticipsComponent implements OnInit {
     //account = new AccountModel();
     isShowNotActual: boolean = false;
     displayedColumns = ['Code', 'Surname'];
-    dataSource = new MatTableDataSource();
+    dataSource = new MatTableDataSource<RsurParticipModel>();
     isLoading: boolean = true;
 
     @ViewChild(MatSort) sort: MatSort;
-
+    ngAfterViewInit() {
+        //this.dataSource.sort = this.sort;
+    }
  
     constructor(private readonly rsurParticipService: RsurParticipService,
         private readonly accountService: AccountService) {
     }
 
     ngOnInit() {
+        
         this.rsurParticipService.getAll()
             .subscribe((response: Response) => {
                 this.particips = response.json() as RsurParticipModel[];
-                this.dataSource = new MatTableDataSource(this.particips);
-                this.dataSource.sort = this.sort;
+                this.dataSource = new MatTableDataSource<RsurParticipModel>(this.particips);
                 this.isLoading = false;
+                //this.dataSource.sort = this.sort;
+            },
+            error => console.log('error'),
+            () => {
+                console.log('complete');
+                this.dataSource.sort = this.sort;
             });
         //this.accountService.getAccount().subscribe(data => {            
         //    this.account = data.json() as AccountModel;           
         //});
     }
 
-    ngAfterViewInit() {
-        this.dataSource.sort = this.sort;
-    }
+  
 
     
 
