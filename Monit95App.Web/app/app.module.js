@@ -11,28 +11,21 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
-var angular2_modal_1 = require("angular2-modal");
-var bootstrap_1 = require("angular2-modal/plugins/bootstrap");
 var mydatepicker_1 = require("mydatepicker");
 var material_1 = require("@angular/material");
 var animations_1 = require("@angular/platform-browser/animations");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var http_2 = require("@angular/common/http");
 var router_1 = require("@angular/router");
 var ngx_order_pipe_1 = require("ngx-order-pipe");
 // Components
 var app_component_1 = require("./app.component");
-var particip_modal_component_1 = require("./rsur/details/particip-modal.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
 var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rsurparticip-add-form.component");
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
-var particip_details_component_1 = require("./rsur/details/particip-details.component");
 var particip_correction_component_1 = require("./rsur/correction/particip-correction.component");
-var export_excel_modal_component_1 = require("./class-particips/excel-export/export-excel-modal.component");
 var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
 var marks_component_1 = require("./class-particips/marks/marks.component");
-var export_excel_component_1 = require("./class-particips/excel-export/export-excel.component");
 var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
 var add_component_1 = require("./class-particips/add-and-update/add.component");
 var update_component_1 = require("./class-particips/add-and-update/update.component");
@@ -65,6 +58,7 @@ var rsur_rating_service_1 = require("./services/rsur-rating.service");
 var seminar_report_service_1 = require("./services/seminar-report.service");
 var school_file_service_1 = require("./services/school-file.service");
 var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 // Pipes
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
@@ -90,8 +84,6 @@ AppModule = __decorate([
             http_2.HttpClientModule,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
-            angular2_modal_1.ModalModule.forRoot(),
-            bootstrap_1.BootstrapModalModule,
             mydatepicker_1.MyDatePickerModule,
             animations_1.BrowserAnimationsModule,
             material_1.MatButtonModule,
@@ -116,11 +108,9 @@ AppModule = __decorate([
                 { path: 'school-files', component: school_files_component_1.SchoolFilesComponent },
                 { path: 'plan', component: plan_component_1.PlanComponent },
                 { path: 'result', component: result_component_1.ResultComponent },
-                { path: 'details', component: particip_details_component_1.ParticipDetailsComponent },
                 { path: 'particip-correction', component: particip_correction_component_1.ParticipCorrectionComponent },
                 { path: 'class-particips', component: class_particips_plan_component_1.ClassParticipsPlanComponent },
                 { path: 'class-particips/list', component: class_particips_list_component_1.ClassParticipsListComponent },
-                { path: 'class-particips/upload-excel', component: export_excel_component_1.ClassParticipsExportExcelComponent },
                 { path: 'class-particips/new', component: add_component_1.AddClassParticipComponent },
                 { path: 'class-particips/update/:id', component: update_component_1.UpdateClassParticipComponent },
                 { path: 'class-particips/marks', component: marks_component_1.ClassParticipMarksComponent },
@@ -148,13 +138,9 @@ AppModule = __decorate([
             rsur_particip_filter_pipe_1.RsurParticipActualFilterPipe,
             plan_component_1.PlanComponent,
             result_component_1.ResultComponent,
-            particip_details_component_1.ParticipDetailsComponent,
-            particip_modal_component_1.ParticipModalComponent,
             particip_correction_component_1.ParticipCorrectionComponent,
             class_particips_list_component_1.ClassParticipsListComponent,
-            export_excel_modal_component_1.ExportExcelModal,
             marks_component_1.ClassParticipMarksComponent,
-            export_excel_component_1.ClassParticipsExportExcelComponent,
             class_particips_plan_component_1.ClassParticipsPlanComponent,
             add_component_1.AddClassParticipComponent,
             update_component_1.UpdateClassParticipComponent,
@@ -189,10 +175,7 @@ AppModule = __decorate([
             { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
         ],
-        entryComponents: [
-            particip_modal_component_1.ParticipModalComponent,
-            export_excel_modal_component_1.ExportExcelModal
-        ],
+        entryComponents: [],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
