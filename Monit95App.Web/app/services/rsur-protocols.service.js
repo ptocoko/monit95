@@ -14,14 +14,16 @@ var http_1 = require("@angular/common/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
 var protocolScanModel = {
+    FileId: 123,
     Url: '/Images/rsur-scans/2090/1000/1.jpg',
+    FileName: 'IMG_0001_01.JPG',
     StillHasScans: false
 };
 var RsurProtocolsService = (function () {
     function RsurProtocolsService(http) {
         this.http = http;
     }
-    RsurProtocolsService.prototype.getScan = function () {
+    RsurProtocolsService.prototype.getScan = function (fileId) {
         return Observable_1.Observable.of(protocolScanModel);
     };
     return RsurProtocolsService;

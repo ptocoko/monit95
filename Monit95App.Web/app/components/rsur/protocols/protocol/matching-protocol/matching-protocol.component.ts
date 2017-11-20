@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RsurProtocolsService } from "../../../../../services/rsur-protocols.service";
 import { Location } from '@angular/common';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
 	selector: 'matching-protocol-component',
@@ -9,25 +10,30 @@ import { Location } from '@angular/common';
 })
 export class MatchingProtocolComponent implements OnInit{
 	protocolScan: any = {};
+
 	rsurParticipCode: number;
-	markNames: string[] = new Array(15);
-	marks: string[] = new Array(15);
+	particip: any;
+
 	marksInputs: JQuery<HTMLInputElement>;
 
-	constructor(private rsurProtocolsService: RsurProtocolsService, private location: Location) {
-		this.markNames.fill('8.1')
-	}
+	constructor(private rsurProtocolsService: RsurProtocolsService,
+				private location: Location,
+				private route: ActivatedRoute) { }
 
 	ngOnInit() {
-		this.rsurProtocolsService.getScan().subscribe(res => {
-			this.protocolScan = res;
+		this.route.params.subscribe(params => {
+			let fileId: number = params["id"];
 
-			$(document).ready(() => {
-				this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-				this.marksInputs.get(0).focus();
-				this.marksInputs.get(0).select();
+			this.rsurProtocolsService.getScan(fileId).subscribe(res => {
+				this.protocolScan = res;
 
-				this.marksInputs.focus((event) => event.target.select());
+				//$(document).ready(() => {
+				//	this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
+				//	this.marksInputs.get(0).focus();
+				//	this.marksInputs.get(0).select();
+
+				//	this.marksInputs.focus((event) => event.target.select());
+				//});
 			});
 		});
 	}
@@ -40,17 +46,17 @@ export class MatchingProtocolComponent implements OnInit{
 		let elem = event.target as HTMLInputElement;
 		let elemIndex = this.marksInputs.index(elem);
 
-		if (elem.value) {
-			if (elem.value.match(/^(1|0)$/)) {
-				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-			}
+		//if (elem.value) {
+		//	if (elem.value.match(/^(1|0)$/)) {
+		//		this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+		//	}
 
-			else {
-				elem.value = '1';
-				this.marks[elemIndex] = '1'
-				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-			}
-		}
+		//	else {
+		//		elem.value = '1';
+		//		this.marks[elemIndex] = '1'
+		//		this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+		//	}
+		//}
 	}
 
 	goToNextInputOrFocusOnSubmitBtn(elemIndex: number) {

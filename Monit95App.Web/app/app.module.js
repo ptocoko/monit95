@@ -96,6 +96,9 @@ AppModule = __decorate([
             animations_1.BrowserAnimationsModule,
             material_1.MatButtonModule,
             material_1.MatDialogModule,
+            material_1.MatCardModule,
+            material_1.MatInputModule,
+            material_1.MatFormFieldModule,
             ngx_order_pipe_1.OrderModule,
             ng_bootstrap_1.NgbModule.forRoot(),
             router_1.RouterModule.forRoot([
@@ -111,7 +114,7 @@ AppModule = __decorate([
                 { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
                 { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
                 { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
-                { path: 'rsur/match-protocol', component: matching_protocol_component_1.MatchingProtocolComponent },
+                { path: 'rsur/match-protocol/:id', component: matching_protocol_component_1.MatchingProtocolComponent },
                 { path: 'school-files', component: school_files_component_1.SchoolFilesComponent },
                 { path: 'plan', component: plan_component_1.PlanComponent },
                 { path: 'result', component: result_component_1.ResultComponent },

@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MatButtonModule, MatDialogModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatCardModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
@@ -86,7 +86,10 @@ import { GlobalErrorHandler } from './error-handler';
         MyDatePickerModule, 
 		BrowserAnimationsModule,
 		MatButtonModule,
-        MatDialogModule,
+		MatDialogModule,
+		MatCardModule,
+		MatInputModule,
+		MatFormFieldModule,
         OrderModule,
 		NgbModule.forRoot(),
         RouterModule.forRoot([
@@ -102,7 +105,7 @@ import { GlobalErrorHandler } from './error-handler';
                 { path: 'rsur/report/:id', component: ReportComponent },
                 { path: 'rsur/results-list', component: ReportListComponent },
 				{ path: 'rsur/ratings', component: RatingsComponent },
-				{ path: 'rsur/match-protocol', component: MatchingProtocolComponent },
+				{ path: 'rsur/match-protocol/:id', component: MatchingProtocolComponent },
                 { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },

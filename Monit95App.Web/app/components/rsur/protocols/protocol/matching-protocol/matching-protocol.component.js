@@ -12,24 +12,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsur_protocols_service_1 = require("../../../../../services/rsur-protocols.service");
 var common_1 = require("@angular/common");
+var router_1 = require("@angular/router");
 var MatchingProtocolComponent = (function () {
-    function MatchingProtocolComponent(rsurProtocolsService, location) {
+    function MatchingProtocolComponent(rsurProtocolsService, location, route) {
         this.rsurProtocolsService = rsurProtocolsService;
         this.location = location;
+        this.route = route;
         this.protocolScan = {};
-        this.markNames = new Array(15);
-        this.marks = new Array(15);
-        this.markNames.fill('8.1');
     }
     MatchingProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.rsurProtocolsService.getScan().subscribe(function (res) {
-            _this.protocolScan = res;
-            $(document).ready(function () {
-                _this.marksInputs = $('.markInput');
-                _this.marksInputs.get(0).focus();
-                _this.marksInputs.get(0).select();
-                _this.marksInputs.focus(function (event) { return event.target.select(); });
+        this.route.params.subscribe(function (params) {
+            var fileId = params["id"];
+            _this.rsurProtocolsService.getScan(fileId).subscribe(function (res) {
+                _this.protocolScan = res;
+                //$(document).ready(() => {
+                //	this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
+                //	this.marksInputs.get(0).focus();
+                //	this.marksInputs.get(0).select();
+                //	this.marksInputs.focus((event) => event.target.select());
+                //});
             });
         });
     };
@@ -39,16 +41,16 @@ var MatchingProtocolComponent = (function () {
     MatchingProtocolComponent.prototype.onMarkChanged = function (event) {
         var elem = event.target;
         var elemIndex = this.marksInputs.index(elem);
-        if (elem.value) {
-            if (elem.value.match(/^(1|0)$/)) {
-                this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-            }
-            else {
-                elem.value = '1';
-                this.marks[elemIndex] = '1';
-                this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-            }
-        }
+        //if (elem.value) {
+        //	if (elem.value.match(/^(1|0)$/)) {
+        //		this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+        //	}
+        //	else {
+        //		elem.value = '1';
+        //		this.marks[elemIndex] = '1'
+        //		this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+        //	}
+        //}
     };
     MatchingProtocolComponent.prototype.goToNextInputOrFocusOnSubmitBtn = function (elemIndex) {
         if (elemIndex < this.marksInputs.length - 1) {
@@ -69,7 +71,9 @@ MatchingProtocolComponent = __decorate([
         selector: 'matching-protocol-component',
         templateUrl: "./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.html?v=" + new Date().getTime()
     }),
-    __metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService, common_1.Location])
+    __metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
+        common_1.Location,
+        router_1.ActivatedRoute])
 ], MatchingProtocolComponent);
 exports.MatchingProtocolComponent = MatchingProtocolComponent;
 //# sourceMappingURL=matching-protocol.component.js.map
