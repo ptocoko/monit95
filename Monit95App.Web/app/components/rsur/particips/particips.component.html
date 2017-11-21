@@ -1,5 +1,38 @@
 ﻿<h2>РСУР: Список участников</h2>
-<hr />
+<p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
+    <mat-spinner></mat-spinner>
+</p>
+    <div class="example-container mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource" matSort>
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="Code">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> код участника </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Code}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Surname">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> фамилия </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Surname}} </mat-cell>
+            </ng-container>
+
+            <!--<ng-container matColumnDef="weight">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="symbol">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+            </ng-container>-->
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+
+
+<!--<hr />
 <div *ngIf="isArea()" class="form-inline">
     <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="поиск..." />
     <div style="margin-left:15px" class="checkbox">
@@ -35,4 +68,4 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table>-->

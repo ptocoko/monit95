@@ -1,18 +1,32 @@
-﻿<h2>Файлы</h2>
-<hr />
-<div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" /></div>
-<div *ngIf="!isLoading && files.length > 0">
-    <br />
-    <table class="table table-striped table-bordered table-hover">
-        <tr>            
-            <th style="text-align:center">Проект</th>
-            <th style="text-align:center">Файл</th>
-            <th style="text-align:center">Учебный год</th>
-        </tr>
-        <tr *ngFor="let item of files">                        
-            <td>{{item.ProjectName}}</td>
-            <td><a target="_blank" href="{{item.Link}}">{{item.Name}}</a></td>
-            <td>{{item.Year}}</td>                               
-        </tr>
-    </table>
+﻿<div *ngIf="!isLoading">
+    <h2>Файлы</h2>
+    <div  class="example-container mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+            <!-- Position Column -->
+            <ng-container matColumnDef="ProjectName">
+                <mat-header-cell *matHeaderCellDef> Проект </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.ProjectName}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="Name">
+                <mat-header-cell *matHeaderCellDef> Файл </mat-header-cell>
+                <mat-cell *matCellDef="let element"> <a target="_blank" href="{{element.Link}}">{{element.Name}}</a> </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Year">
+                <mat-header-cell *matHeaderCellDef> Учебный год </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Year}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
 </div>
+
+

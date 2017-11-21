@@ -3,29 +3,22 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from 'angular2-modal';
-import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MatButtonModule, MatDialogModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatCardModule, MatTableModule, MatSortModule, MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { OrderModule } from 'ngx-order-pipe';
 
 // Components
 import { AppComponent } from './app.component';
-import { ParticipModalComponent } from './rsur/details/particip-modal.component';
 import { RsurParticipsComponent } from './components/rsur/particips/particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
-import { ParticipDetailsComponent } from './rsur/details/particip-details.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
-import { ExportExcelModal } from './class-particips/excel-export/export-excel-modal.component';
 import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
 import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
-import { ClassParticipsExportExcelComponent } from './class-particips/excel-export/export-excel.component';
 import { ClassParticipsPlanComponent } from './class-particips/class-particips-plan.component';
 import { AddClassParticipComponent } from './class-particips/add-and-update/add.component';
 import { UpdateClassParticipComponent } from './class-particips/add-and-update/update.component';
@@ -41,6 +34,7 @@ import { RatingsComponent } from './components/rsur/ratings/ratings.component';
 import { SeminarReportsListComponent } from "./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component";
 import { SeminarReportComponent } from "./components/rsur/seminar-reports/seminar-report/seminar-report.component";
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
+import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -57,6 +51,8 @@ import { RsurReportService } from './services/rsur-report.service';
 import { RsurRatingService } from './services/rsur-rating.service';
 import { SeminarReportService } from "./services/seminar-report.service";
 import { SchoolFileService } from "./services/school-file.service";
+import { RsurProtocolsService } from "./services/rsur-protocols.service";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Pipes
 import { LimitToPipe } from './limit-to.pipe';
@@ -78,15 +74,16 @@ import { GlobalErrorHandler } from './error-handler';
 		HttpModule,
 		HttpClientModule,        
         FormsModule,
-        ReactiveFormsModule,
-        ModalModule.forRoot(),
-        BootstrapModalModule,
+        ReactiveFormsModule,        
         MyDatePickerModule, 
 		BrowserAnimationsModule,
 		MatButtonModule,
         MatDialogModule,
-        OrderModule,
-		NgbModule.forRoot(),
+        MatTableModule,
+		MatSortModule,
+		MatProgressSpinnerModule,
+        OrderModule,	
+        NgbModule.forRoot(),
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
                 { path: 'rsur/test', component: RsurTestComponent },
@@ -99,15 +96,14 @@ import { GlobalErrorHandler } from './error-handler';
 				{ path: 'rsur/upload-report', component: CreateReportFormComponent },
                 { path: 'rsur/report/:id', component: ReportComponent },
                 { path: 'rsur/results-list', component: ReportListComponent },
-                { path: 'rsur/ratings', component: RatingsComponent },
+				{ path: 'rsur/ratings', component: RatingsComponent },
+				{ path: 'rsur/match-protocol', component: MatchingProtocolComponent },
                 { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
-                { path: 'result', component: ResultComponent },
-                { path: 'details', component: ParticipDetailsComponent },
+                { path: 'result', component: ResultComponent },                
                 { path: 'particip-correction', component: ParticipCorrectionComponent },
                 { path: 'class-particips', component: ClassParticipsPlanComponent },
-                { path: 'class-particips/list', component: ClassParticipsListComponent },
-                { path: 'class-particips/upload-excel', component: ClassParticipsExportExcelComponent },
+                { path: 'class-particips/list', component: ClassParticipsListComponent },                
                 { path: 'class-particips/new', component: AddClassParticipComponent },
                 { path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
                 { path: 'class-particips/marks', component: ClassParticipMarksComponent },
@@ -136,14 +132,10 @@ import { GlobalErrorHandler } from './error-handler';
         SubjectFilterPipe,
         RsurParticipActualFilterPipe,
 		PlanComponent,
-		ResultComponent,
-		ParticipDetailsComponent,		
-		ParticipModalComponent,		   
+		ResultComponent,   
         ParticipCorrectionComponent,		
-		ClassParticipsListComponent,
-		ExportExcelModal,
-		ClassParticipMarksComponent,
-		ClassParticipsExportExcelComponent,
+		ClassParticipsListComponent,		
+		ClassParticipMarksComponent,		
 		ClassParticipsPlanComponent,
 		AddClassParticipComponent,
 		UpdateClassParticipComponent,
@@ -156,7 +148,8 @@ import { GlobalErrorHandler } from './error-handler';
 		RatingsComponent,
 		SeminarReportsListComponent,
         SeminarReportComponent,
-        SchoolFilesComponent
+		SchoolFilesComponent,
+		MatchingProtocolComponent
 	],
 	providers: [
         AccountService,
@@ -172,13 +165,13 @@ import { GlobalErrorHandler } from './error-handler';
 	    RsurReportService,
 		RsurRatingService,
         SeminarReportService,
-        SchoolFileService,
+		SchoolFileService,
+		RsurProtocolsService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
 	],  
 	entryComponents: [
-		ParticipModalComponent,				
-		ExportExcelModal
+		
 	],
     bootstrap: [AppComponent]
 })

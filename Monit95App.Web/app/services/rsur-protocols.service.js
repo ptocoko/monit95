@@ -10,23 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var FileService = (function () {
-    function FileService(http) {
+var http_1 = require("@angular/common/http");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/observable/of");
+var protocolScanModel = {
+    Url: '/Images/rsur-scans/2090/1000/1.jpg',
+    StillHasScans: false
+};
+var RsurProtocolsService = (function () {
+    function RsurProtocolsService(http) {
         this.http = http;
-        this.ROUTE_PREFIX = 'api/Files';
     }
-    FileService.prototype.getAll = function () {
-        return this.http.get(this.ROUTE_PREFIX);
+    RsurProtocolsService.prototype.getScan = function () {
+        return Observable_1.Observable.of(protocolScanModel);
     };
-    return FileService;
+    return RsurProtocolsService;
 }());
-FileService = __decorate([
-    core_1.Component({
-        providers: [http_1.Http]
-    }),
+RsurProtocolsService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], FileService);
-exports.FileService = FileService;
-//# sourceMappingURL=file.service.js.map
+    __metadata("design:paramtypes", [http_1.HttpClient])
+], RsurProtocolsService);
+exports.RsurProtocolsService = RsurProtocolsService;
+//# sourceMappingURL=rsur-protocols.service.js.map

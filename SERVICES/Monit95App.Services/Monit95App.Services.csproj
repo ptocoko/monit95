@@ -138,7 +138,7 @@
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="ClassParticipImporter.cs" />
     <Compile Include="ParticipResults.cs" />
-    <Compile Include="RsurMarksService.cs" />
+    <Compile Include="Rsur\RsurMarksService.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
     <Compile Include="Rsur\RatingService.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />
