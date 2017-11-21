@@ -14,8 +14,8 @@ export class SchoolFilesComponent implements OnInit {
     files: FileItem[];        
     isLoading: boolean = true;    
 
-    displayedColumns = ['проект', 'файл', 'учебный год'];
-    dataSource = new MatTableDataSource<FileItem>();
+    displayedColumns = ['ProjectName', 'Name', 'Year'];
+    dataSource: any;
     
     constructor(private readonly schoolFileService: SchoolFileService) {
 

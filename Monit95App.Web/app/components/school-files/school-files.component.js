@@ -17,8 +17,7 @@ var SchoolFilesComponent = (function () {
     function SchoolFilesComponent(schoolFileService) {
         this.schoolFileService = schoolFileService;
         this.isLoading = true;
-        this.displayedColumns = ['проект', 'файл', 'учебный год'];
-        this.dataSource = new material_1.MatTableDataSource();
+        this.displayedColumns = ['ProjectName', 'Name', 'Year'];
     }
     SchoolFilesComponent.prototype.ngOnInit = function () {
         var _this = this;

@@ -16,7 +16,6 @@
         "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
         "@types/jquery": "^3.2.12",
         "angular-in-memory-web-api": "^0.5.1",
-        "angular2-modal": "^3.0.3",
         "core-js": "^2.5.1",
         "mydatepicker": "^2.5.1",
         "ngx-order-pipe": "^1.0.4",

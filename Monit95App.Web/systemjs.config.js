@@ -1,5 +1,5 @@
 ﻿(function () {    
-    const appVersionExtension = 'js?v=1';
+    const appVersionExtension = 'js?v=2';
     System.config({
         paths: {
             // псевдоним для пути к модулям
@@ -40,9 +40,9 @@
             '@angular/cdk/rxjs': `npm:@angular/cdk/bundles/cdk-rxjs.umd.${appVersionExtension}`,
             '@angular/cdk/scrolling': `npm:@angular/cdk/bundles/cdk-scrolling.umd.${appVersionExtension}`,
             '@angular/cdk/table': `npm:@angular/cdk/bundles/cdk-table.umd.${appVersionExtension}`,
-			'@angular/cdk/stepper': `npm:@angular/cdk/bundles/cdk-stepper.umd.${appVersionExtension}`,
-			'@angular/cdk/accordion': `npm:@angular/cdk/bundles/cdk-accordion.umd.${appVersionExtension}`,
-			'@angular/cdk/layout': `npm:@angular/cdk/bundles/cdk-layout.umd.${appVersionExtension}`,
+            '@angular/cdk/stepper': `npm:@angular/cdk/bundles/cdk-stepper.umd.${appVersionExtension}`,
+            '@angular/cdk/accordion': `npm:@angular/cdk/bundles/cdk-accordion.umd.${appVersionExtension}`,
+            '@angular/cdk/layout': `npm:@angular/cdk/bundles/cdk-layout.umd.${appVersionExtension}`,
 
             '@ng-bootstrap/ng-bootstrap': `npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.${appVersionExtension}`,
             'angular-in-memory-web-api': `npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.${appVersionExtension}`,

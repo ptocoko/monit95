@@ -2,9 +2,8 @@
 import { AccountService } from '../../../services/account.service';
 import { AccountModel } from '../../../models/account.model';
 
-@Component({
-    templateUrl: `./app/components/rsur/home/home.component.html`
-    //templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`
+@Component({    
+    templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`
 })
 export class HomeComponent implements OnInit {
     account = new AccountModel(); 

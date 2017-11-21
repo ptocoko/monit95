@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var account_model_1 = require("../../../models/account.model");
+var material_1 = require("@angular/material");
 // Services
 var rsur_particip_service_1 = require("../../../services/rsur-particip.service");
 var account_service_1 = require("../../../services/account.service");
@@ -19,30 +19,34 @@ var RsurParticipsComponent = (function () {
         this.rsurParticipService = rsurParticipService;
         this.accountService = accountService;
         this.particips = [];
-        this.account = new account_model_1.AccountModel();
+        //account = new AccountModel();
         this.isShowNotActual = false;
+        this.displayedColumns = ['Code', 'Surname'];
+        this.dataSource = new material_1.MatTableDataSource();
+        this.isLoading = true;
     }
-    RsurParticipsComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.getAllParticips();
-        this.accountService.getAccount().subscribe(function (data) {
-            _this.account = data.json();
-        });
+    RsurParticipsComponent.prototype.ngAfterViewInit = function () {
+        //this.dataSource.sort = this.sort;
     };
-    RsurParticipsComponent.prototype.getAllParticips = function () {
+    RsurParticipsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.rsurParticipService.getAll()
             .subscribe(function (response) {
             _this.particips = response.json();
+            _this.dataSource = new material_1.MatTableDataSource(_this.particips);
+            _this.isLoading = false;
+            _this.dataSource.sort = _this.sort;
         });
-    };
-    RsurParticipsComponent.prototype.isArea = function () {
-        if (this.account.RoleNames != null)
-            return this.account.RoleNames.indexOf('area') > -1;
-        return null;
+        //this.accountService.getAccount().subscribe(data => {            
+        //    this.account = data.json() as AccountModel;           
+        //});
     };
     return RsurParticipsComponent;
 }());
+__decorate([
+    core_1.ViewChild(material_1.MatSort),
+    __metadata("design:type", material_1.MatSort)
+], RsurParticipsComponent.prototype, "sort", void 0);
 RsurParticipsComponent = __decorate([
     core_1.Component({
         selector: 'rsur/particips',
