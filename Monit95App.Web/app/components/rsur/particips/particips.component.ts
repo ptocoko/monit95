@@ -13,13 +13,13 @@ import { AccountService } from '../../../services/account.service';
 @Component({
     selector: 'rsur/particips',
     templateUrl: `./app/components/rsur/particips/particips.component.html?v=${new Date().getTime()}`,
-    styleUrls: [`./app/components/rsur/particips/particips.component.css`]
+    styleUrls: [`./app/components/rsur/particips/particips.component.css?v=${new Date().getTime()}`]
 })
 export class RsurParticipsComponent implements OnInit {
     particips: RsurParticipModel[] = [];
     //account = new AccountModel();
     isShowNotActual: boolean = false;
-    displayedColumns = ['Code', 'Surname'];
+    displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
     dataSource = new MatTableDataSource<RsurParticipModel>();
     isLoading: boolean = true;
 
@@ -42,11 +42,7 @@ export class RsurParticipsComponent implements OnInit {
         //    this.account = data.json() as AccountModel;           
         //});
     }
-
-  
-
-    
-
+      
     //isArea() {        
     //    if (this.account.RoleNames != null)
     //        return this.account.RoleNames.indexOf('area') > -1;

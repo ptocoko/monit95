@@ -16,15 +16,25 @@
                 <mat-cell *matCellDef="let element"> {{element.Surname}} </mat-cell>
             </ng-container>
 
-            <!--<ng-container matColumnDef="weight">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+            <ng-container matColumnDef="Name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> имя </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Name}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="symbol">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-            </ng-container>-->
+            <ng-container matColumnDef="SecondName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> отчество </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.SecondName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="RsurSubjectName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> предмет </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.RsurSubjectName}} </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="SchoolIdWithName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> школа </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.SchoolIdWithName}} </mat-cell>
+            </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

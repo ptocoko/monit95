@@ -21,13 +21,10 @@ var RsurParticipsComponent = (function () {
         this.particips = [];
         //account = new AccountModel();
         this.isShowNotActual = false;
-        this.displayedColumns = ['Code', 'Surname'];
+        this.displayedColumns = ['Code', 'Surname', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
         this.dataSource = new material_1.MatTableDataSource();
         this.isLoading = true;
     }
-    RsurParticipsComponent.prototype.ngAfterViewInit = function () {
-        //this.dataSource.sort = this.sort;
-    };
     RsurParticipsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.rsurParticipService.getAll()

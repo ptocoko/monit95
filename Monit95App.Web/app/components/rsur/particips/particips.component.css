@@ -6,14 +6,14 @@
 
 .mat-table {
     overflow: auto;
-    max-height: 500px;
+    /*max-height: 700px;*/
 }
 
 .mat-header-cell.mat-sort-header-sorted {
     color: black;
 }
 
-.table tr.red {
+/*.table tr.red {
     background-color: red;
 }
 
@@ -28,4 +28,4 @@
 
 .notActual {
     color: lightslategray;
-}
+}*/
