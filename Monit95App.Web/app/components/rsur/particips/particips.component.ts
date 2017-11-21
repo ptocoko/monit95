@@ -24,9 +24,6 @@ export class RsurParticipsComponent implements OnInit {
     isLoading: boolean = true;
 
     @ViewChild(MatSort) sort: MatSort;
-    ngAfterViewInit() {
-        //this.dataSource.sort = this.sort;
-    }
  
     constructor(private readonly rsurParticipService: RsurParticipService,
         private readonly accountService: AccountService) {
@@ -39,11 +36,6 @@ export class RsurParticipsComponent implements OnInit {
                 this.particips = response.json() as RsurParticipModel[];
                 this.dataSource = new MatTableDataSource<RsurParticipModel>(this.particips);
                 this.isLoading = false;
-                //this.dataSource.sort = this.sort;
-            },
-            error => console.log('error'),
-            () => {
-                console.log('complete');
                 this.dataSource.sort = this.sort;
             });
         //this.accountService.getAccount().subscribe(data => {            

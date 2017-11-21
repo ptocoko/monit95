@@ -35,9 +35,6 @@ var RsurParticipsComponent = (function () {
             _this.particips = response.json();
             _this.dataSource = new material_1.MatTableDataSource(_this.particips);
             _this.isLoading = false;
-            //this.dataSource.sort = this.sort;
-        }, function (error) { return console.log('error'); }, function () {
-            console.log('complete');
             _this.dataSource.sort = _this.sort;
         });
         //this.accountService.getAccount().subscribe(data => {            

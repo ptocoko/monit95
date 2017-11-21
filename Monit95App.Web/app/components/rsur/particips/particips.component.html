@@ -1,5 +1,7 @@
-﻿<div *ngIf="!isLoading">
-    <h2>РСУР: Список участников</h2>
+﻿<h2>РСУР: Список участников</h2>
+<p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
+    <mat-spinner></mat-spinner>
+</p>
     <div class="example-container mat-elevation-z8">
         <mat-table #table [dataSource]="dataSource" matSort>
 
@@ -28,7 +30,6 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
     </div>
-</div>
 
 
 <!--<hr />
