@@ -26,37 +26,44 @@ export class MatchingProtocolComponent implements OnInit{
 
 			this.rsurProtocolsService.getScan(fileId).subscribe(res => {
 				this.protocolScan = res;
-
-				//$(document).ready(() => {
-				//	this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-				//	this.marksInputs.get(0).focus();
-				//	this.marksInputs.get(0).select();
-
-				//	this.marksInputs.focus((event) => event.target.select());
-				//});
 			});
 		});
 	}
 
 	onSubmit() {
-		console.log(this.rsurParticipCode);
+		console.log(this.particip);
 	}
 
 	onMarkChanged(event: any) {
 		let elem = event.target as HTMLInputElement;
 		let elemIndex = this.marksInputs.index(elem);
 
-		//if (elem.value) {
-		//	if (elem.value.match(/^(1|0)$/)) {
-		//		this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-		//	}
+		if (elem.value) {
+			if (elem.value.match(/^(1|0)$/)) {
+				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+			}
 
-		//	else {
-		//		elem.value = '1';
-		//		this.marks[elemIndex] = '1'
-		//		this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-		//	}
-		//}
+			else {
+				elem.value = '1';
+				this.particip.ParticipTest.Questions[elemIndex].currentMark = 1;
+				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+			}
+		}
+	}
+
+	codeChange(event: any) {
+		let elem = event.target as HTMLInputElement;
+
+		if (this.rsurParticipCode.toString().length === 5) {
+			this.rsurProtocolsService.getParticipTest(this.rsurParticipCode).subscribe(res => {
+				this.particip = res;
+				elem.disabled = true;
+
+				this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
+				this.marksInputs.focus((event) => event.target.select());
+				this.marksInputs.get(0).focus();
+			});
+		}
 	}
 
 	goToNextInputOrFocusOnSubmitBtn(elemIndex: number) {

@@ -99,6 +99,7 @@ AppModule = __decorate([
             material_1.MatCardModule,
             material_1.MatInputModule,
             material_1.MatFormFieldModule,
+            material_1.MatTableModule,
             ngx_order_pipe_1.OrderModule,
             ng_bootstrap_1.NgbModule.forRoot(),
             router_1.RouterModule.forRoot([

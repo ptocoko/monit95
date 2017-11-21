@@ -24,7 +24,7 @@
             '@angular/router': `npm:@angular/router/bundles/router.umd.${appVersionExtension}`,
             '@angular/forms': `npm:@angular/forms/bundles/forms.umd.${appVersionExtension}`,
             '@angular/upgrade': `npm:@angular/upgrade/bundles/upgrade.umd.${appVersionExtension}`,
-            '@angular/material': `npm:@angular/material/bundles/material.umd.${appVersionExtension}`,
+            '@angular/material': `npm:@angular/material/bundles/material.umd.js`,
 
             // cdk individual packages            
             '@angular/cdk': `npm:@angular/cdk/bundles/cdk.umd.${appVersionExtension}`,
@@ -40,7 +40,9 @@
             '@angular/cdk/rxjs': `npm:@angular/cdk/bundles/cdk-rxjs.umd.${appVersionExtension}`,
             '@angular/cdk/scrolling': `npm:@angular/cdk/bundles/cdk-scrolling.umd.${appVersionExtension}`,
             '@angular/cdk/table': `npm:@angular/cdk/bundles/cdk-table.umd.${appVersionExtension}`,
-            '@angular/cdk/stepper': `npm:@angular/cdk/bundles/cdk-stepper.umd.${appVersionExtension}`,
+			'@angular/cdk/stepper': `npm:@angular/cdk/bundles/cdk-stepper.umd.${appVersionExtension}`,
+			'@angular/cdk/accordion': `npm:@angular/cdk/bundles/cdk-accordion.umd.${appVersionExtension}`,
+			'@angular/cdk/layout': `npm:@angular/cdk/bundles/cdk-layout.umd.${appVersionExtension}`,
 
             '@ng-bootstrap/ng-bootstrap': `npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.${appVersionExtension}`,
             'angular-in-memory-web-api': `npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.${appVersionExtension}`,

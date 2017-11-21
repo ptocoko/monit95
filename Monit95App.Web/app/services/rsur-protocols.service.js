@@ -13,11 +13,45 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
+require("rxjs/add/observable/throw");
 var protocolScanModel = {
     FileId: 123,
     Url: '/Images/rsur-scans/2090/1000/1.jpg',
     FileName: 'IMG_0001_01.JPG',
     StillHasScans: false
+};
+var particip = {
+    "ParticipCode": 12345,
+    "ParticipTest": {
+        "ParticipTestId": 1234,
+        "TestName": "0101-Орфография",
+        "Questions": [
+            {
+                "Name": "1",
+                "Order": 1,
+                "MaxMark": 4,
+                "CurrentMark": 0
+            },
+            {
+                "Name": "2",
+                "Order": 2,
+                "MaxMark": 1,
+                "CurrentMark": 0
+            },
+            {
+                "Name": "3.1",
+                "Order": 3,
+                "MaxMark": 1,
+                "CurrentMark": 0
+            },
+            {
+                "Name": "3.2",
+                "Order": 4,
+                "MaxMark": 1,
+                "CurrentMark": 0
+            }
+        ]
+    }
 };
 var RsurProtocolsService = (function () {
     function RsurProtocolsService(http) {
@@ -25,6 +59,12 @@ var RsurProtocolsService = (function () {
     }
     RsurProtocolsService.prototype.getScan = function (fileId) {
         return Observable_1.Observable.of(protocolScanModel);
+    };
+    RsurProtocolsService.prototype.getParticipTest = function (participCode) {
+        if (participCode == 12345)
+            return Observable_1.Observable.of(particip);
+        else
+            return Observable_1.Observable.throw('im fake error message');
     };
     return RsurProtocolsService;
 }());

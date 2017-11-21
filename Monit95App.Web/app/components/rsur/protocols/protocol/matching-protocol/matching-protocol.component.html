@@ -6,25 +6,26 @@
         <form #protocolForm="ngForm" (ngSubmit)="onSubmit()">
             <p style="width:200px">
                 <mat-form-field [hideRequiredMarker]="false">
-                    <input autofocus matInput maxlength="5" placeholder="Введите код участника" name="code" [(ngModel)]="rsurParticipCode" #code="ngModel" required />
+                    <input autofocus matInput maxlength="5" placeholder="Введите код участника" name="code" [(ngModel)]="rsurParticipCode" #code="ngModel" (keyup)="codeChange($event)" required />
                 </mat-form-field>
             </p>
 
             <div *ngIf="particip">
                 <p>Блок: {{particip.ParticipTest.TestName}}</p>
-                <div *ngFor="let question of particip.ParticipTest.Questions; let i = index" class="form-inline">
+                <div *ngFor="let question of particip.ParticipTest.Questions; let i = index" class="form-inline" style="margin-bottom:10px">
                     <label style="width:40px">{{question.Name}}</label>
-                    <input style="text-align:center" (keyup)="onMarkChanged($event)" size="1" class="markInput form-control" [(ngModel)]="question.CurrentMark" name="mark{{i}}" #mark{{i}}="ngModel" required />
+                    <input style="text-align:center; width:15px" (keyup)="onMarkChanged($event)" class="markInput form-control" [(ngModel)]="question.CurrentMark" name="mark{{i}}" #mark{{i}}="ngModel" required />
                 </div>
-            </div>
-            <p class="pull-left">
-                <button type="submit" mat-raised-button color="primary">Сохранить</button>
-                <button type="button" mat-raised-button color="warn" (click)="cancel()">Отмена</button>
+                <br />
+                <p class="pull-left">
+                    <button id="submitBtn" type="submit" mat-raised-button color="primary">Сохранить</button>
+                    <button type="button" mat-raised-button color="warn" (click)="cancel()">Отмена</button>
 
-                <!--<input type="submit" class="btn btn-success" id="submitBtn" value="Сохранить" />
-                <input type="submit" class="btn btn-success" id="submitBtn" value="Save & Next" [disabled]="marksForm.invalid || marksForm.pristine || protocolScan.StillHasScans" />
-                <a class="btn btn-default" (click)="cancel()">Отмена</a>-->
-            </p>
+                    <!--<input type="submit" class="btn btn-success" id="submitBtn" value="Сохранить" />
+                    <input type="submit" class="btn btn-success" id="submitBtn" value="Save & Next" [disabled]="marksForm.invalid || marksForm.pristine || protocolScan.StillHasScans" />
+                    <a class="btn btn-default" (click)="cancel()">Отмена</a>-->
+                </p>
+            </div>
         </form>
     </div>
 </div>

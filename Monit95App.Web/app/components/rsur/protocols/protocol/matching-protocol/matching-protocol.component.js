@@ -26,31 +26,38 @@ var MatchingProtocolComponent = (function () {
             var fileId = params["id"];
             _this.rsurProtocolsService.getScan(fileId).subscribe(function (res) {
                 _this.protocolScan = res;
-                //$(document).ready(() => {
-                //	this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-                //	this.marksInputs.get(0).focus();
-                //	this.marksInputs.get(0).select();
-                //	this.marksInputs.focus((event) => event.target.select());
-                //});
             });
         });
     };
     MatchingProtocolComponent.prototype.onSubmit = function () {
-        console.log(this.rsurParticipCode);
+        console.log(this.particip);
     };
     MatchingProtocolComponent.prototype.onMarkChanged = function (event) {
         var elem = event.target;
         var elemIndex = this.marksInputs.index(elem);
-        //if (elem.value) {
-        //	if (elem.value.match(/^(1|0)$/)) {
-        //		this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-        //	}
-        //	else {
-        //		elem.value = '1';
-        //		this.marks[elemIndex] = '1'
-        //		this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-        //	}
-        //}
+        if (elem.value) {
+            if (elem.value.match(/^(1|0)$/)) {
+                this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+            }
+            else {
+                elem.value = '1';
+                this.particip.ParticipTest.Questions[elemIndex].currentMark = 1;
+                this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+            }
+        }
+    };
+    MatchingProtocolComponent.prototype.codeChange = function (event) {
+        var _this = this;
+        var elem = event.target;
+        if (this.rsurParticipCode.toString().length === 5) {
+            this.rsurProtocolsService.getParticipTest(this.rsurParticipCode).subscribe(function (res) {
+                _this.particip = res;
+                elem.disabled = true;
+                _this.marksInputs = $('.markInput');
+                _this.marksInputs.focus(function (event) { return event.target.select(); });
+                _this.marksInputs.get(0).focus();
+            });
+        }
     };
     MatchingProtocolComponent.prototype.goToNextInputOrFocusOnSubmitBtn = function (elemIndex) {
         if (elemIndex < this.marksInputs.length - 1) {
