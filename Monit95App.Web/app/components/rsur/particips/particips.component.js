@@ -21,7 +21,7 @@ var RsurParticipsComponent = (function () {
         this.particips = [];
         //account = new AccountModel();
         this.isShowNotActual = false;
-        this.displayedColumns = ['Code', 'Surname', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
+        this.displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
         this.dataSource = new material_1.MatTableDataSource();
         this.isLoading = true;
     }
@@ -48,7 +48,7 @@ RsurParticipsComponent = __decorate([
     core_1.Component({
         selector: 'rsur/particips',
         templateUrl: "./app/components/rsur/particips/particips.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/components/rsur/particips/particips.component.css"]
+        styleUrls: ["./app/components/rsur/particips/particips.component.css?v=" + new Date().getTime()]
     }),
     __metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
         account_service_1.AccountService])
