@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
+import { ParticipTestModel } from "../models/particip-test.model";
 
 const protocolScanModel = {
 	FileId: 123,
@@ -12,7 +13,7 @@ const protocolScanModel = {
 	StillHasScans: false
 };
 
-const particip = {
+const particip: ParticipTestModel = {
 	"ParticipCode": 12345,
 	"ParticipTest": {
 		"ParticipTestId": 1234,
@@ -25,6 +26,12 @@ const particip = {
 				"CurrentMark": 0
 			},
 			{
+				"Name": "3.2",
+				"Order": 4,
+				"MaxMark": 1,
+				"CurrentMark": 0
+			},
+			{
 				"Name": "2",
 				"Order": 2,
 				"MaxMark": 1,
@@ -33,12 +40,6 @@ const particip = {
 			{
 				"Name": "3.1",
 				"Order": 3,
-				"MaxMark": 1,
-				"CurrentMark": 0
-			},
-			{
-				"Name": "3.2",
-				"Order": 4,
 				"MaxMark": 1,
 				"CurrentMark": 0
 			}
@@ -55,8 +56,19 @@ export class RsurProtocolsService {
 	}
 
 	getParticipTest(participCode: number) {
-		if (participCode == 12345)
-			return Observable.of(particip)
+		if (participCode == 12345) {
+			particip.ParticipTest.Questions.sort((first, second) => {
+				if (first.Order < second.Order) {
+					return -1;
+				}
+				else {
+					return 1;
+				}
+			});
+
+			return Observable.of(particip);
+
+		}
 		else
 			return Observable.throw('im fake error message');
 	}

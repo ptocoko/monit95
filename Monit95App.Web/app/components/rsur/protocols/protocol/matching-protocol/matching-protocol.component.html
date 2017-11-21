@@ -13,8 +13,8 @@
             <div *ngIf="particip">
                 <p>Блок: {{particip.ParticipTest.TestName}}</p>
                 <div *ngFor="let question of particip.ParticipTest.Questions; let i = index" class="form-inline" style="margin-bottom:10px">
-                    <label style="width:40px">{{question.Name}}</label>
-                    <input style="text-align:center; width:15px" (keyup)="onMarkChanged($event)" class="markInput form-control" [(ngModel)]="question.CurrentMark" name="mark{{i}}" #mark{{i}}="ngModel" required />
+                    <label style="width:40px; text-align:right">{{question.Name}}</label>
+                    <input style="text-align:center; width:35px; padding: 1px" (keyup)="onMarkChanged($event)" class="markInput form-control" [(ngModel)]="question.CurrentMark" name="mark{{i}}" #mark{{i}}="ngModel" required />
                 </div>
                 <br />
                 <p class="pull-left">

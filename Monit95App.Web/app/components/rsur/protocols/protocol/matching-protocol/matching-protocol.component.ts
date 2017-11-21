@@ -2,7 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RsurProtocolsService } from "../../../../../services/rsur-protocols.service";
 import { Location } from '@angular/common';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ParticipTestModel } from "../../../../../models/particip-test.model";
 
 @Component({
 	selector: 'matching-protocol-component',
@@ -12,18 +13,19 @@ export class MatchingProtocolComponent implements OnInit{
 	protocolScan: any = {};
 
 	rsurParticipCode: number;
-	particip: any;
+	particip: ParticipTestModel;
 
 	marksInputs: JQuery<HTMLInputElement>;
 
 	constructor(private rsurProtocolsService: RsurProtocolsService,
 				private location: Location,
-				private route: ActivatedRoute) { }
+				private route: ActivatedRoute,
+				private router: Router) { }
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
 			let fileId: number = params["id"];
-
+			
 			this.rsurProtocolsService.getScan(fileId).subscribe(res => {
 				this.protocolScan = res;
 			});
@@ -42,10 +44,9 @@ export class MatchingProtocolComponent implements OnInit{
 			if (elem.value.match(/^(1|0)$/)) {
 				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
 			}
-
 			else {
 				elem.value = '1';
-				this.particip.ParticipTest.Questions[elemIndex].currentMark = 1;
+				this.particip.ParticipTest.Questions[elemIndex].CurrentMark = 1;
 				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
 			}
 		}
@@ -59,9 +60,12 @@ export class MatchingProtocolComponent implements OnInit{
 				this.particip = res;
 				elem.disabled = true;
 
-				this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-				this.marksInputs.focus((event) => event.target.select());
-				this.marksInputs.get(0).focus();
+				$().ready(() => {
+					this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
+					this.marksInputs.focus((event) => event.target.select());
+					this.marksInputs.get(0).focus();
+				});
+				
 			});
 		}
 	}
@@ -77,6 +81,7 @@ export class MatchingProtocolComponent implements OnInit{
 	}
 
 	cancel() {
-		this.location.back();
+		this.router.
+		this.location.replaceState('/rsur');
 	}
 }

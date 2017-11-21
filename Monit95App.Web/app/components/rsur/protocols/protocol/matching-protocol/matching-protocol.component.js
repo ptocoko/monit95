@@ -41,7 +41,7 @@ var MatchingProtocolComponent = (function () {
             }
             else {
                 elem.value = '1';
-                this.particip.ParticipTest.Questions[elemIndex].currentMark = 1;
+                this.particip.ParticipTest.Questions[elemIndex].CurrentMark = 1;
                 this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
             }
         }
@@ -53,9 +53,11 @@ var MatchingProtocolComponent = (function () {
             this.rsurProtocolsService.getParticipTest(this.rsurParticipCode).subscribe(function (res) {
                 _this.particip = res;
                 elem.disabled = true;
-                _this.marksInputs = $('.markInput');
-                _this.marksInputs.focus(function (event) { return event.target.select(); });
-                _this.marksInputs.get(0).focus();
+                $().ready(function () {
+                    _this.marksInputs = $('.markInput');
+                    _this.marksInputs.focus(function (event) { return event.target.select(); });
+                    _this.marksInputs.get(0).focus();
+                });
             });
         }
     };
@@ -69,7 +71,7 @@ var MatchingProtocolComponent = (function () {
         }
     };
     MatchingProtocolComponent.prototype.cancel = function () {
-        this.location.back();
+        this.location.replaceState('/rsur');
     };
     return MatchingProtocolComponent;
 }());

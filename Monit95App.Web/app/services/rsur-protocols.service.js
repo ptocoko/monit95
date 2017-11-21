@@ -33,6 +33,12 @@ var particip = {
                 "CurrentMark": 0
             },
             {
+                "Name": "3.2",
+                "Order": 4,
+                "MaxMark": 1,
+                "CurrentMark": 0
+            },
+            {
                 "Name": "2",
                 "Order": 2,
                 "MaxMark": 1,
@@ -41,12 +47,6 @@ var particip = {
             {
                 "Name": "3.1",
                 "Order": 3,
-                "MaxMark": 1,
-                "CurrentMark": 0
-            },
-            {
-                "Name": "3.2",
-                "Order": 4,
                 "MaxMark": 1,
                 "CurrentMark": 0
             }
@@ -61,8 +61,17 @@ var RsurProtocolsService = (function () {
         return Observable_1.Observable.of(protocolScanModel);
     };
     RsurProtocolsService.prototype.getParticipTest = function (participCode) {
-        if (participCode == 12345)
+        if (participCode == 12345) {
+            particip.ParticipTest.Questions.sort(function (first, second) {
+                if (first.Order < second.Order) {
+                    return -1;
+                }
+                else {
+                    return 1;
+                }
+            });
             return Observable_1.Observable.of(particip);
+        }
         else
             return Observable_1.Observable.throw('im fake error message');
     };
