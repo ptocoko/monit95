@@ -66,7 +66,16 @@ export class RsurProtocolsService {
 				}
 			});
 
-			return Observable.of(particip);
+			return new Observable(observer => {
+				setTimeout(() => {
+					observer.next(particip);
+				}, 2000);
+
+				setTimeout(() => {
+					observer.complete();
+				}, 3000);
+			});
+			
 
 		}
 		else

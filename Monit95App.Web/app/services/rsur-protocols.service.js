@@ -70,7 +70,14 @@ var RsurProtocolsService = (function () {
                     return 1;
                 }
             });
-            return Observable_1.Observable.of(particip);
+            return new Observable_1.Observable(function (observer) {
+                setTimeout(function () {
+                    observer.next(particip);
+                }, 2000);
+                setTimeout(function () {
+                    observer.complete();
+                }, 3000);
+            });
         }
         else
             return Observable_1.Observable.throw('im fake error message');
