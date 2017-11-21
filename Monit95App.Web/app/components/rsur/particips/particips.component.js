@@ -25,9 +25,6 @@ var RsurParticipsComponent = (function () {
         this.dataSource = new material_1.MatTableDataSource();
         this.isLoading = true;
     }
-    RsurParticipsComponent.prototype.ngAfterViewInit = function () {
-        //this.dataSource.sort = this.sort;
-    };
     RsurParticipsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.rsurParticipService.getAll()
