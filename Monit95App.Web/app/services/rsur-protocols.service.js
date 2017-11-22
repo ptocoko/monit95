@@ -24,31 +24,31 @@ var particip = {
     "ParticipCode": 12345,
     "ParticipTest": {
         "ParticipTestId": 1234,
-        "TestName": "0101-Орфография",
+        "TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
         "Questions": [
             {
-                "Name": "1",
+                "Name": "1.1",
                 "Order": 1,
                 "MaxMark": 4,
-                "CurrentMark": 0
+                "CurrentMark": null
             },
             {
                 "Name": "3.2",
                 "Order": 4,
                 "MaxMark": 1,
-                "CurrentMark": 0
+                "CurrentMark": null
             },
             {
-                "Name": "2",
+                "Name": "2.10",
                 "Order": 2,
                 "MaxMark": 1,
-                "CurrentMark": 0
+                "CurrentMark": null
             },
             {
                 "Name": "3.1",
                 "Order": 3,
                 "MaxMark": 1,
-                "CurrentMark": 0
+                "CurrentMark": null
             }
         ]
     }
@@ -80,7 +80,11 @@ var RsurProtocolsService = (function () {
             });
         }
         else
-            return Observable_1.Observable.throw('im fake error message');
+            return new Observable_1.Observable(function (observer) {
+                setTimeout(function () {
+                    observer.error('im error!');
+                }, 1500);
+            });
     };
     return RsurProtocolsService;
 }());

@@ -13,12 +13,12 @@ import { FormControl, Validators } from "@angular/forms";
 export class MatchingProtocolComponent implements OnInit{
 	protocolScan: any = {};
 	particip: ParticipTestModel;
+	
+	isLoading: boolean = false;
 
 	@ViewChild('participCode') participCodeElem: ElementRef;
-	participCodeControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(/^[0-9]+$/)]);
 	marksInputs: JQuery<HTMLInputElement>;
-
-	isLoading: boolean = false;
+	participCodeControl = new FormControl({ value: '', disabled: this.isLoading || this.particip }, [Validators.required, Validators.minLength(5), Validators.pattern(/^[0-9]+$/)]);
 
 	constructor(private rsurProtocolsService: RsurProtocolsService,
 				private location: Location,
@@ -33,9 +33,7 @@ export class MatchingProtocolComponent implements OnInit{
 				this.protocolScan = res;
 
 				window.scrollTo(0, 0);
-				this.renderer.invokeElementMethod(this.participCodeElem.nativeElement, 'focus');
-
-				this.participCodeControl.valueChanges.subscribe(val => this.codeChange(val));
+				this.focusOnCodeElem();
 			});
 		});
 	}
@@ -61,32 +59,40 @@ export class MatchingProtocolComponent implements OnInit{
 		}
 	}
 
-	codeChange(val: any)
+	participCodeKeyUp(event: KeyboardEvent)
 	{
-		if (val.length === 5) //when codeControl value length becomes 5
-		{
-			this.participCodeControl.markAsDirty();
+		let elem = event.target as HTMLInputElement;
+		let val = elem.value;
+
+		if (event.keyCode === 13) //keyCode 13 == 'Enter'
+		{ 
+			this.participCodeControl.markAsTouched(); //отметка поля как 'touched' включает отображение ошибок валидации
 
 			if (this.participCodeControl.valid)
 			{
+				this.participCodeControl.disable();
 				this.isLoading = true;
 				this.rsurProtocolsService.getParticipTest(Number.parseInt(val)).subscribe(
-				res => {
-					this.particip = res as ParticipTestModel;
-					this.isLoading = false;
+					res => {
+						this.particip = res as ParticipTestModel;
+						this.isLoading = false;
 
-					$().ready(() => { //после отрисовки формы для оценок с помощью JQuery прицепляем к каждому полю обработчик фокуса и переводим фокус на первое поле
-						this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-						this.marksInputs.focus((event) => event.target.select());
-						this.marksInputs.get(0).focus();
-					});
-				},
-				error => {
-					this.isLoading = false;
-					let message = error.message ? error.message : error;
-					this.participCodeControl.setErrors({ 'notExistCode': message });
-				});
+						$().ready(() => { //после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю обработчик фокуса и переводим фокус на первое поле
+							this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
+							this.marksInputs.focus((event) => event.target.select());
+							this.marksInputs.get(0).focus();
+						});
+					},
+					error => {
+						let message = error.message ? error.message : error; //вдруг пригодится
+						this.participCodeControl.enable();
+						this.participCodeControl.setErrors({ 'notExistCode': message });
+						this.isLoading = false;
+						this.focusOnCodeElem();
+					}
+				);
 			}
+			
 		}
 	}
 
@@ -102,5 +108,9 @@ export class MatchingProtocolComponent implements OnInit{
 
 	cancel() {
 		this.location.back();
+	}
+
+	focusOnCodeElem() {
+		this.renderer.invokeElementMethod(this.participCodeElem.nativeElement, 'focus');
 	}
 }

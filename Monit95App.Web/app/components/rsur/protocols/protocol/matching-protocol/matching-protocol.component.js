@@ -21,8 +21,8 @@ var MatchingProtocolComponent = (function () {
         this.route = route;
         this.renderer = renderer;
         this.protocolScan = {};
-        this.participCodeControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5), forms_1.Validators.pattern(/^[0-9]+$/)]);
         this.isLoading = false;
+        this.participCodeControl = new forms_1.FormControl({ value: '', disabled: this.isLoading || this.particip }, [forms_1.Validators.required, forms_1.Validators.minLength(5), forms_1.Validators.pattern(/^[0-9]+$/)]);
     }
     MatchingProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -31,8 +31,7 @@ var MatchingProtocolComponent = (function () {
             _this.rsurProtocolsService.getScan(fileId).subscribe(function (res) {
                 _this.protocolScan = res;
                 window.scrollTo(0, 0);
-                _this.renderer.invokeElementMethod(_this.participCodeElem.nativeElement, 'focus');
-                _this.participCodeControl.valueChanges.subscribe(function (val) { return _this.codeChange(val); });
+                _this.focusOnCodeElem();
             });
         });
     };
@@ -54,11 +53,14 @@ var MatchingProtocolComponent = (function () {
             }
         }
     };
-    MatchingProtocolComponent.prototype.codeChange = function (val) {
+    MatchingProtocolComponent.prototype.participCodeKeyUp = function (event) {
         var _this = this;
-        if (val.length === 5) {
-            this.participCodeControl.markAsDirty();
+        var elem = event.target;
+        var val = elem.value;
+        if (event.keyCode === 13) {
+            this.participCodeControl.markAsTouched(); //отметка поля как 'touched' включает отображение ошибок валидации
             if (this.participCodeControl.valid) {
+                this.participCodeControl.disable();
                 this.isLoading = true;
                 this.rsurProtocolsService.getParticipTest(Number.parseInt(val)).subscribe(function (res) {
                     _this.particip = res;
@@ -69,9 +71,11 @@ var MatchingProtocolComponent = (function () {
                         _this.marksInputs.get(0).focus();
                     });
                 }, function (error) {
-                    _this.isLoading = false;
-                    var message = error.message ? error.message : error;
+                    var message = error.message ? error.message : error; //вдруг пригодится
+                    _this.participCodeControl.enable();
                     _this.participCodeControl.setErrors({ 'notExistCode': message });
+                    _this.isLoading = false;
+                    _this.focusOnCodeElem();
                 });
             }
         }
@@ -87,6 +91,9 @@ var MatchingProtocolComponent = (function () {
     };
     MatchingProtocolComponent.prototype.cancel = function () {
         this.location.back();
+    };
+    MatchingProtocolComponent.prototype.focusOnCodeElem = function () {
+        this.renderer.invokeElementMethod(this.participCodeElem.nativeElement, 'focus');
     };
     return MatchingProtocolComponent;
 }());
