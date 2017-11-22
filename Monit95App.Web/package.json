@@ -17,7 +17,7 @@
         "@types/jquery": "^3.2.12",
         "angular-in-memory-web-api": "^0.5.1",
         "core-js": "^2.5.1",
-        "mydatepicker": "^2.0.29",
+        "mydatepicker": "^2.5.1",
         "ngx-order-pipe": "^1.0.4",
         "rxjs": "^5.4.3",
         "systemjs": "^0.20.18",

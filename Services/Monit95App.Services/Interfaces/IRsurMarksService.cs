@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.Interfaces
 {
-    public interface IRsurMarksService
+    public interface IRsurMarksProtocolService
     {
         RsurGetMarksDto GetByParticipTestId(int participTestId);
         IEnumerable<RsurParticipMarksListDto> GetByAreaCodeAndRsurTestId(int areaCode, int rsurTestId);

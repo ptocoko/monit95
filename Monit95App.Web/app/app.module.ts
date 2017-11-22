@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MatButtonModule, MatDialogModule, MatCardModule, MatTableModule, MatSortModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatCardModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -78,7 +78,10 @@ import { GlobalErrorHandler } from './error-handler';
         MyDatePickerModule, 
 		BrowserAnimationsModule,
 		MatButtonModule,
-        MatDialogModule,
+		MatDialogModule,
+		MatCardModule,
+		MatInputModule,
+		MatFormFieldModule,
         MatTableModule,
 		MatSortModule,
 		MatProgressSpinnerModule,
@@ -97,7 +100,7 @@ import { GlobalErrorHandler } from './error-handler';
                 { path: 'rsur/report/:id', component: ReportComponent },
                 { path: 'rsur/results-list', component: ReportListComponent },
 				{ path: 'rsur/ratings', component: RatingsComponent },
-				{ path: 'rsur/match-protocol', component: MatchingProtocolComponent },
+				{ path: 'rsur/match-protocol/:id', component: MatchingProtocolComponent },
                 { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },                

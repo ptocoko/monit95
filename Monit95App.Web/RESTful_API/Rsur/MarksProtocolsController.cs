@@ -7,18 +7,21 @@ using Monit95App.Services.Interfaces;
 
 namespace Monit95App.RESTful_API.Rsur
 {
+    /// <summary>
+    /// Контроллер по работа с протоколами проверки заданий участника
+    /// </summary>
     [Authorize(Roles = "area")]
-    [RoutePrefix("api/rsurMarks")]
-    public class MarksController : ApiController
+    [RoutePrefix("api/marksProtocols")]
+    public class MarksProtocolsController : ApiController
     {
-        private readonly IRsurMarksService _rsurMarksService;
+        private readonly IRsurMarksProtocolService rsurMarksProtocolService;
         private readonly CokoContext _context;
 
-        public MarksController(IRsurMarksService rsurMarksService, CokoContext context)
+        public MarksProtocolsController(IRsurMarksProtocolService rsurMarksService, CokoContext context)
         {
-            _rsurMarksService = rsurMarksService;
+            rsurMarksProtocolService = rsurMarksService;
             _context = context;
-        }
+        }        
 
         [HttpPost]
         [Route("")]
@@ -35,24 +38,24 @@ namespace Monit95App.RESTful_API.Rsur
             var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurParticip.School.AreaCode; //сравниваем код района участника и код района, под которым
             if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();                                                    //редактируются данные
 
-            _rsurMarksService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
+            rsurMarksProtocolService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
             return Ok();
         }
 
-        [HttpGet]        
-        [Route("{participTestId:int}")]
-        public IHttpActionResult Get()
-        {            
-            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
-            var result = _rsurMarksService.GetByParticipTestId(participTestId);
+        //[HttpGet]        
+        //[Route("{participTestId:int}")]
+        //public IHttpActionResult GetOld()
+        //{            
+        //    var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["participTestId"]);
+        //    var result = rsurMarksProtocolService.GetByParticipTestId(participTestId);
 
-            if(result != null)
-            {
-                return Ok(result);
-            }
-            return NotFound();
-        }        
+        //    if(result != null)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    return NotFound();
+        //}        
 
         [HttpPut]
         [Route("{rsurParticipTestId:int}")]
@@ -71,9 +74,22 @@ namespace Monit95App.RESTful_API.Rsur
             var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurParticip.School.AreaCode;
             if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();
 
-            _rsurMarksService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
+            rsurMarksProtocolService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Получает протокол проверки заданий участника. Поиск идет среди текущих отрытых тестов
+        /// </summary>        
+        [HttpGet]
+        [Route("{participCode:range(10000, 99999)}")]
+        public IHttpActionResult Get()
+        {
+            var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
+            var marksProtocol = rsurMarksProtocolService.Get(participCode);
+
+            return Ok(marksProtocol);
         }
     }
 }

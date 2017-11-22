@@ -24,7 +24,7 @@
             '@angular/router': `npm:@angular/router/bundles/router.umd.${appVersionExtension}`,
             '@angular/forms': `npm:@angular/forms/bundles/forms.umd.${appVersionExtension}`,
             '@angular/upgrade': `npm:@angular/upgrade/bundles/upgrade.umd.${appVersionExtension}`,
-            '@angular/material': `npm:@angular/material/bundles/material.umd.${appVersionExtension}`,
+            '@angular/material': `npm:@angular/material/bundles/material.umd.js`,
 
             // cdk individual packages            
             '@angular/cdk': `npm:@angular/cdk/bundles/cdk.umd.${appVersionExtension}`,
