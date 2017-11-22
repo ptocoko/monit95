@@ -18,7 +18,7 @@ export class MatchingProtocolComponent implements OnInit{
 
 	@ViewChild('participCode') participCodeElem: ElementRef;
 	marksInputs: JQuery<HTMLInputElement>;
-	participCodeControl = new FormControl({ value: '', disabled: this.isLoading || this.particip }, [Validators.required, Validators.minLength(5), Validators.pattern(/^[0-9]+$/)]);
+	participCodeControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(/^[0-9]+$/)]);
 
 	constructor(private rsurProtocolsService: RsurProtocolsService,
 				private location: Location,

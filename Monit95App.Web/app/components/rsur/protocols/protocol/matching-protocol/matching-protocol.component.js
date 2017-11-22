@@ -22,7 +22,7 @@ var MatchingProtocolComponent = (function () {
         this.renderer = renderer;
         this.protocolScan = {};
         this.isLoading = false;
-        this.participCodeControl = new forms_1.FormControl({ value: '', disabled: this.isLoading || this.particip }, [forms_1.Validators.required, forms_1.Validators.minLength(5), forms_1.Validators.pattern(/^[0-9]+$/)]);
+        this.participCodeControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5), forms_1.Validators.pattern(/^[0-9]+$/)]);
     }
     MatchingProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
