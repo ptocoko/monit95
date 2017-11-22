@@ -48,7 +48,7 @@ namespace Monit95App.Util
             builder.RegisterType<MarksService>().As<IMarksService>();
             builder.RegisterType<RsurMarksService>().As<IRsurMarksProtocolService>();
             builder.RegisterType<ParticipResults>().As<IParticipResults>();
-            builder.RegisterType<ProtocolService>().As<IProtocolService>();
+            builder.RegisterType<MarksProtocolService>().As<IMarksProtocolService>();
             builder.RegisterType<ParticipReportService>().As<IParticipReportService>();
             builder.RegisterType<RatingService>().As<IRatingService>();
             builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();

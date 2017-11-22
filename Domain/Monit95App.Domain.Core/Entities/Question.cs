@@ -22,6 +22,8 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(500)]
         public string SkillNames { get; set; }
 
+        public int MaxMark { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestQuestion> TestQuestions { get; set; }
     }

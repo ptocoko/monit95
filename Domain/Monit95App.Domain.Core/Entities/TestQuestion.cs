@@ -24,7 +24,7 @@ namespace Monit95App.Domain.Core.Entities
 
         [Required]
         [StringLength(5)]
-        public string Name { get; set; }
+        public string Name { get; set; }        
 
         public virtual Question Question { get; set; }
 
