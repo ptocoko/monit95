@@ -114,7 +114,7 @@
     <Compile Include="Interfaces\IClassParticipImporter.cs" />
     <Compile Include="Interfaces\IRsurMarksService.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
-    <Compile Include="Rsur\MarksProtocolService\IMarksProtocolService.cs" />
+    <Compile Include="Rsur\MarksProtocol\IMarksProtocolService.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
     <Compile Include="Interfaces\ISchoolService.cs" />
@@ -158,7 +158,7 @@
     <Compile Include="Rsur\RsurParticipService.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />
     <Compile Include="ClassParticipReporter.cs" />
-    <Compile Include="Rsur\MarksProtocolService\MarksProtocolService.cs" />
+    <Compile Include="Rsur\MarksProtocol\MarksProtocolService.cs" />
     <Compile Include="Rsur\RsurTestStatisticsDto.cs" />
     <Compile Include="Rsur\SeminarReport\ISeminarReportService.cs" />
     <Compile Include="Rsur\SeminarReport\SeminarReportModel.cs" />

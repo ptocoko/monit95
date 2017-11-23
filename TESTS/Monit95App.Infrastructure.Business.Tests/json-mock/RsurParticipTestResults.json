@@ -1,0 +1,130 @@
+﻿[
+    {
+        "RsurParticipTestId": 10020,
+        "RsurQuestionValues": "X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X",
+        "RsurParticipTests": [
+            {
+                "Id": 10020,
+                "RsurTestId": 1083,
+                "RsurParticipCode": 10928,
+                "RsurParticips": [
+                    {
+                        "Code": 10928,
+                        "OldCode": "2016-204-420",
+                        "SchoolId": "0093",
+                        "Surname": "Алиева",
+                        "Name": "Зулай",
+                        "SecondName": "Зубайраевна",
+                        "RsurSubjectCode": 1,
+                        "CategoryId": 0,
+                        "Experience": 25,
+                        "Phone": "89389085981",
+                        "ActualCode": 0,
+                        "Schools": [
+                            {
+                                "Id": "0093",
+                                "VprCode": "sch206013",
+                                "Name": "МБОУ «НОШ с. Комсомольское Грозненского МР»",
+                                "Address": "366026, Чеченская Республика, Грозненский муниципальный район, с. Комсомольское, ул. Калинина, 66",
+                                "Director": "Азизов Аюб ",
+                                "Phone": "8 (928) 640-13-38",
+                                "Email": "nosh1961@mail.ru",
+                                "AreaCode": 204,
+                                "TypeCode": 1,
+                                "ViewCode": 105,
+                                "TownTypeId": 1,
+                                "ReportLink": "https://cloud.mail.ru/public/6EKJ/A5MP68vRK",
+                                "PropertyTypeCode": 11,
+                                "Monit95Login": "0093",
+                                "IsAlive": true,
+                                "RsurTests": [
+                                    {
+                                        "Id": 1083,
+                                        "TestId": "A265F7C7-F3E5-4B45-9EF3-3D0412AEBCE3",
+                                        "TestNumber": 1,
+                                        "TestDate": "2017-10-11",
+                                        "IsOpen": false,
+                                        "Note": "РСУР-16",
+                                        "ProjectId": 201661,
+                                        "Tests": [
+                                            {
+                                                "Id": "A265F7C7-F3E5-4B45-9EF3-3D0412AEBCE3",
+                                                "NumberCode": "0102",
+                                                "Name": "Пунктуация",
+                                                "FullName": "РСУР. Пунктуация (новая модель)"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "RsurParticipTestId": 10022,
+        "RsurQuestionValues": "X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X;X",
+        "RsurParticipTests": [
+            {
+                "Id": 10022,
+                "RsurTestId": 1083,
+                "RsurParticipCode": 10930,
+                "RsurParticips": [
+                    {
+                        "Code": 10930,
+                        "OldCode": "2016-204-422",
+                        "SchoolId": "0093",
+                        "Surname": "Расаева",
+                        "Name": "Луиза",
+                        "SecondName": "Насрудиевна",
+                        "RsurSubjectCode": 1,
+                        "CategoryId": 0,
+                        "Experience": 16,
+                        "Phone": "89635925129",
+                        "ActualCode": 1,
+                        "Schools": [
+                            {
+                                "Id": "0093",
+                                "VprCode": "sch206013",
+                                "Name": "МБОУ «НОШ с. Комсомольское Грозненского МР»",
+                                "Address": "366026, Чеченская Республика, Грозненский муниципальный район, с. Комсомольское, ул. Калинина, 66",
+                                "Director": "Азизов Аюб ",
+                                "Phone": "8 (928) 640-13-38",
+                                "Email": "nosh1961@mail.ru",
+                                "AreaCode": 204,
+                                "TypeCode": 1,
+                                "ViewCode": 105,
+                                "TownTypeId": 1,
+                                "ReportLink": "https://cloud.mail.ru/public/6EKJ/A5MP68vRK",
+                                "PropertyTypeCode": 11,
+                                "Monit95Login": "0093",
+                                "IsAlive": true,
+                                "RsurTests": [
+                                    {
+                                        "Id": 1083,
+                                        "TestId": "A265F7C7-F3E5-4B45-9EF3-3D0412AEBCE3",
+                                        "TestNumber": 1,
+                                        "TestDate": "2017-10-11",
+                                        "IsOpen": false,
+                                        "Note": "РСУР-16",
+                                        "ProjectId": 201661,
+                                        "Tests": [
+                                            {
+                                                "Id": "A265F7C7-F3E5-4B45-9EF3-3D0412AEBCE3",
+                                                "NumberCode": "0102",
+                                                "Name": "Пунктуация",
+                                                "FullName": "РСУР. Пунктуация (новая модель)"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

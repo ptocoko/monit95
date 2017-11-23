@@ -99,9 +99,13 @@
     <Compile Include="RsurParticipReportService_Test.cs" />
     <Compile Include="ParticipReportServiceTest.cs" />
     <Compile Include="RatingServiceTest.cs" />
+    <Compile Include="MarksProtocolServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="json-mock\RsurParticipTestResults.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +126,7 @@
       <Name>Monit95App.Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

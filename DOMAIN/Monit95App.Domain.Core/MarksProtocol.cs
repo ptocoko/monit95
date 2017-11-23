@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Monit95App.Domain.Core.Entities
+namespace Monit95App.Domain.Core
 {
     public class MarksProtocol
     {

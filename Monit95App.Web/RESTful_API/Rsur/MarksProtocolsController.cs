@@ -4,6 +4,7 @@ using System.Web.Http;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.Rsur.MarksProtocol;
 
 namespace Monit95App.RESTful_API.Rsur
 {
@@ -14,12 +15,12 @@ namespace Monit95App.RESTful_API.Rsur
     [RoutePrefix("api/marksProtocols")]
     public class MarksProtocolsController : ApiController
     {
-        private readonly IRsurMarksProtocolService rsurMarksProtocolService;
+        private readonly IMarksProtocolService marksProtocolService;
         private readonly CokoContext _context;
 
-        public MarksProtocolsController(IRsurMarksProtocolService rsurMarksService, CokoContext context)
+        public MarksProtocolsController(IMarksProtocolService marksProtocolService, CokoContext context)
         {
-            rsurMarksProtocolService = rsurMarksService;
+            this.marksProtocolService = marksProtocolService;
             _context = context;
         }        
 
@@ -27,18 +28,18 @@ namespace Monit95App.RESTful_API.Rsur
         [Route("")]
         public IHttpActionResult Post([FromBody]RsurPostMarksDto marksDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurTest.IsOpen; //проверяем открыт ли тест для изменений
-            if (!isTestOpen) return Conflict();
+            //var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurTest.IsOpen; //проверяем открыт ли тест для изменений
+            //if (!isTestOpen) return Conflict();
 
-            var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurParticip.School.AreaCode; //сравниваем код района участника и код района, под которым
-            if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();                                                    //редактируются данные
+            //var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurParticip.School.AreaCode; //сравниваем код района участника и код района, под которым
+            //if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();                                                    //редактируются данные
 
-            rsurMarksProtocolService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
+            //marksProtocolService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
             return Ok();
         }
@@ -61,20 +62,20 @@ namespace Monit95App.RESTful_API.Rsur
         [Route("{rsurParticipTestId:int}")]
         public IHttpActionResult Put([FromBody]RsurPutMarksDto marksDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurParticipTestId"]);
+            //var rsurParticipTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurParticipTestId"]);
 
-            var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurTest.IsOpen; //аналогично методу POST
-            if (!isTestOpen) return Conflict();
+            //var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurTest.IsOpen; //аналогично методу POST
+            //if (!isTestOpen) return Conflict();
 
-            var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurParticip.School.AreaCode;
-            if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();
+            //var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == rsurParticipTestId).RsurParticip.School.AreaCode;
+            //if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();
 
-            rsurMarksProtocolService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
+            //marksProtocolService.AddOrUpdateMarks(rsurParticipTestId, marksDto.Marks);
 
             return Ok();
         }
@@ -86,8 +87,9 @@ namespace Monit95App.RESTful_API.Rsur
         [Route("{participCode:range(10000, 99999)}")]
         public IHttpActionResult Get()
         {
-            var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
-            var marksProtocol = rsurMarksProtocolService.Get(participCode);
+            var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
+            var areaCode = int.Parse(User.Identity.Name);
+            var marksProtocol = marksProtocolService.Get(participCode, areaCode);
 
             return Ok(marksProtocol);
         }

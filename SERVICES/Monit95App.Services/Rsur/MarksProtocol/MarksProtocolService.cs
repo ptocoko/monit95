@@ -4,8 +4,9 @@ using System.Linq;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Domain.Core;
 
-namespace Monit95App.Services.Rsur.Protocol
+namespace Monit95App.Services.Rsur.MarksProtocol
 {
     public class MarksProtocolService : IMarksProtocolService
     {
@@ -27,7 +28,7 @@ namespace Monit95App.Services.Rsur.Protocol
 
         #region Service methods
 
-        public IEnumerable<MarksProtocol> GetProtocols(int rsurTestId, int areaCode)
+        public IEnumerable<Monit95App.Domain.Core.MarksProtocol> GetProtocols(int rsurTestId, int areaCode)
         {
             //var protocols = context.RsurParticipTests
             //    .Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
@@ -98,12 +99,12 @@ namespace Monit95App.Services.Rsur.Protocol
                 .Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
         }
 
-        public MarksProtocol Get(int participCode, int areaCode)
+        public Domain.Core.MarksProtocol Get(int participCode, int areaCode)
         {
             var rsurTestResultOfParticip = context.RsurTestResults.Single(x => x.RsurParticipTest.RsurParticipCode == participCode
                                                                             && x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
                                                                             && x.RsurParticipTest.RsurTest.IsOpen == true);
-            var marksProtocol = new MarksProtocol
+            var marksProtocol = new Domain.Core.MarksProtocol
             {
                 ParticipCode = rsurTestResultOfParticip.RsurParticipTest.RsurParticipCode,
                 ParticipTestId = rsurTestResultOfParticip.RsurParticipTestId,
