@@ -70,8 +70,10 @@ export class RsurProtocolsService {
 		else
 		{
 			let message: string;
-			if (participCode == 12365) message = 'i error that here'
-			else message = 'sadfasdfa'
+			if (participCode == 12365)
+				message = 'i error that here'
+			else
+				message = 'sadfasdfa'
 
 			return new Observable(observer => {
 				setTimeout(() => {

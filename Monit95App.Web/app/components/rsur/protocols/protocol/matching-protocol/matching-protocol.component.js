@@ -36,7 +36,7 @@ var MatchingProtocolComponent = (function () {
             _this.rsurProtocolsService.getScan(fileId).subscribe(function (res) {
                 _this.protocolScan = res;
                 _this.isScanLoading = false;
-                $().ready(function () { return _this.initCallbacks(); }); //TODO: описать в комментарии зачем использовать здесь функцию JQuery.ready
+                $().ready(function () { return _this.initCallbacks(); }); //JQuery.ready заставляет ждать до конца отрисовки DOM
             });
         });
     };
