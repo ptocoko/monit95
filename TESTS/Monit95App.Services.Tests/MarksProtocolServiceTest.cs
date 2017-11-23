@@ -1,5 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Collections.Generic;
+using Monit95App.Domain.Core.Entities;
+using System.Linq;
 
 namespace Monit95App.Services.Tests
 {
@@ -8,15 +13,21 @@ namespace Monit95App.Services.Tests
     {
         [TestMethod]
         public void GetTest()
-        {
-            //JObject o1 = JObject.Parse(File.ReadAllText(@""));
+        {                        
+            // Arrange
+            var jArray = JArray.Parse(System.IO.File.ReadAllText($@"{Directory.GetCurrentDirectory()}\json-mock\RsurParticipTestResults.json"));
+            var l = jArray.ToObject<List<RsurTestResult>>();
 
-            //// read JSON directly from a file
-            //using (StreamReader file = File.OpenText(@"c:\videogames.json"))
-            //using (JsonTextReader reader = new JsonTextReader(file))
-            //{
-            //    JObject o2 = (JObject)JToken.ReadFrom(reader);
-            //}
+            foreach(var item in l)
+            {
+                Console.WriteLine(item.Grade5);
+            }
+
+            // Act
+            var result = l.Single(x => x.RsurParticipTest.RsurParticip.Code == 10928);
+
+            // Assert
+            
         }
     }
 }
