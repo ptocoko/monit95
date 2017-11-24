@@ -49,7 +49,7 @@ var MarksAddAndEditComponent = (function () {
                     _this.wasNot = true;
                 }
                 _this.isUpdate = _this.marksAddAndEditModel.Question1Mark != null;
-                $(document).ready(function () {
+                $().ready(function () {
                     $('#question1Mark').focus().select();
                     $('#question1Mark').keypress(function (event) {
                         if (event.keyCode === 13) {

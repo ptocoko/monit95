@@ -1,9 +1,10 @@
-﻿using Monit95App.Domain.Core.Validations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Monit95App.Domain.Core
-{    
+{
+    using Monit95App.Domain.Core.DataAnnotations;
+
     ///<summary>
     /// Протокол проверки заданий КИМ
     ///</summary>

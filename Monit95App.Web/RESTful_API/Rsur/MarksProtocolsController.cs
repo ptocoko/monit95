@@ -1,13 +1,13 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
-using Monit95App.Services.Rsur.MarksProtocol;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+
 using System.Web.Http;
 
 namespace Monit95App.RESTful_API.Rsur
 {
+    using Monit95App.Services.Rsur.MarksProtocol;
+
     /// <summary>
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>

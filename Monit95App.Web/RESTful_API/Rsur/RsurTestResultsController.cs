@@ -2,9 +2,12 @@
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Monit95App.Services.DTOs;
+using Monit95App.Services.Rsur.MarksProtocol;
 
 namespace Monit95App.RESTful_API.Rsur
 {
+    
+
     [Authorize(Roles = "area")]
     [RoutePrefix("api/rsur/testProtocols")]
     public class RsurTestResultsController : ApiController

@@ -1,16 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using System.Data.Entity;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Services.Rsur.MarksProtocol;
+﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Monit95App.Domain.Core.Entities;
-using NSubstitute;
+using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Tests.Util;
-using System;
+
+using NSubstitute;
 
 namespace Monit95App.Services.Tests
 {
+    using Monit95App.Services.Rsur.MarksProtocol;
+
     [TestClass]
     public class MarksProtocolServiceTest
     {

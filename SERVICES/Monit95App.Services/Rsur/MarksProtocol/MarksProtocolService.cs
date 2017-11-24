@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
-using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Core;
 
 namespace Monit95App.Services.Rsur.MarksProtocol
 {
@@ -140,6 +138,11 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             }
             
             return marksProtocol;            
+        }
+
+        public void Create(PostMarksProtocol postMarksProtocol, int areaCode)
+        {
+            throw new NotImplementedException();
         }
 
         public void Add(PostMarksProtocol postMarksProtocol, int areaCode)
