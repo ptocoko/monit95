@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
+// ReSharper disable UnusedMember.Global
 
 namespace Monit95App.Services.Rsur.MarksProtocol
 {
+    using Monit95App.Domain.Core;
+
     public class MarksProtocolService : IMarksProtocolService
     {
         #region Dependencies
@@ -50,13 +53,13 @@ namespace Monit95App.Services.Rsur.MarksProtocol
         {
             var rsurTests =
                 this.context.RsurTests.Where(x => x.IsOpen)
-                    .Select(s => s.Id); //получаем testId для всех открытых тестов
+                    .Select(s => s.Id); // получаем testId для всех открытых тестов
 
             var resultDict = new Dictionary<int, RsurTestStatisticsDto>();
             foreach (var rsurTestId in rsurTests)
             {
                 var particips = context.RsurParticipTests.Where(x =>
-                    x.RsurParticip.School.AreaCode == areaCode //получаем список всех участников для данного testId
+                    x.RsurParticip.School.AreaCode == areaCode // получаем список всех участников для данного testId
                     && x.RsurTestId == rsurTestId);
                 double participsCount = particips.Count();
                 double participsWithoutMarks;
@@ -81,16 +84,6 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             return resultDict;
         }
 
-        //public RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public IDictionary<int, RsurTestStatisticsDto> GetStatistics2(int areaCode)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public string GetTestName(int rsurTestId)
         {
             return context.RsurTests.Where(x => x.Id == rsurTestId)
@@ -99,19 +92,22 @@ namespace Monit95App.Services.Rsur.MarksProtocol
 
         public Domain.Core.MarksProtocol Get(int participCode, int areaCode)
         {
-            if(!Enumerable.Range(10000, 99999).Contains(participCode) || !Enumerable.Range(201, 217).Contains(areaCode))
+            if (!Enumerable.Range(10000, 99999).Contains(participCode)
+                || !Enumerable.Range(201, 217).Contains(areaCode))
             {
                 throw new ArgumentException($"{nameof(participCode)} has to be 10000-99999 and {nameof(areaCode)} has to be 210-217");
-            }            
+            } 
+            
             var rsurTestResultOfParticip = context.RsurTestResults.SingleOrDefault(x => x.RsurParticipTest.RsurParticipCode == participCode
                                                                                  && x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
-                                                                                 && x.RsurParticipTest.RsurTest.IsOpen == true);
-            if(rsurTestResultOfParticip == null)
+                                                                                        && x.RsurParticipTest.RsurTest
+                                                                                            .IsOpen);
+            if (rsurTestResultOfParticip == null)
             {
                 throw new ArgumentException($"{nameof(participCode)} is incorrect or is not access for current user");
             }
 
-            var marksProtocol = new Domain.Core.MarksProtocol
+            var marksProtocol = new MarksProtocol
             {
                 ParticipCode = rsurTestResultOfParticip.RsurParticipTest.RsurParticipCode,
                 ParticipTestId = rsurTestResultOfParticip.RsurParticipTestId,
@@ -123,7 +119,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                 var currentMarks = rsurTestResultOfParticip.RsurQuestionValues.Split(';');
                 var testQuestions = rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.TestQuestions.ToList();
                 int index = 0;
-                marksProtocol.QuestionResults =  new List<QuestionResult>();
+                marksProtocol.QuestionResults = new List<QuestionResult>();
                 foreach (var question in testQuestions.OrderBy(x => x.Order))
                 {
                     marksProtocol.QuestionResults.Add(new QuestionResult
@@ -147,14 +143,16 @@ namespace Monit95App.Services.Rsur.MarksProtocol
 
         public void Add(PostMarksProtocol postMarksProtocol, int areaCode)
         {
-            if(!Enumerable.Range(201, 217).Contains(areaCode))
+            if (!Enumerable.Range(201, 217).Contains(areaCode))
             {
                 throw new ArgumentException(nameof(areaCode));
             }
 
+
             throw new NotImplementedException();
         }
 
+        private 
 
         #endregion
     }

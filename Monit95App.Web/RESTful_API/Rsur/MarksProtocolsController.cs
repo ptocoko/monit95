@@ -12,7 +12,7 @@ namespace Monit95App.RESTful_API.Rsur
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>
     //[Authorize(Roles = "area")]
-    [RoutePrefix("api/marksProtocols")]
+    [RoutePrefix("api/rsur/marksProtocols")]
     public class MarksProtocolsController : ApiController
     {
         private readonly IMarksProtocolService marksProtocolService;
@@ -26,14 +26,9 @@ namespace Monit95App.RESTful_API.Rsur
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post([FromBody]PostMarksProtocol postMarksProtocol)
-        {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        {           
             var areaCode = int.Parse(User.Identity.Name);
-            marksProtocolService.Create(postMarksProtocol, areaCode);
-            //marksProtocolService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
+            marksProtocolService.Create(postMarksProtocol, areaCode);            
 
             return Ok();
         }
