@@ -42,11 +42,7 @@
             <ng-container matColumnDef="uploadProgress">
                 <mat-header-cell class="progressColumnWidth" *matHeaderCellDef>Прогресс отправки</mat-header-cell>
                 <mat-cell class="progressColumnWidth" *matCellDef="let scan">
-                    <div *ngIf="!scanIsFailed(scan.status)" class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="{{scan.uploadProgress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{scan.uploadProgress}}%;">
-                            {{scan.uploadProgress}}%
-                        </div>
-                    </div>
+                    <span *ngIf="!scanIsFailed(scan.status)">{{scan.uploadProgress}}%</span>
                     <span *ngIf="scanIsFailed(scan.status)">Не удалось отправить скан <a class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a></span>
                 </mat-cell>
             </ng-container>
