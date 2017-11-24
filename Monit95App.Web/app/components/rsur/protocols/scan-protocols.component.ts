@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
+import { HttpResponse } from "@angular/common/http";
 
 @Component({
 	selector: 'scan-protocols-component',
@@ -12,9 +13,8 @@ export class ScanProtocolsComponent {
 	//scans: File[] = [];
 	scans: Scan[] = [];
 
-	displayedColumns = ['id', 'sourceName', 'size', 'uploadProgress'];
+	displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
 	dataSource = new MatTableDataSource();
-	ScanStatus: ScanStatus;
 	
 	constructor(private rsurProtocolsService: RsurProtocolsService) { }
 
@@ -39,7 +39,8 @@ export class ScanProtocolsComponent {
 					size: file.size,
 					uploadProgress: 0,
 					fileContent: file,
-					status: ScanStatus.isUploading
+					fileId: null,
+					status: 'isUploading'
 				};
 
 				this.scans.push(scan);
@@ -51,15 +52,29 @@ export class ScanProtocolsComponent {
 	}
 
 	uploadScan(scan: Scan) {
-		scan.status = ScanStatus.isUploading;
+		scan.status = 'isUploading';
 		this.rsurProtocolsService.postScan(scan.fileContent).subscribe(
-			progress => scan.uploadProgress = progress,
-			error => scan.status = ScanStatus.isFailed,
-			() => scan.status = ScanStatus.isComplete);
+			response => this.responseHandler(response, scan),
+			error => this.errorResponseHandler(error, scan),
+			() => scan.status = 'isComplete'
+		);
 	}
 
 	reuploadScan(scan: Scan) {
 		this.uploadScan(scan);
+	}
+
+	responseHandler(res: number | HttpResponse<number>, scan: Scan) {
+		if (res instanceof HttpResponse) {
+			scan.fileId = res.body;
+		}
+		else {
+			scan.uploadProgress = res;
+		}
+	}
+
+	errorResponseHandler(error: any, scan: Scan) {
+		scan.status = 'isFailed'
 	}
 
 	validateSelectedPhotos(files: FileList): boolean {
@@ -75,18 +90,6 @@ export class ScanProtocolsComponent {
 		}
 		return true;
 	}
-
-	scanIsFailed(status: ScanStatus) {
-		return status === ScanStatus.isFailed;
-	}
-
-	scanIsUploading(status: ScanStatus) {
-		return status === ScanStatus.isUploading;
-	}
-
-	scanIsComplete(status: ScanStatus) {
-		return status === ScanStatus.isComplete;
-	}
 }
 
 interface Scan {
@@ -95,11 +98,6 @@ interface Scan {
 	size: number;
 	uploadProgress: number;
 	fileContent: File;
-	status: ScanStatus;
-}
-
-enum ScanStatus {
-	isUploading,
-	isFailed,
-	isComplete
+	fileId: number;
+	status: 'isUploading' | 'isFailed' | 'isComplete';
 }

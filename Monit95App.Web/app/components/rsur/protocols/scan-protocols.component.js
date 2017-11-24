@@ -12,12 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var rsur_protocols_service_1 = require("../../../services/rsur-protocols.service");
+var http_1 = require("@angular/common/http");
 var ScanProtocolsComponent = (function () {
     function ScanProtocolsComponent(rsurProtocolsService) {
         this.rsurProtocolsService = rsurProtocolsService;
         //scans: File[] = [];
         this.scans = [];
-        this.displayedColumns = ['id', 'sourceName', 'size', 'uploadProgress'];
+        this.displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
         this.dataSource = new material_1.MatTableDataSource();
     }
     ScanProtocolsComponent.prototype.applyFilter = function (filterValue) {
@@ -35,8 +36,9 @@ var ScanProtocolsComponent = (function () {
                     sourceName: file.name,
                     size: file.size,
                     uploadProgress: 0,
-                    file: file,
-                    status: ScanStatus.isUploading
+                    fileContent: file,
+                    fileId: null,
+                    status: 'isUploading'
                 };
                 this.scans.push(scan);
                 this.uploadScan(scan);
@@ -46,11 +48,24 @@ var ScanProtocolsComponent = (function () {
         event.target.value = '';
     };
     ScanProtocolsComponent.prototype.uploadScan = function (scan) {
-        scan.status = ScanStatus.isUploading;
-        this.rsurProtocolsService.postScan(scan.file).subscribe(function (progress) { return scan.uploadProgress = progress; }, function (error) { return scan.status = ScanStatus.isFailed; }, function () { return scan.status = ScanStatus.isComplete; });
+        var _this = this;
+        scan.status = 'isUploading';
+        this.rsurProtocolsService.postScan(scan.fileContent).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.status = 'isComplete'; });
     };
     ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
         this.uploadScan(scan);
+    };
+    ScanProtocolsComponent.prototype.responseHandler = function (res, scan) {
+        if (res instanceof http_1.HttpResponse) {
+            scan.fileId = res.body;
+        }
+        else {
+            console.log(res);
+            scan.uploadProgress = res;
+        }
+    };
+    ScanProtocolsComponent.prototype.errorResponseHandler = function (error, scan) {
+        scan.status = 'isFailed';
     };
     ScanProtocolsComponent.prototype.validateSelectedPhotos = function (files) {
         for (var i = 0; i < files.length; i++) {
@@ -65,15 +80,6 @@ var ScanProtocolsComponent = (function () {
         }
         return true;
     };
-    ScanProtocolsComponent.prototype.scanIsFailed = function (status) {
-        return status === ScanStatus.isFailed;
-    };
-    ScanProtocolsComponent.prototype.scanIsUploading = function (status) {
-        return status === ScanStatus.isUploading;
-    };
-    ScanProtocolsComponent.prototype.scanIsComplete = function (status) {
-        return status === ScanStatus.isComplete;
-    };
     return ScanProtocolsComponent;
 }());
 ScanProtocolsComponent = __decorate([
@@ -85,10 +91,4 @@ ScanProtocolsComponent = __decorate([
     __metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService])
 ], ScanProtocolsComponent);
 exports.ScanProtocolsComponent = ScanProtocolsComponent;
-var ScanStatus;
-(function (ScanStatus) {
-    ScanStatus[ScanStatus["isUploading"] = 0] = "isUploading";
-    ScanStatus[ScanStatus["isFailed"] = 1] = "isFailed";
-    ScanStatus[ScanStatus["isComplete"] = 2] = "isComplete";
-})(ScanStatus || (ScanStatus = {}));
 //# sourceMappingURL=scan-protocols.component.js.map

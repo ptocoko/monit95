@@ -85,12 +85,12 @@ export class RsurProtocolsService {
 			
 	}
 
-	public postScan(file: File): Observable<number> {
+	public postScan(file: File): Observable<number|HttpResponse<number>> {
 		let url = '/api/ExcelFiles/Upload';
 		let formData: FormData = new FormData();
 		formData.append('image', file, file.name);
 
-		var subject = new Subject<number>()
+		var subject = new Subject<number|HttpResponse<number>>()
 		const req = new HttpRequest('POST', url, formData, {
 			reportProgress: true,
 			responseType: 'text'
@@ -101,9 +101,10 @@ export class RsurProtocolsService {
 				const percentDone = Math.round(100 * event.loaded / event.total);
 				subject.next(percentDone);
 			} else if (event instanceof HttpResponse) {
+				subject.next(event as HttpResponse<number>);
 				subject.complete();
 			}
-		}, error => subject.error('some err'));
+		}, error => subject.error(error));
 		return subject.asObservable();
 	}
 }

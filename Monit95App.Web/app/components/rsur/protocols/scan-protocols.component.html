@@ -3,10 +3,10 @@
 <div class="actions-bar">
     <input (keyup)="applyFilter($event.target.value)" placeholder="Поиск..." class="form-control"/>
 
-    <label class="btn btn-default">
+    <a class="fileUploader" mat-raised-button>
         <input type="file" accept=".png, .jpg, .jpeg" title="Отправить..." (change)="addPhoto($event)" multiple />
         <span class="glyphicon glyphicon-upload"></span> Отправить...
-    </label>
+    </a>
 </div>
 
 <!--<p class="status-bar">
@@ -34,21 +34,22 @@
                 <mat-cell class="sourceNameColumnWidth" *matCellDef="let scan"> {{scan.sourceName}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="size">
-                <mat-header-cell class="sizeColumnWidth" *matHeaderCellDef>Размер файла</mat-header-cell>
-                <mat-cell class="sizeColumnWidth" *matCellDef="let scan"> {{scan.size / 1024 / 1024 | number : '1.0-2'}} MB</mat-cell>
+            <ng-container matColumnDef="fileId">
+                <mat-header-cell class="sizeColumnWidth" *matHeaderCellDef>ID</mat-header-cell>
+                <mat-cell class="sizeColumnWidth" *matCellDef="let scan"> {{scan.fileId}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="uploadProgress">
                 <mat-header-cell class="progressColumnWidth" *matHeaderCellDef>Прогресс отправки</mat-header-cell>
                 <mat-cell class="progressColumnWidth" *matCellDef="let scan">
-                    <span *ngIf="!scanIsFailed(scan.status)">{{scan.uploadProgress}}%</span>
-                    <span *ngIf="scanIsFailed(scan.status)">Не удалось отправить скан <a class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a></span>
+                    <span *ngIf="scan.status === 'isUploading'">{{scan.uploadProgress}}%</span>
+                    <span *ngIf="scan.status === 'isFailed'">Не удалось отправить скан <a class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a></span>
+                    <span *ngIf="scan.status === 'isComplete'">Отправлено!</span>
                 </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row [ngClass]="{'uploadError': scanIsFailed(row.status), 'uploadComplete': scanIsComplete(row.status)}" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row [ngClass]="{'uploadError': row.status === 'isFailed', 'uploadComplete': row.status === 'isComplete'}" *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
     </div>
 </div>

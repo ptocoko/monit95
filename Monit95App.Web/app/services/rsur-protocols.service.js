@@ -100,9 +100,10 @@ var RsurProtocolsService = (function () {
                 subject.next(percentDone);
             }
             else if (event instanceof http_1.HttpResponse) {
+                subject.next(event);
                 subject.complete();
             }
-        }, function (error) { return subject.error('some err'); });
+        }, function (error) { return subject.error(error); });
         return subject.asObservable();
     };
     return RsurProtocolsService;
