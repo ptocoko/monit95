@@ -1,9 +1,10 @@
-﻿using Monit95App.Domain.Core.Validations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Monit95App.Services.Rsur.MarksProtocol
 {
+    using Monit95App.Domain.Core.DataAnnotations;
+
     public class PostMarksProtocol
     {
         [Required]

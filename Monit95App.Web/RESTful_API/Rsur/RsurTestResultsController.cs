@@ -2,7 +2,6 @@
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Monit95App.Services.DTOs;
-using Monit95App.Services.Rsur.MarksProtocol;
 
 namespace Monit95App.RESTful_API.Rsur
 {

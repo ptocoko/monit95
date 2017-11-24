@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.ComponentModel.DataAnnotations;
-
-namespace Monit95App.Domain.Core.Validations
+﻿namespace Monit95App.Domain.Core.DataAnnotations
 {
+    using System.Collections;
+    using System.ComponentModel.DataAnnotations;
+
     public class MustHaveOneElementAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)

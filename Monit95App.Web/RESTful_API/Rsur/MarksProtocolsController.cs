@@ -1,5 +1,4 @@
 ﻿using Monit95App.Domain.Core;
-using Monit95App.Domain.Core.Validations;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Rsur.MarksProtocol;
