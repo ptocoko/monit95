@@ -38,7 +38,7 @@ export class ScanProtocolsComponent {
 					sourceName: file.name,
 					size: file.size,
 					uploadProgress: 0,
-					file,
+					fileContent: file,
 					status: ScanStatus.isUploading
 				};
 
@@ -52,7 +52,7 @@ export class ScanProtocolsComponent {
 
 	uploadScan(scan: Scan) {
 		scan.status = ScanStatus.isUploading;
-		this.rsurProtocolsService.postScan(scan.file).subscribe(
+		this.rsurProtocolsService.postScan(scan.fileContent).subscribe(
 			progress => scan.uploadProgress = progress,
 			error => scan.status = ScanStatus.isFailed,
 			() => scan.status = ScanStatus.isComplete);
@@ -94,7 +94,7 @@ interface Scan {
 	sourceName: string;
 	size: number;
 	uploadProgress: number;
-	file: File;
+	fileContent: File;
 	status: ScanStatus;
 }
 
