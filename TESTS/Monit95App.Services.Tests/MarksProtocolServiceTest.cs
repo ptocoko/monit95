@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Monit95App.Services.Rsur.MarksProtocol;
 using System.Collections.Generic;
 using Monit95App.Domain.Core.Entities;
+using NSubstitute;
 
 namespace Monit95App.Services.Tests
 {
@@ -16,7 +17,7 @@ namespace Monit95App.Services.Tests
         public void GetTest()
         {
             // Arrange         
-            var fakeRsurTestResults = new List<RsurTestResult>
+            var data = new List<RsurTestResult>
             {
                 new RsurTestResult
                 {
@@ -56,13 +57,20 @@ namespace Monit95App.Services.Tests
                     }
                 }
             }.AsQueryable();
-
-            var service = new MarksProtocolService(new CokoContext());
+            var mockSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
+            ((IQueryable<RsurTestResult>)mockSet).Provider.Returns(data.Provider);
+            ((IQueryable<RsurTestResult>)mockSet).Expression.Returns(data.Expression);
+            ((IQueryable<RsurTestResult>)mockSet).ElementType.Returns(data.ElementType);
+            ((IQueryable<RsurTestResult>)mockSet).GetEnumerator().Returns(data.GetEnumerator());
+            var mockContext = Substitute.For<CokoContext>();
+            mockContext.RsurTestResults.Returns(mockSet);
+            var service = new MarksProtocolService(mockContext);
 
             // Act            
             var result = service.Get(12345, 201);
 
             // Assert            
+            //Assert.AreEqual()
         }
     }
 }

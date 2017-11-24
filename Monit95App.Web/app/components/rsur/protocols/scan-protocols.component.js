@@ -35,7 +35,7 @@ var ScanProtocolsComponent = (function () {
                     sourceName: file.name,
                     size: file.size,
                     uploadProgress: 0,
-                    file: file,
+                    fileContent: file,
                     status: ScanStatus.isUploading
                 };
                 this.scans.push(scan);
@@ -47,7 +47,7 @@ var ScanProtocolsComponent = (function () {
     };
     ScanProtocolsComponent.prototype.uploadScan = function (scan) {
         scan.status = ScanStatus.isUploading;
-        this.rsurProtocolsService.postScan(scan.file).subscribe(function (progress) { return scan.uploadProgress = progress; }, function (error) { return scan.status = ScanStatus.isFailed; }, function () { return scan.status = ScanStatus.isComplete; });
+        this.rsurProtocolsService.postScan(scan.fileContent).subscribe(function (progress) { return scan.uploadProgress = progress; }, function (error) { return scan.status = ScanStatus.isFailed; }, function () { return scan.status = ScanStatus.isComplete; });
     };
     ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
         this.uploadScan(scan);
