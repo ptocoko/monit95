@@ -1,11 +1,12 @@
 ﻿
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
 import { MarksProtocol } from "../models/marks-protocol.model";
+import { Subject } from "rxjs/Subject";
 
 const protocolScanModel = {
 	FileId: 123,
@@ -82,5 +83,27 @@ export class RsurProtocolsService {
 			});
 		}
 			
+	}
+
+	public postScan(file: File): Observable<number> {
+		let url = '/api/ExcelFiles/Upload';
+		let formData: FormData = new FormData();
+		formData.append('image', file, file.name);
+
+		var subject = new Subject<number>()
+		const req = new HttpRequest('POST', url, formData, {
+			reportProgress: true,
+			responseType: 'text'
+		});
+
+		this.http.request(req).subscribe(event => {
+			if (event.type === HttpEventType.UploadProgress) {
+				const percentDone = Math.round(100 * event.loaded / event.total);
+				subject.next(percentDone);
+			} else if (event instanceof HttpResponse) {
+				subject.complete();
+			}
+		}, error => subject.error('some err'));
+		return subject.asObservable();
 	}
 }

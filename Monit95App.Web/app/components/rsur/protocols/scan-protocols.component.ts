@@ -1,6 +1,7 @@
 ﻿
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
+import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 
 @Component({
 	selector: 'scan-protocols-component',
@@ -8,18 +9,20 @@ import { MatTableDataSource } from '@angular/material';
 	styleUrls: [`./app/components/rsur/protocols/scan-protocols.component.css?v=${new Date().getTime()}`]
 })
 export class ScanProtocolsComponent {
-	scans: File[] = [];
-	scansInfo: ScanInfo[] = [];
+	//scans: File[] = [];
+	scans: Scan[] = [];
 
-	displayedColumns = ['id', 'sourceName', 'size'];
+	displayedColumns = ['id', 'sourceName', 'size', 'uploadProgress'];
 	dataSource = new MatTableDataSource();
-
-	constructor() { }
+	ScanStatus: ScanStatus;
+	
+	constructor(private rsurProtocolsService: RsurProtocolsService) { }
 
 	applyFilter(filterValue: string) {
-		filterValue = filterValue.trim(); // Remove whitespace
-		filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+		filterValue = filterValue.trim();
+		filterValue = filterValue.toLowerCase();
 		this.dataSource.filter = filterValue;
+
 	}
 
 	addPhoto(event: any) {
@@ -28,18 +31,35 @@ export class ScanProtocolsComponent {
 		if (this.validateSelectedPhotos(files)) {
 			for (let i = 0; i < files.length; i++)
 			{
-				let scanInfo: ScanInfo = {
+				let file = files[i];
+
+				let scan: Scan = {
 					id: this.scans.length + 1,
-					sourceName: files[i].name,
-					size: files[i].size
+					sourceName: file.name,
+					size: file.size,
+					uploadProgress: 0,
+					file,
+					status: ScanStatus.isUploading
 				};
 
-				this.scansInfo.push(scanInfo);
-				this.scans.push(files[i]);
+				this.scans.push(scan);
+				this.uploadScan(scan);
 			}
-			this.dataSource = new MatTableDataSource(this.scansInfo);
+			this.dataSource = new MatTableDataSource(this.scans);
 		}
 		event.target.value = '';
+	}
+
+	uploadScan(scan: Scan) {
+		scan.status = ScanStatus.isUploading;
+		this.rsurProtocolsService.postScan(scan.file).subscribe(
+			progress => scan.uploadProgress = progress,
+			error => scan.status = ScanStatus.isFailed,
+			() => scan.status = ScanStatus.isComplete);
+	}
+
+	reuploadScan(scan: Scan) {
+		this.uploadScan(scan);
 	}
 
 	validateSelectedPhotos(files: FileList): boolean {
@@ -55,10 +75,31 @@ export class ScanProtocolsComponent {
 		}
 		return true;
 	}
+
+	scanIsFailed(status: ScanStatus) {
+		return status === ScanStatus.isFailed;
+	}
+
+	scanIsUploading(status: ScanStatus) {
+		return status === ScanStatus.isUploading;
+	}
+
+	scanIsComplete(status: ScanStatus) {
+		return status === ScanStatus.isComplete;
+	}
 }
 
-interface ScanInfo {
+interface Scan {
 	id: number;
 	sourceName: string;
 	size: number;
+	uploadProgress: number;
+	file: File;
+	status: ScanStatus;
+}
+
+enum ScanStatus {
+	isUploading,
+	isFailed,
+	isComplete
 }

@@ -15,6 +15,7 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
 require("rxjs/add/operator/delay");
 require("rxjs/add/observable/throw");
+var Subject_1 = require("rxjs/Subject");
 var protocolScanModel = {
     FileId: 123,
     Url: '/Images/rsur-scans/2090/1000/1.jpg',
@@ -83,6 +84,26 @@ var RsurProtocolsService = (function () {
                 }, 1500);
             });
         }
+    };
+    RsurProtocolsService.prototype.postScan = function (file) {
+        var url = '/api/ExcelFiles/Upload';
+        var formData = new FormData();
+        formData.append('image', file, file.name);
+        var subject = new Subject_1.Subject();
+        var req = new http_1.HttpRequest('POST', url, formData, {
+            reportProgress: true,
+            responseType: 'text'
+        });
+        this.http.request(req).subscribe(function (event) {
+            if (event.type === http_1.HttpEventType.UploadProgress) {
+                var percentDone = Math.round(100 * event.loaded / event.total);
+                subject.next(percentDone);
+            }
+            else if (event instanceof http_1.HttpResponse) {
+                subject.complete();
+            }
+        }, function (error) { return subject.error('some err'); });
+        return subject.asObservable();
     };
     return RsurProtocolsService;
 }());
