@@ -97,7 +97,6 @@
     <Compile Include="Rsur\ParticipReport\EgeQuestionResult.cs" />
     <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />
-    <Compile Include="Rsur\MarksProtocolService\Protocol.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipExtendReport.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReport.cs" />
     <Compile Include="FileRespository\FileRespositoryManager.cs" />
@@ -115,7 +114,7 @@
     <Compile Include="Interfaces\IClassParticipImporter.cs" />
     <Compile Include="Interfaces\IRsurMarksService.cs" />
     <Compile Include="Interfaces\IRsurParticipCodeCreator.cs" />
-    <Compile Include="Rsur\MarksProtocolService\IProtocolService.cs" />
+    <Compile Include="Rsur\MarksProtocol\IMarksProtocolService.cs" />
     <Compile Include="Interfaces\ISchoolEditService.cs" />
     <Compile Include="Interfaces\ISchoolReportFileNameSource.cs" />
     <Compile Include="Interfaces\ISchoolService.cs" />
@@ -159,7 +158,7 @@
     <Compile Include="Rsur\RsurParticipService.cs" />
     <Compile Include="Rsur\RsurReportModelXlsxConverter.cs" />
     <Compile Include="ClassParticipReporter.cs" />
-    <Compile Include="Rsur\MarksProtocolService\ProtocolService.cs" />
+    <Compile Include="Rsur\MarksProtocol\MarksProtocolService.cs" />
     <Compile Include="Rsur\RsurTestStatisticsDto.cs" />
     <Compile Include="Rsur\SeminarReport\ISeminarReportService.cs" />
     <Compile Include="Rsur\SeminarReport\SeminarReportModel.cs" />
