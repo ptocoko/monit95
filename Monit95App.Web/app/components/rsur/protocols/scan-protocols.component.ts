@@ -10,13 +10,18 @@ import { HttpResponse } from "@angular/common/http";
 	styleUrls: [`./app/components/rsur/protocols/scan-protocols.component.css?v=${new Date().getTime()}`]
 })
 export class ScanProtocolsComponent {
-	//scans: File[] = [];
 	scans: Scan[] = [];
-
+	notMatchedScansCount: number = 0;
 	displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
 	dataSource = new MatTableDataSource();
 	
-	constructor(private rsurProtocolsService: RsurProtocolsService) { }
+	constructor(private rsurProtocolsService: RsurProtocolsService) {
+
+	}
+
+	getNotMatchedCount() {
+		this.notMatchedScansCount = this.scans.filter(s => s.fileId).length;
+	}
 
 	applyFilter(filterValue: string) {
 		filterValue = filterValue.trim();
@@ -60,10 +65,6 @@ export class ScanProtocolsComponent {
 		);
 	}
 
-	reuploadScan(scan: Scan) {
-		this.uploadScan(scan);
-	}
-
 	responseHandler(res: number | HttpResponse<number>, scan: Scan) {
 		if (res instanceof HttpResponse) {
 			scan.fileId = res.body;
@@ -71,10 +72,15 @@ export class ScanProtocolsComponent {
 		else {
 			scan.uploadProgress = res;
 		}
+		this.getNotMatchedCount();
 	}
 
 	errorResponseHandler(error: any, scan: Scan) {
 		scan.status = 'isFailed'
+	}
+
+	reuploadScan(scan: Scan) {
+		this.uploadScan(scan);
 	}
 
 	validateSelectedPhotos(files: FileList): boolean {

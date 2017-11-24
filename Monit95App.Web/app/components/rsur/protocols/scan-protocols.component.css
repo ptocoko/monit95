@@ -1,5 +1,6 @@
 ﻿.actions-bar{
     display:flex;
+    align-items:flex-start;
     justify-content:space-between;
 }
 
@@ -22,6 +23,10 @@
     right: 0;
     text-align: right;
     top: 0;
+}
+
+.search-field{
+    width: 250px;
 }
 
 .scans-container {

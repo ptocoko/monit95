@@ -16,11 +16,14 @@ var http_1 = require("@angular/common/http");
 var ScanProtocolsComponent = (function () {
     function ScanProtocolsComponent(rsurProtocolsService) {
         this.rsurProtocolsService = rsurProtocolsService;
-        //scans: File[] = [];
         this.scans = [];
+        this.notMatchedScansCount = 0;
         this.displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
         this.dataSource = new material_1.MatTableDataSource();
     }
+    ScanProtocolsComponent.prototype.getNotMatchedCount = function () {
+        this.notMatchedScansCount = this.scans.filter(function (s) { return s.fileId; }).length;
+    };
     ScanProtocolsComponent.prototype.applyFilter = function (filterValue) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
@@ -52,20 +55,20 @@ var ScanProtocolsComponent = (function () {
         scan.status = 'isUploading';
         this.rsurProtocolsService.postScan(scan.fileContent).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.status = 'isComplete'; });
     };
-    ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
-        this.uploadScan(scan);
-    };
     ScanProtocolsComponent.prototype.responseHandler = function (res, scan) {
         if (res instanceof http_1.HttpResponse) {
             scan.fileId = res.body;
         }
         else {
-            console.log(res);
             scan.uploadProgress = res;
         }
+        this.getNotMatchedCount();
     };
     ScanProtocolsComponent.prototype.errorResponseHandler = function (error, scan) {
         scan.status = 'isFailed';
+    };
+    ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
+        this.uploadScan(scan);
     };
     ScanProtocolsComponent.prototype.validateSelectedPhotos = function (files) {
         for (var i = 0; i < files.length; i++) {

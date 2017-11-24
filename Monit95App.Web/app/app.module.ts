@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MatButtonModule, MatDialogModule, MatCardModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatCardModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatInputModule, MatFormFieldModule, MatToolbarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -86,6 +86,7 @@ import { GlobalErrorHandler } from './error-handler';
         MatTableModule,
 		MatSortModule,
 		MatProgressSpinnerModule,
+		MatToolbarModule,
         OrderModule,	
         NgbModule.forRoot(),
         RouterModule.forRoot([

@@ -1,14 +1,20 @@
 ﻿<h2>Загрузка сканов</h2>
 <hr />
 <div class="actions-bar">
-    <input (keyup)="applyFilter($event.target.value)" placeholder="Поиск..." class="form-control"/>
+    <div class="search-field">
+        <mat-form-field>
+            <input (keyup)="applyFilter($event.target.value)" placeholder="Поиск..." matInput />
+        </mat-form-field>
+    </div>
 
     <a class="fileUploader" mat-raised-button>
         <input type="file" accept=".png, .jpg, .jpeg" title="Отправить..." (change)="addPhoto($event)" multiple />
         <span class="glyphicon glyphicon-upload"></span> Отправить...
     </a>
 </div>
-
+<mat-toolbar>
+    <span>Не сопоставлено сканов: {{notMatchedScansCount}}</span>
+</mat-toolbar>
 <!--<p class="status-bar">
     <span>Загружено сканов: {{scans.length}}</span>
 </p>-->
@@ -16,12 +22,6 @@
 <div *ngIf="scans.length != 0">
     <hr />
     <div class="scans-container mat-elevation-z8">
-        <!--<div class="scans-header">
-            <mat-form-field>
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-            </mat-form-field>
-        </div>-->
-
         <mat-table #table [dataSource]="dataSource">
 
             <ng-container matColumnDef="id">
