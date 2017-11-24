@@ -19,10 +19,9 @@ namespace Monit95App.RESTful_API.Rsur
         private readonly IMarksProtocolService marksProtocolService;
         private readonly CokoContext _context;
 
-        public MarksProtocolsController(IMarksProtocolService marksProtocolService, CokoContext context)
+        public MarksProtocolsController(IMarksProtocolService marksProtocolService)
         {
-            this.marksProtocolService = marksProtocolService;
-            _context = context;
+            this.marksProtocolService = marksProtocolService;            
         }
 
         [HttpPost]
@@ -34,7 +33,7 @@ namespace Monit95App.RESTful_API.Rsur
                 return BadRequest(ModelState);
             }
             var areaCode = int.Parse(User.Identity.Name);
-            marksProtocolService.Add(postMarksProtocol, areaCode);
+            marksProtocolService.Create(postMarksProtocol, areaCode);
             //marksProtocolService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
             return Ok();
