@@ -103,15 +103,9 @@
     <Compile Include="ParticipReportServiceTest.cs" />
     <Compile Include="RatingServiceTest.cs" />
     <Compile Include="MarksProtocolServiceTest.cs" />
-    <Compile Include="Util\NSubstituteUtils.cs" />
-    <Compile Include="Util\TestDbAsyncEnumerator.cs" />
-    <Compile Include="Util\TestDbAsyncQueryProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="json-mock\RsurParticipTestResults.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
