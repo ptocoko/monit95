@@ -142,6 +142,17 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             return marksProtocol;            
         }
 
+        public void Add(PostMarksProtocol postMarksProtocol, int areaCode)
+        {
+            if(!Enumerable.Range(201, 217).Contains(areaCode))
+            {
+                throw new ArgumentException(nameof(areaCode));
+            }
+
+            throw new NotImplementedException();
+        }
+
+
         #endregion
     }
 }

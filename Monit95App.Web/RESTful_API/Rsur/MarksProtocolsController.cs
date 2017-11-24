@@ -1,14 +1,18 @@
-﻿using System.Web.Http;
+﻿using Monit95App.Domain.Core;
+using Monit95App.Domain.Core.Validations;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Rsur.MarksProtocol;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Http;
 
 namespace Monit95App.RESTful_API.Rsur
 {
     /// <summary>
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>
-    [Authorize(Roles = "area")]
+    //[Authorize(Roles = "area")]
     [RoutePrefix("api/marksProtocols")]
     public class MarksProtocolsController : ApiController
     {
@@ -19,23 +23,18 @@ namespace Monit95App.RESTful_API.Rsur
         {
             this.marksProtocolService = marksProtocolService;
             _context = context;
-        }        
+        }
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post([FromBody]RsurPostMarksDto marksDto)
+        public IHttpActionResult Post([FromBody]PostMarksProtocol postMarksProtocol)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            //var isTestOpen = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurTest.IsOpen; //проверяем открыт ли тест для изменений
-            //if (!isTestOpen) return Conflict();
-
-            //var rsurParticipArea = _context.RsurParticipTests.Single(x => x.Id == marksDto.ParticipTestId).RsurParticip.School.AreaCode; //сравниваем код района участника и код района, под которым
-            //if (User.Identity.Name != rsurParticipArea.ToString()) return Conflict();                                                    //редактируются данные
-
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var areaCode = int.Parse(User.Identity.Name);
+            marksProtocolService.Add(postMarksProtocol, areaCode);
             //marksProtocolService.AddOrUpdateMarks(marksDto.ParticipTestId, marksDto.Marks);
 
             return Ok();
@@ -86,9 +85,19 @@ namespace Monit95App.RESTful_API.Rsur
         {
             var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
             var areaCode = int.Parse(User.Identity.Name);
-            var marksProtocol = marksProtocolService.Get(participCode, areaCode);
+
+            MarksProtocol marksProtocol;
+            try
+            {
+                marksProtocol = marksProtocolService.Get(participCode, areaCode);
+            }
+            catch (System.ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok(marksProtocol);
         }
     }
 }
+
