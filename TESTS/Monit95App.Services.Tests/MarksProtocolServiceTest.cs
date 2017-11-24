@@ -7,21 +7,37 @@ using Monit95App.Services.Rsur.MarksProtocol;
 using System.Collections.Generic;
 using Monit95App.Domain.Core.Entities;
 using NSubstitute;
+using Monit95App.Services.Tests.Util;
+using System;
 
 namespace Monit95App.Services.Tests
 {
     [TestClass]
     public class MarksProtocolServiceTest
     {
+        private readonly CokoContext mockContext;
+
+        public MarksProtocolServiceTest()
+        {
+
+        }
+
         [TestMethod]
-        public void GetTest()
+        [MyExpectedException(typeof(ArgumentException), "participCode has to be 10000-99999 and areaCode has to be 210-217")]
+        public void GetArgumentExceptionTest()
+        {
+            var service = new MarksProtocolService(mockContext);
+        }
+
+        [TestMethod]
+        public void GetCorrectParamsTest()
         {
             // Arrange         
             var data = new List<RsurTestResult>
             {
                 new RsurTestResult
                 {
-                    RsurQuestionValues = "0;1",
+                    RsurQuestionValues = "0;1;0",
                     RsurParticipTestId = 1,
                     RsurParticipTest = new RsurParticipTest
                     {
@@ -39,6 +55,15 @@ namespace Monit95App.Services.Tests
                                     {
                                         Order = 1,
                                         Name = "1",
+                                        Question = new Question
+                                        {
+                                            MaxMark = 1
+                                        }
+                                    },
+                                    new TestQuestion
+                                    {
+                                        Order = 2,
+                                        Name = "2",
                                         Question = new Question
                                         {
                                             MaxMark = 1
@@ -64,13 +89,23 @@ namespace Monit95App.Services.Tests
             ((IQueryable<RsurTestResult>)mockSet).GetEnumerator().Returns(data.GetEnumerator());
             var mockContext = Substitute.For<CokoContext>();
             mockContext.RsurTestResults.Returns(mockSet);
-            var service = new MarksProtocolService(mockContext);
 
             // Act            
-            var result = service.Get(12345, 201);
+            var service = new MarksProtocolService(mockContext);
+            var protocol = service.Get(12346, 201);
+            var question1 = protocol.QuestionResults.Single(x => x.Order == 1);
+            var question2 = protocol.QuestionResults.Single(x => x.Order == 2);
 
             // Assert            
-            //Assert.AreEqual()
+            Assert.AreEqual(12345, protocol.ParticipCode);
+            Assert.AreEqual(1, protocol.ParticipTestId);
+            Assert.AreEqual("0101-Орфография", protocol.TestName);
+            // question1
+            Assert.AreEqual(question1.Order, 1);
+            Assert.AreEqual(question1.Name, "1");
+            // question1
+            Assert.AreEqual(question2.MaxMark, 1);
+            Assert.AreEqual(question2.CurrentMark, 1);
         }
     }
 }

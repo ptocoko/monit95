@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 
 namespace Monit95App.Domain.Core
-{
+{    
+    ///<summary>
+    /// Протокол проверки заданий КИМ
+    ///</summary>
     public class MarksProtocol
     {
         public int ParticipCode { get; set; }
@@ -10,7 +13,7 @@ namespace Monit95App.Domain.Core
 
         public string TestName { get; set; } // example: "Орфография" | "0101-Орфография"
 
-        public IEnumerable<QuestionResult> QuestionResults { get; set; }
+        public ICollection<QuestionResult> QuestionResults { get; set; }
 
     }    
 

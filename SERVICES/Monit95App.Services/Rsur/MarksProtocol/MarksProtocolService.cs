@@ -96,19 +96,28 @@ namespace Monit95App.Services.Rsur.MarksProtocol
         public string GetTestName(int rsurTestId)
         {
             return context.RsurTests.Where(x => x.Id == rsurTestId)
-                .Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
+                                    .Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
         }
 
         public Domain.Core.MarksProtocol Get(int participCode, int areaCode)
         {
-            var rsurTestResultOfParticip = context.RsurTestResults.Single(x => x.RsurParticipTest.RsurParticipCode == participCode
-                                                                            && x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
-                                                                            && x.RsurParticipTest.RsurTest.IsOpen == true);
+            if(!Enumerable.Range(10000, 99999).Contains(participCode) || !Enumerable.Range(201, 217).Contains(areaCode))
+            {
+                throw new ArgumentException($"{nameof(participCode)} has to be 10000-99999 and {nameof(areaCode)} has to be 210-217");
+            }            
+            var rsurTestResultOfParticip = context.RsurTestResults.SingleOrDefault(x => x.RsurParticipTest.RsurParticipCode == participCode
+                                                                                 && x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
+                                                                                 && x.RsurParticipTest.RsurTest.IsOpen == true);
+            if(rsurTestResultOfParticip == null)
+            {
+                throw new ArgumentException($"{nameof(participCode)} is incorrect or is not access for current user");
+            }
+
             var marksProtocol = new Domain.Core.MarksProtocol
             {
                 ParticipCode = rsurTestResultOfParticip.RsurParticipTest.RsurParticipCode,
                 ParticipTestId = rsurTestResultOfParticip.RsurParticipTestId,
-                TestName = $"{rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.NumberCode} - {rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.Name}"
+                TestName = $"{rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.NumberCode}-{rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.Name}"
             };
             
             if(rsurTestResultOfParticip != null)
@@ -116,10 +125,10 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                 var currentMarks = rsurTestResultOfParticip.RsurQuestionValues.Split(';');
                 var testQuestions = rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.TestQuestions.ToList();
                 int index = 0;
-                var questionResults = new List<QuestionResult>();
+                marksProtocol.QuestionResults =  new List<QuestionResult>();
                 foreach (var question in testQuestions.OrderBy(x => x.Order))
                 {
-                    questionResults.Add(new QuestionResult
+                    marksProtocol.QuestionResults.Add(new QuestionResult
                     {
                         Order = question.Order,
                         Name = question.Name,
@@ -129,7 +138,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                     index++;
                 }
             }
-
+            
             return marksProtocol;            
         }
 
