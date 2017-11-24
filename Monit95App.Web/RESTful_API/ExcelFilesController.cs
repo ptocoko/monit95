@@ -14,8 +14,9 @@ namespace Monit95App.Web.Api
     using System.Net.Http.Headers;
     using Monit95App.Services;
     using System.Data.SqlClient;
+    using System.Threading;
 
-    [Authorize(Roles = "school")]
+    //[Authorize(Roles = "school")]
     [RoutePrefix("api/ExcelFiles")]
     public class ExcelFilesController : ApiController
     {
@@ -28,6 +29,8 @@ namespace Monit95App.Web.Api
         private readonly List<int> CLASS_NUMBERS = new List<int> { 1 };
 
         #endregion
+
+        private static bool isOdd = false;
 
         public ExcelFilesController(IClassParticipImporter classParticipImporter,
                                     IClassParticipConverter classParticipConverter,
@@ -46,40 +49,43 @@ namespace Monit95App.Web.Api
         {            
             var httpRequest = HttpContext.Current.Request;
 
-            if (httpRequest.Files.Count != 1)
-            {
-                return BadRequest();
-            }
-            var httpPostedFile = httpRequest.Files[0];
+            //if (httpRequest.Files.Count != 1)
+            //{
+            //    return BadRequest();
+            //}
 
-            if (Path.GetExtension(httpPostedFile.FileName) != ".xlsx")
-            {
-                return BadRequest();
-            }
+            //var httpPostedFile = httpRequest.Files[0];
 
-            var stream = httpPostedFile.InputStream;
+            //if (Path.GetExtension(httpPostedFile.FileName) != ".xlsx")
+            //{
+            //    return BadRequest();
+            //}
+            //var stream = httpPostedFile.InputStream;
 
-            var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, CLASS_NUMBERS);
-            bool hasRowsWithError = rowNumbersWithError != null;
-            var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 1);
+            //var (classParticips, rowNumbersWithError) = _classParticipImporter.ImportFromExcelFileStream(stream, CLASS_NUMBERS);
+            //bool hasRowsWithError = rowNumbersWithError != null;
+            //var particips = _classParticipConverter.ConvertToParticipDto(classParticips, User.Identity.Name, 1);
 
-            int countOfAddedParticips = 0;
-            for (int i = 0; i < particips.Count; i++)
-            {
-                int addingResult = _participService.Add(particips[i]);
-                if (addingResult != -1)
-                {
-                    countOfAddedParticips++;
-                }
-            }
+            //int countOfAddedParticips = 0;
+            //for (int i = 0; i < particips.Count; i++)
+            //{
+            //    int addingResult = _participService.Add(particips[i]);
+            //    if (addingResult != -1)
+            //    {
+            //        countOfAddedParticips++;
+            //    }
+            //}
 
-            return Ok(content: new
-            {
-                CountOfReadParticips = particips.Count,
-                CountOfAddedParticips = countOfAddedParticips,
-                HasRowsWithError = hasRowsWithError,
-                RowNumbersWithError = rowNumbersWithError
-            });
+            //return Ok(content: new
+            //{
+            //    CountOfReadParticips = particips.Count,
+            //    CountOfAddedParticips = countOfAddedParticips,
+            //    HasRowsWithError = hasRowsWithError,
+            //    RowNumbersWithError = rowNumbersWithError
+            //});
+
+            if (isOdd) { isOdd = !isOdd; return Ok(); }
+            else { isOdd = !isOdd; return BadRequest(); }
         }
 
         [HttpGet]

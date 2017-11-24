@@ -1,0 +1,53 @@
+﻿.actions-bar{
+    display:flex;
+    justify-content:space-between;
+}
+
+input[type="file"]{
+    display:none;
+}
+
+.scans-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.scans-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.idColumnWidth{
+    flex: 0 0 50px;
+}
+
+.sizeColumnWidth{
+    flex: 0 0 100px
+}
+
+.sourceNameColumnWidth{
+    flex: 1 0 auto;
+}
+
+.progressColumnWidth{
+    flex: 0 0 200px;
+}
+
+.uploadError{
+    background-color: #de7d7d;
+}
+
+.uploadComplete{
+    background-color: lightgreen;
+}

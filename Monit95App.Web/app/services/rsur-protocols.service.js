@@ -13,7 +13,9 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
+require("rxjs/add/operator/delay");
 require("rxjs/add/observable/throw");
+var Subject_1 = require("rxjs/Subject");
 var protocolScanModel = {
     FileId: 123,
     Url: '/Images/rsur-scans/2090/1000/1.jpg',
@@ -22,47 +24,45 @@ var protocolScanModel = {
 };
 var particip = {
     "ParticipCode": 12345,
-    "ParticipTest": {
-        "ParticipTestId": 1234,
-        "TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
-        "Questions": [
-            {
-                "Name": "1.1",
-                "Order": 1,
-                "MaxMark": 4,
-                "CurrentMark": null
-            },
-            {
-                "Name": "3.2",
-                "Order": 4,
-                "MaxMark": 1,
-                "CurrentMark": null
-            },
-            {
-                "Name": "2.10",
-                "Order": 2,
-                "MaxMark": 1,
-                "CurrentMark": null
-            },
-            {
-                "Name": "3.1",
-                "Order": 3,
-                "MaxMark": 1,
-                "CurrentMark": null
-            }
-        ]
-    }
+    "ParticipTestId": 1234,
+    "TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
+    "QuestionResults": [
+        {
+            "Name": "1.1",
+            "Order": 1,
+            "MaxMark": 4,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        }
+    ]
 };
 var RsurProtocolsService = (function () {
     function RsurProtocolsService(http) {
         this.http = http;
     }
     RsurProtocolsService.prototype.getScan = function (fileId) {
-        return Observable_1.Observable.of(protocolScanModel);
+        return Observable_1.Observable.of(protocolScanModel).delay(2000);
     };
     RsurProtocolsService.prototype.getParticipTest = function (participCode) {
         if (participCode == 12345) {
-            particip.ParticipTest.Questions.sort(function (first, second) {
+            particip.QuestionResults.sort(function (first, second) {
                 if (first.Order < second.Order) {
                     return -1;
                 }
@@ -70,21 +70,40 @@ var RsurProtocolsService = (function () {
                     return 1;
                 }
             });
-            return new Observable_1.Observable(function (observer) {
-                setTimeout(function () {
-                    observer.next(particip);
-                }, 2000);
-                setTimeout(function () {
-                    observer.complete();
-                }, 3000);
-            });
+            return Observable_1.Observable.of(particip).delay(2000);
         }
-        else
+        else {
+            var message_1;
+            if (participCode == 12365)
+                message_1 = 'i error that here';
+            else
+                message_1 = 'sadfasdfa';
             return new Observable_1.Observable(function (observer) {
                 setTimeout(function () {
-                    observer.error('im error!');
+                    observer.error(message_1);
                 }, 1500);
             });
+        }
+    };
+    RsurProtocolsService.prototype.postScan = function (file) {
+        var url = '/api/ExcelFiles/Upload';
+        var formData = new FormData();
+        formData.append('image', file, file.name);
+        var subject = new Subject_1.Subject();
+        var req = new http_1.HttpRequest('POST', url, formData, {
+            reportProgress: true,
+            responseType: 'text'
+        });
+        this.http.request(req).subscribe(function (event) {
+            if (event.type === http_1.HttpEventType.UploadProgress) {
+                var percentDone = Math.round(100 * event.loaded / event.total);
+                subject.next(percentDone);
+            }
+            else if (event instanceof http_1.HttpResponse) {
+                subject.complete();
+            }
+        }, function (error) { return subject.error('some err'); });
+        return subject.asObservable();
     };
     return RsurProtocolsService;
 }());

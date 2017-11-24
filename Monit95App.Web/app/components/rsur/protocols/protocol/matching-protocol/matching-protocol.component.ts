@@ -3,18 +3,23 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/cor
 import { RsurProtocolsService } from "../../../../../services/rsur-protocols.service";
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from "@angular/router";
-import { ParticipTestModel } from "../../../../../models/particip-test.model";
+import { MarksProtocol } from "../../../../../models/marks-protocol.model";
 import { FormControl, Validators } from "@angular/forms";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/filter';
 
 @Component({
 	selector: 'matching-protocol-component',
-	templateUrl: `./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.css?v=${new Date().getTime()}`]
 })
 export class MatchingProtocolComponent implements OnInit{
 	protocolScan: any = {};
-	particip: ParticipTestModel;
+	marksProtocol: MarksProtocol;
 	
-	isLoading: boolean = false;
+	isParticipTestLoading: boolean = false;
+	isScanLoading: boolean = false;
 
 	@ViewChild('participCode') participCodeElem: ElementRef;
 	marksInputs: JQuery<HTMLInputElement>;
@@ -26,20 +31,77 @@ export class MatchingProtocolComponent implements OnInit{
 				private renderer: Renderer) { }
 
 	ngOnInit() {
+		this.isScanLoading = true;
 		this.route.params.subscribe(params => {
 			let fileId: number = params["id"];
 			
 			this.rsurProtocolsService.getScan(fileId).subscribe(res => {
 				this.protocolScan = res;
+				this.isScanLoading = false;
 
-				window.scrollTo(0, 0);
-				this.focusOnCodeElem();
+				$().ready(() => this.initCallbacks()); //JQuery.ready заставляет ждать до конца отрисовки DOM
 			});
 		});
 	}
 
-	onSubmit() {
-		console.log(this.particip);
+	initCallbacks() {
+		this.focusOnCodeElem();
+
+		let participCodeChange = Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
+			.filter((event: any, i: number) => event.target.value.length == 5)
+			.subscribe(event => this.participCodeSubscriber(event));
+	}
+
+	participCodeSubscriber(event: any) {
+		let elem = event.target as HTMLInputElement;
+		let participCode = Number.parseInt(elem.value);
+		this.participCodeControl.markAsTouched(); //отметка поля как 'touched' включает отображение ошибок валидации
+
+		if (this.participCodeControl.valid)
+		{
+			this.participCodeControl.disable();
+			this.isParticipTestLoading = true;
+
+			this.rsurProtocolsService.getParticipTest(participCode).subscribe(
+				res => this.participTestSuccessHandler(res),
+				error => this.participTestErrorHandler(error)
+			);
+		}
+	}
+
+	participTestSuccessHandler(res: any) {
+		this.marksProtocol = res as MarksProtocol;
+		
+		this.isParticipTestLoading = false;
+
+		$().ready(() => { //после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
+							//обработчик фокуса и переводим фокус на первое поле
+
+			this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
+			this.marksInputs.focus((event) => event.target.select());
+			this.marksInputs.get(0).focus();
+		});
+	}
+
+	participTestErrorHandler(error: any) {
+		let message = error.message ? error.message : error;
+
+		this.participCodeControl.enable();
+		this.participCodeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
+																		//содержащее сообщение из ответа сервера
+		this.isParticipTestLoading = false;
+		this.focusOnCodeElem();
+	}
+
+	sendMarks() {
+		let marks = this.marksProtocol.QuestionResults.map(val => val.CurrentMark).join(';');
+
+		let participMarks = {
+			ParticipTestId: this.marksProtocol.ParticipTestId,
+			Marks: marks
+		};
+
+		console.log(participMarks);
 	}
 
 	onMarkChanged(event: any) {
@@ -48,51 +110,14 @@ export class MatchingProtocolComponent implements OnInit{
 
 		if (elem.value) {
 			if (elem.value.match(/^(1|0)$/)) {
-				this.particip.ParticipTest.Questions[elemIndex].CurrentMark = Number.parseInt(elem.value);
+				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
 				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
 			}
 			else {
 				elem.value = '1';
-				this.particip.ParticipTest.Questions[elemIndex].CurrentMark = 1;
+				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = 1;
 				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
 			}
-		}
-	}
-
-	participCodeKeyUp(event: KeyboardEvent)
-	{
-		let elem = event.target as HTMLInputElement;
-		let val = elem.value;
-
-		if (event.keyCode === 13) //keyCode 13 == 'Enter'
-		{ 
-			this.participCodeControl.markAsTouched(); //отметка поля как 'touched' включает отображение ошибок валидации
-
-			if (this.participCodeControl.valid)
-			{
-				this.participCodeControl.disable();
-				this.isLoading = true;
-				this.rsurProtocolsService.getParticipTest(Number.parseInt(val)).subscribe(
-					res => {
-						this.particip = res as ParticipTestModel;
-						this.isLoading = false;
-
-						$().ready(() => { //после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю обработчик фокуса и переводим фокус на первое поле
-							this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-							this.marksInputs.focus((event) => event.target.select());
-							this.marksInputs.get(0).focus();
-						});
-					},
-					error => {
-						let message = error.message ? error.message : error; //вдруг пригодится
-						this.participCodeControl.enable();
-						this.participCodeControl.setErrors({ 'notExistCode': message });
-						this.isLoading = false;
-						this.focusOnCodeElem();
-					}
-				);
-			}
-			
 		}
 	}
 

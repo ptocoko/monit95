@@ -35,6 +35,7 @@ import { SeminarReportsListComponent } from "./components/rsur/seminar-reports/s
 import { SeminarReportComponent } from "./components/rsur/seminar-reports/seminar-report/seminar-report.component";
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
 import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
+import { ScanProtocolsComponent } from "./components/rsur/protocols/scan-protocols.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -101,6 +102,7 @@ import { GlobalErrorHandler } from './error-handler';
                 { path: 'rsur/results-list', component: ReportListComponent },
 				{ path: 'rsur/ratings', component: RatingsComponent },
 				{ path: 'rsur/match-protocol/:id', component: MatchingProtocolComponent },
+				{ path: 'rsur/scan-protocols', component: ScanProtocolsComponent },
                 { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },                
@@ -152,7 +154,8 @@ import { GlobalErrorHandler } from './error-handler';
 		SeminarReportsListComponent,
         SeminarReportComponent,
 		SchoolFilesComponent,
-		MatchingProtocolComponent
+		MatchingProtocolComponent,
+		ScanProtocolsComponent
 	],
 	providers: [
         AccountService,

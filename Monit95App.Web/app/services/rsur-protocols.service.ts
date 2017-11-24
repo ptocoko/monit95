@@ -1,10 +1,12 @@
 ﻿
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
-import { ParticipTestModel } from "../models/particip-test.model";
+import { MarksProtocol } from "../models/marks-protocol.model";
+import { Subject } from "rxjs/Subject";
 
 const protocolScanModel = {
 	FileId: 123,
@@ -13,38 +15,36 @@ const protocolScanModel = {
 	StillHasScans: false
 };
 
-const particip: ParticipTestModel = {
+const particip: MarksProtocol = {
 	"ParticipCode": 12345,
-	"ParticipTest": {
-		"ParticipTestId": 1234,
-		"TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
-		"Questions": [
-			{
-				"Name": "1.1",
-				"Order": 1,
-				"MaxMark": 4,
-				"CurrentMark": null
-			},
-			{
-				"Name": "3.2",
-				"Order": 4,
-				"MaxMark": 1,
-				"CurrentMark": null
-			},
-			{
-				"Name": "2.10",
-				"Order": 2,
-				"MaxMark": 1,
-				"CurrentMark": null
-			},
-			{
-				"Name": "3.1",
-				"Order": 3,
-				"MaxMark": 1,
-				"CurrentMark": null
-			}
-		]
-	}
+	"ParticipTestId": 1234,
+	"TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
+	"QuestionResults": [
+		{
+			"Name": "1.1",
+			"Order": 1,
+			"MaxMark": 4,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		}
+	]
 }
 
 @Injectable()
@@ -52,12 +52,12 @@ export class RsurProtocolsService {
 	constructor(private http: HttpClient) { }
 
 	getScan(fileId: number) {
-		return Observable.of(protocolScanModel);
+		return Observable.of(protocolScanModel).delay(2000);
 	}
 
 	getParticipTest(participCode: number) {
 		if (participCode == 12345) {
-			particip.ParticipTest.Questions.sort((first, second) => {
+			particip.QuestionResults.sort((first, second) => {
 				if (first.Order < second.Order) {
 					return -1;
 				}
@@ -66,23 +66,44 @@ export class RsurProtocolsService {
 				}
 			});
 
-			return new Observable(observer => {
-				setTimeout(() => {
-					observer.next(particip);
-				}, 2000);
-
-				setTimeout(() => {
-					observer.complete();
-				}, 3000);
-			});
-			
-
+			return Observable.of(particip).delay(2000);
 		}
 		else
+		{
+			let message: string;
+			if (participCode == 12365)
+				message = 'i error that here'
+			else
+				message = 'sadfasdfa'
+
 			return new Observable(observer => {
 				setTimeout(() => {
-					observer.error('im error!')
+					observer.error(message)
 				}, 1500)
-			})
+			});
+		}
+			
+	}
+
+	public postScan(file: File): Observable<number> {
+		let url = '/api/ExcelFiles/Upload';
+		let formData: FormData = new FormData();
+		formData.append('image', file, file.name);
+
+		var subject = new Subject<number>()
+		const req = new HttpRequest('POST', url, formData, {
+			reportProgress: true,
+			responseType: 'text'
+		});
+
+		this.http.request(req).subscribe(event => {
+			if (event.type === HttpEventType.UploadProgress) {
+				const percentDone = Math.round(100 * event.loaded / event.total);
+				subject.next(percentDone);
+			} else if (event instanceof HttpResponse) {
+				subject.complete();
+			}
+		}, error => subject.error('some err'));
+		return subject.asObservable();
 	}
 }

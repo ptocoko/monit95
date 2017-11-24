@@ -1,15 +1,11 @@
-﻿export interface ParticipTestModel {
+﻿export interface MarksProtocol {
 	ParticipCode: number;
-	ParticipTest: ParticipTest;
-}
-
-interface ParticipTest {
 	ParticipTestId: number;
 	TestName: string;
-	Questions: Question[];
+	QuestionResults: QuestionResult[];
 }
 
-interface Question {
+interface QuestionResult {
 	Name: string;
 	Order: number;
 	MaxMark: number;

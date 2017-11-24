@@ -84,5 +84,12 @@
                 </div>
             </a>
         </div>
+        <div *ngIf="isArea()" class="list-item">
+            <a class="list-item-link" [routerLink]="['/rsur/scan-protocols']">
+                <div>
+                    <h4>Сканы</h4>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
