@@ -7,19 +7,25 @@ using Monit95App.Services.DTOs;
 
 namespace Monit95App.Services.Rsur.MarksProtocol
 {
+    using System.Diagnostics.CodeAnalysis;
+
     using Monit95App.Domain.Core;
+    using Monit95App.Services.Interfaces;
+    using Monit95App.Services.Validations;
 
     public class MarksProtocolService : IMarksProtocolService
     {
         #region Dependencies
 
         private readonly CokoContext context;
+        private readonly IValidationDictionary validatonDictionary;
 
         #endregion
 
-        public MarksProtocolService(CokoContext context)
+        public MarksProtocolService(CokoContext context, IValidationDictionary validatonDictionary)
         {
             this.context = context;
+            this.validatonDictionary = validatonDictionary;
         }
 
         public RsurParticipEditProtocol GetProtocol(int rsurParticipTestId)
@@ -27,7 +33,20 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             throw new NotImplementedException();
         }
 
+        [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:CurlyBracketsMustNotBeOmitted", Justification = "Reviewed. Suppression is OK here.")]
+        protected bool ValidatePostMarksProtocol(PostMarksProtocol postMarksProtocol)
+        {
+            if (postMarksProtocol == null)
+                validatonDictionary.AddError(nameof(postMarksProtocol), "Is null");
+            if (postMarksProtocol?.ParticipTestId <= 0)
+                validatonDictionary.AddError(nameof(postMarksProtocol), $"{nameof(postMarksProtocol.ParticipTestId)} <= 0");
+
+
+            return validatonDictionary.IsValid;
+        }
+
         #region Service methods
+
 
         public IEnumerable<Monit95App.Domain.Core.MarksProtocol> GetProtocols(int rsurTestId, int areaCode)
         {
@@ -150,9 +169,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
 
 
             throw new NotImplementedException();
-        }
-
-        private 
+        }        
 
         #endregion
     }

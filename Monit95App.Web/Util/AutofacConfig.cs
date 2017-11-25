@@ -10,14 +10,18 @@ using Monit95App.Models;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
-using Monit95App.Services.School;
-using Monit95App.Web.Services;
+using Monit95App.Services.Rsur.MarksProtocol;
 using Monit95App.Services.Rsur.ParticipReport;
 using Monit95App.Services.Rsur.SeminarReport;
-using Monit95App.Services.Rsur.MarksProtocol;
+using Monit95App.Services.School;
+using Monit95App.Web.Services;
 
 namespace Monit95App.Util
 {
+    using System.Web.Http.ModelBinding;
+
+    using Monit95App.Services.Validations;
+
     public class AutofacConfig
     {
         public static void ConfigureContainer()
@@ -29,8 +33,10 @@ namespace Monit95App.Util
 
             // Register DbContext
             builder.RegisterType<CokoContext>().InstancePerRequest();
+
             builder.RegisterType<ApplicationDbContext>();
-            
+            //builder.RegisterType<ModelStateDictionary>();
+
             // Register individual components            
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>));                       
             builder.RegisterType<ParticipService>().As<IParticipService>();            
@@ -51,8 +57,9 @@ namespace Monit95App.Util
             builder.RegisterType<ParticipReportService>().As<IParticipReportService>();
             builder.RegisterType<RatingService>().As<IRatingService>();
             builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();
+            builder.RegisterType<ModelStateWrapper>().As<IValidationDictionary>();
 
-            var container = builder.Build();
+             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }

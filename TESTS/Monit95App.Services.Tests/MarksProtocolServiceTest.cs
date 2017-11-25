@@ -14,6 +14,7 @@ using NSubstitute;
 namespace Monit95App.Services.Tests
 {
     using Monit95App.Services.Rsur.MarksProtocol;
+    using Monit95App.Services.Validations;
 
     [TestClass]
     public class MarksProtocolServiceTest
@@ -85,8 +86,9 @@ namespace Monit95App.Services.Tests
         public void GetIncorrectParticipCodeTest()
         {
             // Arrange
-            var service = new MarksProtocolService(mockContext);
-
+            var validationDictionary = Substitute.For<IValidationDictionary>();
+            var service = new MarksProtocolService(mockContext, validationDictionary);
+            
             // Act
             service.Get(1234, 201);
         }
@@ -96,7 +98,8 @@ namespace Monit95App.Services.Tests
         public void GetEmptyTest()
         {
             // Arrange
-            var service = new MarksProtocolService(mockContext);
+            var validationDictionary = Substitute.For<IValidationDictionary>();
+            var service = new MarksProtocolService(mockContext, validationDictionary);
 
             // Act
             service.Get(12346, 201);
@@ -105,8 +108,9 @@ namespace Monit95App.Services.Tests
         [TestMethod]
         public void GetCorrectParamsTest()
         {
-            // Arrange         
-            var service = new MarksProtocolService(mockContext);
+            // Arrange     
+            var validationDictionary = Substitute.For<IValidationDictionary>();
+            var service = new MarksProtocolService(mockContext, validationDictionary);
 
             // Act            
             var protocol = service.Get(12345, 201);
@@ -117,10 +121,12 @@ namespace Monit95App.Services.Tests
             Assert.AreEqual(12345, protocol.ParticipCode);
             Assert.AreEqual(1, protocol.ParticipTestId);
             Assert.AreEqual("0101-Орфография", protocol.TestName);
+
             // question1
             Assert.AreEqual(question1.Order, 1);
             Assert.AreEqual(question1.Name, "1");
-            // question1
+
+            // question2
             Assert.AreEqual(question2.MaxMark, 1);
             Assert.AreEqual(question2.CurrentMark, 1);
         }
