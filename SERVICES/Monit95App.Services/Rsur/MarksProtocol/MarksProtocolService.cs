@@ -7,6 +7,7 @@ using Monit95App.Services.DTOs;
 
 namespace Monit95App.Services.Rsur.MarksProtocol
 {
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
 
     using Monit95App.Domain.Core;
@@ -34,15 +35,24 @@ namespace Monit95App.Services.Rsur.MarksProtocol
         }
 
         [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:CurlyBracketsMustNotBeOmitted", Justification = "Reviewed. Suppression is OK here.")]
-        protected bool ValidatePostMarksProtocol(PostMarksProtocol postMarksProtocol)
+        public IEnumerable<ValidationResult> ValidatePostMarksProtocol(PostMarksProtocol postMarksProtocol)
         {
-            if (postMarksProtocol == null)
-                validatonDictionary.AddError(nameof(postMarksProtocol), "Is null");
+            // 1) Validate by attributes
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new ValidationContext(postMarksProtocol);
+                       
+            if (Validator.TryValidateObject(postMarksProtocol, validationContext, validationResults, true))
+            {
+                
+            }
+
             if (postMarksProtocol?.ParticipTestId <= 0)
                 validatonDictionary.AddError(nameof(postMarksProtocol), $"{nameof(postMarksProtocol.ParticipTestId)} <= 0");
 
+           // ValidationResult.Success
 
-            return validatonDictionary.IsValid;
+
+            return validationResults;
         }
 
         #region Service methods

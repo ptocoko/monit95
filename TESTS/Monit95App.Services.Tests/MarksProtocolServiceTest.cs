@@ -21,6 +21,7 @@ namespace Monit95App.Services.Tests
     {
         private readonly CokoContext mockContext;
 
+        // Constructor
         public MarksProtocolServiceTest()
         {
             var data = new List<RsurTestResult>
@@ -79,6 +80,18 @@ namespace Monit95App.Services.Tests
             ((IQueryable<RsurTestResult>)mockSet).GetEnumerator().Returns(data.GetEnumerator());
             this.mockContext = Substitute.For<CokoContext>();
             mockContext.RsurTestResults.Returns(mockSet);
+        }
+
+        [TestMethod]
+        public void ValidatePostMarksProtocolTest()
+        {
+            // Arrange
+            var validationDictionary = Substitute.For<IValidationDictionary>();
+            var service = new MarksProtocolService(mockContext, validationDictionary);
+            var postMarksProtocol = new PostMarksProtocol { ParticipTestId = 1 };
+           
+            // Act
+            service.ValidatePostMarksProtocol(postMarksProtocol);
         }
 
         [TestMethod]

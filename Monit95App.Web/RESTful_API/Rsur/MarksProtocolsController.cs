@@ -27,7 +27,7 @@ namespace Monit95App.RESTful_API.Rsur
         public IHttpActionResult Post([FromBody]PostMarksProtocol postMarksProtocol)
         {                       
             var areaCode = int.Parse(User.Identity.Name);            
-
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

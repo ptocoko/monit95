@@ -2,12 +2,14 @@
 
 namespace Monit95App.Services.Rsur.MarksProtocol
 {
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
 
     public class PostMarksProtocol
-    {
+    {                 
         public int ParticipTestId { get; set; }
-
+        
+        [Required]
         public ICollection<PostQuestionResult> QuestionResults { get; set; }
     }
 
