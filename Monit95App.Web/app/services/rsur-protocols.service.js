@@ -16,43 +16,6 @@ require("rxjs/add/observable/of");
 require("rxjs/add/operator/delay");
 require("rxjs/add/observable/throw");
 var Subject_1 = require("rxjs/Subject");
-var protocolScanModel = {
-    FileId: 123,
-    Url: '/Images/rsur-scans/2090/1000/1.jpg',
-    FileName: 'IMG_0001_01.JPG',
-    StillHasScans: false
-};
-var particip = {
-    "ParticipCode": 12345,
-    "ParticipTestId": 1234,
-    "TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
-    "QuestionResults": [
-        {
-            "Name": "1.1",
-            "Order": 1,
-            "MaxMark": 4,
-            "CurrentMark": null
-        },
-        {
-            "Name": "3.2",
-            "Order": 4,
-            "MaxMark": 1,
-            "CurrentMark": null
-        },
-        {
-            "Name": "2.10",
-            "Order": 2,
-            "MaxMark": 1,
-            "CurrentMark": null
-        },
-        {
-            "Name": "3.1",
-            "Order": 3,
-            "MaxMark": 1,
-            "CurrentMark": null
-        }
-    ]
-};
 var RsurProtocolsService = (function () {
     function RsurProtocolsService(http) {
         this.http = http;
@@ -106,6 +69,9 @@ var RsurProtocolsService = (function () {
         }, function (error) { return subject.error(error); });
         return subject.asObservable();
     };
+    RsurProtocolsService.prototype.getNotMatchedScans = function () {
+        return Observable_1.Observable.of(scans).delay(2000);
+    };
     return RsurProtocolsService;
 }());
 RsurProtocolsService = __decorate([
@@ -113,4 +79,53 @@ RsurProtocolsService = __decorate([
     __metadata("design:paramtypes", [http_1.HttpClient])
 ], RsurProtocolsService);
 exports.RsurProtocolsService = RsurProtocolsService;
+var protocolScanModel = {
+    FileId: 123,
+    Url: '/Images/rsur-scans/2090/1000/1.jpg',
+    FileName: 'IMG_0001_01.JPG',
+    StillHasScans: false
+};
+var scans = [
+    {
+        Number: 1,
+        SourceName: 'IMG_001.JPG',
+        FileId: 1234
+    },
+    {
+        Number: 2,
+        SourceName: 'IMG_002.JPG',
+        FileId: 1234
+    },
+];
+var particip = {
+    "ParticipCode": 12345,
+    "ParticipTestId": 1234,
+    "TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
+    "QuestionResults": [
+        {
+            "Name": "1.1",
+            "Order": 1,
+            "MaxMark": 4,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        }
+    ]
+};
 //# sourceMappingURL=rsur-protocols.service.js.map

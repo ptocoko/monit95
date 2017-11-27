@@ -18,11 +18,20 @@ var ScanProtocolsComponent = (function () {
         this.rsurProtocolsService = rsurProtocolsService;
         this.scans = [];
         this.notMatchedScansCount = 0;
+        this.duplicatesCount = 0;
         this.displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
         this.dataSource = new material_1.MatTableDataSource();
     }
+    ScanProtocolsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.rsurProtocolsService.getNotMatchedScans().subscribe(function (res) {
+            _this.scans = res;
+            _this.dataSource = new material_1.MatTableDataSource(_this.scans);
+            _this.getNotMatchedCount();
+        });
+    };
     ScanProtocolsComponent.prototype.getNotMatchedCount = function () {
-        this.notMatchedScansCount = this.scans.filter(function (s) { return s.fileId; }).length;
+        this.notMatchedScansCount = this.scans.filter(function (s) { return s.FileId; }).length;
     };
     ScanProtocolsComponent.prototype.applyFilter = function (filterValue) {
         filterValue = filterValue.trim();
@@ -35,13 +44,12 @@ var ScanProtocolsComponent = (function () {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var scan = {
-                    id: this.scans.length + 1,
-                    sourceName: file.name,
-                    size: file.size,
-                    uploadProgress: 0,
-                    fileContent: file,
-                    fileId: null,
-                    status: 'isUploading'
+                    Number: this.scans.length + 1,
+                    SourceName: file.name,
+                    UploadProgress: 0,
+                    FileContent: file,
+                    FileId: null,
+                    Status: 'isUploading'
                 };
                 this.scans.push(scan);
                 this.uploadScan(scan);
@@ -52,20 +60,28 @@ var ScanProtocolsComponent = (function () {
     };
     ScanProtocolsComponent.prototype.uploadScan = function (scan) {
         var _this = this;
-        scan.status = 'isUploading';
-        this.rsurProtocolsService.postScan(scan.fileContent).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.status = 'isComplete'; });
+        scan.Status = 'isUploading';
+        this.rsurProtocolsService.postScan(scan.FileContent).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.Status = 'isComplete'; });
     };
     ScanProtocolsComponent.prototype.responseHandler = function (res, scan) {
         if (res instanceof http_1.HttpResponse) {
-            scan.fileId = res.body;
+            scan.FileId = res.body;
         }
         else {
-            scan.uploadProgress = res;
+            scan.UploadProgress = res;
         }
         this.getNotMatchedCount();
     };
     ScanProtocolsComponent.prototype.errorResponseHandler = function (error, scan) {
-        scan.status = 'isFailed';
+        if (error.status && error.status === 409) {
+            var duplicatedScanIndex = this.scans.indexOf(scan);
+            this.scans.splice(duplicatedScanIndex, 1);
+            this.dataSource = new material_1.MatTableDataSource(this.scans);
+            this.duplicatesCount += 1;
+        }
+        else {
+            scan.Status = 'isFailed';
+        }
     };
     ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
         this.uploadScan(scan);

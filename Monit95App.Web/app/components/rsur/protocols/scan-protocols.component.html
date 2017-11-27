@@ -13,7 +13,8 @@
     </a>
 </div>
 <mat-toolbar>
-    <span>Не сопоставлено сканов: {{notMatchedScansCount}}</span>
+    <span class="state-caption">Не сопоставлено сканов: {{notMatchedScansCount}}</span>
+    <span class="state-caption">Дублирующих сканов: {{duplicatesCount}}</span>
 </mat-toolbar>
 <!--<p class="status-bar">
     <span>Загружено сканов: {{scans.length}}</span>
@@ -26,30 +27,30 @@
 
             <ng-container matColumnDef="id">
                 <mat-header-cell class="idColumnWidth" *matHeaderCellDef> # </mat-header-cell>
-                <mat-cell class="idColumnWidth" *matCellDef="let scan"> {{scan.id}} </mat-cell>
+                <mat-cell class="idColumnWidth" *matCellDef="let scan"> {{scan.Number}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="sourceName">
                 <mat-header-cell class="sourceNameColumnWidth" *matHeaderCellDef>Имя файла</mat-header-cell>
-                <mat-cell class="sourceNameColumnWidth" *matCellDef="let scan"> {{scan.sourceName}}</mat-cell>
+                <mat-cell class="sourceNameColumnWidth" *matCellDef="let scan"> {{scan.SourceName}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="fileId">
                 <mat-header-cell class="sizeColumnWidth" *matHeaderCellDef>ID</mat-header-cell>
-                <mat-cell class="sizeColumnWidth" *matCellDef="let scan"> {{scan.fileId}}</mat-cell>
+                <mat-cell class="sizeColumnWidth" *matCellDef="let scan"> {{scan.FileId}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="uploadProgress">
                 <mat-header-cell class="progressColumnWidth" *matHeaderCellDef>Прогресс отправки</mat-header-cell>
                 <mat-cell class="progressColumnWidth" *matCellDef="let scan">
-                    <span *ngIf="scan.status === 'isUploading'">{{scan.uploadProgress}}%</span>
-                    <span *ngIf="scan.status === 'isFailed'">Не удалось отправить скан <a class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a></span>
-                    <span *ngIf="scan.status === 'isComplete'">Отправлено!</span>
+                    <span *ngIf="scan.Status === 'isUploading'"><mat-progress-bar [value]="scan.UploadProgress"></mat-progress-bar></span>
+                    <span *ngIf="scan.Status === 'isFailed'">Не удалось отправить скан <a class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a></span>
+                    <span *ngIf="scan.Status === 'isComplete'">Отправлено!</span>
                 </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row [ngClass]="{'uploadError': row.status === 'isFailed', 'uploadComplete': row.status === 'isComplete'}" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row [ngClass]="{'uploadError': row.Status === 'isFailed', 'uploadComplete': row.Status === 'isComplete'}" *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
     </div>
 </div>

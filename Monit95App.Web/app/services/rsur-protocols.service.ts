@@ -7,45 +7,8 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
 import { MarksProtocol } from "../models/marks-protocol.model";
 import { Subject } from "rxjs/Subject";
+import { Scan } from "../models/scan.model";
 
-const protocolScanModel = {
-	FileId: 123,
-	Url: '/Images/rsur-scans/2090/1000/1.jpg',
-	FileName: 'IMG_0001_01.JPG',
-	StillHasScans: false
-};
-
-const particip: MarksProtocol = {
-	"ParticipCode": 12345,
-	"ParticipTestId": 1234,
-	"TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
-	"QuestionResults": [
-		{
-			"Name": "1.1",
-			"Order": 1,
-			"MaxMark": 4,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		}
-	]
-}
 
 @Injectable()
 export class RsurProtocolsService {
@@ -107,4 +70,60 @@ export class RsurProtocolsService {
 		}, error => subject.error(error));
 		return subject.asObservable();
 	}
+
+	public getNotMatchedScans() {
+		return Observable.of(scans).delay(2000);
+	}
+}
+
+const protocolScanModel = {
+	FileId: 123,
+	Url: '/Images/rsur-scans/2090/1000/1.jpg',
+	FileName: 'IMG_0001_01.JPG',
+	StillHasScans: false
+};
+
+const scans: Scan[] = [
+	{
+		Number: 1,
+		SourceName: 'IMG_001.JPG',
+		FileId: 1234
+	},
+	{
+		Number: 2,
+		SourceName: 'IMG_002.JPG',
+		FileId: 1234
+	},
+]
+
+const particip: MarksProtocol = {
+	"ParticipCode": 12345,
+	"ParticipTestId": 1234,
+	"TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
+	"QuestionResults": [
+		{
+			"Name": "1.1",
+			"Order": 1,
+			"MaxMark": 4,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		}
+	]
 }

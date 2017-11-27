@@ -96,6 +96,7 @@ AppModule = __decorate([
             material_1.MatSortModule,
             material_1.MatProgressSpinnerModule,
             material_1.MatToolbarModule,
+            material_1.MatProgressBarModule,
             ngx_order_pipe_1.OrderModule,
             ng_bootstrap_1.NgbModule.forRoot(),
             router_1.RouterModule.forRoot([

@@ -1,26 +1,39 @@
 ﻿
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
+import { Observable } from "rxjs/Observable";
+import { Scan } from "../../../models/scan.model";
 
 @Component({
 	selector: 'scan-protocols-component',
 	templateUrl: `./app/components/rsur/protocols/scan-protocols.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/components/rsur/protocols/scan-protocols.component.css?v=${new Date().getTime()}`]
 })
-export class ScanProtocolsComponent {
+export class ScanProtocolsComponent implements OnInit{
 	scans: Scan[] = [];
+
 	notMatchedScansCount: number = 0;
+	duplicatesCount: number = 0;
+
 	displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
 	dataSource = new MatTableDataSource();
 	
 	constructor(private rsurProtocolsService: RsurProtocolsService) {
+		
+	}
 
+	ngOnInit() {
+		this.rsurProtocolsService.getNotMatchedScans().subscribe(res => {
+			this.scans = res;
+			this.dataSource = new MatTableDataSource(this.scans);
+			this.getNotMatchedCount();
+		});
 	}
 
 	getNotMatchedCount() {
-		this.notMatchedScansCount = this.scans.filter(s => s.fileId).length;
+		this.notMatchedScansCount = this.scans.filter(s => s.FileId).length;
 	}
 
 	applyFilter(filterValue: string) {
@@ -39,13 +52,12 @@ export class ScanProtocolsComponent {
 				let file = files[i];
 
 				let scan: Scan = {
-					id: this.scans.length + 1,
-					sourceName: file.name,
-					size: file.size,
-					uploadProgress: 0,
-					fileContent: file,
-					fileId: null,
-					status: 'isUploading'
+					Number: this.scans.length + 1,
+					SourceName: file.name,
+					UploadProgress: 0,
+					FileContent: file,
+					FileId: null,
+					Status: 'isUploading'
 				};
 
 				this.scans.push(scan);
@@ -57,26 +69,35 @@ export class ScanProtocolsComponent {
 	}
 
 	uploadScan(scan: Scan) {
-		scan.status = 'isUploading';
-		this.rsurProtocolsService.postScan(scan.fileContent).subscribe(
+		scan.Status = 'isUploading';
+		this.rsurProtocolsService.postScan(scan.FileContent).subscribe(
 			response => this.responseHandler(response, scan),
 			error => this.errorResponseHandler(error, scan),
-			() => scan.status = 'isComplete'
+			() => scan.Status = 'isComplete'
 		);
 	}
 
 	responseHandler(res: number | HttpResponse<number>, scan: Scan) {
 		if (res instanceof HttpResponse) {
-			scan.fileId = res.body;
+			scan.FileId = res.body;
 		}
 		else {
-			scan.uploadProgress = res;
+			scan.UploadProgress = res;
 		}
 		this.getNotMatchedCount();
 	}
 
 	errorResponseHandler(error: any, scan: Scan) {
-		scan.status = 'isFailed'
+		if (error.status && error.status === 409) {
+			let duplicatedScanIndex = this.scans.indexOf(scan);
+			this.scans.splice(duplicatedScanIndex, 1);
+
+			this.dataSource = new MatTableDataSource(this.scans);
+			this.duplicatesCount += 1;
+		}
+		else {
+			scan.Status = 'isFailed'
+		}
 	}
 
 	reuploadScan(scan: Scan) {
@@ -96,14 +117,4 @@ export class ScanProtocolsComponent {
 		}
 		return true;
 	}
-}
-
-interface Scan {
-	id: number;
-	sourceName: string;
-	size: number;
-	uploadProgress: number;
-	fileContent: File;
-	fileId: number;
-	status: 'isUploading' | 'isFailed' | 'isComplete';
 }

@@ -73,3 +73,11 @@
 .uploadComplete{
     background-color: lightgreen;
 }
+
+mat-toolbar{
+    font-size: 15px;
+}
+
+.state-caption + .state-caption{
+    margin-left:15px;
+}
