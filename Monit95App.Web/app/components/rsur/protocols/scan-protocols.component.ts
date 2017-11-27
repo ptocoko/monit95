@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
 import { Scan } from "../../../models/scan.model";
 
 @Component({
@@ -16,6 +15,7 @@ export class ScanProtocolsComponent implements OnInit{
 
 	notMatchedScansCount: number = 0;
 	duplicatesCount: number = 0;
+	failedScansCount: number = 0;
 
 	displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
 	dataSource = new MatTableDataSource();
@@ -28,12 +28,13 @@ export class ScanProtocolsComponent implements OnInit{
 		this.rsurProtocolsService.getNotMatchedScans().subscribe(res => {
 			this.scans = res;
 			this.dataSource = new MatTableDataSource(this.scans);
-			this.getNotMatchedCount();
+			this.getStats();
 		});
 	}
 
-	getNotMatchedCount() {
+	getStats() {
 		this.notMatchedScansCount = this.scans.filter(s => s.FileId).length;
+		this.failedScansCount = this.scans.filter(s => s.Status === 'isFailed').length;
 	}
 
 	applyFilter(filterValue: string) {
@@ -52,7 +53,6 @@ export class ScanProtocolsComponent implements OnInit{
 				let file = files[i];
 
 				let scan: Scan = {
-					Number: this.scans.length + 1,
 					SourceName: file.name,
 					UploadProgress: 0,
 					FileContent: file,
@@ -84,7 +84,7 @@ export class ScanProtocolsComponent implements OnInit{
 		else {
 			scan.UploadProgress = res;
 		}
-		this.getNotMatchedCount();
+		this.getStats();
 	}
 
 	errorResponseHandler(error: any, scan: Scan) {
@@ -96,8 +96,16 @@ export class ScanProtocolsComponent implements OnInit{
 			this.duplicatesCount += 1;
 		}
 		else {
-			scan.Status = 'isFailed'
+			scan.Status = 'isFailed';
+			this.failedScansCount += 1;
 		}
+	}
+
+	deleteScan(scan: Scan, elem: HTMLAnchorElement) {
+		this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(res => {
+			this.scans.splice(this.scans.indexOf(scan), 1);
+			this.getStats();
+		})
 	}
 
 	reuploadScan(scan: Scan) {

@@ -1,5 +1,4 @@
 ﻿export interface Scan {
-	Number?: number;
 	SourceName?: string;
 	UploadProgress?: number;
 	FileContent?: File;

@@ -19,6 +19,7 @@ var ScanProtocolsComponent = (function () {
         this.scans = [];
         this.notMatchedScansCount = 0;
         this.duplicatesCount = 0;
+        this.failedScansCount = 0;
         this.displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
         this.dataSource = new material_1.MatTableDataSource();
     }
@@ -27,11 +28,12 @@ var ScanProtocolsComponent = (function () {
         this.rsurProtocolsService.getNotMatchedScans().subscribe(function (res) {
             _this.scans = res;
             _this.dataSource = new material_1.MatTableDataSource(_this.scans);
-            _this.getNotMatchedCount();
+            _this.getStats();
         });
     };
-    ScanProtocolsComponent.prototype.getNotMatchedCount = function () {
+    ScanProtocolsComponent.prototype.getStats = function () {
         this.notMatchedScansCount = this.scans.filter(function (s) { return s.FileId; }).length;
+        this.failedScansCount = this.scans.filter(function (s) { return s.Status === 'isFailed'; }).length;
     };
     ScanProtocolsComponent.prototype.applyFilter = function (filterValue) {
         filterValue = filterValue.trim();
@@ -44,7 +46,6 @@ var ScanProtocolsComponent = (function () {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var scan = {
-                    Number: this.scans.length + 1,
                     SourceName: file.name,
                     UploadProgress: 0,
                     FileContent: file,
@@ -70,7 +71,7 @@ var ScanProtocolsComponent = (function () {
         else {
             scan.UploadProgress = res;
         }
-        this.getNotMatchedCount();
+        this.getStats();
     };
     ScanProtocolsComponent.prototype.errorResponseHandler = function (error, scan) {
         if (error.status && error.status === 409) {
@@ -81,7 +82,15 @@ var ScanProtocolsComponent = (function () {
         }
         else {
             scan.Status = 'isFailed';
+            this.failedScansCount += 1;
         }
+    };
+    ScanProtocolsComponent.prototype.deleteScan = function (scan, elem) {
+        var _this = this;
+        this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(function (res) {
+            _this.scans.splice(_this.scans.indexOf(scan), 1);
+            _this.getStats();
+        });
     };
     ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
         this.uploadScan(scan);

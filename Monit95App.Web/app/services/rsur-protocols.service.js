@@ -72,6 +72,9 @@ var RsurProtocolsService = (function () {
     RsurProtocolsService.prototype.getNotMatchedScans = function () {
         return Observable_1.Observable.of(scans).delay(2000);
     };
+    RsurProtocolsService.prototype.deleteScan = function (fileId) {
+        return Observable_1.Observable.of({}).delay(1000);
+    };
     return RsurProtocolsService;
 }());
 RsurProtocolsService = __decorate([
@@ -87,12 +90,10 @@ var protocolScanModel = {
 };
 var scans = [
     {
-        Number: 1,
         SourceName: 'IMG_001.JPG',
         FileId: 1234
     },
     {
-        Number: 2,
         SourceName: 'IMG_002.JPG',
         FileId: 1234
     },

@@ -85,7 +85,7 @@ namespace Monit95App.Web.Api
             //});
 
             if (isEven) { isEven = !isEven; return Ok(1452); }
-            else { isEven = !isEven; return BadRequest(); }
+            else { isEven = !isEven; return Conflict(); }
         }
 
         [HttpGet]

@@ -74,6 +74,10 @@ export class RsurProtocolsService {
 	public getNotMatchedScans() {
 		return Observable.of(scans).delay(2000);
 	}
+
+	public deleteScan(fileId: number) {
+		return Observable.of({}).delay(1000);
+	}
 }
 
 const protocolScanModel = {
@@ -85,12 +89,10 @@ const protocolScanModel = {
 
 const scans: Scan[] = [
 	{
-		Number: 1,
 		SourceName: 'IMG_001.JPG',
 		FileId: 1234
 	},
 	{
-		Number: 2,
 		SourceName: 'IMG_002.JPG',
 		FileId: 1234
 	},

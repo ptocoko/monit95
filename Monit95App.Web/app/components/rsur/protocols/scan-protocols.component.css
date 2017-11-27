@@ -12,7 +12,7 @@
 }
 
 .fileUploader [type="file"] {
-    cursor: inherit;
+    cursor: pointer;
     display: block;
     font-size: 999px;
     filter: alpha(opacity=0);
