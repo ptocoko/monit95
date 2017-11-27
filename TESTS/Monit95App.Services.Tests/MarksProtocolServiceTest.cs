@@ -84,10 +84,11 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
-        public void CreateTest()
+        public void CreateOrEditTest()
         {
             // Arrange            
-            var data = new List<RsurParticipTest>
+            // RsurParticipTest
+            var rsurParticipTests = new List<RsurParticipTest>
             {
                 new RsurParticipTest
                 {
@@ -135,13 +136,28 @@ namespace Monit95App.Services.Tests
                     }
                 }
             }.AsQueryable();
-            var mockSet = Substitute.For<DbSet<RsurParticipTest>, IQueryable<RsurParticipTest>>();
-            ((IQueryable<RsurParticipTest>)mockSet).Provider.Returns(data.Provider);
-            ((IQueryable<RsurParticipTest>)mockSet).Expression.Returns(data.Expression);
-            ((IQueryable<RsurParticipTest>)mockSet).ElementType.Returns(data.ElementType);
-            ((IQueryable<RsurParticipTest>)mockSet).GetEnumerator().Returns(data.GetEnumerator());
+            var mockRsurParticipTestSet = Substitute.For<DbSet<RsurParticipTest>, IQueryable<RsurParticipTest>>();                      
+            ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).Provider.Returns(rsurParticipTests.Provider);
+            ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).Expression.Returns(rsurParticipTests.Expression);
+            ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).ElementType.Returns(rsurParticipTests.ElementType);
+            ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).GetEnumerator().Returns(rsurParticipTests.GetEnumerator());
+            //--
+
+            // RsurTestResult
+            var rsurTestResults = new List<RsurTestResult>
+            {
+                new RsurTestResult
+                {
+                    RsurParticipTestId = 2,
+                    RsurQuestionValues = "1;0;0"
+                }
+            }.AsQueryable();
+            var mockRsurTestResultSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();            
+            //--
+
             var mockContext = Substitute.For<CokoContext>();
-            mockContext.RsurParticipTests.Returns(mockSet);
+            mockContext.RsurParticipTests.Returns(mockRsurParticipTestSet);
+            mockContext.RsurTestResults.Returns(mockRsurTestResultSet);
 
             var service = new MarksProtocolService(mockContext);
             var marksProtocol = new MarksProtocol
@@ -156,7 +172,12 @@ namespace Monit95App.Services.Tests
             };
             var areaId = 201;
 
-            
+            // Act
+            service.CreateOrEdit(marksProtocol, areaId);
+
+            // Assert
+            mockContext.Received().SaveChanges();
+            mockRsurTestResultSet.Received().Add(Arg.Is<RsurTestResult>(p => p.RsurParticipTestId == 1 && p.RsurQuestionValues == "0;1;1"));
         }
 
         [TestMethod]
@@ -174,9 +195,8 @@ namespace Monit95App.Services.Tests
         [MyExpectedException(typeof(ArgumentException), "participCode is incorrect or is not access for current user")]
         public void GetEmptyTest()
         {
-            // Arrange
-            var validationDictionary = Substitute.For<IValidationDictionary>();
-            var service = new MarksProtocolService(mockContext, validationDictionary);
+            // Arrange            
+            var service = new MarksProtocolService(mockContext);
 
             // Act
             service.Get(12346, 201);
@@ -185,9 +205,8 @@ namespace Monit95App.Services.Tests
         [TestMethod]
         public void GetCorrectParamsTest()
         {
-            // Arrange     
-            var validationDictionary = Substitute.For<IValidationDictionary>();
-            var service = new MarksProtocolService(mockContext, validationDictionary);
+            // Arrange                 
+            var service = new MarksProtocolService(mockContext);
 
             // Act            
             var protocol = service.Get(12345, 201);

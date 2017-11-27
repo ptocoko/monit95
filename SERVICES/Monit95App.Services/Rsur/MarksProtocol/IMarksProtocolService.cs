@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-using Monit95App.Services.DTOs;
-
 namespace Monit95App.Services.Rsur.MarksProtocol
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -16,6 +14,6 @@ namespace Monit95App.Services.Rsur.MarksProtocol
 
         Domain.Core.MarksProtocol Get(int participCode, int areaCode); // areaCode for Validate
 
-        void Create(PostMarksProtocol postMarksProtocol, int areaCode);
+        void CreateOrEdit(Domain.Core.MarksProtocol marksProtocol, int areaCode);
     }
 }

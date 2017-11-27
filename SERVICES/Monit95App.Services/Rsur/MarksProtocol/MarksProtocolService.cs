@@ -7,7 +7,6 @@ using Monit95App.Infrastructure.Data;
 namespace Monit95App.Services.Rsur.MarksProtocol
 {
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
 
     using Monit95App.Domain.Core;
     using Monit95App.Domain.Core.Entities;
@@ -136,7 +135,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             return marksProtocol;            
         }
 
-        public void Create(MarksProtocol marksProtocol, int areaCode)
+        public void CreateOrEdit(MarksProtocol marksProtocol, int areaCode)
         {
             ModelValidationResults.Clear();
             if (marksProtocol == null)
@@ -173,21 +172,19 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                 if (questionResult.CurrentMark > maxValue)
                 {
                     questionResult.CurrentMark = maxValue;
-                }
-                rsurQuestionValues += $"{questionResult.CurrentMark.ToString()};";
+                }                
             });
-            rsurQuestionValues = rsurQuestionValues.Remove(rsurQuestionValues.Length - 1);
+            rsurQuestionValues = marksProtocol.QuestionResults.Select(s => s.CurrentMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
 
             var rsurTestResult = context.RsurTestResults.Find(marksProtocol.ParticipTestId);
             // create
-            if (rsurParticipTest == null) 
+            if (rsurTestResult == null) 
             {
                 context.RsurTestResults.Add(new RsurTestResult
                 {
                     RsurParticipTestId = marksProtocol.ParticipTestId,
                     RsurQuestionValues = rsurQuestionValues
                 });
-
             }
             // edit
             else

@@ -29,25 +29,26 @@ namespace Monit95App.RESTful_API.Rsur
         [Route("{id:int}")]
         public IHttpActionResult GetProtocol()
         {
-            var rsurParticipTestId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
+            return null;
+            //var rsurParticipTestId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
 
-            RsurParticipEditProtocol protocol;
-            try
-            {
-                protocol = testProtocolService.GetProtocol(rsurParticipTestId);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //RsurParticipEditProtocol protocol;
+            //try
+            //{
+            //    protocol = testProtocolService.GetProtocol(rsurParticipTestId);
+            //}
+            //catch (ArgumentException ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
 
-            var areaCode = int.Parse(User.Identity.Name);
-            if (protocol.AreaCode != areaCode)
-            {
-                return BadRequest("Resource is not access current user");
-            }
+            //var areaCode = int.Parse(User.Identity.Name);
+            //if (protocol.AreaCode != areaCode)
+            //{
+            //    return BadRequest("Resource is not access current user");
+            //}
 
-            return Ok(protocol);
+            //return Ok(protocol);
         }        
 
         // TODO: need refactoring

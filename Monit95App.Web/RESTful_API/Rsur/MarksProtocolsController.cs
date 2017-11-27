@@ -24,7 +24,7 @@ namespace Monit95App.RESTful_API.Rsur
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post([FromBody]PostMarksProtocol postMarksProtocol)
+        public IHttpActionResult Post([FromBody]MarksProtocol postMarksProtocol)
         {                       
             var areaCode = int.Parse(User.Identity.Name);            
             
