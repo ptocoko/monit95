@@ -13,6 +13,7 @@ using NSubstitute;
 
 namespace Monit95App.Services.Tests
 {
+    using Monit95App.Domain.Core;
     using Monit95App.Services.Rsur.MarksProtocol;
     using Monit95App.Services.Validations;
 
@@ -83,24 +84,87 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
-        public void ValidatePostMarksProtocolTest()
+        public void CreateTest()
         {
-            // Arrange
-            var validationDictionary = Substitute.For<IValidationDictionary>();
-            var service = new MarksProtocolService(mockContext, validationDictionary);
-            var postMarksProtocol = new PostMarksProtocol { ParticipTestId = 1 };
-           
-            // Act
-            service.ValidatePostMarksProtocol(postMarksProtocol);
+            // Arrange            
+            var data = new List<RsurParticipTest>
+            {
+                new RsurParticipTest
+                {
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    },
+                    Id = 1,
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true,
+                        Test = new Test
+                        {
+                            TestQuestions = new List<TestQuestion>
+                            {
+                                new TestQuestion
+                                {
+                                    Order = 1,
+                                    Question = new Question
+                                    {
+                                        MaxMark = 1
+                                    }
+                                },
+                                new TestQuestion
+                                {
+                                    Order = 2,
+                                    Question = new Question
+                                    {
+                                        MaxMark = 1
+                                    }
+                                },
+                                new TestQuestion
+                                {
+                                    Order = 3,
+                                    Question = new Question
+                                    {
+                                        MaxMark = 1
+                                    }
+                                },
+                            }
+                        }
+                    }
+                }
+            }.AsQueryable();
+            var mockSet = Substitute.For<DbSet<RsurParticipTest>, IQueryable<RsurParticipTest>>();
+            ((IQueryable<RsurParticipTest>)mockSet).Provider.Returns(data.Provider);
+            ((IQueryable<RsurParticipTest>)mockSet).Expression.Returns(data.Expression);
+            ((IQueryable<RsurParticipTest>)mockSet).ElementType.Returns(data.ElementType);
+            ((IQueryable<RsurParticipTest>)mockSet).GetEnumerator().Returns(data.GetEnumerator());
+            var mockContext = Substitute.For<CokoContext>();
+            mockContext.RsurParticipTests.Returns(mockSet);
+
+            var service = new MarksProtocolService(mockContext);
+            var marksProtocol = new MarksProtocol
+            {
+                ParticipTestId = 1,
+                QuestionResults = new List<QuestionResult>()
+                {
+                 new QuestionResult { Order = 1, CurrentMark = 0 },
+                 new QuestionResult { Order = 2, CurrentMark = 1 },
+                 new QuestionResult { Order = 3, CurrentMark = 1 }
+                }
+            };
+            var areaId = 201;
+
+            
         }
 
         [TestMethod]
         [MyExpectedException(typeof(ArgumentException), "participCode has to be 10000-99999 and areaCode has to be 210-217")]
         public void GetIncorrectParticipCodeTest()
         {
-            // Arrange
-            var validationDictionary = Substitute.For<IValidationDictionary>();
-            var service = new MarksProtocolService(mockContext, validationDictionary);
+            // Arrange            
+            var service = new MarksProtocolService(mockContext);
             
             // Act
             service.Get(1234, 201);

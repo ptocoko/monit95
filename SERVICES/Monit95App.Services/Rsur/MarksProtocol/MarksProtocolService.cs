@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Services.DTOs;
 // ReSharper disable UnusedMember.Global
 
 namespace Monit95App.Services.Rsur.MarksProtocol
@@ -11,54 +10,26 @@ namespace Monit95App.Services.Rsur.MarksProtocol
     using System.Diagnostics.CodeAnalysis;
 
     using Monit95App.Domain.Core;
-    using Monit95App.Services.Interfaces;
-    using Monit95App.Services.Validations;
+    using Monit95App.Domain.Core.Entities;
 
     public class MarksProtocolService : IMarksProtocolService
     {
         #region Dependencies
 
         private readonly CokoContext context;
-        private readonly IValidationDictionary validatonDictionary;
+        public List<ValidationResult> ModelValidationResults = new List<ValidationResult>();
 
         #endregion
 
-        public MarksProtocolService(CokoContext context, IValidationDictionary validatonDictionary)
+        public MarksProtocolService(CokoContext context)
         {
-            this.context = context;
-            this.validatonDictionary = validatonDictionary;
-        }
-
-        public RsurParticipEditProtocol GetProtocol(int rsurParticipTestId)
-        {
-            throw new NotImplementedException();
-        }
-
-        [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:CurlyBracketsMustNotBeOmitted", Justification = "Reviewed. Suppression is OK here.")]
-        public IEnumerable<ValidationResult> ValidatePostMarksProtocol(PostMarksProtocol postMarksProtocol)
-        {
-            // 1) Validate by attributes
-            var validationResults = new List<ValidationResult>();
-            var validationContext = new ValidationContext(postMarksProtocol);
-                       
-            if (Validator.TryValidateObject(postMarksProtocol, validationContext, validationResults, true))
-            {
-                
-            }
-
-            if (postMarksProtocol?.ParticipTestId <= 0)
-                validatonDictionary.AddError(nameof(postMarksProtocol), $"{nameof(postMarksProtocol.ParticipTestId)} <= 0");
-
-           // ValidationResult.Success
-
-
-            return validationResults;
-        }
+            this.context = context;            
+        }           
 
         #region Service methods
 
 
-        public IEnumerable<Monit95App.Domain.Core.MarksProtocol> GetProtocols(int rsurTestId, int areaCode)
+        public IEnumerable<MarksProtocol> GetProtocols(int rsurTestId, int areaCode)
         {
             //var protocols = context.RsurParticipTests
             //    .Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
@@ -119,7 +90,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                                     .Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
         }
 
-        public Domain.Core.MarksProtocol Get(int participCode, int areaCode)
+        public MarksProtocol Get(int participCode, int areaCode)
         {
             if (!Enumerable.Range(10000, 99999).Contains(participCode)
                 || !Enumerable.Range(201, 217).Contains(areaCode))
@@ -165,21 +136,66 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             return marksProtocol;            
         }
 
-        public void Create(PostMarksProtocol postMarksProtocol, int areaCode)
+        public void Create(MarksProtocol marksProtocol, int areaCode)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Add(PostMarksProtocol postMarksProtocol, int areaCode)
-        {
-            if (!Enumerable.Range(201, 217).Contains(areaCode))
+            ModelValidationResults.Clear();
+            if (marksProtocol == null)
             {
-                throw new ArgumentException(nameof(areaCode));
+                ModelValidationResults.Add(new ValidationResult($"{nameof(marksProtocol)} is null"));
+                return;
+            }                
+
+            if (marksProtocol.QuestionResults == null)
+            {
+                ModelValidationResults.Add(new ValidationResult($"{nameof(marksProtocol.QuestionResults)}"));
+                return;
+            }                
+
+            var rsurParticipTest = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == marksProtocol.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode);
+            if (rsurParticipTest == null)
+            {
+                ModelValidationResults.Add(new ValidationResult($"- RsurTest is not open;" +
+                                                                $"- Or {nameof(marksProtocol.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
+                                                                $"- Or user has not access to this entity"));
+                return;
             }
+            
+            var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // current test's testQuestions
+            if(testQuestions.Count() != marksProtocol.QuestionResults.Count())
+            {
+                ModelValidationResults.Add(new ValidationResult($"{nameof(testQuestions)} count != {nameof(marksProtocol.QuestionResults)}"));
+                return;
+            }
+            string rsurQuestionValues = string.Empty;
+            marksProtocol.QuestionResults.ForEach(questionResult =>
+            {
+                var maxValue = testQuestions.Single(tq => tq.Order == questionResult.Order).Question.MaxMark;
+                if (questionResult.CurrentMark > maxValue)
+                {
+                    questionResult.CurrentMark = maxValue;
+                }
+                rsurQuestionValues += $"{questionResult.CurrentMark.ToString()};";
+            });
+            rsurQuestionValues = rsurQuestionValues.Remove(rsurQuestionValues.Length - 1);
 
+            var rsurTestResult = context.RsurTestResults.Find(marksProtocol.ParticipTestId);
+            // create
+            if (rsurParticipTest == null) 
+            {
+                context.RsurTestResults.Add(new RsurTestResult
+                {
+                    RsurParticipTestId = marksProtocol.ParticipTestId,
+                    RsurQuestionValues = rsurQuestionValues
+                });
 
-            throw new NotImplementedException();
-        }        
+            }
+            // edit
+            else
+            {
+                rsurTestResult.RsurQuestionValues = rsurQuestionValues;
+            }
+            context.SaveChanges();            
+        }       
 
         #endregion
     }

@@ -12,11 +12,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
         // RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null);        
         IDictionary<int, RsurTestStatisticsDto> GetStatistics(int areaCode);
 
-        string GetTestName(int rsurTestId);
-
-        IEnumerable<Domain.Core.MarksProtocol> GetProtocols(int rsurTestId, int areaCode);
-
-        RsurParticipEditProtocol GetProtocol(int rsurParticipTestId);
+        string GetTestName(int rsurTestId);                
 
         Domain.Core.MarksProtocol Get(int participCode, int areaCode); // areaCode for Validate
 
