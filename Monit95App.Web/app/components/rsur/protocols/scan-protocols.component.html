@@ -3,7 +3,7 @@
 <div class="actions-bar">
     <div class="search-field">
         <mat-form-field>
-            <input (keyup)="applyFilter($event.target.value)" placeholder="Поиск..." matInput />
+            <input [(ngModel)]="searchText" placeholder="Поиск..." matInput />
         </mat-form-field>
     </div>
 
@@ -17,25 +17,22 @@
     <span class="state-caption">Дублирующих сканов: {{duplicatesCount}}</span>
     <span class="state-caption">Не удалось отправить: {{failedScansCount}}</span>
 </mat-toolbar>
-<!--<p class="status-bar">
-    <span>Загружено сканов: {{scans.length}}</span>
-</p>-->
 
 <div *ngIf="scans.length != 0">
     <hr />
     <table style="width:700px" class="table table-bordered">
         <tr>
-            <th style="width:50px; text-align:center">#</th>
+            <th class="centered-mini-cell">#</th>
             <th style="text-align:center">Наименование файла</th>
         </tr>
-        <tr *ngFor="let scan of scans; let i = index" [ngClass]="{'uploadError': scan.Status === 'isFailed', 'uploadComplete': scan.Status === 'isComplete'}">
-            <td>{{i + 1}}</td>
+        <tr *ngFor="let scan of scans | filter : {'SourceName' : searchText }; let i = index" [ngClass]="{'uploadError': scan.Status === 'isFailed', 'uploadComplete': scan.Status === 'isComplete'}">
+            <td class="centered-mini-cell">{{i + 1}}</td>
             <td>{{scan.SourceName}}</td>
-            <td *ngIf="scan.Status !== 'isUploading'" style="width:50px; text-align:center">
+            <td *ngIf="scan.Status !== 'isUploading'" class="centered-mini-cell">
                 <a *ngIf="scan.FileId" class="glyphicon glyphicon-screenshot" [routerLink]="['/rsur/match-protocol', scan.FileId]"></a>
                 <a *ngIf="scan.Status === 'isFailed'" class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a>
             </td>
-            <td *ngIf="scan.Status != 'isUploading'"  style="width:50px; text-align:center">
+            <td *ngIf="scan.Status !== 'isUploading'" class="centered-mini-cell">
                 <a class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deleteScan(scan, $event.target)"></a>
             </td>
             <td colspan="2" style="width:100px" *ngIf="scan.Status === 'isUploading'">
@@ -43,36 +40,4 @@
             </td>
         </tr>
     </table>
-
-    <!--<div class="scans-container mat-elevation-z8">
-        <mat-table #table [dataSource]="dataSource">
-
-            <ng-container matColumnDef="id">
-                <mat-header-cell class="idColumnWidth" *matHeaderCellDef> # </mat-header-cell>
-                <mat-cell class="idColumnWidth" *matCellDef="let scan"> {{scan.Number}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="sourceName">
-                <mat-header-cell class="sourceNameColumnWidth" *matHeaderCellDef>Имя файла</mat-header-cell>
-                <mat-cell class="sourceNameColumnWidth" *matCellDef="let scan"> {{scan.SourceName}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="fileId">
-                <mat-header-cell class="sizeColumnWidth" *matHeaderCellDef>ID</mat-header-cell>
-                <mat-cell class="sizeColumnWidth" *matCellDef="let scan"> {{scan.FileId}}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="uploadProgress">
-                <mat-header-cell class="progressColumnWidth" *matHeaderCellDef>Прогресс отправки</mat-header-cell>
-                <mat-cell class="progressColumnWidth" *matCellDef="let scan">
-                    <span *ngIf="scan.Status === 'isUploading'"><mat-progress-bar [value]="scan.UploadProgress"></mat-progress-bar></span>
-                    <span *ngIf="scan.Status === 'isFailed'">Не удалось отправить скан <a class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a></span>
-                    <span *ngIf="scan.Status === 'isComplete'">Отправлено!</span>
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row [ngClass]="{'uploadError': row.Status === 'isFailed', 'uploadComplete': row.Status === 'isComplete'}" *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>-->
-    <!--</div>-->
 </div>

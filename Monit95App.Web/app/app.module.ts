@@ -35,7 +35,7 @@ import { SeminarReportsListComponent } from "./components/rsur/seminar-reports/s
 import { SeminarReportComponent } from "./components/rsur/seminar-reports/seminar-report/seminar-report.component";
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
 import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
-import { ScanProtocolsComponent } from "./components/rsur/protocols/scan-protocols.component";
+import { ScanProtocolsComponent, FilterPipe } from "./components/rsur/protocols/scan-protocols.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -132,6 +132,7 @@ import { GlobalErrorHandler } from './error-handler';
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
+		FilterPipe,
         SchoolFilter,    
         SchoolNameFilterPipe,
         TestNameWithDateFilterPipe,

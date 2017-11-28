@@ -139,6 +139,7 @@ AppModule = __decorate([
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
             rsur_report_filter_pipe_1.TestIdPipe,
+            scan_protocols_component_1.FilterPipe,
             school_filter_pipe_1.SchoolFilter,
             rsur_report_filter_pipe_1.SchoolNameFilterPipe,
             rsur_report_filter_pipe_1.TestNameWithDateFilterPipe,

@@ -1,6 +1,5 @@
 ﻿
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
 import { Scan } from "../../../models/scan.model";
@@ -16,18 +15,12 @@ export class ScanProtocolsComponent implements OnInit{
 	notMatchedScansCount: number = 0;
 	duplicatesCount: number = 0;
 	failedScansCount: number = 0;
-
-	displayedColumns = ['id', 'sourceName', 'fileId', 'uploadProgress'];
-	dataSource = new MatTableDataSource();
 	
-	constructor(private rsurProtocolsService: RsurProtocolsService) {
-		
-	}
+	constructor(private rsurProtocolsService: RsurProtocolsService) { }
 
 	ngOnInit() {
 		this.rsurProtocolsService.getNotMatchedScans().subscribe(res => {
 			this.scans = res;
-			this.dataSource = new MatTableDataSource(this.scans);
 			this.getStats();
 		});
 	}
@@ -35,13 +28,6 @@ export class ScanProtocolsComponent implements OnInit{
 	getStats() {
 		this.notMatchedScansCount = this.scans.filter(s => s.FileId).length;
 		this.failedScansCount = this.scans.filter(s => s.Status === 'isFailed').length;
-	}
-
-	applyFilter(filterValue: string) {
-		filterValue = filterValue.trim();
-		filterValue = filterValue.toLowerCase();
-		this.dataSource.filter = filterValue;
-
 	}
 
 	addPhoto(event: any) {
@@ -63,7 +49,6 @@ export class ScanProtocolsComponent implements OnInit{
 				this.scans.push(scan);
 				this.uploadScan(scan);
 			}
-			this.dataSource = new MatTableDataSource(this.scans);
 		}
 		event.target.value = '';
 	}
@@ -78,8 +63,8 @@ export class ScanProtocolsComponent implements OnInit{
 	}
 
 	responseHandler(res: number | HttpResponse<number>, scan: Scan) {
-		if (res instanceof HttpResponse) {
-			scan.FileId = res.body;
+		if (res instanceof HttpResponse) { //запрос возвращает сначала статус загрузки в процентах, а после загрузки FileId
+			scan.FileId = res.body;        //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
 		}
 		else {
 			scan.UploadProgress = res;
@@ -88,11 +73,10 @@ export class ScanProtocolsComponent implements OnInit{
 	}
 
 	errorResponseHandler(error: any, scan: Scan) {
-		if (error.status && error.status === 409) {
+		if (error.status && error.status === 409) { //если ошибка имеет код 409 отмечаем файл как дубликат, т.е. убираем из списка
 			let duplicatedScanIndex = this.scans.indexOf(scan);
 			this.scans.splice(duplicatedScanIndex, 1);
-
-			this.dataSource = new MatTableDataSource(this.scans);
+			
 			this.duplicatesCount += 1;
 		}
 		else {
@@ -112,7 +96,7 @@ export class ScanProtocolsComponent implements OnInit{
 		this.uploadScan(scan);
 	}
 
-	validateSelectedPhotos(files: FileList): boolean {
+	validateSelectedPhotos(files: FileList): boolean { //проверяем каждый загружаемый файл
 		for (var i = 0; i < files.length; i++) {
 			if (files[i].size / 1024 / 1024 > 15) {
 				alert('Размер файла ' + files[i].name + ' превышает максимально разрешенный. \nМаксимально разрешенный размер файла — 10 МБ')
@@ -124,5 +108,28 @@ export class ScanProtocolsComponent implements OnInit{
 			}
 		}
 		return true;
+	}
+}
+
+//попытка сделать один общий фильтр pipe
+@Pipe({ name: 'filter' })
+export class FilterPipe implements PipeTransform {
+	transform(array: any[], searchObj: {}) {
+		for (let key in searchObj) {
+			
+			if (searchObj[key] && typeof searchObj[key] === 'string') {
+				let searchString: string = searchObj[key].toLowerCase().toString();
+
+				array = array.filter(f => {
+					if (f[key] && typeof f[key] === 'string') {
+						let value: string = f[key].toLowerCase().toString();
+
+						return value.includes(searchString);
+					}
+				})
+			}
+		}
+
+		return array;
 	}
 }
