@@ -20,7 +20,7 @@ namespace Monit95App.Util
 {
     using System.Web.Http.ModelBinding;
 
-    using Monit95App.Services.Validations;
+    //using Monit95App.Services.Validations;
 
     public class AutofacConfig
     {
@@ -57,7 +57,7 @@ namespace Monit95App.Util
             builder.RegisterType<ParticipReportService>().As<IParticipReportService>();
             builder.RegisterType<RatingService>().As<IRatingService>();
             builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();
-            builder.RegisterType<ModelStateWrapper>().As<IValidationDictionary>();
+            //builder.RegisterType<ModelStateWrapper>().As<IValidationDictionary>();
 
              var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

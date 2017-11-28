@@ -51,3 +51,20 @@ mat-toolbar{
     min-width: 50px;
     text-align: center;
 }
+
+@keyframes swirling{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.swirl-spinner {
+    animation-duration: 1s;
+    animation-name:swirling;
+    animation-iteration-count:infinite;
+    animation-direction:normal;
+    animation-timing-function:ease-in-out;
+}

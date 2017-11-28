@@ -33,7 +33,8 @@
                 <a *ngIf="scan.Status === 'isFailed'" class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a>
             </td>
             <td *ngIf="scan.Status !== 'isUploading'" class="centered-mini-cell">
-                <a class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deleteScan(scan, $event.target)"></a>
+                <a *ngIf="scan.Status !== 'isDeleting'" class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deleteScan(scan)"></a>
+                <i *ngIf="scan.Status === 'isDeleting'" class="fa fa-spinner swirl-spinner" aria-hidden="true"></i>
             </td>
             <td colspan="2" style="width:100px" *ngIf="scan.Status === 'isUploading'">
                 <mat-progress-bar [value]="scan.UploadProgress"></mat-progress-bar>

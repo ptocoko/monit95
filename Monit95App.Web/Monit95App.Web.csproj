@@ -269,7 +269,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ModelStateWrapper.cs" />
     <Compile Include="RESTful_API\ClassController.cs" />
     <Compile Include="RESTful_API\DocumentsController.cs" />
     <Compile Include="RESTful_API\ExcelFilesController.cs" />

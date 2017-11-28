@@ -10,12 +10,12 @@ import { Scan } from "../../../models/scan.model";
 	styleUrls: [`./app/components/rsur/protocols/scan-protocols.component.css?v=${new Date().getTime()}`]
 })
 export class ScanProtocolsComponent implements OnInit{
-	scans: Scan[] = [];
+	scans: ScanForUpload[] = [];
 
 	notMatchedScansCount: number = 0;
 	duplicatesCount: number = 0;
 	failedScansCount: number = 0;
-	
+
 	constructor(private rsurProtocolsService: RsurProtocolsService) { }
 
 	ngOnInit() {
@@ -38,7 +38,7 @@ export class ScanProtocolsComponent implements OnInit{
 			{
 				let file = files[i];
 
-				let scan: Scan = {
+				let scan: ScanForUpload = {
 					SourceName: file.name,
 					UploadProgress: 0,
 					FileContent: file,
@@ -53,7 +53,7 @@ export class ScanProtocolsComponent implements OnInit{
 		event.target.value = '';
 	}
 
-	uploadScan(scan: Scan) {
+	uploadScan(scan: ScanForUpload) {
 		scan.Status = 'isUploading';
 		this.rsurProtocolsService.postScan(scan.FileContent).subscribe(
 			response => this.responseHandler(response, scan),
@@ -62,7 +62,7 @@ export class ScanProtocolsComponent implements OnInit{
 		);
 	}
 
-	responseHandler(res: number | HttpResponse<number>, scan: Scan) {
+	responseHandler(res: number | HttpResponse<number>, scan: ScanForUpload) {
 		if (res instanceof HttpResponse) { //запрос возвращает сначала статус загрузки в процентах, а после загрузки FileId
 			scan.FileId = res.body;        //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
 		}
@@ -72,7 +72,7 @@ export class ScanProtocolsComponent implements OnInit{
 		this.getStats();
 	}
 
-	errorResponseHandler(error: any, scan: Scan) {
+	errorResponseHandler(error: any, scan: ScanForUpload) {
 		if (error.status && error.status === 409) { //если ошибка имеет код 409 отмечаем файл как дубликат, т.е. убираем из списка
 			let duplicatedScanIndex = this.scans.indexOf(scan);
 			this.scans.splice(duplicatedScanIndex, 1);
@@ -85,14 +85,23 @@ export class ScanProtocolsComponent implements OnInit{
 		}
 	}
 
-	deleteScan(scan: Scan, elem: HTMLAnchorElement) {
+	deleteScan(scan: ScanForUpload) {
+		let statusBeforeDeleting = scan.Status;
+		scan.Status = 'isDeleting';
 		this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(res => {
 			this.scans.splice(this.scans.indexOf(scan), 1);
+			this.getStats();
+		},
+		error => {
+			let message = error.message ? error.message : error;
+			alert(message);
+			console.error(error);
+			scan.Status = statusBeforeDeleting;
 			this.getStats();
 		})
 	}
 
-	reuploadScan(scan: Scan) {
+	reuploadScan(scan: ScanForUpload) {
 		this.uploadScan(scan);
 	}
 
@@ -109,6 +118,12 @@ export class ScanProtocolsComponent implements OnInit{
 		}
 		return true;
 	}
+}
+
+interface ScanForUpload extends Scan {
+	UploadProgress?: number;
+	Status?: 'isComplete' | 'isUploading' | 'isFailed' | 'isDeleting';
+	FileContent?: File;
 }
 
 //попытка сделать один общий фильтр pipe

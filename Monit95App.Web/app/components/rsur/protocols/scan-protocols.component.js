@@ -74,10 +74,17 @@ var ScanProtocolsComponent = (function () {
             this.failedScansCount += 1;
         }
     };
-    ScanProtocolsComponent.prototype.deleteScan = function (scan, elem) {
+    ScanProtocolsComponent.prototype.deleteScan = function (scan) {
         var _this = this;
+        scan.Status = 'isDeleting';
         this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(function (res) {
             _this.scans.splice(_this.scans.indexOf(scan), 1);
+            _this.getStats();
+        }, function (error) {
+            var message = error.message ? error.message : error;
+            alert(message);
+            console.error(error);
+            scan.Status = 'isFailed';
             _this.getStats();
         });
     };
