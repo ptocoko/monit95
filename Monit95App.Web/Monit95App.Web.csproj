@@ -326,6 +326,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="api.txt" />
     <Content Include="app\app.component.html" />
     <Content Include="app\class-particips\add-and-update\update.component.html" />
     <Content Include="app\class-particips\add-and-update\add.component.html" />
