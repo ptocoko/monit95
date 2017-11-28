@@ -15,6 +15,8 @@ namespace Monit95App.Domain.Core
         public string TestName { get; set; } // example: "Орфография" | "0101-Орфография"
         
         public List<QuestionResult> QuestionResults { get; set; }
+
+        public int FileId { get; set; } // бланк ответов
     }    
 
     public class QuestionResult

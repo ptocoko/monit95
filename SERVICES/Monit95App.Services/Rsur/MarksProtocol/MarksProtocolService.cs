@@ -187,13 +187,15 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                 context.RsurTestResults.Add(new RsurTestResult
                 {
                     RsurParticipTestId = marksProtocol.ParticipTestId,
-                    RsurQuestionValues = rsurQuestionValues
+                    FileId = marksProtocol.FileId,
+                    RsurQuestionValues = rsurQuestionValues                    
                 });
             }
             // edit
             else
             {
                 rsurTestResult.RsurQuestionValues = rsurQuestionValues;
+                rsurTestResult.FileId = marksProtocol.FileId;
             }
             context.SaveChanges();            
         }       
