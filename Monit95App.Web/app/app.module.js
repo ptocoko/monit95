@@ -95,6 +95,8 @@ AppModule = __decorate([
             material_1.MatTableModule,
             material_1.MatSortModule,
             material_1.MatProgressSpinnerModule,
+            material_1.MatToolbarModule,
+            material_1.MatProgressBarModule,
             ngx_order_pipe_1.OrderModule,
             ng_bootstrap_1.NgbModule.forRoot(),
             router_1.RouterModule.forRoot([
@@ -137,6 +139,7 @@ AppModule = __decorate([
             limit_to_pipe_1.LimitToPipe,
             particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
             rsur_report_filter_pipe_1.TestIdPipe,
+            scan_protocols_component_1.FilterPipe,
             school_filter_pipe_1.SchoolFilter,
             rsur_report_filter_pipe_1.SchoolNameFilterPipe,
             rsur_report_filter_pipe_1.TestNameWithDateFilterPipe,
