@@ -3,7 +3,6 @@ import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
 import { Scan } from "../../../models/scan.model";
-import { Subject } from "rxjs/Subject";
 
 @Component({
 	selector: 'scan-protocols-component',
@@ -16,10 +15,6 @@ export class ScanProtocolsComponent implements OnInit{
 	notMatchedScansCount: number = 0;
 	duplicatesCount: number = 0;
 	failedScansCount: number = 0;
-
-	scansUploading: boolean = false;
-	scansUploadProgress: number;
-	scansUploadingChange: Subject<number> = new Subject<number>();
 	
 	constructor(private rsurProtocolsService: RsurProtocolsService) { }
 
@@ -36,11 +31,7 @@ export class ScanProtocolsComponent implements OnInit{
 	}
 
 	addPhoto(event: any) {
-		this.scansUploading = true;
-		
 		let files: FileList = event.target.files;
-		let scansCount = files.length;
-		let uploadedCount: number;
 
 		if (this.validateSelectedPhotos(files)) {
 			for (let i = 0; i < files.length; i++)
@@ -51,27 +42,28 @@ export class ScanProtocolsComponent implements OnInit{
 					SourceName: file.name,
 					UploadProgress: 0,
 					FileContent: file,
+					FileId: null,
 					Status: 'isUploading'
 				};
 
 				this.scans.push(scan);
-				this.uploadScan(scan, uploadedCount);
+				this.uploadScan(scan);
 			}
 		}
 		event.target.value = '';
 	}
 
-	uploadScan(scan: Scan, uploadedCount: number) {
+	uploadScan(scan: Scan) {
 		scan.Status = 'isUploading';
 		this.rsurProtocolsService.postScan(scan.FileContent).subscribe(
 			response => this.responseHandler(response, scan),
 			error => this.errorResponseHandler(error, scan),
-			() => this.completeHandler(scan, uploadedCount)
+			() => scan.Status = 'isComplete'
 		);
 	}
 
 	responseHandler(res: number | HttpResponse<number>, scan: Scan) {
-		if (res instanceof HttpResponse) { //запрос возвращает сначала статус загрузки в процентах, а после полной загрузки возвращает FileId
+		if (res instanceof HttpResponse) { //запрос возвращает сначала статус загрузки в процентах, а после загрузки FileId
 			scan.FileId = res.body;        //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
 		}
 		else {
@@ -92,14 +84,6 @@ export class ScanProtocolsComponent implements OnInit{
 			this.failedScansCount += 1;
 		}
 	}
-
-	completeHandler(scan: Scan, uploadedCount: number) {
-		
-		
-		scan.Status = 'isComplete';
-	}
-
-
 
 	deleteScan(scan: Scan, elem: HTMLAnchorElement) {
 		this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(res => {
