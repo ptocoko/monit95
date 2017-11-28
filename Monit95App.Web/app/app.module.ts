@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MatButtonModule, MatDialogModule, MatCardModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatCardModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatInputModule, MatFormFieldModule, MatToolbarModule, MatProgressBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -35,7 +35,7 @@ import { SeminarReportsListComponent } from "./components/rsur/seminar-reports/s
 import { SeminarReportComponent } from "./components/rsur/seminar-reports/seminar-report/seminar-report.component";
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
 import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
-import { ScanProtocolsComponent } from "./components/rsur/protocols/scan-protocols.component";
+import { ScanProtocolsComponent, FilterPipe } from "./components/rsur/protocols/scan-protocols.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -86,6 +86,8 @@ import { GlobalErrorHandler } from './error-handler';
         MatTableModule,
 		MatSortModule,
 		MatProgressSpinnerModule,
+		MatToolbarModule,
+		MatProgressBarModule,
         OrderModule,	
         NgbModule.forRoot(),
         RouterModule.forRoot([
@@ -130,6 +132,7 @@ import { GlobalErrorHandler } from './error-handler';
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
+		FilterPipe,
         SchoolFilter,    
         SchoolNameFilterPipe,
         TestNameWithDateFilterPipe,

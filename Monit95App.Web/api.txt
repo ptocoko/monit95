@@ -1,0 +1,9 @@
+﻿RsurProtocolsService.getNotMatchedScans()
+{
+	return [] 
+	{
+		SourceName: string;
+		FileId: number
+	}	
+}
+

@@ -30,7 +30,7 @@ namespace Monit95App.Web.Api
 
         #endregion
 
-        private static bool isOdd = false;
+        private static bool isEven = false;
 
         public ExcelFilesController(IClassParticipImporter classParticipImporter,
                                     IClassParticipConverter classParticipConverter,
@@ -84,8 +84,8 @@ namespace Monit95App.Web.Api
             //    RowNumbersWithError = rowNumbersWithError
             //});
 
-            if (isOdd) { isOdd = !isOdd; return Ok(); }
-            else { isOdd = !isOdd; return BadRequest(); }
+            if (isEven) { isEven = !isEven; return Ok(1452); }
+            else { isEven = !isEven; return BadRequest(); }
         }
 
         [HttpGet]

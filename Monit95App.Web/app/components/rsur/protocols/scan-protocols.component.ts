@@ -1,28 +1,33 @@
 ﻿
-import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
+import { HttpResponse } from "@angular/common/http";
+import { Scan } from "../../../models/scan.model";
 
 @Component({
 	selector: 'scan-protocols-component',
 	templateUrl: `./app/components/rsur/protocols/scan-protocols.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/components/rsur/protocols/scan-protocols.component.css?v=${new Date().getTime()}`]
 })
-export class ScanProtocolsComponent {
-	//scans: File[] = [];
+export class ScanProtocolsComponent implements OnInit{
 	scans: Scan[] = [];
 
-	displayedColumns = ['id', 'sourceName', 'size', 'uploadProgress'];
-	dataSource = new MatTableDataSource();
-	ScanStatus: ScanStatus;
+	notMatchedScansCount: number = 0;
+	duplicatesCount: number = 0;
+	failedScansCount: number = 0;
 	
 	constructor(private rsurProtocolsService: RsurProtocolsService) { }
 
-	applyFilter(filterValue: string) {
-		filterValue = filterValue.trim();
-		filterValue = filterValue.toLowerCase();
-		this.dataSource.filter = filterValue;
+	ngOnInit() {
+		this.rsurProtocolsService.getNotMatchedScans().subscribe(res => {
+			this.scans = res;
+			this.getStats();
+		});
+	}
 
+	getStats() {
+		this.notMatchedScansCount = this.scans.filter(s => s.FileId).length;
+		this.failedScansCount = this.scans.filter(s => s.Status === 'isFailed').length;
 	}
 
 	addPhoto(event: any) {
@@ -34,35 +39,64 @@ export class ScanProtocolsComponent {
 				let file = files[i];
 
 				let scan: Scan = {
-					id: this.scans.length + 1,
-					sourceName: file.name,
-					size: file.size,
-					uploadProgress: 0,
-					fileContent: file,
-					status: ScanStatus.isUploading
+					SourceName: file.name,
+					UploadProgress: 0,
+					FileContent: file,
+					FileId: null,
+					Status: 'isUploading'
 				};
 
 				this.scans.push(scan);
 				this.uploadScan(scan);
 			}
-			this.dataSource = new MatTableDataSource(this.scans);
 		}
 		event.target.value = '';
 	}
 
 	uploadScan(scan: Scan) {
-		scan.status = ScanStatus.isUploading;
-		this.rsurProtocolsService.postScan(scan.fileContent).subscribe(
-			progress => scan.uploadProgress = progress,
-			error => scan.status = ScanStatus.isFailed,
-			() => scan.status = ScanStatus.isComplete);
+		scan.Status = 'isUploading';
+		this.rsurProtocolsService.postScan(scan.FileContent).subscribe(
+			response => this.responseHandler(response, scan),
+			error => this.errorResponseHandler(error, scan),
+			() => scan.Status = 'isComplete'
+		);
+	}
+
+	responseHandler(res: number | HttpResponse<number>, scan: Scan) {
+		if (res instanceof HttpResponse) { //запрос возвращает сначала статус загрузки в процентах, а после загрузки FileId
+			scan.FileId = res.body;        //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
+		}
+		else {
+			scan.UploadProgress = res;
+		}
+		this.getStats();
+	}
+
+	errorResponseHandler(error: any, scan: Scan) {
+		if (error.status && error.status === 409) { //если ошибка имеет код 409 отмечаем файл как дубликат, т.е. убираем из списка
+			let duplicatedScanIndex = this.scans.indexOf(scan);
+			this.scans.splice(duplicatedScanIndex, 1);
+			
+			this.duplicatesCount += 1;
+		}
+		else {
+			scan.Status = 'isFailed';
+			this.failedScansCount += 1;
+		}
+	}
+
+	deleteScan(scan: Scan, elem: HTMLAnchorElement) {
+		this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(res => {
+			this.scans.splice(this.scans.indexOf(scan), 1);
+			this.getStats();
+		})
 	}
 
 	reuploadScan(scan: Scan) {
 		this.uploadScan(scan);
 	}
 
-	validateSelectedPhotos(files: FileList): boolean {
+	validateSelectedPhotos(files: FileList): boolean { //проверяем каждый загружаемый файл
 		for (var i = 0; i < files.length; i++) {
 			if (files[i].size / 1024 / 1024 > 15) {
 				alert('Размер файла ' + files[i].name + ' превышает максимально разрешенный. \nМаксимально разрешенный размер файла — 10 МБ')
@@ -75,31 +109,27 @@ export class ScanProtocolsComponent {
 		}
 		return true;
 	}
-
-	scanIsFailed(status: ScanStatus) {
-		return status === ScanStatus.isFailed;
-	}
-
-	scanIsUploading(status: ScanStatus) {
-		return status === ScanStatus.isUploading;
-	}
-
-	scanIsComplete(status: ScanStatus) {
-		return status === ScanStatus.isComplete;
-	}
 }
 
-interface Scan {
-	id: number;
-	sourceName: string;
-	size: number;
-	uploadProgress: number;
-	fileContent: File;
-	status: ScanStatus;
-}
+//попытка сделать один общий фильтр pipe
+@Pipe({ name: 'filter' })
+export class FilterPipe implements PipeTransform {
+	transform(array: any[], searchObj: {}) {
+		for (let key in searchObj) {
+			
+			if (searchObj[key] && typeof searchObj[key] === 'string') {
+				let searchString: string = searchObj[key].toLowerCase().toString();
 
-enum ScanStatus {
-	isUploading,
-	isFailed,
-	isComplete
+				array = array.filter(f => {
+					if (f[key] && typeof f[key] === 'string') {
+						let value: string = f[key].toLowerCase().toString();
+
+						return value.includes(searchString);
+					}
+				})
+			}
+		}
+
+		return array;
+	}
 }

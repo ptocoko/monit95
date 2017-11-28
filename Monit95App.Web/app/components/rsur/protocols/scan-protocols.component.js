@@ -10,20 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var material_1 = require("@angular/material");
 var rsur_protocols_service_1 = require("../../../services/rsur-protocols.service");
+var http_1 = require("@angular/common/http");
 var ScanProtocolsComponent = (function () {
     function ScanProtocolsComponent(rsurProtocolsService) {
         this.rsurProtocolsService = rsurProtocolsService;
-        //scans: File[] = [];
         this.scans = [];
-        this.displayedColumns = ['id', 'sourceName', 'size', 'uploadProgress'];
-        this.dataSource = new material_1.MatTableDataSource();
+        this.notMatchedScansCount = 0;
+        this.duplicatesCount = 0;
+        this.failedScansCount = 0;
     }
-    ScanProtocolsComponent.prototype.applyFilter = function (filterValue) {
-        filterValue = filterValue.trim();
-        filterValue = filterValue.toLowerCase();
-        this.dataSource.filter = filterValue;
+    ScanProtocolsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.rsurProtocolsService.getNotMatchedScans().subscribe(function (res) {
+            _this.scans = res;
+            _this.getStats();
+        });
+    };
+    ScanProtocolsComponent.prototype.getStats = function () {
+        this.notMatchedScansCount = this.scans.filter(function (s) { return s.FileId; }).length;
+        this.failedScansCount = this.scans.filter(function (s) { return s.Status === 'isFailed'; }).length;
     };
     ScanProtocolsComponent.prototype.addPhoto = function (event) {
         var files = event.target.files;
@@ -31,23 +37,49 @@ var ScanProtocolsComponent = (function () {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var scan = {
-                    id: this.scans.length + 1,
-                    sourceName: file.name,
-                    size: file.size,
-                    uploadProgress: 0,
-                    fileContent: file,
-                    status: ScanStatus.isUploading
+                    SourceName: file.name,
+                    UploadProgress: 0,
+                    FileContent: file,
+                    FileId: null,
+                    Status: 'isUploading'
                 };
                 this.scans.push(scan);
                 this.uploadScan(scan);
             }
-            this.dataSource = new material_1.MatTableDataSource(this.scans);
         }
         event.target.value = '';
     };
     ScanProtocolsComponent.prototype.uploadScan = function (scan) {
-        scan.status = ScanStatus.isUploading;
-        this.rsurProtocolsService.postScan(scan.fileContent).subscribe(function (progress) { return scan.uploadProgress = progress; }, function (error) { return scan.status = ScanStatus.isFailed; }, function () { return scan.status = ScanStatus.isComplete; });
+        var _this = this;
+        scan.Status = 'isUploading';
+        this.rsurProtocolsService.postScan(scan.FileContent).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.Status = 'isComplete'; });
+    };
+    ScanProtocolsComponent.prototype.responseHandler = function (res, scan) {
+        if (res instanceof http_1.HttpResponse) {
+            scan.FileId = res.body; //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
+        }
+        else {
+            scan.UploadProgress = res;
+        }
+        this.getStats();
+    };
+    ScanProtocolsComponent.prototype.errorResponseHandler = function (error, scan) {
+        if (error.status && error.status === 409) {
+            var duplicatedScanIndex = this.scans.indexOf(scan);
+            this.scans.splice(duplicatedScanIndex, 1);
+            this.duplicatesCount += 1;
+        }
+        else {
+            scan.Status = 'isFailed';
+            this.failedScansCount += 1;
+        }
+    };
+    ScanProtocolsComponent.prototype.deleteScan = function (scan, elem) {
+        var _this = this;
+        this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(function (res) {
+            _this.scans.splice(_this.scans.indexOf(scan), 1);
+            _this.getStats();
+        });
     };
     ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
         this.uploadScan(scan);
@@ -65,15 +97,6 @@ var ScanProtocolsComponent = (function () {
         }
         return true;
     };
-    ScanProtocolsComponent.prototype.scanIsFailed = function (status) {
-        return status === ScanStatus.isFailed;
-    };
-    ScanProtocolsComponent.prototype.scanIsUploading = function (status) {
-        return status === ScanStatus.isUploading;
-    };
-    ScanProtocolsComponent.prototype.scanIsComplete = function (status) {
-        return status === ScanStatus.isComplete;
-    };
     return ScanProtocolsComponent;
 }());
 ScanProtocolsComponent = __decorate([
@@ -85,10 +108,31 @@ ScanProtocolsComponent = __decorate([
     __metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService])
 ], ScanProtocolsComponent);
 exports.ScanProtocolsComponent = ScanProtocolsComponent;
-var ScanStatus;
-(function (ScanStatus) {
-    ScanStatus[ScanStatus["isUploading"] = 0] = "isUploading";
-    ScanStatus[ScanStatus["isFailed"] = 1] = "isFailed";
-    ScanStatus[ScanStatus["isComplete"] = 2] = "isComplete";
-})(ScanStatus || (ScanStatus = {}));
+//попытка сделать один общий фильтр pipe
+var FilterPipe = (function () {
+    function FilterPipe() {
+    }
+    FilterPipe.prototype.transform = function (array, searchObj) {
+        var _loop_1 = function (key) {
+            if (searchObj[key] && typeof searchObj[key] === 'string') {
+                var searchString_1 = searchObj[key].toLowerCase().toString();
+                array = array.filter(function (f) {
+                    if (f[key] && typeof f[key] === 'string') {
+                        var value = f[key].toLowerCase().toString();
+                        return value.includes(searchString_1);
+                    }
+                });
+            }
+        };
+        for (var key in searchObj) {
+            _loop_1(key);
+        }
+        return array;
+    };
+    return FilterPipe;
+}());
+FilterPipe = __decorate([
+    core_1.Pipe({ name: 'filter' })
+], FilterPipe);
+exports.FilterPipe = FilterPipe;
 //# sourceMappingURL=scan-protocols.component.js.map
