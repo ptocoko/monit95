@@ -134,7 +134,52 @@ namespace Monit95App.Services.Tests
                             }
                         }
                     }
-                }
+                },
+                 new RsurParticipTest
+                {
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    },
+                    Id = 2,
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true,
+                        Test = new Test
+                        {
+                            TestQuestions = new List<TestQuestion>
+                            {
+                                new TestQuestion
+                                {
+                                    Order = 1,
+                                    Question = new Question
+                                    {
+                                        MaxMark = 1
+                                    }
+                                },
+                                new TestQuestion
+                                {
+                                    Order = 2,
+                                    Question = new Question
+                                    {
+                                        MaxMark = 1
+                                    }
+                                },
+                                new TestQuestion
+                                {
+                                    Order = 3,
+                                    Question = new Question
+                                    {
+                                        MaxMark = 1
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
             }.AsQueryable();
             var mockRsurParticipTestSet = Substitute.For<DbSet<RsurParticipTest>, IQueryable<RsurParticipTest>>();                      
             ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).Provider.Returns(rsurParticipTests.Provider);
@@ -160,7 +205,7 @@ namespace Monit95App.Services.Tests
             mockContext.RsurTestResults.Returns(mockRsurTestResultSet);
 
             var service = new MarksProtocolService(mockContext);
-            var marksProtocol = new MarksProtocol
+            var marksProtocol1 = new MarksProtocol
             {
                 ParticipTestId = 1,
                 QuestionResults = new List<QuestionResult>()
@@ -170,14 +215,26 @@ namespace Monit95App.Services.Tests
                  new QuestionResult { Order = 3, CurrentMark = 1 }
                 }
             };
+            var marksProtocol2 = new MarksProtocol
+            {
+                ParticipTestId = 2,
+                QuestionResults = new List<QuestionResult>()
+                {
+                 new QuestionResult { Order = 1, CurrentMark = -1 },
+                 new QuestionResult { Order = 2, CurrentMark = -1 },
+                 new QuestionResult { Order = 3, CurrentMark = -1 }
+                }
+            };
             var areaId = 201;
 
             // Act
-            service.CreateOrEdit(marksProtocol, areaId);
+            service.CreateOrEditRsurTestResultEntity(marksProtocol1, areaId);
+            service.CreateOrEditRsurTestResultEntity(marksProtocol2, areaId);
 
-            // Assert
+            // Assert            
             mockContext.Received().SaveChanges();
-            mockRsurTestResultSet.Received().Add(Arg.Is<RsurTestResult>(p => p.RsurParticipTestId == 1 && p.RsurQuestionValues == "0;1;1"));
+            mockRsurTestResultSet.Received().Add(Arg.Is<RsurTestResult>(p => p.RsurParticipTestId == 1 && p.RsurQuestionValues == "0;1;1"));            
+            mockRsurTestResultSet.Received().Add(Arg.Is<RsurTestResult>(p => p.RsurQuestionValues == "wasnot"));
         }
 
         [TestMethod]

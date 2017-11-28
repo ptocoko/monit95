@@ -14,6 +14,6 @@ namespace Monit95App.Services.Rsur.MarksProtocol
 
         Domain.Core.MarksProtocol Get(int participCode, int areaCode); // areaCode for Validate
 
-        void CreateOrEdit(Domain.Core.MarksProtocol marksProtocol, int areaCode);
+        void CreateOrEditRsurTestResultEntity(Domain.Core.MarksProtocol marksProtocol, int areaCode);
     }
 }

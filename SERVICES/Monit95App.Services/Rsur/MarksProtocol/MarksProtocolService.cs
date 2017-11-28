@@ -135,7 +135,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             return marksProtocol;            
         }
 
-        public void CreateOrEdit(MarksProtocol marksProtocol, int areaCode)
+        public void CreateOrEditRsurTestResultEntity(MarksProtocol marksProtocol, int areaCode)
         {
             ModelValidationResults.Clear();
             if (marksProtocol == null)
@@ -146,7 +146,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
 
             if (marksProtocol.QuestionResults == null)
             {
-                ModelValidationResults.Add(new ValidationResult($"{nameof(marksProtocol.QuestionResults)}"));
+                ModelValidationResults.Add(new ValidationResult($"{nameof(marksProtocol.QuestionResults)} "));
                 return;
             }                
 
@@ -160,21 +160,25 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             }
             
             var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // current test's testQuestions
-            if(testQuestions.Count() != marksProtocol.QuestionResults.Count())
+            if (testQuestions.Count() != marksProtocol.QuestionResults.Count())
             {
                 ModelValidationResults.Add(new ValidationResult($"{nameof(testQuestions)} count != {nameof(marksProtocol.QuestionResults)}"));
                 return;
             }
             string rsurQuestionValues = string.Empty;
+            
             marksProtocol.QuestionResults.ForEach(questionResult =>
             {
                 var maxValue = testQuestions.Single(tq => tq.Order == questionResult.Order).Question.MaxMark;
-                if (questionResult.CurrentMark > maxValue)
-                {
-                    questionResult.CurrentMark = maxValue;
-                }                
+                // если балл указан балл ниже -1 (отсутствовал) или больше допустимого, то устанавливается максимально допустимый
+                if (questionResult.CurrentMark < -1 || questionResult.CurrentMark > maxValue)
+                    questionResult.CurrentMark = maxValue;                
             });
-            rsurQuestionValues = marksProtocol.QuestionResults.Select(s => s.CurrentMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+            rsurQuestionValues = marksProtocol.QuestionResults.Select(s => s.CurrentMark.ToString()).Aggregate((totalCurrentMarks, nextCurrentMark) => $"{totalCurrentMarks};{nextCurrentMark}");
+
+            // если хотя бы у обного задание в качестве значения (балл за задание) стоит -1, то считается что данный участник отсутствовал на диагностике (wasnot)
+            if (rsurQuestionValues.IndexOf("-1") > -1)
+                rsurQuestionValues = "wasnot";            
 
             var rsurTestResult = context.RsurTestResults.Find(marksProtocol.ParticipTestId);
             // create
