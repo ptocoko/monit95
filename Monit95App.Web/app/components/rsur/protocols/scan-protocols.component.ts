@@ -3,6 +3,10 @@ import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
 import { Scan } from "../../../models/scan.model";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/switchMap';
+import { Subject } from "rxjs/Subject";
 
 @Component({
 	selector: 'scan-protocols-component',
@@ -16,13 +20,20 @@ export class ScanProtocolsComponent implements OnInit{
 	duplicatesCount: number = 0;
 	failedScansCount: number = 0;
 
+	isPageLoading: boolean = false;
+	isScansUploading: boolean = false;
+
 	constructor(private rsurProtocolsService: RsurProtocolsService) { }
 
 	ngOnInit() {
+		this.isPageLoading = true;
 		this.rsurProtocolsService.getNotMatchedScans().subscribe(res => {
 			this.scans = res;
 			this.getStats();
+			this.isPageLoading = false;
 		});
+
+		Observable.merge(this.scans).switchMap(() => new Subject().asObservable()).subscribe(() => console.log('eee i do it!'))
 	}
 
 	getStats() {
@@ -55,6 +66,7 @@ export class ScanProtocolsComponent implements OnInit{
 
 	uploadScan(scan: ScanForUpload) {
 		scan.Status = 'isUploading';
+		this.isScansUploading = true;
 		this.rsurProtocolsService.postScan(scan.FileContent).subscribe(
 			response => this.responseHandler(response, scan),
 			error => this.errorResponseHandler(error, scan),
@@ -88,17 +100,23 @@ export class ScanProtocolsComponent implements OnInit{
 	deleteScan(scan: ScanForUpload) {
 		let statusBeforeDeleting = scan.Status;
 		scan.Status = 'isDeleting';
-		this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(res => {
+		if (statusBeforeDeleting !== 'isFailed') {
+			this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(res => {
+				this.scans.splice(this.scans.indexOf(scan), 1);
+				this.getStats();
+			},
+			error => {
+				let message = error.message ? error.message : error;
+				alert(message);
+				console.error(error);
+				scan.Status = statusBeforeDeleting;
+				this.getStats();
+			})
+		}
+		else {
 			this.scans.splice(this.scans.indexOf(scan), 1);
 			this.getStats();
-		},
-		error => {
-			let message = error.message ? error.message : error;
-			alert(message);
-			console.error(error);
-			scan.Status = statusBeforeDeleting;
-			this.getStats();
-		})
+		}
 	}
 
 	reuploadScan(scan: ScanForUpload) {
@@ -127,7 +145,10 @@ interface ScanForUpload extends Scan {
 }
 
 //попытка сделать один общий фильтр pipe
-@Pipe({ name: 'filter' })
+@Pipe({
+	name: 'filter',
+	pure: false
+})
 export class FilterPipe implements PipeTransform {
 	transform(array: any[], searchObj: {}) {
 		for (let key in searchObj) {

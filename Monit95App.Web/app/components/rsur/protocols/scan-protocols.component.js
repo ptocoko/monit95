@@ -12,6 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsur_protocols_service_1 = require("../../../services/rsur-protocols.service");
 var http_1 = require("@angular/common/http");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/observable/merge");
+require("rxjs/add/operator/switchMap");
+var Subject_1 = require("rxjs/Subject");
 var ScanProtocolsComponent = (function () {
     function ScanProtocolsComponent(rsurProtocolsService) {
         this.rsurProtocolsService = rsurProtocolsService;
@@ -19,13 +23,18 @@ var ScanProtocolsComponent = (function () {
         this.notMatchedScansCount = 0;
         this.duplicatesCount = 0;
         this.failedScansCount = 0;
+        this.isPageLoading = false;
+        this.isScansUploading = false;
     }
     ScanProtocolsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.isPageLoading = true;
         this.rsurProtocolsService.getNotMatchedScans().subscribe(function (res) {
             _this.scans = res;
             _this.getStats();
+            _this.isPageLoading = false;
         });
+        Observable_1.Observable.merge(this.scans).switchMap(function () { return new Subject_1.Subject().asObservable(); }).subscribe(function () { return console.log('eee i do it!'); });
     };
     ScanProtocolsComponent.prototype.getStats = function () {
         this.notMatchedScansCount = this.scans.filter(function (s) { return s.FileId; }).length;
@@ -52,6 +61,7 @@ var ScanProtocolsComponent = (function () {
     ScanProtocolsComponent.prototype.uploadScan = function (scan) {
         var _this = this;
         scan.Status = 'isUploading';
+        this.isScansUploading = true;
         this.rsurProtocolsService.postScan(scan.FileContent).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.Status = 'isComplete'; });
     };
     ScanProtocolsComponent.prototype.responseHandler = function (res, scan) {
@@ -76,17 +86,24 @@ var ScanProtocolsComponent = (function () {
     };
     ScanProtocolsComponent.prototype.deleteScan = function (scan) {
         var _this = this;
+        var statusBeforeDeleting = scan.Status;
         scan.Status = 'isDeleting';
-        this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(function (res) {
-            _this.scans.splice(_this.scans.indexOf(scan), 1);
-            _this.getStats();
-        }, function (error) {
-            var message = error.message ? error.message : error;
-            alert(message);
-            console.error(error);
-            scan.Status = 'isFailed';
-            _this.getStats();
-        });
+        if (statusBeforeDeleting !== 'isFailed') {
+            this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(function (res) {
+                _this.scans.splice(_this.scans.indexOf(scan), 1);
+                _this.getStats();
+            }, function (error) {
+                var message = error.message ? error.message : error;
+                alert(message);
+                console.error(error);
+                scan.Status = statusBeforeDeleting;
+                _this.getStats();
+            });
+        }
+        else {
+            this.scans.splice(this.scans.indexOf(scan), 1);
+            this.getStats();
+        }
     };
     ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
         this.uploadScan(scan);
@@ -139,7 +156,10 @@ var FilterPipe = (function () {
     return FilterPipe;
 }());
 FilterPipe = __decorate([
-    core_1.Pipe({ name: 'filter' })
+    core_1.Pipe({
+        name: 'filter',
+        pure: false
+    })
 ], FilterPipe);
 exports.FilterPipe = FilterPipe;
 //# sourceMappingURL=scan-protocols.component.js.map

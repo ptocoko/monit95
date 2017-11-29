@@ -66,5 +66,5 @@ mat-toolbar{
     animation-name:swirling;
     animation-iteration-count:infinite;
     animation-direction:normal;
-    animation-timing-function:ease-in-out;
+    animation-timing-function:linear;
 }
