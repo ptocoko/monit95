@@ -1,5 +1,5 @@
 ﻿
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, IterableDiffers, IterableDiffer, KeyValueDiffers } from '@angular/core';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
 import { Scan } from "../../../models/scan.model";
@@ -23,17 +23,47 @@ export class ScanProtocolsComponent implements OnInit{
 	isPageLoading: boolean = false;
 	isScansUploading: boolean = false;
 
-	constructor(private rsurProtocolsService: RsurProtocolsService) { }
+	iterableDiffer: IterableDiffer<any>;
+	objDiffer: any;
+
+	constructor(private rsurProtocolsService: RsurProtocolsService,
+				private _iterableDiffers: IterableDiffers,
+				private differs: KeyValueDiffers) // IterableDiffers и KeyValueDiffers — встроенные в Angular детекторы 
+	{												//изменений состояния массивов и объектов соответственно (https://goo.gl/PVPKnU)
+		this.iterableDiffer = _iterableDiffers.find([]).create(null);
+	}
 
 	ngOnInit() {
+		this.objDiffer = {};
 		this.isPageLoading = true;
 		this.rsurProtocolsService.getNotMatchedScans().subscribe(res => {
 			this.scans = res;
-			this.getStats();
 			this.isPageLoading = false;
+			this.scans.forEach((elt: any) => {
+				this.objDiffer[elt] = this.differs.find(elt).create();
+			});
+		});
+	}
+
+	ngDoCheck() {
+		let isChanged: boolean = false;
+		let changes = this.iterableDiffer.diff(this.scans);
+		if (changes) {
+			isChanged = true;
+		}
+
+		this.scans.forEach((elt: any) => {
+			var objDiffer = this.objDiffer[elt];
+			var objChanges = objDiffer.diff(elt);
+			if (objChanges) {
+				isChanged = true;
+			}
 		});
 
-		Observable.merge(this.scans).switchMap(() => new Subject().asObservable()).subscribe(() => console.log('eee i do it!'))
+		if (isChanged) {
+			this.isScansUploading = this.scans.filter(f => f.Status === 'isUploading').length > 0;
+			this.getStats();
+		}
 	}
 
 	getStats() {
@@ -81,7 +111,6 @@ export class ScanProtocolsComponent implements OnInit{
 		else {
 			scan.UploadProgress = res;
 		}
-		this.getStats();
 	}
 
 	errorResponseHandler(error: any, scan: ScanForUpload) {
@@ -101,21 +130,17 @@ export class ScanProtocolsComponent implements OnInit{
 		let statusBeforeDeleting = scan.Status;
 		scan.Status = 'isDeleting';
 		if (statusBeforeDeleting !== 'isFailed') {
-			this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(res => {
-				this.scans.splice(this.scans.indexOf(scan), 1);
-				this.getStats();
-			},
-			error => {
-				let message = error.message ? error.message : error;
-				alert(message);
-				console.error(error);
-				scan.Status = statusBeforeDeleting;
-				this.getStats();
-			})
+			this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(
+				res => this.scans.splice(this.scans.indexOf(scan), 1),
+				error => {
+					let message = error.message ? error.message : error;
+					alert(message);
+					console.error(error);
+					scan.Status = statusBeforeDeleting;
+				});
 		}
 		else {
 			this.scans.splice(this.scans.indexOf(scan), 1);
-			this.getStats();
 		}
 	}
 

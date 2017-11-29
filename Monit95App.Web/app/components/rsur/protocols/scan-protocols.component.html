@@ -8,7 +8,7 @@
     </div>
 
     <a style="z-index:1" class="fileUploader" mat-raised-button>
-        <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg" title="Отправить..." (change)="addPhoto($event)" multiple />
+        <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg" title="Отправить..." (change)="addPhoto($event)" multiple [disabled]="isScansUploading" />
         <span style="z-index:0" class="glyphicon glyphicon-upload"></span> Отправить...
     </a>
 </div>
@@ -16,6 +16,7 @@
     <span class="state-caption">Не сопоставлено сканов: {{notMatchedScansCount}}</span>
     <span class="state-caption">Дублирующих сканов: {{duplicatesCount}}</span>
     <span class="state-caption">Не удалось отправить: {{failedScansCount}}</span>
+    <!--<span *ngIf="isScansUploading" class="state-caption">Сканы отправляются</span>-->
 </mat-toolbar>
 
 <div *ngIf="scans.length != 0 && !isPageLoading">
