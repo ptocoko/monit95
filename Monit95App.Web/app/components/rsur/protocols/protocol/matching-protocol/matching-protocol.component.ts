@@ -24,7 +24,7 @@ export class MatchingProtocolComponent implements OnInit{
 
 	@ViewChild('participCode') participCodeElem: ElementRef;
 	marksInputs: JQuery<HTMLInputElement>;
-	participCodeControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(/^[0-9]+$/)]);
+	codeControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(/^[0-9]+$/)]);
 
 	constructor(private rsurProtocolsService: RsurProtocolsService,
 				private location: Location,
@@ -56,11 +56,11 @@ export class MatchingProtocolComponent implements OnInit{
 	participCodeSubscriber(event: any) {
 		let elem = event.target as HTMLInputElement;
 		let participCode = Number.parseInt(elem.value);
-		this.participCodeControl.markAsTouched(); //отметка поля как 'touched' включает отображение ошибок валидации
+		this.codeControl.markAsTouched(); //отметка поля как 'touched' включает отображение ошибок валидации
 
-		if (this.participCodeControl.valid)
+		if (this.codeControl.valid)
 		{
-			this.participCodeControl.disable();
+			this.codeControl.disable();
 			this.isMarksProtocolLoading = true;
 
 			this.rsurProtocolsService.getMarksProtocol(participCode).subscribe(
@@ -87,8 +87,8 @@ export class MatchingProtocolComponent implements OnInit{
 	participTestErrorHandler(error: any) {
 		let message = error.message ? error.message : error;
 
-		this.participCodeControl.enable();
-		this.participCodeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
+		this.codeControl.enable();
+		this.codeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
 																		//содержащее сообщение из ответа сервера
 		this.isMarksProtocolLoading = false;
 		this.focusOnCodeElem();

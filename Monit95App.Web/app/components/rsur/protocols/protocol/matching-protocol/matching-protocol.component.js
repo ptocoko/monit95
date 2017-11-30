@@ -23,19 +23,17 @@ var MatchingProtocolComponent = (function () {
         this.location = location;
         this.route = route;
         this.renderer = renderer;
-        this.protocolScan = {};
-        this.isParticipTestLoading = false;
-        this.isScanLoading = false;
-        this.participCodeControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5), forms_1.Validators.pattern(/^[0-9]+$/)]);
+        this.isMarksProtocolLoading = false;
+        this.codeControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(5), forms_1.Validators.pattern(/^[0-9]+$/)]);
     }
     MatchingProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.isScanLoading = true;
+        //this.isScanLoading = true;
         this.route.params.subscribe(function (params) {
             var fileId = params["id"];
             _this.rsurProtocolsService.getScan(fileId).subscribe(function (res) {
                 _this.protocolScan = res;
-                _this.isScanLoading = false;
+                //this.isScanLoading = false;
                 $().ready(function () { return _this.initCallbacks(); }); //JQuery.ready заставляет ждать до конца отрисовки DOM
             });
         });
@@ -51,17 +49,17 @@ var MatchingProtocolComponent = (function () {
         var _this = this;
         var elem = event.target;
         var participCode = Number.parseInt(elem.value);
-        this.participCodeControl.markAsTouched(); //отметка поля как 'touched' включает отображение ошибок валидации
-        if (this.participCodeControl.valid) {
-            this.participCodeControl.disable();
-            this.isParticipTestLoading = true;
-            this.rsurProtocolsService.getParticipTest(participCode).subscribe(function (res) { return _this.participTestSuccessHandler(res); }, function (error) { return _this.participTestErrorHandler(error); });
+        this.codeControl.markAsTouched(); //отметка поля как 'touched' включает отображение ошибок валидации
+        if (this.codeControl.valid) {
+            this.codeControl.disable();
+            this.isMarksProtocolLoading = true;
+            this.rsurProtocolsService.getMarksProtocol(participCode).subscribe(function (res) { return _this.participTestSuccessHandler(res); }, function (error) { return _this.participTestErrorHandler(error); });
         }
     };
     MatchingProtocolComponent.prototype.participTestSuccessHandler = function (res) {
         var _this = this;
         this.marksProtocol = res;
-        this.isParticipTestLoading = false;
+        this.isMarksProtocolLoading = false;
         $().ready(function () {
             //обработчик фокуса и переводим фокус на первое поле
             _this.marksInputs = $('.markInput');
@@ -71,10 +69,10 @@ var MatchingProtocolComponent = (function () {
     };
     MatchingProtocolComponent.prototype.participTestErrorHandler = function (error) {
         var message = error.message ? error.message : error;
-        this.participCodeControl.enable();
-        this.participCodeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
+        this.codeControl.enable();
+        this.codeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
         //содержащее сообщение из ответа сервера
-        this.isParticipTestLoading = false;
+        this.isMarksProtocolLoading = false;
         this.focusOnCodeElem();
     };
     MatchingProtocolComponent.prototype.sendMarks = function () {
