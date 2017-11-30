@@ -1,8 +1,12 @@
 ﻿
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, IterableDiffers, IterableDiffer, KeyValueDiffers } from '@angular/core';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
 import { Scan } from "../../../models/scan.model";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/switchMap';
+import { Subject } from "rxjs/Subject";
 
 @Component({
 	selector: 'scan-protocols-component',
@@ -10,19 +14,57 @@ import { Scan } from "../../../models/scan.model";
 	styleUrls: [`./app/components/rsur/protocols/scan-protocols.component.css?v=${new Date().getTime()}`]
 })
 export class ScanProtocolsComponent implements OnInit{
-	scans: Scan[] = [];
+	scans: ScanForUpload[] = [];
 
 	notMatchedScansCount: number = 0;
 	duplicatesCount: number = 0;
 	failedScansCount: number = 0;
-	
-	constructor(private rsurProtocolsService: RsurProtocolsService) { }
+
+	isPageLoading: boolean = false;
+	isScansUploading: boolean = false;
+
+	iterableDiffer: IterableDiffer<any>;
+	objDiffer: any;
+
+	constructor(private rsurProtocolsService: RsurProtocolsService,
+				private _iterableDiffers: IterableDiffers,
+				private differs: KeyValueDiffers) // IterableDiffers и KeyValueDiffers — встроенные в Angular детекторы 
+	{												//изменений состояния массивов и объектов соответственно (https://goo.gl/PVPKnU)
+		this.iterableDiffer = _iterableDiffers.find([]).create(null);
+	}
 
 	ngOnInit() {
+		this.objDiffer = {};
+		this.isPageLoading = true;
 		this.rsurProtocolsService.getNotMatchedScans().subscribe(res => {
 			this.scans = res;
-			this.getStats();
+			this.isPageLoading = false;
+			this.scans.forEach((elt: any) => {
+				this.objDiffer[elt] = this.differs.find(elt).create();
+			});
 		});
+	}
+
+	ngDoCheck() {
+		let isChanged: boolean = false;
+		let changes = this.iterableDiffer.diff(this.scans);
+		if (changes) {
+			isChanged = true;
+		}
+
+		this.scans.forEach((elt: any) => {
+			var objDiffer = this.objDiffer[elt];
+			var objChanges = objDiffer.diff(elt);
+			if (objChanges) {
+				isChanged = true;
+			}
+		});
+
+		if (isChanged) {
+			console.log('change detected!')
+			this.isScansUploading = this.scans.filter(f => f.Status === 'isUploading').length > 0;
+			this.getStats();
+		}
 	}
 
 	getStats() {
@@ -38,7 +80,7 @@ export class ScanProtocolsComponent implements OnInit{
 			{
 				let file = files[i];
 
-				let scan: Scan = {
+				let scan: ScanForUpload = {
 					SourceName: file.name,
 					UploadProgress: 0,
 					FileContent: file,
@@ -53,8 +95,9 @@ export class ScanProtocolsComponent implements OnInit{
 		event.target.value = '';
 	}
 
-	uploadScan(scan: Scan) {
+	uploadScan(scan: ScanForUpload) {
 		scan.Status = 'isUploading';
+		this.isScansUploading = true;
 		this.rsurProtocolsService.postScan(scan.FileContent).subscribe(
 			response => this.responseHandler(response, scan),
 			error => this.errorResponseHandler(error, scan),
@@ -62,17 +105,16 @@ export class ScanProtocolsComponent implements OnInit{
 		);
 	}
 
-	responseHandler(res: number | HttpResponse<number>, scan: Scan) {
+	responseHandler(res: number | HttpResponse<number>, scan: ScanForUpload) {
 		if (res instanceof HttpResponse) { //запрос возвращает сначала статус загрузки в процентах, а после загрузки FileId
 			scan.FileId = res.body;        //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
 		}
 		else {
 			scan.UploadProgress = res;
 		}
-		this.getStats();
 	}
 
-	errorResponseHandler(error: any, scan: Scan) {
+	errorResponseHandler(error: any, scan: ScanForUpload) {
 		if (error.status && error.status === 409) { //если ошибка имеет код 409 отмечаем файл как дубликат, т.е. убираем из списка
 			let duplicatedScanIndex = this.scans.indexOf(scan);
 			this.scans.splice(duplicatedScanIndex, 1);
@@ -85,14 +127,25 @@ export class ScanProtocolsComponent implements OnInit{
 		}
 	}
 
-	deleteScan(scan: Scan, elem: HTMLAnchorElement) {
-		this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(res => {
+	deleteScan(scan: ScanForUpload) {
+		let statusBeforeDeleting = scan.Status;
+		scan.Status = 'isDeleting';
+		if (statusBeforeDeleting !== 'isFailed') {
+			this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(
+				res => this.scans.splice(this.scans.indexOf(scan), 1),
+				error => {
+					let message = error.message ? error.message : error;
+					alert(message);
+					console.error(error);
+					scan.Status = statusBeforeDeleting;
+				});
+		}
+		else {
 			this.scans.splice(this.scans.indexOf(scan), 1);
-			this.getStats();
-		})
+		}
 	}
 
-	reuploadScan(scan: Scan) {
+	reuploadScan(scan: ScanForUpload) {
 		this.uploadScan(scan);
 	}
 
@@ -111,8 +164,17 @@ export class ScanProtocolsComponent implements OnInit{
 	}
 }
 
+interface ScanForUpload extends Scan {
+	UploadProgress?: number;
+	Status?: 'isComplete' | 'isUploading' | 'isFailed' | 'isDeleting';
+	FileContent?: File;
+}
+
 //попытка сделать один общий фильтр pipe
-@Pipe({ name: 'filter' })
+@Pipe({
+	name: 'filter',
+	pure: false
+})
 export class FilterPipe implements PipeTransform {
 	transform(array: any[], searchObj: {}) {
 		for (let key in searchObj) {
