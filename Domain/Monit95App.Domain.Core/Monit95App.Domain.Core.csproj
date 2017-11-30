@@ -95,6 +95,7 @@
     <Compile Include="Entities\Umk.cs" />
     <Compile Include="Entities\Wish.cs" />
     <Compile Include="MarksProtocol.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingItem.cs" />
     <Compile Include="SchoolParticip.cs" />

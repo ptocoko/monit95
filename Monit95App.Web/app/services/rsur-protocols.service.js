@@ -19,11 +19,9 @@ var Subject_1 = require("rxjs/Subject");
 var RsurProtocolsService = (function () {
     function RsurProtocolsService(http) {
         this.http = http;
+        this.url = '/api/rsur/marksProtocols';
     }
-    RsurProtocolsService.prototype.getScan = function (fileId) {
-        return Observable_1.Observable.of(protocolScanModel).delay(2000);
-    };
-    RsurProtocolsService.prototype.getParticipTest = function (participCode) {
+    RsurProtocolsService.prototype.getMarksProtocol = function (participCode) {
         if (participCode == 12345) {
             particip.QuestionResults.sort(function (first, second) {
                 if (first.Order < second.Order) {
@@ -47,6 +45,16 @@ var RsurProtocolsService = (function () {
                 }, 1500);
             });
         }
+        //return this.http.get<MarksProtocol>(url);
+    };
+    RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
+        if (!marksProtocol.FileId) {
+            console.error('need to attach fileId to the marksProtocol object');
+            return Observable_1.Observable.throw('');
+        }
+    };
+    RsurProtocolsService.prototype.getScan = function (fileId) {
+        return Observable_1.Observable.of(protocolScanModel).delay(2000);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
         var url = '/api/ExcelFiles/Upload';
@@ -85,8 +93,7 @@ exports.RsurProtocolsService = RsurProtocolsService;
 var protocolScanModel = {
     FileId: 123,
     Url: '/Images/rsur-scans/2090/1000/1.jpg',
-    FileName: 'IMG_0001_01.JPG',
-    StillHasScans: false
+    SourceName: 'IMG_0001_01.JPG'
 };
 var scans = [
     {
