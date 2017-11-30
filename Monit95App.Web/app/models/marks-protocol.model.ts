@@ -1,6 +1,7 @@
 ﻿export interface MarksProtocol {
 	ParticipCode: number;
 	ParticipTestId: number;
+	FileId?: number;
 	TestName: string;
 	QuestionResults: QuestionResult[];
 }

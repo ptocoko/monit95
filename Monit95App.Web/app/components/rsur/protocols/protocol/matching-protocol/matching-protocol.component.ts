@@ -8,6 +8,7 @@ import { FormControl, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/filter';
+import { Scan } from "../../../../../models/scan.model";
 
 @Component({
 	selector: 'matching-protocol-component',
@@ -15,11 +16,11 @@ import 'rxjs/add/operator/filter';
 	styleUrls: [`./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.css?v=${new Date().getTime()}`]
 })
 export class MatchingProtocolComponent implements OnInit{
-	protocolScan: any = {};
+	protocolScan: Scan;
 	marksProtocol: MarksProtocol;
 	
-	isParticipTestLoading: boolean = false;
-	isScanLoading: boolean = false;
+	isMarksProtocolLoading: boolean = false;
+	//isScanLoading: boolean = false;
 
 	@ViewChild('participCode') participCodeElem: ElementRef;
 	marksInputs: JQuery<HTMLInputElement>;
@@ -31,13 +32,13 @@ export class MatchingProtocolComponent implements OnInit{
 				private renderer: Renderer) { }
 
 	ngOnInit() {
-		this.isScanLoading = true;
+		//this.isScanLoading = true;
 		this.route.params.subscribe(params => {
 			let fileId: number = params["id"];
 			
 			this.rsurProtocolsService.getScan(fileId).subscribe(res => {
 				this.protocolScan = res;
-				this.isScanLoading = false;
+				//this.isScanLoading = false;
 
 				$().ready(() => this.initCallbacks()); //JQuery.ready заставляет ждать до конца отрисовки DOM
 			});
@@ -60,9 +61,9 @@ export class MatchingProtocolComponent implements OnInit{
 		if (this.participCodeControl.valid)
 		{
 			this.participCodeControl.disable();
-			this.isParticipTestLoading = true;
+			this.isMarksProtocolLoading = true;
 
-			this.rsurProtocolsService.getParticipTest(participCode).subscribe(
+			this.rsurProtocolsService.getMarksProtocol(participCode).subscribe(
 				res => this.participTestSuccessHandler(res),
 				error => this.participTestErrorHandler(error)
 			);
@@ -72,7 +73,7 @@ export class MatchingProtocolComponent implements OnInit{
 	participTestSuccessHandler(res: any) {
 		this.marksProtocol = res as MarksProtocol;
 		
-		this.isParticipTestLoading = false;
+		this.isMarksProtocolLoading = false;
 
 		$().ready(() => { //после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
 							//обработчик фокуса и переводим фокус на первое поле
@@ -89,7 +90,7 @@ export class MatchingProtocolComponent implements OnInit{
 		this.participCodeControl.enable();
 		this.participCodeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
 																		//содержащее сообщение из ответа сервера
-		this.isParticipTestLoading = false;
+		this.isMarksProtocolLoading = false;
 		this.focusOnCodeElem();
 	}
 

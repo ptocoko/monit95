@@ -1,17 +1,17 @@
 ﻿<h2>Сопоставление</h2>
 <hr />
-<div class="page-content" *ngIf="!isScanLoading">
+<div class="page-content" *ngIf="protocolScan">
     <img src="{{protocolScan.Url}}" class="img-responsive img-thumbnail" style="width:50%" />
     <div class="form-side">
         <p>
             <mat-form-field [hideRequiredMarker]="true">
-                <input style="width:150px" matInput maxlength="5" placeholder="Введите код участника" #participCode  [formControl]="participCodeControl" required />
-                <mat-error *ngIf="participCodeControl.errors && participCodeControl.errors['notExistCode']">{{participCodeControl.errors['notExistCode']}}</mat-error>
-                <mat-error *ngIf="participCodeControl.errors && participCodeControl.errors['minlength']">Минимальная длина кода составляет 5 символов</mat-error>
-                <mat-error *ngIf="participCodeControl.errors && participCodeControl.errors['pattern']">Код может содержать только цифры</mat-error>
+                <input style="width:150px" matInput maxlength="5" placeholder="Введите код участника" #participCode  [formControl]="codeControl" required />
+                <mat-error *ngIf="codeControl.errors && codeControl.errors['notExistCode']">{{codeControl.errors['notExistCode']}}</mat-error>
+                <mat-error *ngIf="codeControl.errors && codeControl.errors['minlength']">Минимальная длина кода составляет 5 символов</mat-error>
+                <mat-error *ngIf="codeControl.errors && codeControl.errors['pattern']">Код может содержать только цифры</mat-error>
             </mat-form-field>
         </p>
-        <div *ngIf="isParticipTestLoading">
+        <div *ngIf="isMarksProtocolLoading">
             <mat-spinner></mat-spinner>
         </div>
         <div *ngIf="marksProtocol">
@@ -30,6 +30,6 @@
         </div>
     </div>
 </div>
-<div *ngIf="isScanLoading">
+<div *ngIf="!protocolScan">
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>

@@ -7,7 +7,7 @@
         </mat-form-field>
     </div>
 
-    <a style="z-index:1" class="fileUploader" mat-raised-button>
+    <a style="z-index:1" class="fileUploader" mat-raised-button [disabled]="isScansUploading">
         <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg" title="Отправить..." (change)="addPhoto($event)" multiple [disabled]="isScansUploading" />
         <span style="z-index:0" class="glyphicon glyphicon-upload"></span> Отправить...
     </a>

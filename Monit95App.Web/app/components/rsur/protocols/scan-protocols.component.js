@@ -54,6 +54,7 @@ var ScanProtocolsComponent = (function () {
             }
         });
         if (isChanged) {
+            console.log('change detected!');
             this.isScansUploading = this.scans.filter(function (f) { return f.Status === 'isUploading'; }).length > 0;
             this.getStats();
         }

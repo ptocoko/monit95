@@ -14,11 +14,9 @@ import { Scan } from "../models/scan.model";
 export class RsurProtocolsService {
 	constructor(private http: HttpClient) { }
 
-	getScan(fileId: number) {
-		return Observable.of(protocolScanModel).delay(2000);
-	}
+	url = '/api/rsur/marksProtocols';
 
-	getParticipTest(participCode: number) {
+	getMarksProtocol(participCode: number) {
 		if (participCode == 12345) {
 			particip.QuestionResults.sort((first, second) => {
 				if (first.Order < second.Order) {
@@ -45,7 +43,19 @@ export class RsurProtocolsService {
 				}, 1500)
 			});
 		}
-			
+
+		//return this.http.get<MarksProtocol>(url);
+	}
+
+	postMarksProtocol(marksProtocol: MarksProtocol) {
+		if (!marksProtocol.FileId) {
+			console.error('need to attach fileId to the marksProtocol object')
+			return Observable.throw('')
+		}
+	}
+
+	getScan(fileId: number) {
+		return Observable.of(protocolScanModel).delay(2000);
 	}
 
 	public postScan(file: File): Observable<number|HttpResponse<number>> {
@@ -80,11 +90,10 @@ export class RsurProtocolsService {
 	}
 }
 
-const protocolScanModel = {
+const protocolScanModel: Scan = {
 	FileId: 123,
 	Url: '/Images/rsur-scans/2090/1000/1.jpg',
-	FileName: 'IMG_0001_01.JPG',
-	StillHasScans: false
+	SourceName: 'IMG_0001_01.JPG'
 };
 
 const scans: Scan[] = [

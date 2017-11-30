@@ -61,6 +61,7 @@ export class ScanProtocolsComponent implements OnInit{
 		});
 
 		if (isChanged) {
+			console.log('change detected!')
 			this.isScansUploading = this.scans.filter(f => f.Status === 'isUploading').length > 0;
 			this.getStats();
 		}
