@@ -1,5 +1,4 @@
-﻿using Monit95App.Domain.Core.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Monit95App.Domain.Core.Abstract
 {
