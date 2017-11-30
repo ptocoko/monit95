@@ -14,8 +14,7 @@ using NSubstitute;
 namespace Monit95App.Services.Tests
 {
     using Monit95App.Domain.Core;
-    using Monit95App.Services.Rsur.MarksProtocol;
-    using Monit95App.Services.Validations;
+    using Monit95App.Services.Rsur.MarksProtocol;    
 
     [TestClass]
     public class MarksProtocolServiceTest
