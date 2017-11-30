@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Reporter;
-using System.Runtime.InteropServices;
-using System.IO;
-using Ionic.Zip;
-using Excel = Microsoft.Office.Interop.Excel;
-using Autofac;
-using Newtonsoft.Json.Linq;
-using Autofac.Core;
-using Monit95App.Domain.Interfaces;
-using Monit95App.Infrastructure.Data;
-
-namespace Monit95App.ConsoleApp
+﻿namespace Monit95App.ConsoleApp
 {
     class Program
     {
