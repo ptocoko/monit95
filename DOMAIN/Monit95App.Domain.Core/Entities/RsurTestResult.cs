@@ -26,7 +26,7 @@ namespace Monit95App.Domain.Core.Entities
 
         public double? PrimaryMark { get; set; }
 
-        public int FileId { get; set; }
+        public int? FileId { get; set; }
 
         public virtual RsurParticipTest RsurParticipTest { get; set; }
     }
