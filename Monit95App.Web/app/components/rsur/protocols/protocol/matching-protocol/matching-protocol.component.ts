@@ -35,10 +35,13 @@ export class MatchingProtocolComponent implements OnInit{
 		this.route.params.subscribe(params => {
 			this.fileId = Number.parseInt(params["id"]);
 			
-			this.rsurProtocolsService.getScan(this.fileId).subscribe(res => {
-				this.protocolScan = res;
-
-				$().ready(() => this.initCallbacks()); //JQuery.ready заставляет ждать до конца отрисовки DOM
+			this.rsurProtocolsService.getScan(this.fileId).subscribe(protocolScan => {
+				
+				this.rsurProtocolsService.getMarksProtocolByFileId(this.fileId).subscribe(marksProtocol => {
+					this.protocolScan = protocolScan;
+					
+				})
+				
 			});
 		});
 	}

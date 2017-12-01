@@ -49,6 +49,10 @@ export class RsurProtocolsService {
 		//return this.http.get<MarksProtocol>(this.url).map(s => s.QuestionResults.sort(this.sortFunc));
 	}
 
+	getMarksProtocolByFileId(fileId: number) {
+		return Observable.of(particip).delay(1000);
+	}
+
 	postMarksProtocol(marksProtocol: MarksProtocol) {
 		if (!marksProtocol.FileId) {
 			console.error('need to attach fileId to the marksProtocol object')

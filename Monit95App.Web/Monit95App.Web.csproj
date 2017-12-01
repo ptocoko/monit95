@@ -336,6 +336,7 @@
     <Content Include="app\class-particips\class-particips-list.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
+    <Content Include="app\components\rsur\protocols\marks-protocols.component.html" />
     <Content Include="app\components\rsur\protocols\protocol\matching-protocol\matching-protocol.component.css" />
     <Content Include="app\components\rsur\protocols\protocol\matching-protocol\matching-protocol.component.html" />
     <Content Include="app\components\rsur\protocols\scan-protocols.component.css" />
@@ -605,6 +606,7 @@
     <TypeScriptCompile Include="app\class-particips\marks\marks.component.ts" />
     <TypeScriptCompile Include="app\class-particips\results\particip-report.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
+    <TypeScriptCompile Include="app\components\rsur\protocols\marks-protocols.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\matching-protocol\matching-protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\scan-protocols.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\ratings\ratings.component.ts" />
