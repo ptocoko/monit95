@@ -13,10 +13,16 @@ namespace Monit95App.Services.Rsur.MarksProtocol
 
     public class MarksProtocolService : IMarksProtocolService
     {
+        #region Properties
+
+        public List<ValidationResult> ModelValidationResults { get; } = new List<ValidationResult>();
+
+        #endregion
+
         #region Dependencies
 
         private readonly CokoContext context;
-        public List<ValidationResult> ModelValidationResults = new List<ValidationResult>();
+        
 
         #endregion
 

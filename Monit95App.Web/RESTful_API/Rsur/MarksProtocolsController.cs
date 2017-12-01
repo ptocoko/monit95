@@ -7,11 +7,12 @@ using System.Web.Http;
 namespace Monit95App.RESTful_API.Rsur
 {
     using Monit95App.Services.Rsur.MarksProtocol;
+    using System.Linq;
 
     /// <summary>
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>
-    // [Authorize(Roles = "area")]
+    [Authorize(Roles = "area")]
     [RoutePrefix("api/rsur/marksProtocols")]
     public class MarksProtocolsController : ApiController
     {
@@ -24,15 +25,21 @@ namespace Monit95App.RESTful_API.Rsur
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post([FromBody]MarksProtocol postMarksProtocol)
+        public IHttpActionResult Post([FromBody]MarksProtocol marksProtocol)
         {                       
-            var areaCode = int.Parse(User.Identity.Name);            
-            
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }                     
+            var areaCode = int.Parse(User.Identity.Name);
+            marksProtocolService.CreateOrEditRsurTestResultEntity(marksProtocol, areaCode);
 
+            if (marksProtocolService.ModelValidationResults.Any())
+            {
+                foreach(var validatioResult in marksProtocolService.ModelValidationResults)
+                {
+                    ModelState.AddModelError($"{nameof(marksProtocol)}", validatioResult.ErrorMessage);
+                }
+
+                return BadRequest(ModelState);
+            }
+            
             return Ok();
         }
 

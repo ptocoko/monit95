@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Monit95App.Services.Rsur.MarksProtocol
@@ -15,5 +16,6 @@ namespace Monit95App.Services.Rsur.MarksProtocol
         Domain.Core.MarksProtocol Get(int participCode, int areaCode); // areaCode for Validate
 
         void CreateOrEditRsurTestResultEntity(Domain.Core.MarksProtocol marksProtocol, int areaCode);
+        List<ValidationResult> ModelValidationResults { get; }
     }
 }
