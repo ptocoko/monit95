@@ -19,18 +19,20 @@ var Subject_1 = require("rxjs/Subject");
 var RsurProtocolsService = (function () {
     function RsurProtocolsService(http) {
         this.http = http;
-        this.url = '/api/rsur/marksProtocols';
+        this.marksProtocolUrl = '/api/rsur/marksProtocols';
+        this.scansUrl = '/api/rsur/scans';
     }
+    RsurProtocolsService.prototype.sortFunc = function (first, second) {
+        if (first.Order < second.Order) {
+            return -1;
+        }
+        else {
+            return 1;
+        }
+    };
     RsurProtocolsService.prototype.getMarksProtocol = function (participCode) {
         if (participCode == 12345) {
-            particip.QuestionResults.sort(function (first, second) {
-                if (first.Order < second.Order) {
-                    return -1;
-                }
-                else {
-                    return 1;
-                }
-            });
+            particip.QuestionResults.sort(this.sortFunc);
             return Observable_1.Observable.of(particip).delay(2000);
         }
         else {
@@ -45,23 +47,31 @@ var RsurProtocolsService = (function () {
                 }, 1500);
             });
         }
-        //return this.http.get<MarksProtocol>(url);
+        //return this.http.get<MarksProtocol>(this.url).map(s => s.QuestionResults.sort(this.sortFunc));
     };
     RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
         if (!marksProtocol.FileId) {
             console.error('need to attach fileId to the marksProtocol object');
-            return Observable_1.Observable.throw('');
+            return Observable_1.Observable.throw('there is no fileId');
+        }
+        else {
+            //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
         }
     };
     RsurProtocolsService.prototype.getScan = function (fileId) {
         return Observable_1.Observable.of(protocolScanModel).delay(2000);
+        //return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
+    };
+    RsurProtocolsService.prototype.getNotMatchedScans = function () {
+        return Observable_1.Observable.of(scans).delay(2000);
+        //return this.http.get<Scan[]>(`${this.scansUrl}?onlyNotMatched=true`);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
-        var url = '/api/ExcelFiles/Upload';
+        var fakeUrl = '/api/ExcelFiles/Upload';
         var formData = new FormData();
         formData.append('image', file, file.name);
         var subject = new Subject_1.Subject();
-        var req = new http_1.HttpRequest('POST', url, formData, {
+        var req = new http_1.HttpRequest('POST', fakeUrl, formData, {
             reportProgress: true,
             responseType: 'text'
         });
@@ -77,11 +87,9 @@ var RsurProtocolsService = (function () {
         }, function (error) { return subject.error(error); });
         return subject.asObservable();
     };
-    RsurProtocolsService.prototype.getNotMatchedScans = function () {
-        return Observable_1.Observable.of(scans).delay(2000);
-    };
     RsurProtocolsService.prototype.deleteScan = function (fileId) {
         return Observable_1.Observable.of({}).delay(1000);
+        //return this.http.delete(`${this.scansUrl}/${fileId}`);
     };
     return RsurProtocolsService;
 }());
@@ -114,6 +122,150 @@ var particip = {
             "Name": "1.1",
             "Order": 1,
             "MaxMark": 4,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
             "CurrentMark": null
         },
         {

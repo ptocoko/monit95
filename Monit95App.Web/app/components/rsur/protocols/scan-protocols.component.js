@@ -54,7 +54,6 @@ var ScanProtocolsComponent = (function () {
             }
         });
         if (isChanged) {
-            console.log('change detected!');
             this.isScansUploading = this.scans.filter(function (f) { return f.Status === 'isUploading'; }).length > 0;
             this.getStats();
         }
@@ -90,6 +89,7 @@ var ScanProtocolsComponent = (function () {
     ScanProtocolsComponent.prototype.responseHandler = function (res, scan) {
         if (res instanceof http_1.HttpResponse) {
             scan.FileId = res.body; //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
+            scan.FileContent = null;
         }
         else {
             scan.UploadProgress = res;

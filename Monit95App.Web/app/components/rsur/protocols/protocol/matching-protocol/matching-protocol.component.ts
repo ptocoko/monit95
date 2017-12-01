@@ -18,9 +18,9 @@ import { Scan } from "../../../../../models/scan.model";
 export class MatchingProtocolComponent implements OnInit{
 	protocolScan: Scan;
 	marksProtocol: MarksProtocol;
+	fileId: number;
 	
 	isMarksProtocolLoading: boolean = false;
-	//isScanLoading: boolean = false;
 
 	@ViewChild('participCode') participCodeElem: ElementRef;
 	marksInputs: JQuery<HTMLInputElement>;
@@ -32,13 +32,11 @@ export class MatchingProtocolComponent implements OnInit{
 				private renderer: Renderer) { }
 
 	ngOnInit() {
-		//this.isScanLoading = true;
 		this.route.params.subscribe(params => {
-			let fileId: number = params["id"];
+			this.fileId = Number.parseInt(params["id"]);
 			
-			this.rsurProtocolsService.getScan(fileId).subscribe(res => {
+			this.rsurProtocolsService.getScan(this.fileId).subscribe(res => {
 				this.protocolScan = res;
-				//this.isScanLoading = false;
 
 				$().ready(() => this.initCallbacks()); //JQuery.ready заставляет ждать до конца отрисовки DOM
 			});
@@ -70,8 +68,9 @@ export class MatchingProtocolComponent implements OnInit{
 		}
 	}
 
-	participTestSuccessHandler(res: any) {
-		this.marksProtocol = res as MarksProtocol;
+	participTestSuccessHandler(res: MarksProtocol) {
+		this.marksProtocol = res;
+		this.marksProtocol.FileId = this.fileId;
 		
 		this.isMarksProtocolLoading = false;
 
@@ -95,14 +94,7 @@ export class MatchingProtocolComponent implements OnInit{
 	}
 
 	sendMarks() {
-		let marks = this.marksProtocol.QuestionResults.map(val => val.CurrentMark).join(';');
-
-		let participMarks = {
-			ParticipTestId: this.marksProtocol.ParticipTestId,
-			Marks: marks
-		};
-
-		console.log(participMarks);
+		console.log(this.marksProtocol);
 	}
 
 	onMarkChanged(event: any) {
@@ -125,7 +117,9 @@ export class MatchingProtocolComponent implements OnInit{
 	goToNextInputOrFocusOnSubmitBtn(elemIndex: number) {
 		if (elemIndex < this.marksInputs.length - 1) {
 			let nextInput = this.marksInputs.get(elemIndex + 1);
-			nextInput.focus();
+			if (!nextInput.value) {
+				nextInput.focus();
+			}
 		}
 		else {
 			$('#submitBtn').focus();

@@ -61,7 +61,6 @@ export class ScanProtocolsComponent implements OnInit{
 		});
 
 		if (isChanged) {
-			console.log('change detected!')
 			this.isScansUploading = this.scans.filter(f => f.Status === 'isUploading').length > 0;
 			this.getStats();
 		}
@@ -108,6 +107,7 @@ export class ScanProtocolsComponent implements OnInit{
 	responseHandler(res: number | HttpResponse<number>, scan: ScanForUpload) {
 		if (res instanceof HttpResponse) { //запрос возвращает сначала статус загрузки в процентах, а после загрузки FileId
 			scan.FileId = res.body;        //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
+			scan.FileContent = null;
 		}
 		else {
 			scan.UploadProgress = res;

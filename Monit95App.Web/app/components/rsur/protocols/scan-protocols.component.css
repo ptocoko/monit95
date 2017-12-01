@@ -41,8 +41,32 @@ mat-toolbar{
     font-size: 15px;
 }
 
-.state-caption + .state-caption{
-    margin-left:15px;
+.state-caption {
+    font-size:12px;
+}
+
+.state-caption+.state-caption{
+    margin-left:10px;
+}
+
+.duplicate-state{
+    color:blue;
+}
+
+.failed-state{
+    color: orangered;
+}
+
+.scans-container{
+    width:720px;
+    max-height:55vh;
+    overflow-y:auto;
+}
+
+.scans-footer{
+    width:700px;
+    background-color:#eee;
+    padding:10px 15px;
 }
 
 .centered-mini-cell{

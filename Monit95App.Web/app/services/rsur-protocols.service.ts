@@ -14,19 +14,21 @@ import { Scan } from "../models/scan.model";
 export class RsurProtocolsService {
 	constructor(private http: HttpClient) { }
 
-	url = '/api/rsur/marksProtocols';
+	marksProtocolUrl = '/api/rsur/marksProtocols';
+	scansUrl = '/api/rsur/scans';
 
-	getMarksProtocol(participCode: number) {
+	private sortFunc<T>(first: T|any, second: T|any) {
+		if (first.Order < second.Order) {
+			return -1;
+		}
+		else {
+			return 1;
+		}
+	}
+
+	getMarksProtocol(participCode: number): Observable<MarksProtocol> {
 		if (participCode == 12345) {
-			particip.QuestionResults.sort((first, second) => {
-				if (first.Order < second.Order) {
-					return -1;
-				}
-				else {
-					return 1;
-				}
-			});
-
+			particip.QuestionResults.sort(this.sortFunc);
 			return Observable.of(particip).delay(2000);
 		}
 		else
@@ -44,27 +46,39 @@ export class RsurProtocolsService {
 			});
 		}
 
-		//return this.http.get<MarksProtocol>(url);
+		//return this.http.get<MarksProtocol>(this.url).map(s => s.QuestionResults.sort(this.sortFunc));
 	}
 
 	postMarksProtocol(marksProtocol: MarksProtocol) {
 		if (!marksProtocol.FileId) {
 			console.error('need to attach fileId to the marksProtocol object')
-			return Observable.throw('')
+			return Observable.throw('there is no fileId')
+		}
+		else {
+			//return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
 		}
 	}
 
 	getScan(fileId: number) {
 		return Observable.of(protocolScanModel).delay(2000);
+
+		//return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
+	}
+
+	public getNotMatchedScans() {
+		return Observable.of(scans).delay(2000);
+
+		//return this.http.get<Scan[]>(`${this.scansUrl}?onlyNotMatched=true`);
 	}
 
 	public postScan(file: File): Observable<number|HttpResponse<number>> {
-		let url = '/api/ExcelFiles/Upload';
+		let fakeUrl = '/api/ExcelFiles/Upload';
+
 		let formData: FormData = new FormData();
 		formData.append('image', file, file.name);
 
 		var subject = new Subject<number|HttpResponse<number>>()
-		const req = new HttpRequest('POST', url, formData, {
+		const req = new HttpRequest('POST', fakeUrl, formData, {
 			reportProgress: true,
 			responseType: 'text'
 		});
@@ -81,12 +95,10 @@ export class RsurProtocolsService {
 		return subject.asObservable();
 	}
 
-	public getNotMatchedScans() {
-		return Observable.of(scans).delay(2000);
-	}
-
 	public deleteScan(fileId: number) {
 		return Observable.of({}).delay(1000);
+
+		//return this.http.delete(`${this.scansUrl}/${fileId}`);
 	}
 }
 
@@ -116,6 +128,150 @@ const particip: MarksProtocol = {
 			"Name": "1.1",
 			"Order": 1,
 			"MaxMark": 4,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
 			"CurrentMark": null
 		},
 		{

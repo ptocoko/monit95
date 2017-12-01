@@ -28,12 +28,10 @@ var MatchingProtocolComponent = (function () {
     }
     MatchingProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //this.isScanLoading = true;
         this.route.params.subscribe(function (params) {
-            var fileId = params["id"];
-            _this.rsurProtocolsService.getScan(fileId).subscribe(function (res) {
+            _this.fileId = Number.parseInt(params["id"]);
+            _this.rsurProtocolsService.getScan(_this.fileId).subscribe(function (res) {
                 _this.protocolScan = res;
-                //this.isScanLoading = false;
                 $().ready(function () { return _this.initCallbacks(); }); //JQuery.ready заставляет ждать до конца отрисовки DOM
             });
         });
@@ -59,6 +57,7 @@ var MatchingProtocolComponent = (function () {
     MatchingProtocolComponent.prototype.participTestSuccessHandler = function (res) {
         var _this = this;
         this.marksProtocol = res;
+        this.marksProtocol.FileId = this.fileId;
         this.isMarksProtocolLoading = false;
         $().ready(function () {
             //обработчик фокуса и переводим фокус на первое поле
@@ -76,12 +75,7 @@ var MatchingProtocolComponent = (function () {
         this.focusOnCodeElem();
     };
     MatchingProtocolComponent.prototype.sendMarks = function () {
-        var marks = this.marksProtocol.QuestionResults.map(function (val) { return val.CurrentMark; }).join(';');
-        var participMarks = {
-            ParticipTestId: this.marksProtocol.ParticipTestId,
-            Marks: marks
-        };
-        console.log(participMarks);
+        console.log(this.marksProtocol);
     };
     MatchingProtocolComponent.prototype.onMarkChanged = function (event) {
         var elem = event.target;
@@ -101,7 +95,9 @@ var MatchingProtocolComponent = (function () {
     MatchingProtocolComponent.prototype.goToNextInputOrFocusOnSubmitBtn = function (elemIndex) {
         if (elemIndex < this.marksInputs.length - 1) {
             var nextInput = this.marksInputs.get(elemIndex + 1);
-            nextInput.focus();
+            if (!nextInput.value) {
+                nextInput.focus();
+            }
         }
         else {
             $('#submitBtn').focus();
