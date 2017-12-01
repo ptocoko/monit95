@@ -7,12 +7,16 @@ using System.Web.Http;
 namespace Monit95App.RESTful_API.Rsur
 {
     using Monit95App.Services.Rsur.MarksProtocol;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Net;
+    using System.Net.Http;
 
     /// <summary>
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>
-    [Authorize(Roles = "area")]
+    //[Authorize(Roles = "area")]
     [RoutePrefix("api/rsur/marksProtocols")]
     public class MarksProtocolsController : ApiController
     {
@@ -25,22 +29,27 @@ namespace Monit95App.RESTful_API.Rsur
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post([FromBody]MarksProtocol marksProtocol)
+        public HttpResponseMessage Post([FromBody]MarksProtocol marksProtocol)
         {                       
             var areaCode = int.Parse(User.Identity.Name);
-            marksProtocolService.CreateOrEditRsurTestResultEntity(marksProtocol, areaCode);
+            //var validationResults = marksProtocolService.CreateOrEditRsurTestResultEntity(marksProtocol, areaCode);
 
-            if (marksProtocolService.ModelValidationResults.Any())
+            var validationResults = new List<ValidationResult>
             {
-                foreach(var validatioResult in marksProtocolService.ModelValidationResults)
-                {
-                    ModelState.AddModelError($"{nameof(marksProtocol)}", validatioResult.ErrorMessage);
-                }
+                new ValidationResult("some error 1"),
+                new ValidationResult("some error 2")
+            };
 
-                return BadRequest(ModelState);
+            // если validationResults не пуст значит сервисе произошла какая-то ошибка
+            if (validationResults.Any())
+            {
+                foreach(var validatioResult in validationResults)                
+                    ModelState.AddModelError($"{nameof(marksProtocol)}", validatioResult.ErrorMessage);                
+
+                return  Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            
-            return Ok();
+
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
 
         //[HttpGet]        
