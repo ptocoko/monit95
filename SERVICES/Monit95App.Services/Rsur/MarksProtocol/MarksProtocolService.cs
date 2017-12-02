@@ -16,7 +16,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
         #region Dependencies
 
         private readonly CokoContext context;
-        public List<ValidationResult> ModelValidationResults = new List<ValidationResult>();
+        
 
         #endregion
 
@@ -135,35 +135,35 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             return marksProtocol;            
         }
 
-        public void CreateOrEditRsurTestResultEntity(MarksProtocol marksProtocol, int areaCode)
+        public List<ValidationResult> CreateOrEditRsurTestResultEntity(MarksProtocol marksProtocol, int areaCode)
         {
-            ModelValidationResults.Clear();
+            var validationResults = new List<ValidationResult>();            
             if (marksProtocol == null)
             {
-                ModelValidationResults.Add(new ValidationResult($"{nameof(marksProtocol)} is null"));
-                return;
+                validationResults.Add(new ValidationResult($"{nameof(marksProtocol)} is null"));
+                return validationResults;
             }                
 
             if (marksProtocol.QuestionResults == null)
             {
-                ModelValidationResults.Add(new ValidationResult($"{nameof(marksProtocol.QuestionResults)} "));
-                return;
+                validationResults.Add(new ValidationResult($"{nameof(marksProtocol.QuestionResults)} "));
+                return validationResults;
             }                
 
             var rsurParticipTest = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == marksProtocol.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode);
             if (rsurParticipTest == null)
             {
-                ModelValidationResults.Add(new ValidationResult($"- RsurTest is not open;" +
+                validationResults.Add(new ValidationResult($"- RsurTest is not open;" +
                                                                 $"- Or {nameof(marksProtocol.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
                                                                 $"- Or user has not access to this entity"));
-                return;
+                return validationResults;
             }
             
             var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // current test's testQuestions
             if (testQuestions.Count() != marksProtocol.QuestionResults.Count())
             {
-                ModelValidationResults.Add(new ValidationResult($"{nameof(testQuestions)} count != {nameof(marksProtocol.QuestionResults)}"));
-                return;
+                validationResults.Add(new ValidationResult($"{nameof(testQuestions)} count != {nameof(marksProtocol.QuestionResults)}"));
+                return validationResults;
             }
             string rsurQuestionValues = string.Empty;
             
@@ -197,7 +197,9 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                 rsurTestResult.RsurQuestionValues = rsurQuestionValues;
                 rsurTestResult.FileId = marksProtocol.FileId;
             }
-            context.SaveChanges();            
+            context.SaveChanges();
+
+            return validationResults;
         }       
 
         #endregion
