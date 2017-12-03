@@ -1,34 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Monit95App.Infrastructure.Data;
-// ReSharper disable UnusedMember.Global
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="Center for Evaluation of the Quality of Education" file="RsurTestResultService.cs">
+//   Copyright (c) CEQE.  All rights reserved.
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace Monit95App.Services.Rsur.MarksProtocol
+// ReSharper disable StringIndexOfIsCultureSpecific.1
+namespace Monit95App.Services.Rsur.RsurTestResultService
 {
-    using System.ComponentModel.DataAnnotations;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
-    using Monit95App.Domain.Core;
-    using Monit95App.Domain.Core.Entities;
+    using Domain.Core.Entities;
+    using Infrastructure.Data;
+    using Validation;
 
-    public class MarksProtocolService : IMarksProtocolService
-    {
+    /// <summary>
+    /// Provides the APIs for managing test's results in a persistence store.
+    /// </summary>
+    public class RsurTestResultService : IRsurTestResultService
+    { 
         #region Dependencies
 
         private readonly CokoContext context;
-        
 
         #endregion
 
-        public MarksProtocolService(CokoContext context)
+        #region All Constructors
+
+        public RsurTestResultService(CokoContext context)
         {
-            this.context = context;            
-        }           
+            this.context = context;
+        }        
 
-        #region Service methods
+        #endregion
 
+        #region Methods
 
-        public IEnumerable<MarksProtocol> GetProtocols(int rsurTestId, int areaCode)
+        public IEnumerable<RsurTestResultDto> GetProtocols(int rsurTestId, int areaCode)
         {
             //var protocols = context.RsurParticipTests
             //    .Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
@@ -57,7 +69,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             var resultDict = new Dictionary<int, RsurTestStatisticsDto>();
             foreach (var rsurTestId in rsurTests)
             {
-                var particips = context.RsurParticipTests.Where(x =>
+                var particips = this.context.RsurParticipTests.Where(x =>
                     x.RsurParticip.School.AreaCode == areaCode // получаем список всех участников для данного testId
                     && x.RsurTestId == rsurTestId);
                 double participsCount = particips.Count();
@@ -85,11 +97,11 @@ namespace Monit95App.Services.Rsur.MarksProtocol
 
         public string GetTestName(int rsurTestId)
         {
-            return context.RsurTests.Where(x => x.Id == rsurTestId)
+            return this.context.RsurTests.Where(x => x.Id == rsurTestId)
                                     .Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
         }
 
-        public MarksProtocol Get(int participCode, int areaCode)
+        public RsurTestResultDto Get(int participCode, int areaCode)
         {
             if (!Enumerable.Range(10000, 99999).Contains(participCode)
                 || !Enumerable.Range(201, 217).Contains(areaCode))
@@ -97,7 +109,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                 throw new ArgumentException($"{nameof(participCode)} has to be 10000-99999 and {nameof(areaCode)} has to be 210-217");
             } 
             
-            var rsurTestResultOfParticip = context.RsurTestResults.SingleOrDefault(x => x.RsurParticipTest.RsurParticipCode == participCode
+            var rsurTestResultOfParticip = this.context.RsurTestResults.SingleOrDefault(x => x.RsurParticipTest.RsurParticipCode == participCode
                                                                                  && x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
                                                                                         && x.RsurParticipTest.RsurTest
                                                                                             .IsOpen);
@@ -106,7 +118,7 @@ namespace Monit95App.Services.Rsur.MarksProtocol
                 throw new ArgumentException($"{nameof(participCode)} is incorrect or is not access for current user");
             }
 
-            var marksProtocol = new MarksProtocol
+            var marksProtocol = new RsurTestResultDto
             {
                 ParticipCode = rsurTestResultOfParticip.RsurParticipTest.RsurParticipCode,
                 ParticipTestId = rsurTestResultOfParticip.RsurParticipTestId,
@@ -135,71 +147,78 @@ namespace Monit95App.Services.Rsur.MarksProtocol
             return marksProtocol;            
         }
 
-        public List<ValidationResult> CreateOrEditRsurTestResultEntity(MarksProtocol marksProtocol, int areaCode)
+        public ServiceResult CreateOrUpdate(RsurTestResultDto rsurTestResultDto, int areaCode)
         {
-            var validationResults = new List<ValidationResult>();            
-            if (marksProtocol == null)
+            var result = new ServiceResult();                                         
+            
+            if (rsurTestResultDto == null)
             {
-                validationResults.Add(new ValidationResult($"{nameof(marksProtocol)} is null"));
-                return validationResults;
+                result.Errors.Add($"{nameof(rsurTestResultDto)} is null");                
+                return result;
             }                
 
-            if (marksProtocol.QuestionResults == null)
+            if (rsurTestResultDto.QuestionResults == null)
             {
-                validationResults.Add(new ValidationResult($"{nameof(marksProtocol.QuestionResults)} "));
-                return validationResults;
+                result.Errors.Add($"{nameof(rsurTestResultDto.QuestionResults)}");
+                return result;
             }                
 
-            var rsurParticipTest = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == marksProtocol.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode);
+            var rsurParticipTest = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == rsurTestResultDto.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode);
             if (rsurParticipTest == null)
             {
-                validationResults.Add(new ValidationResult($"- RsurTest is not open;" +
-                                                                $"- Or {nameof(marksProtocol.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
-                                                                $"- Or user has not access to this entity"));
-                return validationResults;
+                result.Errors.Add("- RsurTest is not open;" +
+                                 $"- Or {nameof(rsurTestResultDto.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
+                                  "- Or user has not access to this entity");
+                return result;
             }
             
             var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // current test's testQuestions
-            if (testQuestions.Count() != marksProtocol.QuestionResults.Count())
+            if (testQuestions.Count() != rsurTestResultDto.QuestionResults.Count())
             {
-                validationResults.Add(new ValidationResult($"{nameof(testQuestions)} count != {nameof(marksProtocol.QuestionResults)}"));
-                return validationResults;
-            }
-            string rsurQuestionValues = string.Empty;
+                result.Errors.Add($"{nameof(testQuestions)} count != {nameof(rsurTestResultDto.QuestionResults)}");
+                return result;
+            }            
             
-            marksProtocol.QuestionResults.ForEach(questionResult =>
+            rsurTestResultDto.QuestionResults.ForEach(questionResult =>
             {
                 var maxValue = testQuestions.Single(tq => tq.Order == questionResult.Order).Question.MaxMark;
+
                 // если балл указан балл ниже -1 (отсутствовал) или больше допустимого, то устанавливается максимально допустимый
                 if (questionResult.CurrentMark < -1 || questionResult.CurrentMark > maxValue)
-                    questionResult.CurrentMark = maxValue;                
+                {
+                    questionResult.CurrentMark = maxValue;
+                } 
             });
-            rsurQuestionValues = marksProtocol.QuestionResults.Select(s => s.CurrentMark.ToString()).Aggregate((totalCurrentMarks, nextCurrentMark) => $"{totalCurrentMarks};{nextCurrentMark}");
+            var rsurQuestionValues = rsurTestResultDto.QuestionResults.Select(s => s.CurrentMark.ToString()).Aggregate((totalCurrentMarks, nextCurrentMark) => $"{totalCurrentMarks};{nextCurrentMark}");
 
-            // если хотя бы у обного задание в качестве значения (балл за задание) стоит -1, то считается что данный участник отсутствовал на диагностике (wasnot)
+            // если хотя бы у обного задание в качестве значения (балл за задание) стоит -1, 
+            // то считается что данный участник отсутствовал на диагностике (wasnot)
             if (rsurQuestionValues.IndexOf("-1") > -1)
-                rsurQuestionValues = "wasnot";            
+            {
+                rsurQuestionValues = "wasnot";
+            }
+                
+            var rsurTestResult = context.RsurTestResults.Find(rsurTestResultDto.ParticipTestId);
 
-            var rsurTestResult = context.RsurTestResults.Find(marksProtocol.ParticipTestId);
             // create
             if (rsurTestResult == null) 
             {
-                context.RsurTestResults.Add(new RsurTestResult
+                this.context.RsurTestResults.Add(new RsurTestResult
                 {
-                    RsurParticipTestId = marksProtocol.ParticipTestId,
-                    FileId = marksProtocol.FileId,
+                    RsurParticipTestId = rsurTestResultDto.ParticipTestId,
+                    FileId = rsurTestResultDto.FileId,
                     RsurQuestionValues = rsurQuestionValues                    
                 });
-            }
-            // edit
+            }            
             else
             {
+                // edit
                 rsurTestResult.RsurQuestionValues = rsurQuestionValues;
-                rsurTestResult.FileId = marksProtocol.FileId;
+                rsurTestResult.FileId = rsurTestResultDto.FileId;
             }
-            context.SaveChanges();
 
-            return validationResults;
+            context.SaveChanges();
+            return result;
         }       
 
         #endregion

@@ -10,14 +10,15 @@ using Monit95App.Models;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
-using Monit95App.Services.Rsur.MarksProtocol;
 using Monit95App.Services.Rsur.ParticipReport;
 using Monit95App.Services.Rsur.SeminarReport;
 using Monit95App.Services.School;
 using Monit95App.Web.Services;
 
 namespace Monit95App.Util
-{    
+{
+    using Monit95App.Services.Rsur.RsurTestResultService;
+
     public class AutofacConfig
     {
         public static void ConfigureContainer()
@@ -49,7 +50,7 @@ namespace Monit95App.Util
             builder.RegisterType<MarksService>().As<IMarksService>();
             builder.RegisterType<RsurMarksService>().As<IRsurMarksProtocolService>();
             builder.RegisterType<ParticipResults>().As<IParticipResults>();
-            builder.RegisterType<MarksProtocolService>().As<IMarksProtocolService>();
+            builder.RegisterType<RsurTestResultService>().As<IRsurTestResultService>();
             builder.RegisterType<ParticipReportService>().As<IParticipReportService>();
             builder.RegisterType<RatingService>().As<IRatingService>();
             builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();            
