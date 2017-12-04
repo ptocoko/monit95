@@ -60,7 +60,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\Monit95App.Domain.Core\Monit95.Domain.Core.csproj">
+    <ProjectReference Include="..\..\DOMAIN\Monit95.Domain.Core\Monit95.Domain.Core.csproj">
       <Project>{84DC3950-0B35-4EB2-B534-93AF0387CCDC}</Project>
       <Name>Monit95.Domain.Core</Name>
     </ProjectReference>

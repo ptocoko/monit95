@@ -10,11 +10,9 @@ namespace Monit95App.Services.Tests
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    using NSubstitute;
     using Monit95App.Domain.Core.Entities;
     using Monit95App.Domain.Interfaces;
-    using Monit95App.Services.DTOs;
-
-    using NSubstitute;
 
     [TestClass]
     public class MarksServiceTest

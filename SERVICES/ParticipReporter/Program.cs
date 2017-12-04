@@ -1,32 +1,16 @@
 ﻿using Ionic.Zip;
-using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
-using Monit95App.Services.DTOs;
-using Monit95App.Services.Interfaces;
-using SelectPdf;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ParticipReporter
 {
     class Program
-    {
-        //static string _reportFolder;
-        
-        //static string _blockName;
-        //static List<DescriptionDto> _partsDesc;
-        //static List<DescriptionDto> _elementsDesc;
-        //static DateTime _testDate;        
-
+    {       
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;

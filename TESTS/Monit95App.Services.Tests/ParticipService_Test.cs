@@ -1,18 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
-using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Services;
 using Monit95App.Services.Interfaces;
-using Monit95App.Services.Models;
-using Moq;
 using NSubstitute;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Monit95App.Services.DTOs;
+using Monit95App.Domain.Interfaces;
 
 namespace Monit95App.Services.Tests
 {
