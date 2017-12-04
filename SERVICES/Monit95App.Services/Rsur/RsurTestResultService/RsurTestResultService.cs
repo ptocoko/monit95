@@ -153,21 +153,20 @@ namespace Monit95App.Services.Rsur.RsurTestResultService
             
             if (rsurTestResultDto == null)
             {
-                result.Errors.Add(new ServiceError { HttpCode = string.Empty, Description = $"{nameof(rsurTestResultDto)} is null" });                
+                result.Errors.Add(new ServiceError { Description = $"{nameof(rsurTestResultDto)} is null" });                
                 return result;
             }                
 
             if (rsurTestResultDto.QuestionResults == null)
             {
-                result.Errors.Add(new ServiceError { HttpCode = string.Empty, Description = $"{nameof(rsurTestResultDto.QuestionResults)}" });                
+                result.Errors.Add(new ServiceError { Description = $"{nameof(rsurTestResultDto.QuestionResults)}" });                
                 return result;
             }                
 
             var rsurParticipTest = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == rsurTestResultDto.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode);
             if (rsurParticipTest == null)
             {
-                result.Errors.Add(new ServiceError {
-                    HttpCode = string.Empty,
+                result.Errors.Add(new ServiceError {                    
                     Description = "- RsurTest is not open;" +
                                  $"- Or {nameof(rsurTestResultDto.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
                                   "- Or user has not access to this entity"
@@ -178,7 +177,7 @@ namespace Monit95App.Services.Rsur.RsurTestResultService
             var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // current test's testQuestions
             if (testQuestions.Count() != rsurTestResultDto.QuestionResults.Count())
             {
-                result.Errors.Add(new ServiceError { HttpCode = string.Empty, Description = $"{nameof(testQuestions)} count != {nameof(rsurTestResultDto.QuestionResults)}" });                
+                result.Errors.Add(new ServiceError { Description = $"{nameof(testQuestions)} count != {nameof(rsurTestResultDto.QuestionResults)}" });                
                 return result;
             }            
             
