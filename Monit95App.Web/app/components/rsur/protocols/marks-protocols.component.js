@@ -21,11 +21,8 @@ var MarksProtocolsComponent = (function () {
     };
     MarksProtocolsComponent.prototype.deleteResult = function (protocol) {
         this.rsurProtocolsService.deleteTestResult(protocol.ParticipTestId).subscribe(function (res) {
-            console.log(res);
-            console.log(protocol);
             protocol.SourceFileName = undefined;
             protocol.Marks = undefined;
-            console.log(protocol);
         });
     };
     return MarksProtocolsComponent;
