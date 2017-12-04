@@ -105,7 +105,6 @@
     <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipExtendReport.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReport.cs" />
-    <Compile Include="FileRespository\FileRespositoryManager.cs" />
     <Compile Include="Interfaces\IClassParticipConverter.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IDocumentService.cs" />
