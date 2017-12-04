@@ -51,7 +51,7 @@ namespace Monit95App.RESTful_API.Rsur
             {
                 var file = httpRequest.Files[i];
                 var fileExtension = Path.GetExtension(file.FileName);
-                var fileId = seminarReportService.SaveFile(file.InputStream, fileExtension, reportId, i + 1, imagesFolder);
+                seminarReportService.SaveFile(file.InputStream, fileExtension, reportId, i + 1, imagesFolder);
             }
 
             return Ok();

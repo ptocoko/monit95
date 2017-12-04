@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿namespace Monit95App.Services.Rsur.RsurTestResultService
+{
+    using System.Collections.Generic;
 
-namespace Monit95App.Domain.Core
-{    
-    ///<summary>
+    /// <summary>
     /// Протокол проверки заданий КИМ
-    ///</summary>
-    public class MarksProtocol
+    /// </summary>
+    public class RsurTestResultDto
     {        
         public int ParticipCode { get; set; }
         

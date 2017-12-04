@@ -2,11 +2,10 @@
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Monit95App.Services.DTOs;
-using Monit95App.Services.Rsur.MarksProtocol;
 
 namespace Monit95App.RESTful_API.Rsur
 {
-    
+    using Monit95App.Services.Rsur.RsurTestResultService;
 
     [Authorize(Roles = "area")]
     [RoutePrefix("api/rsur/testProtocols")]
@@ -14,11 +13,11 @@ namespace Monit95App.RESTful_API.Rsur
     {
         #region Dependencies
 
-        private readonly IMarksProtocolService testProtocolService;
+        private readonly IRsurTestResultService testProtocolService;
         
         #endregion
 
-        public RsurTestResultsController(IMarksProtocolService testProtocolService)
+        public RsurTestResultsController(IRsurTestResultService testProtocolService)
         {
             this.testProtocolService = testProtocolService;            
         }

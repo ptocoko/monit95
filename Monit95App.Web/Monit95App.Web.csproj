@@ -277,7 +277,8 @@
     <Compile Include="RESTful_API\FilesController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
-    <Compile Include="RESTful_API\Rsur\MarksProtocolsController.cs" />
+    <Compile Include="RESTful_API\Rsur\FilesController.cs" />
+    <Compile Include="RESTful_API\Rsur\TestResultsController.cs" />
     <Compile Include="RESTful_API\Rsur\RatingsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipReportsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipsController.cs" />
@@ -299,7 +300,6 @@
     <Compile Include="Controllers\ParticipReportController.cs" />
     <Compile Include="Controllers\RsurController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OneTwoThreeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\WishesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -556,15 +556,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\_PartialFooter.cshtml" />
-    <Content Include="Views\Shared\_Schoolinfo.cshtml" />
     <Content Include="Views\Home\Schools.cshtml" />
-    <Content Include="Views\Shared\_OnlineReports.cshtml" />
-    <Content Include="Views\Report\Report.cshtml" />
     <Content Include="Views\Home\Schoolinfo.cshtml" />
     <Content Include="Scripts\smart-table.min.js.map" />
-    <Content Include="Views\CollectorMarks\Index.cshtml" />
     <Content Include="Templates\onetwothree_particip.html" />
-    <Content Include="Views\OneTwoThree\Spa.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="systemjs.config.js" />
     <Content Include="Views\Rsur\Spa.cshtml" />
@@ -580,7 +575,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Images\seminar-photos\" />
-    <Folder Include="Views\ParticipReport\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

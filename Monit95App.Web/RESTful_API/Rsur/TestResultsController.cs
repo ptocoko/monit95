@@ -1,39 +1,46 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Services.DTOs;
+﻿using System.Web.Http;
 
-using System.Web.Http;
+using Monit95App.Services.DTOs;
 
 namespace Monit95App.RESTful_API.Rsur
 {
-    using Monit95App.Services.Rsur.MarksProtocol;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+
+    using Services.Rsur.RsurTestResultService;
 
     /// <summary>
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>
-    // [Authorize(Roles = "area")]
+    [Authorize(Roles = "area")]
     [RoutePrefix("api/rsur/marksProtocols")]
-    public class MarksProtocolsController : ApiController
+    public class TestResultsController : ApiController
     {
-        private readonly IMarksProtocolService marksProtocolService;        
+        private readonly IRsurTestResultService rsurTestResultService;        
 
-        public MarksProtocolsController(IMarksProtocolService marksProtocolService)
+        public TestResultsController(IRsurTestResultService rsurTestResultService)
         {
-            this.marksProtocolService = marksProtocolService;            
+            this.rsurTestResultService = rsurTestResultService;            
         }
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post([FromBody]MarksProtocol postMarksProtocol)
+        public HttpResponseMessage Post([FromBody]RsurTestResultDto rsurTestResultDto)
         {                       
-            var areaCode = int.Parse(User.Identity.Name);            
-            
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }                     
+            var areaCode = int.Parse(User.Identity.Name);
+            var result = rsurTestResultService.CreateOrUpdate(rsurTestResultDto, areaCode);
 
-            return Ok();
+            if (!result.Errors.Any())
+            {
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+
+            foreach (var error in result.Errors)
+            {
+                this.ModelState.AddModelError(string.Empty, error);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
         }
 
         //[HttpGet]        
@@ -74,7 +81,10 @@ namespace Monit95App.RESTful_API.Rsur
 
         /// <summary>
         /// Получает протокол проверки заданий участника. Поиск идет среди текущих отрытых тестов
-        /// </summary>        
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IHttpActionResult"/>.
+        /// </returns>
         [HttpGet]
         [Route("{participCode:range(10000, 99999)}")]
         public IHttpActionResult Get()
@@ -82,10 +92,10 @@ namespace Monit95App.RESTful_API.Rsur
             var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
             var areaCode = int.Parse(User.Identity.Name);
 
-            MarksProtocol marksProtocol;
+            RsurTestResultDto marksProtocol;
             try
             {
-                marksProtocol = marksProtocolService.Get(participCode, areaCode);
+                marksProtocol = this.rsurTestResultService.Get(participCode, areaCode);
             }
             catch (System.ArgumentException ex)
             {
