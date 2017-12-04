@@ -8,15 +8,14 @@
             <th class="cell-center">Наименование блока</th>
             <th>Имя файла</th>
             <th>Баллы по заданиям</th>
-            <th></th>
         </tr>
         <tr *ngFor="let protocol of participProtocols; let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{protocol.ParticipCode}}</td>
+            <td class="cell-center">{{i + 1}}</td>
+            <td class="cell-center">{{protocol.ParticipCode}}</td>
             <td>{{protocol.TestName}}</td>
             <td>{{protocol.SourceFileName}}</td>
             <td>{{protocol.Marks}}</td>
-            <td *ngIf="protocol.Marks"><a class="glyphicon glyphicon-trash" style="cursor:pointer"></a></td>
+            <td *ngIf="protocol.Marks"><a (click)="deleteResult(protocol)" class="glyphicon glyphicon-trash" style="cursor:pointer"></a></td>
         </tr>
     </table>
 </div>

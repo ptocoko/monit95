@@ -46,8 +46,3 @@
     border: 1px solid lightgray;
     box-shadow: 0 0 5px lightgray;
 }
-
-.cell-center{
-    text-align:center;
-    vertical-align:middle;
-}

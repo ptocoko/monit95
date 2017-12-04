@@ -19,11 +19,21 @@ var MarksProtocolsComponent = (function () {
         var _this = this;
         this.rsurProtocolsService.getParticipProtocols().subscribe(function (res) { return _this.participProtocols = res; });
     };
+    MarksProtocolsComponent.prototype.deleteResult = function (protocol) {
+        this.rsurProtocolsService.deleteTestResult(protocol.ParticipTestId).subscribe(function (res) {
+            console.log(res);
+            console.log(protocol);
+            protocol.SourceFileName = undefined;
+            protocol.Marks = undefined;
+            console.log(protocol);
+        });
+    };
     return MarksProtocolsComponent;
 }());
 MarksProtocolsComponent = __decorate([
     core_1.Component({
         templateUrl: "./app/components/rsur/protocols/marks-protocols.component.html?v=" + new Date().getTime(),
+        styleUrls: ["./app/components/rsur/protocols/marks-protocols.component.css?v=" + new Date().getTime()]
     }),
     __metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService])
 ], MarksProtocolsComponent);

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Monit95App.Services.Rsur.SeminarReport;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Web;
 using System.Web.Hosting;
@@ -30,7 +31,8 @@ namespace Monit95App.RESTful_API.Rsur
             {
                 var file = httpRequest.Files[i];
                 var fileExtension = Path.GetExtension(file.FileName);
-                seminarReportService.SaveFile(file.InputStream, fileExtension, reportId, i + 1, imagesFolder);
+#warning something wrong here
+                //SeminarReportService.SaveFile(file.InputStream, fileExtension, reportId, i + 1, imagesFolder);
             }
 
             return Ok();

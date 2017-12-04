@@ -105,6 +105,10 @@ export class RsurProtocolsService {
 	getParticipProtocols() {
 		return Observable.of(participProtocols).delay(500);
 	}
+
+	deleteTestResult(participTestId: number) {
+		return Observable.of({}).delay(1000);
+	}
 }
 
 const protocolScanModel: Scan = {
@@ -127,12 +131,14 @@ const scans: Scan[] = [
 const participProtocols: ParticipScanModel[] = [
 	{
 		ParticipCode: 12345,
+		ParticipTestId: 1234,
 		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
 		SourceFileName: 'IMG_001.JPG',
 		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
 	},
 	{
 		ParticipCode: 54321,
+		ParticipTestId: 4321,
 		TestName: '0104 — Речь && Языковые нормы && Выразительность речи'
 	},
 ]
