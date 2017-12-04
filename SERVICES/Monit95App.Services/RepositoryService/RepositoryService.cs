@@ -38,8 +38,7 @@ namespace Monit95App.Services.RepositoryService
             {
                 serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(fileName)} is null or empty" });
                 return serviceResult;
-            }
-                
+            }                
 
             return serviceResult;            
         }
