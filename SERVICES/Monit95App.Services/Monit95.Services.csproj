@@ -96,6 +96,7 @@
     <Compile Include="FilesService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="RepositoryService\IRepositoryService.cs" />
+    <Compile Include="RepositoryService\RepositoryService.cs" />
     <Compile Include="Rsur\RsurTestResultService\IRsurTestResultService.cs" />
     <Compile Include="Rsur\RsurTestResultService\RsurTestResultDto.cs" />
     <Compile Include="Rsur\RsurTestResultService\RsurTestResultService.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
+    <Compile Include="Validation\ServiceError.cs" />
     <Compile Include="Validation\ServiceResult.cs" />
   </ItemGroup>
   <ItemGroup>

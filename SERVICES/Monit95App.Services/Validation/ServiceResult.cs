@@ -5,10 +5,10 @@
     public class ServiceResult
     {
         /// <summary>
-        /// Gets or sets method result
+        /// Gets or sets method's result
         /// </summary>
         public object Result { get; set; }
 
-        public List<string> Errors { get; set; } = new List<string>();           
+        public List<ServiceError> Errors { get; set; } = new List<ServiceError>();           
     }
 }

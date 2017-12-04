@@ -38,7 +38,7 @@ namespace Monit95App.RESTful_API.Rsur
 
             foreach (var error in result.Errors)
             {
-                this.ModelState.AddModelError(string.Empty, error);
+                this.ModelState.AddModelError(error.HttpCode, error.Description);
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
         }

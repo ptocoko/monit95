@@ -33,11 +33,11 @@ namespace Monit95App.RESTful_API.Rsur
         #endregion
 
         /// <summary>
-        /// 
+        /// Добавление файла в репозиторий
         /// </summary>
         /// <returns>fileId</returns>
         [HttpPost, Route("{id:int}/files")]
-        //[Authorize(Roles = "area")]
+        [Authorize(Roles = "area")]
         [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
         public HttpResponseMessage AddFile()
         {
@@ -53,16 +53,17 @@ namespace Monit95App.RESTful_API.Rsur
 
             var result = repositoryService.Add(repositoryId, fileStream, fileName);
 
-            // faild
-            if (!result.Errors.Any())
-            {
-                return Request.CreateResponse(HttpStatusCode.Created, Convert.ToInt32(result.Result));
-            }
-
             // success
+            if (!result.Errors.Any())            
+                return Request.CreateResponse(HttpStatusCode.Created, Convert.ToInt32(result.Result));            
+
+            // faild
             foreach (var error in result.Errors)
             {
-                this.ModelState.AddModelError(string.Empty, error);
+                if (error.HttpCode == 409)
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Like this file exist");
+
+                this.ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);            
         }
