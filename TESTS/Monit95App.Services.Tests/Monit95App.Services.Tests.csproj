@@ -104,7 +104,6 @@
     <Compile Include="RatingServiceTest.cs" />
     <Compile Include="MarksProtocolServiceTest.cs" />
     <Compile Include="Util\MyExpectedException.cs" />
-    <Compile Include="FilesService_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

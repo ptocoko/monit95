@@ -274,7 +274,6 @@
     <Compile Include="RESTful_API\ExcelFilesController.cs" />
     <Compile Include="RESTful_API\FileRepositoriesController.cs" />
     <Compile Include="RESTful_API\MarksController.cs" />
-    <Compile Include="RESTful_API\FilesController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
     <Compile Include="RESTful_API\Rsur\FilesController.cs" />
