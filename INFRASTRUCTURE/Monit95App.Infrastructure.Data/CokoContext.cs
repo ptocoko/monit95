@@ -1,5 +1,5 @@
-using System.Data.Entity;
 using Monit95App.Domain.Core.Entities;
+using System.Data.Entity;
 
 namespace Monit95App.Infrastructure.Data
 {

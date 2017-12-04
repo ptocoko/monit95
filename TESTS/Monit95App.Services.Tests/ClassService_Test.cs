@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Domain.Core;
-using Monit95App.Services;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Services;
 using System.Linq;
 
 namespace Monit95App.Domain.DTO.Tests

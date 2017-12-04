@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Monit95App.Domain.Interfaces;
+using System;
 using System.Linq;
-
-using Monit95App.Domain.Interfaces;
 
 namespace Monit95App.Infrastructure.Data
 {

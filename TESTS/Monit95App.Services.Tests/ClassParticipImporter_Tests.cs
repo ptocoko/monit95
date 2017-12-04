@@ -2,12 +2,11 @@
 using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Interfaces;
 
 using NSubstitute;
 using System.Linq;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.Tests
 {

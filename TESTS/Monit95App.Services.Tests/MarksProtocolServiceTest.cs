@@ -13,7 +13,6 @@ using NSubstitute;
 
 namespace Monit95App.Services.Tests
 {
-    using Monit95App.Domain.Core;
     using Monit95App.Services.Rsur.RsurTestResultService;
 
     [TestClass]

@@ -1,7 +1,5 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Ionic.Zip;
-using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
@@ -9,12 +7,8 @@ using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OneTwoThreeReporter
 {
