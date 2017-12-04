@@ -95,7 +95,7 @@
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
     <Compile Include="FilesService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
-    <Compile Include="Rsur\FileService\IFileService.cs" />
+    <Compile Include="RepositoryService\IRepositoryService.cs" />
     <Compile Include="Rsur\RsurTestResultService\IRsurTestResultService.cs" />
     <Compile Include="Rsur\RsurTestResultService\RsurTestResultDto.cs" />
     <Compile Include="Rsur\RsurTestResultService\RsurTestResultService.cs" />
