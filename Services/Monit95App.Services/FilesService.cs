@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -10,6 +7,12 @@ namespace Monit95App.Services
 {
     public static class FilesService
     {
+        /// <summary>
+        /// перемещает указанный список файлов в указанную папку, убирая из списка файлов дубликаты
+        /// </summary>
+        /// <param name="fileNames">список файлов</param>
+        /// <param name="distFolder">папка, в которую нужно переместить файлы без дубликатов</param>
+        /// <returns>список имен перемещенных файлов</returns>
         public static IEnumerable<string> GetNonDuplicateFiles(string[] fileNames, string distFolder)
         {
             if (!Directory.Exists(distFolder)) throw new ArgumentException("Указанная удаленная папка не существует");
