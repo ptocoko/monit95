@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import { MarksProtocol } from "../models/marks-protocol.model";
 import { Subject } from "rxjs/Subject";
 import { Scan } from "../models/scan.model";
+import { ParticipScanModel } from "../components/rsur/protocols/marks-protocols.component";
 
 
 @Injectable()
@@ -48,11 +49,7 @@ export class RsurProtocolsService {
 
 		//return this.http.get<MarksProtocol>(this.url).map(s => s.QuestionResults.sort(this.sortFunc));
 	}
-
-	getMarksProtocolByFileId(fileId: number) {
-		return Observable.of(particip).delay(1000);
-	}
-
+	
 	postMarksProtocol(marksProtocol: MarksProtocol) {
 		if (!marksProtocol.FileId) {
 			console.error('need to attach fileId to the marksProtocol object')
@@ -72,7 +69,7 @@ export class RsurProtocolsService {
 	public getNotMatchedScans() {
 		return Observable.of(scans).delay(2000);
 
-		//return this.http.get<Scan[]>(`${this.scansUrl}?onlyNotMatched=true`);
+		//return this.http.get<Scan[]>(`${this.scansUrl}`);
 	}
 
 	public postScan(file: File): Observable<number|HttpResponse<number>> {
@@ -104,6 +101,10 @@ export class RsurProtocolsService {
 
 		//return this.http.delete(`${this.scansUrl}/${fileId}`);
 	}
+
+	getParticipProtocols() {
+		return Observable.of(participProtocols).delay(500);
+	}
 }
 
 const protocolScanModel: Scan = {
@@ -120,6 +121,19 @@ const scans: Scan[] = [
 	{
 		SourceName: 'IMG_002.JPG',
 		FileId: 1234
+	},
+]
+
+const participProtocols: ParticipScanModel[] = [
+	{
+		ParticipCode: 12345,
+		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+		SourceFileName: 'IMG_001.JPG',
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+	},
+	{
+		ParticipCode: 54321,
+		TestName: '0104 — Речь && Языковые нормы && Выразительность речи'
 	},
 ]
 
@@ -298,3 +312,5 @@ const particip: MarksProtocol = {
 		}
 	]
 }
+
+

@@ -30,9 +30,9 @@ var MatchingProtocolComponent = (function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             _this.fileId = Number.parseInt(params["id"]);
-            _this.rsurProtocolsService.getScan(_this.fileId).subscribe(function (res) {
-                _this.protocolScan = res;
-                $().ready(function () { return _this.initCallbacks(); }); //JQuery.ready заставляет ждать до конца отрисовки DOM
+            _this.rsurProtocolsService.getScan(_this.fileId).subscribe(function (protocolScan) {
+                _this.protocolScan = protocolScan;
+                $().ready(function () { return _this.initCallbacks(); });
             });
         });
     };

@@ -36,12 +36,8 @@ export class MatchingProtocolComponent implements OnInit{
 			this.fileId = Number.parseInt(params["id"]);
 			
 			this.rsurProtocolsService.getScan(this.fileId).subscribe(protocolScan => {
-				
-				this.rsurProtocolsService.getMarksProtocolByFileId(this.fileId).subscribe(marksProtocol => {
-					this.protocolScan = protocolScan;
-					
-				})
-				
+				this.protocolScan = protocolScan;
+				$().ready(() => this.initCallbacks());
 			});
 		});
 	}

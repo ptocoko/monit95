@@ -64,7 +64,7 @@ var RsurProtocolsService = (function () {
     };
     RsurProtocolsService.prototype.getNotMatchedScans = function () {
         return Observable_1.Observable.of(scans).delay(2000);
-        //return this.http.get<Scan[]>(`${this.scansUrl}?onlyNotMatched=true`);
+        //return this.http.get<Scan[]>(`${this.scansUrl}`);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
         var fakeUrl = '/api/ExcelFiles/Upload';
@@ -91,6 +91,9 @@ var RsurProtocolsService = (function () {
         return Observable_1.Observable.of({}).delay(1000);
         //return this.http.delete(`${this.scansUrl}/${fileId}`);
     };
+    RsurProtocolsService.prototype.getParticipProtocols = function () {
+        return Observable_1.Observable.of(participProtocols).delay(500);
+    };
     return RsurProtocolsService;
 }());
 RsurProtocolsService = __decorate([
@@ -111,6 +114,18 @@ var scans = [
     {
         SourceName: 'IMG_002.JPG',
         FileId: 1234
+    },
+];
+var participProtocols = [
+    {
+        ParticipCode: 12345,
+        TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+        SourceFileName: 'IMG_001.JPG',
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+    },
+    {
+        ParticipCode: 54321,
+        TestName: '0104 — Речь && Языковые нормы && Выразительность речи'
     },
 ];
 var particip = {
