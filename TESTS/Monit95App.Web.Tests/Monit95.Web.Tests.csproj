@@ -93,13 +93,13 @@
       <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
       <Name>Monit95.Infrastructure.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Monit95App.Web\Monit95.WebApp.csproj">
-      <Project>{F0E9BF7F-EA42-4B82-810C-B9FB8763E173}</Project>
-      <Name>Monit95.WebApp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\SERVICES\Monit95App.Services\Monit95.Services.csproj">
       <Project>{5E38A333-C51E-4910-A650-440C8D7F0A94}</Project>
       <Name>Monit95.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UI\Monit95.WebApp\Monit95.WebApp.csproj">
+      <Project>{F0E9BF7F-EA42-4B82-810C-B9FB8763E173}</Project>
+      <Name>Monit95.WebApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

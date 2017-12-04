@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Monit95App.Models;
 using Monit95App.Web.Services;
-
 using System.Linq;
 
 namespace Monit95App.Web.Tests

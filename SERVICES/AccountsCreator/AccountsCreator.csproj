@@ -69,8 +69,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Monit95App.Web\Monit95.WebApp.csproj">
-      <Project>{f0e9bf7f-ea42-4b82-810c-b9fb8763e173}</Project>
+    <ProjectReference Include="..\..\UI\Monit95.WebApp\Monit95.WebApp.csproj">
+      <Project>{F0E9BF7F-EA42-4B82-810C-B9FB8763E173}</Project>
       <Name>Monit95.WebApp</Name>
     </ProjectReference>
   </ItemGroup>

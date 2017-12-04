@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.RESTful_API.Rsur;
-using Monit95App.Web.Api;
 using NSubstitute;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
