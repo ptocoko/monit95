@@ -33,7 +33,8 @@ export class RsurParticipsComponent implements OnInit {
         
         this.rsurParticipService.getAll()
             .subscribe((response: Response) => {
-                this.particips = response.json() as RsurParticipModel[];
+				this.particips = response.json() as RsurParticipModel[];
+				this.particips = this.particips.filter(f => f.ActualCode === 1); //TODO: set ActualCode here
                 this.dataSource = new MatTableDataSource<RsurParticipModel>(this.particips);
                 this.isLoading = false;
                 this.dataSource.sort = this.sort;
