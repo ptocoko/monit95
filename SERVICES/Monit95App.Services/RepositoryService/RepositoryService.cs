@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Monit95App.Services.Validation;
 using Monit95App.Infrastructure.Data;
+using System.Security.Cryptography;
 
 namespace Monit95App.Services.RepositoryService
 {
@@ -39,7 +40,15 @@ namespace Monit95App.Services.RepositoryService
                 serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(fileName)} is null or empty" });
                 return serviceResult;
             }
-            
+
+            // Compute hash
+            byte[] hashByteArray;
+            using (var md5Algorithm = MD5.Create())
+            {
+                hashByteArray = md5Algorithm.ComputeHash(fileStream);
+            }
+
+
             return serviceResult;            
         }
     }
