@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Web", "Monit95App.Web\Monit95App.Web.csproj", "{F0E9BF7F-EA42-4B82-810C-B9FB8763E173}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.WebApp", "Monit95App.Web\Monit95.WebApp.csproj", "{F0E9BF7F-EA42-4B82-810C-B9FB8763E173}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DOMAIN", "DOMAIN", "{7BCAB294-45F4-40B6-B34E-7257F19D0A6B}"
 EndProject
@@ -13,23 +13,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TESTS", "TESTS", "{A8F3FD56
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SERVICES", "SERVICES", "{B0571893-C8F7-4398-91B2-2EBEE4B33FDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Domain.Core", "Domain\Monit95App.Domain.Core\Monit95App.Domain.Core.csproj", "{84DC3950-0B35-4EB2-B534-93AF0387CCDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.Domain.Core", "Domain\Monit95App.Domain.Core\Monit95.Domain.Core.csproj", "{84DC3950-0B35-4EB2-B534-93AF0387CCDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Domain.Interfaces", "Domain\Monit95App.Domain.Interfaces\Monit95App.Domain.Interfaces.csproj", "{CB5E7793-7905-42A4-818D-0212A4EDDA43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.Domain.Interfaces", "Domain\Monit95App.Domain.Interfaces\Monit95.Domain.Interfaces.csproj", "{CB5E7793-7905-42A4-818D-0212A4EDDA43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.Data", "Infrastructure\Monit95App.Infrastructure.Data\Monit95App.Infrastructure.Data.csproj", "{F3A784E6-8723-4628-9677-2374BED42492}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.Infrastructure.Data", "Infrastructure\Monit95App.Infrastructure.Data\Monit95.Infrastructure.Data.csproj", "{F3A784E6-8723-4628-9677-2374BED42492}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services", "SERVICES\Monit95App.Services\Monit95App.Services.csproj", "{5E38A333-C51E-4910-A650-440C8D7F0A94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.Services", "SERVICES\Monit95App.Services\Monit95.Services.csproj", "{5E38A333-C51E-4910-A650-440C8D7F0A94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Infrastructure.Data.Tests", "TESTS\Monit95App.Infrastructure.Data.Tests\Monit95App.Infrastructure.Data.Tests.csproj", "{32AD4209-6B80-49DC-A121-25F810C01330}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.Infrastructure.Data.Tests", "TESTS\Monit95App.Infrastructure.Data.Tests\Monit95.Infrastructure.Data.Tests.csproj", "{32AD4209-6B80-49DC-A121-25F810C01330}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Web.Tests", "TESTS\Monit95App.Web.Tests\Monit95App.Web.Tests.csproj", "{1377D6D8-1946-4B06-8AB3-36D7AEE8E2EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.Web.Tests", "TESTS\Monit95App.Web.Tests\Monit95.Web.Tests.csproj", "{1377D6D8-1946-4B06-8AB3-36D7AEE8E2EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.Services.Tests", "TESTS\Monit95App.Services.Tests\Monit95App.Services.Tests.csproj", "{EAFAB265-533C-46EC-82C9-F1E63873F611}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.Services.Tests", "TESTS\Monit95App.Services.Tests\Monit95.Services.Tests.csproj", "{EAFAB265-533C-46EC-82C9-F1E63873F611}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountsCreator", "SERVICES\AccountsCreator\AccountsCreator.csproj", "{8C1FC8FD-E2A4-4701-8CC4-C3A720E50087}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95App.ConsoleApp", "SERVICES\Monit95App.ConsoleApp\Monit95App.ConsoleApp.csproj", "{6CBC9470-8B83-4569-97E3-30EB7D520F40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monit95.ConsoleApp", "SERVICES\Monit95App.ConsoleApp\Monit95.ConsoleApp.csproj", "{6CBC9470-8B83-4569-97E3-30EB7D520F40}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtocolGenerator", "SERVICES\ProtocolGenerator\ProtocolGenerator.csproj", "{668BBA69-4F26-4DDF-B6EE-17B3384F669F}"
 EndProject
