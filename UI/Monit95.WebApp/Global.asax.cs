@@ -2,9 +2,8 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
+using Monit95.WebApp.Util;
 using Monit95App.App_Start;
-using Monit95App.Util;
 
 namespace Monit95App
 {

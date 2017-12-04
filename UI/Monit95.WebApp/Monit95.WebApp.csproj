@@ -526,15 +526,6 @@
     <Content Include="Scripts\smart-table.js" />
     <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Templates\modalTemplatesMarksRU\templateForClass1.html" />
-    <Content Include="Templates\modalTemplatesMarksRU\templateForClass2.html" />
-    <Content Include="Templates\modalTemplatesMarksRU\templateForClass3.html" />
-    <Content Include="Templates\onetwothree_marks.html" />
-    <Content Include="Templates\onetwothree_report_form.html" />
-    <Content Include="Templates\participlist.html" />
-    <Content Include="Templates\addorupdateform.html" />
-    <Content Include="Templates\plan.html" />
-    <Content Include="Templates\onetwothree_main.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -567,7 +558,6 @@
     <Content Include="Views\Home\Schools.cshtml" />
     <Content Include="Views\Home\Schoolinfo.cshtml" />
     <Content Include="Scripts\smart-table.min.js.map" />
-    <Content Include="Templates\onetwothree_particip.html" />
     <Content Include="tsconfig.json" />
     <Content Include="systemjs.config.js" />
     <Content Include="Views\Rsur\Spa.cshtml" />
