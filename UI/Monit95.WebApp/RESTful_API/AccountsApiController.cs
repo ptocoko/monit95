@@ -3,7 +3,6 @@
 using Microsoft.AspNet.Identity;
 
 using Monit95App.Web.Services;
-using System.IO;
 
 // ReSharper disable CheckNamespace
 namespace Monit95App.Web.Api

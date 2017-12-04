@@ -1,10 +1,4 @@
-﻿using Monit95App.Domain.Core;
-using Monit95App.Domain.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services
 {    
