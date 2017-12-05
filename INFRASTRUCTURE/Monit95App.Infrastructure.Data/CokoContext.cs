@@ -9,8 +9,7 @@ namespace Monit95App.Infrastructure.Data
             : base("name=CokoContext")
         {
         }
-
-        public virtual DbSet<Answer> Answers { get; set; }
+        
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }

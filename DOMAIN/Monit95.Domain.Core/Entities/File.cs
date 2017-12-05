@@ -19,6 +19,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public byte[] Hash { get; set; }
 
+        public string SourceName { get; set; }
+
         public int RepositoryId { get; set; }
 
         public virtual Repository Repository { get; set; }

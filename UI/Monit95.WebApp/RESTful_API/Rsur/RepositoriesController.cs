@@ -61,7 +61,7 @@ namespace Monit95App.RESTful_API.Rsur
             foreach (var error in result.Errors)
             {
                 if (error.HttpCode == 409)
-                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Like this file exist");
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, error.Description);
 
                 this.ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
             }
