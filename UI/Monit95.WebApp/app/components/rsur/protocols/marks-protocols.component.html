@@ -6,8 +6,8 @@
             <th class="cell-center">#</th>
             <th class="cell-center">Код участника</th>
             <th class="cell-center">Наименование блока</th>
-            <th>Имя файла</th>
-            <th>Баллы по заданиям</th>
+            <th class="cell-center">Имя файла</th>
+            <th class="cell-center">Баллы по заданиям</th>
         </tr>
         <tr *ngFor="let protocol of participProtocols; let i = index">
             <td class="cell-center">{{i + 1}}</td>
@@ -15,7 +15,7 @@
             <td>{{protocol.TestName}}</td>
             <td>{{protocol.SourceFileName}}</td>
             <td>{{protocol.Marks}}</td>
-            <td *ngIf="protocol.Marks"><a (click)="deleteResult(protocol)" class="glyphicon glyphicon-trash" style="cursor:pointer"></a></td>
+            <td *ngIf="protocol.Marks"><button type="button" (click)="deleteResult(protocol, $event.target)" class="glyphicon glyphicon-trash" style="cursor:pointer"></button></td>
         </tr>
     </table>
 </div>

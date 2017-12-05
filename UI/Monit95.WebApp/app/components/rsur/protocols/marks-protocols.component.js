@@ -19,10 +19,12 @@ var MarksProtocolsComponent = (function () {
         var _this = this;
         this.rsurProtocolsService.getParticipProtocols().subscribe(function (res) { return _this.participProtocols = res; });
     };
-    MarksProtocolsComponent.prototype.deleteResult = function (protocol) {
+    MarksProtocolsComponent.prototype.deleteResult = function (protocol, elem) {
+        elem.setAttribute('[disabled]', 'true');
         this.rsurProtocolsService.deleteTestResult(protocol.ParticipTestId).subscribe(function (res) {
             protocol.SourceFileName = undefined;
             protocol.Marks = undefined;
+            elem.removeAttribute('[disabled]');
         });
     };
     return MarksProtocolsComponent;

@@ -14,10 +14,12 @@ export class MarksProtocolsComponent {
 		this.rsurProtocolsService.getParticipProtocols().subscribe(res => this.participProtocols = res);
 	}
 
-	deleteResult(protocol: ParticipScanModel) {
+	deleteResult(protocol: ParticipScanModel, elem: HTMLAnchorElement) {
+		elem.setAttribute('[disabled]', 'true')
 		this.rsurProtocolsService.deleteTestResult(protocol.ParticipTestId).subscribe(res => {
 			protocol.SourceFileName = undefined;
 			protocol.Marks = undefined;
+			elem.removeAttribute('[disabled]');
 		});
 	}
 }
