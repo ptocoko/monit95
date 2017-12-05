@@ -80,7 +80,6 @@ namespace Monit95App.Services.RepositoryService
                 return serviceResult;
             }
 
-
             // Add to data base
             context.Files.Add(new Domain.Core.Entities.File
             {
