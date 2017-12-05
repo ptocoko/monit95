@@ -8,40 +8,37 @@
     </div>
 
     <a style="z-index:1" class="fileUploader" mat-raised-button [disabled]="isScansUploading">
-        <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg" title="Отправить..." (change)="addPhoto($event)" multiple [disabled]="isScansUploading" />
+        <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg, .tif, .tiff" title="Отправить..." (change)="addPhoto($event)" multiple [disabled]="isScansUploading" />
         <span style="z-index:0" class="glyphicon glyphicon-upload"></span> Отправить...
     </a>
 </div>
 <div *ngIf="scans.length != 0 && !isPageLoading">
     <hr />
-    <div class="scans-container">
-        <table style="width:700px;margin-bottom:0" class="table table-bordered">
+    <div>
+        <table class="table table-bordered">
             <tr>
-                <th class="centered-mini-cell">#</th>
+                <th class="centered-mini-cell">№ п/п</th>
                 <th style="text-align:center">Наименование файла</th>
-                <th colspan="2"></th>
+                <th>Код участника</th>
+                <th>Блок</th>
+                <th>Баллы по заданиям</th>
+                <th>Действия</th>
             </tr>
-            <tr *ngFor="let scan of scans | filter : {'SourceName' : searchText }; let i = index" [ngClass]="{'uploadError': scan.Status === 'isFailed', 'uploadComplete': scan.Status === 'isComplete'}">
+            <tr *ngFor="let answerSheet of answerSheets | filter : {'SourceName' : searchText }; let i = index">
                 <td class="centered-mini-cell">{{i + 1}}</td>
-                <td>{{scan.SourceName}}</td>
-                <td *ngIf="scan.Status !== 'isUploading'" class="centered-mini-cell">
+                <td>{{answerSheet.SourceName}}</td>
+                <td>{{answerSheet.ParticipCode}}</td>
+                <td>{{answerSheet.TestName}}</td>
+                <td>{{answerSheet.Marks}}</td>
+                <td>
                     <a *ngIf="scan.FileId" [routerLink]="['/rsur/match-protocol', scan.FileId]"><img style="width: 20px" src="https://png.icons8.com/ocr/win8/50/000000"></a>
-                    <a *ngIf="scan.Status === 'isFailed'" class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a>
-                </td>
-                <td *ngIf="scan.Status !== 'isUploading'" class="centered-mini-cell">
-                    <a *ngIf="scan.Status !== 'isDeleting'" class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deleteScan(scan)"></a>
-                    <i *ngIf="scan.Status === 'isDeleting'" class="fa fa-spinner swirl-spinner" aria-hidden="true"></i>
-                </td>
-                <td colspan="2" style="width:100px" *ngIf="scan.Status === 'isUploading'">
-                    <mat-progress-bar [value]="scan.UploadProgress"></mat-progress-bar>
+                    <!--<a *ngIf="scan.Status === 'isFailed'" class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a>-->
+                    <!--<a *ngIf="scan.Status !== 'isDeleting'" class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deleteScan(scan)"></a>-->
+                    <!--<i *ngIf="scan.Status === 'isDeleting'" class="fa fa-spinner swirl-spinner" aria-hidden="true"></i>-->
+                    <!--<mat-progress-bar [value]="scan.UploadProgress"></mat-progress-bar>-->
                 </td>
             </tr>
         </table>
-    </div>
-    <div class="scans-footer">
-        <span class="state-caption" *ngIf="notMatchedScansCount > 0">Не сопоставлено сканов: {{notMatchedScansCount}}</span>
-        <span class="state-caption duplicate-state" *ngIf="duplicatesCount > 0">Дублирующих сканов: {{duplicatesCount}}</span>
-        <span class="state-caption failed-state" *ngIf="failedScansCount > 0">Не удалось отправить: {{failedScansCount}}</span>
     </div>
 </div>
 

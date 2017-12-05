@@ -20,11 +20,11 @@ var MarksProtocolsComponent = (function () {
         this.rsurProtocolsService.getParticipProtocols().subscribe(function (res) { return _this.participProtocols = res; });
     };
     MarksProtocolsComponent.prototype.deleteResult = function (protocol, elem) {
-        elem.setAttribute('[disabled]', 'true');
+        elem.hidden = true;
         this.rsurProtocolsService.deleteTestResult(protocol.ParticipTestId).subscribe(function (res) {
-            protocol.SourceFileName = undefined;
-            protocol.Marks = undefined;
-            elem.removeAttribute('[disabled]');
+            //protocol.SourceFileName = undefined;
+            //protocol.Marks = undefined;
+            //elem.hidden = false;
         });
     };
     return MarksProtocolsComponent;

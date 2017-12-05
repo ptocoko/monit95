@@ -7,8 +7,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
 import { MarksProtocol } from "../models/marks-protocol.model";
 import { Subject } from "rxjs/Subject";
-import { Scan } from "../models/scan.model";
-import { ParticipScanModel } from "../components/rsur/protocols/marks-protocols.component";
+import { Scan, AnswerSheet } from "../models/scan.model";
 
 
 @Injectable()
@@ -69,10 +68,10 @@ export class RsurProtocolsService {
 		//return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
 	}
 
-	public getNotMatchedScans() {
-		return Observable.of(scans).delay(2000);
+	public getAnswerSheets() {
+		return Observable.of(answerSheets).delay(2000);
 
-		//return this.http.get<Scan[]>(`${this.scansUrl}`);
+		//return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
 	}
 
 	public postScan(file: File): Observable<number|HttpResponse<number>> {
@@ -104,11 +103,7 @@ export class RsurProtocolsService {
 
 		//return this.http.delete(`${this.scansUrl}/${fileId}`);
 	}
-
-	getParticipProtocols() {
-		return Observable.of(participProtocols).delay(500);
-	}
-
+	
 	deleteTestResult(participTestId: number) {
 		return Observable.of({}).delay(1000);
 	}
@@ -131,18 +126,24 @@ const scans: Scan[] = [
 	},
 ]
 
-const participProtocols: ParticipScanModel[] = [
+const answerSheets: AnswerSheet[] = [
 	{
 		ParticipCode: 12345,
-		ParticipTestId: 1234,
 		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-		SourceFileName: 'IMG_001.JPG',
-		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+		SourceName: 'IMG_002.JPG',
+		FileId: 1234
 	},
 	{
 		ParticipCode: 54321,
-		ParticipTestId: 4321,
-		TestName: '0104 — Речь && Языковые нормы && Выразительность речи'
+		TestName: '0101 — Орфография',
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+		SourceName: 'IMG_001.JPG',
+		FileId: 4321
+	},
+	{
+		SourceName: 'IMG_004.JPG',
+		FileId: 6431
 	},
 ]
 
