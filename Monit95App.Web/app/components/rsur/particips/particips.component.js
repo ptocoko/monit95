@@ -30,6 +30,7 @@ var RsurParticipsComponent = (function () {
         this.rsurParticipService.getAll()
             .subscribe(function (response) {
             _this.particips = response.json();
+            _this.particips = _this.particips.filter(function (f) { return f.ActualCode === 1; });
             _this.dataSource = new material_1.MatTableDataSource(_this.particips);
             _this.isLoading = false;
             _this.dataSource.sort = _this.sort;
