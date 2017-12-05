@@ -42,16 +42,16 @@ namespace Monit95App.RESTful_API.Rsur
         public HttpResponseMessage AddFile()
         {
             var httpCollectionFiles = HttpContext.Current.Request.Files;
-            if(httpCollectionFiles.Count == 0)
-            {
+            if(httpCollectionFiles.Count == 0)            
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "В теле запроса отсутствует файл");
-            }
+            
             HttpPostedFile postedFile = httpCollectionFiles.Get(0);
             Stream fileStream = postedFile.InputStream;
             var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);            
             var fileName = postedFile.FileName;
+            var areaCode = Convert.ToInt32(User.Identity.Name);
 
-            var result = repositoryService.Add(repositoryId, fileStream, fileName);
+            var result = repositoryService.Add(repositoryId, fileStream, fileName, areaCode);
 
             // success
             if (!result.Errors.Any())            

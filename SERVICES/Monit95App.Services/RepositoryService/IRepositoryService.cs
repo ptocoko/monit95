@@ -5,6 +5,6 @@ namespace Monit95App.Services.RepositoryService
 {
     public interface IRepositoryService
     {
-        ServiceResult Add(int repositoryId, Stream fileStream, string fileName);
+        ServiceResult Add(int repositoryId, Stream fileStream, string fileName, int areaCode);
     }
 }

@@ -2,6 +2,7 @@
 using Monit95App.Services.Validation;
 using Monit95App.Infrastructure.Data;
 using System.Security.Cryptography;
+using System.Linq;
 
 namespace Monit95App.Services.RepositoryService
 {
@@ -22,7 +23,7 @@ namespace Monit95App.Services.RepositoryService
 
         #endregion
 
-        public ServiceResult Add(int repositoryId, Stream fileStream, string fileName)
+        public ServiceResult Add(int repositoryId, Stream fileStream, string fileName, int areaCode)
         {
             var serviceResult = new ServiceResult();
             if (repositoryId <= 0)
@@ -48,6 +49,8 @@ namespace Monit95App.Services.RepositoryService
                 hashByteArray = md5Algorithm.ComputeHash(fileStream);
             }
 
+            //allHashes = context.RsurTestResults.Where(x=>x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode 
+            //                                          && x.RsurParticipTest.RsurTest.IsOpen).Select(x=>x.f)                                                      
 
             return serviceResult;            
         }
