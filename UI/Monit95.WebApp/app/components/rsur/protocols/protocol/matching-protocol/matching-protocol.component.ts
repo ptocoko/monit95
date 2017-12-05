@@ -83,7 +83,7 @@ export class MatchingProtocolComponent implements OnInit{
 	}
 
 	participTestErrorHandler(error: any) {
-		let message = error.message ? error.message : error;
+		let message = error.error.Message ? error.error.Message : error.message;
 
 		this.codeControl.enable();
 		this.codeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 

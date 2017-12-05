@@ -31,23 +31,25 @@ var RsurProtocolsService = (function () {
         }
     };
     RsurProtocolsService.prototype.getMarksProtocol = function (participCode) {
-        if (participCode == 12345) {
-            particip.QuestionResults.sort(this.sortFunc);
-            return Observable_1.Observable.of(particip).delay(2000);
-        }
-        else {
-            var message_1;
-            if (participCode == 12365)
-                message_1 = 'i error that here';
-            else
-                message_1 = 'sadfasdfa';
-            return new Observable_1.Observable(function (observer) {
-                setTimeout(function () {
-                    observer.error(message_1);
-                }, 1500);
-            });
-        }
-        //return this.http.get<MarksProtocol>(this.url).map(s => s.QuestionResults.sort(this.sortFunc));
+        var fakeUrl = '/api/ExcelFiles/Upload';
+        //if (participCode == 12345) {
+        //	particip.QuestionResults.sort(this.sortFunc);
+        //	return Observable.of(particip).delay(2000);
+        //}
+        //else
+        //{
+        //	let message: string;
+        //	if (participCode == 12365)
+        //		message = 'i error that here'
+        //	else
+        //		message = 'sadfasdfa'
+        //	return new Observable(observer => {
+        //		setTimeout(() => {
+        //			observer.error(message)
+        //		}, 1500)
+        //	});
+        //}
+        return this.http.get(fakeUrl);
     };
     RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
         if (!marksProtocol.FileId) {

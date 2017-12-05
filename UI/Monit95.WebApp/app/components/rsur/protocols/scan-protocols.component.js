@@ -12,8 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var rsur_protocols_service_1 = require("../../../services/rsur-protocols.service");
 var http_1 = require("@angular/common/http");
-require("rxjs/add/observable/merge");
-require("rxjs/add/operator/retry");
 var ScanProtocolsComponent = (function () {
     function ScanProtocolsComponent(rsurProtocolsService, _iterableDiffers, differs) {
         this.rsurProtocolsService = rsurProtocolsService;
@@ -84,12 +82,12 @@ var ScanProtocolsComponent = (function () {
         var _this = this;
         scan.Status = 'isUploading';
         this.isScansUploading = true;
-        this.rsurProtocolsService.postScan(scan.FileContent).retry(4).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.Status = 'isComplete'; });
+        this.rsurProtocolsService.postScan(scan.FileContent).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.Status = 'isComplete'; });
     };
     ScanProtocolsComponent.prototype.responseHandler = function (res, scan) {
         if (res instanceof http_1.HttpResponse) {
             scan.FileId = res.body; //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
-            scan.FileContent = null;
+            scan.FileContent = null; //очищаем FileContent после отправки чтобы не забивать оперативную память
         }
         else {
             scan.UploadProgress = res;

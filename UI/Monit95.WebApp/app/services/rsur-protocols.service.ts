@@ -47,7 +47,10 @@ export class RsurProtocolsService {
 			});
 		}
 
-		//return this.http.get<MarksProtocol>(this.url).map(s => s.QuestionResults.sort(this.sortFunc));
+		//return this.http.get<MarksProtocol>(this.url).map(s => {
+		//	s.QuestionResults.sort(this.sortFunc);
+		//	return s;
+		//});
 	}
 	
 	postMarksProtocol(marksProtocol: MarksProtocol) {

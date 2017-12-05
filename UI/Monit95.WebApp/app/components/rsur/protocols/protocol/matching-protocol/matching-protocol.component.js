@@ -67,7 +67,8 @@ var MatchingProtocolComponent = (function () {
         });
     };
     MatchingProtocolComponent.prototype.participTestErrorHandler = function (error) {
-        var message = error.message ? error.message : error;
+        console.log(error);
+        var message = error.error.Message ? error.error.Message : error.message;
         this.codeControl.enable();
         this.codeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
         //содержащее сообщение из ответа сервера
