@@ -1,0 +1,52 @@
+[
+    {
+        "developStatus": "DONE",
+        "method": "post",
+        "url": "api/rsur/testResults",
+        "requestBody": {
+            "participTestId": 1,
+            "questionResults": [
+                {
+                    "order": 1,
+                    "currentMark": 0
+                },
+                {
+                    "order": 2,
+                    "currentMark": 1
+                }
+            ]
+        },
+        "responses": [
+            {
+                "HttpCode": 201
+            }
+        ]
+    },
+    [
+        {
+            "developStatus": "DONE",
+            "method": "GET",
+            "url": "api/rsur/testResults/{participCode}",
+            "responseBody": {
+                "participCode": 12345,
+                "participTestId": 1,
+                "testName": "0101-Орфография",
+                "fileId": 1,
+                "questionResults": [
+                    {
+                        "order": 1,
+                        "name": "1",
+                        "maxMark": 1,
+                        "currentMark": 0
+                    },
+                    {
+                        "order": 2,
+                        "name": "2.1",
+                        "maxMark": 1,
+                        "currentMark": 1
+                    }
+                ]
+            }
+        }
+    ]
+]

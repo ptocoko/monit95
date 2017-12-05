@@ -468,6 +468,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="API doc\RsurTestResult API.json" />
+    <Content Include="API doc\Repository API.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\188.0.173.242.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
