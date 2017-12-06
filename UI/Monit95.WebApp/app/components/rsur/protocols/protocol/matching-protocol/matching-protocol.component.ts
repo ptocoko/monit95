@@ -36,18 +36,28 @@ export class MatchingProtocolComponent implements OnInit{
 			this.fileId = Number.parseInt(params["id"]);
 			
 			this.rsurProtocolsService.getScan(this.fileId).subscribe(protocolScan => {
-				this.protocolScan = protocolScan;
-				$().ready(() => this.initCallbacks());
+				this.rsurProtocolsService.getMarksProtocolByFileId(this.fileId).subscribe(marksProtocol => {
+					this.protocolScan = protocolScan;
+					$().ready(() => this.initCallbacks(marksProtocol));
+				})
 			});
 		});
 	}
 
-	initCallbacks() {
-		this.focusOnCodeElem();
+	initCallbacks(marksProtocol: MarksProtocol) {
+		if (!marksProtocol) {
+			this.focusOnCodeElem();
 
-		let participCodeChange = Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
-			.filter((event: any, i: number) => event.target.value.length == 5)
-			.subscribe(event => this.participCodeSubscriber(event));
+			let participCodeChange = Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
+				.filter((event: any, i: number) => event.target.value.length == 5)
+				.subscribe(event => this.participCodeSubscriber(event));
+		}
+		else {
+			this.participCodeElem.nativeElement.value = marksProtocol.ParticipCode;
+			this.codeControl.disable();
+			this.marksProtocol = marksProtocol;
+			$().ready(() => this.initMarkInputs());
+		}
 	}
 
 	participCodeSubscriber(event: any) {
@@ -73,12 +83,8 @@ export class MatchingProtocolComponent implements OnInit{
 		
 		this.isMarksProtocolLoading = false;
 
-		$().ready(() => { //после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
-							//обработчик фокуса и переводим фокус на первое поле
-
-			this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-			this.marksInputs.focus((event) => event.target.select());
-			this.marksInputs.get(0).focus();
+		$().ready(() => { 
+			this.initMarkInputs();
 		});
 	}
 
@@ -90,6 +96,14 @@ export class MatchingProtocolComponent implements OnInit{
 																		//содержащее сообщение из ответа сервера
 		this.isMarksProtocolLoading = false;
 		this.focusOnCodeElem();
+	}
+
+	//после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
+	//обработчик фокуса и переводим фокус на первое поле
+	initMarkInputs() {
+		this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
+		this.marksInputs.focus((event) => event.target.select());
+		this.marksInputs.get(0).focus();
 	}
 
 	sendMarks() {

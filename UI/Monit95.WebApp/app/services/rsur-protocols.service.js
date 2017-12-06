@@ -44,6 +44,25 @@ var RsurProtocolsService = (function () {
         //	return s;
         //});
     };
+    RsurProtocolsService.prototype.getMarksProtocolByFileId = function (fileId) {
+        var _this = this;
+        //if (fileId === 6431) {
+        //	return Observable.of(particip).delay(1000);
+        //}
+        //else {
+        //	return Observable.of(null).delay(500);
+        //}
+        return this.http.get('/api/ExcelFiles/Upload').map(function (res) {
+            var marksProtocol = res;
+            if (marksProtocol) {
+                marksProtocol.QuestionResults.sort(_this.sortFunc);
+                return marksProtocol;
+            }
+            else {
+                return null;
+            }
+        });
+    };
     RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
         if (!marksProtocol.FileId) {
             console.error('need to attach fileId to the marksProtocol object');

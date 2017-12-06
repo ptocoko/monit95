@@ -23,17 +23,27 @@ var MatchingProtocolComponent = (function () {
         this.route.params.subscribe(function (params) {
             _this.fileId = Number.parseInt(params["id"]);
             _this.rsurProtocolsService.getScan(_this.fileId).subscribe(function (protocolScan) {
-                _this.protocolScan = protocolScan;
-                $().ready(function () { return _this.initCallbacks(); });
+                _this.rsurProtocolsService.getMarksProtocolByFileId(_this.fileId).subscribe(function (marksProtocol) {
+                    _this.protocolScan = protocolScan;
+                    $().ready(function () { return _this.initCallbacks(marksProtocol); });
+                });
             });
         });
     };
-    MatchingProtocolComponent.prototype.initCallbacks = function () {
+    MatchingProtocolComponent.prototype.initCallbacks = function (marksProtocol) {
         var _this = this;
-        this.focusOnCodeElem();
-        var participCodeChange = Observable_1.Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
-            .filter(function (event, i) { return event.target.value.length == 5; })
-            .subscribe(function (event) { return _this.participCodeSubscriber(event); });
+        if (!marksProtocol) {
+            this.focusOnCodeElem();
+            var participCodeChange = Observable_1.Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
+                .filter(function (event, i) { return event.target.value.length == 5; })
+                .subscribe(function (event) { return _this.participCodeSubscriber(event); });
+        }
+        else {
+            this.participCodeElem.nativeElement.value = marksProtocol.ParticipCode;
+            this.codeControl.disable();
+            this.marksProtocol = marksProtocol;
+            $().ready(function () { return _this.initMarkInputs(); });
+        }
     };
     MatchingProtocolComponent.prototype.participCodeSubscriber = function (event) {
         var _this = this;
@@ -52,10 +62,7 @@ var MatchingProtocolComponent = (function () {
         this.marksProtocol.FileId = this.fileId;
         this.isMarksProtocolLoading = false;
         $().ready(function () {
-            //обработчик фокуса и переводим фокус на первое поле
-            _this.marksInputs = $('.markInput');
-            _this.marksInputs.focus(function (event) { return event.target.select(); });
-            _this.marksInputs.get(0).focus();
+            _this.initMarkInputs();
         });
     };
     MatchingProtocolComponent.prototype.participTestErrorHandler = function (error) {
@@ -65,6 +72,13 @@ var MatchingProtocolComponent = (function () {
         //содержащее сообщение из ответа сервера
         this.isMarksProtocolLoading = false;
         this.focusOnCodeElem();
+    };
+    //после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
+    //обработчик фокуса и переводим фокус на первое поле
+    MatchingProtocolComponent.prototype.initMarkInputs = function () {
+        this.marksInputs = $('.markInput');
+        this.marksInputs.focus(function (event) { return event.target.select(); });
+        this.marksInputs.get(0).focus();
     };
     MatchingProtocolComponent.prototype.sendMarks = function () {
         console.log(this.marksProtocol);

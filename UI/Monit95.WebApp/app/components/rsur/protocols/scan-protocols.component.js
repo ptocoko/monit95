@@ -48,7 +48,6 @@ var ScanProtocolsComponent = (function () {
         }
     };
     ScanProtocolsComponent.prototype.getStats = function () {
-        //this.isScansUploading = this.answerSheets.filter(f => f.Status === 'isUploading').length > 0;
         this.allCompleteCount = this.answerSheets.filter(function (f) { return f.FileId; }).length;
         this.notMatchedCount = this.answerSheets.filter(function (s) { return !s.ParticipCode && s.Status !== 'isFailed'; }).length;
         this.failsCount = this.answerSheets.filter(function (s) { return s.Status === 'isFailed'; }).length;
@@ -74,7 +73,6 @@ var ScanProtocolsComponent = (function () {
     ScanProtocolsComponent.prototype.uploadScan = function (answerSheet) {
         var _this = this;
         answerSheet.Status = 'isUploading';
-        //this.isScansUploading = true;
         this.rsurProtocolsService.postScan(answerSheet.FileContent).subscribe(function (response) { return _this.responseHandler(response, answerSheet); }, function (error) { return _this.errorResponseHandler(error, answerSheet); }, function () { return answerSheet.Status = 'isComplete'; });
     };
     ScanProtocolsComponent.prototype.responseHandler = function (res, answerSheet) {

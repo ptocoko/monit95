@@ -51,7 +51,26 @@ export class RsurProtocolsService {
 		//	return s;
 		//});
 	}
-	
+
+	getMarksProtocolByFileId(fileId: number) {
+		if (fileId === 6431) {
+			return Observable.of(particip).delay(1000);
+		}
+		else {
+			return Observable.of(null).delay(500);
+		}
+		//return this.http.get('/api/ExcelFiles/Upload').map(res => {
+		//	let marksProtocol = res as MarksProtocol;
+		//	if (marksProtocol) {
+		//		marksProtocol.QuestionResults.sort(this.sortFunc);
+		//		return marksProtocol;
+		//	}
+		//	else {
+		//		return null;
+		//	}
+		//});
+	}
+
 	postMarksProtocol(marksProtocol: MarksProtocol) {
 		if (!marksProtocol.FileId) {
 			console.error('need to attach fileId to the marksProtocol object')
