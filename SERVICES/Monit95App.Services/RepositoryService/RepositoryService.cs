@@ -3,6 +3,7 @@ using Monit95App.Services.Validation;
 using Monit95App.Infrastructure.Data;
 using System.Security.Cryptography;
 using System.Linq;
+using System;
 
 namespace Monit95App.Services.RepositoryService
 {
@@ -59,22 +60,23 @@ namespace Monit95App.Services.RepositoryService
             // Get all file hashes for current open subject's blocks
             var allHashes = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
                                                               && rtr.RsurParticipTest.RsurTest.IsOpen)
-                                                              .Select(rtr => rtr.File.Hash).ToList();
+                                                              .Select(rtr => rtr.File.HexHash).ToList();
             if(!allHashes.Any())
             {
                 serviceResult.Errors.Add(new ServiceError { HttpCode = 404, Description = "Not found" });
                 return serviceResult;
             }
 
-            // Generate hash for file's stream
-            byte[] hashByteArray;
-            using (var md5Algorithm = MD5.Create())
+            // Generate hexadecimal hash for file's stream
+            string hexHash;
+            using (var md5 = MD5.Create())
             {
-                hashByteArray = md5Algorithm.ComputeHash(fileStream);
+                var hashed = md5.ComputeHash(fileStream);
+                hexHash = BitConverter.ToString(hashed).Replace("-", "");
             }
 
-            // Check exist like this file in store
-            if (allHashes.Any(b => b.SequenceEqual(hashByteArray)))
+            // Check exist like this file in store by hash
+            if (allHashes.Contains(hexHash))
             {
                 serviceResult.Errors.Add(new ServiceError { HttpCode = 409, Description = "Like this file exist" });
                 return serviceResult;
@@ -85,7 +87,7 @@ namespace Monit95App.Services.RepositoryService
             {
                 SourceName = fileName,
                 RepositoryId = repositoryId,
-                Hash = hashByteArray
+                HexHash = hexHash
             });
 
             return serviceResult;

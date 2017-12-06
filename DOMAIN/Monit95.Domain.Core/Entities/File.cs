@@ -17,7 +17,7 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(100)]
         public string Name { get; set; }
 
-        public byte[] Hash { get; set; }
+        public string HexHash { get; set; }
 
         public string SourceName { get; set; }
 
