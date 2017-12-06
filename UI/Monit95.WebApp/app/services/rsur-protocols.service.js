@@ -1,14 +1,6 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
 var Observable_1 = require("rxjs/Observable");
@@ -65,9 +57,9 @@ var RsurProtocolsService = (function () {
         return Observable_1.Observable.of(protocolScanModel).delay(2000);
         //return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
     };
-    RsurProtocolsService.prototype.getNotMatchedScans = function () {
-        return Observable_1.Observable.of(scans).delay(2000);
-        //return this.http.get<Scan[]>(`${this.scansUrl}`);
+    RsurProtocolsService.prototype.getAnswerSheets = function () {
+        return Observable_1.Observable.of(answerSheets).delay(2000);
+        //return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
         var fakeUrl = '/api/ExcelFiles/Upload';
@@ -94,17 +86,14 @@ var RsurProtocolsService = (function () {
         return Observable_1.Observable.of({}).delay(1000);
         //return this.http.delete(`${this.scansUrl}/${fileId}`);
     };
-    RsurProtocolsService.prototype.getParticipProtocols = function () {
-        return Observable_1.Observable.of(participProtocols).delay(500);
-    };
     RsurProtocolsService.prototype.deleteTestResult = function (participTestId) {
         return Observable_1.Observable.of({}).delay(1000);
     };
     return RsurProtocolsService;
 }());
-RsurProtocolsService = __decorate([
+RsurProtocolsService = tslib_1.__decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.HttpClient])
+    tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])
 ], RsurProtocolsService);
 exports.RsurProtocolsService = RsurProtocolsService;
 var protocolScanModel = {
@@ -122,18 +111,24 @@ var scans = [
         FileId: 1234
     },
 ];
-var participProtocols = [
+var answerSheets = [
     {
         ParticipCode: 12345,
-        ParticipTestId: 1234,
         TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-        SourceFileName: 'IMG_001.JPG',
-        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+        SourceName: 'IMG_002.JPG',
+        FileId: 1234
     },
     {
         ParticipCode: 54321,
-        ParticipTestId: 4321,
-        TestName: '0104 — Речь && Языковые нормы && Выразительность речи'
+        TestName: '0101 — Орфография',
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+        SourceName: 'IMG_001.JPG',
+        FileId: 4321
+    },
+    {
+        SourceName: 'IMG_004.JPG',
+        FileId: 6431
     },
 ];
 var particip = {

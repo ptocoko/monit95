@@ -19,7 +19,7 @@
         "core-js": "^2.5.1",
         "mydatepicker": "^2.5.1",
         "ngx-order-pipe": "^1.0.4",
-        "rxjs": "^5.4.3",
+        "rxjs": "^5.5.4",
         "systemjs": "^0.20.18",
         "zone.js": "^0.8.17"
     }

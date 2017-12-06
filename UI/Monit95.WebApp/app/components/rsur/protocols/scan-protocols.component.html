@@ -1,5 +1,11 @@
 ﻿<h2>Загрузка сканов</h2>
 <hr />
+<ng-template [ngIf]="!isPageLoading">
+    <div>количество загруженных бланков: {{allCompleteCount}}</div>
+    <div>из них</div>
+    <div>распознано: {{allCompleteCount - notMatchedCount}}</div>
+    <div>не распознано: {{notMatchedCount}}</div>
+</ng-template>
 <div class="actions-bar">
     <div class="search-field">
         <mat-form-field>
@@ -8,12 +14,11 @@
     </div>
 
     <a style="z-index:1" class="fileUploader" mat-raised-button [disabled]="isScansUploading">
-        <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg, .tif, .tiff" title="Отправить..." (change)="addPhoto($event)" multiple [disabled]="isScansUploading" />
+        <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg, .tif, .tiff" title="Отправить..." (change)="addPhoto($event)" multiple />
         <span style="z-index:0" class="glyphicon glyphicon-upload"></span> Отправить...
     </a>
 </div>
-<div *ngIf="scans.length != 0 && !isPageLoading">
-    <hr />
+<div *ngIf="answerSheets.length != 0 && !isPageLoading">
     <div>
         <table class="table table-bordered">
             <tr>
@@ -24,18 +29,45 @@
                 <th>Баллы по заданиям</th>
                 <th>Действия</th>
             </tr>
-            <tr *ngFor="let answerSheet of answerSheets | filter : {'SourceName' : searchText }; let i = index">
+            <tr *ngFor="let answerSheet of answerSheets | filter : {'SourceName' : searchText }; let i = index" [ngClass]="{'uploadError': answerSheet.Status === 'isFailed'}">
                 <td class="centered-mini-cell">{{i + 1}}</td>
                 <td>{{answerSheet.SourceName}}</td>
-                <td>{{answerSheet.ParticipCode}}</td>
-                <td>{{answerSheet.TestName}}</td>
-                <td>{{answerSheet.Marks}}</td>
-                <td>
-                    <a *ngIf="scan.FileId" [routerLink]="['/rsur/match-protocol', scan.FileId]"><img style="width: 20px" src="https://png.icons8.com/ocr/win8/50/000000"></a>
-                    <!--<a *ngIf="scan.Status === 'isFailed'" class="glyphicon glyphicon-repeat" (click)="reuploadScan(scan)" style="cursor:pointer"></a>-->
-                    <!--<a *ngIf="scan.Status !== 'isDeleting'" class="glyphicon glyphicon-trash" style="cursor:pointer" (click)="deleteScan(scan)"></a>-->
-                    <!--<i *ngIf="scan.Status === 'isDeleting'" class="fa fa-spinner swirl-spinner" aria-hidden="true"></i>-->
-                    <!--<mat-progress-bar [value]="scan.UploadProgress"></mat-progress-bar>-->
+                <ng-template [ngIf]="answerSheet.Status !== 'isFailed'">
+                    <td [ngClass]="{'red': !answerSheet.ParticipCode}">{{answerSheet.ParticipCode}}</td>
+                    <td [ngClass]="{'red': !answerSheet.TestName}">{{answerSheet.TestName}}</td>
+                    <td [ngClass]="{'red': !answerSheet.Marks}">{{answerSheet.Marks}}</td>
+                </ng-template>
+                <td colspan="3" *ngIf="answerSheet.Status === 'isFailed'" style="text-align:center">Не удается отправить файл. Повторите попытку</td>
+                
+                <td *ngIf="!answerSheet.Status || answerSheet.Status === 'isComplete'">
+                    <span class="actions-cell-container">
+                        <a [routerLink]="['/rsur/match-protocol', answerSheet.FileId]">
+                            <img *ngIf="!answerSheet.ParticipCode" style="width: 20px" src="https://png.icons8.com/ocr/win8/50/000000">
+                            <span class="glyphicon glyphicon-edit" *ngIf="answerSheet.ParticipCode"></span>
+                        </a>
+                        
+                        <a style="cursor:pointer">
+                            <span class="glyphicon glyphicon-trash" (click)="deleteScan(answerSheet)"></span>
+                        </a>
+                    </span>
+                </td>
+
+                <td *ngIf="answerSheet.Status === 'isFailed'">
+                    <span class="actions-cell-container">
+                        <a class="glyphicon glyphicon-repeat" (click)="reuploadScan(answerSheet)" style="cursor:pointer"></a>
+
+                        <a style="cursor:pointer">
+                            <span class="glyphicon glyphicon-trash" (click)="deleteScan(answerSheet)"></span>
+                        </a>
+                    </span>
+                </td>
+
+                <td *ngIf="answerSheet.Status === 'isUploading'">
+                    <mat-progress-bar [value]="answerSheet.UploadProgress"></mat-progress-bar>
+                </td>
+
+                <td *ngIf="answerSheet.Status === 'isDeleting'" style="text-align:center">
+                    <i class="fa fa-spinner swirl-spinner" aria-hidden="true"></i>
                 </td>
             </tr>
         </table>

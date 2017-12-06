@@ -1,5 +1,5 @@
 ﻿
-import { Component, OnInit, Pipe, PipeTransform, IterableDiffers, IterableDiffer, KeyValueDiffers } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, IterableDiffers, IterableDiffer, KeyValueDiffers, TemplateRef } from '@angular/core';
 import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
 import { Scan, AnswerSheet } from "../../../models/scan.model";
@@ -14,12 +14,12 @@ import { Subject } from "rxjs/Subject";
 export class ScanProtocolsComponent implements OnInit{
 	answerSheets: AnswerSheetForUpload[] = [];
 
-	notMatchedScansCount: number = 0;
-	duplicatesCount: number = 0;
-	failedScansCount: number = 0;
+	allCompleteCount: number;
+	notMatchedCount: number;
+	duplicatesCount: number;
+	failsCount: number;
 
 	isPageLoading: boolean = false;
-	isScansUploading: boolean = false;
 
 	iterableDiffer: IterableDiffer<any>;
 	objDiffer: any;
@@ -66,14 +66,14 @@ export class ScanProtocolsComponent implements OnInit{
 		});
 
 		if (isChanged) {
-			this.isScansUploading = this.answerSheets.filter(f => f.Status === 'isUploading').length > 0;
 			this.getStats();
 		}
 	}
 
 	getStats() {
-		this.notMatchedScansCount = this.answerSheets.filter(s => s.FileId).length;
-		this.failedScansCount = this.answerSheets.filter(s => s.Status === 'isFailed').length;
+		this.allCompleteCount = this.answerSheets.filter(f => f.FileId).length;
+		this.notMatchedCount = this.answerSheets.filter(s => !s.ParticipCode && s.Status !== 'isFailed').length;
+		this.failsCount = this.answerSheets.filter(s => s.Status === 'isFailed').length;
 	}
 
 	addPhoto(event: any) {
@@ -101,7 +101,6 @@ export class ScanProtocolsComponent implements OnInit{
 
 	uploadScan(answerSheet: AnswerSheetForUpload) {
 		answerSheet.Status = 'isUploading';
-		this.isScansUploading = true;
 		this.rsurProtocolsService.postScan(answerSheet.FileContent).subscribe(
 			response => this.responseHandler(response, answerSheet),
 			error => this.errorResponseHandler(error, answerSheet),
@@ -129,10 +128,11 @@ export class ScanProtocolsComponent implements OnInit{
 		}
 		else {
 			answerSheet.Status = 'isFailed';
-			this.failedScansCount += 1;
 		}
 	}
 
+	//перед удалением бланка ответов проверяем, был ли он загружен на сервер
+	//если файла нет на сервере то достаточно удалить его из массива
 	deleteScan(answerSheet: AnswerSheetForUpload) {
 		let statusBeforeDeleting = answerSheet.Status;
 		answerSheet.Status = 'isDeleting';

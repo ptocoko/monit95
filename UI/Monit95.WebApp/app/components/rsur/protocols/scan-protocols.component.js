@@ -1,14 +1,6 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var rsur_protocols_service_1 = require("../../../services/rsur-protocols.service");
 var http_1 = require("@angular/common/http");
@@ -17,34 +9,34 @@ var ScanProtocolsComponent = (function () {
         this.rsurProtocolsService = rsurProtocolsService;
         this._iterableDiffers = _iterableDiffers;
         this.differs = differs;
-        this.scans = [];
-        this.notMatchedScansCount = 0;
-        this.duplicatesCount = 0;
-        this.failedScansCount = 0;
+        this.answerSheets = [];
         this.isPageLoading = false;
-        this.isScansUploading = false;
+        //подготовка для отслеживания изменения массива
         this.iterableDiffer = _iterableDiffers.find([]).create(null);
     }
     ScanProtocolsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.objDiffer = {};
         this.isPageLoading = true;
-        this.rsurProtocolsService.getNotMatchedScans().subscribe(function (res) {
-            _this.scans = res;
+        this.rsurProtocolsService.getAnswerSheets().subscribe(function (res) {
+            _this.answerSheets = res;
             _this.isPageLoading = false;
-            _this.scans.forEach(function (elt) {
+            //подготовка differ'а для отслеживания изменений внутри объектов массива
+            _this.answerSheets.forEach(function (elt) {
                 _this.objDiffer[elt] = _this.differs.find(elt).create();
             });
         });
     };
+    //ngDoCheck — часть жизненного цикла Angular (https://goo.gl/jBuc6s)
     ScanProtocolsComponent.prototype.ngDoCheck = function () {
         var _this = this;
+        //если выявлены изменения в массиве или внутри объектов массива, то выполняется обновление статистических показателей
         var isChanged = false;
-        var changes = this.iterableDiffer.diff(this.scans);
+        var changes = this.iterableDiffer.diff(this.answerSheets);
         if (changes) {
             isChanged = true;
         }
-        this.scans.forEach(function (elt) {
+        this.answerSheets.forEach(function (elt) {
             var objDiffer = _this.objDiffer[elt];
             var objChanges = objDiffer.diff(elt);
             if (objChanges) {
@@ -52,72 +44,74 @@ var ScanProtocolsComponent = (function () {
             }
         });
         if (isChanged) {
-            this.isScansUploading = this.scans.filter(function (f) { return f.Status === 'isUploading'; }).length > 0;
             this.getStats();
         }
     };
     ScanProtocolsComponent.prototype.getStats = function () {
-        this.notMatchedScansCount = this.scans.filter(function (s) { return s.FileId; }).length;
-        this.failedScansCount = this.scans.filter(function (s) { return s.Status === 'isFailed'; }).length;
+        //this.isScansUploading = this.answerSheets.filter(f => f.Status === 'isUploading').length > 0;
+        this.allCompleteCount = this.answerSheets.filter(function (f) { return f.FileId; }).length;
+        this.notMatchedCount = this.answerSheets.filter(function (s) { return !s.ParticipCode && s.Status !== 'isFailed'; }).length;
+        this.failsCount = this.answerSheets.filter(function (s) { return s.Status === 'isFailed'; }).length;
     };
     ScanProtocolsComponent.prototype.addPhoto = function (event) {
         var files = event.target.files;
         if (this.validateSelectedPhotos(files)) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
-                var scan = {
+                var answerSheet = {
                     SourceName: file.name,
                     UploadProgress: 0,
                     FileContent: file,
                     FileId: null,
                     Status: 'isUploading'
                 };
-                this.scans.push(scan);
-                this.uploadScan(scan);
+                this.answerSheets.push(answerSheet);
+                this.uploadScan(answerSheet);
             }
         }
         event.target.value = '';
     };
-    ScanProtocolsComponent.prototype.uploadScan = function (scan) {
+    ScanProtocolsComponent.prototype.uploadScan = function (answerSheet) {
         var _this = this;
-        scan.Status = 'isUploading';
-        this.isScansUploading = true;
-        this.rsurProtocolsService.postScan(scan.FileContent).subscribe(function (response) { return _this.responseHandler(response, scan); }, function (error) { return _this.errorResponseHandler(error, scan); }, function () { return scan.Status = 'isComplete'; });
+        answerSheet.Status = 'isUploading';
+        //this.isScansUploading = true;
+        this.rsurProtocolsService.postScan(answerSheet.FileContent).subscribe(function (response) { return _this.responseHandler(response, answerSheet); }, function (error) { return _this.errorResponseHandler(error, answerSheet); }, function () { return answerSheet.Status = 'isComplete'; });
     };
-    ScanProtocolsComponent.prototype.responseHandler = function (res, scan) {
+    ScanProtocolsComponent.prototype.responseHandler = function (res, answerSheet) {
         if (res instanceof http_1.HttpResponse) {
-            scan.FileId = res.body; //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
-            scan.FileContent = null; //очищаем FileContent после отправки чтобы не забивать оперативную память
+            answerSheet.FileId = res.body; //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
+            answerSheet.FileContent = null; //очищаем FileContent после отправки чтобы не забивать оперативную память
         }
         else {
-            scan.UploadProgress = res;
+            answerSheet.UploadProgress = res;
         }
     };
-    ScanProtocolsComponent.prototype.errorResponseHandler = function (error, scan) {
+    ScanProtocolsComponent.prototype.errorResponseHandler = function (error, answerSheet) {
         if (error.status && error.status === 409) {
-            var duplicatedScanIndex = this.scans.indexOf(scan);
-            this.scans.splice(duplicatedScanIndex, 1);
+            var duplicatedScanIndex = this.answerSheets.indexOf(answerSheet);
+            this.answerSheets.splice(duplicatedScanIndex, 1);
             this.duplicatesCount += 1;
         }
         else {
-            scan.Status = 'isFailed';
-            this.failedScansCount += 1;
+            answerSheet.Status = 'isFailed';
         }
     };
-    ScanProtocolsComponent.prototype.deleteScan = function (scan) {
+    //перед удалением бланка ответов проверяем, был ли он загружен на сервер
+    //если файла нет на сервере то достаточно удалить его из массива
+    ScanProtocolsComponent.prototype.deleteScan = function (answerSheet) {
         var _this = this;
-        var statusBeforeDeleting = scan.Status;
-        scan.Status = 'isDeleting';
+        var statusBeforeDeleting = answerSheet.Status;
+        answerSheet.Status = 'isDeleting';
         if (statusBeforeDeleting !== 'isFailed') {
-            this.rsurProtocolsService.deleteScan(scan.FileId).subscribe(function (res) { return _this.scans.splice(_this.scans.indexOf(scan), 1); }, function (error) {
+            this.rsurProtocolsService.deleteScan(answerSheet.FileId).subscribe(function (res) { return _this.answerSheets.splice(_this.answerSheets.indexOf(answerSheet), 1); }, function (error) {
                 var message = error.message ? error.message : error;
                 alert(message);
                 console.error(error);
-                scan.Status = statusBeforeDeleting;
+                answerSheet.Status = statusBeforeDeleting;
             });
         }
         else {
-            this.scans.splice(this.scans.indexOf(scan), 1);
+            this.answerSheets.splice(this.answerSheets.indexOf(answerSheet), 1);
         }
     };
     ScanProtocolsComponent.prototype.reuploadScan = function (scan) {
@@ -129,8 +123,8 @@ var ScanProtocolsComponent = (function () {
                 alert('Размер файла ' + files[i].name + ' превышает максимально разрешенный. \nМаксимально разрешенный размер файла — 10 МБ');
                 return false;
             }
-            if (['png', 'jpg', 'jpeg'].indexOf(files[i].name.split('.').pop().toLowerCase()) === -1) {
-                alert('Файл ' + files[i].name + ' имеет неразрешенный формат.\nРазрешены следующие форматы файлов: .png, .jpg, .jpeg');
+            if (['png', 'jpg', 'jpeg', 'tiff', 'tif'].indexOf(files[i].name.split('.').pop().toLowerCase()) === -1) {
+                alert('Файл ' + files[i].name + ' имеет неразрешенный формат.\nРазрешены следующие форматы файлов: .png, .jpg, .jpeg, .tiff, .tif');
                 return false;
             }
         }
@@ -138,13 +132,13 @@ var ScanProtocolsComponent = (function () {
     };
     return ScanProtocolsComponent;
 }());
-ScanProtocolsComponent = __decorate([
+ScanProtocolsComponent = tslib_1.__decorate([
     core_1.Component({
         selector: 'scan-protocols-component',
         templateUrl: "./app/components/rsur/protocols/scan-protocols.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/components/rsur/protocols/scan-protocols.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
+    tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
         core_1.IterableDiffers,
         core_1.KeyValueDiffers])
 ], ScanProtocolsComponent);
@@ -154,25 +148,27 @@ var FilterPipe = (function () {
     function FilterPipe() {
     }
     FilterPipe.prototype.transform = function (array, searchObj) {
-        var _loop_1 = function (key) {
-            if (searchObj[key] && typeof searchObj[key] === 'string') {
-                var searchString_1 = searchObj[key].toLowerCase().toString();
-                array = array.filter(function (f) {
-                    if (f[key] && typeof f[key] === 'string') {
-                        var value = f[key].toLowerCase().toString();
-                        return value.includes(searchString_1);
-                    }
-                });
+        if (array && array.length > 1) {
+            var _loop_1 = function (key) {
+                if (searchObj[key] && typeof searchObj[key] === 'string') {
+                    var searchString_1 = searchObj[key].toLowerCase().toString();
+                    array = array.filter(function (f) {
+                        if (f[key] && typeof f[key] === 'string') {
+                            var value = f[key].toLowerCase().toString();
+                            return value.includes(searchString_1);
+                        }
+                    });
+                }
+            };
+            for (var key in searchObj) {
+                _loop_1(key);
             }
-        };
-        for (var key in searchObj) {
-            _loop_1(key);
         }
         return array;
     };
     return FilterPipe;
 }());
-FilterPipe = __decorate([
+FilterPipe = tslib_1.__decorate([
     core_1.Pipe({
         name: 'filter',
         pure: false
