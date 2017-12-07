@@ -29,7 +29,7 @@ namespace Monit95App.Services
                 using (var md5 = MD5.Create())
                 {
                     using (var stream = File.OpenRead(fileName))
-                    {
+                    {                        
                         var hash = md5.ComputeHash(stream);
                         hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
                     }

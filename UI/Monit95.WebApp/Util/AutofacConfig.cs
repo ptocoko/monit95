@@ -1,9 +1,7 @@
 ﻿using System.Reflection;
 using System.Web.Http;
-
 using Autofac;
 using Autofac.Integration.WebApi;
-
 using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
@@ -11,14 +9,13 @@ using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
 using Monit95App.Services.Rsur.ParticipReport;
+using Monit95App.Services.Rsur.RsurTestResultService;
 using Monit95App.Services.Rsur.SeminarReport;
 using Monit95App.Services.School;
 using Monit95App.Web.Services;
 
-namespace Monit95App.Util
+namespace Monit95.WebApp.Util
 {
-    using Monit95App.Services.Rsur.RsurTestResultService;
-
     public class AutofacConfig
     {
         public static void ConfigureContainer()

@@ -28,6 +28,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public int? FileId { get; set; }
 
+        public virtual File File { get; set; }
+
         public virtual RsurParticipTest RsurParticipTest { get; set; }
     }
 }
