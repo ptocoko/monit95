@@ -13,15 +13,15 @@ using NSubstitute;
 
 namespace Monit95App.Services.Tests
 {
-    using Monit95App.Services.Rsur.RsurTestResultService;
+    using Rsur.RsurTestResultService;
 
     [TestClass]
-    public class MarksProtocolServiceTest
+    public class RsurTestResultServiceTest
     {
         private readonly CokoContext mockContext;
 
         // Constructor
-        public MarksProtocolServiceTest()
+        public RsurTestResultServiceTest()
         {
             var data = new List<RsurTestResult>
             {

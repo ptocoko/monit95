@@ -1,7 +1,7 @@
-﻿using Monit95App.Services.Validation;
-using System.IO;
+﻿using System.IO;
+using Monit95App.Services.Validation;
 
-namespace Monit95App.Services.RepositoryService
+namespace Monit95App.Services.Repository
 {
     public interface IRepositoryService
     {

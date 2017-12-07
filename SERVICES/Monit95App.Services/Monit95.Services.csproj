@@ -98,8 +98,8 @@
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
     <Compile Include="FilesService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
-    <Compile Include="RepositoryService\IRepositoryService.cs" />
-    <Compile Include="RepositoryService\RepositoryService.cs" />
+    <Compile Include="Repository\IRepositoryService.cs" />
+    <Compile Include="Repository\RepositoryService.cs" />
     <Compile Include="Rsur\RsurTestResultService\IRsurTestResultService.cs" />
     <Compile Include="Rsur\RsurTestResultService\RsurTestResultDto.cs" />
     <Compile Include="Rsur\RsurTestResultService\RsurTestResultService.cs" />
@@ -176,6 +176,7 @@
     <Compile Include="Validation\MustHaveOneElementAttribute.cs" />
     <Compile Include="Validation\ServiceError.cs" />
     <Compile Include="Validation\ServiceResult.cs" />
+    <Compile Include="Validation\VoidResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DOMAIN\Monit95.Domain.Core\Monit95.Domain.Core.csproj">

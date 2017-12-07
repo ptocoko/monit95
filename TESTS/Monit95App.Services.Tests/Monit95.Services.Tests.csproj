@@ -111,7 +111,8 @@
     <Compile Include="RsurParticipReportService_Test.cs" />
     <Compile Include="ParticipReportServiceTest.cs" />
     <Compile Include="RatingServiceTest.cs" />
-    <Compile Include="MarksProtocolServiceTest.cs" />
+    <Compile Include="RsurTestResultServiceTest.cs" />
+    <Compile Include="RepositoryServiceTest.cs" />
     <Compile Include="Util\MyExpectedException.cs" />
   </ItemGroup>
   <ItemGroup>

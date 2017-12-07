@@ -1,14 +1,13 @@
-﻿using Monit95App.Services.RepositoryService;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using Monit95App.Services.Repository;
 
-namespace Monit95App.RESTful_API.Rsur
+namespace Monit95.WebApp.RESTful_API.Rsur
 {
     /// <inheritdoc />
     /// <summary>
@@ -23,7 +22,7 @@ namespace Monit95App.RESTful_API.Rsur
         
         #endregion
 
-        #region All Constructors
+        #region Constructors
 
         public RepositoriesController(IRepositoryService repositoryService)
         {
@@ -41,31 +40,39 @@ namespace Monit95App.RESTful_API.Rsur
         [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
         public HttpResponseMessage AddFile()
         {
+            // Find file in requestBody
             var httpCollectionFiles = HttpContext.Current.Request.Files;
-            if(httpCollectionFiles.Count == 0)            
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "В теле запроса отсутствует файл");
-            
-            HttpPostedFile postedFile = httpCollectionFiles.Get(0);
-            Stream fileStream = postedFile.InputStream;
-            var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);            
-            var fileName = postedFile.FileName;
+            if (httpCollectionFiles.Count == 0)            
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Body has not file");            
+                   
+            // Get file's content from body
+            HttpPostedFile postedFile = httpCollectionFiles.Get(0);            
+            var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);                        
             var areaCode = Convert.ToInt32(User.Identity.Name);
 
-            var result = repositoryService.Add(repositoryId, fileStream, fileName, areaCode);
+            // Call service
+            var result = repositoryService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, areaCode);
 
-            // success
+            // Success
             if (!result.Errors.Any())            
-                return Request.CreateResponse(HttpStatusCode.Created, Convert.ToInt32(result.Result));            
+                return Request.CreateResponse(HttpStatusCode.Created, Convert.ToInt32(result.Result));
 
-            // faild
-            foreach (var error in result.Errors)
-            {
-                if (error.HttpCode == 409)
-                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, error.Description);
+            // Error: dublicate
+            if (result.Errors.Any(error => error.HttpCode == 409))
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, string.Empty);
 
-                this.ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
-            }
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);            
+            // Error: another
+            foreach (var error in result.Errors)                         
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);            
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);            
+        }
+
+        [HttpPost, Route("{repoId:int}/files/{fileId:}")]
+        [Authorize(Roles = "area")]
+        public HttpResponseMessage DeleteFile()
+        {
+            var fileId = Convert.ToInt32(RequestContext.RouteData.Values["fileId"]);
+            return null;
         }
     }
 }

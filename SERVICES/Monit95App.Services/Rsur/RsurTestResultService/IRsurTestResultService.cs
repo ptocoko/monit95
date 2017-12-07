@@ -14,6 +14,6 @@
 
         RsurTestResultDto Get(int participCode, int areaCode); // areaCode for Validate
 
-        ServiceResult<object> CreateOrUpdate(RsurTestResultDto rsurTestResultDto, int areaCode);        
+        VoidResult CreateOrUpdate(RsurTestResultDto rsurTestResultDto, int areaCode);        
     }
 }

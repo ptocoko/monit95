@@ -1,11 +1,11 @@
-﻿using System.IO;
-using Monit95App.Services.Validation;
-using Monit95App.Infrastructure.Data;
-using System.Security.Cryptography;
+﻿using System;
+using System.IO;
 using System.Linq;
-using System;
+using System.Security.Cryptography;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Validation;
 
-namespace Monit95App.Services.RepositoryService
+namespace Monit95App.Services.Repository
 {
     public class RepositoryService : IRepositoryService
     {
@@ -66,12 +66,7 @@ namespace Monit95App.Services.RepositoryService
             // 1) Get all hashes
             var allHashes = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
                                                               && rtr.RsurParticipTest.RsurTest.IsOpen)
-                                                              .Select(rtr => rtr.File.HexHash).ToList();              
-            //if(!allHashes.Any())
-            //{
-            //    serviceResult.Errors.Add(new ServiceError { HttpCode = 404, Description = "Not found" });
-            //    return serviceResult;
-            //}
+                                                              .Select(rtr => rtr.File.HexHash).ToList();                    
 
             // 2) Generate hexadecimal hash for file's stream
             string hexHash;
@@ -106,15 +101,19 @@ namespace Monit95App.Services.RepositoryService
                 sourceFileStream.CopyTo(destFileStream);                
             }
             
-            // 5) Add to data base
-            context.Files.Add(new Domain.Core.Entities.File
+            // 5) Add file to context and save to data base
+            var fileEntity = new Domain.Core.Entities.File
             {
                 SourceName = sourceFileName,
                 RepositoryId = repositoryId,
                 HexHash = hexHash,
                 Name = destFileName
-            });
+            };
+            context.Files.Add(fileEntity);
 
+            context.SaveChanges();
+
+            serviceResult.Result = fileEntity.Id;
             return serviceResult;
         }
     }

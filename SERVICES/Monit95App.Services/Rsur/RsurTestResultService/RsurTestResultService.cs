@@ -146,10 +146,16 @@ namespace Monit95App.Services.Rsur.RsurTestResultService
             
             return marksProtocol;            
         }
-
-        public ServiceResult<object> CreateOrUpdate(RsurTestResultDto rsurTestResultDto, int areaCode)
+        
+        /// <summary>
+        /// Добавляет/редактирует баллы по заданиям 
+        /// </summary>
+        /// <param name="rsurTestResultDto"></param>
+        /// <param name="areaCode"></param>
+        /// <returns></returns>
+        public VoidResult CreateOrUpdate(RsurTestResultDto rsurTestResultDto, int areaCode)
         {
-            var result = new ServiceResult<object>();                                         
+            var result = new VoidResult();                                         
             
             if (rsurTestResultDto == null)
             {
@@ -175,7 +181,7 @@ namespace Monit95App.Services.Rsur.RsurTestResultService
             }
             
             var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // current test's testQuestions
-            if (testQuestions.Count() != rsurTestResultDto.QuestionResults.Count())
+            if (testQuestions.Count != rsurTestResultDto.QuestionResults.Count)
             {
                 result.Errors.Add(new ServiceError { Description = $"{nameof(testQuestions)} count != {nameof(rsurTestResultDto.QuestionResults)}" });                
                 return result;
