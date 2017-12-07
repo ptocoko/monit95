@@ -1,0 +1,34 @@
+﻿<h3>РСУР: Протоколы проверки заданий</h3>
+<ng-template [ngIf]="questionProtocols">
+    <div>общее количество протоколов: {{questionProtocols.length}}</div>
+    <div>из них</div>
+    <div>обработано: {{processedProtocols()}}</div>
+    <div>не обработано: {{notProcessedProtocols()}}</div>
+    <div class="search-field">
+        <mat-form-field>
+            <input [(ngModel)]="searchText" placeholder="Поиск по коду участника..." matInput />
+        </mat-form-field>
+    </div>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>№ п/п</th>
+            <th>Код участника</th>
+            <th>Блок</th>
+            <th>Баллы по заданиям</th>
+            <th>Действия</th>
+        </tr>
+        <tr *ngFor="let protocol of questionProtocols | filter : { 'ParticipCode': searchText }; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{protocol.ParticipCode}}</td>
+            <td>{{protocol.TestName}}</td>
+            <td [ngClass]="{'red': protocol.Marks}">{{protocol.Marks}}</td>
+            <td>
+                <div class="pull-right" style="width:251px">
+                    <button mat-raised-button color="primary"><i class="glyphicon glyphicon-edit"></i> изменить</button>
+                    <button mat-raised-button color="warn" (click)="protocol.Marks = 'отсутствовал'"><i class="glyphicon glyphicon-header"></i> отсутствовал</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</ng-template>

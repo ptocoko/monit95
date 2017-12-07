@@ -1,8 +1,7 @@
-﻿export interface MarksProtocol {
-	ParticipCode: number;
-	ParticipTestId: number;
+﻿import { Protocol } from "./protocol.model";
+
+export interface MarksProtocol extends Protocol {
 	FileId?: number;
-	TestName: string;
 	QuestionResults: QuestionResult[];
 }
 

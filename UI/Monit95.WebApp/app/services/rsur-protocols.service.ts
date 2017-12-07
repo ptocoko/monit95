@@ -8,14 +8,15 @@ import 'rxjs/add/observable/throw';
 import { MarksProtocol } from "../models/marks-protocol.model";
 import { Subject } from "rxjs/Subject";
 import { Scan, AnswerSheet } from "../models/scan.model";
+import { Protocol } from "../models/protocol.model";
 
 
 @Injectable()
 export class RsurProtocolsService {
 	constructor(private http: HttpClient) { }
 
-	marksProtocolUrl = '/api/rsur/marksProtocols';
-	scansUrl = '/api/rsur/scans';
+	private marksProtocolUrl = '/api/rsur/marksProtocols';
+	private scansUrl = '/api/rsur/scans';
 
 	private sortFunc<T>(first: T|any, second: T|any) {
 		if (first.Order < second.Order) {
@@ -87,13 +88,17 @@ export class RsurProtocolsService {
 		//return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
 	}
 
-	public getAnswerSheets() {
+	getAnswerSheets() {
 		return Observable.of(answerSheets).delay(2000);
 
 		//return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
 	}
 
-	public postScan(file: File): Observable<number|HttpResponse<number>> {
+	getQuestionProtocols() {
+		return Observable.of(questionProtocols).delay(500);
+	}
+
+	postScan(file: File): Observable<number|HttpResponse<number>> {
 		let fakeUrl = '/api/ExcelFiles/Upload';
 
 		let formData: FormData = new FormData();
@@ -117,14 +122,10 @@ export class RsurProtocolsService {
 		return subject.asObservable();
 	}
 
-	public deleteScan(fileId: number) {
+	deleteScan(fileId: number) {
 		return Observable.of({}).delay(1000);
 
 		//return this.http.delete(`${this.scansUrl}/${fileId}`);
-	}
-	
-	deleteTestResult(participTestId: number) {
-		return Observable.of({}).delay(1000);
 	}
 }
 
@@ -163,6 +164,32 @@ const answerSheets: AnswerSheet[] = [
 	{
 		SourceName: 'IMG_004.JPG',
 		FileId: 6431
+	},
+]
+
+const questionProtocols: Protocol[] = [
+	{
+		ParticipCode: 12345,
+		ParticipTestId: 1234,
+		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+	},
+	{
+		ParticipCode: 54321,
+		ParticipTestId: 4321,
+		TestName: '0101 — Орфография',
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1'
+	},
+	{
+		ParticipCode: 89906,
+		ParticipTestId: 2435,
+		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+		Marks: 'отсутствовал'
+	},
+	{
+		ParticipCode: 23451,
+		ParticipTestId: 9367,
+		TestName: '0102 — Пунктуация'
 	},
 ]
 

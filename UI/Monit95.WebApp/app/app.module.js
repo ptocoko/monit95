@@ -38,6 +38,7 @@ var seminar_report_component_1 = require("./components/rsur/seminar-reports/semi
 var school_files_component_1 = require("./components/school-files/school-files.component");
 var matching_protocol_component_1 = require("./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component");
 var scan_protocols_component_1 = require("./components/rsur/protocols/scan-protocols.component");
+var question_protocols_list_component_1 = require("./components/rsur/protocols/question-protocols-list.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
@@ -109,6 +110,7 @@ AppModule = tslib_1.__decorate([
                 { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
                 { path: 'rsur/match-protocol/:id', component: matching_protocol_component_1.MatchingProtocolComponent },
                 { path: 'rsur/scan-protocols', component: scan_protocols_component_1.ScanProtocolsComponent },
+                { path: 'rsur/question-protocols', component: question_protocols_list_component_1.QuestionProtocolsList },
                 { path: 'school-files', component: school_files_component_1.SchoolFilesComponent },
                 { path: 'plan', component: plan_component_1.PlanComponent },
                 { path: 'result', component: result_component_1.ResultComponent },
@@ -160,7 +162,8 @@ AppModule = tslib_1.__decorate([
             seminar_report_component_1.SeminarReportComponent,
             school_files_component_1.SchoolFilesComponent,
             matching_protocol_component_1.MatchingProtocolComponent,
-            scan_protocols_component_1.ScanProtocolsComponent
+            scan_protocols_component_1.ScanProtocolsComponent,
+            question_protocols_list_component_1.QuestionProtocolsList
         ],
         providers: [
             account_service_1.AccountService,

@@ -45,23 +45,22 @@ var RsurProtocolsService = (function () {
         //});
     };
     RsurProtocolsService.prototype.getMarksProtocolByFileId = function (fileId) {
-        var _this = this;
-        //if (fileId === 6431) {
-        //	return Observable.of(particip).delay(1000);
-        //}
-        //else {
-        //	return Observable.of(null).delay(500);
-        //}
-        return this.http.get('/api/ExcelFiles/Upload').map(function (res) {
-            var marksProtocol = res;
-            if (marksProtocol) {
-                marksProtocol.QuestionResults.sort(_this.sortFunc);
-                return marksProtocol;
-            }
-            else {
-                return null;
-            }
-        });
+        if (fileId === 6431) {
+            return Observable_1.Observable.of(particip).delay(1000);
+        }
+        else {
+            return Observable_1.Observable.of(null).delay(500);
+        }
+        //return this.http.get('/api/ExcelFiles/Upload').map(res => {
+        //	let marksProtocol = res as MarksProtocol;
+        //	if (marksProtocol) {
+        //		marksProtocol.QuestionResults.sort(this.sortFunc);
+        //		return marksProtocol;
+        //	}
+        //	else {
+        //		return null;
+        //	}
+        //});
     };
     RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
         if (!marksProtocol.FileId) {
@@ -79,6 +78,9 @@ var RsurProtocolsService = (function () {
     RsurProtocolsService.prototype.getAnswerSheets = function () {
         return Observable_1.Observable.of(answerSheets).delay(2000);
         //return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
+    };
+    RsurProtocolsService.prototype.getQuestionProtocols = function () {
+        return Observable_1.Observable.of(questionProtocols).delay(500);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
         var fakeUrl = '/api/ExcelFiles/Upload';
@@ -104,9 +106,6 @@ var RsurProtocolsService = (function () {
     RsurProtocolsService.prototype.deleteScan = function (fileId) {
         return Observable_1.Observable.of({}).delay(1000);
         //return this.http.delete(`${this.scansUrl}/${fileId}`);
-    };
-    RsurProtocolsService.prototype.deleteTestResult = function (participTestId) {
-        return Observable_1.Observable.of({}).delay(1000);
     };
     return RsurProtocolsService;
 }());
@@ -148,6 +147,31 @@ var answerSheets = [
     {
         SourceName: 'IMG_004.JPG',
         FileId: 6431
+    },
+];
+var questionProtocols = [
+    {
+        ParticipCode: 12345,
+        ParticipTestId: 1234,
+        TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+    },
+    {
+        ParticipCode: 54321,
+        ParticipTestId: 4321,
+        TestName: '0101 — Орфография',
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1'
+    },
+    {
+        ParticipCode: 89906,
+        ParticipTestId: 2435,
+        TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+        Marks: 'отсутствовал'
+    },
+    {
+        ParticipCode: 23451,
+        ParticipTestId: 9367,
+        TestName: '0102 — Пунктуация'
     },
 ];
 var particip = {

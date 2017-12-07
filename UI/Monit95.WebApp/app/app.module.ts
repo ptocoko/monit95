@@ -36,6 +36,7 @@ import { SeminarReportComponent } from "./components/rsur/seminar-reports/semina
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
 import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
 import { ScanProtocolsComponent, FilterPipe } from "./components/rsur/protocols/scan-protocols.component";
+import { QuestionProtocolsList } from "./components/rsur/protocols/question-protocols-list.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -68,6 +69,7 @@ import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rs
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
+import { RsurProtocolFilter } from "./pipes/rsur-protocol-filter.pipe";
 
 @NgModule({
     imports: [
@@ -105,6 +107,7 @@ import { GlobalErrorHandler } from './error-handler';
 				{ path: 'rsur/ratings', component: RatingsComponent },
 				{ path: 'rsur/match-protocol/:id', component: MatchingProtocolComponent },
 				{ path: 'rsur/scan-protocols', component: ScanProtocolsComponent },
+				{ path: 'rsur/question-protocols', component: QuestionProtocolsList },
                 { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },                
@@ -133,7 +136,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
 		FilterPipe,
-        SchoolFilter,    
+		SchoolFilter,    
+		RsurProtocolFilter,
         SchoolNameFilterPipe,
         TestNameWithDateFilterPipe,
         TotalFilterPipe,
@@ -158,7 +162,8 @@ import { GlobalErrorHandler } from './error-handler';
         SeminarReportComponent,
 		SchoolFilesComponent,
 		MatchingProtocolComponent,
-		ScanProtocolsComponent
+		ScanProtocolsComponent,
+		QuestionProtocolsList
 	],
 	providers: [
         AccountService,
