@@ -336,6 +336,7 @@
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\components\rsur\protocols\protocol\matching-protocol\matching-protocol.component.css" />
     <Content Include="app\components\rsur\protocols\protocol\matching-protocol\matching-protocol.component.html" />
+    <Content Include="app\components\rsur\protocols\question-protocols-list.component.css" />
     <Content Include="app\components\rsur\protocols\question-protocols-list.component.html" />
     <Content Include="app\components\rsur\protocols\scan-protocols.component.css" />
     <Content Include="app\components\rsur\protocols\scan-protocols.component.html" />

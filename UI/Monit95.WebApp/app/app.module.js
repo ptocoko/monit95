@@ -68,6 +68,7 @@ var rsur_particip_filter_pipe_1 = require("./pipes/rsur-particip-filter.pipe");
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
+var rsur_protocol_filter_pipe_1 = require("./pipes/rsur-protocol-filter.pipe");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -138,6 +139,7 @@ AppModule = tslib_1.__decorate([
             rsur_report_filter_pipe_1.TestIdPipe,
             scan_protocols_component_1.FilterPipe,
             school_filter_pipe_1.SchoolFilter,
+            rsur_protocol_filter_pipe_1.RsurProtocolFilter,
             rsur_report_filter_pipe_1.SchoolNameFilterPipe,
             rsur_report_filter_pipe_1.TestNameWithDateFilterPipe,
             rsur_report_filter_pipe_1.TotalFilterPipe,
