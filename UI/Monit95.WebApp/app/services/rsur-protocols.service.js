@@ -80,7 +80,15 @@ var RsurProtocolsService = (function () {
         //return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
     };
     RsurProtocolsService.prototype.getQuestionProtocols = function () {
-        return Observable_1.Observable.of(questionProtocols).delay(500);
+        return Observable_1.Observable.of(questionProtocols)
+            .map(function (s) {
+            s.forEach(function (val) {
+                if (val.Marks === 'wasnot')
+                    val.Marks = 'отсутствовал';
+            });
+            return s;
+        })
+            .delay(500);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
         var fakeUrl = '/api/ExcelFiles/Upload';
@@ -166,7 +174,7 @@ var questionProtocols = [
         ParticipCode: 89906,
         ParticipTestId: 2435,
         TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-        Marks: 'отсутствовал'
+        Marks: 'wasnot'
     },
     {
         ParticipCode: 23451,

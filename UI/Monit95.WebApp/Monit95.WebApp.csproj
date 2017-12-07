@@ -409,6 +409,8 @@
     <Content Include="app\class-particips\excel-export\export-excel.component.html" />
     <Content Include="app\components\rsur\protocols\protocol\matching-protocol\matching-protocol.component.css" />
     <Content Include="app\components\rsur\protocols\protocol\matching-protocol\matching-protocol.component.html" />
+    <Content Include="app\components\rsur\protocols\question-protocols-list.component.css" />
+    <Content Include="app\components\rsur\protocols\question-protocols-list.component.html" />
     <Content Include="app\components\rsur\protocols\scan-protocols.component.css" />
     <Content Include="app\components\rsur\protocols\scan-protocols.component.html" />
     <Content Include="app\components\rsur\ratings\ratings.component.html" />
@@ -598,6 +600,8 @@
     <Content Include="Views\Wishes\Delete.cshtml" />
     <Content Include="Views\Wishes\Index.cshtml" />
     <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\components\rsur\protocols\shared\" />
@@ -629,6 +633,7 @@
     <TypeScriptCompile Include="app\class-particips\results\particip-report.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\matching-protocol\matching-protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\protocols\question-protocols-list.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\scan-protocols.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\ratings\ratings.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\ratings\subject-filter.pipe.ts" />
@@ -742,12 +747,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="d:\Projects\Monit95 v1.0\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('d:\Projects\Monit95 v1.0\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('d:\Projects\Monit95 v1.0\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('d:\Projects\Monit95 v1.0\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', 'd:\Projects\Monit95 v1.0\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', 'd:\Projects\Monit95 v1.0\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets'))" />
     <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets'))" />
   </Target>
   <Import Project="..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />

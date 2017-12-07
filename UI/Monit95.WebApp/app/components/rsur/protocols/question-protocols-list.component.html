@@ -24,9 +24,11 @@
             <td>{{protocol.TestName}}</td>
             <td [ngClass]="{'red': !protocol.Marks}">{{protocol.Marks}}</td>
             <td>
-                <div class="pull-right">
+                <div class="pull-left">
                     <button mat-raised-button color="primary"><i class="glyphicon glyphicon-edit"></i> изменить</button>
-                    <button mat-raised-button color="warn" (click)="protocol.Marks = 'отсутствовал'"><i class="glyphicon glyphicon-header"></i> отсутствовал</button>
+                    <button *ngIf="protocol.Marks !== 'отсутствовал'" mat-raised-button color="warn" (click)="protocol.Marks = 'отсутствовал'">
+                        <i class="glyphicon glyphicon-header"></i> отсутствовал
+                    </button>
                 </div>
             </td>
         </tr>

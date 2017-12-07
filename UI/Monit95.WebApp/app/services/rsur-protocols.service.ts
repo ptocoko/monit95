@@ -95,7 +95,15 @@ export class RsurProtocolsService {
 	}
 
 	getQuestionProtocols() {
-		return Observable.of(questionProtocols).delay(500);
+		return Observable.of(questionProtocols)
+			.map(s => {
+				s.forEach(val => {
+					if (val.Marks === 'wasnot')
+						val.Marks = 'отсутствовал';
+				});
+				return s;
+			})
+			.delay(500);
 	}
 
 	postScan(file: File): Observable<number|HttpResponse<number>> {
@@ -184,7 +192,7 @@ const questionProtocols: Protocol[] = [
 		ParticipCode: 89906,
 		ParticipTestId: 2435,
 		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-		Marks: 'отсутствовал'
+		Marks: 'wasnot'
 	},
 	{
 		ParticipCode: 23451,
