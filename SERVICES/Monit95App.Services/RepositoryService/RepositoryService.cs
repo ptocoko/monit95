@@ -37,10 +37,10 @@ namespace Monit95App.Services.RepositoryService
         /// <param name="sourceFileStream"></param>
         /// <param name="sourceFileName">Full file name or without path.</param>
         /// <param name="areaCode"></param>
-        /// <returns></returns>
-        public ServiceResult Add(int repositoryId, Stream sourceFileStream, string sourceFileName, int areaCode)
+        /// <returns>fileId</returns>
+        public ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string sourceFileName, int areaCode)
         {
-            var serviceResult = new ServiceResult();
+            var serviceResult = new ServiceResult<int>();
             // Validate input parameters
             if (repositoryId <= 0)
             {
@@ -66,7 +66,7 @@ namespace Monit95App.Services.RepositoryService
             // 1) Get all hashes
             var allHashes = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
                                                               && rtr.RsurParticipTest.RsurTest.IsOpen)
-                                                              .Select(rtr => rtr.File.HexHash).ToList();            
+                                                              .Select(rtr => rtr.File.HexHash).ToList();              
             //if(!allHashes.Any())
             //{
             //    serviceResult.Errors.Add(new ServiceError { HttpCode = 404, Description = "Not found" });
@@ -75,6 +75,8 @@ namespace Monit95App.Services.RepositoryService
 
             // 2) Generate hexadecimal hash for file's stream
             string hexHash;
+
+
             using (var md5 = MD5.Create())
             {
                 var hash = md5.ComputeHash(sourceFileStream);

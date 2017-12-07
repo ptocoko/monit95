@@ -147,9 +147,9 @@ namespace Monit95App.Services.Rsur.RsurTestResultService
             return marksProtocol;            
         }
 
-        public ServiceResult CreateOrUpdate(RsurTestResultDto rsurTestResultDto, int areaCode)
+        public ServiceResult<object> CreateOrUpdate(RsurTestResultDto rsurTestResultDto, int areaCode)
         {
-            var result = new ServiceResult();                                         
+            var result = new ServiceResult<object>();                                         
             
             if (rsurTestResultDto == null)
             {
