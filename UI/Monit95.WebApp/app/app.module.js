@@ -1,11 +1,6 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
 // Modules
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
@@ -43,6 +38,8 @@ var seminar_report_component_1 = require("./components/rsur/seminar-reports/semi
 var school_files_component_1 = require("./components/school-files/school-files.component");
 var matching_protocol_component_1 = require("./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component");
 var scan_protocols_component_1 = require("./components/rsur/protocols/scan-protocols.component");
+var question_protocols_list_component_1 = require("./components/rsur/protocols/question-protocols-list.component");
+var marks_protocol_component_1 = require("./components/rsur/protocols/protocol/marks-protocol.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
@@ -69,6 +66,7 @@ var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
 var rsur_particip_filter_pipe_1 = require("./pipes/rsur-particip-filter.pipe");
+var rsur_protocol_filter_pipe_1 = require("./pipes/rsur-protocol-filter.pipe");
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
@@ -77,7 +75,7 @@ var AppModule = (function () {
     }
     return AppModule;
 }());
-AppModule = __decorate([
+AppModule = tslib_1.__decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
@@ -114,6 +112,7 @@ AppModule = __decorate([
                 { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
                 { path: 'rsur/match-protocol/:id', component: matching_protocol_component_1.MatchingProtocolComponent },
                 { path: 'rsur/scan-protocols', component: scan_protocols_component_1.ScanProtocolsComponent },
+                { path: 'rsur/question-protocols', component: question_protocols_list_component_1.QuestionProtocolsList },
                 { path: 'school-files', component: school_files_component_1.SchoolFilesComponent },
                 { path: 'plan', component: plan_component_1.PlanComponent },
                 { path: 'result', component: result_component_1.ResultComponent },
@@ -141,6 +140,7 @@ AppModule = __decorate([
             rsur_report_filter_pipe_1.TestIdPipe,
             scan_protocols_component_1.FilterPipe,
             school_filter_pipe_1.SchoolFilter,
+            rsur_protocol_filter_pipe_1.RsurProtocolFilter,
             rsur_report_filter_pipe_1.SchoolNameFilterPipe,
             rsur_report_filter_pipe_1.TestNameWithDateFilterPipe,
             rsur_report_filter_pipe_1.TotalFilterPipe,
@@ -165,7 +165,9 @@ AppModule = __decorate([
             seminar_report_component_1.SeminarReportComponent,
             school_files_component_1.SchoolFilesComponent,
             matching_protocol_component_1.MatchingProtocolComponent,
-            scan_protocols_component_1.ScanProtocolsComponent
+            scan_protocols_component_1.ScanProtocolsComponent,
+            question_protocols_list_component_1.QuestionProtocolsList,
+            marks_protocol_component_1.MarksProtocolComponent
         ],
         providers: [
             account_service_1.AccountService,

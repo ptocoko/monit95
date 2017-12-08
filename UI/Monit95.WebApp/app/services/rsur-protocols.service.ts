@@ -7,26 +7,29 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
 import { MarksProtocol } from "../models/marks-protocol.model";
 import { Subject } from "rxjs/Subject";
-import { Scan } from "../models/scan.model";
+import { Scan, AnswerSheet } from "../models/scan.model";
+import { Protocol } from "../models/protocol.model";
 
 
 @Injectable()
 export class RsurProtocolsService {
 	constructor(private http: HttpClient) { }
 
-	url = '/api/rsur/marksProtocols';
+	private marksProtocolUrl = '/api/rsur/marksProtocols';
+	private scansUrl = '/api/rsur/scans';
 
-	getMarksProtocol(participCode: number) {
+	private sortFunc<T>(first: T|any, second: T|any) {
+		if (first.Order < second.Order) {
+			return -1;
+		}
+		else {
+			return 1;
+		}
+	}
+
+	getMarksProtocol(participCode: number): Observable<MarksProtocol> {
 		if (participCode == 12345) {
-			particip.QuestionResults.sort((first, second) => {
-				if (first.Order < second.Order) {
-					return -1;
-				}
-				else {
-					return 1;
-				}
-			});
-
+			particip.QuestionResults.sort(this.sortFunc);
 			return Observable.of(particip).delay(2000);
 		}
 		else
@@ -44,27 +47,79 @@ export class RsurProtocolsService {
 			});
 		}
 
-		//return this.http.get<MarksProtocol>(url);
+		//return this.http.get<MarksProtocol>(this.url).map(s => {
+		//	s.QuestionResults.sort(this.sortFunc);
+		//	return s;
+		//});
+	}
+
+	getMarksProtocolByFileId(fileId: number) {
+		if (fileId === 6431) {
+			return Observable.of(particip).delay(1000);
+		}
+		else {
+			return Observable.of(null).delay(500);
+		}
+		//return this.http.get('/api/ExcelFiles/Upload').map(res => {
+		//	let marksProtocol = res as MarksProtocol;
+		//	if (marksProtocol) {
+		//		marksProtocol.QuestionResults.sort(this.sortFunc);
+		//		return marksProtocol;
+		//	}
+		//	else {
+		//		return null;
+		//	}
+		//});
 	}
 
 	postMarksProtocol(marksProtocol: MarksProtocol) {
 		if (!marksProtocol.FileId) {
 			console.error('need to attach fileId to the marksProtocol object')
-			return Observable.throw('')
+			return Observable.throw('there is no fileId')
 		}
+		else {
+			//return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
+		}
+	}
+
+	markAsAbsent(participTestId: number) {
+		return Observable.of(null).delay(500);
+
+		//return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
 	}
 
 	getScan(fileId: number) {
 		return Observable.of(protocolScanModel).delay(2000);
+
+		//return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
 	}
 
-	public postScan(file: File): Observable<number|HttpResponse<number>> {
-		let url = '/api/ExcelFiles/Upload';
+	getAnswerSheets() {
+		return Observable.of(answerSheets).delay(2000);
+
+		//return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
+	}
+
+	getQuestionProtocols() {
+		return Observable.of(questionProtocols)
+			.map(s => {
+				s.forEach(val => {
+					if (val.Marks === 'wasnot')
+						val.Marks = 'отсутствовал';
+				});
+				return s;
+			})
+			.delay(500);
+	}
+
+	postScan(file: File): Observable<number|HttpResponse<number>> {
+		let fakeUrl = '/api/ExcelFiles/Upload';
+
 		let formData: FormData = new FormData();
 		formData.append('image', file, file.name);
 
 		var subject = new Subject<number|HttpResponse<number>>()
-		const req = new HttpRequest('POST', url, formData, {
+		const req = new HttpRequest('POST', fakeUrl, formData, {
 			reportProgress: true,
 			responseType: 'text'
 		});
@@ -81,12 +136,10 @@ export class RsurProtocolsService {
 		return subject.asObservable();
 	}
 
-	public getNotMatchedScans() {
-		return Observable.of(scans).delay(2000);
-	}
-
-	public deleteScan(fileId: number) {
+	deleteScan(fileId: number) {
 		return Observable.of({}).delay(1000);
+
+		//return this.http.delete(`${this.scansUrl}/${fileId}`);
 	}
 }
 
@@ -104,6 +157,53 @@ const scans: Scan[] = [
 	{
 		SourceName: 'IMG_002.JPG',
 		FileId: 1234
+	},
+]
+
+const answerSheets: AnswerSheet[] = [
+	{
+		ParticipCode: 12345,
+		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+		SourceName: 'IMG_002.JPG',
+		FileId: 1234
+	},
+	{
+		ParticipCode: 54321,
+		TestName: '0101 — Орфография',
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+		SourceName: 'IMG_001.JPG',
+		FileId: 4321
+	},
+	{
+		SourceName: 'IMG_004.JPG',
+		FileId: 6431
+	},
+]
+
+const questionProtocols: Protocol[] = [
+	{
+		ParticipCode: 12345,
+		ParticipTestId: 1234,
+		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+	},
+	{
+		ParticipCode: 54321,
+		ParticipTestId: 4321,
+		TestName: '0101 — Орфография',
+		Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1'
+	},
+	{
+		ParticipCode: 89906,
+		ParticipTestId: 2435,
+		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+		Marks: 'wasnot'
+	},
+	{
+		ParticipCode: 23451,
+		ParticipTestId: 9367,
+		TestName: '0102 — Пунктуация'
 	},
 ]
 
@@ -135,6 +235,152 @@ const particip: MarksProtocol = {
 			"Order": 3,
 			"MaxMark": 1,
 			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.2",
+			"Order": 4,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "2.10",
+			"Order": 2,
+			"MaxMark": 1,
+			"CurrentMark": null
+		},
+		{
+			"Name": "3.1",
+			"Order": 3,
+			"MaxMark": 1,
+			"CurrentMark": null
 		}
 	]
 }
+
+

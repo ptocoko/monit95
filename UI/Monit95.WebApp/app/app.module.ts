@@ -36,6 +36,8 @@ import { SeminarReportComponent } from "./components/rsur/seminar-reports/semina
 import { SchoolFilesComponent } from "./components/school-files/school-files.component";
 import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
 import { ScanProtocolsComponent, FilterPipe } from "./components/rsur/protocols/scan-protocols.component";
+import { QuestionProtocolsList } from "./components/rsur/protocols/question-protocols-list.component";
+import { MarksProtocolComponent } from "./components/rsur/protocols/protocol/marks-protocol.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -64,6 +66,7 @@ import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe } from './pipes/rsur-report-filter.pipe';
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rsur-particip-filter.pipe';
+import { RsurProtocolFilter } from "./pipes/rsur-protocol-filter.pipe";
 
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -105,6 +108,7 @@ import { GlobalErrorHandler } from './error-handler';
 				{ path: 'rsur/ratings', component: RatingsComponent },
 				{ path: 'rsur/match-protocol/:id', component: MatchingProtocolComponent },
 				{ path: 'rsur/scan-protocols', component: ScanProtocolsComponent },
+				{ path: 'rsur/question-protocols', component: QuestionProtocolsList },
                 { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },                
@@ -133,7 +137,8 @@ import { GlobalErrorHandler } from './error-handler';
 		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
 		FilterPipe,
-        SchoolFilter,    
+		SchoolFilter,    
+		RsurProtocolFilter,
         SchoolNameFilterPipe,
         TestNameWithDateFilterPipe,
         TotalFilterPipe,
@@ -158,7 +163,9 @@ import { GlobalErrorHandler } from './error-handler';
         SeminarReportComponent,
 		SchoolFilesComponent,
 		MatchingProtocolComponent,
-		ScanProtocolsComponent
+		ScanProtocolsComponent,
+		QuestionProtocolsList,
+		MarksProtocolComponent
 	],
 	providers: [
         AccountService,

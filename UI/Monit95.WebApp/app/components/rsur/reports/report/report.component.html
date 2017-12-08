@@ -76,7 +76,9 @@
                 <td style="font-size:10px" class="cell-center">
                     <span *ngFor="let rsurNumber of result.RsurQuestionNumbers.split(';')">{{rsurNumber}}<br /></span>
                 </td>
-                <td style="vertical-align:middle">{{result.ElementNames}}</td>
+                <td style="
+    
+    :middle">{{result.ElementNames}}</td>
                 <td [ngClass]="{'low-grade': result.Value < 60, 'medium-grade': result.Value > 59 && result.Value < 81, 'high-grade': result.Value > 80}" class="cell-center">{{result.Value}}%</td>
             </tr>
            

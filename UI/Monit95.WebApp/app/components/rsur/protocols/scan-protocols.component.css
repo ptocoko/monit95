@@ -4,7 +4,12 @@
     justify-content:space-between;
 }
 
-.fileUploader{
+.actions-cell-container {
+    display:flex;
+    justify-content:space-around;
+}
+
+.fileUploader {
     overflow: hidden;
     position: relative;
     cursor: pointer;
@@ -30,25 +35,43 @@
 }
 
 .uploadError{
-    background-color: #de7d7d;
+    color: #de7d7d;
+    font-style: italic;
 }
 
 .uploadComplete{
     background-color: lightgreen;
 }
 
-mat-toolbar{
-    font-size: 15px;
+.state-caption {
+    font-size:12px;
 }
 
-.state-caption + .state-caption{
-    margin-left:15px;
+.state-caption+.state-caption{
+    margin-left:10px;
+}
+
+.duplicate-state{
+    color:blue;
+}
+
+.failed-state{
+    color: orangered;
+}
+
+th{
+    text-align:center;
+    vertical-align:middle;
+}
+
+td{
+    vertical-align:middle;
 }
 
 .centered-mini-cell{
-    width: 50px;
-    max-width: 50px;
-    min-width: 50px;
+    width: 60px;
+    max-width: 60px;
+    min-width: 60px;
     text-align: center;
 }
 

@@ -1,14 +1,6 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var rsur_protocols_service_1 = require("../../../../../services/rsur-protocols.service");
 var common_1 = require("@angular/common");
@@ -28,22 +20,30 @@ var MatchingProtocolComponent = (function () {
     }
     MatchingProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //this.isScanLoading = true;
         this.route.params.subscribe(function (params) {
-            var fileId = params["id"];
-            _this.rsurProtocolsService.getScan(fileId).subscribe(function (res) {
-                _this.protocolScan = res;
-                //this.isScanLoading = false;
-                $().ready(function () { return _this.initCallbacks(); }); //JQuery.ready заставляет ждать до конца отрисовки DOM
+            _this.fileId = Number.parseInt(params["id"]);
+            _this.rsurProtocolsService.getScan(_this.fileId).subscribe(function (protocolScan) {
+                _this.rsurProtocolsService.getMarksProtocolByFileId(_this.fileId).subscribe(function (marksProtocol) {
+                    _this.protocolScan = protocolScan;
+                    $().ready(function () { return _this.initCallbacks(marksProtocol); });
+                });
             });
         });
     };
-    MatchingProtocolComponent.prototype.initCallbacks = function () {
+    MatchingProtocolComponent.prototype.initCallbacks = function (marksProtocol) {
         var _this = this;
-        this.focusOnCodeElem();
-        var participCodeChange = Observable_1.Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
-            .filter(function (event, i) { return event.target.value.length == 5; })
-            .subscribe(function (event) { return _this.participCodeSubscriber(event); });
+        if (!marksProtocol) {
+            this.focusOnCodeElem();
+            var participCodeChange = Observable_1.Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
+                .filter(function (event, i) { return event.target.value.length == 5; })
+                .subscribe(function (event) { return _this.participCodeSubscriber(event); });
+        }
+        else {
+            this.participCodeElem.nativeElement.value = marksProtocol.ParticipCode;
+            this.codeControl.disable();
+            this.marksProtocol = marksProtocol;
+            $().ready(function () { return _this.initMarkInputs(); });
+        }
     };
     MatchingProtocolComponent.prototype.participCodeSubscriber = function (event) {
         var _this = this;
@@ -59,29 +59,29 @@ var MatchingProtocolComponent = (function () {
     MatchingProtocolComponent.prototype.participTestSuccessHandler = function (res) {
         var _this = this;
         this.marksProtocol = res;
+        this.marksProtocol.FileId = this.fileId;
         this.isMarksProtocolLoading = false;
         $().ready(function () {
-            //обработчик фокуса и переводим фокус на первое поле
-            _this.marksInputs = $('.markInput');
-            _this.marksInputs.focus(function (event) { return event.target.select(); });
-            _this.marksInputs.get(0).focus();
+            _this.initMarkInputs();
         });
     };
     MatchingProtocolComponent.prototype.participTestErrorHandler = function (error) {
-        var message = error.message ? error.message : error;
+        var message = error.error.Message ? error.error.Message : error.message;
         this.codeControl.enable();
         this.codeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
         //содержащее сообщение из ответа сервера
         this.isMarksProtocolLoading = false;
         this.focusOnCodeElem();
     };
+    //после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
+    //обработчик фокуса и переводим фокус на первое поле
+    MatchingProtocolComponent.prototype.initMarkInputs = function () {
+        this.marksInputs = $('.markInput');
+        this.marksInputs.focus(function (event) { return event.target.select(); });
+        this.marksInputs.get(0).focus();
+    };
     MatchingProtocolComponent.prototype.sendMarks = function () {
-        var marks = this.marksProtocol.QuestionResults.map(function (val) { return val.CurrentMark; }).join(';');
-        var participMarks = {
-            ParticipTestId: this.marksProtocol.ParticipTestId,
-            Marks: marks
-        };
-        console.log(participMarks);
+        console.log(this.marksProtocol);
     };
     MatchingProtocolComponent.prototype.onMarkChanged = function (event) {
         var elem = event.target;
@@ -101,7 +101,9 @@ var MatchingProtocolComponent = (function () {
     MatchingProtocolComponent.prototype.goToNextInputOrFocusOnSubmitBtn = function (elemIndex) {
         if (elemIndex < this.marksInputs.length - 1) {
             var nextInput = this.marksInputs.get(elemIndex + 1);
-            nextInput.focus();
+            if (!nextInput.value) {
+                nextInput.focus();
+            }
         }
         else {
             $('#submitBtn').focus();
@@ -115,17 +117,17 @@ var MatchingProtocolComponent = (function () {
     };
     return MatchingProtocolComponent;
 }());
-__decorate([
+tslib_1.__decorate([
     core_1.ViewChild('participCode'),
-    __metadata("design:type", core_1.ElementRef)
+    tslib_1.__metadata("design:type", core_1.ElementRef)
 ], MatchingProtocolComponent.prototype, "participCodeElem", void 0);
-MatchingProtocolComponent = __decorate([
+MatchingProtocolComponent = tslib_1.__decorate([
     core_1.Component({
         selector: 'matching-protocol-component',
         templateUrl: "./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.html?v=" + new Date().getTime(),
         styleUrls: ["./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.css?v=" + new Date().getTime()]
     }),
-    __metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
+    tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
         common_1.Location,
         router_1.ActivatedRoute,
         core_1.Renderer])

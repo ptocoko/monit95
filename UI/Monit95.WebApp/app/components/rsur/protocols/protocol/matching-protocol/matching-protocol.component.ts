@@ -18,9 +18,9 @@ import { Scan } from "../../../../../models/scan.model";
 export class MatchingProtocolComponent implements OnInit{
 	protocolScan: Scan;
 	marksProtocol: MarksProtocol;
+	fileId: number;
 	
 	isMarksProtocolLoading: boolean = false;
-	//isScanLoading: boolean = false;
 
 	@ViewChild('participCode') participCodeElem: ElementRef;
 	marksInputs: JQuery<HTMLInputElement>;
@@ -32,25 +32,32 @@ export class MatchingProtocolComponent implements OnInit{
 				private renderer: Renderer) { }
 
 	ngOnInit() {
-		//this.isScanLoading = true;
 		this.route.params.subscribe(params => {
-			let fileId: number = params["id"];
+			this.fileId = Number.parseInt(params["id"]);
 			
-			this.rsurProtocolsService.getScan(fileId).subscribe(res => {
-				this.protocolScan = res;
-				//this.isScanLoading = false;
-
-				$().ready(() => this.initCallbacks()); //JQuery.ready заставляет ждать до конца отрисовки DOM
+			this.rsurProtocolsService.getScan(this.fileId).subscribe(protocolScan => {
+				this.rsurProtocolsService.getMarksProtocolByFileId(this.fileId).subscribe(marksProtocol => {
+					this.protocolScan = protocolScan;
+					$().ready(() => this.initCallbacks(marksProtocol));
+				})
 			});
 		});
 	}
 
-	initCallbacks() {
-		this.focusOnCodeElem();
+	initCallbacks(marksProtocol: MarksProtocol) {
+		if (!marksProtocol) {
+			this.focusOnCodeElem();
 
-		let participCodeChange = Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
-			.filter((event: any, i: number) => event.target.value.length == 5)
-			.subscribe(event => this.participCodeSubscriber(event));
+			let participCodeChange = Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
+				.filter((event: any, i: number) => event.target.value.length == 5)
+				.subscribe(event => this.participCodeSubscriber(event));
+		}
+		else {
+			this.participCodeElem.nativeElement.value = marksProtocol.ParticipCode;
+			this.codeControl.disable();
+			this.marksProtocol = marksProtocol;
+			$().ready(() => this.initMarkInputs());
+		}
 	}
 
 	participCodeSubscriber(event: any) {
@@ -70,22 +77,19 @@ export class MatchingProtocolComponent implements OnInit{
 		}
 	}
 
-	participTestSuccessHandler(res: any) {
-		this.marksProtocol = res as MarksProtocol;
+	participTestSuccessHandler(res: MarksProtocol) {
+		this.marksProtocol = res;
+		this.marksProtocol.FileId = this.fileId;
 		
 		this.isMarksProtocolLoading = false;
 
-		$().ready(() => { //после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
-							//обработчик фокуса и переводим фокус на первое поле
-
-			this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-			this.marksInputs.focus((event) => event.target.select());
-			this.marksInputs.get(0).focus();
+		$().ready(() => { 
+			this.initMarkInputs();
 		});
 	}
 
 	participTestErrorHandler(error: any) {
-		let message = error.message ? error.message : error;
+		let message = error.error.Message ? error.error.Message : error.message;
 
 		this.codeControl.enable();
 		this.codeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
@@ -94,15 +98,16 @@ export class MatchingProtocolComponent implements OnInit{
 		this.focusOnCodeElem();
 	}
 
+	//после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
+	//обработчик фокуса и переводим фокус на первое поле
+	initMarkInputs() {
+		this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
+		this.marksInputs.focus((event) => event.target.select());
+		this.marksInputs.get(0).focus();
+	}
+
 	sendMarks() {
-		let marks = this.marksProtocol.QuestionResults.map(val => val.CurrentMark).join(';');
-
-		let participMarks = {
-			ParticipTestId: this.marksProtocol.ParticipTestId,
-			Marks: marks
-		};
-
-		console.log(participMarks);
+		console.log(this.marksProtocol);
 	}
 
 	onMarkChanged(event: any) {
@@ -125,7 +130,9 @@ export class MatchingProtocolComponent implements OnInit{
 	goToNextInputOrFocusOnSubmitBtn(elemIndex: number) {
 		if (elemIndex < this.marksInputs.length - 1) {
 			let nextInput = this.marksInputs.get(elemIndex + 1);
-			nextInput.focus();
+			if (!nextInput.value) {
+				nextInput.focus();
+			}
 		}
 		else {
 			$('#submitBtn').focus();

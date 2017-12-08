@@ -1,14 +1,6 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
 var Observable_1 = require("rxjs/Observable");
@@ -19,18 +11,20 @@ var Subject_1 = require("rxjs/Subject");
 var RsurProtocolsService = (function () {
     function RsurProtocolsService(http) {
         this.http = http;
-        this.url = '/api/rsur/marksProtocols';
+        this.marksProtocolUrl = '/api/rsur/marksProtocols';
+        this.scansUrl = '/api/rsur/scans';
     }
+    RsurProtocolsService.prototype.sortFunc = function (first, second) {
+        if (first.Order < second.Order) {
+            return -1;
+        }
+        else {
+            return 1;
+        }
+    };
     RsurProtocolsService.prototype.getMarksProtocol = function (participCode) {
         if (participCode == 12345) {
-            particip.QuestionResults.sort(function (first, second) {
-                if (first.Order < second.Order) {
-                    return -1;
-                }
-                else {
-                    return 1;
-                }
-            });
+            particip.QuestionResults.sort(this.sortFunc);
             return Observable_1.Observable.of(particip).delay(2000);
         }
         else {
@@ -45,23 +39,67 @@ var RsurProtocolsService = (function () {
                 }, 1500);
             });
         }
-        //return this.http.get<MarksProtocol>(url);
+        //return this.http.get<MarksProtocol>(this.url).map(s => {
+        //	s.QuestionResults.sort(this.sortFunc);
+        //	return s;
+        //});
+    };
+    RsurProtocolsService.prototype.getMarksProtocolByFileId = function (fileId) {
+        if (fileId === 6431) {
+            return Observable_1.Observable.of(particip).delay(1000);
+        }
+        else {
+            return Observable_1.Observable.of(null).delay(500);
+        }
+        //return this.http.get('/api/ExcelFiles/Upload').map(res => {
+        //	let marksProtocol = res as MarksProtocol;
+        //	if (marksProtocol) {
+        //		marksProtocol.QuestionResults.sort(this.sortFunc);
+        //		return marksProtocol;
+        //	}
+        //	else {
+        //		return null;
+        //	}
+        //});
     };
     RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
         if (!marksProtocol.FileId) {
             console.error('need to attach fileId to the marksProtocol object');
-            return Observable_1.Observable.throw('');
+            return Observable_1.Observable.throw('there is no fileId');
         }
+        else {
+            //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
+        }
+    };
+    RsurProtocolsService.prototype.markAsAbsent = function (participTestId) {
+        return Observable_1.Observable.of(null).delay(500);
+        //return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
     };
     RsurProtocolsService.prototype.getScan = function (fileId) {
         return Observable_1.Observable.of(protocolScanModel).delay(2000);
+        //return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
+    };
+    RsurProtocolsService.prototype.getAnswerSheets = function () {
+        return Observable_1.Observable.of(answerSheets).delay(2000);
+        //return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
+    };
+    RsurProtocolsService.prototype.getQuestionProtocols = function () {
+        return Observable_1.Observable.of(questionProtocols)
+            .map(function (s) {
+            s.forEach(function (val) {
+                if (val.Marks === 'wasnot')
+                    val.Marks = 'отсутствовал';
+            });
+            return s;
+        })
+            .delay(500);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
-        var url = '/api/ExcelFiles/Upload';
+        var fakeUrl = '/api/ExcelFiles/Upload';
         var formData = new FormData();
         formData.append('image', file, file.name);
         var subject = new Subject_1.Subject();
-        var req = new http_1.HttpRequest('POST', url, formData, {
+        var req = new http_1.HttpRequest('POST', fakeUrl, formData, {
             reportProgress: true,
             responseType: 'text'
         });
@@ -77,17 +115,15 @@ var RsurProtocolsService = (function () {
         }, function (error) { return subject.error(error); });
         return subject.asObservable();
     };
-    RsurProtocolsService.prototype.getNotMatchedScans = function () {
-        return Observable_1.Observable.of(scans).delay(2000);
-    };
     RsurProtocolsService.prototype.deleteScan = function (fileId) {
         return Observable_1.Observable.of({}).delay(1000);
+        //return this.http.delete(`${this.scansUrl}/${fileId}`);
     };
     return RsurProtocolsService;
 }());
-RsurProtocolsService = __decorate([
+RsurProtocolsService = tslib_1.__decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.HttpClient])
+    tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])
 ], RsurProtocolsService);
 exports.RsurProtocolsService = RsurProtocolsService;
 var protocolScanModel = {
@@ -105,6 +141,51 @@ var scans = [
         FileId: 1234
     },
 ];
+var answerSheets = [
+    {
+        ParticipCode: 12345,
+        TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+        SourceName: 'IMG_002.JPG',
+        FileId: 1234
+    },
+    {
+        ParticipCode: 54321,
+        TestName: '0101 — Орфография',
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+        SourceName: 'IMG_001.JPG',
+        FileId: 4321
+    },
+    {
+        SourceName: 'IMG_004.JPG',
+        FileId: 6431
+    },
+];
+var questionProtocols = [
+    {
+        ParticipCode: 12345,
+        ParticipTestId: 1234,
+        TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+    },
+    {
+        ParticipCode: 54321,
+        ParticipTestId: 4321,
+        TestName: '0101 — Орфография',
+        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1'
+    },
+    {
+        ParticipCode: 89906,
+        ParticipTestId: 2435,
+        TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+        Marks: 'wasnot'
+    },
+    {
+        ParticipCode: 23451,
+        ParticipTestId: 9367,
+        TestName: '0102 — Пунктуация'
+    },
+];
 var particip = {
     "ParticipCode": 12345,
     "ParticipTestId": 1234,
@@ -114,6 +195,150 @@ var particip = {
             "Name": "1.1",
             "Order": 1,
             "MaxMark": 4,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.2",
+            "Order": 4,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "2.10",
+            "Order": 2,
+            "MaxMark": 1,
+            "CurrentMark": null
+        },
+        {
+            "Name": "3.1",
+            "Order": 3,
+            "MaxMark": 1,
             "CurrentMark": null
         },
         {
