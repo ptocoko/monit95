@@ -39,6 +39,7 @@ var school_files_component_1 = require("./components/school-files/school-files.c
 var matching_protocol_component_1 = require("./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component");
 var scan_protocols_component_1 = require("./components/rsur/protocols/scan-protocols.component");
 var question_protocols_list_component_1 = require("./components/rsur/protocols/question-protocols-list.component");
+var marks_protocol_component_1 = require("./components/rsur/protocols/protocol/marks-protocol.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
@@ -65,10 +66,10 @@ var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
 var rsur_particip_filter_pipe_1 = require("./pipes/rsur-particip-filter.pipe");
+var rsur_protocol_filter_pipe_1 = require("./pipes/rsur-protocol-filter.pipe");
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
-var rsur_protocol_filter_pipe_1 = require("./pipes/rsur-protocol-filter.pipe");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -165,7 +166,8 @@ AppModule = tslib_1.__decorate([
             school_files_component_1.SchoolFilesComponent,
             matching_protocol_component_1.MatchingProtocolComponent,
             scan_protocols_component_1.ScanProtocolsComponent,
-            question_protocols_list_component_1.QuestionProtocolsList
+            question_protocols_list_component_1.QuestionProtocolsList,
+            marks_protocol_component_1.MarksProtocolComponent
         ],
         providers: [
             account_service_1.AccountService,

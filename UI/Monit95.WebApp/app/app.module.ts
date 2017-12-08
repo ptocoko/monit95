@@ -37,6 +37,7 @@ import { SchoolFilesComponent } from "./components/school-files/school-files.com
 import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
 import { ScanProtocolsComponent, FilterPipe } from "./components/rsur/protocols/scan-protocols.component";
 import { QuestionProtocolsList } from "./components/rsur/protocols/question-protocols-list.component";
+import { MarksProtocolComponent } from "./components/rsur/protocols/protocol/marks-protocol.component";
 
 // Services
 import { AccountService } from './services/account.service';
@@ -65,11 +66,11 @@ import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe } from './pipes/rsur-report-filter.pipe';
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rsur-particip-filter.pipe';
+import { RsurProtocolFilter } from "./pipes/rsur-protocol-filter.pipe";
 
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
-import { RsurProtocolFilter } from "./pipes/rsur-protocol-filter.pipe";
 
 @NgModule({
     imports: [
@@ -163,7 +164,8 @@ import { RsurProtocolFilter } from "./pipes/rsur-protocol-filter.pipe";
 		SchoolFilesComponent,
 		MatchingProtocolComponent,
 		ScanProtocolsComponent,
-		QuestionProtocolsList
+		QuestionProtocolsList,
+		MarksProtocolComponent
 	],
 	providers: [
         AccountService,
