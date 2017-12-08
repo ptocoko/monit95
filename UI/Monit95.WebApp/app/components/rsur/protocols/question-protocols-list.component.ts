@@ -31,4 +31,9 @@ export class QuestionProtocolsList {
 	filteredByParticipCode(value: string) {
 		return this.questionProtocols.filter(f => f.ParticipCode.toString().indexOf(value) > -1);
 	}
+
+	markAsAbsent(questionProtocol: Protocol) {
+		this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
+			.subscribe(res => questionProtocol.Marks = 'отсутствовал');
+	}
 }

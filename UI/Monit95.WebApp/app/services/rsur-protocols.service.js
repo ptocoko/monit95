@@ -71,6 +71,10 @@ var RsurProtocolsService = (function () {
             //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
         }
     };
+    RsurProtocolsService.prototype.markAsAbsent = function (participTestId) {
+        return Observable_1.Observable.of(null).delay(500);
+        //return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
+    };
     RsurProtocolsService.prototype.getScan = function (fileId) {
         return Observable_1.Observable.of(protocolScanModel).delay(2000);
         //return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);

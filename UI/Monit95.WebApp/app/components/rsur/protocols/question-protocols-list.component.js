@@ -26,6 +26,10 @@ var QuestionProtocolsList = (function () {
     QuestionProtocolsList.prototype.filteredByParticipCode = function (value) {
         return this.questionProtocols.filter(function (f) { return f.ParticipCode.toString().indexOf(value) > -1; });
     };
+    QuestionProtocolsList.prototype.markAsAbsent = function (questionProtocol) {
+        this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
+            .subscribe(function (res) { return questionProtocol.Marks = 'отсутствовал'; });
+    };
     return QuestionProtocolsList;
 }());
 tslib_1.__decorate([

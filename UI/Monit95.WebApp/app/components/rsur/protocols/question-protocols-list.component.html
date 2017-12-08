@@ -1,4 +1,5 @@
 ﻿<h3>РСУР: Протоколы проверки заданий</h3>
+<hr />
 <ng-template [ngIf]="questionProtocols">
     <div>общее количество протоколов: {{questionProtocols.length}}</div>
     <div>из них</div>
@@ -12,21 +13,21 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>№ п/п</th>
-            <th>Код участника</th>
+            <th class="row-number-cell">№ п/п</th>
+            <th class="particip-code-cell">Код участника</th>
             <th>Блок</th>
             <th>Баллы по заданиям</th>
-            <th style="width:268px; max-width:268px">Действия</th>
+            <th style="width:273px">Действия</th>
         </tr>
         <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText; let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{protocol.ParticipCode}}</td>
+            <td class="row-number-cell">{{i + 1}}</td>
+            <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
             <td>{{protocol.TestName}}</td>
             <td [ngClass]="{'red': !protocol.Marks}">{{protocol.Marks}}</td>
             <td>
                 <div class="pull-left">
                     <button mat-raised-button color="primary"><i class="glyphicon glyphicon-edit"></i> изменить</button>
-                    <button *ngIf="protocol.Marks !== 'отсутствовал'" mat-raised-button color="warn" (click)="protocol.Marks = 'отсутствовал'">
+                    <button *ngIf="protocol.Marks !== 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
                         <i class="glyphicon glyphicon-header"></i> отсутствовал
                     </button>
                 </div>
@@ -34,3 +35,7 @@
         </tr>
     </table>
 </ng-template>
+
+<div *ngIf="!questionProtocols">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>

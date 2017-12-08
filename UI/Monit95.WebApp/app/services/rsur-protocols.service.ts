@@ -82,6 +82,12 @@ export class RsurProtocolsService {
 		}
 	}
 
+	markAsAbsent(participTestId: number) {
+		return Observable.of(null).delay(500);
+
+		//return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
+	}
+
 	getScan(fileId: number) {
 		return Observable.of(protocolScanModel).delay(2000);
 
