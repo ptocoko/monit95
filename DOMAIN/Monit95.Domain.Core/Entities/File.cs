@@ -27,5 +27,7 @@ namespace Monit95App.Domain.Core.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RsurReportFile> RsurReportFiles { get; set; }
+
+        public virtual ICollection<FilePermisson> FilePermissonList { get; set; } = new HashSet<FilePermisson>();
     }
 }

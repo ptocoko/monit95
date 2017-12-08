@@ -45,10 +45,7 @@ namespace Monit95App.Services.Tests
                 }
             }.AsQueryable();
             var mockRsurTestResultSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
-            //((IQueryable<RsurTestResult>)mockRsurTestResultSet).Provider.Returns(fakeRsurTestList.Provider);
             ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Expression.Returns(fakeRsurTestList.Expression);
-            //((IQueryable<RsurTestResult>)mockRsurTestResultSet).ElementType.Returns(fakeRsurTestList.ElementType);
-            //((IQueryable<RsurTestResult>)mockRsurTestResultSet).GetEnumerator().Returns(fakeRsurTestList.GetEnumerator());
 
             var mockFileSet = Substitute.For<DbSet<File>, IQueryable<File>>();
 
@@ -64,6 +61,42 @@ namespace Monit95App.Services.Tests
             var service = new RepositoryService(mockContext);
             var result = service.Add(2, fakeStream, @"c:\images\IMG-2017-12-07.JPG", 201);
             var result2 = fakeRsurTestList.First();
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void DeleteTest()
+        {
+            // Arrange
+            // Mocking DbSet<File>
+            var fakeFiles = new List<File>
+            {
+                new File
+                {
+                    Id = 1,
+                    FilePermissonList = new List<FilePermisson>
+                    {
+                        new FilePermisson
+                        {
+                            UserName = "201",
+                            PermissionId = 2
+                        }
+                    }
+                }
+            }.AsQueryable();
+            var mockFileSet = Substitute.For<DbSet<File>, IQueryable<File>>();
+            ((IQueryable<File>)mockFileSet).Expression.Returns(fakeFiles.Expression);
+            ((IQueryable<File>)mockFileSet).Provider.Returns(fakeFiles.Provider); // SingOrDefault                  
+
+            // Mocking CokoContext            
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.Files.Returns(mockFileSet);
+
+            // Act
+            var service = new RepositoryService(mockCokoContext);
+            var result = service.Delete(1, "201");
 
             // Assert
             Assert.IsNotNull(result);

@@ -46,7 +46,12 @@ namespace Monit95.WebApp.RESTful_API.Rsur
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Body has not file");            
                    
             // Get file's content from body
-            HttpPostedFile postedFile = httpCollectionFiles.Get(0);            
+            HttpPostedFile postedFile = httpCollectionFiles.Get(0);
+
+            // Validate files's size
+            if (postedFile.ContentLength > 15728640) // > 15 MB
+                return Request.CreateErrorResponse(HttpStatusCode.RequestEntityTooLarge, "File > 15 MB");
+
             var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);                        
             var areaCode = Convert.ToInt32(User.Identity.Name);
 
@@ -64,15 +69,26 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             // Error: another
             foreach (var error in result.Errors)                         
                 ModelState.AddModelError(error.HttpCode.ToString(), error.Description);            
+
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);            
         }
 
-        [HttpPost, Route("{repoId:int}/files/{fileId:}")]
+        [HttpPost, Route("~/api/files/{id:int}")]
         [Authorize(Roles = "area")]
-        public HttpResponseMessage DeleteFile()
+        public IHttpActionResult DeleteFile()
         {
-            var fileId = Convert.ToInt32(RequestContext.RouteData.Values["fileId"]);
-            return null;
+            var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);            
+
+            var result = repositoryService.Delete(fileId, User.Identity.Name);
+
+            // Success
+            if (!result.Errors.Any())
+                return Ok();
+
+            // Faild
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return BadRequest(ModelState);
         }
     }
 }

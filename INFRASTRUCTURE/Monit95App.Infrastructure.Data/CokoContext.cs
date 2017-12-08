@@ -22,8 +22,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<GiaResult> GiaResults { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<Kim> Kims { get; set; }
-        public virtual DbSet<KimQuestion> KimQuestions { get; set; }
-        public virtual DbSet<OldGroup> OldGroups { get; set; }
+        public virtual DbSet<KimQuestion> KimQuestions { get; set; }        
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -32,9 +31,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Repository> Repositories { get; set; }
-        public virtual DbSet<Result> Results { get; set; }
-        public virtual DbSet<Roo> Roos { get; set; }
-        public virtual DbSet<RooDirect> RooDirects { get; set; }
+        public virtual DbSet<Result> Results { get; set; }                
         public virtual DbSet<RsurEgeQuestion> RsurEgeQuestions { get; set; }
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
@@ -53,6 +50,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Umk> Umks { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
+        public virtual DbSet<Permission> Permission { get; set; }
+        public virtual DbSet<FilePermisson> FilePermission { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
