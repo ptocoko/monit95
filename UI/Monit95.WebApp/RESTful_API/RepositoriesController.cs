@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -48,15 +49,10 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             // Get file's content from body
             HttpPostedFile postedFile = httpCollectionFiles.Get(0);
 
-            // Validate files's size
-            if (postedFile.ContentLength > 15728640) // > 15 MB
-                return Request.CreateErrorResponse(HttpStatusCode.RequestEntityTooLarge, "File > 15 MB");
-
-            var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);                        
-            var areaCode = Convert.ToInt32(User.Identity.Name);
+            var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);                                    
 
             // Call service
-            var result = repositoryService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, areaCode);
+            var result = repositoryService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
 
             // Success
             if (!result.Errors.Any())            

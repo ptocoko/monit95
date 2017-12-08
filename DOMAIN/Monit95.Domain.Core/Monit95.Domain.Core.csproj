@@ -64,6 +64,7 @@
     <Compile Include="Entities\Grade.cs" />
     <Compile Include="Entities\Kim.cs" />
     <Compile Include="Entities\KimQuestion.cs" />
+    <Compile Include="Entities\Monit95User.cs" />
     <Compile Include="Entities\OldGroup.cs" />
     <Compile Include="Entities\Particip.cs" />
     <Compile Include="Entities\ParticipTest.cs" />

@@ -52,6 +52,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Wish> Wishes { get; set; }
         public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<FilePermisson> FilePermission { get; set; }
+        public virtual DbSet<Monit95User> Monit95Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

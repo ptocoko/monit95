@@ -5,7 +5,7 @@ namespace Monit95App.Services.Repository
 {
     public interface IRepositoryService
     {
-        ServiceResult<int> Add(int repositoryId, Stream fileStream, string fileName, string userName);
+        ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName);
         VoidResult Delete(int fileId, string userName);
     }
 }

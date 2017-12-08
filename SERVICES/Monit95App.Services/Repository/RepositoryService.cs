@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -19,7 +20,7 @@ namespace Monit95App.Services.Repository
 
         #region Dependencies
 
-        private readonly CokoContext context;
+        private readonly CokoContext context;        
 
         #endregion
 
@@ -42,95 +43,91 @@ namespace Monit95App.Services.Repository
         /// <returns>fileId</returns>
         public ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName)
         {
-            var serviceResult = new ServiceResult<int>();
-            // Validate input parameters
-            //if (repositoryId <= 0)
-            //{
-            //    serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(repositoryId)} is invalid" });
-            //    return serviceResult;
-            //}
-            //if (sourceFileStream == null)
-            //{
-            //    serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid" });
-            //    return serviceResult;
-            //}
-            //if (string.IsNullOrWhiteSpace(sourceFileName))
-            //{
-            //    serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileName)} is invalid" });
-            //    return serviceResult;
-            //}     
-            //if(!Enumerable.Range(201, 217).Contains(areaCode))
-            //{
-            //    serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(areaCode)} is invalid" });
-            //    return serviceResult;
-            //}
+            var result = new ServiceResult<int>();
 
-            // 1) Get all file's hashes for user, for repository
+            // Validate sourceFileStream
+            if (sourceFileStream == null)
+            {
+                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid" });
+                return result;
 
-            var allHashes = context.Files.Where(x => x.FilePermissonList.Any(y => y.UserName == userName // for user
-                                                      && x.RepositoryId == repositoryId)) // for repository
-                                                      .Select(x => x.HexHash);
-            //var allHashes = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
-            //                                                  && rtr.RsurParticipTest.RsurTest.IsOpen)
-            //                                                  .Select(rtr => rtr.File.HexHash).ToList();                    
+            }            
+            if (sourceFileStream.Length > 15728640)
+            {
+                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid: length > 15 Mb" });
+                return result;
+            }
 
-            // 2) Generate hexadecimal hash for file's stream
+            // Generate hexHash
             string hexHash;
-
-
             using (var md5 = MD5.Create())
             {
                 var hash = md5.ComputeHash(sourceFileStream);
-                hexHash = BitConverter.ToString(hash).Replace("-", "");
+                hexHash = BitConverter.ToString(hash).Replace("-", "");                
             }
 
-            // 3) Check exist such hash(file) in store
-            if (allHashes.Contains(hexHash))
+            // Validate userName
+            if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName))) 
             {
-                serviceResult.Errors.Add(new ServiceError { HttpCode = 409, Description = "Such file currently exist" });
-                return serviceResult;
+                result.Errors.Add(new ServiceError { Description = $"{nameof(userName)} is invalid" });
+                return result;
             }
 
-            // 4) Save file to file system
+            // Validate repositoryId
+            if (!context.Repositories.Any(repository => repository.Id == repositoryId)) //validate repositoryId
+            {
+                result.Errors.Add(new ServiceError { Description = $"{nameof(repositoryId)} is invalid" });
+                return result;
+            }
+
+            // Check exist
+            if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash == hexHash))
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 409, Description = "Such file currently exist" });
+                return result;
+            }                      
+
+            // Save file to file system
             sourceFileName = Path.GetFileName(sourceFileName); // delete path
             var extension = Path.GetExtension(sourceFileName);
             if (string.IsNullOrEmpty(extension))
-            {
-                // has not extension
-                serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileName)} has not extension" });
-                return serviceResult;
+            {                
+                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileName)} is invalid" });
+                return result;
             }
             var destFileName = $"{hexHash}{extension}";
             using (var destFileStream = System.IO.File.Create($@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}"))
             {
                 sourceFileStream.Seek(0, SeekOrigin.Begin);
-                sourceFileStream.CopyTo(destFileStream);                
+                sourceFileStream.CopyTo(destFileStream);
+                sourceFileStream.Close();
             }
-            
-            // 5) Add file to context and save to data base
+
+            // Create file's entity
             var fileEntity = new Domain.Core.Entities.File
             {
                 SourceName = sourceFileName,
                 RepositoryId = repositoryId,
                 HexHash = hexHash,
-                Name = destFileName
-            };
-            context.Files.Add(fileEntity); 
-            context.SaveChanges(); // send changes into database to generate fileId
+                Name = destFileName,
+                FilePermissonList = new HashSet<FilePermisson>
+                {
+                    new FilePermisson
+                    {
+                        UserName = userName,
+                        PermissionId = (int)FilePermissionId.ReadAndDelete
+                    }
+                }
+            };            
 
-            // 6) Add permission for this file using obtained fileId
-            context.FilePermission.Add(new FilePermisson
-            {
-                FileId = fileEntity.Id,
-                UserName = areaCode.ToString(),
-                PermissionId = (int)FilePermissionId.Read
-            });
+            // Add file's entity to database
+            context.Files.Add(fileEntity);             
 
-            // 7) Save
+            // Send changes into database
             context.SaveChanges();
             
-            serviceResult.Result = fileEntity.Id;
-            return serviceResult;
+            result.Result = fileEntity.Id;
+            return result;
         }
 
         /// <summary>
