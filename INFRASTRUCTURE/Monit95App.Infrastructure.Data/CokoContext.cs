@@ -56,6 +56,9 @@ namespace Monit95App.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Monit95User>()
+                .HasKey(e => e.Login);
+
             modelBuilder.Entity<File>()
                 .HasMany(e => e.RsurReportFiles)
                 .WithRequired(e => e.File)

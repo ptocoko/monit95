@@ -7,11 +7,11 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var mydatepicker_1 = require("mydatepicker");
-var material_1 = require("@angular/material");
 var animations_1 = require("@angular/platform-browser/animations");
 var http_2 = require("@angular/common/http");
 var router_1 = require("@angular/router");
 var ngx_order_pipe_1 = require("ngx-order-pipe");
+var material_module_1 = require("./material.module");
 // Components
 var app_component_1 = require("./components/app/app.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
@@ -83,18 +83,9 @@ var AppModule = /** @class */ (function () {
                 forms_1.ReactiveFormsModule,
                 mydatepicker_1.MyDatePickerModule,
                 animations_1.BrowserAnimationsModule,
-                material_1.MatButtonModule,
-                material_1.MatDialogModule,
-                material_1.MatCardModule,
-                material_1.MatInputModule,
-                material_1.MatFormFieldModule,
-                material_1.MatTableModule,
-                material_1.MatSortModule,
-                material_1.MatProgressSpinnerModule,
-                material_1.MatToolbarModule,
-                material_1.MatProgressBarModule,
                 ngx_order_pipe_1.OrderModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
+                material_module_1.MaterialModule,
                 router_1.RouterModule.forRoot([
                     { path: 'rsur', component: home_component_1.HomeComponent },
                     { path: 'rsur/test', component: rsur_test_component_1.RsurTestComponent },

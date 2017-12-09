@@ -11,7 +11,6 @@ var RsurParticipsComponent = /** @class */ (function () {
         this.rsurParticipService = rsurParticipService;
         this.accountService = accountService;
         this.particips = [];
-        //account = new AccountModel();
         this.isShowNotActual = false;
         this.displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
         this.dataSource = new material_1.MatTableDataSource();
@@ -19,6 +18,7 @@ var RsurParticipsComponent = /** @class */ (function () {
     }
     RsurParticipsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log('start...');
         this.rsurParticipService.getAll()
             .subscribe(function (response) {
             _this.particips = response.json();
@@ -26,9 +26,6 @@ var RsurParticipsComponent = /** @class */ (function () {
             _this.isLoading = false;
             _this.dataSource.sort = _this.sort;
         });
-        //this.accountService.getAccount().subscribe(data => {            
-        //    this.account = data.json() as AccountModel;           
-        //});
     };
     tslib_1.__decorate([
         core_1.ViewChild(material_1.MatSort),

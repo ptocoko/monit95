@@ -16,21 +16,20 @@ import { AccountService } from '../../../services/account.service';
     styleUrls: [`./app/components/rsur/particips/particips.component.css?v=${new Date().getTime()}`]
 })
 export class RsurParticipsComponent implements OnInit {
-    particips: RsurParticipModel[] = [];
-    //account = new AccountModel();
+    particips: RsurParticipModel[] = [];    
     isShowNotActual: boolean = false;
     displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
     dataSource = new MatTableDataSource<RsurParticipModel>();
     isLoading: boolean = true;
 
     @ViewChild(MatSort) sort: MatSort;
- 
+
     constructor(private readonly rsurParticipService: RsurParticipService,
         private readonly accountService: AccountService) {
     }
 
     ngOnInit() {
-        
+        console.log('start...');
         this.rsurParticipService.getAll()
             .subscribe((response: Response) => {
                 this.particips = response.json() as RsurParticipModel[];
@@ -38,15 +37,6 @@ export class RsurParticipsComponent implements OnInit {
                 this.isLoading = false;
                 this.dataSource.sort = this.sort;
             });
-        //this.accountService.getAccount().subscribe(data => {            
-        //    this.account = data.json() as AccountModel;           
-        //});
     }
-      
-    //isArea() {        
-    //    if (this.account.RoleNames != null)
-    //        return this.account.RoleNames.indexOf('area') > -1;
-    //    return null;
-    //}
 };
 

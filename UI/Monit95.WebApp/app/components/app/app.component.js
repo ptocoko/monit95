@@ -19,7 +19,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-root',
-            templateUrl: "./app/app.component.html?v=" + new Date().getTime()
+            templateUrl: "./app/components/app/app.component.html?v=" + new Date().getTime()
         }),
         tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService])
     ], AppComponent);
