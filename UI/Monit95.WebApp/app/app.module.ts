@@ -114,7 +114,6 @@ import { GlobalErrorHandler } from './error-handler';
             ]
         )
     ],
-
 	declarations: [
         AppComponent,
         HomeComponent,
@@ -176,10 +175,7 @@ import { GlobalErrorHandler } from './error-handler';
 		RsurProtocolsService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
-	],  
-	entryComponents: [
-		
-	],
+    ],    
     bootstrap: [AppComponent]
 })
 export class AppModule { }
