@@ -1,6 +1,5 @@
-﻿// Modules
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+﻿import { NgModule } from '@angular/core';
+//import { CommonModule } from '@angular/common';
 import {
     MatButtonModule,
     MatDialogModule,
@@ -38,16 +37,6 @@ import {
         MatFormFieldModule,
         MatToolbarModule,
         MatProgressBarModule
-    ],
-
-    declarations: [
-
-    ],
-	providers: [
-        
-	],  
-	entryComponents: [
-		
-	]    
+    ]  
 })
 export class MaterialModule { }
