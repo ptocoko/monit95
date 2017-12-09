@@ -5,12 +5,12 @@ var core_1 = require("@angular/core");
 var account_service_1 = require("../../services/account.service");
 var rsur_test_service_1 = require("./rsur-test.service");
 var account_model_1 = require("../../models/account.model");
-var RsurTestStatistics = (function () {
+var RsurTestStatistics = /** @class */ (function () {
     function RsurTestStatistics() {
     }
     return RsurTestStatistics;
 }());
-var RsurTestComponent = (function () {
+var RsurTestComponent = /** @class */ (function () {
     function RsurTestComponent(accountService, rsurTestService) {
         this.accountService = accountService;
         this.rsurTestService = rsurTestService;
@@ -49,16 +49,16 @@ var RsurTestComponent = (function () {
             return true;
         }
     };
+    RsurTestComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'test',
+            templateUrl: "./app/rsur/rsur-test/rsur-test.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/rsur/rsur-test/rsur-test.component.css?v=" + new Date().getTime()]
+        }),
+        tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService,
+            rsur_test_service_1.RsurTestService])
+    ], RsurTestComponent);
     return RsurTestComponent;
 }());
-RsurTestComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'test',
-        templateUrl: "./app/rsur/rsur-test/rsur-test.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/rsur/rsur-test/rsur-test.component.css?v=" + new Date().getTime()]
-    }),
-    tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService,
-        rsur_test_service_1.RsurTestService])
-], RsurTestComponent);
 exports.RsurTestComponent = RsurTestComponent;
 //# sourceMappingURL=rsur-test.component.js.map

@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AccountService } from './services/account.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
     selector: 'app-root',
@@ -13,20 +13,11 @@ export class AppComponent implements OnInit {
     constructor(private readonly accountService: AccountService) { }
 
     ngOnInit() {
-		//this.userService.getName().subscribe(user => this.handler(user.userRoles));
+		
 	}
 
 	handler(userRoles: string[]) {
 		this.isAreaRole = userRoles.indexOf('area') >= 0;
 		this.isCokoRole = userRoles.indexOf('coko') >= 0;
 	}
-
-	//onActivate(event: any) {
- //       if (['ClassParticipsListComponent', 'ClassParticipsExportExcelComponent', 'UpdateClassParticipComponent', 'AddClassParticipComponent', 'ClassParticipsPlanComponent'].indexOf(event.constructor.name) !== -1) {
-	//		this.isRsur = false;
-	//	}
-	//	else {
-	//		this.isRsur = true;
- //       }
-	//}
 }

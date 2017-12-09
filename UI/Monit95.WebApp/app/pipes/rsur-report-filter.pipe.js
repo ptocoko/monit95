@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
-var TestNameWithDateFilterPipe = (function () {
+var TestNameWithDateFilterPipe = /** @class */ (function () {
     function TestNameWithDateFilterPipe() {
     }
     TestNameWithDateFilterPipe.prototype.transform = function (reports, schoolName) {
@@ -16,13 +16,13 @@ var TestNameWithDateFilterPipe = (function () {
         }
         return result.filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
+    TestNameWithDateFilterPipe = tslib_1.__decorate([
+        core_1.Pipe({ name: 'testNameWithDateFilter' })
+    ], TestNameWithDateFilterPipe);
     return TestNameWithDateFilterPipe;
 }());
-TestNameWithDateFilterPipe = tslib_1.__decorate([
-    core_1.Pipe({ name: 'testNameWithDateFilter' })
-], TestNameWithDateFilterPipe);
 exports.TestNameWithDateFilterPipe = TestNameWithDateFilterPipe;
-var SchoolNameFilterPipe = (function () {
+var SchoolNameFilterPipe = /** @class */ (function () {
     function SchoolNameFilterPipe() {
     }
     SchoolNameFilterPipe.prototype.transform = function (reports, testNameWithDate) {
@@ -36,13 +36,13 @@ var SchoolNameFilterPipe = (function () {
         }
         return result.filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
+    SchoolNameFilterPipe = tslib_1.__decorate([
+        core_1.Pipe({ name: 'schoolNameFilter' })
+    ], SchoolNameFilterPipe);
     return SchoolNameFilterPipe;
 }());
-SchoolNameFilterPipe = tslib_1.__decorate([
-    core_1.Pipe({ name: 'schoolNameFilter' })
-], SchoolNameFilterPipe);
 exports.SchoolNameFilterPipe = SchoolNameFilterPipe;
-var TestIdPipe = (function () {
+var TestIdPipe = /** @class */ (function () {
     function TestIdPipe() {
     }
     TestIdPipe.prototype.transform = function (results, testName) {
@@ -54,13 +54,13 @@ var TestIdPipe = (function () {
             return results;
         }
     };
+    TestIdPipe = tslib_1.__decorate([
+        core_1.Pipe({ name: 'testNameFilter' })
+    ], TestIdPipe);
     return TestIdPipe;
 }());
-TestIdPipe = tslib_1.__decorate([
-    core_1.Pipe({ name: 'testNameFilter' })
-], TestIdPipe);
 exports.TestIdPipe = TestIdPipe;
-var TotalFilterPipe = (function () {
+var TotalFilterPipe = /** @class */ (function () {
     function TotalFilterPipe() {
     }
     TotalFilterPipe.prototype.transform = function (reports, selectedSchool, selectedTest) {
@@ -75,10 +75,10 @@ var TotalFilterPipe = (function () {
         }
         return reports;
     };
+    TotalFilterPipe = tslib_1.__decorate([
+        core_1.Pipe({ name: 'totalFilter' })
+    ], TotalFilterPipe);
     return TotalFilterPipe;
 }());
-TotalFilterPipe = tslib_1.__decorate([
-    core_1.Pipe({ name: 'totalFilter' })
-], TotalFilterPipe);
 exports.TotalFilterPipe = TotalFilterPipe;
 //# sourceMappingURL=rsur-report-filter.pipe.js.map

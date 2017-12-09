@@ -6,7 +6,7 @@ var material_1 = require("@angular/material");
 // Services
 var rsur_particip_service_1 = require("../../../services/rsur-particip.service");
 var account_service_1 = require("../../../services/account.service");
-var RsurParticipsComponent = (function () {
+var RsurParticipsComponent = /** @class */ (function () {
     function RsurParticipsComponent(rsurParticipService, accountService) {
         this.rsurParticipService = rsurParticipService;
         this.accountService = accountService;
@@ -30,21 +30,21 @@ var RsurParticipsComponent = (function () {
         //    this.account = data.json() as AccountModel;           
         //});
     };
+    tslib_1.__decorate([
+        core_1.ViewChild(material_1.MatSort),
+        tslib_1.__metadata("design:type", material_1.MatSort)
+    ], RsurParticipsComponent.prototype, "sort", void 0);
+    RsurParticipsComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'rsur/particips',
+            templateUrl: "./app/components/rsur/particips/particips.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/components/rsur/particips/particips.component.css?v=" + new Date().getTime()]
+        }),
+        tslib_1.__metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
+            account_service_1.AccountService])
+    ], RsurParticipsComponent);
     return RsurParticipsComponent;
 }());
-tslib_1.__decorate([
-    core_1.ViewChild(material_1.MatSort),
-    tslib_1.__metadata("design:type", material_1.MatSort)
-], RsurParticipsComponent.prototype, "sort", void 0);
-RsurParticipsComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'rsur/particips',
-        templateUrl: "./app/components/rsur/particips/particips.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/components/rsur/particips/particips.component.css?v=" + new Date().getTime()]
-    }),
-    tslib_1.__metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
-        account_service_1.AccountService])
-], RsurParticipsComponent);
 exports.RsurParticipsComponent = RsurParticipsComponent;
 ;
 //# sourceMappingURL=particips.component.js.map

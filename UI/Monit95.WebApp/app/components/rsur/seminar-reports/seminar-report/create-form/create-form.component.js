@@ -6,7 +6,7 @@ var common_1 = require("@angular/common");
 var seminar_report_service_1 = require("../../../../../services/seminar-report.service");
 var forms_1 = require("@angular/forms");
 var basic_validators_1 = require("../../../../../shared/basic-validators");
-var CreateReportFormComponent = (function () {
+var CreateReportFormComponent = /** @class */ (function () {
     function CreateReportFormComponent(location, seminarReportService, fb) {
         this.location = location;
         this.seminarReportService = seminarReportService;
@@ -64,17 +64,17 @@ var CreateReportFormComponent = (function () {
     CreateReportFormComponent.prototype.cancel = function () {
         this.location.back();
     };
+    CreateReportFormComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'upload-report',
+            templateUrl: "./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.css?v=" + new Date().getTime()]
+        }),
+        tslib_1.__metadata("design:paramtypes", [common_1.Location,
+            seminar_report_service_1.SeminarReportService,
+            forms_1.FormBuilder])
+    ], CreateReportFormComponent);
     return CreateReportFormComponent;
 }());
-CreateReportFormComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'upload-report',
-        templateUrl: "./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/components/rsur/seminar-reports/seminar-report/create-form/create-form.component.css?v=" + new Date().getTime()]
-    }),
-    tslib_1.__metadata("design:paramtypes", [common_1.Location,
-        seminar_report_service_1.SeminarReportService,
-        forms_1.FormBuilder])
-], CreateReportFormComponent);
 exports.CreateReportFormComponent = CreateReportFormComponent;
 //# sourceMappingURL=create-form.component.js.map

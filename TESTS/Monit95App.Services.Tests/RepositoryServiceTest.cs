@@ -59,7 +59,7 @@ namespace Monit95App.Services.Tests
 
             // Act
             var service = new RepositoryService(mockContext);
-            var result = service.Add(2, fakeStream, @"c:\images\IMG-2017-12-07.JPG", 201);
+            var result = service.Add(2, fakeStream, @"c:\images\IMG-2017-12-07.JPG", "201");
             var result2 = fakeRsurTestList.First();
 
             // Assert

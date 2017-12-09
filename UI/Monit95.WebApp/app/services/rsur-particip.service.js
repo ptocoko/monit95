@@ -4,7 +4,7 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var RsurParticipService = (function () {
+var RsurParticipService = /** @class */ (function () {
     function RsurParticipService(http) {
         this.http = http;
         this.ROUTE_PREFIX = 'api/rsurParticips';
@@ -26,14 +26,14 @@ var RsurParticipService = (function () {
         var url = window.URL.createObjectURL(blob);
         window.open(url);
     };
+    RsurParticipService = tslib_1.__decorate([
+        core_1.Component({
+            providers: [http_1.Http]
+        }),
+        core_1.Injectable(),
+        tslib_1.__metadata("design:paramtypes", [http_1.Http])
+    ], RsurParticipService);
     return RsurParticipService;
 }());
-RsurParticipService = tslib_1.__decorate([
-    core_1.Component({
-        providers: [http_1.Http]
-    }),
-    core_1.Injectable(),
-    tslib_1.__metadata("design:paramtypes", [http_1.Http])
-], RsurParticipService);
 exports.RsurParticipService = RsurParticipService;
 //# sourceMappingURL=rsur-particip.service.js.map

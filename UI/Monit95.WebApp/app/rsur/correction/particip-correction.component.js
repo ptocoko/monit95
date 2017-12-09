@@ -4,7 +4,7 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var particip_correction_service_1 = require("./particip-correction.service");
 var rsur_particip_service_1 = require("../../services/rsur-particip.service");
-var ParticipCorrectionComponent = (function () {
+var ParticipCorrectionComponent = /** @class */ (function () {
     function ParticipCorrectionComponent(_participCorrectionService, _participService) {
         this._participCorrectionService = _participCorrectionService;
         this._participService = _participService;
@@ -43,15 +43,15 @@ var ParticipCorrectionComponent = (function () {
         this.participCorrections.splice(index, 1);
         this.statusText = statusText;
     };
+    ParticipCorrectionComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: "particip-correction",
+            templateUrl: "./app/rsur/correction/particip-correction.html",
+            providers: [particip_correction_service_1.ParticipCorrectionService]
+        }),
+        tslib_1.__metadata("design:paramtypes", [particip_correction_service_1.ParticipCorrectionService, rsur_particip_service_1.RsurParticipService])
+    ], ParticipCorrectionComponent);
     return ParticipCorrectionComponent;
 }());
-ParticipCorrectionComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: "particip-correction",
-        templateUrl: "./app/rsur/correction/particip-correction.html",
-        providers: [particip_correction_service_1.ParticipCorrectionService]
-    }),
-    tslib_1.__metadata("design:paramtypes", [particip_correction_service_1.ParticipCorrectionService, rsur_particip_service_1.RsurParticipService])
-], ParticipCorrectionComponent);
 exports.ParticipCorrectionComponent = ParticipCorrectionComponent;
 //# sourceMappingURL=particip-correction.component.js.map

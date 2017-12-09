@@ -4,7 +4,7 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var account_model_1 = require("../models/account.model");
-var AccountService = (function () {
+var AccountService = /** @class */ (function () {
     function AccountService(http) {
         this.http = http;
         this.account = new account_model_1.AccountModel();
@@ -34,11 +34,11 @@ var AccountService = (function () {
             return this.account.RoleNames.indexOf('rsur-particip') > -1;
         return null;
     };
+    AccountService = tslib_1.__decorate([
+        core_1.Injectable(),
+        tslib_1.__metadata("design:paramtypes", [http_1.Http])
+    ], AccountService);
     return AccountService;
 }());
-AccountService = tslib_1.__decorate([
-    core_1.Injectable(),
-    tslib_1.__metadata("design:paramtypes", [http_1.Http])
-], AccountService);
 exports.AccountService = AccountService;
 //# sourceMappingURL=account.service.js.map

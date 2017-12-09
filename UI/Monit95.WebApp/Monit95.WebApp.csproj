@@ -398,7 +398,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="api.txt" />
-    <Content Include="app\app.component.html" />
+    <Content Include="app\components\app\app.component.html" />
     <Content Include="app\class-particips\add-and-update\update.component.html" />
     <Content Include="app\class-particips\add-and-update\add.component.html" />
     <Content Include="app\class-particips\class-particips-plan.component.html" />
@@ -619,7 +619,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\class-particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\class-particips\add-and-update\add.component.ts" />

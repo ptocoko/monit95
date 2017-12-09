@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
-var SeminarReportService = (function () {
+var SeminarReportService = /** @class */ (function () {
     function SeminarReportService(http) {
         this.http = http;
     }
@@ -24,11 +24,11 @@ var SeminarReportService = (function () {
     SeminarReportService.prototype.deleteReport = function (reportId) {
         return this.http.delete('/api/rsur/seminarReports/' + reportId, { responseType: 'text' });
     };
+    SeminarReportService = tslib_1.__decorate([
+        core_1.Injectable(),
+        tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])
+    ], SeminarReportService);
     return SeminarReportService;
 }());
-SeminarReportService = tslib_1.__decorate([
-    core_1.Injectable(),
-    tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])
-], SeminarReportService);
 exports.SeminarReportService = SeminarReportService;
 //# sourceMappingURL=seminar-report.service.js.map

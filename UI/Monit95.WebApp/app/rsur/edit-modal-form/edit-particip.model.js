@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ParticipEditModel = (function () {
+var ParticipEditModel = /** @class */ (function () {
     function ParticipEditModel(participCode, newParticipSurname, newParticipName, newParticipSecondName) {
         this.participCode = participCode;
         this.newParticipSurname = newParticipSurname;

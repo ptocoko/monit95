@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ParticipCorrection = (function () {
+var ParticipCorrection = /** @class */ (function () {
     function ParticipCorrection() {
     }
     return ParticipCorrection;

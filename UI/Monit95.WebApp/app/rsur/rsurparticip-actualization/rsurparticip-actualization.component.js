@@ -6,7 +6,7 @@ var rsur_particip_service_1 = require("../../services/rsur-particip.service");
 var account_service_1 = require("../../services/account.service");
 var school_collector_service_1 = require("../../shared/school-collector.service");
 var COLLECTOR_ID = 1;
-var RsurParticipsActualizationComponent = (function () {
+var RsurParticipsActualizationComponent = /** @class */ (function () {
     function RsurParticipsActualizationComponent(rsurParticipService, accountService, schoolCollectorService) {
         this.rsurParticipService = rsurParticipService;
         this.accountService = accountService;
@@ -50,18 +50,18 @@ var RsurParticipsActualizationComponent = (function () {
             });
         }
     };
+    RsurParticipsActualizationComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'rsur/particips',
+            templateUrl: "./app/rsur/rsur-particips/rsur-particips.component.html?v=" + new Date().getTime(),
+            styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
+        }),
+        tslib_1.__metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
+            account_service_1.AccountService,
+            school_collector_service_1.SchoolCollectorService])
+    ], RsurParticipsActualizationComponent);
     return RsurParticipsActualizationComponent;
 }());
-RsurParticipsActualizationComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'rsur/particips',
-        templateUrl: "./app/rsur/rsur-particips/rsur-particips.component.html?v=" + new Date().getTime(),
-        styleUrls: ['./app/rsur/rsur-particips/rsur-particips.component.css']
-    }),
-    tslib_1.__metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
-        account_service_1.AccountService,
-        school_collector_service_1.SchoolCollectorService])
-], RsurParticipsActualizationComponent);
 exports.RsurParticipsActualizationComponent = RsurParticipsActualizationComponent;
 ;
 //# sourceMappingURL=rsurparticip-actualization.component.js.map

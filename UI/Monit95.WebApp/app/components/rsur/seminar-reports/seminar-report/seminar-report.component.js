@@ -7,7 +7,7 @@ var seminar_report_service_1 = require("../../../../services/seminar-report.serv
 var seminar_report_model_1 = require("../shared/seminar-report.model");
 var common_1 = require("@angular/common");
 var account_service_1 = require("../../../../services/account.service");
-var SeminarReportComponent = (function () {
+var SeminarReportComponent = /** @class */ (function () {
     function SeminarReportComponent(router, route, seminarReportService, location, accountService) {
         this.router = router;
         this.route = route;
@@ -37,18 +37,18 @@ var SeminarReportComponent = (function () {
             elem.removeAttribute('download');
         });
     };
+    SeminarReportComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'seminar-report',
+            templateUrl: "./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=" + new Date().getTime()
+        }),
+        tslib_1.__metadata("design:paramtypes", [router_1.Router,
+            router_1.ActivatedRoute,
+            seminar_report_service_1.SeminarReportService,
+            common_1.Location,
+            account_service_1.AccountService])
+    ], SeminarReportComponent);
     return SeminarReportComponent;
 }());
-SeminarReportComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'seminar-report',
-        templateUrl: "./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=" + new Date().getTime()
-    }),
-    tslib_1.__metadata("design:paramtypes", [router_1.Router,
-        router_1.ActivatedRoute,
-        seminar_report_service_1.SeminarReportService,
-        common_1.Location,
-        account_service_1.AccountService])
-], SeminarReportComponent);
 exports.SeminarReportComponent = SeminarReportComponent;
 //# sourceMappingURL=seminar-report.component.js.map

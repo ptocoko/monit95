@@ -8,7 +8,7 @@ require("rxjs/add/observable/of");
 require("rxjs/add/operator/delay");
 require("rxjs/add/observable/throw");
 var Subject_1 = require("rxjs/Subject");
-var RsurProtocolsService = (function () {
+var RsurProtocolsService = /** @class */ (function () {
     function RsurProtocolsService(http) {
         this.http = http;
         this.marksProtocolUrl = '/api/rsur/marksProtocols';
@@ -119,12 +119,12 @@ var RsurProtocolsService = (function () {
         return Observable_1.Observable.of({}).delay(1000);
         //return this.http.delete(`${this.scansUrl}/${fileId}`);
     };
+    RsurProtocolsService = tslib_1.__decorate([
+        core_1.Injectable(),
+        tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])
+    ], RsurProtocolsService);
     return RsurProtocolsService;
 }());
-RsurProtocolsService = tslib_1.__decorate([
-    core_1.Injectable(),
-    tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])
-], RsurProtocolsService);
 exports.RsurProtocolsService = RsurProtocolsService;
 var protocolScanModel = {
     FileId: 123,

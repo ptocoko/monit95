@@ -4,7 +4,7 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var SCHOOL_COLLECTOR_API = '/api/collectors';
-var SchoolCollector = (function () {
+var SchoolCollector = /** @class */ (function () {
     function SchoolCollector(CollectorId, IsFinished) {
         this.CollectorId = CollectorId;
         this.IsFinished = IsFinished;
@@ -12,7 +12,7 @@ var SchoolCollector = (function () {
     return SchoolCollector;
 }());
 exports.SchoolCollector = SchoolCollector;
-var SchoolCollectorService = (function () {
+var SchoolCollectorService = /** @class */ (function () {
     function SchoolCollectorService(http) {
         this.http = http;
     }
@@ -27,11 +27,11 @@ var SchoolCollectorService = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         return this.http.put(SCHOOL_COLLECTOR_API + ("/" + collectorId), { 'IsFinished': isFinished }, options);
     };
+    SchoolCollectorService = tslib_1.__decorate([
+        core_1.Injectable(),
+        tslib_1.__metadata("design:paramtypes", [http_1.Http])
+    ], SchoolCollectorService);
     return SchoolCollectorService;
 }());
-SchoolCollectorService = tslib_1.__decorate([
-    core_1.Injectable(),
-    tslib_1.__metadata("design:paramtypes", [http_1.Http])
-], SchoolCollectorService);
 exports.SchoolCollectorService = SchoolCollectorService;
 //# sourceMappingURL=school-collector.service.js.map

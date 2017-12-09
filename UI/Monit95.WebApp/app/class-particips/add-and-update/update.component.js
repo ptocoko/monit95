@@ -8,7 +8,7 @@ var particip_service_1 = require("../../particip.service");
 var account_service_1 = require("../../services/account.service");
 var CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 var PROJECT_ID = 1;
-var UpdateClassParticipComponent = (function () {
+var UpdateClassParticipComponent = /** @class */ (function () {
     function UpdateClassParticipComponent(participService, accountService, router, route) {
         this.participService = participService;
         this.accountService = accountService;
@@ -52,16 +52,16 @@ var UpdateClassParticipComponent = (function () {
     UpdateClassParticipComponent.prototype.cancel = function () {
         this.router.navigate(['class-particips/list']);
     };
+    UpdateClassParticipComponent = tslib_1.__decorate([
+        core_1.Component({
+            templateUrl: "./app/class-particips/add-and-update/update.component.html?v=" + new Date().getTime()
+        }),
+        tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
+            account_service_1.AccountService,
+            router_1.Router,
+            router_1.ActivatedRoute])
+    ], UpdateClassParticipComponent);
     return UpdateClassParticipComponent;
 }());
-UpdateClassParticipComponent = tslib_1.__decorate([
-    core_1.Component({
-        templateUrl: "./app/class-particips/add-and-update/update.component.html?v=" + new Date().getTime()
-    }),
-    tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
-        account_service_1.AccountService,
-        router_1.Router,
-        router_1.ActivatedRoute])
-], UpdateClassParticipComponent);
 exports.UpdateClassParticipComponent = UpdateClassParticipComponent;
 //# sourceMappingURL=update.component.js.map

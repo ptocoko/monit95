@@ -5,13 +5,13 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 var person_model_1 = require("../../models/person.model");
-var Marks = (function () {
+var Marks = /** @class */ (function () {
     function Marks() {
     }
     return Marks;
 }());
 exports.Marks = Marks;
-var ParticipWithMarks = (function (_super) {
+var ParticipWithMarks = /** @class */ (function (_super) {
     tslib_1.__extends(ParticipWithMarks, _super);
     function ParticipWithMarks() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -19,7 +19,7 @@ var ParticipWithMarks = (function (_super) {
     return ParticipWithMarks;
 }(person_model_1.PersonModel));
 exports.ParticipWithMarks = ParticipWithMarks;
-var MarksService = (function () {
+var MarksService = /** @class */ (function () {
     function MarksService(http) {
         this.http = http;
         this.ROUTE_PREFIX = 'api/rsurMarks';
@@ -48,14 +48,14 @@ var MarksService = (function () {
     MarksService.prototype.updateRsurMarks = function (marks) {
         return this.http.put(this.ROUTE_PREFIX + "/" + marks.participTestId, marks);
     };
+    MarksService = tslib_1.__decorate([
+        core_1.Component({
+            providers: [http_1.Http]
+        }),
+        core_1.Injectable(),
+        tslib_1.__metadata("design:paramtypes", [http_1.Http])
+    ], MarksService);
     return MarksService;
 }());
-MarksService = tslib_1.__decorate([
-    core_1.Component({
-        providers: [http_1.Http]
-    }),
-    core_1.Injectable(),
-    tslib_1.__metadata("design:paramtypes", [http_1.Http])
-], MarksService);
 exports.MarksService = MarksService;
 //# sourceMappingURL=marks.service.js.map

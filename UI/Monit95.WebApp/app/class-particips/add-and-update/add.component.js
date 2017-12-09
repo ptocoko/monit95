@@ -8,7 +8,7 @@ var ClassParticip_1 = require("../ClassParticip");
 var account_service_1 = require("../../services/account.service");
 exports.CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 var PROJECT_ID = 1;
-var AddClassParticipComponent = (function () {
+var AddClassParticipComponent = /** @class */ (function () {
     function AddClassParticipComponent(participService, accountService, router) {
         this.participService = participService;
         this.accountService = accountService;
@@ -41,15 +41,15 @@ var AddClassParticipComponent = (function () {
     AddClassParticipComponent.prototype.cancel = function () {
         this.router.navigate(['class-particips/list']);
     };
+    AddClassParticipComponent = tslib_1.__decorate([
+        core_1.Component({
+            templateUrl: "./app/class-particips/add-and-update/add.component.html?v=" + new Date().getTime()
+        }),
+        tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
+            account_service_1.AccountService,
+            router_1.Router])
+    ], AddClassParticipComponent);
     return AddClassParticipComponent;
 }());
-AddClassParticipComponent = tslib_1.__decorate([
-    core_1.Component({
-        templateUrl: "./app/class-particips/add-and-update/add.component.html?v=" + new Date().getTime()
-    }),
-    tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
-        account_service_1.AccountService,
-        router_1.Router])
-], AddClassParticipComponent);
 exports.AddClassParticipComponent = AddClassParticipComponent;
 //# sourceMappingURL=add.component.js.map

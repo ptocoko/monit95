@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var AccountModel = (function () {
+var AccountModel = /** @class */ (function () {
     function AccountModel() {
     }
     return AccountModel;
