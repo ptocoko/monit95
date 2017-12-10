@@ -2,11 +2,10 @@
 using NSubstitute;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Monit95App.Services.Rsur.TestResult;
 
 namespace Monit95App.Web.Tests
 {
-    using Monit95App.Services.Rsur.RsurTestResultService;
-
     [TestClass]
     public class MarksProtocolsControllerTest
     {
@@ -14,7 +13,7 @@ namespace Monit95App.Web.Tests
         public void PostTest()
         {
             // Arrange
-            var fakeMarksProtocolService = Substitute.For<IRsurTestResultService>();
+            var fakeMarksProtocolService = Substitute.For<ITestResultService>();
             var fakeValidationResults = new List<ValidationResult>
             {
                 new ValidationResult("some error 1"),

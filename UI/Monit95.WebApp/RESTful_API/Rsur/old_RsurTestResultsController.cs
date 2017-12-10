@@ -2,22 +2,21 @@
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Monit95App.Services.DTOs;
+using Monit95App.Services.Rsur.TestResult;
 
 namespace Monit95App.RESTful_API.Rsur
 {
-    using Monit95App.Services.Rsur.RsurTestResultService;
-
     [Authorize(Roles = "area")]
     [RoutePrefix("api/rsur/testProtocols")]
     public class RsurTestResultsController : ApiController
     {
         #region Dependencies
 
-        private readonly IRsurTestResultService testProtocolService;
+        private readonly ITestResultService testProtocolService;
         
         #endregion
 
-        public RsurTestResultsController(IRsurTestResultService testProtocolService)
+        public RsurTestResultsController(ITestResultService testProtocolService)
         {
             this.testProtocolService = testProtocolService;            
         }

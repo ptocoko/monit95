@@ -8,9 +8,9 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Enums;
 using Monit95App.Services.Validation;
 
-namespace Monit95App.Services.Repository
+namespace Monit95App.Services.File
 {
-    public class RepositoryService : IRepositoryService
+    public class RepositoryService : IFileService
     {
         #region Fields
 
@@ -39,7 +39,7 @@ namespace Monit95App.Services.Repository
         /// <param name="repositoryId"></param>
         /// <param name="sourceFileStream"></param>
         /// <param name="sourceFileName">Full file name or without path.</param>
-        /// <param name="areaCode"></param>
+        /// <param name="userName"></param>
         /// <returns>fileId</returns>
         public ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName)
         {

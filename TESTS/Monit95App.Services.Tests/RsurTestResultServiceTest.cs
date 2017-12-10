@@ -7,14 +7,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Rsur.TestResult;
 using Monit95App.Services.Tests.Util;
 
 using NSubstitute;
 
 namespace Monit95App.Services.Tests
 {
-    using Rsur.RsurTestResultService;
-
     [TestClass]
     public class RsurTestResultServiceTest
     {
@@ -202,8 +201,8 @@ namespace Monit95App.Services.Tests
             mockContext.RsurParticipTests.Returns(mockRsurParticipTestSet);
             mockContext.RsurTestResults.Returns(mockRsurTestResultSet);
 
-            var service = new RsurTestResultService(mockContext);
-            var marksProtocol1 = new RsurTestResultDto()
+            var service = new TestResultService(mockContext);
+            var marksProtocol1 = new TestResulteEditDto()
             {
                 ParticipTestId = 1,
                 QuestionResults = new List<QuestionResult>()
@@ -213,7 +212,7 @@ namespace Monit95App.Services.Tests
                  new QuestionResult { Order = 3, CurrentMark = 1 }
                 }
             };
-            var marksProtocol2 = new RsurTestResultDto
+            var marksProtocol2 = new TestResulteEditDto
             {
                 ParticipTestId = 2,
                 QuestionResults = new List<QuestionResult>()
@@ -240,7 +239,7 @@ namespace Monit95App.Services.Tests
         public void GetIncorrectParticipCodeTest()
         {
             // Arrange            
-            var service = new RsurTestResultService(mockContext);
+            var service = new TestResultService(mockContext);
             
             // Act
             service.Get(1234, 201);
@@ -251,7 +250,7 @@ namespace Monit95App.Services.Tests
         public void GetEmptyTest()
         {
             // Arrange            
-            var service = new RsurTestResultService(mockContext);
+            var service = new TestResultService(mockContext);
 
             // Act
             service.Get(12346, 201);
@@ -261,7 +260,7 @@ namespace Monit95App.Services.Tests
         public void GetCorrectParamsTest()
         {
             // Arrange                 
-            var service = new RsurTestResultService(mockContext);
+            var service = new TestResultService(mockContext);
 
             // Act            
             var protocol = service.Get(12345, 201);

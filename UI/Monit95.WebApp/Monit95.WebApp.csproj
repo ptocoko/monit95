@@ -348,7 +348,7 @@
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
-    <Compile Include="RESTful_API\RepositoriesController.cs" />
+    <Compile Include="RESTful_API\FilesController.cs" />
     <Compile Include="RESTful_API\Rsur\TestResultsController.cs" />
     <Compile Include="RESTful_API\Rsur\RatingsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipReportsController.cs" />
@@ -356,7 +356,7 @@
     <Compile Include="RESTful_API\Rsur\RsurParticipEditsController.cs" />
     <Compile Include="RESTful_API\ParticipsController.cs" />
     <Compile Include="RESTful_API\CollectorsController.cs" />
-    <Compile Include="RESTful_API\Rsur\RsurTestResultsController.cs" />
+    <Compile Include="RESTful_API\Rsur\old_RsurTestResultsController.cs" />
     <Compile Include="RESTful_API\Rsur\SeminarReportsController.cs" />
     <Compile Include="RESTful_API\SchoolFilesController.cs" />
     <Compile Include="RESTful_API\SchoolsController.cs" />

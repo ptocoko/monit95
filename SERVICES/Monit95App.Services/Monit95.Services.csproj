@@ -99,11 +99,12 @@
     <Compile Include="Enums\FilePermissionId.cs" />
     <Compile Include="FilesService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
-    <Compile Include="Repository\IRepositoryService.cs" />
-    <Compile Include="Repository\RepositoryService.cs" />
-    <Compile Include="Rsur\RsurTestResultService\IRsurTestResultService.cs" />
-    <Compile Include="Rsur\RsurTestResultService\RsurTestResultDto.cs" />
-    <Compile Include="Rsur\RsurTestResultService\RsurTestResultService.cs" />
+    <Compile Include="File\IFileService.cs" />
+    <Compile Include="File\FileService.cs" />
+    <Compile Include="Rsur\TestResult\ITestResultService.cs" />
+    <Compile Include="Rsur\TestResult\TestResultViewDto.cs" />
+    <Compile Include="Rsur\TestResult\TestResulteEditDto.cs" />
+    <Compile Include="Rsur\TestResult\TestResultService.cs" />
     <Compile Include="Rsur\ParticipReport\EgeQuestionResult.cs" />
     <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />

@@ -1,33 +1,32 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using Monit95App.Services.Repository;
+using Monit95App.Services.File;
 
-namespace Monit95.WebApp.RESTful_API.Rsur
+namespace Monit95.WebApp.RESTful_API
 {
     /// <inheritdoc />
     /// <summary>
     /// Контроллер для работы с файлами бланков ответов
     /// </summary>    
-    [RoutePrefix("api/repositories")]
+    [RoutePrefix("api/files")]
     public class RepositoriesController : ApiController
     {
         #region Dependencies
 
-        private readonly IRepositoryService repositoryService;
+        private readonly IFileService fileService;
         
         #endregion
 
         #region Constructors
 
-        public RepositoriesController(IRepositoryService repositoryService)
+        public RepositoriesController(IFileService fileService)
         {
-            this.repositoryService = repositoryService;
+            this.fileService = fileService;
         }
 
         #endregion
@@ -36,10 +35,10 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         /// Добавление файла в репозиторий
         /// </summary>
         /// <returns>fileId</returns>
-        [HttpPost, Route("{id:int}/files")]
+        [HttpPost]
         [Authorize(Roles = "area")]
         [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
-        public HttpResponseMessage AddFile()
+        public HttpResponseMessage AddFileToRepository(int repositoryId)
         {
             // Find file in requestBody
             var httpCollectionFiles = HttpContext.Current.Request.Files;
@@ -47,12 +46,10 @@ namespace Monit95.WebApp.RESTful_API.Rsur
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Body has not file");            
                    
             // Get file's content from body
-            HttpPostedFile postedFile = httpCollectionFiles.Get(0);
-
-            var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);                                    
+            HttpPostedFile postedFile = httpCollectionFiles.Get(0);                                               
 
             // Call service
-            var result = repositoryService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
+            var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
 
             // Success
             if (!result.Errors.Any())            
@@ -65,7 +62,6 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             // Error: another
             foreach (var error in result.Errors)                         
                 ModelState.AddModelError(error.HttpCode.ToString(), error.Description);            
-
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);            
         }
 
@@ -75,7 +71,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         {
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);            
 
-            var result = repositoryService.Delete(fileId, User.Identity.Name);
+            var result = fileService.Delete(fileId, User.Identity.Name);
 
             // Success
             if (!result.Errors.Any())
