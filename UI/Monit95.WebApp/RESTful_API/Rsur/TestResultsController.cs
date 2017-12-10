@@ -49,7 +49,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         /// The <see cref="IHttpActionResult"/>.
         /// </returns>
         [HttpGet]
-        [Route("{participCode:range(10000, 99999)}")]
+        [Route("{participCode:int}")]
         public IHttpActionResult GetOne()
         {
             var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
