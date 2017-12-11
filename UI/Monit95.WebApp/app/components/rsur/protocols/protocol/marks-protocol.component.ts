@@ -10,6 +10,7 @@ import { FormGroup } from "@angular/forms";
 })
 export class MarksProtocolComponent implements AfterViewInit {
 	@ViewChild('marksForm.form') marksForm: FormGroup;
+	inputElements: JQuery<HTMLInputElement>;
 
 	@Input('protocol') marksProtocol: MarksProtocol;
 	@Input() showParticipCode: boolean;
@@ -23,13 +24,38 @@ export class MarksProtocolComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		//let elements = document.getElementsByClassName('markInput')
-		//Observable.fromEvent(document.getElementsByClassName('markInput'), 'input')
-		//	.subscribe((event: any) => {
-		//		console.log(event);
-		//	});
-		//this.marksForm.controls.
-		console.log(this.marksForm);
+		this.inputElements = $('.markInput') as JQuery<HTMLInputElement>;
+		this.inputElements.focus((event) => event.target.select());
+		this.inputElements.get(0).focus();
+	}
+
+	markChange(event: any) {
+		let elem = event.target as HTMLInputElement;
+		let elemIndex = this.inputElements.index(elem);
+
+		if (elem.value) {
+			if (elem.value.match(/^(1|0)$/)) {
+				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
+				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+			}
+			else {
+				elem.value = '1';
+				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = 1;
+				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+			}
+		}
+	}
+
+	goToNextInputOrFocusOnSubmitBtn(elemIndex: number) {
+		if (elemIndex < this.inputElements.length - 1) {
+			let nextInput = this.inputElements.get(elemIndex + 1);
+			if (!nextInput.value) {
+				nextInput.focus();
+			}
+		}
+		else {
+			$('#submitBtn').focus();
+		}
 	}
 
 	send() {

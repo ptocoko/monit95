@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var MarksProtocolComponent = (function () {
     function MarksProtocolComponent() {
         this.onSend = new core_1.EventEmitter();
@@ -10,12 +11,35 @@ var MarksProtocolComponent = (function () {
     MarksProtocolComponent.prototype.ngOnInit = function () {
     };
     MarksProtocolComponent.prototype.ngAfterViewInit = function () {
-        //let elements = document.getElementsByClassName('markInput')
-        //Observable.fromEvent(document.getElementsByClassName('markInput'), 'input')
-        //	.subscribe((event: any) => {
-        //		console.log(event);
-        //	});
-        console.log(this.marksForm);
+        this.inputElements = $('.markInput');
+        this.inputElements.focus(function (event) { return event.target.select(); });
+        this.inputElements.get(0).focus();
+    };
+    MarksProtocolComponent.prototype.markChange = function (event) {
+        var elem = event.target;
+        var elemIndex = this.inputElements.index(elem);
+        if (elem.value) {
+            if (elem.value.match(/^(1|0)$/)) {
+                this.marksProtocol.QuestionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
+                this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+            }
+            else {
+                elem.value = '1';
+                this.marksProtocol.QuestionResults[elemIndex].CurrentMark = 1;
+                this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+            }
+        }
+    };
+    MarksProtocolComponent.prototype.goToNextInputOrFocusOnSubmitBtn = function (elemIndex) {
+        if (elemIndex < this.inputElements.length - 1) {
+            var nextInput = this.inputElements.get(elemIndex + 1);
+            if (!nextInput.value) {
+                nextInput.focus();
+            }
+        }
+        else {
+            $('#submitBtn').focus();
+        }
     };
     MarksProtocolComponent.prototype.send = function () {
         this.onSend.emit(this.marksProtocol);
@@ -26,8 +50,8 @@ var MarksProtocolComponent = (function () {
     return MarksProtocolComponent;
 }());
 tslib_1.__decorate([
-    core_1.ViewChild('marksForm'),
-    tslib_1.__metadata("design:type", Object)
+    core_1.ViewChild('marksForm.form'),
+    tslib_1.__metadata("design:type", forms_1.FormGroup)
 ], MarksProtocolComponent.prototype, "marksForm", void 0);
 tslib_1.__decorate([
     core_1.Input('protocol'),
