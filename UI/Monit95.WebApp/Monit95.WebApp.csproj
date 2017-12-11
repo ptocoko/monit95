@@ -23,7 +23,7 @@
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
-    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
     <Use64BitIISExpress />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -348,7 +348,7 @@
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
-    <Compile Include="RESTful_API\Rsur\RepositoriesController.cs" />
+    <Compile Include="RESTful_API\FilesController.cs" />
     <Compile Include="RESTful_API\Rsur\TestResultsController.cs" />
     <Compile Include="RESTful_API\Rsur\RatingsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipReportsController.cs" />
@@ -356,7 +356,7 @@
     <Compile Include="RESTful_API\Rsur\RsurParticipEditsController.cs" />
     <Compile Include="RESTful_API\ParticipsController.cs" />
     <Compile Include="RESTful_API\CollectorsController.cs" />
-    <Compile Include="RESTful_API\Rsur\RsurTestResultsController.cs" />
+    <Compile Include="RESTful_API\Rsur\old_RsurTestResultsController.cs" />
     <Compile Include="RESTful_API\Rsur\SeminarReportsController.cs" />
     <Compile Include="RESTful_API\SchoolFilesController.cs" />
     <Compile Include="RESTful_API\SchoolsController.cs" />
@@ -398,7 +398,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="api.txt" />
-    <Content Include="app\app.component.html" />
+    <Content Include="app\components\app\app.component.html" />
     <Content Include="app\class-particips\add-and-update\update.component.html" />
     <Content Include="app\class-particips\add-and-update\add.component.html" />
     <Content Include="app\class-particips\class-particips-plan.component.html" />
@@ -602,8 +602,6 @@
     <Content Include="Views\Wishes\Delete.cshtml" />
     <Content Include="Views\Wishes\Index.cshtml" />
     <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\components\rsur\protocols\shared\" />
@@ -621,7 +619,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\material.module.ts" />
+    <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\class-particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\class-particips\add-and-update\add.component.ts" />
@@ -750,12 +749,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('d:\Projects\Monit95 v1.0\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', 'd:\Projects\Monit95 v1.0\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets'))" />
     <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets'))" />
   </Target>
   <Import Project="..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />

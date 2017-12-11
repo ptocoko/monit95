@@ -4,7 +4,7 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var account_service_1 = require("../../../services/account.service");
 var account_model_1 = require("../../../models/account.model");
-var HomeComponent = (function () {
+var HomeComponent = /** @class */ (function () {
     function HomeComponent(accountService) {
         this.accountService = accountService;
         this.account = new account_model_1.AccountModel();
@@ -34,13 +34,13 @@ var HomeComponent = (function () {
         }
         return null;
     };
+    HomeComponent = tslib_1.__decorate([
+        core_1.Component({
+            templateUrl: "./app/components/rsur/home/home.component.html?v=" + new Date().getTime()
+        }),
+        tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService])
+    ], HomeComponent);
     return HomeComponent;
 }());
-HomeComponent = tslib_1.__decorate([
-    core_1.Component({
-        templateUrl: "./app/components/rsur/home/home.component.html?v=" + new Date().getTime()
-    }),
-    tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService])
-], HomeComponent);
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map

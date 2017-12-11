@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
-var RsurParticipActualFilterPipe = (function () {
+var RsurParticipActualFilterPipe = /** @class */ (function () {
     function RsurParticipActualFilterPipe() {
     }
     RsurParticipActualFilterPipe.prototype.transform = function (particips, isShowNotActual) {
@@ -13,13 +13,13 @@ var RsurParticipActualFilterPipe = (function () {
         }
         return particips;
     };
+    RsurParticipActualFilterPipe = tslib_1.__decorate([
+        core_1.Pipe({ name: 'rsurParticipActualFilter' })
+    ], RsurParticipActualFilterPipe);
     return RsurParticipActualFilterPipe;
 }());
-RsurParticipActualFilterPipe = tslib_1.__decorate([
-    core_1.Pipe({ name: 'rsurParticipActualFilter' })
-], RsurParticipActualFilterPipe);
 exports.RsurParticipActualFilterPipe = RsurParticipActualFilterPipe;
-var RsurParticipFilterPipe = (function () {
+var RsurParticipFilterPipe = /** @class */ (function () {
     function RsurParticipFilterPipe() {
     }
     RsurParticipFilterPipe.prototype.transform = function (particips, searchText) {
@@ -44,10 +44,10 @@ var RsurParticipFilterPipe = (function () {
         });
         return particips;
     };
+    RsurParticipFilterPipe = tslib_1.__decorate([
+        core_1.Pipe({ name: 'rsurParticipFilter' })
+    ], RsurParticipFilterPipe);
     return RsurParticipFilterPipe;
 }());
-RsurParticipFilterPipe = tslib_1.__decorate([
-    core_1.Pipe({ name: 'rsurParticipFilter' })
-], RsurParticipFilterPipe);
 exports.RsurParticipFilterPipe = RsurParticipFilterPipe;
 //# sourceMappingURL=rsur-particip-filter.pipe.js.map

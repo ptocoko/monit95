@@ -4,14 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MatButtonModule, MatDialogModule, MatCardModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatInputModule, MatFormFieldModule, MatToolbarModule, MatProgressBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { OrderModule } from 'ngx-order-pipe';
+import { MaterialModule } from './material.module';
 
 // Components
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { RsurParticipsComponent } from './components/rsur/particips/particips.component';
 import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
 import { PlanComponent } from './plan/plan.component';
@@ -31,13 +31,13 @@ import { ReportComponent } from './components/rsur/reports/report/report.compone
 import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
 import { CreateReportFormComponent } from './components/rsur/seminar-reports/seminar-report/create-form/create-form.component';
 import { RatingsComponent } from './components/rsur/ratings/ratings.component';
-import { SeminarReportsListComponent } from "./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component";
-import { SeminarReportComponent } from "./components/rsur/seminar-reports/seminar-report/seminar-report.component";
-import { SchoolFilesComponent } from "./components/school-files/school-files.component";
-import { MatchingProtocolComponent } from "./components/rsur/protocols/protocol/matching-protocol/matching-protocol.component";
-import { ScanProtocolsComponent, FilterPipe } from "./components/rsur/protocols/scan-protocols.component";
-import { QuestionProtocolsList } from "./components/rsur/protocols/question-protocols-list.component";
-import { MarksProtocolComponent } from "./components/rsur/protocols/protocol/marks-protocol.component";
+import { SeminarReportsListComponent } from './components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component';
+import { SeminarReportComponent } from './components/rsur/seminar-reports/seminar-report/seminar-report.component';
+import { SchoolFilesComponent } from './components/school-files/school-files.component';
+import { MatchingProtocolComponent } from './components/rsur/protocols/protocol/matching-protocol/matching-protocol.component';
+import { ScanProtocolsComponent, FilterPipe } from './components/rsur/protocols/scan-protocols.component';
+import { QuestionProtocolsList } from './components/rsur/protocols/question-protocols-list.component';
+import { MarksProtocolComponent } from './components/rsur/protocols/protocol/marks-protocol.component';
 
 // Services
 import { AccountService } from './services/account.service';
@@ -52,9 +52,9 @@ import { SchoolCollectorService } from './shared/school-collector.service';
 import { ResultsService } from './shared/results.service';
 import { RsurReportService } from './services/rsur-report.service';
 import { RsurRatingService } from './services/rsur-rating.service';
-import { SeminarReportService } from "./services/seminar-report.service";
-import { SchoolFileService } from "./services/school-file.service";
-import { RsurProtocolsService } from "./services/rsur-protocols.service";
+import { SeminarReportService } from './services/seminar-report.service';
+import { SchoolFileService } from './services/school-file.service';
+import { RsurProtocolsService } from './services/rsur-protocols.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Pipes
@@ -66,7 +66,7 @@ import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe } from './pipes/rsur-report-filter.pipe';
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rsur-particip-filter.pipe';
-import { RsurProtocolFilter } from "./pipes/rsur-protocol-filter.pipe";
+import { RsurProtocolFilter } from './pipes/rsur-protocol-filter.pipe';
 
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -76,23 +76,14 @@ import { GlobalErrorHandler } from './error-handler';
     imports: [
         BrowserModule,
 		HttpModule,
-		HttpClientModule,        
+        HttpClientModule,        
         FormsModule,
         ReactiveFormsModule,        
         MyDatePickerModule, 
-		BrowserAnimationsModule,
-		MatButtonModule,
-		MatDialogModule,
-		MatCardModule,
-		MatInputModule,
-		MatFormFieldModule,
-        MatTableModule,
-		MatSortModule,
-		MatProgressSpinnerModule,
-		MatToolbarModule,
-		MatProgressBarModule,
+		BrowserAnimationsModule,		
         OrderModule,	
         NgbModule.forRoot(),
+        MaterialModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
                 { path: 'rsur/test', component: RsurTestComponent },
@@ -123,7 +114,6 @@ import { GlobalErrorHandler } from './error-handler';
             ]
         )
     ],
-
 	declarations: [
         AppComponent,
         HomeComponent,
@@ -185,10 +175,7 @@ import { GlobalErrorHandler } from './error-handler';
 		RsurProtocolsService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
-	],  
-	entryComponents: [
-		
-	],
+    ],    
     bootstrap: [AppComponent]
 })
 export class AppModule { }

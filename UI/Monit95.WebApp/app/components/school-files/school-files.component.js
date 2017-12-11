@@ -5,7 +5,7 @@ var core_1 = require("@angular/core");
 var school_file_service_1 = require("../../services/school-file.service");
 // material
 var material_1 = require("@angular/material");
-var SchoolFilesComponent = (function () {
+var SchoolFilesComponent = /** @class */ (function () {
     function SchoolFilesComponent(schoolFileService) {
         this.schoolFileService = schoolFileService;
         this.isLoading = true;
@@ -20,15 +20,15 @@ var SchoolFilesComponent = (function () {
             _this.isLoading = false;
         });
     };
+    SchoolFilesComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'school-files',
+            templateUrl: "./app/components/school-files/school-files.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/components/school-files/school-files.component.css?v=" + new Date().getTime()]
+        }),
+        tslib_1.__metadata("design:paramtypes", [school_file_service_1.SchoolFileService])
+    ], SchoolFilesComponent);
     return SchoolFilesComponent;
 }());
-SchoolFilesComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'school-files',
-        templateUrl: "./app/components/school-files/school-files.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/components/school-files/school-files.component.css?v=" + new Date().getTime()]
-    }),
-    tslib_1.__metadata("design:paramtypes", [school_file_service_1.SchoolFileService])
-], SchoolFilesComponent);
 exports.SchoolFilesComponent = SchoolFilesComponent;
 //# sourceMappingURL=school-files.component.js.map

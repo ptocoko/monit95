@@ -5,14 +5,14 @@ var core_1 = require("@angular/core");
 var results_service_1 = require("../../shared/results.service");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
-var ClassParticipResult = (function () {
+var ClassParticipResult = /** @class */ (function () {
     function ClassParticipResult() {
     }
     return ClassParticipResult;
 }());
 exports.ClassParticipResult = ClassParticipResult;
 var MAX_MARKS = [4, 1, 3, 1, 1];
-var ClassParticipReportComponent = (function () {
+var ClassParticipReportComponent = /** @class */ (function () {
     function ClassParticipReportComponent(resultService, route, http) {
         this.resultService = resultService;
         this.route = route;
@@ -48,14 +48,14 @@ var ClassParticipReportComponent = (function () {
             a.click();
         });
     };
+    ClassParticipReportComponent = tslib_1.__decorate([
+        core_1.Component({
+            templateUrl: "./app/class-particips/results/particip-report.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/class-particips/results/particip-report.component.css?v=" + new Date().getTime()]
+        }),
+        tslib_1.__metadata("design:paramtypes", [results_service_1.ResultsService, router_1.ActivatedRoute, http_1.Http])
+    ], ClassParticipReportComponent);
     return ClassParticipReportComponent;
 }());
-ClassParticipReportComponent = tslib_1.__decorate([
-    core_1.Component({
-        templateUrl: "./app/class-particips/results/particip-report.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/class-particips/results/particip-report.component.css?v=" + new Date().getTime()]
-    }),
-    tslib_1.__metadata("design:paramtypes", [results_service_1.ResultsService, router_1.ActivatedRoute, http_1.Http])
-], ClassParticipReportComponent);
 exports.ClassParticipReportComponent = ClassParticipReportComponent;
 //# sourceMappingURL=particip-report.component.js.map

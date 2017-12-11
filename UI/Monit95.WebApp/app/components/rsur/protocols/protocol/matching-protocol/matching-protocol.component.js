@@ -9,7 +9,7 @@ var forms_1 = require("@angular/forms");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/fromEvent");
 require("rxjs/add/operator/filter");
-var MatchingProtocolComponent = (function () {
+var MatchingProtocolComponent = /** @class */ (function () {
     function MatchingProtocolComponent(rsurProtocolsService, location, route, renderer) {
         this.rsurProtocolsService = rsurProtocolsService;
         this.location = location;
@@ -115,22 +115,22 @@ var MatchingProtocolComponent = (function () {
     MatchingProtocolComponent.prototype.focusOnCodeElem = function () {
         this.renderer.invokeElementMethod(this.participCodeElem.nativeElement, 'focus');
     };
+    tslib_1.__decorate([
+        core_1.ViewChild('participCode'),
+        tslib_1.__metadata("design:type", core_1.ElementRef)
+    ], MatchingProtocolComponent.prototype, "participCodeElem", void 0);
+    MatchingProtocolComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'matching-protocol-component',
+            templateUrl: "./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.css?v=" + new Date().getTime()]
+        }),
+        tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
+            common_1.Location,
+            router_1.ActivatedRoute,
+            core_1.Renderer])
+    ], MatchingProtocolComponent);
     return MatchingProtocolComponent;
 }());
-tslib_1.__decorate([
-    core_1.ViewChild('participCode'),
-    tslib_1.__metadata("design:type", core_1.ElementRef)
-], MatchingProtocolComponent.prototype, "participCodeElem", void 0);
-MatchingProtocolComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'matching-protocol-component',
-        templateUrl: "./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.css?v=" + new Date().getTime()]
-    }),
-    tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
-        common_1.Location,
-        router_1.ActivatedRoute,
-        core_1.Renderer])
-], MatchingProtocolComponent);
 exports.MatchingProtocolComponent = MatchingProtocolComponent;
 //# sourceMappingURL=matching-protocol.component.js.map

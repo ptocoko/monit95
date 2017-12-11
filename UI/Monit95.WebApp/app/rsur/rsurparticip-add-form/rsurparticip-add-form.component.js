@@ -7,13 +7,13 @@ var router_1 = require("@angular/router");
 var school_service_1 = require("../../school.service");
 var rsur_particip_service_1 = require("../../services/rsur-particip.service");
 var basic_validators_1 = require("../../shared/basic-validators");
-var AddRsurParticip = (function () {
+var AddRsurParticip = /** @class */ (function () {
     function AddRsurParticip() {
     }
     return AddRsurParticip;
 }());
 exports.AddRsurParticip = AddRsurParticip;
-var School = (function () {
+var School = /** @class */ (function () {
     function School() {
     }
     return School;
@@ -29,7 +29,7 @@ var RSURSUBJECTS = [
     { Code: 2, Name: 'Математика' },
     { Code: 7, Name: 'История' }
 ];
-var RsurParticipAddFormComponent = (function () {
+var RsurParticipAddFormComponent = /** @class */ (function () {
     function RsurParticipAddFormComponent(router, route, rsurParticipService, schoolService) {
         this.router = router;
         this.route = route;
@@ -127,18 +127,18 @@ var RsurParticipAddFormComponent = (function () {
             };
         };
     };
+    RsurParticipAddFormComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'rsurparticip-add-form',
+            templateUrl: "./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=" + new Date().getTime(),
+            styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']
+        }),
+        tslib_1.__metadata("design:paramtypes", [router_1.Router,
+            router_1.ActivatedRoute,
+            rsur_particip_service_1.RsurParticipService,
+            school_service_1.SchoolService])
+    ], RsurParticipAddFormComponent);
     return RsurParticipAddFormComponent;
 }());
-RsurParticipAddFormComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'rsurparticip-add-form',
-        templateUrl: "./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=" + new Date().getTime(),
-        styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']
-    }),
-    tslib_1.__metadata("design:paramtypes", [router_1.Router,
-        router_1.ActivatedRoute,
-        rsur_particip_service_1.RsurParticipService,
-        school_service_1.SchoolService])
-], RsurParticipAddFormComponent);
 exports.RsurParticipAddFormComponent = RsurParticipAddFormComponent;
 //# sourceMappingURL=rsurparticip-add-form.component.js.map

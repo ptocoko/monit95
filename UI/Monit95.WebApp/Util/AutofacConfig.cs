@@ -9,8 +9,8 @@ using Monit95App.Services;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
 using Monit95App.Services.Rsur.ParticipReport;
-using Monit95App.Services.Rsur.RsurTestResultService;
 using Monit95App.Services.Rsur.SeminarReport;
+using Monit95App.Services.Rsur.TestResult;
 using Monit95App.Services.School;
 using Monit95App.Web.Services;
 
@@ -47,7 +47,7 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<MarksService>().As<IMarksService>();
             builder.RegisterType<RsurMarksService>().As<IRsurMarksProtocolService>();
             builder.RegisterType<ParticipResults>().As<IParticipResults>();
-            builder.RegisterType<RsurTestResultService>().As<IRsurTestResultService>();
+            builder.RegisterType<TestResultService>().As<ITestResultService>();
             builder.RegisterType<ParticipReportService>().As<IParticipReportService>();
             builder.RegisterType<RatingService>().As<IRatingService>();
             builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();            

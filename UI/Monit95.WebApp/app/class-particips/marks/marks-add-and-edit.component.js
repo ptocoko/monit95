@@ -5,13 +5,13 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var marks_service_1 = require("../../rsur/rsur-test-protocol/marks.service");
-var MarksAddAndEditModel = (function () {
+var MarksAddAndEditModel = /** @class */ (function () {
     function MarksAddAndEditModel() {
     }
     return MarksAddAndEditModel;
 }());
 exports.MarksAddAndEditModel = MarksAddAndEditModel;
-var MarksAddAndEditComponent = (function () {
+var MarksAddAndEditComponent = /** @class */ (function () {
     function MarksAddAndEditComponent(router, activatedRoute, marksService) {
         this.router = router;
         this.activatedRoute = activatedRoute;
@@ -101,15 +101,15 @@ var MarksAddAndEditComponent = (function () {
     MarksAddAndEditComponent.prototype.back = function () {
         this.router.navigate(['/class-particips/marks']);
     };
+    MarksAddAndEditComponent = tslib_1.__decorate([
+        core_1.Component({
+            templateUrl: "./app/class-particips/marks/marks-add-and-edit.component.html?v=" + new Date().getTime()
+        }),
+        tslib_1.__metadata("design:paramtypes", [router_1.Router,
+            router_1.ActivatedRoute,
+            marks_service_1.MarksService])
+    ], MarksAddAndEditComponent);
     return MarksAddAndEditComponent;
 }());
-MarksAddAndEditComponent = tslib_1.__decorate([
-    core_1.Component({
-        templateUrl: "./app/class-particips/marks/marks-add-and-edit.component.html?v=" + new Date().getTime()
-    }),
-    tslib_1.__metadata("design:paramtypes", [router_1.Router,
-        router_1.ActivatedRoute,
-        marks_service_1.MarksService])
-], MarksAddAndEditComponent);
 exports.MarksAddAndEditComponent = MarksAddAndEditComponent;
 //# sourceMappingURL=marks-add-and-edit.component.js.map

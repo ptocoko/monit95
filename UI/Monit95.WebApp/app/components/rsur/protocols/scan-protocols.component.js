@@ -4,7 +4,7 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var rsur_protocols_service_1 = require("../../../services/rsur-protocols.service");
 var http_1 = require("@angular/common/http");
-var ScanProtocolsComponent = (function () {
+var ScanProtocolsComponent = /** @class */ (function () {
     function ScanProtocolsComponent(rsurProtocolsService, _iterableDiffers, differs) {
         this.rsurProtocolsService = rsurProtocolsService;
         this._iterableDiffers = _iterableDiffers;
@@ -128,21 +128,21 @@ var ScanProtocolsComponent = (function () {
         }
         return true;
     };
+    ScanProtocolsComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'scan-protocols-component',
+            templateUrl: "./app/components/rsur/protocols/scan-protocols.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/components/rsur/protocols/scan-protocols.component.css?v=" + new Date().getTime()]
+        }),
+        tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
+            core_1.IterableDiffers,
+            core_1.KeyValueDiffers])
+    ], ScanProtocolsComponent);
     return ScanProtocolsComponent;
 }());
-ScanProtocolsComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'scan-protocols-component',
-        templateUrl: "./app/components/rsur/protocols/scan-protocols.component.html?v=" + new Date().getTime(),
-        styleUrls: ["./app/components/rsur/protocols/scan-protocols.component.css?v=" + new Date().getTime()]
-    }),
-    tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
-        core_1.IterableDiffers,
-        core_1.KeyValueDiffers])
-], ScanProtocolsComponent);
 exports.ScanProtocolsComponent = ScanProtocolsComponent;
 //попытка сделать один общий фильтр pipe
-var FilterPipe = (function () {
+var FilterPipe = /** @class */ (function () {
     function FilterPipe() {
     }
     FilterPipe.prototype.transform = function (array, searchObj) {
@@ -164,13 +164,13 @@ var FilterPipe = (function () {
         }
         return array;
     };
+    FilterPipe = tslib_1.__decorate([
+        core_1.Pipe({
+            name: 'filter',
+            pure: false
+        })
+    ], FilterPipe);
     return FilterPipe;
 }());
-FilterPipe = tslib_1.__decorate([
-    core_1.Pipe({
-        name: 'filter',
-        pure: false
-    })
-], FilterPipe);
 exports.FilterPipe = FilterPipe;
 //# sourceMappingURL=scan-protocols.component.js.map

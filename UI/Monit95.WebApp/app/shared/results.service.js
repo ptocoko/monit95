@@ -14,7 +14,7 @@ var MOCK_RESULT = {
     GradeGroup: 'Группа самых крутых',
     Marks: ['2', '0.5', '0.5', '1', '0']
 };
-var ResultsService = (function () {
+var ResultsService = /** @class */ (function () {
     function ResultsService(http) {
         this.http = http;
     }
@@ -28,11 +28,11 @@ var ResultsService = (function () {
     ResultsService.prototype.getResultsZipForSchool = function (schoolId) {
         return this.http.get('/api/ResultReport/GetForSchool?schoolId=' + schoolId);
     };
+    ResultsService = tslib_1.__decorate([
+        core_1.Injectable(),
+        tslib_1.__metadata("design:paramtypes", [http_1.Http])
+    ], ResultsService);
     return ResultsService;
 }());
-ResultsService = tslib_1.__decorate([
-    core_1.Injectable(),
-    tslib_1.__metadata("design:paramtypes", [http_1.Http])
-], ResultsService);
 exports.ResultsService = ResultsService;
 //# sourceMappingURL=results.service.js.map

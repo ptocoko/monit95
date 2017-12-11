@@ -5,13 +5,13 @@ var core_1 = require("@angular/core");
 var marks_service_1 = require("./marks.service");
 var router_1 = require("@angular/router");
 var rsur_test_service_1 = require("../rsur-test/rsur-test.service");
-var RsurParticipMarks = (function () {
+var RsurParticipMarks = /** @class */ (function () {
     function RsurParticipMarks() {
     }
     return RsurParticipMarks;
 }());
 exports.RsurParticipMarks = RsurParticipMarks;
-var RsurTestProtocolListComponent = (function () {
+var RsurTestProtocolListComponent = /** @class */ (function () {
     function RsurTestProtocolListComponent(marksService, rsurTestService, route, router) {
         this.marksService = marksService;
         this.rsurTestService = rsurTestService;
@@ -58,16 +58,16 @@ var RsurTestProtocolListComponent = (function () {
             }
         }
     };
+    RsurTestProtocolListComponent = tslib_1.__decorate([
+        core_1.Component({
+            templateUrl: "./app/rsur/rsur-test-protocol/rsur-test-protocol-list.component.html?v=" + new Date().getTime()
+        }),
+        tslib_1.__metadata("design:paramtypes", [marks_service_1.MarksService,
+            rsur_test_service_1.RsurTestService,
+            router_1.ActivatedRoute,
+            router_1.Router])
+    ], RsurTestProtocolListComponent);
     return RsurTestProtocolListComponent;
 }());
-RsurTestProtocolListComponent = tslib_1.__decorate([
-    core_1.Component({
-        templateUrl: "./app/rsur/rsur-test-protocol/rsur-test-protocol-list.component.html?v=" + new Date().getTime()
-    }),
-    tslib_1.__metadata("design:paramtypes", [marks_service_1.MarksService,
-        rsur_test_service_1.RsurTestService,
-        router_1.ActivatedRoute,
-        router_1.Router])
-], RsurTestProtocolListComponent);
 exports.RsurTestProtocolListComponent = RsurTestProtocolListComponent;
 //# sourceMappingURL=rsur-test-protocol-list.component.js.map

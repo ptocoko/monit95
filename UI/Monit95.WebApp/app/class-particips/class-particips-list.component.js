@@ -6,7 +6,7 @@ var router_1 = require("@angular/router");
 var account_service_1 = require("../services/account.service");
 var particip_service_1 = require("../particip.service");
 var PROJECT_ID = 1;
-var ClassParticipsListComponent = (function () {
+var ClassParticipsListComponent = /** @class */ (function () {
     function ClassParticipsListComponent(accountService, participService, router) {
         this.accountService = accountService;
         this.participService = participService;
@@ -44,15 +44,15 @@ var ClassParticipsListComponent = (function () {
             });
         }
     };
+    ClassParticipsListComponent = tslib_1.__decorate([
+        core_1.Component({
+            templateUrl: "./app/class-particips/class-particips-list.component.html?v=" + new Date().getTime()
+        }),
+        tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService,
+            particip_service_1.ParticipService,
+            router_1.Router])
+    ], ClassParticipsListComponent);
     return ClassParticipsListComponent;
 }());
-ClassParticipsListComponent = tslib_1.__decorate([
-    core_1.Component({
-        templateUrl: "./app/class-particips/class-particips-list.component.html?v=" + new Date().getTime()
-    }),
-    tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService,
-        particip_service_1.ParticipService,
-        router_1.Router])
-], ClassParticipsListComponent);
 exports.ClassParticipsListComponent = ClassParticipsListComponent;
 //# sourceMappingURL=class-particips-list.component.js.map

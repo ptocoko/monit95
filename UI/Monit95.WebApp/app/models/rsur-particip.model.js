@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var RsurParticipModel = (function () {
+var RsurParticipModel = /** @class */ (function () {
     function RsurParticipModel() {
     }
     return RsurParticipModel;

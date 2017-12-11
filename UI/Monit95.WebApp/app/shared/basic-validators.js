@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var BasicValidators = (function () {
+var BasicValidators = /** @class */ (function () {
     function BasicValidators() {
     }
     BasicValidators.email = function (control) {

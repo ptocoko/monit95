@@ -59,13 +59,16 @@
     <Compile Include="Entities\ElementType.cs" />
     <Compile Include="Entities\Exercis.cs" />
     <Compile Include="Entities\File.cs" />
+    <Compile Include="Entities\FilePermisson.cs" />
     <Compile Include="Entities\GiaResult.cs" />
     <Compile Include="Entities\Grade.cs" />
     <Compile Include="Entities\Kim.cs" />
     <Compile Include="Entities\KimQuestion.cs" />
+    <Compile Include="Entities\Monit95User.cs" />
     <Compile Include="Entities\OldGroup.cs" />
     <Compile Include="Entities\Particip.cs" />
     <Compile Include="Entities\ParticipTest.cs" />
+    <Compile Include="Entities\Permission.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectTest.cs" />
     <Compile Include="Entities\PropertyType.cs" />
