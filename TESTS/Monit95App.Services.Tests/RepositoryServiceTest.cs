@@ -8,7 +8,6 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.File;
 using NSubstitute;
-//using File = Monit95App.Domain.Core.Entities.File;
 
 namespace Monit95App.Services.Tests
 {
