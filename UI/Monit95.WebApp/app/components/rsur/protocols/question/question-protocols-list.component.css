@@ -1,0 +1,18 @@
+﻿.search-field{
+    margin-top: 20px;
+    width: 350px;
+}
+
+th{
+    text-align:center;
+}
+
+.row-number-cell{
+    width:58px;
+    text-align:center;
+}
+
+.particip-code-cell{
+    width:130px;
+    text-align:center;
+}

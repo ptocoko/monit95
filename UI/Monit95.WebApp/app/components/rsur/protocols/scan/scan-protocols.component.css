@@ -1,0 +1,93 @@
+﻿.actions-bar{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+}
+
+.actions-cell-container {
+    display:flex;
+    justify-content:space-around;
+}
+
+.fileUploader {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.fileUploader [type="file"] {
+    cursor: pointer;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+
+.search-field{
+    width: 250px;
+}
+
+.uploadError{
+    color: #de7d7d;
+    font-style: italic;
+}
+
+.uploadComplete{
+    background-color: lightgreen;
+}
+
+.state-caption {
+    font-size:12px;
+}
+
+.state-caption+.state-caption{
+    margin-left:10px;
+}
+
+.duplicate-state{
+    color:blue;
+}
+
+.failed-state{
+    color: orangered;
+}
+
+th{
+    text-align:center;
+    vertical-align:middle;
+}
+
+td{
+    vertical-align:middle;
+}
+
+.centered-mini-cell{
+    width: 60px;
+    max-width: 60px;
+    min-width: 60px;
+    text-align: center;
+}
+
+@keyframes swirling{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.swirl-spinner {
+    animation-duration: 1s;
+    animation-name:swirling;
+    animation-iteration-count:infinite;
+    animation-direction:normal;
+    animation-timing-function:linear;
+}

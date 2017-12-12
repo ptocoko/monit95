@@ -1,0 +1,87 @@
+﻿<div *ngIf="reportData != null" class="classParticip-reportContainer center-block report-card">
+    <div style="margin:20px">
+        <div class="myhead">
+            <p>ЦЕНТР ОЦЕНКИ КАЧЕСТВА ОБРАЗОВАНИЯ</p>
+        </div>
+        <div class="row" style="background-color:#eee; margin:0">
+            <div class="col-sm-2 col-xs-2" style="padding-left:5px">
+                <img height="75" style="margin-top:4px" src="/Images/rsur_logo.png" />
+            </div>
+            <div class="col-sm-10 col-xs-10">
+                <h3 class="card-caption"><b>КАРТА <br/>ПРЕДМЕТНОЙ КОМПЕТЕНЦИИ УЧИТЕЛЯ</b></h3>
+            </div>
+        </div>
+        <div class="myhead"></div>
+        <br />
+        <div class="row particip-info">
+            <div>
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Код участника:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8 text-uppercase">{{reportData.Code}}</p>
+            </div>
+            <br />
+            <br />
+            <div>
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">ФИО:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8 text-uppercase">{{reportData.SchoolParticipInfo.Surname}} {{reportData.SchoolParticipInfo.Name}} {{reportData.SchoolParticipInfo.SecondName}}</p>
+            </div>
+            <br />
+            <br />
+            <div>
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Образовательная организация:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8 text-uppercase">{{reportData.SchoolParticipInfo.SchoolName}}</p>
+            </div>
+            <br />
+            <br />
+            <!--<div style="margin-top:20px">
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Дата диагностики:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8">{{reportData.TestDate}}</p>
+            </div>-->
+            <br />
+        </div>
+        <br />
+        <br />
+
+        <table border="1" class="report-table">
+            <tr>
+                <th class="section-head" colspan="3"><b>Выполнение блока</b></th>
+            </tr>
+            <tr style="background-color: #eee">
+                <td style="width: 20%"></td>
+                <td style="text-align: center">код — наименование блока</td>
+                <td style="width: 15%; text-align: center">выполнение</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-uppercase" style="text-align:center"><b>{{reportData.TestNameWithDate}}</b></td>
+
+                <td *ngIf="reportData.IsPassTest == 'зачет'" class="high-grade text-uppercase cell-center"><b>зачет</b></td>
+                <td *ngIf="reportData.IsPassTest != 'зачет'" class="red text-uppercase cell-center"><b>незачет</b></td>
+            </tr>
+        </table>
+
+        <br />
+        <br />
+        <table border="1" class="report-table">
+            <tr>
+                <th class="section-head" colspan="4"><b>Выполнение заданий КИМ ЕГЭ-2018 (проект)</b></th>
+            </tr>
+            <tr style="background-color: #eee">
+                <td style="width:10%" class="cell-center">обозначение задания в КИМ ЕГЭ</td>
+                <td style="width:10%" class="cell-center">обозначения заданий в КИМ РСУР</td>
+                <td class="cell-center">элементы содержания</td>
+                <td style="width:15%" class="cell-center">выполнение</td>
+            </tr>
+            <tr *ngFor="let result of reportData.EgeQuestionResults">
+                <td class="cell-center">{{result.EgeQuestionNumber}}</td>
+                <td style="font-size:10px" class="cell-center">
+                    <span *ngFor="let rsurNumber of result.RsurQuestionNumbers.split(';')">{{rsurNumber}}<br /></span>
+                </td>
+                <td style="
+    
+    :middle">{{result.ElementNames}}</td>
+                <td [ngClass]="{'low-grade': result.Value < 60, 'medium-grade': result.Value > 59 && result.Value < 81, 'high-grade': result.Value > 80}" class="cell-center">{{result.Value}}%</td>
+            </tr>
+           
+        </table>
+    </div>
+</div>

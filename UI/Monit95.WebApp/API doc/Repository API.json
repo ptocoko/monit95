@@ -1,0 +1,43 @@
+﻿[
+    {
+        "developStatus": "DEVELOP",
+        "description": "Добавляет файл бланков ответов в массив текущих открытых блоков по текущему предмету",
+        "method": "post",
+        "url": "api/repositories/{id}/files",
+        "requestBody": "binary",
+        "responses": [
+            {
+                "HttpCode": 409,
+                "Message": "Такой файл бланка ответов уже существует"
+            },
+            {
+                "HttpCode": 201,
+                "body": {
+                    "fileId": 1
+                }
+            }
+        ]
+
+    },
+    {
+        "developStatus": "DEVELOP",
+        "description": "Получает список загруженных бланков ответов",
+        "method": "get",
+        "url": "api/repositories/{id}/files",
+        "responses": [
+            {
+                "HttpCode": 200,
+                "body": [
+                    {
+                        "fileId": 1,
+                        "sourceName": "IMG-20171114-3.png",
+                        "statusCode": "0 | 1"
+                    }
+                ]
+            }
+        ]
+
+    }
+
+
+]

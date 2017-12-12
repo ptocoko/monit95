@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Monit95App.Services
 {
-    public class RsurMarksService : IRsurMarksService
+    public class RsurMarksService : IRsurMarksProtocolService
     {        
         private readonly string[] Block_0101 = new string[] { "8.1", "8.2", "8.3",
                                                               "9.1", "9.2", "9.3",

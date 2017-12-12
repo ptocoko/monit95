@@ -1,0 +1,126 @@
+﻿<div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" /></div>
+<div *ngIf="!isLoading">
+    <h2>РСУР: Главное меню</h2>
+
+    <div *ngIf="isArea()" class="list-container">
+        <h3 class="list-header">Диагностика «Декабрь-2017»</h3>
+        <div class="list-item">
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/ис_14.12.2017_распределение_{{account.UserName}}.xlsx"><div><h4><b>История: Распределение</b></h4></div></a>
+            <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Индивидуальные комплекты</h4></div></a>
+            <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Ключи</h4></div></a>
+            <div *ngIf="account.UserName !== '209' && false; else area209" class="list-item-link progressbar-container">
+                <h4>Русский язык: Заполенение протоколов проверки заданий</h4>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" value="67"></ngb-progressbar></span>
+            </div>
+            <ng-template #area209>
+                <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Бланки ответов</h4></div></a>
+            </ng-template>
+        </div>
+    </div>
+
+    <ng-template #rsur16>
+        <ul class="list-group">
+            <li class="list-group-item progressbar-container">
+                <a routerLink="/rsur/tests/1082/protocols"><b>Орфография</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1082)"></ngb-progressbar></span>
+            </li>
+            <li *ngIf="0 == 1" class="list-group-item progressbar-container">
+                <a routerLink="/rsur/tests/1083/protocols"><b>Пунктуация</b></a>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="getProgressValue(1083)"></ngb-progressbar></span>
+            </li>
+        </ul>
+    </ng-template>
+
+    <div *ngIf="isArea() || isSchool()" class="list-container">
+        <h3 class="list-header">Участники</h3>
+        <div class="list-item">
+            <a class="list-item-link" routerLink="/rsur/particips">
+                <div>
+                    <h4>Список участников</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container">
+        <h3 class="list-header">Вспомогательный материал</h3>
+        <div class="list-item">
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/E6sR/WAFY5mpEu">
+                <div>
+                    <h4>Спецификации КИМ</h4>
+                </div>
+            </a>
+        </div>
+        <div *ngIf="false" class="list-item">
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/H1cj/bQbLoHicw">
+                <div>
+                    <h4>Демо-версии КИМ</h4>
+                </div>
+            </a>
+        </div>
+        <div class="list-item">
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/Mzu7/N3yRJLLzp">
+                <div>
+                    <h4>Рекомендации и материалы диагностики «Октябрь-2017»</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div *ngIf="0==1" class="list-container">
+        <h3 class="list-header">Диагностики</h3>
+        <div class="list-item">
+            <a class="list-item-link" routerLink="/rsur/test">
+                <div>
+                    <h4>«Октябрь-2017»</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div *ngIf="isArea() || isSchool() || isRsurParticip()" class="list-container">
+        <h3 class="list-header">Отчеты</h3>
+        <div class="list-item">
+            <a class="list-item-link" routerLink="/rsur/results-list">
+                <div>
+                    <h4>Результаты диагностики «Октябрь-2017»</h4>
+                </div>
+            </a>
+        </div>
+        <div *ngIf="isArea() && account.UserName !== '206'" class="list-item">
+            <a class="list-item-link" routerLink="/rsur/ratings">
+                <div>
+                    <h4>Рейтинги</h4>
+                </div>
+            </a>
+        </div>
+        <div *ngIf="isSchool() || isArea()" class="list-item">
+            <a class="list-item-link" routerLink="/rsur/seminar-reports">
+                <div>
+                    <h4>Отчеты по семинарам</h4>
+                </div>
+            </a>
+        </div>
+        <div *ngIf="false" class="list-item">
+            <a class="list-item-link" routerLink="/rsur/match-protocol">
+                <div>
+                    <h4>Сопоставление</h4>
+                </div>
+            </a>
+        </div>
+        <div *ngIf="isArea() && false" class="list-item">
+            <a class="list-item-link" [routerLink]="['/rsur/scan-protocols']">
+                <div>
+                    <h4>Бланки ответов</h4>
+                </div>
+            </a>
+        </div>
+        <div *ngIf="isArea() && false" class="list-item">
+            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
+                <div>
+                    <h4>Протоколы проверки заданий</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

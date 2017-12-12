@@ -1,0 +1,19 @@
+﻿.page-content{
+    display:flex;
+    align-items:flex-start;
+}
+
+.form-side{
+    flex: 1 1 auto;
+    margin-left: 20px;
+}
+
+.markInput{
+    text-align:center;
+    width: 25px;
+    padding: 1px;
+}
+
+.markLabel{
+    width: 40px;
+}
