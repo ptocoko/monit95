@@ -26,6 +26,6 @@ namespace Monit95App.Services.Rsur.TestResult
         
         public int MaxMark { get; set; }
         
-        public int CurrentMark { get; set; }
+        public int? CurrentMark { get; set; }
     }
 }

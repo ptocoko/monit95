@@ -76,8 +76,67 @@ namespace Monit95App.Services.Tests
             ((IQueryable<RsurTestResult>)mockSet).Expression.Returns(data.Expression);
             ((IQueryable<RsurTestResult>)mockSet).ElementType.Returns(data.ElementType);
             ((IQueryable<RsurTestResult>)mockSet).GetEnumerator().Returns(data.GetEnumerator());
+
+            #region RsurParticipTest Mocking
+            var participTestData = new List<RsurParticipTest>
+            {
+                new RsurParticipTest
+                {
+                    Id = 1234,
+                    RsurParticipCode = 12345,
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true,
+                        Test = new Test
+                        {
+                            NumberCode = "0101",
+                            Name = "Орфография"
+                        }
+                    },
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    }
+                },
+                new RsurParticipTest
+                {
+                    Id = 1235,
+                    RsurParticipCode = 12346,
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true,
+                        Test = new Test
+                        {
+                            NumberCode = "0101",
+                            Name = "Орфография"
+                        }
+                    },
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    },
+                    RsurTestResult = new RsurTestResult
+                    {
+                        RsurQuestionValues = "1;0;1;0"
+                    }
+                }
+            }.AsQueryable();
+            var participTestMockSet = Substitute.For<DbSet<RsurParticipTest>, IQueryable<RsurParticipTest>>();
+            ((IQueryable<RsurParticipTest>)participTestMockSet).Provider.Returns(participTestData.Provider);
+            ((IQueryable<RsurParticipTest>)participTestMockSet).Expression.Returns(participTestData.Expression);
+            ((IQueryable<RsurParticipTest>)participTestMockSet).ElementType.Returns(participTestData.ElementType);
+            ((IQueryable<RsurParticipTest>)participTestMockSet).GetEnumerator().Returns(participTestData.GetEnumerator());
+            #endregion
+
             this.mockContext = Substitute.For<CokoContext>();
             mockContext.RsurTestResults.Returns(mockSet);
+            mockContext.RsurParticipTests.Returns(participTestMockSet);
         }
 
         [TestMethod]
@@ -279,6 +338,16 @@ namespace Monit95App.Services.Tests
             // question2
             Assert.AreEqual(question2.MaxMark, 1);
             Assert.AreEqual(question2.CurrentMark, 1);
+        }
+
+        [TestMethod]
+        public void GetQuestionProtocolsListTest()
+        {
+            var service = new TestResultService(new CokoContext());
+
+            var result = service.GetQuestionProtocolList(201).Result;
+
+            Assert.AreEqual(true, result.Count() > 0);
         }
     }
 }

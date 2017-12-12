@@ -72,7 +72,7 @@ var MatchingProtocolComponent = /** @class */ (function () {
     };
     MatchingProtocolComponent.prototype.sendMarks = function (marksProtocol) {
         var _this = this;
-        this.rsurProtocolsService.sendMarksProtocol(marksProtocol).subscribe(function (response) { return _this.location.back(); });
+        this.rsurProtocolsService.postMarksProtocol(marksProtocol).subscribe(function (response) { return _this.location.back(); });
     };
     MatchingProtocolComponent.prototype.cancel = function () {
         this.location.back();

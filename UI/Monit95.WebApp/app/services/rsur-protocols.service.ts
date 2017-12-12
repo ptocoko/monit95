@@ -15,7 +15,7 @@ import { Protocol } from "../models/protocol.model";
 export class RsurProtocolsService {
 	constructor(private http: HttpClient) { }
 
-	private marksProtocolUrl = '/api/rsur/marksProtocols';
+	private marksProtocolUrl = '/api/rsur/testResults';
 	private scansUrl = '/api/rsur/scans';
 
 	private sortFunc<T>(first: T|any, second: T|any) {
@@ -87,15 +87,13 @@ export class RsurProtocolsService {
 	}
 
 	getQuestionProtocols() {
-		return Observable.of(questionProtocols)
-			.map(s => {
-				s.forEach(val => {
-					if (val.RsurQuestionValues === 'wasnot')
-						val.RsurQuestionValues = 'отсутствовал';
-				});
-				return s;
+		return this.http.get<Protocol[]>(this.marksProtocolUrl).map(s => {
+			s.forEach(val => {
+				if (val.RsurQuestionValues === 'wasnot')
+					val.RsurQuestionValues = 'отсутствовал';
 			})
-			.delay(500);
+			return s;
+		})
 	}
 
 	postMarksProtocol(marksProtocol: MarksProtocol) {
@@ -105,10 +103,7 @@ export class RsurProtocolsService {
 	}
 
 	markAsAbsent(participTestId: number) {
-		console.log('i mark this particip as absent')
-		return Observable.of(null).delay(500);
-
-		//return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
+		return this.http.put(`${this.marksProtocolUrl}/${participTestId}/markAsAbsent`, null, { responseType: 'text' });
 	}
 
 	getScan(fileId: number) {

@@ -11,7 +11,7 @@ var Subject_1 = require("rxjs/Subject");
 var RsurProtocolsService = /** @class */ (function () {
     function RsurProtocolsService(http) {
         this.http = http;
-        this.marksProtocolUrl = '/api/rsur/marksProtocols';
+        this.marksProtocolUrl = '/api/rsur/testResults';
         this.scansUrl = '/api/rsur/scans';
     }
     RsurProtocolsService.prototype.sortFunc = function (first, second) {
@@ -77,31 +77,32 @@ var RsurProtocolsService = /** @class */ (function () {
         //});
     };
     RsurProtocolsService.prototype.getQuestionProtocols = function () {
-        return Observable_1.Observable.of(questionProtocols)
-            .map(function (s) {
+        //return Observable.of(questionProtocols)
+        //	.map(s => {
+        //		s.forEach(val => {
+        //			if (val.RsurQuestionValues === 'wasnot')
+        //				val.RsurQuestionValues = 'отсутствовал';
+        //		});
+        //		return s;
+        //	})
+        //	.delay(500);
+        return this.http.get(this.marksProtocolUrl).map(function (s) {
             s.forEach(function (val) {
-                if (val.Marks === 'wasnot')
-                    val.Marks = 'отсутствовал';
+                if (val.RsurQuestionValues === 'wasnot')
+                    val.RsurQuestionValues = 'отсутствовал';
             });
             return s;
-        })
-            .delay(500);
+        });
     };
-    RsurProtocolsService.prototype.sendMarksProtocol = function (marksProtocol) {
-        if (marksProtocol.IsUpdate) {
-            console.log('im put your marks!');
-            //return this.http.put(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
-        }
-        else {
-            console.log('im post your marks');
-            //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
-        }
+    RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
+        console.log('im post your marks');
         return Observable_1.Observable.of(null).delay(500);
+        //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
     };
     RsurProtocolsService.prototype.markAsAbsent = function (participTestId) {
-        console.log('i mark this particip as absent');
-        return Observable_1.Observable.of(null).delay(500);
-        //return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
+        //console.log('i mark this particip as absent')
+        //return Observable.of(null).delay(500);
+        return this.http.put(this.marksProtocolUrl + "/" + participTestId + "/markAsAbsent", null, { responseType: 'text' });
     };
     RsurProtocolsService.prototype.getScan = function (fileId) {
         return Observable_1.Observable.of(protocolScanModel).delay(500);
@@ -162,14 +163,14 @@ var answerSheets = [
     {
         ParticipCode: 12345,
         TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+        RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
         SourceName: 'IMG_002.JPG',
         FileId: 1234
     },
     {
         ParticipCode: 54321,
         TestName: '0101 — Орфография',
-        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+        RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
         SourceName: 'IMG_001.JPG',
         FileId: 4321
     },
@@ -183,19 +184,19 @@ var questionProtocols = [
         ParticipCode: 12345,
         ParticipTestId: 1234,
         TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+        RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
     },
     {
         ParticipCode: 54321,
         ParticipTestId: 4321,
         TestName: '0101 — Орфография',
-        Marks: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1'
+        RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1'
     },
     {
         ParticipCode: 89906,
         ParticipTestId: 2435,
         TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-        Marks: 'wasnot'
+        RsurQuestionValues: 'wasnot'
     },
     {
         ParticipCode: 23451,

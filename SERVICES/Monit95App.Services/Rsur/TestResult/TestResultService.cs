@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Validation;
@@ -109,40 +110,41 @@ namespace Monit95App.Services.Rsur.TestResult
                 throw new ArgumentException($"{nameof(participCode)} has to be 10000-99999 and {nameof(areaCode)} has to be 210-217");
             } 
             
-            var rsurTestResultOfParticip = this.context.RsurTestResults.SingleOrDefault(x => x.RsurParticipTest.RsurParticipCode == participCode
-                                                                                 && x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
-                                                                                        && x.RsurParticipTest.RsurTest
-                                                                                            .IsOpen);
-            if (rsurTestResultOfParticip == null)
+            var rsurParticipTest = this.context.RsurParticipTests.SingleOrDefault(x => x.RsurParticipCode == participCode
+                                                                                 && x.RsurParticip.School.AreaCode == areaCode
+                                                                                        && x.RsurTest.IsOpen);
+            if (rsurParticipTest == null)
             {
                 throw new ArgumentException($"{nameof(participCode)} is incorrect or is not access for current user");
             }
 
             var marksProtocol = new TestResulteEditDto
             {
-                ParticipCode = rsurTestResultOfParticip.RsurParticipTest.RsurParticipCode,
-                ParticipTestId = rsurTestResultOfParticip.RsurParticipTestId,
-                TestName = $"{rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.NumberCode}-{rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.Name}"
+                ParticipCode = rsurParticipTest.RsurParticipCode,
+                ParticipTestId = rsurParticipTest.Id,
+                TestName = $"{rsurParticipTest.RsurTest.Test.NumberCode}-{rsurParticipTest.RsurTest.Test.Name}"
             };
             
-            if(rsurTestResultOfParticip != null)
+            string[] currentMarks = null;
+            if(rsurParticipTest.RsurTestResult != null && rsurParticipTest.RsurTestResult.RsurQuestionValues != "wasnot")
             {
-                var currentMarks = rsurTestResultOfParticip.RsurQuestionValues.Split(';');
-                var testQuestions = rsurTestResultOfParticip.RsurParticipTest.RsurTest.Test.TestQuestions.ToList();
-                int index = 0;
-                marksProtocol.QuestionResults = new List<QuestionResult>();
-                foreach (var question in testQuestions.OrderBy(x => x.Order))
+                currentMarks = rsurParticipTest.RsurTestResult.RsurQuestionValues.Split(';');
+            } 
+            var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList();
+            int index = 0;
+            marksProtocol.QuestionResults = new List<QuestionResult>();
+            foreach (var question in testQuestions.OrderBy(x => x.Order))
+            {
+                marksProtocol.QuestionResults.Add(new QuestionResult
                 {
-                    marksProtocol.QuestionResults.Add(new QuestionResult
-                    {
-                        Order = question.Order,
-                        Name = question.Name,
-                        MaxMark = question.Question.MaxMark,
-                        CurrentMark = int.Parse(currentMarks[index])
-                    });
-                    index++;
-                }
+                    Order = question.Order,
+                    Name = question.Name,
+                    MaxMark = question.Question.MaxMark,
+                    CurrentMark = currentMarks != null ? (int?)int.Parse(currentMarks[index]) : null
+                });
+                index++;
             }
+            
             
             return marksProtocol;            
         }
@@ -229,33 +231,33 @@ namespace Monit95App.Services.Rsur.TestResult
             return result;
         }
 
-        public ServiceResult<IEnumerable<TestResultViewDto>> GetAll(int areaCode)
+        //public ServiceResult<IEnumerable<TestResultViewDto>> GetAll(int areaCode)
+        //{
+        //    var result = new ServiceResult<IEnumerable<TestResultViewDto>>();
+
+        //    var entities = context.RsurTestResults.Where(x => x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
+        //                                                   && x.RsurParticipTest.RsurTest.IsOpen).ToList();
+
+        //    if (!entities.Any())
+        //    {
+        //        result.Errors.Add(new ServiceError { HttpCode = 404 });
+        //        return result;
+        //    }
+
+        //    result.Result = entities.Select(entity => new TestResultViewDto
+        //    {
+        //        ParticipCode = entity.RsurParticipTest.RsurParticipCode,
+        //        TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}-{entity.RsurParticipTest.RsurTest.Test.Name}",
+        //        RsurQuestionValues = entity.RsurQuestionValues,
+        //        FileSourceName = entity.File.SourceName //for Model #2
+        //    });
+
+        //    return result;
+        //}
+
+        public ServiceResult<IEnumerable<TestResultViewDto>> GetQuestionProtocolList(int areaCode)
         {
             var result = new ServiceResult<IEnumerable<TestResultViewDto>>();
-
-            var entities = context.RsurTestResults.Where(x => x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
-                                                           && x.RsurParticipTest.RsurTest.IsOpen).ToList();
-
-            if (!entities.Any())
-            {
-                result.Errors.Add(new ServiceError { HttpCode = 404 });
-                return result;
-            }
-
-            result.Result = entities.Select(entity => new TestResultViewDto
-            {
-                ParticipCode = entity.RsurParticipTest.RsurParticipCode,
-                TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}-{entity.RsurParticipTest.RsurTest.Test.Name}",
-                RsurQuestionValues = entity.RsurQuestionValues,
-                FileSourceName = entity.File.SourceName //for Model #2
-            });
-
-            return result;
-        }
-
-        public ServiceResult<IEnumerable<dynamic>> GetQuestionProtocolList(int areaCode)
-        {
-            var result = new ServiceResult<IEnumerable<dynamic>>();
 
             var entities = context.RsurParticipTests.Where(x => x.RsurParticip.School.AreaCode == areaCode
                                                              && x.RsurTest.IsOpen);
@@ -266,30 +268,44 @@ namespace Monit95App.Services.Rsur.TestResult
                 return result;
             }
 
-            result.Result = entities.Select(s => new
+            result.Result = entities.Select(s => new TestResultViewDto
             {
                 ParticipCode = s.RsurParticipCode,
                 ParticipTestId = s.Id,
                 RsurQuestionValues = s.RsurTestResult.RsurQuestionValues,
                 TestName = s.RsurTest.Test.NumberCode + "-" + s.RsurTest.Test.Name
-            });
+            }).OrderBy(ob => ob.ParticipCode);
 
             return result;
         }
 
-        public VoidResult MarkAsAbsent(int participTestId)
+        public VoidResult MarkAsAbsent(int participTestId, int areaCode)
         {
             var result = new VoidResult();
+
+            if(!context.RsurParticipTests.Any(p => p.RsurParticip.School.AreaCode == areaCode && p.Id == participTestId))
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"{nameof(participTestId)} which equals {participTestId} not exist in current area" });
+                return result;
+            }
 
             var participResult = context.RsurTestResults.SingleOrDefault(s => s.RsurParticipTestId == participTestId);
 
             if (participResult == null)
             {
-                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Test result with {nameof(participTestId)} equals {participTestId} not exist" });
+                participResult = new RsurTestResult
+                {
+                    RsurParticipTestId = participTestId,
+                    RsurQuestionValues = "wasnot"
+                };
+                context.RsurTestResults.Add(participResult);
+                context.SaveChanges();
+
                 return result;
             }
 
             participResult.RsurQuestionValues = "wasnot";
+            context.SaveChanges();
 
             return result;
         }

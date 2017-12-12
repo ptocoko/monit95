@@ -16,17 +16,17 @@ namespace Monit95.WebApp.RESTful_API.Rsur
     [RoutePrefix("api/rsur/testResults")]
     public class TestResultsController : ApiController
     {
-        private readonly ITestResultService testResultService;        
+        private readonly ITestResultService testResultService;
 
         public TestResultsController(ITestResultService testResultService)
         {
-            this.testResultService = testResultService;            
+            this.testResultService = testResultService;
         }
 
         [HttpPost]
         [Route("")]
         public HttpResponseMessage Post([FromBody]TestResulteEditDto testResultDto)
-        {                       
+        {
             var areaCode = int.Parse(User.Identity.Name);
             var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
 
@@ -41,7 +41,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
         }
-           
+
         /// <summary>
         /// Получает протокол проверки заданий участника. Поиск идет среди текущих отрытых тестов
         /// </summary>
@@ -77,16 +77,37 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         public IHttpActionResult GetAll()
         {
             var areaCode = Convert.ToInt32(User.Identity.Name);
-            var result = testResultService.GetAll(areaCode);
+            var result = testResultService.GetQuestionProtocolList(areaCode);
 
             // Success
             if (!result.Errors.Any())
-                return Ok(result.Result);          
+                return Ok(result.Result);
 
             // Error: another
             foreach (var error in result.Errors)
                 ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
             return BadRequest(ModelState);
+        }
+
+        [HttpPut]
+        [Route("{participTestId:int}/markAsAbsent")]
+        public IHttpActionResult MarkAsAbsent()
+        {
+            var participTestId = int.Parse(RequestContext.RouteData.Values["participTestId"].ToString());
+            var areaCode = int.Parse(User.Identity.Name);
+
+            var result = testResultService.MarkAsAbsent(participTestId, areaCode);
+
+            if (!result.Errors.Any())
+            {
+                return Ok();
+            }
+
+            foreach (var error in result.Errors)
+            {
+                this.ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            }
+            return BadRequest(this.ModelState);
         }
     }
 }

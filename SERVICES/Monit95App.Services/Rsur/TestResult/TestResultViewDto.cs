@@ -17,10 +17,6 @@
         /// </summary>
         public string RsurQuestionValues { get; set; }
 
-        /// <summary>
-        /// Имя файла бланка ответов на стороне клиента
-        /// <example>IMG-2017-12-09.TIF</example>
-        /// </summary>
-        public string FileSourceName { get; set; }
+        public int ParticipTestId { get; set; }
     }       
 }

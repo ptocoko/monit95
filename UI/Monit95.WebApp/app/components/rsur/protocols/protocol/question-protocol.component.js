@@ -22,7 +22,7 @@ var QuestionProtocolComponent = /** @class */ (function () {
     };
     QuestionProtocolComponent.prototype.send = function (marksProtocol) {
         var _this = this;
-        this.rsurProtocolService.sendMarksProtocol(marksProtocol).subscribe(function (response) { return _this.location.back(); });
+        this.rsurProtocolService.postMarksProtocol(marksProtocol).subscribe(function (response) { return _this.location.back(); });
     };
     QuestionProtocolComponent.prototype.cancel = function () {
         this.location.back();
