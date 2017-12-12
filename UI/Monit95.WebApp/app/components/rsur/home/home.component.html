@@ -2,18 +2,18 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="true" class="list-container">
+    <div *ngIf="isArea()" class="list-container">
         <h3 class="list-header">Диагностика «Декабрь-2017»</h3>
         <div class="list-item">
-            <a class="list-item-link" href="#"><div><h4><b>Русский язык: Распределение</b></h4></div></a>
-            <a class="list-item-link" href="#"><div><h4>Русский язык: Индивидуальные комплекты</h4></div></a>
-            <a class="list-item-link" href="#"><div><h4>Русский язык: Ключи</h4></div></a>
-            <div *ngIf="account.UserName !== '209'; else area209" class="list-item-link progressbar-container">
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/ис_14.12.2017_распределение_{{account.UserName}}.xlsx"><div><h4><b>История: Распределение</b></h4></div></a>
+            <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Индивидуальные комплекты</h4></div></a>
+            <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Ключи</h4></div></a>
+            <div *ngIf="account.UserName !== '209' && false; else area209" class="list-item-link progressbar-container">
                 <h4>Русский язык: Заполенение протоколов проверки заданий</h4>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" value="67"></ngb-progressbar></span>
             </div>
             <ng-template #area209>
-                <a class="list-item-link" href="#"><div><h4>Русский язык: Бланки ответов</h4></div></a>
+                <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Бланки ответов</h4></div></a>
             </ng-template>
         </div>
     </div>
@@ -108,14 +108,14 @@
                 </div>
             </a>
         </div>
-        <div *ngIf="isArea()" class="list-item">
+        <div *ngIf="isArea() && false" class="list-item">
             <a class="list-item-link" [routerLink]="['/rsur/scan-protocols']">
                 <div>
                     <h4>Бланки ответов</h4>
                 </div>
             </a>
         </div>
-        <div *ngIf="isArea()" class="list-item">
+        <div *ngIf="isArea() && false" class="list-item">
             <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                 <div>
                     <h4>Протоколы проверки заданий</h4>

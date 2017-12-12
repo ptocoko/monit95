@@ -8,7 +8,6 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.File;
 using NSubstitute;
-using File = Monit95App.Domain.Core.Entities.File;
 
 namespace Monit95App.Services.Tests
 {
@@ -37,7 +36,7 @@ namespace Monit95App.Services.Tests
                             IsOpen = true
                         }
                     },
-                    File = new File
+                    File = new Domain.Core.Entities.File
                     {
                         HexHash = "E018AB91DC96E2BB07D6EBD097D4779D"
                     }
@@ -47,7 +46,7 @@ namespace Monit95App.Services.Tests
             var mockRsurTestResultSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
             ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Expression.Returns(fakeRsurTestList.Expression);
 
-            var mockFileSet = Substitute.For<DbSet<File>, IQueryable<File>>();
+            var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
 
             Directory.CreateDirectory(@"c:\repositories\2");
             var fakeStream = new MemoryStream(Encoding.UTF8.GetBytes("fake"));
@@ -71,9 +70,9 @@ namespace Monit95App.Services.Tests
         {
             // Arrange
             // Mocking DbSet<File>
-            var fakeFiles = new List<File>
+            var fakeFiles = new List<Domain.Core.Entities.File>
             {
-                new File
+                new Domain.Core.Entities.File
                 {
                     Id = 1,
                     FilePermissonList = new List<FilePermisson>
@@ -86,9 +85,9 @@ namespace Monit95App.Services.Tests
                     }
                 }
             }.AsQueryable();
-            var mockFileSet = Substitute.For<DbSet<File>, IQueryable<File>>();
-            ((IQueryable<File>)mockFileSet).Expression.Returns(fakeFiles.Expression);
-            ((IQueryable<File>)mockFileSet).Provider.Returns(fakeFiles.Provider); // SingOrDefault                  
+            var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
+            ((IQueryable<Domain.Core.Entities.File>)mockFileSet).Expression.Returns(fakeFiles.Expression);
+            ((IQueryable<Domain.Core.Entities.File>)mockFileSet).Provider.Returns(fakeFiles.Provider); // SingOrDefault                  
 
             // Mocking CokoContext            
             var mockCokoContext = Substitute.For<CokoContext>();

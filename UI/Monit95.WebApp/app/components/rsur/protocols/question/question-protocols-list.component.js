@@ -10,8 +10,8 @@ var QuestionProtocolsList = /** @class */ (function () {
         var _this = this;
         this.rsurProtocolsService = rsurProtocolsService;
         this.router = router;
-        this.processedProtocols = function () { return _this.questionProtocols.filter(function (f) { return f.Marks; }).length; };
-        this.notProcessedProtocols = function () { return _this.questionProtocols.filter(function (f) { return !f.Marks; }).length; };
+        this.processedProtocols = function () { return _this.questionProtocols.filter(function (f) { return f.RsurQuestionValues; }).length; };
+        this.notProcessedProtocols = function () { return _this.questionProtocols.filter(function (f) { return !f.RsurQuestionValues; }).length; };
     }
     QuestionProtocolsList.prototype.ngOnInit = function () {
         var _this = this;
@@ -38,7 +38,7 @@ var QuestionProtocolsList = /** @class */ (function () {
     };
     QuestionProtocolsList.prototype.markAsAbsent = function (questionProtocol) {
         this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
-            .subscribe(function (res) { return questionProtocol.Marks = 'отсутствовал'; });
+            .subscribe(function (res) { return questionProtocol.RsurQuestionValues = 'отсутствовал'; });
     };
     tslib_1.__decorate([
         core_1.ViewChild('participCodeInput'),
