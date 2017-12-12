@@ -25,7 +25,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Post([FromBody]TestResulteEditDto testResultDto)
+        public HttpResponseMessage Post([FromBody]TestResultEditDto testResultDto)
         {
             var areaCode = int.Parse(User.Identity.Name);
             var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
@@ -42,6 +42,26 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
         }
 
+        [HttpPut]
+        [Route("{participCode:int}")]
+        public HttpResponseMessage Put([FromBody]TestResultEditDto testResultDto)
+        {
+            var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
+            var areaCode = int.Parse(User.Identity.Name);
+            var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
+
+            if (!result.Errors.Any())
+            {
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+
+            foreach (var error in result.Errors)
+            {
+                this.ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);            
+        }
+
         /// <summary>
         /// Получает протокол проверки заданий участника. Поиск идет среди текущих отрытых тестов
         /// </summary>
@@ -55,7 +75,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
             var areaCode = int.Parse(User.Identity.Name);
 
-            TestResulteEditDto marksProtocol;
+            TestResultEditDto marksProtocol;
             try
             {
                 marksProtocol = this.testResultService.Get(participCode, areaCode);

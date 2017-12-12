@@ -261,7 +261,7 @@ namespace Monit95App.Services.Tests
             mockContext.RsurTestResults.Returns(mockRsurTestResultSet);
 
             var service = new TestResultService(mockContext);
-            var marksProtocol1 = new TestResulteEditDto()
+            var marksProtocol1 = new TestResultEditDto()
             {
                 ParticipTestId = 1,
                 QuestionResults = new List<QuestionResult>()
@@ -271,7 +271,7 @@ namespace Monit95App.Services.Tests
                  new QuestionResult { Order = 3, CurrentMark = 1 }
                 }
             };
-            var marksProtocol2 = new TestResulteEditDto
+            var marksProtocol2 = new TestResultEditDto
             {
                 ParticipTestId = 2,
                 QuestionResults = new List<QuestionResult>()

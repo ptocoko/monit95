@@ -168,7 +168,7 @@
     <Compile Include="Rsur\SeminarReport\SeminarReportModel.cs" />
     <Compile Include="Rsur\SeminarReport\SeminarReportService.cs" />
     <Compile Include="Rsur\TestResult\ITestResultService.cs" />
-    <Compile Include="Rsur\TestResult\TestResulteEditDto.cs" />
+    <Compile Include="Rsur\TestResult\TestResultEditDto.cs" />
     <Compile Include="Rsur\TestResult\TestResultService.cs" />
     <Compile Include="Rsur\TestResult\TestResultViewDto.cs" />
     <Compile Include="School\SchoolEditService.cs" />

@@ -11,9 +11,9 @@ namespace Monit95App.Services.Rsur.TestResult
 
         string GetTestName(int rsurTestId);                
 
-        TestResulteEditDto Get(int participCode, int areaCode); // areaCode for Validate
+        TestResultEditDto Get(int participCode, int areaCode); // areaCode for Validate
 
-        VoidResult CreateOrUpdate(TestResulteEditDto testResultDto, int areaCode);
+        VoidResult CreateOrUpdate(TestResultEditDto testResultDto, int areaCode);
         //ServiceResult<IEnumerable<TestResultViewDto>> GetAll(int areaCode);
         ServiceResult<IEnumerable<TestResultViewDto>> GetQuestionProtocolList(int areaCode);
 

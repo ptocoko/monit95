@@ -41,7 +41,7 @@ namespace Monit95App.Services.Rsur.TestResult
 
         #region Methods
 
-        public IEnumerable<TestResulteEditDto> GetProtocols(int rsurTestId, int areaCode)
+        public IEnumerable<TestResultEditDto> GetProtocols(int rsurTestId, int areaCode)
         {
             //var protocols = context.RsurParticipTests
             //    .Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
@@ -102,7 +102,7 @@ namespace Monit95App.Services.Rsur.TestResult
                                     .Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
         }
 
-        public TestResulteEditDto Get(int participCode, int areaCode)
+        public TestResultEditDto Get(int participCode, int areaCode)
         {
             if (!Enumerable.Range(10000, 99999).Contains(participCode)
                 || !Enumerable.Range(201, 217).Contains(areaCode))
@@ -118,7 +118,7 @@ namespace Monit95App.Services.Rsur.TestResult
                 throw new ArgumentException($"{nameof(participCode)} is incorrect or is not access for current user");
             }
 
-            var marksProtocol = new TestResulteEditDto
+            var marksProtocol = new TestResultEditDto
             {
                 ParticipCode = rsurParticipTest.RsurParticipCode,
                 ParticipTestId = rsurParticipTest.Id,
@@ -155,23 +155,13 @@ namespace Monit95App.Services.Rsur.TestResult
         /// <param name="testResultDto"></param>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public VoidResult CreateOrUpdate(TestResulteEditDto testResultDto, int areaCode)
+        public VoidResult CreateOrUpdate(TestResultEditDto testResultDto, int areaCode)
         {
-            var result = new VoidResult();                                         
-            
-            if (testResultDto == null)
-            {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(testResultDto)} is null" });                
-                return result;
-            }                
+            var result = new VoidResult();                     
 
-            if (testResultDto.QuestionResults == null)
-            {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(testResultDto.QuestionResults)}" });                
-                return result;
-            }                
-
+            // Получаем объект RsurParticipTest
             var rsurParticipTest = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == testResultDto.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode);
+                        
             if (rsurParticipTest == null)
             {
                 result.Errors.Add(new ServiceError {                    
@@ -181,9 +171,9 @@ namespace Monit95App.Services.Rsur.TestResult
                 });                
                 return result;
             }
-            
+
             var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // current test's testQuestions
-            if (testQuestions.Count != testResultDto.QuestionResults.Count)
+            if (testQuestions.Count != testResultDto.QuestionResults?.Count())
             {
                 result.Errors.Add(new ServiceError { Description = $"{nameof(testQuestions)} count != {nameof(testResultDto.QuestionResults)}" });                
                 return result;
