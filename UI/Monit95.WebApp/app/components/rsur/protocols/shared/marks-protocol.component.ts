@@ -1,15 +1,15 @@
 ﻿import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import { MarksProtocol } from "../../../../models/marks-protocol.model";
 import { Observable } from "rxjs/Observable";
-import { FormGroup } from "@angular/forms";
+import { FormGroup, NgForm } from "@angular/forms";
 
 @Component({
 	selector: 'marks-protocol',
-	templateUrl: `./app/components/rsur/protocols/protocol/marks-protocol.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/protocols/protocol/marks-protocol.component.css?v=${new Date().getTime()}`]
+	templateUrl: `./app/components/rsur/protocols/shared/marks-protocol.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/protocols/shared/marks-protocol.component.css?v=${new Date().getTime()}`]
 })
 export class MarksProtocolComponent implements AfterViewInit {
-	@ViewChild('marksForm.form') marksForm: FormGroup;
+	@ViewChild('marksForm') marksForm: NgForm;
 	inputElements: JQuery<HTMLInputElement>;
 
 	@Input('protocol') marksProtocol: MarksProtocol;
@@ -18,15 +18,15 @@ export class MarksProtocolComponent implements AfterViewInit {
 	@Output() onSend = new EventEmitter<MarksProtocol>();
 	@Output() onCancel = new EventEmitter();
 
-	errorMessage: string;
-
 	ngOnInit() {
 	}
 
 	ngAfterViewInit(): void {
 		this.inputElements = $('.markInput') as JQuery<HTMLInputElement>;
 		this.inputElements.focus((event) => event.target.select());
+
 		this.inputElements.get(0).focus();
+		this.inputElements.get(0).select();
 	}
 
 	markChange(event: any) {
@@ -54,7 +54,7 @@ export class MarksProtocolComponent implements AfterViewInit {
 			}
 		}
 		else {
-			$('#submitBtn').focus();
+			$().ready(() => $('#submitBtn').focus());
 		}
 	}
 

@@ -43,14 +43,15 @@ var MarksProtocolComponent = /** @class */ (function () {
         }
     };
     MarksProtocolComponent.prototype.send = function () {
-        this.onSend.emit(this.marksProtocol);
+        console.log(this.marksForm);
+        //this.onSend.emit(this.marksProtocol);
     };
     MarksProtocolComponent.prototype.cancel = function () {
         this.onCancel.emit();
     };
     tslib_1.__decorate([
-        core_1.ViewChild('marksForm.form'),
-        tslib_1.__metadata("design:type", forms_1.FormGroup)
+        core_1.ViewChild('marksForm'),
+        tslib_1.__metadata("design:type", forms_1.NgForm)
     ], MarksProtocolComponent.prototype, "marksForm", void 0);
     tslib_1.__decorate([
         core_1.Input('protocol'),
@@ -71,8 +72,8 @@ var MarksProtocolComponent = /** @class */ (function () {
     MarksProtocolComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'marks-protocol',
-            templateUrl: "./app/components/rsur/protocols/protocol/marks-protocol.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/rsur/protocols/protocol/marks-protocol.component.css?v=" + new Date().getTime()]
+            templateUrl: "./app/components/rsur/protocols/shared/marks-protocol.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/components/rsur/protocols/shared/marks-protocol.component.css?v=" + new Date().getTime()]
         })
     ], MarksProtocolComponent);
     return MarksProtocolComponent;

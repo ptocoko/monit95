@@ -1,23 +1,24 @@
-﻿<h2>Загрузка сканов</h2>
+﻿<h2>РСУР: Загрузка бланков ответов</h2>
 <hr />
 <ng-template [ngIf]="!isPageLoading">
-    <div>количество загруженных бланков: {{allCompleteCount}}</div>
+    <div>количество загруженных бланков: {{allCompleteCount()}}</div>
     <div>из них</div>
-    <div>распознано: {{allCompleteCount - notMatchedCount}}</div>
-    <div>не распознано: {{notMatchedCount}}</div>
-</ng-template>
-<div class="actions-bar">
-    <div class="search-field">
-        <mat-form-field>
-            <input [(ngModel)]="searchText" placeholder="Поиск..." matInput />
-        </mat-form-field>
-    </div>
+    <div>распознано: {{allCompleteCount() - notMatchedCount()}}</div>
+    <div>не распознано: {{notMatchedCount()}}</div>
+    <div class="actions-bar">
+        <div class="search-field">
+            <mat-form-field>
+                <input [(ngModel)]="searchText" placeholder="Поиск..." matInput />
+            </mat-form-field>
+        </div>
 
-    <a style="z-index:1" class="fileUploader" mat-raised-button [disabled]="isScansUploading">
-        <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg, .tif, .tiff" title="Отправить..." (change)="addPhoto($event)" multiple />
-        <span style="z-index:0" class="glyphicon glyphicon-upload"></span> Отправить...
-    </a>
-</div>
+        <a style="z-index:1" class="fileUploader" mat-raised-button [disabled]="isScansUploading">
+            <input style="z-index:1; cursor:pointer" type="file" accept=".png, .jpg, .jpeg, .tif, .tiff" title="Отправить..." (change)="addPhoto($event)" multiple />
+            <span style="z-index:0" class="glyphicon glyphicon-upload"></span> Отправить...
+        </a>
+    </div>
+</ng-template>
+
 <div *ngIf="answerSheets.length != 0 && !isPageLoading">
     <div>
         <table class="table table-bordered">

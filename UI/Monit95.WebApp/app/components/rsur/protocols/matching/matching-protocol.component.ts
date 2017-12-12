@@ -1,24 +1,28 @@
 ﻿
 import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
-import { RsurProtocolsService } from "../../../../../services/rsur-protocols.service";
+
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from "@angular/router";
-import { MarksProtocol } from "../../../../../models/marks-protocol.model";
+
 import { FormControl, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/filter';
-import { Scan } from "../../../../../models/scan.model";
+
+import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
+import { MarksProtocol } from '../../../../models/marks-protocol.model';
+import { Scan } from '../../../../models/scan.model';
 
 @Component({
 	selector: 'matching-protocol-component',
-	templateUrl: `./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/protocols/protocol/matching-protocol/matching-protocol.component.css?v=${new Date().getTime()}`]
+	templateUrl: `./app/components/rsur/protocols/matching/matching-protocol.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/protocols/matching/matching-protocol.component.css?v=${new Date().getTime()}`]
 })
 export class MatchingProtocolComponent implements OnInit{
 	protocolScan: Scan;
 	marksProtocol: MarksProtocol;
 	fileId: number;
+	isUpdate: boolean;
 	
 	isMarksProtocolLoading: boolean = false;
 
@@ -46,6 +50,7 @@ export class MatchingProtocolComponent implements OnInit{
 
 	initCallbacks(marksProtocol: MarksProtocol) {
 		if (!marksProtocol) {
+			this.isUpdate = false;
 			this.focusOnCodeElem();
 
 			let participCodeChange = Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
@@ -53,10 +58,11 @@ export class MatchingProtocolComponent implements OnInit{
 				.subscribe(event => this.participCodeSubscriber(event));
 		}
 		else {
+			this.isUpdate = true;
 			this.participCodeElem.nativeElement.value = marksProtocol.ParticipCode;
 			this.codeControl.disable();
 			this.marksProtocol = marksProtocol;
-			$().ready(() => this.initMarkInputs());
+			
 		}
 	}
 
@@ -77,68 +83,27 @@ export class MatchingProtocolComponent implements OnInit{
 		}
 	}
 
-	participTestSuccessHandler(res: MarksProtocol) {
-		this.marksProtocol = res;
+	participTestSuccessHandler(marksProtocol: MarksProtocol) {
+		this.marksProtocol = marksProtocol;
 		this.marksProtocol.FileId = this.fileId;
-		
 		this.isMarksProtocolLoading = false;
-
-		$().ready(() => { 
-			this.initMarkInputs();
-		});
 	}
 
 	participTestErrorHandler(error: any) {
-		let message = error.error.Message ? error.error.Message : error.message;
+		let message = error.error && error.error.Message ? error.error.Message : error.message ? error.message : error;
 
 		this.codeControl.enable();
-		this.codeControl.setErrors({ 'notExistCode': message }); //прицепляем к контролу кастомную ошибку валидации, 
+		this.codeControl.setErrors({ 'serverValidateError': message }); //прицепляем к контролу кастомную ошибку валидации, 
 																		//содержащее сообщение из ответа сервера
 		this.isMarksProtocolLoading = false;
 		this.focusOnCodeElem();
 	}
+	
 
-	//после отрисовки полей оценок с помощью JQuery прицепляем к каждому полю 
-	//обработчик фокуса и переводим фокус на первое поле
-	initMarkInputs() {
-		this.marksInputs = $('.markInput') as JQuery<HTMLInputElement>;
-		this.marksInputs.focus((event) => event.target.select());
-		this.marksInputs.get(0).focus();
+	sendMarks(marksProtocol: MarksProtocol) {
+		this.rsurProtocolsService.sendMarksProtocol(marksProtocol).subscribe(response => this.location.back());
 	}
-
-	sendMarks() {
-		console.log(this.marksProtocol);
-	}
-
-	onMarkChanged(event: any) {
-		let elem = event.target as HTMLInputElement;
-		let elemIndex = this.marksInputs.index(elem);
-
-		if (elem.value) {
-			if (elem.value.match(/^(1|0)$/)) {
-				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
-				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-			}
-			else {
-				elem.value = '1';
-				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = 1;
-				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
-			}
-		}
-	}
-
-	goToNextInputOrFocusOnSubmitBtn(elemIndex: number) {
-		if (elemIndex < this.marksInputs.length - 1) {
-			let nextInput = this.marksInputs.get(elemIndex + 1);
-			if (!nextInput.value) {
-				nextInput.focus();
-			}
-		}
-		else {
-			$('#submitBtn').focus();
-		}
-	}
-
+	
 	cancel() {
 		this.location.back();
 	}

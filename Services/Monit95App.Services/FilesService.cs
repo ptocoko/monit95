@@ -24,11 +24,11 @@ namespace Monit95App.Services
             foreach (var fileName in fileNames)
             {
                 if (!Path.IsPathRooted(fileName)) throw new ArgumentException("Имена файлов должны содержать полный путь к ним");
-                if (!File.Exists(fileName)) throw new ArgumentException($"Файла {fileName} не существует");
+                if (!System.IO.File.Exists(fileName)) throw new ArgumentException($"Файла {fileName} не существует");
 
                 using (var md5 = MD5.Create())
                 {
-                    using (var stream = File.OpenRead(fileName))
+                    using (var stream = System.IO.File.OpenRead(fileName))
                     {                        
                         var hash = md5.ComputeHash(stream);
                         hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
@@ -39,7 +39,7 @@ namespace Monit95App.Services
                 {
                     hashes.Add(hashString);
                     var fileNameWithoutPath = Path.GetFileName(fileName);
-                    File.Move(fileName, $"{distFolder}\\{fileNameWithoutPath}");
+                    System.IO.File.Move(fileName, $"{distFolder}\\{fileNameWithoutPath}");
 
                     movedFileNames.Add($"{distFolder}\\{fileNameWithoutPath}");
                 }

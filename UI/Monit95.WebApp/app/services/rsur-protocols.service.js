@@ -22,20 +22,29 @@ var RsurProtocolsService = /** @class */ (function () {
             return 1;
         }
     };
+    /**
+     * Возвращает протокол по коду участника
+     * @param participCode код участника
+     * @returns Observable<MarksProtocol>
+     */
     RsurProtocolsService.prototype.getMarksProtocol = function (participCode) {
         if (participCode == 12345) {
             particip.QuestionResults.sort(this.sortFunc);
-            return Observable_1.Observable.of(particip).delay(2000);
+            return Observable_1.Observable.of(tslib_1.__assign({}, particip)).delay(2000);
         }
         else {
-            var message_1;
+            var error_1;
             if (participCode == 12365)
-                message_1 = 'i error that here';
+                error_1 = {
+                    message: 'i error that here'
+                };
             else
-                message_1 = 'sadfasdfa';
+                error_1 = {
+                    message: 'sadfasdfa'
+                };
             return new Observable_1.Observable(function (observer) {
                 setTimeout(function () {
-                    observer.error(message_1);
+                    observer.error(error_1);
                 }, 1500);
             });
         }
@@ -44,9 +53,14 @@ var RsurProtocolsService = /** @class */ (function () {
         //	return s;
         //});
     };
+    /**
+     * Возвращает протокол по fileId
+     * @param participCode код участника
+     * @returns Observable<MarksProtocol>
+     */
     RsurProtocolsService.prototype.getMarksProtocolByFileId = function (fileId) {
         if (fileId === 6431) {
-            return Observable_1.Observable.of(particip).delay(1000);
+            return Observable_1.Observable.of(tslib_1.__assign({}, particip)).delay(1000);
         }
         else {
             return Observable_1.Observable.of(null).delay(500);
@@ -62,27 +76,6 @@ var RsurProtocolsService = /** @class */ (function () {
         //	}
         //});
     };
-    RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
-        if (!marksProtocol.FileId) {
-            console.error('need to attach fileId to the marksProtocol object');
-            return Observable_1.Observable.throw('there is no fileId');
-        }
-        else {
-            //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
-        }
-    };
-    RsurProtocolsService.prototype.markAsAbsent = function (participTestId) {
-        return Observable_1.Observable.of(null).delay(500);
-        //return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
-    };
-    RsurProtocolsService.prototype.getScan = function (fileId) {
-        return Observable_1.Observable.of(protocolScanModel).delay(2000);
-        //return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
-    };
-    RsurProtocolsService.prototype.getAnswerSheets = function () {
-        return Observable_1.Observable.of(answerSheets).delay(2000);
-        //return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
-    };
     RsurProtocolsService.prototype.getQuestionProtocols = function () {
         return Observable_1.Observable.of(questionProtocols)
             .map(function (s) {
@@ -93,6 +86,30 @@ var RsurProtocolsService = /** @class */ (function () {
             return s;
         })
             .delay(500);
+    };
+    RsurProtocolsService.prototype.sendMarksProtocol = function (marksProtocol) {
+        if (marksProtocol.IsUpdate) {
+            console.log('im put your marks!');
+            //return this.http.put(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
+        }
+        else {
+            console.log('im post your marks');
+            //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
+        }
+        return Observable_1.Observable.of(null).delay(2000);
+    };
+    RsurProtocolsService.prototype.markAsAbsent = function (participTestId) {
+        console.log('i mark this particip as absent');
+        return Observable_1.Observable.of(null).delay(500);
+        //return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
+    };
+    RsurProtocolsService.prototype.getScan = function (fileId) {
+        return Observable_1.Observable.of(protocolScanModel).delay(2000);
+        //return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
+    };
+    RsurProtocolsService.prototype.getAnswerSheets = function () {
+        return Observable_1.Observable.of(answerSheets).delay(2000);
+        //return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
         var fakeUrl = '/api/ExcelFiles/Upload';

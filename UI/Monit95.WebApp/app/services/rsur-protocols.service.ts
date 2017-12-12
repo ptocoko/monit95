@@ -26,24 +26,33 @@ export class RsurProtocolsService {
 			return 1;
 		}
 	}
-
+	
+	/**
+	 * Возвращает протокол по коду участника
+	 * @param participCode код участника
+	 * @returns Observable<MarksProtocol>
+	 */
 	getMarksProtocol(participCode: number): Observable<MarksProtocol> {
 		if (participCode == 12345) {
 			particip.QuestionResults.sort(this.sortFunc);
-			return Observable.of(particip).delay(2000);
+			return Observable.of({ ...particip }).delay(500);
 		}
 		else
 		{
-			let message: string;
+			let error: any;
 			if (participCode == 12365)
-				message = 'i error that here'
+				error = {
+					message: 'i error that here'
+				}
 			else
-				message = 'sadfasdfa'
+				error = {
+					message: 'sadfasdfa'
+				} 
 
 			return new Observable(observer => {
 				setTimeout(() => {
-					observer.error(message)
-				}, 1500)
+					observer.error(error)
+				}, 500)
 			});
 		}
 
@@ -53,9 +62,14 @@ export class RsurProtocolsService {
 		//});
 	}
 
+	/**
+	 * Возвращает протокол по fileId
+	 * @param participCode код участника
+	 * @returns Observable<MarksProtocol>
+	 */
 	getMarksProtocolByFileId(fileId: number) {
 		if (fileId === 6431) {
-			return Observable.of(particip).delay(1000);
+			return Observable.of({ ...particip }).delay(500);
 		}
 		else {
 			return Observable.of(null).delay(500);
@@ -72,34 +86,6 @@ export class RsurProtocolsService {
 		//});
 	}
 
-	postMarksProtocol(marksProtocol: MarksProtocol) {
-		if (!marksProtocol.FileId) {
-			console.error('need to attach fileId to the marksProtocol object')
-			return Observable.throw('there is no fileId')
-		}
-		else {
-			//return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
-		}
-	}
-
-	markAsAbsent(participTestId: number) {
-		return Observable.of(null).delay(500);
-
-		//return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
-	}
-
-	getScan(fileId: number) {
-		return Observable.of(protocolScanModel).delay(2000);
-
-		//return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
-	}
-
-	getAnswerSheets() {
-		return Observable.of(answerSheets).delay(2000);
-
-		//return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
-	}
-
 	getQuestionProtocols() {
 		return Observable.of(questionProtocols)
 			.map(s => {
@@ -110,6 +96,37 @@ export class RsurProtocolsService {
 				return s;
 			})
 			.delay(500);
+	}
+
+	sendMarksProtocol(marksProtocol: MarksProtocol) {
+		if (marksProtocol.IsUpdate) {
+			console.log('im put your marks!')
+			//return this.http.put(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
+		}
+		else {
+			console.log('im post your marks')
+			//return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
+		}
+		return Observable.of(null).delay(500);
+	}
+
+	markAsAbsent(participTestId: number) {
+		console.log('i mark this particip as absent')
+		return Observable.of(null).delay(500);
+
+		//return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
+	}
+
+	getScan(fileId: number) {
+		return Observable.of(protocolScanModel).delay(500);
+
+		//return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
+	}
+
+	getAnswerSheets() {
+		return Observable.of(answerSheets).delay(500);
+
+		//return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
 	}
 
 	postScan(file: File): Observable<number|HttpResponse<number>> {

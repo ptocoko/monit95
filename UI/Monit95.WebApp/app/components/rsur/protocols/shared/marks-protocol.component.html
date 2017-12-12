@@ -1,5 +1,5 @@
 ﻿<form *ngIf="marksProtocol" #marksForm="ngForm">
-    <h4 *ngIf="showParticipCode">{{marksProtocol.ParticipCode}}</h4>
+    <h4 *ngIf="showParticipCode">Код участника: {{marksProtocol.ParticipCode}}</h4>
     <p>Блок: {{marksProtocol.TestName}}</p>
     <div *ngFor="let question of marksProtocol.QuestionResults; let i = index" class="form-inline" style="margin-bottom:5px">
         <label class="markLabel">{{question.Name}}</label>

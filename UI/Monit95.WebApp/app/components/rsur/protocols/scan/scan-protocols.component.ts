@@ -1,81 +1,39 @@
 ﻿
 import { Component, OnInit, Pipe, PipeTransform, IterableDiffers, IterableDiffer, KeyValueDiffers, TemplateRef } from '@angular/core';
-import { RsurProtocolsService } from "../../../services/rsur-protocols.service";
 import { HttpResponse } from "@angular/common/http";
-import { Scan, AnswerSheet } from "../../../models/scan.model";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
+import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
+import { AnswerSheet } from '../../../../models/scan.model';
 
 @Component({
 	selector: 'scan-protocols-component',
-	templateUrl: `./app/components/rsur/protocols/scan-protocols.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/protocols/scan-protocols.component.css?v=${new Date().getTime()}`]
+	templateUrl: `./app/components/rsur/protocols/scan/scan-protocols.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/protocols/scan/scan-protocols.component.css?v=${new Date().getTime()}`]
 })
 export class ScanProtocolsComponent implements OnInit{
 	answerSheets: AnswerSheetForUpload[] = [];
 
-	allCompleteCount: number;
-	notMatchedCount: number;
+	allCompleteCount = () => this.answerSheets.filter(f => f.FileId).length;
+	notMatchedCount = () => this.answerSheets.filter(s => !s.ParticipCode && (s.Status === 'isComplete' || !s.Status)).length;
 	duplicatesCount: number;
-	failsCount: number;
+	failsCount = () => this.answerSheets.filter(s => s.Status === 'isFailed').length;
 
 	isPageLoading: boolean = false;
 
 	iterableDiffer: IterableDiffer<any>;
 	objDiffer: any;
 
-	constructor(private rsurProtocolsService: RsurProtocolsService,
-				private _iterableDiffers: IterableDiffers,
-				private differs: KeyValueDiffers) // IterableDiffers и KeyValueDiffers — встроенные в Angular детекторы 
-	{												//изменений состояния массивов и объектов соответственно (https://goo.gl/PVPKnU)
-
-		//подготовка для отслеживания изменения массива
-		this.iterableDiffer = _iterableDiffers.find([]).create(null);
-	}
+	constructor(private rsurProtocolsService: RsurProtocolsService) { }
 
 	ngOnInit() {
-		this.objDiffer = {};
 		this.isPageLoading = true;
 		this.rsurProtocolsService.getAnswerSheets().subscribe(res => {
 			this.answerSheets = res;
 			this.isPageLoading = false;
-
-			//подготовка differ'а для отслеживания изменений внутри объектов массива
-			this.answerSheets.forEach((elt: any) => {
-				this.objDiffer[elt] = this.differs.find(elt).create();
-			});
 		});
 	}
-
-	//ngDoCheck — часть жизненного цикла Angular (https://goo.gl/jBuc6s)
-	ngDoCheck() {
-
-		//если выявлены изменения в массиве или внутри объектов массива, то выполняется обновление статистических показателей
-		let isChanged: boolean = false;
-		let changes = this.iterableDiffer.diff(this.answerSheets);
-		if (changes) {
-			isChanged = true;
-		}
-
-		this.answerSheets.forEach((elt: any) => {
-			var objDiffer = this.objDiffer[elt];
-			var objChanges = objDiffer.diff(elt);
-			if (objChanges) {
-				isChanged = true;
-			}
-		});
-
-		if (isChanged) {
-			this.getStats();
-		}
-	}
-
-	getStats() {
-		this.allCompleteCount = this.answerSheets.filter(f => f.FileId).length;
-		this.notMatchedCount = this.answerSheets.filter(s => !s.ParticipCode && s.Status !== 'isFailed').length;
-		this.failsCount = this.answerSheets.filter(s => s.Status === 'isFailed').length;
-	}
-
+	
 	addPhoto(event: any) {
 		let files: FileList = event.target.files;
 
@@ -134,20 +92,25 @@ export class ScanProtocolsComponent implements OnInit{
 	//перед удалением бланка ответов проверяем, был ли он загружен на сервер
 	//если файла нет на сервере то достаточно удалить его из массива
 	deleteScan(answerSheet: AnswerSheetForUpload) {
-		let statusBeforeDeleting = answerSheet.Status;
-		answerSheet.Status = 'isDeleting';
-		if (statusBeforeDeleting !== 'isFailed') {
-			this.rsurProtocolsService.deleteScan(answerSheet.FileId).subscribe(
-				res => this.answerSheets.splice(this.answerSheets.indexOf(answerSheet), 1),
-				error => {
-					let message = error.message ? error.message : error;
-					alert(message);
-					console.error(error);
-					answerSheet.Status = statusBeforeDeleting;
-				});
-		}
-		else {
-			this.answerSheets.splice(this.answerSheets.indexOf(answerSheet), 1);
+		if (confirm('Вы уверены? \nЭто действие нельзя будет отменить'))
+		{
+			let statusBeforeDeleting = answerSheet.Status;
+			answerSheet.Status = 'isDeleting';
+
+			if (statusBeforeDeleting !== 'isFailed')
+			{
+				this.rsurProtocolsService.deleteScan(answerSheet.FileId).subscribe(
+					res => this.answerSheets.splice(this.answerSheets.indexOf(answerSheet), 1),
+					error => {
+						let message = error.message ? error.message : error;
+						alert(message);
+						console.error(error);
+						answerSheet.Status = statusBeforeDeleting;
+					});
+			}
+			else {
+				this.answerSheets.splice(this.answerSheets.indexOf(answerSheet), 1);
+			}
 		}
 	}
 

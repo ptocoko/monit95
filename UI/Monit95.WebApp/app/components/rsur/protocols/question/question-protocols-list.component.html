@@ -8,6 +8,7 @@
     <div class="search-field">
         <mat-form-field>
             <input #participCodeInput [(ngModel)]="searchText" maxlength="5" placeholder="Поиск по коду участника..." matInput />
+            <i class="glyphicon glyphicon-ok" matSuffix style="color:green" *ngIf="checkIfOnlyOneMatch(searchText)"></i>
         </mat-form-field>
     </div>
 
@@ -19,14 +20,14 @@
             <th>Баллы по заданиям</th>
             <th style="width:273px">Действия</th>
         </tr>
-        <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText; let i = index">
+        <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText | limitTo : 75; let i = index">
             <td class="row-number-cell">{{i + 1}}</td>
             <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
             <td>{{protocol.TestName}}</td>
             <td [ngClass]="{'red': !protocol.Marks}">{{protocol.Marks}}</td>
             <td>
                 <div class="pull-left">
-                    <button mat-raised-button color="primary"><i class="glyphicon glyphicon-edit"></i> изменить</button>
+                    <button mat-raised-button color="primary" [routerLink]="['/rsur/question-protocol', protocol.ParticipCode]"><i class="glyphicon glyphicon-edit"></i> изменить</button>
                     <button *ngIf="protocol.Marks !== 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
                         <i class="glyphicon glyphicon-header"></i> отсутствовал
                     </button>

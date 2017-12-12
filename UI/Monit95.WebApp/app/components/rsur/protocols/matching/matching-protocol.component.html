@@ -9,7 +9,7 @@
         <p>
             <mat-form-field [hideRequiredMarker]="true">
                 <input style="width:150px" matInput maxlength="5" placeholder="Введите код участника" #participCode  [formControl]="codeControl" required />
-                <mat-error *ngIf="codeControl.errors && codeControl.errors['notExistCode']">{{codeControl.errors['notExistCode']}}</mat-error>
+                <mat-error *ngIf="codeControl.errors && codeControl.errors['serverValidateError']">{{codeControl.errors['serverValidateError']}}</mat-error>
                 <mat-error *ngIf="codeControl.errors && codeControl.errors['minlength']">Минимальная длина кода составляет 5 символов</mat-error>
                 <mat-error *ngIf="codeControl.errors && codeControl.errors['pattern']">Код может содержать только цифры</mat-error>
             </mat-form-field>
@@ -18,19 +18,7 @@
             <mat-spinner></mat-spinner>
         </div>
         <div *ngIf="marksProtocol">
-            <!--<form #marksForm="ngForm">
-                <p>Блок: {{marksProtocol.TestName}}</p>
-                <div *ngFor="let question of marksProtocol.QuestionResults; let i = index" class="form-inline" style="margin-bottom:5px">
-                    <label class="markLabel">{{question.Name}}</label>
-                    <input (keyup)="onMarkChanged($event)" class="markInput" [(ngModel)]="question.CurrentMark" #mark{{i}}="ngModel" name="mark{{i}}" required />
-                </div>
-                <br />
-                <p class="pull-left">
-                    <button id="submitBtn" type="submit" (click)="sendMarks()" mat-raised-button color="primary" [disabled]="marksForm.invalid || marksForm.pristine">Сохранить</button>
-                    <button type="button" mat-raised-button color="warn" (click)="cancel()">Отмена</button>
-                </p>
-            </form>-->
-            <marks-protocol [protocol] = "marksProtocol" [showParticipCode]="false"></marks-protocol>
+            <marks-protocol [protocol]="marksProtocol" (onSend)="sendMarks($event)" (onCancel)="cancel()" [showParticipCode]="false"></marks-protocol>
         </div>
     </div>
 </div>
