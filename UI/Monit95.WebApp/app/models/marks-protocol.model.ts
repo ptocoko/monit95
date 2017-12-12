@@ -2,7 +2,6 @@
 
 export interface MarksProtocol extends Protocol {
 	FileId?: number;
-	IsUpdate?: boolean;
 	QuestionResults: QuestionResult[];
 }
 

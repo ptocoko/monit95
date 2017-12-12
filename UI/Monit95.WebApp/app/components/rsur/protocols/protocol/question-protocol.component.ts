@@ -25,7 +25,7 @@ export class QuestionProtocolComponent {
 	}
 
 	send(marksProtocol: MarksProtocol) {
-		this.rsurProtocolService.sendMarksProtocol(marksProtocol).subscribe(response => this.location.back());
+		this.rsurProtocolService.postMarksProtocol(marksProtocol).subscribe(response => this.location.back());
 	}
 
 	cancel() {

@@ -24,11 +24,11 @@
             <td class="row-number-cell">{{i + 1}}</td>
             <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
             <td>{{protocol.TestName}}</td>
-            <td [ngClass]="{'red': !protocol.Marks}">{{protocol.Marks}}</td>
+            <td [ngClass]="{'red': !protocol.RsurQuestionValues}">{{protocol.RsurQuestionValues}}</td>
             <td>
                 <div class="pull-left">
                     <button mat-raised-button color="primary" [routerLink]="['/rsur/question-protocol', protocol.ParticipCode]"><i class="glyphicon glyphicon-edit"></i> изменить</button>
-                    <button *ngIf="protocol.Marks !== 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
+                    <button *ngIf="protocol.RsurQuestionValues !== 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
                         <i class="glyphicon glyphicon-header"></i> отсутствовал
                     </button>
                 </div>

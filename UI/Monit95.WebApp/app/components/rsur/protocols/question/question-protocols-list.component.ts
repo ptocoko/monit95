@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class QuestionProtocolsList {
 	questionProtocols: Protocol[];
-	processedProtocols = () => this.questionProtocols.filter(f => f.Marks).length;
-	notProcessedProtocols = () => this.questionProtocols.filter(f => !f.Marks).length;
+	processedProtocols = () => this.questionProtocols.filter(f => f.RsurQuestionValues).length;
+	notProcessedProtocols = () => this.questionProtocols.filter(f => !f.RsurQuestionValues).length;
 
 	@ViewChild('participCodeInput') participCodeInput: ElementRef;
 
@@ -46,7 +46,7 @@ export class QuestionProtocolsList {
 
 	markAsAbsent(questionProtocol: Protocol) {
 		this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
-			.subscribe(res => questionProtocol.Marks = 'отсутствовал');
+			.subscribe(res => questionProtocol.RsurQuestionValues = 'отсутствовал');
 	}
 
 }

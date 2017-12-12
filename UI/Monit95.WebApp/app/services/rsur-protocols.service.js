@@ -30,7 +30,7 @@ var RsurProtocolsService = /** @class */ (function () {
     RsurProtocolsService.prototype.getMarksProtocol = function (participCode) {
         if (participCode == 12345) {
             particip.QuestionResults.sort(this.sortFunc);
-            return Observable_1.Observable.of(tslib_1.__assign({}, particip)).delay(2000);
+            return Observable_1.Observable.of(tslib_1.__assign({}, particip)).delay(500);
         }
         else {
             var error_1;
@@ -45,7 +45,7 @@ var RsurProtocolsService = /** @class */ (function () {
             return new Observable_1.Observable(function (observer) {
                 setTimeout(function () {
                     observer.error(error_1);
-                }, 1500);
+                }, 500);
             });
         }
         //return this.http.get<MarksProtocol>(this.url).map(s => {
@@ -60,7 +60,7 @@ var RsurProtocolsService = /** @class */ (function () {
      */
     RsurProtocolsService.prototype.getMarksProtocolByFileId = function (fileId) {
         if (fileId === 6431) {
-            return Observable_1.Observable.of(tslib_1.__assign({}, particip)).delay(1000);
+            return Observable_1.Observable.of(tslib_1.__assign({}, particip)).delay(500);
         }
         else {
             return Observable_1.Observable.of(null).delay(500);
@@ -96,7 +96,7 @@ var RsurProtocolsService = /** @class */ (function () {
             console.log('im post your marks');
             //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
         }
-        return Observable_1.Observable.of(null).delay(2000);
+        return Observable_1.Observable.of(null).delay(500);
     };
     RsurProtocolsService.prototype.markAsAbsent = function (participTestId) {
         console.log('i mark this particip as absent');
@@ -104,11 +104,11 @@ var RsurProtocolsService = /** @class */ (function () {
         //return this.http.put(this.marksProtocolUrl, participTestId, { responseType: 'text' });
     };
     RsurProtocolsService.prototype.getScan = function (fileId) {
-        return Observable_1.Observable.of(protocolScanModel).delay(2000);
+        return Observable_1.Observable.of(protocolScanModel).delay(500);
         //return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
     };
     RsurProtocolsService.prototype.getAnswerSheets = function () {
-        return Observable_1.Observable.of(answerSheets).delay(2000);
+        return Observable_1.Observable.of(answerSheets).delay(500);
         //return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
     };
     RsurProtocolsService.prototype.postScan = function (file) {

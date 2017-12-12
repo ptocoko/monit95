@@ -43,8 +43,7 @@ var MarksProtocolComponent = /** @class */ (function () {
         }
     };
     MarksProtocolComponent.prototype.send = function () {
-        console.log(this.marksForm);
-        //this.onSend.emit(this.marksProtocol);
+        this.onSend.emit(this.marksProtocol);
     };
     MarksProtocolComponent.prototype.cancel = function () {
         this.onCancel.emit();

@@ -101,7 +101,7 @@ export class MatchingProtocolComponent implements OnInit{
 	
 
 	sendMarks(marksProtocol: MarksProtocol) {
-		this.rsurProtocolsService.sendMarksProtocol(marksProtocol).subscribe(response => this.location.back());
+		this.rsurProtocolsService.postMarksProtocol(marksProtocol).subscribe(response => this.location.back());
 	}
 	
 	cancel() {

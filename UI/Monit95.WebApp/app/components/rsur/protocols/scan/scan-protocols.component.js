@@ -68,18 +68,20 @@ var ScanProtocolsComponent = /** @class */ (function () {
     //если файла нет на сервере то достаточно удалить его из массива
     ScanProtocolsComponent.prototype.deleteScan = function (answerSheet) {
         var _this = this;
-        var statusBeforeDeleting = answerSheet.Status;
-        answerSheet.Status = 'isDeleting';
-        if (statusBeforeDeleting !== 'isFailed') {
-            this.rsurProtocolsService.deleteScan(answerSheet.FileId).subscribe(function (res) { return _this.answerSheets.splice(_this.answerSheets.indexOf(answerSheet), 1); }, function (error) {
-                var message = error.message ? error.message : error;
-                alert(message);
-                console.error(error);
-                answerSheet.Status = statusBeforeDeleting;
-            });
-        }
-        else {
-            this.answerSheets.splice(this.answerSheets.indexOf(answerSheet), 1);
+        if (confirm('Вы уверены? \nЭто действие нельзя будет отменить')) {
+            var statusBeforeDeleting_1 = answerSheet.Status;
+            answerSheet.Status = 'isDeleting';
+            if (statusBeforeDeleting_1 !== 'isFailed') {
+                this.rsurProtocolsService.deleteScan(answerSheet.FileId).subscribe(function (res) { return _this.answerSheets.splice(_this.answerSheets.indexOf(answerSheet), 1); }, function (error) {
+                    var message = error.message ? error.message : error;
+                    alert(message);
+                    console.error(error);
+                    answerSheet.Status = statusBeforeDeleting_1;
+                });
+            }
+            else {
+                this.answerSheets.splice(this.answerSheets.indexOf(answerSheet), 1);
+            }
         }
     };
     ScanProtocolsComponent.prototype.reuploadScan = function (scan) {

@@ -28,7 +28,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         public HttpResponseMessage Post([FromBody]TestResulteEditDto testResultDto)
         {                       
             var areaCode = int.Parse(User.Identity.Name);
-            var result = _testResultService.CreateOrUpdate(testResultDto, areaCode);
+            var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
 
             if (!result.Errors.Any())
             {

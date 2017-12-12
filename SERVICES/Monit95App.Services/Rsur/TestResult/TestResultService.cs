@@ -253,6 +253,47 @@ namespace Monit95App.Services.Rsur.TestResult
             return result;
         }
 
+        public ServiceResult<IEnumerable<dynamic>> GetQuestionProtocolList(int areaCode)
+        {
+            var result = new ServiceResult<IEnumerable<dynamic>>();
+
+            var entities = context.RsurParticipTests.Where(x => x.RsurParticip.School.AreaCode == areaCode
+                                                             && x.RsurTest.IsOpen);
+
+            if (!entities.Any())
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 404 });
+                return result;
+            }
+
+            result.Result = entities.Select(s => new
+            {
+                ParticipCode = s.RsurParticipCode,
+                ParticipTestId = s.Id,
+                RsurQuestionValues = s.RsurTestResult.RsurQuestionValues,
+                TestName = s.RsurTest.Test.NumberCode + "-" + s.RsurTest.Test.Name
+            });
+
+            return result;
+        }
+
+        public VoidResult MarkAsAbsent(int participTestId)
+        {
+            var result = new VoidResult();
+
+            var participResult = context.RsurTestResults.SingleOrDefault(s => s.RsurParticipTestId == participTestId);
+
+            if (participResult == null)
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Test result with {nameof(participTestId)} equals {participTestId} not exist" });
+                return result;
+            }
+
+            participResult.RsurQuestionValues = "wasnot";
+
+            return result;
+        }
+
         #endregion
     }
 }

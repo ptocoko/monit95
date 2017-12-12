@@ -36,7 +36,7 @@
                 <ng-template [ngIf]="answerSheet.Status !== 'isFailed'">
                     <td [ngClass]="{'red': !answerSheet.ParticipCode}">{{answerSheet.ParticipCode}}</td>
                     <td [ngClass]="{'red': !answerSheet.TestName}">{{answerSheet.TestName}}</td>
-                    <td [ngClass]="{'red': !answerSheet.Marks}">{{answerSheet.Marks}}</td>
+                    <td [ngClass]="{'red': !answerSheet.RsurQuestionValues}">{{answerSheet.RsurQuestionValues}}</td>
                 </ng-template>
                 <td colspan="3" *ngIf="answerSheet.Status === 'isFailed'" style="text-align:center">Не удается отправить файл. Повторите попытку</td>
                 
