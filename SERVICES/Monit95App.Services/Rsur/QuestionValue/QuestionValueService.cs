@@ -152,34 +152,46 @@ namespace Monit95App.Services.Rsur.TestResult
         /// <summary>
         /// Добавляет/редактирует баллы по заданиям 
         /// </summary>
-        /// <param name="testResultDto"></param>
+        /// <param name="questionValueEditDto"></param>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public VoidResult CreateOrUpdate(QuestionValueEditDto testResultDto, int areaCode)
+        public VoidResult CreateOrUpdate(QuestionValueEditDto questionValueEditDto, int areaCode)
         {
-            var result = new VoidResult();                     
+            var result = new VoidResult();
 
-            // Получаем объект RsurParticipTest
-            var rsurParticipTest = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == testResultDto.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode);
-                        
-            if (rsurParticipTest == null)
+            // Получаем testQuestions
+            if (questionValueEditDto == null)
+            {
+                result.Errors.Add(new ServiceError { Description = $"{nameof(questionValueEditDto)} is null" });
+                return result;
+            }
+            var testQuestions = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == questionValueEditDto.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode)
+                                       .RsurTest.Test.TestQuestions.ToList();                        
+            if (!testQuestions.Any())
             {
                 result.Errors.Add(new ServiceError {                    
                     Description = "- RsurTest is not open;" +
-                                 $"- Or {nameof(testResultDto.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
+                                 $"- Or {nameof(questionValueEditDto.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
                                   "- Or user has not access to this entity"
                 });                
                 return result;
             }
-
-            var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // current test's testQuestions
-            if (testQuestions.Count != testResultDto.QuestionResults?.Count())
+            
+            
+            if(questionValueEditDto.QuestionResults == null)
             {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(testQuestions)} count != {nameof(testResultDto.QuestionResults)}" });                
+                result.Errors.Add(new ServiceError { Description = $"{nameof(questionValueEditDto.QuestionResults)} is null" });
+                return result;
+            }
+
+            // Сравниваем количество заданий
+            if (testQuestions.Count != questionValueEditDto.QuestionResults.Count())
+            {
+                result.Errors.Add(new ServiceError { Description = $"{nameof(testQuestions)} count != {nameof(questionValueEditDto.QuestionResults)}" });                
                 return result;
             }            
             
-            testResultDto.QuestionResults.ForEach(questionResult =>
+            questionValueEditDto.QuestionResults.ForEach(questionResult =>
             {
                 var maxValue = testQuestions.Single(tq => tq.Order == questionResult.Order).Question.MaxMark;
 
@@ -189,7 +201,7 @@ namespace Monit95App.Services.Rsur.TestResult
                     questionResult.CurrentMark = maxValue;
                 } 
             });
-            var rsurQuestionValues = testResultDto.QuestionResults.Select(s => s.CurrentMark.ToString()).Aggregate((totalCurrentMarks, nextCurrentMark) => $"{totalCurrentMarks};{nextCurrentMark}");
+            var rsurQuestionValues = questionValueEditDto.QuestionResults.Select(s => s.CurrentMark.ToString()).Aggregate((totalCurrentMarks, nextCurrentMark) => $"{totalCurrentMarks};{nextCurrentMark}");
 
             // если хотя бы у обного задание в качестве значения (балл за задание) стоит -1, 
             // то считается что данный участник отсутствовал на диагностике (wasnot)
@@ -198,15 +210,15 @@ namespace Monit95App.Services.Rsur.TestResult
                 rsurQuestionValues = "wasnot";
             }
                 
-            var rsurTestResult = context.RsurTestResults.Find(testResultDto.ParticipTestId);
+            var rsurTestResult = context.RsurTestResults.Find(questionValueEditDto.ParticipTestId);
 
             // create
             if (rsurTestResult == null) 
             {
                 this.context.RsurTestResults.Add(new RsurTestResult
                 {
-                    RsurParticipTestId = testResultDto.ParticipTestId,
-                    FileId = testResultDto.FileId,
+                    RsurParticipTestId = questionValueEditDto.ParticipTestId,
+                    FileId = questionValueEditDto.FileId,
                     RsurQuestionValues = rsurQuestionValues                    
                 });
             }            
@@ -214,7 +226,7 @@ namespace Monit95App.Services.Rsur.TestResult
             {
                 // edit
                 rsurTestResult.RsurQuestionValues = rsurQuestionValues;
-                rsurTestResult.FileId = testResultDto.FileId;
+                rsurTestResult.FileId = questionValueEditDto.FileId;
             }
 
             context.SaveChanges();

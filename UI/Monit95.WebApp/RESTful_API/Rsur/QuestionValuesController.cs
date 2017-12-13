@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Microsoft.AspNet.Identity;
 using Monit95App.Services.Rsur.TestResult;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
@@ -14,11 +13,11 @@ namespace Monit95.WebApp.RESTful_API.Rsur
     /// </summary>
     [Authorize(Roles = "area")]
     [RoutePrefix("api/rsur/testResults")]
-    public class TestResultsController : ApiController
+    public class QuestionValuesController : ApiController
     {
         private readonly IQuestionValueService testResultService;
 
-        public TestResultsController(IQuestionValueService testResultService)
+        public QuestionValuesController(IQuestionValueService testResultService)
         {
             this.testResultService = testResultService;
         }
