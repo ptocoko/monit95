@@ -16,3 +16,8 @@ th{
     width:130px;
     text-align:center;
 }
+
+.my-tooltip{
+    /*font-size:22px;*/
+    background-color:red;
+}

@@ -10,7 +10,8 @@ import {
     MatInputModule,
     MatFormFieldModule,
     MatToolbarModule,
-    MatProgressBarModule
+	MatProgressBarModule,
+	MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -24,7 +25,8 @@ import {
         MatInputModule,
         MatFormFieldModule,
         MatToolbarModule,
-        MatProgressBarModule
+		MatProgressBarModule,
+		MatTooltipModule
     ],
     exports: [
         MatButtonModule,
@@ -36,7 +38,8 @@ import {
         MatInputModule,
         MatFormFieldModule,
         MatToolbarModule,
-        MatProgressBarModule
+		MatProgressBarModule,
+		MatTooltipModule
     ]  
 })
 export class MaterialModule { }
