@@ -158,7 +158,7 @@ namespace Monit95App.Services.Rsur.TestResult
         public VoidResult CreateOrUpdate(QuestionValueEditDto questionValueEditDto, int areaCode)
         {
             var result = new VoidResult();
-
+            
             // Получаем testQuestions
             if (questionValueEditDto == null)
             {
@@ -175,8 +175,7 @@ namespace Monit95App.Services.Rsur.TestResult
                                   "- Or user has not access to this entity"
                 });                
                 return result;
-            }
-            
+            }            
             
             if(questionValueEditDto.QuestionResults == null)
             {

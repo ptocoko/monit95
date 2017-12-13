@@ -22,6 +22,11 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             this.testResultService = testResultService;
         }
 
+        /// <summary>
+        /// Создание объекта RsurTestResult
+        /// </summary>
+        /// <param name="testResultDto"></param>
+        /// <returns>Не возвращает Id т.к. RsurParticipTests.Id и RsurTestResults.RsurParticipTestId равны</returns>
         [HttpPost]
         [Route("")]
         public HttpResponseMessage Post([FromBody]QuestionValueEditDto testResultDto)
@@ -62,7 +67,28 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         /// <summary>
-        /// Получает протокол проверки заданий участника. Поиск идет среди текущих отрытых тестов
+        /// Получает список бланков ответов (протоколов проверки заданий) открытых блоков для отображения в общем окне
+        /// </summary>
+        /// <returns>QuestionValueViewDto</returns>
+        [HttpGet]
+        [Route("")]
+        public IHttpActionResult GetAll()
+        {
+            var areaCode = Convert.ToInt32(User.Identity.Name);
+            var result = testResultService.GetQuestionProtocolList(areaCode);
+
+            // Success
+            if (!result.Errors.Any())
+                return Ok(result.Result);
+
+            // Error: another
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return BadRequest(ModelState);
+        }
+
+        /// <summary>
+        /// Получает протокол проверки заданий участника для заполнения или изменения. Поиск идет среди текущих открытых тестов
         /// </summary>
         /// <returns>
         /// The <see cref="IHttpActionResult"/>.
@@ -86,28 +112,11 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
             return Ok(marksProtocol);
         }
-
+        
         /// <summary>
-        /// Получить список бланков ответов (протоколов проверки заданий) открытых блоков
+        /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        [Route("")]
-        public IHttpActionResult GetAll()
-        {
-            var areaCode = Convert.ToInt32(User.Identity.Name);
-            var result = testResultService.GetQuestionProtocolList(areaCode);
-
-            // Success
-            if (!result.Errors.Any())
-                return Ok(result.Result);
-
-            // Error: another
-            foreach (var error in result.Errors)
-                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
-            return BadRequest(ModelState);
-        }
-
         [HttpPut]
         [Route("{participTestId:int}/markAsAbsent")]
         public IHttpActionResult MarkAsAbsent()
