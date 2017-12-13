@@ -28,7 +28,7 @@
             <td>
                 <div class="pull-left">
                     <button mat-raised-button color="primary" (click)="changeMarks(protocol.ParticipCode)"><i class="glyphicon glyphicon-edit"></i> изменить</button>
-                    <button matTooltip="Указать, что участник отсутствовал" [matTooltipPosition]="'right'" [matTooltipClass]="{'my-tooltip': true}" *ngIf="protocol.RsurQuestionValues !== 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
+                    <button matTooltip="Указать, что участник отсутствовал" [matTooltipPosition]="'right'" *ngIf="protocol.RsurQuestionValues !== 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
                         <i class="glyphicon glyphicon-header"></i> отсутствовал
                     </button>
                 </div>
