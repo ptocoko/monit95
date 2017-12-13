@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Monit95App.Services.Rsur.QuestionValue;
 using Monit95App.Services.Rsur.TestResult;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
@@ -12,27 +14,27 @@ namespace Monit95.WebApp.RESTful_API.Rsur
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>
     [Authorize(Roles = "area")]
-    [RoutePrefix("api/rsur/testResults")]
+    [RoutePrefix("api/rsur/questionValues")]
     public class QuestionValuesController : ApiController
     {
-        private readonly IQuestionValueService testResultService;
+        private readonly IQuestionValueService questionValueService;
 
-        public QuestionValuesController(IQuestionValueService testResultService)
+        public QuestionValuesController(IQuestionValueService questionValueService)
         {
-            this.testResultService = testResultService;
+            this.questionValueService = questionValueService;
         }
 
         /// <summary>
-        /// Создание объекта RsurTestResult
+        /// Добавление баллов по заданиям
         /// </summary>
-        /// <param name="testResultDto"></param>
+        /// <param name="questionValueEditDto"></param>
         /// <returns>Не возвращает Id т.к. RsurParticipTests.Id и RsurTestResults.RsurParticipTestId равны</returns>
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Post([FromBody]QuestionValueEditDto testResultDto)
+        public HttpResponseMessage Post([FromBody]QuestionValueEditDto questionValueEditDto)
         {
             var areaCode = int.Parse(User.Identity.Name);
-            var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
+            var result = questionValueService.CreateOrUpdate(questionValueEditDto, areaCode);
 
             if (!result.Errors.Any())
             {
@@ -52,7 +54,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         {
             var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
             var areaCode = int.Parse(User.Identity.Name);
-            var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
+            var result = questionValueService.CreateOrUpdate(testResultDto, areaCode);
 
             if (!result.Errors.Any())
             {
@@ -69,13 +71,15 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         /// <summary>
         /// Получает список бланков ответов (протоколов проверки заданий) открытых блоков для отображения в общем окне
         /// </summary>
-        /// <returns>QuestionValueViewDto</returns>
+        /// <returns>
+        /// The <see cref="IEnumerable{QuestionValueEditDto}"/>
+        /// </returns>
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
             var areaCode = Convert.ToInt32(User.Identity.Name);
-            var result = testResultService.GetQuestionProtocolList(areaCode);
+            var result = questionValueService.GetQuestionProtocolList(areaCode);
 
             // Success
             if (!result.Errors.Any())
@@ -91,11 +95,11 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         /// Получает протокол проверки заданий участника для заполнения или изменения. Поиск идет среди текущих открытых тестов
         /// </summary>
         /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
+        /// The <see cref="QuestionValueEditDto"/>.
         /// </returns>
         [HttpGet]
         [Route("{participCode:int}")]
-        public IHttpActionResult GetOne()
+        public IHttpActionResult GetEditDtoByParticipCode()
         {
             var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
             var areaCode = int.Parse(User.Identity.Name);
@@ -103,7 +107,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             QuestionValueEditDto marksProtocol;
             try
             {
-                marksProtocol = this.testResultService.Get(participCode, areaCode);
+                marksProtocol = this.questionValueService.Get(participCode, areaCode);
             }
             catch (System.ArgumentException ex)
             {
@@ -112,9 +116,26 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
             return Ok(marksProtocol);
         }
+
+        [HttpGet]
+        [Route("")]
+        public IHttpActionResult GetEditDtoByFileId(int fileId)
+        {
+            var areaCode = int.Parse(User.Identity.Name);
+            var result = questionValueService.GetEditDtoByFileId(fileId, areaCode);
+
+            // Success
+            if (!result.Errors.Any())
+                return Ok(result.Result);
+
+            // Error: another
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return BadRequest(ModelState);
+        }
         
         /// <summary>
-        /// 
+        /// Указание что участник отсутствовал
         /// </summary>
         /// <returns></returns>
         [HttpPut]
@@ -124,7 +145,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             var participTestId = int.Parse(RequestContext.RouteData.Values["participTestId"].ToString());
             var areaCode = int.Parse(User.Identity.Name);
 
-            var result = testResultService.MarkAsAbsent(participTestId, areaCode);
+            var result = questionValueService.MarkAsAbsent(participTestId, areaCode);
 
             if (!result.Errors.Any())
             {

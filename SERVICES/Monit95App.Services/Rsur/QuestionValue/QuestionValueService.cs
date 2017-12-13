@@ -11,13 +11,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Rsur.TestResult;
 using Monit95App.Services.Validation;
 
-namespace Monit95App.Services.Rsur.TestResult
+namespace Monit95App.Services.Rsur.QuestionValue
 {
     /// <summary>
     /// Provides the APIs for managing test's results in a persistence store.
@@ -148,7 +150,60 @@ namespace Monit95App.Services.Rsur.TestResult
             
             return marksProtocol;            
         }
-        
+
+        /// <summary>
+        /// Получение протокола проверки заданий по fileId файла бланка ответов
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <param name="areaCode"></param>
+        /// <returns></returns>
+        [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
+        public ServiceResult<QuestionValueViewDto> GetEditDtoByFileId(int fileId, int areaCode)
+        {
+            var result = new ServiceResult<QuestionValueViewDto>();        
+
+            // Нам необходимо значение поля RsurTestResult.RsurQuestionValues и для этого попытаемся
+            // получить соответствующий объект RsurTestResult если такой существует.
+            var rsurTestResult = context.RsurTestResults.SingleOrDefault(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode 
+                                                                             && rtr.RsurParticipTest.RsurTest.IsOpen
+                                                                             && rtr.FileId == fileId);
+
+            // Проверяем был ли объект RsurTestResult для данного fileId
+            if (rsurTestResult == null)
+            {
+                // Если соответствующего объекта RsurTestResult нет, то это не ошибка/исключение.
+                // Просто возвращаем результат с Result = null
+                return result;
+            }
+     
+            // Создаем объект editDto и частично инициализируем его
+            var questionValueEditDto = new QuestionValueEditDto
+            {
+                ParticipCode = rsurTestResult.RsurParticipTest.RsurParticipCode,
+                ParticipTestId = rsurTestResult.RsurParticipTestId,
+                TestName = $"{rsurTestResult.RsurParticipTest.RsurTest.Test.NumberCode}-{rsurTestResult.RsurParticipTest.RsurTest.Test.Name}"
+            };
+
+            // Осталось инициализировать QuestionResults.
+            var currentMarks = rsurTestResult.RsurQuestionValues.Split(';');                        
+            var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // получаемый задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям
+            int index = 0;         
+            foreach (var testQuestion in testQuestions.OrderBy(tq => tq.Order))
+            {
+                questionValueEditDto.QuestionResults.Add(new QuestionResult
+                {
+                    Order = testQuestion.Order,
+                    Name = testQuestion.Name,
+                    MaxMark = testQuestion.Question.MaxMark,
+                    CurrentMark = int.Parse(currentMarks[index]) // currentValues[0] - балл за первое задание и т.д.
+                });
+                index++;
+            }
+
+            // Возвращаем результат
+            return result;
+        }
+
         /// <summary>
         /// Добавляет/редактирует баллы по заданиям 
         /// </summary>
