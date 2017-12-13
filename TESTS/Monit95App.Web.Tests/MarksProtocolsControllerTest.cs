@@ -13,7 +13,7 @@ namespace Monit95App.Web.Tests
         public void PostTest()
         {
             // Arrange
-            var fakeMarksProtocolService = Substitute.For<ITestResultService>();
+            var fakeMarksProtocolService = Substitute.For<IQuestionValueService>();
             var fakeValidationResults = new List<ValidationResult>
             {
                 new ValidationResult("some error 1"),

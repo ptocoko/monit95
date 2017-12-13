@@ -77,15 +77,6 @@ var RsurProtocolsService = /** @class */ (function () {
         //});
     };
     RsurProtocolsService.prototype.getQuestionProtocols = function () {
-        //return Observable.of(questionProtocols)
-        //	.map(s => {
-        //		s.forEach(val => {
-        //			if (val.RsurQuestionValues === 'wasnot')
-        //				val.RsurQuestionValues = 'отсутствовал';
-        //		});
-        //		return s;
-        //	})
-        //	.delay(500);
         return this.http.get(this.marksProtocolUrl).map(function (s) {
             s.forEach(function (val) {
                 if (val.RsurQuestionValues === 'wasnot')
@@ -100,8 +91,6 @@ var RsurProtocolsService = /** @class */ (function () {
         //return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
     };
     RsurProtocolsService.prototype.markAsAbsent = function (participTestId) {
-        //console.log('i mark this particip as absent')
-        //return Observable.of(null).delay(500);
         return this.http.put(this.marksProtocolUrl + "/" + participTestId + "/markAsAbsent", null, { responseType: 'text' });
     };
     RsurProtocolsService.prototype.getScan = function (fileId) {

@@ -22,7 +22,7 @@ namespace Monit95App.Services.Rsur.TestResult
     /// <summary>
     /// Provides the APIs for managing test's results in a persistence store.
     /// </summary>
-    public class TestResultService : ITestResultService
+    public class QuestionValueService : IQuestionValueService
     { 
         #region Dependencies
 
@@ -32,7 +32,7 @@ namespace Monit95App.Services.Rsur.TestResult
 
         #region All Constructors
 
-        public TestResultService(CokoContext context)
+        public QuestionValueService(CokoContext context)
         {
             this.context = context;
         }        
@@ -41,7 +41,7 @@ namespace Monit95App.Services.Rsur.TestResult
 
         #region Methods
 
-        public IEnumerable<TestResultEditDto> GetProtocols(int rsurTestId, int areaCode)
+        public IEnumerable<QuestionValueEditDto> GetProtocols(int rsurTestId, int areaCode)
         {
             //var protocols = context.RsurParticipTests
             //    .Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
@@ -102,7 +102,7 @@ namespace Monit95App.Services.Rsur.TestResult
                                     .Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
         }
 
-        public TestResultEditDto Get(int participCode, int areaCode)
+        public QuestionValueEditDto Get(int participCode, int areaCode)
         {
             if (!Enumerable.Range(10000, 99999).Contains(participCode)
                 || !Enumerable.Range(201, 217).Contains(areaCode))
@@ -118,7 +118,7 @@ namespace Monit95App.Services.Rsur.TestResult
                 throw new ArgumentException($"{nameof(participCode)} is incorrect or is not access for current user");
             }
 
-            var marksProtocol = new TestResultEditDto
+            var marksProtocol = new QuestionValueEditDto
             {
                 ParticipCode = rsurParticipTest.RsurParticipCode,
                 ParticipTestId = rsurParticipTest.Id,
@@ -155,7 +155,7 @@ namespace Monit95App.Services.Rsur.TestResult
         /// <param name="testResultDto"></param>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public VoidResult CreateOrUpdate(TestResultEditDto testResultDto, int areaCode)
+        public VoidResult CreateOrUpdate(QuestionValueEditDto testResultDto, int areaCode)
         {
             var result = new VoidResult();                     
 
@@ -245,9 +245,9 @@ namespace Monit95App.Services.Rsur.TestResult
         //    return result;
         //}
 
-        public ServiceResult<IEnumerable<TestResultViewDto>> GetQuestionProtocolList(int areaCode)
+        public ServiceResult<IEnumerable<QuestionValueViewDto>> GetQuestionProtocolList(int areaCode)
         {
-            var result = new ServiceResult<IEnumerable<TestResultViewDto>>();
+            var result = new ServiceResult<IEnumerable<QuestionValueViewDto>>();
 
             var entities = context.RsurParticipTests.Where(x => x.RsurParticip.School.AreaCode == areaCode
                                                              && x.RsurTest.IsOpen);
@@ -258,7 +258,7 @@ namespace Monit95App.Services.Rsur.TestResult
                 return result;
             }
 
-            result.Result = entities.Select(s => new TestResultViewDto
+            result.Result = entities.Select(s => new QuestionValueViewDto
             {
                 ParticipCode = s.RsurParticipCode,
                 ParticipTestId = s.Id,

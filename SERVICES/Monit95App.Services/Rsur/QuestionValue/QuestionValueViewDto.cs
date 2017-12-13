@@ -3,7 +3,7 @@
     /// <summary>
     /// Протокол проверки заданий КИМ
     /// </summary>
-    public class TestResultViewDto
+    public class QuestionValueViewDto
     {        
         public int ParticipCode { get; set; }
 

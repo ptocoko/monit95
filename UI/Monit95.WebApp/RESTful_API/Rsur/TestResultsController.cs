@@ -16,16 +16,16 @@ namespace Monit95.WebApp.RESTful_API.Rsur
     [RoutePrefix("api/rsur/testResults")]
     public class TestResultsController : ApiController
     {
-        private readonly ITestResultService testResultService;
+        private readonly IQuestionValueService testResultService;
 
-        public TestResultsController(ITestResultService testResultService)
+        public TestResultsController(IQuestionValueService testResultService)
         {
             this.testResultService = testResultService;
         }
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Post([FromBody]TestResultEditDto testResultDto)
+        public HttpResponseMessage Post([FromBody]QuestionValueEditDto testResultDto)
         {
             var areaCode = int.Parse(User.Identity.Name);
             var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
@@ -44,7 +44,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
         [HttpPut]
         [Route("{participCode:int}")]
-        public HttpResponseMessage Put([FromBody]TestResultEditDto testResultDto)
+        public HttpResponseMessage Put([FromBody]QuestionValueEditDto testResultDto)
         {
             var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
             var areaCode = int.Parse(User.Identity.Name);
@@ -75,7 +75,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
             var areaCode = int.Parse(User.Identity.Name);
 
-            TestResultEditDto marksProtocol;
+            QuestionValueEditDto marksProtocol;
             try
             {
                 marksProtocol = this.testResultService.Get(participCode, areaCode);

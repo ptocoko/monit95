@@ -3,7 +3,7 @@ using Monit95App.Services.Validation;
 
 namespace Monit95App.Services.Rsur.TestResult
 {
-    public interface ITestResultService
+    public interface IQuestionValueService
     {
         // TODO: delete
         // RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null);        
@@ -11,11 +11,11 @@ namespace Monit95App.Services.Rsur.TestResult
 
         string GetTestName(int rsurTestId);                
 
-        TestResultEditDto Get(int participCode, int areaCode); // areaCode for Validate
+        QuestionValueEditDto Get(int participCode, int areaCode); // areaCode for Validate
 
-        VoidResult CreateOrUpdate(TestResultEditDto testResultDto, int areaCode);
+        VoidResult CreateOrUpdate(QuestionValueEditDto testResultDto, int areaCode);
         //ServiceResult<IEnumerable<TestResultViewDto>> GetAll(int areaCode);
-        ServiceResult<IEnumerable<TestResultViewDto>> GetQuestionProtocolList(int areaCode);
+        ServiceResult<IEnumerable<QuestionValueViewDto>> GetQuestionProtocolList(int areaCode);
 
         VoidResult MarkAsAbsent(int participTestId, int areaCode);
     }

@@ -167,10 +167,10 @@
     <Compile Include="Rsur\SeminarReport\ISeminarReportService.cs" />
     <Compile Include="Rsur\SeminarReport\SeminarReportModel.cs" />
     <Compile Include="Rsur\SeminarReport\SeminarReportService.cs" />
-    <Compile Include="Rsur\TestResult\ITestResultService.cs" />
-    <Compile Include="Rsur\TestResult\TestResultEditDto.cs" />
-    <Compile Include="Rsur\TestResult\TestResultService.cs" />
-    <Compile Include="Rsur\TestResult\TestResultViewDto.cs" />
+    <Compile Include="Rsur\QuestionValue\IQuestionValueService.cs" />
+    <Compile Include="Rsur\QuestionValue\QuestionValueDto.cs" />
+    <Compile Include="Rsur\QuestionValue\QuestionValueService.cs" />
+    <Compile Include="Rsur\QuestionValue\QuestionValueViewDto.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />

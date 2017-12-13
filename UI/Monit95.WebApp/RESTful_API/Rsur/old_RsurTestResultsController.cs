@@ -12,11 +12,11 @@ namespace Monit95App.RESTful_API.Rsur
     {
         #region Dependencies
 
-        private readonly ITestResultService testProtocolService;
+        private readonly IQuestionValueService testProtocolService;
         
         #endregion
 
-        public RsurTestResultsController(ITestResultService testProtocolService)
+        public RsurTestResultsController(IQuestionValueService testProtocolService)
         {
             this.testProtocolService = testProtocolService;            
         }

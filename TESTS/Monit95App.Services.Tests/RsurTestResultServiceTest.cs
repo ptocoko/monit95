@@ -260,8 +260,8 @@ namespace Monit95App.Services.Tests
             mockContext.RsurParticipTests.Returns(mockRsurParticipTestSet);
             mockContext.RsurTestResults.Returns(mockRsurTestResultSet);
 
-            var service = new TestResultService(mockContext);
-            var marksProtocol1 = new TestResultEditDto()
+            var service = new QuestionValueService(mockContext);
+            var marksProtocol1 = new QuestionValueEditDto()
             {
                 ParticipTestId = 1,
                 QuestionResults = new List<QuestionResult>()
@@ -271,7 +271,7 @@ namespace Monit95App.Services.Tests
                  new QuestionResult { Order = 3, CurrentMark = 1 }
                 }
             };
-            var marksProtocol2 = new TestResultEditDto
+            var marksProtocol2 = new QuestionValueEditDto
             {
                 ParticipTestId = 2,
                 QuestionResults = new List<QuestionResult>()
@@ -298,7 +298,7 @@ namespace Monit95App.Services.Tests
         public void GetIncorrectParticipCodeTest()
         {
             // Arrange            
-            var service = new TestResultService(mockContext);
+            var service = new QuestionValueService(mockContext);
             
             // Act
             service.Get(1234, 201);
@@ -309,7 +309,7 @@ namespace Monit95App.Services.Tests
         public void GetEmptyTest()
         {
             // Arrange            
-            var service = new TestResultService(mockContext);
+            var service = new QuestionValueService(mockContext);
 
             // Act
             service.Get(12346, 201);
@@ -319,7 +319,7 @@ namespace Monit95App.Services.Tests
         public void GetCorrectParamsTest()
         {
             // Arrange                 
-            var service = new TestResultService(mockContext);
+            var service = new QuestionValueService(mockContext);
 
             // Act            
             var protocol = service.Get(12345, 201);
@@ -343,7 +343,7 @@ namespace Monit95App.Services.Tests
         [TestMethod]
         public void GetQuestionProtocolsListTest()
         {
-            var service = new TestResultService(new CokoContext());
+            var service = new QuestionValueService(new CokoContext());
 
             var result = service.GetQuestionProtocolList(201).Result;
 
