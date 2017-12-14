@@ -349,7 +349,7 @@
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
     <Compile Include="RESTful_API\FilesController.cs" />
-    <Compile Include="RESTful_API\Rsur\TestResultsController.cs" />
+    <Compile Include="RESTful_API\Rsur\QuestionValuesController.cs" />
     <Compile Include="RESTful_API\Rsur\RatingsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipReportsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipsController.cs" />

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Monit95App.Services.Rsur.TestResult
+namespace Monit95App.Services.Rsur.QuestionValue
 {
     /// <summary>
     /// Протокол проверки заданий КИМ
@@ -16,7 +16,7 @@ namespace Monit95App.Services.Rsur.TestResult
         /// </summary>
         public string TestName { get; set; }
         
-        public List<QuestionResult> QuestionResults { get; set; }
+        public List<QuestionResult> QuestionResults { get; set; } = new List<QuestionResult>();
 
         /// <summary>
         /// Файл бланк ответов

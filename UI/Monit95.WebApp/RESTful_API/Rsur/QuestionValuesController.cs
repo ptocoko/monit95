@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Microsoft.AspNet.Identity;
+using Monit95App.Services.Rsur.QuestionValue;
 using Monit95App.Services.Rsur.TestResult;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
@@ -13,22 +14,27 @@ namespace Monit95.WebApp.RESTful_API.Rsur
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>
     [Authorize(Roles = "area")]
-    [RoutePrefix("api/rsur/testResults")]
-    public class TestResultsController : ApiController
+    [RoutePrefix("api/rsur/questionValues")]
+    public class QuestionValuesController : ApiController
     {
-        private readonly IQuestionValueService testResultService;
+        private readonly IQuestionValueService questionValueService;
 
-        public TestResultsController(IQuestionValueService testResultService)
+        public QuestionValuesController(IQuestionValueService questionValueService)
         {
-            this.testResultService = testResultService;
+            this.questionValueService = questionValueService;
         }
 
+        /// <summary>
+        /// Добавление баллов по заданиям
+        /// </summary>
+        /// <param name="questionValueEditDto"></param>
+        /// <returns>Не возвращает Id т.к. RsurParticipTests.Id и RsurTestResults.RsurParticipTestId равны</returns>
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Post([FromBody]QuestionValueEditDto testResultDto)
+        public HttpResponseMessage Post([FromBody]QuestionValueEditDto questionValueEditDto)
         {
             var areaCode = int.Parse(User.Identity.Name);
-            var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
+            var result = questionValueService.CreateOrUpdate(questionValueEditDto, areaCode);
 
             if (!result.Errors.Any())
             {
@@ -48,7 +54,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         {
             var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
             var areaCode = int.Parse(User.Identity.Name);
-            var result = testResultService.CreateOrUpdate(testResultDto, areaCode);
+            var result = questionValueService.CreateOrUpdate(testResultDto, areaCode);
 
             if (!result.Errors.Any())
             {
@@ -63,41 +69,17 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         /// <summary>
-        /// Получает протокол проверки заданий участника. Поиск идет среди текущих отрытых тестов
+        /// Получает список бланков ответов (протоколов проверки заданий) открытых блоков для отображения в общем окне
         /// </summary>
         /// <returns>
-        /// The <see cref="IHttpActionResult"/>.
+        /// The <see cref="IEnumerable{QuestionValueEditDto}"/>
         /// </returns>
-        [HttpGet]
-        [Route("{participCode:int}")]
-        public IHttpActionResult GetOne()
-        {
-            var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
-            var areaCode = int.Parse(User.Identity.Name);
-
-            QuestionValueEditDto marksProtocol;
-            try
-            {
-                marksProtocol = this.testResultService.Get(participCode, areaCode);
-            }
-            catch (System.ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return Ok(marksProtocol);
-        }
-
-        /// <summary>
-        /// Получить список бланков ответов (протоколов проверки заданий) открытых блоков
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
             var areaCode = Convert.ToInt32(User.Identity.Name);
-            var result = testResultService.GetQuestionProtocolList(areaCode);
+            var result = questionValueService.GetQuestionProtocolList(areaCode);
 
             // Success
             if (!result.Errors.Any())
@@ -109,6 +91,53 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             return BadRequest(ModelState);
         }
 
+        /// <summary>
+        /// Получает протокол проверки заданий участника для заполнения или изменения. Поиск идет среди текущих открытых тестов
+        /// </summary>
+        /// <returns>
+        /// The <see cref="QuestionValueEditDto"/>.
+        /// </returns>
+        [HttpGet]
+        [Route("{participCode:int}")]
+        public IHttpActionResult GetEditDtoByParticipCode()
+        {
+            var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
+            var areaCode = int.Parse(User.Identity.Name);
+
+            QuestionValueEditDto marksProtocol;
+            try
+            {
+                marksProtocol = this.questionValueService.Get(participCode, areaCode);
+            }
+            catch (System.ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(marksProtocol);
+        }
+
+        [HttpGet]
+        [Route("")]
+        public IHttpActionResult GetEditDtoByFileId(int fileId)
+        {
+            var areaCode = int.Parse(User.Identity.Name);
+            var result = questionValueService.GetEditDtoByFileId(fileId, areaCode);
+
+            // Success
+            if (!result.Errors.Any())
+                return Ok(result.Result);
+
+            // Error: another
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return BadRequest(ModelState);
+        }
+        
+        /// <summary>
+        /// Указание что участник отсутствовал
+        /// </summary>
+        /// <returns></returns>
         [HttpPut]
         [Route("{participTestId:int}/markAsAbsent")]
         public IHttpActionResult MarkAsAbsent()
@@ -116,7 +145,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             var participTestId = int.Parse(RequestContext.RouteData.Values["participTestId"].ToString());
             var areaCode = int.Parse(User.Identity.Name);
 
-            var result = testResultService.MarkAsAbsent(participTestId, areaCode);
+            var result = questionValueService.MarkAsAbsent(participTestId, areaCode);
 
             if (!result.Errors.Any())
             {
