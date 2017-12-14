@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
-var rsur_report_service_1 = require("../../../../services/rsur-report.service");
 var router_1 = require("@angular/router");
+var rsur_report_service_1 = require("../../../../services/rsur-report.service");
 var account_service_1 = require("../../../../services/account.service");
 var TEST_DATE = '2017-10-11';
 var ReportListComponent = /** @class */ (function () {

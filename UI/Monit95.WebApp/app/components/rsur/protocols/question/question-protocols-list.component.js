@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
-var rsur_protocols_service_1 = require("../../../../services/rsur-protocols.service");
 var router_1 = require("@angular/router");
+var rsur_protocols_service_1 = require("../../../../services/rsur-protocols.service");
 var QuestionProtocolsList = /** @class */ (function () {
     function QuestionProtocolsList(rsurProtocolsService, router) {
         var _this = this;

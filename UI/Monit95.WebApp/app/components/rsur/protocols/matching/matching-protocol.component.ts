@@ -8,7 +8,6 @@ import { FormControl, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/filter';
-
 import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 import { MarksProtocol } from '../../../../models/marks-protocol.model';
 import { Scan } from '../../../../models/scan.model';
