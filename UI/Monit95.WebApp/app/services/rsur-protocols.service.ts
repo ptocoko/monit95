@@ -15,7 +15,7 @@ import { Protocol } from "../models/protocol.model";
 export class RsurProtocolsService {
 	constructor(private http: HttpClient) { }
 
-	private marksProtocolUrl = '/api/rsur/testResults';
+	private marksProtocolUrl = '/api/rsur/questionValues';
 	private scansUrl = '/api/rsur/scans';
 
 	private sortFunc<T>(first: T|any, second: T|any) {

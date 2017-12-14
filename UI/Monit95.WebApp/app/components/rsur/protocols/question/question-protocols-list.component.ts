@@ -50,9 +50,4 @@ export class QuestionProtocolsList {
 		this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
 			.subscribe(res => questionProtocol.RsurQuestionValues = 'отсутствовал');
 	}
-
-	showHistory() {
-		console.log(this.location.path());
-	}
-
 }

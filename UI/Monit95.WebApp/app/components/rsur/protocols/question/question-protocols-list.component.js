@@ -43,7 +43,7 @@ var QuestionProtocolsList = /** @class */ (function () {
             .subscribe(function (res) { return questionProtocol.RsurQuestionValues = 'отсутствовал'; });
     };
     QuestionProtocolsList.prototype.showHistory = function () {
-        console.log(this.location.path());
+        console.log(history.length);
     };
     tslib_1.__decorate([
         core_1.ViewChild('participCodeInput'),

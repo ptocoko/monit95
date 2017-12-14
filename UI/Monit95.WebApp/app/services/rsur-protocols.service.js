@@ -11,7 +11,7 @@ var Subject_1 = require("rxjs/Subject");
 var RsurProtocolsService = /** @class */ (function () {
     function RsurProtocolsService(http) {
         this.http = http;
-        this.marksProtocolUrl = '/api/rsur/testResults';
+        this.marksProtocolUrl = '/api/rsur/questionValues';
         this.scansUrl = '/api/rsur/scans';
     }
     RsurProtocolsService.prototype.sortFunc = function (first, second) {
