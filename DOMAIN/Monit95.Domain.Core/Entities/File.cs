@@ -19,6 +19,10 @@ namespace Monit95App.Domain.Core.Entities
 
         public string HexHash { get; set; }
 
+        /// <summary>
+        /// Имя файла на стороне клиента
+        /// <example>img-2017-12-31.jpg</example>
+        /// </summary>
         public string SourceName { get; set; }
 
         public int RepositoryId { get; set; }

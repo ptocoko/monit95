@@ -45,16 +45,10 @@ namespace Monit95App.Services.File
         {
             var result = new ServiceResult<int>();
 
-            // Validate sourceFileStream
-            if (sourceFileStream == null)
+            // Validate sourceFileStream            
+            if (sourceFileStream == null  || sourceFileStream.Length > 15728640) // > 15 Mb
             {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid" });
-                return result;
-
-            }            
-            if (sourceFileStream.Length > 15728640)
-            {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid: length > 15 Mb" });
+                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid: null or length > 15 Mb" });
                 return result;
             }
 
@@ -106,7 +100,7 @@ namespace Monit95App.Services.File
             // Create file's entity
             var fileEntity = new Domain.Core.Entities.File
             {
-                SourceName = sourceFileName,
+                SourceName = sourceFileName.ToLower(),
                 RepositoryId = repositoryId,
                 HexHash = hexHash,
                 Name = destFileName,
@@ -153,6 +147,32 @@ namespace Monit95App.Services.File
             // Success: remove and send a request to make change in database
             context.Files.Remove(fileEntity);
             context.SaveChanges();
+
+            return result;
+        }
+        
+        /// <summary>
+        /// Получение Url файла для отображения
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <param name="destHostFolder"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public ServiceResult<string> GetUrl(int fileId, string destHostFolder, string userName)
+        {
+            var result = new ServiceResult<string>();
+            
+            // Generate file name
+            var fileEntity = context.Files.SingleOrDefault(file => file.FilePermissonList.Any(fp => fp.UserName == userName) && file.Id == fileId);
+            if (fileEntity == null)
+            {
+                result.Errors.Add(new ServiceError{HttpCode = 404});
+                return result;
+            }
+            
+            var sourceFileName = $"{REPOSITORIES_FOLDER}/{fileEntity.RepositoryId}/{fileEntity.Name}";
+            var destFileName = $"{destHostFolder}/{fileEntity.Name}";
+            System.IO.File.Copy(sourceFileName, destFileName);  
 
             return result;
         }

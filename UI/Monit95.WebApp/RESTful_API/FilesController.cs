@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using Monit95App.Services.File;
 
 namespace Monit95.WebApp.RESTful_API
@@ -12,9 +14,9 @@ namespace Monit95.WebApp.RESTful_API
     /// <inheritdoc />
     /// <summary>
     /// Контроллер для работы с файлами бланков ответов
-    /// </summary>    
-    [RoutePrefix("api/files")]
-    public class RepositoriesController : ApiController
+    /// </summary>        
+    [Authorize]
+    public class FilesController : ApiController
     {
         #region Dependencies
 
@@ -24,7 +26,7 @@ namespace Monit95.WebApp.RESTful_API
 
         #region Constructors
 
-        public RepositoriesController(IFileService fileService)
+        public FilesController(IFileService fileService)
         {
             this.fileService = fileService;
         }
@@ -32,14 +34,16 @@ namespace Monit95.WebApp.RESTful_API
         #endregion
 
         /// <summary>
-        /// Добавление файла в репозиторий
-        /// </summary>
+        /// Добавление файла в указанный репозиторий
+        /// </summary>        
         /// <returns>fileId</returns>
         [HttpPost]
-        [Authorize(Roles = "area")]
+        [Route("~/api/repositories/{id:int}/files")]        
         [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
-        public HttpResponseMessage AddFileToRepository(int repositoryId)
+        public HttpResponseMessage AddFileToRepository()
         {
+            var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+
             // Find file in requestBody
             var httpCollectionFiles = HttpContext.Current.Request.Files;
             if (httpCollectionFiles.Count == 0)            
@@ -65,8 +69,7 @@ namespace Monit95.WebApp.RESTful_API
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);            
         }
 
-        [HttpPost, Route("~/api/files/{id:int}")]
-        [Authorize(Roles = "area")]
+        [HttpPost, Route("~/api/files/{id:int}")]        
         public IHttpActionResult DeleteFile()
         {
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);            
@@ -81,6 +84,22 @@ namespace Monit95.WebApp.RESTful_API
             foreach (var error in result.Errors)
                 ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
             return BadRequest(ModelState);
+        }
+
+        [HttpGet, Route("~/api/files/{id:int}/url")]
+        public IHttpActionResult GetUrl()
+        {
+            var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            var result = fileService.GetUrl(fileId, User.Identity.Name);
+
+            // Success
+            if (!result.Errors.Any())
+                return Ok();
+
+            // Faild
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return BadRequest(ModelState);            
         }
     }
 }
