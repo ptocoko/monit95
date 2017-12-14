@@ -23,7 +23,7 @@ namespace Monit95App.Services.Tests
         // Constructor
         public RsurTestResultServiceTest()
         {
-            var data = new List<RsurTestResult>
+            var testResultData = new List<RsurTestResult>
             {
                 new RsurTestResult
                 {
@@ -73,10 +73,10 @@ namespace Monit95App.Services.Tests
                 }
             }.AsQueryable();
             var mockSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
-            ((IQueryable<RsurTestResult>)mockSet).Provider.Returns(data.Provider);
-            ((IQueryable<RsurTestResult>)mockSet).Expression.Returns(data.Expression);
-            ((IQueryable<RsurTestResult>)mockSet).ElementType.Returns(data.ElementType);
-            ((IQueryable<RsurTestResult>)mockSet).GetEnumerator().Returns(data.GetEnumerator());
+            ((IQueryable<RsurTestResult>)mockSet).Provider.Returns(testResultData.Provider);
+            ((IQueryable<RsurTestResult>)mockSet).Expression.Returns(testResultData.Expression);
+            ((IQueryable<RsurTestResult>)mockSet).ElementType.Returns(testResultData.ElementType);
+            ((IQueryable<RsurTestResult>)mockSet).GetEnumerator().Returns(testResultData.GetEnumerator());
 
             #region RsurParticipTest Mocking
             var participTestData = new List<RsurParticipTest>
@@ -100,6 +100,35 @@ namespace Monit95App.Services.Tests
                         {
                             AreaCode = 201
                         }
+                    },
+                    RsurTestResult = new RsurTestResult
+                    {
+                        RsurQuestionValues = null
+                    }
+                },
+                new RsurParticipTest
+                {
+                    Id = 1234,
+                    RsurParticipCode = 12345,
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true,
+                        Test = new Test
+                        {
+                            NumberCode = "0101",
+                            Name = "Орфография"
+                        }
+                    },
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    },
+                    RsurTestResult = new RsurTestResult
+                    {
+                        RsurQuestionValues = null
                     }
                 },
                 new RsurParticipTest
@@ -344,11 +373,24 @@ namespace Monit95App.Services.Tests
         [TestMethod]
         public void GetQuestionProtocolsListTest()
         {
-            var service = new QuestionValueService(new CokoContext());
+            var service = new QuestionValueService(mockContext);
 
             var result = service.GetQuestionProtocolList(201).Result;
 
             Assert.AreEqual(true, result.Count() > 0);
+        }
+
+        [TestMethod]
+        public void GetStatisticsTest()
+        {
+            var service = new QuestionValueService(mockContext);
+
+            var result = service.GetStatistics(201);
+
+            //result must be grater or equal 0 and less or equal 100
+            Assert.IsTrue(0 <= result && result <= 100);
+
+            Assert.AreEqual(33, result);
         }
     }
 }

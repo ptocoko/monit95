@@ -33,29 +33,6 @@ export class RsurProtocolsService {
 	 * @returns Observable<MarksProtocol>
 	 */
 	getMarksProtocol(participCode: number): Observable<MarksProtocol> {
-		//if (participCode == 12345) {
-		//	particip.QuestionResults.sort(this.sortFunc);
-		//	return Observable.of({ ...particip }).delay(500);
-		//}
-		//else
-		//{
-		//	let error: any;
-		//	if (participCode == 12365)
-		//		error = {
-		//			message: 'i error that here'
-		//		}
-		//	else
-		//		error = {
-		//			message: 'sadfasdfa'
-		//		} 
-
-		//	return new Observable(observer => {
-		//		setTimeout(() => {
-		//			observer.error(error)
-		//		}, 500)
-		//	});
-		//}
-
 		return this.http.get<MarksProtocol>(`${this.marksProtocolUrl}/${participCode}`).map(s => {
 			s.QuestionResults.sort(this.sortFunc);
 			return s;
@@ -93,17 +70,19 @@ export class RsurProtocolsService {
 					val.RsurQuestionValues = 'отсутствовал';
 			})
 			return s;
-		})
+		});
 	}
 
 	postMarksProtocol(marksProtocol: MarksProtocol) {
-		//console.log(marksProtocol);
-		//return Observable.of(null).delay(500);
 		return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
 	}
 
 	markAsAbsent(participTestId: number) {
 		return this.http.put(`${this.marksProtocolUrl}/${participTestId}/markAsAbsent`, null, { responseType: 'text' });
+	}
+
+	getStatistics() {
+		return this.http.get(this.marksProtocolUrl + '/statistics', { responseType: 'text' });
 	}
 
 	getScan(fileId: number) {

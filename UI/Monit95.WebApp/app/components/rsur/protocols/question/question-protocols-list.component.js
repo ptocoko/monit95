@@ -42,9 +42,6 @@ var QuestionProtocolsList = /** @class */ (function () {
         this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
             .subscribe(function (res) { return questionProtocol.RsurQuestionValues = 'отсутствовал'; });
     };
-    QuestionProtocolsList.prototype.showHistory = function () {
-        console.log(history.length);
-    };
     tslib_1.__decorate([
         core_1.ViewChild('participCodeInput'),
         tslib_1.__metadata("design:type", core_1.ElementRef)

@@ -28,28 +28,7 @@ var RsurProtocolsService = /** @class */ (function () {
      * @returns Observable<MarksProtocol>
      */
     RsurProtocolsService.prototype.getMarksProtocol = function (participCode) {
-        //if (participCode == 12345) {
-        //	particip.QuestionResults.sort(this.sortFunc);
-        //	return Observable.of({ ...particip }).delay(500);
-        //}
-        //else
-        //{
-        //	let error: any;
-        //	if (participCode == 12365)
-        //		error = {
-        //			message: 'i error that here'
-        //		}
-        //	else
-        //		error = {
-        //			message: 'sadfasdfa'
-        //		} 
         var _this = this;
-        //	return new Observable(observer => {
-        //		setTimeout(() => {
-        //			observer.error(error)
-        //		}, 500)
-        //	});
-        //}
         return this.http.get(this.marksProtocolUrl + "/" + participCode).map(function (s) {
             s.QuestionResults.sort(_this.sortFunc);
             return s;
@@ -88,12 +67,13 @@ var RsurProtocolsService = /** @class */ (function () {
         });
     };
     RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
-        //console.log(marksProtocol);
-        //return Observable.of(null).delay(500);
         return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
     };
     RsurProtocolsService.prototype.markAsAbsent = function (participTestId) {
         return this.http.put(this.marksProtocolUrl + "/" + participTestId + "/markAsAbsent", null, { responseType: 'text' });
+    };
+    RsurProtocolsService.prototype.getStatistics = function () {
+        return this.http.get(this.marksProtocolUrl + '/statistics', { responseType: 'text' });
     };
     RsurProtocolsService.prototype.getScan = function (fileId) {
         return Observable_1.Observable.of(protocolScanModel).delay(500);

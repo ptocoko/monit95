@@ -65,9 +65,11 @@ namespace Monit95App.RESTful_API.Rsur
         [Route("~/api/RsurTests/{rsurTestId:int}/Name")]
         public IHttpActionResult GetTestName()
         {
-            var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurTestId"]);
+            //var rsurTestId = Convert.ToInt32(RequestContext.RouteData.Values["rsurTestId"]);
 
-            return Ok(testProtocolService.GetTestName(rsurTestId));
+            //return Ok(testProtocolService.GetTestName(rsurTestId));
+
+            return InternalServerError(new ApplicationException("this action not implemented"));
         }
         #endregion
     }

@@ -8,9 +8,9 @@ namespace Monit95App.Services.Rsur.QuestionValue
     {
         // TODO: delete
         // RsurTestStatisticsDto GetStatistics(int rsurTestId, int? areaCode = null);        
-        IDictionary<int, RsurTestStatisticsDto> GetStatistics(int areaCode);
+        //IDictionary<int, RsurTestStatisticsDto> GetStatistics(int areaCode);
 
-        string GetTestName(int rsurTestId);                
+        //string GetTestName(int rsurTestId);
 
         QuestionValueEditDto Get(int participCode, int areaCode); // areaCode for Validate
         ServiceResult<QuestionValueViewDto> GetEditDtoByFileId(int fileId, int areaCode);
@@ -20,5 +20,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
         ServiceResult<IEnumerable<QuestionValueViewDto>> GetQuestionProtocolList(int areaCode);
 
         VoidResult MarkAsAbsent(int participTestId, int areaCode);
+
+        int GetStatistics(int areaCode);
     }
 }
