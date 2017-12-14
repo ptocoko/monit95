@@ -5,11 +5,13 @@ var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
 var rsur_protocols_service_1 = require("../../../../services/rsur-protocols.service");
 var router_1 = require("@angular/router");
+var common_1 = require("@angular/common");
 var QuestionProtocolsList = /** @class */ (function () {
-    function QuestionProtocolsList(rsurProtocolsService, router) {
+    function QuestionProtocolsList(rsurProtocolsService, router, location) {
         var _this = this;
         this.rsurProtocolsService = rsurProtocolsService;
         this.router = router;
+        this.location = location;
         this.processedProtocols = function () { return _this.questionProtocols.filter(function (f) { return f.RsurQuestionValues; }).length; };
         this.notProcessedProtocols = function () { return _this.questionProtocols.filter(function (f) { return !f.RsurQuestionValues; }).length; };
     }
@@ -40,6 +42,9 @@ var QuestionProtocolsList = /** @class */ (function () {
         this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
             .subscribe(function (res) { return questionProtocol.RsurQuestionValues = 'отсутствовал'; });
     };
+    QuestionProtocolsList.prototype.showHistory = function () {
+        console.log(this.location.path());
+    };
     tslib_1.__decorate([
         core_1.ViewChild('participCodeInput'),
         tslib_1.__metadata("design:type", core_1.ElementRef)
@@ -50,7 +55,8 @@ var QuestionProtocolsList = /** @class */ (function () {
             styleUrls: ["./app/components/rsur/protocols/question/question-protocols-list.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
-            router_1.Router])
+            router_1.Router,
+            common_1.Location])
     ], QuestionProtocolsList);
     return QuestionProtocolsList;
 }());
