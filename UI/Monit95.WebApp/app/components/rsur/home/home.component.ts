@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../../../services/account.service';
 import { AccountModel } from '../../../models/account.model';
+import { AccountService } from '../../../services/account.service';
 
 @Component({    
     templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`

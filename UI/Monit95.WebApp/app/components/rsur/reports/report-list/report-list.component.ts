@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { RsurReportService } from '../../../../services/rsur-report.service';
 import { ReportModel } from './report.model';
 import { Router } from '@angular/router';
+import { RsurReportService } from '../../../../services/rsur-report.service';
 import { AccountService } from '../../../../services/account.service';
 
 const TEST_DATE = '2017-10-11';

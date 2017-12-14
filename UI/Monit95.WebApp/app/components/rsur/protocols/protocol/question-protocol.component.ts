@@ -1,8 +1,8 @@
 ﻿import { Component } from '@angular/core';
-import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
-import { MarksProtocol } from '../../../../models/marks-protocol.model';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { MarksProtocol } from '../../../../models/marks-protocol.model';
+import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 
 @Component({
 	templateUrl: `./app/components/rsur/protocols/protocol/question-protocol.component.html?v=${new Date().getTime()}`

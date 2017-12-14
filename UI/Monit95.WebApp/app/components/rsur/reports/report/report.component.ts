@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RsurReportService } from '../../../../services/rsur-report.service';
 import { RsurReportModel } from '../../../../models/rsur-report.model';
+import { RsurReportService } from '../../../../services/rsur-report.service';
 
 @Component({
     selector: 'report',    

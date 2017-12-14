@@ -1,8 +1,8 @@
 ﻿import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
-import { Protocol } from '../../../../models/protocol.model';
 import { Router } from '@angular/router';
+import { Protocol } from '../../../../models/protocol.model';
+import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 
 @Component({
 	templateUrl: `./app/components/rsur/protocols/question/question-protocols-list.component.html?v=${new Date().getTime()}`,
