@@ -18,6 +18,8 @@ export class MarksProtocolComponent implements AfterViewInit {
 	@Output() onSend = new EventEmitter<MarksProtocol>();
 	@Output() onCancel = new EventEmitter();
 
+	marksSending: boolean;
+
 	ngOnInit() {
 	}
 
@@ -59,6 +61,7 @@ export class MarksProtocolComponent implements AfterViewInit {
 	}
 
 	send() {
+		this.marksSending = true;
 		this.onSend.emit(this.marksProtocol);
 	}
 

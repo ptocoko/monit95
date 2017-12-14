@@ -4,9 +4,11 @@
 
     <div *ngIf="isArea()" class="list-container">
         <h3 class="list-header">Диагностика «Декабрь-2017»</h3>
-        <div class="list-item">
-            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/ис_14.12.2017_распределение_{{account.UserName}}.xlsx"><div><h4><b>История: Распределение</b></h4></div></a>
-            <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Индивидуальные комплекты</h4></div></a>
+        <div>
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/ис_14.12.2017_распределение_{{account.UserName}}.xlsx"><div><h4>История: распределение</h4></div></a>
+            <a *ngIf="true" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/Aj4d/aL7oxRYMc"><div><h4><b>История: варианты ИК по блоку «ДАТЫ. ОСНОВНЫЕ ФАКТЫ, ПРОЦЕССЫ И ЯВЛЕНИЯ»</b></h4></div></a>
+            <a *ngIf="account.UserName !== '214'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/5BAw/cixmf8Lby"><div><h4><b>История: варианты ИК по блоку «ТЕРМИНЫ. ИСТОРИЧЕСКИЕ ДЕЯТЕЛИ»</b></h4></div></a>
+            <a *ngIf="account.UserName !== '201' && account.UserName !== '208' && account.UserName !== '214' && account.UserName !== '216'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/FxR1/VX95Jakwy"><div><h4><b>История: варианты ИК по блоку «ТЕКСТОВЫЕ ИСТОЧНИКИ. ИСТОРИЧЕСКАЯ КАРТА...»</b></h4></div></a>
             <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Ключи</h4></div></a>
             <div *ngIf="account.UserName !== '209' && false; else area209" class="list-item-link progressbar-container">
                 <h4>Русский язык: Заполенение протоколов проверки заданий</h4>
@@ -15,6 +17,14 @@
             <ng-template #area209>
                 <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Бланки ответов</h4></div></a>
             </ng-template>
+        </div>
+        <div *ngIf="isArea()" class="list-item">
+            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
+                <div>
+                    <h4>Протоколы проверки заданий</h4>
+                </div>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+            </a>
         </div>
     </div>
 
@@ -112,13 +122,6 @@
             <a class="list-item-link" [routerLink]="['/rsur/scan-protocols']">
                 <div>
                     <h4>Бланки ответов</h4>
-                </div>
-            </a>
-        </div>
-        <div *ngIf="isArea() && false" class="list-item">
-            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                <div>
-                    <h4>Протоколы проверки заданий</h4>
                 </div>
             </a>
         </div>

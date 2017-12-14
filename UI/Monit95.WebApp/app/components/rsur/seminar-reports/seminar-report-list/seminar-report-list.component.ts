@@ -1,8 +1,8 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
-import { SeminarReportService } from "../../../../services/seminar-report.service";
 import { SeminarReportModel } from "../shared/seminar-report.model";
-import { AccountService } from "../../../../services/account.service";
+import { SeminarReportService } from '../../../../services/seminar-report.service';
+import { AccountService } from '../../../../services/account.service';
 
 @Component({
 	selector: 'reports-list',

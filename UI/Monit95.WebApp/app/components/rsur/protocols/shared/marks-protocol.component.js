@@ -43,6 +43,7 @@ var MarksProtocolComponent = /** @class */ (function () {
         }
     };
     MarksProtocolComponent.prototype.send = function () {
+        this.marksSending = true;
         this.onSend.emit(this.marksProtocol);
     };
     MarksProtocolComponent.prototype.cancel = function () {

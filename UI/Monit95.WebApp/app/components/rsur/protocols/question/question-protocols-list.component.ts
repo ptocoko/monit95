@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 import { Protocol } from '../../../../models/protocol.model';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
 	templateUrl: `./app/components/rsur/protocols/question/question-protocols-list.component.html?v=${new Date().getTime()}`,
@@ -16,7 +17,8 @@ export class QuestionProtocolsList {
 	@ViewChild('participCodeInput') participCodeInput: ElementRef;
 
 	constructor(private rsurProtocolsService: RsurProtocolsService,
-				private router: Router) { }
+				private router: Router,
+				private location: Location) { }
 
 	ngOnInit() {
 		this.rsurProtocolsService.getQuestionProtocols().subscribe(questionProtocols => {
@@ -48,5 +50,4 @@ export class QuestionProtocolsList {
 		this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
 			.subscribe(res => questionProtocol.RsurQuestionValues = 'отсутствовал');
 	}
-
 }

@@ -107,11 +107,10 @@
     <Compile Include="ClassParticipConverter_Tests.cs" />
     <Compile Include="MarksService_Test.cs" />
     <Compile Include="RsurParticipService_Test.cs" />
-    <Compile Include="RsurTestServiceTests.cs" />
     <Compile Include="RsurParticipReportService_Test.cs" />
     <Compile Include="ParticipReportServiceTest.cs" />
     <Compile Include="RatingServiceTest.cs" />
-    <Compile Include="RsurTestResultServiceTest.cs" />
+    <Compile Include="QuestionValueServiceTest.cs" />
     <Compile Include="RepositoryServiceTest.cs" />
     <Compile Include="Util\MyExpectedException.cs" />
   </ItemGroup>
