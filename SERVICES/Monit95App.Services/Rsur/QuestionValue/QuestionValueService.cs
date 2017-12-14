@@ -185,8 +185,8 @@ namespace Monit95App.Services.Rsur.QuestionValue
             };
 
             // Осталось инициализировать QuestionResults.
-            var currentMarks = rsurTestResult.RsurQuestionValues.Split(';');                        
-            var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.TestQuestions.ToList(); // получаемый задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям
+            var currentMarks = rsurTestResult.RsurQuestionValues.Split(';'); // if RsurTestResults.FileId != null, then RsurtTesResults.RsurQuestionValues != "wasnot"                        
+            var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.TestQuestions; // получаем задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям
             int index = 0;         
             foreach (var testQuestion in testQuestions.OrderBy(tq => tq.Order))
             {
