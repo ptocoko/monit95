@@ -43,26 +43,6 @@ namespace Monit95App.Services.Rsur.QuestionValue
 
         #region Methods
 
-        public IEnumerable<QuestionValueEditDto> GetProtocols(int rsurTestId, int areaCode)
-        {
-            //var protocols = context.RsurParticipTests
-            //    .Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
-            //    .Select(x => new MarksProtocol
-            //    {
-            //        RsurParticipTestId = x.Id,
-            //        RsurParticipCode = x.RsurParticipCode,
-            //        RsurQuestionValues = x.RsurTestResult.RsurQuestionValues
-            //    })
-            //    .OrderBy(x => x.RsurParticipCode).ToList();
-
-            //if (!protocols.Any())
-            //{
-            //    throw new ArgumentException("Parameters rsurTestId or areaCode is incorrect");
-            //}
-
-            throw new NotImplementedException();
-        }
-
         public IDictionary<int, RsurTestStatisticsDto> GetStatistics(int areaCode)
         {
             var rsurTests =
@@ -158,9 +138,9 @@ namespace Monit95App.Services.Rsur.QuestionValue
         /// <param name="areaCode"></param>
         /// <returns></returns>
         [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
-        public ServiceResult<QuestionValueViewDto> GetEditDtoByFileId(int fileId, int areaCode)
+        public ServiceResult<QuestionValueEditDto> GetEditDtoByFileId(int fileId, int areaCode)
         {
-            var result = new ServiceResult<QuestionValueViewDto>();        
+            var result = new ServiceResult<QuestionValueEditDto>();        
 
             // Нам необходимо значение поля RsurTestResult.RsurQuestionValues и для этого попытаемся
             // получить соответствующий объект RsurTestResult если такой существует.
@@ -201,6 +181,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
             }
 
             // Возвращаем результат
+            result.Result = questionValueEditDto;
             return result;
         }
 

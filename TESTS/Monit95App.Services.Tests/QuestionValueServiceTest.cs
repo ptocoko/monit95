@@ -16,12 +16,12 @@ using NSubstitute;
 namespace Monit95App.Services.Tests
 {
     [TestClass]
-    public class RsurTestResultServiceTest
+    public class QuestionValueServiceTest
     {
         private readonly CokoContext mockContext;
 
         // Constructor
-        public RsurTestResultServiceTest()
+        public QuestionValueServiceTest()
         {
             var data = new List<RsurTestResult>
             {
@@ -349,6 +349,87 @@ namespace Monit95App.Services.Tests
             var result = service.GetQuestionProtocolList(201).Result;
 
             Assert.AreEqual(true, result.Count() > 0);
+        }
+
+        [TestMethod]
+        public void GetEditDtoByFileId()
+        {
+            // Arrange
+            var fakeRsurTestResults = new List<RsurTestResult>
+            {
+                new RsurTestResult
+                {
+                    RsurParticipTest = new RsurParticipTest
+                    {
+                        RsurParticip = new RsurParticip
+                        {
+                            School = new Domain.Core.Entities.School
+                            {
+                                AreaCode = 201
+                            }
+                        },
+                        RsurTest = new RsurTest
+                        {
+                            IsOpen = true,
+                            Test = new Test
+                            {
+                                NumberCode = "0101",
+                                Name = "Орфография",
+                                TestQuestions = new List<TestQuestion>
+                                {
+                                    new TestQuestion
+                                    {
+                                        Order = 1,
+                                        Name = "1",
+                                        Question = new Question
+                                        {
+                                            MaxMark = 1
+                                        }
+                                    },
+                                    new TestQuestion
+                                    {
+                                        Order = 2,
+                                        Name = "2",
+                                        Question = new Question
+                                        {
+                                            MaxMark = 2
+                                        }
+                                    },
+                                    new TestQuestion
+                                    {
+                                        Order = 3,
+                                        Name = "3",
+                                        Question = new Question
+                                        {
+                                            MaxMark = 1
+                                        }
+                                    },
+                                }
+                            }
+                        },
+                        RsurParticipCode = 12345                        
+                    },
+                    FileId = 1,
+                    RsurParticipTestId = 1,
+                    RsurQuestionValues = "1;0;1"
+                }
+            }.AsQueryable();
+            var mockRsurTestResultSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Provider.Returns(fakeRsurTestResults.Provider);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Expression.Returns(fakeRsurTestResults.Expression);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).ElementType.Returns(fakeRsurTestResults.ElementType);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).GetEnumerator().Returns(fakeRsurTestResults.GetEnumerator());
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.RsurTestResults.Returns(mockRsurTestResultSet);
+
+            // Act
+            var questionValueService = new QuestionValueService(mockCokoContext);
+            var successResult = questionValueService.GetEditDtoByFileId(1, 201);
+
+            // Assert
+            Assert.IsNotNull(successResult);
+            Assert.AreEqual(0, successResult.Errors.Count());
+            Assert.AreEqual(0, successResult.Result.QuestionResults.Single(x => x.Order == 2).CurrentMark);
         }
     }
 }

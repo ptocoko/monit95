@@ -13,7 +13,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
         string GetTestName(int rsurTestId);                
 
         QuestionValueEditDto Get(int participCode, int areaCode); // areaCode for Validate
-        ServiceResult<QuestionValueViewDto> GetEditDtoByFileId(int fileId, int areaCode);
+        ServiceResult<QuestionValueEditDto> GetEditDtoByFileId(int fileId, int areaCode);
 
         VoidResult CreateOrUpdate(QuestionValueEditDto testResultDto, int areaCode);
         //ServiceResult<IEnumerable<TestResultViewDto>> GetAll(int areaCode);
