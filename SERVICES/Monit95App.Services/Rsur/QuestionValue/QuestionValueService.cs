@@ -42,67 +42,8 @@ namespace Monit95App.Services.Rsur.QuestionValue
         #endregion
 
         #region Methods
-
-        public IEnumerable<QuestionValueEditDto> GetProtocols(int rsurTestId, int areaCode)
-        {
-            //var protocols = context.RsurParticipTests
-            //    .Where(x => x.RsurTestId == rsurTestId && x.RsurParticip.School.AreaCode == areaCode)
-            //    .Select(x => new MarksProtocol
-            //    {
-            //        RsurParticipTestId = x.Id,
-            //        RsurParticipCode = x.RsurParticipCode,
-            //        RsurQuestionValues = x.RsurTestResult.RsurQuestionValues
-            //    })
-            //    .OrderBy(x => x.RsurParticipCode).ToList();
-
-            //if (!protocols.Any())
-            //{
-            //    throw new ArgumentException("Parameters rsurTestId or areaCode is incorrect");
-            //}
-
-            throw new NotImplementedException();
-        }
-
-        //public IDictionary<int, RsurTestStatisticsDto> GetStatistics(int areaCode)
-        //{
-        //    var rsurTests =
-        //        this.context.RsurTests.Where(x => x.IsOpen)
-        //            .Select(s => s.Id); // получаем testId для всех открытых тестов
-
-        //    var resultDict = new Dictionary<int, RsurTestStatisticsDto>();
-        //    foreach (var rsurTestId in rsurTests)
-        //    {
-        //        var particips = this.context.RsurParticipTests.Where(x =>
-        //            x.RsurParticip.School.AreaCode == areaCode // получаем список всех участников для данного testId
-        //            && x.RsurTestId == rsurTestId);
-        //        double participsCount = particips.Count();
-        //        double participsWithoutMarks;
-
-        //        var resultDto = new RsurTestStatisticsDto();
-        //        double result;
-        //        if (particips == null || participsCount == 0)
-        //        {
-        //            resultDto.HasAnyParticip = false;
-        //            result = 0;
-        //        }
-        //        else
-        //        {
-        //            resultDto.HasAnyParticip = true;
-        //            participsWithoutMarks = particips.Count(s => s.RsurTestResult.RsurQuestionValues != null);
-        //            result = Math.Round(participsWithoutMarks / participsCount * 100, 0);
-        //        }
-
-        //        resultDto.ProtocolStatus = (int) result;
-        //        resultDict.Add(rsurTestId, resultDto);
-        //    }
-        //    return resultDict;
-        //}
-
-        //public string GetTestName(int rsurTestId)
-        //{
-        //    return this.context.RsurTests.Where(x => x.Id == rsurTestId)
-        //                            .Select(s => s.Test.NumberCode + " — " + s.Test.Name.Trim()).Single();
-        //}
+        
+        
 
         public int GetStatistics(int areaCode)
         {
@@ -176,9 +117,9 @@ namespace Monit95App.Services.Rsur.QuestionValue
         /// <param name="areaCode"></param>
         /// <returns></returns>
         [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
-        public ServiceResult<QuestionValueViewDto> GetEditDtoByFileId(int fileId, int areaCode)
+        public ServiceResult<QuestionValueEditDto> GetEditDtoByFileId(int fileId, int areaCode)
         {
-            var result = new ServiceResult<QuestionValueViewDto>();        
+            var result = new ServiceResult<QuestionValueEditDto>();        
 
             // Нам необходимо значение поля RsurTestResult.RsurQuestionValues и для этого попытаемся
             // получить соответствующий объект RsurTestResult если такой существует.
@@ -219,6 +160,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
             }
 
             // Возвращаем результат
+            result.Result = questionValueEditDto;
             return result;
         }
 

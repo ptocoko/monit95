@@ -16,14 +16,14 @@ using NSubstitute;
 namespace Monit95App.Services.Tests
 {
     [TestClass]
-    public class RsurTestResultServiceTest
+    public class QuestionValueServiceTest
     {
         private readonly CokoContext mockContext;
 
         // Constructor
-        public RsurTestResultServiceTest()
+        public QuestionValueServiceTest()
         {
-            var testResultData = new List<RsurTestResult>
+            var data = new List<RsurTestResult>
             {
                 new RsurTestResult
                 {
@@ -73,10 +73,10 @@ namespace Monit95App.Services.Tests
                 }
             }.AsQueryable();
             var mockSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
-            ((IQueryable<RsurTestResult>)mockSet).Provider.Returns(testResultData.Provider);
-            ((IQueryable<RsurTestResult>)mockSet).Expression.Returns(testResultData.Expression);
-            ((IQueryable<RsurTestResult>)mockSet).ElementType.Returns(testResultData.ElementType);
-            ((IQueryable<RsurTestResult>)mockSet).GetEnumerator().Returns(testResultData.GetEnumerator());
+            ((IQueryable<RsurTestResult>)mockSet).Provider.Returns(data.Provider);
+            ((IQueryable<RsurTestResult>)mockSet).Expression.Returns(data.Expression);
+            ((IQueryable<RsurTestResult>)mockSet).ElementType.Returns(data.ElementType);
+            ((IQueryable<RsurTestResult>)mockSet).GetEnumerator().Returns(data.GetEnumerator());
 
             #region RsurParticipTest Mocking
             var participTestData = new List<RsurParticipTest>
@@ -100,35 +100,6 @@ namespace Monit95App.Services.Tests
                         {
                             AreaCode = 201
                         }
-                    },
-                    RsurTestResult = new RsurTestResult
-                    {
-                        RsurQuestionValues = null
-                    }
-                },
-                new RsurParticipTest
-                {
-                    Id = 1234,
-                    RsurParticipCode = 12345,
-                    RsurTest = new RsurTest
-                    {
-                        IsOpen = true,
-                        Test = new Test
-                        {
-                            NumberCode = "0101",
-                            Name = "Орфография"
-                        }
-                    },
-                    RsurParticip = new RsurParticip
-                    {
-                        School = new Domain.Core.Entities.School
-                        {
-                            AreaCode = 201
-                        }
-                    },
-                    RsurTestResult = new RsurTestResult
-                    {
-                        RsurQuestionValues = null
                     }
                 },
                 new RsurParticipTest
@@ -373,7 +344,7 @@ namespace Monit95App.Services.Tests
         [TestMethod]
         public void GetQuestionProtocolsListTest()
         {
-            var service = new QuestionValueService(mockContext);
+            var service = new QuestionValueService(new CokoContext());
 
             var result = service.GetQuestionProtocolList(201).Result;
 
@@ -381,16 +352,84 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
-        public void GetStatisticsTest()
+        public void GetEditDtoByFileId()
         {
-            var service = new QuestionValueService(mockContext);
+            // Arrange
+            var fakeRsurTestResults = new List<RsurTestResult>
+            {
+                new RsurTestResult
+                {
+                    RsurParticipTest = new RsurParticipTest
+                    {
+                        RsurParticip = new RsurParticip
+                        {
+                            School = new Domain.Core.Entities.School
+                            {
+                                AreaCode = 201
+                            }
+                        },
+                        RsurTest = new RsurTest
+                        {
+                            IsOpen = true,
+                            Test = new Test
+                            {
+                                NumberCode = "0101",
+                                Name = "Орфография",
+                                TestQuestions = new List<TestQuestion>
+                                {
+                                    new TestQuestion
+                                    {
+                                        Order = 1,
+                                        Name = "1",
+                                        Question = new Question
+                                        {
+                                            MaxMark = 1
+                                        }
+                                    },
+                                    new TestQuestion
+                                    {
+                                        Order = 2,
+                                        Name = "2",
+                                        Question = new Question
+                                        {
+                                            MaxMark = 2
+                                        }
+                                    },
+                                    new TestQuestion
+                                    {
+                                        Order = 3,
+                                        Name = "3",
+                                        Question = new Question
+                                        {
+                                            MaxMark = 1
+                                        }
+                                    },
+                                }
+                            }
+                        },
+                        RsurParticipCode = 12345                        
+                    },
+                    FileId = 1,
+                    RsurParticipTestId = 1,
+                    RsurQuestionValues = "1;0;1"
+                }
+            }.AsQueryable();
+            var mockRsurTestResultSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Provider.Returns(fakeRsurTestResults.Provider);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Expression.Returns(fakeRsurTestResults.Expression);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).ElementType.Returns(fakeRsurTestResults.ElementType);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).GetEnumerator().Returns(fakeRsurTestResults.GetEnumerator());
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.RsurTestResults.Returns(mockRsurTestResultSet);
 
-            var result = service.GetStatistics(201);
+            // Act
+            var questionValueService = new QuestionValueService(mockCokoContext);
+            var successResult = questionValueService.GetEditDtoByFileId(1, 201);
 
-            //result must be grater or equal 0 and less or equal 100
-            Assert.IsTrue(0 <= result && result <= 100);
-
-            Assert.AreEqual(33, result);
+            // Assert
+            Assert.IsNotNull(successResult);
+            Assert.AreEqual(0, successResult.Errors.Count());
+            Assert.AreEqual(0, successResult.Result.QuestionResults.Single(x => x.Order == 2).CurrentMark);
         }
     }
 }
