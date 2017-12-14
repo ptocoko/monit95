@@ -7,18 +7,18 @@
     <div>не обработано: {{notProcessedProtocols()}}</div>
     <div class="search-field">
         <mat-form-field>
-            <input #participCodeInput [(ngModel)]="searchText" maxlength="5" placeholder="Поиск по коду участника..." matInput />
+            <input #participCodeInput [(ngModel)]="searchText" maxlength="5" placeholder="поиск по коду участника..." matInput />
             <i class="glyphicon glyphicon-ok" matSuffix style="color:green" *ngIf="checkIfOnlyOneMatch(searchText)"></i>
         </mat-form-field>
     </div>
 
     <table class="table table-bordered">
         <tr>
-            <th class="row-number-cell">№ п/п</th>
-            <th class="particip-code-cell">Код участника</th>
-            <th>Блок</th>
-            <th>Баллы по заданиям</th>
-            <th style="width:273px">Действия</th>
+            <th class="row-number-cell">#</th>
+            <th class="particip-code-cell">код участника</th>
+            <th>блок</th>
+            <th>баллы по заданиям</th>
+            <th style="width:273px">действия</th>
         </tr>
         <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText; let i = index">
             <td class="row-number-cell">{{i + 1}}</td>
@@ -28,7 +28,7 @@
             <td>
                 <div class="pull-left">
                     <button mat-raised-button color="primary" (click)="changeMarks(protocol.ParticipCode)"><i class="glyphicon glyphicon-edit"></i> изменить</button>
-                    <button matTooltip="Указать, что участник отсутствовал" [matTooltipPosition]="'right'" *ngIf="protocol.RsurQuestionValues !== 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
+                    <button matTooltip="Указать, что участник отсутствовал" [matTooltipPosition]="'right'" [disabled]="protocol.RsurQuestionValues === 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
                         <i class="glyphicon glyphicon-header"></i> отсутствовал
                     </button>
                 </div>
