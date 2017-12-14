@@ -18,6 +18,14 @@
                 <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Бланки ответов</h4></div></a>
             </ng-template>
         </div>
+        <div *ngIf="isArea()" class="list-item">
+            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
+                <div>
+                    <h4>Протоколы проверки заданий</h4>
+                </div>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+            </a>
+        </div>
     </div>
 
     <ng-template #rsur16>
@@ -114,13 +122,6 @@
             <a class="list-item-link" [routerLink]="['/rsur/scan-protocols']">
                 <div>
                     <h4>Бланки ответов</h4>
-                </div>
-            </a>
-        </div>
-        <div *ngIf="isArea() && false" class="list-item">
-            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                <div>
-                    <h4>Протоколы проверки заданий</h4>
                 </div>
             </a>
         </div>

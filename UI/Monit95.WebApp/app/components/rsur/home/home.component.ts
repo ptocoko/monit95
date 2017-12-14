@@ -1,23 +1,27 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { AccountModel } from '../../../models/account.model';
 import { AccountService } from '../../../services/account.service';
+import { AccountModel } from '../../../models/account.model';
+import { RsurProtocolsService } from '../../../services/rsur-protocols.service';
 
 @Component({    
     templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`
 })
 export class HomeComponent implements OnInit {
     account = new AccountModel(); 
-    isLoading: boolean = true;
+	isLoading: boolean = true;
+	_fillingProgress: string;
 
     constructor(        
-        private readonly accountService: AccountService) {        
+		private readonly accountService: AccountService,
+		private readonly rsurProtocolService: RsurProtocolsService) {        
     }
 
     ngOnInit() {        
         this.accountService.getAccount().subscribe(data => {            
             this.account = data.json() as AccountModel;            
             this.isLoading = false;
-            localStorage.clear();            
+			localStorage.clear();
+			this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
         });
     }
 
@@ -39,5 +43,13 @@ export class HomeComponent implements OnInit {
         }
 			
 		return null;
+	}
+
+	fillingProgress() {
+		if (!this._fillingProgress) {
+			return 0;
+		}
+
+		return Number.parseInt(this._fillingProgress);
 	}
 }

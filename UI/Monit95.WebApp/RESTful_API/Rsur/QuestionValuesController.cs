@@ -158,6 +158,30 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             }
             return BadRequest(this.ModelState);
         }
+
+        /// <summary>
+        /// Возвращает процент заполненных протоколов от общего числа протоколов (для открытых тестов)
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        [HttpGet]
+        [Route("statistics")]
+        public IHttpActionResult GetStatistics()
+        {
+            var areaCode = int.Parse(User.Identity.Name);
+
+            int result;
+            try
+            {
+                result = questionValueService.GetStatistics(areaCode);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(result);
+        }
     }
 }
 

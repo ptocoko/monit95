@@ -3,13 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
-var router_1 = require("@angular/router");
 var rsur_protocols_service_1 = require("../../../../services/rsur-protocols.service");
+var router_1 = require("@angular/router");
+var common_1 = require("@angular/common");
 var QuestionProtocolsList = /** @class */ (function () {
-    function QuestionProtocolsList(rsurProtocolsService, router) {
+    function QuestionProtocolsList(rsurProtocolsService, router, location) {
         var _this = this;
         this.rsurProtocolsService = rsurProtocolsService;
         this.router = router;
+        this.location = location;
         this.processedProtocols = function () { return _this.questionProtocols.filter(function (f) { return f.RsurQuestionValues; }).length; };
         this.notProcessedProtocols = function () { return _this.questionProtocols.filter(function (f) { return !f.RsurQuestionValues; }).length; };
     }
@@ -50,7 +52,8 @@ var QuestionProtocolsList = /** @class */ (function () {
             styleUrls: ["./app/components/rsur/protocols/question/question-protocols-list.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
-            router_1.Router])
+            router_1.Router,
+            common_1.Location])
     ], QuestionProtocolsList);
     return QuestionProtocolsList;
 }());

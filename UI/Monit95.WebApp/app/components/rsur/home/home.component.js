@@ -2,11 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
-var account_model_1 = require("../../../models/account.model");
 var account_service_1 = require("../../../services/account.service");
+var account_model_1 = require("../../../models/account.model");
+var rsur_protocols_service_1 = require("../../../services/rsur-protocols.service");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(accountService) {
+    function HomeComponent(accountService, rsurProtocolService) {
         this.accountService = accountService;
+        this.rsurProtocolService = rsurProtocolService;
         this.account = new account_model_1.AccountModel();
         this.isLoading = true;
     }
@@ -16,6 +18,7 @@ var HomeComponent = /** @class */ (function () {
             _this.account = data.json();
             _this.isLoading = false;
             localStorage.clear();
+            _this.rsurProtocolService.getStatistics().subscribe(function (progress) { return _this._fillingProgress = progress; });
         });
     };
     HomeComponent.prototype.isArea = function () {
@@ -34,11 +37,18 @@ var HomeComponent = /** @class */ (function () {
         }
         return null;
     };
+    HomeComponent.prototype.fillingProgress = function () {
+        if (!this._fillingProgress) {
+            return 0;
+        }
+        return Number.parseInt(this._fillingProgress);
+    };
     HomeComponent = tslib_1.__decorate([
         core_1.Component({
             templateUrl: "./app/components/rsur/home/home.component.html?v=" + new Date().getTime()
         }),
-        tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService])
+        tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService,
+            rsur_protocols_service_1.RsurProtocolsService])
     ], HomeComponent);
     return HomeComponent;
 }());

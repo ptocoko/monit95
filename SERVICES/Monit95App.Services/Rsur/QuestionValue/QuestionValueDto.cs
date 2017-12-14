@@ -21,7 +21,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
         /// <summary>
         /// Файл бланк ответов
         /// </summary>
-        public int FileId { get; set; }
+        public int? FileId { get; set; }
     }    
 
     public class QuestionResult
