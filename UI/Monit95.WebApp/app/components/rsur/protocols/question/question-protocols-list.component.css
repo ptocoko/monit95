@@ -16,3 +16,7 @@ th{
     width:130px;
     text-align:center;
 }
+
+.red-cell {
+    background-color: #f44336;
+}

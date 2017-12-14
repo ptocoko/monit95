@@ -24,7 +24,7 @@
             <td class="row-number-cell">{{i + 1}}</td>
             <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
             <td>{{protocol.TestName}}</td>
-            <td [ngClass]="{'red': !protocol.RsurQuestionValues}">{{protocol.RsurQuestionValues}}</td>
+            <td [ngClass]="{'red-cell': !protocol.RsurQuestionValues}">{{protocol.RsurQuestionValues}}</td>
             <td>
                 <div class="pull-left">
                     <button mat-raised-button color="primary" (click)="changeMarks(protocol.ParticipCode)"><i class="glyphicon glyphicon-edit"></i> изменить</button>
