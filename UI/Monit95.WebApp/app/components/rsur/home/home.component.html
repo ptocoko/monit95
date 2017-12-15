@@ -15,23 +15,19 @@
             <a *ngIf="account.UserName !== '214'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/9uL7/jrLf4Md82"><div><h4><b>История: КЛЮЧИ для проверки ИК по блоку «ТЕРМИНЫ. ИСТОРИЧЕСКИЕ ДЕЯТЕЛИ»</b></h4></div></a>
             <a *ngIf="account.UserName !== '201' && account.UserName !== '208' && account.UserName !== '214' && account.UserName !== '216'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/Gqmi/54nxkdFv6"><div><h4><b>История: КЛЮЧИ для проверки ИК по блоку «ТЕКСТОВЫЕ ИСТОЧНИКИ. ИСТОРИЧЕСКАЯ КАРТА...»</b></h4></div></a>
             
-            <!--Протоколы-->
-            <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Ключи</h4></div></a>
-            <div *ngIf="account.UserName !== '209' && false; else area209" class="list-item-link progressbar-container">
-                <h4>Русский язык: Заполенение протоколов проверки заданий</h4>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" value="67"></ngb-progressbar></span>
-            </div>
-            <ng-template #area209>
-                <a *ngIf="false" class="list-item-link" href="#"><div><h4>Русский язык: Бланки ответов</h4></div></a>
-            </ng-template>
+            <!--Протоколы-->                        
+            
         </div>
-        <div *ngIf="isArea()" class="list-item">
+        <div *ngIf="account.UserName !== '209'" class="list-item">
             <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                 <div>
                     <h4><b>История: протоколы проверки заданий</b></h4>
                 </div>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
             </a>
+            <ng-template #area209>
+                <a *ngIf="false" class="list-item-link" href="#"><div><h4>История: Бланки ответов</h4></div></a>
+            </ng-template>
         </div>
     </div>
 
