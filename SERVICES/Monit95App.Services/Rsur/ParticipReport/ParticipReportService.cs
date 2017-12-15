@@ -90,8 +90,9 @@ namespace Monit95App.Services.Rsur.ParticipReport
         private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable, DateTime testDate)
         {
             var notShowedTestIds = new int[] { };
+            DateTime maxDateTime = new DateTime(2017, 12, 1);
 
-            return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate
+            return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate && p.RsurParticipTest.RsurTest.TestDate < maxDateTime
                                      && p.RsurParticipTest.RsurParticip.ActualCode == 1
                                      && p.RsurQuestionValues.IndexOf("X") == -1
                                      && !notShowedTestIds.Contains(p.RsurParticipTest.RsurTestId))
