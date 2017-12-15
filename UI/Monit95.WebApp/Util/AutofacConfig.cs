@@ -6,6 +6,7 @@ using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using Monit95App.Services;
+using Monit95App.Services.File;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur;
 using Monit95App.Services.Rsur.ParticipReport;
@@ -51,7 +52,8 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<QuestionValueService>().As<IQuestionValueService>();
             builder.RegisterType<ParticipReportService>().As<IParticipReportService>();
             builder.RegisterType<RatingService>().As<IRatingService>();
-            builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();            
+            builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();
+            builder.RegisterType<FileService>().As<IFileService>();
 
              var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

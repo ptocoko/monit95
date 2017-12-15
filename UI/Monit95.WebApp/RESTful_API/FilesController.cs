@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -90,11 +91,12 @@ namespace Monit95.WebApp.RESTful_API
         public IHttpActionResult GetUrl()
         {
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            var result = fileService.GetUrl(fileId, User.Identity.Name);
+            var imagesFolder = HostingEnvironment.MapPath("~/Images/repository2");
+            var result = fileService.GetFileName(fileId, User.Identity.Name, imagesFolder);
 
             // Success
             if (!result.Errors.Any())
-                return Ok();
+                return Ok(result.Result);
 
             // Faild
             foreach (var error in result.Errors)

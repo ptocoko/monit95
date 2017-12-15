@@ -10,7 +10,7 @@ using Monit95App.Services.Validation;
 
 namespace Monit95App.Services.File
 {
-    public class RepositoryService : IFileService
+    public class FileService : IFileService
     {
         #region Fields
 
@@ -26,7 +26,7 @@ namespace Monit95App.Services.File
 
         #region All Constructors
 
-        public RepositoryService(CokoContext context)
+        public FileService(CokoContext context)
         {
             this.context = context;
         }
@@ -170,11 +170,11 @@ namespace Monit95App.Services.File
             var fileEntity = context.Files.SingleOrDefault(file => file.FilePermissonList.Any(fp => fp.UserName == userName) && file.Id == fileId);
             if (fileEntity == null)
             {
-                result.Errors.Add(new ServiceError{HttpCode = 404});
+                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Файл {fileId} не найдед или отсутствует доступ у пользователя {userName}"});
                 return result;
             }
                         
-            var sourceFileName = $"{REPOSITORIES_FOLDER}/{fileEntity.RepositoryId}/{fileEntity.Name}"; // generate source file name
+            var sourceFileName = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileEntity.Name}"; // generate source file name
             var destFileName = Path.Combine(destHostFolder, fileEntity.Name); // generate dest file name
 
             // Validate: check exist destFile
@@ -188,7 +188,7 @@ namespace Monit95App.Services.File
             if (!Directory.Exists(destHostFolder))
             {
                 result.Errors.Add(new ServiceError { Description = $"Parameter {nameof(destHostFolder)} is invalid: directory is not exist" });
-                return null;
+                return result;
             }            
             
             System.IO.File.Copy(sourceFileName, destFileName); // copy file to dest folder
@@ -196,6 +196,47 @@ namespace Monit95App.Services.File
             // Return destFileName
             result.Result = destFileName;
             return result;
+        }
+
+        /// <summary>
+        /// Перемещает указанный список файлов в указанную папку, убирая из списка файлов дубликаты
+        /// </summary>
+        /// <param name="fileNames">список файлов</param>
+        /// <param name="distFolder">папка, в которую нужно переместить файлы без дубликатов</param>
+        /// <returns>список имен перемещенных файлов</returns>
+        public static IEnumerable<string> GetNonDuplicateFiles(string[] fileNames, string distFolder)
+        {
+            if (!Directory.Exists(distFolder)) throw new ArgumentException("Указанная удаленная папка не существует");
+
+            List<string> hashes = new List<string>();
+            List<string> movedFileNames = new List<string>();
+
+            string hashString;
+            foreach (var fileName in fileNames)
+            {
+                if (!Path.IsPathRooted(fileName)) throw new ArgumentException("Имена файлов должны содержать полный путь к ним");
+                if (!System.IO.File.Exists(fileName)) throw new ArgumentException($"Файла {fileName} не существует");
+
+                using (var md5 = MD5.Create())
+                {
+                    using (var stream = System.IO.File.OpenRead(fileName))
+                    {
+                        var hash = md5.ComputeHash(stream);
+                        hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                    }
+                }
+
+                if (!hashes.Contains(hashString))
+                {
+                    hashes.Add(hashString);
+                    var fileNameWithoutPath = Path.GetFileName(fileName);
+                    System.IO.File.Move(fileName, $"{distFolder}\\{fileNameWithoutPath}");
+
+                    movedFileNames.Add($"{distFolder}\\{fileNameWithoutPath}");
+                }
+            }
+
+            return movedFileNames;
         }
     }
 }
