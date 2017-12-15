@@ -6,7 +6,7 @@ using System.Linq;
 namespace Monit95App.Services.Tests
 {
     [TestClass]
-    public class FilesService_Tests
+    public class FileServiceTests
     {
         const string folderWithFiles = "C:\\repositories\\tests";
         const string distFolder = "C:\\repositories\\tests_dist";
@@ -34,5 +34,8 @@ namespace Monit95App.Services.Tests
         {
             var actual = FilesService.GetNonDuplicateFiles(new string[] { $"{folderWithFiles}\\im_not_exist_file.png" }, distFolder);
         }
+
+        [TestMethod]
+        public void GetUrl
     }
 }

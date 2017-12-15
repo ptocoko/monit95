@@ -150,30 +150,51 @@ namespace Monit95App.Services.File
 
             return result;
         }
-        
+
         /// <summary>
-        /// Получение Url файла для отображения
+        /// Скачивает файл из репозитория и возвращает полный путь к нему
         /// </summary>
+        /// <remarks>
+        /// Копирует файл из репозитория в указанный путь <see cref="destHostFolder"/> и возвращает полный путь.
+        /// Если файл уже существует по пути <see cref="destHostFolder"/>, то копирование не происходит, а просто возвращается уже существующий полный путь
+        /// </remarks>
         /// <param name="fileId"></param>
         /// <param name="destHostFolder"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public ServiceResult<string> GetUrl(int fileId, string destHostFolder, string userName)
+        public ServiceResult<string> GetFileName(int fileId, string destHostFolder, string userName)
         {
             var result = new ServiceResult<string>();
             
-            // Generate file name
+            // Get file entity from database
             var fileEntity = context.Files.SingleOrDefault(file => file.FilePermissonList.Any(fp => fp.UserName == userName) && file.Id == fileId);
             if (fileEntity == null)
             {
                 result.Errors.Add(new ServiceError{HttpCode = 404});
                 return result;
             }
-            
-            var sourceFileName = $"{REPOSITORIES_FOLDER}/{fileEntity.RepositoryId}/{fileEntity.Name}";
-            var destFileName = $"{destHostFolder}/{fileEntity.Name}";
-            System.IO.File.Copy(sourceFileName, destFileName);  
+                        
+            var sourceFileName = $"{REPOSITORIES_FOLDER}/{fileEntity.RepositoryId}/{fileEntity.Name}"; // generate source file name
+            var destFileName = Path.Combine(destHostFolder, fileEntity.Name); // generate dest file name
 
+            // Validate: check exist destFile
+            if (System.IO.File.Exists(destFileName))
+            {
+                result.Result = destFileName;
+                return result;
+            }            
+
+            // Validate destHostFolder
+            if (!Directory.Exists(destHostFolder))
+            {
+                result.Errors.Add(new ServiceError { Description = $"Parameter {nameof(destHostFolder)} is invalid: directory is not exist" });
+                return null;
+            }            
+            
+            System.IO.File.Copy(sourceFileName, destFileName); // copy file to dest folder
+
+            // Return destFileName
+            result.Result = destFileName;
             return result;
         }
     }
