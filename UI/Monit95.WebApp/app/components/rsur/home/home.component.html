@@ -5,20 +5,20 @@
     <div *ngIf="isArea()" class="list-container">
         <h3 class="list-header">Диагностика «Декабрь-2017»</h3>
         <div>
-            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/ис_14.12.2017_распределение_{{account.UserName}}.xlsx"><div><h4>История: распределение</h4></div></a>
-            <a *ngIf="true" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/Aj4d/aL7oxRYMc"><div><h4>История: варианты ИК по блоку «ДАТЫ. ОСНОВНЫЕ ФАКТЫ, ПРОЦЕССЫ И ЯВЛЕНИЯ»</h4></div></a>
-            <a *ngIf="account.UserName !== '214'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/5BAw/cixmf8Lby"><div><h4>История: варианты ИК по блоку «ТЕРМИНЫ. ИСТОРИЧЕСКИЕ ДЕЯТЕЛИ»</h4></div></a>
-            <a *ngIf="account.UserName !== '201' && account.UserName !== '208' && account.UserName !== '214' && account.UserName !== '216'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/FxR1/VX95Jakwy"><div><h4>История: варианты ИК по блоку «ТЕКСТОВЫЕ ИСТОЧНИКИ. ИСТОРИЧЕСКАЯ КАРТА...»</h4></div></a>
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/ма_122017_распределение_{{account.UserName}}.xlsx"><div><h4>Математика: распределение</h4></div></a>
+            <a *ngIf="false" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/Aj4d/aL7oxRYMc"><div><h4>История: варианты ИК по блоку «ДАТЫ. ОСНОВНЫЕ ФАКТЫ, ПРОЦЕССЫ И ЯВЛЕНИЯ»</h4></div></a>
+            <a *ngIf="false" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/5BAw/cixmf8Lby"><div><h4>История: варианты ИК по блоку «ТЕРМИНЫ. ИСТОРИЧЕСКИЕ ДЕЯТЕЛИ»</h4></div></a>
+            <a *ngIf="false" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/FxR1/VX95Jakwy"><div><h4>История: варианты ИК по блоку «ТЕКСТОВЫЕ ИСТОЧНИКИ. ИСТОРИЧЕСКАЯ КАРТА...»</h4></div></a>
 
             <!--Ключи-->
-            <a *ngIf="true" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/XvHz/iMnpFaePo"><div><h4><b>История: КЛЮЧИ для проверки ИК по блоку «ДАТЫ. ОСНОВНЫЕ ФАКТЫ, ПРОЦЕССЫ И ЯВЛЕНИЯ»</b></h4></div></a>
-            <a *ngIf="account.UserName !== '214'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/9uL7/jrLf4Md82"><div><h4><b>История: КЛЮЧИ для проверки ИК по блоку «ТЕРМИНЫ. ИСТОРИЧЕСКИЕ ДЕЯТЕЛИ»</b></h4></div></a>
-            <a *ngIf="account.UserName !== '201' && account.UserName !== '208' && account.UserName !== '214' && account.UserName !== '216'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/Gqmi/54nxkdFv6"><div><h4><b>История: КЛЮЧИ для проверки ИК по блоку «ТЕКСТОВЫЕ ИСТОЧНИКИ. ИСТОРИЧЕСКАЯ КАРТА...»</b></h4></div></a>
+            <a *ngIf="false" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/XvHz/iMnpFaePo"><div><h4><b>История: КЛЮЧИ для проверки ИК по блоку «ДАТЫ. ОСНОВНЫЕ ФАКТЫ, ПРОЦЕССЫ И ЯВЛЕНИЯ»</b></h4></div></a>
+            <a *ngIf="false" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/9uL7/jrLf4Md82"><div><h4><b>История: КЛЮЧИ для проверки ИК по блоку «ТЕРМИНЫ. ИСТОРИЧЕСКИЕ ДЕЯТЕЛИ»</b></h4></div></a>
+            <a *ngIf="false" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/Gqmi/54nxkdFv6"><div><h4><b>История: КЛЮЧИ для проверки ИК по блоку «ТЕКСТОВЫЕ ИСТОЧНИКИ. ИСТОРИЧЕСКАЯ КАРТА...»</b></h4></div></a>
             
             <!--Протоколы-->                        
             
         </div>
-        <div *ngIf="account.UserName !== '208'" class="list-item">
+        <div *ngIf="false" class="list-item">
             <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                 <div>
                     <h4><b>История: протоколы проверки заданий</b></h4>
