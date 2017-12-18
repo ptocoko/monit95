@@ -238,5 +238,31 @@ namespace Monit95App.Services.File
 
             return movedFileNames;
         }
+
+        public ServiceResult<FileStream> GetFileContent(int fileId, string userName)
+        {
+            var result = new ServiceResult<FileStream>();
+
+            // Get file entity from database
+            var fileEntity = context.Files.SingleOrDefault(file => file.FilePermissonList.Any(fp => fp.UserName == userName) && file.Id == fileId); // для получения контента файла достаточен любой уровень доступа (FilePermissonList)
+            if (fileEntity == null)
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Файл {fileId} не найден или отсутствует доступ у пользователя {userName}" });
+                return result;
+            }
+
+            // Generate fullFileName
+            var fileName = fileEntity.Name;
+            if (fileName.IndexOf("{userName}") > -1)
+            {
+                fileName.Replace("{userName}", userName);
+            }
+            var sourceFileName = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileName}"; // generate source file name  
+
+            // Return result
+            result.Result = System.IO.File.OpenRead(sourceFileName);
+            
+            return result;
+        }
     }
 }

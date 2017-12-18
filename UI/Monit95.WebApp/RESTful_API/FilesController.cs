@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
@@ -102,6 +103,30 @@ namespace Monit95.WebApp.RESTful_API
             foreach (var error in result.Errors)
                 ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
             return BadRequest(ModelState);            
+        }
+
+        [HttpGet, Route("~/api/files/{id:int}/content")]
+        public HttpResponseMessage GetFileContent()
+        {
+            var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            var result = fileService.GetFileContent(fileId, User.Identity.Name);
+
+            // Success
+            if (!result.Errors.Any())
+            {
+                var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StreamContent(result.Result),
+                };
+                httpResponseMessage.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+
+                return httpResponseMessage;
+            }                
+
+            // Faild
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
     }
 }
