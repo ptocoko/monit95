@@ -112,6 +112,7 @@
     <Compile Include="RatingServiceTest.cs" />
     <Compile Include="QuestionValueServiceTest.cs" />
     <Compile Include="FileServiceTests.cs" />
+    <Compile Include="RsurMarksConverter_Test.cs" />
     <Compile Include="Util\MyExpectedException.cs" />
   </ItemGroup>
   <ItemGroup>
