@@ -1,4 +1,5 @@
 ﻿using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Rsur.MarksConvert;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +11,35 @@ namespace MarksStringConverter
     class Program
     {
         static CokoContext context;
+        static RsurMarksConverter service;
 
         static void Main(string[] args)
         {
             context = new CokoContext();
-
-            var (grade5, egeQuestionValues) = Convert(11005); 
-            Console.WriteLine(egeQuestionValues);
-            Console.WriteLine(grade5);
+            service = new RsurMarksConverter(context);
+            Go();
+            Console.WriteLine("All done!");
             Console.ReadKey();
         }
 
-        static (int grade5, string egeQuestionValues) Convert(int participTestId)
+        private static void Go()
         {
-            
+            Console.WriteLine("1. Сгенерировать EgeQuestionValues по RsurParticipTestId.\n2. Сгенерировать по RsurTestId.\n3. Сгенерировать для нескольких RsurTestId");
+            Console.Write("\nВведите номер команды: ");
 
-            return (grade5, egeQuestionValues);
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                default:
+                    Console.WriteLine("Команда введена некорректно!\n");
+                    break;
+            }
+            Go();
         }
     }
-
-    
 }

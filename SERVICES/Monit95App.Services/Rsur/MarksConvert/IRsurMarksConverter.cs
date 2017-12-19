@@ -2,7 +2,8 @@
 {
     public interface IRsurMarksConverter
     {
-        void GenerateByParticipTestId(int participTestId);
+        (int grade5, string egeQuestionValues) GenerateByParticipTestId(int participTestId);
         void GenerateByRsurTestId(int rsurTestId);
+        void GenerateByRsurTestIds(int[] rsurTestIds);
     }
 }

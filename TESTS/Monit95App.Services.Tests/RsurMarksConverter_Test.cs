@@ -9,11 +9,21 @@ namespace Monit95App.Services.Tests
     public class RsurMarksConverter_Test
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GenerateByParticipTestId_Test()
         {
             var service = new RsurMarksConverter(new CokoContext());
 
-            service.GenerateByParticipTestId(10807);
+            var firstExpectedGrade = 2;
+            var (firstGrade5, firstEgeQuestionValues) = service.GenerateByParticipTestId(14852); // 0;1;1;0;0;1;1;1;1;1;0;0;1;0;1;1;1;1;1;1;1;0;1;1 rsurTestId - 2097
+            Assert.AreEqual(firstExpectedGrade, firstGrade5);
+
+            var secondExpectedGrade = 2;
+            var (secondGrade5, secondEgeQuestionValues) = service.GenerateByParticipTestId(14856); //1;1;1;0;1;1;1;1;1;1;0;1;0;1;1;0;1;1;1;1;1;1;1;1 rsurTestId - 2097
+            Assert.AreEqual(secondExpectedGrade, secondGrade5);
+
+            var thirdExpectedGrade = 2;
+            var (thirdGrade5, thirdEgeQuestionValues) = service.GenerateByParticipTestId(15325); //1;1;1;1;0;1;1;1;1;1;1;0;1;1;1;1 rsurTestId - 2100
+            Assert.AreEqual(thirdExpectedGrade, thirdGrade5);
         }
     }
 }

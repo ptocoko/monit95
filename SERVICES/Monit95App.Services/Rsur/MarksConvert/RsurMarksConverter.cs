@@ -18,15 +18,29 @@ namespace Monit95App.Services.Rsur.MarksConvert
             context = _context;
         }
 
+        public void GenerateByRsurTestIds(int[] rsurTestIds)
+        {
+            foreach (var rsurTestId in rsurTestIds)
+            {
+                GenerateByRsurTestId(rsurTestId);
+            }
+        }
+
         public void GenerateByRsurTestId(int rsurTestId)
         {
             var rsurTest = context.RsurTests.Single(p => p.Id == rsurTestId);
-            if(rsurTest.TestDate < new DateTime(2017, 10, 11))
+            if(rsurTest.TestDate < new DateTime(2017, 12, 1))
             {
                 throw new ArgumentException("RsurTest is not allowed");
             }
 
-            var participTestIds = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurTestId == rsurTestId).Select(s => s.RsurParticipTestId);
+            var participTestIds = context.RsurTestResults
+                .Where(p => p.RsurParticipTest.RsurTestId == rsurTestId 
+                         && p.RsurQuestionValues != "wasnot" 
+                         && p.RsurQuestionValues != null)
+                .Select(s => s.RsurParticipTestId)
+                .ToList();
+
             if (!participTestIds.Any())
             {
                 throw new ArgumentException("не найдено ни одного результата по данному тесту");
@@ -38,13 +52,13 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
         }
         
-        public void GenerateByParticipTestId(int participTestId)
+        public (int grade5, string egeQuestionValues) GenerateByParticipTestId(int participTestId)
         {
             var entity = context.RsurTestResults.Single(p => p.RsurParticipTestId == participTestId);
 
             int[] marks;
             var marksString = entity.RsurQuestionValues;
-            if(Regex.IsMatch(marksString, @"^([0-1];)([0-1];)*([0-1])$"))
+            if(marksString != null && marksString != "wasnot")
             {
                 marks = marksString
                     .Split(';')
@@ -62,12 +76,12 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 .Where(p => p.TestId == testId)
                 .Include(x => x.Question)
                 .ToList()
-                .Select(s => new RsurQuestionsModel
+                .Select(testQuestion => new RsurQuestionsModel
                 {
-                    TestQuestionId = s.Id,
-                    QuestionId = s.Question.Id,
-                    EgeOrder = s.Question.Order,
-                    Mark = marks[s.Order - 1]
+                    TestQuestionId = testQuestion.Id,
+                    QuestionId = testQuestion.Question.Id,
+                    EgeOrder = testQuestion.Question.Order,
+                    Mark = marks[testQuestion.Order - 1]
                 })
                 .GroupBy(gb => gb.QuestionId)
                 .Select(s => new EgeQuestionsModel
@@ -78,12 +92,17 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 });
 
             if (questionsModel.Any(x => x.EgeOrder == null))
-                throw new MissingFieldException("Отсутствует поле Order в таблице Questions");
+                throw new ArgumentException("Отсутствует поле Order в таблице Questions");
 
             var egeValues = questionsModel.Select(s => s.EgeValue);
             var grade5 = GetGrade5(egeValues);
-
             var egeQuestionValues = GetEgeQuestionValues(questionsModel);
+
+            entity.Grade5 = grade5;
+            entity.EgeQuestionValues = egeQuestionValues;
+            context.SaveChanges();
+
+            return (grade5, egeQuestionValues);
         }
 
         private int GetGrade5(IEnumerable<int> egeValues)
@@ -93,11 +112,13 @@ namespace Monit95App.Services.Rsur.MarksConvert
             int midCount = egeValues.Count(p => p >= 60 && p < 81);
             int goodCount = egeValues.Count(p => p > 80);
 
+            int percentOfGoodValues = (int)Math.Round(goodCount / (allValuesCount / 100M), MidpointRounding.AwayFromZero);
+
             if(badCount > 0)
             {
                 return 2;
             }
-            else if((1-(midCount / allValuesCount)) > 0.4)  //нужно чтобы количество EgeQuestionValues со средним значение было не больше 40% от общего числа оценок
+            else if(percentOfGoodValues < 51)  //нужно чтобы количество EgeQuestionValues со средним значение было не больше 40% от общего числа оценок
             {
                 return 2;
             }

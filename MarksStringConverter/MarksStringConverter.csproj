@@ -65,6 +65,10 @@
       <Project>{f3a784e6-8723-4628-9677-2374bed42492}</Project>
       <Name>Monit95.Infrastructure.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SERVICES\Monit95App.Services\Monit95.Services.csproj">
+      <Project>{5e38a333-c51e-4910-a650-440c8d7f0a94}</Project>
+      <Name>Monit95.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
