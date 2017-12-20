@@ -100,6 +100,7 @@
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />
     <Compile Include="File\FileService.cs" />
+    <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
     <Compile Include="Rsur\ParticipReport\EgeQuestionResult.cs" />
     <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />
@@ -175,9 +176,10 @@
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
     <Compile Include="Validation\MustHaveOneElementAttribute.cs" />
-    <Compile Include="Validation\ServiceError.cs" />
-    <Compile Include="Validation\ServiceResult.cs" />
-    <Compile Include="Validation\VoidResult.cs" />
+    <Compile Include="Validation\ServiceResult\ServiceError.cs" />
+    <Compile Include="Validation\ServiceResult\ServiceResult.cs" />
+    <Compile Include="Validation\ServiceResult\VoidResult.cs" />
+    <Compile Include="Validation\CollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DOMAIN\Monit95.Domain.Core\Monit95.Domain.Core.csproj">

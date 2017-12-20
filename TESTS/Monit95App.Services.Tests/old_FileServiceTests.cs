@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
+using Monit95App.Services.File;
 
 namespace Monit95App.Services.Tests
 {
