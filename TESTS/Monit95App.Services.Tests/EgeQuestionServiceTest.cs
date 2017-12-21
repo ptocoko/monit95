@@ -15,14 +15,15 @@ namespace Monit95App.Services.Tests
             var fakeEgeQuestionValues = new List<string>
             {
                 "2(40%);5(0%);8(0%)",
-                "2(70%);5(75%);8(57%)",
+                "2(70%);5(75%);8(58%)",
                 "2(70%);5(75%);8(57.4%)",
             };
 
             // Act
-            var result = EgeQuestionService.ComputeQuestionPercent(fakeEgeQuestionValues, 8);
+            var result = EgeQuestionService.ComputeAverageValue(fakeEgeQuestionValues, 8);
 
             // Assert
+            Assert.AreEqual(38.33, result);            
         }
     }
 }
