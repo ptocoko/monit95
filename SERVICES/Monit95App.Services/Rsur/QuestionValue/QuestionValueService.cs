@@ -13,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Web.UI.WebControls;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Rsur.TestResult;
@@ -57,7 +56,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
 
             // Получаем кол-во участников распределенных на диагностику
             var participTestCount = context.RsurParticipTests.Count(rpt => rpt.RsurTest.IsOpen && rpt.RsurParticip.School.AreaCode == areaCode);
-            if(participTestCount == 0)
+            if (participTestCount == 0)
                 result.Errors.Add(new ServiceError { Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
 
             // Получаем кол-во участников у которых занесены баллы по заданиям или поставленно «отсутствовал»
@@ -66,6 +65,12 @@ namespace Monit95App.Services.Rsur.QuestionValue
             return (int)(testResultsCount * 1.0 / participTestCount * 1.0 * 100);
         }
 
+        /// <summary>
+        /// Получения протокола проверки заданий участника для редактирования
+        /// </summary>
+        /// <param name="participCode"></param>
+        /// <param name="areaCode"></param>
+        /// <returns></returns>
         public QuestionValueEditDto Get(int participCode, int areaCode)
         {
             if (!Enumerable.Range(10000, 99999).Contains(participCode)
@@ -247,31 +252,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
 
             context.SaveChanges();
             return result;
-        }
-
-        //public ServiceResult<IEnumerable<TestResultViewDto>> GetAll(int areaCode)
-        //{
-        //    var result = new ServiceResult<IEnumerable<TestResultViewDto>>();
-
-        //    var entities = context.RsurTestResults.Where(x => x.RsurParticipTest.RsurParticip.School.AreaCode == areaCode
-        //                                                   && x.RsurParticipTest.RsurTest.IsOpen).ToList();
-
-        //    if (!entities.Any())
-        //    {
-        //        result.Errors.Add(new ServiceError { HttpCode = 404 });
-        //        return result;
-        //    }
-
-        //    result.Result = entities.Select(entity => new TestResultViewDto
-        //    {
-        //        ParticipCode = entity.RsurParticipTest.RsurParticipCode,
-        //        TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}-{entity.RsurParticipTest.RsurTest.Test.Name}",
-        //        RsurQuestionValues = entity.RsurQuestionValues,
-        //        FileSourceName = entity.File.SourceName //for Model #2
-        //    });
-
-        //    return result;
-        //}
+        }        
 
         public ServiceResult<IEnumerable<QuestionValueViewDto>> GetQuestionProtocolList(int areaCode)
         {
