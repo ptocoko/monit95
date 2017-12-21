@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Monit95App.Services.Rsur.EgeQuestion
 {
-    public class EgeQuestionService
+    public static class EgeQuestionService
     {
         /// <summary>
         /// Вычисляет средний процент выполнения задания ЕГЭ
@@ -17,7 +17,7 @@ namespace Monit95App.Services.Rsur.EgeQuestion
         /// </param>
         /// <param name="number">номер задания ЕГЭ, средний процент выполнения которого необходимо найти</param>
         /// <returns></returns>
-        double ComputeQuestionPercent(IEnumerable<string> egeQuestionValues, int number)
+        public static double ComputeQuestionPercent(IEnumerable<string> egeQuestionValues, int number)
         {
             if(!egeQuestionValues.IsAny())
                 throw new ArgumentException($"{nameof(egeQuestionValues)} is null or empty");
