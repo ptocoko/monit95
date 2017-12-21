@@ -79,7 +79,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 marks = marksString
                     .Split(';')
-                    .Select(s => int.Parse(s))
+                    .Select(int.Parse)
                     .ToArray();
             }
             else

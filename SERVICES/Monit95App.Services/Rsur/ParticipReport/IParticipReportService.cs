@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Monit95App.Domain.Core.Entities;
-using System.IO;
-using Monit95App.Services.Rsur.SeminarReport;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {

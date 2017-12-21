@@ -41,10 +41,13 @@ namespace Monit95App.Services.Rsur.QuestionValue
 
         #endregion
 
-        #region Methods
-        
-        
+        #region Methods                
 
+        /// <summary>
+        /// Вычисление процента заполнения протоколов проверки заданий
+        /// </summary>
+        /// <param name="areaCode"></param>
+        /// <returns></returns>
         public int GetStatistics(int areaCode)
         {
             if(!Enumerable.Range(201, 217).Contains(areaCode))
