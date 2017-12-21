@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
-using System.Collections.ObjectModel;
 
 namespace Monit95App.Services.Rsur.EgeQuestion
 {
-    public static class EgeQuestionService
+    public class EgeQuestionService
     {
         /// <summary>
         /// Вычисляет средний процент выполнения задания ЕГЭ
@@ -17,15 +16,15 @@ namespace Monit95App.Services.Rsur.EgeQuestion
         /// </param>
         /// <param name="number">номер задания ЕГЭ, средний процент выполнения которого необходимо найти</param>
         /// <returns></returns>
-        public static double ComputeQuestionPercent(IEnumerable<string> egeQuestionValues, int number)
+        double ComputeAverageValue(IEnumerable<string> egeQuestionValues, int number)
         {
             if(!egeQuestionValues.IsAny())
                 throw new ArgumentException($"{nameof(egeQuestionValues)} is null or empty");
 
-            var egeQuestionIntValues = new Collection<int>();
+            var egeQuestionIntValues = new List<int>();
             foreach (var value in egeQuestionValues)
             {
-                var match = Regex.Match(value, $@"(?<={number}\()\d+(?=%\))");
+                var match = Regex.Match(value, $@"(?<={number}\()\d+(?=.*%\))");
                 if (!match.Success)
                     throw new ArgumentException($"The record {value} is incorrect", nameof(egeQuestionValues));
 

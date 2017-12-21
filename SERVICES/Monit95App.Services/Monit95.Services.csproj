@@ -101,6 +101,8 @@
     <Compile Include="File\IFileService.cs" />
     <Compile Include="File\FileService.cs" />
     <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
+    <Compile Include="Rsur\MarksConvert\RsurMarksConverter.cs" />
+    <Compile Include="Rsur\MarksConvert\IRsurMarksConverter.cs" />
     <Compile Include="Rsur\ParticipReport\EgeQuestionResult.cs" />
     <Compile Include="Rsur\ParticipReport\IParticipReportService.cs" />
     <Compile Include="Rsur\ParticipReport\ParticipReportService.cs" />
