@@ -4,19 +4,25 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Monit95App.Services.Rsur.MarksConvert
 {
     public class RsurMarksConverter : IRsurMarksConverter
     {
-        CokoContext context;
+        #region Dependencies
+
+        private readonly CokoContext context;
+
+        #endregion
+
+        #region Constructors
 
         public RsurMarksConverter(CokoContext _context)
         {
             context = _context;
         }
+
+        #endregion
 
         public void GenerateByRsurTestIds(int[] rsurTestIds)
         {
@@ -51,14 +57,25 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 GenerateByParticipTestId(participTestId);
             }
         }
-        
-        public (int grade5, string egeQuestionValues) GenerateByParticipTestId(int participTestId)
-        {
-            var entity = context.RsurTestResults.Single(p => p.RsurParticipTestId == participTestId);
 
+        /// <summary>
+        /// Вычисление EgeQuestionValues и Grade5
+        /// </summary>
+        /// <remarks>
+        /// Вычисляет RsurTestResult.EgeQuestionValues и RsurTestResult.Grade5 для указанного RsurParticipTestId.
+        /// Вычисление производятся как для открытых RsurTest так и для закрытых
+        /// </remarks>
+        /// <param name="participTestId">Он же RsurParticipTest.RsurParticipTestId</param>
+        /// <returns></returns>
+        public (int grade5, string egeQuestionValues) GenerateByParticipTestId(int participTestId)
+        {            
+            var testResultEntity = context.RsurTestResults.Find(participTestId);
+            _ = testResultEntity ?? throw new ArgumentException("В базе несуществует записи с таким Id", nameof(participTestId));
+
+            // Переводим строку, содержащую баллы по заданиям в массив: "1;0;1;0;1" -> [1,0,1,0,1]
             int[] marks;
-            var marksString = entity.RsurQuestionValues;
-            if(marksString != null && marksString != "wasnot")
+            var marksString = testResultEntity.RsurQuestionValues;
+            if (marksString != "wasnot")
             {
                 marks = marksString
                     .Split(';')
@@ -67,13 +84,13 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
             else
             {
-                throw new ArgumentException("RsurQuestionValues is not valid");
+                throw new ArgumentException("Нет баллов по заданиям для указанной записи", nameof(participTestId));
             }
 
-            var testId = entity.RsurParticipTest.RsurTest.TestId;
+            var testId = testResultEntity.RsurParticipTest.RsurTest.TestId;
 
             var questionsModel = context.TestQuestions
-                .Where(p => p.TestId == testId)
+                .Where(testQuestion => testQuestion.TestId == testId)
                 .Include(x => x.Question)
                 .ToList()
                 .Select(testQuestion => new RsurQuestionsModel
@@ -98,8 +115,8 @@ namespace Monit95App.Services.Rsur.MarksConvert
             var grade5 = GetGrade5(egeValues);
             var egeQuestionValues = GetEgeQuestionValues(questionsModel);
 
-            entity.Grade5 = grade5;
-            entity.EgeQuestionValues = egeQuestionValues;
+            testResultEntity.Grade5 = grade5;
+            testResultEntity.EgeQuestionValues = egeQuestionValues;
             context.SaveChanges();
 
             return (grade5, egeQuestionValues);
