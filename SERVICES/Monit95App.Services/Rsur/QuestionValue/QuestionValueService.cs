@@ -37,33 +37,33 @@ namespace Monit95App.Services.Rsur.QuestionValue
         public QuestionValueService(CokoContext context)
         {
             this.context = context;
-        }        
+        }
 
         #endregion
 
         #region Methods                
 
         /// <summary>
-        /// Вычисление процента заполнения протоколов проверки заданий
+        /// Вычисление процента заполнения протоколов проверки заданий.
         /// </summary>
+        /// <remarks>
+        /// Вычисляет процент заполнения протоколов проверки заданий для указанного пользователя для открытых тестов.
+        /// </remarks>
         /// <param name="areaCode"></param>
         /// <returns></returns>
         public int GetStatistics(int areaCode)
         {
-            if(!Enumerable.Range(201, 217).Contains(areaCode))
-            {
-                throw new ArgumentException($"{nameof(areaCode)} has to be 201-217");
-            }
+            var result = new ServiceResult<int>();   
 
-            double participTestCount = context.RsurParticipTests.Where(p => p.RsurTest.IsOpen && p.RsurParticip.School.AreaCode == areaCode).Count();
-            double testResultsCount = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurTest.IsOpen && p.RsurParticipTest.RsurParticip.School.AreaCode == areaCode).Count();
+            // Получаем кол-во участников распределенных на диагностику
+            var participTestCount = context.RsurParticipTests.Count(rpt => rpt.RsurTest.IsOpen && rpt.RsurParticip.School.AreaCode == areaCode);
+            if(participTestCount == 0)
+                result.Errors.Add(new ServiceError { Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
 
-            if(participTestCount < testResultsCount)
-            {
-                throw new ArgumentException("writer of this method is stupid dummy :(");
-            }
-
-            return (int)((testResultsCount / participTestCount) * 100);
+            // Получаем кол-во участников у которых занесены баллы по заданиям или поставленно «отсутствовал»
+            var testResultsCount = context.RsurTestResults.Count(rtr => rtr.RsurParticipTest.RsurTest.IsOpen && rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode);
+            
+            return (int)(testResultsCount * 1.0 / participTestCount * 1.0 * 100);
         }
 
         public QuestionValueEditDto Get(int participCode, int areaCode)
@@ -108,8 +108,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 });
                 index++;
             }
-            
-            
+                        
             return marksProtocol;            
         }
 

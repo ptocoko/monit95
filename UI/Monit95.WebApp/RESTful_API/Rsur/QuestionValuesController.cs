@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Monit95App.Services.Rsur.QuestionValue;
-using Monit95App.Services.Rsur.TestResult;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
 {
@@ -160,10 +158,12 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         /// <summary>
-        /// Возвращает процент заполненных протоколов от общего числа протоколов (для открытых тестов)
+        /// Возвращает процент заполненных протоколов 
         /// </summary>
-        /// <returns>
-        /// </returns>
+        /// <remarks>
+        /// Возвращает процент заполненных протоколов от общего числа протоколов (для открытых тестов).        
+        /// </remarks>
+        /// <returns>Цело число (%)</returns>
         [HttpGet]
         [Route("statistics")]
         public IHttpActionResult GetStatistics()
