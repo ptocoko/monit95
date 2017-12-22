@@ -431,5 +431,98 @@ namespace Monit95App.Services.Tests
             Assert.AreEqual(0, successResult.Errors.Count());
             Assert.AreEqual(0, successResult.Result.QuestionResults.Single(x => x.Order == 2).CurrentMark);
         }
+
+        [TestMethod]
+        public void GetStatisticsTest()
+        {
+            // Arrange
+            // Mocking DbSet<RsurParticipTest>
+            var fakeRsurParticipTests = new List<RsurParticipTest>
+            {
+                new RsurParticipTest
+                {
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true
+                    },
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    },
+                    RsurTestResult = new RsurTestResult
+                    {
+                        RsurQuestionValues = "wasnot"
+                    }
+                },
+                new RsurParticipTest
+                {
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true
+                    },
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    },
+                    RsurTestResult = new RsurTestResult
+                    {
+                        RsurQuestionValues = "0;1;1"
+                    }
+                },
+                new RsurParticipTest
+                {
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true
+                    },
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    },
+                    RsurTestResult = new RsurTestResult
+                    {
+                        RsurQuestionValues = "1;1;1"
+                    }
+                },
+                new RsurParticipTest
+                {
+                    RsurTest = new RsurTest
+                    {
+                        IsOpen = true
+                    },
+                    RsurParticip = new RsurParticip
+                    {
+                        School = new Domain.Core.Entities.School
+                        {
+                            AreaCode = 201
+                        }
+                    }             
+                }
+            }.AsQueryable();
+            var mockRsurParticipTestSet = Substitute.For<DbSet<RsurParticipTest>, IQueryable<RsurParticipTest>>();
+            ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).Provider.Returns(fakeRsurParticipTests.Provider);
+            ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).Expression.Returns(fakeRsurParticipTests.Expression);
+            ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).ElementType.Returns(fakeRsurParticipTests.ElementType);
+            ((IQueryable<RsurParticipTest>)mockRsurParticipTestSet).GetEnumerator().Returns(fakeRsurParticipTests.GetEnumerator());
+
+            // Mocking CokoContext
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.RsurParticipTests.Returns(mockRsurParticipTestSet);
+
+            // Act
+            var questionValueService = new QuestionValueService(mockCokoContext);
+            var result = questionValueService.GetStatistics(201);
+
+            // Assert
+        }
     }
 }
