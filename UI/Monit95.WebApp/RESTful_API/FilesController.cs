@@ -15,7 +15,7 @@ namespace Monit95.WebApp.RESTful_API
     /// <summary>
     /// Контроллер для работы с файлами бланков ответов
     /// </summary>        
-    //[Authorize]
+    [Authorize]
     public class FilesController : ApiController
     {
         #region Dependencies
@@ -53,8 +53,8 @@ namespace Monit95.WebApp.RESTful_API
             HttpPostedFile postedFile = httpFileCollection.Get(0);
 
             // Call service
-            //var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
-            var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, "201");
+            var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
+            //var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, "201");
 
             // Success
             if (!result.Errors.Any())            
@@ -92,8 +92,8 @@ namespace Monit95.WebApp.RESTful_API
         {
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             var urlImagesFolder = HostingEnvironment.MapPath("~/Images/url-images");
-            //var result = fileService.GetFileName(fileId, User.Identity.Name, urlImagesFolder);
-            var result = fileService.GetFileName(fileId, urlImagesFolder, "201");
+            var result = fileService.GetFileName(fileId, User.Identity.Name, urlImagesFolder);
+            //var result = fileService.GetFileName(fileId, urlImagesFolder, "201");
 
             // Success
             if (!result.Errors.Any())
