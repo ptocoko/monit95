@@ -57,7 +57,7 @@ namespace Monit95App.Services.File
             using (var md5 = MD5.Create())
             {
                 var hash = md5.ComputeHash(sourceFileStream);
-                hexHash = BitConverter.ToString(hash).Replace("-", "");                
+                hexHash = BitConverter.ToString(hash).Replace("-", "").ToLower();                
             }
 
             // Validate userName
@@ -75,7 +75,7 @@ namespace Monit95App.Services.File
             }
 
             // Check exist
-            if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash == hexHash))
+            if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash.Equals(hexHash)))
             {
                 result.Errors.Add(new ServiceError { HttpCode = 409, Description = "Such file currently exist" });
                 return result;
@@ -103,8 +103,8 @@ namespace Monit95App.Services.File
                 SourceName = sourceFileName.ToLower(),
                 RepositoryId = repositoryId,
                 HexHash = hexHash,
-                Name = destFileName,
-                FilePermissonList = new HashSet<FilePermission>
+                Name = destFileName.ToLower(),
+                FilePermissonList = new HashSet<FilePermisson>
                 {
                     new FilePermission
                     {
