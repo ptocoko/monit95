@@ -173,8 +173,11 @@ namespace Monit95App.Services.File
                 result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Файл {fileId} не найдед или отсутствует доступ у пользователя {userName}"});
                 return result;
             }
-                        
-            var fullSourceFileName = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileEntity.Name}"; // generate source file name
+
+            // Generate fullSourceFileName
+            var fullSourceFileName = GetFullSourceFileName(fileEntity, userName);
+
+            // Generate destFileName
             var destFileName = Path.Combine(destHostFolder, fileEntity.Name); // generate dest file name
 
             // Validate: check exist destFile
