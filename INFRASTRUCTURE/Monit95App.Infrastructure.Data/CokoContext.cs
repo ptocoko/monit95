@@ -50,8 +50,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Umk> Umks { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
-        public virtual DbSet<Permission> Permission { get; set; }
-        public virtual DbSet<FilePermission> FilePermission { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<FilePermission> FilePermissions { get; set; }
         public virtual DbSet<Monit95User> Monit95Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

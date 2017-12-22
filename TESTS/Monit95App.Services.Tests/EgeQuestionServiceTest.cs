@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Services.Rsur.EgeQuestion;
 
@@ -16,7 +15,7 @@ namespace Monit95App.Services.Tests
             {
                 "2(40%);5(0%);8(0%)",
                 "2(70%);5(75%);8(58%)",
-                "2(70%);5(75%);8(57.4%)",
+                "2(70%);15(75%);8(57.4%)",
             };
 
             // Act

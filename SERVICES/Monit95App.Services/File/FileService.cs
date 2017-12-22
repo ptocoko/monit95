@@ -104,7 +104,7 @@ namespace Monit95App.Services.File
                 RepositoryId = repositoryId,
                 HexHash = hexHash,
                 Name = destFileName.ToLower(),
-                FilePermissonList = new HashSet<FilePermisson>
+                FilePermissonList = new HashSet<FilePermission>
                 {
                     new FilePermission
                     {

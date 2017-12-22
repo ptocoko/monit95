@@ -24,7 +24,7 @@ namespace Monit95App.Services.Rsur.EgeQuestion
             var result = new List<int>();
             foreach (var value in egeQuestionValues)
             {
-                var match = Regex.Match(value, $@"(?<={number}\()\d+(?=.*%\))");
+                var match = Regex.Match(value, $@"(?<=^{number}\()\d+(?=.*%\))|(?<=[^0-9]{number}\()\d+(?=.*%\))");
                 if (!match.Success)
                     throw new ArgumentException($"The record {value} is incorrect", nameof(egeQuestionValues));
 
