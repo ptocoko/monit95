@@ -11,6 +11,6 @@ namespace Monit95App.Services.Rsur.QuestionValue
         VoidResult CreateOrUpdate(QuestionValueEditDto testResultDto, int areaCode);
         ServiceResult<IEnumerable<QuestionValueViewDto>> GetQuestionProtocolList(int areaCode);
         VoidResult MarkAsAbsent(int participTestId, int areaCode);
-        int GetStatistics(int areaCode);
+        ServiceResult<int> GetStatistics(int areaCode);
     }
 }

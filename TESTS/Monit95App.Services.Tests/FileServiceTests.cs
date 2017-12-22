@@ -145,5 +145,65 @@ namespace Monit95App.Services.Tests
             Directory.Delete(@"c:\repositories\2", true);
             Directory.Delete(@"c:\hostFolder", true);
         }
+
+        [TestMethod]
+        public void GetFileContentTest()
+        {
+            // Arrange
+            // Preparing file system
+            Directory.CreateDirectory(@"c:\repositories\3");
+            Directory.CreateDirectory(@"c:\repositories\4");
+            var fs = System.IO.File.Create(@"c:\repositories\3\распределение_201.xlsx");
+            var fs2 = System.IO.File.Create(@"c:\repositories\4\статистический отчет егэ-2017.pdf");
+            fs.Close();
+            fs2.Close();
+
+            // Mocking FileSet
+            var fakeFiles = new List<Domain.Core.Entities.File>
+            {
+                new Domain.Core.Entities.File
+                {
+                    FilePermissonList = new List<FilePermisson>
+                    {
+                        new FilePermisson { UserName = "201" }
+                    },
+                    Id = 1,
+                    RepositoryId = 3,
+                    Name = "распределение_{userName}.xlsx"
+                },
+                new Domain.Core.Entities.File
+                {
+                    FilePermissonList = new List<FilePermisson>
+                    {
+                        new FilePermisson { UserName = "202" }
+                    },
+                    Id = 2,
+                    RepositoryId = 4,
+                    Name = "статистический отчет егэ-2017.pdf"
+                }
+            }.AsQueryable();
+            var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
+            ((IQueryable<Domain.Core.Entities.File>)mockFileSet).Expression.Returns(fakeFiles.Expression);
+            ((IQueryable<Domain.Core.Entities.File>)mockFileSet).Provider.Returns(fakeFiles.Provider);
+
+            // Mocking CokoContext
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.Files.Returns(mockFileSet);
+
+            // Act 
+            var fileServices = new FileService(mockCokoContext);
+            var result1 = fileServices.GetFileContent(1, "201");
+            var result2 = fileServices.GetFileContent(2, "202");
+
+            // Assert
+            Assert.IsNotNull(result1.Result);
+            Assert.IsNotNull(result2.Result);
+
+            // Clean fileSystem
+            result1.Result.Close();
+            result2.Result.Close();
+            Directory.Delete(@"c:\repositories\3", true);
+            Directory.Delete(@"c:\repositories\4", true);
+        }
     }
 }

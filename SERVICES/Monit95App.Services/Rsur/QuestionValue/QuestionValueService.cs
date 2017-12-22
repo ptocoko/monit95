@@ -50,19 +50,21 @@ namespace Monit95App.Services.Rsur.QuestionValue
         /// </remarks>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public int GetStatistics(int areaCode)
+        public ServiceResult<int> GetStatistics(int areaCode)
         {
             var result = new ServiceResult<int>();   
-
-            // Получаем кол-во участников распределенных на диагностику
-            var participTestCount = context.RsurParticipTests.Count(rpt => rpt.RsurTest.IsOpen && rpt.RsurParticip.School.AreaCode == areaCode);
-            if (participTestCount == 0)
+            
+            var participTests = context.RsurParticipTests.Where(rpt => rpt.RsurTest.IsOpen && rpt.RsurParticip.School.AreaCode == areaCode).ToList();
+            if (!participTests.Any())
                 result.Errors.Add(new ServiceError { Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
 
+            // Получаем кол-во участников распределенных на диагностику
+            var participTestCount = participTests.Count();
+
             // Получаем кол-во участников у которых занесены баллы по заданиям или поставленно «отсутствовал»
-            var testResultsCount = context.RsurTestResults.Count(rtr => rtr.RsurParticipTest.RsurTest.IsOpen && rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode);
-            
-            return (int)(testResultsCount * 1.0 / participTestCount * 1.0 * 100);
+            var testResultsCount = participTests.Count(rpt => rpt.RsurTestResult != null);
+            result.Result = (int)(testResultsCount * 1.0 / participTestCount * 1.0 * 100);
+            return result;
         }
 
         /// <summary>

@@ -174,7 +174,7 @@ namespace Monit95App.Services.File
                 return result;
             }
                         
-            var sourceFileName = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileEntity.Name}"; // generate source file name
+            var fullSourceFileName = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileEntity.Name}"; // generate source file name
             var destFileName = Path.Combine(destHostFolder, fileEntity.Name); // generate dest file name
 
             // Validate: check exist destFile
@@ -191,7 +191,7 @@ namespace Monit95App.Services.File
                 return result;
             }            
             
-            System.IO.File.Copy(sourceFileName, destFileName); // copy file to dest folder
+            System.IO.File.Copy(fullSourceFileName, destFileName); // copy file to dest folder
 
             // Return destFileName
             result.Result = destFileName;
@@ -251,18 +251,23 @@ namespace Monit95App.Services.File
                 return result;
             }
 
-            // Generate fullFileName
-            var fileName = fileEntity.Name;
-            if (fileName.IndexOf("{userName}") > -1)
-            {
-                fileName.Replace("{userName}", userName);
-            }
-            var sourceFileName = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileName}"; // generate source file name  
+            // Get full file name
+            var fullSourceFileName = GetFullSourceFileName(fileEntity, userName);
 
-            // Return result
-            result.Result = System.IO.File.OpenRead(sourceFileName);
+            // Get file's stream
+            result.Result = System.IO.File.OpenRead(fullSourceFileName);
             
             return result;
+        }
+
+        private string GetFullSourceFileName(Domain.Core.Entities.File file, string userName)
+        {
+            // Generate fullFileName
+            var fileName = file.Name.Replace("{userName}", userName); // при наличии маске {userName} обработать ее
+            
+            var fullSourceFileName = $@"{REPOSITORIES_FOLDER}\{file.RepositoryId}\{fileName}"; // generate source file name  
+
+            return fullSourceFileName;
         }
     }
 }

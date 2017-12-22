@@ -523,6 +523,8 @@ namespace Monit95App.Services.Tests
             var result = questionValueService.GetStatistics(201);
 
             // Assert
+            Assert.AreEqual(75, result);
+
         }
     }
 }

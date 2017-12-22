@@ -169,18 +169,15 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         public IHttpActionResult GetStatistics()
         {
             var areaCode = int.Parse(User.Identity.Name);
+            var result = questionValueService.GetStatistics(areaCode);
+            // Success
+            if (!result.Errors.Any())
+                return Ok(result.Result);
 
-            int result;
-            try
-            {
-                result = questionValueService.GetStatistics(areaCode);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return Ok(result);
+            // Error: another
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return BadRequest(ModelState);           
         }
     }
 }
