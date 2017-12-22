@@ -609,8 +609,8 @@
     <Folder Include="app\rsur\upload-report\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
-    <Folder Include="Images\repository2\" />
     <Folder Include="Images\seminar-photos\" />
+    <Folder Include="Images\url-images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

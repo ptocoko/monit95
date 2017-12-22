@@ -7,8 +7,6 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
-using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity;
 using Monit95App.Services.File;
 
 namespace Monit95.WebApp.RESTful_API
@@ -17,7 +15,7 @@ namespace Monit95.WebApp.RESTful_API
     /// <summary>
     /// Контроллер для работы с файлами бланков ответов
     /// </summary>        
-    [Authorize]
+    //[Authorize]
     public class FilesController : ApiController
     {
         #region Dependencies
@@ -47,15 +45,16 @@ namespace Monit95.WebApp.RESTful_API
             var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
 
             // Find file in requestBody
-            var httpCollectionFiles = HttpContext.Current.Request.Files;
-            if (httpCollectionFiles.Count == 0)            
+            var httpFileCollection = HttpContext.Current.Request.Files;
+            if (httpFileCollection.Count == 0)            
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Body has not file");            
                    
             // Get file's content from body
-            HttpPostedFile postedFile = httpCollectionFiles.Get(0);                                               
+            HttpPostedFile postedFile = httpFileCollection.Get(0);
 
             // Call service
-            var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
+            //var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
+            var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, "201");
 
             // Success
             if (!result.Errors.Any())            
@@ -92,8 +91,9 @@ namespace Monit95.WebApp.RESTful_API
         public IHttpActionResult GetUrl()
         {
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            var imagesFolder = HostingEnvironment.MapPath("~/Images/repository2");
-            var result = fileService.GetFileName(fileId, User.Identity.Name, imagesFolder);
+            var urlImagesFolder = HostingEnvironment.MapPath("~/Images/url-images");
+            //var result = fileService.GetFileName(fileId, User.Identity.Name, urlImagesFolder);
+            var result = fileService.GetFileName(fileId, urlImagesFolder, "201");
 
             // Success
             if (!result.Errors.Any())

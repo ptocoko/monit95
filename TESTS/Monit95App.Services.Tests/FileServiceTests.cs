@@ -75,9 +75,9 @@ namespace Monit95App.Services.Tests
                 new Domain.Core.Entities.File
                 {
                     Id = 1,
-                    FilePermissonList = new List<FilePermisson>
+                    FilePermissonList = new List<FilePermission>
                     {
-                        new FilePermisson
+                        new FilePermission
                         {
                             UserName = "201",
                             PermissionId = 2
@@ -116,9 +116,9 @@ namespace Monit95App.Services.Tests
             {
                 new Domain.Core.Entities.File
                 {
-                    FilePermissonList = new List<FilePermisson>
+                    FilePermissonList = new List<FilePermission>
                     {
-                        new FilePermisson { UserName = "201" }
+                        new FilePermission { UserName = "201" }
                     },
                     Id = 1,
                     RepositoryId = 2,
@@ -163,9 +163,9 @@ namespace Monit95App.Services.Tests
             {
                 new Domain.Core.Entities.File
                 {
-                    FilePermissonList = new List<FilePermisson>
+                    FilePermissonList = new List<FilePermission>
                     {
-                        new FilePermisson { UserName = "201" }
+                        new FilePermission { UserName = "201" }
                     },
                     Id = 1,
                     RepositoryId = 3,
@@ -173,9 +173,9 @@ namespace Monit95App.Services.Tests
                 },
                 new Domain.Core.Entities.File
                 {
-                    FilePermissonList = new List<FilePermisson>
+                    FilePermissonList = new List<FilePermission>
                     {
-                        new FilePermisson { UserName = "202" }
+                        new FilePermission { UserName = "202" }
                     },
                     Id = 2,
                     RepositoryId = 4,

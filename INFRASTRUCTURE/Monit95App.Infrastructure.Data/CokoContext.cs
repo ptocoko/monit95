@@ -51,11 +51,14 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Umk> Umks { get; set; }
         public virtual DbSet<Wish> Wishes { get; set; }
         public virtual DbSet<Permission> Permission { get; set; }
-        public virtual DbSet<FilePermisson> FilePermission { get; set; }
+        public virtual DbSet<FilePermission> FilePermission { get; set; }
         public virtual DbSet<Monit95User> Monit95Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Monit95User>()
+                .ToTable("Monit95Users");
+
             modelBuilder.Entity<Monit95User>()
                 .HasKey(e => e.Login);
 
