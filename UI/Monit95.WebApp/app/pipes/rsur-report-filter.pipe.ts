@@ -3,33 +3,35 @@ import { RsurReportModel } from '../models/rsur-report.model';
 
 @Pipe({ name: 'testNameWithDateFilter' })
 export class TestNameWithDateFilterPipe implements PipeTransform {
-    transform(reports: RsurReportModel[], schoolName: string): string[] {        
-        let result: string[] = [];
-
-        if (reports === undefined || schoolName === undefined || schoolName === 'Все организации') {
-            result = reports.map((report: RsurReportModel) => report.TestNameWithDate);
-        }
-        else {            
-            result = reports.filter((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName === schoolName)
-                .map((report: RsurReportModel) => report.TestNameWithDate);                                     
-        }        
-        return result.filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);  
+	transform(reports: RsurReportModel[], schoolName: string, examName: string): string[] {
+		//let results = [...reports]; 
+		if (!reports) {
+			return [];
+		}
+		if (schoolName && schoolName !== 'Все организации') {
+			reports = reports.filter((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName === schoolName);
+		}
+		if (examName && examName !== 'Все диагностики') {
+			reports = reports.filter((report: RsurReportModel) => report.ExamName === examName);
+		}
+		return reports.map((report: RsurReportModel) => report.TestNameWithDate).filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
     }
 }
 
 @Pipe({ name: 'schoolNameFilter' })
 export class SchoolNameFilterPipe implements PipeTransform {
-    transform(reports: RsurReportModel[], testNameWithDate: string): string[] {
-        let result: string[] = [];
-        if (reports === undefined || testNameWithDate === undefined || testNameWithDate === 'Все блоки') {
-            result = reports.map((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName);
-        }
-        else {
-            result = reports.filter((report: RsurReportModel) => report.TestNameWithDate === testNameWithDate)
-                .map((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName);
-
-        }
-        return result.filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
+	transform(reports: RsurReportModel[], testNameWithDate: string, examName: string): string[] {
+		//let results = [...reports];
+		if (!reports) {
+			return [];
+		}
+		if (examName && examName !== 'Все диагностики') {
+			reports = reports.filter((report: RsurReportModel) => report.ExamName === examName);
+		}
+		if (testNameWithDate && testNameWithDate !== 'Все блоки') {
+			reports = reports.filter((report: RsurReportModel) => report.TestNameWithDate === testNameWithDate);
+		}
+		return reports.map((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName).filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
     }
 }
 
@@ -45,10 +47,27 @@ export class TestIdPipe implements PipeTransform {
     }
 }
 
+@Pipe({ name: 'examNameFilter' })
+export class ExamNameFilterPipe implements PipeTransform {
+	transform(reports: RsurReportModel[], schoolName: string, testNameWithDate: string) {
+		//let results = [...reports];
+		if (!reports) {
+			return [];
+		}
+		if (schoolName && schoolName !== 'Все организации') {
+			reports = reports.filter((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName === schoolName);
+		}
+		if (testNameWithDate && testNameWithDate !== 'Все блоки') {
+			reports = reports.filter((report: RsurReportModel) => report.TestNameWithDate === testNameWithDate);
+		}
+		return reports.map((report: RsurReportModel) => report.ExamName).filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
+	}
+}
+
 @Pipe({ name: 'totalFilter' })
 export class TotalFilterPipe implements PipeTransform {
-    transform(reports: RsurReportModel[], selectedSchool: string, selectedTest: string): RsurReportModel[] {
-        if (selectedSchool === undefined || selectedTest === undefined) {
+    transform(reports: RsurReportModel[], selectedSchool: string, selectedTest: string, selectedExam: string): RsurReportModel[] {
+        if (selectedSchool === undefined || selectedTest === undefined || selectedExam === undefined) {
             return reports;
         }
 
@@ -57,7 +76,10 @@ export class TotalFilterPipe implements PipeTransform {
         }
         if (selectedTest !== 'Все блоки') {
             reports = reports.filter((report: RsurReportModel) => report.TestNameWithDate === selectedTest);
-        }
+		}
+		if (selectedExam !== 'Все диагностики') {
+			reports = reports.filter((report: RsurReportModel) => report.ExamName === selectedExam);
+		}
 
         return reports;       
     }

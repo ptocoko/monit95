@@ -5,16 +5,18 @@ var core_1 = require("@angular/core");
 var TestNameWithDateFilterPipe = /** @class */ (function () {
     function TestNameWithDateFilterPipe() {
     }
-    TestNameWithDateFilterPipe.prototype.transform = function (reports, schoolName) {
-        var result = [];
-        if (reports === undefined || schoolName === undefined || schoolName === 'Все организации') {
-            result = reports.map(function (report) { return report.TestNameWithDate; });
+    TestNameWithDateFilterPipe.prototype.transform = function (reports, schoolName, examName) {
+        //let results = [...reports]; 
+        if (!reports) {
+            return [];
         }
-        else {
-            result = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === schoolName; })
-                .map(function (report) { return report.TestNameWithDate; });
+        if (schoolName && schoolName !== 'Все организации') {
+            reports = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === schoolName; });
         }
-        return result.filter(function (value, index, self) { return self.indexOf(value) === index; });
+        if (examName && examName !== 'Все диагностики') {
+            reports = reports.filter(function (report) { return report.ExamName === examName; });
+        }
+        return reports.map(function (report) { return report.TestNameWithDate; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
     TestNameWithDateFilterPipe = tslib_1.__decorate([
         core_1.Pipe({ name: 'testNameWithDateFilter' })
@@ -25,16 +27,18 @@ exports.TestNameWithDateFilterPipe = TestNameWithDateFilterPipe;
 var SchoolNameFilterPipe = /** @class */ (function () {
     function SchoolNameFilterPipe() {
     }
-    SchoolNameFilterPipe.prototype.transform = function (reports, testNameWithDate) {
-        var result = [];
-        if (reports === undefined || testNameWithDate === undefined || testNameWithDate === 'Все блоки') {
-            result = reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; });
+    SchoolNameFilterPipe.prototype.transform = function (reports, testNameWithDate, examName) {
+        //let results = [...reports];
+        if (!reports) {
+            return [];
         }
-        else {
-            result = reports.filter(function (report) { return report.TestNameWithDate === testNameWithDate; })
-                .map(function (report) { return report.SchoolParticipInfo.SchoolName; });
+        if (examName && examName !== 'Все диагностики') {
+            reports = reports.filter(function (report) { return report.ExamName === examName; });
         }
-        return result.filter(function (value, index, self) { return self.indexOf(value) === index; });
+        if (testNameWithDate && testNameWithDate !== 'Все блоки') {
+            reports = reports.filter(function (report) { return report.TestNameWithDate === testNameWithDate; });
+        }
+        return reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
     SchoolNameFilterPipe = tslib_1.__decorate([
         core_1.Pipe({ name: 'schoolNameFilter' })
@@ -60,11 +64,33 @@ var TestIdPipe = /** @class */ (function () {
     return TestIdPipe;
 }());
 exports.TestIdPipe = TestIdPipe;
+var ExamNameFilterPipe = /** @class */ (function () {
+    function ExamNameFilterPipe() {
+    }
+    ExamNameFilterPipe.prototype.transform = function (reports, schoolName, testNameWithDate) {
+        //let results = [...reports];
+        if (!reports) {
+            return [];
+        }
+        if (schoolName && schoolName !== 'Все организации') {
+            reports = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === schoolName; });
+        }
+        if (testNameWithDate && testNameWithDate !== 'Все блоки') {
+            reports = reports.filter(function (report) { return report.TestNameWithDate === testNameWithDate; });
+        }
+        return reports.map(function (report) { return report.ExamName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
+    };
+    ExamNameFilterPipe = tslib_1.__decorate([
+        core_1.Pipe({ name: 'examNameFilter' })
+    ], ExamNameFilterPipe);
+    return ExamNameFilterPipe;
+}());
+exports.ExamNameFilterPipe = ExamNameFilterPipe;
 var TotalFilterPipe = /** @class */ (function () {
     function TotalFilterPipe() {
     }
-    TotalFilterPipe.prototype.transform = function (reports, selectedSchool, selectedTest) {
-        if (selectedSchool === undefined || selectedTest === undefined) {
+    TotalFilterPipe.prototype.transform = function (reports, selectedSchool, selectedTest, selectedExam) {
+        if (selectedSchool === undefined || selectedTest === undefined || selectedExam === undefined) {
             return reports;
         }
         if (selectedSchool !== 'Все организации') {
@@ -72,6 +98,9 @@ var TotalFilterPipe = /** @class */ (function () {
         }
         if (selectedTest !== 'Все блоки') {
             reports = reports.filter(function (report) { return report.TestNameWithDate === selectedTest; });
+        }
+        if (selectedExam !== 'Все диагностики') {
+            reports = reports.filter(function (report) { return report.ExamName === selectedExam; });
         }
         return reports;
     };

@@ -137,6 +137,7 @@ var AppModule = /** @class */ (function () {
                 rsur_report_filter_pipe_1.TotalFilterPipe,
                 subject_filter_pipe_1.SubjectFilterPipe,
                 rsur_particip_filter_pipe_1.RsurParticipActualFilterPipe,
+                rsur_report_filter_pipe_1.ExamNameFilterPipe,
                 plan_component_1.PlanComponent,
                 result_component_1.ResultComponent,
                 particip_correction_component_1.ParticipCorrectionComponent,

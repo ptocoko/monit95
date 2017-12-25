@@ -18,23 +18,32 @@ var ReportListComponent = /** @class */ (function () {
         this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
         var testFromStorage = localStorage.getItem('selectedTest');
         this.selectedTest = testFromStorage ? testFromStorage : 'Все блоки';
+        var examFromStorage = localStorage.getItem('selectedExam');
+        this.selectedExam = examFromStorage ? examFromStorage : 'Все диагностики';
         this.isLoading = true;
-        this.rsurReportService.getReports(TEST_DATE).subscribe(function (res) {
-            _this.resultsList = res.json();
-            _this.rsurTests = _this.resultsList.map(function (s) { return s.TestNameWithDate; })
-                .filter(function (val, i, self) { return self.indexOf(val) === i; }); // distinct            
+        this.rsurReportService.getReports().subscribe(function (reports) {
+            _this.reportsList = reports;
             _this.isLoading = false;
         });
     };
-    ReportListComponent.prototype.openReport = function (rsurParticipCode) {
-        localStorage.setItem('selectedSchool', this.selectedSchool);
-        localStorage.setItem('selectedTest', this.selectedTest);
-        this.route.navigate(['/rsur/report', rsurParticipCode]);
+    ReportListComponent.prototype.openReport = function (report) {
+        if (report.TestStatus.toLowerCase() !== 'отсутствовал') {
+            localStorage.setItem('selectedSchool', this.selectedSchool);
+            localStorage.setItem('selectedTest', this.selectedTest);
+            localStorage.setItem('selectedExam', this.selectedExam);
+            this.route.navigate(['/rsur/report', report.RsurParticipTestId]);
+        }
+    };
+    ReportListComponent.prototype.resetAllInputs = function () {
+        this.selectedSchool = 'Все организации';
+        this.selectedTest = 'Все блоки';
+        this.selectedExam = 'Все диагностики';
     };
     ReportListComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'report-list',
-            templateUrl: "./app/components/rsur/reports/report-list/report-list.component.html?v=" + new Date().getTime()
+            templateUrl: "./app/components/rsur/reports/report-list/report-list.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/components/rsur/reports/report-list/report-list.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [rsur_report_service_1.RsurReportService,
             router_1.Router,

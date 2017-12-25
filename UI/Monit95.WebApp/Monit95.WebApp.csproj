@@ -417,6 +417,7 @@
     <Content Include="app\components\rsur\protocols\scan\scan-protocols.component.css" />
     <Content Include="app\components\rsur\protocols\scan\scan-protocols.component.html" />
     <Content Include="app\components\rsur\ratings\ratings.component.html" />
+    <Content Include="app\components\rsur\reports\report-list\report-list.component.css" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.css" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report\seminar-report.component.html" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.html" />
@@ -655,7 +656,6 @@
     <TypeScriptCompile Include="app\pipes\rsur-report-filter.pipe.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\models\rsur-report.model.ts" />
-    <TypeScriptCompile Include="app\components\rsur\reports\report-list\report.model.ts" />
     <TypeScriptCompile Include="app\services\rsur-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\school-file.service.ts" />
     <TypeScriptCompile Include="app\services\rsur-rating.service.ts" />

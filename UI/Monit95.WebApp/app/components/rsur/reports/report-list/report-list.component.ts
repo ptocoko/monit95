@@ -1,22 +1,25 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { ReportModel } from './report.model';
 import { Router } from '@angular/router';
 import { RsurReportService } from '../../../../services/rsur-report.service';
 import { AccountService } from '../../../../services/account.service';
+import { RsurReportModel } from '../../../../models/rsur-report.model';
 
 const TEST_DATE = '2017-10-11';
 
 @Component({
 	selector: 'report-list',
-    templateUrl: `./app/components/rsur/reports/report-list/report-list.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/components/rsur/reports/report-list/report-list.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/reports/report-list/report-list.component.css?v=${new Date().getTime()}`]
 })
 export class ReportListComponent implements OnInit {
-    resultsList: ReportModel[];
-    rsurTests: string[];
-    schools: string[];
+    reportsList: RsurReportModel[];
+    
 	isLoading: boolean;
+
     selectedSchool: string;
-    selectedTest: string;
+	selectedTest: string;
+	selectedExam: string;
+
     searchParticip: string;
     
 	constructor(private readonly rsurReportService: RsurReportService, 
@@ -28,21 +31,30 @@ export class ReportListComponent implements OnInit {
         var schoolFromStorage = localStorage.getItem('selectedSchool');
         this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
         var testFromStorage = localStorage.getItem('selectedTest');        
-        this.selectedTest = testFromStorage ? testFromStorage : 'Все блоки';        
+		this.selectedTest = testFromStorage ? testFromStorage : 'Все блоки'; 
+		var examFromStorage = localStorage.getItem('selectedExam');
+		this.selectedExam = examFromStorage ? examFromStorage : 'Все диагностики';
 
 		this.isLoading = true;
-        this.rsurReportService.getReports(TEST_DATE).subscribe(res => {
-            this.resultsList = res.json() as ReportModel[];
-            this.rsurTests = this.resultsList.map(s => s.TestNameWithDate)
-                .filter((val, i, self) => self.indexOf(val) === i); // distinct            
+        this.rsurReportService.getReports().subscribe(reports => {
+			this.reportsList = reports;           
             
 	        this.isLoading = false;
 	    });
 	}
 
-    openReport(rsurParticipCode: number) {
-        localStorage.setItem('selectedSchool', this.selectedSchool);
-        localStorage.setItem('selectedTest', this.selectedTest);
-	    this.route.navigate(['/rsur/report', rsurParticipCode]);
+	openReport(report: RsurReportModel) {
+		if (report.TestStatus.toLowerCase() !== 'отсутствовал') {
+			localStorage.setItem('selectedSchool', this.selectedSchool);
+			localStorage.setItem('selectedTest', this.selectedTest);
+			localStorage.setItem('selectedExam', this.selectedExam);
+			this.route.navigate(['/rsur/report', report.RsurParticipTestId]);
+		}
+	}
+
+	resetAllInputs() {
+		this.selectedSchool = 'Все организации';
+		this.selectedTest = 'Все блоки';
+		this.selectedExam = 'Все диагностики';
 	}
 }

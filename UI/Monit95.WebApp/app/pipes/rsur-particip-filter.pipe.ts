@@ -16,21 +16,31 @@ export class RsurParticipActualFilterPipe implements PipeTransform {
 @Pipe({ name: 'rsurParticipFilter' })
 export class RsurParticipFilterPipe implements PipeTransform {
     transform(particips: any, searchText: string): any {
-        if (searchText == null) {
+        if (!searchText) {
             return particips;
-        }
-        console.log(particips);
-        console.log(searchText);
+		}
+
+		let codePropertyName: string;
+		if (particips[0].Code) {
+			codePropertyName = 'Code';
+		}
+		else if (particips[0].RsurParticipCode) {
+			codePropertyName = 'RsurParticipCode';
+		}
+		else {
+			throw Error(`Can't find particip code property`);
+		}
+
         searchText = searchText.toLowerCase();
         particips = particips.filter((particip: any) => {
             // for particips.component.html
             if (particip.SchoolParticipInfo) {
-                return particip.Code.toString().indexOf(searchText) > -1 ||
+				return particip[codePropertyName].toString().indexOf(searchText) > -1 ||
                     particip.SchoolParticipInfo.Surname.toLowerCase().indexOf(searchText) > -1 ||
                     particip.SchoolParticipInfo.Name.toLowerCase().indexOf(searchText) > -1;
             }
             else if (particip.Surname) {
-                return particip.Code.toString().indexOf(searchText) > -1
+				return particip[codePropertyName].toString().indexOf(searchText) > -1
                     || particip.Surname.toLowerCase().indexOf(searchText) > -1
                     || particip.Name.toLowerCase().indexOf(searchText) > -1;
             }            
