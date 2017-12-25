@@ -17,11 +17,11 @@ namespace Monit95App.Services.Tests
             var service = new ParticipReportService(context);            
 
             // Act
-            var report = service.GetReport(9110);
-            var reportEgeQuestion9Result = report.EgeQuestionResults.Single(x => x.EgeQuestionNumber == 9);
+            var report = service.GetExtendReport(9110);
+            var reportEgeQuestion9Result = report.Result.EgeQuestionResults.Single(x => x.EgeQuestionNumber == 9);
 
             // Assert
-            Assert.AreEqual(7, report.EgeQuestionResults.Count());
+            Assert.AreEqual(7, report.Result.EgeQuestionResults.Count());
 
             Assert.AreEqual("Правописание приставок", reportEgeQuestion9Result.ElementNames);
             Assert.AreEqual("9.1;9.2;9.3", reportEgeQuestion9Result.RsurQuestionNumbers);
@@ -36,7 +36,7 @@ namespace Monit95App.Services.Tests
             var service = new ParticipReportService(context);
 
             // Act
-            var report = service.GetReport(10748);
+            var report = service.GetExtendReport(10748);
             //var reportEgeQuestion9Result = report.EgeQuestionResults.Single(x => x.EgeQuestionNumber == 9);
 
             // Assert

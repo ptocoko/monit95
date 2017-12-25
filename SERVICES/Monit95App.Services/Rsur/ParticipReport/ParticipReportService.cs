@@ -1,11 +1,11 @@
 ﻿using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Services.Validation;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -22,31 +22,36 @@ namespace Monit95App.Services.Rsur.ParticipReport
             this.context = context;
         }
 
-        public ParticipExtendReport GetReport(int rsurParticipTestId)
+        public ServiceResult<ParticipExtendReport> GetExtendReport(int rsurParticipTestId, int? areaCode = null, string schoolId = null)
         {
-            var report = new ParticipExtendReport();
+            var result = new ServiceResult<ParticipExtendReport>();
 
             var entity = context.RsurTestResults.Find(rsurParticipTestId);
-            _ = entity ?? throw new ArgumentNullException(nameof(rsurParticipTestId));
+            if(entity == null || entity.Grade5 == null)
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Возможно {nameof(rsurParticipTestId)}: '{rsurParticipTestId}' указан не верно" +
+                                                                                   $"или данный участник отсутствовал на диагностике"});
+                return result;
+            }
 
-            report.SchoolParticipInfo = new SchoolParticip
+            result.Result.SchoolParticipInfo = new SchoolParticip
             {
                 Surname = entity.RsurParticipTest.RsurParticip.Surname,
                 Name = entity.RsurParticipTest.RsurParticip.Name,
                 SecondName = entity.RsurParticipTest.RsurParticip.SecondName,
                 SchoolName = entity.RsurParticipTest.RsurParticip.School.Name
             };
-            
-            report.Code = entity.RsurParticipTest.RsurParticipCode;
-            report.IsPassTest = entity.Grade5 == 5 ? "зачет" : "незачет";
-            report.TestDate = entity.RsurParticipTest.RsurTest.TestDate;
-            report.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}" +
-                              $" - {entity.RsurParticipTest.RsurTest.Test.Name}";
-            report.TestNameWithDate = $"{report.TestName}, {report.TestDate.ToShortDateString()}";
 
-            report.EgeQuestionResults = GetEgeQuestionResults(entity.RsurParticipTest.RsurTest.Test, entity.EgeQuestionValues);
+            result.Result.Code = entity.RsurParticipTest.RsurParticipCode;
+            result.Result.TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ";
+            result.Result.TestDate = entity.RsurParticipTest.RsurTest.TestDate;
+            result.Result.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}" +
+                                     $" — {entity.RsurParticipTest.RsurTest.Test.Name}";
+            //report.TestNameWithDate = $"{report.TestName}, {report.TestDate.ToShortDateString()}";
 
-            return report;
+            result.Result.EgeQuestionResults = GetEgeQuestionResults(entity.RsurParticipTest.RsurTest.Test, entity.EgeQuestionValues);
+
+            return result;
 
         }
 
@@ -96,59 +101,97 @@ namespace Monit95App.Services.Rsur.ParticipReport
             return egeQuestionResults;
         }
 
+        private void ConvertGrade5ToTestStatus(ParticipReport report)
+        {
+            switch(report?.Grade5)
+            {
+                case null:
+                    report.TestStatus = "ОТСУТСТВОВАЛ";
+                    break;
+                case 2:
+                    report.TestStatus = "НЕЗАЧЕТ";
+                    break;
+                case 5:
+                    report.TestStatus = "ЗАЧЕТ";
+                    break;
+                default:
+                    throw new ArgumentException($@"Value of parameter {nameof(report.Grade5)} is '{report.Grade5}', but has to be: null, 2 or 5");
+            }            
+        }
+
         /// <summary>
-        /// 
+        /// Завершает формирование запроса на получение отчетов и выполняет его
         /// </summary>
         /// <param name="queryable"></param>
         /// <param name="testDate"></param>
         /// <returns></returns>
-        private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable, DateTime testDate)
-        {
-            var notShowedTestIds = new int[] { };
-            DateTime maxDateTime = new DateTime(2017, 12, 1);
+        private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable)
+        {            
+            var minDateTime = new DateTime(2017, 10, 11);
 
-            return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate 
-                                     && p.RsurParticipTest.RsurTest.TestDate < maxDateTime
-                                     && p.RsurParticipTest.RsurParticip.ActualCode == 1
-                                     && p.RsurQuestionValues.IndexOf("X") == -1
-                                     && !notShowedTestIds.Contains(p.RsurParticipTest.RsurTestId))
-                        .Include(s => s.RsurParticipTest.RsurParticip).Include(s => s.RsurParticipTest.RsurParticip.School).ToList()
-                        .Select(s => new ParticipReport
-                        {
-                            Code = s.RsurParticipTest.RsurParticip.Code,
-                            IsPassTest = s.Grade5 == 2 ? "незачет" : "зачет",
-                            TestNameWithDate = s.RsurParticipTest.RsurTest.Test.Name + ", " + s.RsurParticipTest.RsurTest.TestDate.ToShortDateString(),
-                            SchoolParticipInfo = new SchoolParticip
-                            {
-                                Surname = s.RsurParticipTest.RsurParticip.Surname,
-                                Name = s.RsurParticipTest.RsurParticip.Name,
-                                SecondName = s.RsurParticipTest.RsurParticip.SecondName,
-                                SchoolName = s.RsurParticipTest.RsurParticip.School.Id + " — " + s.RsurParticipTest.RsurParticip.School.Name.Trim()
-                            },
-                            RsurParticipTestId = s.RsurParticipTestId
-                        })
-                        .OrderBy(tb => tb.SchoolParticipInfo.SchoolName).ThenBy(ob => ob.IsPassTest).ThenBy(tb => tb.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name);
+            var testResults = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с октября                              
+                                                  && rtr.RsurParticipTest.RsurParticip.ActualCode == 1)      // только актуальных участников   
+                                       .Select(rtr => new ParticipReport
+                                       {
+                                           Code = rtr.RsurParticipTest.RsurParticip.Code,
+                                           Grade5 = rtr.Grade5,
+                                           TestName = $"{rtr.RsurParticipTest.RsurTest.Test.NumberCode} — {rtr.RsurParticipTest.RsurTest.Test.Name}",
+                                           ExamName = rtr.RsurParticipTest.RsurTest.ExamName,
+                                           RsurParticipTestId = rtr.RsurParticipTestId,
+                                           SchoolParticipInfo = new SchoolParticip
+                                           {
+                                               Surname = rtr.RsurParticipTest.RsurParticip.Surname,
+                                               Name = rtr.RsurParticipTest.RsurParticip.Name,
+                                               SecondName = rtr.RsurParticipTest.RsurParticip.SecondName,
+                                               SchoolName = rtr.RsurParticipTest.RsurParticip.School.Id + " — " + rtr.RsurParticipTest.RsurParticip.School.Name.Trim()
+                                           },
+                                       })
+                                       .OrderBy(pr => pr.SchoolParticipInfo.SchoolName)
+                                       .ThenBy(pr => pr.TestStatus)
+                                       .ThenBy(pr => pr.SchoolParticipInfo.Surname)
+                                       .ThenBy(pr => pr.SchoolParticipInfo.Name);
+
+            var r = testResults.ToList();
+            r.ForEach(x => ConvertGrade5ToTestStatus(x));
+            return r;
         }
 
         #endregion
 
-        public IEnumerable<ParticipReport> GetResultsForArea(int areaCode, DateTime testDate)
+        /// <summary>
+        /// Получает список отчетов участников для МУНИЦИПАЛИТЕТА
+        /// </summary>
+        /// <param name="areaCode"></param>
+        /// <returns></returns>
+        public ServiceResult<IEnumerable<ParticipReport>> GetReportsForArea(int areaCode)
         {
-            var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticip.School.AreaCode == areaCode);
-            return GetResults(results, testDate);
+            var serviceResult = new ServiceResult<IEnumerable<ParticipReport>>();
+            
+            var areaResults = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode); // начало формирование запроса: фильтр по муниципалитету
+            serviceResult.Result = GetResults(areaResults); // отправляем запрос методу для дальнейшего формирования и выполнения
+
+            if (!serviceResult.Result.Any()) // если список отчетов пуст            
+                serviceResult.Errors.Add(new ServiceError { Description = $"Возможно указан неверный код муниципалитета: {nameof(areaCode)}: '{areaCode}'" });            
+
+            return serviceResult;
         }
 
-        public IEnumerable<ParticipReport> GetResultsForSchool(string schoolId, DateTime testDate)
+        /// <summary>
+        /// Получает список отчетов участников для ШКОЛЫ
+        /// </summary>
+        /// <param name="schoolId"></param>
+        /// <returns></returns>
+        public ServiceResult<IEnumerable<ParticipReport>> GetReportsForSchool(string schoolId)
         {
-            var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticip.SchoolId == schoolId);
-            return GetResults(results, testDate);
-        }
+            var serviceResult = new ServiceResult<IEnumerable<ParticipReport>>();
 
-        public IEnumerable<ParticipReport> GetResultsForParticip(int rsurParticipCode, DateTime testDate)
-        {
-            var results = context.RsurTestResults.Where(p => p.RsurParticipTest.RsurParticipCode == rsurParticipCode);
-            return GetResults(results, testDate);
-        }
+            var areaResults = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.SchoolId == schoolId); // начало формирование запроса: фильтр по муниципалитету
+            serviceResult.Result = GetResults(areaResults); // отправляем запрос методу для дальнейшего формирования и выполнения
 
+            if (!serviceResult.Result.Any())
+                serviceResult.Errors.Add(new ServiceError { Description = $"Возможно указан неверный код школы: {nameof(schoolId)}: '{schoolId}'" });
+
+            return serviceResult;
+        }
     }
 }
