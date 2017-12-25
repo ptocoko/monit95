@@ -656,7 +656,6 @@
     <TypeScriptCompile Include="app\pipes\rsur-report-filter.pipe.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\models\rsur-report.model.ts" />
-    <TypeScriptCompile Include="app\components\rsur\reports\report-list\report.model.ts" />
     <TypeScriptCompile Include="app\services\rsur-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\school-file.service.ts" />
     <TypeScriptCompile Include="app\services\rsur-rating.service.ts" />

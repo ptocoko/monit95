@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { ReportModel } from './report.model';
 import { Router } from '@angular/router';
 import { RsurReportService } from '../../../../services/rsur-report.service';
 import { AccountService } from '../../../../services/account.service';
@@ -44,10 +43,18 @@ export class ReportListComponent implements OnInit {
 	    });
 	}
 
-    openReport(rsurParticipTestId: number) {
-        localStorage.setItem('selectedSchool', this.selectedSchool);
-		localStorage.setItem('selectedTest', this.selectedTest);
-		localStorage.setItem('selectedExam', this.selectedExam);
-		this.route.navigate(['/rsur/report', rsurParticipTestId]);
+	openReport(report: RsurReportModel) {
+		if (report.TestStatus.toLowerCase() !== 'отсутствовал') {
+			localStorage.setItem('selectedSchool', this.selectedSchool);
+			localStorage.setItem('selectedTest', this.selectedTest);
+			localStorage.setItem('selectedExam', this.selectedExam);
+			this.route.navigate(['/rsur/report', report.RsurParticipTestId]);
+		}
+	}
+
+	resetAllInputs() {
+		this.selectedSchool = 'Все организации';
+		this.selectedTest = 'Все блоки';
+		this.selectedExam = 'Все диагностики';
 	}
 }

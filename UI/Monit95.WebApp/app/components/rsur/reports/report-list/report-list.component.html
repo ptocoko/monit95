@@ -29,13 +29,13 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput [(ngModel)]="searchParticip" placeholder="поиск участника..." />
+            <input matInput [(ngModel)]="searchParticip" placeholder="поиск участника..." (focus)="resetAllInputs()" />
         </mat-form-field>
     </div>
     <br />
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-bordered">
         <tr>
-            <th width="60px">#</th>
+            <th>#</th>
             <th style="width:140px">код участника</th>
             <th>фамилия</th>
             <th>имя</th>
@@ -44,7 +44,14 @@
             <th>диагностика</th>
             <th>зачет/незачет</th>
         </tr>
-        <tr (click)="openReport(report.RsurParticipTestId)" *ngFor="let report of reportsList | totalFilter : selectedSchool : selectedTest : selectedExam | rsurParticipFilter : searchParticip; let i = index" [ngClass]="{'isClickable': report.TestStatus !== 'отсутствовал'}">
+        <tr (click)="openReport(report)" 
+            *ngFor="let report of reportsList | totalFilter : selectedSchool : selectedTest : selectedExam | rsurParticipFilter : searchParticip; let i = index" 
+            [ngClass]="{
+                'isClickable': report.TestStatus.toLowerCase() !== 'отсутствовал',
+                'absent-row': report.TestStatus.toLowerCase() === 'отсутствовал',
+                'test-failed-row': report.TestStatus.toLowerCase() === 'незачет',
+                'test-pass-row': report.TestStatus.toLowerCase() === 'зачет'
+            }">
             <td align="center">{{i+1}}</td>
             <td align="center">{{report.RsurParticipCode}}</td>
             <td>{{report.SchoolParticipInfo.Surname}}</td>
@@ -52,7 +59,12 @@
             <td>{{report.SchoolParticipInfo.SecondName}}</td>
             <td>{{report.SchoolParticipInfo.SchoolName}}</td>
             <td>{{report.ExamName}}</td>
-            <td align="center" class="text-uppercase" [ngClass]="{ 'low-grade': report.TestStatus != 'зачет', 'high-grade': report.TestStatus == 'зачет', 'medium-grade': report.TestStatus === 'отсутствовал'}">
+            <td align="center" 
+                class="text-uppercase" 
+                [ngClass]="{ 
+                    'test-failed-cell': report.TestStatus.toLowerCase() === 'незачет', 
+                    'test-pass-cell': report.TestStatus.toLowerCase() === 'зачет', 
+                    'absent-cell': report.TestStatus.toLowerCase() === 'отсутствовал'}">
                 {{report.TestStatus}}
             </td>
         </tr>

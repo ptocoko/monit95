@@ -26,11 +26,18 @@ var ReportListComponent = /** @class */ (function () {
             _this.isLoading = false;
         });
     };
-    ReportListComponent.prototype.openReport = function (rsurParticipTestId) {
-        localStorage.setItem('selectedSchool', this.selectedSchool);
-        localStorage.setItem('selectedTest', this.selectedTest);
-        localStorage.setItem('selectedExam', this.selectedExam);
-        this.route.navigate(['/rsur/report', rsurParticipTestId]);
+    ReportListComponent.prototype.openReport = function (report) {
+        if (report.TestStatus.toLowerCase() !== 'отсутствовал') {
+            localStorage.setItem('selectedSchool', this.selectedSchool);
+            localStorage.setItem('selectedTest', this.selectedTest);
+            localStorage.setItem('selectedExam', this.selectedExam);
+            this.route.navigate(['/rsur/report', report.RsurParticipTestId]);
+        }
+    };
+    ReportListComponent.prototype.resetAllInputs = function () {
+        this.selectedSchool = 'Все организации';
+        this.selectedTest = 'Все блоки';
+        this.selectedExam = 'Все диагностики';
     };
     ReportListComponent = tslib_1.__decorate([
         core_1.Component({

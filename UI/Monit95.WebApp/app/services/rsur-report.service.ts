@@ -1,6 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ReportModel } from '../components/rsur/reports/report-list/report.model';
 import { Observable } from 'rxjs/Observable';
 import { RsurReportModel } from '../models/rsur-report.model';
 
