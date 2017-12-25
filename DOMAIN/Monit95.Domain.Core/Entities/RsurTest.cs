@@ -28,6 +28,12 @@ namespace Monit95App.Domain.Core.Entities
         [StringLength(255)]
         public string Note { get; set; }
 
+        /// <summary>
+        /// Название диагностики        
+        /// </summary>
+        /// <example>"Октябрь-2017" | "Декабрь-2017"</example>
+        public string ExamName { get; set; }
+
         public int? ProjectId { get; set; }
 
         public virtual Project Project { get; set; }
