@@ -64,7 +64,7 @@ import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-de
 import { ParticipFilterPipe } from './particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
-import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe } from './pipes/rsur-report-filter.pipe';
+import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe, ExamNameFilterPipe } from './pipes/rsur-report-filter.pipe';
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rsur-particip-filter.pipe';
 import { RsurProtocolFilter } from './pipes/rsur-protocol-filter.pipe';
@@ -135,7 +135,8 @@ import { GlobalErrorHandler } from './error-handler';
         TestNameWithDateFilterPipe,
         TotalFilterPipe,
         SubjectFilterPipe,
-        RsurParticipActualFilterPipe,
+		RsurParticipActualFilterPipe,
+		ExamNameFilterPipe,
 		PlanComponent,
 		ResultComponent,   
         ParticipCorrectionComponent,		

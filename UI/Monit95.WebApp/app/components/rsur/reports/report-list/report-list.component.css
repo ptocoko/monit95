@@ -1,0 +1,16 @@
+﻿th{
+    text-align:center;
+    vertical-align:middle;
+}
+
+td{
+    vertical-align:middle;
+}
+
+.isClickable{
+    cursor:pointer;
+}
+
+mat-form-field + mat-form-field{
+    margin-left:15px;
+}

@@ -1,9 +1,10 @@
 ﻿import { SchoolParticip } from '../../../../models/school-particip.model';
 
 export class ReportModel {
-	Code: number;
+	RsurParticipCode: number;
     SchoolParticipInfo: SchoolParticip;
-	IsPassTest: string;
+	TestStatus: string;
     TestNameWithDate: string;
-    RsurParticipTestId: number;
+	RsurParticipTestId: number;
+	ExamName: string;
 }

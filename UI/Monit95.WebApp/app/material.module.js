@@ -20,7 +20,8 @@ var MaterialModule = /** @class */ (function () {
                 material_1.MatFormFieldModule,
                 material_1.MatToolbarModule,
                 material_1.MatProgressBarModule,
-                material_1.MatTooltipModule
+                material_1.MatTooltipModule,
+                material_1.MatSelectModule
             ],
             exports: [
                 material_1.MatButtonModule,
@@ -33,7 +34,8 @@ var MaterialModule = /** @class */ (function () {
                 material_1.MatFormFieldModule,
                 material_1.MatToolbarModule,
                 material_1.MatProgressBarModule,
-                material_1.MatTooltipModule
+                material_1.MatTooltipModule,
+                material_1.MatSelectModule
             ]
         })
     ], MaterialModule);
