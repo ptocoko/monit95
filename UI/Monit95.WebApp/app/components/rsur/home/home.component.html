@@ -2,7 +2,7 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="isArea()" class="list-container">
+    <div *ngIf="false && isArea()" class="list-container">
         <h3 class="list-header">Диагностика «Декабрь-2017»</h3>
         <div>
             <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/122017_ру_распределение_{{account.UserName}}.xlsx"><div><h4>Русский язык: распределение</h4></div></a>
@@ -81,25 +81,14 @@
                 </div>
             </a>
         </div>
-    </div>
-
-    <div *ngIf="0==1" class="list-container">
-        <h3 class="list-header">Диагностики</h3>
-        <div class="list-item">
-            <a class="list-item-link" routerLink="/rsur/test">
-                <div>
-                    <h4>«Октябрь-2017»</h4>
-                </div>
-            </a>
-        </div>
-    </div>
+    </div>    
 
     <div *ngIf="isArea() || isSchool() || isRsurParticip()" class="list-container">
         <h3 class="list-header">Отчеты</h3>
         <div class="list-item">
             <a class="list-item-link" routerLink="/rsur/results-list">
                 <div>
-                    <h4>Результаты диагностики «Октябрь-2017»</h4>
+                    <h4><b>Результаты диагностик</b></h4>
                 </div>
             </a>
         </div>
