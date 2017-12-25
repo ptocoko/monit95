@@ -15,7 +15,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
         /// <summary>
         /// Get or set pass or fail test
         /// </summary>
-        /// <example>"зачет" || "незачет"</example>
+        /// <example>"зачет" || "незачет" || "отсутствовал"</example>
         public string IsPassTest { get; set; }
 
         public SchoolParticip SchoolParticipInfo { get; set; }

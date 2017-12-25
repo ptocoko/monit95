@@ -96,12 +96,19 @@ namespace Monit95App.Services.Rsur.ParticipReport
             return egeQuestionResults;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="queryable"></param>
+        /// <param name="testDate"></param>
+        /// <returns></returns>
         private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable, DateTime testDate)
         {
             var notShowedTestIds = new int[] { };
             DateTime maxDateTime = new DateTime(2017, 12, 1);
 
-            return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate && p.RsurParticipTest.RsurTest.TestDate < maxDateTime
+            return queryable.Where(p => p.RsurParticipTest.RsurTest.TestDate >= testDate 
+                                     && p.RsurParticipTest.RsurTest.TestDate < maxDateTime
                                      && p.RsurParticipTest.RsurParticip.ActualCode == 1
                                      && p.RsurQuestionValues.IndexOf("X") == -1
                                      && !notShowedTestIds.Contains(p.RsurParticipTest.RsurTestId))
@@ -111,7 +118,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                             Code = s.RsurParticipTest.RsurParticip.Code,
                             IsPassTest = s.Grade5 == 2 ? "незачет" : "зачет",
                             TestNameWithDate = s.RsurParticipTest.RsurTest.Test.Name + ", " + s.RsurParticipTest.RsurTest.TestDate.ToShortDateString(),
-                            SchoolParticipInfo = new Domain.Core.SchoolParticip
+                            SchoolParticipInfo = new SchoolParticip
                             {
                                 Surname = s.RsurParticipTest.RsurParticip.Surname,
                                 Name = s.RsurParticipTest.RsurParticip.Name,
