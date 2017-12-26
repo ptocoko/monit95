@@ -124,13 +124,15 @@ namespace Monit95App.Services.Rsur.ParticipReport
         /// </summary>
         /// <param name="queryable"></param>
         /// <param name="testDate"></param>
-        /// <returns></returns>
+        /// <returns></returns>        
         private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable)
         {            
             var minDateTime = new DateTime(2017, 10, 11);
 
+            // TODO: Разница между AsEnumerable vs IQuerably and Linq Entities vs Linq to Object
             var testResults = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с октября                              
                                                   && rtr.RsurParticipTest.RsurParticip.ActualCode == 1)      // только актуальных участников   
+                                       .AsEnumerable()      
                                        .Select(rtr => new ParticipReport
                                        {
                                            Code = rtr.RsurParticipTest.RsurParticip.Code,
