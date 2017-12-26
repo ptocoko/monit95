@@ -23,7 +23,7 @@ export class RsurReportService {
 
 const Reports_MOCK: RsurReportModel[] = [
 	{
-		RsurParticipCode: 12345,
+		Code: 12345,
 		SchoolParticipInfo: {
 			Surname: 'Fake1',
 			Name: 'Fake1',
@@ -36,7 +36,20 @@ const Reports_MOCK: RsurReportModel[] = [
 		ExamName: 'FakeExam1'
 	},
 	{
-		RsurParticipCode: 54321,
+		Code: 12345,
+		SchoolParticipInfo: {
+			Surname: 'Fake1',
+			Name: 'Fake1',
+			SecondName: 'Fake1',
+			SchoolName: '0000 - FakeSchool1'
+		},
+		TestStatus: 'зачет',
+		TestNameWithDate: 'FakeTest1 - 01.01.1000',
+		RsurParticipTestId: 1234,
+		ExamName: 'FakeExam1'
+	},
+	{
+		Code: 54321,
 		SchoolParticipInfo: {
 			Surname: 'Fake2',
 			Name: 'Fake2',
@@ -49,7 +62,7 @@ const Reports_MOCK: RsurReportModel[] = [
 		ExamName: 'FakeExam2'
 	},
 	{
-		RsurParticipCode: 32154,
+		Code: 32154,
 		SchoolParticipInfo: {
 			Surname: 'Fake3',
 			Name: 'Fake3',
@@ -60,5 +73,57 @@ const Reports_MOCK: RsurReportModel[] = [
 		TestNameWithDate: 'FakeTest2 - 01.01.1000',
 		RsurParticipTestId: 1233,
 		ExamName: 'FakeExam1'
-	}
+	},
+	{
+		Code: 12345,
+		SchoolParticipInfo: {
+			Surname: 'Fake1',
+			Name: 'Fake1',
+			SecondName: 'Fake1',
+			SchoolName: '0000 - FakeSchool1'
+		},
+		TestStatus: 'зачет',
+		TestNameWithDate: 'FakeTest1 - 01.01.1000',
+		RsurParticipTestId: 1234,
+		ExamName: 'FakeExam1'
+	},
+	{
+		Code: 12345,
+		SchoolParticipInfo: {
+			Surname: 'Fake1',
+			Name: 'Fake1',
+			SecondName: 'Fake1',
+			SchoolName: '0000 - FakeSchool1'
+		},
+		TestStatus: 'зачет',
+		TestNameWithDate: 'FakeTest1 - 01.01.1000',
+		RsurParticipTestId: 1234,
+		ExamName: 'FakeExam1'
+	},
+	{
+		Code: 12345,
+		SchoolParticipInfo: {
+			Surname: 'Fake1',
+			Name: 'Fake1',
+			SecondName: 'Fake1',
+			SchoolName: '0000 - FakeSchool1'
+		},
+		TestStatus: 'зачет',
+		TestNameWithDate: 'FakeTest1 - 01.01.1000',
+		RsurParticipTestId: 1234,
+		ExamName: 'FakeExam1'
+	},
+	{
+		Code: 54321,
+		SchoolParticipInfo: {
+			Surname: 'Fake2',
+			Name: 'Fake2',
+			SecondName: 'Fake2',
+			SchoolName: '0000 - FakeSchool2'
+		},
+		TestStatus: 'незачет',
+		TestNameWithDate: 'FakeTest2 - 01.01.1000',
+		RsurParticipTestId: 4321,
+		ExamName: 'FakeExam2'
+	},
 ]

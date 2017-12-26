@@ -1,7 +1,7 @@
 ﻿import { SchoolParticip } from '../models/school-particip.model';
 
 export class RsurReportModel {
-	RsurParticipCode: number;
+	Code: number;
 	RsurParticipTestId?: number;
 	SchoolParticipInfo: SchoolParticip;
 	TestNameWithDate: string;
