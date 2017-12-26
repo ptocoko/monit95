@@ -24,8 +24,10 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         public ServiceResult<ParticipExtendReport> GetExtendReport(int rsurParticipTestId, int? areaCode = null, string schoolId = null)
         {
-            var result = new ServiceResult<ParticipExtendReport>();
-            result.Result = new ParticipExtendReport();
+            var serviceResult = new ServiceResult<ParticipExtendReport>
+            {
+                Result = new ParticipExtendReport()
+            };
 
             // Начало запроса
             var query = context.RsurTestResults.Where(rtr => rtr.RsurParticipTestId == rsurParticipTestId);
@@ -42,24 +44,24 @@ namespace Monit95App.Services.Rsur.ParticipReport
             var entity = query.SingleOrDefault();
             if(entity == null || entity.Grade5 == null)
             {
-                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Возможно {nameof(rsurParticipTestId)}: '{rsurParticipTestId}' указан не верно" +
-                                                                                   $"или данный участник отсутствовал на диагностике"});
-                return result;
+                serviceResult.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Возможно {nameof(rsurParticipTestId)}: '{rsurParticipTestId}' указан не верно" +
+                                                                                   $" или данный участник отсутствовал на диагностике"});
+                return serviceResult;
             }
 
-            result.Result.FullParticipName = $"{entity.RsurParticipTest.RsurParticip.Surname.ToUpper()} {entity.RsurParticipTest.RsurParticip.Name.ToUpper()} {entity.RsurParticipTest.RsurParticip.SecondName.ToUpper()}";
-            result.Result.SchoolParticipInfo = new SchoolParticip
+            serviceResult.Result.FullParticipName = $"{entity.RsurParticipTest.RsurParticip.Surname.ToUpper()} {entity.RsurParticipTest.RsurParticip.Name.ToUpper()} {entity.RsurParticipTest.RsurParticip.SecondName.ToUpper()}";
+            serviceResult.Result.SchoolParticipInfo = new SchoolParticip
             {                
                 SchoolName = entity.RsurParticipTest.RsurParticip.School.Name
             };
 
-            result.Result.ParticipCode = entity.RsurParticipTest.RsurParticipCode;
-            result.Result.TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ";
-            result.Result.TestDateString = entity.RsurParticipTest.RsurTest.TestDate.ToShortDateString();
-            result.Result.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode} — {entity.RsurParticipTest.RsurTest.Test.Name}";
+            serviceResult.Result.ParticipCode = entity.RsurParticipTest.RsurParticipCode;
+            serviceResult.Result.TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ";
+            serviceResult.Result.TestDateString = entity.RsurParticipTest.RsurTest.TestDate.ToShortDateString();
+            serviceResult.Result.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode} — {entity.RsurParticipTest.RsurTest.Test.Name}";
 
             // Формирование EgeQuestionResults
-            result.Result.EgeQuestionResults = new List<EgeQuestionResult>();
+            serviceResult.Result.EgeQuestionResults = new List<EgeQuestionResult>();
             var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');
             foreach (var egeQuestionValueString in egeQuestionValuesArray)
             {
@@ -79,10 +81,10 @@ namespace Monit95App.Services.Rsur.ParticipReport
                 // ElementNames
                 egeQuestionResult.ElementNames = rsurQuestions.First().EgeQuestion.ElementNames;                
 
-                result.Result.EgeQuestionResults.Add(egeQuestionResult);
+                serviceResult.Result.EgeQuestionResults.Add(egeQuestionResult);
             }            
 
-            return result;
+            return serviceResult;
         }
 
         #region Private methods

@@ -32,10 +32,6 @@
             </div>
             <br />
             <br />
-            <!--<div style="margin-top:20px">
-                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Дата диагностики:</p>
-                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8">{{reportData.TestDate}}</p>
-            </div>-->
             <br />
         </div>
         <br />
@@ -63,7 +59,7 @@
         <br />
         <table border="1" class="report-table">
             <tr>
-                <th class="section-head" colspan="4"><b>Выполнение заданий КИМ ЕГЭ-2018 (проект)</b></th>
+                <th class="section-head" colspan="4"><b>Выполнение заданий КИМ ЕГЭ-2018</b></th>
             </tr>
             <tr style="background-color: #eee">
                 <td style="width:10%" class="cell-center">обозначение задания в КИМ ЕГЭ</td>
@@ -76,9 +72,7 @@
                 <td style="font-size:10px" class="cell-center">
                     <span *ngFor="let rsurNumber of result.RsurQuestionNumbers.split(';')">{{rsurNumber}}<br /></span>
                 </td>
-                <td style="
-    
-    :middle">{{result.ElementNames}}</td>
+                <td style=":middle">{{result.ElementNames}}</td>
                 <td [ngClass]="{'low-grade': result.Value < 60, 'medium-grade': result.Value > 59 && result.Value < 81, 'high-grade': result.Value > 80}" class="cell-center">{{result.Value}}%</td>
             </tr>
            
