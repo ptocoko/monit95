@@ -21,16 +21,96 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
-        public void GetReport_Test()
+        public void GetExtendReportTest()
         {
-            var service = new ParticipReportService(context);
-            var actual = service.GetExtendReport(9540);
+            // Arrange
+            var fakeRsurTestResults = new List<RsurTestResult>
+            {
+                new RsurTestResult
+                {
+                    EgeQuestionValues = "1(20%);3(60%)",
+                    Grade5 = 2,
+                    RsurParticipTestId = 17989,
+                    RsurParticipTest = new RsurParticipTest
+                    {
+                        RsurTest = new RsurTest
+                        {
+                            TestDate = new System.DateTime(2017,12, 20),
+                            Test = new Test
+                            {
+                                NumberCode = "0103",
+                                Name = "Лексика и фразеология && Обработка текстов",
+                                RsurQuestions = new List<RsurQuestion>
+                                {
+                                    new RsurQuestion
+                                    {
+                                        Order = 1,
+                                        EgeQuestion = new EgeQuestion
+                                        {
+                                            Order = 1,
+                                            ElementNames = "Информационная обработка текстов различных стилей и жанров"
+                                        }
+                                    },
+                                    new RsurQuestion
+                                    {
+                                        Order = 2,
+                                        EgeQuestion = new EgeQuestion
+                                        {
+                                            Order = 1,
+                                            ElementNames = "Информационная обработка текстов различных стилей и жанров"
+                                        }
+                                    },
+                                    new RsurQuestion
+                                    {
+                                        Order = 6,
+                                        EgeQuestion = new EgeQuestion
+                                        {
+                                            Order = 3,
+                                            ElementNames = "Лексическое значение слова"
+                                        }
+                                    },
+                                    new RsurQuestion
+                                    {
+                                        Order = 7,
+                                        EgeQuestion = new EgeQuestion
+                                        {
+                                            Order = 3,
+                                            ElementNames = "Лексическое значение слова"
+                                        }
+                                    },
+                                }
+                            }
+                        },
+                        RsurParticipCode = 11407,
+                        RsurParticip = new RsurParticip
+                        {
+                            Surname = "Шахабов",
+                            Name = "Адам",
+                            SecondName = "Хаважиевич",
+                            School = new Domain.Core.Entities.School
+                            {
+                                AreaCode = 205
+                            }
+                        }
+                    }
+                }
+            }.AsQueryable();
+            var mockRsurTestResultSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Provider.Returns(fakeRsurTestResults.Provider);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Expression.Returns(fakeRsurTestResults.Expression);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).ElementType.Returns(fakeRsurTestResults.ElementType);
+            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).GetEnumerator().Returns(fakeRsurTestResults.GetEnumerator());
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.RsurTestResults.Returns(mockRsurTestResultSet);
 
-            var expectedIdPassTest = "зачет";
-            var expectedValue = 100;
+            // Act
+            var rsurParticipService = new ParticipReportService(mockCokoContext);
+            var result = rsurParticipService.GetExtendReport(17989, 205);
 
-            Assert.AreEqual(expectedIdPassTest, actual.Result.TestStatus);
-            Assert.AreEqual(expectedValue, actual.Result.EgeQuestionResults.First().Value);
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Лексическое значение слова", result.Result.EgeQuestionResults.Where(x => x.EgeQuestionNumber == 3).First().ElementNames);
+            Assert.AreEqual(20, result.Result.EgeQuestionResults.Single(x => x.EgeQuestionNumber == 1).Value);
         }
 
         [TestMethod]

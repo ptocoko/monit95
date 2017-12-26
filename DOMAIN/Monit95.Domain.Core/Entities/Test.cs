@@ -3,20 +3,16 @@ namespace Monit95App.Domain.Core.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class Test
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Test()
-        {
-            Elements = new HashSet<Element>();
+        {            
             Exercises = new HashSet<Exercis>();
             Grades = new HashSet<Grade>();
             ProjectTests = new HashSet<ProjectTest>();
-            RsurTests = new HashSet<RsurTest>();
-            TestQuestions = new HashSet<EgeQuestion>();
+            RsurTests = new HashSet<RsurTest>();            
         }
 
         public Guid Id { get; set; }
@@ -36,9 +32,6 @@ namespace Monit95App.Domain.Core.Entities
         public int? Number { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Element> Elements { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exercis> Exercises { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -51,6 +44,6 @@ namespace Monit95App.Domain.Core.Entities
         public virtual ICollection<RsurTest> RsurTests { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EgeQuestion> TestQuestions { get; set; }
+        public virtual ICollection<RsurQuestion> RsurQuestions { get; set; }
     }
 }

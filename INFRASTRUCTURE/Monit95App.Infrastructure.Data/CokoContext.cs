@@ -27,8 +27,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
-        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
-        public virtual DbSet<EgeQuestion> Questions { get; set; }
+        public virtual DbSet<PropertyType> PropertyTypes { get; set; }        
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Repository> Repositories { get; set; }
         public virtual DbSet<Result> Results { get; set; }                        
@@ -371,11 +370,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Test>()
                 .Property(e => e.ExcerMaxMarks)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Test>()
-                .HasMany(e => e.Elements)
-                .WithRequired(e => e.Test)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.Exercises)

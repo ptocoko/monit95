@@ -101,7 +101,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
             {
                 currentMarks = rsurParticipTest.RsurTestResult.RsurQuestionValues.Split(';');
             } 
-            var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList();
+            var testQuestions = rsurParticipTest.RsurTest.Test.RsurQuestions.ToList();
             int index = 0;
             marksProtocol.QuestionResults = new List<QuestionResult>();
             foreach (var question in testQuestions.OrderBy(x => x.Order))
@@ -153,7 +153,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
 
             // Осталось инициализировать QuestionResults.
             var currentMarks = rsurTestResult.RsurQuestionValues.Split(';'); // if RsurTestResults.FileId != null, then RsurtTesResults.RsurQuestionValues != "wasnot"                        
-            var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.TestQuestions; // получаем задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям
+            var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.RsurQuestions; // получаем задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям
             int index = 0;         
             foreach (var testQuestion in testQuestions.OrderBy(tq => tq.Order))
             {
@@ -188,7 +188,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 return result;
             }
             var testQuestions = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == questionValueEditDto.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode)
-                                       .RsurTest.Test.TestQuestions.ToList();                        
+                                       .RsurTest.Test.RsurQuestions.ToList();                        
             if (!testQuestions.Any())
             {
                 result.Errors.Add(new ServiceError {                    

@@ -25,6 +25,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
         public ServiceResult<ParticipExtendReport> GetExtendReport(int rsurParticipTestId, int? areaCode = null, string schoolId = null)
         {
             var result = new ServiceResult<ParticipExtendReport>();
+            result.Result = new ParticipExtendReport();
 
             // Начало запроса
             var query = context.RsurTestResults.Where(rtr => rtr.RsurParticipTestId == rsurParticipTestId);
@@ -71,70 +72,22 @@ namespace Monit95App.Services.Rsur.ParticipReport
                     Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ',')) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
                 };
 
-                // Получение заданий КИМ РСУР, которые проверяют задание КИМ ЕГЭ (egeQuestionNumber) 
-                //var testQuestions = entity.RsurParticipTest.RsurTest.Test.TestQuestions.Any(x=>x.)
-                //var testQuestions = test.TestQuestions.Where(tq => tq.RsurEgeQuestions.Any(req => req.EgeQuestionOrder == egeQuestionNumber)).ToList();
+                // Получение заданий КИМ РСУР, которые проверяют номер egeQuestionNumber задание КИМ ЕГЭ
+                var rsurQuestions = entity.RsurParticipTest.RsurTest.Test.RsurQuestions.Where(rq => rq.EgeQuestion.Order == egeQuestionNumber);
+                egeQuestionResult.RsurQuestionNumbers = rsurQuestions.Select(rq => rq.Order.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
 
-                //egeQuestionResult.RsurQuestionNumbers = testQuestions.Select(tq => tq.Name).Aggregate((s1, s2) => $"{s1};{s2}");
-                //egeQuestionResult.ElementNames = testQuestions.First().Question.ElementNames;
+                // ElementNames
+                egeQuestionResult.ElementNames = rsurQuestions.First().EgeQuestion.ElementNames;                
 
                 result.Result.EgeQuestionResults.Add(egeQuestionResult);
-            }
-
-
-
-            //result.Result.EgeQuestionResults = GetEgeQuestionResults(entity.RsurParticipTest.RsurTest.Test, entity.EgeQuestionValues);
+            }            
 
             return result;
-
         }
 
         #region Private methods
 
-        /// <summary>
-        /// Создание записи для таблицы «Выполнение заданий КИМ ЕГЭ» в отчете «Карта учителя»
-        /// </summary>
-        /// <param name="test">Блок РСУР</param>
-        /// <param name="egeQuestionValues">
-        /// <example><example>{"2(40%);5(0%);8(0%)", "2(70%);5(75%);8(57%)"}</example></example>
-        /// </param>
-        /// <returns></returns>
-        private IEnumerable<EgeQuestionResult> GetEgeQuestionResults(Test test, string egeQuestionValues)
-        {
-            //if (test == null || test.TestQuestions.All(x => !x.RsurEgeQuestions.Any())) // only new model has RsurEgeQuestions            
-            //    throw new ArgumentException(nameof(test));            
-            
-            //if (string.IsNullOrWhiteSpace(egeQuestionValues))
-            //    throw new ArgumentException($"{nameof(egeQuestionValues)} is null or empty");
-
-            //var egeQuestionValuesArray = egeQuestionValues.Split(';');
-            //if (!egeQuestionValuesArray.Any())
-            //    throw new ArgumentException(nameof(egeQuestionValues));
-
-            //var egeQuestionResults = new List<EgeQuestionResult>();
-            //foreach (var egeQuestionValueString in egeQuestionValuesArray)
-            //{
-            //    // Get egeQuestionNumber from egeQuestionValueString = "2(70%)" (e.g.) 
-            //    var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - искоючить из результата открывающую скобку                
-
-            //    var egeQuestionResult = new EgeQuestionResult
-            //    {
-            //        EgeQuestionNumber = egeQuestionNumber,
-            //        Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ',')) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
-            //    };
-
-            //    // Получение заданий КИМ РСУР, которые проверяют задание КИМ ЕГЭ (egeQuestionNumber) 
-            //    var testQuestions = test.TestQuestions.Where(tq => tq.RsurEgeQuestions.Any(req => req.EgeQuestionOrder == egeQuestionNumber)).ToList();
-
-            //    egeQuestionResult.RsurQuestionNumbers = testQuestions.Select(tq => tq.Name).Aggregate((s1, s2) => $"{s1};{s2}");
-            //    egeQuestionResult.ElementNames = testQuestions.First().Question.ElementNames;
-
-            //    egeQuestionResults.Add(egeQuestionResult);
-            //}
-
-            //return egeQuestionResults;
-            return null;
-        }
+        
 
         private string ConvertGrade5ToTestStatus(int? Grade5)
         {
@@ -227,3 +180,48 @@ namespace Monit95App.Services.Rsur.ParticipReport
         }
     }
 }
+
+/// <summary>
+/// Создание записи для таблицы «Выполнение заданий КИМ ЕГЭ» в отчете «Карта учителя»
+/// </summary>
+/// <param name="test">Блок РСУР</param>
+/// <param name="egeQuestionValues">
+/// <example><example>{"2(40%);5(0%);8(0%)", "2(70%);5(75%);8(57%)"}</example></example>
+/// </param>
+/// <returns></returns>
+//private IEnumerable<EgeQuestionResult> GetEgeQuestionResults(Test test, string egeQuestionValues)
+//{
+//    //if (test == null || test.TestQuestions.All(x => !x.RsurEgeQuestions.Any())) // only new model has RsurEgeQuestions            
+//    //    throw new ArgumentException(nameof(test));            
+
+//    //if (string.IsNullOrWhiteSpace(egeQuestionValues))
+//    //    throw new ArgumentException($"{nameof(egeQuestionValues)} is null or empty");
+
+//    //var egeQuestionValuesArray = egeQuestionValues.Split(';');
+//    //if (!egeQuestionValuesArray.Any())
+//    //    throw new ArgumentException(nameof(egeQuestionValues));
+
+//    //var egeQuestionResults = new List<EgeQuestionResult>();
+//    //foreach (var egeQuestionValueString in egeQuestionValuesArray)
+//    //{
+//    //    // Get egeQuestionNumber from egeQuestionValueString = "2(70%)" (e.g.) 
+//    //    var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - искоючить из результата открывающую скобку                
+
+//    //    var egeQuestionResult = new EgeQuestionResult
+//    //    {
+//    //        EgeQuestionNumber = egeQuestionNumber,
+//    //        Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ',')) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
+//    //    };
+
+//    //    // Получение заданий КИМ РСУР, которые проверяют задание КИМ ЕГЭ (egeQuestionNumber) 
+//    //    var testQuestions = test.TestQuestions.Where(tq => tq.RsurEgeQuestions.Any(req => req.EgeQuestionOrder == egeQuestionNumber)).ToList();
+
+//    //    egeQuestionResult.RsurQuestionNumbers = testQuestions.Select(tq => tq.Name).Aggregate((s1, s2) => $"{s1};{s2}");
+//    //    egeQuestionResult.ElementNames = testQuestions.First().Question.ElementNames;
+
+//    //    egeQuestionResults.Add(egeQuestionResult);
+//    //}
+
+//    //return egeQuestionResults;
+//    return null;
+//}
