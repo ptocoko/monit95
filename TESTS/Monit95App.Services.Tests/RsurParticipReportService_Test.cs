@@ -93,7 +93,7 @@ namespace Monit95App.Services.Tests
             Assert.IsNotNull(successResult);
             Assert.AreEqual(false, successResult.Errors.Any());
             Assert.AreEqual(true, failResult.Errors.Any());
-            Assert.AreEqual(11842, successResult.Result.Single().Code);
+            Assert.AreEqual(11842, successResult.Result.Single().ParticipCode);
             Assert.AreEqual("ЗАЧЕТ", successResult.Result.Single().TestStatus);
             Assert.AreEqual("0101 — Орфография", successResult.Result.Single().TestName);
             Assert.AreEqual("Декабрь-2017", successResult.Result.Single().ExamName);
@@ -161,7 +161,7 @@ namespace Monit95App.Services.Tests
             Assert.IsNotNull(successResult);
             Assert.AreEqual(false, successResult.Errors.Any());
             Assert.AreEqual(true, failResult.Errors.Any());
-            Assert.AreEqual(11842, successResult.Result.Single().Code);
+            Assert.AreEqual(11842, successResult.Result.Single().ParticipCode);
             Assert.AreEqual("ЗАЧЕТ", successResult.Result.Single().TestStatus);
             Assert.AreEqual("0101 — Орфография", successResult.Result.Single().TestName);
             Assert.AreEqual("Декабрь-2017", successResult.Result.Single().ExamName);

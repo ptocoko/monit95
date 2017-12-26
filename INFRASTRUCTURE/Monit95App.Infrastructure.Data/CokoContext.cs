@@ -28,11 +28,10 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
-        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<EgeQuestion> Questions { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Repository> Repositories { get; set; }
-        public virtual DbSet<Result> Results { get; set; }                
-        public virtual DbSet<RsurEgeQuestion> RsurEgeQuestions { get; set; }
+        public virtual DbSet<Result> Results { get; set; }                        
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
         public virtual DbSet<RsurParticipTest> RsurParticipTests { get; set; }
@@ -44,8 +43,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<SchoolCollector> SchoolCollectors { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
         public virtual DbSet<School> Schools { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }
-        public virtual DbSet<TestQuestion> TestQuestions { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }        
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }
         public virtual DbSet<Umk> Umks { get; set; }
@@ -53,6 +51,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<FilePermission> FilePermissions { get; set; }
         public virtual DbSet<Monit95User> Monit95Users { get; set; }
+        public virtual DbSet<EgeQuestion> EgeQuestions { get; set; }
+        public virtual DbSet<RsurQuestion> RsurQuestions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -190,11 +190,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<ProjectTest>()
                 .HasMany(e => e.ParticipTests)
                 .WithRequired(e => e.ProjectTest)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Question>()
-                .HasMany(e => e.TestQuestions)
-                .WithRequired(e => e.Question)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Report>()
@@ -366,14 +361,8 @@ namespace Monit95App.Infrastructure.Data
                 .HasOptional(e => e.SchoolEdit)
                 .WithRequired(e => e.School);
 
-            modelBuilder.Entity<TestQuestion>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TestQuestion>()
-                .HasMany(e => e.RsurEgeQuestions)
-                .WithRequired(e => e.TestQuestion)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<EgeQuestion>()
+                .HasMany(e => e.RsurQuestions);                
 
             modelBuilder.Entity<Test>()
                 .Property(e => e.NumberCode)

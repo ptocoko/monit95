@@ -72,16 +72,16 @@
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectTest.cs" />
     <Compile Include="Entities\PropertyType.cs" />
-    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\EgeQuestion.cs" />
     <Compile Include="Entities\Report.cs" />
     <Compile Include="Entities\Repository.cs" />
     <Compile Include="Entities\Result.cs" />
     <Compile Include="Entities\Roo.cs" />
     <Compile Include="Entities\RooDirect.cs" />
-    <Compile Include="Entities\RsurEgeQuestion.cs" />
     <Compile Include="Entities\RsurParticip.cs" />
     <Compile Include="Entities\RsurParticipEdit.cs" />
     <Compile Include="Entities\RsurParticipTest.cs" />
+    <Compile Include="Entities\RsurQuestion.cs" />
     <Compile Include="Entities\RsurReport.cs" />
     <Compile Include="Entities\RsurReportFile.cs" />
     <Compile Include="Entities\RsurSubject.cs" />
@@ -92,7 +92,6 @@
     <Compile Include="Entities\SchoolEdit.cs" />
     <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\Test.cs" />
-    <Compile Include="Entities\TestQuestion.cs" />
     <Compile Include="Entities\TownType.cs" />
     <Compile Include="Entities\Umk.cs" />
     <Compile Include="Entities\Wish.cs" />

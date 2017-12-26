@@ -39,25 +39,15 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0101",
                                 Name = "Орфография",
-                                TestQuestions = new List<TestQuestion>
+                                TestQuestions = new List<EgeQuestion>
                                 {
-                                    new TestQuestion
+                                    new EgeQuestion
                                     {
-                                        Order = 1,
-                                        Name = "1",
-                                        Question = new Question
-                                        {
-                                            MaxMark = 1
-                                        }
+                                        Order = 1,                                        
                                     },
-                                    new TestQuestion
+                                    new EgeQuestion
                                     {
-                                        Order = 2,
-                                        Name = "2",
-                                        Question = new Question
-                                        {
-                                            MaxMark = 1
-                                        }
+                                        Order = 2,                                        
                                     }
                                 }
                             }
@@ -162,31 +152,20 @@ namespace Monit95App.Services.Tests
                         IsOpen = true,
                         Test = new Test
                         {
-                            TestQuestions = new List<TestQuestion>
+                            TestQuestions = new List<EgeQuestion>
                             {
-                                new TestQuestion
+                                new EgeQuestion
                                 {
                                     Order = 1,
-                                    Question = new Question
-                                    {
-                                        MaxMark = 1
-                                    }
                                 },
-                                new TestQuestion
+                                new EgeQuestion
                                 {
                                     Order = 2,
-                                    Question = new Question
-                                    {
-                                        MaxMark = 1
-                                    }
                                 },
-                                new TestQuestion
+                                new EgeQuestion
                                 {
                                     Order = 3,
-                                    Question = new Question
-                                    {
-                                        MaxMark = 1
-                                    }
+           
                                 },
                             }
                         }
@@ -207,31 +186,22 @@ namespace Monit95App.Services.Tests
                         IsOpen = true,
                         Test = new Test
                         {
-                            TestQuestions = new List<TestQuestion>
+                            TestQuestions = new List<EgeQuestion>
                             {
-                                new TestQuestion
+                                new EgeQuestion
                                 {
                                     Order = 1,
-                                    Question = new Question
-                                    {
-                                        MaxMark = 1
-                                    }
+
                                 },
-                                new TestQuestion
+                                new EgeQuestion
                                 {
                                     Order = 2,
-                                    Question = new Question
-                                    {
-                                        MaxMark = 1
-                                    }
+
                                 },
-                                new TestQuestion
+                                new EgeQuestion
                                 {
                                     Order = 3,
-                                    Question = new Question
-                                    {
-                                        MaxMark = 1
-                                    }
+     
                                 },
                             }
                         }
@@ -375,34 +345,22 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0101",
                                 Name = "Орфография",
-                                TestQuestions = new List<TestQuestion>
+                                TestQuestions = new List<EgeQuestion>
                                 {
-                                    new TestQuestion
+                                    new EgeQuestion
                                     {
                                         Order = 1,
-                                        Name = "1",
-                                        Question = new Question
-                                        {
-                                            MaxMark = 1
-                                        }
+
                                     },
-                                    new TestQuestion
+                                    new EgeQuestion
                                     {
                                         Order = 2,
-                                        Name = "2",
-                                        Question = new Question
-                                        {
-                                            MaxMark = 2
-                                        }
+
                                     },
-                                    new TestQuestion
+                                    new EgeQuestion
                                     {
                                         Order = 3,
-                                        Name = "3",
-                                        Question = new Question
-                                        {
-                                            MaxMark = 1
-                                        }
+
                                     },
                                 }
                             }

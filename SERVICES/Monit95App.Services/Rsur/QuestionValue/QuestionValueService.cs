@@ -108,9 +108,8 @@ namespace Monit95App.Services.Rsur.QuestionValue
             {
                 marksProtocol.QuestionResults.Add(new QuestionResult
                 {
-                    Order = question.Order,
-                    Name = question.Name,
-                    MaxMark = question.Question.MaxMark,
+                    Order = question.Order,                    
+                    MaxMark = 1,
                     CurrentMark = currentMarks != null ? (int?)int.Parse(currentMarks[index]) : null
                 });
                 index++;
@@ -160,9 +159,8 @@ namespace Monit95App.Services.Rsur.QuestionValue
             {
                 questionValueEditDto.QuestionResults.Add(new QuestionResult
                 {
-                    Order = testQuestion.Order,
-                    Name = testQuestion.Name,
-                    MaxMark = testQuestion.Question.MaxMark,
+                    Order = testQuestion.Order,                    
+                    MaxMark = 1,
                     CurrentMark = int.Parse(currentMarks[index]) // currentValues[0] - балл за первое задание и т.д.
                 });
                 index++;
@@ -216,7 +214,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
             
             questionValueEditDto.QuestionResults.ForEach(questionResult =>
             {
-                var maxValue = testQuestions.Single(tq => tq.Order == questionResult.Order).Question.MaxMark;
+                var maxValue = 1;
 
                 // если балл указан балл ниже -1 (отсутствовал) или больше допустимого, то устанавливается максимально допустимый
                 if (questionResult.CurrentMark < -1 || questionResult.CurrentMark > maxValue)

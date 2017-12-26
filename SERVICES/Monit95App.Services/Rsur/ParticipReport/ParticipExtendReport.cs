@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -8,8 +7,13 @@ namespace Monit95App.Services.Rsur.ParticipReport
     /// </summary>
     public class ParticipExtendReport : ParticipReport
     {
-        public DateTime TestDate { get; set; }      
+        /// <summary>
+        /// ФИО участника
+        /// </summary>
+        public string FullParticipName { get; set; }                
 
-        public IEnumerable<EgeQuestionResult> EgeQuestionResults { get; set; }
+        public string TestDateString { get; set; }              
+
+        public List<EgeQuestionResult> EgeQuestionResults { get; set; }
     }
 }

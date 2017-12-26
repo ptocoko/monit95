@@ -7,7 +7,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
         /// <example>
         /// 12345
         /// </example>
-        public int Code { get; set; }
+        public int ParticipCode { get; set; }
 
         /// <summary>
         /// Test's name with specify test's date
