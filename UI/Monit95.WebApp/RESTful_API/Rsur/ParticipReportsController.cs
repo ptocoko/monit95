@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Http;
 using Monit95App.Services.Rsur.ParticipReport;
 using System.Runtime.Caching;
+using Monit95App.Services.Validation;
+using System.Linq;
+
 namespace Monit95App.RESTful_API.Rsur
 {
     [RoutePrefix("api/rsur/participReports")]
@@ -37,70 +40,69 @@ namespace Monit95App.RESTful_API.Rsur
 
         #region APIs
 
+        /// <summary>
+        /// Получить КАРТУ предметной компентнции учителя
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("{rsurParticipTestId:int}")]
         public IHttpActionResult Get()
         {
             var rsurParticipTestId = int.Parse(RequestContext.RouteData.Values["rsurParticipTestId"].ToString());
-            var report = participReportService.GetReport(rsurParticipTestId);
 
-            return Ok(report);
+            ServiceResult<ParticipExtendReport> result = null;
+            if (User.IsInRole("area"))            
+                result = participReportService.GetExtendReport(rsurParticipTestId, areaCode: Convert.ToInt32(User.Identity.Name));
+
+            if (User.IsInRole("school"))
+                result = participReportService.GetExtendReport(rsurParticipTestId, schoolId: User.Identity.Name);
+
+            // Success
+            if (!result.Errors.Any())                            
+                return Ok(result.Result);            
+
+            // Error: another
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+
+            return BadRequest(ModelState);                       
         }
 
+        /// <summary>
+        /// Получить список отчетов по участникам
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]   
         [Route("")]
-        public IHttpActionResult Get(string testDate)
+        public IHttpActionResult GetAll()
         {
-            //если кэш содержит подходящие данные, то возвращаем их
+            // Если кэш содержит подходящие данные, то возвращаем их
             if (memoryCache.Contains(PROTOCOLS_CACHE_KEY))
-            {
-                return Ok(memoryCache.Get(PROTOCOLS_CACHE_KEY));
-            }
+                return Ok(memoryCache.Get(PROTOCOLS_CACHE_KEY));            
 
-            if (!DateTime.TryParse(testDate, out DateTime testDateObj)) return BadRequest("Cannot parse testDate string to DateTime object");
-
-            IEnumerable<ParticipReport> rsurResults = null;
+            ServiceResult<IEnumerable<ParticipReport>> result;            
             if (User.IsInRole("area"))
             {
                 var areaCode = int.Parse(User.Identity.Name);
-                try
-                {
-                    rsurResults = participReportService.GetResultsForArea(areaCode, testDateObj);
-                }
-                catch (ArgumentException ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                result = participReportService.GetReportsForArea(areaCode);                
             }
-            else if(User.IsInRole("school"))
+            else // school
             {
                 var schoolId = User.Identity.Name;
-                try
-                {
-                    rsurResults = participReportService.GetResultsForSchool(schoolId, testDateObj);
-                }
-                catch (ArgumentException ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                result = participReportService.GetReportsForSchool(schoolId);                
             }
-            else if (User.IsInRole("rsur-particip"))
+
+            // Success
+            if (!result.Errors.Any())
             {
-                var participCode = int.Parse(User.Identity.Name);
-                try
-                {
-                    rsurResults = participReportService.GetResultsForParticip(participCode, testDateObj);
-                }
-                catch (ArgumentException ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-
+                memoryCache.Add(PROTOCOLS_CACHE_KEY, result.Result, DateTimeOffset.UtcNow.AddMinutes(10));
+                return Ok(result.Result);
             }
-
-            memoryCache.Add(PROTOCOLS_CACHE_KEY, rsurResults, DateTimeOffset.UtcNow.AddMinutes(10));
-
-            return Ok(rsurResults);
+                
+            // Error: another
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return BadRequest(ModelState);                        
         }
         
         #endregion
