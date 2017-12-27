@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Validation;
+using System.Globalization;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -71,7 +72,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                 var egeQuestionResult = new EgeQuestionResult
                 {
                     EgeQuestionNumber = egeQuestionNumber,
-                    Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ',')) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
+                    Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ','), CultureInfo.CreateSpecificCulture("ru-RU")) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
                 };
 
                 // Получение заданий КИМ РСУР, которые проверяют номер egeQuestionNumber задание КИМ ЕГЭ
