@@ -16,7 +16,9 @@ var TestNameWithDateFilterPipe = /** @class */ (function () {
         if (examName && examName !== 'все диагностики') {
             reports = reports.filter(function (report) { return report.ExamName === examName; });
         }
-        return reports.map(function (report) { return report.TestName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
+        return reports.map(function (report) { return report.TestName; })
+            .filter(function (value, index, self) { return self.indexOf(value) === index; })
+            .sort();
     };
     TestNameWithDateFilterPipe = tslib_1.__decorate([
         core_1.Pipe({ name: 'testNameWithDateFilter' })

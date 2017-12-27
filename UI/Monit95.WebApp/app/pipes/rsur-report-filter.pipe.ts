@@ -14,7 +14,9 @@ export class TestNameWithDateFilterPipe implements PipeTransform {
 		if (examName && examName !== 'все диагностики') {
 			reports = reports.filter((report: RsurReportModel) => report.ExamName === examName);
 		}
-		return reports.map((report: RsurReportModel) => report.TestName).filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
+		return reports.map((report: RsurReportModel) => report.TestName)
+			.filter((value: string, index: number, self: string[]) => self.indexOf(value) === index)
+			.sort();
     }
 }
 
