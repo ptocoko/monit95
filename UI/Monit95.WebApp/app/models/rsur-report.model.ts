@@ -1,11 +1,14 @@
 ﻿import { SchoolParticip } from '../models/school-particip.model';
 
 export class RsurReportModel {
-	Code: number;
+    ParticipCode: number;
+    FullParticipName: string;
+    TestDateString: string;
+    TestName: string;
+    TestStatus: string;
 	RsurParticipTestId?: number;
 	SchoolParticipInfo: SchoolParticip;
-	TestNameWithDate: string;
-	TestStatus: string;
+	TestNameWithDate: string;	
 	TestDate?: string;	
 	ExamName: string;
 	EgeQuestionResults?: EgeQuestionResult[];
