@@ -17,7 +17,8 @@ namespace MarksStringConverter
         {
             context = new CokoContext();
             service = new RsurMarksConverter(context);
-            Go();
+            service.GenerateByParticipTestId(18006);
+            //Go();
             Console.WriteLine("All done!");
             Console.ReadKey();
         }

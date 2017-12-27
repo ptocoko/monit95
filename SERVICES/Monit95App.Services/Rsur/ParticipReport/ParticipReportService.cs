@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Validation;
+using System.Globalization;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -71,7 +72,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                 var egeQuestionResult = new EgeQuestionResult
                 {
                     EgeQuestionNumber = egeQuestionNumber,
-                    Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ',')) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
+                    Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ','), CultureInfo.CreateSpecificCulture("ru-RU")) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
                 };
 
                 // Получение заданий КИМ РСУР, которые проверяют номер egeQuestionNumber задание КИМ ЕГЭ
@@ -93,17 +94,33 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         private string ConvertGrade5ToTestStatus(int? Grade5)
         {
-            switch(Grade5)
+            if(Grade5 == null)
             {
-                case null:
-                    return "ОТСУТСТВОВАЛ";                    
-                case 2:
-                    return "НЕЗАЧЕТ";                    
-                case 5:
-                    return "ЗАЧЕТ";                    
-                default:
-                    throw new ArgumentException($@"Value of parameter {nameof(Grade5)} is '{Grade5}', but has to be: null, 2 or 5");
-            }            
+                return "ОТСУТСТВОВАЛ";
+            }
+            else if(Grade5 < 5)
+            {
+                return "НЕЗАЧЕТ";
+            }
+            else if(Grade5 == 5)
+            {
+                return "ЗАЧЕТ";
+            }
+            else
+            {
+                throw new ArgumentException($@"Value of parameter {nameof(Grade5)} is '{Grade5}', but has to be: null, 2 or 5");
+            }
+            //switch(Grade5)
+            //{
+            //    case null:
+            //        return "ОТСУТСТВОВАЛ";                    
+            //    case 2:
+            //        return "НЕЗАЧЕТ";                    
+            //    case 5:
+            //        return "ЗАЧЕТ";                    
+            //    default:
+                    
+            //}            
         }
 
         /// <summary>
@@ -114,7 +131,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
         /// <returns></returns>        
         private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable)
         {            
-            var minDateTime = new DateTime(2017, 10, 11);
+            var minDateTime = new DateTime(2017, 4, 20);
 
             // TODO: Разница между AsEnumerable vs IQuerably and Linq Entities vs Linq to Object
             var testResults = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с октября                              

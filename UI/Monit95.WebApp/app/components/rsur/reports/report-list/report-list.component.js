@@ -27,7 +27,7 @@ var ReportListComponent = /** @class */ (function () {
         });
     };
     ReportListComponent.prototype.openReport = function (report) {
-        if (report.TestStatus.toLowerCase() !== 'отсутствовал') {
+        if (report.TestStatus.toLowerCase() !== 'отсутствовал' && report.ExamName.toLowerCase() !== 'апрель-2017') {
             localStorage.setItem('selectedSchool', this.selectedSchool);
             localStorage.setItem('selectedTest', this.selectedTest);
             localStorage.setItem('selectedExam', this.selectedExam);

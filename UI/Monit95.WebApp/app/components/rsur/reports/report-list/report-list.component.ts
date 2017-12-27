@@ -44,7 +44,7 @@ export class ReportListComponent implements OnInit {
 	}
 
 	openReport(report: RsurReportModel) {
-		if (report.TestStatus.toLowerCase() !== 'отсутствовал') {
+		if (report.TestStatus.toLowerCase() !== 'отсутствовал' && report.ExamName.toLowerCase() !== 'апрель-2017') {
 			localStorage.setItem('selectedSchool', this.selectedSchool);
 			localStorage.setItem('selectedTest', this.selectedTest);
 			localStorage.setItem('selectedExam', this.selectedExam);

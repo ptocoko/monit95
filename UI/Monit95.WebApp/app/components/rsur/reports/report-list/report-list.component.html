@@ -47,7 +47,7 @@
         <tr (click)="openReport(report)" 
             *ngFor="let report of reportsList | totalFilter : selectedSchool : selectedTest : selectedExam | rsurParticipFilter : searchParticip; let i = index" 
             [ngClass]="{
-                'isClickable': report.TestStatus.toLowerCase() !== 'отсутствовал',
+                'isClickable': report.TestStatus.toLowerCase() !== 'отсутствовал' && report.ExamName.toLowerCase() !== 'апрель-2017',
                 'absent-row': report.TestStatus.toLowerCase() === 'отсутствовал',
                 'test-failed-row': report.TestStatus.toLowerCase() === 'незачет',
                 'test-pass-row': report.TestStatus.toLowerCase() === 'зачет'
