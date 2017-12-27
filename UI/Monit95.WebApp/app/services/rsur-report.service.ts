@@ -12,8 +12,8 @@ export class RsurReportService {
 	}
 
     getReports(): Observable<RsurReportModel[]> {
-        //return this.http.get(`${this.ROUTE_PREFIX}`);
-		return Observable.of(Reports_MOCK).delay(500);
+        return this.http.get<RsurReportModel[]>(`${this.ROUTE_PREFIX}`);
+		//return Observable.of(Reports_MOCK).delay(500);
     }
 
     getReport(rsurParticipTestId: number) {

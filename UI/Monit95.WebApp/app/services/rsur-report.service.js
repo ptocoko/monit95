@@ -3,15 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
-var Observable_1 = require("rxjs/Observable");
 var RsurReportService = /** @class */ (function () {
     function RsurReportService(http) {
         this.http = http;
         this.ROUTE_PREFIX = 'api/rsur/participReports';
     }
     RsurReportService.prototype.getReports = function () {
-        //return this.http.get(`${this.ROUTE_PREFIX}?testDate=${testDate}`);
-        return Observable_1.Observable.of(Reports_MOCK).delay(500);
+        return this.http.get("" + this.ROUTE_PREFIX);
+        //return Observable.of(Reports_MOCK).delay(500);
     };
     RsurReportService.prototype.getReport = function (rsurParticipTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
