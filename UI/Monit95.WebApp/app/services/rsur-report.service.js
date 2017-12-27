@@ -10,7 +10,6 @@ var RsurReportService = /** @class */ (function () {
     }
     RsurReportService.prototype.getReports = function () {
         return this.http.get("" + this.ROUTE_PREFIX);
-        //return Observable.of(Reports_MOCK).delay(500);
     };
     RsurReportService.prototype.getReport = function (rsurParticipTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);
