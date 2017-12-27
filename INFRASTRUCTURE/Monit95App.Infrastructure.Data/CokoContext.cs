@@ -279,11 +279,6 @@ namespace Monit95App.Infrastructure.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<RsurParticipTest>()
-                .Property(e => e.RsurParticipOldCode)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<RsurParticipTest>()
                 .HasOptional(e => e.RsurTestResult)
                 .WithRequired(e => e.RsurParticipTest);
 
