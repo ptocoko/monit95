@@ -59,14 +59,7 @@
             <td>{{report.SchoolParticipInfo.SecondName}}</td>
             <td>{{report.SchoolParticipInfo.SchoolName}}</td>
             <td>{{report.ExamName}}</td>
-            <td align="center" 
-                class="text-uppercase" 
-                [ngClass]="{ 
-                    'test-failed-cell': report.TestStatus.toLowerCase() === 'незачет', 
-                    'test-pass-cell': report.TestStatus.toLowerCase() === 'зачет', 
-                    'absent-cell': report.TestStatus.toLowerCase() === 'отсутствовал'}">
-                {{report.TestStatus}}
-            </td>
+            <td align="center" class="text-uppercase">{{report.TestStatus}}</td>
         </tr>
     </table>
 </div>
