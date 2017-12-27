@@ -101,16 +101,15 @@ namespace Monit95App.Services.Rsur.QuestionValue
             {
                 currentMarks = rsurParticipTest.RsurTestResult.RsurQuestionValues.Split(';');
             } 
-            var testQuestions = rsurParticipTest.RsurTest.Test.TestQuestions.ToList();
+            var testQuestions = rsurParticipTest.RsurTest.Test.RsurQuestions.ToList();
             int index = 0;
             marksProtocol.QuestionResults = new List<QuestionResult>();
             foreach (var question in testQuestions.OrderBy(x => x.Order))
             {
                 marksProtocol.QuestionResults.Add(new QuestionResult
                 {
-                    Order = question.Order,
-                    Name = question.Name,
-                    MaxMark = question.Question.MaxMark,
+                    Order = question.Order,                    
+                    MaxMark = 1,
                     CurrentMark = currentMarks != null ? (int?)int.Parse(currentMarks[index]) : null
                 });
                 index++;
@@ -154,15 +153,14 @@ namespace Monit95App.Services.Rsur.QuestionValue
 
             // Осталось инициализировать QuestionResults.
             var currentMarks = rsurTestResult.RsurQuestionValues.Split(';'); // if RsurTestResults.FileId != null, then RsurtTesResults.RsurQuestionValues != "wasnot"                        
-            var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.TestQuestions; // получаем задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям
+            var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.RsurQuestions; // получаем задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям
             int index = 0;         
             foreach (var testQuestion in testQuestions.OrderBy(tq => tq.Order))
             {
                 questionValueEditDto.QuestionResults.Add(new QuestionResult
                 {
-                    Order = testQuestion.Order,
-                    Name = testQuestion.Name,
-                    MaxMark = testQuestion.Question.MaxMark,
+                    Order = testQuestion.Order,                    
+                    MaxMark = 1,
                     CurrentMark = int.Parse(currentMarks[index]) // currentValues[0] - балл за первое задание и т.д.
                 });
                 index++;
@@ -190,7 +188,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 return result;
             }
             var testQuestions = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == questionValueEditDto.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode)
-                                       .RsurTest.Test.TestQuestions.ToList();                        
+                                       .RsurTest.Test.RsurQuestions.ToList();                        
             if (!testQuestions.Any())
             {
                 result.Errors.Add(new ServiceError {                    
@@ -216,7 +214,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
             
             questionValueEditDto.QuestionResults.ForEach(questionResult =>
             {
-                var maxValue = testQuestions.Single(tq => tq.Order == questionResult.Order).Question.MaxMark;
+                var maxValue = 1;
 
                 // если балл указан балл ниже -1 (отсутствовал) или больше допустимого, то устанавливается максимально допустимый
                 if (questionResult.CurrentMark < -1 || questionResult.CurrentMark > maxValue)

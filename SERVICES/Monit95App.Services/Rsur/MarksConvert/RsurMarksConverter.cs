@@ -89,15 +89,15 @@ namespace Monit95App.Services.Rsur.MarksConvert
 
             var testId = testResultEntity.RsurParticipTest.RsurTest.TestId;
 
-            var questionsModel = context.TestQuestions
+            var questionsModel = context.RsurQuestions
                 .Where(testQuestion => testQuestion.TestId == testId)
-                .Include(x => x.Question)
+                .Include(x => x.EgeQuestion)
                 .ToList()
                 .Select(testQuestion => new RsurQuestionsModel
                 {
                     TestQuestionId = testQuestion.Id,
-                    QuestionId = testQuestion.Question.Id,
-                    EgeOrder = testQuestion.Question.Order,
+                    QuestionId = testQuestion.EgeQuestion.Id,
+                    EgeOrder = testQuestion.EgeQuestion.Order,
                     Mark = marks[testQuestion.Order - 1]
                 })
                 .GroupBy(gb => gb.QuestionId)

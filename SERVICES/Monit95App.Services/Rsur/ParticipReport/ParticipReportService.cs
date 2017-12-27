@@ -24,64 +24,49 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         public ServiceResult<ParticipExtendReport> GetExtendReport(int rsurParticipTestId, int? areaCode = null, string schoolId = null)
         {
-            var result = new ServiceResult<ParticipExtendReport>();
+            var serviceResult = new ServiceResult<ParticipExtendReport>
+            {
+                Result = new ParticipExtendReport()
+            };
 
-            var entity = context.RsurTestResults.Find(rsurParticipTestId);
+            // Начало запроса
+            var query = context.RsurTestResults.Where(rtr => rtr.RsurParticipTestId == rsurParticipTestId);
+
+            // Фильтр по муниципалитету
+            if (areaCode != null)
+                query = query.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode);
+
+            // Фильтр по школе
+            if (schoolId != null)
+                query = query.Where(rtr => rtr.RsurParticipTest.RsurParticip.SchoolId == schoolId);
+
+            // Получаем сущность и сразу валидируем
+            var entity = query.SingleOrDefault();
             if(entity == null || entity.Grade5 == null)
             {
-                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Возможно {nameof(rsurParticipTestId)}: '{rsurParticipTestId}' указан не верно" +
-                                                                                   $"или данный участник отсутствовал на диагностике"});
-                return result;
+                serviceResult.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Возможно {nameof(rsurParticipTestId)}: '{rsurParticipTestId}' указан не верно" +
+                                                                                   $" или данный участник отсутствовал на диагностике"});
+                return serviceResult;
             }
 
-            result.Result.SchoolParticipInfo = new SchoolParticip
-            {
-                Surname = entity.RsurParticipTest.RsurParticip.Surname,
-                Name = entity.RsurParticipTest.RsurParticip.Name,
-                SecondName = entity.RsurParticipTest.RsurParticip.SecondName,
+            serviceResult.Result.FullParticipName = $"{entity.RsurParticipTest.RsurParticip.Surname.ToUpper()} {entity.RsurParticipTest.RsurParticip.Name.ToUpper()} {entity.RsurParticipTest.RsurParticip.SecondName.ToUpper()}";
+            serviceResult.Result.SchoolParticipInfo = new SchoolParticip
+            {                
                 SchoolName = entity.RsurParticipTest.RsurParticip.School.Name
             };
 
-            result.Result.Code = entity.RsurParticipTest.RsurParticipCode;
-            result.Result.TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ";
-            result.Result.TestDate = entity.RsurParticipTest.RsurTest.TestDate;
-            result.Result.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode}" +
-                                     $" — {entity.RsurParticipTest.RsurTest.Test.Name}";
-            //report.TestNameWithDate = $"{report.TestName}, {report.TestDate.ToShortDateString()}";
+            serviceResult.Result.ParticipCode = entity.RsurParticipTest.RsurParticipCode;
+            serviceResult.Result.TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ";
+            serviceResult.Result.TestDateString = entity.RsurParticipTest.RsurTest.TestDate.ToShortDateString();
+            serviceResult.Result.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode} — {entity.RsurParticipTest.RsurTest.Test.Name}";
 
-            result.Result.EgeQuestionResults = GetEgeQuestionResults(entity.RsurParticipTest.RsurTest.Test, entity.EgeQuestionValues);
-
-            return result;
-
-        }
-
-        #region Private methods
-
-        /// <summary>
-        /// Создание записи для таблицы «Выполнение заданий КИМ ЕГЭ» в отчете «Карта учителя»
-        /// </summary>
-        /// <param name="test">Блок РСУР</param>
-        /// <param name="egeQuestionValues">
-        /// <example><example>{"2(40%);5(0%);8(0%)", "2(70%);5(75%);8(57%)"}</example></example>
-        /// </param>
-        /// <returns></returns>
-        private IEnumerable<EgeQuestionResult> GetEgeQuestionResults(Test test, string egeQuestionValues)
-        {
-            if (test == null || test.TestQuestions.All(x => !x.RsurEgeQuestions.Any())) // only new model has RsurEgeQuestions            
-                throw new ArgumentException(nameof(test));            
-            
-            if (string.IsNullOrWhiteSpace(egeQuestionValues))
-                throw new ArgumentException($"{nameof(egeQuestionValues)} is null or empty");
-
-            var egeQuestionValuesArray = egeQuestionValues.Split(';');
-            if (!egeQuestionValuesArray.Any())
-                throw new ArgumentException(nameof(egeQuestionValues));
-
-            var egeQuestionResults = new List<EgeQuestionResult>();
+            // Формирование EgeQuestionResults
+            serviceResult.Result.EgeQuestionResults = new List<EgeQuestionResult>();
+            var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');
             foreach (var egeQuestionValueString in egeQuestionValuesArray)
             {
                 // Get egeQuestionNumber from egeQuestionValueString = "2(70%)" (e.g.) 
-                var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - искоючить из результата открывающую скобку                
+                var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - исключить из результата открывающую скобку                
 
                 var egeQuestionResult = new EgeQuestionResult
                 {
@@ -89,33 +74,35 @@ namespace Monit95App.Services.Rsur.ParticipReport
                     Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ',')) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
                 };
 
-                // Получение заданий КИМ РСУР, которые проверяют задание КИМ ЕГЭ (egeQuestionNumber) 
-                var testQuestions = test.TestQuestions.Where(tq => tq.RsurEgeQuestions.Any(req => req.EgeQuestionOrder == egeQuestionNumber)).ToList();
+                // Получение заданий КИМ РСУР, которые проверяют номер egeQuestionNumber задание КИМ ЕГЭ
+                var rsurQuestions = entity.RsurParticipTest.RsurTest.Test.RsurQuestions.Where(rq => rq.EgeQuestion.Order == egeQuestionNumber);
+                egeQuestionResult.RsurQuestionNumbers = rsurQuestions.Select(rq => rq.Order.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
 
-                egeQuestionResult.RsurQuestionNumbers = testQuestions.Select(tq => tq.Name).Aggregate((s1, s2) => $"{s1};{s2}");
-                egeQuestionResult.ElementNames = testQuestions.First().Question.ElementNames;
+                // ElementNames
+                egeQuestionResult.ElementNames = rsurQuestions.First().EgeQuestion.ElementNames;                
 
-                egeQuestionResults.Add(egeQuestionResult);
-            }
+                serviceResult.Result.EgeQuestionResults.Add(egeQuestionResult);
+            }            
 
-            return egeQuestionResults;
+            return serviceResult;
         }
 
-        private void ConvertGrade5ToTestStatus(ParticipReport report)
+        #region Private methods
+
+        
+
+        private string ConvertGrade5ToTestStatus(int? Grade5)
         {
-            switch(report?.Grade5)
+            switch(Grade5)
             {
                 case null:
-                    report.TestStatus = "ОТСУТСТВОВАЛ";
-                    break;
+                    return "ОТСУТСТВОВАЛ";                    
                 case 2:
-                    report.TestStatus = "НЕЗАЧЕТ";
-                    break;
+                    return "НЕЗАЧЕТ";                    
                 case 5:
-                    report.TestStatus = "ЗАЧЕТ";
-                    break;
+                    return "ЗАЧЕТ";                    
                 default:
-                    throw new ArgumentException($@"Value of parameter {nameof(report.Grade5)} is '{report.Grade5}', but has to be: null, 2 or 5");
+                    throw new ArgumentException($@"Value of parameter {nameof(Grade5)} is '{Grade5}', but has to be: null, 2 or 5");
             }            
         }
 
@@ -124,17 +111,19 @@ namespace Monit95App.Services.Rsur.ParticipReport
         /// </summary>
         /// <param name="queryable"></param>
         /// <param name="testDate"></param>
-        /// <returns></returns>
+        /// <returns></returns>        
         private IEnumerable<ParticipReport> GetResults(IQueryable<RsurTestResult> queryable)
         {            
             var minDateTime = new DateTime(2017, 10, 11);
 
+            // TODO: Разница между AsEnumerable vs IQuerably and Linq Entities vs Linq to Object
             var testResults = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с октября                              
                                                   && rtr.RsurParticipTest.RsurParticip.ActualCode == 1)      // только актуальных участников   
+                                       .AsEnumerable()      
                                        .Select(rtr => new ParticipReport
                                        {
-                                           Code = rtr.RsurParticipTest.RsurParticip.Code,
-                                           Grade5 = rtr.Grade5,
+                                           ParticipCode = rtr.RsurParticipTest.RsurParticip.Code,
+                                           TestStatus = ConvertGrade5ToTestStatus(rtr.Grade5),
                                            TestName = $"{rtr.RsurParticipTest.RsurTest.Test.NumberCode} — {rtr.RsurParticipTest.RsurTest.Test.Name}",
                                            ExamName = rtr.RsurParticipTest.RsurTest.ExamName,
                                            RsurParticipTestId = rtr.RsurParticipTestId,
@@ -151,9 +140,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                                        .ThenBy(pr => pr.SchoolParticipInfo.Surname)
                                        .ThenBy(pr => pr.SchoolParticipInfo.Name);
 
-            var r = testResults.ToList();
-            r.ForEach(x => ConvertGrade5ToTestStatus(x));
-            return r;
+            return testResults.ToList();
         }
 
         #endregion
@@ -195,3 +182,48 @@ namespace Monit95App.Services.Rsur.ParticipReport
         }
     }
 }
+
+/// <summary>
+/// Создание записи для таблицы «Выполнение заданий КИМ ЕГЭ» в отчете «Карта учителя»
+/// </summary>
+/// <param name="test">Блок РСУР</param>
+/// <param name="egeQuestionValues">
+/// <example><example>{"2(40%);5(0%);8(0%)", "2(70%);5(75%);8(57%)"}</example></example>
+/// </param>
+/// <returns></returns>
+//private IEnumerable<EgeQuestionResult> GetEgeQuestionResults(Test test, string egeQuestionValues)
+//{
+//    //if (test == null || test.TestQuestions.All(x => !x.RsurEgeQuestions.Any())) // only new model has RsurEgeQuestions            
+//    //    throw new ArgumentException(nameof(test));            
+
+//    //if (string.IsNullOrWhiteSpace(egeQuestionValues))
+//    //    throw new ArgumentException($"{nameof(egeQuestionValues)} is null or empty");
+
+//    //var egeQuestionValuesArray = egeQuestionValues.Split(';');
+//    //if (!egeQuestionValuesArray.Any())
+//    //    throw new ArgumentException(nameof(egeQuestionValues));
+
+//    //var egeQuestionResults = new List<EgeQuestionResult>();
+//    //foreach (var egeQuestionValueString in egeQuestionValuesArray)
+//    //{
+//    //    // Get egeQuestionNumber from egeQuestionValueString = "2(70%)" (e.g.) 
+//    //    var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - искоючить из результата открывающую скобку                
+
+//    //    var egeQuestionResult = new EgeQuestionResult
+//    //    {
+//    //        EgeQuestionNumber = egeQuestionNumber,
+//    //        Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ',')) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
+//    //    };
+
+//    //    // Получение заданий КИМ РСУР, которые проверяют задание КИМ ЕГЭ (egeQuestionNumber) 
+//    //    var testQuestions = test.TestQuestions.Where(tq => tq.RsurEgeQuestions.Any(req => req.EgeQuestionOrder == egeQuestionNumber)).ToList();
+
+//    //    egeQuestionResult.RsurQuestionNumbers = testQuestions.Select(tq => tq.Name).Aggregate((s1, s2) => $"{s1};{s2}");
+//    //    egeQuestionResult.ElementNames = testQuestions.First().Question.ElementNames;
+
+//    //    egeQuestionResults.Add(egeQuestionResult);
+//    //}
+
+//    //return egeQuestionResults;
+//    return null;
+//}
