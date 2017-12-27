@@ -1,7 +1,5 @@
 namespace Monit95App.Domain.Core.Entities
 {
-    using System.ComponentModel.DataAnnotations;
-
     public partial class RsurParticipTest
     {
         public int Id { get; set; }
