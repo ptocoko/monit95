@@ -32,6 +32,12 @@
             </div>
             <br />
             <br />
+            <div>
+                <p class="col-xs-4 col-sm-4 col-lg-4 col-md-4">Дата диагностики:</p>
+                <p class="col-xs-8 col-sm-8 col-lg-8 col-md-8 text-uppercase">{{reportData.TestDateString}}</p>
+            </div>
+            <br />
+            <br />
             <br />
         </div>
         <br />
@@ -48,7 +54,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td class="text-uppercase" style="text-align:center"><b>{{reportData.TestDateString}}</b></td>
+                <td class="text-uppercase" style="text-align:center"><b>{{reportData.TestName}}</b></td>
 
                 <td *ngIf="reportData.TestStatus == 'ЗАЧЕТ'" class="high-grade text-uppercase cell-center"><b>ЗАЧЕТ</b></td>
                 <td *ngIf="reportData.TestStatus != 'ЗАЧЕТ'" class="red text-uppercase cell-center"><b>НЕЗАЧЕТ</b></td>

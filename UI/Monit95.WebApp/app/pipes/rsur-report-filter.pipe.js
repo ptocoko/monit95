@@ -10,13 +10,13 @@ var TestNameWithDateFilterPipe = /** @class */ (function () {
         if (!reports) {
             return [];
         }
-        if (schoolName && schoolName !== 'Все организации') {
+        if (schoolName && schoolName !== 'все организации') {
             reports = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === schoolName; });
         }
-        if (examName && examName !== 'Все диагностики') {
+        if (examName && examName !== 'все диагностики') {
             reports = reports.filter(function (report) { return report.ExamName === examName; });
         }
-        return reports.map(function (report) { return report.TestNameWithDate; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
+        return reports.map(function (report) { return report.TestName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
     TestNameWithDateFilterPipe = tslib_1.__decorate([
         core_1.Pipe({ name: 'testNameWithDateFilter' })
@@ -32,11 +32,11 @@ var SchoolNameFilterPipe = /** @class */ (function () {
         if (!reports) {
             return [];
         }
-        if (examName && examName !== 'Все диагностики') {
+        if (examName && examName !== 'все диагностики') {
             reports = reports.filter(function (report) { return report.ExamName === examName; });
         }
-        if (testNameWithDate && testNameWithDate !== 'Все блоки') {
-            reports = reports.filter(function (report) { return report.TestNameWithDate === testNameWithDate; });
+        if (testNameWithDate && testNameWithDate !== 'все блоки') {
+            reports = reports.filter(function (report) { return report.TestName === testNameWithDate; });
         }
         return reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
@@ -50,8 +50,8 @@ var TestIdPipe = /** @class */ (function () {
     function TestIdPipe() {
     }
     TestIdPipe.prototype.transform = function (results, testName) {
-        if (testName && testName !== 'Все блоки') {
-            var res = results.filter(function (s) { return s.TestNameWithDate === testName; });
+        if (testName && testName !== 'все блоки') {
+            var res = results.filter(function (s) { return s.TestName === testName; });
             return res;
         }
         else {
@@ -72,11 +72,11 @@ var ExamNameFilterPipe = /** @class */ (function () {
         if (!reports) {
             return [];
         }
-        if (schoolName && schoolName !== 'Все организации') {
+        if (schoolName && schoolName !== 'все организации') {
             reports = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === schoolName; });
         }
-        if (testNameWithDate && testNameWithDate !== 'Все блоки') {
-            reports = reports.filter(function (report) { return report.TestNameWithDate === testNameWithDate; });
+        if (testNameWithDate && testNameWithDate !== 'все блоки') {
+            reports = reports.filter(function (report) { return report.TestName === testNameWithDate; });
         }
         return reports.map(function (report) { return report.ExamName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
@@ -93,13 +93,13 @@ var TotalFilterPipe = /** @class */ (function () {
         if (selectedSchool === undefined || selectedTest === undefined || selectedExam === undefined) {
             return reports;
         }
-        if (selectedSchool !== 'Все организации') {
+        if (selectedSchool !== 'все организации') {
             reports = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === selectedSchool; });
         }
-        if (selectedTest !== 'Все блоки') {
-            reports = reports.filter(function (report) { return report.TestNameWithDate === selectedTest; });
+        if (selectedTest !== 'все блоки') {
+            reports = reports.filter(function (report) { return report.TestName === selectedTest; });
         }
-        if (selectedExam !== 'Все диагностики') {
+        if (selectedExam !== 'все диагностики') {
             reports = reports.filter(function (report) { return report.ExamName === selectedExam; });
         }
         return reports;

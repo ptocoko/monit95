@@ -14,7 +14,7 @@ var ReportComponent = /** @class */ (function () {
         this.router.params.subscribe(function (params) {
             var code = params['id'];
             _this.reportService.getReport(code).subscribe(function (res) {
-                //this.reportData = res.json() as RsurReportModel;                
+                _this.reportData = res;
             });
         });
     };

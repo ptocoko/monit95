@@ -18,7 +18,7 @@ export class ReportComponent implements OnInit {
 		this.router.params.subscribe(params => {
 		    const code: number = params['id'];
             this.reportService.getReport(code).subscribe(res => {
-                //this.reportData = res.json() as RsurReportModel;                
+				this.reportData = res;
             });
 		});
 	}

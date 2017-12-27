@@ -33,6 +33,9 @@ var RsurParticipFilterPipe = /** @class */ (function () {
         else if (particips[0].RsurParticipCode) {
             codePropertyName = 'RsurParticipCode';
         }
+        else if (particips[0].ParticipCode) {
+            codePropertyName = 'ParticipCode';
+        }
         else {
             throw Error("Can't find particip code property");
         }

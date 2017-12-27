@@ -15,11 +15,11 @@ var ReportListComponent = /** @class */ (function () {
     ReportListComponent.prototype.ngOnInit = function () {
         var _this = this;
         var schoolFromStorage = localStorage.getItem('selectedSchool');
-        this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
+        this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'все организации';
         var testFromStorage = localStorage.getItem('selectedTest');
-        this.selectedTest = testFromStorage ? testFromStorage : 'Все блоки';
+        this.selectedTest = testFromStorage ? testFromStorage : 'все блоки';
         var examFromStorage = localStorage.getItem('selectedExam');
-        this.selectedExam = examFromStorage ? examFromStorage : 'Все диагностики';
+        this.selectedExam = examFromStorage ? examFromStorage : 'все диагностики';
         this.isLoading = true;
         this.rsurReportService.getReports().subscribe(function (reports) {
             _this.reportsList = reports;
@@ -35,9 +35,9 @@ var ReportListComponent = /** @class */ (function () {
         }
     };
     ReportListComponent.prototype.resetAllInputs = function () {
-        this.selectedSchool = 'Все организации';
-        this.selectedTest = 'Все блоки';
-        this.selectedExam = 'Все диагностики';
+        this.selectedSchool = 'все организации';
+        this.selectedTest = 'все блоки';
+        this.selectedExam = 'все диагностики';
     };
     ReportListComponent = tslib_1.__decorate([
         core_1.Component({

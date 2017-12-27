@@ -8,14 +8,14 @@
 
         <mat-form-field *ngIf="reportsList !== undefined && accountService.isArea()">
             <mat-select [(value)]="selectedSchool">
-                <mat-option value="Все организации">Все организации</mat-option>
+                <mat-option value="все организации">все организации</mat-option>
                 <mat-option *ngFor="let report of reportsList | schoolNameFilter : selectedTest : selectedExam" [value]="report">{{report}}</mat-option>
             </mat-select>
         </mat-form-field>
 
         <mat-form-field>
             <mat-select [(value)]="selectedTest">
-                <mat-option value="Все блоки">Все блоки</mat-option>
+                <mat-option value="все блоки">все блоки</mat-option>
                 <mat-option *ngFor="let report of reportsList | testNameWithDateFilter : selectedSchool : selectedExam" [value]="report">{{report}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -23,7 +23,7 @@
         <!-- Нисподающее меню для списка диагностик -->
         <mat-form-field>
             <mat-select [(value)]="selectedExam">
-                <mat-option value="Все диагностики">Все диагностики</mat-option>
+                <mat-option value="все диагностики">все диагностики</mat-option>
                 <mat-option *ngFor="let report of reportsList | examNameFilter: selectedSchool : selectedTest" [value]="report">{{report}}</mat-option>
             </mat-select>
         </mat-form-field>

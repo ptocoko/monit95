@@ -29,11 +29,11 @@ export class ReportListComponent implements OnInit {
     
     ngOnInit() {        
         var schoolFromStorage = localStorage.getItem('selectedSchool');
-        this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'Все организации';
+        this.selectedSchool = schoolFromStorage ? schoolFromStorage : 'все организации';
         var testFromStorage = localStorage.getItem('selectedTest');        
-		this.selectedTest = testFromStorage ? testFromStorage : 'Все блоки'; 
+		this.selectedTest = testFromStorage ? testFromStorage : 'все блоки'; 
 		var examFromStorage = localStorage.getItem('selectedExam');
-		this.selectedExam = examFromStorage ? examFromStorage : 'Все диагностики';
+		this.selectedExam = examFromStorage ? examFromStorage : 'все диагностики';
 
 		this.isLoading = true;
         this.rsurReportService.getReports().subscribe(reports => {
@@ -53,8 +53,8 @@ export class ReportListComponent implements OnInit {
 	}
 
 	resetAllInputs() {
-		this.selectedSchool = 'Все организации';
-		this.selectedTest = 'Все блоки';
-		this.selectedExam = 'Все диагностики';
+		this.selectedSchool = 'все организации';
+		this.selectedTest = 'все блоки';
+		this.selectedExam = 'все диагностики';
 	}
 }

@@ -27,6 +27,9 @@ export class RsurParticipFilterPipe implements PipeTransform {
 		else if (particips[0].RsurParticipCode) {
 			codePropertyName = 'RsurParticipCode';
 		}
+		else if (particips[0].ParticipCode) {
+			codePropertyName = 'ParticipCode';
+		}
 		else {
 			throw Error(`Can't find particip code property`);
 		}

@@ -4,8 +4,6 @@ export class RsurReportModel {
     ParticipCode: number;
     FullParticipName: string;
     TestDateString: string;
-    TestName: string;
-    TestStatus: string;
 	RsurParticipTestId?: number;
 	SchoolParticipInfo: SchoolParticip;
 	TestName: string;
