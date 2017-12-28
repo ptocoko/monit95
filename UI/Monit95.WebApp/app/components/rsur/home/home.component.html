@@ -63,7 +63,7 @@
         <div class="list-item">
             <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/E6sR/WAFY5mpEu">
                 <div>
-                    <h4>Спецификации КИМ</h4>
+                    <h4>Спецификации КИМ и критерии оценивания</h4>
                 </div>
             </a>
         </div>
@@ -99,7 +99,7 @@
                 </div>
             </a>
         </div>
-        <div *ngIf="isSchool() || isArea()" class="list-item">
+        <div *ngIf="flase && (isSchool() || isArea())" class="list-item">
             <a class="list-item-link" routerLink="/rsur/seminar-reports">
                 <div>
                     <h4>Отчеты по семинарам</h4>
