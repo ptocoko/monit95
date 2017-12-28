@@ -22,7 +22,9 @@ export class SeminarReportCreateFormComponent implements OnInit {
 
     readUrl(event: any) {
         // event.target.files is FileList
-        if (event.target.files && event.target.files[0]) {            
+        if (event.target.files) {
+            let fileList = new FileList();
+
             // The FileReader object lets web applications asynchronously read the contents of files stored on the user's computer, 
             // using File object to specify the file to read.
             var fileReader = new FileReader();
