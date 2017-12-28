@@ -1,17 +1,17 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
 import { RsurReportModel } from '../models/rsur-report.model';
+import { SCHOOLNAME_DEFAULT_SELECTION, TESTNAME_DEFAULT_SELECTION, EXAMNAME_DEFAULT_SELECTION } from '../components/rsur/reports/report-list/report-list.component';
 
 @Pipe({ name: 'testNameWithDateFilter' })
 export class TestNameWithDateFilterPipe implements PipeTransform {
 	transform(reports: RsurReportModel[], schoolName: string, examName: string): string[] {
-		//let results = [...reports]; 
 		if (!reports) {
 			return [];
 		}
-		if (schoolName && schoolName !== 'все организации') {
+		if (schoolName && schoolName !== SCHOOLNAME_DEFAULT_SELECTION) {
 			reports = reports.filter((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName === schoolName);
 		}
-		if (examName && examName !== 'все диагностики') {
+		if (examName && examName !== EXAMNAME_DEFAULT_SELECTION) {
 			reports = reports.filter((report: RsurReportModel) => report.ExamName === examName);
 		}
 		return reports.map((report: RsurReportModel) => report.TestName)
@@ -23,14 +23,13 @@ export class TestNameWithDateFilterPipe implements PipeTransform {
 @Pipe({ name: 'schoolNameFilter' })
 export class SchoolNameFilterPipe implements PipeTransform {
 	transform(reports: RsurReportModel[], testNameWithDate: string, examName: string): string[] {
-		//let results = [...reports];
 		if (!reports) {
 			return [];
 		}
-		if (examName && examName !== 'все диагностики') {
+		if (examName && examName !== EXAMNAME_DEFAULT_SELECTION) {
 			reports = reports.filter((report: RsurReportModel) => report.ExamName === examName);
 		}
-		if (testNameWithDate && testNameWithDate !== 'все блоки') {
+		if (testNameWithDate && testNameWithDate !== TESTNAME_DEFAULT_SELECTION) {
 			reports = reports.filter((report: RsurReportModel) => report.TestName === testNameWithDate);
 		}
 		return reports.map((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName).filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
@@ -40,7 +39,7 @@ export class SchoolNameFilterPipe implements PipeTransform {
 @Pipe({ name: 'testNameFilter' })
 export class TestIdPipe implements PipeTransform {
     transform(results: RsurReportModel[], testName: string): RsurReportModel[] {
-        if (testName && testName !== 'все блоки') {
+		if (testName && testName !== TESTNAME_DEFAULT_SELECTION) {
             const res = results.filter((s: RsurReportModel) => s.TestName === testName);
             return res;
         } else {
@@ -52,14 +51,13 @@ export class TestIdPipe implements PipeTransform {
 @Pipe({ name: 'examNameFilter' })
 export class ExamNameFilterPipe implements PipeTransform {
 	transform(reports: RsurReportModel[], schoolName: string, testNameWithDate: string) {
-		//let results = [...reports];
 		if (!reports) {
 			return [];
 		}
-		if (schoolName && schoolName !== 'все организации') {
+		if (schoolName && schoolName !== SCHOOLNAME_DEFAULT_SELECTION) {
 			reports = reports.filter((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName === schoolName);
 		}
-		if (testNameWithDate && testNameWithDate !== 'все блоки') {
+		if (testNameWithDate && testNameWithDate !== TESTNAME_DEFAULT_SELECTION) {
 			reports = reports.filter((report: RsurReportModel) => report.TestName === testNameWithDate);
 		}
 		return reports.map((report: RsurReportModel) => report.ExamName).filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);

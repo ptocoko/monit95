@@ -2,18 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
+var report_list_component_1 = require("../components/rsur/reports/report-list/report-list.component");
 var TestNameWithDateFilterPipe = /** @class */ (function () {
     function TestNameWithDateFilterPipe() {
     }
     TestNameWithDateFilterPipe.prototype.transform = function (reports, schoolName, examName) {
-        //let results = [...reports]; 
         if (!reports) {
             return [];
         }
-        if (schoolName && schoolName !== 'все организации') {
+        if (schoolName && schoolName !== report_list_component_1.SCHOOLNAME_DEFAULT_SELECTION) {
             reports = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === schoolName; });
         }
-        if (examName && examName !== 'все диагностики') {
+        if (examName && examName !== report_list_component_1.EXAMNAME_DEFAULT_SELECTION) {
             reports = reports.filter(function (report) { return report.ExamName === examName; });
         }
         return reports.map(function (report) { return report.TestName; })
@@ -30,14 +30,13 @@ var SchoolNameFilterPipe = /** @class */ (function () {
     function SchoolNameFilterPipe() {
     }
     SchoolNameFilterPipe.prototype.transform = function (reports, testNameWithDate, examName) {
-        //let results = [...reports];
         if (!reports) {
             return [];
         }
-        if (examName && examName !== 'все диагностики') {
+        if (examName && examName !== report_list_component_1.EXAMNAME_DEFAULT_SELECTION) {
             reports = reports.filter(function (report) { return report.ExamName === examName; });
         }
-        if (testNameWithDate && testNameWithDate !== 'все блоки') {
+        if (testNameWithDate && testNameWithDate !== report_list_component_1.TESTNAME_DEFAULT_SELECTION) {
             reports = reports.filter(function (report) { return report.TestName === testNameWithDate; });
         }
         return reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
@@ -52,7 +51,7 @@ var TestIdPipe = /** @class */ (function () {
     function TestIdPipe() {
     }
     TestIdPipe.prototype.transform = function (results, testName) {
-        if (testName && testName !== 'все блоки') {
+        if (testName && testName !== report_list_component_1.TESTNAME_DEFAULT_SELECTION) {
             var res = results.filter(function (s) { return s.TestName === testName; });
             return res;
         }
@@ -70,14 +69,13 @@ var ExamNameFilterPipe = /** @class */ (function () {
     function ExamNameFilterPipe() {
     }
     ExamNameFilterPipe.prototype.transform = function (reports, schoolName, testNameWithDate) {
-        //let results = [...reports];
         if (!reports) {
             return [];
         }
-        if (schoolName && schoolName !== 'все организации') {
+        if (schoolName && schoolName !== report_list_component_1.SCHOOLNAME_DEFAULT_SELECTION) {
             reports = reports.filter(function (report) { return report.SchoolParticipInfo.SchoolName === schoolName; });
         }
-        if (testNameWithDate && testNameWithDate !== 'все блоки') {
+        if (testNameWithDate && testNameWithDate !== report_list_component_1.TESTNAME_DEFAULT_SELECTION) {
             reports = reports.filter(function (report) { return report.TestName === testNameWithDate; });
         }
         return reports.map(function (report) { return report.ExamName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });

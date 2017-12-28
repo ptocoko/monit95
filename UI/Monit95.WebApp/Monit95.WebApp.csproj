@@ -695,6 +695,7 @@
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
     <TypeScriptCompile Include="app\shared\class-name-filter.pipe.ts" />
     <TypeScriptCompile Include="app\shared\results.service.ts" />
+    <TypeScriptCompile Include="app\shared\russian-paginator.provider.ts" />
     <TypeScriptCompile Include="app\shared\school-collector.service.ts" />
     <TypeScriptCompile Include="app\models\person.model.ts" />
     <TypeScriptCompile Include="app\models\school-particip.model.ts" />
