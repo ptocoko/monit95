@@ -72,6 +72,8 @@ import { RsurProtocolFilter } from './pipes/rsur-protocol-filter.pipe';
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
+import { MatPaginatorIntl } from '@angular/material';
+import { RussianMatPaginator } from './shared/russian-paginator.provider';
 
 @NgModule({
     imports: [
@@ -178,7 +180,8 @@ import { GlobalErrorHandler } from './error-handler';
 		SchoolFileService,
 		RsurProtocolsService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
-		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
+		{ provide: ErrorHandler, useClass: GlobalErrorHandler },
+		{ provide: MatPaginatorIntl, useClass: RussianMatPaginator }
     ],    
     bootstrap: [AppComponent]
 })
