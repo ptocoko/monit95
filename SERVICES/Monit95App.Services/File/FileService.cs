@@ -46,9 +46,14 @@ namespace Monit95App.Services.File
             var result = new ServiceResult<int>();
 
             // Validate sourceFileStream            
-            if (sourceFileStream == null  || sourceFileStream.Length > 15728640) // > 15 Mb
+            if (sourceFileStream == null)
             {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid: null or length > 15 Mb" });
+                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid: null" });
+                return result;
+            }
+            if (sourceFileStream.Length > 15728640) // > 15 Mb
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 413, Description = $"{nameof(sourceFileStream)} is invalid: length > 15 Mb" });
                 return result;
             }
 
