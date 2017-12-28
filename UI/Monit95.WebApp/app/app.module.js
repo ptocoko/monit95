@@ -71,6 +71,8 @@ var rsur_protocol_filter_pipe_1 = require("./pipes/rsur-protocol-filter.pipe");
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
+var material_1 = require("@angular/material");
+var russian_paginator_provider_1 = require("./shared/russian-paginator.provider");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -179,7 +181,8 @@ var AppModule = /** @class */ (function () {
                 school_file_service_1.SchoolFileService,
                 rsur_protocols_service_1.RsurProtocolsService,
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
-                { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler }
+                { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler },
+                { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator }
             ],
             bootstrap: [app_component_1.AppComponent]
         })
