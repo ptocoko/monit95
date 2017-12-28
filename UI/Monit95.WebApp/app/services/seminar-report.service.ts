@@ -5,7 +5,9 @@ import { SeminarReportModel } from "../components/rsur/seminar-reports/shared/se
 
 @Injectable()
 export class SeminarReportService {
-	constructor(private http: HttpClient){}
+    constructor(private http: HttpClient) {
+
+    }
 	
 	postText(text: string) {
 		return this.http.post('/api/rsur/seminarReports', { text });
