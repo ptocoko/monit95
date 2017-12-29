@@ -1,5 +1,8 @@
 ﻿<h2>РСУР: Создание отчета по семинару</h2>
 <hr />
 
-<input type='file' (change)="readUrl($event)">
-<img [src]="url">
+<input type='file' multiple (change)="readUrl($event)">
+<div *ngFor="let url of urls">
+    <span style="position:relative;left:100%;bottom:100%;border:solid 1px black">X</span>
+    <img [src]="url" height="200" style="padding: 5px">    
+</div>

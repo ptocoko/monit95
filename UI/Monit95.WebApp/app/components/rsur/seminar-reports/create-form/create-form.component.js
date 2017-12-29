@@ -4,21 +4,29 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var SeminarReportCreateFormComponent = /** @class */ (function () {
     function SeminarReportCreateFormComponent() {
+        this.urls = [];
     }
     SeminarReportCreateFormComponent.prototype.ngOnInit = function () {
     };
     SeminarReportCreateFormComponent.prototype.readUrl = function (event) {
         var _this = this;
-        if (event.target.files && event.target.files[0]) {
-            console.log(event.target.files);
-            // The FileReader object lets web applications asynchronously read the contents of files  stored on the user's computer, 
-            // using File or Blob objects to specify the file to read.
-            var fileReader = new FileReader();
-            // The fileReader.onload property contains an event handler executed when content read with readAsDataURL is available.
-            fileReader.onload = function (event) {
-                _this.url = event.target.result;
-            };
-            fileReader.readAsDataURL(event.target.files[0]);
+        var files = event.target.files; // event.target.files is FileList object        
+        if (files) {
+            for (var i = 0; i < files.length && i < 4; i++) {
+                // The FileReader object lets web applications asynchronously read the contents of files stored on the user's computer, 
+                // using File object to specify the file to read.
+                var fileReader = new FileReader();
+                // The fileReader.onload property contains an event handler executed when content read with readAsDataURL is available.
+                fileReader.onload = function (event) {
+                    _this.urls.push(event.target.result);
+                };
+                var file = files.item(i);
+                if (file.size / 1024 / 1024 <= 15) {
+                    // The readAsDataURL read the contents of the specified File. When the read operation is finished, 
+                    // the result attribute contains the data as a URL representing the file's data as a base64 encoded string.
+                    fileReader.readAsDataURL(file);
+                }
+            }
         }
     };
     SeminarReportCreateFormComponent = tslib_1.__decorate([
