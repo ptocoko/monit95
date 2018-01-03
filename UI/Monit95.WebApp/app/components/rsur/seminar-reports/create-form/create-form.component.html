@@ -1,8 +1,26 @@
 ﻿<h2>РСУР: Создание отчета по семинару</h2>
 <hr />
 
-<input type='file' multiple (change)="readUrl($event)">
-<div *ngFor="let url of urls">
-    <span style="position:relative;left:100%;bottom:100%;border:solid 1px black">X</span>
-    <img [src]="url" height="200" style="padding: 5px">    
+<input type="file" multiple id="selectedFotos" style="display: none;" (change)="readBase64Strings($event.target)" accept=".jpg, .jpeg, .png, .bmp" />
+<button class="btn btn-default"
+        type="button"
+        onclick="document.getElementById('selectedFotos').click();"
+        [disabled]="fotoBase64Strings.length >= 4">
+    Загрузить фотографии...
+</button>
+<div>
+    <span *ngFor="let str of fotoBase64Strings; let i=index">
+        <img [src]="str" height="200" style="padding: 5px; border: solid; margin-left: 25px; margin-top: 10px;" alt="">
+        <img class="x" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS4VbaLGoKcbJZuAMbe7t1Gixa0oqurMd07xiiL453GDB3kGVsa5C_4MQ" 
+             width="20" 
+             height="20" 
+             alt="" 
+             (click)="remove(i)" />
+    </span>
+</div>
+
+<input type="file" id="selectedProtocol" style="display: none;" (change)="getProtocolFileName($event)" accept=".jpg, .jpeg, .png, .bmp, .tiff, .pdf" />
+<button class="btn btn-default" type="button" onclick="document.getElementById('selectedProtocol').click();">Загрузить протокол...</button>
+<div>
+    {{protocolFileName}}
 </div>

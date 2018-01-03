@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Monit95App.Domain.Core.Entities
+﻿namespace Monit95App.Domain.Core.Entities
 {
     public class RsurReportFile
     {
@@ -13,6 +7,9 @@ namespace Monit95App.Domain.Core.Entities
         public int RsurReportId { get; set; }
 
         public int FileId { get; set; }
+
+        // Файл протокола проведения заседания ШМО
+        public int IsProtocol { get; set; }
 
         public virtual File File { get; set; }
 

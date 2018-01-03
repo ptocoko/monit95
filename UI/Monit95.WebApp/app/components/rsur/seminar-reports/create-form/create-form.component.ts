@@ -1,45 +1,57 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
-import { Location } from '@angular/common';
-import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { SeminarReportService } from '../../../../services/seminar-report.service';
-import { BasicValidators } from '../../../../shared/basic-validators';
 
 @Component({	
 	templateUrl: `./app/components/rsur/seminar-reports/create-form/create-form.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/components/rsur/seminar-reports/create-form/create-form.component.css?v=${new Date().getTime()}`]
 })
 export class SeminarReportCreateFormComponent implements OnInit {
-    urls: string[] = [];
-
-    constructor() {
-
-    }    
+    fotoBase64Strings: string[] = [];
+    protocolFileName: string = '';
+    readonly maxFileSize = 15728640; // 15 MB 
 
     ngOnInit() {
+       
+    }
 
-	}
+    getProtocolFileName(event: any) {        
+        const fileList = event.target.files as FileList;        
+        if (fileList.length > 0) {
+            this.protocolFileName = fileList.item(0).name;
+        }
+    }
 
-    readUrl(event: any) {
-        let files = event.target.files; // event.target.files is FileList object        
-        if (files) {
-            for (var i = 0; i < files.length && i < 4; i++) { // не больше 4-х фотографий будут учитываться
+    readBase64Strings(eventTarget: any) {        
+        const files = eventTarget.files as FileList; // event.target.files is FileList object  
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
                 // The FileReader object lets web applications asynchronously read the contents of files stored on the user's computer, 
                 // using File object to specify the file to read.
-                var fileReader = new FileReader();
+                const fileReader = new FileReader();
 
                 // The fileReader.onload property contains an event handler executed when content read with readAsDataURL is available.
                 fileReader.onload = (event: any) => {
-                    this.urls.push(event.target.result);
-                }
+                    const base64EncodedString = event.target.result;
+                    if (this.fotoBase64Strings.length < 4 // не больше 4-х фотографий будут учитываться
+                        && this.fotoBase64Strings.indexOf(base64EncodedString) === -1) {
+                        this.fotoBase64Strings.push(base64EncodedString);
+                    }
+                };
 
-                var file = files.item(i);
-                if (file.size / 1024 / 1024 <= 15) {
+                const file = files.item(i);
+                if (file.size <= this.maxFileSize) {
                     // The readAsDataURL read the contents of the specified File. When the read operation is finished, 
                     // the result attribute contains the data as a URL representing the file's data as a base64 encoded string.
                     fileReader.readAsDataURL(file);
-                }                
+                }
             }
-        }
+
+            // Очищаем список, чтобы можно было повторно обработать этот же массив файлов
+            eventTarget.value = '';
+        }        
+    }
+
+    remove(index: number) {
+        console.log(index);
+        this.fotoBase64Strings.splice(index, 1);
     }
 }
