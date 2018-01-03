@@ -1,6 +1,6 @@
 ﻿
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { SeminarReportModel } from '../components/rsur/seminar-reports/shared/seminar-report.model';
 
 @Injectable()
@@ -9,18 +9,32 @@ export class SeminarReportService {
 
     constructor(private readonly http: HttpClient) {
 
-    }
+    } 
 
-    // Регистрация нового отчета - получение Id
-    reportRegister() {
-        return this.http.get(this.endpoint);
-    }
-
-    // Отправка файл-протокола
+    // Отправка файл протокола
     sendProtocol(reportId: number, protocolFile: File) {
+        // Generate FormData
         const formData = new FormData();
         formData.append('protocolFile', protocolFile, protocolFile.name);
-        return this.http.post(`${this.endpoint}/${reportId}`)
+
+        // Generate request parameter
+        let httpParams = new HttpParams();        
+        httpParams = httpParams.append('isProtocol', 'true');
+        
+        return this.http.post(`${this.endpoint}/${reportId}/files`, formData, { params: httpParams });
+    }
+
+    // Отправка файлов фотографий
+    sendFotos(reportId: number, protocolFile: File) {
+        // FormData
+        const formData = new FormData();
+        formData.append('protocolFile', protocolFile, protocolFile.name);
+
+        // Request parameter
+        let params = new HttpParams();
+        params = params.append('isProtocol', 'true');
+
+        return this.http.post(`${this.endpoint}/${reportId}/files`, formData, { params: params });
     }
 
 	postText(text: string) {

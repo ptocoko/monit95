@@ -8,6 +8,7 @@ export class SeminarReportCreateFormComponent implements OnInit {
     fotoBase64Strings: string[] = [];
     protocolFileName: string = '';
     readonly maxFileSize = 15728640; // 15 MB 
+    fileId = 1; // id for first file
 
     ngOnInit() {
        
@@ -54,4 +55,12 @@ export class SeminarReportCreateFormComponent implements OnInit {
         console.log(index);
         this.fotoBase64Strings.splice(index, 1);
     }
+}
+
+interface IImageFile {
+    id: number;    
+    errorMessage: string;
+    isProtocol: boolean;
+    file: File;
+    base64String?: string; // ProtocolFile do not use this property
 }
