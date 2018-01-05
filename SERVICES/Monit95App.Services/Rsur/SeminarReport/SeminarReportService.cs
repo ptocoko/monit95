@@ -20,7 +20,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         #region Fields
 
-        private const int repositoryId = 1;
+        private const int seminarReportFileRepositoryId = 1;
         private const int maxProtocolFileSize = 15728640; // 15 MB 
 
         #endregion
@@ -58,7 +58,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         public int SaveFile(Stream fileStream, string fileExtension, int reportId, int index, string imagesServerFolder)
         {
-            var repository = context.Repositories.Find(repositoryId);
+            var repository = context.Repositories.Find(seminarReportFileRepositoryId);
             string directoryPath = repository.Path;
 
             if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
@@ -77,7 +77,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 fileStream.CopyTo(fs);
             }
 
-            var file = new Domain.Core.Entities.File { Name = fileName, RepositoryId = repositoryId };
+            var file = new Domain.Core.Entities.File { Name = fileName, RepositoryId = seminarReportFileRepositoryId };
             context.Files.Add(file);
             context.SaveChanges();
 
@@ -113,7 +113,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         public void DeleteReport(int reportId, string imagesServerFolder)
         {
-            var directoryPath = context.Repositories.Find(repositoryId).Path;
+            var directoryPath = context.Repositories.Find(seminarReportFileRepositoryId).Path;
             var fileNames = context.RsurReportFiles.Where(p => p.RsurReportId == reportId).Select(s => s.File.Name);
             var fileIds = context.RsurReportFiles.Where(p => p.RsurReportId == reportId).Select(s => s.FileId);
 
@@ -129,78 +129,49 @@ namespace Monit95App.Services.Rsur.SeminarReport
             context.RsurReports.Remove(reportEntity);
             context.Files.RemoveRange(fileEntities);
             context.SaveChanges();
-        }
+        }        
 
-        /// <summary>
-        /// Создание отчета
-        /// </summary>
-        /// <remarks>Создание отчета происходит при помощи файла-протокола проведение ШМО</remarks>
-        /// <param name="protocolFileStream"></param>
-        /// <param name="protocolFileName"></param>
-        /// <param name="schoolId">Id школы - он же имя пользователя</param>
-        /// <returns>
-        /// Возвращает RsurReports.Id для того чтобы дальше уже при добавлении фотографий их можно
-        /// было бы регистрировать в RsurReportFiles
-        /// </returns>
-        /// TODO: Использовать транзакцию
-        public ServiceResult<int> CreateReport(Stream protocolFileStream, string protocolFileName, string schoolId)
+        public ServiceResult<int> CreateReport(Dictionary<string, Stream> streamDictionary, string schoolId)
         {
-            var serviceResult = new ServiceResult<int>();
+            var result = new ServiceResult<int>();
 
-            // Validate protocolFileStream
+            if (streamDictionary == null)
+            {
+                result.Errors.Add(new ServiceError { Key = nameof(streamDictionary), Description = "Is null" });
+                return result;
+            }
+
+            // 1 PROTOCOL
+            // 1.1 Get stream
+            streamDictionary.TryGetValue("protocol", out var protocolFileStream);
             if (protocolFileStream == null || protocolFileStream.Length > maxProtocolFileSize)
             {
-                serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(protocolFileStream)} is invalid: null or length > 15 MB" });
-                return serviceResult;
+                result.Errors.Add(new ServiceError { Key = $"{nameof(streamDictionary)}['protocol']", Description = "Is null or stream length > 15 Mb" });
+                return result;
             }
-
-            // Validate protocolFileName
-            if (string.IsNullOrWhiteSpace(protocolFileName))
-            {
-                serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(protocolFileName)} is invalid: null or empty" });
-                return serviceResult;
-            }
-
-            // Validate schoolId            
-            if (!context.Schools.Any(s => s.Id == schoolId))
-            {                
-                serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(schoolId)}: '{schoolId}' is invalid" });
-                return serviceResult;
-            }
-            
-            // 1) Add protocol file to file repository and get its file id
-            var fileServiceResult = fileService.Add(repositoryId, protocolFileStream, protocolFileName, schoolId);
-
-            // Проверяем были ли ошибки при добавления файла протокола
+            // 1.2 Add to file repository
+            var fileServiceResult = fileService.Add(seminarReportFileRepositoryId, protocolFileStream, schoolId);
             if (fileServiceResult.Errors.Any())
             {
-                foreach (var error in fileServiceResult.Errors)
-                    serviceResult.Errors.Add(error);
-                
-                return serviceResult;
+                // 409 - Dublicate error
+                if (fileServiceResult.Errors.Any(e => e.HttpCode == 409))
+                {
+                    result.Errors.Add(new ServiceError { HttpCode = 409, Key = "protocol", Description = "Такой файл уже есть в системе" });
+                    result.Errors.AddRange(fileServiceResult.Errors);
+                }                
+                // Another error
+                result.Errors.AddRange(fileServiceResult.Errors);
+                return result;
             }
 
-            var protocolFileId = fileServiceResult.Result;
-
-            // 2) Create RsurReport object in database
-            var rsurReport = new RsurReport
+            // 2 FOTOS
+            foreach (var key in streamDictionary.Keys.Where(k => k.StartsWith("foto")).Take(4))
             {
-                SchoolId = schoolId
-            };
-            context.RsurReports.Add(rsurReport);
-            context.SaveChanges();
+                var keys = 
+            }
+                            
 
-            // 3) Create RsurReportFile in database
-            context.RsurReportFiles.Add(new RsurReportFile
-            {
-                RsurReportId = rsurReport.Id,
-                FileId = protocolFileId,
-                IsProtocol = true
-            });
-            context.SaveChanges();
-
-            serviceResult.Result = rsurReport.Id;
-            return serviceResult;
+            return result;
         }
 
         #endregion

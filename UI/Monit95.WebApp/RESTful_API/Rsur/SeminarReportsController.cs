@@ -86,59 +86,26 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         [HttpPost, Route("")]
-       // [Authorize(Roles = "school")]
-        [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
+       // [Authorize(Roles = "school")]        
         public HttpResponseMessage CreateReport()
         {
             var schoolId = User.Identity.Name;
-
             var httpFileCollection = HttpContext.Current.Request.Files;
-
-            // Get protocol file
-            var protocolFile = httpFileCollection["protocol"];
-            if (protocolFile == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "File collection has not file with key «protocol»");
-                        
-            var streamDictionary = new Dictionary<string, Stream>
-            {
-                { "protocol", protocolFile.InputStream }
-
-            };
-
-            // Get foto files
-            var fotoFileKeys = httpFileCollection.AllKeys.Where(k => k.StartsWith("foto"))
-                                                 .Take(4) // max 4 fotos
-                                                 .Distinct() // delete dublicate keys                                  
-                                                 .ToList(); 
-            if (fotoFileKeys.Count < 2) // min 2 fotos            
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"File collection has to has 2-4 foto files. Now is {fotoFileKeys.Count}");
-            
-            foreach (var key in fotoFileKeys)
-            {
-                // ReSharper disable once PossibleNullReferenceException
-                streamDictionary.Add(key, httpFileCollection[key].InputStream);
-            }           
-
+            // ReSharper disable once PossibleNullReferenceException
+            // Generate Dictionary<string, Stream>
+            var streamDictionary = httpFileCollection.AllKeys.Take(5) // must have 1 protocol and max 4 fotos
+                                                     .ToDictionary(key => key, key => httpFileCollection[key].InputStream);
             // Call service
-            var serviceResult = seminarReportService.CreateReport(streamDictionary);
-
+            var serviceResult = seminarReportService.CreateReport(streamDictionary, schoolId);
             // Success
             if (!serviceResult.Errors.Any())
                 return Request.CreateResponse(HttpStatusCode.Created, serviceResult.Result);
-
-            // Error: dublicate
-            if (serviceResult.Errors.Any(error => error.HttpCode == 409))
-                return Request.CreateErrorResponse(HttpStatusCode.Conflict,);
-
-            // Error: another
-            foreach (var error in result.Errors)
-                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);            
-
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-
-            return null;
+            // Error
+            foreach (var error in serviceResult.Errors)
+                ModelState.AddModelError(error.Key, error.Description);
+            
+            return Request.CreateErrorResponse(serviceResult.Errors.Any(e => e.HttpCode == 409) ? HttpStatusCode.Conflict : HttpStatusCode.BadRequest, ModelState);            
         }
-
 
         #endregion
     }
@@ -181,3 +148,27 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
 //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
 //}
+
+//// Get protocol file
+//var protocolFile = httpFileCollection["protocol"];
+//if (protocolFile == null)
+//    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "File collection has not file with key «protocol»");
+
+//var streamDictionary = new Dictionary<string, Stream>
+//{
+//    { "protocol", protocolFile.InputStream }
+//};
+
+//// Get foto files
+//var fotoFileKeys = httpFileCollection.AllKeys.Where(k => k.StartsWith("foto"))
+//                                     .Take(4) // max 4 fotos
+//                                     .Distinct() // delete dublicate keys                                  
+//                                     .ToList(); 
+//if (fotoFileKeys.Count < 2) // min 2 fotos            
+//    return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"File collection has to has 2-4 foto files. Now is {fotoFileKeys.Count}");
+
+//foreach (var key in fotoFileKeys)
+//{
+//    // ReSharper disable once PossibleNullReferenceException
+//    streamDictionary.Add(key, httpFileCollection[key].InputStream);
+//}      
