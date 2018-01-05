@@ -18,6 +18,6 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         void DeleteReport(int reportId, string imagesServerFolder);
 
-        ServiceResult<int> CreateReport(Stream protocolFileStream, string protocolFileName, string schoolId);
+        ServiceResult<int> CreateReport(Dictionary<string, Stream> streamDictionary);
     }
 }
