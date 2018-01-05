@@ -1,24 +1,34 @@
 ﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Validation;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Monit95App.Services.File;
 
 namespace Monit95App.Services.Rsur.SeminarReport
 {
     public class SeminarReportService : ISeminarReportService
     {
-        #region
+        #region Dependencies
 
         private readonly CokoContext context;
-        private const int repositoryId = 1;
+        private readonly IFileService fileService;
 
         #endregion
 
-        public SeminarReportService(CokoContext context)
+        #region Fields
+
+        private const int repositoryId = 1;
+        private const int maxProtocolFileSize = 15728640; // 15 MB 
+
+        #endregion
+
+        public SeminarReportService(CokoContext context, IFileService fileService)
         {
             this.context = context;
+            this.fileService = fileService;
         }
 
         #region Service methods
@@ -119,6 +129,78 @@ namespace Monit95App.Services.Rsur.SeminarReport
             context.RsurReports.Remove(reportEntity);
             context.Files.RemoveRange(fileEntities);
             context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Создание отчета
+        /// </summary>
+        /// <remarks>Создание отчета происходит при помощи файла-протокола проведение ШМО</remarks>
+        /// <param name="protocolFileStream"></param>
+        /// <param name="protocolFileName"></param>
+        /// <param name="schoolId">Id школы - он же имя пользователя</param>
+        /// <returns>
+        /// Возвращает RsurReports.Id для того чтобы дальше уже при добавлении фотографий их можно
+        /// было бы регистрировать в RsurReportFiles
+        /// </returns>
+        /// TODO: Использовать транзакцию
+        public ServiceResult<int> CreateReport(Stream protocolFileStream, string protocolFileName, string schoolId)
+        {
+            var serviceResult = new ServiceResult<int>();
+
+            // Validate protocolFileStream
+            if (protocolFileStream == null || protocolFileStream.Length > maxProtocolFileSize)
+            {
+                serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(protocolFileStream)} is invalid: null or length > 15 MB" });
+                return serviceResult;
+            }
+
+            // Validate protocolFileName
+            if (string.IsNullOrWhiteSpace(protocolFileName))
+            {
+                serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(protocolFileName)} is invalid: null or empty" });
+                return serviceResult;
+            }
+
+            // Validate schoolId            
+            if (!context.Schools.Any(s => s.Id == schoolId))
+            {                
+                serviceResult.Errors.Add(new ServiceError { Description = $"{nameof(schoolId)}: '{schoolId}' is invalid" });
+                return serviceResult;
+            }
+            
+            // 1) Add protocol file to file repository and get its file id
+            var fileServiceResult = fileService.Add(repositoryId, protocolFileStream, protocolFileName, schoolId);
+
+            // Проверяем были ли ошибки при добавления файла протокола
+            if (fileServiceResult.Errors.Any())
+            {
+                foreach (var error in fileServiceResult.Errors)
+                    serviceResult.Errors.Add(error);
+                
+                return serviceResult;
+            }
+
+            var protocolFileId = fileServiceResult.Result;
+
+            // 2) Create RsurReport object in database
+            var rsurReport = new RsurReport
+            {
+                SchoolId = schoolId
+            };
+            context.RsurReports.Add(rsurReport);
+            context.SaveChanges();
+
+            // 3) Create RsurReportFile in database
+            context.RsurReportFiles.Add(new RsurReportFile
+            {
+                RsurReportId = rsurReport.Id,
+                FileId = protocolFileId,
+                IsProtocol = true
+            });
+            context.SaveChanges();
+
+            serviceResult.Result = rsurReport.Id;
+            return serviceResult;
         }
 
         #endregion

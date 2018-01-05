@@ -9,7 +9,7 @@
         public int FileId { get; set; }
 
         // Файл протокола проведения заседания ШМО
-        public int IsProtocol { get; set; }
+        public bool IsProtocol { get; set; }
 
         public virtual File File { get; set; }
 

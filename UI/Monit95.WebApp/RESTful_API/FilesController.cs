@@ -53,8 +53,7 @@ namespace Monit95.WebApp.RESTful_API
             HttpPostedFile postedFile = httpFileCollection.Get(0);
 
             // Call service
-            var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
-            //var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, "201");
+            var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);            
 
             // Success
             if (!result.Errors.Any())            

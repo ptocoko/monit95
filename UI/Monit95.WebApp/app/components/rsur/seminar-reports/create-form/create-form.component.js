@@ -7,6 +7,8 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         this.fotoBase64Strings = [];
         this.protocolFileName = '';
         this.maxFileSize = 15728640; // 15 MB 
+        this.maxFiles = 3;
+        this.fileId = 1; // id for first file
     }
     SeminarReportCreateFormComponent.prototype.ngOnInit = function () {
     };
@@ -18,7 +20,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
     };
     SeminarReportCreateFormComponent.prototype.readBase64Strings = function (eventTarget) {
         var _this = this;
-        var files = eventTarget.files; // event.target.files is FileList object  
+        var files = eventTarget.files;
         if (files.length > 0) {
             for (var i = 0; i < files.length; i++) {
                 // The FileReader object lets web applications asynchronously read the contents of files stored on the user's computer, 

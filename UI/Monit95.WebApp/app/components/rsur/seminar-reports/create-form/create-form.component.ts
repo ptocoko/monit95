@@ -8,6 +8,7 @@ export class SeminarReportCreateFormComponent implements OnInit {
     fotoBase64Strings: string[] = [];
     protocolFileName: string = '';
     readonly maxFileSize = 15728640; // 15 MB 
+    maxFiles = 3;
     fileId = 1; // id for first file
 
     ngOnInit() {
@@ -22,7 +23,7 @@ export class SeminarReportCreateFormComponent implements OnInit {
     }
 
     readBase64Strings(eventTarget: any) {        
-        const files = eventTarget.files as FileList; // event.target.files is FileList object  
+        const files = eventTarget.files as FileList; 
         if (files.length > 0) {
             for (let i = 0; i < files.length; i++) {
                 // The FileReader object lets web applications asynchronously read the contents of files stored on the user's computer, 

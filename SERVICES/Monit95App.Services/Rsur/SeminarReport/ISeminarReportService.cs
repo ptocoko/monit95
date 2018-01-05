@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Monit95App.Services.Validation;
 
 namespace Monit95App.Services.Rsur.SeminarReport
 {
@@ -16,5 +17,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         SeminarReportModel GetReport(int reportId);
 
         void DeleteReport(int reportId, string imagesServerFolder);
+
+        ServiceResult<int> CreateReport(Stream protocolFileStream, string protocolFileName, string schoolId);
     }
 }

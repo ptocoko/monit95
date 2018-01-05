@@ -1,9 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
 using Monit95App.RESTful_API.Rsur;
+using Monit95App.Services.File;
 using Monit95App.Services.Rsur.SeminarReport;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
@@ -14,13 +18,13 @@ namespace Monit95.WebApp.RESTful_API.Rsur
     {
         #region Dependencies
 
-        private readonly ISeminarReportService seminarReportService;
+        private readonly ISeminarReportService seminarReportService;        
 
         #endregion
 
-        public SeminarReportsController(ISeminarReportService seminarReportService)
+        public SeminarReportsController(ISeminarReportService seminarReportService, IFileService fileService)
         {
-            this.seminarReportService = seminarReportService;
+            this.seminarReportService = seminarReportService;            
         }
 
         #region APIs                    
@@ -93,6 +97,44 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             seminarReportService.DeleteReport(reportId, imagesFolder);
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Создание отчета
+        /// </summary>
+        /// <remarks>Отчет создается, отправкой файла протокола проведения заседания ШМО</remarks>
+        /// <returns>RsurReports.Id</returns>
+        [HttpPost, Route("")]
+        [Authorize(Roles = "school")]
+        [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
+        public HttpResponseMessage CreateReport()
+        {
+            var schoolId = User.Identity.Name;            
+
+            // Find file in requestBody
+            var httpFileCollection = HttpContext.Current.Request.Files;
+            if (httpFileCollection.Count == 0)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "To create report need protocol file. Request body has not any file");
+
+            // Get file's content from body            
+            var httpPostedFile = httpFileCollection.Get(0);            
+
+            // Call service
+            var result = seminarReportService.CreateReport(httpPostedFile.InputStream, httpPostedFile.FileName, schoolId);            
+
+            // Success
+            if (!result.Errors.Any())
+                return Request.CreateResponse(HttpStatusCode.Created, result.Result);
+
+            // Error: dublicate
+            if (result.Errors.Any(error => error.HttpCode == 409))
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Такой протокол уже зарегистрирован в системе");
+
+            // Error: another
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
 
         #endregion
