@@ -1,20 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
-using Monit95App.RESTful_API.Rsur;
-using Monit95App.Services.File;
 using Monit95App.Services.Rsur.SeminarReport;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
 {
     [RoutePrefix("api/rsur/seminarReports")]
-   // [Authorize(Roles = "area, school")]    
+    [Authorize(Roles = "area, school")]    
     public class SeminarReportsController : ApiController
     {
         #region Dependencies
@@ -86,7 +82,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         [HttpPost, Route("")]
-       // [Authorize(Roles = "school")]        
+        [Authorize(Roles = "school")]        
         public HttpResponseMessage CreateReport()
         {
             var schoolId = User.Identity.Name;

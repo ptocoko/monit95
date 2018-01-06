@@ -1,4 +1,4 @@
-﻿namespace Monit95App.Services.Validation
+﻿namespace ServiceResult
 {
     public class VoidResult : ServiceResult<string>
     {

@@ -178,9 +178,6 @@
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
     <Compile Include="Validation\MustHaveOneElementAttribute.cs" />
-    <Compile Include="Validation\ServiceResult\ServiceError.cs" />
-    <Compile Include="Validation\ServiceResult\ServiceResult.cs" />
-    <Compile Include="Validation\ServiceResult\VoidResult.cs" />
     <Compile Include="Validation\CollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +192,10 @@
     <ProjectReference Include="..\..\Infrastructure\Monit95App.Infrastructure.Data\Monit95.Infrastructure.Data.csproj">
       <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
       <Name>Monit95.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceResult\ServiceResult.csproj">
+      <Project>{C3455394-07AF-469D-A1DB-5B191DFFAD9F}</Project>
+      <Name>ServiceResult</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

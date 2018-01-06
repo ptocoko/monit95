@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Monit95App.Services.Rsur.TestResult;
-using Monit95App.Services.Validation;
+using ServiceResult;
 
 namespace Monit95App.Services.Rsur.QuestionValue
 {

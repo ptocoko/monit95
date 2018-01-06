@@ -1,7 +1,7 @@
-﻿namespace Monit95App.Services.Validation
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace ServiceResult
+{
     public class ServiceResult<T>
     {
         /// <summary>

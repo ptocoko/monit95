@@ -1,4 +1,4 @@
-﻿namespace Monit95App.Services.Validation
+﻿namespace ServiceResult
 {
     /// <summary>
     /// Encapsulates an error from the service layer.

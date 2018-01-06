@@ -722,6 +722,10 @@
       <Project>{5e38a333-c51e-4910-a650-440c8d7f0a94}</Project>
       <Name>Monit95.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\SERVICES\ServiceResult\ServiceResult.csproj">
+      <Project>{C3455394-07AF-469D-A1DB-5B191DFFAD9F}</Project>
+      <Name>ServiceResult</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

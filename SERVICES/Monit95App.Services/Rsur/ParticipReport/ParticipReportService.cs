@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Monit95App.Domain.Core;
 using Monit95App.Domain.Core.Entities;
-using Monit95App.Services.Validation;
 using System.Globalization;
+using ServiceResult;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {

@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Enums;
-using Monit95App.Services.Validation;
+using ServiceResult;
 
 namespace Monit95App.Services.File
 {
@@ -276,6 +276,11 @@ namespace Monit95App.Services.File
             var fullSourceFileName = $@"{REPOSITORIES_FOLDER}\{file.RepositoryId}\{fileName}"; // generate source file name  
 
             return fullSourceFileName;
+        }
+
+        public ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string userName)
+        {
+            throw new NotImplementedException();
         }
     }
 }
