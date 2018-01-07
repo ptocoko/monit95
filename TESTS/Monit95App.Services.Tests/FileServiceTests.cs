@@ -94,7 +94,7 @@ namespace Monit95App.Services.Tests
             mockCokoContext.Files.Returns(mockFileSet);
 
             // Act
-            var service = new File.FileService(mockCokoContext);
+            var service = new FileService(mockCokoContext);
             var result = service.Delete(1, "201");
 
             // Assert

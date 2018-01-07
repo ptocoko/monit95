@@ -20,7 +20,7 @@ namespace ServiceResult
         /// <param name="description"></param>
         /// <param name="httpStatusCode">Соответствующий статусный код http</param>
         /// TODO: подумать над тем чтобы создать вот такое "if (StringValidate.AnyNullOrWhiteSpace(key, description, out errorMessage)), т.е. errorMessage уже содержал бы "{nameof(key)} or {nameof(description)} is null or empty"        
-        public void AddModelError(string key, string description, int? httpStatusCode)
+        public void AddModelError(string key, string description, int? httpStatusCode = null)
         {
             if (StringValidate.AnyNullOrWhiteSpace(key, description))
                 throw new ArgumentException($"{nameof(key)} or {nameof(description)} is null or empty");

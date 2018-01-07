@@ -1,6 +1,5 @@
 ﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Services.Validation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -112,7 +111,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             };
         }
 
-        public void DeleteReport(int reportId, string imagesServerFolder)
+        public void DeleteReportOldVersion(int reportId, string imagesServerFolder)
         {
             var directoryPath = context.Repositories.Find(seminarReportFileRepositoryId).Path;
             var fileNames = context.RsurReportFiles.Where(p => p.RsurReportId == reportId).Select(s => s.File.Name);
@@ -130,13 +129,13 @@ namespace Monit95App.Services.Rsur.SeminarReport
             context.RsurReports.Remove(reportEntity);
             context.Files.RemoveRange(fileEntities);
             context.SaveChanges();
-        }
-   
+        }          
+
         /// <summary>
         /// Создание отчета
         /// </summary>
         /// <param name="inputStreamDictionary">
-        /// Словарь должеy содержать 1 файл протокола c ключом "protocol" и 2-4 файлов фотографий. Файлы не должны превыщать размер 15 МБ
+        /// Словарь должен содержать 1 файл протокола c ключом "protocol" и 2-4 файлов фотографий. Файлы не должны превыщать размер 15 МБ
         /// </param>
         /// <param name="schoolId"></param>
         /// <returns>Id отчета</returns>
@@ -152,7 +151,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             }
             if (!context.Schools.Any(s => s.Id == schoolId))
             {
-                result.Errors.Add(new ServiceError { Key = nameof(schoolId), Description = $"'{schoolId}' is invalid" });
+                result.AddModelError(nameof(schoolId), $"'{schoolId}' is invalid");                
                 return result;
             }
             // validate resultStreamDictionary content
@@ -215,10 +214,34 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 IsProtocol = true
             });
 
+
             context.RsurReports.Add(rsurReport);
             context.SaveChanges(); // переносим изменения в БД            
                                             
             result.Result = rsurReport.Id;
+            return result;
+        }
+
+        /// <summary>
+        /// Удаление отчета
+        /// </summary>
+        /// <param name="rsurReportId"></param>
+        /// <param name="schoolId"></param>
+        /// <returns>Удаляет файл протокола и все фотографии</returns>
+        public VoidResult DeleteReport(int rsurReportId, string schoolId)
+        {
+            var result = new VoidResult();
+
+            var report = context.RsurReports.SingleOrDefault(r => r.Id == rsurReportId && r.SchoolId == schoolId);
+            if (report == null)
+            {
+                result.AddModelError("DeleteReport", $"{nameof(rsurReportId)} '{rsurReportId}' or {nameof(schoolId)} '{schoolId}' is invalid");
+                return result;
+            }
+
+            var fileIds = report.RsurReportFiles.Select(x => x.FileId).ToList();
+
+
             return result;
         }
 

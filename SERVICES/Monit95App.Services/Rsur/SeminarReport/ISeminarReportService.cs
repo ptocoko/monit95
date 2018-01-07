@@ -15,9 +15,8 @@ namespace Monit95App.Services.Rsur.SeminarReport
         IEnumerable<SeminarReportModel> GetSeminarReports(int areaCode);
 
         SeminarReportModel GetReport(int reportId);
-
-        void DeleteReport(int reportId, string imagesServerFolder);
-
+        
         ServiceResult<int> CreateReport(Dictionary<string, Stream> inputStreamDictionary, string schoolId);
+        VoidResult DeleteReport(int rsurReportId, string schoolId);
     }
 }

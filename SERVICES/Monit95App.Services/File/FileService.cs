@@ -130,7 +130,29 @@ namespace Monit95App.Services.File
         }
 
         /// <summary>
-        /// Удаляет файл из репозитория
+        /// Метод для удаление файла с указанием владельца
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <returns></returns>
+        public VoidResult Delete(int fileId)
+        {
+            var result = new VoidResult();
+            // Try get entity
+            var fileEntity = context.Files.Find(fileId);
+            // Fail
+            if (fileEntity == null)
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 404 });
+                return result;
+            }
+            // Success: remove and send a request to make change in database
+            context.Files.Remove(fileEntity);
+            context.SaveChanges();
+            return result;
+        }
+
+        /// <summary>
+        /// Метод для удаление файла с указанием владельца
         /// </summary>
         /// <param name="fileId"></param>
         /// <param name="userName"></param>
@@ -138,7 +160,6 @@ namespace Monit95App.Services.File
         public VoidResult Delete(int fileId, string userName)
         {
             var result = new VoidResult();
-
             // Try get entity
             var fileEntity = context.Files.SingleOrDefault(file => file.Id == fileId && file.FilePermissonList
                                           .Any(fp => fp.UserName == userName && fp.PermissionId == (int)FilePermissionId.ReadAndDelete));
@@ -148,11 +169,9 @@ namespace Monit95App.Services.File
                 result.Errors.Add(new ServiceError { HttpCode = 404 });
                 return result;
             }
-
             // Success: remove and send a request to make change in database
             context.Files.Remove(fileEntity);
             context.SaveChanges();
-
             return result;
         }
 
@@ -282,5 +301,7 @@ namespace Monit95App.Services.File
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }
