@@ -239,9 +239,16 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 return result;
             }
 
-            var fileIds = report.RsurReportFiles.Select(x => x.FileId).ToList();
+            
+            var fileIds = report.RsurReportFiles.Select(rf => rf.FileId).ToList(); // get report file ids before delete report
 
+            // Delete RsurReport object from database -> delete corresponding RsurReportFile objects
+            context.RsurReports.Remove(report);
 
+            // Delete report files
+            foreach (var filelId in fileIds)
+                fileService.Delete(filelId);
+                        
             return result;
         }
 
