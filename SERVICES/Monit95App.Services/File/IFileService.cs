@@ -6,9 +6,13 @@ namespace Monit95App.Services.File
     public interface IFileService
     {
         ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string userName);
-        ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName);        
-        VoidResult Delete(int fileId, string userName = null);
-        ServiceResult<string> GetFileName(int fileId, string destHostFolder, string userName);
+
+        ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName);
+
+        void Delete(int fileId, string userName = null);
+
+        string GetFileBase64String(int fileId, string userName = null);
+
         ServiceResult<FileStream> GetFileContent(int fileId, string userName);
     }
 }
