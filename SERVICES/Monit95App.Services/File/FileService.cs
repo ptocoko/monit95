@@ -160,8 +160,12 @@ namespace Monit95App.Services.File
         public string GetFileBase64String(int fileId, string userName = null)
         {
             var fileEntity = GetFileDbEntity(fileId, userName);
+            var filePath = GetFilePath(fileEntity, userName);
+
+            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+            var base64String = Convert.ToBase64String(bytes);
             
-            return null;
+            return base64String;
         }
 
         /// <summary>
