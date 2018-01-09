@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.File;
+using Monit95App.Services.Tests.Util;
 using NSubstitute;
 
 namespace Monit95App.Services.Tests
@@ -49,12 +50,39 @@ namespace Monit95App.Services.Tests
             var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
 
             Directory.CreateDirectory(@"c:\repositories\2");
-            var fakeStream = new MemoryStream(Encoding.UTF8.GetBytes("fake"));
+            var fakeStream = new MemoryStream(Encoding.UTF8.GetBytes("fakeBytes"));
             var mockContext = Substitute.For<CokoContext>();           
             
             // Config mockContext
             mockContext.RsurTestResults.Returns(mockRsurTestResultSet);
             mockContext.Files.Returns(mockFileSet);
+
+            // mocking Monit95Users
+            var monit95Users = new List<Monit95User>
+            {
+                new Monit95User { Login = "201" }
+            };
+            var mockUserSet = MockDbSet.GetMock(monit95Users);
+            mockContext.Monit95Users.Returns(mockUserSet);
+
+            // mocking Repositories
+            var repositories = new List<Repository>
+            {
+                new Repository { Id = 2 }
+            };
+            var mockRepositorySet = MockDbSet.GetMock(repositories);
+            mockContext.Repositories.Returns(mockRepositorySet);
+
+            // mocking Files
+            var files = new List<Domain.Core.Entities.File>
+            {
+                new Domain.Core.Entities.File
+                {
+                    HexHash = "E018AB91DC96E2BB07D6EBD097D4779D"
+                }
+            };
+            var fileSet = MockDbSet.GetMock(files);
+            mockContext.Files.Returns(fileSet);
 
             // Act
             var service = new File.FileService(mockContext);
@@ -70,84 +98,39 @@ namespace Monit95App.Services.Tests
         {
             // Arrange
             // Mocking DbSet<File>
-            var fakeFiles = new List<Domain.Core.Entities.File>
-            {
-                new Domain.Core.Entities.File
-                {
-                    Id = 1,
-                    FilePermissonList = new List<FilePermission>
-                    {
-                        new FilePermission
-                        {
-                            UserName = "201",
-                            PermissionId = 2
-                        }
-                    }
-                }
-            }.AsQueryable();
-            var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
-            ((IQueryable<Domain.Core.Entities.File>)mockFileSet).Expression.Returns(fakeFiles.Expression);
-            ((IQueryable<Domain.Core.Entities.File>)mockFileSet).Provider.Returns(fakeFiles.Provider); // SingOrDefault                  
+            //var fakeFiles = new List<Domain.Core.Entities.File>
+            //{
+            //    new Domain.Core.Entities.File
+            //    {
+            //        Id = 1,
+            //        FilePermissonList = new List<FilePermission>
+            //        {
+            //            new FilePermission
+            //            {
+            //                UserName = "201",
+            //                PermissionId = 2
+            //            }
+            //        }
+            //    }
+            //}.AsQueryable();
+            //var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
+            //((IQueryable<Domain.Core.Entities.File>)mockFileSet).Expression.Returns(fakeFiles.Expression);
+            //((IQueryable<Domain.Core.Entities.File>)mockFileSet).Provider.Returns(fakeFiles.Provider); // SingOrDefault                  
 
-            // Mocking CokoContext            
-            var mockCokoContext = Substitute.For<CokoContext>();
-            mockCokoContext.Files.Returns(mockFileSet);
+            //// Mocking CokoContext            
+            //var mockCokoContext = Substitute.For<CokoContext>();
+            //mockCokoContext.Files.Returns(mockFileSet);
 
-            // Act
-            var service = new FileService(mockCokoContext);
-            var result = service.Delete(1, "201");
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void GetFileNameTest()
-        {
-            // Arrange
-            // Preparing file system
-            Directory.CreateDirectory(@"c:\repositories\2");
-            Directory.CreateDirectory(@"c:\hostFolder");
-            var fs = System.IO.File.Create(@"c:\repositories\2\a1b2c3.jpg");
-            fs.Close();
-
-            // Mocking FileSet
-            var fakeFiles = new List<Domain.Core.Entities.File>
-            {
-                new Domain.Core.Entities.File
-                {
-                    FilePermissonList = new List<FilePermission>
-                    {
-                        new FilePermission { UserName = "201" }
-                    },
-                    Id = 1,
-                    RepositoryId = 2,
-                    Name = "a1b2c3.jpg"
-                }
-            }.AsQueryable();
-            var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
-            ((IQueryable<Domain.Core.Entities.File>)mockFileSet).Expression.Returns(fakeFiles.Expression);
-            ((IQueryable<Domain.Core.Entities.File>)mockFileSet).Provider.Returns(fakeFiles.Provider);                        
-
-            // Mocking CokoContext
-            var mockCokoContext = Substitute.For<CokoContext>();
-            mockCokoContext.Files.Returns(mockFileSet);
-
-            // Act 
-            var fileServices = new File.FileService(mockCokoContext);
-            var result = fileServices.GetFileName(1, @"c:\hostFolder", "201");
+            //// Act
+            //var service = new FileService(mockCokoContext);
+            //var result = service.Delete(1, "201");
 
             // Assert
-            Assert.IsTrue(result.Errors.Count() == 0);
-            Assert.AreEqual(@"c:\hostFolder\a1b2c3.jpg", result.Result);
-
-            // Clean fileSystem
-            Directory.Delete(@"c:\repositories\2", true);
-            Directory.Delete(@"c:\hostFolder", true);
-        }
+            Assert.Fail();
+        }        
 
         [TestMethod]
-        public void GetFileContentTest()
+        public void GetFileStreamTest()
         {
             // Arrange
             // Preparing file system
@@ -165,7 +148,11 @@ namespace Monit95App.Services.Tests
                 {
                     FilePermissonList = new List<FilePermission>
                     {
-                        new FilePermission { UserName = "201" }
+                        new FilePermission
+                        {
+                            UserName = "201",
+                            PermissionId = 2
+                        }
                     },
                     Id = 1,
                     RepositoryId = 3,
@@ -175,7 +162,11 @@ namespace Monit95App.Services.Tests
                 {
                     FilePermissonList = new List<FilePermission>
                     {
-                        new FilePermission { UserName = "202" }
+                        new FilePermission
+                        {
+                            UserName = "202",
+                            PermissionId = 2
+                        }
                     },
                     Id = 2,
                     RepositoryId = 4,
@@ -192,8 +183,8 @@ namespace Monit95App.Services.Tests
 
             // Act 
             var fileServices = new FileService(mockCokoContext);
-            var result1 = fileServices.GetFileContent(1, "201");
-            var result2 = fileServices.GetFileContent(2, "202");
+            var result1 = fileServices.GetFileStream(1, "201");
+            var result2 = fileServices.GetFileStream(2, "202");
 
             // Assert
             Assert.IsNotNull(result1.Result);

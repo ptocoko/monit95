@@ -13,6 +13,6 @@ namespace Monit95App.Services.File
 
         string GetFileBase64String(int fileId, string userName = null);
 
-        ServiceResult<FileStream> GetFileContent(int fileId, string userName);
+        ServiceResult<FileStream> GetFileStream(int fileId, string userName);
     }
 }
