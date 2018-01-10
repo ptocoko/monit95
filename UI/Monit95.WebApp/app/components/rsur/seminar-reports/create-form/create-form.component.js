@@ -9,57 +9,49 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         var _this = this;
         this.seminarReportService = seminarReportService;
         this.snackBar = snackBar;
-        //fotoBase64Strings: string[] = [];
         this.seminarFiles = [];
-        this.protocolFileName = '';
         this.maxFileSize = 15728640; // 15 MB 
         this.acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'pdf'];
         this.getNotProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === false; }); };
         this.getProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === true; }); };
     }
-    //maxFiles = 3;
-    //fileId = 1; // id for first file
-    //ngOnInit() {
-    //}
-    //getProtocolFileName(event: any) {
-    //    const fileList = event.target.files as FileList;        
-    //    if (fileList.length > 0) {
-    //        this.protocolFileName = fileList.item(0).name;
-    //    }
-    //}
     SeminarReportCreateFormComponent.prototype.addFiles = function (files, isProtocol) {
         if (isProtocol === void 0) { isProtocol = false; }
         return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var i, seminarFile, _a;
-            return tslib_1.__generator(this, function (_b) {
-                switch (_b.label) {
+            var i, seminarFile, _a, _b;
+            return tslib_1.__generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        console.log(files);
-                        console.log(isProtocol);
-                        if (!this.validateFiles(files, isProtocol)) return [3 /*break*/, 5];
+                        if (!this.validateFiles(files, isProtocol)) return [3 /*break*/, 7];
                         i = 0;
-                        _b.label = 1;
+                        _c.label = 1;
                     case 1:
-                        if (!(i < files.length)) return [3 /*break*/, 4];
+                        if (!(i < files.length)) return [3 /*break*/, 6];
                         _a = {
                             // 
                             key: isProtocol ? 'protocol' : "image_" + this.seminarFiles.length,
                             isProtocol: isProtocol,
                             file: files[i]
                         };
-                        return [4 /*yield*/, this.getBase64String(files[i])];
-                    case 2:
-                        seminarFile = (_a.base64String = _b.sent(),
+                        if (!isProtocol) return [3 /*break*/, 2];
+                        _b = undefined;
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.getBase64String(files[i])];
+                    case 3:
+                        _b = _c.sent();
+                        _c.label = 4;
+                    case 4:
+                        seminarFile = (_a.base64String = _b,
                             _a);
                         this.seminarFiles.push(seminarFile);
-                        _b.label = 3;
-                    case 3:
+                        _c.label = 5;
+                    case 5:
                         i++;
                         return [3 /*break*/, 1];
-                    case 4:
+                    case 6:
                         console.log(this.seminarFiles);
-                        _b.label = 5;
-                    case 5: return [2 /*return*/];
+                        _c.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         });
@@ -79,6 +71,10 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
             formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
         }
         this.seminarReportService.postFiles(formData);
+    };
+    SeminarReportCreateFormComponent.prototype.remove = function (index) {
+        console.log(index);
+        this.seminarFiles.splice(index, 1);
     };
     SeminarReportCreateFormComponent.prototype.validateFiles = function (files, isProtocolFiles) {
         for (var i = 0; i < files.length; i++) {
@@ -108,36 +104,6 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
     SeminarReportCreateFormComponent.prototype.showMessage = function (message, actionText) {
         if (actionText === void 0) { actionText = 'OK'; }
         this.snackBar.open(message, actionText, { duration: 3000 });
-    };
-    //readBase64Strings(eventTarget: any) {        
-    //    const files = eventTarget.files as FileList; 
-    //    if (files.length > 0) {
-    //        for (let i = 0; i < files.length; i++) {
-    //            // The FileReader object lets web applications asynchronously read the contents of files stored on the user's computer, 
-    //            // using File object to specify the file to read.
-    //            const fileReader = new FileReader();
-    //            // The fileReader.onload property contains an event handler executed when content read with readAsDataURL is available.
-    //            fileReader.onload = (event: any) => {
-    //                const base64EncodedString = event.target.result;
-    //                if (this.fotoBase64Strings.length < 4 // не больше 4-х фотографий будут учитываться
-    //                    && this.fotoBase64Strings.indexOf(base64EncodedString) === -1) {
-    //                    this.fotoBase64Strings.push(base64EncodedString);
-    //                }
-    //            };
-    //            const file = files.item(i);
-    //            if (file.size <= this.maxFileSize) {
-    //                // The readAsDataURL read the contents of the specified File. When the read operation is finished, 
-    //                // the result attribute contains the data as a URL representing the file's data as a base64 encoded string.
-    //                fileReader.readAsDataURL(file);
-    //            }
-    //        }
-    //        // Очищаем список, чтобы можно было повторно обработать этот же массив файлов
-    //        eventTarget.value = '';
-    //    }        
-    //}
-    SeminarReportCreateFormComponent.prototype.remove = function (index) {
-        console.log(index);
-        this.seminarFiles.splice(index, 1);
     };
     SeminarReportCreateFormComponent = tslib_1.__decorate([
         core_1.Component({

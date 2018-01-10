@@ -1,6 +1,36 @@
-﻿.x {
+﻿.remove-icon {
     position: absolute;
-    margin-top: 0;
-    margin-right: 0;
+    top: 0;
+    right: 0;
     cursor: pointer;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding-left: 1px;
+}
+
+.seminar-file {
+    height:200px;
+}
+
+.seminar-file-container{
+    display:inline-block;
+    position:relative;
+    margin-top:15px;
+} 
+
+.seminar-file-container + .seminar-file-container {
+    margin-left: 15px;
+}
+
+.seminar-files-list {
+    margin: 0 0 15px 0;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+input[type=file]{
+    display:none;
 }
