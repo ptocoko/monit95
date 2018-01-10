@@ -1,22 +1,16 @@
-﻿using ServiceResult;
+﻿using Monit95App.Domain.Core.Entities;
+using ServiceResult;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Monit95App.Services.Rsur.SeminarReport
 {
     public interface ISeminarReportService
-    {
-        int SaveText(string text, string schoolId); // return reportId
-
-        int SaveFile(Stream fileStream, string fileExtension, int reportId, int index, string imagesServerFolder);
-
-        IEnumerable<SeminarReportModel> GetSeminarReports(string schoolId);
-
-        IEnumerable<SeminarReportModel> GetSeminarReports(int areaCode);
-
-        SeminarReportModel GetReport(int reportId);
+    {                
+        Dictionary<string, string> GetReport(int reportId, string userName);
         
         ServiceResult<int> CreateReport(Dictionary<string, Stream> inputStreamDictionary, string schoolId);
+
         VoidResult DeleteReport(int rsurReportId, string schoolId);
     }
 }

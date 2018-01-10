@@ -1,18 +1,18 @@
 ﻿using System.IO;
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Services.Enums;
 using ServiceResult;
 
 namespace Monit95App.Services.File
 {
     public interface IFileService
     {
-        ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string userName);
+        int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName);                
 
-        ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName);
-
-        void Delete(int fileId, string userName = null);
-
-        string GetFileBase64String(int fileId, string userName = null);
+        string GetFileBase64String(int fileId, string userName);
 
         ServiceResult<FileStream> GetFileStream(int fileId, string userName);
+
+        void Delete(int fileId, string userName = null);
     }
 }

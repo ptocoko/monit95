@@ -96,7 +96,7 @@
     <Compile Include="DTOs\RsurParticipEditProtocol.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
-    <Compile Include="Enums\FilePermissionId.cs" />
+    <Compile Include="Enums\Security.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />
     <Compile Include="File\FileService.cs" />

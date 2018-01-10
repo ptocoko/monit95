@@ -60,5 +60,86 @@ namespace Monit95App.Services.Tests
             // Assert
             Assert.IsTrue(!result.Errors.Any());
         }
+
+        [TestMethod]
+        public void GetReportTest()
+        {
+            // ARRANGE
+            // mocking RsurReportFileSet
+            var fakeRsurReportFiles = new List<RsurReportFile>
+            {
+                new RsurReportFile
+                {
+                    RsurReportId = 1,
+                    IsProtocol = false,
+                    FileId = 1,
+                    File = new Domain.Core.Entities.File
+                    {                        
+                        FilePermissonList = new List<FilePermission>
+                        {
+                            new FilePermission
+                            {
+                                UserName = "0001",
+                                PermissionId = 1 // read
+                            }                            
+                        }
+                    }
+                },
+                new RsurReportFile
+                {
+                    RsurReportId = 1,
+                    IsProtocol = false,
+                    FileId = 2,
+                    File = new Domain.Core.Entities.File
+                    {                        
+                        FilePermissonList = new List<FilePermission>
+                        {
+                            new FilePermission
+                            {
+                                UserName = "0001",
+                                PermissionId = 1 // read
+                            }
+                        }
+                    }
+                },
+                 new RsurReportFile
+                {
+                    RsurReportId = 1,
+                    IsProtocol = true, //protocol
+                    FileId = 3,
+                    File = new Domain.Core.Entities.File
+                    {                        
+                        FilePermissonList = new List<FilePermission>
+                        {
+                            new FilePermission
+                            {
+                                UserName = "0001",
+                                PermissionId = 1 // read
+                            }
+                        }
+                    }
+                }
+
+            };
+            var mockRsurReportFileSet = MockDbSet.GetMock(fakeRsurReportFiles);            
+
+            // mocking CokoContext
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.RsurReportFiles.Returns(mockRsurReportFileSet);
+
+            // mocking IFileService            
+            var mockFileService = Substitute.For<IFileService>();
+            mockFileService.GetFileBase64String(1, "0001").Returns("foto1Base64String");
+            mockFileService.GetFileBase64String(2, "0001").Returns("foto2Base64String");
+            mockFileService.GetFileBase64String(3, "0001").Returns("protocolBase64String");
+
+            // ACT
+            var seminarReportService = new SeminarReportService(mockCokoContext, mockFileService);            
+            var result = seminarReportService.GetReport(1, "0001");
+
+            // ASSERT
+            Assert.IsNotNull(result.Count >= 3 && result.Count <= 5);
+            Assert.AreEqual(result["protocol"], "protocolBase64String");
+        }
     }
 }

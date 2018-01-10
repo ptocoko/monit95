@@ -196,5 +196,53 @@ namespace Monit95App.Services.Tests
             Directory.Delete(@"c:\repositories\3", true);
             Directory.Delete(@"c:\repositories\4", true);
         }
+
+        [TestMethod]
+        public void GetFileBase64String()
+        {
+            // ARRANGE
+            // preparing file system
+            Directory.CreateDirectory(@"c:\repositories\2");            
+            var fs = System.IO.File.Create(@"c:\repositories\2\отчет.xlsx");    
+            
+            fs.Close();                      
+
+            // mocking FileSet
+            var fakeFiles = new List<Domain.Core.Entities.File>
+            {
+                new Domain.Core.Entities.File
+                {
+                    Id = 1,
+                    RepositoryId = 2,
+                    Name = "отчет.xlsx",
+                    FilePermissonList = new List<FilePermission>
+                    {
+                        new FilePermission
+                        {
+                            UserName = "0001",
+                            PermissionId = 1
+                        }
+                    }
+                }
+            };
+            var mockFileSet = MockDbSet.GetMock(fakeFiles);
+
+            // mocking CokoContext
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.Files.Returns(mockFileSet);
+
+            // ACT
+            var fileService = new FileService(mockCokoContext);
+            var result = fileService.GetFileBase64String(1, "0001");
+
+            // ASSERT            
+            Assert.IsNotNull(result);           
+        }
+
+        [TestCleanup]
+        public void CleanFileSystem()
+        {
+            Directory.Delete(@"c:\repositories", true);            
+        }
     }
 }
