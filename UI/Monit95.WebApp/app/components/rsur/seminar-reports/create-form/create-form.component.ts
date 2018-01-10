@@ -9,18 +9,21 @@ import { MatSnackBar } from '@angular/material';
 export class SeminarReportCreateFormComponent {
 	seminarFiles: IImageFile[] = [];
 	readonly maxFileSize = 15728640; // 15 MB 
+	filesCount: number = 0; // используется для генерации уникальных ключей для файлов
 	acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'pdf'];
 	getNotProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === false);
 	getProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === true);
+	getFilesWithError = () => this.seminarFiles.filter(f => f.errorMessage);
 
 	constructor(private readonly seminarReportService: SeminarReportService, private snackBar: MatSnackBar) { }
  
-	async addFiles(files: FileList, isProtocol = false) {
+	async addFiles(event: any, isProtocol = false) {
+		const files: FileList = event.target.files;
 		if (this.validateFiles(files, isProtocol)) {
 			for (let i = 0; i < files.length; i++) {
 				let seminarFile: IImageFile = {
 					// 
-					key: isProtocol ? 'protocol' : `image_${this.seminarFiles.length}`,
+					key: isProtocol ? 'protocol' : `image_${this.filesCount++}`,
 					isProtocol: isProtocol,
 					file: files[i],
 					base64String: isProtocol ? undefined : await this.getBase64String(files[i])
@@ -29,6 +32,7 @@ export class SeminarReportCreateFormComponent {
 			}
 			console.log(this.seminarFiles);
 		}
+		event.target.value = '';
 	}
 
 	getBase64String(file: File): Promise<string> {
@@ -45,12 +49,29 @@ export class SeminarReportCreateFormComponent {
 		for (let seminarImage of this.seminarFiles) {
 			formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
 		}
-		this.seminarReportService.postFiles(formData);
+
+		this.seminarReportService.postFiles(formData).subscribe(response => {
+			console.log(response);
+		},
+		error => {
+			if (error.status !== 409) {
+				throw Error(error.error.Message);
+			} else {
+				this.filesConflictHandler(error);
+			}
+		})
 	}
 
-    remove(index: number) {
-        console.log(index);
-        this.seminarFiles.splice(index, 1);
+	filesConflictHandler(error: any) {
+		const keys = Object.keys(error.state);
+		for (const key of keys) {
+			this.seminarFiles.find((val, i) => val.key === key).errorMessage = error.state[key];
+		}
+	}
+
+    remove(key: string) {
+        console.log(key);
+        this.seminarFiles.splice(this.seminarFiles.indexOf(this.seminarFiles.find((val, i) => val.key === key)), 1);
     }
 
 	validateFiles(files: FileList, isProtocolFiles: boolean): boolean {

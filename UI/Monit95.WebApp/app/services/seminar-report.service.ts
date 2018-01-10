@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { SeminarReportModel } from '../components/rsur/seminar-reports/shared/seminar-report.model';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SeminarReportService {
@@ -10,7 +11,16 @@ export class SeminarReportService {
     constructor(private readonly http: HttpClient) { } 
 
 	postFiles(formData: FormData) {
-		return this.http.post(this.endpoint, formData, {responseType: 'text'})
+		//return this.http.post(this.endpoint, formData, { responseType: 'text' });
+		const error = {
+			status: 409,
+			state: {
+				'image_0': 'это дубликат',
+				'image_3': 'эта фотка не оч',
+				'protocol': 'prot не прот'
+			}
+		}
+		return Observable.throw(error);
 	}
 
     //// Отправка файл протокола

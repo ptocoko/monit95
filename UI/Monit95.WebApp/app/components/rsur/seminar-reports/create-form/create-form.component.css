@@ -5,8 +5,9 @@
     cursor: pointer;
     height: 20px;
     width: 20px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     padding-left: 1px;
+    z-index:10;
 }
 
 .seminar-file {
@@ -16,12 +17,8 @@
 .seminar-file-container{
     display:inline-block;
     position:relative;
-    margin-top:15px;
+    margin:15px 0 0 15px;
 } 
-
-.seminar-file-container + .seminar-file-container {
-    margin-left: 15px;
-}
 
 .seminar-files-list {
     margin: 0 0 15px 0;
@@ -29,14 +26,23 @@
     -ms-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 input[type=file]{
     display:none;
 }
 
-.alert{
+.mat-raised-button{
+    margin-top: 20px;
+}
+
+.alert {
     margin-bottom: 0 !important;
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+    width: 100% !important;
 }
 
 .error-cover{
@@ -46,4 +52,20 @@ input[type=file]{
     width:100%;
     height:200px;
     background-color: rgba(220,220,220, 0.6);
+}
+
+.protocol-container{
+    display:flex;
+}
+
+.protocol-state {
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.protocol-action{
+    margin-left:15px;
+    align-self:center;
 }

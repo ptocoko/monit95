@@ -3,13 +3,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
+var Observable_1 = require("rxjs/Observable");
 var SeminarReportService = /** @class */ (function () {
     function SeminarReportService(http) {
         this.http = http;
         this.endpoint = 'api/rsur/seminarReports';
     }
     SeminarReportService.prototype.postFiles = function (formData) {
-        return this.http.post(this.endpoint, formData, { responseType: 'text' });
+        //return this.http.post(this.endpoint, formData, { responseType: 'text' });
+        var error = {
+            status: 409,
+            state: {
+                'image_0': 'это дубликат',
+                'image_3': 'эта фотка не оч',
+                'protocol': 'prot не прот'
+            }
+        };
+        return Observable_1.Observable.throw(error);
     };
     //// Отправка файл протокола
     //sendProtocol(reportId: number, protocolFile: File) {
