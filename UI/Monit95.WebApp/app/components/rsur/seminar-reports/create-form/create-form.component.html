@@ -13,7 +13,7 @@
     Загрузить фотографии...
 </button>
 <div class="seminar-files-list">
-    <span *ngFor="let seminarImg of getNotProtocolFiles(); let i=index" class="seminar-file-container mat-elevation-z4">
+    <div *ngFor="let seminarImg of getNotProtocolFiles(); let i=index" class="seminar-file-container mat-elevation-z4">
         <img [src]="seminarImg.base64String"
              class="seminar-file"
              alt="">
@@ -24,7 +24,9 @@
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
         </span>
-    </span>
+        <div class="alert alert-danger">some error</div>
+        <span class="error-cover"></span>
+    </div>
 </div>
 
 <input type="file" 
