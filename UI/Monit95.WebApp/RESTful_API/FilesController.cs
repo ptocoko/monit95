@@ -69,40 +69,40 @@ namespace Monit95.WebApp.RESTful_API
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);            
         }
 
-        [HttpPost, Route("~/api/files/{id:int}")]        
-        public IHttpActionResult DeleteFile()
-        {
-            var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);            
+        //[HttpPost, Route("~/api/files/{id:int}")]        
+        //public IHttpActionResult DeleteFile()
+        //{
+        //    var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);            
 
-            var result = fileService.Delete(fileId, User.Identity.Name);
+        //    var result = fileService.Delete(fileId, User.Identity.Name);
 
-            // Success
-            if (!result.Errors.Any())
-                return Ok();
+        //    // Success
+        //    if (!result.Errors.Any())
+        //        return Ok();
 
-            // Faild
-            foreach (var error in result.Errors)
-                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
-            return BadRequest(ModelState);
-        }
+        //    // Faild
+        //    foreach (var error in result.Errors)
+        //        ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+        //    return BadRequest(ModelState);
+        //}
 
-        [HttpGet, Route("~/api/files/{id:int}/url")]
-        public IHttpActionResult GetUrl()
-        {
-            var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            var urlImagesFolder = HostingEnvironment.MapPath("~/Images/url-images");
-            var result = fileService.GetFileName(fileId, User.Identity.Name, urlImagesFolder);
-            //var result = fileService.GetFileName(fileId, urlImagesFolder, "201");
+        //[HttpGet, Route("~/api/files/{id:int}/url")]
+        //public IHttpActionResult GetUrl()
+        //{
+        //    var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+        //    var urlImagesFolder = HostingEnvironment.MapPath("~/Images/url-images");
+        //    var result = fileService.GetFileName(fileId, User.Identity.Name, urlImagesFolder);
+        //    //var result = fileService.GetFileName(fileId, urlImagesFolder, "201");
 
-            // Success
-            if (!result.Errors.Any())
-                return Ok(result.Result);
+        //    // Success
+        //    if (!result.Errors.Any())
+        //        return Ok(result.Result);
 
-            // Faild
-            foreach (var error in result.Errors)
-                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
-            return BadRequest(ModelState);            
-        }
+        //    // Faild
+        //    foreach (var error in result.Errors)
+        //        ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+        //    return BadRequest(ModelState);            
+        //}
 
         [HttpGet, Route("~/api/files/{id:int}/content")]
         public HttpResponseMessage GetFileContent()

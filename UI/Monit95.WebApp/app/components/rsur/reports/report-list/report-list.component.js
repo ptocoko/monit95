@@ -30,7 +30,10 @@ var ReportListComponent = /** @class */ (function () {
         this.rsurReportService.getReports().subscribe(function (reports) {
             _this.reportsList = reports;
             _this.dataSource = new material_1.MatTableDataSource(reports);
-            $().ready(function () { return _this.dataSource.paginator = _this.paginator; });
+            $().ready(function () {
+                _this.dataSource.paginator = _this.paginator;
+                _this.filterSelectionChange();
+            });
             _this.isLoading = false;
         });
     };

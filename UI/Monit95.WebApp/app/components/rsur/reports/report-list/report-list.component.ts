@@ -45,10 +45,13 @@ export class ReportListComponent implements OnInit {
 
 		this.isLoading = true;
         this.rsurReportService.getReports().subscribe(reports => {
-			this.reportsList = reports;           
+			this.reportsList = reports;
 			this.dataSource = new MatTableDataSource(reports);
-
-			$().ready(() => this.dataSource.paginator = this.paginator);
+			
+			$().ready(() => {
+				this.dataSource.paginator = this.paginator;
+				this.filterSelectionChange();
+			});
 
 	        this.isLoading = false;
 	    });

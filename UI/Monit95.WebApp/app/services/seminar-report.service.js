@@ -8,26 +8,29 @@ var SeminarReportService = /** @class */ (function () {
         this.http = http;
         this.endpoint = 'api/rsur/seminarReports';
     }
-    // Отправка файл протокола
-    SeminarReportService.prototype.sendProtocol = function (reportId, protocolFile) {
-        // Generate FormData
-        var formData = new FormData();
-        formData.append('protocolFile', protocolFile, protocolFile.name);
-        // Generate request parameter
-        var httpParams = new http_1.HttpParams();
-        httpParams = httpParams.append('isProtocol', 'true');
-        return this.http.post(this.endpoint + "/" + reportId + "/files", formData, { params: httpParams });
+    SeminarReportService.prototype.postFiles = function (formData) {
+        return this.http.post(this.endpoint, formData, { responseType: 'text' });
     };
-    // Отправка файлов фотографий
-    SeminarReportService.prototype.sendFotos = function (reportId, protocolFile) {
-        // FormData
-        var formData = new FormData();
-        formData.append('protocolFile', protocolFile, protocolFile.name);
-        // Request parameter
-        var params = new http_1.HttpParams();
-        params = params.append('isProtocol', 'true');
-        return this.http.post(this.endpoint + "/" + reportId + "/files", formData, { params: params });
-    };
+    //// Отправка файл протокола
+    //sendProtocol(reportId: number, protocolFile: File) {
+    //    // Generate FormData
+    //    const formData = new FormData();
+    //    formData.append('protocolFile', protocolFile, protocolFile.name);
+    //    // Generate request parameter
+    //    let httpParams = new HttpParams();        
+    //    httpParams = httpParams.append('isProtocol', 'true');
+    //    return this.http.post(`${this.endpoint}/${reportId}/files`, formData, { params: httpParams });
+    //}
+    //// Отправка файлов фотографий
+    //sendFotos(reportId: number, protocolFile: File) {
+    //    // FormData
+    //    const formData = new FormData();
+    //    formData.append('protocolFile', protocolFile, protocolFile.name);
+    //    // Request parameter
+    //    let params = new HttpParams();
+    //    params = params.append('isProtocol', 'true');
+    //    return this.http.post(`${this.endpoint}/${reportId}/files`, formData, { params: params });
+    //}
     SeminarReportService.prototype.postText = function (text) {
         return this.http.post(this.endpoint, { text: text });
     };

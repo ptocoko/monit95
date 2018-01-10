@@ -1,67 +1,96 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component } from '@angular/core';
+import { SeminarReportService } from '../../../../services/seminar-report.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({	
 	templateUrl: `./app/components/rsur/seminar-reports/create-form/create-form.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/components/rsur/seminar-reports/create-form/create-form.component.css?v=${new Date().getTime()}`]
 })
-export class SeminarReportCreateFormComponent implements OnInit {
-    fotoBase64Strings: string[] = [];
-    protocolFileName: string = '';
-    readonly maxFileSize = 15728640; // 15 MB 
-    maxFiles = 3;
-    fileId = 1; // id for first file
+export class SeminarReportCreateFormComponent {
+	seminarFiles: IImageFile[] = [];
+	readonly maxFileSize = 15728640; // 15 MB 
+	acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'pdf'];
+	getNotProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === false);
+	getProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === true);
 
-    ngOnInit() {
-       
-    }
+	constructor(private readonly seminarReportService: SeminarReportService, private snackBar: MatSnackBar) { }
+ 
+	async addFiles(files: FileList, isProtocol = false) {
+		if (this.validateFiles(files, isProtocol)) {
+			for (let i = 0; i < files.length; i++) {
+				let seminarFile: IImageFile = {
+					// 
+					key: isProtocol ? 'protocol' : `image_${this.seminarFiles.length}`,
+					isProtocol: isProtocol,
+					file: files[i],
+					base64String: isProtocol ? undefined : await this.getBase64String(files[i])
+				}
+				this.seminarFiles.push(seminarFile);
+			}
+			console.log(this.seminarFiles);
+		}
+	}
 
-    getProtocolFileName(event: any) {        
-        const fileList = event.target.files as FileList;        
-        if (fileList.length > 0) {
-            this.protocolFileName = fileList.item(0).name;
-        }
-    }
+	getBase64String(file: File): Promise<string> {
+		return new Promise<string>((resolve, reject) => {
+			let fileReader = new FileReader();
+			fileReader.onload = () => resolve(fileReader.result);
+			fileReader.onerror = error => reject(error.message)
+			fileReader.readAsDataURL(file);
+		});
+	}
 
-    readBase64Strings(eventTarget: any) {        
-        const files = eventTarget.files as FileList; 
-        if (files.length > 0) {
-            for (let i = 0; i < files.length; i++) {
-                // The FileReader object lets web applications asynchronously read the contents of files stored on the user's computer, 
-                // using File object to specify the file to read.
-                const fileReader = new FileReader();
-
-                // The fileReader.onload property contains an event handler executed when content read with readAsDataURL is available.
-                fileReader.onload = (event: any) => {
-                    const base64EncodedString = event.target.result;
-                    if (this.fotoBase64Strings.length < 4 // не больше 4-х фотографий будут учитываться
-                        && this.fotoBase64Strings.indexOf(base64EncodedString) === -1) {
-                        this.fotoBase64Strings.push(base64EncodedString);
-                    }
-                };
-
-                const file = files.item(i);
-                if (file.size <= this.maxFileSize) {
-                    // The readAsDataURL read the contents of the specified File. When the read operation is finished, 
-                    // the result attribute contains the data as a URL representing the file's data as a base64 encoded string.
-                    fileReader.readAsDataURL(file);
-                }
-            }
-
-            // Очищаем список, чтобы можно было повторно обработать этот же массив файлов
-            eventTarget.value = '';
-        }        
-    }
+	sendFiles() {
+		let formData = new FormData();
+		for (let seminarImage of this.seminarFiles) {
+			formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
+		}
+		this.seminarReportService.postFiles(formData);
+	}
 
     remove(index: number) {
         console.log(index);
-        this.fotoBase64Strings.splice(index, 1);
+        this.seminarFiles.splice(index, 1);
     }
+
+	validateFiles(files: FileList, isProtocolFiles: boolean): boolean {
+		for (let i = 0; i < files.length; i++) {
+			if (this.acceptedFileExtensions.indexOf(getFileExtension(files[i].name)) < 0) {
+				this.showMessage('неподдерживаемый тип файла: ' + files[i].name);
+				return false;
+			}
+			if (files[i].size > this.maxFileSize) {
+				this.showMessage(`размер файла ${files[i].name} превышает допустимое значение в 15 МБ`);
+				return false;
+			}
+		}
+		if (!isProtocolFiles) {
+			if (files.length > 4 || this.getNotProtocolFiles().length + files.length > 4) {
+				this.showMessage('максимально разрешенное количество фотографий — 4');
+				return false;
+			}
+		} else {
+			if (files.length > 1 || this.getProtocolFiles().length > 0) {
+				this.showMessage('нельзя добавить больше одного файла протокола');
+				return false;
+			}
+		}
+		return true;
+	}
+
+	showMessage(message: string, actionText = 'OK') {
+		this.snackBar.open(message, actionText, { duration: 3000 });
+	}
+}
+
+function getFileExtension(name: string) {
+	return name.split('.').pop().toLowerCase();
 }
 
 interface IImageFile {
-    id: number;    
-    errorMessage: string;
+    key: string;    
+    errorMessage?: string;
     isProtocol: boolean;
     file: File;
-    base64String?: string; // ProtocolFile do not use this property
+	base64String?: string; // ProtocolFile do not use this property
 }
