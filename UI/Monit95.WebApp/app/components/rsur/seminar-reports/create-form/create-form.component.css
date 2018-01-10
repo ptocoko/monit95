@@ -42,7 +42,7 @@ input[type=file]{
     -moz-border-radius: 0 !important;
     -webkit-border-radius: 0 !important;
     border-radius: 0 !important;
-    width: 100% !important;
+    width: 100%;
 }
 
 .error-cover{
@@ -54,11 +54,7 @@ input[type=file]{
     background-color: rgba(220,220,220, 0.6);
 }
 
-.protocol-container{
-    display:flex;
-}
-
-.protocol-state {
+.protocol-container {
     display: flex;
     -ms-flex-direction: column;
     -webkit-flex-direction: column;
@@ -67,5 +63,9 @@ input[type=file]{
 
 .protocol-action{
     margin-left:15px;
-    align-self:center;
+}
+
+.protocol-error{
+    width: auto;
+    align-self: flex-start
 }

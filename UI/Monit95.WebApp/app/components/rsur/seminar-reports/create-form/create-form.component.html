@@ -43,22 +43,21 @@
     <div class="panel-body">
 
         <span class="protocol-container" *ngIf="getProtocolFiles().length > 0">
-            <span class="protocol-state">
-                <span style="margin-right:15px"
-                      [ngClass]="{'text-muted': getProtocolFiles()[0].errorMessage}">
+            <span>
+                <span [ngClass]="{'text-muted': getProtocolFiles()[0].errorMessage}">
                     {{getProtocolFiles()[0].file.name}}
                 </span>
-                <span *ngIf="getProtocolFiles()[0].errorMessage" class="alert alert-danger">
-                    {{getProtocolFiles()[0].errorMessage}}
-                </span>
+                <a style="cursor:pointer"
+                   class="glyphicon glyphicon-trash protocol-action"
+                   (click)="remove('protocol')">
+                </a>
             </span>
-
-            <a style="cursor:pointer"
-               class="glyphicon glyphicon-trash protocol-action"
-               (click)="remove('protocol')">
-            </a>
+            <span *ngIf="getProtocolFiles()[0].errorMessage" 
+                  class="alert alert-danger protocol-error">
+                {{getProtocolFiles()[0].errorMessage}}
+            </span>
         </span>
-        <br />
+
         <div class="alert alert-warning" *ngIf="getProtocolFiles().length === 0">
             необходимо загрузить протокол
         </div>
