@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
-using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Rsur.SeminarReport;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
