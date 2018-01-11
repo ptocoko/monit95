@@ -19,8 +19,7 @@ namespace Monit95App.Domain.Core.Entities
         public string SchoolId { get; set; }
 
         public DateTime Date { get; set; }
-
-        [Required]
+        
         [StringLength(1000)]
         public string Text { get; set; }
 

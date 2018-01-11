@@ -46,7 +46,8 @@ namespace Monit95App.Services.Rsur.SeminarReport
         // TODO: refactoring, add specific FileExistException
         public ServiceResult<int> CreateReport(Dictionary<string, UniqueStream> uniqueStreamDictionary, string schoolId)
         {
-            var result = new ServiceResult<int>();
+            var errorResult = new ServiceResult<int>();
+            var successResult = new ServiceResult<int>();
 
             // VALIDATE
             //if (inputStreamDictionary == null)
@@ -77,10 +78,10 @@ namespace Monit95App.Services.Rsur.SeminarReport
             catch (ArgumentException exception)
             {
                 if (exception.Message.Equals("Already exists"))
-                    result.AddModelError("protocol", "Такой файл уже зарегестрирован в системе");
+                    errorResult.AddModelError("protocol", "Такой файл уже зарегестрирован в системе", 409);
                 else
-                    result.AddModelError("protocol", exception.Message);
-                return result;
+                    errorResult.AddModelError("protocol", exception.Message);
+                return errorResult;
             }            
 
             // add foto files into repository            
@@ -92,27 +93,32 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 {
                     addedPhotoFileId = fileService.Add(seminarReportFileRepositoryId, uniqueStreamDictionary[key].Stream,
                                                        uniqueStreamDictionary[key].FileName, schoolId);
+                    addedPhotoFileIds.Add(addedPhotoFileId);
                 }
                 catch (ArgumentException exception)
                 {
+                    // ISSUE: need to set Conflict HTTP status code if exception called by file existing validate
                     if (exception.Message.Equals("Already exists"))
-                        result.AddModelError(key, "Такой файл уже зарегистрирован в системе");
+                        errorResult.AddModelError(key, "Такой файл уже зарегистрирован в системе", 409);
                     else
-                        result.AddModelError(key, exception.Message);
+                        errorResult.AddModelError(key, exception.Message);
                     continue;
                 }
-                addedPhotoFileIds.Add(addedPhotoFileId);                
+                //addedPhotoFileIds.Add(addedPhotoFileId); // ISSUE: FileId adding to list regardless of whether the file is saved or not
             }
-            
             if (addedPhotoFileIds.Count() < 2) // если добавленных фотографий меньше двух, то уходим
             {
                 // перед выходом удаляем уже добавленный файл протокола
                 fileService.Delete(addedProtocolFileId, schoolId); 
 
                 // удалаемя удачно добавленные фотографии
-                foreach (var fileId in addedPhotoFileIds.Where(i => i > 0))
-                    fileService.Delete(fileId, schoolId);                          
-            }                           
+                foreach (var fileId in addedPhotoFileIds.Where(id => id > 0))
+                    fileService.Delete(fileId, schoolId);
+
+                // выходим из метода, не создавая записей в БД
+                return errorResult;
+            }
+
             // сreate RsurReport object
             var rsurReport = new RsurReport { SchoolId = schoolId };
             // add into RsurReport RsurReportFile object of protocol file
@@ -124,8 +130,8 @@ namespace Monit95App.Services.Rsur.SeminarReport
             context.RsurReports.Add(rsurReport);
             context.SaveChanges(); // переносим изменения в БД            
                                             
-            result.Result = rsurReport.Id;
-            return result;
+            successResult.Result = rsurReport.Id;
+            return successResult;
         }
 
         /// <summary>
