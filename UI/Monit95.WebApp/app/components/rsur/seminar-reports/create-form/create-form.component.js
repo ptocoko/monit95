@@ -4,18 +4,21 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
 var material_1 = require("@angular/material");
+var common_1 = require("@angular/common");
 var SeminarReportCreateFormComponent = /** @class */ (function () {
-    function SeminarReportCreateFormComponent(seminarReportService, snackBar) {
+    function SeminarReportCreateFormComponent(seminarReportService, snackBar, location) {
         var _this = this;
         this.seminarReportService = seminarReportService;
         this.snackBar = snackBar;
+        this.location = location;
         this.seminarFiles = [];
         this.maxFileSize = 15728640; // 15 MB 
-        this.filesCount = 0; // используется для генерации уникальных ключей для файлов
-        this.acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'pdf'];
+        this.filesCount = 0; // используется для генерации уникальных ключей для файлов семинара
+        this.acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
         this.getNotProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === false; }); };
         this.getProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === true; }); };
         this.getFilesWithError = function () { return _this.seminarFiles.filter(function (f) { return f.errorMessage; }); };
+        this.getFileFromKey = function (key) { return _this.seminarFiles.find(function (val, i) { return val.key === key; }); };
     }
     SeminarReportCreateFormComponent.prototype.addFiles = function (event, isProtocol) {
         if (isProtocol === void 0) { isProtocol = false; }
@@ -25,7 +28,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         files = event.target.files;
-                        if (!this.validateFiles(files, isProtocol)) return [3 /*break*/, 7];
+                        if (!this.validateFiles(files, isProtocol)) return [3 /*break*/, 6];
                         i = 0;
                         _c.label = 1;
                     case 1:
@@ -52,9 +55,6 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
                         i++;
                         return [3 /*break*/, 1];
                     case 6:
-                        console.log(this.seminarFiles);
-                        _c.label = 7;
-                    case 7:
                         event.target.value = '';
                         return [2 /*return*/];
                 }
@@ -77,7 +77,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
             formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
         }
         this.seminarReportService.postFiles(formData).subscribe(function (response) {
-            console.log(response);
+            _this.location.back();
         }, function (error) {
             if (error.status !== 409) {
                 throw Error(error.message);
@@ -89,21 +89,20 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
     };
     SeminarReportCreateFormComponent.prototype.filesConflictHandler = function (error) {
         var keys = Object.keys(error.ModelState);
-        var _loop_1 = function (key) {
-            var currentFile = this_1.seminarFiles.find(function (val, i) { return val.key === key; });
+        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+            var key = keys_1[_i];
+            var currentFile = this.getFileFromKey(key);
             if (currentFile) {
                 currentFile.errorMessage = error.ModelState[key][0];
             }
-        };
-        var this_1 = this;
-        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
-            var key = keys_1[_i];
-            _loop_1(key);
         }
     };
+    SeminarReportCreateFormComponent.prototype.cancel = function () {
+        this.location.back();
+    };
     SeminarReportCreateFormComponent.prototype.remove = function (key) {
-        console.log(key);
-        this.seminarFiles.splice(this.seminarFiles.indexOf(this.seminarFiles.find(function (val, i) { return val.key === key; })), 1);
+        var fileIndex = this.seminarFiles.indexOf(this.getFileFromKey(key));
+        this.seminarFiles.splice(fileIndex, 1);
     };
     SeminarReportCreateFormComponent.prototype.validateFiles = function (files, isProtocolFiles) {
         for (var i = 0; i < files.length; i++) {
@@ -139,7 +138,9 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
             templateUrl: "./app/components/rsur/seminar-reports/create-form/create-form.component.html?v=" + new Date().getTime(),
             styleUrls: ["./app/components/rsur/seminar-reports/create-form/create-form.component.css?v=" + new Date().getTime()]
         }),
-        tslib_1.__metadata("design:paramtypes", [seminar_report_service_1.SeminarReportService, material_1.MatSnackBar])
+        tslib_1.__metadata("design:paramtypes", [seminar_report_service_1.SeminarReportService,
+            material_1.MatSnackBar,
+            common_1.Location])
     ], SeminarReportCreateFormComponent);
     return SeminarReportCreateFormComponent;
 }());
