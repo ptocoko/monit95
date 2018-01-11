@@ -86,7 +86,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         public HttpResponseMessage CreateReport()
         {
             var schoolId = User.Identity.Name;
-            var httpFileCollection = HttpContext.Current.Request.Files;
+            HttpFileCollection httpFileCollection = HttpContext.Current.Request.Files;
             // ReSharper disable once PossibleNullReferenceException
             // Generate Dictionary<string, Stream>
             var streamDictionary = httpFileCollection.AllKeys.Take(5) // must have 1 protocol and max 4 fotos
