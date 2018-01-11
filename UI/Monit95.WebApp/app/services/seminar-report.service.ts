@@ -11,16 +11,7 @@ export class SeminarReportService {
     constructor(private readonly http: HttpClient) { } 
 
 	postFiles(formData: FormData) {
-		//return this.http.post(this.endpoint, formData, { responseType: 'text' });
-		const error = {
-			status: 409,
-			state: {
-				'image_0': 'это дубликат',
-				'image_3': 'эта фотка не оч',
-				'protocol': 'prot не прот'
-			}
-		}
-		return Observable.throw(error);
+		return this.http.post(this.endpoint, formData);
 	}
 
     //// Отправка файл протокола

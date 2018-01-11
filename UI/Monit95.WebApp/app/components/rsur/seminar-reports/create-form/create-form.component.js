@@ -80,17 +80,20 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
             console.log(response);
         }, function (error) {
             if (error.status !== 409) {
-                throw Error(error.error.Message);
+                throw Error(error.message);
             }
             else {
-                _this.filesConflictHandler(error);
+                _this.filesConflictHandler(error.error);
             }
         });
     };
     SeminarReportCreateFormComponent.prototype.filesConflictHandler = function (error) {
-        var keys = Object.keys(error.state);
+        var keys = Object.keys(error.ModelState);
         var _loop_1 = function (key) {
-            this_1.seminarFiles.find(function (val, i) { return val.key === key; }).errorMessage = error.state[key];
+            var currentFile = this_1.seminarFiles.find(function (val, i) { return val.key === key; });
+            if (currentFile) {
+                currentFile.errorMessage = error.ModelState[key][0];
+            }
         };
         var this_1 = this;
         for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {

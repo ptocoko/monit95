@@ -27,7 +27,7 @@
                multiple
                id="selectedFotos"
                (change)="addFiles($event)"
-               accept=".jpg, .jpeg, .png, .bmp" />
+               accept=".jpg, .jpeg, .png, .bmp, .tiff, .tif" />
         <button type="button"
                 mat-raised-button
                 color="primary"
@@ -64,7 +64,7 @@
         <input type="file"
                      id="selectedProtocol"
                      (change)="addFiles($event, true)"
-                     accept=".jpg, .jpeg, .png, .bmp, .tiff, .pdf" />
+                     accept=".jpg, .jpeg, .png, .bmp, .tiff, .tif" />
         <button [disabled]="getProtocolFiles().length > 0"
                 mat-raised-button
                 color="primary"
@@ -86,6 +86,7 @@
     Отправить
 </button>
 <button mat-raised-button
+        (click)="cancel()"
         color="warn">
     Отмена
 </button>

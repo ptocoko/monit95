@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { SeminarReportService } from '../../../../services/seminar-report.service';
 import { MatSnackBar } from '@angular/material';
+import { Location } from '@angular/common';
 
 @Component({	
 	templateUrl: `./app/components/rsur/seminar-reports/create-form/create-form.component.html?v=${new Date().getTime()}`,
@@ -9,13 +10,16 @@ import { MatSnackBar } from '@angular/material';
 export class SeminarReportCreateFormComponent {
 	seminarFiles: IImageFile[] = [];
 	readonly maxFileSize = 15728640; // 15 MB 
-	filesCount: number = 0; // используется для генерации уникальных ключей для файлов
-	acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'pdf'];
+	filesCount: number = 0; // используется для генерации уникальных ключей для файлов семинара
+	acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
 	getNotProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === false);
 	getProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === true);
 	getFilesWithError = () => this.seminarFiles.filter(f => f.errorMessage);
+	getFileFromKey = (key: string) => this.seminarFiles.find((val, i) => val.key === key);
 
-	constructor(private readonly seminarReportService: SeminarReportService, private snackBar: MatSnackBar) { }
+	constructor(private readonly seminarReportService: SeminarReportService,
+				private snackBar: MatSnackBar,
+				private location: Location) { }
  
 	async addFiles(event: any, isProtocol = false) {
 		const files: FileList = event.target.files;
@@ -30,7 +34,6 @@ export class SeminarReportCreateFormComponent {
 				}
 				this.seminarFiles.push(seminarFile);
 			}
-			console.log(this.seminarFiles);
 		}
 		event.target.value = '';
 	}
@@ -50,28 +53,37 @@ export class SeminarReportCreateFormComponent {
 			formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
 		}
 
-		this.seminarReportService.postFiles(formData).subscribe(response => {
-			console.log(response);
-		},
-		error => {
-			if (error.status !== 409) {
-				throw Error(error.error.Message);
-			} else {
-				this.filesConflictHandler(error);
+		this.seminarReportService.postFiles(formData).subscribe(
+			response => {
+				this.location.back();
+			},
+			error => {
+				if (error.status !== 409) {
+					throw Error(error.message);
+				} else {
+					this.filesConflictHandler(error.error);
+				}
 			}
-		})
+		)
 	}
 
 	filesConflictHandler(error: any) {
-		const keys = Object.keys(error.state);
+		const keys = Object.keys(error.ModelState);
 		for (const key of keys) {
-			this.seminarFiles.find((val, i) => val.key === key).errorMessage = error.state[key];
+			let currentFile = this.getFileFromKey(key);
+			if (currentFile) {
+				currentFile.errorMessage = error.ModelState[key][0];
+			}
 		}
 	}
 
-    remove(key: string) {
-        console.log(key);
-        this.seminarFiles.splice(this.seminarFiles.indexOf(this.seminarFiles.find((val, i) => val.key === key)), 1);
+	cancel() {
+		this.location.back();
+	}
+
+	remove(key: string) {
+		const fileIndex = this.seminarFiles.indexOf(this.getFileFromKey(key));
+        this.seminarFiles.splice(fileIndex, 1);
     }
 
 	validateFiles(files: FileList, isProtocolFiles: boolean): boolean {
