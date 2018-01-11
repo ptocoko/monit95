@@ -173,6 +173,7 @@
     <Compile Include="Rsur\QuestionValue\QuestionValueDto.cs" />
     <Compile Include="Rsur\QuestionValue\QuestionValueService.cs" />
     <Compile Include="Rsur\QuestionValue\QuestionValueViewDto.cs" />
+    <Compile Include="Rsur\SeminarReport\UniqueStream.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />

@@ -6,6 +6,7 @@ using System.Linq;
 using Monit95App.Services.File;
 using ServiceResult;
 using System;
+using System.Web;
 
 namespace Monit95App.Services.Rsur.SeminarReport
 {
@@ -32,83 +33,93 @@ namespace Monit95App.Services.Rsur.SeminarReport
         }
 
         #region Service methods                  
-   
+
         /// <summary>
         /// Создание отчета
         /// </summary>
-        /// <param name="inputStreamDictionary">
+        /// <param name="inputStreamTyple">
+        /// (string key, string fileName, Stream)
         /// Словарь должен содержать 1 файл протокола c ключом "protocol" и 2-4 файлов фотографий. Файлы не должны превыщать размер 15 МБ
         /// </param>
         /// <param name="schoolId"></param>
         /// <returns>Id отчета</returns>
-        // TODO: refactoring
-        public int CreateReport(Dictionary<string, Stream> inputStreamDictionary, string schoolId)
+        // TODO: refactoring, add specific FileExistException
+        public ServiceResult<int> CreateReport(Dictionary<string, UniqueStream> uniqueStreamDictionary, string schoolId)
         {
+            var result = new ServiceResult<int>();
+
             // VALIDATE
-            if (inputStreamDictionary == null)
-                throw new ArgumentNullException(nameof(inputStreamDictionary));
-            if (inputStreamDictionary.Count < 3 || inputStreamDictionary.Count > 5)
-                throw new ArgumentOutOfRangeException("Is null, count < 3 or count > 5", nameof(inputStreamDictionary));
-            if (!context.Schools.Any(s => s.Id == schoolId))
-                throw new ArgumentException(nameof(schoolId));
-            
+            //if (inputStreamDictionary == null)
+            //    throw new ArgumentNullException(nameof(inputStreamDictionary));
+            //if (inputStreamDictionary.Count < 3 || inputStreamDictionary.Count > 5)
+            //    throw new ArgumentOutOfRangeException("Is null, count < 3 or count > 5", nameof(inputStreamDictionary));
+            //if (!context.Schools.Any(s => s.Id == schoolId))
+            //    throw new ArgumentException(nameof(schoolId));
+
             // validate resultStreamDictionary content
-            var resultStreamDictionary = inputStreamDictionary.Where(kvp => kvp.Value != null && kvp.Value.Length <= maxFileSize)
-                                                              .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            if (!resultStreamDictionary.Any(kvp => kvp.Key.Equals("protocol")))
-                throw new ArgumentException("Protocol file has not");
-                       
+
+            //var resultStreamDictionary = inputStreamTyple.Where(kvp => kvp.Value != null && kvp.Value.InputStream.Length <= maxFileSize)
+            //                                                  .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            //if (!resultStreamDictionary.Any(kvp => kvp.Key.Equals("protocol")))
+            //{
+            //    result.AddModelError("protocol", "Protocol file has not");
+            //    return result;
+            //}
+
             // ADD FILES INTO FILE REPOSITORY
             // add protocol file into file repository
-            var addProtocolResult = fileService.Add(seminarReportFileRepositoryId, resultStreamDictionary["protocol"], schoolId);
-            if (addProtocolResult.Errors.Any())
+            
+            int addedProtocolFileId;
+            try
             {
-                addProtocolResult.Errors.ForEach(error => error.Key = "protocol");
-                result.Errors.AddRange(addProtocolResult.Errors);
-                return result;
+                addedProtocolFileId = fileService.Add(seminarReportFileRepositoryId, uniqueStreamDictionary["protocol"].Stream, uniqueStreamDictionary["protocol"].FileName, schoolId);
             }
-
-            // add foto files into repository
-            var totalAddFotoResults = new List<ServiceResult<int>>();
-            foreach (var key in inputStreamDictionary.Keys.Where(k => !k.Equals("protocol")))
+            catch (ArgumentException exception)
             {
-                var addFotoResult = fileService.Add(seminarReportFileRepositoryId, resultStreamDictionary[key], schoolId);                
-                addFotoResult.Errors.ForEach(error => error.Key = key); // если были ошибки
-                totalAddFotoResults.Add(addFotoResult);
+                if (exception.Message.Equals("Already exists"))
+                    result.AddModelError("protocol", "Такой файл уже зарегестрирован в системе");
+                else
+                    result.AddModelError("protocol", exception.Message);
+                return result;
             }            
-            var successAddFotoFileResults = totalAddFotoResults.Where(sr => !sr.Errors.Any()).ToList(); // удачно добавленные файлы
-            // откат изменений в случаи возникновении ошибок при добавлении файлов фотографий
-            if (successAddFotoFileResults.Count < 2) // удачно добавленных фотографий < 2
-            {                
-                result.Errors.AddRange(totalAddFotoResults.SelectMany(sr => sr.Errors));
-                fileService.Delete(addProtocolResult.Result, schoolId); // перед выходом удаляем уже добавленный файл протокола
-                // удаляем уже добавленные фотографии если такие были
-                foreach (var fileId in totalAddFotoResults.Where(x => x.Result > 0).Select(x => x.Result))
-                    fileService.Delete(fileId, schoolId); 
 
-                return result;
+            // add foto files into repository            
+            var addedPhotoFileIds = new List<int>();
+            foreach (var key in uniqueStreamDictionary.Keys.Where(k => !k.Equals("protocol")))
+            {
+                int addedPhotoFileId;
+                try
+                {
+                    addedPhotoFileId = fileService.Add(seminarReportFileRepositoryId, uniqueStreamDictionary[key].Stream,
+                                                       uniqueStreamDictionary[key].FileName, schoolId);
+                }
+                catch (ArgumentException exception)
+                {
+                    if (exception.Message.Equals("Already exists"))
+                        result.AddModelError(key, "Такой файл уже зарегистрирован в системе");
+                    else
+                        result.AddModelError(key, exception.Message);
+                    continue;
+                }
+                addedPhotoFileIds.Add(addedPhotoFileId);                
             }
+            
+            if (addedPhotoFileIds.Count() < 2) // если добавленных фотографий меньше двух, то уходим
+            {
+                // перед выходом удаляем уже добавленный файл протокола
+                fileService.Delete(addedProtocolFileId, schoolId); 
 
+                // удалаемя удачно добавленные фотографии
+                foreach (var fileId in addedPhotoFileIds.Where(i => i > 0))
+                    fileService.Delete(fileId, schoolId);                          
+            }                           
             // сreate RsurReport object
-            var rsurReport = new RsurReport
-            {
-                SchoolId = schoolId
-            };
-            // add into RsurReport RsurReportFile objects of foto files
-            foreach (var fotoFileId in successAddFotoFileResults.Select(sr => sr.Result)) 
-            {
-                rsurReport.RsurReportFiles.Add(new RsurReportFile
-                {                    
-                    FileId = fotoFileId
-                });
-            }
-            // add into RsurReport RsurReportFile objects of protocol file
-            rsurReport.RsurReportFiles.Add(new RsurReportFile
-            {                
-                FileId = addProtocolResult.Result,
-                IsProtocol = true
-            });
-
+            var rsurReport = new RsurReport { SchoolId = schoolId };
+            // add into RsurReport RsurReportFile object of protocol file
+            rsurReport.RsurReportFiles.Add(new RsurReportFile { FileId = addedProtocolFileId, IsProtocol = true });
+            // add into RsurReport RsurReportFile object of foto files
+            foreach (var photoFileId in addedPhotoFileIds)             
+                rsurReport.RsurReportFiles.Add(new RsurReportFile { FileId = photoFileId });                      
 
             context.RsurReports.Add(rsurReport);
             context.SaveChanges(); // переносим изменения в БД            

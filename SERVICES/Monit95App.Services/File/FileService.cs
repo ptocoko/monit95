@@ -63,7 +63,7 @@ namespace Monit95App.Services.File
             }
             // Check exist by hash
             if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash.Equals(hexHash)))
-                throw new ArgumentException("Such file currently exist");
+                throw new ArgumentException("Already exists");
 
 
             sourceFileName = Path.GetFileName(sourceFileName); // delete path
