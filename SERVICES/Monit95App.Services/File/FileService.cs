@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
-using Monit95App.Services.Enums;
 using ServiceResult;
 
 namespace Monit95App.Services.File
@@ -40,25 +39,21 @@ namespace Monit95App.Services.File
         /// </summary>
         /// <param name="repositoryId"></param>
         /// <param name="sourceFileStream"></param>
-        /// <param name="sourceFileName">Full file name or without path.</param>
+        /// <param name="sourceFileName">Имя файла также необходимо для получения расширения</param>
         /// <param name="userName"></param>
         /// <returns>fileId</returns>
-        public ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName)
+        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName)
         {
-            var result = new ServiceResult<int>();
-
+            // Validate userName
+            if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName)))
+                throw new ArgumentException($"{ nameof(userName) } is invalid", nameof(userName));
+            // Validate repositoryId
+            if (!context.Repositories.Any(repository => repository.Id == repositoryId))
+                throw new ArgumentException($"{ nameof(repositoryId) } is invalid", nameof(repositoryId));
             // Validate sourceFileStream            
-            if (sourceFileStream == null)
-            {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileStream)} is invalid: null" });
-                return result;
-            }
-            if (sourceFileStream.Length > 15728640) // > 15 Mb
-            {
-                result.Errors.Add(new ServiceError { HttpCode = 413, Description = $"{nameof(sourceFileStream)} is invalid: length > 15 Mb" });
-                return result;
-            }
-
+            if (sourceFileStream == null || sourceFileStream.Length > 15728640)
+                throw new ArgumentException($"{nameof(sourceFileStream)} is invalid: null or > 15 Mb", nameof(sourceFileStream));           
+            
             // Generate hexHash
             string hexHash;
             using (var md5 = MD5.Create())
@@ -66,36 +61,14 @@ namespace Monit95App.Services.File
                 var hash = md5.ComputeHash(sourceFileStream);
                 hexHash = BitConverter.ToString(hash).Replace("-", "").ToLower();
             }
-
-            // Validate userName
-            if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName)))
-            {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(userName)} is invalid" });
-                return result;
-            }
-
-            // Validate repositoryId
-            if (!context.Repositories.Any(repository => repository.Id == repositoryId)) //validate repositoryId
-            {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(repositoryId)} is invalid" });
-                return result;
-            }
-
-            // Check exist
+            // Check exist by hash
             if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash.Equals(hexHash)))
-            {
-                result.Errors.Add(new ServiceError { HttpCode = 409, Description = "Such file currently exist" });
-                return result;
-            }
+                throw new ArgumentException("Already exists");
 
-            // Save file to file system
+
             sourceFileName = Path.GetFileName(sourceFileName); // delete path
             var extension = Path.GetExtension(sourceFileName);
-            if (string.IsNullOrEmpty(extension))
-            {
-                result.Errors.Add(new ServiceError { Description = $"{nameof(sourceFileName)} is invalid" });
-                return result;
-            }
+
             var destFileName = $"{hexHash}{extension}";
             using (var destFileStream = System.IO.File.Create($@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}"))
             {
@@ -116,7 +89,12 @@ namespace Monit95App.Services.File
                     new FilePermission
                     {
                         UserName = userName,
-                        PermissionId = (int)FilePermissionId.ReadAndDelete
+                        PermissionId = (int)Enums.Security.Read
+                    },
+                    new FilePermission
+                    {
+                        UserName = userName,
+                        PermissionId = (int)Enums.Security.Delete
                     }
                 }
             };
@@ -126,9 +104,8 @@ namespace Monit95App.Services.File
 
             // Send changes into database
             context.SaveChanges();
-
-            result.Result = fileEntity.Id;
-            return result;
+            
+            return fileEntity.Id;
         }
 
         /// <summary>
@@ -137,17 +114,24 @@ namespace Monit95App.Services.File
         /// <param name="fileId">Id файла в базе данных</param>
         /// <param name="userName">
         /// Данный параметр необходим: 1) Если необходимо проверить права на удаление, 2) Если имя файла содержит маску {userName}
-        /// </param>
-        public void Delete(int fileId, string userName = null)
-        {            
-            var fileEntity = GetFileDbEntity(fileId, userName);
+        /// </param>        
+        // TODO: refactoring
+        public void Delete(int fileId, string userName)
+        {
+            var filePermission = new FilePermission
+            {
+                UserName = userName,
+                PermissionId = 2
+            };
+
+            var fileEntity = GetFileEntity(fileId, filePermission);
 
             // Delete database object
             context.Files.Remove(fileEntity);
             context.SaveChanges();
 
             // Delete file system object
-            var filePath = GetFilePath(fileEntity, userName);
+            var filePath = GetFilePathById(fileEntity.Id, userName);
             System.IO.File.Delete(filePath);
         }       
 
@@ -157,11 +141,14 @@ namespace Monit95App.Services.File
         /// <param name="fileId"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public string GetFileBase64String(int fileId, string userName = null)
-        {
-            var fileEntity = GetFileDbEntity(fileId, userName);
+        public string GetFileBase64String(int fileId, string userName)
+        {            
+            var filePath = GetFilePathById(fileId, userName);
+
+            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+            var base64String = Convert.ToBase64String(bytes);
             
-            return null;
+            return base64String;
         }
 
         /// <summary>
@@ -205,24 +192,19 @@ namespace Monit95App.Services.File
             return movedFileNames;
         }
 
-        public ServiceResult<FileStream> GetFileContent(int fileId, string userName)
+        /// <summary>
+        /// Get file stream
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public ServiceResult<FileStream> GetFileStream(int fileId, string userName)
         {
-            var result = new ServiceResult<FileStream>();
-
-            // Get file entity from database
-            // для получения контента файла достаточен любой уровень доступа (FilePermissonList)
-            var fileEntity = context.Files.SingleOrDefault(file => file.FilePermissonList.Any(fp => fp.UserName == userName) && file.Id == fileId);
-            if (fileEntity == null)
-            {
-                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"Файл {fileId} не найден или отсутствует доступ у пользователя {userName}" });
-                return result;
-            }
-
-            // Get full file name
-            var fullSourceFileName = GetFilePath(fileEntity, userName);
-
-            // Get file's stream
-            result.Result = System.IO.File.OpenRead(fullSourceFileName);
+            var result = new ServiceResult<FileStream>();            
+            // Get file path
+            var filePath = GetFilePathById(fileId, userName);
+            // Get file stream
+            result.Result = System.IO.File.OpenRead(filePath);
 
             return result;
         }
@@ -239,41 +221,46 @@ namespace Monit95App.Services.File
         /// <summary>
         /// Получает объект File из базы даных
         /// </summary>
+        /// <remarks>При получении объекта идет проверка уровня доступа</remarks>
         /// <param name="fileId"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        private Domain.Core.Entities.File GetFileDbEntity(int fileId, string userName = null)
+        // TODO: refactoring
+        private Domain.Core.Entities.File GetFileEntity(int fileId, FilePermission filePermission)
         {
-            var query = context.Files.Where(file => file.Id == fileId); // create query
-            if (!string.IsNullOrWhiteSpace(userName))
-                query = query.Where(file => file.FilePermissonList.Any(fp => fp.UserName == userName && fp.PermissionId == (int)FilePermissionId.ReadAndDelete)); // edit query
-            var fileEntity = query.SingleOrDefault(); // performance query
-            // Fail
+            var fileEntity = context.Files.SingleOrDefault(file => file.Id == fileId && file.FilePermissonList.Any(fp => fp.Equals(filePermission)));                        
+
             if (fileEntity == null)
-                throw new ArgumentException("Is invalid", $"{nameof(fileId)}: '{fileId}' or {nameof(userName)}: '{userName}'");
-            if (fileEntity.Name.Contains("{userName}") && string.IsNullOrWhiteSpace(userName))
-                throw new ArgumentException("Is null or empty, but file name has pattern {userName}", $"{nameof(userName)}");
+            {                
+                throw new ArgumentException();
+            }                            
 
             return fileEntity;
-        }
+        }   
 
         /// <summary>
         /// Получает полный путь к файлу на файловой системе
         /// </summary>
-        /// <param name="file"></param>
+        /// <param name="fileId"></param>
         /// <param name="userName">
         /// Данный параметр необходим если в названии файла будет маска к примеру "{userName_ру_распределение.xlsx}".
         /// Параметр может быть равен null
         /// </param>
         /// <returns></returns>
-        private string GetFilePath(Domain.Core.Entities.File file, string userName)
+        // TODO: refactoring
+        private string GetFilePathById(int fileId, string userName)
         {
-            // Generate fullFileName
-            var fileName = file.Name.Replace("{userName}", userName); // при наличии маски {userName} обработать ее
+            var filePermission = new FilePermission
+            {
+                UserName = userName,
+                PermissionId = 1
+            };
+            var fileEntity = GetFileEntity(fileId, filePermission);
+            // Generate filePath
+            var fileName = fileEntity.Name.Replace("{userName}", filePermission.UserName); // при наличии маски {userName} обработать ее
+            var filePath = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileName}"; // generate filePath in repository  
 
-            var fullSourceFileName = $@"{REPOSITORIES_FOLDER}\{file.RepositoryId}\{fileName}"; // generate filePath in repository  
-
-            return fullSourceFileName;
+            return filePath;
         }
 
         #endregion

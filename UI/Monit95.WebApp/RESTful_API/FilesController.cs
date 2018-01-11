@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,7 +16,7 @@ namespace Monit95.WebApp.RESTful_API
     /// <summary>
     /// Контроллер для работы с файлами бланков ответов
     /// </summary>        
-    [Authorize]
+   // [Authorize]
     public class FilesController : ApiController
     {
         #region Dependencies
@@ -37,95 +38,43 @@ namespace Monit95.WebApp.RESTful_API
         /// Добавление файла в указанный репозиторий
         /// </summary>        
         /// <returns>fileId</returns>
+        // TODO: refactoring, поймать что дубликат
         [HttpPost]
         [Route("~/api/repositories/{id:int}/files")]        
         [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
         public HttpResponseMessage AddFileToRepository()
         {
             var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-
             // Find file in requestBody
             var httpFileCollection = HttpContext.Current.Request.Files;
             if (httpFileCollection.Count == 0)            
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Body has not file");            
-                   
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Body has not file");                               
             // Get file's content from body
             HttpPostedFile postedFile = httpFileCollection.Get(0);
-
             // Call service
-            var result = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);            
+            int fileId;
+            try
+            {
+                fileId = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
+            }
+            catch(ArgumentException exception)
+            {
+                ModelState.AddModelError("Ошибка", exception);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
 
-            // Success
-            if (!result.Errors.Any())            
-                return Request.CreateResponse(HttpStatusCode.Created, Convert.ToInt32(result.Result));
-
-            // Error: dublicate
-            if (result.Errors.Any(error => error.HttpCode == 409))
-                return Request.CreateErrorResponse(HttpStatusCode.Conflict, string.Empty);
-
-            // Error: another
-            foreach (var error in result.Errors)                         
-                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);            
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);            
+            return Request.CreateResponse(HttpStatusCode.Created, fileId);
         }
 
-        //[HttpPost, Route("~/api/files/{id:int}")]        
-        //public IHttpActionResult DeleteFile()
-        //{
-        //    var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);            
-
-        //    var result = fileService.Delete(fileId, User.Identity.Name);
-
-        //    // Success
-        //    if (!result.Errors.Any())
-        //        return Ok();
-
-        //    // Faild
-        //    foreach (var error in result.Errors)
-        //        ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
-        //    return BadRequest(ModelState);
-        //}
-
-        //[HttpGet, Route("~/api/files/{id:int}/url")]
-        //public IHttpActionResult GetUrl()
-        //{
-        //    var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-        //    var urlImagesFolder = HostingEnvironment.MapPath("~/Images/url-images");
-        //    var result = fileService.GetFileName(fileId, User.Identity.Name, urlImagesFolder);
-        //    //var result = fileService.GetFileName(fileId, urlImagesFolder, "201");
-
-        //    // Success
-        //    if (!result.Errors.Any())
-        //        return Ok(result.Result);
-
-        //    // Faild
-        //    foreach (var error in result.Errors)
-        //        ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
-        //    return BadRequest(ModelState);            
-        //}
-
-        [HttpGet, Route("~/api/files/{id:int}/content")]
-        public HttpResponseMessage GetFileContent()
+        [HttpDelete, Route("~/api/files/{id:int}")]
+        public IHttpActionResult DeleteFile()
         {
+            //TODO: сделать валидацию и при необходимости вернуть ошибку что такой файл не найден или нет досутпа для пользователя
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            var result = fileService.GetFileContent(fileId, User.Identity.Name);
 
-            // Success
-            if (!result.Errors.Any())
-            {
-                var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StreamContent(result.Result),
-                };
-                httpResponseMessage.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            fileService.Delete(fileId, User.Identity.Name);
 
-                return httpResponseMessage;
-            }                
-
-            // Faild
-            foreach (var error in result.Errors)
-                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            return Ok();
         }
     }
 }

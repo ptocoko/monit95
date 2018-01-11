@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Rsur.SeminarReport;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
@@ -24,51 +26,22 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             this.seminarReportService = seminarReportService;            
         }
 
-        #region Endpoins                        
+        #region Endpoins                                  
 
-        [HttpPost, Route("{id:int}/files")]
-        [Authorize(Roles = "school")]        
-        public IHttpActionResult PostReportFiles()
-        {
-            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-            var httpRequest = HttpContext.Current.Request;
-
-            var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
-            for (var i = 0; i < httpRequest.Files.Count; i++)
-            {
-                var file = httpRequest.Files[i];
-                var fileExtension = Path.GetExtension(file.FileName);
-                seminarReportService.SaveFile(file.InputStream, fileExtension, reportId, i + 1, imagesFolder);
-            }
-
-            return Ok();
-        }
-
-        [HttpGet, Route("")]                
-        public IHttpActionResult GetSeminarReports()
-        {
-            if (User.IsInRole("school"))
-            {
-                var schoolId = User.Identity.Name;
-                return Ok(seminarReportService.GetSeminarReports(schoolId));
-            }
-
-            if (!User.IsInRole("area"))
-            {
-                return BadRequest();
-            }
-            var areaCode = int.Parse(User.Identity.Name);
-
-            return Ok(seminarReportService.GetSeminarReports(areaCode));
-        }
-
+        /// <summary>
+        /// Получение одного отчета
+        /// </summary>        
+        /// <returns>Возвращает словарь Dictionary<string key, string base64String></returns>
+        // TODO: refactoring
         [HttpGet, Route("{id:int}")]        
         public IHttpActionResult GetReport()
         {
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
 
-            return Ok(seminarReportService.GetReport(reportId));
-        }
+            var result = seminarReportService.GetReport(reportId, User.Identity.Name);
+
+            return Ok();
+        }                                               
 
         [HttpDelete, Route("{id:int}")]        
         public IHttpActionResult DeleteReport()
@@ -89,15 +62,26 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             HttpFileCollection httpFileCollection = HttpContext.Current.Request.Files;
             // ReSharper disable once PossibleNullReferenceException
             // Generate Dictionary<string, Stream>
-            var streamDictionary = httpFileCollection.AllKeys.Take(5) // must have 1 protocol and max 4 fotos
-                                                     .ToDictionary(key => key, key => httpFileCollection[key].InputStream);
+            var first5Keys = httpFileCollection.AllKeys.Take(5); // must have 1 protocol and max 4 fotos                                                     
+            var uniqueStreamDictionary = new Dictionary<string, UniqueStream>();
+
+            foreach(var key in first5Keys)
+            {
+                uniqueStreamDictionary.Add(key, new UniqueStream
+                {
+                    FileName = httpFileCollection[key].FileName,
+                    Stream = httpFileCollection[key].InputStream
+                });
+            }
+
             // Call service
-            var serviceResult = seminarReportService.CreateReport(streamDictionary, schoolId);
+            var serviceResult = seminarReportService.CreateReport(uniqueStreamDictionary, schoolId);
             // Success
             if (!serviceResult.Errors.Any())
                 return Request.CreateResponse(HttpStatusCode.Created, serviceResult.Result);
             // Error
             foreach (var error in serviceResult.Errors)
+
                 ModelState.AddModelError(error.Key, error.Description);
             
             return Request.CreateErrorResponse(serviceResult.Errors.Any(e => e.HttpCode == 409) ? HttpStatusCode.Conflict : HttpStatusCode.BadRequest, ModelState);            
