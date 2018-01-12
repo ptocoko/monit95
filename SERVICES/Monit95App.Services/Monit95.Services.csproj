@@ -165,7 +165,7 @@
     <Compile Include="ClassParticipReporter.cs" />
     <Compile Include="Rsur\RsurTestStatisticsDto.cs" />
     <Compile Include="Rsur\SeminarReport\ISeminarReportService.cs" />
-    <Compile Include="Rsur\SeminarReport\SeminarReportModel.cs" />
+    <Compile Include="Rsur\SeminarReport\SeminarReport.cs" />
     <Compile Include="Rsur\SeminarReport\SeminarReportService.cs" />
     <Compile Include="Rsur\QuestionValue\IQuestionValueService.cs" />
     <Compile Include="Rsur\QuestionValue\QuestionValueDto.cs" />

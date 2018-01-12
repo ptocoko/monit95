@@ -27,29 +27,10 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
         #region Endpoins                                  
 
-        /// <summary>
-        /// Получение одного отчета
-        /// </summary>        
-        /// <returns>Возвращает словарь Dictionary<string key, string base64String></returns>
-        // TODO: refactoring
-        [HttpGet, Route("{id:int}")]
-        public IHttpActionResult GetReport()
-        {
-            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-
-            var result = seminarReportService.GetReport(reportId, User.Identity.Name);
-
-            return Ok();
-        }
-
-        /// <summary>
-        /// Получение списка отчетов
-        /// </summary>
-        /// <returns></returns>
         [HttpGet, Route("")]
         public HttpResponseMessage GetReportsList()
         {
-            ServiceResult<IEnumerable<SeminarReportModel>> serviceResult = null;
+            ServiceResult<IEnumerable<SeminarReport>> serviceResult = null;
 
             if (User.IsInRole("school"))
             {
@@ -71,15 +52,32 @@ namespace Monit95.WebApp.RESTful_API.Rsur
                 ModelState.AddModelError(error.Key, error.Description);
 
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-        }                                
+        }
 
-        [HttpDelete, Route("{id:int}")]        
+        /// <summary>
+        /// Получение одного отчета
+        /// </summary>        
+        /// <returns>Возвращает словарь Dictionary<string key, string base64String></returns>
+        // TODO: refactoring
+        [HttpGet, Route("{id:int}")]        
+        public IHttpActionResult GetReport()
+        {
+            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
+
+            var result = seminarReportService.GetReport(reportId, User.Identity.Name);
+
+            return Ok(result);
+        }                                               
+
+        [HttpDelete, Route("{id:int}")]
+        [Authorize(Roles = "school")]
         public IHttpActionResult DeleteReport()
         {
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-            var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
+            //var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
+            var schoolId = User.Identity.Name;
 
-            seminarReportService.DeleteReport(reportId, imagesFolder);
+            seminarReportService.DeleteReport(reportId, schoolId);
 
             return Ok();
         }

@@ -140,14 +140,13 @@ namespace Monit95App.Services.File
             };
 
             var fileEntity = GetFileEntity(fileId, filePermission);
-
-            // Delete database object
-            context.Files.Remove(fileEntity);
             
             // Delete file system object
             var filePath = GetFilePathById(fileEntity.Id, userName);
             System.IO.File.Delete(filePath);
             
+            // Delete database object
+            context.Files.Remove(fileEntity);
             context.SaveChanges();
         }       
 

@@ -4,6 +4,7 @@ import { SeminarReportModel } from "../shared/seminar-report.model";
 import { SeminarReportService } from '../../../../services/seminar-report.service';
 import { AccountService } from '../../../../services/account.service';
 import { Observable } from 'rxjs/Observable';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
 	selector: 'reports-list',
@@ -14,13 +15,21 @@ export class SeminarReportsListComponent implements OnInit{
 	reports: Observable<SeminarReportModel[]>;
 
 	constructor(private readonly seminarReportService: SeminarReportService,
-				private readonly accountService: AccountService) { }
+				private readonly accountService: AccountService,
+				private readonly snackBar: MatSnackBar) { }
 
 	ngOnInit() {
-		this.reports = this.seminarReportService.getReportsList();
+		this.getReports();
 	}
 
 	deleteReport(reportId: number) {
-		this.seminarReportService.deleteReport(reportId).subscribe();
+		this.seminarReportService.deleteReport(reportId).subscribe(response => {
+			this.getReports();
+			this.snackBar.open('отчет удален', 'OK', { duration: 3000 });
+		});
+	}
+
+	getReports() {
+		this.reports = this.seminarReportService.getReportsList();
 	}
 }
