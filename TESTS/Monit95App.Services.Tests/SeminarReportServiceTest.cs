@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
@@ -10,7 +8,6 @@ using Monit95App.Services.File;
 using Monit95App.Services.Rsur.SeminarReport;
 using Monit95App.Services.Tests.Util;
 using NSubstitute;
-using ServiceResult;
 
 namespace Monit95App.Services.Tests
 {
