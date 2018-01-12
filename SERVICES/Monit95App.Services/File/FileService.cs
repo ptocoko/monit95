@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Enums;
 using ServiceResult;
 
 namespace Monit95App.Services.File
@@ -44,6 +45,32 @@ namespace Monit95App.Services.File
         /// <returns>fileId</returns>
         public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName)
         {
+            return Add(repositoryId, sourceFileStream, sourceFileName, userName, new List<UserPermission>
+            {
+                new UserPermission
+                {
+                    UserName = userName,
+                    Access = Access.Read
+                },
+                new UserPermission
+                {
+                    UserName = userName,
+                    Access = Access.Delete
+                }
+            });
+        }
+
+        /// <summary>
+        /// Добавление файла в репозиторий
+        /// </summary>
+        /// <param name="repositoryId"></param>
+        /// <param name="sourceFileStream"></param>
+        /// <param name="sourceFileName">for file extension</param>
+        /// <param name="userName"></param>
+        /// <param name="permissions">список объектов с информацией о пользователях и разрешенных им действиях над файлом</param>
+        /// <returns>fileId</returns>
+        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<UserPermission> permissions)
+        {
             // Validate userName
             if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName)))
                 throw new ArgumentException($"{ nameof(userName) } is invalid", nameof(userName));
@@ -52,8 +79,8 @@ namespace Monit95App.Services.File
                 throw new ArgumentException($"{ nameof(repositoryId) } is invalid", nameof(repositoryId));
             // Validate sourceFileStream            
             if (sourceFileStream == null || sourceFileStream.Length > 15728640)
-                throw new ArgumentException($"{nameof(sourceFileStream)} is invalid: null or > 15 Mb", nameof(sourceFileStream));           
-            
+                throw new ArgumentException($"{nameof(sourceFileStream)} is invalid: null or > 15 Mb", nameof(sourceFileStream));
+
             // Generate hexHash
             string hexHash;
             using (var md5 = MD5.Create())
@@ -84,19 +111,11 @@ namespace Monit95App.Services.File
                 RepositoryId = repositoryId,
                 HexHash = hexHash,
                 Name = destFileName.ToLower(),
-                FilePermissonList = new HashSet<FilePermission>
-                {
-                    new FilePermission
-                    {
-                        UserName = userName,
-                        PermissionId = (int)Enums.Access.Read
-                    },
-                    new FilePermission
-                    {
-                        UserName = userName,
-                        PermissionId = (int)Enums.Access.Delete
-                    }
-                }
+                FilePermissonList = permissions.Select(s => new FilePermission
+                                    {
+                                        UserName = s.UserName,
+                                        PermissionId = (int)s.Access
+                                    }).ToList()
             };
 
             // Add file's entity to database
@@ -104,10 +123,9 @@ namespace Monit95App.Services.File
 
             // Send changes into database
             context.SaveChanges();
-            
+
             return fileEntity.Id;
         }
-
         /// <summary>
         /// Метод для удаление файла с указанием владельца
         /// </summary>

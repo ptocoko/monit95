@@ -7,6 +7,7 @@ using Monit95App.Services.File;
 using ServiceResult;
 using System;
 using System.Web;
+using System.Globalization;
 
 namespace Monit95App.Services.Rsur.SeminarReport
 {
@@ -69,11 +70,38 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
             // ADD FILES INTO FILE REPOSITORY
             // add protocol file into file repository
-            
+
+            // create userPermission sequence
+            var areaCode = context.Schools.Find(schoolId).AreaCode;
+            IEnumerable<UserPermission> userPermissions = new List<UserPermission>
+            {
+                new UserPermission
+                {
+                    UserName = schoolId,
+                    Access = Enums.Access.Delete
+                },
+                new UserPermission
+                {
+                    UserName = schoolId,
+                    Access = Enums.Access.Read
+                },
+                new UserPermission
+                {
+                    UserName = areaCode.ToString(),
+                    Access = Enums.Access.Read
+                }
+            };
+
             int addedProtocolFileId;
             try
             {
-                addedProtocolFileId = fileService.Add(seminarReportFileRepositoryId, uniqueStreamDictionary["protocol"].Stream, uniqueStreamDictionary["protocol"].FileName, schoolId);
+                addedProtocolFileId = fileService.Add(
+                    seminarReportFileRepositoryId, 
+                    uniqueStreamDictionary["protocol"].Stream, 
+                    uniqueStreamDictionary["protocol"].FileName, 
+                    schoolId,
+                    userPermissions
+                    );
             }
             catch (ArgumentException exception)
             {
@@ -91,8 +119,13 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 int addedPhotoFileId;
                 try
                 {
-                    addedPhotoFileId = fileService.Add(seminarReportFileRepositoryId, uniqueStreamDictionary[key].Stream,
-                                                       uniqueStreamDictionary[key].FileName, schoolId);
+                    addedPhotoFileId = fileService.Add(
+                        seminarReportFileRepositoryId, 
+                        uniqueStreamDictionary[key].Stream,
+                        uniqueStreamDictionary[key].FileName, 
+                        schoolId,
+                        userPermissions
+                        );
                     addedPhotoFileIds.Add(addedPhotoFileId);
                 }
                 catch (ArgumentException exception)
@@ -133,7 +166,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             successResult.Result = rsurReport.Id;
             return successResult;
         }
-
+        
         /// <summary>
         /// Удаление отчета
         /// </summary>
@@ -199,6 +232,64 @@ namespace Monit95App.Services.Rsur.SeminarReport
             return resultDictionary;
         }
 
+        /// <summary>
+        /// Получить список отчетов одной школы
+        /// </summary>
+        /// <param name="schoolId"></param>
+        /// <returns></returns>
+        public ServiceResult<IEnumerable<SeminarReportModel>> GetReportsList(string schoolId)
+        {
+            var errorResult = new ServiceResult<IEnumerable<SeminarReportModel>>();
+            if (String.IsNullOrEmpty(schoolId) || !context.Schools.Any(s => s.Id == schoolId))
+            {
+                errorResult.AddModelError(nameof(schoolId), $"{nameof(schoolId)} parameter is not valid");
+                return errorResult;
+            }
+
+            var successResult = new ServiceResult<IEnumerable<SeminarReportModel>>();
+            var query = context.RsurReports.Where(p => p.SchoolId == schoolId);
+            successResult.Result = GetReportListFromQuery(query);
+            return successResult;
+        }
+
+        /// <summary>
+        /// Получить список отчетов всех школ одного района
+        /// </summary>
+        /// <param name="areaCode"></param>
+        /// <returns></returns>
+        public ServiceResult<IEnumerable<SeminarReportModel>> GetReportsList(int areaCode)
+        {
+            var errorResult = new ServiceResult<IEnumerable<SeminarReportModel>>();
+            if(!Enumerable.Range(201, 217).Contains(areaCode))
+            {
+                errorResult.AddModelError(nameof(areaCode), $"{nameof(areaCode)} parameter is not valid");
+                return errorResult;
+            }
+
+            var successResult = new ServiceResult<IEnumerable<SeminarReportModel>>();
+            var query = context.RsurReports.Where(p => p.School.AreaCode == areaCode);
+            successResult.Result = GetReportListFromQuery(query);
+            return successResult;
+        }
+        #endregion
+
+        #region private_methods
+        /// <summary>
+        /// Метод, содержащий повторяющийся код методов GetReportsList для школы и района
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        private IEnumerable<SeminarReportModel> GetReportListFromQuery(IQueryable<RsurReport> query)
+        {
+            // TODO: try with includes school table
+            return query.ToList()
+                .Select(s => new SeminarReportModel
+                {
+                    RsurReportId = s.Id,
+                    DateText = s.Date.ToString("dd MMM HH:mm:ss", new CultureInfo("ru-RU")),
+                    SchoolName = $"{s.SchoolId} - {s.School.Name}",
+                });
+        }
         #endregion
     }
 }
