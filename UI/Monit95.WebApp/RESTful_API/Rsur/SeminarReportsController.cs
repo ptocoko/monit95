@@ -30,7 +30,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         [HttpGet, Route("")]
         public HttpResponseMessage GetReportsList()
         {
-            ServiceResult<IEnumerable<SeminarReportModel>> serviceResult = null;
+            ServiceResult<IEnumerable<SeminarReport>> serviceResult = null;
 
             if (User.IsInRole("school"))
             {
@@ -66,16 +66,18 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
             var result = seminarReportService.GetReport(reportId, User.Identity.Name);
 
-            return Ok();
+            return Ok(result);
         }                                               
 
-        [HttpDelete, Route("{id:int}")]        
+        [HttpDelete, Route("{id:int}")]
+        [Authorize(Roles = "school")]
         public IHttpActionResult DeleteReport()
         {
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-            var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
+            //var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
+            var schoolId = User.Identity.Name;
 
-            seminarReportService.DeleteReport(reportId, imagesFolder);
+            seminarReportService.DeleteReport(reportId, schoolId);
 
             return Ok();
         }

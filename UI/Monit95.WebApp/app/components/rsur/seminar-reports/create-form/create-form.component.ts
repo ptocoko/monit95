@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 export class SeminarReportCreateFormComponent {
 	seminarFiles: IImageFile[] = [];
 	readonly maxFileSize = 15728640; // 15 MB 
-	filesCount: number = 0; // используется для генерации уникальных ключей для файлов семинара
+	fileIndex: number = 1; // используется для генерации уникальных ключей для файлов семинара
 	acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
 	getNotProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === false);
 	getProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === true);
@@ -27,7 +27,7 @@ export class SeminarReportCreateFormComponent {
 			for (let i = 0; i < files.length; i++) {
 				let seminarFile: IImageFile = {
 					// 
-					key: isProtocol ? 'protocol' : `image_${this.filesCount++}`,
+					key: isProtocol ? 'protocol' : `image_${this.fileIndex++}`,
 					isProtocol: isProtocol,
 					file: files[i],
 					base64String: isProtocol ? undefined : await this.getBase64String(files[i])

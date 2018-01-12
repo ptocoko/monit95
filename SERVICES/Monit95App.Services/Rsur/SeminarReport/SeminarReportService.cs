@@ -189,10 +189,11 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
             // Delete RsurReport object from database -> delete corresponding RsurReportFile objects
             context.RsurReports.Remove(report);
+            context.SaveChanges();
 
             // Delete report files
             foreach (var filelId in fileIds)
-                fileService.Delete(filelId);
+                fileService.Delete(filelId, schoolId);
                         
             return result;
         }
@@ -204,32 +205,37 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// <param name="userName"></param>
         /// <returns>(string key, string base64String)</returns>
         /// TODO: refactoring
-        public Dictionary<string, string> GetReport(int reportId, string userName)
+        public SeminarReport GetReport(int reportId, string userName)
         {
+            var resultDictionary = new Dictionary<string, string>();
+
             var filePermissionForRead = new FilePermission
             {
                 UserName = userName,
                 PermissionId = 1
             };
 
+            var report = context.RsurReports.Single(s => s.Id == reportId);
             var reportFiles = context.RsurReportFiles.Where(rf => rf.RsurReportId == reportId).ToList()
                                      .Where(rf => rf.File.FilePermissonList.Any(fp => fp.Equals(filePermissionForRead)));
-            var resultDictionary = new Dictionary<string, string>();
 
             // Procces protocol files
-            var protocolReportFile = reportFiles.Single(rf => rf.IsProtocol == true);
+            var protocolReportFile = reportFiles.Single(rf => rf.IsProtocol);
             var protocolFileBase64String = fileService.GetFileBase64String(protocolReportFile.FileId, userName);
             resultDictionary.Add("protocol", protocolFileBase64String);
 
             // Procces foto files
             int index = 1;
-            foreach (var reportFile in reportFiles.Where(rf => rf.IsProtocol == false))
+            foreach (var reportFile in reportFiles.Where(rf => !rf.IsProtocol))
             {
                 var fotoFileBase64String = fileService.GetFileBase64String(reportFile.FileId, userName);
                 resultDictionary.Add($"foto{index++}", fotoFileBase64String);
-            }                     
+            }
 
-            return resultDictionary;
+            var seminarReport = SeminarReport.CreateReportModel(report);
+            seminarReport.SeminarFiles = resultDictionary;
+            
+            return seminarReport;
         }
 
         /// <summary>
@@ -237,16 +243,16 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// </summary>
         /// <param name="schoolId"></param>
         /// <returns></returns>
-        public ServiceResult<IEnumerable<SeminarReportModel>> GetReportsList(string schoolId)
+        public ServiceResult<IEnumerable<SeminarReport>> GetReportsList(string schoolId)
         {
-            var errorResult = new ServiceResult<IEnumerable<SeminarReportModel>>();
+            var errorResult = new ServiceResult<IEnumerable<SeminarReport>>();
             if (String.IsNullOrEmpty(schoolId) || !context.Schools.Any(s => s.Id == schoolId))
             {
                 errorResult.AddModelError(nameof(schoolId), $"{nameof(schoolId)} parameter is not valid");
                 return errorResult;
             }
 
-            var successResult = new ServiceResult<IEnumerable<SeminarReportModel>>();
+            var successResult = new ServiceResult<IEnumerable<SeminarReport>>();
             var query = context.RsurReports.Where(p => p.SchoolId == schoolId);
             successResult.Result = GetReportListFromQuery(query);
             return successResult;
@@ -257,16 +263,16 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// </summary>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public ServiceResult<IEnumerable<SeminarReportModel>> GetReportsList(int areaCode)
+        public ServiceResult<IEnumerable<SeminarReport>> GetReportsList(int areaCode)
         {
-            var errorResult = new ServiceResult<IEnumerable<SeminarReportModel>>();
+            var errorResult = new ServiceResult<IEnumerable<SeminarReport>>();
             if(!Enumerable.Range(201, 217).Contains(areaCode))
             {
                 errorResult.AddModelError(nameof(areaCode), $"{nameof(areaCode)} parameter is not valid");
                 return errorResult;
             }
 
-            var successResult = new ServiceResult<IEnumerable<SeminarReportModel>>();
+            var successResult = new ServiceResult<IEnumerable<SeminarReport>>();
             var query = context.RsurReports.Where(p => p.School.AreaCode == areaCode);
             successResult.Result = GetReportListFromQuery(query);
             return successResult;
@@ -279,16 +285,11 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        private IEnumerable<SeminarReportModel> GetReportListFromQuery(IQueryable<RsurReport> query)
+        private IEnumerable<SeminarReport> GetReportListFromQuery(IQueryable<RsurReport> query)
         {
             // TODO: try with includes school table
-            return query.ToList()
-                .Select(s => new SeminarReportModel
-                {
-                    RsurReportId = s.Id,
-                    DateText = s.Date.ToString("dd MMM HH:mm:ss", new CultureInfo("ru-RU")),
-                    SchoolName = $"{s.SchoolId} - {s.School.Name}",
-                });
+            return query.OrderByDescending(ob => ob.Date).ToList()
+                .Select(s => SeminarReport.CreateReportModel(s));
         }
         #endregion
     }

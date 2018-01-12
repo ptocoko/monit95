@@ -4,16 +4,25 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
 var account_service_1 = require("../../../../services/account.service");
+var material_1 = require("@angular/material");
 var SeminarReportsListComponent = /** @class */ (function () {
-    function SeminarReportsListComponent(seminarReportService, accountService) {
+    function SeminarReportsListComponent(seminarReportService, accountService, snackBar) {
         this.seminarReportService = seminarReportService;
         this.accountService = accountService;
+        this.snackBar = snackBar;
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
-        this.reports = this.seminarReportService.getReportsList();
+        this.getReports();
     };
     SeminarReportsListComponent.prototype.deleteReport = function (reportId) {
-        this.seminarReportService.deleteReport(reportId).subscribe();
+        var _this = this;
+        this.seminarReportService.deleteReport(reportId).subscribe(function (response) {
+            _this.getReports();
+            _this.snackBar.open('отчет удален', 'OK', { duration: 3000 });
+        });
+    };
+    SeminarReportsListComponent.prototype.getReports = function () {
+        this.reports = this.seminarReportService.getReportsList();
     };
     SeminarReportsListComponent = tslib_1.__decorate([
         core_1.Component({
@@ -22,7 +31,8 @@ var SeminarReportsListComponent = /** @class */ (function () {
             styleUrls: ["./app/components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [seminar_report_service_1.SeminarReportService,
-            account_service_1.AccountService])
+            account_service_1.AccountService,
+            material_1.MatSnackBar])
     ], SeminarReportsListComponent);
     return SeminarReportsListComponent;
 }());

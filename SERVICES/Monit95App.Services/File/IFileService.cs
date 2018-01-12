@@ -14,6 +14,6 @@ namespace Monit95App.Services.File
 
         ServiceResult<FileStream> GetFileStream(int fileId, string userName);
 
-        void Delete(int fileId, string userName = null);
+        void Delete(int fileId, string userName);
     }
 }
