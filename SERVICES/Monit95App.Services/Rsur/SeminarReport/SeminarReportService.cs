@@ -70,11 +70,38 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
             // ADD FILES INTO FILE REPOSITORY
             // add protocol file into file repository
-            
+
+            // create userPermission sequence
+            var areaCode = context.Schools.Find(schoolId).AreaCode;
+            IEnumerable<UserPermission> userPermissions = new List<UserPermission>
+            {
+                new UserPermission
+                {
+                    UserName = schoolId,
+                    Access = Enums.Access.Delete
+                },
+                new UserPermission
+                {
+                    UserName = schoolId,
+                    Access = Enums.Access.Read
+                },
+                new UserPermission
+                {
+                    UserName = areaCode.ToString(),
+                    Access = Enums.Access.Read
+                }
+            };
+
             int addedProtocolFileId;
             try
             {
-                addedProtocolFileId = fileService.Add(seminarReportFileRepositoryId, uniqueStreamDictionary["protocol"].Stream, uniqueStreamDictionary["protocol"].FileName, schoolId);
+                addedProtocolFileId = fileService.Add(
+                    seminarReportFileRepositoryId, 
+                    uniqueStreamDictionary["protocol"].Stream, 
+                    uniqueStreamDictionary["protocol"].FileName, 
+                    schoolId,
+                    userPermissions
+                    );
             }
             catch (ArgumentException exception)
             {
@@ -92,8 +119,13 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 int addedPhotoFileId;
                 try
                 {
-                    addedPhotoFileId = fileService.Add(seminarReportFileRepositoryId, uniqueStreamDictionary[key].Stream,
-                                                       uniqueStreamDictionary[key].FileName, schoolId);
+                    addedPhotoFileId = fileService.Add(
+                        seminarReportFileRepositoryId, 
+                        uniqueStreamDictionary[key].Stream,
+                        uniqueStreamDictionary[key].FileName, 
+                        schoolId,
+                        userPermissions
+                        );
                     addedPhotoFileIds.Add(addedPhotoFileId);
                 }
                 catch (ArgumentException exception)
