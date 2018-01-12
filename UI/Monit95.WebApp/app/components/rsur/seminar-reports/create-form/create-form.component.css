@@ -14,7 +14,7 @@
     height:200px;
 }
 
-.seminar-file-container{
+.seminar-file-item{
     display:inline-block;
     position:relative;
     margin:15px 0 0 15px;
@@ -33,9 +33,9 @@ input[type=file]{
     display:none;
 }
 
-.mat-raised-button{
+/*.mat-raised-button{
     margin-top: 20px;
-}
+}*/
 
 .alert {
     margin-bottom: 0 !important;

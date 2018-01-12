@@ -10,6 +10,7 @@ namespace Monit95App.Domain.Core.Entities
         public RsurReport()
         {
             RsurReportFiles = new HashSet<RsurReportFile>();
+            Date = DateTime.Now;
         }
 
         public int Id { get; set; }
