@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
 using Monit95App.Services.Rsur.SeminarReport;
+using ServiceResult;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
 {
@@ -25,6 +26,33 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         #region Endpoins                                  
+
+        [HttpGet, Route("")]
+        public HttpResponseMessage GetReportsList()
+        {
+            ServiceResult<IEnumerable<SeminarReportModel>> serviceResult = null;
+
+            if (User.IsInRole("school"))
+            {
+                var schoolId = User.Identity.Name;
+                serviceResult = seminarReportService.GetReportsList(schoolId);
+            }
+            else if (User.IsInRole("areaCode"))
+            {
+                var areaCode = int.Parse(User.Identity.Name);
+                serviceResult = seminarReportService.GetReportsList(areaCode);
+            }
+
+            if(serviceResult != null && !serviceResult.Errors.Any())
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, serviceResult.Result);
+            }
+
+            foreach (var error in serviceResult.Errors)
+                ModelState.AddModelError(error.Key, error.Description);
+
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        }
 
         /// <summary>
         /// Получение одного отчета

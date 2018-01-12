@@ -2,21 +2,27 @@
 <hr />
 <table class="table table-bordered table-hover table-striped" [ngClass]="{'school-table-width': accountService.isSchool()}">
     <tr>
-        <th style="width: 60px; text-align: center">№ п/п</th>
-        <th style="text-align: center">Дата</th>
-        <th style="text-align: center">Описание</th>
-        <th *ngIf="accountService.isArea()" style="text-align: center">Наименование школы</th>
+        <th>№ п/п</th>
+        <th>Дата</th>
+        <th *ngIf="accountService.isArea()">Наименование школы</th>
         <th *ngIf="accountService.isSchool()" style="width:30px"></th>
     </tr>
-    <tr *ngFor="let report of reports; let i = index" style="cursor:pointer">
-        <td style="text-align:center; vertical-align:middle" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">{{i + 1}}</td>
-        <td style="text-align:center; vertical-align:middle" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">{{report.DateText}}</td>
-        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]" style="vertical-align:middle">{{report.Text}}</td>
-        <td *ngIf="accountService.isArea()" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]" style="vertical-align:middle">{{report.SchoolName}}</td>
-        <td *ngIf="accountService.isSchool()"><a class="glyphicon glyphicon-trash" (click)="deleteReport(report.RsurReportId)"></a></td>
+    <tr *ngFor="let report of reports | async; let i = index" style="cursor:pointer">
+        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+            {{i + 1}}
+        </td>
+        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+            {{report.DateText}}
+        </td>
+        <td *ngIf="accountService.isArea()" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+            {{report.SchoolName}}
+        </td>
+        <td *ngIf="accountService.isSchool()">
+            <a class="glyphicon glyphicon-trash" (click)="deleteReport(report.RsurReportId)"></a>
+        </td>
     </tr>
 </table>
-<div *ngIf="reports?.length == 0" class="text-muted"><i>отчеты отсутствуют</i></div>
+<!--<div *ngIf="reports?.length == 0" class="text-muted"><i>отчеты отсутствуют</i></div>-->
 <div *ngIf="accountService.isSchool()">
     <button style="z-index: 10; position:fixed; left:60%; top:80%; background-color: green; color:white; font-size:x-large" mat-fab color="primary" routerLink="/rsur/upload-report">+</button>
 </div>

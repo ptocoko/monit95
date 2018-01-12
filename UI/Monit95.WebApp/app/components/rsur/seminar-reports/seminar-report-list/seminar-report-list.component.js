@@ -8,19 +8,12 @@ var SeminarReportsListComponent = /** @class */ (function () {
     function SeminarReportsListComponent(seminarReportService, accountService) {
         this.seminarReportService = seminarReportService;
         this.accountService = accountService;
-        this.reports = new Array();
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.seminarReportService.getReportsList().subscribe(function (res) { return _this.reports = res; });
+        this.reports = this.seminarReportService.getReportsList();
     };
     SeminarReportsListComponent.prototype.deleteReport = function (reportId) {
-        var _this = this;
-        this.seminarReportService.deleteReport(reportId).subscribe(function () {
-            var report = _this.reports.find(function (s) { return s.RsurReportId === reportId; });
-            var index = _this.reports.indexOf(report);
-            _this.reports.splice(index, 1);
-        });
+        this.seminarReportService.deleteReport(reportId).subscribe();
     };
     SeminarReportsListComponent = tslib_1.__decorate([
         core_1.Component({

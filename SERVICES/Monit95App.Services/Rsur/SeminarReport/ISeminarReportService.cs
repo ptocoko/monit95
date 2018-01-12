@@ -13,5 +13,8 @@ namespace Monit95App.Services.Rsur.SeminarReport
         ServiceResult<int> CreateReport(Dictionary<string, UniqueStream> uniqueStreamDictionary, string schoolId);
 
         VoidResult DeleteReport(int rsurReportId, string schoolId);
+
+        ServiceResult<IEnumerable<SeminarReportModel>> GetReportsList(string schoolId);
+        ServiceResult<IEnumerable<SeminarReportModel>> GetReportsList(int areaCode);
     }
 }
