@@ -53,7 +53,8 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         [HttpPost, Route("")]
-        [Authorize(Roles = "school")]        
+        [Authorize(Roles = "school")] 
+        // TODO: refactring
         public HttpResponseMessage CreateReport()
         {
             var schoolId = User.Identity.Name;

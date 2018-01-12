@@ -49,9 +49,6 @@
     <Reference Include="FastMember.Signed, Version=1.0.0.9, Culture=neutral, PublicKeyToken=9e8f22703bef9a29, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FastMember.Signed.1.1.0\lib\net40\FastMember.Signed.dll</HintPath>
     </Reference>
-    <Reference Include="Monit95App.Infrastructure.Business">
-      <HintPath>..\..\Monit95App.Web\Bin\Monit95App.Infrastructure.Business.dll</HintPath>
-    </Reference>
     <Reference Include="NReco.PdfGenerator, Version=1.1.15.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NReco.PdfGenerator.1.1.15\lib\net20\NReco.PdfGenerator.dll</HintPath>
     </Reference>
@@ -195,7 +192,7 @@
       <Name>Monit95.Infrastructure.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServiceResult\ServiceResult.csproj">
-      <Project>{C3455394-07AF-469D-A1DB-5B191DFFAD9F}</Project>
+      <Project>{c3455394-07af-469d-a1db-5b191dffad9f}</Project>
       <Name>ServiceResult</Name>
     </ProjectReference>
   </ItemGroup>
@@ -208,6 +205,8 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

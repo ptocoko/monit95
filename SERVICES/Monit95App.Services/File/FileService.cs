@@ -128,11 +128,12 @@ namespace Monit95App.Services.File
 
             // Delete database object
             context.Files.Remove(fileEntity);
-            context.SaveChanges();
-
+            
             // Delete file system object
             var filePath = GetFilePathById(fileEntity.Id, userName);
             System.IO.File.Delete(filePath);
+            
+            context.SaveChanges();
         }       
 
         /// <summary>
@@ -228,7 +229,8 @@ namespace Monit95App.Services.File
         // TODO: refactoring
         private Domain.Core.Entities.File GetFileEntity(int fileId, FilePermission filePermission)
         {
-            var fileEntity = context.Files.SingleOrDefault(file => file.Id == fileId && file.FilePermissonList.Any(fp => fp.Equals(filePermission)));                        
+            // TODO: need refactoring
+            var fileEntity = context.Files.SingleOrDefault(file => file.Id == fileId && file.FilePermissonList.Any(fp => fp.UserName == filePermission.UserName && fp.PermissionId == filePermission.PermissionId));                        
 
             if (fileEntity == null)
             {                
