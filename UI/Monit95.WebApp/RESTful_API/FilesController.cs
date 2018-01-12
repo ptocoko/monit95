@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web;
-using System.Web.Hosting;
 using System.Web.Http;
 using Monit95App.Services.File;
 

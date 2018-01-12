@@ -157,14 +157,14 @@ namespace Monit95App.Services.Rsur.SeminarReport
                         
             return result;
         }
-
+        
         /// <summary>
-        /// Получить файлы отчета
+        /// Получить файлы одного отчета
         /// </summary>
         /// <param name="reportId"></param>
-        /// <param name="filePermission"></param>
-        /// <returns></returns>
-        // TODO: refactoring
+        /// <param name="userName"></param>
+        /// <returns>(string key, string base64String)</returns>
+        /// TODO: refactoring
         public Dictionary<string, string> GetReport(int reportId, string userName)
         {
             var filePermissionForRead = new FilePermission
@@ -172,8 +172,15 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 UserName = userName,
                 PermissionId = 1
             };
-            var reportFiles = context.RsurReportFiles.Where(rf => rf.RsurReportId == reportId && rf.File.FilePermissonList.Any(fp => fp.Equals(filePermissionForRead)));
+
+            var reportFiles = context.RsurReportFiles.Where(rf => rf.RsurReportId == reportId).ToList()
+                                     .Where(rf => rf.File.FilePermissonList.Any(fp => fp.Equals(filePermissionForRead)));
             var resultDictionary = new Dictionary<string, string>();
+
+            // Procces protocol files
+            var protocolReportFile = reportFiles.Single(rf => rf.IsProtocol == true);
+            var protocolFileBase64String = fileService.GetFileBase64String(protocolReportFile.FileId, userName);
+            resultDictionary.Add("protocol", protocolFileBase64String);
 
             // Procces foto files
             int index = 1;
@@ -181,11 +188,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             {
                 var fotoFileBase64String = fileService.GetFileBase64String(reportFile.FileId, userName);
                 resultDictionary.Add($"foto{index++}", fotoFileBase64String);
-            }
-
-            var protocolReportFile = reportFiles.Single(x => x.IsProtocol == true);
-            var protocolFileBase64String = fileService.GetFileBase64String(protocolReportFile.FileId, userName);
-            resultDictionary.Add("protocol", protocolFileBase64String);
+            }                     
 
             return resultDictionary;
         }
