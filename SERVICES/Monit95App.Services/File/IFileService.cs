@@ -1,5 +1,5 @@
-﻿using System.IO;
-using Monit95App.Domain.Core.Entities;
+﻿using System.Collections.Generic;
+using System.IO;
 using Monit95App.Services.Enums;
 using ServiceResult;
 
@@ -7,7 +7,8 @@ namespace Monit95App.Services.File
 {
     public interface IFileService
     {
-        int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName);                
+        int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName);
+        int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<Access> accesses);
 
         string GetFileBase64String(int fileId, string userName);
 

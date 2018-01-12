@@ -40,7 +40,7 @@ namespace Monit95App.Services.File
         /// <param name="repositoryId"></param>
         /// <param name="sourceFileStream"></param>
         /// <param name="sourceFileName">Имя файла также необходимо для получения расширения</param>
-        /// <param name="userName"></param>
+        /// <param name="userName">Для указанного пользователя устанавливаются уровни доступа READ и DELETE</param>
         /// <returns>fileId</returns>
         public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName)
         {
@@ -89,12 +89,12 @@ namespace Monit95App.Services.File
                     new FilePermission
                     {
                         UserName = userName,
-                        PermissionId = (int)Enums.Security.Read
+                        PermissionId = (int)Enums.Access.Read
                     },
                     new FilePermission
                     {
                         UserName = userName,
-                        PermissionId = (int)Enums.Security.Delete
+                        PermissionId = (int)Enums.Access.Delete
                     }
                 }
             };
