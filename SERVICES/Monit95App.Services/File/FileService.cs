@@ -15,6 +15,7 @@ namespace Monit95App.Services.File
         #region Fields
 
         private const string REPOSITORIES_FOLDER = @"c:\repositories";
+        private const int MAX_FILE_SIZE = 15728664; // 15 mb
 
         #endregion
 
@@ -61,7 +62,7 @@ namespace Monit95App.Services.File
         }
 
         /// <summary>
-        /// Добавление файла в репозиторий
+        /// Добавление файла в репозиторий с указанием уровня доступа для различных пользователей
         /// </summary>
         /// <param name="repositoryId"></param>
         /// <param name="sourceFileStream"></param>
@@ -69,18 +70,18 @@ namespace Monit95App.Services.File
         /// <param name="userName"></param>
         /// <param name="permissions">список объектов с информацией о пользователях и разрешенных им действиях над файлом</param>
         /// <returns>fileId</returns>
+        /// TODO: validate permissions
         public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<UserPermission> permissions)
         {
-            // Validate userName
-            if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName)))
-                throw new ArgumentException($"{ nameof(userName) } is invalid", nameof(userName));
             // Validate repositoryId
             if (!context.Repositories.Any(repository => repository.Id == repositoryId))
                 throw new ArgumentException($"{ nameof(repositoryId) } is invalid", nameof(repositoryId));
             // Validate sourceFileStream            
-            if (sourceFileStream == null || sourceFileStream.Length > 15728640)
+            if (sourceFileStream == null || sourceFileStream.Length > MAX_FILE_SIZE)
                 throw new ArgumentException($"{nameof(sourceFileStream)} is invalid: null or > 15 Mb", nameof(sourceFileStream));
-
+            // Validate userName
+            if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName)))
+                throw new ArgumentException($"{ nameof(userName) } is invalid", nameof(userName));        
             // Generate hexHash
             string hexHash;
             using (var md5 = MD5.Create())
@@ -91,7 +92,6 @@ namespace Monit95App.Services.File
             // Check exist by hash
             if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash.Equals(hexHash)))
                 throw new ArgumentException("Already exists");
-
 
             sourceFileName = Path.GetFileName(sourceFileName); // delete path
             var extension = Path.GetExtension(sourceFileName);
@@ -117,12 +117,9 @@ namespace Monit95App.Services.File
                                         PermissionId = (int)s.Access
                                     }).ToList()
             };
-
-            // Add file's entity to database
-            context.Files.Add(fileEntity);
-
-            // Send changes into database
-            context.SaveChanges();
+            
+            context.Files.Add(fileEntity); // add file's entity to database            
+            context.SaveChanges(); // send changes into database
 
             return fileEntity.Id;
         }

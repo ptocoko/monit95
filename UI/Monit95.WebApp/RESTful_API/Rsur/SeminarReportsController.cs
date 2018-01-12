@@ -27,6 +27,25 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
         #region Endpoins                                  
 
+        /// <summary>
+        /// Получение одного отчета
+        /// </summary>        
+        /// <returns>Возвращает словарь Dictionary<string key, string base64String></returns>
+        // TODO: refactoring
+        [HttpGet, Route("{id:int}")]
+        public IHttpActionResult GetReport()
+        {
+            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
+
+            var result = seminarReportService.GetReport(reportId, User.Identity.Name);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Получение списка отчетов
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Route("")]
         public HttpResponseMessage GetReportsList()
         {
@@ -52,22 +71,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
                 ModelState.AddModelError(error.Key, error.Description);
 
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-        }
-
-        /// <summary>
-        /// Получение одного отчета
-        /// </summary>        
-        /// <returns>Возвращает словарь Dictionary<string key, string base64String></returns>
-        // TODO: refactoring
-        [HttpGet, Route("{id:int}")]        
-        public IHttpActionResult GetReport()
-        {
-            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-
-            var result = seminarReportService.GetReport(reportId, User.Identity.Name);
-
-            return Ok();
-        }                                               
+        }                                
 
         [HttpDelete, Route("{id:int}")]        
         public IHttpActionResult DeleteReport()

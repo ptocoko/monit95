@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="alert alert-warning" *ngIf="getNotProtocolFiles().length < 2">
-            необходимо загрузить от 2-х до 4-х файлов
+            <i>необходимо загрузить 2-4 фотографии с семинара</i>
         </div>
     </div>
 </div>
@@ -72,7 +72,7 @@
         </span>
 
         <div class="alert alert-warning" *ngIf="getProtocolFiles().length === 0">
-            необходимо загрузить протокол
+            <i>протокол не загружен</i>
         </div>
     </div>
 </div>

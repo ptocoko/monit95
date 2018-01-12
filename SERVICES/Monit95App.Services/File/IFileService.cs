@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Monit95App.Services.Enums;
 using ServiceResult;
 
 namespace Monit95App.Services.File
