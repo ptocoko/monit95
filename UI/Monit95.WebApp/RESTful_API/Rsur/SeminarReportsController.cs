@@ -32,6 +32,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         {
             ServiceResult<IEnumerable<SeminarReport>> serviceResult = null;
 
+
             if (User.IsInRole("school"))
             {
                 var schoolId = User.Identity.Name;
