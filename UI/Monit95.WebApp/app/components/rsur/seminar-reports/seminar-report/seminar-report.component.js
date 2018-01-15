@@ -4,9 +4,9 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
-var seminar_report_model_1 = require("../shared/seminar-report.model");
 var common_1 = require("@angular/common");
 var account_service_1 = require("../../../../services/account.service");
+require("rxjs/add/operator/throttleTime");
 var SeminarReportComponent = /** @class */ (function () {
     function SeminarReportComponent(router, route, seminarReportService, location, accountService) {
         this.router = router;
@@ -14,7 +14,6 @@ var SeminarReportComponent = /** @class */ (function () {
         this.seminarReportService = seminarReportService;
         this.location = location;
         this.accountService = accountService;
-        this.report = new seminar_report_model_1.SeminarReportModel();
     }
     SeminarReportComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -23,24 +22,78 @@ var SeminarReportComponent = /** @class */ (function () {
             var rsurReportId = params['id'];
             _this.seminarReportService.getReport(rsurReportId).subscribe(function (res) {
                 _this.report = res;
+                _this.photoKeys = Object.keys(_this.report.SeminarFiles).filter(function (f) { return f.includes('foto'); });
                 _this.isLoading = false;
-                $.ready.then(function () {
-                    _this.imageLinks = $("#photos").find("a");
-                });
             });
         });
     };
-    SeminarReportComponent.prototype.downloadPhotos = function () {
-        this.imageLinks.each(function (i, elem) {
-            elem.setAttribute('download', 'image_' + (i + 1));
-            elem.click();
-            elem.removeAttribute('download');
-        });
+    SeminarReportComponent.prototype.showViewer = function (imageKey) {
+        this.viewingImageKey = imageKey;
+        //this.mouseMove$ = Observable.fromEvent(document, 'mousemove')
+        //	.subscribe(this.mouseMoveHandler);
+        //this.mouseClick$ = Observable.fromEvent(document, 'click')
+        //	.subscribe(this.mouseClickHandler);
     };
+    SeminarReportComponent.prototype.hideViewer = function () {
+        this.viewingImageKey = null;
+        //this.mouseMove$.unsubscribe();
+        //this.mouseClick$.unsubscribe();
+    };
+    SeminarReportComponent.prototype.hasPrevImg = function () {
+        if (this.viewingImageKey) {
+            if (this.viewingImageKey === 'protocol') {
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    SeminarReportComponent.prototype.hasNextImg = function () {
+        if (this.viewingImageKey) {
+            if (this.photoKeys.indexOf(this.viewingImageKey) === this.photoKeys.length - 1) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    };
+    SeminarReportComponent.prototype.showPrevImg = function () {
+        var indexOfViewingPhoto = this.photoKeys.indexOf(this.viewingImageKey);
+        if (indexOfViewingPhoto === 0) {
+            this.viewingImageKey = 'protocol';
+            return;
+        }
+        else {
+            this.viewingImageKey = this.photoKeys[indexOfViewingPhoto - 1];
+            return;
+        }
+    };
+    SeminarReportComponent.prototype.showNextImg = function () {
+        if (this.viewingImageKey === 'protocol') {
+            this.viewingImageKey = this.photoKeys[0];
+            return;
+        }
+        else {
+            var indexOfViewingPhoto = this.photoKeys.indexOf(this.viewingImageKey);
+            this.viewingImageKey = this.photoKeys[indexOfViewingPhoto + 1];
+            return;
+        }
+    };
+    tslib_1.__decorate([
+        core_1.ViewChild('prevBtn'),
+        tslib_1.__metadata("design:type", core_1.ElementRef)
+    ], SeminarReportComponent.prototype, "prevBtn", void 0);
+    tslib_1.__decorate([
+        core_1.ViewChild('imageViewer'),
+        tslib_1.__metadata("design:type", core_1.ElementRef)
+    ], SeminarReportComponent.prototype, "imageViewer", void 0);
     SeminarReportComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'seminar-report',
-            templateUrl: "./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=" + new Date().getTime()
+            templateUrl: "./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [router_1.Router,
             router_1.ActivatedRoute,

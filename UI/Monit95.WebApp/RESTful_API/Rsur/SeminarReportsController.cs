@@ -74,7 +74,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         public IHttpActionResult DeleteReport()
         {
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-            //var imagesFolder = HostingEnvironment.MapPath("~/Images/seminar-photos");
+            
             var schoolId = User.Identity.Name;
 
             seminarReportService.DeleteReport(reportId, schoolId);

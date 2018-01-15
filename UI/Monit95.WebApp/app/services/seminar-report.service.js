@@ -43,7 +43,15 @@ var SeminarReportService = /** @class */ (function () {
         return this.http.get(this.endpoint);
     };
     SeminarReportService.prototype.getReport = function (reportId) {
-        return this.http.get(this.endpoint + "/" + reportId);
+        return this.http.get(this.endpoint + "/" + reportId)
+            .map(function (m) {
+            var keys = Object.keys(m.SeminarFiles);
+            for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+                var key = keys_1[_i];
+                m.SeminarFiles[key] = "data:image/png;base64," + m.SeminarFiles[key];
+            }
+            return m;
+        });
     };
     SeminarReportService.prototype.deleteReport = function (reportId) {
         return this.http.delete(this.endpoint + "/" + reportId, { responseType: 'text' });

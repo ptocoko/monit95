@@ -3,5 +3,5 @@
 	DateText: string;
 	Text?: string;
 	SchoolName: string;
-	ImagesUrls?: string[];
+	SeminarFiles: { [key: string]: string };
 }
