@@ -1,10 +1,6 @@
 ﻿using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Rsur.MarksConvert;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarksStringConverter
 {
@@ -17,7 +13,7 @@ namespace MarksStringConverter
         {
             context = new CokoContext();
             service = new RsurMarksConverter(context);
-            service.GenerateByParticipTestId(18006);
+            service.GenerateByParticipTestId(15200);
             //Go();
             Console.WriteLine("All done!");
             Console.ReadKey();
