@@ -11,6 +11,23 @@
     justify-content: space-between;
 }
 
+.img-caption{
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    padding: 10px 15px;
+    position: fixed;
+    top: 60px;
+    left: 47.5%;
+}
+
+.protocol-thumb {
+    border: 5px solid #09ab1da8;
+}
+
+.seminar-img-thumb {
+    border: 5px solid #0924aba8;
+}
+
 .image-viewer {
     text-align: center;
     white-space: nowrap; /* this is required unless you put the helper span closely near the img */
