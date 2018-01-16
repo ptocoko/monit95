@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
-using System.Web.Hosting;
 using System.Web.Http;
 using Monit95App.Services.Rsur.SeminarReport;
-using ServiceResult;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
 {
     [RoutePrefix("api/rsur/seminarReports")]
-    [Authorize(Roles = "area, school")]    
+    //[Authorize(Roles = "area, school")]    
     public class SeminarReportsController : ApiController
     {
         #region Dependencies
@@ -27,48 +26,45 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
         #region Endpoins                                  
 
+        /// <summary>
+        /// Получить список отчетов для пользователя
+        /// </summary>
+        /// <returns>SeminarReportViewDto[]</returns>        
         [HttpGet, Route("")]
-        public HttpResponseMessage GetReportsList()
+        public HttpResponseMessage GetViewDtos()
         {
-            ServiceResult<IEnumerable<SeminarReport>> serviceResult = null;
-
-            if (User.IsInRole("school"))
-            {
-                var schoolId = User.Identity.Name;
-                serviceResult = seminarReportService.GetReportsList(schoolId);
-            }
-            else if (User.IsInRole("areaCode"))
-            {
-                var areaCode = int.Parse(User.Identity.Name);
-                serviceResult = seminarReportService.GetReportsList(areaCode);
-            }
-
-            if(serviceResult != null && !serviceResult.Errors.Any())
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, serviceResult.Result);
-            }
-
-            foreach (var error in serviceResult.Errors)
-                ModelState.AddModelError(error.Key, error.Description);
-
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            var seminarReportViewDtos = seminarReportService.GetViewDtos(User.Identity.Name);        
+            
+            return Request.CreateResponse(HttpStatusCode.OK, seminarReportViewDtos);                        
         }
 
         /// <summary>
-        /// Получение одного отчета
+        /// Получение одного отчета для отображения
         /// </summary>        
-        /// <returns>Возвращает словарь Dictionary<string key, string base64String></returns>
-        // TODO: refactoring
+        /// <returns></returns>        
         [HttpGet, Route("{id:int}")]        
-        public IHttpActionResult GetReport()
+        public IHttpActionResult GetEditDto()
         {
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
 
-            var result = seminarReportService.GetReport(reportId, User.Identity.Name);
+            SeminarReportEditDto reseminarReportEditDto = null;
+            try
+            {
+                reseminarReportEditDto = seminarReportService.GetEditDto(reportId, User.Identity.Name);
+            }
+            catch (FileNotFoundException)
+            {
+                ModelState.AddModelError("fileNotFound", "One of seminar file is not found");
+                Request.CreateErrorResponse(HttpStatusCode.NotFound, ModelState);
+            }
 
-            return Ok(result);
+            return Ok(reseminarReportEditDto);
         }                                               
 
+        /// <summary>
+        /// Удаление отчета
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete, Route("{id:int}")]
         [Authorize(Roles = "school")]
         public IHttpActionResult DeleteReport()

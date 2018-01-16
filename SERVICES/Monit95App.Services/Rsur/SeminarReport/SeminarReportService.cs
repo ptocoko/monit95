@@ -1,13 +1,12 @@
 ﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Monit95App.Services.File;
 using ServiceResult;
 using System;
-using System.Web;
 using System.Globalization;
+using System.Security.Authentication;
 
 namespace Monit95App.Services.Rsur.SeminarReport
 {
@@ -72,7 +71,8 @@ namespace Monit95App.Services.Rsur.SeminarReport
             // add protocol file into file repository
 
             // create userPermission sequence
-            var areaCode = context.Schools.Find(schoolId).AreaCode;
+            var school = context.Schools.Find(schoolId);
+            var areaCode = school.AreaCode;
             IEnumerable<UserPermission> userPermissions = new List<UserPermission>
             {
                 new UserPermission
@@ -96,9 +96,9 @@ namespace Monit95App.Services.Rsur.SeminarReport
             try
             {
                 addedProtocolFileId = fileService.Add(
-                    seminarReportFileRepositoryId, 
-                    uniqueStreamDictionary["protocol"].Stream, 
-                    uniqueStreamDictionary["protocol"].FileName, 
+                    seminarReportFileRepositoryId,
+                    uniqueStreamDictionary["protocol"].Stream,
+                    uniqueStreamDictionary["protocol"].FileName,
                     schoolId,
                     userPermissions
                     );
@@ -110,7 +110,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 else
                     errorResult.AddModelError("protocol", exception.Message);
                 return errorResult;
-            }            
+            }
 
             // add foto files into repository            
             var addedPhotoFileIds = new List<int>();
@@ -120,9 +120,9 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 try
                 {
                     addedPhotoFileId = fileService.Add(
-                        seminarReportFileRepositoryId, 
+                        seminarReportFileRepositoryId,
                         uniqueStreamDictionary[key].Stream,
-                        uniqueStreamDictionary[key].FileName, 
+                        uniqueStreamDictionary[key].FileName,
                         schoolId,
                         userPermissions
                         );
@@ -142,7 +142,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             if (addedPhotoFileIds.Count() < 2) // если добавленных фотографий меньше двух, то уходим
             {
                 // перед выходом удаляем уже добавленный файл протокола
-                fileService.Delete(addedProtocolFileId, schoolId); 
+                fileService.Delete(addedProtocolFileId, schoolId);
 
                 // удалаемя удачно добавленные фотографии
                 foreach (var fileId in addedPhotoFileIds.Where(id => id > 0))
@@ -157,16 +157,16 @@ namespace Monit95App.Services.Rsur.SeminarReport
             // add into RsurReport RsurReportFile object of protocol file
             rsurReport.RsurReportFiles.Add(new RsurReportFile { FileId = addedProtocolFileId, IsProtocol = true });
             // add into RsurReport RsurReportFile object of foto files
-            foreach (var photoFileId in addedPhotoFileIds)             
-                rsurReport.RsurReportFiles.Add(new RsurReportFile { FileId = photoFileId });                      
+            foreach (var photoFileId in addedPhotoFileIds)
+                rsurReport.RsurReportFiles.Add(new RsurReportFile { FileId = photoFileId });
 
             context.RsurReports.Add(rsurReport);
             context.SaveChanges(); // переносим изменения в БД            
-                                            
+
             successResult.Result = rsurReport.Id;
             return successResult;
         }
-        
+
         /// <summary>
         /// Удаление отчета
         /// </summary>
@@ -184,7 +184,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 return result;
             }
 
-            
+
             var fileIds = report.RsurReportFiles.Select(rf => rf.FileId).ToList(); // get report file ids before delete report
 
             // Delete RsurReport object from database -> delete corresponding RsurReportFile objects
@@ -194,10 +194,10 @@ namespace Monit95App.Services.Rsur.SeminarReport
             // Delete report files
             foreach (var filelId in fileIds)
                 fileService.Delete(filelId, schoolId);
-                        
+
             return result;
         }
-        
+
         /// <summary>
         /// Получить файлы одного отчета
         /// </summary>
@@ -205,189 +205,86 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// <param name="userName"></param>
         /// <returns>(string key, string base64String)</returns>
         /// TODO: refactoring
-        public SeminarReport GetReport(int reportId, string userName)
+        public SeminarReportEditDto GetEditDto(int reportId, string userName)
         {
-            var resultDictionary = new Dictionary<string, string>();
-
             var filePermissionForRead = new FilePermission
             {
                 UserName = userName,
                 PermissionId = 1
             };
 
-            var report = context.RsurReports.Single(s => s.Id == reportId);
-            var reportFiles = context.RsurReportFiles.Where(rf => rf.RsurReportId == reportId).ToList()
-                                     .Where(rf => rf.File.FilePermissonList.Any(fp => fp.Equals(filePermissionForRead)));
+            var report = context.RsurReports.Find(reportId);
+            if (report == null)
+                throw new ArgumentException(nameof(reportId));
 
+            var reportFiles = report.RsurReportFiles.Where(rf => rf.RsurReportId == reportId &&
+                                                                 rf.File.FilePermissonList.Any(fp => fp.Equals(filePermissionForRead)));
+            if (!reportFiles.Any())
+                throw new AuthenticationException($"{nameof(reportId)}: {reportId}, {nameof(userName)}: {userName}");
+
+            var seminarFiles = new Dictionary<string, string>();
             // Procces protocol files
-            var protocolReportFile = reportFiles.Single(rf => rf.IsProtocol);
-            var protocolFileBase64String = fileService.GetFileBase64String(protocolReportFile.FileId, userName);
-            resultDictionary.Add("protocol", protocolFileBase64String);
+            var protocolFile = reportFiles.Single(rf => rf.IsProtocol);
+            var protocolFileBase64String = fileService.GetFileBase64String(protocolFile.FileId, userName);
+            seminarFiles.Add("protocol", protocolFileBase64String);
 
             // Procces foto files
             int index = 1;
             foreach (var reportFile in reportFiles.Where(rf => !rf.IsProtocol))
             {
                 var fotoFileBase64String = fileService.GetFileBase64String(reportFile.FileId, userName);
-                resultDictionary.Add($"foto{index++}", fotoFileBase64String);
+                seminarFiles.Add($"foto{index++}", fotoFileBase64String);
             }
 
-            var seminarReport = SeminarReport.CreateReportModel(report);
-            seminarReport.SeminarFiles = resultDictionary;
-            
-            return seminarReport;
+            // TODO: this code dublicate
+            var editDto = new SeminarReportEditDto
+            {
+                SeminarFiles = seminarFiles,
+                SeminarReportViewDto = new SeminarReportViewDto
+                {
+                    RsurReportId = reportId,
+                    DateText = report.Date.ToString("dd MMM yyyy, HH:mm:ss", new CultureInfo("ru-RU")),
+                    SchoolName = $"{report.SchoolId} - {report.School.Name}"
+                }
+            };
+
+            return editDto;
         }
 
         /// <summary>
-        /// Получить список отчетов одной школы
+        /// Получить список отчетов
         /// </summary>
-        /// <param name="schoolId"></param>
-        /// <returns></returns>
-        public ServiceResult<IEnumerable<SeminarReport>> GetReportsList(string schoolId)
+        /// <param name="userName"></param>
+        /// <returns></returns>        
+        public IEnumerable<SeminarReportViewDto> GetViewDtos(string userName)
         {
-            var errorResult = new ServiceResult<IEnumerable<SeminarReport>>();
-            if (String.IsNullOrEmpty(schoolId) || !context.Schools.Any(s => s.Id == schoolId))
+            IEnumerable<RsurReport> reportEntities;
+            if (userName.Length == 3) // areaCode is three-digit number
             {
-                errorResult.AddModelError(nameof(schoolId), $"{nameof(schoolId)} parameter is not valid");
-                return errorResult;
+                Int32.TryParse(userName, out int areaCode);
+                if (areaCode == 0)
+                    throw new ArgumentException(nameof(areaCode));
+                reportEntities = context.RsurReports.Where(report => report.School.AreaCode == areaCode).ToList();
             }
+            else
+                reportEntities = context.RsurReports.Where(report => report.SchoolId == userName);
 
-            var successResult = new ServiceResult<IEnumerable<SeminarReport>>();
-            var query = context.RsurReports.Where(p => p.SchoolId == schoolId);
-            successResult.Result = GetReportListFromQuery(query);
-            return successResult;
+            var viewDtos = reportEntities.Select(report => new SeminarReportViewDto
+            {
+                RsurReportId = report.Id,
+                DateText = report.Date.ToString("dd MMM yyyy, HH:mm:ss", new CultureInfo("ru-RU")),
+                SchoolName = $"{report.SchoolId} - {report.School.Name}"
+            });
+
+            return viewDtos;
         }
 
-        /// <summary>
-        /// Получить список отчетов всех школ одного района
-        /// </summary>
-        /// <param name="areaCode"></param>
-        /// <returns></returns>
-        public ServiceResult<IEnumerable<SeminarReport>> GetReportsList(int areaCode)
-        {
-            var errorResult = new ServiceResult<IEnumerable<SeminarReport>>();
-            if(!Enumerable.Range(201, 217).Contains(areaCode))
-            {
-                errorResult.AddModelError(nameof(areaCode), $"{nameof(areaCode)} parameter is not valid");
-                return errorResult;
-            }
-
-            var successResult = new ServiceResult<IEnumerable<SeminarReport>>();
-            var query = context.RsurReports.Where(p => p.School.AreaCode == areaCode);
-            successResult.Result = GetReportListFromQuery(query);
-            return successResult;
-        }
         #endregion
 
-        #region private_methods
-        /// <summary>
-        /// Метод, содержащий повторяющийся код методов GetReportsList для школы и района
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        private IEnumerable<SeminarReport> GetReportListFromQuery(IQueryable<RsurReport> query)
-        {
-            // TODO: try with includes school table
-            return query.OrderByDescending(ob => ob.Date).ToList()
-                .Select(s => SeminarReport.CreateReportModel(s));
-        }
+        #region Private methods
+
+
+
         #endregion
     }
 }
-
-//public IEnumerable<SeminarReportModel> GetSeminarReports(string schoolId)
-//{
-//    return context.RsurReports.Where(p => p.SchoolId == schoolId).OrderByDescending(ob => ob.Date).ToList().Select(s => new SeminarReportModel
-//    {
-//        RsurReportId = s.Id,
-//        DateText = s.Date.ToString("dd.MM.yyyy, HH:mm"),
-//        Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text,
-//        SchoolName = $"{s.SchoolId} - {s.School.Name}"
-//    });
-//}
-
-//public IEnumerable<SeminarReportModel> GetSeminarReports(int areaCode)
-//{
-//    return context.RsurReports.Where(p => p.School.AreaCode == areaCode).OrderByDescending(ob => ob.Date).ToList().Select(s => new SeminarReportModel
-//    {
-//        RsurReportId = s.Id,
-//        DateText = s.Date.ToString("dd.MM.yyyy, HH:mm"),
-//        Text = s.Text.Length > 50 ? s.Text.Substring(0, 50) + "..." : s.Text,
-//        SchoolName = $"{s.SchoolId} - {s.School.Name}"
-//    });
-//}
-
-//public int SaveFile(Stream fileStream, string fileExtension, int reportId, int index, string imagesServerFolder)
-//{
-//    var repository = context.Repositories.Find(seminarReportFileRepositoryId);
-//    string directoryPath = repository.Path;
-
-//    if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-
-//    string fileName = $"{reportId} - {index}{fileExtension}";
-
-//    using (var fs = System.IO.File.Create($"{directoryPath}{fileName}"))
-//    {
-//        fileStream.Seek(0, SeekOrigin.Begin);
-//        fileStream.CopyTo(fs);
-//    }
-
-//    using (var fs = System.IO.File.Create($"{imagesServerFolder}\\{fileName}"))
-//    {
-//        fileStream.Seek(0, SeekOrigin.Begin);
-//        fileStream.CopyTo(fs);
-//    }
-
-//    var file = new Domain.Core.Entities.File { Name = fileName, RepositoryId = seminarReportFileRepositoryId };
-//    context.Files.Add(file);
-//    context.SaveChanges();
-
-//    // CreateRsurReportFilesEntry
-//    var entity = new RsurReportFile { RsurReportId = reportId, FileId = file.Id };
-//    context.RsurReportFiles.Add(entity);
-//    context.SaveChanges();
-
-//    return file.Id;
-//}
-
-//public int SaveText(string text, string schoolId)
-//{
-//    var entity = new RsurReport { Text = text, SchoolId = schoolId, Date = DateTime.Now };
-//    context.RsurReports.Add(entity);
-//    context.SaveChanges();
-
-//    return entity.Id;
-//}
-
-//public SeminarReportModel GetReport(int reportId)
-//{
-//    var model = context.RsurReports.Find(reportId);
-
-//    return new SeminarReportModel
-//    {
-//        SchoolName = $"{model.SchoolId} - {model.School.Name}",
-//        DateText = model.Date.ToString("dd.MM.yyyy, HH:mm"),
-//        Text = model.Text,
-//        ImagesUrls = model.RsurReportFiles.Select(s => $"/Images/seminar-photos/{s.File.Name}")
-//    };
-//}
-
-//public void DeleteReportOldVersion(int reportId, string imagesServerFolder)
-//{
-//    var directoryPath = context.Repositories.Find(seminarReportFileRepositoryId).Path;
-//    var fileNames = context.RsurReportFiles.Where(p => p.RsurReportId == reportId).Select(s => s.File.Name);
-//    var fileIds = context.RsurReportFiles.Where(p => p.RsurReportId == reportId).Select(s => s.FileId);
-
-//    foreach (var fileName in fileNames)
-//    {
-//        System.IO.File.Delete($"{directoryPath}{fileName}");
-//        System.IO.File.Delete($"{imagesServerFolder}\\{fileName}");
-//    }
-
-//    var reportEntity = context.RsurReports.Find(reportId);
-//    var fileEntities = context.Files.Where(p => fileIds.Contains(p.Id));
-
-//    context.RsurReports.Remove(reportEntity);
-//    context.Files.RemoveRange(fileEntities);
-//    context.SaveChanges();
-//}
