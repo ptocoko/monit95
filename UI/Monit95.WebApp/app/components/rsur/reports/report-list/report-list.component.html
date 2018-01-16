@@ -8,7 +8,7 @@
         <mat-form-field *ngIf="reportsList !== undefined && accountService.isArea()">
             <mat-select [(ngModel)]="selectedSchool" (selectionChange)="filterSelectionChange()">
                 <mat-option value="все организации">все организации</mat-option>
-                <mat-option *ngFor="let report of reportsList | schoolNameFilter : selectedTest : selectedExam" [value]="report">{{report}}</mat-option>
+                <mat-option *ngFor="let schoolName of reportsList | schoolNameFilter : selectedTest : selectedExam" [value]="schoolName">{{schoolName}}</mat-option>
             </mat-select>
         </mat-form-field>
 

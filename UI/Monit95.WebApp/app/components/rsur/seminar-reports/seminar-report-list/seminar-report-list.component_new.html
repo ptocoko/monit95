@@ -1,39 +1,47 @@
-<h2>РСУР: Отчеты по семинарам</h2>
+<h2>РСУР: Результаты диагностик</h2>
 <hr />
-<div *ngIf="reportsLoading">
-    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
-</div>
-<table class="table table-hover table-striped table-bordered" 
-       [ngClass]="{'school-table-width': accountService.isSchool()}"
-       *ngIf="!reportsLoading && reportsLength > 0">
-    <tr>
-        <th>#</th>
-        <th>Дата</th>
-        <th *ngIf="accountService.isArea()">Наименование школы</th>
-        <th *ngIf="accountService.isSchool()" style="width:30px"></th>
-    </tr>
-    <tr *ngFor="let report of reports; let i = index" 
-        style="cursor:pointer">
-        <td class="number-column-width"
-            [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
-            {{i + 1}}
-        </td>
-        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
-            {{report.DateText}}
-        </td>
-        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]" 
-            *ngIf="accountService.isArea()">
-            {{report.SchoolName}}
-        </td>
-        <td *ngIf="accountService.isSchool()">
-            <a class="glyphicon glyphicon-trash" 
-               (click)="deleteReport(report.RsurReportId)"></a>
-        </td>
-    </tr>
-</table>
 
-<div *ngIf="reportsLength === 0" class="text-muted"><i>отчеты отсутствуют</i></div>
+<div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" /></div>
 
-<div *ngIf="accountService.isSchool()">
-    <button style="z-index: 10; position:fixed; left:60%; top:80%; background-color: green; color:white; font-size:x-large" mat-fab color="primary" routerLink="/rsur/seminar-reports/create">+</button>
+<div *ngIf="!isLoading && dataSource.data.length > 0" class="table-container mat-elevation-z8">
+    <div class="table-header">
+        <mat-form-field *ngIf="reports !== undefined && accountService.isArea()">
+            <mat-select [(ngModel)]="selectedSchool" (selectionChange)="filterSelectionChange()">
+                <mat-option value="все организации">все организации</mat-option>
+                <mat-option *ngFor="let report of reports | schoolNameFilter : selectedSchool" [value]="report">{{report}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+            <mat-cell *matCellDef="let report; let i = index"> {{ i + 1 }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="schoolName">
+            <mat-header-cell *matHeaderCellDef> обрзовательная организация </mat-header-cell>
+            <mat-cell *matCellDef="let report"> {{report.SchoolParticipInfo.SchoolName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef> время создания </mat-header-cell>
+            <mat-cell *matCellDef="let report"> {{report.ParticipCode}} </mat-cell>
+        </ng-container>        
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row (click)="openReport(report)"
+                 *matRowDef="let report; columns: displayedColumns;"
+                 [ngClass]="{
+                      'isClickable': report.TestStatus.toLowerCase() !== 'отсутствовал' && report.ExamName.toLowerCase() !== 'апрель-2017',
+                      'absent-row': report.TestStatus.toLowerCase() === 'отсутствовал',
+                      'test-failed-row': report.TestStatus.toLowerCase() === 'незачет',
+                      'test-pass-row': report.TestStatus.toLowerCase() === 'зачет'
+                  }"></mat-row>
+    </mat-table>
+
 </div>
+
+<p class="text-center" *ngIf="!isLoading && !dataSource.data.length > 0">Отсутствуют результаты диагностик.</p>
