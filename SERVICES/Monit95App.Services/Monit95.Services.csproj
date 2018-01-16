@@ -49,9 +49,6 @@
     <Reference Include="FastMember.Signed, Version=1.0.0.9, Culture=neutral, PublicKeyToken=9e8f22703bef9a29, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FastMember.Signed.1.1.0\lib\net40\FastMember.Signed.dll</HintPath>
     </Reference>
-    <Reference Include="Monit95App.Infrastructure.Business">
-      <HintPath>..\..\Monit95App.Web\Bin\Monit95App.Infrastructure.Business.dll</HintPath>
-    </Reference>
     <Reference Include="NReco.PdfGenerator, Version=1.1.15.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NReco.PdfGenerator.1.1.15\lib\net20\NReco.PdfGenerator.dll</HintPath>
     </Reference>
@@ -96,7 +93,8 @@
     <Compile Include="DTOs\RsurParticipEditProtocol.cs" />
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
-    <Compile Include="Enums\FilePermissionId.cs" />
+    <Compile Include="Enums\Access.cs" />
+    <Compile Include="File\UserPermission.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />
     <Compile Include="File\FileService.cs" />
@@ -167,20 +165,19 @@
     <Compile Include="ClassParticipReporter.cs" />
     <Compile Include="Rsur\RsurTestStatisticsDto.cs" />
     <Compile Include="Rsur\SeminarReport\ISeminarReportService.cs" />
-    <Compile Include="Rsur\SeminarReport\SeminarReportModel.cs" />
+    <Compile Include="Rsur\SeminarReport\SeminarReportViewDto.cs" />
+    <Compile Include="Rsur\SeminarReport\SeminarReportEditDto.cs" />
     <Compile Include="Rsur\SeminarReport\SeminarReportService.cs" />
     <Compile Include="Rsur\QuestionValue\IQuestionValueService.cs" />
     <Compile Include="Rsur\QuestionValue\QuestionValueDto.cs" />
     <Compile Include="Rsur\QuestionValue\QuestionValueService.cs" />
     <Compile Include="Rsur\QuestionValue\QuestionValueViewDto.cs" />
+    <Compile Include="Rsur\SeminarReport\UniqueStream.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
     <Compile Include="Validation\MustHaveOneElementAttribute.cs" />
-    <Compile Include="Validation\ServiceResult\ServiceError.cs" />
-    <Compile Include="Validation\ServiceResult\ServiceResult.cs" />
-    <Compile Include="Validation\ServiceResult\VoidResult.cs" />
     <Compile Include="Validation\CollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +193,10 @@
       <Project>{F3A784E6-8723-4628-9677-2374BED42492}</Project>
       <Name>Monit95.Infrastructure.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServiceResult\ServiceResult.csproj">
+      <Project>{c3455394-07af-469d-a1db-5b191dffad9f}</Project>
+      <Name>ServiceResult</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -206,6 +207,8 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

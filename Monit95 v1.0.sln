@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtocolGenerator", "UI\Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarksStringConverter", "MarksStringConverter\MarksStringConverter.csproj", "{997C949A-FD14-4AFE-913D-6D7BF0A800CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceResult", "SERVICES\ServiceResult\ServiceResult.csproj", "{C3455394-07AF-469D-A1DB-5B191DFFAD9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{997C949A-FD14-4AFE-913D-6D7BF0A800CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{997C949A-FD14-4AFE-913D-6D7BF0A800CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{997C949A-FD14-4AFE-913D-6D7BF0A800CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3455394-07AF-469D-A1DB-5B191DFFAD9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3455394-07AF-469D-A1DB-5B191DFFAD9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3455394-07AF-469D-A1DB-5B191DFFAD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3455394-07AF-469D-A1DB-5B191DFFAD9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +121,7 @@ Global
 		{774AD074-77D2-44A1-988D-4BC45A96F8C0} = {E3F1BEE7-4B7F-4672-9D61-1EA3D015AFAA}
 		{668BBA69-4F26-4DDF-B6EE-17B3384F669F} = {E3F1BEE7-4B7F-4672-9D61-1EA3D015AFAA}
 		{997C949A-FD14-4AFE-913D-6D7BF0A800CD} = {E3F1BEE7-4B7F-4672-9D61-1EA3D015AFAA}
+		{C3455394-07AF-469D-A1DB-5B191DFFAD9F} = {B0571893-C8F7-4398-91B2-2EBEE4B33FDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1A04B68-7B70-438D-A1AA-5E106F163D39}

@@ -64,12 +64,12 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<File>()
                 .HasMany(e => e.RsurReportFiles)
                 .WithRequired(e => e.File)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<RsurReport>()
                 .HasMany(e => e.RsurReportFiles)
                 .WithRequired(e => e.RsurReport)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Repository>()
                 .HasMany(e => e.Files)

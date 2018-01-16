@@ -1,4 +1,4 @@
-﻿namespace Monit95App.Services.Validation
+﻿namespace ServiceResult
 {
     /// <summary>
     /// Encapsulates an error from the service layer.
@@ -11,7 +11,9 @@
         /// <value>
         /// The http response 4xx code for this error.
         /// </value>
-        public int HttpCode { get; set; }
+        public int? HttpCode { get; set; }
+
+        public string Key { get; set; }
 
         /// <summary>
         /// Gets or sets the description for this error.

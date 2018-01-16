@@ -31,7 +31,7 @@ var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
 var home_component_1 = require("./components/rsur/home/home.component");
 var report_component_1 = require("./components/rsur/reports/report/report.component");
 var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
-var create_form_component_1 = require("./components/rsur/seminar-reports/seminar-report/create-form/create-form.component");
+var create_form_component_1 = require("./components/rsur/seminar-reports/create-form/create-form.component");
 var ratings_component_1 = require("./components/rsur/ratings/ratings.component");
 var seminar_report_list_component_1 = require("./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component");
 var seminar_report_component_1 = require("./components/rsur/seminar-reports/seminar-report/seminar-report.component");
@@ -97,8 +97,8 @@ var AppModule = /** @class */ (function () {
                     { path: 'rsur/tests/:id/protocols', component: rsur_test_protocol_list_component_1.RsurTestProtocolListComponent },
                     { path: 'rsur/testprotocols/:id', component: rsur_test_protocol_component_1.RsurTestProtocolComponent },
                     { path: 'rsur/seminar-reports', component: seminar_report_list_component_1.SeminarReportsListComponent },
+                    { path: 'rsur/seminar-reports/create', component: create_form_component_1.SeminarReportCreateFormComponent },
                     { path: 'rsur/seminar-reports/:id', component: seminar_report_component_1.SeminarReportComponent },
-                    { path: 'rsur/upload-report', component: create_form_component_1.CreateReportFormComponent },
                     { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
                     { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
                     { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
@@ -153,7 +153,7 @@ var AppModule = /** @class */ (function () {
                 rsur_test_protocol_component_1.RsurTestProtocolComponent,
                 report_component_1.ReportComponent,
                 report_list_component_1.ReportListComponent,
-                create_form_component_1.CreateReportFormComponent,
+                create_form_component_1.SeminarReportCreateFormComponent,
                 ratings_component_1.RatingsComponent,
                 seminar_report_list_component_1.SeminarReportsListComponent,
                 seminar_report_component_1.SeminarReportComponent,

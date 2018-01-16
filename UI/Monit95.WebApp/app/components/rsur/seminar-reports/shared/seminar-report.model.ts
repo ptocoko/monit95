@@ -1,7 +1,10 @@
-﻿export class SeminarReportModel {
+﻿export class SeminarReportView {
 	RsurReportId: number;
-	DateText: string;
-	Text: string;
+	DateText: string;	
 	SchoolName: string;
-	ImagesUrls: string[];
+}
+
+export class SeminarReportEdit {
+	SeminarReportViewDto: SeminarReportView;
+	SeminarFiles: { [key: string]: string };
 }

@@ -88,7 +88,7 @@
         <div *ngIf="true" class="list-item">
             <a class="list-item-link" routerLink="/rsur/results-list">
                 <div>
-                    <h4><b>Результаты диагностик</b></h4>
+                    <h4>Результаты диагностик</h4>
                 </div>
             </a>
         </div>
@@ -99,10 +99,10 @@
                 </div>
             </a>
         </div>
-        <div *ngIf="flase && (isSchool() || isArea())" class="list-item">
+        <div *ngIf="(isSchool() || isArea())" class="list-item">
             <a class="list-item-link" routerLink="/rsur/seminar-reports">
                 <div>
-                    <h4>Отчеты по семинарам</h4>
+                    <h4><b>Отчеты по семинарам</b></h4>
                 </div>
             </a>
         </div>

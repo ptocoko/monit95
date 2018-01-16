@@ -29,7 +29,7 @@ import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 import { HomeComponent } from './components/rsur/home/home.component';
 import { ReportComponent } from './components/rsur/reports/report/report.component';
 import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
-import { CreateReportFormComponent } from './components/rsur/seminar-reports/seminar-report/create-form/create-form.component';
+import { SeminarReportCreateFormComponent } from './components/rsur/seminar-reports/create-form/create-form.component';
 import { RatingsComponent } from './components/rsur/ratings/ratings.component';
 import { SeminarReportsListComponent } from './components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component';
 import { SeminarReportComponent } from './components/rsur/seminar-reports/seminar-report/seminar-report.component';
@@ -94,9 +94,9 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
                 { path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
                 { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
 				{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
-				{ path: 'rsur/seminar-reports', component: SeminarReportsListComponent },
-				{ path: 'rsur/seminar-reports/:id', component: SeminarReportComponent },
-				{ path: 'rsur/upload-report', component: CreateReportFormComponent },
+                { path: 'rsur/seminar-reports', component: SeminarReportsListComponent },
+                { path: 'rsur/seminar-reports/create', component: SeminarReportCreateFormComponent },
+				{ path: 'rsur/seminar-reports/:id', component: SeminarReportComponent },                
                 { path: 'rsur/report/:id', component: ReportComponent },
                 { path: 'rsur/results-list', component: ReportListComponent },
 				{ path: 'rsur/ratings', component: RatingsComponent },
@@ -152,7 +152,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 		RsurTestProtocolComponent,
 		ReportComponent,
 	    ReportListComponent,			
-		CreateReportFormComponent,
+        SeminarReportCreateFormComponent,
 		RatingsComponent,
 		SeminarReportsListComponent,
         SeminarReportComponent,

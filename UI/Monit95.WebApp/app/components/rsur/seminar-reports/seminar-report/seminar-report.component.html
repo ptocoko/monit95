@@ -4,7 +4,47 @@
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>
 <div *ngIf="!isLoading">
-    <div id="photos">
+    <div class="report-info alert alert-info">
+        <span>{{report.SeminarReportViewDto.SchoolName}}</span>
+        <span><i>{{report.SeminarReportViewDto.DateText}}</i></span>
+    </div>
+    <div class="photos">
+        <img height="100"
+             [src]="report.SeminarFiles['protocol']"
+             (click)="showViewer('protocol')" 
+             class="img-thumbnail"/>
+
+        <img height="100"
+             *ngFor="let key of photoKeys"
+             [src]="report.SeminarFiles[key]"
+             (click)="showViewer(key)" 
+             class="img-thumbnail"/>
+    </div>
+
+    <div class="image-viewer" 
+         *ngIf="viewingImageKey">
+
+        <img [src]="report.SeminarFiles[viewingImageKey]"
+                class="viewing-img" />
+
+        <span *ngIf="hasPrevImg()"
+              (click)="showPrevImg()"
+              class="viewer-prev-area viewer-action">
+                <i class="fa fa-angle-left fa-4x" aria-hidden="true"></i>
+        </span>
+        
+        <span *ngIf="hasNextImg()"
+              (click)="showNextImg()"
+              class="viewer-next-area viewer-action">
+                <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
+        </span>
+
+        <span (click)="hideViewer()"
+              class="viewer-close-area viewer-action">
+            <i class="fa fa-times fa-4x" aria-hidden="true"></i>
+        </span>
+    </div>
+    <!--<div id="photos">
         <a target="_blank" *ngFor="let url of report.ImagesUrls" href="{{url}}" style="text-decoration:none">
             <img src="{{url}}" class="img-responsive img-thumbnail" style="height:150px; margin-right:10px" />
         </a>
@@ -15,5 +55,5 @@
     <br />
     <p style="font-size: 15pt; font-family: 'Times New Roman'; -ms-word-wrap: break-word; word-wrap: break-word;">{{report.Text}}</p>
     <hr />
-    <button (click)="location.back()" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Назад</button>
+    <button (click)="location.back()" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Назад</button>-->
 </div>

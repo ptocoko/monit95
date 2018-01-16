@@ -1,5 +1,4 @@
-﻿using Monit95App.Services.Validation;
-using System;
+﻿using ServiceResult;
 using System.Collections.Generic;
 
 namespace Monit95App.Services.Rsur.ParticipReport
@@ -8,7 +7,6 @@ namespace Monit95App.Services.Rsur.ParticipReport
     {
         ServiceResult<ParticipExtendReport> GetExtendReport(int rsurParticipTestId, int? areaCode = null, string schoolId = null);
         ServiceResult<IEnumerable<ParticipReport>> GetReportsForArea(int areaCode);
-        ServiceResult<IEnumerable<ParticipReport>> GetReportsForSchool(string schoolId);
-        //ServiceResult<ParticipReport> GetResultsForParticip(int rsurParticipCode);
+        ServiceResult<IEnumerable<ParticipReport>> GetReportsForSchool(string schoolId);        
     }
 }

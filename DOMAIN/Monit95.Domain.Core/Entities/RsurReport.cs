@@ -10,6 +10,7 @@ namespace Monit95App.Domain.Core.Entities
         public RsurReport()
         {
             RsurReportFiles = new HashSet<RsurReportFile>();
+            Date = DateTime.Now;
         }
 
         public int Id { get; set; }
@@ -19,8 +20,7 @@ namespace Monit95App.Domain.Core.Entities
         public string SchoolId { get; set; }
 
         public DateTime Date { get; set; }
-
-        [Required]
+        
         [StringLength(1000)]
         public string Text { get; set; }
 

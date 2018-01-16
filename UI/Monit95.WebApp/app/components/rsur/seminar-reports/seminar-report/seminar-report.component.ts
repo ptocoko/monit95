@@ -1,19 +1,23 @@
 ﻿
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SeminarReportService } from '../../../../services/seminar-report.service';
-import { SeminarReportModel } from '../shared/seminar-report.model';
+import { SeminarReportEdit } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
 import { AccountService } from "../../../../services/account.service";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/throttleTime';
 
 @Component({
 	selector: 'seminar-report',
-	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.css?v=${new Date().getTime()}`]
 })
 export class SeminarReportComponent implements OnInit {
-	report: SeminarReportModel = new SeminarReportModel();
+	report: SeminarReportEdit;
+	photoKeys: string[];
 	isLoading: boolean;
-	imageLinks: JQuery<HTMLAnchorElement>;
+	viewingImageKey: string;
 
 	constructor(private router: Router, 
 				private route: ActivatedRoute,
@@ -28,19 +32,61 @@ export class SeminarReportComponent implements OnInit {
 
 			this.seminarReportService.getReport(rsurReportId).subscribe(res => {
 				this.report = res;
+				this.photoKeys = Object.keys(this.report.SeminarFiles).filter(f => f.includes('foto'));
 				this.isLoading = false;
-				$.ready.then(() => {
-					this.imageLinks = $("#photos").find("a") as JQuery<HTMLAnchorElement>;
-				});
+				
 			});
 		})
 	}
 
-	downloadPhotos() {
-		this.imageLinks.each((i, elem) => {
-			elem.setAttribute('download', 'image_' + (i + 1));
-			elem.click();
-			elem.removeAttribute('download');
-		})
+	showViewer(imageKey: string) {
+		this.viewingImageKey = imageKey;
+	}
+
+	hideViewer() {
+		this.viewingImageKey = null;
+	}
+
+	hasPrevImg() {
+		if (this.viewingImageKey) {
+			if (this.viewingImageKey === 'protocol') {
+				return false;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	hasNextImg() {
+		if (this.viewingImageKey) {
+			if (this.photoKeys.indexOf(this.viewingImageKey) === this.photoKeys.length - 1) {
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	showPrevImg() {
+		const indexOfViewingPhoto = this.photoKeys.indexOf(this.viewingImageKey);
+		if (indexOfViewingPhoto === 0) {
+			this.viewingImageKey = 'protocol'
+			return;
+		} else {
+			this.viewingImageKey = this.photoKeys[indexOfViewingPhoto - 1];
+			return;
+		}
+	}
+
+	showNextImg() {
+		if (this.viewingImageKey === 'protocol') {
+			this.viewingImageKey = this.photoKeys[0];
+			return;
+		} else {
+			const indexOfViewingPhoto = this.photoKeys.indexOf(this.viewingImageKey);
+			this.viewingImageKey = this.photoKeys[indexOfViewingPhoto + 1];
+			return;
+		}
 	}
 }

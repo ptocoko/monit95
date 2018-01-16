@@ -1,9 +1,8 @@
 ﻿namespace Monit95App.Services.Enums
 {
-    public enum FilePermissionId : int
+    public enum Access : int
     {       
         Read = 1,
-
-        ReadAndDelete = 2
+        Delete = 2
     }
 }
