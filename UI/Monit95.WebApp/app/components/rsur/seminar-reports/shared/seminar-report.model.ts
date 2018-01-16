@@ -1,7 +1,6 @@
 ﻿export class SeminarReportModel {
 	RsurReportId: number;
-	DateText: string;
-	Text?: string;
+	DateText: string;	
 	SchoolName: string;
 	ImagesUrls?: string[];
 }
