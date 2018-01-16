@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security;
 using System.Web;
 using System.Web.Http;
 using Monit95App.Services.Rsur.SeminarReport;
@@ -10,7 +12,7 @@ using Monit95App.Services.Rsur.SeminarReport;
 namespace Monit95.WebApp.RESTful_API.Rsur
 {
     [RoutePrefix("api/rsur/seminarReports")]
-    //[Authorize(Roles = "area, school")]    
+    [Authorize(Roles = "area, school")]    
     public class SeminarReportsController : ApiController
     {
         #region Dependencies
@@ -27,9 +29,10 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         #region Endpoins                                  
 
         /// <summary>
-        /// Получить список отчетов для пользователя
+        /// Get report list by user
         /// </summary>
-        /// <returns>SeminarReportViewDto[]</returns>        
+        /// <remarks>Reports without files</remarks>
+        /// <returns>SeminarReportViewDto array</returns>        
         [HttpGet, Route("")]
         public HttpResponseMessage GetViewDtos()
         {
@@ -39,9 +42,9 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         /// <summary>
-        /// Получение одного отчета для отображения вместе с файлами
+        /// Get report Получение одного отчета для отображения вместе с файлами
         /// </summary>        
-        /// <returns></returns>        
+        /// <returns>Reports with files</returns>        
         [HttpGet, Route("{id:int}")]        
         public IHttpActionResult GetEditDto()
         {
@@ -54,7 +57,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             }
             catch (FileNotFoundException)
             {
-                ModelState.AddModelError("fileNotFound", "One of seminar file is not found");
+                ModelState.AddModelError("fileNotFound", "One of reportjlby  file was not found");
                 Request.CreateErrorResponse(HttpStatusCode.NotFound, ModelState);
             }
 
@@ -62,19 +65,26 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }                                               
 
         /// <summary>
-        /// Удаление отчета
+        /// Delete report
         /// </summary>
         /// <returns></returns>
+        /// TODO: refa
         [HttpDelete, Route("{id:int}")]
         [Authorize(Roles = "school")]
         public IHttpActionResult DeleteReport()
         {
-            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-            
+            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());            
             var schoolId = User.Identity.Name;
-
-            seminarReportService.DeleteReport(reportId, schoolId);
-
+            try
+            {
+                seminarReportService.DeleteReport(reportId, schoolId);
+            }
+            catch(ArgumentException)
+            {                
+                ModelState.AddModelError("file", "fileId указан не верно или у пользователя отсутствуют права на удаление");
+                return BadRequest(ModelState);
+            }
+            
             return Ok();
         }
 
@@ -115,65 +125,3 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         #endregion
     }
 }
-
-/// <summary>
-/// Создание отчета
-/// </summary>
-/// <remarks>Отчет создается, отправкой файла протокола проведения заседания ШМО</remarks>
-/// <returns>RsurReports.Id</returns>
-//[HttpPost, Route("")]
-//[Authorize(Roles = "school")]
-//[SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
-//public HttpResponseMessage CreateReport()
-//{
-//var schoolId = User.Identity.Name;
-
-//// Find file in requestBody
-//var httpFileCollection = HttpContext.Current.Request.Files;
-//    if (httpFileCollection.Count == 0)
-//return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "To create report need protocol file. Request body has not any file");
-
-//// Get file's content from body            
-//var httpPostedFile = httpFileCollection.Get(0);
-
-//// Call service
-//var result = seminarReportService.CreateReport(httpPostedFile.InputStream, httpPostedFile.FileName, schoolId);
-
-//    // Success
-//    if (!result.Errors.Any())
-//return Request.CreateResponse(HttpStatusCode.Created, result.Result);
-
-//// Error: dublicate
-//if (result.Errors.Any(error => error.HttpCode == 409))
-//return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Такой протокол уже зарегистрирован в системе");
-
-//// Error: another
-//foreach (var error in result.Errors)
-//ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
-
-//return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-//}
-
-//// Get protocol file
-//var protocolFile = httpFileCollection["protocol"];
-//if (protocolFile == null)
-//    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "File collection has not file with key «protocol»");
-
-//var streamDictionary = new Dictionary<string, Stream>
-//{
-//    { "protocol", protocolFile.InputStream }
-//};
-
-//// Get foto files
-//var fotoFileKeys = httpFileCollection.AllKeys.Where(k => k.StartsWith("foto"))
-//                                     .Take(4) // max 4 fotos
-//                                     .Distinct() // delete dublicate keys                                  
-//                                     .ToList(); 
-//if (fotoFileKeys.Count < 2) // min 2 fotos            
-//    return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"File collection has to has 2-4 foto files. Now is {fotoFileKeys.Count}");
-
-//foreach (var key in fotoFileKeys)
-//{
-//    // ReSharper disable once PossibleNullReferenceException
-//    streamDictionary.Add(key, httpFileCollection[key].InputStream);
-//}      
