@@ -34,7 +34,9 @@ export class SeminarReportComponent implements OnInit {
 				this.report = res;
 				this.photoKeys = Object.keys(this.report.SeminarFiles).filter(f => f.includes('foto'));
 				this.isLoading = false;
-				
+				Observable.fromEvent(document, 'keyup')
+					.filter((e: any) => [37, 39, 27].indexOf(e.keyCode) >= 0 && this.viewingImageKey != null)
+					.subscribe(this.keyUpHandler.bind(this))
 			});
 		})
 	}
@@ -86,6 +88,21 @@ export class SeminarReportComponent implements OnInit {
 		} else {
 			const indexOfViewingPhoto = this.photoKeys.indexOf(this.viewingImageKey);
 			this.viewingImageKey = this.photoKeys[indexOfViewingPhoto + 1];
+			return;
+		}
+	}
+
+	keyUpHandler(e: KeyboardEvent) {
+		if (e.keyCode === 37 && this.hasPrevImg()) {
+			this.showPrevImg();
+			return;
+		}
+		if (e.keyCode === 39 && this.hasNextImg()) {
+			this.showNextImg();
+			return;
+		}
+		if (e.keyCode === 27) {
+			this.hideViewer();
 			return;
 		}
 	}
