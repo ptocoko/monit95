@@ -17,7 +17,7 @@ export const EXAMNAME_DEFAULT_SELECTION = 'все диагностики';
 })
 export class ReportListComponent implements OnInit {
     reportsList: RsurReportModel[];
-	isLoading: boolean;
+	isLoading = true;
 	displayedColumns = ['number', 'code', 'surname', 'name', 'secondName', 'schoolName', 'examName', 'testStatus'];
 	dataSource = new MatTableDataSource();
 
@@ -42,8 +42,7 @@ export class ReportListComponent implements OnInit {
 
 		var examFromStorage = localStorage.getItem('selectedExam');
 		this.selectedExam = examFromStorage ? examFromStorage : EXAMNAME_DEFAULT_SELECTION;
-
-		this.isLoading = true;
+		
         this.rsurReportService.getReports().subscribe(reports => {
 			this.reportsList = reports;
 			this.dataSource = new MatTableDataSource(reports);

@@ -32,7 +32,8 @@ export class SchoolNameFilterPipe implements PipeTransform {
 		if (testNameWithDate && testNameWithDate !== TESTNAME_DEFAULT_SELECTION) {
 			reports = reports.filter((report: RsurReportModel) => report.TestName === testNameWithDate);
 		}
-		return reports.map((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName).filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
+        return reports.map((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName) // select schoolNames
+                      .filter((value: string, index: number, self: string[]) => self.indexOf(value) === index); // delete dublicates
     }
 }
 
@@ -60,7 +61,8 @@ export class ExamNameFilterPipe implements PipeTransform {
 		if (testNameWithDate && testNameWithDate !== TESTNAME_DEFAULT_SELECTION) {
 			reports = reports.filter((report: RsurReportModel) => report.TestName === testNameWithDate);
 		}
-		return reports.map((report: RsurReportModel) => report.ExamName).filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
+        return reports.map((report: RsurReportModel) => report.ExamName)
+                      .filter((value: string, index: number, self: string[]) => self.indexOf(value) === index);
 	}
 }
 

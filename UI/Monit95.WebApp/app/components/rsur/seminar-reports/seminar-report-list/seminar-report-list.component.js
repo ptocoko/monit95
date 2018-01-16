@@ -14,19 +14,20 @@ var SeminarReportsListComponent = /** @class */ (function () {
         this.seminarReportService = seminarReportService;
         this.accountService = accountService;
         this.snackBar = snackBar;
-        this.reportsLoading = false;
+        this.isLoading = true;
+        //reportsLoading: boolean = false;
         this.deletedEvent = new core_1.EventEmitter();
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.isLoading = true;
         this.deletedEvent
             .startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
             .switchMap(function () {
-            _this.reportsLoading = true;
             return _this.seminarReportService.getReportsList();
         })
             .map(function (reports) {
-            _this.reportsLoading = false;
+            _this.isLoading = false;
             _this.reportsLength = reports.length;
             return reports;
         }).

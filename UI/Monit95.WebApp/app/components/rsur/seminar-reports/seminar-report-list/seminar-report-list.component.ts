@@ -16,9 +16,11 @@ import { MatSnackBar } from '@angular/material';
 	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component.css?v=${new Date().getTime()}`]
 })
 export class SeminarReportsListComponent {
+    isLoading = true;
 	reports: SeminarReportView[];
-	reportsLength: number;
-	reportsLoading: boolean = false;
+    reportsLength: number;
+    schoolNamesFromReports: string[];
+	//reportsLoading: boolean = false;
 
 	deletedEvent: EventEmitter<any> = new EventEmitter();
 
@@ -26,15 +28,15 @@ export class SeminarReportsListComponent {
 				private readonly accountService: AccountService,
 				private readonly snackBar: MatSnackBar) { }
 
-	ngOnInit() {
+    ngOnInit() {
+        this.isLoading = true;
 		this.deletedEvent
 				.startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
-				.switchMap(() => {
-					this.reportsLoading = true;
+				.switchMap(() => {					
 					return this.seminarReportService.getReportsList();
 				})
 				.map((reports: SeminarReportView[]) => {
-					this.reportsLoading = false;
+                    this.isLoading = false;
 					this.reportsLength = reports.length;
 
 					return reports;
