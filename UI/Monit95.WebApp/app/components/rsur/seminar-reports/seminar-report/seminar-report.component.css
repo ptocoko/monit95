@@ -18,6 +18,16 @@
 .viewing-img{
     max-width: 85vw;
     margin-top: 100px;
+    max-height: 100vh;
+}
+
+.img-thumbnail{
+    height: 200px;
+    cursor:pointer;
+}
+
+.img-thumbnail + .img-thumbnail{
+    margin-left: 15px;
 }
 
 .viewer-action {

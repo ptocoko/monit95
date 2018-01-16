@@ -4,17 +4,18 @@
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>
 <div *ngIf="!isLoading">
-    <div class="protocol">
-        <img height="350" 
-             [src]="report.SeminarFiles['protocol']"
-             (click)="showViewer('protocol')"/>
-    </div>
-    
+
     <div class="photos">
-        <img height="350" 
-             *ngFor="let key of photoKeys" 
-             [src]="report.SeminarFiles[key]" 
-             (click)="showViewer(key)"/>
+        <img height="100"
+             [src]="report.SeminarFiles['protocol']"
+             (click)="showViewer('protocol')" 
+             class="img-thumbnail"/>
+
+        <img height="100"
+             *ngFor="let key of photoKeys"
+             [src]="report.SeminarFiles[key]"
+             (click)="showViewer(key)" 
+             class="img-thumbnail"/>
     </div>
 
     <div #imageViewer 
