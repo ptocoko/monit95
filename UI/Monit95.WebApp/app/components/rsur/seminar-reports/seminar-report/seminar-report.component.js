@@ -6,6 +6,7 @@ var router_1 = require("@angular/router");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
 var common_1 = require("@angular/common");
 var account_service_1 = require("../../../../services/account.service");
+var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/throttleTime");
 var SeminarReportComponent = /** @class */ (function () {
     function SeminarReportComponent(router, route, seminarReportService, location, accountService) {
@@ -24,6 +25,9 @@ var SeminarReportComponent = /** @class */ (function () {
                 _this.report = res;
                 _this.photoKeys = Object.keys(_this.report.SeminarFiles).filter(function (f) { return f.includes('foto'); });
                 _this.isLoading = false;
+                Observable_1.Observable.fromEvent(document, 'keyup')
+                    .filter(function (e) { return [37, 39, 27].indexOf(e.keyCode) >= 0 && _this.viewingImageKey != null; })
+                    .subscribe(_this.keyUpHandler.bind(_this));
             });
         });
     };
@@ -72,6 +76,20 @@ var SeminarReportComponent = /** @class */ (function () {
         else {
             var indexOfViewingPhoto = this.photoKeys.indexOf(this.viewingImageKey);
             this.viewingImageKey = this.photoKeys[indexOfViewingPhoto + 1];
+            return;
+        }
+    };
+    SeminarReportComponent.prototype.keyUpHandler = function (e) {
+        if (e.keyCode === 37 && this.hasPrevImg()) {
+            this.showPrevImg();
+            return;
+        }
+        if (e.keyCode === 39 && this.hasNextImg()) {
+            this.showNextImg();
+            return;
+        }
+        if (e.keyCode === 27) {
+            this.hideViewer();
             return;
         }
     };
