@@ -19,9 +19,6 @@ var SeminarReportsListComponent = /** @class */ (function () {
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //this.getReports();
-        //Observable
-        //	.fromEvent(this.deleteBtn.nativeElement, 'click')
         this.deletedEvent
             .startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
             .switchMap(function () {
@@ -38,7 +35,6 @@ var SeminarReportsListComponent = /** @class */ (function () {
     SeminarReportsListComponent.prototype.deleteReport = function (reportId) {
         var _this = this;
         this.seminarReportService.deleteReport(reportId).subscribe(function (response) {
-            //this.getReports();
             _this.deletedEvent.emit();
             _this.snackBar.open('отчет удален', 'OK', { duration: 3000 });
         });
