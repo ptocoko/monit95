@@ -2,5 +2,5 @@
 	RsurReportId: number;
 	DateText: string;	
 	SchoolName: string;
-	ImagesUrls?: string[];
+	SeminarFiles: { [key: string]: string };
 }

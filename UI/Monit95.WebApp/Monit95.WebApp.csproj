@@ -414,6 +414,7 @@
     <Content Include="app\components\rsur\ratings\ratings.component.html" />
     <Content Include="app\components\rsur\reports\report-list\report-list.component.css" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.css" />
+    <Content Include="app\components\rsur\seminar-reports\seminar-report\seminar-report.component.css" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report\seminar-report.component.html" />
     <Content Include="app\components\rsur\seminar-reports\seminar-report-list\seminar-report-list.component.html" />
     <Content Include="app\components\school-files\school-files.component.css" />
