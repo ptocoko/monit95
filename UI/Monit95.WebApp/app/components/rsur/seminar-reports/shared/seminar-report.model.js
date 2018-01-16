@@ -1,9 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var SeminarReportModel = /** @class */ (function () {
-    function SeminarReportModel() {
+var SeminarReportView = /** @class */ (function () {
+    function SeminarReportView() {
     }
-    return SeminarReportModel;
+    return SeminarReportView;
 }());
-exports.SeminarReportModel = SeminarReportModel;
+exports.SeminarReportView = SeminarReportView;
+var SeminarReportEdit = /** @class */ (function () {
+    function SeminarReportEdit() {
+    }
+    return SeminarReportEdit;
+}());
+exports.SeminarReportEdit = SeminarReportEdit;
 //# sourceMappingURL=seminar-report.model.js.map

@@ -7,14 +7,16 @@
         <th *ngIf="accountService.isArea()">Наименование школы</th>
         <th *ngIf="accountService.isSchool()" style="width:30px"></th>
     </tr>
-    <tr *ngFor="let report of reports | async; let i = index" style="cursor:pointer">
-        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+    <tr *ngFor="let report of reports | async; let i = index" 
+        style="cursor:pointer"
+        [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+        <td>
             {{i + 1}}
         </td>
-        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+        <td>
             {{report.DateText}}
         </td>
-        <td *ngIf="accountService.isArea()" [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+        <td *ngIf="accountService.isArea()">
             {{report.SchoolName}}
         </td>
         <td *ngIf="accountService.isSchool()">

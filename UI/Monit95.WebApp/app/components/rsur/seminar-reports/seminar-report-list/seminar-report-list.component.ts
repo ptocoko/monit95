@@ -1,6 +1,6 @@
 ﻿
 import { Component, OnInit } from '@angular/core';
-import { SeminarReportModel } from "../shared/seminar-report.model";
+import { SeminarReportView } from "../shared/seminar-report.model";
 import { SeminarReportService } from '../../../../services/seminar-report.service';
 import { AccountService } from '../../../../services/account.service';
 import { Observable } from 'rxjs/Observable';
@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material';
 	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component.css?v=${new Date().getTime()}`]
 })
 export class SeminarReportsListComponent implements OnInit{
-	reports: Observable<SeminarReportModel[]>;
+	reports: Observable<SeminarReportView[]>;
 
 	constructor(private readonly seminarReportService: SeminarReportService,
 				private readonly accountService: AccountService,

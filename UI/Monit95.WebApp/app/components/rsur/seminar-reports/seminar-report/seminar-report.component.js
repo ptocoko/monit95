@@ -29,15 +29,9 @@ var SeminarReportComponent = /** @class */ (function () {
     };
     SeminarReportComponent.prototype.showViewer = function (imageKey) {
         this.viewingImageKey = imageKey;
-        //this.mouseMove$ = Observable.fromEvent(document, 'mousemove')
-        //	.subscribe(this.mouseMoveHandler);
-        //this.mouseClick$ = Observable.fromEvent(document, 'click')
-        //	.subscribe(this.mouseClickHandler);
     };
     SeminarReportComponent.prototype.hideViewer = function () {
         this.viewingImageKey = null;
-        //this.mouseMove$.unsubscribe();
-        //this.mouseClick$.unsubscribe();
     };
     SeminarReportComponent.prototype.hasPrevImg = function () {
         if (this.viewingImageKey) {
@@ -81,14 +75,6 @@ var SeminarReportComponent = /** @class */ (function () {
             return;
         }
     };
-    tslib_1.__decorate([
-        core_1.ViewChild('prevBtn'),
-        tslib_1.__metadata("design:type", core_1.ElementRef)
-    ], SeminarReportComponent.prototype, "prevBtn", void 0);
-    tslib_1.__decorate([
-        core_1.ViewChild('imageViewer'),
-        tslib_1.__metadata("design:type", core_1.ElementRef)
-    ], SeminarReportComponent.prototype, "imageViewer", void 0);
     SeminarReportComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'seminar-report',

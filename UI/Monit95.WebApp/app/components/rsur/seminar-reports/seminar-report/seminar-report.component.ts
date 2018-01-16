@@ -2,7 +2,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SeminarReportService } from '../../../../services/seminar-report.service';
-import { SeminarReportModel } from '../shared/seminar-report.model';
+import { SeminarReportEdit } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
 import { AccountService } from "../../../../services/account.service";
 import { Observable } from 'rxjs/Observable';
@@ -14,16 +14,10 @@ import 'rxjs/add/operator/throttleTime';
 	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.css?v=${new Date().getTime()}`]
 })
 export class SeminarReportComponent implements OnInit {
-	report: SeminarReportModel;
+	report: SeminarReportEdit;
 	photoKeys: string[];
 	isLoading: boolean;
 	viewingImageKey: string;
-
-	mouseMove$: any;
-	mouseClick$: any;
-
-	@ViewChild('prevBtn') prevBtn: ElementRef;
-	@ViewChild('imageViewer') imageViewer: ElementRef;
 
 	constructor(private router: Router, 
 				private route: ActivatedRoute,
@@ -47,17 +41,10 @@ export class SeminarReportComponent implements OnInit {
 
 	showViewer(imageKey: string) {
 		this.viewingImageKey = imageKey;
-		//this.mouseMove$ = Observable.fromEvent(document, 'mousemove')
-		//	.subscribe(this.mouseMoveHandler);
-
-		//this.mouseClick$ = Observable.fromEvent(document, 'click')
-		//	.subscribe(this.mouseClickHandler);
 	}
 
 	hideViewer() {
 		this.viewingImageKey = null;
-		//this.mouseMove$.unsubscribe();
-		//this.mouseClick$.unsubscribe();
 	}
 
 	hasPrevImg() {
@@ -102,33 +89,4 @@ export class SeminarReportComponent implements OnInit {
 			return;
 		}
 	}
-
-	//mouseMoveHandler(event: MouseEvent) {
-	//	const mouseRelativePos = event.pageX / event.view.innerWidth;
-	//	if (mouseRelativePos < 0.2) {
-	//		$('.fa-angle-left').addClass('active-btn');
-	//	} else {
-	//		$('.fa-angle-left').removeClass('active-btn');
-	//	}
-
-	//	if (mouseRelativePos > 0.8) {
-	//		$('.fa-angle-right').addClass('active-btn');
-	//	} else {
-	//		$('.fa-angle-right').removeClass('active-btn');
-	//	}
-	//}
-
-	//mouseClickHandler(event: MouseEvent) {
-	//	const mouseRelativePos = event.pageX / event.view.innerWidth;
-	//	if (mouseRelativePos < 0.2) {
-	//		if (this.hasPrevImg()) {
-	//			this.showPrevImg();
-	//		}
-	//	}
-	//	if (mouseRelativePos > 0.8) {
-	//		if (this.hasNextImg()) {
-	//			this.showNextImg();
-	//		}
-	//	}
-	//}
 }

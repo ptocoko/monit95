@@ -1,7 +1,7 @@
 ﻿
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { SeminarReportModel } from '../components/rsur/seminar-reports/shared/seminar-report.model';
+import { SeminarReportView, SeminarReportEdit } from '../components/rsur/seminar-reports/shared/seminar-report.model';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -51,18 +51,18 @@ export class SeminarReportService {
 	}
 
 	getReportsList() {
-        return this.http.get<SeminarReportModel[]>(this.endpoint);
+        return this.http.get<SeminarReportView[]>(this.endpoint);
 	}
 
 	getReport(reportId: number) {
-		return this.http.get<SeminarReportModel>(`${this.endpoint}/${reportId}`)
+		return this.http.get<SeminarReportEdit>(`${this.endpoint}/${reportId}`)
 			.map(m => {
 				const keys = Object.keys(m.SeminarFiles);
 				for (const key of keys) {
 					m.SeminarFiles[key] = `data:image/png;base64,${m.SeminarFiles[key]}`;
 				}
 				return m;
-			})
+			});
 	}
 
 	deleteReport(reportId: number) {
