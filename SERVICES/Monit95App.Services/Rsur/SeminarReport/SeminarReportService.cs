@@ -259,15 +259,17 @@ namespace Monit95App.Services.Rsur.SeminarReport
         public IEnumerable<SeminarReportViewDto> GetViewDtos(string userName)
         {
             IEnumerable<RsurReport> reportEntities;
+            var date2018YearReports = new DateTime(2018, 1, 1);
+            var queryToGetReportEntities = context.RsurReports.Where(report => report.Date > date2018YearReports);
             if (userName.Length == 3) // areaCode is three-digit number
             {
                 Int32.TryParse(userName, out int areaCode);
                 if (areaCode == 0)
                     throw new ArgumentException(nameof(areaCode));
-                reportEntities = context.RsurReports.Where(report => report.School.AreaCode == areaCode).ToList();
+                reportEntities = queryToGetReportEntities.Where(report => report.School.AreaCode == areaCode).ToList();
             }
             else
-                reportEntities = context.RsurReports.Where(report => report.SchoolId == userName);
+                reportEntities = queryToGetReportEntities.Where(report => report.SchoolId == userName).ToList();
 
             var viewDtos = reportEntities.Select(report => new SeminarReportViewDto
             {
