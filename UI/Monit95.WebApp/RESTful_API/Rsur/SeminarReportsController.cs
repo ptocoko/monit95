@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security;
 using System.Web;
 using System.Web.Http;
 using Monit95App.Services.Rsur.SeminarReport;
@@ -44,7 +43,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         /// <summary>
-        /// Get report Получение одного отчета для отображения вместе с файлами
+        /// Получение одного отчета для отображения вместе с файлами
         /// </summary>        
         /// <returns>Reports with files</returns>        
         [HttpGet, Route("{id:int}")]        

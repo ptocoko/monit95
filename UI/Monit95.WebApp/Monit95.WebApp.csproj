@@ -351,7 +351,6 @@
     <Compile Include="RESTful_API\Rsur\RsurParticipEditsController.cs" />
     <Compile Include="RESTful_API\ParticipsController.cs" />
     <Compile Include="RESTful_API\CollectorsController.cs" />
-    <Compile Include="RESTful_API\Rsur\old_RsurTestResultsController.cs" />
     <Compile Include="RESTful_API\Rsur\SeminarReportsController.cs" />
     <Compile Include="RESTful_API\SchoolFilesController.cs" />
     <Compile Include="RESTful_API\SchoolsController.cs" />
