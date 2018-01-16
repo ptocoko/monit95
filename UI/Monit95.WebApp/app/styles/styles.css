@@ -1,5 +1,9 @@
 ﻿@import '../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 
+*{
+    outline: none !important;
+}
+
 .list-container {
     margin-top: 50px;
 }

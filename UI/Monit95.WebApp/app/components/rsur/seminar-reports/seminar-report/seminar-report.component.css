@@ -1,7 +1,14 @@
-﻿.helper { /*it's need for images vertical centering*/
+﻿.image-viewer:before,
+.image-viewer_before {
+    content: "";
     display: inline-block;
     height: 100%;
     vertical-align: middle;
+}
+
+.report-info{
+    display:flex;
+    justify-content: space-between;
 }
 
 .image-viewer {

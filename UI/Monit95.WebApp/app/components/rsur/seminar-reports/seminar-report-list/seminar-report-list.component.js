@@ -4,25 +4,44 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
 var account_service_1 = require("../../../../services/account.service");
+require("rxjs/add/operator/startWith");
+require("rxjs/add/operator/switchMap");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 var material_1 = require("@angular/material");
 var SeminarReportsListComponent = /** @class */ (function () {
     function SeminarReportsListComponent(seminarReportService, accountService, snackBar) {
         this.seminarReportService = seminarReportService;
         this.accountService = accountService;
         this.snackBar = snackBar;
+        this.reportsLoading = false;
+        this.deletedEvent = new core_1.EventEmitter();
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
-        this.getReports();
+        var _this = this;
+        //this.getReports();
+        //Observable
+        //	.fromEvent(this.deleteBtn.nativeElement, 'click')
+        this.deletedEvent
+            .startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
+            .switchMap(function () {
+            _this.reportsLoading = true;
+            return _this.seminarReportService.getReportsList();
+        })
+            .map(function (reports) {
+            _this.reportsLoading = false;
+            _this.reportsLength = reports.length;
+            return reports;
+        }).
+            subscribe(function (reports) { return _this.reports = reports; });
     };
     SeminarReportsListComponent.prototype.deleteReport = function (reportId) {
         var _this = this;
         this.seminarReportService.deleteReport(reportId).subscribe(function (response) {
-            _this.getReports();
+            //this.getReports();
+            _this.deletedEvent.emit();
             _this.snackBar.open('отчет удален', 'OK', { duration: 3000 });
         });
-    };
-    SeminarReportsListComponent.prototype.getReports = function () {
-        this.reports = this.seminarReportService.getReportsList();
     };
     SeminarReportsListComponent = tslib_1.__decorate([
         core_1.Component({

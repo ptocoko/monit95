@@ -4,7 +4,10 @@
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>
 <div *ngIf="!isLoading">
-
+    <div class="report-info alert alert-info">
+        <span>{{report.SeminarReportViewDto.SchoolName}}</span>
+        <span><i>{{report.SeminarReportViewDto.DateText}}</i></span>
+    </div>
     <div class="photos">
         <img height="100"
              [src]="report.SeminarFiles['protocol']"
@@ -21,7 +24,6 @@
     <div class="image-viewer" 
          *ngIf="viewingImageKey">
 
-        <span class="helper"></span>
         <img [src]="report.SeminarFiles[viewingImageKey]"
                 class="viewing-img" />
 
