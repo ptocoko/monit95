@@ -33,13 +33,13 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         [HttpGet, Route("")]
         public HttpResponseMessage GetViewDtos()
         {
-            var seminarReportViewDtos = seminarReportService.GetViewDtos(User.Identity.Name);        
+            IEnumerable<SeminarReportViewDto> seminarReportViewDtos = seminarReportService.GetViewDtos(User.Identity.Name);        
             
             return Request.CreateResponse(HttpStatusCode.OK, seminarReportViewDtos);                        
         }
 
         /// <summary>
-        /// Получение одного отчета для отображения
+        /// Получение одного отчета для отображения вместе с файлами
         /// </summary>        
         /// <returns></returns>        
         [HttpGet, Route("{id:int}")]        
