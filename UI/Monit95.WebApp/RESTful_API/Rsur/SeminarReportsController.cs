@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -34,6 +35,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         /// <remarks>Reports without files</remarks>
         /// <returns>SeminarReportViewDto array</returns>        
         [HttpGet, Route("")]
+        [SuppressMessage("ReSharper", "SuggestVarOrType_Elsewhere")]
         public HttpResponseMessage GetViewDtos()
         {
             IEnumerable<SeminarReportViewDto> seminarReportViewDtos = seminarReportService.GetViewDtos(User.Identity.Name);        
@@ -67,8 +69,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         /// <summary>
         /// Delete report
         /// </summary>
-        /// <returns></returns>
-        /// TODO: refa
+        /// <returns></returns>        
         [HttpDelete, Route("{id:int}")]
         [Authorize(Roles = "school")]
         public IHttpActionResult DeleteReport()
@@ -88,26 +89,26 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             return Ok();
         }
 
+        /// <summary>
+        /// Create seminar report by files
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, Route("")]
-        [Authorize(Roles = "school")] 
+        [Authorize(Roles = "school")]
+        [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
         // TODO: refactring
         public HttpResponseMessage CreateReport()
         {
             var schoolId = User.Identity.Name;
             HttpFileCollection httpFileCollection = HttpContext.Current.Request.Files;
-            // ReSharper disable once PossibleNullReferenceException
-            // Generate Dictionary<string, Stream>
-            var first5Keys = httpFileCollection.AllKeys.Take(5); // must have 1 protocol and max 4 fotos                                                     
-            var uniqueStreamDictionary = new Dictionary<string, UniqueStream>();
 
-            foreach(var key in first5Keys)
+            // Generate Dictionary<string, UniqueStream>
+            var first5Keys = httpFileCollection.AllKeys.Take(5); // must have 1 protocol and max 4 fotos                                                     
+            var uniqueStreamDictionary = first5Keys.ToDictionary(key => key, key => new UniqueStream
             {
-                uniqueStreamDictionary.Add(key, new UniqueStream
-                {
-                    FileName = httpFileCollection[key].FileName,
-                    Stream = httpFileCollection[key].InputStream
-                });
-            }
+                FileName = httpFileCollection[key].FileName,
+                Stream = httpFileCollection[key].InputStream
+            });
 
             // Call service
             var serviceResult = seminarReportService.CreateReport(uniqueStreamDictionary, schoolId);
@@ -116,9 +117,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
                 return Request.CreateResponse(HttpStatusCode.Created, serviceResult.Result);
             // Error
             foreach (var error in serviceResult.Errors)
-
-                ModelState.AddModelError(error.Key, error.Description);
-            
+                ModelState.AddModelError(error.Key, error.Description);            
             return Request.CreateErrorResponse(serviceResult.Errors.Any(e => e.HttpCode == 409) ? HttpStatusCode.Conflict : HttpStatusCode.BadRequest, ModelState);            
         }
 

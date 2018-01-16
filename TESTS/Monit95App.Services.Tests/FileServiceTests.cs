@@ -165,7 +165,7 @@ namespace Monit95App.Services.Tests
                         new FilePermission
                         {
                             UserName = "202",
-                            PermissionId = 2
+                            PermissionId = 1
                         }
                     },
                     Id = 2,
@@ -193,7 +193,7 @@ namespace Monit95App.Services.Tests
             // Clean fileSystem
             result1.Result.Close();
             result2.Result.Close();
-            Directory.Delete(@"c:\repositories\3", true);
+            Directory.Delete(@"c:\repositories\2", true);
             Directory.Delete(@"c:\repositories\4", true);
         }
 

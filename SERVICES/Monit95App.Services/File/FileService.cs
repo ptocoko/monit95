@@ -130,8 +130,7 @@ namespace Monit95App.Services.File
         /// <param name="fileId">Id файла в базе данных</param>
         /// <param name="userName">
         /// Данный параметр необходим: 1) Если необходимо проверить права на удаление, 2) Если имя файла содержит маску {userName}
-        /// </param>        
-        // TODO: refactoring
+        /// </param>                
         public void Delete(int fileId, string userName)
         {
             var filePermission = new FilePermission
