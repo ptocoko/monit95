@@ -15,6 +15,7 @@ var ReportListComponent = /** @class */ (function () {
         this.rsurReportService = rsurReportService;
         this.route = route;
         this.accountService = accountService;
+        this.isLoading = true;
         this.displayedColumns = ['number', 'code', 'surname', 'name', 'secondName', 'schoolName', 'examName', 'testStatus'];
         this.dataSource = new material_1.MatTableDataSource();
     }
@@ -26,7 +27,6 @@ var ReportListComponent = /** @class */ (function () {
         this.selectedTest = testFromStorage ? testFromStorage : exports.TESTNAME_DEFAULT_SELECTION;
         var examFromStorage = localStorage.getItem('selectedExam');
         this.selectedExam = examFromStorage ? examFromStorage : exports.EXAMNAME_DEFAULT_SELECTION;
-        this.isLoading = true;
         this.rsurReportService.getReports().subscribe(function (reports) {
             _this.reportsList = reports;
             _this.dataSource = new material_1.MatTableDataSource(reports);

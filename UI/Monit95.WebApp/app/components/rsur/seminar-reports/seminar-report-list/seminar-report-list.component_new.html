@@ -1,0 +1,39 @@
+<h2>РСУР: Отчеты по семинарам</h2>
+<hr />
+<div *ngIf="reportsLoading">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>
+<table class="table table-hover table-striped table-bordered" 
+       [ngClass]="{'school-table-width': accountService.isSchool()}"
+       *ngIf="!reportsLoading && reportsLength > 0">
+    <tr>
+        <th>#</th>
+        <th>Дата</th>
+        <th *ngIf="accountService.isArea()">Наименование школы</th>
+        <th *ngIf="accountService.isSchool()" style="width:30px"></th>
+    </tr>
+    <tr *ngFor="let report of reports; let i = index" 
+        style="cursor:pointer">
+        <td class="number-column-width"
+            [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+            {{i + 1}}
+        </td>
+        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]">
+            {{report.DateText}}
+        </td>
+        <td [routerLink]="['/rsur/seminar-reports', report.RsurReportId]" 
+            *ngIf="accountService.isArea()">
+            {{report.SchoolName}}
+        </td>
+        <td *ngIf="accountService.isSchool()">
+            <a class="glyphicon glyphicon-trash" 
+               (click)="deleteReport(report.RsurReportId)"></a>
+        </td>
+    </tr>
+</table>
+
+<div *ngIf="reportsLength === 0" class="text-muted"><i>отчеты отсутствуют</i></div>
+
+<div *ngIf="accountService.isSchool()">
+    <button style="z-index: 10; position:fixed; left:60%; top:80%; background-color: green; color:white; font-size:x-large" mat-fab color="primary" routerLink="/rsur/seminar-reports/create">+</button>
+</div>

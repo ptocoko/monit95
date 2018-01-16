@@ -19,6 +19,7 @@ var SeminarReportsListComponent = /** @class */ (function () {
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.isLoading = true;
         this.deletedEvent
             .startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
             .switchMap(function () {

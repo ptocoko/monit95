@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material';
 	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component.css?v=${new Date().getTime()}`]
 })
 export class SeminarReportsListComponent {
+    isLoading: boolean;
 	reports: SeminarReportView[];
 	reportsLength: number;
 	reportsLoading: boolean = false;
@@ -26,7 +27,8 @@ export class SeminarReportsListComponent {
 				private readonly accountService: AccountService,
 				private readonly snackBar: MatSnackBar) { }
 
-	ngOnInit() {
+    ngOnInit() {
+        this.isLoading = true;
 		this.deletedEvent
 				.startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
 				.switchMap(() => {
