@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security;
 using System.Web;
 using System.Web.Http;
 using Monit95App.Services.Rsur.SeminarReport;
@@ -71,12 +73,18 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         [Authorize(Roles = "school")]
         public IHttpActionResult DeleteReport()
         {
-            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-            
+            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());            
             var schoolId = User.Identity.Name;
-
-            seminarReportService.DeleteReport(reportId, schoolId);
-
+            try
+            {
+                seminarReportService.DeleteReport(reportId, schoolId);
+            }
+            catch(ArgumentException)
+            {                
+                ModelState.AddModelError("file", "fileId указан не верно или у пользователя отсутствуют права на удаление");
+                return BadRequest(ModelState);
+            }
+            
             return Ok();
         }
 
