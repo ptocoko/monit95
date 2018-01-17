@@ -134,9 +134,9 @@ namespace Monit95App.Services.Tests
         {
             // Arrange
             // Preparing file system
-            Directory.CreateDirectory(@"c:\repositories\3");
+            Directory.CreateDirectory(@"c:\repositories\2");
             Directory.CreateDirectory(@"c:\repositories\4");
-            var fs = System.IO.File.Create(@"c:\repositories\3\распределение_201.xlsx");
+            var fs = System.IO.File.Create(@"c:\repositories\2\распределение_201.xlsx");
             var fs2 = System.IO.File.Create(@"c:\repositories\4\статистический отчет егэ-2017.pdf");
             fs.Close();
             fs2.Close();
@@ -151,11 +151,11 @@ namespace Monit95App.Services.Tests
                         new FilePermission
                         {
                             UserName = "201",
-                            PermissionId = 2
+                            PermissionId = 1
                         }
                     },
                     Id = 1,
-                    RepositoryId = 3,
+                    RepositoryId = 2,
                     Name = "распределение_{userName}.xlsx"
                 },
                 new Domain.Core.Entities.File

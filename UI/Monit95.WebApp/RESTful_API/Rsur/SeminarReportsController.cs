@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -27,9 +28,10 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         #region Endpoins                                  
 
         /// <summary>
-        /// Получить список отчетов для пользователя
+        /// Get report list by user
         /// </summary>
-        /// <returns>SeminarReportViewDto[]</returns>        
+        /// <remarks>Reports without files</remarks>
+        /// <returns>SeminarReportViewDto array</returns>        
         [HttpGet, Route("")]
         public HttpResponseMessage GetViewDtos()
         {
@@ -39,9 +41,9 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }
 
         /// <summary>
-        /// Получение одного отчета для отображения вместе с файлами
+        /// Get report Получение одного отчета для отображения вместе с файлами
         /// </summary>        
-        /// <returns></returns>        
+        /// <returns>Reports with files</returns>        
         [HttpGet, Route("{id:int}")]        
         public IHttpActionResult GetEditDto()
         {
@@ -54,7 +56,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
             }
             catch (FileNotFoundException)
             {
-                ModelState.AddModelError("fileNotFound", "One of seminar file is not found");
+                ModelState.AddModelError("fileNotFound", "One of reportjlby  file was not found");
                 Request.CreateErrorResponse(HttpStatusCode.NotFound, ModelState);
             }
 
@@ -62,19 +64,26 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         }                                               
 
         /// <summary>
-        /// Удаление отчета
+        /// Delete report
         /// </summary>
         /// <returns></returns>
+        /// TODO: refa
         [HttpDelete, Route("{id:int}")]
         [Authorize(Roles = "school")]
         public IHttpActionResult DeleteReport()
         {
-            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
-            
+            var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());            
             var schoolId = User.Identity.Name;
-
-            seminarReportService.DeleteReport(reportId, schoolId);
-
+            try
+            {
+                seminarReportService.DeleteReport(reportId, schoolId);
+            }
+            catch(ArgumentException)
+            {                
+                ModelState.AddModelError("file", "fileId указан не верно или у пользователя отсутствуют права на удаление");
+                return BadRequest(ModelState);
+            }
+            
             return Ok();
         }
 

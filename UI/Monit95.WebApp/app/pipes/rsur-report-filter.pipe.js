@@ -39,7 +39,8 @@ var SchoolNameFilterPipe = /** @class */ (function () {
         if (testNameWithDate && testNameWithDate !== report_list_component_1.TESTNAME_DEFAULT_SELECTION) {
             reports = reports.filter(function (report) { return report.TestName === testNameWithDate; });
         }
-        return reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
+        return reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; }) // select schoolNames
+            .filter(function (value, index, self) { return self.indexOf(value) === index; }); // delete dublicates
     };
     SchoolNameFilterPipe = tslib_1.__decorate([
         core_1.Pipe({ name: 'schoolNameFilter' })
@@ -78,7 +79,8 @@ var ExamNameFilterPipe = /** @class */ (function () {
         if (testNameWithDate && testNameWithDate !== report_list_component_1.TESTNAME_DEFAULT_SELECTION) {
             reports = reports.filter(function (report) { return report.TestName === testNameWithDate; });
         }
-        return reports.map(function (report) { return report.ExamName; }).filter(function (value, index, self) { return self.indexOf(value) === index; });
+        return reports.map(function (report) { return report.ExamName; })
+            .filter(function (value, index, self) { return self.indexOf(value) === index; });
     };
     ExamNameFilterPipe = tslib_1.__decorate([
         core_1.Pipe({ name: 'examNameFilter' })

@@ -243,7 +243,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 SeminarReportViewDto = new SeminarReportViewDto
                 {
                     RsurReportId = reportId,
-                    DateText = report.Date.ToString("dd MMM yyyy, HH:mm:ss", new CultureInfo("ru-RU")),
+                    DateText = report.Date.ToString("dd MMM yyyy, HH:mm", new CultureInfo("ru-RU")),
                     SchoolName = $"{report.SchoolId} - {report.School.Name}"
                 }
             };
@@ -274,7 +274,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             var viewDtos = reportEntities.Select(report => new SeminarReportViewDto
             {
                 RsurReportId = report.Id,
-                DateText = report.Date.ToString("dd MMM yyyy, HH:mm:ss", new CultureInfo("ru-RU")),
+                DateText = report.Date.ToString("dd MMM yyyy, HH:mm", new CultureInfo("ru-RU")),
                 SchoolName = $"{report.SchoolId} - {report.School.Name}"
             });
 

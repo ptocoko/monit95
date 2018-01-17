@@ -55,17 +55,12 @@
     <Compile Include="Entities\Class.cs" />
     <Compile Include="Entities\Collector.cs" />
     <Compile Include="Entities\Document.cs" />
-    <Compile Include="Entities\Element.cs" />
-    <Compile Include="Entities\ElementType.cs" />
     <Compile Include="Entities\Exercis.cs" />
     <Compile Include="Entities\File.cs" />
     <Compile Include="Entities\FilePermission.cs" />
     <Compile Include="Entities\GiaResult.cs" />
     <Compile Include="Entities\Grade.cs" />
-    <Compile Include="Entities\Kim.cs" />
-    <Compile Include="Entities\KimQuestion.cs" />
     <Compile Include="Entities\Monit95User.cs" />
-    <Compile Include="Entities\OldGroup.cs" />
     <Compile Include="Entities\Particip.cs" />
     <Compile Include="Entities\ParticipTest.cs" />
     <Compile Include="Entities\Permission.cs" />
@@ -76,8 +71,6 @@
     <Compile Include="Entities\Report.cs" />
     <Compile Include="Entities\Repository.cs" />
     <Compile Include="Entities\Result.cs" />
-    <Compile Include="Entities\Roo.cs" />
-    <Compile Include="Entities\RooDirect.cs" />
     <Compile Include="Entities\RsurParticip.cs" />
     <Compile Include="Entities\RsurParticipEdit.cs" />
     <Compile Include="Entities\RsurParticipTest.cs" />
@@ -90,10 +83,8 @@
     <Compile Include="Entities\School.cs" />
     <Compile Include="Entities\SchoolCollector.cs" />
     <Compile Include="Entities\SchoolEdit.cs" />
-    <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\Test.cs" />
     <Compile Include="Entities\TownType.cs" />
-    <Compile Include="Entities\Umk.cs" />
     <Compile Include="Entities\Wish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingItem.cs" />

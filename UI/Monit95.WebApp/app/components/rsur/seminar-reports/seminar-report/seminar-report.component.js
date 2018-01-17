@@ -25,7 +25,7 @@ var SeminarReportComponent = /** @class */ (function () {
                 _this.report = res;
                 _this.photoKeys = Object.keys(_this.report.SeminarFiles).filter(function (f) { return f.includes('foto'); });
                 _this.isLoading = false;
-                Observable_1.Observable.fromEvent(document, 'keyup')
+                Observable_1.Observable.fromEvent(document, 'keydown')
                     .filter(function (e) { return [37, 39, 27].indexOf(e.keyCode) >= 0 && _this.viewingImageKey != null; })
                     .subscribe(_this.keyUpHandler.bind(_this));
             });
