@@ -94,6 +94,8 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         {
             var schoolId = User.Identity.Name;
             HttpFileCollection httpFileCollection = HttpContext.Current.Request.Files;
+
+            httpFileCollection.Cast<HttpPostedFile>().Where(hpf => hpf != null && hpf.InputStream != null).Take(5);
             // ReSharper disable once PossibleNullReferenceException
             // Generate Dictionary<string, Stream>
             var first5Keys = httpFileCollection.AllKeys.Take(5); // must have 1 protocol and max 4 fotos                                                     
