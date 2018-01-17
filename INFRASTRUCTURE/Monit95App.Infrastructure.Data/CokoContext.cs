@@ -14,9 +14,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Collector> Collectors { get; set; }
-        public virtual DbSet<Document> Documents { get; set; }
-        public virtual DbSet<Element> Elements { get; set; }
-        public virtual DbSet<ElementType> ElementTypes { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }        
         public virtual DbSet<Exercis> Exercises { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
@@ -103,19 +101,6 @@ namespace Monit95App.Infrastructure.Data
                 .Property(e => e.Available)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Element>()
-                .Property(e => e.Code)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Element>()
-                .Property(e => e.ExerNames)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ElementType>()
-                .HasMany(e => e.Elements)
-                .WithRequired(e => e.ElementType)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Exercis>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -199,23 +184,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Result>()
                 .Property(e => e.ElementValues)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Roo>()
-                .Property(e => e.GoverFullName)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Roo>()
-                .HasOptional(e => e.Roo1)
-                .WithRequired(e => e.Roo2);
-
-            modelBuilder.Entity<RooDirect>()
-                .HasMany(e => e.Roos)
-                .WithRequired(e => e.RooDirect)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<RooDirect>()
-                .HasOptional(e => e.RooDirect1)
-                .WithRequired(e => e.RooDirect2);
 
             modelBuilder.Entity<RsurParticipEdit>()
                 .Property(e => e.ParticipCode)
