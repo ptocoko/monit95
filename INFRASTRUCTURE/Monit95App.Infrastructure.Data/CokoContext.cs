@@ -20,9 +20,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Exercis> Exercises { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<GiaResult> GiaResults { get; set; }
-        public virtual DbSet<Grade> Grades { get; set; }
-        public virtual DbSet<Kim> Kims { get; set; }
-        public virtual DbSet<KimQuestion> KimQuestions { get; set; }        
+        public virtual DbSet<Grade> Grades { get; set; }              
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -146,11 +144,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<GiaResult>()
                 .Property(e => e.Skills)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Kim>()
-                .HasMany(e => e.KimQuestions)
-                .WithRequired(e => e.Kim)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Particip>()
                 .Property(e => e.SchoolId)
