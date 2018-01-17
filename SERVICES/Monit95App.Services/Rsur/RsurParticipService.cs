@@ -61,6 +61,7 @@ namespace Monit95App.Services.Rsur
             }
 
             var entity = this._cokoContext.RsurParticips.Find(code);
+
             if (entity == null)
             {
                 throw new ArgumentException();
