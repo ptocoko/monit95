@@ -37,11 +37,9 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<RsurTest> RsurTests { get; set; }
         public virtual DbSet<SchoolCollector> SchoolCollectors { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
-        public virtual DbSet<School> Schools { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }        
+        public virtual DbSet<School> Schools { get; set; }        
         public virtual DbSet<Test> Tests { get; set; }
-        public virtual DbSet<TownType> TownTypes { get; set; }
-        public virtual DbSet<Umk> Umks { get; set; }
+        public virtual DbSet<TownType> TownTypes { get; set; }        
         public virtual DbSet<Wish> Wishes { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<FilePermission> FilePermissions { get; set; }
