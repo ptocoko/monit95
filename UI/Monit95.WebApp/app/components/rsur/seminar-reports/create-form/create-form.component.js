@@ -14,6 +14,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         this.seminarFiles = [];
         this.maxFileSize = 15728640; // 15 MB 
         this.fileIndex = 1; // используется для генерации уникальных ключей для файлов семинара
+        this.isSending = false;
         this.acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
         this.getNotProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === false; }); };
         this.getProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === true; }); };
@@ -71,6 +72,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
     };
     SeminarReportCreateFormComponent.prototype.sendFiles = function () {
         var _this = this;
+        this.isSending = true;
         var formData = new FormData();
         for (var _i = 0, _a = this.seminarFiles; _i < _a.length; _i++) {
             var seminarImage = _a[_i];
@@ -79,6 +81,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         this.seminarReportService.postFiles(formData).subscribe(function (response) {
             _this.location.back();
         }, function (error) {
+            _this.isSending = false;
             if (error.status !== 409) {
                 throw Error(error.message);
             }

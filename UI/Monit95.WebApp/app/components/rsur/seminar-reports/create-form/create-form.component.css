@@ -69,3 +69,25 @@ input[type=file]{
     width: auto;
     align-self: flex-start
 }
+
+.sending-shade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.sending-text {
+    padding: 10px 15px;
+    background-color: rgba(0,0,0,0.15);
+    color:white;
+    margin-top: 15px;
+}
