@@ -1,10 +1,8 @@
 namespace Monit95App.Domain.Core.Entities
 {
-    using System;
-    using System.Collections.Generic;
+    using System;   
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+    using System.ComponentModel.DataAnnotations.Schema;    
 
     [Table("Exercises")]
     public partial class Exercis
