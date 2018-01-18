@@ -41,7 +41,8 @@ var SchoolNameFilterPipe = /** @class */ (function () {
             reports = reports.filter(function (report) { return report.TestName === testNameWithDate; });
         }
         return reports.map(function (report) { return report.SchoolParticipInfo.SchoolName; }) // select schoolNames
-            .filter(function (value, index, self) { return self.indexOf(value) === index; }); // delete dublicates
+            .filter(function (value, index, self) { return self.indexOf(value) === index; }) // delete dublicates
+            .sort(function (a, b) { return a.substr(0, 4) < b.substr(0, 4) ? -1 : 1; }); // sort by schoolId
     };
     SchoolNameFilterPipe = tslib_1.__decorate([
         core_1.Pipe({ name: 'schoolNameFilter' })

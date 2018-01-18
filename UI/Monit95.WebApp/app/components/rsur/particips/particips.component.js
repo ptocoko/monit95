@@ -8,8 +8,6 @@ var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm
 var rsur_particip_service_1 = require("../../../services/rsur-particip.service");
 var account_service_1 = require("../../../services/account.service");
 var RsurParticipsComponent = /** @class */ (function () {
-    // for paginator
-    //getParticipsCount = () => this.isShowNotActual ? this.allParticips.length : this.actualParticips.length;
     function RsurParticipsComponent(rsurParticipService, accauntService, snackBar, dialog) {
         this.rsurParticipService = rsurParticipService;
         this.accauntService = accauntService;
@@ -46,16 +44,6 @@ var RsurParticipsComponent = /** @class */ (function () {
             _this.dataSource.paginator = _this.paginator;
         });
     };
-    //showFired(isChecked: boolean) {
-    //	this.isShowNotActual = isChecked;
-    //	if(isChecked) {
-    //		this.dataSource = new MatTableDataSource<RsurParticipModel>(this.allParticips);
-    //	} else {
-    //		this.dataSource = new MatTableDataSource<RsurParticipModel>(this.actualParticips);
-    //	}
-    //	this.dataSource.sort = this.sort;
-    //	this.dataSource.paginator = this.paginator;
-    //}
     RsurParticipsComponent.prototype.fireParticip = function (slideToggle, particip) {
         var _this = this;
         // checked == false означает, что участник исключен из проекта
