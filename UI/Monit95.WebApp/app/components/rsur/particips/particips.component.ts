@@ -10,6 +10,7 @@ import { AccountModel } from '../../../models/account.model';
 // Services
 import { RsurParticipService } from '../../../services/rsur-particip.service';
 import { AccountService } from '../../../services/account.service';
+import { SCHOOLNAME_DEFAULT_SELECTION } from '../reports/report-list/report-list.component';
 
 @Component({
     selector: 'rsur/particips',
@@ -22,14 +23,14 @@ export class RsurParticipsComponent implements OnInit {
     isShowNotActual = true;
     displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
     dataSource = new MatTableDataSource<RsurParticipModel>();
-    isLoading = true;
+	isLoading = true;
+
+	selectedSchool = '';
+	filterText: string;
 
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
-
-	// for paginator
-	getParticipsCount = () => this.isShowNotActual ? this.allParticips.length : this.actualParticips.length;
-
+	
     constructor(private readonly rsurParticipService: RsurParticipService,
 				private readonly accauntService: AccountService,
 				private readonly snackBar: MatSnackBar,
@@ -41,7 +42,7 @@ export class RsurParticipsComponent implements OnInit {
 			this.displayedColumns.push('FiringBtn');
 		}
 
-        this.getParticips();
+		this.getParticips();
 	}
 
 	getParticips() {
@@ -62,17 +63,6 @@ export class RsurParticipsComponent implements OnInit {
             });
 	}
 
-	showFired(isChecked: boolean) {
-		this.isShowNotActual = isChecked;
-		if(isChecked) {
-			this.dataSource = new MatTableDataSource<RsurParticipModel>(this.allParticips);
-		} else {
-			this.dataSource = new MatTableDataSource<RsurParticipModel>(this.actualParticips);
-		}
-		this.dataSource.sort = this.sort;
-		this.dataSource.paginator = this.paginator;
-	}
-
 	fireParticip(slideToggle: MatSlideToggleChange, particip: RsurParticipModel) {
 		// checked == false означает, что участник исключен из проекта
 		if(!slideToggle.checked) {
@@ -80,7 +70,7 @@ export class RsurParticipsComponent implements OnInit {
 			const dialogRef = this.dialog.open(ConfirmDialogComponent, {
 				width: '400px',
 				disableClose: true,
-				data: { message: `Вы уверены что хотите исключить участника '${particip.Surname} ${particip.Name} ${particip.SecondName}' из проекта РСУР?` }
+				data: { message: `Вы уверены что хотите исключить участника '${particip.SchoolParticipInfo.Surname} ${particip.SchoolParticipInfo.Name} ${particip.SchoolParticipInfo.SecondName}' из проекта РСУР?` }
 			});
 
 			dialogRef.afterClosed().subscribe((result: boolean) =>{
@@ -107,9 +97,40 @@ export class RsurParticipsComponent implements OnInit {
 		}
 	}
 
-	applyFilter(searchText: string) {
-		searchText = searchText.trim().toLowerCase();
-		this.dataSource.filter = searchText;
+	applyFilter() {
+		this.dataSource.filter = this.filterText.trim().toLowerCase();
+	}
+
+	focusFilterInput() {
+		this.selectedSchool = '';
+		this.applySchoolFilter();
+
+		// на случай если используется кастомный предикат, заменяем его предикатом по умолчанию
+		this.dataSource.filterPredicate = defaultFilterPredicate;
+	}
+
+	applySchoolFilter() {
+		this.filterText = '';
+		this.paginator.pageIndex = 0;
+
+		// используем кастомный предикат для поиска только по школам вместо предиката по умолчанию
+		this.dataSource.filterPredicate = filterBySchoolPredicate;
+		this.dataSource.filter = this.selectedSchool.toLowerCase();
 	}
 };
 
+
+function filterBySchoolPredicate(data: RsurParticipModel, filter: string): boolean {
+	if (filter === '') return true;
+	return data.SchoolParticipInfo.SchoolName.trim().toLowerCase().indexOf(filter) > -1;
+}
+
+function defaultFilterPredicate(data: RsurParticipModel, filter: string): boolean {
+	if (!filter || filter === '') return true;
+
+	return data.Code.toString().indexOf(filter) > -1
+		|| data.SchoolParticipInfo.Surname.toLowerCase().indexOf(filter) > -1
+		|| data.SchoolParticipInfo.Name.toLowerCase().indexOf(filter) > -1
+		|| data.SchoolParticipInfo.SchoolName.toLowerCase().indexOf(filter) > -1
+		|| data.RsurSubjectName.toLowerCase().indexOf(filter) > -1;
+}

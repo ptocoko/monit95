@@ -30,6 +30,7 @@ var SchoolNameFilterPipe = /** @class */ (function () {
     function SchoolNameFilterPipe() {
     }
     SchoolNameFilterPipe.prototype.transform = function (reports, testNameWithDate, examName) {
+        console.log('oh no');
         if (!reports) {
             return [];
         }

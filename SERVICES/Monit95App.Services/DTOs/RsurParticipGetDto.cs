@@ -1,16 +1,20 @@
-﻿namespace Monit95App.Services.DTOs
+﻿using Monit95App.Domain.Core;
+
+namespace Monit95App.Services.DTOs
 {
     public class RsurParticipGetDto
     {
+        public SchoolParticip SchoolParticipInfo { get; set; }
+
         public int Code { get; set; }
 
-        public string Surname { get; set; }
+        //public string Surname { get; set; }
         
-        public string Name { get; set; }
+        //public string Name { get; set; }
 
-        public string SecondName { get; set; }
+        //public string SecondName { get; set; }
 
-        public string SchoolIdWithName { get; set; } // 0001 - School №1
+        //public string SchoolIdWithName { get; set; } // 0001 - School №1
 
         public string AreaCodeWithName { get; set; }
 

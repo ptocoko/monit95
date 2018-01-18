@@ -48,7 +48,7 @@ namespace Monit95App.Services.Tests
             var dtos = service.GetAll(null, "0010");
 
             // Assert
-            Assert.IsTrue(dtos.All(x => x.SchoolIdWithName.Substring(0, 4) == "0010"));
+            Assert.IsTrue(dtos.All(x => x.SchoolParticipInfo.SchoolName.Substring(0, 4) == "0010"));
         }
 
         [TestMethod]
@@ -74,9 +74,10 @@ namespace Monit95App.Services.Tests
             var dto = service.GetByCode(11000);
 
             // Assert
-            Assert.AreEqual("0010 - МБОУ «Лицей № 1 им. Н.А. Назарбаева» г. Грозного", dto.SchoolIdWithName);
+            Assert.AreEqual("0010 - МБОУ «Лицей № 1 им. Н.А. Назарбаева» г. Грозного", dto.SchoolParticipInfo.SchoolName);
             Assert.AreEqual("205 - г. Грозный", dto.AreaCodeWithName);
             Assert.AreEqual("Русский язык", dto.RsurSubjectName);
+            Assert.AreEqual("Алиева", dto.SchoolParticipInfo.Surname);
         }
 
         [TestMethod]

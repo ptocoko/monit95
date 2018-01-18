@@ -73,7 +73,7 @@ namespace Monit95App.Web.Api
             }         
 
             if (User.IsInRole("school")
-                && dtos.Any(x => x.SchoolIdWithName.Substring(0, 4) != userName))
+                && dtos.Any(x => x.SchoolParticipInfo.SchoolName.Substring(0, 4) != userName))
             {
                 return this.Conflict();
             }

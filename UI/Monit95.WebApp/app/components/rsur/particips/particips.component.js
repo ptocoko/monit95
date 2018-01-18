@@ -8,8 +8,9 @@ var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm
 var rsur_particip_service_1 = require("../../../services/rsur-particip.service");
 var account_service_1 = require("../../../services/account.service");
 var RsurParticipsComponent = /** @class */ (function () {
+    // for paginator
+    //getParticipsCount = () => this.isShowNotActual ? this.allParticips.length : this.actualParticips.length;
     function RsurParticipsComponent(rsurParticipService, accauntService, snackBar, dialog) {
-        var _this = this;
         this.rsurParticipService = rsurParticipService;
         this.accauntService = accauntService;
         this.snackBar = snackBar;
@@ -20,8 +21,7 @@ var RsurParticipsComponent = /** @class */ (function () {
         this.displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
         this.dataSource = new material_1.MatTableDataSource();
         this.isLoading = true;
-        // for paginator
-        this.getParticipsCount = function () { return _this.isShowNotActual ? _this.allParticips.length : _this.actualParticips.length; };
+        this.selectedSchool = '';
     }
     RsurParticipsComponent.prototype.ngOnInit = function () {
         if (this.accauntService.isCoko()) {
@@ -46,17 +46,16 @@ var RsurParticipsComponent = /** @class */ (function () {
             _this.dataSource.paginator = _this.paginator;
         });
     };
-    RsurParticipsComponent.prototype.showFired = function (isChecked) {
-        this.isShowNotActual = isChecked;
-        if (isChecked) {
-            this.dataSource = new material_1.MatTableDataSource(this.allParticips);
-        }
-        else {
-            this.dataSource = new material_1.MatTableDataSource(this.actualParticips);
-        }
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-    };
+    //showFired(isChecked: boolean) {
+    //	this.isShowNotActual = isChecked;
+    //	if(isChecked) {
+    //		this.dataSource = new MatTableDataSource<RsurParticipModel>(this.allParticips);
+    //	} else {
+    //		this.dataSource = new MatTableDataSource<RsurParticipModel>(this.actualParticips);
+    //	}
+    //	this.dataSource.sort = this.sort;
+    //	this.dataSource.paginator = this.paginator;
+    //}
     RsurParticipsComponent.prototype.fireParticip = function (slideToggle, particip) {
         var _this = this;
         // checked == false означает, что участник исключен из проекта
@@ -65,14 +64,14 @@ var RsurParticipsComponent = /** @class */ (function () {
             var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
                 width: '400px',
                 disableClose: true,
-                data: { message: "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0438\u0441\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430 '" + particip.Surname + " " + particip.Name + " " + particip.SecondName + "' \u0438\u0437 \u043F\u0440\u043E\u0435\u043A\u0442\u0430 \u0420\u0421\u0423\u0420?" }
+                data: { message: "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0438\u0441\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430 '" + particip.SchoolParticipInfo.Surname + " " + particip.SchoolParticipInfo.Name + " " + particip.SchoolParticipInfo.SecondName + "' \u0438\u0437 \u043F\u0440\u043E\u0435\u043A\u0442\u0430 \u0420\u0421\u0423\u0420?" }
             });
             dialogRef.afterClosed().subscribe(function (result) {
                 if (result) {
                     particip.ActualCode = 0;
                     _this.rsurParticipService.update(particip.Code, particip)
                         .subscribe(function (res) {
-                        _this.snackBar.open('участник исключен из проекта', 'OK', { duration: 300 });
+                        _this.snackBar.open('участник исключен из проекта', 'OK', { duration: 3000 });
                         _this.getParticips();
                     });
                 }
@@ -87,14 +86,26 @@ var RsurParticipsComponent = /** @class */ (function () {
             particip.ActualCode = 1;
             this.rsurParticipService.update(particip.Code, particip)
                 .subscribe(function (res) {
-                _this.snackBar.open('участник добавлен в проект', 'OK', { duration: 300 });
+                _this.snackBar.open('участник добавлен в проект', 'OK', { duration: 3000 });
                 _this.getParticips();
             });
         }
     };
-    RsurParticipsComponent.prototype.applyFilter = function (searchText) {
-        searchText = searchText.trim().toLowerCase();
-        this.dataSource.filter = searchText;
+    RsurParticipsComponent.prototype.applyFilter = function () {
+        this.dataSource.filter = this.filterText.trim().toLowerCase();
+    };
+    RsurParticipsComponent.prototype.focusFilterInput = function () {
+        this.selectedSchool = '';
+        this.applySchoolFilter();
+        // на случай если используется кастомный предикат, заменяем его предикатом по умолчанию
+        this.dataSource.filterPredicate = defaultFilterPredicate;
+    };
+    RsurParticipsComponent.prototype.applySchoolFilter = function () {
+        this.filterText = '';
+        this.paginator.pageIndex = 0;
+        // используем кастомный предикат для поиска только по школам вместо предиката по умолчанию
+        this.dataSource.filterPredicate = filterBySchoolPredicate;
+        this.dataSource.filter = this.selectedSchool.toLowerCase();
     };
     tslib_1.__decorate([
         core_1.ViewChild(material_1.MatSort),
@@ -119,4 +130,18 @@ var RsurParticipsComponent = /** @class */ (function () {
 }());
 exports.RsurParticipsComponent = RsurParticipsComponent;
 ;
+function filterBySchoolPredicate(data, filter) {
+    if (filter === '')
+        return true;
+    return data.SchoolParticipInfo.SchoolName.trim().toLowerCase().indexOf(filter) > -1;
+}
+function defaultFilterPredicate(data, filter) {
+    if (!filter || filter === '')
+        return true;
+    return data.Code.toString().indexOf(filter) > -1
+        || data.SchoolParticipInfo.Surname.toLowerCase().indexOf(filter) > -1
+        || data.SchoolParticipInfo.Name.toLowerCase().indexOf(filter) > -1
+        || data.SchoolParticipInfo.SchoolName.toLowerCase().indexOf(filter) > -1
+        || data.RsurSubjectName.toLowerCase().indexOf(filter) > -1;
+}
 //# sourceMappingURL=particips.component.js.map

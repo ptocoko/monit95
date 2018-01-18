@@ -4,15 +4,33 @@
 </p>
 <div class="example-container mat-elevation-z8">
     <div class="table-filters">
-        <mat-form-field class="filter-field">
-            <input matInput (keyup)="applyFilter(filter.value)" #filter placeholder="поиск..." />
+        <mat-form-field class="select-school-field">
+            <mat-select [(ngModel)]="selectedSchool"
+                        (selectionChange)="applySchoolFilter(selectedSchool)">
+                <mat-option value="">
+                    все организации
+                </mat-option>
+                <mat-option *ngFor="let schoolName of allParticips | schoolNameFilter"
+                            [value]="schoolName">
+                    {{schoolName}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
-        <mat-checkbox color="primary"
+
+        <mat-form-field class="filter-field">
+            <input matInput 
+                   [(ngModel)]="filterText"
+                   (keyup)="applyFilter()" 
+                   (focus)="focusFilterInput()" 
+                   placeholder="поиск..." />
+        </mat-form-field>
+
+        <!--<mat-checkbox color="primary"
                       (change)="showFired($event.checked)"
                       [align]="'start'"
                       *ngIf="false && accauntService.isCoko()">
             отображать выбывших
-        </mat-checkbox>
+        </mat-checkbox>-->
     </div>
 
     <mat-table #table [dataSource]="dataSource" matSort>
@@ -25,17 +43,17 @@
 
         <ng-container matColumnDef="Surname">
             <mat-header-cell *matHeaderCellDef mat-sort-header> фамилия </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Surname}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.Surname}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> имя </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Name}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.Name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="SecondName">
             <mat-header-cell *matHeaderCellDef mat-sort-header> отчество </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.SecondName}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.SecondName}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="RsurSubjectName">
@@ -45,7 +63,7 @@
 
         <ng-container matColumnDef="SchoolIdWithName">
             <mat-header-cell *matHeaderCellDef mat-sort-header> школа </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.SchoolIdWithName}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.SchoolName}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="FiringBtn">
@@ -67,8 +85,8 @@
                  [ngClass]="{'notActual': row.ActualCode === 0}"></mat-row>
     </mat-table>
     <mat-paginator #paginator
-                   [length]="getParticipsCount()"
-                   [pageSizeOptions]="['15', '30', '50', '100']">
+                   [length]="allParticips.length"
+                   [pageSizeOptions]="['50', '100']">
     </mat-paginator>
 </div>
 

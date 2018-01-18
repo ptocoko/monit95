@@ -45,6 +45,17 @@
     flex: 1 1 auto;
 }
 
+.select-school-field {
+    flex: 0 1 auto;
+    width: 350px;
+}
+
+.table-filters {
+    display: flex;
+    align-items: baseline;
+    padding: 0 15px;
+}
+
 .slider-margin{
     margin:10px;
 }
@@ -57,15 +68,10 @@
     color: gray;
 }
 
-.table-filters{
-    display: flex;
-    align-items: baseline;
-    padding: 0 15px 0 0;
-}
-
 .mat-checkbox-layout {
     font-weight: normal;
 }
+
 /*.table tr.red {
     background-color: red;
 }

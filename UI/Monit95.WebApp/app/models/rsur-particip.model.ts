@@ -1,9 +1,13 @@
-﻿export class RsurParticipModel {
-    public Code: number;
-    public Surname: string;
-    public Name: string;     
+﻿import { SchoolParticip } from "./school-particip.model";
+
+export class RsurParticipModel {
+	public Code: number;
+	public SchoolParticipInfo: SchoolParticip;
+    //public Surname: string;
+    //public Name: string;     
+    //public SecondName?: string;
+    //public SchoolIdWithName: string;
     public RsurSubjectName: string;
-    public SchoolIdWithName: string;
     public CategoryName: string;
     public AreaCodeWithName: string;
     public Birthday: Date;
@@ -12,6 +16,5 @@
     public ClassNumbers: string;
     public ActualCode: number;
     public Email: string;
-    public SecondName?: string;
     public SchoolIdFrom?: string;         
 }

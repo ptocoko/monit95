@@ -42,9 +42,18 @@ namespace Monit95App.Services.Rsur
         {
             Mapper.Initialize(
                cfg => cfg.CreateMap<RsurParticip, RsurParticipGetDto>()
-                   .ForMember(
-                       dist => dist.SchoolIdWithName,
+                   .ForPath(
+                       dist => dist.SchoolParticipInfo.SchoolName,
                        opt => opt.MapFrom(src => $"{src.SchoolId} - {src.School.Name.TrimEnd()}"))
+                    .ForPath(
+                        dist => dist.SchoolParticipInfo.Surname,
+                        opt => opt.MapFrom(src => src.Surname))
+                    .ForPath(
+                        dist => dist.SchoolParticipInfo.Name,
+                        opt => opt.MapFrom(src => src.Name))
+                    .ForPath(
+                        dist => dist.SchoolParticipInfo.SecondName,
+                        opt => opt.MapFrom(src => src.SecondName))
                    .ForMember(
                        dist => dist.AreaCodeWithName,
                        opt => opt.MapFrom(src => $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}")));
@@ -105,7 +114,7 @@ namespace Monit95App.Services.Rsur
 
             var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);
 
-            return dtos.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.SecondName);
+            return dtos.OrderBy(ob => ob.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name).ThenBy(tb => tb.SchoolParticipInfo.SecondName);
         }
 
         public void Update(int code, RsurParticipPutDto dto)
