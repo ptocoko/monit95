@@ -23,7 +23,6 @@ export class TestNameWithDateFilterPipe implements PipeTransform {
 @Pipe({ name: 'schoolNameFilter' })
 export class SchoolNameFilterPipe implements PipeTransform {
 	transform(reports: RsurReportModel[], testNameWithDate: string, examName: string): string[] {
-		console.log('oh no');
 		if (!reports) {
 			return [];
 		}
