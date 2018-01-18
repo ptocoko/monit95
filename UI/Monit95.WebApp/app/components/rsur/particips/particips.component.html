@@ -49,7 +49,7 @@
         </ng-container>
 
         <ng-container matColumnDef="FiringBtn">
-            <mat-header-cell *matHeaderCellDef> статус </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>    статус</mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <mat-slide-toggle (change)="fireParticip($event, element)"
                                   [checked]="element.ActualCode === 1"
