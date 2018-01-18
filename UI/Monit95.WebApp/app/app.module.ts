@@ -39,6 +39,7 @@ import { ScanProtocolsComponent, FilterPipe } from './components/rsur/protocols/
 import { QuestionProtocolsList } from './components/rsur/protocols/question/question-protocols-list.component';
 import { MarksProtocolComponent } from './components/rsur/protocols/shared/marks-protocol.component';
 import { QuestionProtocolComponent } from './components/rsur/protocols/protocol/question-protocol.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 // Services
 import { AccountService } from './services/account.service';
@@ -161,7 +162,8 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 		ScanProtocolsComponent,
 		QuestionProtocolsList,
 		MarksProtocolComponent,
-		QuestionProtocolComponent
+		QuestionProtocolComponent,
+		ConfirmDialogComponent
 	],
 	providers: [
         AccountService,
@@ -183,6 +185,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler },
 		{ provide: MatPaginatorIntl, useClass: RussianMatPaginator }
     ],    
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+	entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule { }

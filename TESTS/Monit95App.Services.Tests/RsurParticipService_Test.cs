@@ -30,7 +30,8 @@ namespace Monit95App.Services.Tests
             mockParticips.Find(10_000).Returns(entity);
 
             // Act
-            var service = new RsurParticipService();
+            var service = new RsurParticipService(mockContext);
+            
             service.Update(10_000, new RsurParticipPutDto { ActualCode = 0 });
 
             // Assert
@@ -145,10 +146,7 @@ namespace Monit95App.Services.Tests
         public void Cleanup()
         {
             var entities = this.context.RsurParticips.Where(x => x.Surname == "test").ToList();
-            foreach (var entity in entities)
-            {
-                this.context.RsurParticips.Remove(entity);
-            }
+            this.context.RsurParticips.RemoveRange(entities);
 
             this.context.SaveChanges();
         }

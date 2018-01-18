@@ -13,47 +13,72 @@ namespace AccountsCreator
         {
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
-
-            bool toExit = false;
-            while (!toExit)
+            var cokoLoginPasswords = new Dictionary<string, string>
             {
-                Console.Write("Введите команду -> ");
-                var command = Console.ReadLine();
+                ["201_coko"] = "558388",
+                ["202_coko"] = "893359",
+                ["203_coko"] = "431823",
+                ["204_coko"] = "778470",
+                ["205_coko"] = "801371",
+                ["206_coko"] = "932094",
+                ["207_coko"] = "925165",
+                ["208_coko"] = "923895",
+                ["209_coko"] = "283077",
+                ["210_coko"] = "541156",
+                ["211_coko"] = "656253",
+                ["212_coko"] = "496098",
+                ["213_coko"] = "749483",
+                ["214_coko"] = "140348",
+                ["215_coko"] = "820615",
+                ["216_coko"] = "699368",
+                ["217_coko"] = "175814"
 
-                switch (command.Trim().ToUpper())
-                {
-                    case "EXIT":
-                        toExit = true;
-                        break;
-                    case "CREATE USER":
-                        AddUser();
-                        break;
-                    case "DELETE USER":
-                        DeleteUser();
-                        break;
-                    case "CREATE ROLE":
-                        AddRole();
-                        break;
-                    case "DELETE ROLE":
-                        DeleteRole();
-                        break;
-                    case "ADD ROLE TO USER":
-                        AddRoleToUser();
-                        break;
-                    case "CHANGE PASSWORD":
-                        ChangePassword();
-                        break;
-                    case "CLEAR":
-                        Console.Clear();
-                        break;
-                    case "HELP":
-                        ShowAllCommands();
-                        break;
-                    default:
-                        Console.WriteLine($"Команда '{command}' не найдена. Для помощи воспользуйтесь командой 'help'\n");
-                        break;
-                }
+            };
+            foreach(var logingPair in cokoLoginPasswords)
+            {
+                accountsManager.AddRoleToUser(logingPair.Key, "area");
             }
+
+            //bool toExit = false;
+            //while (!toExit)
+            //{
+            //    Console.Write("Введите команду -> ");
+            //    var command = Console.ReadLine();
+
+            //    switch (command.Trim().ToUpper())
+            //    {
+            //        case "EXIT":
+            //            toExit = true;
+            //            break;
+            //        case "CREATE USER":
+            //            AddUser();
+            //            break;
+            //        case "DELETE USER":
+            //            DeleteUser();
+            //            break;
+            //        case "CREATE ROLE":
+            //            AddRole();
+            //            break;
+            //        case "DELETE ROLE":
+            //            DeleteRole();
+            //            break;
+            //        case "ADD ROLE TO USER":
+            //            AddRoleToUser();
+            //            break;
+            //        case "CHANGE PASSWORD":
+            //            ChangePassword();
+            //            break;
+            //        case "CLEAR":
+            //            Console.Clear();
+            //            break;
+            //        case "HELP":
+            //            ShowAllCommands();
+            //            break;
+            //        default:
+            //            Console.WriteLine($"Команда '{command}' не найдена. Для помощи воспользуйтесь командой 'help'\n");
+            //            break;
+            //    }
+            //}
         }
 
         private static void AddUser()

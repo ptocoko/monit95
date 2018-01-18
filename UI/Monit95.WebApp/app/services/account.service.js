@@ -34,6 +34,12 @@ var AccountService = /** @class */ (function () {
             return this.account.RoleNames.indexOf('rsur-particip') > -1;
         return null;
     };
+    AccountService.prototype.isCoko = function () {
+        if (this.account.RoleNames) {
+            return this.account.RoleNames.indexOf('coko') > -1;
+        }
+        return null;
+    };
     AccountService = tslib_1.__decorate([
         core_1.Injectable(),
         tslib_1.__metadata("design:paramtypes", [http_1.Http])
