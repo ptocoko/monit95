@@ -88,7 +88,7 @@ export class RsurParticipsComponent implements OnInit {
 					particip.ActualCode = 0;
 					this.rsurParticipService.update(particip.Code, particip)
 						.subscribe(res => {
-							this.snackBar.open('участник исключен из проекта', 'OK', { duration: 300 });
+							this.snackBar.open('участник исключен из проекта', 'OK', { duration: 3000 });
 							this.getParticips();
 						});
 				} else {
@@ -101,7 +101,7 @@ export class RsurParticipsComponent implements OnInit {
 			particip.ActualCode = 1;
 			this.rsurParticipService.update(particip.Code, particip)
 				.subscribe(res => {
-					this.snackBar.open('участник добавлен в проект', 'OK', { duration: 300 });
+					this.snackBar.open('участник добавлен в проект', 'OK', { duration: 3000 });
 					this.getParticips();
 				});
 		}
