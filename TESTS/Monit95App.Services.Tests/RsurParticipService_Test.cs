@@ -11,7 +11,7 @@ namespace Monit95App.Services.Tests
     using Monit95App.Infrastructure.Data;
     using Monit95App.Services.DTOs;
     using Monit95App.Services.Rsur;
-
+    using Monit95App.Services.Rsur.Particip;
     using NSubstitute;
 
     [TestClass]
@@ -95,11 +95,11 @@ namespace Monit95App.Services.Tests
         {       
             // Act
             var service = new RsurParticipService();
-            var dto = new RsurParticipPostDto
+            var dto = new ParticipAddDto
                           {
                               Surname = "test",
                               Name = "...",
-                              RsurSubjectCode = 1,
+                              RsurSubjectName = 1,
                               CategoryId = 1,
                               Experience = 0,
                               Phone = "89280168396",
@@ -125,11 +125,11 @@ namespace Monit95App.Services.Tests
 
             // Act
             var service = new RsurParticipService();
-            var dto = new RsurParticipPostDto
+            var dto = new ParticipAddDto
                           {
                               Surname = "test",
                               Name = "...",
-                              RsurSubjectCode = 1,
+                              RsurSubjectName = 1,
                               CategoryId = 1,
                               Experience = 0,
                               Phone = "892801683967",

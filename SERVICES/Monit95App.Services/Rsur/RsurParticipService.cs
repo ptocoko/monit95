@@ -9,11 +9,14 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.Rsur.Particip;
 
 namespace Monit95App.Services.Rsur
 {
     using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
-
+    /// <summary>
+    /// Класс для работы с участниками проекта РСУР
+    /// </summary>
     public class RsurParticipService : IRsurParticipService
     {  
         #region Dependencies
@@ -49,15 +52,15 @@ namespace Monit95App.Services.Rsur
 
         #region Methods
 
-        public int Add(RsurParticipPostDto dto)
+        public int Add(ParticipAddDto dto)
         {
             _ = dto ?? throw new ArgumentNullException();
             var validContext = new ValidationContext(dto);
             Validator.ValidateObject(dto, validContext, true);
 
-            Mapper.Initialize(cfg => cfg.CreateMap<RsurParticipPostDto, RsurParticip>()
+            Mapper.Initialize(cfg => cfg.CreateMap<ParticipAddDto, RsurParticip>()
                                         .AfterMap((s, d) => d.ActualCode = 2));
-            var entity = Mapper.Map<RsurParticipPostDto, RsurParticip>(dto);
+            var entity = Mapper.Map<ParticipAddDto, RsurParticip>(dto);
 
             this._cokoContext.RsurParticips.Add(entity);
             this._cokoContext.SaveChanges();
@@ -73,6 +76,7 @@ namespace Monit95App.Services.Rsur
             }
 
             var entity = this._cokoContext.RsurParticips.Find(code);
+
             if (entity == null)
             {
                 throw new ArgumentException();

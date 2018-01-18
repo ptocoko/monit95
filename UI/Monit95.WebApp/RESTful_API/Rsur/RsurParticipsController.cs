@@ -32,7 +32,7 @@ namespace Monit95App.Web.Api
 
         [HttpPost]
         [Authorize(Roles = "school")]
-        public IHttpActionResult Post([FromBody]RsurParticipPostDto dto)
+        public IHttpActionResult Post([FromBody]ParticipAddDto dto)
         {
             //dto.SchoolId = User.Identity.Name;
 
