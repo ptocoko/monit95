@@ -10,8 +10,8 @@
         <mat-checkbox color="primary"
                       (change)="showFired($event.checked)"
                       [align]="'start'"
-                      *ngIf="accauntService.isCoko()">
-            Показать исключенных
+                      *ngIf="false && accauntService.isCoko()">
+            отображать выбывших
         </mat-checkbox>
     </div>
 
@@ -49,13 +49,16 @@
         </ng-container>
 
         <ng-container matColumnDef="FiringBtn">
-            <mat-header-cell *matHeaderCellDef> в проекте </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> статус </mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <mat-slide-toggle (change)="fireParticip($event, element)"
                                   [checked]="element.ActualCode === 1"
                                   [color]="'primary'"
                                   class="slider-margin">
+                    <span *ngIf="element.ActualCode === 0">выбыл</span>
+                    <span *ngIf="element.ActualCode === 1" style="color:#3f51b5;">в проекте</span>
                 </mat-slide-toggle>
+
             </mat-cell>
         </ng-container>
 

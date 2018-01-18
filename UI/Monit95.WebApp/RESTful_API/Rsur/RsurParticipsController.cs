@@ -12,6 +12,7 @@ using Monit95App.Services.Interfaces;
 namespace Monit95App.Web.Api
 {
     using Monit95App.Services.DTOs;
+    using Monit95App.Services.Rsur.Particip;
 
     [Authorize]
     [RoutePrefix("api/RsurParticips")]

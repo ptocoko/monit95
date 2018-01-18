@@ -18,8 +18,8 @@ import { AccountService } from '../../../services/account.service';
 })
 export class RsurParticipsComponent implements OnInit {
     allParticips: RsurParticipModel[] = [];
-	actualParticips: RsurParticipModel[] = [];
-	isShowNotActual = false;
+    actualParticips: RsurParticipModel[] = [];
+    isShowNotActual = true;
     displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
     dataSource = new MatTableDataSource<RsurParticipModel>();
     isLoading = true;

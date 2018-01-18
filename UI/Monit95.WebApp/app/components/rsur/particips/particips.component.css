@@ -30,8 +30,8 @@
 }
 
 .mat-column-FiringBtn{
-    max-width: 80px;
-    text-align: center;
+    max-width: 120px;
+    /*text-align: center;*/
 }
 
 .glyphicon-trash{
