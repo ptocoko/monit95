@@ -13,7 +13,7 @@ namespace Monit95App.Services.Validation
         /// <summary>
         /// Максимальный возвраст учителя
         /// </summary>
-        private const int MAX_TEACHER_AGE = 90;
+        private const int MAX_TEACHER_AGE = 90;        
 
         /// <summary>
         /// Метод валидирует фамилию, имя или отчество
@@ -47,6 +47,14 @@ namespace Monit95App.Services.Validation
                 return $"Age is not between {minAge} and {maxAge}";            
 
             return null;
+        }
+
+        public static string ValidateRsurSubjectName(string subjectName)
+        {
+            if (subjectName == null)
+                return $"{nameof(subjectName)} is null";
+
+            return null;            
         }
     }
 }

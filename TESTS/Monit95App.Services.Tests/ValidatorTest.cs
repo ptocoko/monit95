@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Monit95App.Services.Tests.Util;
-using NSubstitute;
 
 namespace Monit95App.Services.Tests
 {
@@ -22,15 +20,9 @@ namespace Monit95App.Services.Tests
             Assert.IsNull(resultCase3);
         }
 
-        //[TestMethod]
-        //[MyExpectedException(typeof(ArgumentException))]
-        //public void AgeIsBetweenTest_ThrowArgumentException()
-        //{
-        //    // Arrange
-        //    var dateParam = new DateTime(1886, 04, 22);
-
-        //    // Act            
-        //    var result2 = Validation.Validator.AgeIsBetween(dateParam, 3, 30);
-        //}
+        public void RsurSubjectName_Success()
+        {
+            var resultCase1 = Validation.Validator.ValidateRsurSubjectName("русский язык");
+        }
     }
 }
