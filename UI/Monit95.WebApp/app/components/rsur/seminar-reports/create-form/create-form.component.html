@@ -92,3 +92,8 @@
         color="warn">
     Отмена
 </button>
+
+<div class="sending-shade" *ngIf="isSending">
+    <mat-spinner></mat-spinner>
+    <span class="sending-text">Отчет отправляется...</span>
+</div>

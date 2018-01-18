@@ -41,6 +41,7 @@ var scan_protocols_component_1 = require("./components/rsur/protocols/scan/scan-
 var question_protocols_list_component_1 = require("./components/rsur/protocols/question/question-protocols-list.component");
 var marks_protocol_component_1 = require("./components/rsur/protocols/shared/marks-protocol.component");
 var question_protocol_component_1 = require("./components/rsur/protocols/protocol/question-protocol.component");
+var confirm_dialog_component_1 = require("./shared/confirm-dialog/confirm-dialog.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var particip_service_1 = require("./particip.service");
@@ -162,7 +163,8 @@ var AppModule = /** @class */ (function () {
                 scan_protocols_component_1.ScanProtocolsComponent,
                 question_protocols_list_component_1.QuestionProtocolsList,
                 marks_protocol_component_1.MarksProtocolComponent,
-                question_protocol_component_1.QuestionProtocolComponent
+                question_protocol_component_1.QuestionProtocolComponent,
+                confirm_dialog_component_1.ConfirmDialogComponent
             ],
             providers: [
                 account_service_1.AccountService,
@@ -184,7 +186,8 @@ var AppModule = /** @class */ (function () {
                 { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler },
                 { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator }
             ],
-            bootstrap: [app_component_1.AppComponent]
+            bootstrap: [app_component_1.AppComponent],
+            entryComponents: [confirm_dialog_component_1.ConfirmDialogComponent]
         })
     ], AppModule);
     return AppModule;

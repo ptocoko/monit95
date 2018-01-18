@@ -55,7 +55,7 @@ namespace Monit95App.Web.Api
             var userName = User.Identity.GetUserName();
             if (User.IsInRole("area"))
             {
-                areaCode = Convert.ToInt32(userName);
+                areaCode = Convert.ToInt32(userName.Substring(0, 3));
             }
 
             if (User.IsInRole("school"))
@@ -66,7 +66,7 @@ namespace Monit95App.Web.Api
             var dtos = this._rsurParticipService.GetAll(areaCode, schoolId).ToList();            
 
             if (User.IsInRole("area")
-                && dtos.Any(x => x.AreaCodeWithName.Substring(0, 3) != userName))
+                && dtos.Any(x => x.AreaCodeWithName.Substring(0, 3) != userName.Substring(0, 3)))
             {
                 return this.Conflict();
             }         
@@ -81,18 +81,18 @@ namespace Monit95App.Web.Api
         }
 
         [HttpPut]
-        [Authorize(Roles = "school")]
+        [Authorize(Roles = "coko")]
         [Route("{code:int}")]
         public IHttpActionResult Put([FromBody] RsurParticipPutDto dto)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return this.BadRequest();
-            //}
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
 
-            //var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
+            var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
 
-            //this._rsurParticipService.Update(code, dto);
+            this._rsurParticipService.Update(code, dto);
 
             return this.Ok();
         }

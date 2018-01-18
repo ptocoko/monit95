@@ -28,14 +28,26 @@ namespace Monit95App.Services.Rsur
         public RsurParticipService()            
         {
             _cokoContext = new CokoContext();
+            InitMapper();
+        }
+
+        // injected context for unit-testing
+        public RsurParticipService(CokoContext context)
+        {
+            _cokoContext = context;
+            InitMapper();
+        }
+
+        private void InitMapper()
+        {
             Mapper.Initialize(
-                cfg => cfg.CreateMap<RsurParticip, RsurParticipGetDto>()
-                    .ForMember(
-                        dist => dist.SchoolIdWithName,
-                        opt => opt.MapFrom(src => $"{src.SchoolId} - {src.School.Name.TrimEnd()}"))
-                    .ForMember(
-                        dist => dist.AreaCodeWithName,
-                        opt => opt.MapFrom(src => $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}")));
+               cfg => cfg.CreateMap<RsurParticip, RsurParticipGetDto>()
+                   .ForMember(
+                       dist => dist.SchoolIdWithName,
+                       opt => opt.MapFrom(src => $"{src.SchoolId} - {src.School.Name.TrimEnd()}"))
+                   .ForMember(
+                       dist => dist.AreaCodeWithName,
+                       opt => opt.MapFrom(src => $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}")));
         }
 
         #region Methods

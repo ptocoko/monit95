@@ -9,10 +9,63 @@
     /*max-height: 700px;*/
 }
 
-.mat-header-cell.mat-sort-header-sorted {
-    color: black;
+.mat-column-Code{
+    max-width: 110px
 }
 
+.mat-column-Surname{
+    max-width: 140px;
+}
+
+.mat-column-Name{
+    max-width: 120px;
+}
+
+.mat-column-SecondName{
+    max-width: 160px;
+}
+
+.mat-column-RsurSubjectName{
+    max-width: 130px;
+}
+
+.mat-column-FiringBtn{
+    max-width: 80px;
+    text-align: center;
+}
+
+.glyphicon-trash{
+    cursor:pointer;
+}
+
+.filter-field {
+    min-height: 64px;
+    padding: 8px 24px 0;
+    font-size: 14px;
+    flex: 1 1 auto;
+}
+
+.slider-margin{
+    margin:10px;
+}
+
+.notActual {
+    background-color: lightgray;
+}
+
+.notActual > .mat-cell{
+    color: gray;
+}
+
+.table-filters{
+    display: flex;
+    align-items: baseline;
+    padding: 0 15px 0 0;
+}
+
+.mat-checkbox-layout {
+    font-weight: normal;
+}
 /*.table tr.red {
     background-color: red;
 }
@@ -25,7 +78,4 @@
     background-color:#123456 !important;
     color: white;
 }
-
-.notActual {
-    color: lightslategray;
-}*/
+*/

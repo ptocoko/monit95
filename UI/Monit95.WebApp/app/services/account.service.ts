@@ -37,4 +37,11 @@ export class AccountService {
 			return this.account.RoleNames.indexOf('rsur-particip') > -1;
 		return null;
 	}
+
+	isCoko() {
+		if (this.account.RoleNames) {
+			return this.account.RoleNames.indexOf('coko') > -1;
+		}
+		return null;
+	}
 }

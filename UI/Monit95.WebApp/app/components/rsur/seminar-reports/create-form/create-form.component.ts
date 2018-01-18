@@ -11,6 +11,7 @@ export class SeminarReportCreateFormComponent {
 	seminarFiles: IImageFile[] = [];
 	readonly maxFileSize = 15728640; // 15 MB 
 	fileIndex: number = 1; // используется для генерации уникальных ключей для файлов семинара
+	isSending = false;
 	acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
 	getNotProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === false);
 	getProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === true);
@@ -48,6 +49,7 @@ export class SeminarReportCreateFormComponent {
 	}
 
 	sendFiles() {
+		this.isSending = true;
 		let formData = new FormData();
 		for (let seminarImage of this.seminarFiles) {
 			formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
@@ -58,6 +60,7 @@ export class SeminarReportCreateFormComponent {
 				this.location.back();
 			},
 			error => {
+				this.isSending = false;
 				if (error.status !== 409) {
 					throw Error(error.message);
 				} else {
