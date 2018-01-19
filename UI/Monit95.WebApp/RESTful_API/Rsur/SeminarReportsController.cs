@@ -11,7 +11,7 @@ using Monit95App.Services.Rsur.SeminarReport;
 namespace Monit95.WebApp.RESTful_API.Rsur
 {
     [RoutePrefix("api/rsur/seminarReports")]
-    [Authorize(Roles = "area, school")]    
+    [Authorize(Roles = "coko, area, school")]    
     public class SeminarReportsController : ApiController
     {
         #region Dependencies
@@ -35,24 +35,32 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         [HttpGet, Route("")]
         public HttpResponseMessage GetViewDtos()
         {
-            IEnumerable<SeminarReportViewDto> seminarReportViewDtos = seminarReportService.GetViewDtos(User.Identity.Name);        
+            var userName = User.Identity.Name;
+            if (User.IsInRole("coko") && User.IsInRole("area"))                            
+                userName = userName.Substring(0, 3); // e.g. "201coko"->"201"
+
+            IEnumerable<SeminarReportViewDto> seminarReportViewDtos = seminarReportService.GetViewDtos(userName);        
             
             return Request.CreateResponse(HttpStatusCode.OK, seminarReportViewDtos);                        
         }
 
         /// <summary>
-        /// Get report Получение одного отчета для отображения вместе с файлами
+        /// Получение одного отчета для отображения вместе с файлами
         /// </summary>        
         /// <returns>Reports with files</returns>        
         [HttpGet, Route("{id:int}")]        
         public IHttpActionResult GetEditDto()
         {
+            var userName = User.Identity.Name;
+            if (User.IsInRole("coko") && User.IsInRole("area"))
+                userName = userName.Substring(0, 3); // e.g. "201coko"->"201"
+
             var reportId = int.Parse(RequestContext.RouteData.Values["id"].ToString());
 
             SeminarReportEditDto reseminarReportEditDto = null;
             try
             {
-                reseminarReportEditDto = seminarReportService.GetEditDto(reportId, User.Identity.Name);
+                reseminarReportEditDto = seminarReportService.GetEditDto(reportId, userName);
             }
             catch (FileNotFoundException)
             {
