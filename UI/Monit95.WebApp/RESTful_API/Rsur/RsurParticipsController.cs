@@ -55,8 +55,8 @@ namespace Monit95App.Web.Api
         {
             var userName = User.Identity.GetUserName();
             if (User.IsInRole("area"))
-            {
-                areaCode = Convert.ToInt32(userName.Substring(0, 3));
+            {                
+                areaCode = Convert.ToInt32(userName.Substring(0, 3)); // e.g. 201->201, 201coko->201
             }
 
             if (User.IsInRole("school"))
