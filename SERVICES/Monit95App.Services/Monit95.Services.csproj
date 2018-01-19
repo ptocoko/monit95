@@ -55,6 +55,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
     </Reference>
@@ -146,7 +147,7 @@
     <Compile Include="Rsur\ParticipResultsModel.cs" />
     <Compile Include="Rsur\RatingService.cs" />
     <Compile Include="Rsur\RsurParticipEditModel.cs" />
-    <Compile Include="DTOs\RsurParticipPostDto.cs" />
+    <Compile Include="Rsur\Particip\ParticipAddDto.cs" />
     <Compile Include="Rsur\RsurReportModel.cs" />
     <Compile Include="OneTwoThreeGradeConverter.cs" />
     <Compile Include="OneTwoThreeReportDto.cs" />
@@ -177,8 +178,10 @@
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
+    <Compile Include="Extensions\IntegerExtensions.cs" />
     <Compile Include="Validation\MustHaveOneElementAttribute.cs" />
-    <Compile Include="Validation\CollectionExtensions.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Validation\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DOMAIN\Monit95.Domain.Core\Monit95.Domain.Core.csproj">

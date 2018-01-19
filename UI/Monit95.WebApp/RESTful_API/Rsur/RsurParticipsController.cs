@@ -12,6 +12,7 @@ using Monit95App.Services.Interfaces;
 namespace Monit95App.Web.Api
 {
     using Monit95App.Services.DTOs;
+    using Monit95App.Services.Rsur.Particip;
 
     [Authorize]
     [RoutePrefix("api/RsurParticips")]
@@ -32,7 +33,7 @@ namespace Monit95App.Web.Api
 
         [HttpPost]
         [Authorize(Roles = "school")]
-        public IHttpActionResult Post([FromBody]RsurParticipPostDto dto)
+        public IHttpActionResult Post([FromBody]ParticipAddDto dto)
         {
             //dto.SchoolId = User.Identity.Name;
 
@@ -55,7 +56,7 @@ namespace Monit95App.Web.Api
             var userName = User.Identity.GetUserName();
             if (User.IsInRole("area"))
             {
-                areaCode = Convert.ToInt32(userName);
+                areaCode = Convert.ToInt32(userName.Substring(0, 3));
             }
 
             if (User.IsInRole("school"))
@@ -66,13 +67,13 @@ namespace Monit95App.Web.Api
             var dtos = this._rsurParticipService.GetAll(areaCode, schoolId).ToList();            
 
             if (User.IsInRole("area")
-                && dtos.Any(x => x.AreaCodeWithName.Substring(0, 3) != userName))
+                && dtos.Any(x => x.AreaCodeWithName.Substring(0, 3) != userName.Substring(0, 3)))
             {
                 return this.Conflict();
             }         
 
             if (User.IsInRole("school")
-                && dtos.Any(x => x.SchoolIdWithName.Substring(0, 4) != userName))
+                && dtos.Any(x => x.SchoolParticipInfo.SchoolName.Substring(0, 4) != userName))
             {
                 return this.Conflict();
             }
@@ -81,18 +82,18 @@ namespace Monit95App.Web.Api
         }
 
         [HttpPut]
-        [Authorize(Roles = "school")]
+        [Authorize(Roles = "coko")]
         [Route("{code:int}")]
         public IHttpActionResult Put([FromBody] RsurParticipPutDto dto)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return this.BadRequest();
-            //}
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
 
-            //var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
+            var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
 
-            //this._rsurParticipService.Update(code, dto);
+            this._rsurParticipService.Update(code, dto);
 
             return this.Ok();
         }

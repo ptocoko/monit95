@@ -1,11 +1,11 @@
 <h2>РСУР: Отчеты по семинарам</h2>
 <hr />
-<div *ngIf="reportsLoading">
+<div *ngIf="isLoading">
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>
 <table class="table table-hover table-striped table-bordered" 
        [ngClass]="{'school-table-width': accountService.isSchool()}"
-       *ngIf="!reportsLoading && reportsLength > 0">
+       *ngIf="!isLoading && reportsLength > 0">
     <tr>
         <th>#</th>
         <th>Дата</th>

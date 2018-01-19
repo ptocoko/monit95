@@ -9,11 +9,14 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.Rsur.Particip;
 
 namespace Monit95App.Services.Rsur
 {
     using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
-
+    /// <summary>
+    /// Класс для работы с участниками проекта РСУР
+    /// </summary>
     public class RsurParticipService : IRsurParticipService
     {  
         #region Dependencies
@@ -25,27 +28,48 @@ namespace Monit95App.Services.Rsur
         public RsurParticipService()            
         {
             _cokoContext = new CokoContext();
+            InitMapper();
+        }
+
+        // injected context for unit-testing
+        public RsurParticipService(CokoContext context)
+        {
+            _cokoContext = context;
+            InitMapper();
+        }
+
+        private void InitMapper()
+        {
             Mapper.Initialize(
-                cfg => cfg.CreateMap<RsurParticip, RsurParticipGetDto>()
-                    .ForMember(
-                        dist => dist.SchoolIdWithName,
-                        opt => opt.MapFrom(src => $"{src.SchoolId} - {src.School.Name.TrimEnd()}"))
-                    .ForMember(
-                        dist => dist.AreaCodeWithName,
-                        opt => opt.MapFrom(src => $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}")));
+               cfg => cfg.CreateMap<RsurParticip, RsurParticipGetDto>()
+                   .ForPath(
+                       dist => dist.SchoolParticipInfo.SchoolName,
+                       opt => opt.MapFrom(src => $"{src.SchoolId} - {src.School.Name.TrimEnd()}"))
+                    .ForPath(
+                        dist => dist.SchoolParticipInfo.Surname,
+                        opt => opt.MapFrom(src => src.Surname))
+                    .ForPath(
+                        dist => dist.SchoolParticipInfo.Name,
+                        opt => opt.MapFrom(src => src.Name))
+                    .ForPath(
+                        dist => dist.SchoolParticipInfo.SecondName,
+                        opt => opt.MapFrom(src => src.SecondName))
+                   .ForMember(
+                       dist => dist.AreaCodeWithName,
+                       opt => opt.MapFrom(src => $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}")));
         }
 
         #region Methods
 
-        public int Add(RsurParticipPostDto dto)
+        public int Add(ParticipAddDto dto)
         {
             _ = dto ?? throw new ArgumentNullException();
             var validContext = new ValidationContext(dto);
             Validator.ValidateObject(dto, validContext, true);
 
-            Mapper.Initialize(cfg => cfg.CreateMap<RsurParticipPostDto, RsurParticip>()
+            Mapper.Initialize(cfg => cfg.CreateMap<ParticipAddDto, RsurParticip>()
                                         .AfterMap((s, d) => d.ActualCode = 2));
-            var entity = Mapper.Map<RsurParticipPostDto, RsurParticip>(dto);
+            var entity = Mapper.Map<ParticipAddDto, RsurParticip>(dto);
 
             this._cokoContext.RsurParticips.Add(entity);
             this._cokoContext.SaveChanges();
@@ -61,6 +85,7 @@ namespace Monit95App.Services.Rsur
             }
 
             var entity = this._cokoContext.RsurParticips.Find(code);
+
             if (entity == null)
             {
                 throw new ArgumentException();
@@ -89,7 +114,7 @@ namespace Monit95App.Services.Rsur
 
             var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);
 
-            return dtos.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.SecondName);
+            return dtos.OrderBy(ob => ob.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name).ThenBy(tb => tb.SchoolParticipInfo.SecondName);
         }
 
         public void Update(int code, RsurParticipPutDto dto)

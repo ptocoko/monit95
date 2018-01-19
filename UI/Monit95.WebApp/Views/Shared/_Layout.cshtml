@@ -123,11 +123,11 @@
                             </ul>
                         </li>
                     }
-                    @if (User.IsInRole("coko"))
+                    @*@if (User.IsInRole("coko"))
                     {
                         <li>@Html.ActionLink(@"Школы", "Schools", "Home", new { @style = "background:NavajoWhite; color:black;" })</li>
                         <li>@Html.ActionLink(@"Коррекции", "Corrections", "Home")</li>
-                    }
+                    }*@
                     @if (User.IsInRole("school"))
                     {
                         @*<li>@Html.ActionLink(@"Информация", "Schoolinfo", "Home")</li>*@

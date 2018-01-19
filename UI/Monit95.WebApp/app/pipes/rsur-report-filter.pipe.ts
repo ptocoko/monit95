@@ -33,7 +33,8 @@ export class SchoolNameFilterPipe implements PipeTransform {
 			reports = reports.filter((report: RsurReportModel) => report.TestName === testNameWithDate);
 		}
         return reports.map((report: RsurReportModel) => report.SchoolParticipInfo.SchoolName) // select schoolNames
-                      .filter((value: string, index: number, self: string[]) => self.indexOf(value) === index); // delete dublicates
+			.filter((value: string, index: number, self: string[]) => self.indexOf(value) === index) // delete dublicates
+			.sort((a, b) => a.substr(0, 4) < b.substr(0, 4) ? -1 : 1); // sort by schoolId
     }
 }
 

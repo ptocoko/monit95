@@ -9,6 +9,7 @@ require("rxjs/add/operator/switchMap");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
 var material_1 = require("@angular/material");
+var Subject_1 = require("rxjs/Subject");
 var SeminarReportsListComponent = /** @class */ (function () {
     function SeminarReportsListComponent(seminarReportService, accountService, snackBar) {
         this.seminarReportService = seminarReportService;
@@ -16,14 +17,15 @@ var SeminarReportsListComponent = /** @class */ (function () {
         this.snackBar = snackBar;
         this.isLoading = true;
         //reportsLoading: boolean = false;
-        this.deletedEvent = new core_1.EventEmitter();
+        this.deleted$ = new Subject_1.Subject();
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.deletedEvent
+        this.deleted$
             .startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
             .switchMap(function () {
+            _this.isLoading = true;
             return _this.seminarReportService.getReportsList();
         })
             .map(function (reports) {
@@ -36,7 +38,7 @@ var SeminarReportsListComponent = /** @class */ (function () {
     SeminarReportsListComponent.prototype.deleteReport = function (reportId) {
         var _this = this;
         this.seminarReportService.deleteReport(reportId).subscribe(function (response) {
-            _this.deletedEvent.emit();
+            _this.deleted$.next('deleted');
             _this.snackBar.open('отчет удален', 'OK', { duration: 3000 });
         });
     };

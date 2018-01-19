@@ -9,6 +9,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { MatSnackBar } from '@angular/material';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
 	selector: 'reports-list',
@@ -22,7 +23,7 @@ export class SeminarReportsListComponent {
     schoolNamesFromReports: string[];
 	//reportsLoading: boolean = false;
 
-	deletedEvent: EventEmitter<any> = new EventEmitter();
+	deleted$: Subject<any> = new Subject();
 
 	constructor(private readonly seminarReportService: SeminarReportService,
 				private readonly accountService: AccountService,
@@ -30,9 +31,10 @@ export class SeminarReportsListComponent {
 
     ngOnInit() {
         this.isLoading = true;
-		this.deletedEvent
+		this.deleted$
 				.startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
-				.switchMap(() => {					
+				.switchMap(() => {
+					this.isLoading = true;
 					return this.seminarReportService.getReportsList();
 				})
 				.map((reports: SeminarReportView[]) => {
@@ -46,7 +48,7 @@ export class SeminarReportsListComponent {
 
 	deleteReport(reportId: number) {
 		this.seminarReportService.deleteReport(reportId).subscribe(response => {
-			this.deletedEvent.emit();
+			this.deleted$.next('deleted');
 			this.snackBar.open('отчет удален', 'OK', { duration: 3000 });
 		});
 	}
