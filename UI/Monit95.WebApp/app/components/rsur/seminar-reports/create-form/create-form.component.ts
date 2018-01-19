@@ -12,7 +12,8 @@ export class SeminarReportCreateFormComponent {
 	readonly maxFileSize = 15728640; // 15 MB 
 	fileIndex: number = 1; // используется для генерации уникальных ключей для файлов семинара
 	isSending = false;
-	acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
+	acceptedImageExtensions = ['jpg', 'jpeg', 'png', 'bmp'];
+	acceptedProtocolExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
 	getNotProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === false);
 	getProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === true);
 	getFilesWithError = () => this.seminarFiles.filter(f => f.errorMessage);
@@ -90,8 +91,10 @@ export class SeminarReportCreateFormComponent {
     }
 
 	validateFiles(files: FileList, isProtocolFiles: boolean): boolean {
+		const extensionsToCheck = isProtocolFiles ? this.acceptedProtocolExtensions : this.acceptedImageExtensions;
+
 		for (let i = 0; i < files.length; i++) {
-			if (this.acceptedFileExtensions.indexOf(getFileExtension(files[i].name)) < 0) {
+			if (extensionsToCheck.indexOf(getFileExtension(files[i].name)) < 0) {
 				this.showMessage('неподдерживаемый тип файла: ' + files[i].name);
 				return false;
 			}
@@ -100,6 +103,7 @@ export class SeminarReportCreateFormComponent {
 				return false;
 			}
 		}
+
 		if (!isProtocolFiles) {
 			if (files.length > 4 || this.getNotProtocolFiles().length + files.length > 4) {
 				this.showMessage('максимально разрешенное количество фотографий — 4');

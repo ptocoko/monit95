@@ -7,6 +7,8 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Enums;
 using ServiceResult;
+using System.Drawing.Imaging;
+using System.Drawing;
 
 namespace Monit95App.Services.File
 {
@@ -95,13 +97,42 @@ namespace Monit95App.Services.File
 
             sourceFileName = Path.GetFileName(sourceFileName); // delete path
             var extension = Path.GetExtension(sourceFileName);
+            var destFileName = hexHash;
 
-            var destFileName = $"{hexHash}{extension}";
-            using (var destFileStream = System.IO.File.Create($@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}"))
+            // if file is tiff https://goo.gl/nBkQR5
+            if (new string[] { ".tif", ".tiff" }.Contains(extension.ToLower()))
             {
-                sourceFileStream.Seek(0, SeekOrigin.Begin);
-                sourceFileStream.CopyTo(destFileStream);
-                sourceFileStream.Close();
+                destFileName = $"{destFileName}.jpg";
+                using (Image imageFile = Image.FromStream(sourceFileStream))
+                {
+                    FrameDimension frameDimensions = new FrameDimension(
+                        imageFile.FrameDimensionsList[0]);
+
+                    // Gets the number of pages from the tiff image (if multipage)
+                    int frameNum = imageFile.GetFrameCount(frameDimensions);
+                    string[] jpegPaths = new string[frameNum];
+
+                    for (int frame = 0; frame < frameNum; frame++)
+                    {
+                        // Selects one frame at a time and save as jpeg.
+                        imageFile.SelectActiveFrame(frameDimensions, frame);
+                        using (Bitmap bmp = new Bitmap(imageFile))
+                        {
+                            jpegPaths[frame] = $@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}";
+                            bmp.Save(jpegPaths[frame], ImageFormat.Jpeg);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                destFileName = $"{destFileName}{extension}";
+                using (var destFileStream = System.IO.File.Create($@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}"))
+                {
+                    sourceFileStream.Seek(0, SeekOrigin.Begin);
+                    sourceFileStream.CopyTo(destFileStream);
+                    sourceFileStream.Close();
+                }
             }
 
             // Create file's entity
