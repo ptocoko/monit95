@@ -290,29 +290,3 @@ namespace Monit95App.Services.File
         #endregion
     }
 }
-
-//// if file is tiff https://goo.gl/nBkQR5
-//if (new string[] { ".tif", ".tiff" }.Contains(extension.ToLower()))
-//{
-//    destFileName = $"{destFileName}.jpg";
-//    using (Image imageFile = Image.FromStream(sourceFileStream))
-//    {
-//        FrameDimension frameDimensions = new FrameDimension(
-//            imageFile.FrameDimensionsList[0]);
-
-//        // Gets the number of pages from the tiff image (if multipage)
-//        int frameNum = imageFile.GetFrameCount(frameDimensions);
-//        string[] jpegPaths = new string[frameNum];
-
-//        for (int frame = 0; frame < frameNum; frame++)
-//        {
-//            // Selects one frame at a time and save as jpeg.
-//            imageFile.SelectActiveFrame(frameDimensions, frame);
-//            using (Bitmap bmp = new Bitmap(imageFile))
-//            {
-//                jpegPaths[frame] = $@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}";
-//                bmp.Save(jpegPaths[frame], ImageFormat.Jpeg);
-//            }
-//        }
-//    }
-//}
