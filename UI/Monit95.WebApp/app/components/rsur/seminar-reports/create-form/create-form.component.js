@@ -15,7 +15,8 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         this.maxFileSize = 15728640; // 15 MB 
         this.fileIndex = 1; // используется для генерации уникальных ключей для файлов семинара
         this.isSending = false;
-        this.acceptedFileExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
+        this.acceptedImageExtensions = ['jpg', 'jpeg', 'png', 'bmp'];
+        this.acceptedProtocolExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
         this.getNotProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === false; }); };
         this.getProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === true; }); };
         this.getFilesWithError = function () { return _this.seminarFiles.filter(function (f) { return f.errorMessage; }); };
@@ -108,8 +109,9 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         this.seminarFiles.splice(fileIndex, 1);
     };
     SeminarReportCreateFormComponent.prototype.validateFiles = function (files, isProtocolFiles) {
+        var extensionsToCheck = isProtocolFiles ? this.acceptedProtocolExtensions : this.acceptedImageExtensions;
         for (var i = 0; i < files.length; i++) {
-            if (this.acceptedFileExtensions.indexOf(getFileExtension(files[i].name)) < 0) {
+            if (extensionsToCheck.indexOf(getFileExtension(files[i].name)) < 0) {
                 this.showMessage('неподдерживаемый тип файла: ' + files[i].name);
                 return false;
             }

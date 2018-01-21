@@ -222,6 +222,10 @@ namespace Monit95App.Services.Tests
                             UserName = "0001",
                             PermissionId = 1
                         }
+                    },
+                    Repository = new Repository
+                    {
+                        Path = @"c:\repositories\2\"
                     }
                 }
             };
