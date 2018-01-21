@@ -204,7 +204,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// <param name="reportId"></param>
         /// <param name="userName"></param>
         /// <returns>(string key, string base64String)</returns>
-        /// TODO: refactoring
+        /// TODO: refactoring: избавится от посятоянного тоскания userName
         public SeminarReportEditDto GetEditDto(int reportId, string userName)
         {
             var filePermissionForRead = new FilePermission
@@ -285,7 +285,10 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         #region Private methods
 
+        private string GetProtocolBase64String(string fileId, string userName)
+        {
 
+        }
 
         #endregion
     }
