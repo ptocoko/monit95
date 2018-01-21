@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Enums;
 using ServiceResult;
 using System.Drawing.Imaging;
 using System.Drawing;
+using Monit95App.Domain.Core.Entities;
+using Entities = Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.File
 {
@@ -305,7 +306,7 @@ namespace Monit95App.Services.File
             return filePath;
         }
 
-        private string GetFilePath(string userName, Domain.Core.Entities.File fileEntity)
+        private static string GetFilePath(string userName, Entities.File fileEntity)
         {            
             var fileName = fileEntity.Name.Replace("{userName}", userName); // при наличии маски {userName} обработать ее
             var filePath = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileName}"; // generate filePath in repository  
