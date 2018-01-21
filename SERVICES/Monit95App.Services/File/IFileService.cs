@@ -7,6 +7,7 @@ namespace Monit95App.Services.File
     public interface IFileService
     {
         int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName);
+
         int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<UserPermission> accesses);
 
         string GetFileBase64String(int fileId, string userName);

@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Monit95App.Domain.Core.Entities
 {
     public class Repository
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Repository()
-        {
-            Files = new HashSet<File>();
-        }
-
+    {    
         public int Id { get; set; }
 
         [StringLength(250)]
@@ -22,8 +12,8 @@ namespace Monit95App.Domain.Core.Entities
 
         [StringLength(200)]
         public string Path { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files { get; set; }
+        
+        // TODO: что дает такое определение?
+        public virtual ICollection<File> Files { get; set; } = new HashSet<File>();
     }
 }

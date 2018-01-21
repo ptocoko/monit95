@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Enums;
 using ServiceResult;
+using System.Drawing.Imaging;
+using System.Drawing;
+using Monit95App.Domain.Core.Entities;
+using Entities = Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.File
 {
     public class FileService : IFileService
     {
         #region Fields
-
-        private const string REPOSITORIES_FOLDER = @"c:\repositories";
+        
         private const int MAX_FILE_SIZE = 15728664; // 15 mb
 
         #endregion
@@ -73,31 +75,30 @@ namespace Monit95App.Services.File
         /// TODO: validate permissions
         public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<UserPermission> permissions)
         {
-            // Validate repositoryId
-            if (!context.Repositories.Any(repository => repository.Id == repositoryId))
-                throw new ArgumentException($"{ nameof(repositoryId) } is invalid", nameof(repositoryId));
-            // Validate sourceFileStream            
-            if (sourceFileStream == null || sourceFileStream.Length > MAX_FILE_SIZE)
-                throw new ArgumentException($"{nameof(sourceFileStream)} is invalid: null or > 15 Mb", nameof(sourceFileStream));
-            // Validate userName
-            if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName)))
+            var repositoryEntity = context.Repositories.Find(repositoryId);            
+            if (repositoryEntity == null)
+                throw new ArgumentException($"{ nameof(repositoryId) } is invalid", nameof(repositoryId));            
+            if (sourceFileStream == null || sourceFileStream.Length > MAX_FILE_SIZE) // validate sourceFileStream            
+                throw new ArgumentException($"{nameof(sourceFileStream)} is invalid: null or > 15 Mb", nameof(sourceFileStream));            
+            if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName))) // validate userName
                 throw new ArgumentException($"{ nameof(userName) } is invalid", nameof(userName));        
+
             // Generate hexHash
             string hexHash;
             using (var md5 = MD5.Create())
             {
                 var hash = md5.ComputeHash(sourceFileStream);
                 hexHash = BitConverter.ToString(hash).Replace("-", "").ToLower();
-            }
-            // Check exist by hash
-            if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash.Equals(hexHash)))
+            }            
+            if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash.Equals(hexHash))) // check exist dublicate in repository by hexHash
                 throw new ArgumentException("Already exists");
 
-            sourceFileName = Path.GetFileName(sourceFileName); // delete path
-            var extension = Path.GetExtension(sourceFileName);
-
-            var destFileName = $"{hexHash}{extension}";
-            using (var destFileStream = System.IO.File.Create($@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}"))
+            sourceFileName = Path.GetFileName(sourceFileName); // delete path if it exist
+            var sourceFileExtension = Path.GetExtension(sourceFileName);
+            
+            var destFileName = $"{hexHash}.{sourceFileExtension}";
+            var destFilePath = Path.Combine(repositoryEntity.Path, destFileName);
+            using (var destFileStream = System.IO.File.Create(destFilePath))
             {
                 sourceFileStream.Seek(0, SeekOrigin.Begin);
                 sourceFileStream.CopyTo(destFileStream);
@@ -105,19 +106,19 @@ namespace Monit95App.Services.File
             }
 
             // Create file's entity
-            var fileEntity = new Domain.Core.Entities.File
+            var fileEntity = new Entities.File
             {
                 SourceName = sourceFileName.ToLower(),
                 RepositoryId = repositoryId,
                 HexHash = hexHash,
                 Name = destFileName.ToLower(),
-                FilePermissonList = permissions.Select(s => new FilePermission
+                FilePermissonList = permissions.Select(up => new FilePermission
                                     {
-                                        UserName = s.UserName,
-                                        PermissionId = (int)s.Access
+                                        UserName = up.UserName,
+                                        PermissionId = (int)up.Access
                                     }).ToList()
-            };
-            
+
+            };            
             context.Files.Add(fileEntity); // add file's entity to database            
             context.SaveChanges(); // send changes into database
 
@@ -130,8 +131,7 @@ namespace Monit95App.Services.File
         /// <param name="fileId">Id файла в базе данных</param>
         /// <param name="userName">
         /// Данный параметр необходим: 1) Если необходимо проверить права на удаление, 2) Если имя файла содержит маску {userName}
-        /// </param>        
-        // TODO: refactoring
+        /// </param>                
         public void Delete(int fileId, string userName)
         {
             var filePermission = new FilePermission
@@ -227,11 +227,6 @@ namespace Monit95App.Services.File
             return result;
         }
 
-        public ServiceResult<int> Add(int repositoryId, Stream sourceFileStream, string userName)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
 
         #region Private methods       
@@ -243,7 +238,7 @@ namespace Monit95App.Services.File
         /// <param name="fileId"></param>
         /// <param name="filePermission">Данный параметр не валидируется так как его создал метод текущего класса</param>
         /// <returns></returns>
-        private Domain.Core.Entities.File TryGetFileEntity(int fileId, FilePermission filePermission)
+        private Entities.File TryGetFileEntity(int fileId, FilePermission filePermission)
         {            
             var fileEntity = context.Files.SingleOrDefault(file => file.Id == fileId && file.FilePermissonList.Any(fp => fp.UserName == filePermission.UserName && fp.PermissionId == filePermission.PermissionId));                                                                
 
@@ -275,10 +270,19 @@ namespace Monit95App.Services.File
             return filePath;
         }
 
-        private string GetFilePath(string userName, Domain.Core.Entities.File fileEntity)
+        /// <summary>
+        /// Получение пути к файлу - полное название файла
+        /// </summary>
+        /// <param name="userName">
+        /// Данный параметр необходим не для авторизации, а для обработки названия файла.
+        /// Если в названии файла будет присутствовать паттерн "...{userName}...***", то он будет заменен значением данного параметра.
+        /// </param>
+        /// <param name="fileEntity"></param>
+        /// <returns></returns>
+        private static string GetFilePath(string userName, Entities.File fileEntity)
         {            
-            var fileName = fileEntity.Name.Replace("{userName}", userName); // при наличии маски {userName} обработать ее
-            var filePath = $@"{REPOSITORIES_FOLDER}\{fileEntity.RepositoryId}\{fileName}"; // generate filePath in repository  
+            var fileName = fileEntity.Name.Replace("{userName}", userName);            
+            var filePath = Path.Combine(fileEntity.Repository.Path, fileName); // generate filePath in repository  
 
             return filePath;
         }
@@ -286,3 +290,29 @@ namespace Monit95App.Services.File
         #endregion
     }
 }
+
+//// if file is tiff https://goo.gl/nBkQR5
+//if (new string[] { ".tif", ".tiff" }.Contains(extension.ToLower()))
+//{
+//    destFileName = $"{destFileName}.jpg";
+//    using (Image imageFile = Image.FromStream(sourceFileStream))
+//    {
+//        FrameDimension frameDimensions = new FrameDimension(
+//            imageFile.FrameDimensionsList[0]);
+
+//        // Gets the number of pages from the tiff image (if multipage)
+//        int frameNum = imageFile.GetFrameCount(frameDimensions);
+//        string[] jpegPaths = new string[frameNum];
+
+//        for (int frame = 0; frame < frameNum; frame++)
+//        {
+//            // Selects one frame at a time and save as jpeg.
+//            imageFile.SelectActiveFrame(frameDimensions, frame);
+//            using (Bitmap bmp = new Bitmap(imageFile))
+//            {
+//                jpegPaths[frame] = $@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}";
+//                bmp.Save(jpegPaths[frame], ImageFormat.Jpeg);
+//            }
+//        }
+//    }
+//}
