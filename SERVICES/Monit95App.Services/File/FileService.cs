@@ -10,6 +10,7 @@ using Monit95App.Services.Enums;
 using Monit95App.Domain.Core.Entities;
 using Entities = Monit95App.Domain.Core.Entities;
 using System.Drawing.Imaging;
+using Monit95App.Services.Exceptions;
 
 namespace Monit95App.Services.File
 {
@@ -196,7 +197,7 @@ namespace Monit95App.Services.File
         }
         
         /// <summary>
-        /// Get file stream
+        /// Get file stream for user
         /// </summary>
         /// <param name="fileId"></param>
         /// <param name="userName"></param>
@@ -205,7 +206,7 @@ namespace Monit95App.Services.File
         {                                
             var filePath = TryGetFilePath(userName, fileId); // get file path
             if (filePath == null)
-                throw new ArgumentException();
+                throw new FileNotFoundOrAccessException();
             
             var fileStream = System.IO.File.OpenRead(filePath); // get file stream
 
@@ -220,7 +221,10 @@ namespace Monit95App.Services.File
         /// <returns></returns>
         public FileStream GetFileStream(int fileId)
         {
-            var fileEntity = context.Files.Single(file => file.Id == fileId && !file.Name.Contains("{userName}"));
+            var fileEntity = context.Files.SingleOrDefault(file => file.Id == fileId && !file.Name.Contains("{userName}"));
+            if (fileEntity == null)
+                throw new FileNotFoundException();
+
             var filePath = Path.Combine(fileEntity.Repository.Path, fileEntity.Name);
             var fileStream = System.IO.File.OpenRead(filePath);
 
@@ -316,44 +320,3 @@ namespace Monit95App.Services.File
         #endregion
     }
 }
-
-///// <summary>
-///// Перемещает указанный список файлов в указанную папку, убирая из списка файлов дубликаты
-///// </summary>
-///// <param name="fileNames">список файлов</param>
-///// <param name="distFolder">папка, в которую нужно переместить файлы без дубликатов</param>
-///// <returns>список имен перемещенных файлов</returns>
-//public static IEnumerable<string> GetNonDuplicateFiles(string[] fileNames, string distFolder)
-//{
-//if (!Directory.Exists(distFolder)) throw new ArgumentException("Указанная удаленная папка не существует");
-
-//List<string> hashes = new List<string>();
-//List<string> movedFileNames = new List<string>();
-
-//string hashString;
-//foreach (var fileName in fileNames)
-//{
-//if (!Path.IsPathRooted(fileName)) throw new ArgumentException("Имена файлов должны содержать полный путь к ним");
-//if (!System.IO.File.Exists(fileName)) throw new ArgumentException($"Файла {fileName} не существует");
-
-//using (var md5 = MD5.Create())
-//{
-//using (var stream = System.IO.File.OpenRead(fileName))
-//{
-//var hash = md5.ComputeHash(stream);
-//hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-//}
-//}
-
-//if (!hashes.Contains(hashString))
-//{
-//hashes.Add(hashString);
-//var fileNameWithoutPath = Path.GetFileName(fileName);
-//System.IO.File.Move(fileName, $"{distFolder}\\{fileNameWithoutPath}");
-
-//movedFileNames.Add($"{distFolder}\\{fileNameWithoutPath}");
-//}
-//}
-
-//return movedFileNames;
-//}
