@@ -56,7 +56,6 @@ namespace Monit95App.Services.Tests
                                 .ImportFromExcelFileStream(assembly.GetManifestResourceStream("Monit95App.Services.Resource.mock-particips.xlsx"), new List<int> { 1, 11 });
 
             Assert.AreEqual(1, actualRowNumbersWithErrors.Count());
-
         }
 
         [TestMethod]
