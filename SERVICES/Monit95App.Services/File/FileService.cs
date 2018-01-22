@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Enums;
-using ServiceResult;
-using System.Drawing.Imaging;
-using System.Drawing;
 using Monit95App.Domain.Core.Entities;
 using Entities = Monit95App.Domain.Core.Entities;
+using System.Drawing.Imaging;
 
 namespace Monit95App.Services.File
 {
@@ -27,7 +27,12 @@ namespace Monit95App.Services.File
 
         #endregion
 
-        #region All Constructors
+        #region Constructors
+
+        public FileService()
+        {
+
+        }
 
         public FileService(CokoContext context)
         {
@@ -159,72 +164,85 @@ namespace Monit95App.Services.File
         /// <param name="fileId"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
+        [SuppressMessage("ReSharper", "SuggestVarOrType_Elsewhere")]
         public string GetFileBase64String(int fileId, string userName)
-        {            
-            var filePath = TryGetFilePath(userName, fileId);
+        {
+            var fileEntity = context.Files.Single(file => file.Id == fileId &&
+                                                          file.FilePermissonList.Any(fp => fp.UserName == userName && fp.PermissionId == (int)Access.Read));
+            var fileName = fileEntity.Name.Replace("{userName}", userName);
 
+            var filePath = Path.Combine(fileEntity.Repository.Path, fileName);
             byte[] bytes = System.IO.File.ReadAllBytes(filePath);
             var base64String = Convert.ToBase64String(bytes);
-            
+
             return base64String;
         }
 
         /// <summary>
-        /// Перемещает указанный список файлов в указанную папку, убирая из списка файлов дубликаты
+        /// Получения base64String файла
         /// </summary>
-        /// <param name="fileNames">список файлов</param>
-        /// <param name="distFolder">папка, в которую нужно переместить файлы без дубликатов</param>
-        /// <returns>список имен перемещенных файлов</returns>
-        public static IEnumerable<string> GetNonDuplicateFiles(string[] fileNames, string distFolder)
+        /// <param name="fileId"></param>
+        /// <returns></returns>
+        [SuppressMessage("ReSharper", "SuggestVarOrType_Elsewhere")]
+        public string GetFileBase64String(int fileId)
         {
-            if (!Directory.Exists(distFolder)) throw new ArgumentException("Указанная удаленная папка не существует");
+            var fileEntity = context.Files.Single(file => file.Id == fileId && !file.Name.Contains("{userName}"));
+            var filePath = Path.Combine(fileEntity.Repository.Path, fileEntity.Name);
+            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+            var base64String = Convert.ToBase64String(bytes);
 
-            List<string> hashes = new List<string>();
-            List<string> movedFileNames = new List<string>();
-
-            string hashString;
-            foreach (var fileName in fileNames)
-            {
-                if (!Path.IsPathRooted(fileName)) throw new ArgumentException("Имена файлов должны содержать полный путь к ним");
-                if (!System.IO.File.Exists(fileName)) throw new ArgumentException($"Файла {fileName} не существует");
-
-                using (var md5 = MD5.Create())
-                {
-                    using (var stream = System.IO.File.OpenRead(fileName))
-                    {
-                        var hash = md5.ComputeHash(stream);
-                        hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                    }
-                }
-
-                if (!hashes.Contains(hashString))
-                {
-                    hashes.Add(hashString);
-                    var fileNameWithoutPath = Path.GetFileName(fileName);
-                    System.IO.File.Move(fileName, $"{distFolder}\\{fileNameWithoutPath}");
-
-                    movedFileNames.Add($"{distFolder}\\{fileNameWithoutPath}");
-                }
-            }
-
-            return movedFileNames;
+            return base64String;
         }
-
+        
         /// <summary>
         /// Get file stream
         /// </summary>
         /// <param name="fileId"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public ServiceResult<FileStream> GetFileStream(int fileId, string userName)
-        {
-            var result = new ServiceResult<FileStream>();            
-            
+        public FileStream GetFileStream(int fileId, string userName)
+        {                                
             var filePath = TryGetFilePath(userName, fileId); // get file path
+            if (filePath == null)
+                throw new ArgumentException();
             
-            result.Result = System.IO.File.OpenRead(filePath); // get file stream
+            var fileStream = System.IO.File.OpenRead(filePath); // get file stream
 
-            return result;
+            return fileStream;
+        }
+
+        /// <summary>
+        /// Get file stream without specify user
+        /// </summary>
+        /// <remarks>File name do not have to has pattern {userName}</remarks>
+        /// <param name="fileId"></param>
+        /// <returns></returns>
+        public FileStream GetFileStream(int fileId)
+        {
+            var fileEntity = context.Files.Single(file => file.Id == fileId && !file.Name.Contains("{userName}"));
+            var filePath = Path.Combine(fileEntity.Repository.Path, fileEntity.Name);
+            var fileStream = System.IO.File.OpenRead(filePath);
+
+            return fileStream;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tiffFilePath"></param>
+        /// <returns></returns>
+        /// TODO: ref
+        public string ConvertTiffToJpegBase64(string tiffFilePath)
+        {            
+            var image = Image.FromFile(tiffFilePath);
+            string base64String;
+            using (var memoryStream = new MemoryStream())
+            {
+                image.Save(memoryStream, ImageFormat.Jpeg);
+                base64String = Convert.ToBase64String(memoryStream.ToArray());                                
+            }
+
+            return base64String;
         }
 
         #endregion
@@ -285,8 +303,49 @@ namespace Monit95App.Services.File
             var filePath = Path.Combine(fileEntity.Repository.Path, fileName); // generate filePath in repository  
 
             return filePath;
-        }
+        }       
 
         #endregion
     }
 }
+
+///// <summary>
+///// Перемещает указанный список файлов в указанную папку, убирая из списка файлов дубликаты
+///// </summary>
+///// <param name="fileNames">список файлов</param>
+///// <param name="distFolder">папка, в которую нужно переместить файлы без дубликатов</param>
+///// <returns>список имен перемещенных файлов</returns>
+//public static IEnumerable<string> GetNonDuplicateFiles(string[] fileNames, string distFolder)
+//{
+//if (!Directory.Exists(distFolder)) throw new ArgumentException("Указанная удаленная папка не существует");
+
+//List<string> hashes = new List<string>();
+//List<string> movedFileNames = new List<string>();
+
+//string hashString;
+//foreach (var fileName in fileNames)
+//{
+//if (!Path.IsPathRooted(fileName)) throw new ArgumentException("Имена файлов должны содержать полный путь к ним");
+//if (!System.IO.File.Exists(fileName)) throw new ArgumentException($"Файла {fileName} не существует");
+
+//using (var md5 = MD5.Create())
+//{
+//using (var stream = System.IO.File.OpenRead(fileName))
+//{
+//var hash = md5.ComputeHash(stream);
+//hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+//}
+//}
+
+//if (!hashes.Contains(hashString))
+//{
+//hashes.Add(hashString);
+//var fileNameWithoutPath = Path.GetFileName(fileName);
+//System.IO.File.Move(fileName, $"{distFolder}\\{fileNameWithoutPath}");
+
+//movedFileNames.Add($"{distFolder}\\{fileNameWithoutPath}");
+//}
+//}
+
+//return movedFileNames;
+//}

@@ -5,8 +5,12 @@ using System.Linq;
 using Monit95App.Services.File;
 using ServiceResult;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Security.Authentication;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using Entities = Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.Rsur.SeminarReport
 {
@@ -33,17 +37,14 @@ namespace Monit95App.Services.Rsur.SeminarReport
         }
 
         #region Service methods                  
-
+       
         /// <summary>
         /// Создание отчета
         /// </summary>
-        /// <param name="inputStreamTyple">
-        /// (string key, string fileName, Stream)
-        /// Словарь должен содержать 1 файл протокола c ключом "protocol" и 2-4 файлов фотографий. Файлы не должны превыщать размер 15 МБ
-        /// </param>
+        /// <param name="uniqueStreamDictionary"></param>
         /// <param name="schoolId"></param>
-        /// <returns>Id отчета</returns>
-        // TODO: refactoring, add specific FileExistException
+        /// <returns></returns>
+        /// TODO: refactoring, add specific FileExistException
         public ServiceResult<int> CreateReport(Dictionary<string, UniqueStream> uniqueStreamDictionary, string schoolId)
         {
             var errorResult = new ServiceResult<int>();
@@ -184,7 +185,6 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 return result;
             }
 
-
             var fileIds = report.RsurReportFiles.Select(rf => rf.FileId).ToList(); // get report file ids before delete report
 
             // Delete RsurReport object from database -> delete corresponding RsurReportFile objects
@@ -204,7 +204,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// <param name="reportId"></param>
         /// <param name="userName"></param>
         /// <returns>(string key, string base64String)</returns>
-        /// TODO: refactoring: избавится от посятоянного тоскания userName
+        /// TODO: refactoring:
         public SeminarReportEditDto GetEditDto(int reportId, string userName)
         {
             var filePermissionForRead = new FilePermission
@@ -218,28 +218,26 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 throw new ArgumentException(nameof(reportId));
 
             var reportFiles = report.RsurReportFiles.Where(rf => rf.RsurReportId == reportId &&
-                                                                 rf.File.FilePermissonList.Any(fp => fp.Equals(filePermissionForRead)));
-            if (!reportFiles.Any())
-                throw new AuthenticationException($"{nameof(reportId)}: {reportId}, {nameof(userName)}: {userName}");
+                                                                 rf.File.FilePermissonList.Any(fp => fp.Equals(filePermissionForRead))).ToList();
 
-            var seminarFiles = new Dictionary<string, string>();
+            var resultDic = new Dictionary<string, string>();
             // Procces protocol files
-            var protocolFile = reportFiles.Single(rf => rf.IsProtocol);
-            var protocolFileBase64String = fileService.GetFileBase64String(protocolFile.FileId, userName);
-            seminarFiles.Add("protocol", protocolFileBase64String);
+            var protocolFile = reportFiles.Single(rf => rf.IsProtocol).File;
+            var protocolFileBase64String = GetProtocolBase64String(protocolFile);
+            resultDic.Add("protocol", protocolFileBase64String);
 
             // Procces foto files
-            int index = 1;
-            foreach (var reportFile in reportFiles.Where(rf => !rf.IsProtocol))
+            var index = 1;
+            foreach (var photoFileId in reportFiles.Where(rf => !rf.IsProtocol).Select(rf => rf.FileId))
             {
-                var fotoFileBase64String = fileService.GetFileBase64String(reportFile.FileId, userName);
-                seminarFiles.Add($"foto{index++}", fotoFileBase64String);
+                var fotoFileBase64String = fileService.GetFileBase64String(photoFileId);
+                resultDic.Add($"foto{index++}", fotoFileBase64String);
             }
 
             // TODO: this code dublicate
             var editDto = new SeminarReportEditDto
             {
-                SeminarFiles = seminarFiles,
+                SeminarFiles = resultDic,
                 SeminarReportViewDto = new SeminarReportViewDto
                 {
                     RsurReportId = reportId,
@@ -256,6 +254,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>        
+        [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
         public IEnumerable<SeminarReportViewDto> GetViewDtos(string userName)
         {
             IEnumerable<RsurReport> reportEntities;
@@ -263,7 +262,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             var queryToGetReportEntities = context.RsurReports.Where(report => report.Date > date2018YearReports).OrderByDescending(ob => ob.Date);
             if (userName.Length == 3) // areaCode is three-digit number
             {
-                Int32.TryParse(userName, out int areaCode);
+                int.TryParse(userName, out int areaCode);
                 if (areaCode == 0)
                     throw new ArgumentException(nameof(areaCode));
                 reportEntities = queryToGetReportEntities.Where(report => report.School.AreaCode == areaCode).ToList();
@@ -287,42 +286,51 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         /// <summary>
         /// Получает содержимое файла-протокола
-        /// </summary>
-        /// <remarks>В случаи если файл в формате .tif/.tiff то он конвертируется в .jpg</remarks>
-        /// <param name="fileId"></param>
-        /// <param name="userName"></param>
+        /// </summary>        
+        /// <param name="fileEntity"></param>
         /// <returns></returns>
-        private string GetProtocolBase64String(int fileId, string userName)
-        {
-            var fileStream = fileService.GetFileStream(fileId, userName);
-            var fileEntity = fil
-            //// if file is tiff https://goo.gl/nBkQR5
-            //if (new string[] { ".tif", ".tiff" }.Contains(extension.ToLower()))
-            //{
-            //    destFileName = $"{destFileName}.jpg";
-            //    using (Image imageFile = Image.FromStream(sourceFileStream))
-            //    {
-            //        FrameDimension frameDimensions = new FrameDimension(
-            //            imageFile.FrameDimensionsList[0]);
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+        private string GetProtocolBase64String(Entities.File fileEntity)
+        {            
+            var extension = Path.GetExtension(fileEntity.Name);
+            string base64String;
+            if (new[] {".tif", ".tiff"}.Contains(extension))
+            {
+                
+            }
 
-            //        // Gets the number of pages from the tiff image (if multipage)
-            //        int frameNum = imageFile.GetFrameCount(frameDimensions);
-            //        string[] jpegPaths = new string[frameNum];
+            base64String = fileService.GetFileBase64String(fileEntity.Id);
 
-            //        for (int frame = 0; frame < frameNum; frame++)
-            //        {
-            //            // Selects one frame at a time and save as jpeg.
-            //            imageFile.SelectActiveFrame(frameDimensions, frame);
-            //            using (Bitmap bmp = new Bitmap(imageFile))
-            //            {
-            //                jpegPaths[frame] = $@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}";
-            //                bmp.Save(jpegPaths[frame], ImageFormat.Jpeg);
-            //            }
-            //        }
-            //    }
-            //}
+            return base64String;
         }
 
-        #endregion
+        #endregion    
     }
+
 }
+
+//// if file is tiff https://goo.gl/nBkQR5
+//if (new string[] { ".tif", ".tiff" }.Contains(extension.ToLower()))
+//{
+//    destFileName = $"{destFileName}.jpg";
+//    using (Image imageFile = Image.FromStream(sourceFileStream))
+//    {
+//        FrameDimension frameDimensions = new FrameDimension(
+//            imageFile.FrameDimensionsList[0]);
+
+//        // Gets the number of pages from the tiff image (if multipage)
+//        int frameNum = imageFile.GetFrameCount(frameDimensions);
+//        string[] jpegPaths = new string[frameNum];
+
+//        for (int frame = 0; frame < frameNum; frame++)
+//        {
+//            // Selects one frame at a time and save as jpeg.
+//            imageFile.SelectActiveFrame(frameDimensions, frame);
+//            using (Bitmap bmp = new Bitmap(imageFile))
+//            {
+//                jpegPaths[frame] = $@"{REPOSITORIES_FOLDER}\{repositoryId}\{destFileName}";
+//                bmp.Save(jpegPaths[frame], ImageFormat.Jpeg);
+//            }
+//        }
+//    }
+//}

@@ -61,6 +61,12 @@ namespace Monit95App.Services.Tests
         }
 
         [TestMethod]
+        public void DeleteReportTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
         public void GetEditDtoTest()
         {
             // ARRANGE

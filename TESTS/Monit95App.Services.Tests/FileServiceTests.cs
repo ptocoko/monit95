@@ -16,6 +16,12 @@ namespace Monit95App.Services.Tests
     public class FileServiceTests
     {
         [TestMethod]
+        public void ConvertTiffToJpegBase64Test()
+        {
+
+        }
+
+        [TestMethod]
         public void AddTest()
         {
             // Arrange
@@ -187,12 +193,12 @@ namespace Monit95App.Services.Tests
             var result2 = fileServices.GetFileStream(2, "202");
 
             // Assert
-            Assert.IsNotNull(result1.Result);
-            Assert.IsNotNull(result2.Result);
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
 
             // Clean fileSystem
-            result1.Result.Close();
-            result2.Result.Close();
+            result1.Close();
+            result2.Close();
             Directory.Delete(@"c:\repositories\2", true);
             Directory.Delete(@"c:\repositories\4", true);
         }
