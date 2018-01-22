@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core.Entities;
@@ -230,10 +232,35 @@ namespace Monit95App.Services.Tests
             Assert.IsNotNull(result);           
         }
 
-        [TestCleanup]
-        public void CleanFileSystem()
+        //[TestCleanup]
+        //public void CleanFileSystem()
+        //{
+        //    Directory.Delete(@"c:\repositories", true);            
+        //}
+
+        [TestMethod]
+        public void ConvertTiffToJpegBase64()
         {
-            Directory.Delete(@"c:\repositories", true);            
+            var service = new FileService();
+            var assembly = Assembly.GetAssembly(service.GetType());
+            int countOfDirectoriesToMockResources = Environment.CurrentDirectory.Split('\\').Length;
+            var path = Environment.CurrentDirectory
+                .Split('\\')
+                .Take(countOfDirectoriesToMockResources - 4)
+                .Aggregate((a, b) => $"{a}\\{b}") 
+                + "\\SERVICES\\Monit95App.Services\\Resource\\mock-tiff.tif";
+
+            string actualBase64StringFromStream;
+            string actualBase64StringFromPath;
+            using(FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                actualBase64StringFromStream = service.ConvertTiffToJpegBase64(fs);
+            }
+            actualBase64StringFromPath = service.ConvertTiffToJpegBase64(path);
+            
+            Assert.IsNotNull(actualBase64StringFromStream);
+            Assert.IsNotNull(actualBase64StringFromPath);
+            Assert.AreEqual(actualBase64StringFromStream, actualBase64StringFromPath);
         }
     }
 }

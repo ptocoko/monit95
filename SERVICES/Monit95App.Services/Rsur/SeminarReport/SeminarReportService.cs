@@ -294,12 +294,14 @@ namespace Monit95App.Services.Rsur.SeminarReport
         {            
             var extension = Path.GetExtension(fileEntity.Name);
             string base64String;
-            if (new[] {".tif", ".tiff"}.Contains(extension))
+            if (new[] { ".tif", ".tiff" }.Contains(extension))
             {
-                
+                base64String = fileService.ConvertTiffToJpegBase64(fileService.GetFileStream(fileEntity.Id));
             }
-
-            base64String = fileService.GetFileBase64String(fileEntity.Id);
+            else
+            {
+                base64String = fileService.GetFileBase64String(fileEntity.Id);
+            }
 
             return base64String;
         }

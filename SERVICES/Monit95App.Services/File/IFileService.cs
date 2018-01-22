@@ -20,5 +20,7 @@ namespace Monit95App.Services.File
         void Delete(int fileId, string userName);
 
         string ConvertTiffToJpegBase64(string tiffFilePath);
+
+        string ConvertTiffToJpegBase64(FileStream tiffFileStream);
     }
 }
