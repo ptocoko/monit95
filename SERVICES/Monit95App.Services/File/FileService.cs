@@ -241,7 +241,7 @@ namespace Monit95App.Services.File
                 image.Save(memoryStream, ImageFormat.Jpeg);
                 base64String = Convert.ToBase64String(memoryStream.ToArray());                                
             }
-
+            
             return base64String;
         }
 
