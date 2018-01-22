@@ -234,17 +234,24 @@ namespace Monit95App.Services.File
         /// TODO: ref
         public string ConvertTiffToJpegBase64(string tiffFilePath)
         {            
-            var image = Image.FromFile(tiffFilePath);
+            using(FileStream fs = new FileStream(tiffFilePath, FileMode.Open))
+            {
+                return ConvertTiffToJpegBase64(fs);
+            }
+        }
+
+        public string ConvertTiffToJpegBase64(FileStream tiffFileStream)
+        {
+            var image = Image.FromStream(tiffFileStream);
             string base64String;
             using (var memoryStream = new MemoryStream())
             {
                 image.Save(memoryStream, ImageFormat.Jpeg);
-                base64String = Convert.ToBase64String(memoryStream.ToArray());                                
+                base64String = Convert.ToBase64String(memoryStream.ToArray());
             }
-            
+            tiffFileStream.Close();
             return base64String;
         }
-
         #endregion
 
         #region Private methods       
