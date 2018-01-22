@@ -89,7 +89,7 @@ namespace Monit95.WebApp.RESTful_API
             var userName = User.Identity.Name;
             userName = "0005";
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            FileStream fileStream;
+            FileStream fileStream;            
             try
             {
                 fileStream = fileService.GetFileStream(fileId, userName);
@@ -104,6 +104,11 @@ namespace Monit95.WebApp.RESTful_API
                 Content = new StreamContent(fileStream)
             };
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = Path.GetFileName(fileStream.Name)
+            };
+
 
             return response;
         }
