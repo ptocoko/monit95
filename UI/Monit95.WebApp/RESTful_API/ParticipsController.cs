@@ -56,23 +56,23 @@ namespace Monit95App.Web.Api
         }
 
         [HttpGet, Route("GetAll")]
-        [Authorize(Roles = "coko, area, school")]
+        //[Authorize(Roles = "coko, area, school")]
         public IHttpActionResult GetAll(int projectId)
         {
-            int? areaCode = null;
-            string schoolId = null;
+            //int? areaCode = null;
+            //string schoolId = null;
 
-            if (User.IsInRole("area"))
-            {
-                areaCode = Convert.ToInt32(User.Identity.Name);
-            }
+            //if (User.IsInRole("area"))
+            //{
+            //    areaCode = Convert.ToInt32(User.Identity.Name);
+            //}
 
-            if (User.IsInRole("school"))
-            {
-                schoolId = User.Identity.Name;
-            }
+            //if (User.IsInRole("school"))
+            //{
+            //    schoolId = User.Identity.Name;
+            //}
 
-            var dtos = _participService.GetAll(projectId, areaCode, schoolId);
+            var dtos = _participService.GetAll(projectId, null, "0005");
 
             return Ok(dtos);
         }

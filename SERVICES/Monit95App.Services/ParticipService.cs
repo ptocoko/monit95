@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 
 using AutoMapper;
 
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Domain.Interfaces;
+using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 
@@ -21,22 +24,21 @@ namespace Monit95App.Services
         #endregion
 
         #region Dependencies
-
-        private readonly IGenericRepository<Particip> _participRepository;
-        private readonly IGenericRepository<ParticipTest> _participTestRepository;
-        private readonly IGenericRepository<Result> _resultRepository;
+        private readonly CokoContext _context;
+        //private readonly IGenericRepository<Particip> _participRepository;
+        //private readonly IGenericRepository<ParticipTest> _participTestRepository;
+        //private readonly IGenericRepository<Result> _resultRepository;
         private readonly IClassService _classServise;
 
         #endregion
 
-        public ParticipService(IGenericRepository<Particip> participRepository, 
-                               IGenericRepository<ParticipTest> participTestRepository, 
-                               IGenericRepository<Result> resultRepository, 
+        public ParticipService(CokoContext context, 
                                IClassService classService)
         {
-            _participRepository = participRepository;
-            _participTestRepository = participTestRepository;
-            _resultRepository = resultRepository;
+            _context = context;
+            //_participRepository = participRepository;
+            //_participTestRepository = participTestRepository;
+            //_resultRepository = resultRepository;
 
             _classServise = classService;
 
@@ -51,43 +53,45 @@ namespace Monit95App.Services
 
         public int Add(ParticipDto dto)
         {
-            // Validation       
-            if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto));
-            }
+            //// Validation       
+            //if (dto == null)
+            //{
+            //    throw new ArgumentNullException(nameof(dto));
+            //}
 
-            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
-            Validator.ValidateObject(dto, validContext, true);
-            
-            var entity = _mapper.Map<ParticipDto, Particip>(dto);            
+            //var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+            //Validator.ValidateObject(dto, validContext, true);
 
-            var schoolClassEntities = _participRepository.GetAll().Where(x => x.ProjectId == entity.ProjectId
-                                                                           && x.SchoolId == entity.SchoolId
-                                                                           && x.ClassId == entity.ClassId
-                                                                           && x.Surname == entity.Surname
-                                                                           && x.Name == entity.Name
-                                                                           && x.SecondName == entity.SecondName).ToList();
-            
-            if (schoolClassEntities.Any())
-            {               
-                return -1;
-            }
+            //var entity = _mapper.Map<ParticipDto, Particip>(dto);            
 
-            _participRepository.Insert(entity);
+            //var schoolClassEntities = _context.Particips.Where(x => x.ProjectId == entity.ProjectId
+            //                                                               && x.SchoolId == entity.SchoolId
+            //                                                               && x.ClassId == entity.ClassId
+            //                                                               && x.Surname == entity.Surname
+            //                                                               && x.Name == entity.Name
+            //                                                               && x.SecondName == entity.SecondName).ToList();
 
-            _participTestRepository.Insert(new ParticipTest
-            {
-                ProjectTestId = 1011,  //TODO: It is static ID of ProjectTest. Change for next project tests!
-                ParticipId = entity.Id
-            });
+            //if (schoolClassEntities.Any())
+            //{               
+            //    return -1;
+            //}
 
-            return entity.Id;
+            //_context.Particips.Add(entity);
+
+            //_context.ParticipTests.Add(new ParticipTest
+            //{
+            //    ProjectTestId = 1011,  //TODO: It is static ID of ProjectTest. Change for next project tests!
+            //    ParticipId = entity.Id
+            //});
+
+            //_context.SaveChanges();
+            //return entity.Id;
+            throw new NotImplementedException();
         }
 
         public IEnumerable<ParticipDto> GetAll(int projectId, int? areaCode, string schoolId)
         {
-            var query = _participRepository.GetAll()
+            var query = _context.Particips
                                  .Where(x => x.ProjectId == projectId);
             if (areaCode != null)
             {
@@ -99,7 +103,7 @@ namespace Monit95App.Services
                 query = query.Where(particip => particip.SchoolId == schoolId);
             }
 
-            var entities = query.ToList();
+            var entities = query.Include(inc => inc.Class).ToList();
             
             var dtos = _mapper.Map<List<Particip>, List<ParticipDto>>(entities);
 
@@ -108,49 +112,52 @@ namespace Monit95App.Services
 
         public void Update(int id, ParticipDto dto)
         {
-            if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto));
-            }
+            //if (dto == null)
+            //{
+            //    throw new ArgumentNullException(nameof(dto));
+            //}
 
-            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
-            Validator.ValidateObject(dto, validationContext, true);
-            var entity = _participRepository.GetById(id);
-            if (entity == null)
-            {
-                throw new ArgumentException(nameof(id));
-            }
+            //var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+            //Validator.ValidateObject(dto, validationContext, true);
+            //var entity = _participRepository.GetById(id);
+            //if (entity == null)
+            //{
+            //    throw new ArgumentException(nameof(id));
+            //}
 
-            _mapper.Map(dto, entity);
-            //entity.Class = null;
-            //entity.ClassId = _classServise.GetId(dto.ClassName);
+            //_mapper.Map(dto, entity);
+            ////entity.Class = null;
+            ////entity.ClassId = _classServise.GetId(dto.ClassName);
 
-            _participRepository.Update(entity);
+            //_participRepository.Update(entity);
+            throw new NotImplementedException();
         }          
 
         public ParticipDto GetById(int participId)
         {
-            if (participId <= 0)
-            {
-                throw new ArgumentException(nameof(participId));
-            }
+            //if (participId <= 0)
+            //{
+            //    throw new ArgumentException(nameof(participId));
+            //}
 
-            var entity = _participRepository.GetById(participId);
-            if (entity == null)
-            {
-                throw new ArgumentException(nameof(participId));
-            }
+            //var entity = _participRepository.GetById(participId);
+            //if (entity == null)
+            //{
+            //    throw new ArgumentException(nameof(participId));
+            //}
 
-            Mapper.Initialize(cfg => cfg.CreateMap<Particip, ParticipDto>());                
+            //Mapper.Initialize(cfg => cfg.CreateMap<Particip, ParticipDto>());                
 
-            var dto = Mapper.Map<Particip, ParticipDto>(entity);
+            //var dto = Mapper.Map<Particip, ParticipDto>(entity);
 
-            return dto;
+            //return dto;
+            throw new NotImplementedException();
         }
 
         public void Delete(int participId)
         {
-            _participRepository.Delete(participId);
+            //_participRepository.Delete(participId);
+            throw new NotImplementedException();
         }
     }
 }

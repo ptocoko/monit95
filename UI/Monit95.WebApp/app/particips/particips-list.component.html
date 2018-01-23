@@ -42,7 +42,7 @@
             <td>{{particip.Name}}</td>
             <td>{{particip.SecondName}}</td>
             <td class="className-column">{{particip.ClassName}}</td>
-            <td>{{particip.Birthday}}</td>
+            <td>{{particip.Birthday?.toLocaleDateString('ru-RU')}}</td>
             <td>
                 <a style="cursor:pointer" 
                    class="glyphicon glyphicon-edit" 

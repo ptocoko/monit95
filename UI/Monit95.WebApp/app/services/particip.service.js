@@ -13,7 +13,7 @@ var ParticipService = /** @class */ (function () {
         return this.http.get(this.GET_ALL_PARTICIPS_URL + projectId.toString());
     };
     ParticipService.prototype.getParticip = function (participId) {
-        return this.http.get(this.endpoint + participId.toString());
+        return this.http.get(this.endpoint + participId);
     };
     ParticipService.prototype.addParticip = function (particip) {
         return this.http.post(this.endpoint, particip, { responseType: 'text' });
