@@ -1,7 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { MarksService, ParticipWithMarks } from "../../rsur/rsur-test-protocol/marks.service";
-import { ParticipService } from "../../particip.service";
+import { ParticipService } from "../../services/particip.service";
 import { Router } from "@angular/router";
+import { ParticipModel } from '../../models/particip.model';
 
 const CLASS_NAMES: string[] = ['Все классы', '1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 
@@ -19,7 +20,7 @@ export class ClassParticipMarksComponent {
 	searchClass: string;
 
 	constructor(private marksService: MarksService,
-				private participService: ParticipService,
+				private participService: ParticipService<ParticipModel>,
 				private router: Router) { }
 
 	ngOnInit() {

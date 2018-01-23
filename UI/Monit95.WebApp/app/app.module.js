@@ -19,12 +19,12 @@ var rsurparticip_add_form_component_1 = require("./rsur/rsurparticip-add-form/rs
 var plan_component_1 = require("./plan/plan.component");
 var result_component_1 = require("./result/result.component");
 var particip_correction_component_1 = require("./rsur/correction/particip-correction.component");
-var class_particips_list_component_1 = require("./class-particips/class-particips-list.component");
-var marks_component_1 = require("./class-particips/marks/marks.component");
-var class_particips_plan_component_1 = require("./class-particips/class-particips-plan.component");
-var add_component_1 = require("./class-particips/add-and-update/add.component");
-var update_component_1 = require("./class-particips/add-and-update/update.component");
-var marks_add_and_edit_component_1 = require("./class-particips/marks/marks-add-and-edit.component");
+//import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
+//import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
+//import { ClassParticipsPlanComponent } from './class-particips/class-particips-plan.component';
+//import { AddClassParticipComponent } from './class-particips/add-and-update/add.component';
+//import { UpdateClassParticipComponent } from './class-particips/add-and-update/update.component';
+//import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
 var rsur_test_protocol_list_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol-list.component");
 var rsur_test_protocol_component_1 = require("./rsur/rsur-test-protocol/rsur-test-protocol.component");
 var rsur_test_component_1 = require("./rsur/rsur-test/rsur-test.component");
@@ -44,7 +44,6 @@ var question_protocol_component_1 = require("./components/rsur/protocols/protoco
 var confirm_dialog_component_1 = require("./shared/confirm-dialog/confirm-dialog.component");
 // Services
 var account_service_1 = require("./services/account.service");
-var particip_service_1 = require("./particip.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
 var rsur_test_service_1 = require("./rsur/rsur-test/rsur-test.service");
 var school_service_1 = require("./school.service");
@@ -111,12 +110,13 @@ var AppModule = /** @class */ (function () {
                     { path: 'plan', component: plan_component_1.PlanComponent },
                     { path: 'result', component: result_component_1.ResultComponent },
                     { path: 'particip-correction', component: particip_correction_component_1.ParticipCorrectionComponent },
-                    { path: 'class-particips', component: class_particips_plan_component_1.ClassParticipsPlanComponent },
-                    { path: 'class-particips/list', component: class_particips_list_component_1.ClassParticipsListComponent },
-                    { path: 'class-particips/new', component: add_component_1.AddClassParticipComponent },
-                    { path: 'class-particips/update/:id', component: update_component_1.UpdateClassParticipComponent },
-                    { path: 'class-particips/marks', component: marks_component_1.ClassParticipMarksComponent },
-                    { path: 'class-particips/marks-edit/:participTestId', component: marks_add_and_edit_component_1.MarksAddAndEditComponent },
+                    { path: 'particips', loadChildren: './particips/particips.module#ParticipsModule' },
+                    //{ path: 'class-particips', component: ClassParticipsPlanComponent },
+                    //{ path: 'class-particips/list', component: ClassParticipsListComponent },                
+                    //{ path: 'class-particips/new', component: AddClassParticipComponent },
+                    //{ path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
+                    //{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
+                    //{ path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },
                     { path: '', redirectTo: '/rsur', pathMatch: 'full' }
                 ])
             ],
@@ -144,12 +144,12 @@ var AppModule = /** @class */ (function () {
                 plan_component_1.PlanComponent,
                 result_component_1.ResultComponent,
                 particip_correction_component_1.ParticipCorrectionComponent,
-                class_particips_list_component_1.ClassParticipsListComponent,
-                marks_component_1.ClassParticipMarksComponent,
-                class_particips_plan_component_1.ClassParticipsPlanComponent,
-                add_component_1.AddClassParticipComponent,
-                update_component_1.UpdateClassParticipComponent,
-                marks_add_and_edit_component_1.MarksAddAndEditComponent,
+                //ClassParticipsListComponent,		
+                //ClassParticipMarksComponent,		
+                //ClassParticipsPlanComponent,
+                //AddClassParticipComponent,
+                //UpdateClassParticipComponent,
+                //MarksAddAndEditComponent,
                 rsur_test_protocol_list_component_1.RsurTestProtocolListComponent,
                 rsur_test_protocol_component_1.RsurTestProtocolComponent,
                 report_component_1.ReportComponent,
@@ -173,7 +173,7 @@ var AppModule = /** @class */ (function () {
                 school_service_1.SchoolService,
                 particip_correction_service_1.ParticipCorrectionService,
                 class_service_1.ClassService,
-                particip_service_1.ParticipService,
+                //ParticipService,
                 marks_service_1.MarksService,
                 school_collector_service_1.SchoolCollectorService,
                 results_service_1.ResultsService,

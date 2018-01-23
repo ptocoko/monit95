@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
-var particip_model_1 = require("../particip.model");
+var particip_model_1 = require("../models/particip.model");
 var ClassParticip = /** @class */ (function (_super) {
     tslib_1.__extends(ClassParticip, _super);
     function ClassParticip() {

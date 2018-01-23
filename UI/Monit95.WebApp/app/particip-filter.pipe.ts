@@ -1,5 +1,5 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
-import { ParticipModel } from './particip.model';
+import { ParticipModel } from './models/particip.model';
 
 @Pipe({ name: 'participFilter' })
 export class ParticipFilterPipe implements PipeTransform {
