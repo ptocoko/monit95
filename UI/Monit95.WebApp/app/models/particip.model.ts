@@ -4,7 +4,7 @@ export class ParticipModel extends PersonModel {
 	public Id: number;
 	public ProjectId: number;
 
-	public Birthday: Date;
+	public Birthday: string;
 	public ClassName: string;
     public SchoolId: string;    
 }

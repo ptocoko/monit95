@@ -44,6 +44,7 @@ namespace Monit95App.Services
 
             var mapConfig = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipDto>()
                 //.ForMember(d => d.ClassName, opt => opt.Ignore())
+                .ForMember(d => d.Birthday, opt => opt.MapFrom(src => src.Birthday.HasValue ? src.Birthday.Value.ToString("dd.MM.yyyy", new CultureInfo("ru-RU")) : null))
                 .ReverseMap()
                 .ForPath(d => d.Class.Name, opt => opt.Ignore())
                 .ForMember(d => d.ClassId, opt => opt.MapFrom(src => _classServise.GetId(src.ClassName))));

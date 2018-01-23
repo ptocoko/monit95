@@ -61,7 +61,6 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 // Pipes
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
-var particip_filter_pipe_1 = require("./particip-filter.pipe");
 var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
@@ -73,6 +72,7 @@ var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
 var material_1 = require("@angular/material");
 var russian_paginator_provider_1 = require("./shared/russian-paginator.provider");
+var particips_module_1 = require("./particips/particips.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -89,6 +89,7 @@ var AppModule = /** @class */ (function () {
                 ngx_order_pipe_1.OrderModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
                 material_module_1.MaterialModule,
+                particips_module_1.ParticipsModule,
                 router_1.RouterModule.forRoot([
                     { path: 'rsur', component: home_component_1.HomeComponent },
                     { path: 'rsur/test', component: rsur_test_component_1.RsurTestComponent },
@@ -110,7 +111,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'plan', component: plan_component_1.PlanComponent },
                     { path: 'result', component: result_component_1.ResultComponent },
                     { path: 'particip-correction', component: particip_correction_component_1.ParticipCorrectionComponent },
-                    { path: 'particips', loadChildren: './particips/particips.module#ParticipsModule' },
+                    //{ path: 'particips', loadChildren: './app/particips/particips.module#ParticipsModule'},
                     //{ path: 'class-particips', component: ClassParticipsPlanComponent },
                     //{ path: 'class-particips/list', component: ClassParticipsListComponent },                
                     //{ path: 'class-particips/new', component: AddClassParticipComponent },
@@ -127,7 +128,6 @@ var AppModule = /** @class */ (function () {
                 particips_component_1.RsurParticipsComponent,
                 rsurparticip_add_form_component_1.RsurParticipAddFormComponent,
                 rsur_particip_filter_pipe_1.RsurParticipFilterPipe,
-                particip_filter_pipe_1.ParticipFilterPipe,
                 class_name_filter_pipe_1.ClassNameFilterPipe,
                 limit_to_pipe_1.LimitToPipe,
                 particips_without_details_filter_1.ParticipsWithoutDetailsPipe,

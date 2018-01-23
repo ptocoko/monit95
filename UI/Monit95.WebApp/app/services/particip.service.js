@@ -10,7 +10,7 @@ var ParticipService = /** @class */ (function () {
         this.endpoint = "/api/particips/";
     }
     ParticipService.prototype.getAll = function (projectId) {
-        return this.http.get(this.GET_ALL_PARTICIPS_URL + projectId.toString());
+        return this.http.get(this.GET_ALL_PARTICIPS_URL + projectId);
     };
     ParticipService.prototype.getParticip = function (participId) {
         return this.http.get(this.endpoint + participId);
@@ -22,7 +22,7 @@ var ParticipService = /** @class */ (function () {
         return this.http.put(this.endpoint + particip.Id, particip, { responseType: 'text' });
     };
     ParticipService.prototype.deleteParticip = function (participId) {
-        return this.http.delete(this.endpoint + participId.toString(), { responseType: 'text' });
+        return this.http.delete(this.endpoint + participId, { responseType: 'text' });
     };
     ParticipService = tslib_1.__decorate([
         core_1.Injectable(),

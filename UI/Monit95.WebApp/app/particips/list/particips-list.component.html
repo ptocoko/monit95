@@ -1,0 +1,90 @@
+﻿<h2>Исследование готовности 1-х классов</h2>
+<h3>Список участников</h3>
+<p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
+    <mat-spinner></mat-spinner>
+</p>
+<div class="table-container mat-elevation-z8">
+    <div class="actions-container">
+        <mat-form-field class="filter-field">
+            <input matInput
+                   #filter
+                   (keyup)="applyFilter(filter.value)"
+                   placeholder="Поиск участника по ФИО..." />
+        </mat-form-field>
+
+        <button mat-raised-button
+                color="primary"
+                (click)="addClassParticip()">
+            Добавить одного ученика...
+        </button>
+        <!--<button class="btn btn-default" routerLink="/class-particips/upload-excel">
+            <i class="fa fa-file-excel-o fa-lg"></i>
+                Добавить список учеников из .xlsx...
+        </button>-->
+        <!--<button class="btn btn-primary" routerLink="/class-particips/marks">Перейти к заполнению оценок</button>-->
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="Index">
+            <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+            <mat-cell *matCellDef="let particip; let i = index">{{ i + 1 }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Surname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> фамилия </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.Surname }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> имя </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.Name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SecondName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> отчество </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.SecondName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ClassName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> класс </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.ClassName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Birthday">
+            <mat-header-cell *matHeaderCellDef> дата рождения </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.Birthday }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="upd-action">
+            <mat-header-cell *matHeaderCellDef> изменить </mat-header-cell>
+            <mat-cell *matCellDef="let particip">
+                <a style="cursor:pointer"
+                   class="glyphicon glyphicon-edit"
+                   (click)="updateClassParticip(particip)">
+                </a>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="del-action">
+            <mat-header-cell *matHeaderCellDef> удалить </mat-header-cell>
+            <mat-cell *matCellDef="let particip">
+                <a style="cursor:pointer"
+                   class="glyphicon glyphicon-trash"
+                   (click)="deleteClassParticip(particip)">
+                </a>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                   [length]="participsCount"
+                   [pageSizeOptions]="['50', '100']">
+    </mat-paginator>
+</div>
+<p class="text-center" 
+    *ngIf="participsCount === 0">
+    Данные об участниках отсутсвуют
+</p>
+<button style="position:fixed;left:90%;top:80%;color:white; background-color:green; z-index:10; font-size:x-large" mat-fab color="primary" (click)="addClassParticip()">+</button>

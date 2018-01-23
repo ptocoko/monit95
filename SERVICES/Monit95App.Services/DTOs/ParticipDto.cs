@@ -23,7 +23,7 @@ namespace Monit95App.Services.DTOs
         [RegularExpression("^([0-9]|10|11)$|^(([0-9]|10|11) [АБВГДЕЖЗИКЛ])$")]
         public string ClassName { get; set; }
         
-        public DateTime? Birthday { get; set; }
+        public string Birthday { get; set; }
 
         public bool? WasDoo { get; set; }
 

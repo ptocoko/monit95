@@ -1,0 +1,38 @@
+﻿th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+td{
+    vertical-align: middle;
+}
+
+.mat-column-Index{
+    max-width: 60px;
+}
+
+.mat-column-upd-action, .mat-column-del-action {
+    max-width: 60px;
+    text-align: center;
+}
+
+.mat-column-ClassName{
+    max-width: 65px;
+}
+
+.mat-column-Birthday{
+    max-width: 150px;
+}
+
+.actions-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:baseline;
+    padding: 10px;
+}
+
+.filter-field{
+    flex: 1 1 auto;
+    padding: 10px 15px;
+}

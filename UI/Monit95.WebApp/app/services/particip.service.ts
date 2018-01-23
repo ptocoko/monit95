@@ -11,7 +11,7 @@ export class ParticipService<T> {
 	constructor(private http: HttpClient) { }
 
 	getAll(projectId: number) {
-		return this.http.get<T[]>(this.GET_ALL_PARTICIPS_URL + projectId.toString());
+		return this.http.get<T[]>(this.GET_ALL_PARTICIPS_URL + projectId);
 	}
 
 	getParticip(participId: number) {
@@ -27,6 +27,6 @@ export class ParticipService<T> {
 	}
 
 	deleteParticip(participId: number) {
-		return this.http.delete(this.endpoint + participId.toString(), { responseType: 'text' });
+		return this.http.delete(this.endpoint + participId, { responseType: 'text' });
 	}
 }

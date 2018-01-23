@@ -62,7 +62,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // Pipes
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
-import { ParticipFilterPipe } from './particip-filter.pipe';
+import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe, ExamNameFilterPipe } from './pipes/rsur-report-filter.pipe';
@@ -75,6 +75,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
 import { MatPaginatorIntl } from '@angular/material';
 import { RussianMatPaginator } from './shared/russian-paginator.provider';
+import { ParticipsModule } from './particips/particips.module';
 
 @NgModule({
     imports: [
@@ -87,7 +88,8 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 		BrowserAnimationsModule,		
         OrderModule,	
         NgbModule.forRoot(),
-        MaterialModule,
+		MaterialModule,
+		ParticipsModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
                 { path: 'rsur/test', component: RsurTestComponent },
@@ -109,7 +111,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },                
 				{ path: 'particip-correction', component: ParticipCorrectionComponent },
-				{ path: 'particips', loadChildren: './particips/particips.module#ParticipsModule'},
+				//{ path: 'particips', loadChildren: './app/particips/particips.module#ParticipsModule'},
                 //{ path: 'class-particips', component: ClassParticipsPlanComponent },
                 //{ path: 'class-particips/list', component: ClassParticipsListComponent },                
                 //{ path: 'class-particips/new', component: AddClassParticipComponent },
@@ -126,8 +128,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 	    RsurTestComponent,
         RsurParticipsComponent,	
         RsurParticipAddFormComponent,
-        RsurParticipFilterPipe,        
-		ParticipFilterPipe,
+        RsurParticipFilterPipe,
 		ClassNameFilterPipe,
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
