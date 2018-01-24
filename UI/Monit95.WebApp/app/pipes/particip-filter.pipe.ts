@@ -3,7 +3,7 @@ import { ParticipModel } from '../models/particip.model';
 
 @Pipe({ name: 'participFilter' })
 export class ParticipFilterPipe implements PipeTransform {
-	transform(particips: ParticipModel[], searchText: string): any {
+	transform(particips: ParticipModel[], searchText: string) {
 		if (searchText == null) return particips;
 
 		return particips.filter((particip: ParticipModel) => {

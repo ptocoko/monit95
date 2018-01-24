@@ -9,7 +9,7 @@
             <input matInput
                    #filter
                    (keyup)="applyFilter(filter.value)"
-                   placeholder="Поиск участника по ФИО..." />
+                   placeholder="поиск участника по ФИО..." />
         </mat-form-field>
 
         <button mat-raised-button
@@ -25,9 +25,9 @@
     </div>
 
     <mat-table #table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="Index">
+        <ng-container matColumnDef="$id">
             <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
-            <mat-cell *matCellDef="let particip; let i = index">{{ i + 1 }}</mat-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.$id }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Surname">

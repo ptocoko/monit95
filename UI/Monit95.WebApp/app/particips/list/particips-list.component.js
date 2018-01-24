@@ -10,7 +10,7 @@ var ParticipsListComponent = /** @class */ (function () {
     function ParticipsListComponent(participService, router) {
         this.participService = participService;
         this.router = router;
-        this.displayedColumns = ['Index', 'Surname', 'Name', 'SecondName', 'ClassName', 'Birthday', 'upd-action', 'del-action'];
+        this.displayedColumns = ['$id', 'Surname', 'Name', 'SecondName', 'ClassName', 'Birthday', 'upd-action', 'del-action'];
         this.dataSource = new material_1.MatTableDataSource();
     }
     ParticipsListComponent.prototype.ngOnInit = function () {
@@ -26,6 +26,11 @@ var ParticipsListComponent = /** @class */ (function () {
             _this.dataSource.sort = _this.sort;
             _this.dataSource.paginator = _this.paginator;
         });
+    };
+    ParticipsListComponent.prototype.applyFilter = function (filterValue) {
+        this.paginator.pageIndex = 0;
+        filterValue = filterValue.trim().toLowerCase();
+        this.dataSource.filter = filterValue;
     };
     tslib_1.__decorate([
         core_1.ViewChild(material_1.MatSort),

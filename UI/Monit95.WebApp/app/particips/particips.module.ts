@@ -8,10 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ParticipFilterPipe } from '../pipes/particip-filter.pipe';
 import { MaterialModule } from '../material.module';
+import { ProtocolsComponent } from './protocols/protocols.component';
 
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
 	{ path: 'particips/list', component: ParticipsListComponent },
+	{ path: 'particips/protocols', component: ProtocolsComponent },
 	{ path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ]
 

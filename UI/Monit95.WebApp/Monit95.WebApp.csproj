@@ -398,8 +398,8 @@
     <Content Include="app\particips\home\home.component.html" />
     <Content Include="app\particips\list\particips-list.component.css" />
     <Content Include="app\particips\plan\class-particips-plan.component.html" />
-    <Content Include="app\particips\marks\marks-add-and-edit.component.html" />
-    <Content Include="app\particips\marks\marks.component.html" />
+    <Content Include="app\particips\protocols\marks-add-and-edit.component.html" />
+    <Content Include="app\particips\protocols\protocols.component.html" />
     <Content Include="app\particips\list\particips-list.component.html" />
     <Content Include="app\particips\excel-export\export-excel-modal.component.html" />
     <Content Include="app\particips\excel-export\export-excel.component.html" />
@@ -624,6 +624,7 @@
     <TypeScriptCompile Include="app\material.module.ts" />
     <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\models\particip-protocol.model.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\particips\home\home.component.ts" />
@@ -632,8 +633,8 @@
     <TypeScriptCompile Include="app\particips\ClassParticip.ts" />
     <TypeScriptCompile Include="app\particips\excel-export\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\particips\excel-export\export-excel.component.ts" />
-    <TypeScriptCompile Include="app\particips\marks\marks-add-and-edit.component.ts" />
-    <TypeScriptCompile Include="app\particips\marks\marks.component.ts" />
+    <TypeScriptCompile Include="app\particips\protocols\marks-add-and-edit.component.ts" />
+    <TypeScriptCompile Include="app\particips\protocols\protocols.component.ts" />
     <TypeScriptCompile Include="app\particips\particips.module.ts" />
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />
     <TypeScriptCompile Include="app\class.service.ts" />
@@ -653,6 +654,8 @@
     <TypeScriptCompile Include="app\models\scan.model.ts" />
     <TypeScriptCompile Include="app\pipes\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\models\particip.model.ts" />
+    <TypeScriptCompile Include="app\pipes\rsur-protocol-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\services\particip-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\particip.service.ts" />
     <TypeScriptCompile Include="app\pipes\rsur-report-filter.pipe.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.component.ts" />
