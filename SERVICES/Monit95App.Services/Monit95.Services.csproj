@@ -100,6 +100,9 @@
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />
     <Compile Include="File\FileService.cs" />
+    <Compile Include="QuestionResult\ItakeEgeDtos\GetViewDto.cs" />
+    <Compile Include="QuestionResult\ItakeEgeDtos\PutDto.cs" />
+    <Compile Include="QuestionResult\ItakeEgeDtos\GetEditDto.cs" />
     <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
     <Compile Include="Rsur\MarksConvert\RsurMarksConverter.cs" />
     <Compile Include="Rsur\MarksConvert\IRsurMarksConverter.cs" />

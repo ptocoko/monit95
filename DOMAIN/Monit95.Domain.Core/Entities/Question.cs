@@ -2,19 +2,19 @@
 
 namespace Monit95App.Domain.Core.Entities
 {
-    public class RsurQuestion
+    public class Question
     {
         public int Id { get; set; }
-
-        public Guid TestId { get; set; }
-
-        public int EgeQuestionId { get; set; }
-
+                
         /// <summary>
-        /// Номер задания в КИМ РСУР
+        /// Порядковый номер задания в КИМ
         /// </summary>
         public int Order { get; set; }
 
+        public Test Test { get; set; }
+        public Guid TestId { get; set; }
+
         public virtual EgeQuestion EgeQuestion { get; set; }
+        public int EgeQuestionId { get; set; }
     }
 }

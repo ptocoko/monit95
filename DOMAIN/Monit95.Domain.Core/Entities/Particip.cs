@@ -2,52 +2,38 @@ namespace Monit95App.Domain.Core.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class Particip
+    public class Particip
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Particip()
-        {
-            ParticipTests = new HashSet<ParticipTest>();
-        }
-
-        public int Id { get; set; }
-
-        public int ProjectId { get; set; }
-
-        [Required]
-        [StringLength(25)]
-        public string Surname { get; set; }
-
-        [Required]
-        [StringLength(25)]
-        public string Name { get; set; }
-
-        [StringLength(25)]
+        public int Id { get; set; }                            
+        public string Surname { get; set; }        
+        public string Name { get; set; }        
         public string SecondName { get; set; }
 
-        [Required]
-        [StringLength(4)]
-        public string SchoolId { get; set; }
+        /// <summary>
+        /// Номер документа (паспорта)
+        /// </summary>
+        public int? DocumNumber { get; set; }
 
-        [Required]
-        [StringLength(4)]
-        public string ClassId { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        
+        /// <summary>
+        /// Посещал ли ДОО
+        /// </summary>
+        /// <remarks>Посещал ли дошколную образовательную организацию (садик)?</remarks>
+        public bool? WasDoo { get; set; }        
 
-        public bool? WasDoo { get; set; }
-
-        [Column(TypeName = "date")]
         public DateTime? Birthday { get; set; }
+        public string DataSource { get; set; }
+        public DateTime? AddedDate { get; set; }
 
-        public virtual Class Class { get; set; }
+        public int ProjectId { get; set; }        
+        public Project Project { get; set; }
 
-        public virtual Project Project { get; set; }
+        public string SchoolId { get; set; }
+        public virtual School School { get; set; }                
 
-        public virtual School School { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ParticipTest> ParticipTests { get; set; }
+        public virtual ICollection<ParticipTest> ParticipTests { get; set; } = new HashSet<ParticipTest>();                
     }
 }
