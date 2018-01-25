@@ -1,0 +1,14 @@
+﻿<h2>Протокол проверки заданий</h2>
+
+<div *ngIf="protocol">
+    <p>{{protocol.Surname}} {{protocol.Name}} {{protocol.Surname}}</p>
+    <hr />
+    <marks-protocol [protocol]="protocol.MarksProtocol"
+                    (send)="submit()"
+                    (cancel)="back()">
+    </marks-protocol>
+</div>
+
+<div *ngIf="!protocol">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>

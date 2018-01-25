@@ -34,6 +34,7 @@ export class ProtocolsComponent {
 	private initCodeListener() {
 		console.log(this.pipe);
 		this.participCodeInput.nativeElement.focus();
+
 		Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
 			.filter((event: any) => {
 				if (event.keyCode === 13) {

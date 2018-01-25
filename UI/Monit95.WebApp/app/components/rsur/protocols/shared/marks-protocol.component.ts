@@ -28,24 +28,36 @@ export class MarksProtocolComponent implements AfterViewInit {
 		this.inputElements.focus((event) => event.target.select());
 
 		this.inputElements.get(0).focus();
-		this.inputElements.get(0).select();
+		//this.inputElements.get(0).select();
 	}
 
-	markChange(event: any) {
-		let elem = event.target as HTMLInputElement;
-		let elemIndex = this.inputElements.index(elem);
+	markChange(event: any, maxMark: number, step = 1) {
+		const elem = event.target as HTMLInputElement;
+		const elemIndex = this.inputElements.index(elem);
+		const mark = Number.parseInt(elem.value);
+		const possibleMarks = this.getPossibleMarks(maxMark, step);
 
 		if (elem.value) {
-			if (elem.value.match(/^(1|0)$/)) {
+			if (possibleMarks.indexOf(mark) > -1) {
 				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
 				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
 			}
 			else {
-				elem.value = '1';
-				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = 1;
+				elem.value = maxMark.toString();
+				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = maxMark;
 				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
 			}
 		}
+	}
+
+	getPossibleMarks(maxMark: number, step: number): number[] {
+		let result: number[];
+		let current = 0;
+		do {
+			result.push(current);
+			current += step;
+		} while (current <= maxMark);
+		return result;
 	}
 
 	goToNextInputOrFocusOnSubmitBtn(elemIndex: number) {

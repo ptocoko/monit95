@@ -398,7 +398,7 @@
     <Content Include="app\particips\home\home.component.html" />
     <Content Include="app\particips\list\particips-list.component.css" />
     <Content Include="app\particips\plan\class-particips-plan.component.html" />
-    <Content Include="app\particips\protocols\marks-add-and-edit.component.html" />
+    <Content Include="app\particips\protocols\protocol\protocol.component.html" />
     <Content Include="app\particips\protocols\protocols.component.html" />
     <Content Include="app\particips\list\particips-list.component.html" />
     <Content Include="app\particips\excel-export\export-excel-modal.component.html" />
@@ -633,7 +633,7 @@
     <TypeScriptCompile Include="app\particips\ClassParticip.ts" />
     <TypeScriptCompile Include="app\particips\excel-export\export-excel-modal.component.ts" />
     <TypeScriptCompile Include="app\particips\excel-export\export-excel.component.ts" />
-    <TypeScriptCompile Include="app\particips\protocols\marks-add-and-edit.component.ts" />
+    <TypeScriptCompile Include="app\particips\protocols\protocol\protocol.component.ts" />
     <TypeScriptCompile Include="app\particips\protocols\protocols.component.ts" />
     <TypeScriptCompile Include="app\particips\particips.module.ts" />
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />

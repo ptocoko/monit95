@@ -1,13 +1,40 @@
 ﻿<form *ngIf="marksProtocol" #marksForm="ngForm">
-    <h4 *ngIf="showParticipCode">Код участника: {{marksProtocol.ParticipCode}}</h4>
+    <h4 *ngIf="showParticipCode">
+        Код участника: {{marksProtocol.ParticipCode}}
+    </h4>
+
     <p>Блок: {{marksProtocol.TestName}}</p>
-    <div *ngFor="let question of marksProtocol.QuestionResults; let i = index" class="form-inline" style="margin-bottom:5px">
-        <label class="markLabel">{{question.Name}}</label>
-        <input class="markInput" (input)="markChange($event)" [(ngModel)]="question.CurrentMark" #mark{{i}}="ngModel" name="mark{{i}}" required />
+
+    <div *ngFor="let question of marksProtocol.QuestionResults; let i = index" 
+         class="form-inline" 
+         style="margin-bottom:5px">
+
+        <label class="markLabel">
+            {{question.Name}}
+        </label>
+        <input class="markInput" 
+               (input)="markChange($event, question.MaxMark)" 
+               [(ngModel)]="question.CurrentMark" 
+               #mark{{i}}="ngModel" 
+               name="mark{{i}}" 
+               required />
     </div>
-    <br />
-    <p class="pull-left">
-        <button id="submitBtn" type="submit" (click)="send()" mat-raised-button color="primary" [disabled]="marksForm.invalid || marksForm.pristine || marksSending">Сохранить</button>
-        <button type="button" mat-raised-button color="warn" (click)="cancel()">Отмена</button>
+
+    <p>
+        <button id="submitBtn" 
+                type="submit" 
+                (click)="send()" 
+                mat-raised-button 
+                color="primary" 
+                [disabled]="marksForm.invalid || marksForm.pristine || marksSending">
+            Сохранить
+        </button>
+
+        <button type="button" 
+                mat-raised-button 
+                color="warn" 
+                (click)="cancel()">
+            Отмена
+        </button>
     </p>
 </form>
