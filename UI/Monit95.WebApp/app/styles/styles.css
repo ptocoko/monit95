@@ -4,6 +4,15 @@
     outline: none !important;
 }
 
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+td {
+    vertical-align: middle;
+}
+
 .list-container {
     margin-top: 50px;
 }

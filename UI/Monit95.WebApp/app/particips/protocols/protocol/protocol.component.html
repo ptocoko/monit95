@@ -3,8 +3,8 @@
 <div *ngIf="protocol">
     <p>{{protocol.Surname}} {{protocol.Name}} {{protocol.Surname}}</p>
     <hr />
-    <marks-protocol [protocol]="protocol.MarksProtocol"
-                    (send)="submit()"
+    <marks-protocol [questions]="protocol.QuestionsResults"
+                    (send)="submit($event)"
                     (cancel)="back()">
     </marks-protocol>
 </div>

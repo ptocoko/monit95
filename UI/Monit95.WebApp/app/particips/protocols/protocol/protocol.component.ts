@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ParticipProtocolsService } from '../../../services/particip-protocols.service';
 import { ParticipProtocolModel } from '../../../models/particip-protocol.model';
+import { QuestionResult } from '../../../models/marks-protocol.model';
 
 
 @Component({
@@ -27,9 +28,9 @@ export class ParticipProtocolComponent implements OnInit {
         });
     }
 
-    submit() {
+    submit(questionResults: QuestionResult[]) {
 		this.protocolsService
-				.postMarksProtocol(this.protocol.MarksProtocol, this.documNumber)
+				.postMarksProtocol(questionResults, this.documNumber)
 				.subscribe(res => this.back());
     }
 

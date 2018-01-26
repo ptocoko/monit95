@@ -45,30 +45,21 @@
             <mat-cell *matCellDef="let particip">{{ particip.SecondName }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="ClassName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> класс </mat-header-cell>
-            <mat-cell *matCellDef="let particip">{{ particip.ClassName }}</mat-cell>
+        <ng-container matColumnDef="DocumNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> номер документа </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.DocumNumber }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="Birthday">
-            <mat-header-cell *matHeaderCellDef> дата рождения </mat-header-cell>
-            <mat-cell *matCellDef="let particip">{{ particip.Birthday }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="upd-action">
-            <mat-header-cell *matHeaderCellDef> изменить </mat-header-cell>
-            <mat-cell *matCellDef="let particip">
-                <a style="cursor:pointer"
-                   class="glyphicon glyphicon-edit"
-                   (click)="updateClassParticip(particip)">
-                </a>
-            </mat-cell>
+        <ng-container matColumnDef="SourceName">
+            <mat-header-cell *matHeaderCellDef> источник </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.SourceName }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="del-action">
             <mat-header-cell *matHeaderCellDef> удалить </mat-header-cell>
             <mat-cell *matCellDef="let particip">
                 <a style="cursor:pointer"
+                   *ngIf="particip.SourceName !== 'РЦОИ'"
                    class="glyphicon glyphicon-trash"
                    (click)="deleteClassParticip(particip)">
                 </a>

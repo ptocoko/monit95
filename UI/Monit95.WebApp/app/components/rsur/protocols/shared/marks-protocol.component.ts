@@ -1,7 +1,5 @@
 ﻿import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
-import { MarksProtocol } from "../../../../models/marks-protocol.model";
-import { Observable } from "rxjs/Observable";
-import { FormGroup, NgForm } from "@angular/forms";
+import { QuestionResult } from "../../../../models/marks-protocol.model";
 
 @Component({
 	selector: 'marks-protocol',
@@ -9,13 +7,11 @@ import { FormGroup, NgForm } from "@angular/forms";
 	styleUrls: [`./app/components/rsur/protocols/shared/marks-protocol.component.css?v=${new Date().getTime()}`]
 })
 export class MarksProtocolComponent implements AfterViewInit {
-	@ViewChild('marksForm') marksForm: NgForm;
 	inputElements: JQuery<HTMLInputElement>;
 
-	@Input('protocol') marksProtocol: MarksProtocol;
-	@Input() showParticipCode: boolean;
+	@Input('questions') questionResults: QuestionResult[];
 
-	@Output() onSend = new EventEmitter<MarksProtocol>();
+	@Output() onSend = new EventEmitter<QuestionResult[]>();
 	@Output() onCancel = new EventEmitter();
 
 	marksSending: boolean;
@@ -39,12 +35,12 @@ export class MarksProtocolComponent implements AfterViewInit {
 
 		if (elem.value) {
 			if (possibleMarks.indexOf(mark) > -1) {
-				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
+				this.questionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
 				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
 			}
 			else {
 				elem.value = maxMark.toString();
-				this.marksProtocol.QuestionResults[elemIndex].CurrentMark = maxMark;
+				this.questionResults[elemIndex].CurrentMark = maxMark;
 				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
 			}
 		}
@@ -74,7 +70,7 @@ export class MarksProtocolComponent implements AfterViewInit {
 
 	send() {
 		this.marksSending = true;
-		this.onSend.emit(this.marksProtocol);
+		this.onSend.emit(this.questionResults);
 	}
 
 	cancel() {

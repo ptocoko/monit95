@@ -1,13 +1,4 @@
-﻿th {
-    text-align: center;
-    vertical-align: middle;
-}
-
-td{
-    vertical-align: middle;
-}
-
-.mat-column--id{
+﻿.mat-column--id{
     max-width: 60px;
 }
 
@@ -16,11 +7,11 @@ td{
     text-align: center;
 }
 
-.mat-column-ClassName{
-    max-width: 65px;
+.mat-column-DocumNumber{
+    max-width: 95px;
 }
 
-.mat-column-Birthday{
+.mat-column-SourceName{
     max-width: 150px;
 }
 

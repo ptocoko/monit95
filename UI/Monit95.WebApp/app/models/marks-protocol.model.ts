@@ -5,7 +5,7 @@ export interface MarksProtocol extends Protocol {
 	QuestionResults: QuestionResult[];
 }
 
-interface QuestionResult {
+export interface QuestionResult {
 	Name: string;
 	Order: number;
 	MaxMark: number;

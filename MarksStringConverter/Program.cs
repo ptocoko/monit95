@@ -2,6 +2,7 @@
 using Monit95App.Services.Rsur.MarksConvert;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace MarksStringConverter
 {
@@ -9,6 +10,9 @@ namespace MarksStringConverter
     {
         static void Main(string[] args)
         {
+            Console.InputEncoding = Encoding.UTF8;
+            Console.OutputEncoding = Encoding.UTF8;
+
             var context = new CokoContext();
             var service = new RsurMarksConverter(context);
             //service.GenerateByParticipTestId(15017);
@@ -36,7 +40,7 @@ namespace MarksStringConverter
                     do
                     {
                         rsurTestIds.Add(GetId("Введите RsurTestId"));
-                        Console.WriteLine();
+                        Console.WriteLine("Желаете добавить еще RsurTestId? (y - да; n - нет)");
                     }
                     while (Console.ReadKey().Key == ConsoleKey.Y);
                     service.GenerateByRsurTestIds(rsurTestIds.ToArray());
@@ -50,7 +54,7 @@ namespace MarksStringConverter
         
         private static int GetId(string message)
         {
-            Console.WriteLine($"{message}: ");
+            Console.Write($"\n{message}: ");
             string participTestId = Console.ReadLine().Trim();
             if (int.TryParse(participTestId, out int result))
             {

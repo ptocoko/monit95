@@ -1,11 +1,6 @@
-﻿<form *ngIf="marksProtocol" #marksForm="ngForm">
-    <h4 *ngIf="showParticipCode">
-        Код участника: {{marksProtocol.ParticipCode}}
-    </h4>
+﻿<form *ngIf="questions" #marksForm="ngForm">
 
-    <p>Блок: {{marksProtocol.TestName}}</p>
-
-    <div *ngFor="let question of marksProtocol.QuestionResults; let i = index" 
+    <div *ngFor="let question of questionResults; let i = index" 
          class="form-inline" 
          style="margin-bottom:5px">
 

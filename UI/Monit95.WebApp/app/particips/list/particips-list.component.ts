@@ -13,7 +13,7 @@ const PROJECT_ID: number = 1; // "i pass ege" projectId
 	styleUrls: [`./app/particips/list/particips-list.component.css?v=${new Date().getTime()}`]
 })
 export class ParticipsListComponent implements OnInit {
-	displayedColumns = ['$id', 'Surname', 'Name', 'SecondName', 'ClassName', 'Birthday', 'upd-action', 'del-action']
+	displayedColumns = ['$id', 'Surname', 'Name', 'SecondName', 'DocumNumber', 'SourceName', 'del-action']
 	participsCount: number;
 	dataSource = new MatTableDataSource<ParticipModel>();
 	isLoading: boolean;
