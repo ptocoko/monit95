@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monit95App.Domain.Core.Entities;
@@ -9,6 +11,7 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Services.File;
 using Monit95App.Services.Tests.Util;
 using NSubstitute;
+using Entities = Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.Tests
 {
@@ -23,61 +26,26 @@ namespace Monit95App.Services.Tests
 
         [TestMethod]
         public void AddTest()
-        {
-            // Arrange
-            var fakeRsurTestList = new List<RsurTestResult>
-            {
-                new RsurTestResult
-                {
-                    RsurParticipTest = new RsurParticipTest
-                    {
-                        RsurParticip = new RsurParticip
-                        {
-                            School = new Domain.Core.Entities.School
-                            {
-                                AreaCode = 201
-                            }
-                        },
-                        RsurTest = new RsurTest
-                        {
-                            IsOpen = true
-                        }
-                    },
-                    File = new Domain.Core.Entities.File
-                    {
-                        HexHash = "E018AB91DC96E2BB07D6EBD097D4779D"
-                    }
-
-                }
-            }.AsQueryable();
-            var mockRsurTestResultSet = Substitute.For<DbSet<RsurTestResult>, IQueryable<RsurTestResult>>();
-            ((IQueryable<RsurTestResult>)mockRsurTestResultSet).Expression.Returns(fakeRsurTestList.Expression);
-
-            var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
-
+        {                      
             Directory.CreateDirectory(@"c:\repositories\2");
             var fakeStream = new MemoryStream(Encoding.UTF8.GetBytes("fakeBytes"));
-            var mockContext = Substitute.For<CokoContext>();           
-            
-            // Config mockContext
-            mockContext.RsurTestResults.Returns(mockRsurTestResultSet);
-            mockContext.Files.Returns(mockFileSet);
-
+                                             
             // mocking Monit95Users
             var monit95Users = new List<Monit95User>
             {
                 new Monit95User { Login = "201" }
             };
-            var mockUserSet = MockDbSet.GetMock(monit95Users);
-            mockContext.Monit95Users.Returns(mockUserSet);
+            var mockUserSet = MockDbSet.GetMock(monit95Users);            
 
             // mocking Repositories
-            var repositories = new List<Repository>
+            var repository2 = new Repository
             {
-                new Repository { Id = 2 }
+                Path = @"c:\repositories\2"
             };
+            var repositories = new List<Repository>();
+            repositories.Add(item: repository2);
             var mockRepositorySet = MockDbSet.GetMock(repositories);
-            mockContext.Repositories.Returns(mockRepositorySet);
+            mockRepositorySet.Find(2).Returns(repository2);
 
             // mocking Files
             var files = new List<Domain.Core.Entities.File>
@@ -88,51 +56,66 @@ namespace Monit95App.Services.Tests
                 }
             };
             var fileSet = MockDbSet.GetMock(files);
+
+            // mocking CokoContext
+            var mockContext = Substitute.For<CokoContext>();
+            mockContext.Monit95Users.Returns(mockUserSet);           
+            mockContext.Repositories.Returns(mockRepositorySet);           
             mockContext.Files.Returns(fileSet);
 
-            // Act
-            var service = new File.FileService(mockContext);
-            var result = service.Add(2, fakeStream, @"c:\images\IMG-2017-12-07.JPG", "201");
-            var result2 = fakeRsurTestList.First();
+            // ACT
+            var service = new FileService(mockContext);
+            var result = service.Add(2, fakeStream, @"c:\images\IMG-2017-12-07.JPG", "201");            
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result);            
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            // Arrange
-            // Mocking DbSet<File>
-            //var fakeFiles = new List<Domain.Core.Entities.File>
-            //{
-            //    new Domain.Core.Entities.File
-            //    {
-            //        Id = 1,
-            //        FilePermissonList = new List<FilePermission>
-            //        {
-            //            new FilePermission
-            //            {
-            //                UserName = "201",
-            //                PermissionId = 2
-            //            }
-            //        }
-            //    }
-            //}.AsQueryable();
-            //var mockFileSet = Substitute.For<DbSet<Domain.Core.Entities.File>, IQueryable<Domain.Core.Entities.File>>();
-            //((IQueryable<Domain.Core.Entities.File>)mockFileSet).Expression.Returns(fakeFiles.Expression);
-            //((IQueryable<Domain.Core.Entities.File>)mockFileSet).Provider.Returns(fakeFiles.Provider); // SingOrDefault                  
+            // ARRANGE            
+            var repositoryPath = @"c:\repositories\2";
+            var filePath = @"c:\repositories\2\foto.jpg";
+            Directory.CreateDirectory(repositoryPath);
+            var fs = System.IO.File.Create(filePath);            
+            fs.Close();            
 
-            //// Mocking CokoContext            
-            //var mockCokoContext = Substitute.For<CokoContext>();
-            //mockCokoContext.Files.Returns(mockFileSet);
+            // Mocking FileSet
+            var fakeFiles = new List<Entities.File>
+            {
+                new Entities.File
+                {
+                    Repository = new Repository
+                    {
+                        Path = repositoryPath
+                    },
+                    Name = "foto.jpg",
+                    Id = 1,
+                    FilePermissonList = new List<FilePermission>
+                    {
+                        new FilePermission
+                        {
+                            UserName = "201",
+                            PermissionId = 2
+                        }
+                    }
+                }
+            };
+            var mockFileSet = MockDbSet.GetMock(fakeFiles);
 
-            //// Act
-            //var service = new FileService(mockCokoContext);
-            //var result = service.Delete(1, "201");
+            // Mocking CokoContext            
+            var mockCokoContext = Substitute.For<CokoContext>();
+            mockCokoContext.Files.Returns(mockFileSet);
 
-            // Assert
-            Assert.Fail();
+            // Act
+            var fileService = new FileService(mockCokoContext);
+            fileService.Delete(1, "201");
+
+            // ASSERT        
+            Assert.IsNotNull(System.IO.File.Exists(filePath));
+            // Clean fileSystem            
+            Directory.Delete(repositoryPath, true);            
         }        
 
         [TestMethod]
@@ -249,10 +232,35 @@ namespace Monit95App.Services.Tests
             Assert.IsNotNull(result);           
         }
 
-        [TestCleanup]
-        public void CleanFileSystem()
+        //[TestCleanup]
+        //public void CleanFileSystem()
+        //{
+        //    Directory.Delete(@"c:\repositories", true);            
+        //}
+
+        [TestMethod]
+        public void ConvertTiffToJpegBase64()
         {
-            Directory.Delete(@"c:\repositories", true);            
+            var service = new FileService();
+            var assembly = Assembly.GetAssembly(service.GetType());
+            int countOfDirectoriesToMockResources = Environment.CurrentDirectory.Split('\\').Length;
+            var path = Environment.CurrentDirectory
+                .Split('\\')
+                .Take(countOfDirectoriesToMockResources - 4)
+                .Aggregate((a, b) => $"{a}\\{b}") 
+                + "\\SERVICES\\Monit95App.Services\\Resource\\mock-tiff.tif";
+
+            string actualBase64StringFromStream;
+            string actualBase64StringFromPath;
+            using(FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                actualBase64StringFromStream = service.ConvertTiffToJpegBase64(fs);
+            }
+            actualBase64StringFromPath = service.ConvertTiffToJpegBase64(path);
+            
+            Assert.IsNotNull(actualBase64StringFromStream);
+            Assert.IsNotNull(actualBase64StringFromPath);
+            Assert.AreEqual(actualBase64StringFromStream, actualBase64StringFromPath);
         }
     }
 }

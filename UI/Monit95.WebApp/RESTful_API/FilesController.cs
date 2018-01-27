@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
+using Monit95App.Services.Exceptions;
 using Monit95App.Services.File;
 
 namespace Monit95.WebApp.RESTful_API
-{
-    /// <inheritdoc />
+{    
     /// <summary>
-    /// Контроллер для работы с файлами бланков ответов
-    /// </summary>        
-   // [Authorize]
+    /// Контроллер для работы с файлами
+    /// </summary>
+    //[Authorize]
     public class FilesController : ApiController
     {
         #region Dependencies
@@ -62,6 +64,10 @@ namespace Monit95.WebApp.RESTful_API
             return Request.CreateResponse(HttpStatusCode.Created, fileId);
         }
 
+        /// <summary>
+        /// Удаление файла
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete, Route("~/api/files/{id:int}")]
         public IHttpActionResult DeleteFile()
         {
@@ -71,6 +77,40 @@ namespace Monit95.WebApp.RESTful_API
             fileService.Delete(fileId, User.Identity.Name);
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Скачивание файла
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("~/api/files/{id}")]
+        public HttpResponseMessage GetFileContent()
+        {
+            var userName = User.Identity.Name;
+            userName = "0005";
+            var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            FileStream fileStream;            
+            try
+            {
+                fileStream = fileService.GetFileStream(fileId, userName);
+            }
+            catch(FileNotFoundOrAccessException exception)
+            {
+                ModelState.AddModelError("file", exception);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ModelState);
+            }            
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(fileStream)
+            };
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = Path.GetFileName(fileStream.Name)
+            };
+
+
+            return response;
         }
     }
 }
