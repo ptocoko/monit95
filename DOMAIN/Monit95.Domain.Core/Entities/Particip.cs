@@ -25,19 +25,18 @@ namespace Monit95App.Domain.Core.Entities
         /// <summary>
         /// Посещал ли ДОО
         /// </summary>
-        /// <remarks>Посещал ли дошколную образовательную организацию (садик)?</remarks>
-        public bool? WasDoo { get; set; }        
+        /// <remarks>
+        /// Посещал ли дошколную образовательную организацию (садик)?
+        /// </remarks>
+        public bool? WasDoo { get; set; }
 
         public DateTime? Birthday { get; set; }
         public string DataSource { get; set; }
         public DateTime? AddedDate { get; set; }
-
         public int ProjectId { get; set; }        
         public Project Project { get; set; }
-
         public string SchoolId { get; set; }
         public virtual School School { get; set; }                
-
         public virtual ICollection<ParticipTest> ParticipTests { get; set; } = new HashSet<ParticipTest>();                
     }
 }

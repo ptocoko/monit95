@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Extensions;
@@ -13,6 +14,10 @@ using ServiceResult.Exceptions;
 
 namespace Monit95App.Services.ItakeEge.Participant
 {
+    /// <summary>
+    /// Класс-сервис для работы с участниками
+    /// </summary>
+    /// TODO: set autommaper configuration in application startup
     public class ParticipService : IParticipService
     {
         #region Fields
@@ -33,6 +38,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         public ParticipService(CokoContext cokoContext)
         {
             this.cokoContext = cokoContext;
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderDto>())
         }
 
         #endregion
@@ -100,6 +106,7 @@ namespace Monit95App.Services.ItakeEge.Participant
                 throw new ArgumentOutOfRangeException($"{nameof(areaCode)} parameter value must be between 201 and 217");
 
             var entities = cokoContext.Particips.Where(p => p.ProjectId == ItakeEgeProjectId && p.School.AreaCode == areaCode)
+                                                .ProjectTo<ParticipGetViewDto>(config)
                                                 .Select(p => new ParticipGetViewDto
             {
                 Id = p.Id,
