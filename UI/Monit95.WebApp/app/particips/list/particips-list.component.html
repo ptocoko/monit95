@@ -74,8 +74,7 @@
                    [pageSizeOptions]="['50', '100']">
     </mat-paginator>
 </div>
-<p class="text-center" 
-    *ngIf="participsCount === 0">
+<p class="text-center" *ngIf="participsCount === 0">
     Данные об участниках отсутсвуют
 </p>
 <button style="position:fixed;left:90%;top:80%;color:white; background-color:green; z-index:10; font-size:x-large" mat-fab color="primary" (click)="addClassParticip()">+</button>

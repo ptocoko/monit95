@@ -699,6 +699,7 @@
     <TypeScriptCompile Include="app\shared\basic-validators.ts" />
     <TypeScriptCompile Include="app\shared\class-name-filter.pipe.ts" />
     <TypeScriptCompile Include="app\shared\confirm-dialog\confirm-dialog.component.ts" />
+    <TypeScriptCompile Include="app\shared\constants.ts" />
     <TypeScriptCompile Include="app\shared\results.service.ts" />
     <TypeScriptCompile Include="app\shared\russian-paginator.provider.ts" />
     <TypeScriptCompile Include="app\shared\school-collector.service.ts" />

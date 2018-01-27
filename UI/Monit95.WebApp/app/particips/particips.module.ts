@@ -9,21 +9,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ParticipFilterPipe } from '../pipes/particip-filter.pipe';
 import { MaterialModule } from '../material.module';
 import { ProtocolsComponent } from './protocols/protocols.component';
+import { AddParticipComponent } from './add-and-update/add.component';
+import { ParticipProtocolsService } from '../services/particip-protocols.service';
+import { ParticipProtocolComponent } from './protocols/protocol/protocol.component';
 
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
 	{ path: 'particips/list', component: ParticipsListComponent },
+	{ path: 'particips/new', component: AddParticipComponent },
 	{ path: 'particips/protocols', component: ProtocolsComponent },
+	{ path: 'particips/protocol/:documNumber', component: ParticipProtocolComponent },
 	{ path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ]
 
 @NgModule({
 	imports: [
 		CommonModule,
-		HttpClientModule,
-		FormsModule,
-		ReactiveFormsModule,
-		MaterialModule,
+		//HttpClientModule,
+		//FormsModule,
+		//ReactiveFormsModule,
+		//MaterialModule,
 		RouterModule.forChild(routes)
 	],
 	exports: [
@@ -32,10 +37,14 @@ const routes: Routes = [
 	declarations: [
 		HomeComponent,
 		ParticipsListComponent,
-		ParticipFilterPipe
+		//ParticipFilterPipe,
+		AddParticipComponent,
+		ProtocolsComponent,
+		ParticipProtocolComponent
 	],
 	providers: [
-		ParticipService
+		ParticipService,
+		ParticipProtocolsService
 	]
 })
 export class ParticipsModule { }

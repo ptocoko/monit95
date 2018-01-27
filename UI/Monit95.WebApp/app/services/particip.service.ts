@@ -5,7 +5,7 @@ import { ParticipModel } from "../models/particip.model";
 import { ParticipWithMarks } from "../rsur/rsur-test-protocol/marks.service";
 
 @Injectable()
-export class ParticipService<T> {
+export class ParticipService {
 	private GET_ALL_PARTICIPS_URL: string = "/api/particips/GetAll?projectId=";
 	private GET_PROTOCOLS_URL = '/api/particips/protocols?projectId=';
 	private endpoint: string = "/api/particips/";
@@ -13,19 +13,19 @@ export class ParticipService<T> {
 	constructor(private http: HttpClient) { }
 
 	getAll(projectId: number) {
-		return this.http.get<T[]>(this.GET_ALL_PARTICIPS_URL + projectId);
+		return this.http.get<ParticipModel[]>(this.GET_ALL_PARTICIPS_URL + projectId);
 	}
 
 	getParticip(participId: number) {
-		return this.http.get<T>(this.endpoint + participId);
+		return this.http.get<ParticipModel>(this.endpoint + participId);
 	}
 
-	addParticip(particip: T|any) {
+	addParticip(particip: ParticipModel) {
 		return this.http.post(this.endpoint, particip, { responseType: 'text' });
 	}
 
-	updateParticip(particip: T|any) {
-		return this.http.put(this.endpoint + particip.Id, particip, { responseType: 'text' });
+	updateParticip(particip: ParticipModel) {
+		throw Error('this method not implemented');
 	}
 
 	deleteParticip(participId: number) {

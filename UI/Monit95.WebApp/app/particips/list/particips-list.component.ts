@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { ParticipService } from '../../services/particip.service';
 //import { ClassParticip } from '../ClassParticip';
 import { ParticipModel } from '../../models/particip.model';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-
-const PROJECT_ID: number = 1; // "i pass ege" projectId
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { Constant } from '../../shared/constants';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -22,8 +22,9 @@ export class ParticipsListComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
-		private readonly participService: ParticipService<ParticipModel>,
-		private readonly router: Router) {
+		private readonly participService: ParticipService,
+		private readonly router: Router,
+		private readonly modal: MatDialog) {
 
 	}
 
@@ -34,7 +35,7 @@ export class ParticipsListComponent implements OnInit {
 
 	private getParticips() {
 		this.isLoading = true;
-		this.participService.getAll(PROJECT_ID).subscribe(res => {
+		this.participService.getAll(Constant.PROJECT_ID).subscribe(res => {
 			this.participsCount = res.length;
 			this.dataSource = new MatTableDataSource<ParticipModel>(res);
 			this.isLoading = false;
@@ -49,21 +50,26 @@ export class ParticipsListComponent implements OnInit {
 		this.dataSource.filter = filterValue;
 	}
 
-	//addClassParticip() {
-	//    this.router.navigate(['/new']);
-	//}
+	addClassParticip() {
+	    this.router.navigate(['/particips/new']);
+	}
 
 	//updateClassParticip(classParticip: ParticipModel) {
 	//	this.router.navigate(['/update', classParticip.Id]);
 	//}
 
-	//deleteClassParticip(particip: ParticipModel) {
-	//	const index = this.particips.indexOf(particip);
-	//	const isDelete = confirm('Вы уверены что хотите удалить данную запись?');
-	//	if (isDelete) {
-	//	    this.participService.deleteParticip(particip.Id).subscribe(res => {
-	//	        this.particips.splice(index, 1);
-	//	    });
-	//	}
-	//}
+	deleteClassParticip(particip: ParticipModel) {
+		const modalRef = this.modal.open(ConfirmDialogComponent, {
+			width: '400px',
+			disableClose: true,
+			data: { message: `Вы уверены что хотите удалить участника ${particip.Surname} ${particip.Name} ${particip.SecondName}?` }
+		});
+
+		modalRef.afterClosed().subscribe((isDelete: boolean) => {
+			if (isDelete) {
+				this.participService.deleteParticip(particip.DocumNumber)
+						.subscribe(res => this.getParticips());
+			}
+		});
+	}
 }

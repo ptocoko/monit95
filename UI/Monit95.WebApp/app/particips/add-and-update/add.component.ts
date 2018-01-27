@@ -1,52 +1,34 @@
-﻿//import { Component, OnInit } from '@angular/core';
-//import { Router } from '@angular/router';
-//import { ParticipService } from '../../services/particip.service';
-//import { ClassParticip } from '../ClassParticip';
-//import { AccountService } from '../../services/account.service';
+﻿import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { ParticipService } from '../../services/particip.service';
+import { ClassParticip } from '../ClassParticip';
+import { AccountService } from '../../services/account.service';
+import { ParticipModel } from '../../models/particip.model';
+import { Constant } from '../../shared/constants';
 
 
-//export const CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
-//const PROJECT_ID: number = 1;
+@Component({
+	templateUrl: `./app/particips/add-and-update/add.component.html?v=${new Date().getTime()}`
+})
+export class AddParticipComponent {
+	particip: ParticipModel = new ParticipModel();
+	actionText: string = 'Добавить'
 
-//@Component({
-//	templateUrl: `./app/class-particips/add-and-update/add.component.html?v=${new Date().getTime()}`
-//})
-//export class AddClassParticipComponent implements OnInit {
-//	particip: ClassParticip = new ClassParticip();
-//	classNames: string[] = CLASS_NAMES;
+	constructor(private readonly participService: ParticipService,
+				private readonly accountService: AccountService,
+				private readonly location: Location) { }
+	
+	onSubmit() {
+		this.particip.ProjectId = Constant.PROJECT_ID;
+		this.particip.SchoolId = this.accountService.account.UserName;
+		this.particip.SourceName = "Школа";
+		this.participService.addParticip(this.particip).subscribe(res => {
+			this.back();
+		});
+	}
 
-//	newDay: number;
-//	newMonth: number;
-//	newYear: number;
-//	wasDoo: string = 'no';
-//	actionText: string = 'Добавить'
-
-//	constructor(private readonly participService: ParticipService,
-//				private readonly accountService: AccountService,
-//				private readonly router: Router) { }
-
-//	ngOnInit() {
-//		this.accountService.getAccount().subscribe(res => {
-//			this.particip.SchoolId = res.json().UserName;
-//			this.particip.ProjectId = PROJECT_ID;
-//		});
-//	}
-
-//	onSubmit() {
-//		this.particip.WasDoo = this.wasDoo === 'yes';
-
-//		if (this.newMonth === -1) {
-//			alert("Выберите месяц рождения!");
-//			return;
-//		}
-//		let birthdayInMiSeconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
-//		this.particip.Birthday = new Date(birthdayInMiSeconds + 10800000);
-//		this.participService.addParticip(this.particip).subscribe(res => {
-//			this.router.navigate(['class-particips/list'])
-//		});
-//	}
-
-//	cancel() {
-//		this.router.navigate(['class-particips/list']);
-//	}
-//}
+	back() {
+		this.location.back();
+	}
+}

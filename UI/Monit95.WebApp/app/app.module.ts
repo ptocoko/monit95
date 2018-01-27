@@ -62,7 +62,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // Pipes
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
-import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
+//import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe, ExamNameFilterPipe } from './pipes/rsur-report-filter.pipe';
