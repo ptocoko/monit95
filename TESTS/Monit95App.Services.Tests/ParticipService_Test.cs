@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Monit95App.Services.DTOs;
 using Monit95App.Domain.Interfaces;
+using Monit95App.Services.ItakeEge.Participant;
 
 namespace Monit95App.Services.Tests
 {
@@ -67,46 +68,7 @@ namespace Monit95App.Services.Tests
 
             //Assert            
             //Exception
-        }       
-
-        [TestMethod]
-        public void Update_Test()
-        {
-            //Arrange
-
-            var mockClassService = Substitute.For<IClassService>();
-            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
-            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
-            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
-
-            var entity = new Particip
-            {
-                Id = 123,
-                Surname = "Testu",
-                Name = "test",
-                SecondName = "test",
-                SchoolId = "0005",
-                ClassId = "0101"
-
-            };
-            mockParticipRepository.GetById(123).Returns(entity);
-
-            //Act
-            var dto = new ParticipDto
-            {
-                ProjectId = 1,
-                Surname = "Test",
-                Name = "Test",
-                SchoolId = "0001",
-                ClassName = "1 А"
-            };
-            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
-            service.Update(123, dto);
-
-            //Assert
-            mockParticipRepository.Received().Update(Arg.Is<Particip>(x => x.ClassId == "0101"));
-            mockParticipRepository.Received().Update(Arg.Is<Particip>(x => x.ProjectId == 1));
-        }
+        }                       
 
         [TestMethod]
         public void Update_IntegrationTest()
@@ -136,36 +98,7 @@ namespace Monit95App.Services.Tests
 
             //Assert
          
-        }
-
-        [TestMethod]
-        public void GetById_Test()
-        {
-            //Arrange
-            var mockClassService = Substitute.For<IClassService>();
-            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
-            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
-            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
-
-            var entity = new Particip
-            {
-                Id = 123,
-                ProjectId = 201661,
-                Surname = "Shakhabov",
-                Name = "Adam",
-                SchoolId = "0005",
-                Class = new Class { Id = "0101", Name = "1 А" }
-            };
-            mockParticipRepository.GetById(123).Returns(entity);
-            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
-
-            //Act
-            var dto = service.GetById(123);
-
-            //Assert
-            Assert.AreEqual("Shakhabov", dto.Surname);
-            Assert.AreEqual("1 А", dto.ClassName);
-        }
+        }       
 
         [TestMethod]
         public void GetAllDtos_Test()

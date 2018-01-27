@@ -6,10 +6,11 @@ using System.Web.Http.Results;
 using System.Web.Http.Routing;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using Monit95.WebApp.RESTful_API.iTakeEge;
 using Monit95App.Services;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.ItakeEge.Participant;
 
 namespace Monit95App.Web.Tests
 {
@@ -58,47 +59,7 @@ namespace Monit95App.Web.Tests
 
             // Assert
             mockService.Received().Add(dto);
-        }
-
-        [TestMethod]
-        public void Post_TestConflictResultSqlException2627()
-        {
-            // Arrange   
-            CleanUp();
-            var entity = new Particip()
-            {
-                ProjectId = 201677,
-                Surname = "Test",
-                Name = "Test",
-                SchoolId = "0001",
-                ClassId = "0101"
-            };
-            repo.Insert(entity);
-
-            var mockClassService = Substitute.For<IClassService>();
-            var mockParticipRepository = Substitute.For<IGenericRepository<Particip>>();
-            var mockParticipTestRepository = Substitute.For<IGenericRepository<ParticipTest>>();
-            var mockResultRepository = Substitute.For<IGenericRepository<Result>>();
-
-            var service = new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService);
-
-            mockClassService.GetId("1 А").Returns("0101");
-            var controller = new ParticipsController(new ParticipService(mockParticipRepository, mockParticipTestRepository, mockResultRepository, mockClassService), mockRepo);
-
-            // Act
-            var dto = new ParticipDto()
-            {
-                ProjectId = 201677,
-                Surname = "Test",
-                Name = "Test",
-                SchoolId = "0001",
-                ClassName = "1 А"
-            };
-            var response = controller.Post(dto);
-
-            // Assert
-            Assert.IsInstanceOfType(response, typeof(ConflictResult));
-        }
+        }        
 
         [TestMethod]
         public void GetByIdFromRoute_Test()

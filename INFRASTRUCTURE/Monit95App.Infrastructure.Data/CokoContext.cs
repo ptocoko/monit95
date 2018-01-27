@@ -85,11 +85,6 @@ namespace Monit95App.Infrastructure.Data
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Class>()
-                .HasMany(e => e.Particips)
-                .WithRequired(e => e.Class)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Collector>()
                 .HasMany(e => e.SchoolCollectors)
                 .WithRequired(e => e.Collector)
@@ -132,16 +127,6 @@ namespace Monit95App.Infrastructure.Data
                 .Property(e => e.SchoolId)
                 .IsFixedLength()
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Particip>()
-                .Property(e => e.ClassId)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ParticipTest>()
-                .HasOptional(e => e.Result)
-                .WithRequired(e => e.ParticipTest)
-                .WillCascadeOnDelete();
 
             modelBuilder.Entity<Project>()
                 .Property(e => e.ClassNumbers)

@@ -235,21 +235,21 @@ namespace Monit95App.Services.Tests
             var marksProtocol1 = new QuestionValueEditDto()
             {
                 ParticipTestId = 1,
-                QuestionResults = new List<QuestionResult>()
+                QuestionResults = new List<Rsur.QuestionValue.QuestionResult>()
                 {
-                 new QuestionResult { Order = 1, CurrentMark = 0 },
-                 new QuestionResult { Order = 2, CurrentMark = 1 },
-                 new QuestionResult { Order = 3, CurrentMark = 1 }
+                 new Rsur.QuestionValue.QuestionResult { Order = 1, CurrentMark = 0 },
+                 new Rsur.QuestionValue.QuestionResult { Order = 2, CurrentMark = 1 },
+                 new Rsur.QuestionValue.QuestionResult { Order = 3, CurrentMark = 1 }
                 }
             };
             var marksProtocol2 = new QuestionValueEditDto
             {
                 ParticipTestId = 2,
-                QuestionResults = new List<QuestionResult>()
+                QuestionResults = new List<Rsur.QuestionValue.QuestionResult>()
                 {
-                 new QuestionResult { Order = 1, CurrentMark = -1 },
-                 new QuestionResult { Order = 2, CurrentMark = -1 },
-                 new QuestionResult { Order = 3, CurrentMark = -1 }
+                 new Rsur.QuestionValue.QuestionResult { Order = 1, CurrentMark = -1 },
+                 new Rsur.QuestionValue.QuestionResult { Order = 2, CurrentMark = -1 },
+                 new Rsur.QuestionValue.QuestionResult { Order = 3, CurrentMark = -1 }
                 }
             };
             var areaId = 201;

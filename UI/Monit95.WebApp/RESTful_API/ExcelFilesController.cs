@@ -2,6 +2,8 @@
 using System.IO;
 using System.Web;
 using System.Web.Http;
+using Monit95App.Services.ItakeEge.Participant;
+
 // ReSharper disable CheckNamespace
 namespace Monit95App.Web.Api
 {

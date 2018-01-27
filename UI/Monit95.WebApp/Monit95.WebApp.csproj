@@ -349,7 +349,7 @@
     <Compile Include="RESTful_API\Rsur\ParticipReportsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipEditsController.cs" />
-    <Compile Include="RESTful_API\ParticipsController.cs" />
+    <Compile Include="RESTful_API\iTakeEge\ParticipsController.cs" />
     <Compile Include="RESTful_API\CollectorsController.cs" />
     <Compile Include="RESTful_API\Rsur\SeminarReportsController.cs" />
     <Compile Include="RESTful_API\SchoolFilesController.cs" />

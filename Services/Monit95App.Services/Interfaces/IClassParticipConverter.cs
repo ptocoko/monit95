@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Monit95App.Services.DTOs;
+using Monit95App.Services.ItakeEge.Participant;
 
 namespace Monit95App.Services.Interfaces
 {

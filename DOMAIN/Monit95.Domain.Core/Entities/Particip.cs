@@ -3,6 +3,10 @@ namespace Monit95App.Domain.Core.Entities
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Участник тестирования
+    /// </summary>
+    /// <example>Описание участника тестирования</example>
     public class Particip
     {
         public int Id { get; set; }                            
