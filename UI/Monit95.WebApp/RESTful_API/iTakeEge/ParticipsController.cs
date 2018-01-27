@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -28,13 +26,15 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
 
         #region Dependencies
 
-        private readonly IParticipService participService;        
+        private readonly IParticipService participService;
+        private readonly CokoContext cokoContext;
 
         #endregion    
 
-        public ParticipsController(IParticipService participService)
+        public ParticipsController(IParticipService participService, CokoContext cokoContext)
         {
-            this.participService = participService;            
+            this.participService = participService;
+            this.cokoContext = cokoContext;
         }
 
         #region APIs
@@ -45,7 +45,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]        
-        public IHttpActionResult Add([FromBody]ParticipPostDto dto)
+        public IHttpActionResult Add([FromBody]ParticipPostOrPutDto dto)
         {
             if (!ModelState.IsValid)            
                 return BadRequest(ModelState);                                  
@@ -88,52 +88,21 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
             }
                                                                                       
             return Ok(viewDtos);
-        }
-
-        [HttpGet]
-        [Route("{id:int}")]
-        public IHttpActionResult Get()
-        {
-            var id = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            ParticipDto dto;
-            try
-            {
-                dto = participService.GetById(id);
-            }
-            catch (ArgumentException)
-            {
-                return NotFound();
-            }
-
-            return Ok(dto);
-        }
-
-        [HttpDelete]
-        [Route("{id:int}")]
-        public IHttpActionResult Delete()
-        {
-            var id = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            try
-            {
-                participService.Delete(id);
-            }
-            catch(ArgumentException)
-            {
-                return NotFound();
-            }
-
-            return Ok();
-        }
+        }        
+        
 
         [HttpPut]
-        //[Authorize(Roles = "school")]
+        [Authorize(Roles = "school")]
         [Route("{id:int}")]
-        public IHttpActionResult Put([FromBody]ParticipDto dto)
+        public IHttpActionResult Put([FromBody]ParticipPostOrPutDto dto)
         {
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid)            
                 return BadRequest(ModelState);
-            }
+
+            var participId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            var schoolId = User.Identity.Name;
+            if (!cokoContext.Particips.Any(p => p.Id == participId && p.SchoolId == schoolId))
+                return BadRequest("participId is invalid or user has not access");                           
 
             var id = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             try

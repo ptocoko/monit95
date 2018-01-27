@@ -22,8 +22,11 @@ namespace Monit95App.Services.ItakeEge.Participant
     {
         #region Fields
 
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         private const int ItakeEgeProjectId = 12;
+
+        private readonly MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipGetViewDto>()
+            .ForMember(d => d.DocumNumber, opt => opt.MapFrom(src => (int)src.DocumNumber)));
 
         #endregion
 
@@ -37,8 +40,9 @@ namespace Monit95App.Services.ItakeEge.Participant
 
         public ParticipService(CokoContext cokoContext)
         {
-            this.cokoContext = cokoContext;
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderDto>())
+            this.cokoContext = cokoContext;            
+
+            //_mapper = mapConfig.CreateMapper();
         }
 
         #endregion
@@ -50,7 +54,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         /// <param name="schoolId"></param>
         /// <param name="dataSource"></param>
         /// <returns></returns>
-        public int Add(ParticipPostDto dto, string schoolId, string dataSource)
+        public int Add(ParticipPostOrPutDto dto, string schoolId, string dataSource)
         {
             // Validate
             var validationResults = new Collection<ValidationResult>();
@@ -104,18 +108,9 @@ namespace Monit95App.Services.ItakeEge.Participant
         {
             if(!areaCode.IsBetween(201, 217))
                 throw new ArgumentOutOfRangeException($"{nameof(areaCode)} parameter value must be between 201 and 217");
-
-            var entities = cokoContext.Particips.Where(p => p.ProjectId == ItakeEgeProjectId && p.School.AreaCode == areaCode)
-                                                .ProjectTo<ParticipGetViewDto>(config)
-                                                .Select(p => new ParticipGetViewDto
-            {
-                Id = p.Id,
-                Surname = p.Surname,
-                Name = p.Name,
-                SecondName = p.SecondName,
-                DocumNumber = (int)p.DocumNumber,
-                DataSource = p.DataSource
-            });
+            var entities = cokoContext.Particips
+                .Where(p => p.ProjectId == ItakeEgeProjectId && p.School.AreaCode == areaCode)
+                .ProjectTo<ParticipGetViewDto>(mapperConfiguration);                                                           
 
             return entities;
         }
@@ -130,17 +125,8 @@ namespace Monit95App.Services.ItakeEge.Participant
         {
             if (!cokoContext.Schools.Any(s => s.Id == schoolId))
                 throw new ArgumentException(nameof(schoolId));
-
             var entities = cokoContext.Particips.Where(p => p.ProjectId == ItakeEgeProjectId && p.SchoolId == schoolId)
-                                                .Select(p => new ParticipGetViewDto
-                {
-                    Id = p.Id,
-                    Surname = p.Surname,
-                    Name = p.Name,
-                    SecondName = p.SecondName,
-                    DocumNumber = (int)p.DocumNumber,
-                    DataSource = p.DataSource
-                });
+                .ProjectTo<ParticipGetViewDto>(mapperConfiguration);               
 
             return entities;
         }        
@@ -192,17 +178,17 @@ namespace Monit95App.Services.ItakeEge.Participant
             _participRepository.Delete(participId);
         }        
 
-        IEnumerable<ParticipPostDto> IParticipService.GetAll(int projectTestId, int? areaCode, string schoolId)
+        IEnumerable<ParticipPostOrPutDto> IParticipService.GetAll(int projectTestId, int? areaCode, string schoolId)
         {
             throw new NotImplementedException();
         }
 
-        ParticipPostDto IParticipService.GetById(int participId)
+        ParticipPostOrPutDto IParticipService.GetById(int participId)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(int id, ParticipPostDto dto)
+        public void Update(int id, ParticipPostOrPutDto dto)
         {
             throw new NotImplementedException();
         }

@@ -2,7 +2,7 @@
 
 namespace Monit95App.Services.ItakeEge.Participant
 {
-    public class ParticipPostDto
+    public class ParticipPostOrPutDto
     {             
         [Required]
         [StringLength(25, MinimumLength = 4)]

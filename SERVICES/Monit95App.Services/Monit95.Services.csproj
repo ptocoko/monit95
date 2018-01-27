@@ -144,7 +144,7 @@
     <Compile Include="DTOs\PostMarksDto.cs" />
     <Compile Include="Models\MarkResultModel.cs" />
     <Compile Include="DTOs\MaxRatesDto.cs" />
-    <Compile Include="ItakeEge\Participant\ParticipPostDto.cs" />
+    <Compile Include="ItakeEge\Participant\ParticipPostOrPutDto.cs" />
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="ClassParticipImporter.cs" />
     <Compile Include="ParticipResults.cs" />
