@@ -8,10 +8,10 @@ namespace Monit95App.Services.ItakeEge.Participant
 
         IEnumerable<ParticipGetViewDto> GetAllParticipantsByArea(int areaCode);
 
-        IEnumerable<ParticipGetViewDto> GetAllParticipantsBySchool(string schoolId);
+        IEnumerable<ParticipGetViewDto> GetAllParticipantsBySchool(string schoolId);        
 
-        ParticipPostOrPutDto GetById(int participId);
-        void Update(int id, ParticipPostOrPutDto dto);
-        void Delete(int participId);
+        void Update(int id, string schoolId, ParticipPostOrPutDto dto);
+
+        void Delete(int id, string schoolId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,15 +27,13 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
 
         #region Dependencies
 
-        private readonly IParticipService participService;
-        private readonly CokoContext cokoContext;
+        private readonly IParticipService participService;        
 
         #endregion    
 
-        public ParticipsController(IParticipService participService, CokoContext cokoContext)
+        public ParticipsController(IParticipService participService)
         {
-            this.participService = participService;
-            this.cokoContext = cokoContext;
+            this.participService = participService;            
         }
 
         #region APIs
@@ -84,39 +83,64 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
             else
             {
                 var schoolId = User.Identity.Name;
-                viewDtos = participService.GetAllParticipantsByArea(projectId, areaCode, schoolId);
+                viewDtos = participService.GetAllParticipantsBySchool(schoolId);
             }
                                                                                       
             return Ok(viewDtos);
-        }        
-        
+        }
 
         [HttpPut]
         [Authorize(Roles = "school")]
         [Route("{id:int}")]
         public IHttpActionResult Put([FromBody]ParticipPostOrPutDto dto)
         {
-            if (!ModelState.IsValid)            
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var participId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             var schoolId = User.Identity.Name;
-            if (!cokoContext.Particips.Any(p => p.Id == participId && p.SchoolId == schoolId))
-                return BadRequest("participId is invalid or user has not access");                           
 
-            var id = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             try
             {
-                participService.Update(id, dto);
+                participService.Update(participId, schoolId, dto);
             }
-            catch(ArgumentException)
+            catch (EntityNotFoundOrAccessException)
             {
                 return NotFound();
             }
+            catch (DbUpdateException exception)
+            {
+                var httpError = new HttpError(exception, true);
+                ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.Conflict, httpError));
+            }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok();
         }
-        
+
+        /// <summary>
+        /// Удаление участника
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
+        [Authorize(Roles = "school")]
+        [Route("{id:int}")]
+        public IHttpActionResult Delete()
+        {
+            var schoolId = User.Identity.Name;
+            var participId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+
+            try
+            {
+                participService.Delete(participId, schoolId);
+            }
+            catch (EntityNotFoundOrAccessException)
+            {
+                return NotFound();
+            }
+            
+            return Ok();
+        }
+
         #endregion
     }
 }

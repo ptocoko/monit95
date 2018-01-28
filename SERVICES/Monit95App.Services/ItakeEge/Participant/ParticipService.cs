@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Linq;
 using AutoMapper;
@@ -26,7 +27,8 @@ namespace Monit95App.Services.ItakeEge.Participant
         private const int ItakeEgeProjectId = 12;
 
         private readonly MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipGetViewDto>()
-            .ForMember(d => d.DocumNumber, opt => opt.MapFrom(src => (int)src.DocumNumber)));
+            .ForMember(d => d.DocumNumber, opt => opt.MapFrom(src => (int)src.DocumNumber))
+            .ReverseMap());
 
         #endregion
 
@@ -108,7 +110,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         {
             if(!areaCode.IsBetween(201, 217))
                 throw new ArgumentOutOfRangeException($"{nameof(areaCode)} parameter value must be between 201 and 217");
-            var entities = cokoContext.Particips
+            var entities = cokoContext.Particips.AsNoTracking()
                 .Where(p => p.ProjectId == ItakeEgeProjectId && p.School.AreaCode == areaCode)
                 .ProjectTo<ParticipGetViewDto>(mapperConfiguration);                                                           
 
@@ -125,32 +127,36 @@ namespace Monit95App.Services.ItakeEge.Participant
         {
             if (!cokoContext.Schools.Any(s => s.Id == schoolId))
                 throw new ArgumentException(nameof(schoolId));
-            var entities = cokoContext.Particips.Where(p => p.ProjectId == ItakeEgeProjectId && p.SchoolId == schoolId)
+            var entities = cokoContext.Particips.AsNoTracking()
+                .Where(p => p.ProjectId == ItakeEgeProjectId && p.SchoolId == schoolId)
                 .ProjectTo<ParticipGetViewDto>(mapperConfiguration);               
 
             return entities;
-        }        
+        }
 
-        public void Update(int id, ParticipDto dto)
+        /// <summary>
+        /// Обновление данных об участнике
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="schoolId">Используется для авторизации</param>
+        /// <param name="dto"></param>
+        public void Update(int id, string schoolId, ParticipPostOrPutDto dto)
         {
-            if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto));
-            }
-
+            // Validate
+            var validationResults = new Collection<ValidationResult>();
             var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
-            Validator.ValidateObject(dto, validationContext, true);
-            var entity = _participRepository.GetById(id);
+            var isValidDto = Validator.TryValidateObject(dto, validationContext, validationResults, true);
+            if (!isValidDto)
+                throw new ArgumentException(nameof(dto));
+
+            var entity = cokoContext.Particips.SingleOrDefault(p => p.Id == id && p.SchoolId == schoolId);
             if (entity == null)
-            {
-                throw new ArgumentException(nameof(id));
-            }
+                throw new EntityNotFoundOrAccessException();
 
-            _mapper.Map(dto, entity);
-            //entity.Class = null;
-            //entity.ClassId = _classServise.GetId(dto.ClassName);
+            var mapper = mapperConfiguration.CreateMapper();
+            mapper.Map(dto, entity);                       
 
-            _participRepository.Update(entity);
+            cokoContext.SaveChanges();
         }          
 
         public ParticipDto GetById(int participId)
@@ -184,11 +190,6 @@ namespace Monit95App.Services.ItakeEge.Participant
         }
 
         ParticipPostOrPutDto IParticipService.GetById(int participId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(int id, ParticipPostOrPutDto dto)
         {
             throw new NotImplementedException();
         }
