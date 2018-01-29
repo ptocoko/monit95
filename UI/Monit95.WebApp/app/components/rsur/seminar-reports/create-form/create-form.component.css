@@ -70,7 +70,7 @@ input[type=file]{
     align-self: flex-start
 }
 
-.sending-shade {
+/*.sending-shade {
     position: fixed;
     top: 0;
     left: 0;
@@ -90,4 +90,4 @@ input[type=file]{
     background-color: rgba(0,0,0,0.15);
     color:white;
     margin-top: 15px;
-}
+}*/

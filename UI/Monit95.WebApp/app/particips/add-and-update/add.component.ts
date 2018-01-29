@@ -14,6 +14,7 @@ import { Constant } from '../../shared/constants';
 export class AddParticipComponent {
 	particip: ParticipModel = new ParticipModel();
 	actionText: string = 'Добавить'
+	isSending = false;
 
 	constructor(private readonly participService: ParticipService,
 				private readonly accountService: AccountService,
@@ -23,6 +24,7 @@ export class AddParticipComponent {
 		this.particip.ProjectId = Constant.PROJECT_ID;
 		this.particip.SchoolId = this.accountService.account.UserName;
 		this.particip.SourceName = "Школа";
+		this.isSending = true;
 		this.participService.addParticip(this.particip).subscribe(res => {
 			this.back();
 		});

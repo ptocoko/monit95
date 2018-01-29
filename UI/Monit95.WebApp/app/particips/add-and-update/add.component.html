@@ -1,7 +1,7 @@
 ﻿<h1>Исследование готовности 1-х классов</h1>
 <h2>Добавление нового участника</h2>
 <hr />
-<form #participForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="accountService.account.isSchool()">
+<form #participForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="accountService.isSchool()">
 
     <div class="form-group">
         <label for="surname">Фамилия*</label>
@@ -10,9 +10,11 @@
     </div>
 
     <div class="form-group">
-        <label for="name">Имя*</label>
-        <input type="text" class="form-control" id="name" required [(ngModel)]="particip.Name" #name="ngModel" name="name" />
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Введите имя!</div>
+        <span>
+            <label for="name">Имя*</label>
+            <input type="text" class="form-control" id="name" required [(ngModel)]="particip.Name" #name="ngModel" name="name" />
+            <span [hidden]="name.valid || name.pristine" class="alert alert-danger">Введите имя!</span>
+        </span>
     </div>
 
     <div class="form-group">
@@ -33,6 +35,8 @@
     </div>
 </form>
 
-<h2 class="text-center text-capitalize" *ngIf="!accountService.account.isSchool()">
+<spinner-view [caption]="'сведения об участнике отправляются...'"></spinner-view>
+
+<h2 class="text-center text-capitalize" *ngIf="!accountService.isSchool()">
     You aren't allowed to do that!
 </h2>

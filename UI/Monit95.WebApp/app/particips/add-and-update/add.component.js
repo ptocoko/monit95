@@ -14,12 +14,14 @@ var AddParticipComponent = /** @class */ (function () {
         this.location = location;
         this.particip = new particip_model_1.ParticipModel();
         this.actionText = 'Добавить';
+        this.isSending = false;
     }
     AddParticipComponent.prototype.onSubmit = function () {
         var _this = this;
         this.particip.ProjectId = constants_1.Constant.PROJECT_ID;
         this.particip.SchoolId = this.accountService.account.UserName;
         this.particip.SourceName = "Школа";
+        this.isSending = true;
         this.participService.addParticip(this.particip).subscribe(function (res) {
             _this.back();
         });
