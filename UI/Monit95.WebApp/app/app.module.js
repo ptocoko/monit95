@@ -12,6 +12,8 @@ var http_2 = require("@angular/common/http");
 var router_1 = require("@angular/router");
 var ngx_order_pipe_1 = require("ngx-order-pipe");
 var material_module_1 = require("./material.module");
+var particips_module_1 = require("./particips/particips.module");
+var shared_module_1 = require("./shared/shared-module");
 // Components
 var app_component_1 = require("./components/app/app.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
@@ -39,7 +41,6 @@ var school_files_component_1 = require("./components/school-files/school-files.c
 var matching_protocol_component_1 = require("./components/rsur/protocols/matching/matching-protocol.component");
 var scan_protocols_component_1 = require("./components/rsur/protocols/scan/scan-protocols.component");
 var question_protocols_list_component_1 = require("./components/rsur/protocols/question/question-protocols-list.component");
-var marks_protocol_component_1 = require("./components/rsur/protocols/shared/marks-protocol.component");
 var question_protocol_component_1 = require("./components/rsur/protocols/protocol/question-protocol.component");
 var confirm_dialog_component_1 = require("./shared/confirm-dialog/confirm-dialog.component");
 // Services
@@ -61,6 +62,7 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 // Pipes
 var limit_to_pipe_1 = require("./limit-to.pipe");
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
+//import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
 var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
 var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
@@ -72,7 +74,6 @@ var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
 var material_1 = require("@angular/material");
 var russian_paginator_provider_1 = require("./shared/russian-paginator.provider");
-var particips_module_1 = require("./particips/particips.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -88,6 +89,7 @@ var AppModule = /** @class */ (function () {
                 animations_1.BrowserAnimationsModule,
                 ngx_order_pipe_1.OrderModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
+                shared_module_1.SharedModule,
                 material_module_1.MaterialModule,
                 particips_module_1.ParticipsModule,
                 router_1.RouterModule.forRoot([
@@ -162,7 +164,7 @@ var AppModule = /** @class */ (function () {
                 matching_protocol_component_1.MatchingProtocolComponent,
                 scan_protocols_component_1.ScanProtocolsComponent,
                 question_protocols_list_component_1.QuestionProtocolsList,
-                marks_protocol_component_1.MarksProtocolComponent,
+                //MarksProtocolComponent,
                 question_protocol_component_1.QuestionProtocolComponent,
                 confirm_dialog_component_1.ConfirmDialogComponent
             ],

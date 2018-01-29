@@ -24,7 +24,7 @@ export class ProtocolsComponent {
 				private router: Router) { }
 
 	ngOnInit() {
-	    this.participProtocolsService.getProtocols(PROJECT_TEST_ID).subscribe(res => {
+	    this.participProtocolsService.getProtocolsList(PROJECT_TEST_ID).subscribe(res => {
 			console.log(res);
 			this.protocols = res;
 			$.ready.then(() => this.initCodeListener());

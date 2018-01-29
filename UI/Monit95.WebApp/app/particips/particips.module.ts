@@ -12,6 +12,8 @@ import { ProtocolsComponent } from './protocols/protocols.component';
 import { AddParticipComponent } from './add-and-update/add.component';
 import { ParticipProtocolsService } from '../services/particip-protocols.service';
 import { ParticipProtocolComponent } from './protocols/protocol/protocol.component';
+import { MarksProtocolComponent } from '../components/rsur/protocols/shared/marks-protocol.component';
+import { SharedModule } from '../shared/shared-module';
 
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
@@ -25,10 +27,11 @@ const routes: Routes = [
 @NgModule({
 	imports: [
 		CommonModule,
-		//HttpClientModule,
-		//FormsModule,
-		//ReactiveFormsModule,
-		//MaterialModule,
+		HttpClientModule,
+		FormsModule,
+		ReactiveFormsModule,
+		SharedModule,
+		MaterialModule,
 		RouterModule.forChild(routes)
 	],
 	exports: [
@@ -37,10 +40,11 @@ const routes: Routes = [
 	declarations: [
 		HomeComponent,
 		ParticipsListComponent,
-		//ParticipFilterPipe,
+		ParticipFilterPipe,
 		AddParticipComponent,
 		ProtocolsComponent,
-		ParticipProtocolComponent
+		ParticipProtocolComponent,
+		
 	],
 	providers: [
 		ParticipService,

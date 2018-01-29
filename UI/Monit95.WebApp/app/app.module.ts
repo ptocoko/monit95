@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { OrderModule } from 'ngx-order-pipe';
 import { MaterialModule } from './material.module';
+import { ParticipsModule } from './particips/particips.module';
+import { SharedModule } from './shared/shared-module';
 
 // Components
 import { AppComponent } from './components/app/app.component';
@@ -75,7 +77,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GlobalErrorHandler } from './error-handler';
 import { MatPaginatorIntl } from '@angular/material';
 import { RussianMatPaginator } from './shared/russian-paginator.provider';
-import { ParticipsModule } from './particips/particips.module';
 
 @NgModule({
     imports: [
@@ -87,7 +88,8 @@ import { ParticipsModule } from './particips/particips.module';
         MyDatePickerModule, 
 		BrowserAnimationsModule,		
         OrderModule,	
-        NgbModule.forRoot(),
+		NgbModule.forRoot(),
+		SharedModule,
 		MaterialModule,
 		ParticipsModule,
         RouterModule.forRoot([
@@ -163,7 +165,7 @@ import { ParticipsModule } from './particips/particips.module';
 		MatchingProtocolComponent,
 		ScanProtocolsComponent,
 		QuestionProtocolsList,
-		MarksProtocolComponent,
+		//MarksProtocolComponent,
 		QuestionProtocolComponent,
 		ConfirmDialogComponent
 	],

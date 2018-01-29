@@ -7,6 +7,7 @@ var ParticipService = /** @class */ (function () {
     function ParticipService(http) {
         this.http = http;
         this.GET_ALL_PARTICIPS_URL = "/api/particips/GetAll?projectId=";
+        this.GET_PROTOCOLS_URL = '/api/particips/protocols?projectId=';
         this.endpoint = "/api/particips/";
     }
     ParticipService.prototype.getAll = function (projectId) {
@@ -19,7 +20,7 @@ var ParticipService = /** @class */ (function () {
         return this.http.post(this.endpoint, particip, { responseType: 'text' });
     };
     ParticipService.prototype.updateParticip = function (particip) {
-        return this.http.put(this.endpoint + particip.Id, particip, { responseType: 'text' });
+        throw Error('this method not implemented');
     };
     ParticipService.prototype.deleteParticip = function (participId) {
         return this.http.delete(this.endpoint + participId, { responseType: 'text' });
