@@ -1,7 +1,7 @@
 ﻿<h1>Исследование готовности 1-х классов</h1>
 <h2>Добавление нового участника</h2>
 <hr />
-<form #participForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="accountService.isSchool()">
+<form #participForm="ngForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
         <label for="surname">Фамилия*</label>
@@ -35,8 +35,8 @@
     </div>
 </form>
 
-<spinner-view [caption]="'сведения об участнике отправляются...'"></spinner-view>
+<spinner-view *ngIf="isSending" [caption]="'сведения об участнике отправляются...'"></spinner-view>
 
-<h2 class="text-center text-capitalize" *ngIf="!accountService.isSchool()">
+<!--<h2 class="text-center text-capitalize" *ngIf="!accountService.isSchool()">
     You aren't allowed to do that!
-</h2>
+</h2>-->

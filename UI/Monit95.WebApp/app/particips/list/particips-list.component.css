@@ -8,11 +8,11 @@
 }
 
 .mat-column-DocumNumber{
-    max-width: 95px;
+    max-width: 155px;
 }
 
 .mat-column-SourceName{
-    max-width: 150px;
+    max-width: 100px;
 }
 
 .actions-container {
