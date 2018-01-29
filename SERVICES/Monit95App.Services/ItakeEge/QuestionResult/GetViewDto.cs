@@ -6,6 +6,8 @@
     /// <example>Отображение в общем списке</example>
     public class GetViewDto
     {
+        public
+
         /// <summary>
         /// Информация об участнике
         /// </summary>

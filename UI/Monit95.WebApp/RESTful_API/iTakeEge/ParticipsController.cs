@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Monit95App.Infrastructure.Data;
 using Monit95App.Services.ItakeEge.Participant;
 using ServiceResult.Exceptions;
 

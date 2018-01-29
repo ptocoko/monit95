@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Linq;
 using AutoMapper;
@@ -157,65 +156,22 @@ namespace Monit95App.Services.ItakeEge.Participant
             mapper.Map(dto, entity);                       
 
             cokoContext.SaveChanges();
-        }          
+        }                 
 
-        public ParticipDto GetById(int participId)
+        /// <summary>
+        /// Удаление участника
+        /// </summary>
+        /// <param name="participId"></param>
+        /// <param name="schoolId"></param>
+        /// TODO: refac
+        public void Delete(int participId, string schoolId)
         {
-            if (participId <= 0)
-            {
-                throw new ArgumentException(nameof(participId));
-            }
+            var participEntity = cokoContext.Particips.SingleOrDefault(p => p.Id == participId && p.SchoolId == schoolId);
+            if (participEntity == null)
+                throw new EntityNotFoundOrAccessException();
+            cokoContext.Particips.Remove(participEntity);
 
-            var entity = _participRepository.GetById(participId);
-            if (entity == null)
-            {
-                throw new ArgumentException(nameof(participId));
-            }
-
-            Mapper.Initialize(cfg => cfg.CreateMap<Particip, ParticipDto>());                
-
-            var dto = Mapper.Map<Particip, ParticipDto>(entity);
-
-            return dto;
-        }
-
-        public void Delete(int participId)
-        {
-            _participRepository.Delete(participId);
-        }        
-
-        IEnumerable<ParticipPostOrPutDto> IParticipService.GetAll(int projectTestId, int? areaCode, string schoolId)
-        {
-            throw new NotImplementedException();
-        }
-
-        ParticipPostOrPutDto IParticipService.GetById(int participId)
-        {
-            throw new NotImplementedException();
-        }
+            cokoContext.SaveChanges();
+        }                
     }
 }
-
-// checking for duplication
-//var existEntity = cokoContext.Particips.Any(p => p.ProjectId == ItakeEgeProjectId &&
-//                                                 p.Surname.ToLower().Equals(dto.Surname.Trim().ToLower()) &&
-//                                                 p.Name.ToLower().Equals(dto.Name.Trim().ToLower()) &&
-//                                                 p.SecondName.ToLower().Equals(dto.SecondName.Trim().ToLower()) &&
-//                                                 p.DocumNumber == dto.DocumNumber);
-
-//catch (DbUpdateException exception)
-//{
-//    // ReSharper disable once InvertIf
-//    if (exception.InnerException != null)
-//    {
-//        if (exception.InnerException.InnerException is SqlException innerException && 
-//            (innerException.Number == 2601 || innerException.Number == 2627))
-//        {
-//            throw new DublicateEntityException();
-//        }
-//        else
-//        {
-//            throw;
-//        }
-//    }                
-//}

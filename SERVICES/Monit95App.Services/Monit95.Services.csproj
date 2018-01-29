@@ -101,9 +101,9 @@
     <Compile Include="File\IFileService.cs" />
     <Compile Include="File\FileService.cs" />
     <Compile Include="ItakeEge\Participant\ParticipGetViewDto.cs" />
-    <Compile Include="QuestionResult\ItakeEgeDtos\GetViewDto.cs" />
-    <Compile Include="QuestionResult\ItakeEgeDtos\PutDto.cs" />
-    <Compile Include="QuestionResult\ItakeEgeDtos\GetEditDto.cs" />
+    <Compile Include="ItakeEge\QuestionResult\GetViewDto.cs" />
+    <Compile Include="ItakeEge\QuestionResult\PutDto.cs" />
+    <Compile Include="ItakeEge\QuestionResult\GetEditDto.cs" />
     <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
     <Compile Include="Rsur\MarksConvert\RsurMarksConverter.cs" />
     <Compile Include="Rsur\MarksConvert\IRsurMarksConverter.cs" />
