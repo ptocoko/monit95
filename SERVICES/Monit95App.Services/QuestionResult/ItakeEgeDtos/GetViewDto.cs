@@ -13,7 +13,7 @@
         public string ParticipInfo { get; set; }
 
         /// <summary>
-        /// Баллы по заданиям        
+        /// Баллы по заданиям        :
         /// </summary>
         /// <example>1;1;0;1;1;0;0</example>
         public string QuestionResults { get; set; }
