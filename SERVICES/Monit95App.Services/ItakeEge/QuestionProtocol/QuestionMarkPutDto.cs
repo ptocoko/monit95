@@ -4,7 +4,7 @@
     /// Модель отправляемая на сервер для изменения
     /// </summary>
     /// <remarks>При необходимости данный объект отправляется в массиве</remarks>
-    public class PutDto
+    public class QuestionMarkPutDto
     {
         public int QuestionResultId { get; set; }
 

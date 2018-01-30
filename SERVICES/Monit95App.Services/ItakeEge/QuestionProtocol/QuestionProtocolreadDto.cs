@@ -1,12 +1,12 @@
 ﻿namespace Monit95App.Services.QuestionResult.ITakeEgeDtos
 {
     /// <summary>
-    /// Модель отправляемая клиенту для редактирования
+    /// Протокол проверки заданий участника для отображения в общей таблице
     /// </summary>
     /// <example>Отображение в общем списке</example>
-    public class GetViewDto
+    public class QuestionProtocolReadDto
     {
-        public
+        public int ParticipTestId { get; set; }
 
         /// <summary>
         /// Информация об участнике
@@ -15,10 +15,10 @@
         public string ParticipInfo { get; set; }
 
         /// <summary>
-        /// Баллы по заданиям        :
+        /// Баллы по заданиям:
         /// </summary>
         /// <example>1;1;0;1;1;0;0</example>
-        public string QuestionResults { get; set; }
+        public string QuestionMarks { get; set; }
                                          
     }    
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Monit95App.Domain.Core.Entities
 {
     /// <summary>
@@ -18,7 +20,12 @@ namespace Monit95App.Domain.Core.Entities
         /// Ёкзамен проекта
         /// </summary>
         public virtual ProjectTest ProjectTest { get; set; }
-        public int ProjectTestId { get; set; }               
+        public int ProjectTestId { get; set; }
+
+        /// <summary>
+        /// Ѕаллы по задани€м
+        /// </summary>
+        public virtual ICollection<QuestionMark> QuestionMarks { get; set; } = new HashSet<QuestionMark>();
 
         #region Computed indicators
         

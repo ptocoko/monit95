@@ -340,6 +340,7 @@
     <Compile Include="RESTful_API\ClassController.cs" />
     <Compile Include="RESTful_API\DocumentsController.cs" />
     <Compile Include="RESTful_API\ExcelFilesController.cs" />
+    <Compile Include="RESTful_API\iTakeEge\QuestionProtocolsController.cs" />
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />

@@ -40,7 +40,7 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0103",
                                 Name = "Лексика и фразеология && Обработка текстов",
-                                RsurQuestions = new List<Question>
+                                Questions = new List<Question>
                                 {
                                     new Question
                                     {

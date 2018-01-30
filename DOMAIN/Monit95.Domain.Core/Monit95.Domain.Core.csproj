@@ -68,10 +68,9 @@
     <Compile Include="Entities\ProjectTest.cs" />
     <Compile Include="Entities\PropertyType.cs" />
     <Compile Include="Entities\EgeQuestion.cs" />
-    <Compile Include="Entities\QuestionResult.cs" />
+    <Compile Include="Entities\QuestionMark.cs" />
     <Compile Include="Entities\Report.cs" />
     <Compile Include="Entities\Repository.cs" />
-    <Compile Include="Entities\Result.cs" />
     <Compile Include="Entities\RsurParticip.cs" />
     <Compile Include="Entities\RsurParticipEdit.cs" />
     <Compile Include="Entities\RsurParticipTest.cs" />

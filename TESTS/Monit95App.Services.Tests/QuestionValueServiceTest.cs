@@ -39,7 +39,7 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0101",
                                 Name = "Орфография",
-                                RsurQuestions = new List<Question>
+                                Questions = new List<Question>
                                 {
                                     new Question
                                     {
@@ -152,7 +152,7 @@ namespace Monit95App.Services.Tests
                         IsOpen = true,
                         Test = new Test
                         {
-                            RsurQuestions = new List<Question>
+                            Questions = new List<Question>
                             {
                                 new Question
                                 {
@@ -186,7 +186,7 @@ namespace Monit95App.Services.Tests
                         IsOpen = true,
                         Test = new Test
                         {
-                            RsurQuestions = new List<Question>
+                            Questions = new List<Question>
                             {
                                 new Question
                                 {
@@ -345,7 +345,7 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0101",
                                 Name = "Орфография",
-                                RsurQuestions = new List<Question>
+                                Questions = new List<Question>
                                 {
                                     new Question
                                     {

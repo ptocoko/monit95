@@ -3,7 +3,7 @@
     /// <summary>
     /// Результат по заданию — балл по заданию
     /// </summary>
-    public class QuestionResult
+    public class QuestionMark
     {
         public int Id { get; set; }
 
@@ -20,8 +20,8 @@
         public int QuestionId { get; set; }
        
         /// <summary>
-        /// Балл по заданию
+        /// Полученный балл по заданию
         /// </summary>
-        public double Mark { get; set; }
+        public double AwardedMark { get; set; }
     }
 }

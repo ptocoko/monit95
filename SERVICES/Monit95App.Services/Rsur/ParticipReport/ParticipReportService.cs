@@ -76,7 +76,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                 };
 
                 // Получение заданий КИМ РСУР, которые проверяют номер egeQuestionNumber задание КИМ ЕГЭ
-                var rsurQuestions = entity.RsurParticipTest.RsurTest.Test.RsurQuestions.Where(rq => rq.EgeQuestion.Order == egeQuestionNumber);
+                var rsurQuestions = entity.RsurParticipTest.RsurTest.Test.Questions.Where(rq => rq.EgeQuestion.Order == egeQuestionNumber);
                 egeQuestionResult.RsurQuestionNumbers = rsurQuestions.Select(rq => rq.Order.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
 
                 // ElementNames
