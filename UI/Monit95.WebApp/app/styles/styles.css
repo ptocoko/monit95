@@ -59,3 +59,7 @@ td {
     border: 1px solid lightgray;
     box-shadow: 0 0 5px lightgray;
 }
+
+.red-cell{
+    background-color: red;
+}

@@ -14,7 +14,8 @@ var ParticipProtocolComponent = /** @class */ (function () {
     ParticipProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
-            _this.documNumber = params['documNumber'];
+            _this.documNumber = Number.parseInt(params['documNumber']);
+            console.log(_this.documNumber);
             _this.protocolsService.getProtocol(_this.documNumber).subscribe(function (res) {
                 _this.protocol = res;
             });

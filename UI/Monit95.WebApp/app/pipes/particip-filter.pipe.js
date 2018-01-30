@@ -9,8 +9,11 @@ var ParticipFilterPipe = /** @class */ (function () {
         if (searchText == null)
             return particips;
         return particips.filter(function (particip) {
-            var FIO = particip.Surname + particip.Name;
-            return FIO.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+            //let FIO = particip.Surname + particip.Name + particip.DocumNumber;
+            //return FIO.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+            return particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
+                || particip.Name.trim().toLowerCase().indexOf(searchText) > -1
+                || particip.DocumNumber.toString().trim().toLowerCase().indexOf(searchText) > -1;
         });
     };
     ParticipFilterPipe = tslib_1.__decorate([

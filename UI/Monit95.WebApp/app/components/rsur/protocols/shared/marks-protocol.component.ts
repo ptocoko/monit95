@@ -1,5 +1,6 @@
 ﻿import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import { QuestionResult } from "../../../../models/marks-protocol.model";
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'marks-protocol',
@@ -23,8 +24,21 @@ export class MarksProtocolComponent implements AfterViewInit {
 		this.inputElements = $('.markInput') as JQuery<HTMLInputElement>;
 		this.inputElements.focus((event) => event.target.select());
 
-		this.inputElements.get(0).focus();
-		//this.inputElements.get(0).select();
+		if (this.inputElements.get(0)) {
+			this.inputElements.get(0).focus();
+			this.inputElements.get(0).setSelectionRange(0, this.inputElements.get(0).value.length);
+
+			Observable.fromEvent(document.getElementsByClassName('markInput'), 'keyup')
+				.filter((event: any) => [38, 40].indexOf(event.keyCode) > -1)
+				.subscribe((event: any) => {
+					if (event.keyCode === 40) {
+						this.focusOnNextElement(event);
+					} else if (event.keyCode === 38) {
+						this.focusOnPrevElement(event);
+					}
+				});
+		}
+
 	}
 
 	markChange(event: any, maxMark: number, step = 1) {
@@ -36,18 +50,18 @@ export class MarksProtocolComponent implements AfterViewInit {
 		if (elem.value) {
 			if (possibleMarks.indexOf(mark) > -1) {
 				this.questionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
-				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+				this.focusOnNextElement(event);
 			}
 			else {
 				elem.value = maxMark.toString();
 				this.questionResults[elemIndex].CurrentMark = maxMark;
-				this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+				this.focusOnNextElement(event);
 			}
 		}
 	}
 
 	getPossibleMarks(maxMark: number, step: number): number[] {
-		let result: number[];
+		let result: number[] = [];
 		let current = 0;
 		do {
 			result.push(current);
@@ -56,15 +70,20 @@ export class MarksProtocolComponent implements AfterViewInit {
 		return result;
 	}
 
-	goToNextInputOrFocusOnSubmitBtn(elemIndex: number) {
-		if (elemIndex < this.inputElements.length - 1) {
-			let nextInput = this.inputElements.get(elemIndex + 1);
-			if (!nextInput.value) {
-				nextInput.focus();
-			}
+	focusOnNextElement(event: any) {
+		const nextInputDiv = event.target.parentElement.nextElementSibling;
+		if (nextInputDiv && nextInputDiv.className === 'form-inline') {
+			nextInputDiv.children[1].focus();
 		}
 		else {
-			$().ready(() => $('#submitBtn').focus());
+			$().ready(() => $('#submitBtn').focus()); // прежде чем перевести фокус на кнопку нужно чтобы ангулар успел сделать кнопку активной
+		}
+	}
+
+	focusOnPrevElement(event: any) {
+		const prevInputDiv = event.target.parentElement.previousElementSibling;
+		if (prevInputDiv && prevInputDiv.className === 'form-inline') {
+			prevInputDiv.children[1].focus();
 		}
 	}
 

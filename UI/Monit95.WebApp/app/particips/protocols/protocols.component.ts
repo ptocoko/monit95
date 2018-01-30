@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, ElementRef } from '@angular/core';
+﻿import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { ParticipProtocolsService } from '../../services/particip-protocols.service';
 import { ParticipProtocolModel } from '../../models/particip-protocol.model';
@@ -18,25 +18,24 @@ export class ProtocolsComponent {
 	notProcessedProtocols = () => this.protocols.filter(f => !f.Marks).length;
 
 	@ViewChild('participCodeInput') participCodeInput: ElementRef;
-	@ViewChild(ParticipFilterPipe) pipe: ParticipFilterPipe;
+	pipe = new ParticipFilterPipe();
 
 	constructor(private participProtocolsService: ParticipProtocolsService,
 				private router: Router) { }
 
 	ngOnInit() {
 	    this.participProtocolsService.getProtocolsList(PROJECT_TEST_ID).subscribe(res => {
-			console.log(res);
 			this.protocols = res;
-			$.ready.then(() => this.initCodeListener());
+			$().ready(() => this.initCodeListener());
 	    });
 	}
 
 	private initCodeListener() {
-		console.log(this.pipe);
 		this.participCodeInput.nativeElement.focus();
 
 		Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
 			.filter((event: any) => {
+				console.log(event);
 				if (event.keyCode === 13) {
 					return this.isOneMatchedProtocol;
 				}
@@ -44,13 +43,16 @@ export class ProtocolsComponent {
 					this.isOneMatchedProtocol = true;
 					return false;
 				}
-				return false;
+				else {
+					this.isOneMatchedProtocol = false;
+					return false;
+				}
 			})
 			.subscribe(event => this.changeMarks(this.getDocumNumberBySearchText(event.target.value)));
 	}
 	
 	markAsAbsent(protocol: ParticipProtocolModel) {
-		this.participProtocolsService.markAsAbsent(protocol.ParticipTestId).subscribe(res => {
+		this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(res => {
 			protocol.Marks = this.AbsentText;
 		});
 	}

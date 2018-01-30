@@ -7,7 +7,8 @@ import { QuestionResult } from '../../../models/marks-protocol.model';
 
 
 @Component({
-    templateUrl: `./app/particips/protocols/protocol/protocol.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/particips/protocols/protocol/protocol.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/particips/protocols/protocol/protocol.component.css?v=${new Date().getTime()}`]
 })
 export class ParticipProtocolComponent implements OnInit {
     isUpdate: boolean;
@@ -21,7 +22,7 @@ export class ParticipProtocolComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
-            this.documNumber = params['documNumber'];
+			this.documNumber = Number.parseInt(params['documNumber']);
 			this.protocolsService.getProtocol(this.documNumber).subscribe(res => {
 				this.protocol = res;
 			});

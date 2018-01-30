@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
+var Observable_1 = require("rxjs/Observable");
 var MarksProtocolComponent = /** @class */ (function () {
     function MarksProtocolComponent() {
         this.onSend = new core_1.EventEmitter();
@@ -10,10 +11,23 @@ var MarksProtocolComponent = /** @class */ (function () {
     MarksProtocolComponent.prototype.ngOnInit = function () {
     };
     MarksProtocolComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
         this.inputElements = $('.markInput');
         this.inputElements.focus(function (event) { return event.target.select(); });
-        this.inputElements.get(0).focus();
-        //this.inputElements.get(0).select();
+        if (this.inputElements.get(0)) {
+            this.inputElements.get(0).focus();
+            this.inputElements.get(0).setSelectionRange(0, this.inputElements.get(0).value.length);
+            Observable_1.Observable.fromEvent(document.getElementsByClassName('markInput'), 'keyup')
+                .filter(function (event) { return [38, 40].indexOf(event.keyCode) > -1; })
+                .subscribe(function (event) {
+                if (event.keyCode === 40) {
+                    _this.focusOnNextElement(event);
+                }
+                else if (event.keyCode === 38) {
+                    _this.focusOnPrevElement(event);
+                }
+            });
+        }
     };
     MarksProtocolComponent.prototype.markChange = function (event, maxMark, step) {
         if (step === void 0) { step = 1; }
@@ -24,17 +38,17 @@ var MarksProtocolComponent = /** @class */ (function () {
         if (elem.value) {
             if (possibleMarks.indexOf(mark) > -1) {
                 this.questionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
-                this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+                this.focusOnNextElement(event);
             }
             else {
                 elem.value = maxMark.toString();
                 this.questionResults[elemIndex].CurrentMark = maxMark;
-                this.goToNextInputOrFocusOnSubmitBtn(elemIndex);
+                this.focusOnNextElement(event);
             }
         }
     };
     MarksProtocolComponent.prototype.getPossibleMarks = function (maxMark, step) {
-        var result;
+        var result = [];
         var current = 0;
         do {
             result.push(current);
@@ -42,15 +56,19 @@ var MarksProtocolComponent = /** @class */ (function () {
         } while (current <= maxMark);
         return result;
     };
-    MarksProtocolComponent.prototype.goToNextInputOrFocusOnSubmitBtn = function (elemIndex) {
-        if (elemIndex < this.inputElements.length - 1) {
-            var nextInput = this.inputElements.get(elemIndex + 1);
-            if (!nextInput.value) {
-                nextInput.focus();
-            }
+    MarksProtocolComponent.prototype.focusOnNextElement = function (event) {
+        var nextInputDiv = event.target.parentElement.nextElementSibling;
+        if (nextInputDiv && nextInputDiv.className === 'form-inline') {
+            nextInputDiv.children[1].focus();
         }
         else {
-            $().ready(function () { return $('#submitBtn').focus(); });
+            $().ready(function () { return $('#submitBtn').focus(); }); // прежде чем перевести фокус на кнопку нужно чтобы ангулар успел сделать кнопку активной
+        }
+    };
+    MarksProtocolComponent.prototype.focusOnPrevElement = function (event) {
+        var prevInputDiv = event.target.parentElement.previousElementSibling;
+        if (prevInputDiv && prevInputDiv.className === 'form-inline') {
+            prevInputDiv.children[1].focus();
         }
     };
     MarksProtocolComponent.prototype.send = function () {

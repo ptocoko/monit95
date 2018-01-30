@@ -7,8 +7,11 @@ export class ParticipFilterPipe implements PipeTransform {
 		if (searchText == null) return particips;
 
 		return particips.filter((particip: ParticipModel) => {
-			let FIO = particip.Surname + particip.Name;
-			return FIO.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+			//let FIO = particip.Surname + particip.Name + particip.DocumNumber;
+			//return FIO.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+			return particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
+				|| particip.Name.trim().toLowerCase().indexOf(searchText) > -1
+				|| particip.DocumNumber.toString().trim().toLowerCase().indexOf(searchText) > -1;
 		});
 	}
 }

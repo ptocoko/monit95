@@ -16,21 +16,21 @@ var ProtocolsComponent = /** @class */ (function () {
         this.AbsentText = 'отсутствовал';
         this.processedProtocols = function () { return _this.protocols.filter(function (f) { return f.Marks; }).length; };
         this.notProcessedProtocols = function () { return _this.protocols.filter(function (f) { return !f.Marks; }).length; };
+        this.pipe = new particip_filter_pipe_1.ParticipFilterPipe();
     }
     ProtocolsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.participProtocolsService.getProtocolsList(PROJECT_TEST_ID).subscribe(function (res) {
-            console.log(res);
             _this.protocols = res;
-            $.ready.then(function () { return _this.initCodeListener(); });
+            $().ready(function () { return _this.initCodeListener(); });
         });
     };
     ProtocolsComponent.prototype.initCodeListener = function () {
         var _this = this;
-        console.log(this.pipe);
         this.participCodeInput.nativeElement.focus();
         Observable_1.Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
             .filter(function (event) {
+            console.log(event);
             if (event.keyCode === 13) {
                 return _this.isOneMatchedProtocol;
             }
@@ -38,13 +38,16 @@ var ProtocolsComponent = /** @class */ (function () {
                 _this.isOneMatchedProtocol = true;
                 return false;
             }
-            return false;
+            else {
+                _this.isOneMatchedProtocol = false;
+                return false;
+            }
         })
             .subscribe(function (event) { return _this.changeMarks(_this.getDocumNumberBySearchText(event.target.value)); });
     };
     ProtocolsComponent.prototype.markAsAbsent = function (protocol) {
         var _this = this;
-        this.participProtocolsService.markAsAbsent(protocol.ParticipTestId).subscribe(function (res) {
+        this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(function (res) {
             protocol.Marks = _this.AbsentText;
         });
     };
@@ -58,10 +61,6 @@ var ProtocolsComponent = /** @class */ (function () {
         core_1.ViewChild('participCodeInput'),
         tslib_1.__metadata("design:type", core_1.ElementRef)
     ], ProtocolsComponent.prototype, "participCodeInput", void 0);
-    tslib_1.__decorate([
-        core_1.ViewChild(particip_filter_pipe_1.ParticipFilterPipe),
-        tslib_1.__metadata("design:type", particip_filter_pipe_1.ParticipFilterPipe)
-    ], ProtocolsComponent.prototype, "pipe", void 0);
     ProtocolsComponent = tslib_1.__decorate([
         core_1.Component({
             templateUrl: "./app/particips/protocols/protocols.component.html?v=" + new Date().getTime()

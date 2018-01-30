@@ -1,6 +1,6 @@
 ﻿<h3>Протоколы проверки заданий</h3>
 <hr />
-<ng-template [ngIf]="questionProtocols">
+<ng-template [ngIf]="protocols">
     <div>общее количество протоколов: {{protocols.length}}</div>
     <div>из них</div>
     <div>обработано: {{processedProtocols()}}</div>
@@ -27,7 +27,8 @@
                 <th>имя</th>
                 <th>отчество</th>
                 <th>номер документа</th>
-                <th style="width:295px">действия</th>
+                <th>баллы по заданиям</th>
+                <th style="width:295px;max-width:295px">действия</th>
             </tr>
             <tr *ngFor="let protocol of protocols | participFilter : searchText; let i = index">
                 <td class="row-number-cell">{{i + 1}}</td>

@@ -398,6 +398,7 @@
     <Content Include="app\particips\home\home.component.html" />
     <Content Include="app\particips\list\particips-list.component.css" />
     <Content Include="app\particips\plan\class-particips-plan.component.html" />
+    <Content Include="app\particips\protocols\protocol\protocol.component.css" />
     <Content Include="app\particips\protocols\protocol\protocol.component.html" />
     <Content Include="app\particips\protocols\protocols.component.html" />
     <Content Include="app\particips\list\particips-list.component.html" />

@@ -1,4 +1,4 @@
-﻿<form *ngIf="questions" #marksForm="ngForm">
+﻿<form *ngIf="questionResults" #marksForm="ngForm">
 
     <div *ngFor="let question of questionResults; let i = index" 
          class="form-inline" 
@@ -14,7 +14,7 @@
                name="mark{{i}}" 
                required />
     </div>
-
+    <br />
     <p>
         <button id="submitBtn" 
                 type="submit" 
