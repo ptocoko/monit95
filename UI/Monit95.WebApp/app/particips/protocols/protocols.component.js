@@ -63,7 +63,8 @@ var ProtocolsComponent = /** @class */ (function () {
     ], ProtocolsComponent.prototype, "participCodeInput", void 0);
     ProtocolsComponent = tslib_1.__decorate([
         core_1.Component({
-            templateUrl: "./app/particips/protocols/protocols.component.html?v=" + new Date().getTime()
+            templateUrl: "./app/particips/protocols/protocols.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/particips/protocols/protocols.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [particip_protocols_service_1.ParticipProtocolsService,
             router_1.Router])

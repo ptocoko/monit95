@@ -15,7 +15,6 @@ var ParticipProtocolComponent = /** @class */ (function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
             _this.documNumber = Number.parseInt(params['documNumber']);
-            console.log(_this.documNumber);
             _this.protocolsService.getProtocol(_this.documNumber).subscribe(function (res) {
                 _this.protocol = res;
             });
@@ -32,7 +31,8 @@ var ParticipProtocolComponent = /** @class */ (function () {
     };
     ParticipProtocolComponent = tslib_1.__decorate([
         core_1.Component({
-            templateUrl: "./app/particips/protocols/protocol/protocol.component.html?v=" + new Date().getTime()
+            templateUrl: "./app/particips/protocols/protocol/protocol.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/particips/protocols/protocol/protocol.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [common_1.Location,
             router_1.ActivatedRoute,

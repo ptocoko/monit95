@@ -8,7 +8,8 @@ import { ParticipFilterPipe } from '../../pipes/particip-filter.pipe';
 const PROJECT_TEST_ID: number = 1;
 
 @Component({
-	templateUrl: `./app/particips/protocols/protocols.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/particips/protocols/protocols.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/particips/protocols/protocols.component.css?v=${new Date().getTime()}`]
 })
 export class ProtocolsComponent {
 	isOneMatchedProtocol = false;
