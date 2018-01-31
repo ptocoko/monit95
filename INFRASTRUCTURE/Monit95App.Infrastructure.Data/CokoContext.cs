@@ -79,6 +79,12 @@ namespace Monit95App.Infrastructure.Data
                 .WithRequired(e => e.Category)
                 .WillCascadeOnDelete(false);
 
+            //modelBuilder.Entity<Class>()
+            //    .HasMany(e => e.Particips)
+            //    .WithOptional(e => e.Class)
+            //    .HasForeignKey(e => e.ClassId)
+            //    .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Class>()
                 .Property(e => e.Id)
                 .IsFixedLength()

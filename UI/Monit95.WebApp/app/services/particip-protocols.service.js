@@ -53,7 +53,7 @@ var mockParticipProtocol = [
         SchoolId: '0005',
         SchoolName: 'Президенсткая шк',
         DocumNumber: 12345,
-        SourceName: 'Школа',
+        DataSource: 'Школа',
         Marks: '1;2;1;2;3;1;1;0',
         QuestionResults: [
             {
@@ -118,7 +118,7 @@ var mockParticipProtocol = [
         SchoolId: '0005',
         SchoolName: 'Президенсткая шк',
         DocumNumber: 54321,
-        SourceName: 'РЦОИ',
+        DataSource: 'РЦОИ',
         Marks: null,
         QuestionResults: [
             {
@@ -183,7 +183,7 @@ var mockParticipProtocol = [
         SchoolId: '0005',
         SchoolName: 'Президенсткая шк',
         DocumNumber: 98765,
-        SourceName: 'Школа',
+        DataSource: 'Школа',
         Marks: '1;2;1;2;3;1;1;0',
         QuestionResults: [
             {

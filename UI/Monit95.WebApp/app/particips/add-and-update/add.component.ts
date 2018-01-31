@@ -21,11 +21,8 @@ export class AddParticipComponent {
 				private readonly location: Location) { }
 	
 	onSubmit() {
-		this.particip.ProjectId = Constant.PROJECT_ID;
-		this.particip.SchoolId = this.accountService.account.UserName;
-		this.particip.SourceName = "Школа";
 		this.isSending = true;
-		this.participService.addParticip(this.particip).subscribe(res => {
+		this.participService.postParticip(this.particip).subscribe(_ => {
 			this.back();
 		});
 	}

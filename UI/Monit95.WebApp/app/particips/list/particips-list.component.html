@@ -3,8 +3,7 @@
 <p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
     <mat-spinner></mat-spinner>
 </p>
-<div class="table-container mat-elevation-z8"
-     *ngIf="participsCount !== 0">
+<div class="table-container mat-elevation-z8" [hidden]="participsCount === 0 || isLoading">
     <div class="actions-container">
         <mat-form-field class="filter-field">
             <input matInput
@@ -54,7 +53,7 @@
 
         <ng-container matColumnDef="SourceName">
             <mat-header-cell *matHeaderCellDef> источник </mat-header-cell>
-            <mat-cell *matCellDef="let particip">{{ particip.SourceName }}</mat-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.DataSource }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="del-action">

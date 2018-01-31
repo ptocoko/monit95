@@ -38,45 +38,45 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// Создание протокола проверки заданий происходит, отправкой баллов по заданиям. 
         /// </remarks>
         /// TODO: ref
-        [HttpPost, Route("api/participTests/{id}/questionProtocols")]
-        public IHttpActionResult PostProtocol([FromBody]IEnumerable<QuestionMarkPostDto> postDtos)
-        {
-            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            var schoolId = User.Identity.Name;
+        //[HttpPost, Route("api/participTests/{id}/questionProtocols")]
+        //public IHttpActionResult PostProtocol([FromBody]IEnumerable<QuestionMarkPostDto> postDtos)
+        //{
+        //    var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+        //    var schoolId = User.Identity.Name;
 
-            questionProtocolService.Create(schoolId, participTestId, postDtos);
+        //    questionProtocolService.Create(schoolId, participTestId, postDtos);
             
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        /// <summary>
-        /// Получить протоколы проверки заданий для чтения
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet, Route("")]
-        public IHttpActionResult GetReadDtos()
-        {
-            var schoolId = User.Identity.Name;
+        ///// <summary>
+        ///// Получить протоколы проверки заданий для чтения
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet, Route("")]
+        //public IHttpActionResult GetReadDtos()
+        //{
+        //    var schoolId = User.Identity.Name;
 
-            IEnumerable<QuestionProtocolReadDto> readDtos = questionProtocolService.GetReadDtos(schoolId);
+        //    IEnumerable<QuestionProtocolReadDto> readDtos = questionProtocolService.GetReadDtos(schoolId);
 
-            return Ok(readDtos);
-        }
+        //    return Ok(readDtos);
+        //}
 
-        /// <summary>
-        /// Получение протокола проверки заданий для редактирования
-        /// </summary>
-        /// <param name="participTestId"></param>
-        /// <returns></returns>
-        /// TODO: ref
-        [HttpGet]
-        public IHttpActionResult GetEditDto(int participTestId)
-        {
-            var schoolId = User.Identity.Name;
-            var editDto = questionProtocolService.GetEditDto(schoolId, participTestId);
+        ///// <summary>
+        ///// Получение протокола проверки заданий для редактирования
+        ///// </summary>
+        ///// <param name="participTestId"></param>
+        ///// <returns></returns>
+        ///// TODO: ref
+        //[HttpGet]
+        //public IHttpActionResult GetEditDto(int participTestId)
+        //{
+        //    var schoolId = User.Identity.Name;
+        //    var editDto = questionProtocolService.GetEditDto(schoolId, participTestId);
 
-            return Ok(editDto);
-        }
+        //    return Ok(editDto);
+        //}
 
         #endregion
     }

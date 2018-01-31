@@ -6,7 +6,6 @@ var common_1 = require("@angular/common");
 var particip_service_1 = require("../../services/particip.service");
 var account_service_1 = require("../../services/account.service");
 var particip_model_1 = require("../../models/particip.model");
-var constants_1 = require("../../shared/constants");
 var AddParticipComponent = /** @class */ (function () {
     function AddParticipComponent(participService, accountService, location) {
         this.participService = participService;
@@ -18,11 +17,8 @@ var AddParticipComponent = /** @class */ (function () {
     }
     AddParticipComponent.prototype.onSubmit = function () {
         var _this = this;
-        this.particip.ProjectId = constants_1.Constant.PROJECT_ID;
-        this.particip.SchoolId = this.accountService.account.UserName;
-        this.particip.SourceName = "Школа";
         this.isSending = true;
-        this.participService.addParticip(this.particip).subscribe(function (res) {
+        this.participService.postParticip(this.particip).subscribe(function (_) {
             _this.back();
         });
     };
