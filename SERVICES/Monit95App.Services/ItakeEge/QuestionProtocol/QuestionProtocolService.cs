@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using ServiceResult.Exceptions;
 using Monit95App.Services.ItakeEge.QuestionProtocol;
+using Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.ItakeEge.QuestionResult
 {
@@ -109,16 +110,42 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
             return editDto;
         }
 
-
-
-
-        public void Create(string schoolId, int participTestId, IEnumerable<QuestionMarkPostDto> postDtos)
-        {
+        /// <summary>
+        /// Создание протокола проверки заданий
+        /// </summary>
+        /// <param name="schoolId"></param>
+        /// <param name="participTestId"></param>
+        /// <param name="postDtos"></param>
+        /// TODO: ref
+        public void Create(string schoolId, int participTestId, Dictionary<int, double> questionMarkDict)
+        {            
             var participTestEntity = cokoContext.ParticipTests.AsNoTracking().SingleOrDefault(pt => pt.Particip.SchoolId == schoolId &&
                                                                                                     pt.Id == participTestId);
             if (participTestEntity == null)
                 throw new EntityNotFoundOrAccessException();
 
+            // Get test questions
+            var testQuestionDict = participTestEntity.ProjectTest.Test.Questions.ToDictionary(q => q.Order);
+            var questionMarks = new List<QuestionMark>();
+
+            foreach (var orderAndQuestion in testQuestionDict)
+            {
+                var newQuestionMark = new QuestionMark
+                {
+                    Question = orderAndQuestion.Value
+                };
+
+                var awardedValue = questionMarkDict[orderAndQuestion.Key];
+                var possibleMaxMark = orderAndQuestion.Value.MaxMark;
+
+                if (awardedValue > possibleMaxMark)
+                    newQuestionMark.AwardedMark = possibleMaxMark;
+                else
+                    newQuestionMark.AwardedMark = awardedValue;
+
+            }
+
+                    
         }
 
         #endregion

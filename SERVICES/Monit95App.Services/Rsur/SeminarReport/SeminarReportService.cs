@@ -8,8 +8,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
 using Entities = Monit95App.Domain.Core.Entities;
 
 namespace Monit95App.Services.Rsur.SeminarReport
