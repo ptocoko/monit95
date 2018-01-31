@@ -93,7 +93,8 @@
     Отмена
 </button>
 
-<div class="sending-shade" *ngIf="isSending">
+<!--<div class="sending-shade" *ngIf="isSending">
     <mat-spinner></mat-spinner>
     <span class="sending-text">Отчет отправляется...</span>
-</div>
+</div>-->
+<spinner-view *ngIf="isSending" [caption]="'Отчет отправляется...'"></spinner-view>

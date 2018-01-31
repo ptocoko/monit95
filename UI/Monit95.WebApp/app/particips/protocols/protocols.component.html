@@ -1,0 +1,65 @@
+﻿<h3>Протоколы проверки заданий</h3>
+<hr />
+<ng-template [ngIf]="protocols">
+    <div>общее количество протоколов: {{protocols.length}}</div>
+    <div>из них</div>
+    <div>обработано: {{processedProtocols()}}</div>
+    <div>не обработано: {{notProcessedProtocols()}}</div>
+
+    <div class="search-field">
+        <mat-form-field>
+            <input #participCodeInput 
+                   [(ngModel)]="searchText"  
+                   placeholder="поиск по коду участника..." 
+                   matInput />
+            <i class="glyphicon glyphicon-ok" 
+               matSuffix 
+               style="color:green" 
+               *ngIf="isOneMatchedProtocol">
+            </i>
+        </mat-form-field>
+    </div>
+    <div class="scrollable-content">
+        <table class="table table-bordered">
+            <tr>
+                <th class="row-number-cell">#</th>
+                <th>фамилия</th>
+                <th>имя</th>
+                <th>отчество</th>
+                <th>номер документа</th>
+                <th>баллы по заданиям</th>
+                <th style="width:295px;max-width:295px">действия</th>
+            </tr>
+            <tr *ngFor="let protocol of protocols | participFilter : searchText; let i = index">
+                <td class="row-number-cell">{{i + 1}}</td>
+                <td>{{protocol.Surname}}</td>
+                <td>{{protocol.Name}}</td>
+                <td>{{protocol.SecondName}}</td>
+                <td>{{protocol.DocumNumber}}</td>
+                <td [ngClass]="{'red-cell': !protocol.Marks}">{{protocol.Marks}}</td>
+                <td>
+                    <div class="pull-left">
+                        <button mat-raised-button 
+                                color="primary" 
+                                (click)="changeMarks(protocol.DocumNumber)" 
+                                style="width:135.59px">
+                            <i class="glyphicon glyphicon-edit"></i> изменить
+                        </button>
+                        <button matTooltip="Указать, что участник отсутствовал" 
+                                [matTooltipPosition]="'right'" 
+                                [disabled]="protocol.Marks === AbsentText" 
+                                mat-raised-button 
+                                color="warn" 
+                                (click)="markAsAbsent(protocol)">
+                            <i class="glyphicon glyphicon-header"></i> {{AbsentText}}
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</ng-template>
+
+<div *ngIf="!protocols">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>

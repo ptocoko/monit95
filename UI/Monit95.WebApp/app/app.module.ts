@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { OrderModule } from 'ngx-order-pipe';
 import { MaterialModule } from './material.module';
+import { ParticipsModule } from './particips/particips.module';
+import { SharedModule } from './shared/shared-module';
 
 // Components
 import { AppComponent } from './components/app/app.component';
@@ -17,12 +19,12 @@ import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurp
 import { PlanComponent } from './plan/plan.component';
 import { ResultComponent } from './result/result.component';
 import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
-import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
-import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
-import { ClassParticipsPlanComponent } from './class-particips/class-particips-plan.component';
-import { AddClassParticipComponent } from './class-particips/add-and-update/add.component';
-import { UpdateClassParticipComponent } from './class-particips/add-and-update/update.component';
-import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
+//import { ClassParticipsListComponent } from './class-particips/class-particips-list.component';
+//import { ClassParticipMarksComponent } from './class-particips/marks/marks.component';
+//import { ClassParticipsPlanComponent } from './class-particips/class-particips-plan.component';
+//import { AddClassParticipComponent } from './class-particips/add-and-update/add.component';
+//import { UpdateClassParticipComponent } from './class-particips/add-and-update/update.component';
+//import { MarksAddAndEditComponent } from './class-particips/marks/marks-add-and-edit.component';
 import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
 import { RsurTestProtocolComponent } from './rsur/rsur-test-protocol/rsur-test-protocol.component';
 import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
@@ -43,7 +45,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 
 // Services
 import { AccountService } from './services/account.service';
-import { ParticipService } from './particip.service';
+import { ParticipService } from './services/particip.service';
 import { RsurParticipService } from './services/rsur-particip.service';
 import { RsurTestService } from './rsur/rsur-test/rsur-test.service';
 import { SchoolService } from './school.service';
@@ -62,7 +64,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // Pipes
 import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
-import { ParticipFilterPipe } from './particip-filter.pipe';
+//import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
 import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe, ExamNameFilterPipe } from './pipes/rsur-report-filter.pipe';
@@ -86,8 +88,10 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
         MyDatePickerModule, 
 		BrowserAnimationsModule,		
         OrderModule,	
-        NgbModule.forRoot(),
-        MaterialModule,
+		NgbModule.forRoot(),
+		SharedModule,
+		MaterialModule,
+		ParticipsModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
                 { path: 'rsur/test', component: RsurTestComponent },
@@ -108,13 +112,14 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
                 { path: 'school-files', component: SchoolFilesComponent },
                 { path: 'plan', component: PlanComponent },
                 { path: 'result', component: ResultComponent },                
-                { path: 'particip-correction', component: ParticipCorrectionComponent },
-                { path: 'class-particips', component: ClassParticipsPlanComponent },
-                { path: 'class-particips/list', component: ClassParticipsListComponent },                
-                { path: 'class-particips/new', component: AddClassParticipComponent },
-                { path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
-                { path: 'class-particips/marks', component: ClassParticipMarksComponent },
-                { path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },
+				{ path: 'particip-correction', component: ParticipCorrectionComponent },
+				//{ path: 'particips', loadChildren: './app/particips/particips.module#ParticipsModule'},
+                //{ path: 'class-particips', component: ClassParticipsPlanComponent },
+                //{ path: 'class-particips/list', component: ClassParticipsListComponent },                
+                //{ path: 'class-particips/new', component: AddClassParticipComponent },
+                //{ path: 'class-particips/update/:id', component: UpdateClassParticipComponent },
+                //{ path: 'class-particips/marks', component: ClassParticipMarksComponent },
+                //{ path: 'class-particips/marks-edit/:participTestId', component: MarksAddAndEditComponent },
                 { path: '', redirectTo: '/rsur', pathMatch: 'full' }
             ]
         )
@@ -125,8 +130,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 	    RsurTestComponent,
         RsurParticipsComponent,	
         RsurParticipAddFormComponent,
-        RsurParticipFilterPipe,        
-		ParticipFilterPipe,
+        RsurParticipFilterPipe,
 		ClassNameFilterPipe,
 		LimitToPipe,
 		ParticipsWithoutDetailsPipe,
@@ -143,12 +147,12 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 		PlanComponent,
 		ResultComponent,   
         ParticipCorrectionComponent,		
-		ClassParticipsListComponent,		
-		ClassParticipMarksComponent,		
-		ClassParticipsPlanComponent,
-		AddClassParticipComponent,
-		UpdateClassParticipComponent,
-		MarksAddAndEditComponent,
+		//ClassParticipsListComponent,		
+		//ClassParticipMarksComponent,		
+		//ClassParticipsPlanComponent,
+		//AddClassParticipComponent,
+		//UpdateClassParticipComponent,
+		//MarksAddAndEditComponent,
         RsurTestProtocolListComponent,
 		RsurTestProtocolComponent,
 		ReportComponent,
@@ -161,7 +165,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 		MatchingProtocolComponent,
 		ScanProtocolsComponent,
 		QuestionProtocolsList,
-		MarksProtocolComponent,
+		//MarksProtocolComponent,
 		QuestionProtocolComponent,
 		ConfirmDialogComponent
 	],
@@ -172,7 +176,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
         SchoolService,
         ParticipCorrectionService,
         ClassService,
-        ParticipService,
+        //ParticipService,
 		MarksService,
 		SchoolCollectorService,
 		ResultsService,

@@ -4,6 +4,15 @@
     outline: none !important;
 }
 
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+td {
+    vertical-align: middle;
+}
+
 .list-container {
     margin-top: 50px;
 }
@@ -49,4 +58,8 @@
 .list-container {
     border: 1px solid lightgray;
     box-shadow: 0 0 5px lightgray;
+}
+
+.red-cell{
+    background-color: red;
 }
