@@ -49,7 +49,7 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
 
                 foreach (var qm in entity.QuestionMarks.OrderBy(qm => qm.Question.Order))
                 {
-                    questionMarksString += qm.Mark.ToString();
+                    questionMarksString += qm.AwardedMark.ToString();
                 }
 
                 readDto.QuestionMarks = questionMarksString;

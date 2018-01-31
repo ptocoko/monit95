@@ -7,6 +7,7 @@ namespace ServiceResult.Exceptions
         #region Constructors
 
         public StringIsNullOrEmpty(string paramName): base("Param value is null or empty", paramName) { }
+        public StringIsNullOrEmpty() { }
 
         #endregion
     }

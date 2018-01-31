@@ -9,11 +9,11 @@ using Monit95App.Services;
 using Monit95App.Services.File;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.ItakeEge.Participant;
+using Monit95App.Services.ItakeEge.QuestionResult;
 using Monit95App.Services.Rsur;
 using Monit95App.Services.Rsur.ParticipReport;
 using Monit95App.Services.Rsur.QuestionValue;
 using Monit95App.Services.Rsur.SeminarReport;
-using Monit95App.Services.Rsur.TestResult;
 using Monit95App.Services.School;
 using Monit95App.Web.Services;
 
@@ -55,8 +55,9 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<RatingService>().As<IRatingService>();
             builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();
             builder.RegisterType<FileService>().As<IFileService>();
+            builder.RegisterType<QuestionProtocolService>().As<IQuestionProtocolService>();
 
-             var container = builder.Build();
+            var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }

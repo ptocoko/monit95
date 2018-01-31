@@ -18,37 +18,37 @@ namespace Monit95App.Services
     /// </summary>
     public class MarksService : IMarksService
     {
-        #region Dependencies
+        //#region Dependencies
 
-        private readonly IGenericRepository<Result> _resultRepository;
-        private readonly IGenericRepository<Particip> _participRepository;
-        private readonly IGenericRepository<ParticipTest> _participTestRepository;
+        //private readonly IGenericRepository<Result> _resultRepository;
+        //private readonly IGenericRepository<Particip> _participRepository;
+        //private readonly IGenericRepository<ParticipTest> _participTestRepository;
 
-        #endregion
+        //#endregion
 
-        public MarksService(IGenericRepository<Result> resultRepository, 
-                            IGenericRepository<Particip> participRepository, 
-                            IGenericRepository<ParticipTest> participTestRepository)
-        {
-            _resultRepository = resultRepository;
-            _participRepository = participRepository;
-            _participTestRepository = participTestRepository;
-        }
+        //public MarksService(IGenericRepository<Result> resultRepository, 
+        //                    IGenericRepository<Particip> participRepository, 
+        //                    IGenericRepository<ParticipTest> participTestRepository)
+        //{
+        //    _resultRepository = resultRepository;
+        //    _participRepository = participRepository;
+        //    _participTestRepository = participTestRepository;
+        //}
 
-        public void Add(PostMarksDto dto)
-        {
-            if (dto == null)
-            {
-                throw new ArgumentNullException();
-            }
-            var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
-            Validator.ValidateObject(dto, validContext, true); // TODO: SO. Why do not work without third parametr true?
+        //public void Add(PostMarksDto dto)
+        //{
+        //    if (dto == null)
+        //    {
+        //        throw new ArgumentNullException();
+        //    }
+        //    var validContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+        //    Validator.ValidateObject(dto, validContext, true); // TODO: SO. Why do not work without third parametr true?
 
-            Mapper.Initialize(cfg => cfg.CreateMap<PostMarksDto, Result>());
-            var entity = Mapper.Map<PostMarksDto, Result>(dto);
+        //    Mapper.Initialize(cfg => cfg.CreateMap<PostMarksDto, Result>());
+        //    var entity = Mapper.Map<PostMarksDto, Result>(dto);
 
-            _resultRepository.Insert(entity);            
-        }
+        //    _resultRepository.Insert(entity);            
+        //}
 
         public IEnumerable<ParticipMarksDto> GetParticipMarksDtos(int projectTestId, string schoolId)
         {
@@ -90,26 +90,26 @@ namespace Monit95App.Services
             //}).Single();
         }
 
-        public void Update(int participTestId, PutMarksDto dto)
-        {
-            if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto));
-            }
+        //public void Update(int participTestId, PutMarksDto dto)
+        //{
+        //    if (dto == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(dto));
+        //    }
 
-            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
-            Validator.ValidateObject(dto, validationContext, true);
+        //    var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+        //    Validator.ValidateObject(dto, validationContext, true);
 
-            var entity = _resultRepository.GetById(participTestId);
-            if (entity == null)
-            {
-                throw new ArgumentException(nameof(participTestId));
-            }
+        //    var entity = _resultRepository.GetById(participTestId);
+        //    if (entity == null)
+        //    {
+        //        throw new ArgumentException(nameof(participTestId));
+        //    }
 
-            Mapper.Initialize(cfg => cfg.CreateMap<PutMarksDto, Result>());
-            Mapper.Map(dto, entity);            
+        //    Mapper.Initialize(cfg => cfg.CreateMap<PutMarksDto, Result>());
+        //    Mapper.Map(dto, entity);            
 
-            _resultRepository.Update(entity);
-        }
+        //    _resultRepository.Update(entity);
+        //}
     }
 }
