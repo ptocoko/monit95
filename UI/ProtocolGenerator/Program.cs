@@ -13,32 +13,32 @@ using System.Linq;
 namespace OneTwoThreeReporter
 {
     class Program
-    {        
-        static IGenericRepository<Result> _testResults;
-        static IGenericRepository<School> _schools;
-        static List<Class> _classes;
-        static IGrade5 _gradeConverter;
-        static CokoContext _context;
+    {
+        //static IGenericRepository<Result> _testResults;
+        //static IGenericRepository<School> _schools;
+        //static List<Class> _classes;
+        //static IGrade5 _gradeConverter;
+        //static CokoContext _context;
 
         static void Main(string[] args)
         {
-            _context = new CokoContext();            
-            _testResults = new GenericRepository<Result>(_context);
-            _schools = new GenericRepository<School>(_context);
-            _gradeConverter = new OneTwoThreeGradeConverter();
+            //_context = new CokoContext();
+            //_testResults = new GenericRepository<Result>(_context);
+            //_schools = new GenericRepository<School>(_context);
+            //_gradeConverter = new OneTwoThreeGradeConverter();
 
-            var classService = new ClassService(new GenericRepository<Class>(_context));
-            _classes = classService.GetAll().ToList();
-            
-            var reports = GetAllResults();
-            foreach (var report in reports)
-            {
-                CreateSchoolReportInExcel(report);
-            }
-            
-            Console.WriteLine("All Ok!");
-            Console.ReadKey();
-        }      
+            //var classService = new ClassService(new GenericRepository<Class>(_context));
+            //_classes = classService.GetAll().ToList();
+
+            //var reports = GetAllResults();
+            //foreach (var report in reports)
+            //{
+            //    CreateSchoolReportInExcel(report);
+            //}
+
+            //Console.WriteLine("All Ok!");
+            //Console.ReadKey();
+        }
 
         private static List<IGrouping<string, OneTwoThreeReportDto>> GetAllResults()
         {
@@ -76,52 +76,53 @@ namespace OneTwoThreeReporter
 
         private static void CreateSchoolReportInExcel(IGrouping<string, OneTwoThreeReportDto> schoolReport)
         {
-            var schoolId = schoolReport.Key;
-            var currentPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\OneTwoThreeReports\{schoolId}";
-            if (!Directory.Exists(currentPath))
-                Directory.CreateDirectory(currentPath);
+            //var schoolId = schoolReport.Key;
+            //var currentPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\OneTwoThreeReports\{schoolId}";
+            //if (!Directory.Exists(currentPath))
+            //    Directory.CreateDirectory(currentPath);
 
-            var currentFilePath = currentPath + $@"\{schoolId}_201683";
+            //var currentFilePath = currentPath + $@"\{schoolId}_201683";
 
-            var excelTemplate = new XLWorkbook(Directory.GetCurrentDirectory() + @"\\201677_ППР.xlsx");
-            var sheet = excelTemplate.Worksheets.First();
+            //var excelTemplate = new XLWorkbook(Directory.GetCurrentDirectory() + @"\\201677_ППР.xlsx");
+            //var sheet = excelTemplate.Worksheets.First();
 
-            var school = _schools.GetAll().Single(s => s.Id == schoolId);
-            sheet.Cell(2, 1).Value = $"{school.Name.Trim()} ({school.Area.Name.Trim()})";
+            //var school = _schools.GetAll().Single(s => s.Id == schoolId);
+            //sheet.Cell(2, 1).Value = $"{school.Name.Trim()} ({school.Area.Name.Trim()})";
 
-            int i=0;
-            foreach(var result in schoolReport)
-            {
-                sheet.Cell(4 + i, 2).Value = result.ExerciseMarkId;
-                sheet.Cell(4 + i, 3).Value = result.Surname;
-                sheet.Cell(4 + i, 4).Value = result.Name;
-                sheet.Cell(4 + i, 5).Value = result.SecondName;
-                sheet.Cell(4 + i, 6).Value = result.ClassName;
-                sheet.Cell(4 + i, 7).Value = result.SubjectName;
-                sheet.Cell(4 + i, 8).Value = result.Marks;
-                sheet.Cell(4 + i, 9).Value = result.GradeStr;
-                i++;
-            }
+            //int i=0;
+            //foreach(var result in schoolReport)
+            //{
+            //    sheet.Cell(4 + i, 2).Value = result.ExerciseMarkId;
+            //    sheet.Cell(4 + i, 3).Value = result.Surname;
+            //    sheet.Cell(4 + i, 4).Value = result.Name;
+            //    sheet.Cell(4 + i, 5).Value = result.SecondName;
+            //    sheet.Cell(4 + i, 6).Value = result.ClassName;
+            //    sheet.Cell(4 + i, 7).Value = result.SubjectName;
+            //    sheet.Cell(4 + i, 8).Value = result.Marks;
+            //    sheet.Cell(4 + i, 9).Value = result.GradeStr;
+            //    i++;
+            //}
             
-            excelTemplate.SaveAs(currentFilePath + ".xlsx");
+            //excelTemplate.SaveAs(currentFilePath + ".xlsx");
 
-            using(ZipFile zip = new ZipFile())
-            {
-                zip.AddFile(currentFilePath + ".xlsx", "");
-                zip.Save(currentFilePath + ".zip");
-            }
+            //using(ZipFile zip = new ZipFile())
+            //{
+            //    zip.AddFile(currentFilePath + ".xlsx", "");
+            //    zip.Save(currentFilePath + ".zip");
+            //}
 
-            System.IO.File.Delete(currentFilePath + ".xlsx");
+            //System.IO.File.Delete(currentFilePath + ".xlsx");
         }
 
         private static string GetClassName(string classCode)
         {
-            foreach(var cl in _classes)
-            {
-                if (cl.Id == classCode)
-                    return cl.Name;
-            }
-            throw new ArgumentException();
+            //foreach(var cl in _classes)
+            //{
+            //    if (cl.Id == classCode)
+            //        return cl.Name;
+            //}
+            //throw new ArgumentException();
+            return null;
         }
     }
 }

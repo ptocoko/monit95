@@ -15,7 +15,11 @@ namespace Monit95.WebApp.RESTful_API.Rsur
     [RoutePrefix("api/rsur/questionValues")]
     public class QuestionValuesController : ApiController
     {
+        #region Dependencies
+
         private readonly IQuestionValueService questionValueService;
+
+        #endregion
 
         public QuestionValuesController(IQuestionValueService questionValueService)
         {

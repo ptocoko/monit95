@@ -25,8 +25,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }        
         public virtual DbSet<Report> Reports { get; set; }
-        public virtual DbSet<Repository> Repositories { get; set; }
-        public virtual DbSet<Result> Results { get; set; }                        
+        public virtual DbSet<Repository> Repositories { get; set; }        
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
         public virtual DbSet<RsurParticipTest> RsurParticipTests { get; set; }
@@ -45,7 +44,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<FilePermission> FilePermissions { get; set; }
         public virtual DbSet<Monit95User> Monit95Users { get; set; }
         public virtual DbSet<EgeQuestion> EgeQuestions { get; set; }
-        public virtual DbSet<RsurQuestion> RsurQuestions { get; set; }
+        public virtual DbSet<Question> RsurQuestions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -84,11 +83,6 @@ namespace Monit95App.Infrastructure.Data
                 .Property(e => e.Id)
                 .IsFixedLength()
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Class>()
-                .HasMany(e => e.Particips)
-                .WithRequired(e => e.Class)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Collector>()
                 .HasMany(e => e.SchoolCollectors)
@@ -133,16 +127,6 @@ namespace Monit95App.Infrastructure.Data
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Particip>()
-                .Property(e => e.ClassId)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ParticipTest>()
-                .HasOptional(e => e.Result)
-                .WithRequired(e => e.ParticipTest)
-                .WillCascadeOnDelete();
-
             modelBuilder.Entity<Project>()
                 .Property(e => e.ClassNumbers)
                 .IsUnicode(false);
@@ -173,14 +157,6 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Report>()
                 .Property(e => e.Available)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Result>()
-                .Property(e => e.Marks)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Result>()
-                .Property(e => e.ElementValues)
                 .IsUnicode(false);
 
             modelBuilder.Entity<RsurParticipEdit>()
@@ -320,15 +296,6 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<Test>()
                 .Property(e => e.NumberCode)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Test>()
-                .Property(e => e.ExcerMaxMarks)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Test>()
-                .HasMany(e => e.Exercises)
-                .WithRequired(e => e.Test)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.Grades)
