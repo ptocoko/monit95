@@ -9,6 +9,9 @@ namespace Monit95App.Services.Rsur.QuestionValue
     {        
         public int ParticipCode { get; set; }
         
+        /// <summary>
+        /// Для указания адресата
+        /// </summary>
         public int ParticipTestId { get; set; }
 
         /// <summary>

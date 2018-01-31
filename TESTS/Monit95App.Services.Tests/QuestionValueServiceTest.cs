@@ -39,13 +39,13 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0101",
                                 Name = "Орфография",
-                                RsurQuestions = new List<RsurQuestion>
+                                Questions = new List<Question>
                                 {
-                                    new RsurQuestion
+                                    new Question
                                     {
                                         Order = 1,                                        
                                     },
-                                    new RsurQuestion
+                                    new Question
                                     {
                                         Order = 2,                                        
                                     }
@@ -152,17 +152,17 @@ namespace Monit95App.Services.Tests
                         IsOpen = true,
                         Test = new Test
                         {
-                            RsurQuestions = new List<RsurQuestion>
+                            Questions = new List<Question>
                             {
-                                new RsurQuestion
+                                new Question
                                 {
                                     Order = 1,
                                 },
-                                new RsurQuestion
+                                new Question
                                 {
                                     Order = 2,
                                 },
-                                new RsurQuestion
+                                new Question
                                 {
                                     Order = 3,
            
@@ -186,19 +186,19 @@ namespace Monit95App.Services.Tests
                         IsOpen = true,
                         Test = new Test
                         {
-                            RsurQuestions = new List<RsurQuestion>
+                            Questions = new List<Question>
                             {
-                                new RsurQuestion
+                                new Question
                                 {
                                     Order = 1,
 
                                 },
-                                new RsurQuestion
+                                new Question
                                 {
                                     Order = 2,
 
                                 },
-                                new RsurQuestion
+                                new Question
                                 {
                                     Order = 3,
      
@@ -235,21 +235,21 @@ namespace Monit95App.Services.Tests
             var marksProtocol1 = new QuestionValueEditDto()
             {
                 ParticipTestId = 1,
-                QuestionResults = new List<QuestionResult>()
+                QuestionResults = new List<Rsur.QuestionValue.QuestionResult>()
                 {
-                 new QuestionResult { Order = 1, CurrentMark = 0 },
-                 new QuestionResult { Order = 2, CurrentMark = 1 },
-                 new QuestionResult { Order = 3, CurrentMark = 1 }
+                 new Rsur.QuestionValue.QuestionResult { Order = 1, CurrentMark = 0 },
+                 new Rsur.QuestionValue.QuestionResult { Order = 2, CurrentMark = 1 },
+                 new Rsur.QuestionValue.QuestionResult { Order = 3, CurrentMark = 1 }
                 }
             };
             var marksProtocol2 = new QuestionValueEditDto
             {
                 ParticipTestId = 2,
-                QuestionResults = new List<QuestionResult>()
+                QuestionResults = new List<Rsur.QuestionValue.QuestionResult>()
                 {
-                 new QuestionResult { Order = 1, CurrentMark = -1 },
-                 new QuestionResult { Order = 2, CurrentMark = -1 },
-                 new QuestionResult { Order = 3, CurrentMark = -1 }
+                 new Rsur.QuestionValue.QuestionResult { Order = 1, CurrentMark = -1 },
+                 new Rsur.QuestionValue.QuestionResult { Order = 2, CurrentMark = -1 },
+                 new Rsur.QuestionValue.QuestionResult { Order = 3, CurrentMark = -1 }
                 }
             };
             var areaId = 201;
@@ -345,19 +345,19 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0101",
                                 Name = "Орфография",
-                                RsurQuestions = new List<RsurQuestion>
+                                Questions = new List<Question>
                                 {
-                                    new RsurQuestion
+                                    new Question
                                     {
                                         Order = 1,
 
                                     },
-                                    new RsurQuestion
+                                    new Question
                                     {
                                         Order = 2,
 
                                     },
-                                    new RsurQuestion
+                                    new Question
                                     {
                                         Order = 3,
 

@@ -340,6 +340,7 @@
     <Compile Include="RESTful_API\ClassController.cs" />
     <Compile Include="RESTful_API\DocumentsController.cs" />
     <Compile Include="RESTful_API\ExcelFilesController.cs" />
+    <Compile Include="RESTful_API\iTakeEge\QuestionProtocolsController.cs" />
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
@@ -349,7 +350,7 @@
     <Compile Include="RESTful_API\Rsur\ParticipReportsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipsController.cs" />
     <Compile Include="RESTful_API\Rsur\RsurParticipEditsController.cs" />
-    <Compile Include="RESTful_API\ParticipsController.cs" />
+    <Compile Include="RESTful_API\iTakeEge\ParticipsController.cs" />
     <Compile Include="RESTful_API\CollectorsController.cs" />
     <Compile Include="RESTful_API\Rsur\SeminarReportsController.cs" />
     <Compile Include="RESTful_API\SchoolFilesController.cs" />

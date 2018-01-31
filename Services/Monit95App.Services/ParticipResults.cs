@@ -2,12 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Monit95App.Services.DTOs;
 using Monit95App.Domain.Interfaces;
 using Monit95App.Domain.Core.Entities;
-using System.Data.Entity.SqlServer;
 
 namespace Monit95App.Services
 {
@@ -36,21 +33,22 @@ namespace Monit95App.Services
 
         private static Func<Result, ClassParticipReport> GetReportDto()
         {
-            return s => new ClassParticipReport
-            {
-                SchoolParticipInfo = new Domain.Core.SchoolParticip
-                {
-                    Surname = s.ParticipTest.Particip.Surname.Trim(),
-                    Name = s.ParticipTest.Particip.Name.Trim(),
-                    SecondName = s.ParticipTest.Particip.SecondName?.Trim(),
-                    SchoolName = s.ParticipTest.Particip.School.Name.Trim()
-                },
-                ClassName = s.ParticipTest.Particip.Class.Name.Trim(),
-                ParticipTestId = s.ParticipTestId,
-                PrimaryMark = s.PrimaryMark,
-                Marks = s.Marks.Split(';').Select(sel => sel.Replace('/', '.').Replace(@"\", ".")).ToArray(),
-                GradeGroup = SetGradeGroupName(s.Grade5.ToString())
-            };
+            throw new NotImplementedException();
+            //return s => new ClassParticipReport
+            //{
+            //    SchoolParticipInfo = new Domain.Core.SchoolParticip
+            //    {
+            //        Surname = s.ParticipTest.Particip.Surname.Trim(),
+            //        Name = s.ParticipTest.Particip.Name.Trim(),
+            //        SecondName = s.ParticipTest.Particip.SecondName?.Trim(),
+            //        SchoolName = s.ParticipTest.Particip.School.Name.Trim()
+            //    },
+            //    ClassName = s.ParticipTest.Particip.Class.Name.Trim(),
+            //    ParticipTestId = s.ParticipTestId,
+            //    PrimaryMark = s.PrimaryMark,
+            //    Marks = s.Marks.Split(';').Select(sel => sel.Replace('/', '.').Replace(@"\", ".")).ToArray(),
+            //    GradeGroup = SetGradeGroupName(s.Grade5.ToString())
+            //};
         }
 
         private static string SetGradeGroupName(string grade5)

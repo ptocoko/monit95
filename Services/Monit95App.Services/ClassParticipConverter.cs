@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Monit95App.Services.DTOs;
 using System.Collections.Generic;
+using Monit95App.Services.ItakeEge.Participant;
 
 namespace Monit95App.Services
 {
