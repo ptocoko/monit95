@@ -81,9 +81,9 @@ namespace Monit95App.Services.ItakeEge.Participant
             if (dto.SecondName != null)            
                 newParticip.SecondName = dto.SecondName.Trim(); 
                         
-            newParticip.ParticipTests.Add(new ParticipTest { ParticipId = 2013 }); // русский язык
-            newParticip.ParticipTests.Add(new ParticipTest { ParticipId = 2014 }); // математика п
-            newParticip.ParticipTests.Add(new ParticipTest { ParticipId = 2015 }); // математика б 
+            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2013 }); // русский язык
+            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2014 }); // математика п
+            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2015 }); // математика б 
 
             // Try add new participant entity in database
             cokoContext.Particips.Add(newParticip);

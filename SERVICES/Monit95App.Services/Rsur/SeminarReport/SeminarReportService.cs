@@ -48,28 +48,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         public ServiceResult<int> CreateReport(Dictionary<string, UniqueStream> uniqueStreamDictionary, string schoolId)
         {
             var errorResult = new ServiceResult<int>();
-            var successResult = new ServiceResult<int>();
-
-            // VALIDATE
-            //if (inputStreamDictionary == null)
-            //    throw new ArgumentNullException(nameof(inputStreamDictionary));
-            //if (inputStreamDictionary.Count < 3 || inputStreamDictionary.Count > 5)
-            //    throw new ArgumentOutOfRangeException("Is null, count < 3 or count > 5", nameof(inputStreamDictionary));
-            //if (!context.Schools.Any(s => s.Id == schoolId))
-            //    throw new ArgumentException(nameof(schoolId));
-
-            // validate resultStreamDictionary content
-
-            //var resultStreamDictionary = inputStreamTyple.Where(kvp => kvp.Value != null && kvp.Value.InputStream.Length <= maxFileSize)
-            //                                                  .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            //if (!resultStreamDictionary.Any(kvp => kvp.Key.Equals("protocol")))
-            //{
-            //    result.AddModelError("protocol", "Protocol file has not");
-            //    return result;
-            //}
-
-            // ADD FILES INTO FILE REPOSITORY
-            // add protocol file into file repository
+            var successResult = new ServiceResult<int>();           
 
             // create userPermission sequence
             var school = context.Schools.Find(schoolId);
