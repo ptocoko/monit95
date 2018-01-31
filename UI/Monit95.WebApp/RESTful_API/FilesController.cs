@@ -10,11 +10,11 @@ using Monit95App.Services.Exceptions;
 using Monit95App.Services.File;
 
 namespace Monit95.WebApp.RESTful_API
-{    
+{
     /// <summary>
     /// Контроллер для работы с файлами
     /// </summary>
-    //[Authorize]
+    [Authorize]
     public class FilesController : ApiController
     {
         #region Dependencies
