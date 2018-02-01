@@ -53,14 +53,14 @@ export class ProtocolsComponent {
 			.subscribe(event => this.changeMarks(this.getDocumNumberBySearchText(event.target.value)));
 	}
 	
-	markAsAbsent(protocol: ParticipProtocolModel) {
-		this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(res => {
-			protocol.Marks = this.AbsentText;
-		});
-	}
+	//markAsAbsent(protocol: ParticipProtocolModel) {
+	//	this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(res => {
+	//		protocol.Marks = this.AbsentText;
+	//	});
+	//}
 
-	changeMarks(documNumber: number) {
-		this.router.navigate(['/particips/protocol', documNumber])
+	changeMarks(participTestId: number) {
+		this.router.navigate(['/particips/protocol', participTestId])
 	}
 
 	getDocumNumberBySearchText(searchText: string) {

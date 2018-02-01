@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { ParticipProtocolsService } from '../../../services/particip-protocols.service';
 import { ParticipProtocolModel } from '../../../models/particip-protocol.model';
 import { QuestionResult } from '../../../models/marks-protocol.model';
+import { QuestionProtocolEdit } from '../../../models/question-protocol-edit.model';
 
 
 @Component({
@@ -12,8 +13,8 @@ import { QuestionResult } from '../../../models/marks-protocol.model';
 })
 export class ParticipProtocolComponent implements OnInit {
     isUpdate: boolean;
-	documNumber: number;   
-	protocol: ParticipProtocolModel;
+	participTestId: number;   
+	protocol: QuestionProtocolEdit;
 
     constructor(
 		private readonly location: Location,
@@ -22,8 +23,8 @@ export class ParticipProtocolComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
-			this.documNumber = Number.parseInt(params['documNumber']);
-			this.protocolsService.getProtocol(this.documNumber).subscribe(res => {
+			this.participTestId = Number.parseInt(params['id']);
+			this.protocolsService.getProtocol(this.participTestId).subscribe(res => {
 				this.protocol = res;
 			});
         });
@@ -31,8 +32,8 @@ export class ParticipProtocolComponent implements OnInit {
 
     submit(questionResults: QuestionResult[]) {
 		this.protocolsService
-				.postMarksProtocol(questionResults, this.documNumber)
-				.subscribe(res => this.back());
+				.postMarksProtocol(questionResults, this.participTestId)
+				.subscribe(_ => this.back());
     }
 
     back() {

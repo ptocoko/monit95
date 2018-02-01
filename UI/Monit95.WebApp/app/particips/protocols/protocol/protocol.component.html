@@ -1,9 +1,9 @@
 ﻿<h2>Протокол проверки заданий</h2>
 
 <div *ngIf="protocol">
-    <h5>{{protocol.Surname}} {{protocol.Name}} {{protocol.Surname}}</h5>
+    <h5>{{protocol.ParticipInfo}}</h5>
     <hr />
-    <marks-protocol [questions]="protocol.QuestionResults"
+    <marks-protocol [questions]="protocol.MarkCollection"
                     (onSend)="submit($event)"
                     (onCancel)="back()">
     </marks-protocol>
