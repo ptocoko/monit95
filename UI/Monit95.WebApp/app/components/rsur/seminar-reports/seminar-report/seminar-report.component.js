@@ -7,7 +7,6 @@ var seminar_report_service_1 = require("../../../../services/seminar-report.serv
 var common_1 = require("@angular/common");
 var account_service_1 = require("../../../../services/account.service");
 var Observable_1 = require("rxjs/Observable");
-require("rxjs/add/operator/throttleTime");
 var SeminarReportComponent = /** @class */ (function () {
     function SeminarReportComponent(router, route, seminarReportService, location, accountService) {
         this.router = router;

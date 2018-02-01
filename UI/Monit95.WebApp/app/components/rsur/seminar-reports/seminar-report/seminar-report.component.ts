@@ -6,7 +6,6 @@ import { SeminarReportEdit } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
 import { AccountService } from "../../../../services/account.service";
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/throttleTime';
 
 @Component({
 	selector: 'seminar-report',
