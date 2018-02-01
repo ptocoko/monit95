@@ -9,12 +9,14 @@ import { Constant } from '../../shared/constants';
 
 
 @Component({
-	templateUrl: `./app/particips/add-and-update/add.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/particips/add-and-update/add.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/particips/add-and-update/add.component.css?v=${new Date().getTime()}`]
 })
 export class AddParticipComponent {
 	particip: ParticipModel = new ParticipModel();
 	actionText: string = 'Добавить'
 	isSending = false;
+	isConflict = false;
 
 	constructor(private readonly participService: ParticipService,
 				private readonly accountService: AccountService,
@@ -22,8 +24,15 @@ export class AddParticipComponent {
 	
 	onSubmit() {
 		this.isSending = true;
+		this.isConflict = false;
 		this.participService.postParticip(this.particip).subscribe(_ => {
 			this.back();
+		},
+		error => {
+			if (error.status === 409) {
+				this.isSending = false;
+				this.isConflict = true;
+			}
 		});
 	}
 

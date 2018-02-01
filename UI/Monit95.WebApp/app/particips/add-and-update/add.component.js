@@ -14,12 +14,19 @@ var AddParticipComponent = /** @class */ (function () {
         this.particip = new particip_model_1.ParticipModel();
         this.actionText = 'Добавить';
         this.isSending = false;
+        this.isConflict = false;
     }
     AddParticipComponent.prototype.onSubmit = function () {
         var _this = this;
         this.isSending = true;
+        this.isConflict = false;
         this.participService.postParticip(this.particip).subscribe(function (_) {
             _this.back();
+        }, function (error) {
+            if (error.status === 409) {
+                _this.isSending = false;
+                _this.isConflict = true;
+            }
         });
     };
     AddParticipComponent.prototype.back = function () {
@@ -27,7 +34,8 @@ var AddParticipComponent = /** @class */ (function () {
     };
     AddParticipComponent = tslib_1.__decorate([
         core_1.Component({
-            templateUrl: "./app/particips/add-and-update/add.component.html?v=" + new Date().getTime()
+            templateUrl: "./app/particips/add-and-update/add.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/particips/add-and-update/add.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
             account_service_1.AccountService,

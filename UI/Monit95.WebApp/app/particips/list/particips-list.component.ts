@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ParticipService } from '../../services/particip.service';
 //import { ClassParticip } from '../ClassParticip';
 import { ParticipModel } from '../../models/particip.model';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
 import { Constant } from '../../shared/constants';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
@@ -24,7 +24,8 @@ export class ParticipsListComponent implements OnInit {
     constructor(
 		private readonly participService: ParticipService,
 		private readonly router: Router,
-		private readonly modal: MatDialog) {
+		private readonly modal: MatDialog,
+		private readonly snackBar: MatSnackBar) {
 
 	}
 
@@ -67,8 +68,11 @@ export class ParticipsListComponent implements OnInit {
 
 		modalRef.afterClosed().subscribe((isDelete: boolean) => {
 			if (isDelete) {
-				this.participService.deleteParticip(particip.DocumNumber)
-						.subscribe(res => this.getParticips());
+				this.participService.deleteParticip(particip.Id)
+					.subscribe(res => {
+						this.getParticips();
+						this.snackBar.open('участник удален!', 'OK', { duration: 3000 });
+					});
 			}
 		});
 	}

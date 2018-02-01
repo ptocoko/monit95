@@ -8,10 +8,11 @@ var material_1 = require("@angular/material");
 var constants_1 = require("../../shared/constants");
 var confirm_dialog_component_1 = require("../../shared/confirm-dialog/confirm-dialog.component");
 var ParticipsListComponent = /** @class */ (function () {
-    function ParticipsListComponent(participService, router, modal) {
+    function ParticipsListComponent(participService, router, modal, snackBar) {
         this.participService = participService;
         this.router = router;
         this.modal = modal;
+        this.snackBar = snackBar;
         this.displayedColumns = ['$id', 'Surname', 'Name', 'SecondName', 'DocumNumber', 'SourceName', 'del-action'];
         this.dataSource = new material_1.MatTableDataSource();
     }
@@ -49,8 +50,11 @@ var ParticipsListComponent = /** @class */ (function () {
         });
         modalRef.afterClosed().subscribe(function (isDelete) {
             if (isDelete) {
-                _this.participService.deleteParticip(particip.DocumNumber)
-                    .subscribe(function (res) { return _this.getParticips(); });
+                _this.participService.deleteParticip(particip.Id)
+                    .subscribe(function (res) {
+                    _this.getParticips();
+                    _this.snackBar.open('участник удален!', 'OK', { duration: 3000 });
+                });
             }
         });
     };
@@ -69,7 +73,8 @@ var ParticipsListComponent = /** @class */ (function () {
         }),
         tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
             router_1.Router,
-            material_1.MatDialog])
+            material_1.MatDialog,
+            material_1.MatSnackBar])
     ], ParticipsListComponent);
     return ParticipsListComponent;
 }());

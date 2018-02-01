@@ -44,7 +44,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         [HttpPost, Route("")]        
         public IHttpActionResult Add([FromBody]ParticipPostOrPutDto dto)
         {
-            if (!ModelState.IsValid)            
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);                                  
 
             var schoolId = User.Identity.Name;
