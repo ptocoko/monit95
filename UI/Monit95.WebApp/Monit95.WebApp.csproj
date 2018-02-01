@@ -631,6 +631,10 @@
     <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\models\particip-protocol.model.ts" />
+    <TypeScriptCompile Include="app\models\question-protocol-edit.model.ts" />
+    <TypeScriptCompile Include="app\models\question-protocol-post.model.ts" />
+    <TypeScriptCompile Include="app\models\question-protocol-put.model.ts" />
+    <TypeScriptCompile Include="app\models\question-protocol-read.model.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\particips\home\home.component.ts" />
