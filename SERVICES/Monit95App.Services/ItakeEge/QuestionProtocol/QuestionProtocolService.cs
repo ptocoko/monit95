@@ -4,8 +4,8 @@ using Monit95App.Services.QuestionResult.ITakeEgeDtos;
 using System.Linq;
 using System.Collections.ObjectModel;
 using ServiceResult.Exceptions;
-using Monit95App.Services.ItakeEge.QuestionProtocol;
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Services.Enums;
 
 namespace Monit95App.Services.ItakeEge.QuestionResult
 {
@@ -117,16 +117,16 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
         /// <param name="participTestId"></param>
         /// <param name="postDtos"></param>
         /// TODO: ref
-        public void Create(string schoolId, int participTestId, Dictionary<int, double> questionMarkDict)
+        public void Create(string schoolId, int participTestId, Dictionary<int, double> orderMarkDict)
         {            
-            var participTestEntity = cokoContext.ParticipTests.AsNoTracking().SingleOrDefault(pt => pt.Particip.SchoolId == schoolId &&
+            var participTestEntity = cokoContext.ParticipTests.SingleOrDefault(pt => pt.Particip.SchoolId == schoolId &&
                                                                                                     pt.Id == participTestId);
             if (participTestEntity == null)
                 throw new EntityNotFoundOrAccessException();
 
             // Get test questions
             var testQuestionDict = participTestEntity.ProjectTest.Test.Questions.ToDictionary(q => q.Order);
-            var questionMarks = new List<QuestionMark>();
+            var resultQuestionMarks = new List<QuestionMark>();
 
             foreach (var orderAndQuestion in testQuestionDict)
             {
@@ -135,17 +135,34 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
                     Question = orderAndQuestion.Value
                 };
 
-                var awardedValue = questionMarkDict[orderAndQuestion.Key];
+                var awardedValue = orderMarkDict[orderAndQuestion.Key];
                 var possibleMaxMark = orderAndQuestion.Value.MaxMark;
 
                 if (awardedValue > possibleMaxMark)
                     newQuestionMark.AwardedMark = possibleMaxMark;
                 else
                     newQuestionMark.AwardedMark = awardedValue;
-
+                resultQuestionMarks.Add(newQuestionMark);
             }
+            participTestEntity.QuestionMarks = resultQuestionMarks;
 
-                    
+            cokoContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Отметка, что участники отсутствовал
+        /// </summary>
+        /// <param name="schoolId"></param>
+        /// <param name="participTestId"></param>
+        /// TODO: ref
+        public void MarkAsWasNot(string schoolId, int participTestId)
+        {
+            var participTestEntity = cokoContext.ParticipTests.Single(pt => pt.Particip.SchoolId == schoolId && pt.Id == participTestId);
+            if (participTestEntity == null)
+                throw new EntityNotFoundOrAccessException();
+            cokoContext.QuestionMarks.RemoveRange(participTestEntity.QuestionMarks);
+            participTestEntity.Grade5 = (int)Grade5Value.Absent; // отсутствовал
+            cokoContext.SaveChanges();            
         }
 
         #endregion

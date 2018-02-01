@@ -20,7 +20,7 @@ namespace Monit95App.Domain.Core.Entities
         /// Ёкзамен проекта
         /// </summary>
         public virtual ProjectTest ProjectTest { get; set; }
-        public int ProjectTestId { get; set; }
+        public int ProjectTestId { get; set; }      
 
         /// <summary>
         /// Ѕаллы по задани€м
@@ -42,6 +42,7 @@ namespace Monit95App.Domain.Core.Entities
         /// <summary>
         /// »тогова€ отметка
         /// </summary>        
+        /// <remarks>-1 - отсутствовал</remarks>
         public int Grade5 { get; set; }
 
         #endregion

@@ -45,6 +45,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Monit95User> Monit95Users { get; set; }
         public virtual DbSet<EgeQuestion> EgeQuestions { get; set; }
         public virtual DbSet<Question> RsurQuestions { get; set; }
+        public virtual DbSet<QuestionMark> QuestionMarks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
