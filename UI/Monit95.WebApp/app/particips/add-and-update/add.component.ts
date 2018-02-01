@@ -25,6 +25,13 @@ export class AddParticipComponent {
 	onSubmit() {
 		this.isSending = true;
 		this.isConflict = false;
+		this.particip.Surname = this.particip.Surname.trim();
+		this.particip.Name = this.particip.Name.trim();
+
+		if (this.particip.SecondName) {
+			this.particip.SecondName = this.particip.SecondName.trim();
+		};
+
 		this.participService.postParticip(this.particip).subscribe(_ => {
 			this.back();
 		},
@@ -32,6 +39,9 @@ export class AddParticipComponent {
 			if (error.status === 409) {
 				this.isSending = false;
 				this.isConflict = true;
+			} else {
+				this.isSending = false;
+				throw error;
 			}
 		});
 	}

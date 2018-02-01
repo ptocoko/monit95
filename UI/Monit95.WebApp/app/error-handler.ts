@@ -8,6 +8,6 @@ export class GlobalErrorHandler implements ErrorHandler {
 		console.error(message);
 		alert('Ошибка! Обратитесь к администратору\n\n' + message);
 
-		throw error;
+		//throw error;
 	}
 }

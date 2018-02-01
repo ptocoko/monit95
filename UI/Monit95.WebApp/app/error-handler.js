@@ -9,7 +9,7 @@ var GlobalErrorHandler = /** @class */ (function () {
         var message = error.message ? error.message : error.toString();
         console.error(message);
         alert('Ошибка! Обратитесь к администратору\n\n' + message);
-        throw error;
+        //throw error;
     };
     GlobalErrorHandler = tslib_1.__decorate([
         core_1.Injectable()

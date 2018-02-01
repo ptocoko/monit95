@@ -20,12 +20,22 @@ var AddParticipComponent = /** @class */ (function () {
         var _this = this;
         this.isSending = true;
         this.isConflict = false;
+        this.particip.Surname = this.particip.Surname.trim();
+        this.particip.Name = this.particip.Name.trim();
+        if (this.particip.SecondName) {
+            this.particip.SecondName = this.particip.SecondName.trim();
+        }
+        ;
         this.participService.postParticip(this.particip).subscribe(function (_) {
             _this.back();
         }, function (error) {
             if (error.status === 409) {
                 _this.isSending = false;
                 _this.isConflict = true;
+            }
+            else {
+                _this.isSending = false;
+                throw error;
             }
         });
     };
