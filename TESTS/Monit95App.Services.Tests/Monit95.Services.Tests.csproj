@@ -115,6 +115,7 @@
     <Compile Include="RsurMarksConverter_Test.cs" />
     <Compile Include="EgeQuestionServiceTest.cs" />
     <Compile Include="SeminarReportServiceTest.cs" />
+    <Compile Include="QuestionProtocolServiceTest.cs" />
     <Compile Include="ValidatorTest.cs" />
     <Compile Include="Util\MockDbSet.cs" />
     <Compile Include="Util\MyExpectedException.cs" />
