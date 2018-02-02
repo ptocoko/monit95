@@ -20,7 +20,7 @@ namespace Monit95App.Domain.Core.Entities
         /// Экзамен проекта
         /// </summary>
         public virtual ProjectTest ProjectTest { get; set; }
-        public int ProjectTestId { get; set; }
+        public int ProjectTestId { get; set; }      
 
         /// <summary>
         /// Баллы по заданиям
@@ -36,13 +36,14 @@ namespace Monit95App.Domain.Core.Entities
         /// <remarks>
         /// Балл за задания может быть дестиная цифра, к примеру, 1.5,
         /// поэтому устанавливается тип double
-        ///// </remarks>
-        //public double PrimaryMark { get; set; }
+        /// </remarks>
+        public double PrimaryMark { get; set; }
 
-        ///// <summary>
-        ///// Итоговая отметка
-        ///// </summary>        
-        //public int Grade5 { get; set; }
+        /// <summary>
+        /// Итоговая отметка
+        /// </summary>        
+        /// <remarks>-1 - отсутствовал</remarks>
+        public int Grade5 { get; set; }
 
         #endregion
     }

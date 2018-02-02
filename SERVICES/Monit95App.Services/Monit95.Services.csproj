@@ -95,13 +95,13 @@
     <Compile Include="DTOs\RsurPostMarksDto.cs" />
     <Compile Include="DTOs\RsurPutMarksDto.cs" />
     <Compile Include="Enums\Access.cs" />
+    <Compile Include="Enums\Grade5Value.cs" />
     <Compile Include="Exceptions\FileNotFoundOrAccessException.cs" />
     <Compile Include="File\UserPermission.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />
     <Compile Include="File\FileService.cs" />
     <Compile Include="ItakeEge\Participant\ParticipGetViewDto.cs" />
-    <Compile Include="ItakeEge\QuestionProtocol\QuestionMarkPostDto.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionProtocolService.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionProtocolReadDto.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\IQuestionProtocolService.cs" />

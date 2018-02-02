@@ -1,5 +1,4 @@
-﻿using Monit95App.Services.ItakeEge.QuestionProtocol;
-using Monit95App.Services.ItakeEge.QuestionResult;
+﻿using Monit95App.Services.ItakeEge.QuestionResult;
 using Monit95App.Services.QuestionResult.ITakeEgeDtos;
 using System;
 using System.Collections.Generic;
@@ -38,22 +37,22 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// Создание протокола проверки заданий происходит, отправкой баллов по заданиям. 
         /// </remarks>
         /// TODO: ref
-        [HttpPost, Route("api/iTakeEGE/participTests/{id}/questionProtocols")]
-        public IHttpActionResult PostProtocol([FromBody]IEnumerable<QuestionMarkPostDto> postDtos)
+        [HttpPost, Route("api/participTests/{id}/questionProtocols")]
+        public IHttpActionResult PostProtocol([FromBody]Dictionary<int, double> orderMarkDict)
         {
             var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             var schoolId = User.Identity.Name;
 
-            questionProtocolService.Create(schoolId, participTestId, postDtos);
-
+            questionProtocolService.Create(schoolId, participTestId, orderMarkDict);
+            
             return Ok();
         }
 
         /// <summary>
-        /// Получить протоколы проверки заданий для чтения
+        /// Получение списка протоколов проверки заданий для чтения
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("api/iTakeEGE/questionProtocols")]
+        [HttpGet, Route("")]
         public IHttpActionResult GetReadDtos()
         {
             var schoolId = User.Identity.Name;
@@ -64,18 +63,32 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         }
 
         /// <summary>
-        /// Получение протокола проверки заданий для редактирования
+        /// Получение протокола проверки заданий для заполнения/редактирования
         /// </summary>
         /// <param name="participTestId"></param>
         /// <returns></returns>
         /// TODO: ref
-        [HttpGet, Route("api/iTakeEGE/questionProtocols")]
+        [HttpGet]
         public IHttpActionResult GetEditDto(int participTestId)
         {
             var schoolId = User.Identity.Name;
             var editDto = questionProtocolService.GetEditDto(schoolId, participTestId);
 
             return Ok(editDto);
+        }
+
+        /// <summary>
+        /// Отметить участника как отсутствовал
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut, Route("api/iTakeEge/participTests/{id}")]        
+        public IHttpActionResult MarkAsWasNot()
+        {
+            var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            var schoolId = User.Identity.Name;
+
+            questionProtocolService.MarkAsWasNot(schoolId, participTestId);
+            return null;
         }
 
         #endregion
