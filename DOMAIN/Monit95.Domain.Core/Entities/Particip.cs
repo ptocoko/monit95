@@ -9,6 +9,11 @@ namespace Monit95App.Domain.Core.Entities
     /// <example>Описание участника тестирования</example>
     public class Particip
     {
+        public Particip()
+        {
+            AddedDate = DateTime.Now;
+        }
+
         public int Id { get; set; }                            
         public string Surname { get; set; }        
         public string Name { get; set; }        
@@ -33,6 +38,8 @@ namespace Monit95App.Domain.Core.Entities
         public DateTime? Birthday { get; set; }
         public string DataSource { get; set; }
         public DateTime? AddedDate { get; set; }
+        //public int ClassId { get; set; }
+        //public virtual Class Class { get; set; }
         public int ProjectId { get; set; }        
         public Project Project { get; set; }
         public string SchoolId { get; set; }

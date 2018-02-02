@@ -13,7 +13,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
     /// <summary>
     /// «Я сдам ЕГЭ!». Участники
     /// </summary>
-    [RoutePrefix("api/particips")]
+    [RoutePrefix("api/ITakeEGE/participants")]
     [Authorize(Roles = "school")]
     public class ParticipsController : ApiController
     {
@@ -41,10 +41,10 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [HttpPost]        
+        [HttpPost, Route("")]        
         public IHttpActionResult Add([FromBody]ParticipPostOrPutDto dto)
         {
-            if (!ModelState.IsValid)            
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);                                  
 
             var schoolId = User.Identity.Name;
@@ -67,7 +67,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// </summary>
         /// <remarks>Получить список участников для таблицы, где отображается весь список участников</remarks>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet, Route("")]
         [Authorize(Roles = "area, school")]
         public IHttpActionResult GetAllParticipants()
         {

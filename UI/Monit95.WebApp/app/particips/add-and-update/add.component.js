@@ -6,7 +6,6 @@ var common_1 = require("@angular/common");
 var particip_service_1 = require("../../services/particip.service");
 var account_service_1 = require("../../services/account.service");
 var particip_model_1 = require("../../models/particip.model");
-var constants_1 = require("../../shared/constants");
 var AddParticipComponent = /** @class */ (function () {
     function AddParticipComponent(participService, accountService, location) {
         this.participService = participService;
@@ -15,15 +14,29 @@ var AddParticipComponent = /** @class */ (function () {
         this.particip = new particip_model_1.ParticipModel();
         this.actionText = 'Добавить';
         this.isSending = false;
+        this.isConflict = false;
     }
     AddParticipComponent.prototype.onSubmit = function () {
         var _this = this;
-        this.particip.ProjectId = constants_1.Constant.PROJECT_ID;
-        this.particip.SchoolId = this.accountService.account.UserName;
-        this.particip.SourceName = "Школа";
         this.isSending = true;
-        this.participService.addParticip(this.particip).subscribe(function (res) {
+        this.isConflict = false;
+        this.particip.Surname = this.particip.Surname.trim();
+        this.particip.Name = this.particip.Name.trim();
+        if (this.particip.SecondName) {
+            this.particip.SecondName = this.particip.SecondName.trim();
+        }
+        ;
+        this.participService.postParticip(this.particip).subscribe(function (_) {
             _this.back();
+        }, function (error) {
+            if (error.status === 409) {
+                _this.isSending = false;
+                _this.isConflict = true;
+            }
+            else {
+                _this.isSending = false;
+                throw error;
+            }
         });
     };
     AddParticipComponent.prototype.back = function () {
@@ -31,7 +44,8 @@ var AddParticipComponent = /** @class */ (function () {
     };
     AddParticipComponent = tslib_1.__decorate([
         core_1.Component({
-            templateUrl: "./app/particips/add-and-update/add.component.html?v=" + new Date().getTime()
+            templateUrl: "./app/particips/add-and-update/add.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/particips/add-and-update/add.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
             account_service_1.AccountService,

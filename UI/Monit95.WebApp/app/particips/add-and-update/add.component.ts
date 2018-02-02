@@ -9,24 +9,40 @@ import { Constant } from '../../shared/constants';
 
 
 @Component({
-	templateUrl: `./app/particips/add-and-update/add.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/particips/add-and-update/add.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/particips/add-and-update/add.component.css?v=${new Date().getTime()}`]
 })
 export class AddParticipComponent {
 	particip: ParticipModel = new ParticipModel();
 	actionText: string = 'Добавить'
 	isSending = false;
+	isConflict = false;
 
 	constructor(private readonly participService: ParticipService,
 				private readonly accountService: AccountService,
 				private readonly location: Location) { }
 	
 	onSubmit() {
-		this.particip.ProjectId = Constant.PROJECT_ID;
-		this.particip.SchoolId = this.accountService.account.UserName;
-		this.particip.SourceName = "Школа";
 		this.isSending = true;
-		this.participService.addParticip(this.particip).subscribe(res => {
+		this.isConflict = false;
+		this.particip.Surname = this.particip.Surname.trim();
+		this.particip.Name = this.particip.Name.trim();
+
+		if (this.particip.SecondName) {
+			this.particip.SecondName = this.particip.SecondName.trim();
+		};
+
+		this.participService.postParticip(this.particip).subscribe(_ => {
 			this.back();
+		},
+		error => {
+			if (error.status === 409) {
+				this.isSending = false;
+				this.isConflict = true;
+			} else {
+				this.isSending = false;
+				throw error;
+			}
 		});
 	}
 

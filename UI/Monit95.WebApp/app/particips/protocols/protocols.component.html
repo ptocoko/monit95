@@ -23,31 +23,27 @@
         <table class="table table-bordered">
             <tr>
                 <th class="row-number-cell">#</th>
-                <th>фамилия</th>
-                <th>имя</th>
-                <th>отчество</th>
+                <th>фио</th>
                 <th>номер документа</th>
                 <th>баллы по заданиям</th>
                 <th style="width:295px;max-width:295px">действия</th>
             </tr>
             <tr *ngFor="let protocol of protocols | participFilter : searchText; let i = index">
                 <td class="row-number-cell">{{i + 1}}</td>
-                <td>{{protocol.Surname}}</td>
-                <td>{{protocol.Name}}</td>
-                <td>{{protocol.SecondName}}</td>
+                <td>{{protocol.ParticipInfo}}</td>
                 <td>{{protocol.DocumNumber}}</td>
-                <td [ngClass]="{'red-cell': !protocol.Marks}">{{protocol.Marks}}</td>
+                <td [ngClass]="{'red-cell': !protocol.QuestionMarks}">{{protocol.QuestionMarks}}</td>
                 <td>
                     <div class="pull-left">
                         <button mat-raised-button 
                                 color="primary" 
-                                (click)="changeMarks(protocol.DocumNumber)" 
+                                (click)="changeMarks(protocol.ParticipTestId)" 
                                 style="width:135.59px">
                             <i class="glyphicon glyphicon-edit"></i> изменить
                         </button>
                         <button matTooltip="Указать, что участник отсутствовал" 
                                 [matTooltipPosition]="'right'" 
-                                [disabled]="protocol.Marks === AbsentText" 
+                                [disabled]="protocol.QuestionMarks === AbsentText" 
                                 mat-raised-button 
                                 color="warn" 
                                 (click)="markAsAbsent(protocol)">

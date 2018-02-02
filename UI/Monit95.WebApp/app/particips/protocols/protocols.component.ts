@@ -4,6 +4,7 @@ import { ParticipProtocolsService } from '../../services/particip-protocols.serv
 import { ParticipProtocolModel } from '../../models/particip-protocol.model';
 import { Observable } from 'rxjs/Observable';
 import { ParticipFilterPipe } from '../../pipes/particip-filter.pipe';
+import { QuestionProtocolRead } from '../../models/question-protocol-read.model';
 
 const PROJECT_TEST_ID: number = 1;
 
@@ -14,9 +15,9 @@ const PROJECT_TEST_ID: number = 1;
 export class ProtocolsComponent {
 	isOneMatchedProtocol = false;
 	AbsentText = 'отсутствовал';
-	protocols: ParticipProtocolModel[]
-	processedProtocols = () => this.protocols.filter(f => f.Marks).length;
-	notProcessedProtocols = () => this.protocols.filter(f => !f.Marks).length;
+	protocols: QuestionProtocolRead[];
+	processedProtocols = () => this.protocols.filter(f => f.QuestionMarks).length;
+	notProcessedProtocols = () => this.protocols.filter(f => !f.QuestionMarks).length;
 
 	@ViewChild('participCodeInput') participCodeInput: ElementRef;
 	pipe = new ParticipFilterPipe();
@@ -25,7 +26,7 @@ export class ProtocolsComponent {
 				private router: Router) { }
 
 	ngOnInit() {
-	    this.participProtocolsService.getProtocolsList(PROJECT_TEST_ID).subscribe(res => {
+	    this.participProtocolsService.getProtocolsList().subscribe(res => {
 			this.protocols = res;
 			$().ready(() => this.initCodeListener());
 	    });
@@ -52,14 +53,14 @@ export class ProtocolsComponent {
 			.subscribe(event => this.changeMarks(this.getDocumNumberBySearchText(event.target.value)));
 	}
 	
-	markAsAbsent(protocol: ParticipProtocolModel) {
-		this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(res => {
-			protocol.Marks = this.AbsentText;
-		});
-	}
+	//markAsAbsent(protocol: ParticipProtocolModel) {
+	//	this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(res => {
+	//		protocol.Marks = this.AbsentText;
+	//	});
+	//}
 
-	changeMarks(documNumber: number) {
-		this.router.navigate(['/particips/protocol', documNumber])
+	changeMarks(participTestId: number) {
+		this.router.navigate(['/particips/protocol', participTestId])
 	}
 
 	getDocumNumberBySearchText(searchText: string) {

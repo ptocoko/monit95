@@ -55,7 +55,8 @@
 			
             // datepicker
             'mydatepicker': `npm:mydatepicker/bundles/mydatepicker.umd.min.${appVersionExtension}`,
-            
+
+			'hammerjs': 'npm:hammerjs/hammer.min.js',
             'rxjs': 'npm:rxjs',           
         },
         // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
