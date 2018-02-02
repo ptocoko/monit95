@@ -72,7 +72,7 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
         {
             var participTestEntity = cokoContext.ParticipTests.AsNoTracking().SingleOrDefault(pt => pt.ProjectTest.IsOpen &&
                                                                                                     pt.Particip.SchoolId == schoolId &&
-                                                                                                    pt.ParticipId == participTestId);
+                                                                                                    pt.Id == participTestId);
             if (participTestEntity == null)
                 throw new EntityNotFoundOrAccessException();
 

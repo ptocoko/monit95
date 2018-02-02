@@ -74,7 +74,7 @@
     <Compile Include="Entities\RsurParticip.cs" />
     <Compile Include="Entities\RsurParticipEdit.cs" />
     <Compile Include="Entities\RsurParticipTest.cs" />
-    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\RsurQuestion.cs" />
     <Compile Include="Entities\RsurReport.cs" />
     <Compile Include="Entities\RsurReportFile.cs" />
     <Compile Include="Entities\RsurSubject.cs" />

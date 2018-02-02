@@ -37,13 +37,13 @@ namespace Monit95App.Domain.Core.Entities
         /// Балл за задания может быть дестиная цифра, к примеру, 1.5,
         /// поэтому устанавливается тип double
         /// </remarks>
-        public double PrimaryMark { get; set; }
+        public double? PrimaryMark { get; set; }
 
         /// <summary>
         /// Итоговая отметка
         /// </summary>        
         /// <remarks>-1 - отсутствовал</remarks>
-        public int Grade5 { get; set; }
+        public int? Grade5 { get; set; }
 
         #endregion
     }

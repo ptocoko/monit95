@@ -16,7 +16,7 @@
         /// <summary>
         /// Задание в КИМ
         /// </summary>
-        public Question Question { get; set; }
+        public RsurQuestion Question { get; set; }
         public int QuestionId { get; set; }
        
         /// <summary>

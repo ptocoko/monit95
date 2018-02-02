@@ -10,12 +10,12 @@ var ParticipProtocolsService = /** @class */ (function () {
         this.endpoint = '/api/iTakeEge/';
     }
     ParticipProtocolsService.prototype.getProtocolsList = function () {
-        //return this.http.get<QuestionProtocolRead[]>(this.endpoint + 'questionProtocols');
-        return Observable_1.Observable.of(questionResults).delay(500);
+        return this.http.get(this.endpoint + 'questionProtocols');
+        //return Observable.of(questionResults).delay(500);
     };
     ParticipProtocolsService.prototype.getProtocol = function (participTestId) {
-        //return this.http.get<QuestionProtocolEdit>(`${this.endpoint}questionProtocols?participTestId=${participTestId}`);
-        return Observable_1.Observable.of(questionResultsEdit).delay(500);
+        return this.http.get(this.endpoint + "questionProtocols?participTestId=" + participTestId);
+        //return Observable.of(questionResultsEdit).delay(500);
     };
     ParticipProtocolsService.prototype.postMarksProtocol = function (postQuestionResults, participTestId) {
         //return this.http.post(`${this.endpoint}participsTests/${participTestId}/questionProtocols`, postQuestionResults, { responseType: 'text' });

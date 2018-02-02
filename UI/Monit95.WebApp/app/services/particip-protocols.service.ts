@@ -17,13 +17,13 @@ export class ParticipProtocolsService {
 	constructor(private http: HttpClient) { }
 
 	getProtocolsList(): Observable<QuestionProtocolRead[]> {
-		//return this.http.get<QuestionProtocolRead[]>(this.endpoint + 'questionProtocols');
-		return Observable.of(questionResults).delay(500);
+		return this.http.get<QuestionProtocolRead[]>(this.endpoint + 'questionProtocols');
+		//return Observable.of(questionResults).delay(500);
 	}
 
 	getProtocol(participTestId: number): Observable<QuestionProtocolEdit> {
-		//return this.http.get<QuestionProtocolEdit>(`${this.endpoint}questionProtocols?participTestId=${participTestId}`);
-		return Observable.of(questionResultsEdit).delay(500);
+		return this.http.get<QuestionProtocolEdit>(`${this.endpoint}questionProtocols?participTestId=${participTestId}`);
+		//return Observable.of(questionResultsEdit).delay(500);
 	}
 
 	postMarksProtocol(postQuestionResults: QuestionProtocolPost[], participTestId: number) {

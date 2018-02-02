@@ -5,7 +5,7 @@ namespace Monit95App.Domain.Core.Entities
     /// <summary>
     /// Спецификация задания КИМ
     /// </summary>
-    public class Question
+    public class RsurQuestion
     {
         public int Id { get; set; }
 
