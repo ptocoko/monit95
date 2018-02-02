@@ -1,6 +1,6 @@
 ﻿<h3>Протоколы проверки заданий</h3>
 <hr />
-<ng-template [ngIf]="protocols">
+<ng-template [ngIf]="!isLoading">
     <div>общее количество протоколов: {{protocols.length}}</div>
     <div>из них</div>
     <div>обработано: {{processedProtocols()}}</div>
@@ -9,18 +9,18 @@
     <!-- this field need re-thinking -->
     <!--<div class="search-field">
         <mat-form-field>
-            <input #participCodeInput 
-                   [(ngModel)]="searchText"  
-                   placeholder="поиск по коду участника..." 
+            <input #participCodeInput
+                   [(ngModel)]="searchText"
+                   placeholder="поиск по коду участника..."
                    matInput />
-            <i class="glyphicon glyphicon-ok" 
-               matSuffix 
-               style="color:green" 
+            <i class="glyphicon glyphicon-ok"
+               matSuffix
+               style="color:green"
                *ngIf="isOneMatchedProtocol">
             </i>
         </mat-form-field>
     </div>-->
-    <div class="scrollable-content">
+    <!--<div class="scrollable-content">
         <table class="table table-bordered">
             <tr>
                 <th class="row-number-cell">#</th>
@@ -34,17 +34,17 @@
                 <td [ngClass]="{'red-cell': !protocol.QuestionMarks}">{{protocol.QuestionMarks}}</td>
                 <td>
                     <div class="pull-left">
-                        <button mat-raised-button 
-                                color="primary" 
-                                (click)="changeMarks(protocol.ParticipTestId)" 
+                        <button mat-raised-button
+                                color="primary"
+                                (click)="changeMarks(protocol.ParticipTestId)"
                                 style="width:135.59px">
                             <i class="glyphicon glyphicon-edit"></i> изменить
                         </button>
-                        <button matTooltip="Указать, что участник отсутствовал" 
-                                [matTooltipPosition]="'right'" 
-                                [disabled]="protocol.QuestionMarks === AbsentText" 
-                                mat-raised-button 
-                                color="warn" 
+                        <button matTooltip="Указать, что участник отсутствовал"
+                                [matTooltipPosition]="'right'"
+                                [disabled]="protocol.QuestionMarks === AbsentText"
+                                mat-raised-button
+                                color="warn"
                                 (click)="markAsAbsent(protocol)">
                             <i class="glyphicon glyphicon-header"></i> {{AbsentText}}
                         </button>
@@ -52,9 +52,65 @@
                 </td>
             </tr>
         </table>
+    </div>-->
+    <div class="table-container mat-elevation-z8">
+        <div class="actions-container">
+            <mat-form-field class="filter-field">
+                <input matInput
+                       #filter
+                       (keyup)="applyFilter(filter.value)"
+                       placeholder="поиск..." />
+            </mat-form-field>
+        </div>
+
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="index">
+                <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+                <mat-cell *matCellDef="let protocol: let i = index">{{ i + 1 }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="FIO">
+                <mat-header-cell *matHeaderCellDef> фио </mat-header-cell>
+                <mat-cell *matCellDef="let protocol">{{ protocol.ParticipInfo }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Marks">
+                <mat-header-cell *matHeaderCellDef> баллы по заданиям </mat-header-cell>
+                <mat-cell *matCellDef="let protocol">
+                    {{ protocol.QuestionMarks }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> действия </mat-header-cell>
+                <mat-cell *matCellDef="let protocol">
+                    <button mat-raised-button
+                            color="primary"
+                            (click)="changeMarks(protocol.ParticipTestId)"
+                            style="width:135.59px">
+                        <i class="glyphicon glyphicon-edit"></i> изменить
+                    </button>
+                    <button matTooltip="Указать, что участник отсутствовал"
+                            [matTooltipPosition]="'right'"
+                            [disabled]="protocol.QuestionMarks === AbsentText"
+                            mat-raised-button
+                            color="warn"
+                            (click)="markAsAbsent(protocol)">
+                        <i class="glyphicon glyphicon-header"></i> {{AbsentText}}
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row [ngClass]="{'red-row': !row.QuestionMarks}" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator
+                       [length]="protocolsCount"
+                       [pageSizeOptions]="['50', '100']">
+        </mat-paginator>
     </div>
 </ng-template>
 
-<div *ngIf="!protocols">
+<div *ngIf="isLoading">
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>
