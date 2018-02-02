@@ -14,17 +14,51 @@ var ParticipProtocolComponent = /** @class */ (function () {
     ParticipProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
-            _this.documNumber = Number.parseInt(params['documNumber']);
-            _this.protocolsService.getProtocol(_this.documNumber).subscribe(function (res) {
+            _this.participTestId = Number.parseInt(params['id']);
+            _this.restMethod = _this.activatedRoute.snapshot.data.restMethod; // 'POST' or 'PUT'
+            console.log(_this.participTestId);
+            console.log(_this.restMethod);
+            _this.protocolsService.getProtocol(_this.participTestId).subscribe(function (res) {
                 _this.protocol = res;
+                _this.questionResults = res.MarkCollection.map(function (val) {
+                    var questionRes = {
+                        Order: val.Order,
+                        CurrentMark: val.AwardedMark,
+                        Name: val.Order.toString(),
+                        MaxMark: val.MaxMark,
+                        QuestionResultId: val.QuestionMarkId
+                    };
+                    return questionRes;
+                });
             });
         });
     };
     ParticipProtocolComponent.prototype.submit = function (questionResults) {
         var _this = this;
-        this.protocolsService
-            .postMarksProtocol(questionResults, this.documNumber)
-            .subscribe(function (res) { return _this.back(); });
+        if (this.restMethod === 'POST') {
+            var questionResultsPost = questionResults.map(function (val) {
+                var result = {
+                    AwardedMark: val.CurrentMark,
+                    Order: val.Order
+                };
+                return result;
+            });
+            this.protocolsService
+                .postMarksProtocol(questionResultsPost, this.participTestId)
+                .subscribe(function (_) { return _this.back(); });
+        }
+        else if (this.restMethod === 'PUT') {
+            var questionResultPut = questionResults.map(function (val) {
+                var result = {
+                    QuestionResultId: val.QuestionResultId,
+                    NewMark: val.CurrentMark
+                };
+                return result;
+            });
+            this.protocolsService
+                .putMarksProtocol(questionResultPut)
+                .subscribe(function (_) { return _this.back(); });
+        }
     };
     ParticipProtocolComponent.prototype.back = function () {
         this.location.back();

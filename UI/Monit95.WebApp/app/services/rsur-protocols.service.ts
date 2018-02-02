@@ -45,12 +45,13 @@ export class RsurProtocolsService {
 	 * @returns Observable<MarksProtocol>
 	 */
 	getMarksProtocolByFileId(fileId: number) {
-		if (fileId === 6431) {
-			return Observable.of({ ...particip }).delay(500);
-		}
-		else {
-			return Observable.of(null).delay(500);
-		}
+		//if (fileId === 6431) {
+		//	return Observable.of({ ...particip }).delay(500);
+		//}
+		//else {
+		//	return Observable.of(null).delay(500);
+		//}
+		return Observable.of(null);
 		//return this.http.get('/api/ExcelFiles/Upload').map(res => {
 		//	let marksProtocol = res as MarksProtocol;
 		//	if (marksProtocol) {
@@ -86,13 +87,15 @@ export class RsurProtocolsService {
 	}
 
 	getScan(fileId: number) {
-		return Observable.of(protocolScanModel).delay(500);
+		//return Observable.of(protocolScanModel).delay(500);
+		return Observable.of(null);
 
 		//return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
 	}
 
 	getAnswerSheets() {
-		return Observable.of(answerSheets).delay(500);
+		//return Observable.of(answerSheets).delay(500);
+		return Observable.of(null);
 
 		//return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
 	}
@@ -128,244 +131,244 @@ export class RsurProtocolsService {
 	}
 }
 
-const protocolScanModel: Scan = {
-	FileId: 123,
-	Url: '/Images/rsur-scans/2090/1000/1.jpg',
-	SourceName: 'IMG_0001_01.JPG'
-};
+//const protocolScanModel: Scan = {
+//	FileId: 123,
+//	Url: '/Images/rsur-scans/2090/1000/1.jpg',
+//	SourceName: 'IMG_0001_01.JPG'
+//};
 
-const scans: Scan[] = [
-	{
-		SourceName: 'IMG_001.JPG',
-		FileId: 1234
-	},
-	{
-		SourceName: 'IMG_002.JPG',
-		FileId: 1234
-	},
-]
+//const scans: Scan[] = [
+//	{
+//		SourceName: 'IMG_001.JPG',
+//		FileId: 1234
+//	},
+//	{
+//		SourceName: 'IMG_002.JPG',
+//		FileId: 1234
+//	},
+//]
 
-const answerSheets: AnswerSheet[] = [
-	{
-		ParticipCode: 12345,
-		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-		RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
-		SourceName: 'IMG_002.JPG',
-		FileId: 1234
-	},
-	{
-		ParticipCode: 54321,
-		TestName: '0101 — Орфография',
-		RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
-		SourceName: 'IMG_001.JPG',
-		FileId: 4321
-	},
-	{
-		SourceName: 'IMG_004.JPG',
-		FileId: 6431
-	},
-]
+//const answerSheets: AnswerSheet[] = [
+//	{
+//		ParticipCode: 12345,
+//		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+//		RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+//		SourceName: 'IMG_002.JPG',
+//		FileId: 1234
+//	},
+//	{
+//		ParticipCode: 54321,
+//		TestName: '0101 — Орфография',
+//		RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0',
+//		SourceName: 'IMG_001.JPG',
+//		FileId: 4321
+//	},
+//	{
+//		SourceName: 'IMG_004.JPG',
+//		FileId: 6431
+//	},
+//]
 
-const questionProtocols: Protocol[] = [
-	{
-		ParticipCode: 12345,
-		ParticipTestId: 1234,
-		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-		RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
-	},
-	{
-		ParticipCode: 54321,
-		ParticipTestId: 4321,
-		TestName: '0101 — Орфография',
-		RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1'
-	},
-	{
-		ParticipCode: 89906,
-		ParticipTestId: 2435,
-		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
-		RsurQuestionValues: 'wasnot'
-	},
-	{
-		ParticipCode: 23451,
-		ParticipTestId: 9367,
-		TestName: '0102 — Пунктуация'
-	},
-]
+//const questionProtocols: Protocol[] = [
+//	{
+//		ParticipCode: 12345,
+//		ParticipTestId: 1234,
+//		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+//		RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;0;0;0'
+//	},
+//	{
+//		ParticipCode: 54321,
+//		ParticipTestId: 4321,
+//		TestName: '0101 — Орфография',
+//		RsurQuestionValues: '0;1;0;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1'
+//	},
+//	{
+//		ParticipCode: 89906,
+//		ParticipTestId: 2435,
+//		TestName: '0104 — Речь && Языковые нормы && Выразительность речи',
+//		RsurQuestionValues: 'wasnot'
+//	},
+//	{
+//		ParticipCode: 23451,
+//		ParticipTestId: 9367,
+//		TestName: '0102 — Пунктуация'
+//	},
+//]
 
-const particip: MarksProtocol = {
-	"ParticipCode": 12345,
-	"ParticipTestId": 1234,
-	"TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
-	"QuestionResults": [
-		{
-			"Name": "1.1",
-			"Order": 1,
-			"MaxMark": 4,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.2",
-			"Order": 4,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "2.10",
-			"Order": 2,
-			"MaxMark": 1,
-			"CurrentMark": null
-		},
-		{
-			"Name": "3.1",
-			"Order": 3,
-			"MaxMark": 1,
-			"CurrentMark": null
-		}
-	]
-}
+//const particip: MarksProtocol = {
+//	"ParticipCode": 12345,
+//	"ParticipTestId": 1234,
+//	"TestName": "0104 — Речь && Языковые нормы && Выразительность речи",
+//	"QuestionResults": [
+//		{
+//			"Name": "1.1",
+//			"Order": 1,
+//			"MaxMark": 4,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.2",
+//			"Order": 4,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "2.10",
+//			"Order": 2,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		},
+//		{
+//			"Name": "3.1",
+//			"Order": 3,
+//			"MaxMark": 1,
+//			"CurrentMark": null
+//		}
+//	]
+//}
 
 

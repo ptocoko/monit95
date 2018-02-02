@@ -6,6 +6,7 @@ import { ParticipProtocolModel } from '../../../models/particip-protocol.model';
 import { QuestionResult } from '../../../models/marks-protocol.model';
 import { QuestionProtocolEdit } from '../../../models/question-protocol-edit.model';
 import { QuestionProtocolPost } from '../../../models/question-protocol-post.model';
+import { QuestionProtocolPut } from '../../../models/question-protocol-put.model';
 
 
 @Component({
@@ -27,7 +28,10 @@ export class ParticipProtocolComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
 			this.participTestId = Number.parseInt(params['id']);
-			this.restMethod = 'POST';
+			this.restMethod = this.activatedRoute.snapshot.data.restMethod; // 'POST' or 'PUT'
+
+			console.log(this.participTestId);
+			console.log(this.restMethod);
 
 			this.protocolsService.getProtocol(this.participTestId).subscribe(res => {
 				this.protocol = res;
@@ -36,7 +40,8 @@ export class ParticipProtocolComponent implements OnInit {
 						Order: val.Order,
 						CurrentMark: val.AwardedMark,
 						Name: val.Order.toString(),
-						MaxMark: val.MaxMark
+						MaxMark: val.MaxMark,
+						QuestionResultId: val.QuestionMarkId
 					};
 					return questionRes;
 				});
@@ -55,6 +60,17 @@ export class ParticipProtocolComponent implements OnInit {
 			});
 			this.protocolsService
 				.postMarksProtocol(questionResultsPost, this.participTestId)
+				.subscribe(_ => this.back());
+		} else if (this.restMethod === 'PUT') {
+			let questionResultPut = questionResults.map(val => {
+				let result: QuestionProtocolPut = {
+					QuestionResultId: val.QuestionResultId,
+					NewMark: val.CurrentMark
+				};
+				return result;
+			});
+			this.protocolsService
+				.putMarksProtocol(questionResultPut)
 				.subscribe(_ => this.back());
 		}
     }

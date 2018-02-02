@@ -13,14 +13,14 @@ const PROJECT_TEST_ID: number = 1;
 	styleUrls: [`./app/particips/protocols/protocols.component.css?v=${new Date().getTime()}`]
 })
 export class ProtocolsComponent {
-	isOneMatchedProtocol = false;
+	//isOneMatchedProtocol = false;
 	AbsentText = 'отсутствовал';
 	protocols: QuestionProtocolRead[];
 	processedProtocols = () => this.protocols.filter(f => f.QuestionMarks).length;
 	notProcessedProtocols = () => this.protocols.filter(f => !f.QuestionMarks).length;
 
-	@ViewChild('participCodeInput') participCodeInput: ElementRef;
-	pipe = new ParticipFilterPipe();
+	//@ViewChild('participCodeInput') participCodeInput: ElementRef;
+	//pipe = new ParticipFilterPipe();
 
 	constructor(private participProtocolsService: ParticipProtocolsService,
 				private router: Router) { }
@@ -28,30 +28,30 @@ export class ProtocolsComponent {
 	ngOnInit() {
 	    this.participProtocolsService.getProtocolsList().subscribe(res => {
 			this.protocols = res;
-			$().ready(() => this.initCodeListener());
+			//$().ready(() => this.initCodeListener());
 	    });
 	}
 
-	private initCodeListener() {
-		this.participCodeInput.nativeElement.focus();
+	//private initCodeListener() {
+	//	this.participCodeInput.nativeElement.focus();
 
-		Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
-			.filter((event: any) => {
-				console.log(event);
-				if (event.keyCode === 13) {
-					return this.isOneMatchedProtocol;
-				}
-				else if (this.pipe.transform(this.protocols, event.target.value).length === 1) {
-					this.isOneMatchedProtocol = true;
-					return false;
-				}
-				else {
-					this.isOneMatchedProtocol = false;
-					return false;
-				}
-			})
-			.subscribe(event => this.changeMarks(this.getDocumNumberBySearchText(event.target.value)));
-	}
+	//	Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
+	//		.filter((event: any) => {
+	//			console.log(event);
+	//			if (event.keyCode === 13) {
+	//				return this.isOneMatchedProtocol;
+	//			}
+	//			else if (this.pipe.transform(this.protocols, event.target.value).length === 1) {
+	//				this.isOneMatchedProtocol = true;
+	//				return false;
+	//			}
+	//			else {
+	//				this.isOneMatchedProtocol = false;
+	//				return false;
+	//			}
+	//		})
+	//		.subscribe(event => this.changeMarks(this.getDocumNumberBySearchText(event.target.value)));
+	//}
 	
 	//markAsAbsent(protocol: ParticipProtocolModel) {
 	//	this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(res => {
@@ -59,11 +59,15 @@ export class ProtocolsComponent {
 	//	});
 	//}
 
-	changeMarks(participTestId: number) {
-		this.router.navigate(['/particips/protocol', participTestId])
+	changeMarks(participTestId: number, questionMarks: string) {
+		if (questionMarks) {
+			this.router.navigate(['/particips/put-protocol', participTestId])
+		} else {
+			this.router.navigate(['/particips/post-protocol', participTestId])
+		}
 	}
 
-	getDocumNumberBySearchText(searchText: string) {
-		return this.pipe.transform(this.protocols, searchText)[0].DocumNumber;
-	}
+	//getDocumNumberBySearchText(searchText: string) {
+	//	return this.pipe.transform(this.protocols, searchText)[0].DocumNumber;
+	//}
 }

@@ -1,4 +1,4 @@
 ﻿export class QuestionProtocolPut {
-	public Id: number;
+	public QuestionResultId: number;
 	public NewMark: number;
 }
