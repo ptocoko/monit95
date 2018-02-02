@@ -48,9 +48,17 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
 
                 string questionMarksString = null;
 
-                foreach (var qm in entity.QuestionMarks.OrderBy(qm => qm.Question.Order))
+                // если Grade5 = -1 значит участник отсутствовал
+                if(entity.Grade5 < 0)
                 {
-                    questionMarksString += qm.AwardedMark.ToString();
+                    questionMarksString = "отсутствовал";
+                }
+                else
+                {
+                    foreach (var qm in entity.QuestionMarks.OrderBy(qm => qm.Question.Order))
+                    {
+                        questionMarksString += qm.AwardedMark.ToString();
+                    }
                 }
 
                 readDto.QuestionMarks = questionMarksString;
