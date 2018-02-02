@@ -30,6 +30,7 @@ var ParticipsListComponent = /** @class */ (function () {
         });
     };
     ParticipsListComponent.prototype.applyFilter = function (filterValue) {
+        // во время поиска сбрасываем paginator на первую страницу
         this.paginator.pageIndex = 0;
         filterValue = filterValue.trim().toLowerCase();
         this.dataSource.filter = filterValue;
@@ -45,7 +46,7 @@ var ParticipsListComponent = /** @class */ (function () {
         var modalRef = this.modal.open(confirm_dialog_component_1.ConfirmDialogComponent, {
             width: '400px',
             disableClose: true,
-            data: { message: "\u0412\u043C\u0435\u0441\u0442\u0435 \u0441 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u043C \u0431\u0443\u0434\u0443\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u044B \u0438 \u0432\u0441\u0435 \u0435\u0433\u043E \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B!" }
+            data: { message: "\u0412\u043C\u0435\u0441\u0442\u0435 \u0441 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u043C \u0431\u0443\u0434\u0443\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u044B \u0432\u0441\u0435 \u0435\u0433\u043E \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B!" }
         });
         modalRef.afterClosed().subscribe(function (isDelete) {
             if (isDelete) {

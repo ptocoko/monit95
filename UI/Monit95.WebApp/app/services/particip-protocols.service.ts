@@ -18,18 +18,14 @@ export class ParticipProtocolsService {
 
 	getProtocolsList(): Observable<QuestionProtocolRead[]> {
 		return this.http.get<QuestionProtocolRead[]>(this.endpoint + 'questionProtocols');
-		//return Observable.of(questionResults).delay(500);
 	}
 
 	getProtocol(participTestId: number): Observable<QuestionProtocolEdit> {
 		return this.http.get<QuestionProtocolEdit>(`${this.endpoint}questionProtocols?participTestId=${participTestId}`);
-		//return Observable.of(questionResultsEdit).delay(500);
 	}
 
 	postMarksProtocol(postQuestionResults: { [key: number]: number; }, participTestId: number) {
-		console.log(postQuestionResults);
 		return this.http.post(`${this.endpoint}participTests/${participTestId}/questionProtocols`, postQuestionResults, { responseType: 'text' });
-		//return Observable.of('hehe').delay(500);
 	}
 
 	//putMarksProtocol(putQuestionResults: QuestionProtocolPut[]) {
@@ -40,79 +36,5 @@ export class ParticipProtocolsService {
 
 	markAsAbsent(participTestId: number) {
 		return this.http.put(`${this.endpoint}participTests/${participTestId}`, 'wasnot', { responseType: 'text' });
-		//return Observable.of('wasnot').delay(200);
 	}
-}
-
-let questionResults: QuestionProtocolRead[] = [
-	{
-		ParticipInfo: 'Esambaev Hus Arbievich',
-		ParticipTestId: 17,
-		QuestionMarks: '3;3;3;3;3;3;3;3'
-	},
-	{
-		ParticipInfo: 'NeEsambaev NeHus NeArbievich',
-		ParticipTestId: 18,
-		QuestionMarks: null
-	}
-];
-
-let questionResultsEdit: QuestionProtocolEdit = {
-	ParticipInfo: 'Esambaev Hus Arbievich',
-	MarkCollection: [
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 1,
-			QuestionMarkId: 1
-		},
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 2,
-			QuestionMarkId: 2
-		},
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 3,
-			QuestionMarkId: 3
-		},
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 4,
-			QuestionMarkId: 4
-		},
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 5,
-			QuestionMarkId: 5
-		},
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 6,
-			QuestionMarkId: 6
-		},
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 7,
-			QuestionMarkId: 7
-		},
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 8,
-			QuestionMarkId: 8
-		},
-		{
-			AwardedMark: 3,
-			MaxMark: 3,
-			Order: 9,
-			QuestionMarkId: 9
-		}
-	]
 }

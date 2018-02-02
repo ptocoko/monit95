@@ -6,14 +6,12 @@ var router_1 = require("@angular/router");
 var particip_protocols_service_1 = require("../../services/particip-protocols.service");
 var PROJECT_TEST_ID = 1;
 var ProtocolsComponent = /** @class */ (function () {
-    //@ViewChild('participCodeInput') participCodeInput: ElementRef;
-    //pipe = new ParticipFilterPipe();
     function ProtocolsComponent(participProtocolsService, router) {
         var _this = this;
         this.participProtocolsService = participProtocolsService;
         this.router = router;
-        //isOneMatchedProtocol = false;
         this.AbsentText = 'отсутствовал';
+        // вычисление статистики
         this.processedProtocols = function () { return _this.protocols.filter(function (f) { return f.QuestionMarks; }).length; };
         this.notProcessedProtocols = function () { return _this.protocols.filter(function (f) { return !f.QuestionMarks; }).length; };
     }
@@ -21,39 +19,11 @@ var ProtocolsComponent = /** @class */ (function () {
         var _this = this;
         this.participProtocolsService.getProtocolsList().subscribe(function (res) {
             _this.protocols = res;
-            //$().ready(() => this.initCodeListener());
         });
     };
-    //private initCodeListener() {
-    //	this.participCodeInput.nativeElement.focus();
-    //	Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
-    //		.filter((event: any) => {
-    //			console.log(event);
-    //			if (event.keyCode === 13) {
-    //				return this.isOneMatchedProtocol;
-    //			}
-    //			else if (this.pipe.transform(this.protocols, event.target.value).length === 1) {
-    //				this.isOneMatchedProtocol = true;
-    //				return false;
-    //			}
-    //			else {
-    //				this.isOneMatchedProtocol = false;
-    //				return false;
-    //			}
-    //		})
-    //		.subscribe(event => this.changeMarks(this.getDocumNumberBySearchText(event.target.value)));
-    //}
-    //markAsAbsent(protocol: ParticipProtocolModel) {
-    //	this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(res => {
-    //		protocol.Marks = this.AbsentText;
-    //	});
-    //}
     ProtocolsComponent.prototype.changeMarks = function (participTestId) {
         this.router.navigate(['/particips/protocol', participTestId]);
     };
-    //getDocumNumberBySearchText(searchText: string) {
-    //	return this.pipe.transform(this.protocols, searchText)[0].DocumNumber;
-    //}
     ProtocolsComponent.prototype.markAsAbsent = function (protocol) {
         var _this = this;
         this.participProtocolsService.markAsAbsent(protocol.ParticipTestId).subscribe(function (_) {

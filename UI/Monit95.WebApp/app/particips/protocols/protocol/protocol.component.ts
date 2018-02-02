@@ -18,7 +18,6 @@ export class ParticipProtocolComponent implements OnInit {
 	participTestId: number;   
 	protocol: QuestionProtocolEdit;
 	questionResults: QuestionResult[];
-	//restMethod: 'POST' | 'PUT';
 
     constructor(
 		private readonly location: Location,
@@ -31,6 +30,8 @@ export class ParticipProtocolComponent implements OnInit {
 
 			this.protocolsService.getProtocol(this.participTestId).subscribe(res => {
 				this.protocol = res;
+
+				// маппим коллекцию для нормального отображения в компоненте marks-protocol
 				this.questionResults = res.MarkCollection.map(val => {
 					let questionRes: QuestionResult = {
 						Order: val.Order,
@@ -45,6 +46,7 @@ export class ParticipProtocolComponent implements OnInit {
         });
     }
 
+	// компонент marks-protocol возвращает массив QuestionResult: превращаем его словарь и отправляем на сервер
 	submit(questionResults: QuestionResult[]) {
 		let questionResultsPost: { [key: number]: number; } = {};
 		questionResults.forEach(val => questionResultsPost[val.Order] = val.CurrentMark);

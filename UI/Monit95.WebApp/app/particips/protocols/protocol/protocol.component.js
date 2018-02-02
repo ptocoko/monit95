@@ -6,7 +6,6 @@ var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var particip_protocols_service_1 = require("../../../services/particip-protocols.service");
 var ParticipProtocolComponent = /** @class */ (function () {
-    //restMethod: 'POST' | 'PUT';
     function ParticipProtocolComponent(location, activatedRoute, protocolsService) {
         this.location = location;
         this.activatedRoute = activatedRoute;
@@ -18,6 +17,7 @@ var ParticipProtocolComponent = /** @class */ (function () {
             _this.participTestId = Number.parseInt(params['id']);
             _this.protocolsService.getProtocol(_this.participTestId).subscribe(function (res) {
                 _this.protocol = res;
+                // маппим коллекцию для нормального отображения в компоненте marks-protocol
                 _this.questionResults = res.MarkCollection.map(function (val) {
                     var questionRes = {
                         Order: val.Order,
@@ -31,6 +31,7 @@ var ParticipProtocolComponent = /** @class */ (function () {
             });
         });
     };
+    // компонент marks-protocol возвращает массив QuestionResult: превращаем его словарь и отправляем на сервер
     ParticipProtocolComponent.prototype.submit = function (questionResults) {
         var _this = this;
         var questionResultsPost = {};

@@ -46,7 +46,9 @@ export class ParticipsListComponent implements OnInit {
 	}
 
 	applyFilter(filterValue: string) {
+		// во время поиска сбрасываем paginator на первую страницу
 		this.paginator.pageIndex = 0;
+
 		filterValue = filterValue.trim().toLowerCase();
 		this.dataSource.filter = filterValue;
 	}
@@ -63,7 +65,7 @@ export class ParticipsListComponent implements OnInit {
 		const modalRef = this.modal.open(ConfirmDialogComponent, {
 			width: '400px',
 			disableClose: true,
-			data: { message: `Вместе с участником будут удалены и все его результаты!` }
+			data: { message: `Вместе с участником будут удалены все его результаты!` }
 		});
 
 		modalRef.afterClosed().subscribe((isDelete: boolean) => {
