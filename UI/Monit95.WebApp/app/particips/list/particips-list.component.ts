@@ -36,7 +36,7 @@ export class ParticipsListComponent implements OnInit {
 
 	private getParticips() {
 		this.isLoading = true;
-		this.participService.getAll(Constant.PROJECT_ID).subscribe(res => {
+		this.participService.getAll().subscribe(res => {
 			this.participsCount = res.length;
 			this.dataSource = new MatTableDataSource<ParticipModel>(res);
 			this.isLoading = false;

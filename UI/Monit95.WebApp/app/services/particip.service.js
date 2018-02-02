@@ -18,7 +18,7 @@ var ParticipService = /** @class */ (function () {
         this.http = http;
         this.endpoint = "/api/ITakeEGE/participants/";
     }
-    ParticipService.prototype.getAll = function (projectId) {
+    ParticipService.prototype.getAll = function () {
         return this.http.get(this.endpoint).map(function (particips) {
             particips.forEach(dataSourceMapperFunc);
             return particips;

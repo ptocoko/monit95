@@ -21,7 +21,7 @@ export class ParticipService {
 	
 	constructor(private http: HttpClient) { }
 
-	getAll(projectId: number): Observable<ParticipModel[]> {
+	getAll(): Observable<ParticipModel[]> {
 		return this.http.get<ParticipModel[]>(this.endpoint).map(particips => {
 			particips.forEach(dataSourceMapperFunc);
 			return particips;

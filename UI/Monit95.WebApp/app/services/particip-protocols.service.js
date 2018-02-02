@@ -27,6 +27,10 @@ var ParticipProtocolsService = /** @class */ (function () {
         console.log(putQuestionResults);
         return Observable_1.Observable.of('hehe').delay(500);
     };
+    ParticipProtocolsService.prototype.markAsAbsent = function (participTestId) {
+        //return this.http.put(`${this.endpoint}participTests/${participTestId}`, 'wasnot', { responseType: 'text' });
+        return Observable_1.Observable.of('wasnot').delay(200);
+    };
     ParticipProtocolsService = tslib_1.__decorate([
         core_1.Injectable(),
         tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])

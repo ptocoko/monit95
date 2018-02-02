@@ -7,7 +7,7 @@ var GlobalErrorHandler = /** @class */ (function () {
     }
     GlobalErrorHandler.prototype.handleError = function (error) {
         var message = error.message ? error.message : error.toString();
-        console.error(message);
+        console.error(error);
         alert('Ошибка! Обратитесь к администратору\n\n' + message);
         //throw error;
     };

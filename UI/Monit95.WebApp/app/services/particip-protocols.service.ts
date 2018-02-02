@@ -38,11 +38,10 @@ export class ParticipProtocolsService {
 		return Observable.of('hehe').delay(500);
 	}
 
-	//markAsAbsent(documNumber: number) {
-	//	//return this.http.put(this.endpoint + participTestId + '/markAsAbsent', 'wasnot', { responseType: 'text' });
-	//	mockParticipProtocol.find(f => f.DocumNumber === documNumber).Marks = 'wasnot';
-	//	return Observable.of('heh');
-	//}
+	markAsAbsent(participTestId: number) {
+		//return this.http.put(`${this.endpoint}participTests/${participTestId}`, 'wasnot', { responseType: 'text' });
+		return Observable.of('wasnot').delay(200);
+	}
 }
 
 let questionResults: QuestionProtocolRead[] = [

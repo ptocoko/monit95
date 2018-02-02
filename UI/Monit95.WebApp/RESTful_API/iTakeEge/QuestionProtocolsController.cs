@@ -52,7 +52,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// Получение списка протоколов проверки заданий для чтения
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("")]
+        [HttpGet, Route("api/iTakeEGE/questionProtocols")]
         public IHttpActionResult GetReadDtos()
         {
             var schoolId = User.Identity.Name;
@@ -68,7 +68,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// <param name="participTestId"></param>
         /// <returns></returns>
         /// TODO: ref
-        [HttpGet]
+        [HttpGet, Route("api/iTakeEGE/questionProtocols")]
         public IHttpActionResult GetEditDto(int participTestId)
         {
             var schoolId = User.Identity.Name;

@@ -5,7 +5,6 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var particip_service_1 = require("../../services/particip.service");
 var material_1 = require("@angular/material");
-var constants_1 = require("../../shared/constants");
 var confirm_dialog_component_1 = require("../../shared/confirm-dialog/confirm-dialog.component");
 var ParticipsListComponent = /** @class */ (function () {
     function ParticipsListComponent(participService, router, modal, snackBar) {
@@ -22,7 +21,7 @@ var ParticipsListComponent = /** @class */ (function () {
     ParticipsListComponent.prototype.getParticips = function () {
         var _this = this;
         this.isLoading = true;
-        this.participService.getAll(constants_1.Constant.PROJECT_ID).subscribe(function (res) {
+        this.participService.getAll().subscribe(function (res) {
             _this.participsCount = res.length;
             _this.dataSource = new material_1.MatTableDataSource(res);
             _this.isLoading = false;
