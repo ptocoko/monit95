@@ -1,8 +1,28 @@
-﻿.row-number-cell{
-    width: 50px;
-    text-align: center;
+﻿.mat-column-index{
+    max-width: 50px;
 }
 
 .search-field{
     margin-top: 20px;
+}
+
+.mat-column-actions{
+    max-width: 295px;
+}
+
+.table-container{
+    margin-top: 15px;
+}
+
+.red-row {
+    background-color: rgba(255,0,0,0.35)
+}
+
+.actions-container{
+    padding: 10px;
+}
+
+.filter-field{
+    width: 100%;
+    padding: 0 15px;
 }

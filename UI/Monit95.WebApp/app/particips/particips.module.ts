@@ -20,7 +20,8 @@ const routes: Routes = [
 	{ path: 'particips/list', component: ParticipsListComponent },
 	{ path: 'particips/new', component: AddParticipComponent },
 	{ path: 'particips/protocols', component: ProtocolsComponent },
-	{ path: 'particips/protocol/:documNumber', component: ParticipProtocolComponent },
+	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
+	//{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
 	{ path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ]
 

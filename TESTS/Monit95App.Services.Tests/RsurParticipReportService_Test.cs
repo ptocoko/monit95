@@ -40,9 +40,9 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0103",
                                 Name = "Лексика и фразеология && Обработка текстов",
-                                Questions = new List<Question>
+                                Questions = new List<RsurQuestion>
                                 {
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 1,
                                         EgeQuestion = new EgeQuestion
@@ -51,7 +51,7 @@ namespace Monit95App.Services.Tests
                                             ElementNames = "Информационная обработка текстов различных стилей и жанров"
                                         }
                                     },
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 2,
                                         EgeQuestion = new EgeQuestion
@@ -60,7 +60,7 @@ namespace Monit95App.Services.Tests
                                             ElementNames = "Информационная обработка текстов различных стилей и жанров"
                                         }
                                     },
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 6,
                                         EgeQuestion = new EgeQuestion
@@ -69,7 +69,7 @@ namespace Monit95App.Services.Tests
                                             ElementNames = "Лексическое значение слова"
                                         }
                                     },
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 7,
                                         EgeQuestion = new EgeQuestion

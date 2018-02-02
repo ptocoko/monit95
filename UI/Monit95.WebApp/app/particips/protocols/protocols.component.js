@@ -4,63 +4,55 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var particip_protocols_service_1 = require("../../services/particip-protocols.service");
-var Observable_1 = require("rxjs/Observable");
-var particip_filter_pipe_1 = require("../../pipes/particip-filter.pipe");
+var material_1 = require("@angular/material");
 var PROJECT_TEST_ID = 1;
 var ProtocolsComponent = /** @class */ (function () {
     function ProtocolsComponent(participProtocolsService, router) {
         var _this = this;
         this.participProtocolsService = participProtocolsService;
         this.router = router;
-        this.isOneMatchedProtocol = false;
+        this.displayedColumns = ['index', 'FIO', 'Marks', 'actions'];
         this.AbsentText = 'отсутствовал';
-        this.processedProtocols = function () { return _this.protocols.filter(function (f) { return f.Marks; }).length; };
-        this.notProcessedProtocols = function () { return _this.protocols.filter(function (f) { return !f.Marks; }).length; };
-        this.pipe = new particip_filter_pipe_1.ParticipFilterPipe();
+        this.dataSource = new material_1.MatTableDataSource();
+        this.isLoading = true;
+        // вычисление статистики
+        this.processedProtocols = function () { return _this.protocols.filter(function (f) { return f.QuestionMarks; }).length; };
+        this.notProcessedProtocols = function () { return _this.protocols.filter(function (f) { return !f.QuestionMarks; }).length; };
     }
     ProtocolsComponent.prototype.ngOnInit = function () {
+        this.getProtocols();
+    };
+    ProtocolsComponent.prototype.getProtocols = function () {
         var _this = this;
-        this.participProtocolsService.getProtocolsList(PROJECT_TEST_ID).subscribe(function (res) {
+        this.isLoading = true;
+        this.participProtocolsService.getProtocolsList().subscribe(function (res) {
             _this.protocols = res;
-            $().ready(function () { return _this.initCodeListener(); });
+            _this.protocolsCount = res.length;
+            _this.dataSource = new material_1.MatTableDataSource(res);
+            _this.isLoading = false;
+            _this.dataSource.paginator = _this.paginator;
         });
     };
-    ProtocolsComponent.prototype.initCodeListener = function () {
-        var _this = this;
-        this.participCodeInput.nativeElement.focus();
-        Observable_1.Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
-            .filter(function (event) {
-            console.log(event);
-            if (event.keyCode === 13) {
-                return _this.isOneMatchedProtocol;
-            }
-            else if (_this.pipe.transform(_this.protocols, event.target.value).length === 1) {
-                _this.isOneMatchedProtocol = true;
-                return false;
-            }
-            else {
-                _this.isOneMatchedProtocol = false;
-                return false;
-            }
-        })
-            .subscribe(function (event) { return _this.changeMarks(_this.getDocumNumberBySearchText(event.target.value)); });
+    ProtocolsComponent.prototype.changeMarks = function (participTestId) {
+        this.router.navigate(['/particips/protocol', participTestId]);
+    };
+    ProtocolsComponent.prototype.applyFilter = function (searchText) {
+        // во время поиска сбрасываем paginator на первую страницу
+        this.paginator.pageIndex = 0;
+        searchText = searchText.trim().toLowerCase();
+        this.dataSource.filter = searchText;
     };
     ProtocolsComponent.prototype.markAsAbsent = function (protocol) {
         var _this = this;
-        this.participProtocolsService.markAsAbsent(protocol.DocumNumber).subscribe(function (res) {
-            protocol.Marks = _this.AbsentText;
+        this.participProtocolsService.markAsAbsent(protocol.ParticipTestId).subscribe(function (_) {
+            //protocol.QuestionMarks = this.AbsentText;
+            _this.getProtocols();
         });
     };
-    ProtocolsComponent.prototype.changeMarks = function (documNumber) {
-        this.router.navigate(['/particips/protocol', documNumber]);
-    };
-    ProtocolsComponent.prototype.getDocumNumberBySearchText = function (searchText) {
-        return this.pipe.transform(this.protocols, searchText)[0].DocumNumber;
-    };
     tslib_1.__decorate([
-        core_1.ViewChild('participCodeInput'),
-        tslib_1.__metadata("design:type", core_1.ElementRef)
-    ], ProtocolsComponent.prototype, "participCodeInput", void 0);
+        core_1.ViewChild(material_1.MatPaginator),
+        tslib_1.__metadata("design:type", material_1.MatPaginator)
+    ], ProtocolsComponent.prototype, "paginator", void 0);
     ProtocolsComponent = tslib_1.__decorate([
         core_1.Component({
             templateUrl: "./app/particips/protocols/protocols.component.html?v=" + new Date().getTime(),

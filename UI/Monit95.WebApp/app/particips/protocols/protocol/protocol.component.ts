@@ -6,6 +6,7 @@ import { ParticipProtocolModel } from '../../../models/particip-protocol.model';
 import { QuestionResult } from '../../../models/marks-protocol.model';
 import { QuestionProtocolEdit } from '../../../models/question-protocol-edit.model';
 import { QuestionProtocolPost } from '../../../models/question-protocol-post.model';
+import { QuestionProtocolPut } from '../../../models/question-protocol-put.model';
 
 
 @Component({
@@ -17,7 +18,6 @@ export class ParticipProtocolComponent implements OnInit {
 	participTestId: number;   
 	protocol: QuestionProtocolEdit;
 	questionResults: QuestionResult[];
-	restMethod: 'POST' | 'PUT';
 
     constructor(
 		private readonly location: Location,
@@ -27,16 +27,18 @@ export class ParticipProtocolComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
 			this.participTestId = Number.parseInt(params['id']);
-			this.restMethod = 'POST';
 
 			this.protocolsService.getProtocol(this.participTestId).subscribe(res => {
 				this.protocol = res;
+
+				// маппим коллекцию для нормального отображения в компоненте marks-protocol
 				this.questionResults = res.MarkCollection.map(val => {
 					let questionRes: QuestionResult = {
 						Order: val.Order,
 						CurrentMark: val.AwardedMark,
 						Name: val.Order.toString(),
-						MaxMark: val.MaxMark
+						MaxMark: val.MaxMark,
+						QuestionResultId: val.QuestionMarkId
 					};
 					return questionRes;
 				});
@@ -44,19 +46,14 @@ export class ParticipProtocolComponent implements OnInit {
         });
     }
 
+	// компонент marks-protocol возвращает массив QuestionResult: превращаем его словарь и отправляем на сервер
 	submit(questionResults: QuestionResult[]) {
-		if (this.restMethod === 'POST') {
-			let questionResultsPost = questionResults.map(val => {
-				let result: QuestionProtocolPost = {
-					AwardedMark: val.CurrentMark,
-					Order: val.Order
-				};
-				return result;
-			});
-			this.protocolsService
-				.postMarksProtocol(questionResultsPost, this.participTestId)
-				.subscribe(_ => this.back());
-		}
+		let questionResultsPost: { [key: number]: number; } = {};
+		questionResults.forEach(val => questionResultsPost[val.Order] = val.CurrentMark);
+
+		this.protocolsService
+			.postMarksProtocol(questionResultsPost, this.participTestId)
+			.subscribe(_ => this.back());
     }
 
     back() {

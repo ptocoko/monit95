@@ -39,13 +39,13 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0101",
                                 Name = "Орфография",
-                                Questions = new List<Question>
+                                Questions = new List<RsurQuestion>
                                 {
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 1,                                        
                                     },
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 2,                                        
                                     }
@@ -152,17 +152,17 @@ namespace Monit95App.Services.Tests
                         IsOpen = true,
                         Test = new Test
                         {
-                            Questions = new List<Question>
+                            Questions = new List<RsurQuestion>
                             {
-                                new Question
+                                new RsurQuestion
                                 {
                                     Order = 1,
                                 },
-                                new Question
+                                new RsurQuestion
                                 {
                                     Order = 2,
                                 },
-                                new Question
+                                new RsurQuestion
                                 {
                                     Order = 3,
            
@@ -186,19 +186,19 @@ namespace Monit95App.Services.Tests
                         IsOpen = true,
                         Test = new Test
                         {
-                            Questions = new List<Question>
+                            Questions = new List<RsurQuestion>
                             {
-                                new Question
+                                new RsurQuestion
                                 {
                                     Order = 1,
 
                                 },
-                                new Question
+                                new RsurQuestion
                                 {
                                     Order = 2,
 
                                 },
-                                new Question
+                                new RsurQuestion
                                 {
                                     Order = 3,
      
@@ -345,19 +345,19 @@ namespace Monit95App.Services.Tests
                             {
                                 NumberCode = "0101",
                                 Name = "Орфография",
-                                Questions = new List<Question>
+                                Questions = new List<RsurQuestion>
                                 {
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 1,
 
                                     },
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 2,
 
                                     },
-                                    new Question
+                                    new RsurQuestion
                                     {
                                         Order = 3,
 

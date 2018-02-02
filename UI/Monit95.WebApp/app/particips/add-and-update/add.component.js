@@ -20,6 +20,7 @@ var AddParticipComponent = /** @class */ (function () {
         var _this = this;
         this.isSending = true;
         this.isConflict = false;
+        // избавляемся от пробелов в начале и в конце
         this.particip.Surname = this.particip.Surname.trim();
         this.particip.Name = this.particip.Name.trim();
         if (this.particip.SecondName) {
@@ -29,12 +30,11 @@ var AddParticipComponent = /** @class */ (function () {
         this.participService.postParticip(this.particip).subscribe(function (_) {
             _this.back();
         }, function (error) {
+            _this.isSending = false;
             if (error.status === 409) {
-                _this.isSending = false;
                 _this.isConflict = true;
             }
             else {
-                _this.isSending = false;
                 throw error;
             }
         });

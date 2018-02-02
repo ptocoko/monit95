@@ -36,7 +36,7 @@ export class ParticipsListComponent implements OnInit {
 
 	private getParticips() {
 		this.isLoading = true;
-		this.participService.getAll(Constant.PROJECT_ID).subscribe(res => {
+		this.participService.getAll().subscribe(res => {
 			this.participsCount = res.length;
 			this.dataSource = new MatTableDataSource<ParticipModel>(res);
 			this.isLoading = false;
@@ -46,7 +46,9 @@ export class ParticipsListComponent implements OnInit {
 	}
 
 	applyFilter(filterValue: string) {
+		// во время поиска сбрасываем paginator на первую страницу
 		this.paginator.pageIndex = 0;
+
 		filterValue = filterValue.trim().toLowerCase();
 		this.dataSource.filter = filterValue;
 	}
@@ -63,7 +65,7 @@ export class ParticipsListComponent implements OnInit {
 		const modalRef = this.modal.open(ConfirmDialogComponent, {
 			width: '400px',
 			disableClose: true,
-			data: { message: `Вы уверены что хотите удалить участника ${particip.Surname} ${particip.Name} ${particip.SecondName}?` }
+			data: { message: `Вместе с участником будут удалены все его результаты!` }
 		});
 
 		modalRef.afterClosed().subscribe((isDelete: boolean) => {

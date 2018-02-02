@@ -15,7 +15,7 @@
         <button mat-raised-button
                 color="primary"
                 (click)="addClassParticip()">
-            Добавить одного ученика...
+            Добавить участника...
         </button>
         <!--<button class="btn btn-default" routerLink="/class-particips/upload-excel">
             <i class="fa fa-file-excel-o fa-lg"></i>
@@ -28,7 +28,7 @@
     <mat-table #table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="$id">
             <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
-            <mat-cell *matCellDef="let particip">{{ particip.$id }}</mat-cell>
+            <mat-cell *matCellDef="let particip; let i = index">{{ i + 1 }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Surname">

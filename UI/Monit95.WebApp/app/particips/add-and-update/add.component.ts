@@ -25,6 +25,8 @@ export class AddParticipComponent {
 	onSubmit() {
 		this.isSending = true;
 		this.isConflict = false;
+
+		// избавляемся от пробелов в начале и в конце
 		this.particip.Surname = this.particip.Surname.trim();
 		this.particip.Name = this.particip.Name.trim();
 
@@ -36,11 +38,10 @@ export class AddParticipComponent {
 			this.back();
 		},
 		error => {
+			this.isSending = false;
 			if (error.status === 409) {
-				this.isSending = false;
 				this.isConflict = true;
 			} else {
-				this.isSending = false;
 				throw error;
 			}
 		});

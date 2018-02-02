@@ -14,17 +14,31 @@ var ParticipProtocolComponent = /** @class */ (function () {
     ParticipProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
-            _this.documNumber = Number.parseInt(params['documNumber']);
-            _this.protocolsService.getProtocol(_this.documNumber).subscribe(function (res) {
+            _this.participTestId = Number.parseInt(params['id']);
+            _this.protocolsService.getProtocol(_this.participTestId).subscribe(function (res) {
                 _this.protocol = res;
+                // маппим коллекцию для нормального отображения в компоненте marks-protocol
+                _this.questionResults = res.MarkCollection.map(function (val) {
+                    var questionRes = {
+                        Order: val.Order,
+                        CurrentMark: val.AwardedMark,
+                        Name: val.Order.toString(),
+                        MaxMark: val.MaxMark,
+                        QuestionResultId: val.QuestionMarkId
+                    };
+                    return questionRes;
+                });
             });
         });
     };
+    // компонент marks-protocol возвращает массив QuestionResult: превращаем его словарь и отправляем на сервер
     ParticipProtocolComponent.prototype.submit = function (questionResults) {
         var _this = this;
+        var questionResultsPost = {};
+        questionResults.forEach(function (val) { return questionResultsPost[val.Order] = val.CurrentMark; });
         this.protocolsService
-            .postMarksProtocol(questionResults, this.documNumber)
-            .subscribe(function (res) { return _this.back(); });
+            .postMarksProtocol(questionResultsPost, this.participTestId)
+            .subscribe(function (_) { return _this.back(); });
     };
     ParticipProtocolComponent.prototype.back = function () {
         this.location.back();

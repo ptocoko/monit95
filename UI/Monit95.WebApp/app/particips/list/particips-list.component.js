@@ -5,7 +5,6 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var particip_service_1 = require("../../services/particip.service");
 var material_1 = require("@angular/material");
-var constants_1 = require("../../shared/constants");
 var confirm_dialog_component_1 = require("../../shared/confirm-dialog/confirm-dialog.component");
 var ParticipsListComponent = /** @class */ (function () {
     function ParticipsListComponent(participService, router, modal, snackBar) {
@@ -22,7 +21,7 @@ var ParticipsListComponent = /** @class */ (function () {
     ParticipsListComponent.prototype.getParticips = function () {
         var _this = this;
         this.isLoading = true;
-        this.participService.getAll(constants_1.Constant.PROJECT_ID).subscribe(function (res) {
+        this.participService.getAll().subscribe(function (res) {
             _this.participsCount = res.length;
             _this.dataSource = new material_1.MatTableDataSource(res);
             _this.isLoading = false;
@@ -31,6 +30,7 @@ var ParticipsListComponent = /** @class */ (function () {
         });
     };
     ParticipsListComponent.prototype.applyFilter = function (filterValue) {
+        // во время поиска сбрасываем paginator на первую страницу
         this.paginator.pageIndex = 0;
         filterValue = filterValue.trim().toLowerCase();
         this.dataSource.filter = filterValue;
@@ -46,7 +46,7 @@ var ParticipsListComponent = /** @class */ (function () {
         var modalRef = this.modal.open(confirm_dialog_component_1.ConfirmDialogComponent, {
             width: '400px',
             disableClose: true,
-            data: { message: "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430 " + particip.Surname + " " + particip.Name + " " + particip.SecondName + "?" }
+            data: { message: "\u0412\u043C\u0435\u0441\u0442\u0435 \u0441 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u043C \u0431\u0443\u0434\u0443\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u044B \u0432\u0441\u0435 \u0435\u0433\u043E \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B!" }
         });
         modalRef.afterClosed().subscribe(function (isDelete) {
             if (isDelete) {

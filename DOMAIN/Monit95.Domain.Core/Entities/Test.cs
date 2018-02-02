@@ -21,6 +21,6 @@ namespace Monit95App.Domain.Core.Entities
         
         public virtual ICollection<RsurTest> RsurTests { get; set; } = new HashSet<RsurTest>();
 
-        public virtual ICollection<Question> Questions { get; set; } = new HashSet<Question>();
+        public virtual ICollection<RsurQuestion> Questions { get; set; } = new HashSet<RsurQuestion>();
     }
 }

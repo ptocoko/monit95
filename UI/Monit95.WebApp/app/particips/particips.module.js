@@ -21,7 +21,8 @@ var routes = [
     { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
     { path: 'particips/new', component: add_component_1.AddParticipComponent },
     { path: 'particips/protocols', component: protocols_component_1.ProtocolsComponent },
-    { path: 'particips/protocol/:documNumber', component: protocol_component_1.ParticipProtocolComponent },
+    { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
+    //{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
     { path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ];
 var ParticipsModule = /** @class */ (function () {
