@@ -10,13 +10,13 @@
         /// <summary>
         /// Экзамен участника
         /// </summary>
-        public ParticipTest ParticipTest { get; set; }
+        public virtual ParticipTest ParticipTest { get; set; }
         public int ParticipTestId { get; set; }
 
         /// <summary>
         /// Задание в КИМ
         /// </summary>
-        public RsurQuestion Question { get; set; }
+        public virtual RsurQuestion Question { get; set; }
         public int QuestionId { get; set; }
        
         /// <summary>

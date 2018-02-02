@@ -26,21 +26,21 @@ export class ParticipProtocolsService {
 		//return Observable.of(questionResultsEdit).delay(500);
 	}
 
-	postMarksProtocol(postQuestionResults: QuestionProtocolPost[], participTestId: number) {
-		//return this.http.post(`${this.endpoint}participsTests/${participTestId}/questionProtocols`, postQuestionResults, { responseType: 'text' });
+	postMarksProtocol(postQuestionResults: { [key: number]: number; }, participTestId: number) {
 		console.log(postQuestionResults);
-		return Observable.of('hehe').delay(500);
+		return this.http.post(`${this.endpoint}participTests/${participTestId}/questionProtocols`, postQuestionResults, { responseType: 'text' });
+		//return Observable.of('hehe').delay(500);
 	}
 
-	putMarksProtocol(putQuestionResults: QuestionProtocolPut[]) {
-		//return this.http.put(this.endpoint + 'questionResults', putQuestionResults, { responseType: 'text' });
-		console.log(putQuestionResults);
-		return Observable.of('hehe').delay(500);
-	}
+	//putMarksProtocol(putQuestionResults: QuestionProtocolPut[]) {
+	//	return this.http.put(this.endpoint + 'questionResults', putQuestionResults, { responseType: 'text' });
+	//	//console.log(putQuestionResults);
+	//	//return Observable.of('hehe').delay(500);
+	//}
 
 	markAsAbsent(participTestId: number) {
-		//return this.http.put(`${this.endpoint}participTests/${participTestId}`, 'wasnot', { responseType: 'text' });
-		return Observable.of('wasnot').delay(200);
+		return this.http.put(`${this.endpoint}participTests/${participTestId}`, 'wasnot', { responseType: 'text' });
+		//return Observable.of('wasnot').delay(200);
 	}
 }
 

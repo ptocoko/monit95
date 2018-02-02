@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using ServiceResult.Exceptions;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Services.Enums;
+using System.Text;
 
 namespace Monit95App.Services.ItakeEge.QuestionResult
 {
@@ -55,9 +56,16 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
                 }
                 else
                 {
+                    StringBuilder strBuilder = new StringBuilder();
                     foreach (var qm in entity.QuestionMarks.OrderBy(qm => qm.Question.Order))
                     {
-                        questionMarksString += qm.AwardedMark.ToString();
+                        strBuilder.Append(qm.AwardedMark.ToString() + ";");
+                    }
+                    // убираем последний символ точки с запятой: 1;0;1;0;1;0';'
+                    if (strBuilder.Length > 1)
+                    {
+                        strBuilder.Length = strBuilder.Length - 1;
+                        questionMarksString = strBuilder.ToString();
                     }
                 }
 
@@ -132,6 +140,13 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
             if (participTestEntity == null)
                 throw new EntityNotFoundOrAccessException();
 
+            // очищаем вычисленные значения для старых marks
+            if(participTestEntity.Grade5 != null || participTestEntity.PrimaryMark != null)
+            {
+                participTestEntity.Grade5 = null;
+                participTestEntity.PrimaryMark = null;
+            }
+
             // Get test questions
             var testQuestionDict = participTestEntity.ProjectTest.Test.Questions.ToDictionary(q => q.Order);
             var resultQuestionMarks = new List<QuestionMark>();
@@ -151,6 +166,12 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
                 else
                     newQuestionMark.AwardedMark = awardedValue;
                 resultQuestionMarks.Add(newQuestionMark);
+            }
+
+            // перед добавлением новых marks в базу избавляемся от старых
+            if (participTestEntity.QuestionMarks.Any())
+            {
+                cokoContext.QuestionMarks.RemoveRange(participTestEntity.QuestionMarks);
             }
             participTestEntity.QuestionMarks = resultQuestionMarks;
 

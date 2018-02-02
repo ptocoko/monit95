@@ -48,13 +48,17 @@ var ProtocolsComponent = /** @class */ (function () {
     //		protocol.Marks = this.AbsentText;
     //	});
     //}
-    ProtocolsComponent.prototype.changeMarks = function (participTestId, questionMarks) {
-        if (questionMarks) {
-            this.router.navigate(['/particips/put-protocol', participTestId]);
-        }
-        else {
-            this.router.navigate(['/particips/post-protocol', participTestId]);
-        }
+    ProtocolsComponent.prototype.changeMarks = function (participTestId) {
+        this.router.navigate(['/particips/protocol', participTestId]);
+    };
+    //getDocumNumberBySearchText(searchText: string) {
+    //	return this.pipe.transform(this.protocols, searchText)[0].DocumNumber;
+    //}
+    ProtocolsComponent.prototype.markAsAbsent = function (protocol) {
+        var _this = this;
+        this.participProtocolsService.markAsAbsent(protocol.ParticipTestId).subscribe(function (_) {
+            protocol.QuestionMarks = _this.AbsentText;
+        });
     };
     ProtocolsComponent = tslib_1.__decorate([
         core_1.Component({

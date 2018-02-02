@@ -59,15 +59,17 @@ export class ProtocolsComponent {
 	//	});
 	//}
 
-	changeMarks(participTestId: number, questionMarks: string) {
-		if (questionMarks) {
-			this.router.navigate(['/particips/put-protocol', participTestId])
-		} else {
-			this.router.navigate(['/particips/post-protocol', participTestId])
-		}
+	changeMarks(participTestId: number) {
+		this.router.navigate(['/particips/protocol', participTestId]);
 	}
 
 	//getDocumNumberBySearchText(searchText: string) {
 	//	return this.pipe.transform(this.protocols, searchText)[0].DocumNumber;
 	//}
+
+	markAsAbsent(protocol: QuestionProtocolRead) {
+		this.participProtocolsService.markAsAbsent(protocol.ParticipTestId).subscribe(_ => {
+			protocol.QuestionMarks = this.AbsentText;
+		});
+	}
 }

@@ -6,6 +6,7 @@ var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var particip_protocols_service_1 = require("../../../services/particip-protocols.service");
 var ParticipProtocolComponent = /** @class */ (function () {
+    //restMethod: 'POST' | 'PUT';
     function ParticipProtocolComponent(location, activatedRoute, protocolsService) {
         this.location = location;
         this.activatedRoute = activatedRoute;
@@ -15,9 +16,6 @@ var ParticipProtocolComponent = /** @class */ (function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
             _this.participTestId = Number.parseInt(params['id']);
-            _this.restMethod = _this.activatedRoute.snapshot.data.restMethod; // 'POST' or 'PUT'
-            console.log(_this.participTestId);
-            console.log(_this.restMethod);
             _this.protocolsService.getProtocol(_this.participTestId).subscribe(function (res) {
                 _this.protocol = res;
                 _this.questionResults = res.MarkCollection.map(function (val) {
@@ -35,30 +33,11 @@ var ParticipProtocolComponent = /** @class */ (function () {
     };
     ParticipProtocolComponent.prototype.submit = function (questionResults) {
         var _this = this;
-        if (this.restMethod === 'POST') {
-            var questionResultsPost = questionResults.map(function (val) {
-                var result = {
-                    AwardedMark: val.CurrentMark,
-                    Order: val.Order
-                };
-                return result;
-            });
-            this.protocolsService
-                .postMarksProtocol(questionResultsPost, this.participTestId)
-                .subscribe(function (_) { return _this.back(); });
-        }
-        else if (this.restMethod === 'PUT') {
-            var questionResultPut = questionResults.map(function (val) {
-                var result = {
-                    QuestionResultId: val.QuestionResultId,
-                    NewMark: val.CurrentMark
-                };
-                return result;
-            });
-            this.protocolsService
-                .putMarksProtocol(questionResultPut)
-                .subscribe(function (_) { return _this.back(); });
-        }
+        var questionResultsPost = {};
+        questionResults.forEach(function (val) { return questionResultsPost[val.Order] = val.CurrentMark; });
+        this.protocolsService
+            .postMarksProtocol(questionResultsPost, this.participTestId)
+            .subscribe(function (_) { return _this.back(); });
     };
     ParticipProtocolComponent.prototype.back = function () {
         this.location.back();

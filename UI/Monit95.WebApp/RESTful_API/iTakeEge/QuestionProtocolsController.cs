@@ -37,7 +37,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// Создание протокола проверки заданий происходит, отправкой баллов по заданиям. 
         /// </remarks>
         /// TODO: ref
-        [HttpPost, Route("api/participTests/{id}/questionProtocols")]
+        [HttpPost, Route("api/iTakeEGE/participTests/{id}/questionProtocols")]
         public IHttpActionResult PostProtocol([FromBody]Dictionary<int, double> orderMarkDict)
         {
             var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
@@ -88,7 +88,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
             var schoolId = User.Identity.Name;
 
             questionProtocolService.MarkAsWasNot(schoolId, participTestId);
-            return null;
+            return Ok();
         }
 
         #endregion

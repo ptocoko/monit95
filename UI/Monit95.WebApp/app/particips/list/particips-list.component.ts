@@ -63,7 +63,7 @@ export class ParticipsListComponent implements OnInit {
 		const modalRef = this.modal.open(ConfirmDialogComponent, {
 			width: '400px',
 			disableClose: true,
-			data: { message: `Вы уверены что хотите удалить участника ${particip.Surname} ${particip.Name} ${particip.SecondName}?` }
+			data: { message: `Вместе с участником будут удалены и все его результаты!` }
 		});
 
 		modalRef.afterClosed().subscribe((isDelete: boolean) => {
