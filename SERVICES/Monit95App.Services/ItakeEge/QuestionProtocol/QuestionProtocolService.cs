@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
-using Monit95App.Infrastructure.Data;
-using Monit95App.Services.QuestionResult.ITakeEgeDtos;
-using System.Linq;
 using System.Collections.ObjectModel;
-using ServiceResult.Exceptions;
-using Monit95App.Domain.Core.Entities;
-using Monit95App.Services.Enums;
+using System.Linq;
 using System.Text;
+using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Enums;
+using Monit95App.Services.ItakeEge.QuestionResult;
+using Monit95App.Services.QuestionResult.ITakeEgeDtos;
+using ServiceResult.Exceptions;
 
-namespace Monit95App.Services.ItakeEge.QuestionResult
+namespace Monit95App.Services.ItakeEge.QuestionProtocol
 {
     public class QuestionProtocolService : IQuestionProtocolService
     {
@@ -74,14 +75,14 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
                 readDtoCollection.Add(readDto);
             }
 
-            return readDtoCollection;
-                                                       
+            return readDtoCollection.OrderBy(qp => qp.ParticipInfo);
         }
 
         /// <summary>
         /// Получение протокола проверки заданий для редактирования
         /// </summary>
         /// <param name="schoolId"></param>
+        /// <param name="participTestId"></param>
         /// <returns></returns>
         /// TODO: ref
         public QuestionProtocolEditDto GetEditDto(string schoolId, int participTestId)

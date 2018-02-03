@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Monit95App.Services.QuestionResult.ITakeEgeDtos
+namespace Monit95App.Services.ItakeEge.QuestionProtocol
 {
     /// <summary>
     /// Протокол проверки заданий: модель для редактирования

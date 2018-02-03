@@ -1,7 +1,6 @@
 ﻿<h2>«Я сдам ЕГЭ!»: протокол проверки заданий</h2>
-
-<div *ngIf="protocol && questionResults">
-    <hr />
+<hr />
+<div *ngIf="protocol && questionResults">    
     <h4>{{protocol.ParticipInfo}}</h4>
     <marks-protocol [questions]="questionResults"
                     (onSend)="submit($event)"

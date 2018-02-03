@@ -3,6 +3,7 @@ using Monit95App.Services.QuestionResult.ITakeEgeDtos;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Monit95App.Services.ItakeEge.QuestionProtocol;
 
 namespace Monit95.WebApp.RESTful_API.iTakeEge
 {
@@ -66,7 +67,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// Получение протокола проверки заданий для заполнения/редактирования
         /// </summary>
         /// <param name="participTestId"></param>
-        /// <returns></returns>
+        /// <returns><see cref="QuestionProtocolEditDto"/>></returns>
         /// TODO: ref
         [HttpGet, Route("api/iTakeEGE/questionProtocols")]
         public IHttpActionResult GetEditDto(int participTestId)

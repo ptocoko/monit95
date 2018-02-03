@@ -1,5 +1,6 @@
 ﻿using Monit95App.Services.QuestionResult.ITakeEgeDtos;
 using System.Collections.Generic;
+using Monit95App.Services.ItakeEge.QuestionProtocol;
 
 namespace Monit95App.Services.ItakeEge.QuestionResult
 {

@@ -9,6 +9,7 @@ using Monit95App.Services;
 using Monit95App.Services.File;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.ItakeEge.Participant;
+using Monit95App.Services.ItakeEge.QuestionProtocol;
 using Monit95App.Services.ItakeEge.QuestionResult;
 using Monit95App.Services.Rsur;
 using Monit95App.Services.Rsur.ParticipReport;
