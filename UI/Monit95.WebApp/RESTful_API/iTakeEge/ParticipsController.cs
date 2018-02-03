@@ -13,7 +13,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
     /// <summary>
     /// «Я сдам ЕГЭ!». Участники
     /// </summary>
-    [RoutePrefix("api/ITakeEGE/participants")]
+    [RoutePrefix("api/iTakeEGE/participants")]
     [Authorize(Roles = "school")]
     public class ParticipsController : ApiController
     {
@@ -37,12 +37,12 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         #region APIs
 
         /// <summary>
-        /// Добавления участника "Я сдам ЕГЭ!"
+        /// Добавление участника "Я сдам ЕГЭ!"
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="postOrPutDto"></param>
         /// <returns></returns>
         [HttpPost, Route("")]        
-        public IHttpActionResult Add([FromBody]ParticipPostOrPutDto dto)
+        public IHttpActionResult Add([FromBody]ParticipPostOrPutDto postOrPutDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);                                  
@@ -52,7 +52,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
             int createdParticipId;
             try
             {
-                createdParticipId = participService.Add(dto, schoolId, dataSource);
+                createdParticipId = participService.Add(postOrPutDto, schoolId, dataSource);
             }
             catch (DublicateEntityException)
             {
