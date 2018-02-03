@@ -20,7 +20,7 @@
     </div>
     
     <div class="form-group">
-        <label for="documNumber">Номер документа*</label>
+        <label for="documNumber">Номер паспорта (без серии)*</label>
         <input type="text" name="documNumber" [(ngModel)]="particip.DocumNumber" id="documNumber" #documNumber="ngModel" class="form-control" required />
         <div *ngIf="documNumber.invalid && documNumber.touched" class="alert alert-danger form-alert">Введите номер документа!</div>
     </div>
