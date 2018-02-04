@@ -28,9 +28,9 @@
     <div class="form-group">
         <label for="documNumber">Номер документа (паспорта)*</label>
         <input type="number" name="documNumber" [(ngModel)]="particip.DocumNumber" id="documNumber" #documNumber="ngModel" class="form-control" 
-               required pattern="^\d{1,7}$"/>
+               required pattern="^\d{1,9}$"/>
         <div *ngIf="documNumber.invalid && documNumber.touched" class="alert alert-danger form-alert">
-            <p>- укажите номер документа, который не должен содержать более 7 цифр;</p>
+            <p>- укажите номер документа, который не должен содержать более 9 цифр;</p>
             <p>- номер паспорта указывается без серии.</p>
         </div>
     </div>

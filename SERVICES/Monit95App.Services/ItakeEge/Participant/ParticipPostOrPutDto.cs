@@ -18,7 +18,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         public string SecondName { get; set; }
 
         [Required]
-        [Range(1, 9999999)]
+        [Range(1, 999999999)]
         public int DocumNumber { get; set; }        
     }
 }
