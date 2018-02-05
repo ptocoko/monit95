@@ -236,7 +236,8 @@ namespace Monit95App.Services.Rsur.SeminarReport
         {
             IEnumerable<RsurReport> reportEntities;
             var date2018YearReports = new DateTime(2018, 1, 1);
-            var queryToGetReportEntities = context.RsurReports.Where(report => report.Date > date2018YearReports).OrderByDescending(ob => ob.Date);
+            var queryToGetReportEntities = context.RsurReports.Where(report => report.Date > date2018YearReports)
+                                                              .OrderBy(ob => ob.Date);
             if (userName.Length == 3) // areaCode is three-digit number
             {
                 int.TryParse(userName, out int areaCode);
