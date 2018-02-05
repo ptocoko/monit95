@@ -1,58 +1,11 @@
 ﻿<h3>Протоколы проверки заданий</h3>
 <hr />
-<ng-template [ngIf]="!isLoading">
-    <div>общее количество протоколов: {{protocols.length}}</div>
+<div [hidden]="isLoading || protocolsCount === 0">
+    <div>общее количество протоколов: {{protocolsCount}}</div>
     <div>из них</div>
     <div>обработано: {{processedProtocols()}}</div>
     <div>не обработано: {{notProcessedProtocols()}}</div>
 
-    <!-- this field need re-thinking -->
-    <!--<div class="search-field">
-        <mat-form-field>
-            <input #participCodeInput
-                   [(ngModel)]="searchText"
-                   placeholder="поиск по коду участника..."
-                   matInput />
-            <i class="glyphicon glyphicon-ok"
-               matSuffix
-               style="color:green"
-               *ngIf="isOneMatchedProtocol">
-            </i>
-        </mat-form-field>
-    </div>-->
-    <!--<div class="scrollable-content">
-        <table class="table table-bordered">
-            <tr>
-                <th class="row-number-cell">#</th>
-                <th>фио</th>
-                <th>баллы по заданиям</th>
-                <th style="width:295px;max-width:295px">действия</th>
-            </tr>
-            <tr *ngFor="let protocol of protocols; let i = index">
-                <td class="row-number-cell">{{i + 1}}</td>
-                <td>{{protocol.ParticipInfo}}</td>
-                <td [ngClass]="{'red-cell': !protocol.QuestionMarks}">{{protocol.QuestionMarks}}</td>
-                <td>
-                    <div class="pull-left">
-                        <button mat-raised-button
-                                color="primary"
-                                (click)="changeMarks(protocol.ParticipTestId)"
-                                style="width:135.59px">
-                            <i class="glyphicon glyphicon-edit"></i> изменить
-                        </button>
-                        <button matTooltip="Указать, что участник отсутствовал"
-                                [matTooltipPosition]="'right'"
-                                [disabled]="protocol.QuestionMarks === AbsentText"
-                                mat-raised-button
-                                color="warn"
-                                (click)="markAsAbsent(protocol)">
-                            <i class="glyphicon glyphicon-header"></i> {{AbsentText}}
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>-->
     <div class="table-container mat-elevation-z8">
         <div class="actions-container">
             <mat-form-field class="filter-field">
@@ -72,6 +25,11 @@
             <ng-container matColumnDef="FIO">
                 <mat-header-cell *matHeaderCellDef> фио </mat-header-cell>
                 <mat-cell *matCellDef="let protocol">{{ protocol.ParticipInfo }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="DocumNumber">
+                <mat-header-cell *matHeaderCellDef> номер документа </mat-header-cell>
+                <mat-cell *matCellDef="let protocol">{{ protocol.DocumNumber }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Marks">
@@ -109,8 +67,60 @@
                        [pageSizeOptions]="['50', '100']">
         </mat-paginator>
     </div>
-</ng-template>
+</div>
+
+<div *ngIf="!isLoading && protocolsCount === 0" class="alert alert-info">
+    в базе не найдено ни одного участника
+</div>
 
 <div *ngIf="isLoading">
     <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
 </div>
+
+<!-- this field need re-thinking -->
+<!--<div class="search-field">
+    <mat-form-field>
+        <input #participCodeInput
+               [(ngModel)]="searchText"
+               placeholder="поиск по коду участника..."
+               matInput />
+        <i class="glyphicon glyphicon-ok"
+           matSuffix
+           style="color:green"
+           *ngIf="isOneMatchedProtocol">
+        </i>
+    </mat-form-field>
+</div>-->
+<!--<div class="scrollable-content">
+    <table class="table table-bordered">
+        <tr>
+            <th class="row-number-cell">#</th>
+            <th>фио</th>
+            <th>баллы по заданиям</th>
+            <th style="width:295px;max-width:295px">действия</th>
+        </tr>
+        <tr *ngFor="let protocol of protocols; let i = index">
+            <td class="row-number-cell">{{i + 1}}</td>
+            <td>{{protocol.ParticipInfo}}</td>
+            <td [ngClass]="{'red-cell': !protocol.QuestionMarks}">{{protocol.QuestionMarks}}</td>
+            <td>
+                <div class="pull-left">
+                    <button mat-raised-button
+                            color="primary"
+                            (click)="changeMarks(protocol.ParticipTestId)"
+                            style="width:135.59px">
+                        <i class="glyphicon glyphicon-edit"></i> изменить
+                    </button>
+                    <button matTooltip="Указать, что участник отсутствовал"
+                            [matTooltipPosition]="'right'"
+                            [disabled]="protocol.QuestionMarks === AbsentText"
+                            mat-raised-button
+                            color="warn"
+                            (click)="markAsAbsent(protocol)">
+                        <i class="glyphicon glyphicon-header"></i> {{AbsentText}}
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>-->

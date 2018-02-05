@@ -11,9 +11,11 @@ var ProtocolsComponent = /** @class */ (function () {
         var _this = this;
         this.participProtocolsService = participProtocolsService;
         this.router = router;
-        this.displayedColumns = ['index', 'FIO', 'Marks', 'actions'];
+        this.displayedColumns = ['index', 'FIO', 'DocumNumber', 'Marks', 'actions'];
+        this.protocolsCount = 0;
         this.AbsentText = 'отсутствовал';
         this.dataSource = new material_1.MatTableDataSource();
+        this.protocols = [];
         this.isLoading = true;
         // вычисление статистики
         this.processedProtocols = function () { return _this.protocols.filter(function (f) { return f.QuestionMarks; }).length; };
@@ -26,8 +28,8 @@ var ProtocolsComponent = /** @class */ (function () {
         var _this = this;
         this.isLoading = true;
         this.participProtocolsService.getProtocolsList().subscribe(function (res) {
-            _this.protocols = res;
             _this.protocolsCount = res.length;
+            _this.protocols = res;
             _this.dataSource = new material_1.MatTableDataSource(res);
             _this.isLoading = false;
             _this.dataSource.paginator = _this.paginator;
@@ -50,7 +52,7 @@ var ProtocolsComponent = /** @class */ (function () {
         });
     };
     tslib_1.__decorate([
-        core_1.ViewChild(material_1.MatPaginator),
+        core_1.ViewChild('paginator'),
         tslib_1.__metadata("design:type", material_1.MatPaginator)
     ], ProtocolsComponent.prototype, "paginator", void 0);
     ProtocolsComponent = tslib_1.__decorate([

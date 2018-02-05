@@ -12,14 +12,14 @@ const PROJECT_TEST_ID: number = 1;
 	styleUrls: [`./app/particips/protocols/protocols.component.css?v=${new Date().getTime()}`]
 })
 export class ProtocolsComponent {
-	displayedColumns = ['index', 'FIO', 'Marks', 'actions'];
-	protocolsCount: number;
+	displayedColumns = ['index', 'FIO', 'DocumNumber', 'Marks', 'actions'];
+	protocolsCount = 0;
 	AbsentText = 'отсутствовал';
 	dataSource = new MatTableDataSource<QuestionProtocolRead>();
-	protocols: QuestionProtocolRead[];
+	protocols: QuestionProtocolRead[] = [];
 	isLoading = true;
 
-	@ViewChild(MatPaginator) paginator: MatPaginator;
+	@ViewChild('paginator') paginator: MatPaginator;
 
 	// вычисление статистики
 	processedProtocols = () => this.protocols.filter(f => f.QuestionMarks).length;
@@ -35,8 +35,8 @@ export class ProtocolsComponent {
 	getProtocols() {
 		this.isLoading = true;
 	    this.participProtocolsService.getProtocolsList().subscribe(res => {
-			this.protocols = res;
 			this.protocolsCount = res.length;
+			this.protocols = res;
 			this.dataSource = new MatTableDataSource<QuestionProtocolRead>(res);
 			this.isLoading = false;
 			this.dataSource.paginator = this.paginator;

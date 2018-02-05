@@ -45,7 +45,8 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
                 var readDto = new QuestionProtocolReadDto
                 {
                     ParticipTestId = entity.Id,
-                    ParticipInfo = $"{entity.Particip.Surname} {entity.Particip.Name} {entity.Particip.SecondName}"
+                    ParticipInfo = $"{entity.Particip.Surname} {entity.Particip.Name} {entity.Particip.SecondName}",
+                    DocumNumber = entity.Particip.DocumNumber
                 };
 
                 string questionMarksString = null;
