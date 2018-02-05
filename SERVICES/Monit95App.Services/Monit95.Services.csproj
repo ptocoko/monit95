@@ -97,6 +97,7 @@
     <Compile Include="Enums\Access.cs" />
     <Compile Include="Enums\Grade5Value.cs" />
     <Compile Include="Exceptions\FileNotFoundOrAccessException.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="File\UserPermission.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />

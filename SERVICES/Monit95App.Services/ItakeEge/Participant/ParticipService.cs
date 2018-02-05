@@ -72,14 +72,14 @@ namespace Monit95App.Services.ItakeEge.Participant
             var newParticip = new Particip
             {
                 ProjectId = ItakeEgeProjectId,
-                Surname = dto.Surname.Trim(),                
-                Name = dto.Name.Trim(),                
+                Surname = dto.Surname.NormalizeName(),                
+                Name = dto.Name.NormalizeName(),                
                 DocumNumber = dto.DocumNumber,
                 SchoolId = schoolId,
                 DataSource = dataSource                
             };
             if (dto.SecondName != null)            
-                newParticip.SecondName = dto.SecondName.Trim(); 
+                newParticip.SecondName = dto.SecondName.NormalizeName(); 
                         
             newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2013 }); // русский язык
             newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2014 }); // математика п
