@@ -124,17 +124,17 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         [Route("{id:int}")]
         public IHttpActionResult Delete()
         {
-            var schoolId = User.Identity.Name;
-            var participId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            //var schoolId = User.Identity.Name;
+            //var participId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
 
-            try
-            {
-                participService.Delete(participId, schoolId);
-            }
-            catch (EntityNotFoundOrAccessException)
-            {
-                return NotFound();
-            }
+            //try
+            //{
+            //    participService.Delete(participId, schoolId);
+            //}
+            //catch (EntityNotFoundOrAccessException)
+            //{
+            //    return NotFound();
+            //}
             
             return Ok();
         }
