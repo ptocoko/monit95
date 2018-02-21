@@ -25,7 +25,7 @@ namespace Monit95App.RESTful_API
         {            
             var model = ReportMetaHandler.GetReportMetasBySchool(context.Schools.Find(User.Identity.Name), new SchoolReportFileNameOffline());
 
-            return Ok(model.Where(x => x.Year == "2017/2018").OrderByDescending(x => x.Date));
+            return Ok(model.Where(rm => rm.IsShow == true).OrderByDescending(x => x.Date));
         }
 
     }

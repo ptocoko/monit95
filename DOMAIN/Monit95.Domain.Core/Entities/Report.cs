@@ -24,5 +24,10 @@ namespace Monit95App.Domain.Core.Entities
         public string Available { get; set; }
 
         public short? TypeCode { get; set; }
+
+        /// <summary>
+        /// Отображать или не отображать отчет
+        /// </summary>
+        public bool IsShow { get; set; }
     }
 }
