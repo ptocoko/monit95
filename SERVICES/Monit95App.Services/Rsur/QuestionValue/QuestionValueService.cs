@@ -274,7 +274,11 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 ParticipTestId = s.Id,
                 RsurQuestionValues = s.RsurTestResult.RsurQuestionValues,
                 TestName = s.RsurTest.Test.NumberCode + "-" + s.RsurTest.Test.Name
-            }).OrderBy(ob => ob.ParticipCode);
+            })
+            .OrderBy(ob => ob.RsurQuestionValues, (key1) => 
+            {
+
+            });
 
             return result;
         }

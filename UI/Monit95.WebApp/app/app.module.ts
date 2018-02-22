@@ -71,6 +71,7 @@ import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilt
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rsur-particip-filter.pipe';
 import { RsurProtocolFilter } from './pipes/rsur-protocol-filter.pipe';
+import { OffsetPipe } from './pipes/offset.pipe';
 
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -133,6 +134,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
         RsurParticipFilterPipe,
 		ClassNameFilterPipe,
 		LimitToPipe,
+		OffsetPipe,
 		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
 		FilterPipe,

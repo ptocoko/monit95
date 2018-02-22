@@ -14,6 +14,9 @@ export class QuestionProtocolsList {
 	processedProtocols = () => this.questionProtocols.filter(f => f.RsurQuestionValues).length;
 	notProcessedProtocols = () => this.questionProtocols.filter(f => !f.RsurQuestionValues).length;
 
+	limitToVal = 20;
+	offsetVal = 1;
+
 	@ViewChild('participCodeInput') participCodeInput: ElementRef;
 
 	constructor(private rsurProtocolsService: RsurProtocolsService,

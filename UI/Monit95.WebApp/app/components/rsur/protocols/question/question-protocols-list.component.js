@@ -14,6 +14,8 @@ var QuestionProtocolsList = /** @class */ (function () {
         this.location = location;
         this.processedProtocols = function () { return _this.questionProtocols.filter(function (f) { return f.RsurQuestionValues; }).length; };
         this.notProcessedProtocols = function () { return _this.questionProtocols.filter(function (f) { return !f.RsurQuestionValues; }).length; };
+        this.limitToVal = 20;
+        this.offsetVal = 1;
     }
     QuestionProtocolsList.prototype.ngOnInit = function () {
         var _this = this;

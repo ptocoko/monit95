@@ -69,6 +69,7 @@ var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
 var rsur_particip_filter_pipe_1 = require("./pipes/rsur-particip-filter.pipe");
 var rsur_protocol_filter_pipe_1 = require("./pipes/rsur-protocol-filter.pipe");
+var offset_pipe_1 = require("./pipes/offset.pipe");
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
@@ -132,6 +133,7 @@ var AppModule = /** @class */ (function () {
                 rsur_particip_filter_pipe_1.RsurParticipFilterPipe,
                 class_name_filter_pipe_1.ClassNameFilterPipe,
                 limit_to_pipe_1.LimitToPipe,
+                offset_pipe_1.OffsetPipe,
                 particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
                 rsur_report_filter_pipe_1.TestIdPipe,
                 scan_protocols_component_1.FilterPipe,
