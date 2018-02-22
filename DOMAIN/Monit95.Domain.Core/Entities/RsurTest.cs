@@ -17,7 +17,7 @@ namespace Monit95App.Domain.Core.Entities
 
         public Guid TestId { get; set; }
 
-        public int TestNumber { get; set; }
+        public int? TestNumber { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime TestDate { get; set; }

@@ -108,7 +108,8 @@ namespace Monit95App.Services.Rsur.QuestionValue
             {
                 marksProtocol.QuestionResults.Add(new QuestionResult
                 {
-                    Order = question.Order,                    
+                    Order = question.Order,
+                    Name = question.Order.ToString(),
                     MaxMark = 1,
                     CurrentMark = currentMarks != null ? (int?)int.Parse(currentMarks[index]) : null
                 });

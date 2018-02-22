@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { MarksProtocol } from '../../../../models/marks-protocol.model';
+import { MarksProtocol, QuestionResult } from '../../../../models/marks-protocol.model';
 import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 
 @Component({
@@ -24,8 +24,9 @@ export class QuestionProtocolComponent {
 		});
 	}
 
-	send(marksProtocol: MarksProtocol) {
-		this.rsurProtocolService.postMarksProtocol(marksProtocol).subscribe(response => this.location.back());
+	send(questionResults: QuestionResult[]) {
+		this.marksProtocol.QuestionResults = questionResults;
+		this.rsurProtocolService.postMarksProtocol(this.marksProtocol).subscribe(response => this.location.back());
 	}
 
 	cancel() {

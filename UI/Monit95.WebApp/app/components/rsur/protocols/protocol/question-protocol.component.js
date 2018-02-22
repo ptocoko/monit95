@@ -20,9 +20,10 @@ var QuestionProtocolComponent = /** @class */ (function () {
             });
         });
     };
-    QuestionProtocolComponent.prototype.send = function (marksProtocol) {
+    QuestionProtocolComponent.prototype.send = function (questionResults) {
         var _this = this;
-        this.rsurProtocolService.postMarksProtocol(marksProtocol).subscribe(function (response) { return _this.location.back(); });
+        this.marksProtocol.QuestionResults = questionResults;
+        this.rsurProtocolService.postMarksProtocol(this.marksProtocol).subscribe(function (response) { return _this.location.back(); });
     };
     QuestionProtocolComponent.prototype.cancel = function () {
         this.location.back();
