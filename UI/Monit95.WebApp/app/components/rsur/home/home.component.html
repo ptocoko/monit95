@@ -2,9 +2,9 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="false && isArea()" class="list-container">
-        <h3 class="list-header">Диагностика «Декабрь-2017»</h3>
-        <div>
+    <div *ngIf="isArea()" class="list-container">
+        <h3 class="list-header">Диагностика «Февраль-2018»</h3>
+        <div *ngIf="false">
             <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/122017_ру_распределение_{{account.UserName}}.xlsx"><div><h4>Русский язык: распределение</h4></div></a>
             <a *ngIf="account.UserName !== '208'" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/296P/v7cLzLULV"><div><h4>Русский язык: варианты ИК по блоку «ОРФОГРАФИЯ»</h4></div></a>
             <a *ngIf="account.UserName !== '208'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/8PMc/2L6MbEuED"><div><h4>Русский язык: варианты ИК по блоку «ПУНКТУАЦИЯ»</h4></div></a>
@@ -37,7 +37,7 @@
         <div *ngIf="true" class="list-item">
             <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                 <div>
-                    <h4><b>Русский язык: протоколы проверки заданий</b></h4>
+                    <h4><b>Протоколы проверки заданий</b></h4>
                 </div>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
             </a>

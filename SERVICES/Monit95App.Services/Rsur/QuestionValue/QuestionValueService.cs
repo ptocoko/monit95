@@ -54,7 +54,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
         {
             var result = new ServiceResult<int>();   
             
-            var participTests = context.RsurParticipTests.Where(rpt => rpt.RsurTest.IsOpen && rpt.RsurParticip.School.AreaCode == areaCode).ToList();
+            var participTests = context.RsurParticipTests.Where(rpt => rpt.RsurTest.IsOpen && rpt.RsurParticip.School.AreaCode == areaCode);
             if (!participTests.Any())
                 result.Errors.Add(new ServiceError { Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
 

@@ -18,7 +18,7 @@ var HomeComponent = /** @class */ (function () {
             _this.account = data.json();
             _this.isLoading = false;
             localStorage.clear();
-            //this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
+            _this.rsurProtocolService.getStatistics().subscribe(function (progress) { return _this._fillingProgress = progress; });
         });
     };
     HomeComponent.prototype.isArea = function () {
