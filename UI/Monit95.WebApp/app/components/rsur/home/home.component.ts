@@ -45,6 +45,10 @@ export class HomeComponent implements OnInit {
 		return null;
 	}
 
+	isArgun(): boolean {
+		return this.account.UserName && this.account.UserName === '202';
+	}
+
 	fillingProgress() {
 		if (!this._fillingProgress) {
 			return 0;

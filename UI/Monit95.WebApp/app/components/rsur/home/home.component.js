@@ -37,6 +37,9 @@ var HomeComponent = /** @class */ (function () {
         }
         return null;
     };
+    HomeComponent.prototype.isArgun = function () {
+        return this.account.UserName && this.account.UserName === '202';
+    };
     HomeComponent.prototype.fillingProgress = function () {
         if (!this._fillingProgress) {
             return 0;
