@@ -11,9 +11,9 @@ var SchoolFileService = /** @class */ (function () {
     SchoolFileService.prototype.getFiles = function () {
         return this.http.get("" + this.ROUTE_PREFIX);
     };
-    SchoolFileService.prototype.checkReportIsGot = function (reportId) {
-        return this.http.get(this.ROUTE_PREFIX + "/isGot/" + reportId);
-    };
+    //checkReportIsGot(reportId: number): Observable<boolean> {
+    //	return this.http.get<boolean>(`${this.ROUTE_PREFIX}/isGot/${reportId}`);
+    //}
     SchoolFileService.prototype.setReportIsGot = function (reportId) {
         return this.http.post(this.ROUTE_PREFIX + "/isGot/" + reportId, null, { responseType: 'text' });
     };

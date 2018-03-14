@@ -29,18 +29,6 @@ namespace Monit95App.RESTful_API
             return Ok(model.Where(rm => rm.IsShow == true).OrderByDescending(x => x.Date));
         }
 
-        [HttpGet]
-        [Route("isGot/{id}")]
-        public IHttpActionResult ReportStatus()
-        {
-            int reportId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
-            string schoolId = "0005";//User.Identity.Name;
-
-            bool? isGot = context.SchoolReportsCollectors.SingleOrDefault(p => p.ProjectId == reportId && p.SchoolId == schoolId)?.IsGot;
-
-            return Ok(isGot ?? false);
-        }
-
         [HttpPost]
         [Route("isGot/{id}")]
         public IHttpActionResult ReportIsGot()

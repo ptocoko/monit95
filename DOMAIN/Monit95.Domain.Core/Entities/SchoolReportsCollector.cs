@@ -16,8 +16,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public bool IsGot { get; set; }
 
-        public virtual Report Reports { get; set; }
+        public virtual Report Report { get; set; }
 
-        public virtual School Schools { get; set; }
+        public virtual School School { get; set; }
     }
 }

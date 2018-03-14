@@ -19,7 +19,7 @@ namespace Monit95App.Services
             
             ITypeReport privateReportMeta = new PrivateReportMeta(school, iFileNames);
             ITypeReport protectReportMeta = new ProtectReportMeta(school);
-            ITypeReport publicReportMeta = new PublicReportMeta();
+            ITypeReport publicReportMeta = new PublicReportMeta(school);
             var p1 = privateReportMeta.GetReportMetas();
             var p2 = protectReportMeta.GetReportMetas();
             var p3 = publicReportMeta.GetReportMetas();

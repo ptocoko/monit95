@@ -21,22 +21,21 @@ export class SchoolFilesComponent implements OnInit {
 
     }
 
-	ngOnInit() {		
-        this.schoolFileService.getFiles().subscribe(response => {
-            console.log(response);
-            this.files = response as FileItem[];                       
-            this.dataSource = new MatTableDataSource<FileItem>(this.files);
-	        this.isLoading = false;
-	    });
-	}	
-	
-	async checkReportIsGot(reportId: number) {
-		return await this.schoolFileService.checkReportIsGot(reportId).toPromise();
+	ngOnInit() {
+		this.schoolFileService.getFiles().subscribe(response => {
+			console.log(response);
+			this.files = response as FileItem[];
+			this.dataSource = new MatTableDataSource<FileItem>(this.files);
+			this.isLoading = false;
+		});
 	}
 
-	setReportIsGot(reportId: number, button: HTMLButtonElement) {
+	setReportIsGot(report: FileItem, button: HTMLButtonElement) {
 		button.disabled = true;
-		this.schoolFileService.setReportIsGot(reportId).subscribe(res => button.disabled = false, error => {
+		this.schoolFileService.setReportIsGot(report.Id).subscribe(res => {
+			//button.disabled = false;
+			report.IsGot = true;
+		}, error => {
 			button.disabled = false;
 			throw error;
 		});
@@ -48,5 +47,6 @@ interface FileItem {
     ProjectName: string;
     Name: string;
     Link: string;        
-    Year: string;
+	Year: string;
+	IsGot: boolean;
 }

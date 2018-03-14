@@ -14,9 +14,9 @@ export class SchoolFileService {
         return this.http.get(`${this.ROUTE_PREFIX}`);		
 	} 
 
-	checkReportIsGot(reportId: number): Observable<boolean> {
-		return this.http.get<boolean>(`${this.ROUTE_PREFIX}/isGot/${reportId}`);
-	}
+	//checkReportIsGot(reportId: number): Observable<boolean> {
+	//	return this.http.get<boolean>(`${this.ROUTE_PREFIX}/isGot/${reportId}`);
+	//}
 
 	setReportIsGot(reportId: number) {
 		return this.http.post(`${this.ROUTE_PREFIX}/isGot/${reportId}`, null, { responseType: 'text' });

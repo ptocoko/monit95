@@ -51,11 +51,11 @@ namespace Monit95App.Infrastructure.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SchoolReportsCollector>()
-                .HasRequired(e => e.Schools)
+                .HasRequired(e => e.School)
                 .WithMany(e => e.SchoolReportsCollectors);
 
             modelBuilder.Entity<SchoolReportsCollector>()
-                .HasRequired(e => e.Reports)
+                .HasRequired(e => e.Report)
                 .WithMany(e => e.SchoolReportsCollectors)
                 .HasForeignKey(e => e.ProjectId);
 

@@ -33,8 +33,9 @@ namespace Monit95App.Services
                     Name = protectReport.Name,
                     ProjectName = protectReport.ProjectName,
                     Year = protectReport.Year,
-                    Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{protectReport.Id}.rar"
-                });
+                    Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{protectReport.Id}.rar",
+                    IsGot = protectReport.SchoolReportsCollectors.SingleOrDefault(p => p.SchoolId == school.Id)?.IsGot ?? false
+            });
             }
             return reportMetas ?? Enumerable.Empty<ReportMeta>();
         }

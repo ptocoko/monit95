@@ -40,6 +40,7 @@ namespace Monit95App.Services
 
                 var newReportMeta = Mapper.Map<Report, ReportMeta>(report);
                 newReportMeta.Link = $@"{school.ReportLink}/{reportFileName}";
+                newReportMeta.IsGot = report.SchoolReportsCollectors.SingleOrDefault(p => p.SchoolId == school.Id)?.IsGot ?? false;
                 reportMetas.Add(newReportMeta);  
             }
             return reportMetas ?? Enumerable.Empty<ReportMeta>();

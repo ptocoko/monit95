@@ -5,5 +5,6 @@ namespace Monit95App.Services
     public class ReportMeta : Report
     {
         public string Link { get; set; }
+        public bool IsGot { get; set; }
     }
 }

@@ -20,7 +20,15 @@ var SchoolFilesComponent = /** @class */ (function () {
             _this.isLoading = false;
         });
     };
-    SchoolFilesComponent.prototype.ngAfterViewInit = function () {
+    SchoolFilesComponent.prototype.setReportIsGot = function (report, button) {
+        button.disabled = true;
+        this.schoolFileService.setReportIsGot(report.Id).subscribe(function (res) {
+            //button.disabled = false;
+            report.IsGot = true;
+        }, function (error) {
+            button.disabled = false;
+            throw error;
+        });
     };
     SchoolFilesComponent = tslib_1.__decorate([
         core_1.Component({

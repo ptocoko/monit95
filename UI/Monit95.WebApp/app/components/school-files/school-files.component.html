@@ -27,11 +27,12 @@
                 <mat-header-cell *matHeaderCellDef> Статус </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <button mat-raised-button
-                            *ngIf="!checkReportIsGot(element.Id)"
-                            (click)="setReportIsGot(element.Id, $event.target)">
+                            color="primary"
+                            *ngIf="!element.IsGot"
+                            (click)="setReportIsGot(element, $event.target)">
                         Получить
                     </button>
-                    <span *ngIf="checkReportIsGot(element.Id)">Получено!</span>
+                    <span *ngIf="element.IsGot">Получено!</span>
                 </mat-cell>
             </ng-container>
 

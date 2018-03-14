@@ -12,6 +12,13 @@ namespace Monit95App.Services
     public class PublicReportMeta : ITypeReport
     {
         private CokoContext context = new CokoContext();
+        private Domain.Core.Entities.School school;
+
+        public PublicReportMeta(Domain.Core.Entities.School school)
+        {
+            this.school = school;
+        }
+
         public IEnumerable<ReportMeta> GetReportMetas()
         {
             //TODO: здесь дублирующий код с ProtectReportMeta и надо использовать Automapper
@@ -26,8 +33,9 @@ namespace Monit95App.Services
                     Name = report.Name,
                     ProjectName = report.ProjectName,
                     Year = report.Year,
-                    Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{report.Id}.rar"
-                });
+                    Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{report.Id}.rar",
+                    IsGot = report.SchoolReportsCollectors.SingleOrDefault(p => p.SchoolId == school.Id)?.IsGot ?? false
+            });
             }
             return reportMetas ?? Enumerable.Empty<ReportMeta>();
         }
