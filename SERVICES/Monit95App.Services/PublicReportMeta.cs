@@ -26,7 +26,8 @@ namespace Monit95App.Services
                     Name = report.Name,
                     ProjectName = report.ProjectName,
                     Year = report.Year,
-                    Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{report.Id}.rar"
+                    Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{report.Id}.rar",
+                    IsShow = report.IsShow
                 });
             }
             return reportMetas ?? Enumerable.Empty<ReportMeta>();
