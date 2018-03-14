@@ -78,6 +78,8 @@ namespace Monit95App.Domain.Core.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SchoolCollector> SchoolCollectors { get; set; }
 
+        public virtual ICollection<SchoolReportsCollector> SchoolReportsCollectors { get; set; } = new HashSet<SchoolReportsCollector>();
+
         public virtual SchoolEdit SchoolEdit { get; set; }
 
         public virtual TownType TownType { get; set; }

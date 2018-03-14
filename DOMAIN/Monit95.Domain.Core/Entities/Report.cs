@@ -1,6 +1,7 @@
 namespace Monit95App.Domain.Core.Entities
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -29,5 +30,7 @@ namespace Monit95App.Domain.Core.Entities
         /// Отображать или не отображать отчет
         /// </summary>
         public bool IsShow { get; set; }
+
+        public virtual ICollection<SchoolReportsCollector> SchoolReportsCollectors { get; set; } = new HashSet<SchoolReportsCollector>();
     }
 }

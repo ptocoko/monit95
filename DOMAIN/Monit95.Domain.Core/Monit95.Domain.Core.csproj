@@ -83,6 +83,7 @@
     <Compile Include="Entities\School.cs" />
     <Compile Include="Entities\SchoolCollector.cs" />
     <Compile Include="Entities\SchoolEdit.cs" />
+    <Compile Include="Entities\SchoolReportsCollector.cs" />
     <Compile Include="Entities\Test.cs" />
     <Compile Include="Entities\TownType.cs" />
     <Compile Include="Entities\Wish.cs" />
