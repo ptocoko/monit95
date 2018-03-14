@@ -11,6 +11,12 @@ var SchoolFileService = /** @class */ (function () {
     SchoolFileService.prototype.getFiles = function () {
         return this.http.get("" + this.ROUTE_PREFIX);
     };
+    SchoolFileService.prototype.checkReportIsGot = function (reportId) {
+        return this.http.get(this.ROUTE_PREFIX + "/isGot/" + reportId);
+    };
+    SchoolFileService.prototype.setReportIsGot = function (reportId) {
+        return this.http.post(this.ROUTE_PREFIX + "/isGot/" + reportId, null, { responseType: 'text' });
+    };
     SchoolFileService = tslib_1.__decorate([
         core_1.Injectable(),
         tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])

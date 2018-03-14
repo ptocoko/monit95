@@ -9,7 +9,7 @@ var SchoolFilesComponent = /** @class */ (function () {
     function SchoolFilesComponent(schoolFileService) {
         this.schoolFileService = schoolFileService;
         this.isLoading = true;
-        this.displayedColumns = ['ProjectName', 'Name', 'Year'];
+        this.displayedColumns = ['ProjectName', 'Name', 'Year', 'Status'];
     }
     SchoolFilesComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -19,6 +19,8 @@ var SchoolFilesComponent = /** @class */ (function () {
             _this.dataSource = new material_1.MatTableDataSource(_this.files);
             _this.isLoading = false;
         });
+    };
+    SchoolFilesComponent.prototype.ngAfterViewInit = function () {
     };
     SchoolFilesComponent = tslib_1.__decorate([
         core_1.Component({

@@ -14,7 +14,7 @@ export class SchoolFilesComponent implements OnInit {
     files: FileItem[];        
     isLoading: boolean = true;    
 
-    displayedColumns = ['ProjectName', 'Name', 'Year'];
+    displayedColumns = ['ProjectName', 'Name', 'Year', 'Status'];
     dataSource: any;
     
     constructor(private readonly schoolFileService: SchoolFileService) {
@@ -29,9 +29,22 @@ export class SchoolFilesComponent implements OnInit {
 	        this.isLoading = false;
 	    });
 	}	
+	
+	async checkReportIsGot(reportId: number) {
+		return await this.schoolFileService.checkReportIsGot(reportId).toPromise();
+	}
+
+	setReportIsGot(reportId: number, button: HTMLButtonElement) {
+		button.disabled = true;
+		this.schoolFileService.setReportIsGot(reportId).subscribe(res => button.disabled = false, error => {
+			button.disabled = false;
+			throw error;
+		});
+	}
 }
 
 interface FileItem {
+	Id: number;
     ProjectName: string;
     Name: string;
     Link: string;        
