@@ -235,7 +235,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         public IEnumerable<SeminarReportViewDto> GetViewDtos(string userName)
         {
             IEnumerable<RsurReport> reportEntities;
-            var date2018YearReports = new DateTime(2018, 1, 1);
+            var date2018YearReports = new DateTime(2018, 3, 1);
             var queryToGetReportEntities = context.RsurReports.Where(report => report.Date > date2018YearReports)
                                                               .OrderBy(ob => ob.Date);
             if (userName.Length == 3) // areaCode is three-digit number
