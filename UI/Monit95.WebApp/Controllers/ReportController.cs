@@ -2,24 +2,27 @@
 using System.Web.Mvc;
 using Monit95App.Models;
 using Monit95App.Services;
+using Monit95App.Services.SchoolFiles;
 
 namespace Monit95App.Controllers
 {
     [Authorize(Roles = "school")]
     public class ReportController : Controller
-    {        
-        private readonly CokoContext cokoDb;        
+    {
+        //private readonly CokoContext cokoDb;
+        private readonly IReportMetaHandler reportMetaHandler;
         private readonly AppCache appCache = new AppCache();        
 
-        public ReportController(CokoContext cokoContext)
+        public ReportController(IReportMetaHandler reportMetaHandler)
         {
-            cokoDb = cokoContext;
+            //cokoDb = cokoContext;
+            this.reportMetaHandler = reportMetaHandler;
         }
 
-        public ReportController()
-        {
-            cokoDb = new CokoContext();
-        }
+        //public ReportController()
+        //{
+        //    cokoDb = new CokoContext();
+        //}
 
         [HttpGet]
         public ActionResult Report()
@@ -27,7 +30,7 @@ namespace Monit95App.Controllers
             var model = appCache.GetReportMetas(User.Identity.Name);
             if (model == null)
             {
-                model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(User.Identity.Name), new SchoolReportFileNameOffline());
+                model = reportMetaHandler.GetReportMetasBySchool(User.Identity.Name, new SchoolReportFileNameOffline());
 
                 appCache.AddReportMetas(model, User.Identity.Name);
             }
@@ -39,7 +42,7 @@ namespace Monit95App.Controllers
             var model = appCache.GetReportMetas(_schoolID);
             if (model == null)
             {
-                model = ReportMetaHandler.GetReportMetasBySchool(cokoDb.Schools.Find(_schoolID), new SchoolReportFileNameOffline());
+                model = reportMetaHandler.GetReportMetasBySchool(_schoolID, new SchoolReportFileNameOffline());
                 appCache.AddReportMetas(model, _schoolID);
             }
             return PartialView("_OnlineReports", model);            

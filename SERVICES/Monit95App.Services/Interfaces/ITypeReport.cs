@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monit95App.Services.SchoolFiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Monit95App.Services.Interfaces
 {
     public interface ITypeReport
     {
-        IEnumerable<ReportMeta> GetReportMetas();
+        IEnumerable<ReportModel> GetReportMetas();
     }
 }

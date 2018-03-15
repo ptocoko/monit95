@@ -7,6 +7,7 @@ using AutoMapper;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.SchoolFiles;
 
 namespace Monit95App.Services
 {
@@ -21,16 +22,17 @@ namespace Monit95App.Services
             this.school = school;
             this.iFileNames = iFileNames;
         }
-        public IEnumerable<ReportMeta> GetReportMetas()
+
+        public IEnumerable<ReportModel> GetReportMetas()
         {
             //TODO: попробовать AutoMapper.EF6. Что это такое вообще?
 
             //настройка AutoMapper
-            Mapper.Initialize(cfg => cfg.CreateMap<Report, ReportMeta>());
+            Mapper.Initialize(cfg => cfg.CreateMap<Report, ReportModel>());
 
             var reportFileNames = iFileNames.GetFileNames(school); //e.g: 0001_201664.zip
             Report report = null;            
-            List<ReportMeta> reportMetas = new List<ReportMeta>();
+            List<ReportModel> reportMetas = new List<ReportModel>();
             int currentReportCode = 0;
             foreach (var reportFileName in reportFileNames)
             {
@@ -38,12 +40,12 @@ namespace Monit95App.Services
                 report = context.Reports.Where(x => x.Id == currentReportCode
                                                  && x.TypeCode == 1).Single();
 
-                var newReportMeta = Mapper.Map<Report, ReportMeta>(report);
+                var newReportMeta = Mapper.Map<Report, ReportModel>(report);
                 newReportMeta.Link = $@"{school.ReportLink}/{reportFileName}";
                 newReportMeta.IsGot = report.SchoolReportsCollectors.SingleOrDefault(p => p.SchoolId == school.Id)?.IsGot ?? false;
                 reportMetas.Add(newReportMeta);  
             }
-            return reportMetas ?? Enumerable.Empty<ReportMeta>();
+            return reportMetas ?? Enumerable.Empty<ReportModel>();
         }
     }
 }

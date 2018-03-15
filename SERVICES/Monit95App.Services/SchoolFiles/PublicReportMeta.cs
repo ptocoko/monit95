@@ -1,6 +1,7 @@
 ﻿using Monit95App.Domain.Core;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.SchoolFiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,25 +20,26 @@ namespace Monit95App.Services
             this.school = school;
         }
 
-        public IEnumerable<ReportMeta> GetReportMetas()
+        public IEnumerable<ReportModel> GetReportMetas()
         {
             //TODO: здесь дублирующий код с ProtectReportMeta и надо использовать Automapper
-            var allReports = context.Reports.Where(x => x.TypeCode == 3).ToList();            
+            var allReports = context.Reports.Where(x => x.TypeCode == 3 && x.IsShow).ToList();            
 
-            ICollection<ReportMeta> reportMetas = new List<ReportMeta>();
+            ICollection<ReportModel> reportMetas = new List<ReportModel>();
             foreach (var report in allReports)
             {
-                reportMetas.Add(new ReportMeta
+                reportMetas.Add(new ReportModel
                 {
                     Id = report.Id,
                     Name = report.Name,
                     ProjectName = report.ProjectName,
                     Year = report.Year,
                     Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{report.Id}.rar",
+                    Date = report.Date,
                     IsGot = report.SchoolReportsCollectors.SingleOrDefault(p => p.SchoolId == school.Id)?.IsGot ?? false
-            });
+                });
             }
-            return reportMetas ?? Enumerable.Empty<ReportMeta>();
+            return reportMetas ?? Enumerable.Empty<ReportModel>();
         }
     }
 }
