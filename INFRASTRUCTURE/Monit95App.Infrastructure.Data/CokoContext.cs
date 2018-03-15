@@ -36,7 +36,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<RsurTest> RsurTests { get; set; }
         public virtual DbSet<SchoolCollector> SchoolCollectors { get; set; }
         public virtual DbSet<SchoolEdit> SchoolEdits { get; set; }
-        public virtual DbSet<School> Schools { get; set; }        
+        public virtual DbSet<School> Schools { get; set; }  
+        public virtual DbSet<SchoolReportsCollector> SchoolReportsCollectors { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TownType> TownTypes { get; set; }        
         public virtual DbSet<Wish> Wishes { get; set; }
@@ -49,6 +50,15 @@ namespace Monit95App.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SchoolReportsCollector>()
+                .HasRequired(e => e.School)
+                .WithMany(e => e.SchoolReportsCollectors);
+
+            modelBuilder.Entity<SchoolReportsCollector>()
+                .HasRequired(e => e.Report)
+                .WithMany(e => e.SchoolReportsCollectors)
+                .HasForeignKey(e => e.ProjectId);
+
             modelBuilder.Entity<Monit95User>()
                 .ToTable("Monit95Users");
 

@@ -16,6 +16,7 @@ using Monit95App.Services.Rsur.ParticipReport;
 using Monit95App.Services.Rsur.QuestionValue;
 using Monit95App.Services.Rsur.SeminarReport;
 using Monit95App.Services.School;
+using Monit95App.Services.SchoolFiles;
 using Monit95App.Web.Services;
 
 namespace Monit95.WebApp.Util
@@ -57,6 +58,7 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<SeminarReportService>().As<ISeminarReportService>();
             builder.RegisterType<FileService>().As<IFileService>();
             builder.RegisterType<QuestionProtocolService>().As<IQuestionProtocolService>();
+            builder.RegisterType<ReportMetaHandler>().As<IReportMetaHandler>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

@@ -4,7 +4,7 @@
         <mat-table #table [dataSource]="dataSource">
 
             <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
+          The actual rendered columns are set as a property on the row definition" -->
             <!-- Position Column -->
             <ng-container matColumnDef="ProjectName">
                 <mat-header-cell *matHeaderCellDef> Проект </mat-header-cell>
@@ -21,6 +21,19 @@
             <ng-container matColumnDef="Year">
                 <mat-header-cell *matHeaderCellDef> Учебный год </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.Year}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+                <mat-header-cell *matHeaderCellDef> Статус </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-raised-button
+                            color="primary"
+                            *ngIf="!element.IsGot"
+                            (click)="setReportIsGot(element, $event.currentTarget)">
+                        Отметить как прочитанное
+                    </button>
+                    <span *ngIf="element.IsGot">Прочитано!</span>
+                </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
