@@ -30,9 +30,9 @@
                             color="primary"
                             *ngIf="!element.IsGot"
                             (click)="setReportIsGot(element, $event.currentTarget)">
-                        Получить
+                        Отметить как прочитанное
                     </button>
-                    <span *ngIf="element.IsGot">Получено!</span>
+                    <span *ngIf="element.IsGot">Прочитано!</span>
                 </mat-cell>
             </ng-container>
 

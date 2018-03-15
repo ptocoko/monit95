@@ -23,7 +23,7 @@ namespace Monit95App.Services
         public IEnumerable<ReportModel> GetReportMetas()
         {
             //TODO: здесь дублирующий код с ProtectReportMeta и надо использовать Automapper
-            var allReports = context.Reports.Where(x => x.TypeCode == 3 && x.IsShow).ToList();            
+            var allReports = context.Reports.Where(x => x.TypeCode == 3).ToList();            
 
             ICollection<ReportModel> reportMetas = new List<ReportModel>();
             foreach (var report in allReports)
