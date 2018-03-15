@@ -23,7 +23,7 @@ namespace Monit95App.Services
         public IEnumerable<ReportModel> GetReportMetas()
         {
             //TODO: здесь дублирующий код с ProtectReportMeta и надо использовать Automapper
-            var allReports = context.Reports.Where(x => x.TypeCode == 3).ToList();            
+            var allReports = context.Reports.Where(x => x.TypeCode == 3 && x.IsShow).ToList();            
 
             ICollection<ReportModel> reportMetas = new List<ReportModel>();
             foreach (var report in allReports)
@@ -36,6 +36,7 @@ namespace Monit95App.Services
                     Year = report.Year,
                     Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{report.Id}.rar",
                     Date = report.Date,
+                    IsShow = report.IsShow,
                     IsGot = report.SchoolReportsCollectors.SingleOrDefault(p => p.SchoolId == school.Id)?.IsGot ?? false
                 });
             }

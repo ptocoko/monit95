@@ -23,7 +23,7 @@ namespace Monit95App.Services
 
         public IEnumerable<ReportModel> GetReportMetas()
         {                     
-            var new_protectReports = context.Reports.Where(x => x.TypeCode == 2).ToList();
+            var new_protectReports = context.Reports.Where(x => x.TypeCode == 2 && x.IsShow).ToList();
             var new_protectReports2 = new_protectReports.Where(x => x.Available.Split(',').Contains(school.Id));
 
             ICollection<ReportModel> reportMetas = new List<ReportModel>();
@@ -38,6 +38,7 @@ namespace Monit95App.Services
                     Year = protectReport.Year,
                     Link = $@"https://cloud.mail.ru/public/2TP2/UAdxpfhuB/2000_{protectReport.Id}.rar",
                     Date = protectReport.Date,
+                    IsShow = protectReport.IsShow,
                     IsGot = protectReport.SchoolReportsCollectors.SingleOrDefault(p => p.SchoolId == school.Id)?.IsGot ?? false
                 });
             }
