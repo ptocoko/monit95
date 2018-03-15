@@ -13,7 +13,7 @@ export class SeminarReportCreateFormComponent {
 	fileIndex: number = 1; // используется для генерации уникальных ключей для файлов семинара
 	isSending = false;
 	acceptedImageExtensions = ['jpg', 'jpeg', 'png', 'bmp'];
-	acceptedProtocolExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
+	acceptedProtocolExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif', 'pdf'];
 	getNotProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === false);
 	getProtocolFiles = () => this.seminarFiles.filter(f => f.isProtocol === true);
 	getFilesWithError = () => this.seminarFiles.filter(f => f.errorMessage);

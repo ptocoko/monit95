@@ -16,7 +16,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         this.fileIndex = 1; // используется для генерации уникальных ключей для файлов семинара
         this.isSending = false;
         this.acceptedImageExtensions = ['jpg', 'jpeg', 'png', 'bmp'];
-        this.acceptedProtocolExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif'];
+        this.acceptedProtocolExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif', 'pdf'];
         this.getNotProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === false; }); };
         this.getProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === true; }); };
         this.getFilesWithError = function () { return _this.seminarFiles.filter(function (f) { return f.errorMessage; }); };
@@ -72,24 +72,24 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         });
     };
     SeminarReportCreateFormComponent.prototype.sendFiles = function () {
-        var _this = this;
         this.isSending = true;
-        var formData = new FormData();
-        for (var _i = 0, _a = this.seminarFiles; _i < _a.length; _i++) {
-            var seminarImage = _a[_i];
-            formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
-        }
-        this.seminarReportService.postFiles(formData).subscribe(function (response) {
-            _this.location.back();
-        }, function (error) {
-            _this.isSending = false;
-            if (error.status !== 409) {
-                throw Error(error.message);
-            }
-            else {
-                _this.filesConflictHandler(error.error);
-            }
-        });
+        //let formData = new FormData();
+        //for (let seminarImage of this.seminarFiles) {
+        //	formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
+        //}
+        //this.seminarReportService.postFiles(formData).subscribe(
+        //	response => {
+        //		this.location.back();
+        //	},
+        //	error => {
+        //		this.isSending = false;
+        //		if (error.status !== 409) {
+        //			throw Error(error.message);
+        //		} else {
+        //			this.filesConflictHandler(error.error);
+        //		}
+        //	}
+        //)
     };
     SeminarReportCreateFormComponent.prototype.filesConflictHandler = function (error) {
         var keys = Object.keys(error.ModelState);
