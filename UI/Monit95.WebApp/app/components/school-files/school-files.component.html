@@ -29,7 +29,7 @@
                     <button mat-raised-button
                             color="primary"
                             *ngIf="!element.IsGot"
-                            (click)="setReportIsGot(element, $event.target)">
+                            (click)="setReportIsGot(element, $event.currentTarget)">
                         Получить
                     </button>
                     <span *ngIf="element.IsGot">Получено!</span>

@@ -33,7 +33,6 @@ export class SchoolFilesComponent implements OnInit {
 	setReportIsGot(report: FileItem, button: HTMLButtonElement) {
 		button.disabled = true;
 		this.schoolFileService.setReportIsGot(report.Id).subscribe(res => {
-			//button.disabled = false;
 			report.IsGot = true;
 		}, error => {
 			button.disabled = false;

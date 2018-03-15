@@ -23,7 +23,6 @@ var SchoolFilesComponent = /** @class */ (function () {
     SchoolFilesComponent.prototype.setReportIsGot = function (report, button) {
         button.disabled = true;
         this.schoolFileService.setReportIsGot(report.Id).subscribe(function (res) {
-            //button.disabled = false;
             report.IsGot = true;
         }, function (error) {
             button.disabled = false;
