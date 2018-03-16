@@ -33,6 +33,8 @@ export class SeminarReportComponent implements OnInit {
 				this.report = res;
 				this.photoKeys = Object.keys(this.report.SeminarFiles).filter(f => f.includes('foto'));
 				this.isLoading = false;
+
+				// пролистывание фотографий в режиме просмотра
 				Observable.fromEvent(document, 'keydown')
 					.filter((e: any) => [37, 39, 27].indexOf(e.keyCode) >= 0 && this.viewingImageKey != null)
 					.subscribe(this.keyUpHandler.bind(this))
