@@ -72,24 +72,24 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         });
     };
     SeminarReportCreateFormComponent.prototype.sendFiles = function () {
+        var _this = this;
         this.isSending = true;
-        //let formData = new FormData();
-        //for (let seminarImage of this.seminarFiles) {
-        //	formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
-        //}
-        //this.seminarReportService.postFiles(formData).subscribe(
-        //	response => {
-        //		this.location.back();
-        //	},
-        //	error => {
-        //		this.isSending = false;
-        //		if (error.status !== 409) {
-        //			throw Error(error.message);
-        //		} else {
-        //			this.filesConflictHandler(error.error);
-        //		}
-        //	}
-        //)
+        var formData = new FormData();
+        for (var _i = 0, _a = this.seminarFiles; _i < _a.length; _i++) {
+            var seminarImage = _a[_i];
+            formData.append(seminarImage.key, seminarImage.file, seminarImage.file.name);
+        }
+        this.seminarReportService.postFiles(formData).subscribe(function (response) {
+            _this.location.back();
+        }, function (error) {
+            _this.isSending = false;
+            if (error.status !== 409) {
+                throw Error(error.message);
+            }
+            else {
+                _this.filesConflictHandler(error.error);
+            }
+        });
     };
     SeminarReportCreateFormComponent.prototype.filesConflictHandler = function (error) {
         var keys = Object.keys(error.ModelState);
