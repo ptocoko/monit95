@@ -8,6 +8,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public int RsurParticipCode { get; set; }
 
+        public bool Editable { get; set; }
+
         public virtual RsurParticip RsurParticip { get; set; }
 
         public virtual RsurTest RsurTest { get; set; }
