@@ -22,27 +22,98 @@ namespace OneTwoThreeReporter
 
         static void Main(string[] args)
         {
-            //_context = new CokoContext();
-            //_testResults = new GenericRepository<Result>(_context);
-            //_schools = new GenericRepository<School>(_context);
-            //_gradeConverter = new OneTwoThreeGradeConverter();
+            var context = new CokoContext();
 
-            //var classService = new ClassService(new GenericRepository<Class>(_context));
-            //_classes = classService.GetAll().ToList();
-
-            //var reports = GetAllResults();
-            //foreach (var report in reports)
-            //{
-            //    CreateSchoolReportInExcel(report);
-            //}
-
-            //Console.WriteLine("All Ok!");
-            //Console.ReadKey();
+            CreateReports(context);
         }
 
-        private static List<IGrouping<string, OneTwoThreeReportDto>> GetAllResults()
+        static void CreateReports(CokoContext context)
         {
-            return new List<IGrouping<string, OneTwoThreeReportDto>>();
+            string folderPath = @"D:\Work\participsCompetences";
+
+            var entities = context.ParticipsCompetences.GroupBy(ks => ks.SchoolId);
+
+            foreach (var competences in entities)
+            {
+                using (var excelTemplate = new XLWorkbook($@"{folderPath}\template_name"))
+                {
+                    using (IXLWorksheet sheet = excelTemplate.Worksheets.First())
+                    {
+                        int i = 0;
+                        foreach (var competence in competences)
+                        {
+                            sheet.Cell(i + 3, 1).Value = competence.Code;
+                            sheet.Cell(i + 3, 2).Value = competence.FIO;
+                            sheet.Cell(i + 3, 3).Value = competence.PrimaryMark;
+                            sheet.Cell(i + 3, 4).Value = ((CompetenceLevels)competence.CompetenceLevel).ToString();
+
+                            int j = 0;
+                            foreach (var mark in competence.Marks.Split(';'))
+                            {
+                                sheet.Cell(i + 3, j + 5).Value = mark;
+
+                                j++;
+                            }
+
+                            i ++;
+                        }
+                    }
+
+                    excelTemplate.SaveAs($@"{folderPath}\{competences.Key}\{competences.Key}_201613.xlsx");
+                }
+            }
+        }
+
+        enum CompetenceLevels
+        {
+            Недостаточный = 2,
+            Минимальный = 3,
+            Базовый = 5
+        }
+
+        //private static void CreateSchoolReportInExcel(IGrouping<string, OneTwoThreeReportDto> schoolReport)
+        //{
+        //    var schoolId = schoolReport.Key;
+        //    var currentPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\OneTwoThreeReports\{schoolId}";
+        //    if (!Directory.Exists(currentPath))
+        //        Directory.CreateDirectory(currentPath);
+
+        //    var currentFilePath = currentPath + $@"\{schoolId}_201683";
+
+        //    var excelTemplate = new XLWorkbook(Directory.GetCurrentDirectory() + @"\\201677_ППР.xlsx");
+        //    var sheet = excelTemplate.Worksheets.First();
+
+        //    var school = _schools.GetAll().Single(s => s.Id == schoolId);
+        //    sheet.Cell(2, 1).Value = $"{school.Name.Trim()} ({school.Area.Name.Trim()})";
+
+        //    int i = 0;
+        //    foreach (var result in schoolReport)
+        //    {
+        //        sheet.Cell(4 + i, 2).Value = result.ExerciseMarkId;
+        //        sheet.Cell(4 + i, 3).Value = result.Surname;
+        //        sheet.Cell(4 + i, 4).Value = result.Name;
+        //        sheet.Cell(4 + i, 5).Value = result.SecondName;
+        //        sheet.Cell(4 + i, 6).Value = result.ClassName;
+        //        sheet.Cell(4 + i, 7).Value = result.SubjectName;
+        //        sheet.Cell(4 + i, 8).Value = result.Marks;
+        //        sheet.Cell(4 + i, 9).Value = result.GradeStr;
+        //        i++;
+        //    }
+
+        //    excelTemplate.SaveAs(currentFilePath + ".xlsx");
+
+        //    using (ZipFile zip = new ZipFile())
+        //    {
+        //        zip.AddFile(currentFilePath + ".xlsx", "");
+        //        zip.Save(currentFilePath + ".zip");
+        //    }
+
+        //    System.IO.File.Delete(currentFilePath + ".xlsx");
+        //}
+
+        //private static List<IGrouping<string, OneTwoThreeReportDto>> GetAllResults()
+        //{
+        //    return new List<IGrouping<string, OneTwoThreeReportDto>>();
             //var res = _context.TestResults.Join(_context.ExerciseMarks, ok => ok.ExerciseMarkId, ik => ik.Id, (testRes, exer) => new
             //{
             //    ParticipId = exer.ParticipId,
@@ -72,57 +143,17 @@ namespace OneTwoThreeReporter
 
             //var groupedReports = res.GroupBy(s => s.SchoolId).ToList();
             //return groupedReports;
-        }        
-
-        private static void CreateSchoolReportInExcel(IGrouping<string, OneTwoThreeReportDto> schoolReport)
-        {
-            //var schoolId = schoolReport.Key;
-            //var currentPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $@"\OneTwoThreeReports\{schoolId}";
-            //if (!Directory.Exists(currentPath))
-            //    Directory.CreateDirectory(currentPath);
-
-            //var currentFilePath = currentPath + $@"\{schoolId}_201683";
-
-            //var excelTemplate = new XLWorkbook(Directory.GetCurrentDirectory() + @"\\201677_ППР.xlsx");
-            //var sheet = excelTemplate.Worksheets.First();
-
-            //var school = _schools.GetAll().Single(s => s.Id == schoolId);
-            //sheet.Cell(2, 1).Value = $"{school.Name.Trim()} ({school.Area.Name.Trim()})";
-
-            //int i=0;
-            //foreach(var result in schoolReport)
-            //{
-            //    sheet.Cell(4 + i, 2).Value = result.ExerciseMarkId;
-            //    sheet.Cell(4 + i, 3).Value = result.Surname;
-            //    sheet.Cell(4 + i, 4).Value = result.Name;
-            //    sheet.Cell(4 + i, 5).Value = result.SecondName;
-            //    sheet.Cell(4 + i, 6).Value = result.ClassName;
-            //    sheet.Cell(4 + i, 7).Value = result.SubjectName;
-            //    sheet.Cell(4 + i, 8).Value = result.Marks;
-            //    sheet.Cell(4 + i, 9).Value = result.GradeStr;
-            //    i++;
-            //}
-            
-            //excelTemplate.SaveAs(currentFilePath + ".xlsx");
-
-            //using(ZipFile zip = new ZipFile())
-            //{
-            //    zip.AddFile(currentFilePath + ".xlsx", "");
-            //    zip.Save(currentFilePath + ".zip");
-            //}
-
-            //System.IO.File.Delete(currentFilePath + ".xlsx");
-        }
-
-        private static string GetClassName(string classCode)
-        {
+        //}   
+        
+        //private static string GetClassName(string classCode)
+        //{
             //foreach(var cl in _classes)
             //{
             //    if (cl.Id == classCode)
             //        return cl.Name;
             //}
             //throw new ArgumentException();
-            return null;
-        }
+            //return null;
+        //}
     }
 }
