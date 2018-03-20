@@ -6,5 +6,11 @@
 
 export class SeminarReportEdit {
 	SeminarReportViewDto: SeminarReportView;
-	SeminarFiles: { [key: string]: string };
+	SeminarFiles: SeminarFile[];
+}
+
+export class SeminarFile {
+	Type: 'pdf' | 'image';
+	Key: string;
+	FileSourceString: string;
 }

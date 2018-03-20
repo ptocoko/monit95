@@ -6,6 +6,13 @@ namespace Monit95App.Services.Rsur.SeminarReport
     {
         public SeminarReportViewDto SeminarReportViewDto { get; set; }
 
-        public IDictionary<string, string> SeminarFiles { get; set; }        
+        public IEnumerable<SeminarFile> SeminarFiles { get; set; }        
+    }
+
+    public class SeminarFile
+    {
+        public string Type { get; set; }
+        public string Key { get; set; }
+        public string FileSourceString { get; set; }
     }
 }
