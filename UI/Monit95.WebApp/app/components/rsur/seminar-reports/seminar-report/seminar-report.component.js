@@ -37,6 +37,22 @@ var SeminarReportComponent = /** @class */ (function () {
     SeminarReportComponent.prototype.showViewer = function (seminarFile) {
         if (seminarFile.Type === 'image')
             this.viewingImage = seminarFile;
+        else {
+            var objbuilder = '';
+            objbuilder += ('<object width="100%" height="100%" data= "data:application/pdf;base64,');
+            objbuilder += (seminarFile.FileSourceString);
+            objbuilder += ('" type="application/pdf" class="internal">');
+            objbuilder += ('<embed src="data:application/pdf;base64,');
+            objbuilder += (seminarFile.FileSourceString);
+            objbuilder += ('" type="application/pdf"  />');
+            objbuilder += ('</object>');
+            var win = window.open("#", "_blank");
+            var title = "my tab title";
+            win.document.write('<html><title>' + title + '</title><body style="margin-top: 0px; margin - left: 0px; margin - right: 0px; margin - bottom: 0px; ">');
+            win.document.write(objbuilder);
+            win.document.write('</body></html>');
+            //layer = jQuery(win.document);
+        }
     };
     SeminarReportComponent.prototype.hideViewer = function () {
         this.viewingImage = null;
