@@ -25,6 +25,8 @@ namespace OneTwoThreeReporter
             var context = new CokoContext();
 
             CreateReports(context);
+
+            Console.WriteLine("All done!");
         }
 
         static void CreateReports(CokoContext context)
@@ -35,7 +37,12 @@ namespace OneTwoThreeReporter
 
             foreach (var competences in entities)
             {
-                using (var excelTemplate = new XLWorkbook($@"{folderPath}\template_name"))
+                if(!Directory.Exists($@"{folderPath}\{competences.Key}"))
+                {
+                    Directory.CreateDirectory($@"{folderPath}\{competences.Key}");
+                }
+
+                using (var excelTemplate = new XLWorkbook($@"{folderPath}\template.xlsx"))
                 {
                     using (IXLWorksheet sheet = excelTemplate.Worksheets.First())
                     {
