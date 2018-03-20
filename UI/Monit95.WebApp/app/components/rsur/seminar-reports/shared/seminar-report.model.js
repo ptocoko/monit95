@@ -12,4 +12,10 @@ var SeminarReportEdit = /** @class */ (function () {
     return SeminarReportEdit;
 }());
 exports.SeminarReportEdit = SeminarReportEdit;
+var SeminarFile = /** @class */ (function () {
+    function SeminarFile() {
+    }
+    return SeminarFile;
+}());
+exports.SeminarFile = SeminarFile;
 //# sourceMappingURL=seminar-report.model.js.map

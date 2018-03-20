@@ -521,6 +521,7 @@
     <Fakes Include="Fakes\element.fakes">
       <SubType>Designer</SubType>
     </Fakes>
+    <Content Include="Images\pdf-previewer.png" />
     <Content Include="Images\rsur_logo.png" />
     <Content Include="package.json" />
     <Content Include="ClassDiagram1.cd" />

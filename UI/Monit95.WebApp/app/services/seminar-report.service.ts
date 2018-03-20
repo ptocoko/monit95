@@ -29,14 +29,7 @@ export class SeminarReportService {
 	}
 
 	getReport(reportId: number) {
-		return this.http.get<SeminarReportEdit>(`${this.endpoint}/${reportId}`)
-			.map(m => {
-				const keys = Object.keys(m.SeminarFiles);
-				for (const key of keys) {
-					m.SeminarFiles[key] = `data:image/png;base64,${m.SeminarFiles[key]}`;
-				}
-				return m;
-			});
+		return this.http.get<SeminarReportEdit>(`${this.endpoint}/${reportId}`);
 	}
 
 	deleteReport(reportId: number) {

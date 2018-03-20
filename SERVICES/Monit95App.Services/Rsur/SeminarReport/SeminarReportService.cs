@@ -199,15 +199,12 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
             if (!reportFiles.Any()) throw new UnauthorizedAccessException("недостаточно прав для доступа к данному содержимому");
 
-            var editDto = new SeminarReportEditDto
+            return new SeminarReportEditDto
             {
-                SeminarReportViewDto = GetSeminarInfo(),
+                SeminarReportViewDto = GetSeminarInfo(report),
                 SeminarFiles = GetSeminarFiles(reportFiles)
             };
-            foreach (var file in reportFiles)
-            {
-
-            }
+            
             //// Procces protocol files
             //var protocolFile = reportFiles.Single(rf => rf.IsProtocol).File;
             //var protocolFileBase64String = GetProtocolBase64String(protocolFile);
@@ -239,9 +236,10 @@ namespace Monit95App.Services.Rsur.SeminarReport
             //    }
             //};
 
-            return editDto;
+            //return editDto;
         }
 
+        
         /// <summary>
         /// Получить список отчетов
         /// </summary>
@@ -278,9 +276,30 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         #region Private methods
 
-        private IList<SeminarFile> GetSeminarFiles(IList<RsurReportFile> rsurReportFiles)
+        private SeminarReportViewDto GetSeminarInfo(RsurReport report)
         {
-            throw new NotImplementedException();
+            return new SeminarReportViewDto
+            {
+                RsurReportId = report.Id,
+                DateText = report.Date.ToString("dd MMM yyyy, HH:mm", new CultureInfo("ru-RU")),
+                SchoolName = $"{report.SchoolId} - {report.School.Name}"
+            };
+        }
+
+        private IList<SeminarFile> GetSeminarFiles(IEnumerable<RsurReportFile> rsurReportFiles)
+        {
+            var seminarFiles = new List<SeminarFile>();
+            int i = 0;
+            foreach (var report in rsurReportFiles.OrderByDescending(rf => rf.IsProtocol))
+            {
+                seminarFiles.Add(new SeminarFile
+                {
+                    Type = GetSeminarFileType(report.File.Name),
+                    Key = report.IsProtocol ? "protocol" : $"image_{i++}",
+                    FileSourceString = GetBase64String(report.File)
+                });
+            }
+            return seminarFiles;
         }
 
         /// <summary>
@@ -289,7 +308,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         /// <param name="fileEntity"></param>
         /// <returns></returns>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        private string GetProtocolBase64String(Entities.File fileEntity)
+        private string GetBase64String(Entities.File fileEntity)
         {            
             var extension = Path.GetExtension(fileEntity.Name);
             string base64String;
