@@ -21,6 +21,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Grade> Grades { get; set; }              
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
+        public virtual DbSet<ParticipsCompetence> ParticipsCompetences { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }        

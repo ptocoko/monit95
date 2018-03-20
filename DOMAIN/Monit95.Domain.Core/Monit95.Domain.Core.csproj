@@ -62,6 +62,7 @@
     <Compile Include="Entities\Grade.cs" />
     <Compile Include="Entities\Monit95User.cs" />
     <Compile Include="Entities\Particip.cs" />
+    <Compile Include="Entities\ParticipsCompetence.cs" />
     <Compile Include="Entities\ParticipTest.cs" />
     <Compile Include="Entities\Permission.cs" />
     <Compile Include="Entities\Project.cs" />
