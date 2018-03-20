@@ -2,7 +2,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SeminarReportService } from '../../../../services/seminar-report.service';
-import { SeminarReportEdit } from '../shared/seminar-report.model';
+import { SeminarReportEdit, SeminarFile } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
 import { AccountService } from "../../../../services/account.service";
 import { Observable } from 'rxjs/Observable';
@@ -14,15 +14,12 @@ import { Observable } from 'rxjs/Observable';
 })
 export class SeminarReportComponent implements OnInit {
 	report: SeminarReportEdit;
-	photoKeys: string[];
+	//photoKeys: string[];
 	isLoading: boolean;
-	viewingImageKey: string;
+	viewingImage: SeminarFile;
 
-	constructor(private router: Router, 
-				private route: ActivatedRoute,
-				private seminarReportService: SeminarReportService,
-				private location: Location,
-				private accountService: AccountService) { }
+	constructor(private route: ActivatedRoute,
+				private seminarReportService: SeminarReportService) { }
 
 	ngOnInit() {
 		this.isLoading = true;
@@ -31,28 +28,40 @@ export class SeminarReportComponent implements OnInit {
 
 			this.seminarReportService.getReport(rsurReportId).subscribe(res => {
 				this.report = res;
-				this.photoKeys = Object.keys(this.report.SeminarFiles).filter(f => f.includes('foto'));
+				//this.photoKeys = this.report.SeminarFiles.map(sf => sf.Key).filter(f => f.includes('image'));
 				this.isLoading = false;
 
 				// пролистывание фотографий в режиме просмотра
 				Observable.fromEvent(document, 'keydown')
-					.filter((e: any) => [37, 39, 27].indexOf(e.keyCode) >= 0 && this.viewingImageKey != null)
+					.filter((e: any) => [37, 39, 27].indexOf(e.keyCode) >= 0 && this.viewingImage != null)
 					.subscribe(this.keyUpHandler.bind(this))
 			});
 		})
 	}
 
-	showViewer(imageKey: string) {
-		this.viewingImageKey = imageKey;
+	getPreviewer(seminarFile: SeminarFile): string {
+		if (seminarFile.Type === 'image') {
+			return 'data:image/png;base64,' + seminarFile.FileSourceString;
+		} else {
+			return '/images/pdf-previewer.png';
+		}
+	}
+
+	showViewer(seminarFile: SeminarFile) {
+		if (seminarFile.Type === 'image')
+			this.viewingImage = seminarFile;
+		else {
+			this.openPdf(seminarFile);
+		}
 	}
 
 	hideViewer() {
-		this.viewingImageKey = null;
+		this.viewingImage = null;
 	}
 
 	hasPrevImg() {
-		if (this.viewingImageKey) {
-			if (this.viewingImageKey === 'protocol') {
+		if (this.viewingImage) {
+			if (this.report.SeminarFiles.filter(f => f.Type === 'image').indexOf(this.viewingImage) === 0) {
 				return false;
 			}
 			return true;
@@ -62,8 +71,8 @@ export class SeminarReportComponent implements OnInit {
 	}
 
 	hasNextImg() {
-		if (this.viewingImageKey) {
-			if (this.photoKeys.indexOf(this.viewingImageKey) === this.photoKeys.length - 1) {
+		if (this.viewingImage) {
+			if (this.report.SeminarFiles.indexOf(this.viewingImage) === this.report.SeminarFiles.length - 1) {
 				return false;
 			}
 			return true;
@@ -72,25 +81,17 @@ export class SeminarReportComponent implements OnInit {
 	}
 
 	showPrevImg() {
-		const indexOfViewingPhoto = this.photoKeys.indexOf(this.viewingImageKey);
-		if (indexOfViewingPhoto === 0) {
-			this.viewingImageKey = 'protocol'
-			return;
-		} else {
-			this.viewingImageKey = this.photoKeys[indexOfViewingPhoto - 1];
-			return;
-		}
+		const indexOfViewingPhoto = this.report.SeminarFiles.indexOf(this.viewingImage);
+		
+		this.viewingImage = this.report.SeminarFiles[indexOfViewingPhoto - 1];
+		return;
 	}
 
 	showNextImg() {
-		if (this.viewingImageKey === 'protocol') {
-			this.viewingImageKey = this.photoKeys[0];
-			return;
-		} else {
-			const indexOfViewingPhoto = this.photoKeys.indexOf(this.viewingImageKey);
-			this.viewingImageKey = this.photoKeys[indexOfViewingPhoto + 1];
-			return;
-		}
+		const indexOfViewingPhoto = this.report.SeminarFiles.indexOf(this.viewingImage);
+
+		this.viewingImage = this.report.SeminarFiles[indexOfViewingPhoto + 1];
+		return;
 	}
 
 	keyUpHandler(e: KeyboardEvent) {
@@ -106,5 +107,22 @@ export class SeminarReportComponent implements OnInit {
 			this.hideViewer();
 			return;
 		}
+	}
+
+	private openPdf(seminarFile: SeminarFile) {
+		var objbuilder = '';
+		objbuilder += ('<object width="100%" height="100%" data= "data:application/pdf;base64,');
+		objbuilder += (seminarFile.FileSourceString);
+		objbuilder += ('" type="application/pdf" class="internal">');
+		objbuilder += ('<embed src="data:application/pdf;base64,');
+		objbuilder += (seminarFile.FileSourceString);
+		objbuilder += ('" type="application/pdf"  />');
+		objbuilder += ('</object>');
+
+		var win = window.open("#", "_blank");
+		var title = seminarFile.Key;
+		win.document.write('<html><title>' + title + '</title><body style="margin-top: 0px; margin - left: 0px; margin - right: 0px; margin - bottom: 0px; ">');
+		win.document.write(objbuilder);
+		win.document.write('</body></html>');
 	}
 }

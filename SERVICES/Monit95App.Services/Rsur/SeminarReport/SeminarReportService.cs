@@ -192,40 +192,54 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
             var report = context.RsurReports.Find(reportId);
             if (report == null)
-                throw new ArgumentException(nameof(reportId));
+                throw new ArgumentException($"{reportId}: отчета с таким клучом не существует");
 
             var reportFiles = report.RsurReportFiles.Where(rf => rf.RsurReportId == reportId &&
                                                                  rf.File.FilePermissonList.Any(fp => fp.Equals(filePermissionForRead))).ToList();
 
-            var resultDic = new Dictionary<string, string>();
-            // Procces protocol files
-            var protocolFile = reportFiles.Single(rf => rf.IsProtocol).File;
-            var protocolFileBase64String = GetProtocolBase64String(protocolFile);
-            resultDic.Add("protocol", protocolFileBase64String);
+            if (!reportFiles.Any()) throw new UnauthorizedAccessException("недостаточно прав для доступа к данному содержимому");
 
-            // Procces foto files
-            var index = 1;
-            foreach (var photoFileId in reportFiles.Where(rf => !rf.IsProtocol).Select(rf => rf.FileId))
+            return new SeminarReportEditDto
             {
-                var fotoFileBase64String = fileService.GetFileBase64String(photoFileId);
-                resultDic.Add($"foto{index++}", fotoFileBase64String);
-            }
-
-            // TODO: this code dublicate
-            var editDto = new SeminarReportEditDto
-            {
-                SeminarFiles = resultDic,
-                SeminarReportViewDto = new SeminarReportViewDto
-                {
-                    RsurReportId = reportId,
-                    DateText = report.Date.ToString("dd MMM yyyy, HH:mm", new CultureInfo("ru-RU")),
-                    SchoolName = $"{report.SchoolId} - {report.School.Name}"
-                }
+                SeminarReportViewDto = GetSeminarInfo(report),
+                SeminarFiles = GetSeminarFiles(reportFiles)
             };
+            
+            //// Procces protocol files
+            //var protocolFile = reportFiles.Single(rf => rf.IsProtocol).File;
+            //var protocolFileBase64String = GetProtocolBase64String(protocolFile);
+            //seminarFiles.Add(new SeminarFile
+            //{
+            //    Type = protocolFile.Name.Split('.').Last(),
+            //    Key = "protocol",
+            //    FileSourceString = protocolFileBase64String
+            //});
+            ////resultDic.Add("protocol", protocolFileBase64String);
 
-            return editDto;
+            //// Procces foto files
+            //var index = 1;
+            //foreach (var photoFileId in reportFiles.Where(rf => !rf.IsProtocol).Select(rf => rf.FileId))
+            //{
+            //    var fotoFileBase64String = fileService.GetFileBase64String(photoFileId);
+            //    seminarFiles.Add($"foto{index++}", fotoFileBase64String);
+            //}
+
+            //// TODO: this code dublicate
+            //var editDto = new SeminarReportEditDto
+            //{
+            //    SeminarFiles = seminarFiles,
+            //    SeminarReportViewDto = new SeminarReportViewDto
+            //    {
+            //        RsurReportId = reportId,
+            //        DateText = report.Date.ToString("dd MMM yyyy, HH:mm", new CultureInfo("ru-RU")),
+            //        SchoolName = $"{report.SchoolId} - {report.School.Name}"
+            //    }
+            //};
+
+            //return editDto;
         }
 
+        
         /// <summary>
         /// Получить список отчетов
         /// </summary>
@@ -262,13 +276,39 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         #region Private methods
 
+        private SeminarReportViewDto GetSeminarInfo(RsurReport report)
+        {
+            return new SeminarReportViewDto
+            {
+                RsurReportId = report.Id,
+                DateText = report.Date.ToString("dd MMM yyyy, HH:mm", new CultureInfo("ru-RU")),
+                SchoolName = $"{report.SchoolId} - {report.School.Name}"
+            };
+        }
+
+        private IList<SeminarFile> GetSeminarFiles(IEnumerable<RsurReportFile> rsurReportFiles)
+        {
+            var seminarFiles = new List<SeminarFile>();
+            int i = 0;
+            foreach (var report in rsurReportFiles.OrderByDescending(rf => rf.IsProtocol))
+            {
+                seminarFiles.Add(new SeminarFile
+                {
+                    Type = GetSeminarFileType(report.File.Name),
+                    Key = report.IsProtocol ? "protocol" : $"image_{i++}",
+                    FileSourceString = GetBase64String(report.File)
+                });
+            }
+            return seminarFiles;
+        }
+
         /// <summary>
         /// Получает содержимое файла-протокола
         /// </summary>        
         /// <param name="fileEntity"></param>
         /// <returns></returns>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        private string GetProtocolBase64String(Entities.File fileEntity)
+        private string GetBase64String(Entities.File fileEntity)
         {            
             var extension = Path.GetExtension(fileEntity.Name);
             string base64String;
@@ -282,6 +322,22 @@ namespace Monit95App.Services.Rsur.SeminarReport
             }
 
             return base64String;
+        }
+
+        private string GetSeminarFileType(string seminarFileName)
+        {
+            var extension = seminarFileName.Split('.').Last();
+            var imageExtensions = new string[] { "jpg", "jpeg", "png", };
+
+            if (!String.IsNullOrEmpty(extension))
+            {
+                if (extension == "pdf") return "pdf";
+                else return "image";
+            }
+            else
+            {
+                throw new ArgumentException($"{seminarFileName}: неверное имя файла или расширение");
+            }
         }
 
         #endregion    
