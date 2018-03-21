@@ -17,7 +17,7 @@ namespace MarksStringConverter
             var service = new RsurMarksConverter(context);
             //service.GenerateByParticipTestId(15017);
             //Go(service);
-            service.GenerateByRsurTestIds(new int[] { 2114, 2116, 2117, 2118, 2119, 2120, 2121, 2122, 2123, 2124, 2125 });
+            service.GenerateByRsurTestId(2126);
             Console.WriteLine("All done!");
             Console.ReadKey();
         }
