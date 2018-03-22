@@ -82,8 +82,9 @@ namespace Monit95App.Services.Rsur.QuestionValue
             } 
             
             var rsurParticipTest = this.context.RsurParticipTests.SingleOrDefault(x => x.RsurParticipCode == participCode
-                                                                                 && x.RsurParticip.School.AreaCode == areaCode
-                                                                                        && x.RsurTest.IsOpen);
+                                                                                    && x.RsurParticip.School.AreaCode == areaCode
+                                                                                    && x.RsurTest.IsOpen
+                                                                                    && x.Editable);
             if (rsurParticipTest == null)
             {
                 throw new ArgumentException($"{nameof(participCode)} is incorrect or is not access for current user");
@@ -110,7 +111,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 {
                     Order = question.Order,
                     Name = question.Order.ToString(),
-                    MaxMark = 1,
+                    MaxMark = question.MaxMark,
                     CurrentMark = currentMarks != null ? (int?)int.Parse(currentMarks[index]) : null
                 });
                 index++;
@@ -188,8 +189,13 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 result.Errors.Add(new ServiceError { Description = $"{nameof(questionValueEditDto)} is null" });
                 return result;
             }
-            var testQuestions = context.RsurParticipTests.SingleOrDefault(x => x.RsurTest.IsOpen && x.Id == questionValueEditDto.ParticipTestId && x.RsurParticip.School.AreaCode == areaCode)
-                                       .RsurTest.Test.Questions.ToList();                        
+            var testQuestions = context.RsurParticipTests
+                .SingleOrDefault(x => x.RsurTest.IsOpen 
+                                   && x.Id == questionValueEditDto.ParticipTestId 
+                                   && x.RsurParticip.School.AreaCode == areaCode
+                                   && x.Editable)
+                .RsurTest.Test.Questions.ToList();
+            
             if (!testQuestions.Any())
             {
                 result.Errors.Add(new ServiceError {                    
@@ -260,7 +266,8 @@ namespace Monit95App.Services.Rsur.QuestionValue
             var result = new ServiceResult<IEnumerable<QuestionValueViewDto>>();
 
             var entities = context.RsurParticipTests.Where(x => x.RsurParticip.School.AreaCode == areaCode
-                                                             && x.RsurTest.IsOpen);
+                                                             && x.RsurTest.IsOpen
+                                                             && x.Editable);
 
             if (!entities.Any())
             {
@@ -299,7 +306,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
         {
             var result = new VoidResult();
 
-            if(!context.RsurParticipTests.Any(p => p.RsurParticip.School.AreaCode == areaCode && p.Id == participTestId))
+            if(!context.RsurParticipTests.Any(p => p.RsurParticip.School.AreaCode == areaCode && p.Id == participTestId && p.Editable))
             {
                 result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"{nameof(participTestId)} which equals {participTestId} not exist in current area" });
                 return result;
