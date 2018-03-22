@@ -24,7 +24,10 @@ namespace Monit95App.Infrastructure.BusinessTests
             var mockFileName = new Mock<ISchoolReportFileNameSource>();
             mockFileName.Setup(m => m.GetFileNames(It.IsAny<School>())).Returns(_fileNames);
 
-            var schoolReportMetas = ReportMetaHandler.GetReportMetasBySchool(school, mockFileName.Object).ToList();
+            var mockContext = new Mock<CokoContext>();
+            
+            
+            var schoolReportMetas = (new ReportMetaHandler(mockContext.Object)).GetReportMetasBySchool(school.Id, mockFileName.Object).ToList();
 
             var data = new List<Report>
             {
@@ -55,13 +58,14 @@ namespace Monit95App.Infrastructure.BusinessTests
                 }
             }.AsQueryable();
             var mockSet = new Mock<DbSet<Report>>();
+
+            mockContext.Setup(m => m.Reports).Returns(mockSet.Object);
+
             mockSet.As<IQueryable<Report>>().Setup(m => m.Provider).Returns(data.Provider);
             mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
             mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator);
 
-            var mockContext = new Mock<CokoContext>();
-            mockContext.Setup(m => m.Reports).Returns(mockSet.Object);
 
             // Act
             //var exist_private_report = schoolReportMetas.FindIndex(x => x.Id == 201620);
@@ -110,8 +114,9 @@ namespace Monit95App.Infrastructure.BusinessTests
         public void TestGetPublicReportMetas()
         {
             // Arrange            
+            var school = new School { Id = "0005" };
             var existReports = new[] { 201650, 201653, 201654 };
-            var publicReportMeta = new PublicReportMeta();
+            var publicReportMeta = new PublicReportMeta(school);
             
             // Act
             var reportMetas = publicReportMeta.GetReportMetas().ToList();

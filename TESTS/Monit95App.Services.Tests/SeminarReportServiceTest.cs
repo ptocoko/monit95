@@ -157,8 +157,8 @@ namespace Monit95App.Services.Tests
             var result = seminarReportService.GetEditDto(1, "0001");
 
             // ASSERT
-            Assert.IsNotNull(result.SeminarFiles.Count >= 3 && result.SeminarFiles.Count <= 5);
-            Assert.AreEqual(result.SeminarFiles["protocol"], "protocolBase64String");
+            Assert.IsNotNull(result.SeminarFiles.Count() >= 3 && result.SeminarFiles.Count() <= 5);
+            Assert.AreEqual(result.SeminarFiles.Single(s => s.Key == "protocol"), "protocolBase64String");
             Assert.AreEqual("0001 - Школа №1", result.SeminarReportViewDto.SchoolName);
         }
 

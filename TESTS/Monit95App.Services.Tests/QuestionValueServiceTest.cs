@@ -58,7 +58,8 @@ namespace Monit95App.Services.Tests
                             {
                                 AreaCode = 201
                             }
-                        }
+                        },
+                        Editable = true
                     }
                 }
             }.AsQueryable();
@@ -81,7 +82,18 @@ namespace Monit95App.Services.Tests
                         Test = new Test
                         {
                             NumberCode = "0101",
-                            Name = "Орфография"
+                            Name = "Орфография",
+                            Questions = new List<RsurQuestion>
+                            {
+                                new RsurQuestion
+                                {
+                                    Order = 1,
+                                },
+                                new RsurQuestion
+                                {
+                                    Order = 2,
+                                }
+                            }
                         }
                     },
                     RsurParticip = new RsurParticip
@@ -90,7 +102,8 @@ namespace Monit95App.Services.Tests
                         {
                             AreaCode = 201
                         }
-                    }
+                    },
+                    Editable = true
                 },
                 new RsurParticipTest
                 {
@@ -102,7 +115,18 @@ namespace Monit95App.Services.Tests
                         Test = new Test
                         {
                             NumberCode = "0101",
-                            Name = "Орфография"
+                            Name = "Орфография",
+                            Questions = new List<RsurQuestion>
+                            {
+                                new RsurQuestion
+                                {
+                                    Order = 1,
+                                },
+                                new RsurQuestion
+                                {
+                                    Order = 2,
+                                }
+                            }
                         }
                     },
                     RsurParticip = new RsurParticip
@@ -115,7 +139,8 @@ namespace Monit95App.Services.Tests
                     RsurTestResult = new RsurTestResult
                     {
                         RsurQuestionValues = "1;0;1;0"
-                    }
+                    },
+                    Editable = true
                 }
             }.AsQueryable();
             var participTestMockSet = Substitute.For<DbSet<RsurParticipTest>, IQueryable<RsurParticipTest>>();
@@ -165,11 +190,12 @@ namespace Monit95App.Services.Tests
                                 new RsurQuestion
                                 {
                                     Order = 3,
-           
+
                                 },
                             }
                         }
-                    }
+                    },
+                    Editable = true
                 },
                  new RsurParticipTest
                 {
@@ -201,11 +227,12 @@ namespace Monit95App.Services.Tests
                                 new RsurQuestion
                                 {
                                     Order = 3,
-     
+
                                 },
                             }
                         }
-                    }
+                    },
+                    Editable = true
                 },
             }.AsQueryable();
             var mockRsurParticipTestSet = Substitute.For<DbSet<RsurParticipTest>, IQueryable<RsurParticipTest>>();                      
@@ -283,7 +310,7 @@ namespace Monit95App.Services.Tests
             var service = new QuestionValueService(mockContext);
 
             // Act
-            service.Get(12346, 201);
+            service.Get(12346, 202);
         }
 
         [TestMethod]
