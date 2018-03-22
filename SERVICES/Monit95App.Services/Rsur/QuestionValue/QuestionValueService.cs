@@ -54,7 +54,10 @@ namespace Monit95App.Services.Rsur.QuestionValue
         {
             var result = new ServiceResult<int>();   
             
-            var participTests = context.RsurParticipTests.Where(rpt => rpt.RsurTest.IsOpen && rpt.RsurParticip.School.AreaCode == areaCode);
+            var participTests = context.RsurParticipTests.Where(rpt => rpt.RsurTest.IsOpen);
+            if (areaCode != 200)
+                participTests = participTests.Where(rpt => rpt.RsurParticip.School.AreaCode == areaCode);
+
             if (!participTests.Any())
                 result.Errors.Add(new ServiceError { Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
 
@@ -76,15 +79,17 @@ namespace Monit95App.Services.Rsur.QuestionValue
         public QuestionValueEditDto Get(int participCode, int areaCode)
         {
             if (!Enumerable.Range(10000, 99999).Contains(participCode)
-                || !Enumerable.Range(201, 217).Contains(areaCode))
+                || !Enumerable.Range(200, 217).Contains(areaCode))
             {
-                throw new ArgumentException($"{nameof(participCode)} has to be 10000-99999 and {nameof(areaCode)} has to be 201-217");
+                throw new ArgumentException($"{nameof(participCode)} has to be 10000-99999 and {nameof(areaCode)} has to be 200-217");
             } 
             
             var rsurParticipTest = this.context.RsurParticipTests.SingleOrDefault(x => x.RsurParticipCode == participCode
-                                                                                    && x.RsurParticip.School.AreaCode == areaCode
                                                                                     && x.RsurTest.IsOpen
                                                                                     && x.Editable);
+            if (areaCode != 200)
+                rsurParticipTest = rsurParticipTest.RsurParticip.School.AreaCode == areaCode ? rsurParticipTest : null;
+
             if (rsurParticipTest == null)
             {
                 throw new ArgumentException($"{nameof(participCode)} is incorrect or is not access for current user");
@@ -189,29 +194,33 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 result.Errors.Add(new ServiceError { Description = $"{nameof(questionValueEditDto)} is null" });
                 return result;
             }
-            var testQuestions = context.RsurParticipTests
-                .SingleOrDefault(x => x.RsurTest.IsOpen 
-                                   && x.Id == questionValueEditDto.ParticipTestId 
-                                   && x.RsurParticip.School.AreaCode == areaCode
-                                   && x.Editable)
-                .RsurTest.Test.Questions.ToList();
-            
-            if (!testQuestions.Any())
-            {
-                result.Errors.Add(new ServiceError {                    
-                    Description = "- RsurTest is not open;" +
-                                 $"- Or {nameof(questionValueEditDto.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
-                                  "- Or user has not access to this entity"
-                });                
-                return result;
-            }            
-            
+
             if(questionValueEditDto.QuestionResults == null)
             {
                 result.Errors.Add(new ServiceError { Description = $"{nameof(questionValueEditDto.QuestionResults)} is null" });
                 return result;
             }
 
+            var participTest = context.RsurParticipTests
+                .SingleOrDefault(x => x.RsurTest.IsOpen
+                                   && x.Id == questionValueEditDto.ParticipTestId
+                                   && x.Editable);
+            if (areaCode != 200)
+                participTest = participTest.RsurParticip.School.AreaCode == areaCode ? participTest : null;
+
+            if (participTest == null)
+            {
+                result.Errors.Add(new ServiceError {                    
+                    Description = "- RsurTest is not open;" +
+                                 $" - Or {nameof(questionValueEditDto.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
+                                  " - Or participTest is not Editable;" +
+                                  " - Or user has not access to this entity"
+                });                
+                return result;
+            }
+
+            var testQuestions = participTest.RsurTest.Test.Questions;
+            
             // Сравниваем количество заданий
             if (testQuestions.Count != questionValueEditDto.QuestionResults.Count())
             {
@@ -265,9 +274,10 @@ namespace Monit95App.Services.Rsur.QuestionValue
         {
             var result = new ServiceResult<IEnumerable<QuestionValueViewDto>>();
 
-            var entities = context.RsurParticipTests.Where(x => x.RsurParticip.School.AreaCode == areaCode
-                                                             && x.RsurTest.IsOpen
+            var entities = context.RsurParticipTests.Where(x => x.RsurTest.IsOpen
                                                              && x.Editable);
+            if (areaCode != 200)
+                entities = entities.Where(p => p.RsurParticip.School.AreaCode == areaCode);
 
             if (!entities.Any())
             {
@@ -306,7 +316,9 @@ namespace Monit95App.Services.Rsur.QuestionValue
         {
             var result = new VoidResult();
 
-            if(!context.RsurParticipTests.Any(p => p.RsurParticip.School.AreaCode == areaCode && p.Id == participTestId && p.Editable))
+            if(!context.RsurParticipTests.Any(p => areaCode == 200 ? true : p.RsurParticip.School.AreaCode == areaCode 
+                                                && p.Id == participTestId 
+                                                && p.Editable))
             {
                 result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"{nameof(participTestId)} which equals {participTestId} not exist in current area" });
                 return result;
