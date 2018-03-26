@@ -2,8 +2,8 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="isArea() && false" class="list-container">
-        <h3 class="list-header">Диагностика «Февраль-2018»</h3>
+    <div *ngIf="isArea() && account.UserName === '200'" class="list-container">
+        <h3 class="list-header">Диагностика «Февраль-2018» (пересдача)</h3>
         <div *ngIf="false">
             <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/122017_ру_распределение_{{account.UserName}}.xlsx"><div><h4>Русский язык: распределение</h4></div></a>
             <a *ngIf="account.UserName !== '208'" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/296P/v7cLzLULV"><div><h4>Русский язык: варианты ИК по блоку «ОРФОГРАФИЯ»</h4></div></a>
@@ -39,11 +39,11 @@
                 <div>
                     <h4><b>Протоколы проверки заданий</b></h4>
                 </div>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+                <!--<span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>-->
             </a>
-            <ng-template #area208>
+            <!--<ng-template #area208>
                 <a *ngIf="false" class="list-item-link" href="#"><div><h4>История: Бланки ответов</h4></div></a>
-            </ng-template>
+            </ng-template>-->
         </div>
     </div>    
 

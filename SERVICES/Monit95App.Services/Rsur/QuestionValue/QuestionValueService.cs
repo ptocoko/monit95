@@ -54,7 +54,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
         {
             var result = new ServiceResult<int>();   
             
-            var participTests = context.RsurParticipTests.Where(rpt => rpt.RsurTest.IsOpen);
+            var participTests = context.RsurParticipTests.Where(rpt => rpt.RsurTest.IsOpen && rpt.Editable);
             if (areaCode != 200)
                 participTests = participTests.Where(rpt => rpt.RsurParticip.School.AreaCode == areaCode);
 
