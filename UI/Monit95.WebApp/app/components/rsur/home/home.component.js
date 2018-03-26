@@ -40,6 +40,9 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.isArgun = function () {
         return this.account.UserName && this.account.UserName === '202';
     };
+    HomeComponent.prototype.isAdmin = function () {
+        return this.account.UserName && this.account.UserName === '200';
+    };
     HomeComponent.prototype.fillingProgress = function () {
         if (!this._fillingProgress) {
             return 0;

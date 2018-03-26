@@ -49,6 +49,10 @@ export class HomeComponent implements OnInit {
 		return this.account.UserName && this.account.UserName === '202';
 	}
 
+	isAdmin(): boolean {
+		return this.account.UserName && this.account.UserName === '200';
+	}
+
 	fillingProgress() {
 		if (!this._fillingProgress) {
 			return 0;
