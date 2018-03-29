@@ -2,7 +2,7 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="isArea() && account.UserName === '200'" class="list-container">
+    <div *ngIf="(isArea() || isAdmin()) && false" class="list-container">
         <h3 class="list-header">Диагностика «Февраль-2018» (пересдача)</h3>
         <div *ngIf="false">
             <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/122017_ру_распределение_{{account.UserName}}.xlsx"><div><h4>Русский язык: распределение</h4></div></a>
