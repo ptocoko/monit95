@@ -52,7 +52,7 @@ namespace OneTwoThreeReporter
                             sheet.Cell(i + 3, 1).Value = competence.Code;
                             sheet.Cell(i + 3, 2).Value = competence.FIO;
                             sheet.Cell(i + 3, 3).Value = competence.PrimaryMark;
-                            sheet.Cell(i + 3, 4).Value = ((CompetenceLevels)competence.CompetenceLevel).ToString();
+                            sheet.Cell(i + 3, 4).Value = getCompetenceString(competence.CompetenceLevel);
 
                             int j = 0;
                             foreach (var mark in competence.Marks.Split(';'))
@@ -71,11 +71,21 @@ namespace OneTwoThreeReporter
             }
         }
 
-        enum CompetenceLevels
+        static string getCompetenceString(int level)
         {
-            Недостаточный = 2,
-            Минимальный = 3,
-            Базовый = 5
+            switch (level)
+            {
+                case 2:
+                    return "Недостаточный";
+                case 3:
+                    return "Минимальный";
+                case 4:
+                    return "Базовый";
+                case 5:
+                    return "Выше базового";
+                default:
+                    throw new ArgumentException("неверный параметр level");
+            }
         }
 
         //private static void CreateSchoolReportInExcel(IGrouping<string, OneTwoThreeReportDto> schoolReport)
