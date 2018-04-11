@@ -66,7 +66,7 @@ namespace OneTwoThreeReporter
                         }
                     }
 
-                    excelTemplate.SaveAs($@"{folderPath}\{competences.Key}\{competences.Key}_201613.xlsx");
+                    excelTemplate.SaveAs($@"{folderPath}\{competences.Key}\{competences.Key}_201700.xlsx");
                 }
             }
         }

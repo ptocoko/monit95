@@ -17,6 +17,10 @@ namespace Monit95App.Web.Api
             _classService = classService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>{ Id, Name }</returns>
         [Route("api/classes")]
         [HttpGet]
         public IEnumerable<object> Get()
