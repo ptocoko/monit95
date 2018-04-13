@@ -75,14 +75,14 @@ namespace RsurParticipTestsCreator
                     Editable = true
                 });
             }
+            context.RsurParticipTests.AddRange(participTests);
+            context.SaveChanges();
             Console.WriteLine("All done!");
-            //context.RsurParticipTests.AddRange(participTests);
-            //context.SaveChanges();
         }
 
         private static IQueryable<RsurParticip> GetWhoMustPass(IQueryable<RsurParticip> rsurParticips)
         {
-            return rsurParticips.Where(p => p.ActualCode == 1 && p.School.AreaCode == 202 && !p.RsurParticipTests.Any(rpt => rpt.RsurTest.Test.IsFinal && rpt.RsurTestResult.Grade5 == 5));
+            return rsurParticips.Where(p => p.ActualCode == 1 && !p.RsurParticipTests.Any(rpt => rpt.RsurTest.Test.IsFinal && rpt.RsurTestResult.Grade5 == 5));
         }
 
         private static IQueryable<RsurParticip> GetPassLastExam(IQueryable<RsurParticip> whoMustPass)
