@@ -5,11 +5,16 @@
     <div>из них</div>
     <div>обработано: {{processedProtocols()}}</div>
     <div>не обработано: {{notProcessedProtocols()}}</div>
-    <div class="search-field">
+    <div class="table-actions">
         <mat-form-field>
             <input #participCodeInput [(ngModel)]="searchText" maxlength="5" placeholder="поиск по коду участника..." matInput />
             <i class="glyphicon glyphicon-ok" matSuffix style="color:green" *ngIf="checkIfOnlyOneMatch(searchText)"></i>
         </mat-form-field>
+        <app-table-paginator [length]="questionProtocols.length"
+                             [pageSizeOptions]="[20, 50, 70]"
+                             [(pageSize)]="limitToVal"
+                             [(pageIndex)]="pageIndex">
+        </app-table-paginator>
     </div>
     <div class="scrollable-content">
         <table class="table table-bordered">
@@ -20,7 +25,10 @@
                 <th>баллы по заданиям</th>
                 <th style="width:295px">действия</th>
             </tr>
-            <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText | limitTo : 50; let i = index">
+            <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText
+                                                          | offset : pageIndex * limitToVal
+                                                          | limitTo : limitToVal;
+                        let i = index">
                 <td class="row-number-cell">{{i + 1}}</td>
                 <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
                 <td>{{protocol.TestName}}</td>
@@ -36,6 +44,7 @@
             </tr>
         </table>
     </div>
+
 </ng-template>
 
 <div *ngIf="!questionProtocols">

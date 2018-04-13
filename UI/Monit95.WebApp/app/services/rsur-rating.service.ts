@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { RatingItem } from '../components/rsur/ratings/ratings.component';
 
 @Injectable()
 export class RsurRatingService {
@@ -10,10 +11,10 @@ export class RsurRatingService {
 	}
 
     getRatings() {
-        return this.http.get(`${this.ROUTE_PREFIX}`);		
+		return this.http.get<RatingItem[]>(`${this.ROUTE_PREFIX}`);		
     }  
 
     getMockRatings() {
-        return this.http.get('/ratings.mock.json');
+		return this.http.get<RatingItem[]>('/ratings.mock.json');
     }
 }

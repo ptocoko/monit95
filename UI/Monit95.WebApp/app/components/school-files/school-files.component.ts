@@ -23,7 +23,7 @@ export class SchoolFilesComponent implements OnInit {
 
 	ngOnInit() {
 		this.schoolFileService.getFiles().subscribe(response => {
-			console.log(response);
+			//console.log(response);
 			this.files = response as FileItem[];
 			this.dataSource = new MatTableDataSource<FileItem>(this.files);
 			this.isLoading = false;

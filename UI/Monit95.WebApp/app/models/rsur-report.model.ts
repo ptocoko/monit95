@@ -1,5 +1,10 @@
 ﻿import { SchoolParticip } from '../models/school-particip.model';
 
+export interface ReportsList {
+	Items: RsurReportModel[];
+	TotalCount: number;
+}
+
 export class RsurReportModel {
     ParticipCode: number;
     FullParticipName: string;

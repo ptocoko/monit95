@@ -20,7 +20,7 @@ var RsurTestComponent = /** @class */ (function () {
     RsurTestComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.accountService.getAccount().subscribe(function (data) {
-            _this.account = data.json();
+            _this.account = data;
             _this.rsurTestService.getProtocolStatus().subscribe(function (res) {
                 _this.protocolValues = res.json();
                 _this.componentIsShowing = true;

@@ -11,11 +11,36 @@ td{
     display: flex;
     flex-direction: column;
     min-width: 300px;
+    min-height: 500px;
+    position: relative;
 }
 
 .table-header {
     min-height: 64px;
     padding: 8px 24px 0;
+}
+
+.loading-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 56px;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.reports-empty{
+    top: 113px;
+}
+
+.mat-table{
+    min-height: 500px;
 }
 
 mat-header-row {

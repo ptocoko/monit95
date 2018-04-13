@@ -12,14 +12,14 @@ namespace Monit95App
 
             //AJAX
             bundles.Add(new ScriptBundle("~/bundles/ajax").Include(
-                        "~/Scripts/jquery.unobtrusive-ajax.js"));
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
             //jQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-3.1.1.min.js"));
 
             //jQuery UI
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/jquery-ui-{version}.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -31,12 +31,12 @@ namespace Monit95App
 
             //Bootstrap
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootstrap.js",
-                        "~/Scripts/respond.js"));
+                        "~/Scripts/bootstrap.min.js",
+                        "~/Scripts/respond.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/bootstrap.css",
-                        "~/Content/font-awesome.css",
+                        "~/Content/bootstrap.min.css",
+                        "~/Content/font-awesome.min.css",
                         "~/Content/site.css"));
 
             //AngularJS

@@ -15,7 +15,7 @@ export class QuestionProtocolsList {
 	notProcessedProtocols = () => this.questionProtocols.filter(f => !f.RsurQuestionValues).length;
 
 	limitToVal = 20;
-	offsetVal = 1;
+	pageIndex = 0;
 
 	@ViewChild('participCodeInput') participCodeInput: ElementRef;
 
@@ -32,8 +32,11 @@ export class QuestionProtocolsList {
 
 	private initCodeListener() {
 		this.participCodeInput.nativeElement.focus();
-		Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
-			.filter((event: any) => event.keyCode === 13 && this.checkIfOnlyOneMatch(event.target.value))
+		let codeInput$ = Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup');
+
+		codeInput$.subscribe(() => this.pageIndex = 0);
+
+		codeInput$.filter((event: any) => event.keyCode === 13 && this.checkIfOnlyOneMatch(event.target.value))
 			.subscribe(event => this.changeMarks(this.getProtocol(event.target.value).ParticipCode));
 	}
 
@@ -46,7 +49,7 @@ export class QuestionProtocolsList {
 	}
 
 	getProtocol(participCode: string): Protocol {
-		return this.questionProtocols.filter(f => f.ParticipCode.toString().indexOf(participCode) > -1)[0];
+		return this.questionProtocols.find(f => f.ParticipCode.toString().indexOf(participCode) > -1);
 	}
 
 	markAsAbsent(questionProtocol: Protocol) {

@@ -14,7 +14,7 @@ var SchoolFilesComponent = /** @class */ (function () {
     SchoolFilesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.schoolFileService.getFiles().subscribe(function (response) {
-            console.log(response);
+            //console.log(response);
             _this.files = response;
             _this.dataSource = new material_1.MatTableDataSource(_this.files);
             _this.isLoading = false;

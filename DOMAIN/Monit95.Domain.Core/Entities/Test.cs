@@ -13,8 +13,10 @@ namespace Monit95App.Domain.Core.Entities
 
         public string FullName { get; set; }        
 
-        public int? Number { get; set; }        
-        
+        public int? Number { get; set; }
+
+        public bool IsFinal { get; set; }
+
         public virtual ICollection<Grade> Grades { get; set; } = new HashSet<Grade>();
 
         public virtual ICollection<ProjectTest> ProjectTests { get; set; } = new HashSet<ProjectTest>();

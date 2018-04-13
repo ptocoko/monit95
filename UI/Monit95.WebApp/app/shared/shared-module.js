@@ -7,6 +7,7 @@ var marks_protocol_component_1 = require("../components/rsur/protocols/shared/ma
 var forms_1 = require("@angular/forms");
 var material_module_1 = require("../material.module");
 var loading_view_component_1 = require("./loading-view/loading-view.component");
+var table_paginator_1 = require("./table-paginator/table-paginator");
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
@@ -19,11 +20,13 @@ var SharedModule = /** @class */ (function () {
             ],
             declarations: [
                 marks_protocol_component_1.MarksProtocolComponent,
-                loading_view_component_1.LoadingViewComponent
+                loading_view_component_1.LoadingViewComponent,
+                table_paginator_1.TablePaginator
             ],
             exports: [
                 marks_protocol_component_1.MarksProtocolComponent,
-                loading_view_component_1.LoadingViewComponent
+                loading_view_component_1.LoadingViewComponent,
+                table_paginator_1.TablePaginator
             ]
         })
     ], SharedModule);

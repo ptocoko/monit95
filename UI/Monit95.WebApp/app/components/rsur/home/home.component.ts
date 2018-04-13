@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {        
         this.accountService.getAccount().subscribe(data => {            
-            this.account = data.json() as AccountModel;            
+            this.account = data;            
             this.isLoading = false;
 			localStorage.clear();
 			//this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);

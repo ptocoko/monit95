@@ -1,39 +1,51 @@
 ﻿<h2>РСУР: Результаты диагностик</h2>
 <hr />
 
-<div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif"/></div>
+<!--<div *ngIf="!reportsInfo; else page">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif"/>
+</div>-->
 
-<div *ngIf="!isLoading && dataSource.data.length > 0" class="table-container mat-elevation-z8">
+<div class="table-container mat-elevation-z8">
     <div class="table-header">
-        <mat-form-field *ngIf="reportsList !== undefined && accountService.isArea()">
-            <mat-select [(ngModel)]="selectedSchool" (selectionChange)="filterSelectionChange()">
+        <mat-form-field *ngIf="accountService.isArea()">
+            <mat-select [(ngModel)]="selectedSchool"
+                        (selectionChange)="selectionChange()">
                 <mat-option value="все организации">все организации</mat-option>
-                <mat-option *ngFor="let schoolName of reportsList | schoolNameFilter : selectedTest : selectedExam" [value]="schoolName">{{schoolName}}</mat-option>
+                <mat-option *ngFor="let schoolName of reportsInfo.SchoolNames" [value]="schoolName">{{schoolName}}</mat-option>
             </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-            <mat-select [(ngModel)]="selectedTest" (change)="filterSelectionChange()">
+            <mat-select [(ngModel)]="selectedTest"
+                        (selectionChange)="selectionChange()">
                 <mat-option value="все блоки">все блоки</mat-option>
-                <mat-option *ngFor="let report of reportsList | testNameWithDateFilter : selectedSchool : selectedExam" [value]="report">{{report}}</mat-option>
+                <mat-option *ngFor="let testName of reportsInfo.TestNames" [value]="testName">{{testName}}</mat-option>
             </mat-select>
         </mat-form-field>
 
         <!-- Нисподающее меню для списка диагностик -->
         <mat-form-field>
-            <mat-select [(ngModel)]="selectedExam" (selectionChange)="filterSelectionChange()">
+            <mat-select [(ngModel)]="selectedExam"
+                        (selectionChange)="selectionChange()">
                 <mat-option value="все диагностики">все диагностики</mat-option>
-                <mat-option *ngFor="let report of reportsList | examNameFilter: selectedSchool : selectedTest" [value]="report">{{report}}</mat-option>
+                <mat-option *ngFor="let examName of reportsInfo.ExamNames" [value]="examName">{{examName}}</mat-option>
             </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput 
-                   (keyup)="searchParticip($event.target.value)" 
-                   (focus)="searchInputFocused($event.target.value)"
+            <input matInput #searchField
                    placeholder="поиск участника"
                    [(ngModel)]="searchParticipText">
         </mat-form-field>
+    </div>
+
+    <div *ngIf="isLoadingReports" class="loading-wrapper">
+        <mat-spinner *ngIf="isLoadingReports"></mat-spinner>
+
+    </div>
+
+    <div class="loading-wrapper reports-empty" *ngIf="!isLoadingReports && reportsLength === 0">
+        Отсутствуют результаты диагностик
     </div>
 
     <mat-table #table [dataSource]="dataSource">
@@ -89,10 +101,8 @@
                   }"></mat-row>
     </mat-table>
 
-    <mat-paginator #paginator 
-                   [length]="reportsList.length" 
-                   [pageSizeOptions]="['15', '30', '50', '100']">
+    <mat-paginator #paginator
+                   [length]="reportsLength"
+                   [pageSize]="30">
     </mat-paginator>
 </div>
-
-<p class="text-center" *ngIf="!isLoading && !dataSource.data.length > 0">Отсутствуют результаты диагностик.</p>

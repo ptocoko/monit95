@@ -15,7 +15,7 @@ var QuestionProtocolsList = /** @class */ (function () {
         this.processedProtocols = function () { return _this.questionProtocols.filter(function (f) { return f.RsurQuestionValues; }).length; };
         this.notProcessedProtocols = function () { return _this.questionProtocols.filter(function (f) { return !f.RsurQuestionValues; }).length; };
         this.limitToVal = 20;
-        this.offsetVal = 1;
+        this.pageIndex = 0;
     }
     QuestionProtocolsList.prototype.ngOnInit = function () {
         var _this = this;
@@ -27,8 +27,9 @@ var QuestionProtocolsList = /** @class */ (function () {
     QuestionProtocolsList.prototype.initCodeListener = function () {
         var _this = this;
         this.participCodeInput.nativeElement.focus();
-        Observable_1.Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup')
-            .filter(function (event) { return event.keyCode === 13 && _this.checkIfOnlyOneMatch(event.target.value); })
+        var codeInput$ = Observable_1.Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup');
+        codeInput$.subscribe(function () { return _this.pageIndex = 0; });
+        codeInput$.filter(function (event) { return event.keyCode === 13 && _this.checkIfOnlyOneMatch(event.target.value); })
             .subscribe(function (event) { return _this.changeMarks(_this.getProtocol(event.target.value).ParticipCode); });
     };
     QuestionProtocolsList.prototype.changeMarks = function (participCode) {
@@ -38,7 +39,7 @@ var QuestionProtocolsList = /** @class */ (function () {
         return this.questionProtocols.filter(function (f) { return f.ParticipCode.toString().indexOf(participCode) > -1; }).length === 1;
     };
     QuestionProtocolsList.prototype.getProtocol = function (participCode) {
-        return this.questionProtocols.filter(function (f) { return f.ParticipCode.toString().indexOf(participCode) > -1; })[0];
+        return this.questionProtocols.find(function (f) { return f.ParticipCode.toString().indexOf(participCode) > -1; });
     };
     QuestionProtocolsList.prototype.markAsAbsent = function (questionProtocol) {
         this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)

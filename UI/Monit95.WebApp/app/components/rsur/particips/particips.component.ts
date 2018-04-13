@@ -1,5 +1,4 @@
-﻿import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { Response } from '@angular/http';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatSnackBar, MatDialog, MatSlideToggleChange } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
@@ -47,8 +46,8 @@ export class RsurParticipsComponent implements OnInit {
 
 	getParticips() {
 		this.rsurParticipService.getAll()
-            .subscribe((response: Response) => {
-				this.allParticips = response.json() as RsurParticipModel[];
+            .subscribe(response => {
+				this.allParticips = response;
 				this.actualParticips = this.allParticips.filter(f => f.ActualCode === 1);
 
 				if(this.isShowNotActual){
@@ -77,9 +76,8 @@ export class RsurParticipsComponent implements OnInit {
 				if(result){
 					particip.ActualCode = 0;
 					this.rsurParticipService.update(particip.Code, particip)
-						.subscribe(res => {
+						.subscribe(() => {
 							this.snackBar.open('участник исключен из проекта', 'OK', { duration: 3000 });
-							this.getParticips();
 						});
 				} else {
 					// если пользователь не уверен
@@ -90,9 +88,8 @@ export class RsurParticipsComponent implements OnInit {
 			// если участник возвращается в проект то подтверждение не требуется
 			particip.ActualCode = 1;
 			this.rsurParticipService.update(particip.Code, particip)
-				.subscribe(res => {
+				.subscribe(() => {
 					this.snackBar.open('участник добавлен в проект', 'OK', { duration: 3000 });
-					this.getParticips();
 				});
 		}
 	}

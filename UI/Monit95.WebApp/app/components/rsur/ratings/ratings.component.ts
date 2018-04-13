@@ -16,14 +16,14 @@ export class RatingsComponent implements OnInit {
 
 	ngOnInit() {		
         this.rsurRatingService.getRatings().subscribe(response => {
-            console.log(response);
-            this.ratings = response as RatingItem[];                       
+            //console.log(response);
+            this.ratings = response;                       
 	        this.isLoading = false;
 	    });
 	}	
 }
 
-interface RatingItem {
+export interface RatingItem {
     Place: number;
     SchoolName: string;
     PercentPassFirstTest: number;

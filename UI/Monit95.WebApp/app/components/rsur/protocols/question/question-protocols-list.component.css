@@ -1,6 +1,8 @@
-﻿.search-field{
+﻿.table-actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     margin-top: 20px;
-    width: 350px;
 }
 
 th{

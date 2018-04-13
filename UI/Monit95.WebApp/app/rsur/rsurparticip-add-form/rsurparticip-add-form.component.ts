@@ -124,7 +124,7 @@ export class RsurParticipAddFormComponent implements OnInit {
 	    console.log(this.particip);
 
 	    this.rsurParticipService.createParticip(this.particip).
-	              subscribe(data => this.router.navigate(['rsurparticips']));     				
+	              subscribe(() => this.router.navigate(['rsurparticips']));     				
     }
 
     back() {

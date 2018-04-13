@@ -54,7 +54,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
 
             foreach (var participTestId in participTestIds)
             {
-                GenerateByParticipTestId(participTestId);
+                GenerateAndSaveByParticipTestId(participTestId);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
         /// </remarks>
         /// <param name="participTestId">Он же RsurParticipTest.RsurParticipTestId</param>
         /// <returns></returns>
-        public (int grade5, string egeQuestionValues) GenerateByParticipTestId(int participTestId)
+        public (int grade5, string egeQuestionValues) GenerateAndSaveByParticipTestId(int participTestId)
         {            
             var testResultEntity = context.RsurTestResults.Find(participTestId);
             _ = testResultEntity ?? throw new ArgumentException("В базе несуществует записи с таким Id", nameof(participTestId));

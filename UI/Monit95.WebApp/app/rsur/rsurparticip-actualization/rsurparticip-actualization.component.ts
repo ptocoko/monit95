@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
 
 import { RsurParticipModel } from '../../models/rsur-particip.model';
 
@@ -29,8 +28,8 @@ export class RsurParticipsActualizationComponent implements OnInit {
 
     getAllParticips() {
         this.rsurParticipService.getAll()
-            .subscribe((response: Response) => {                
-                this.particips = response.json() as RsurParticipModel[];
+            .subscribe(response => {                
+                this.particips = response;
 
 				this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(res => {
 					console.log(res);

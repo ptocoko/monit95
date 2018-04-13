@@ -12,7 +12,7 @@ var RatingsComponent = /** @class */ (function () {
     RatingsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.rsurRatingService.getRatings().subscribe(function (response) {
-            console.log(response);
+            //console.log(response);
             _this.ratings = response;
             _this.isLoading = false;
         });

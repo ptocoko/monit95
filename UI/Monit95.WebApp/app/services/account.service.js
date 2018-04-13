@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
+var http_1 = require("@angular/common/http");
 var account_model_1 = require("../models/account.model");
 var AccountService = /** @class */ (function () {
     function AccountService(http) {
@@ -13,7 +13,7 @@ var AccountService = /** @class */ (function () {
     AccountService.prototype.loadAccount = function () {
         var _this = this;
         this.http.get('api/account').subscribe(function (res) {
-            _this.account = res.json();
+            _this.account = res;
         });
     };
     AccountService.prototype.getAccount = function () {
@@ -42,7 +42,7 @@ var AccountService = /** @class */ (function () {
     };
     AccountService = tslib_1.__decorate([
         core_1.Injectable(),
-        tslib_1.__metadata("design:paramtypes", [http_1.Http])
+        tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])
     ], AccountService);
     return AccountService;
 }());

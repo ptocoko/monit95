@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Web.Http;
 using Monit95App.Services.Rsur.ParticipReport;
-using System.Runtime.Caching;
 using System.Linq;
 using ServiceResult;
 
@@ -16,26 +13,12 @@ namespace Monit95App.RESTful_API.Rsur
         #region Dependencies
 
         private readonly IParticipReportService participReportService;
-
-        private MemoryCache memoryCache = MemoryCache.Default;
-        private const string PROTOCOLS_CACHE_KEY = "testProtocols";
-        private static string previousRequestUser = "";
-
+        
         #endregion
 
         public RsurParticipReportsController(IParticipReportService participReportService)
         {
             this.participReportService = participReportService;
-
-            //если UserName текущего запроса не совпадает с UserName предыдущего запроса, то удаляем данные из кэша
-            if (!String.Equals(previousRequestUser, User.Identity.Name, StringComparison.CurrentCultureIgnoreCase))
-            {
-                if (memoryCache.Contains(PROTOCOLS_CACHE_KEY))
-                {
-                    memoryCache.Remove(PROTOCOLS_CACHE_KEY);
-                }
-                previousRequestUser = User.Identity.Name;
-            }
         }
 
         #region APIs
@@ -69,33 +52,30 @@ namespace Monit95App.RESTful_API.Rsur
         }
 
         /// <summary>
-        /// Получить список отчетов по участникам
+        /// 
         /// </summary>
+        /// <param name="options">query options</param>
         /// <returns></returns>
         [HttpGet]   
         [Route("")]
-        public IHttpActionResult GetAll()
+        public IHttpActionResult GetAll([FromUri]ReportsListOptions options)
         {
-            // Если кэш содержит подходящие данные, то возвращаем их
-            if (memoryCache.Contains(PROTOCOLS_CACHE_KEY))
-                return Ok(memoryCache.Get(PROTOCOLS_CACHE_KEY));            
-
-            ServiceResult<IEnumerable<ParticipReport>> result;            
+            options = options ?? new ReportsListOptions();
+            ServiceResult<ReportsListDto> result;
             if (User.IsInRole("area"))
             {
                 var areaCode = int.Parse(User.Identity.Name);
-                result = participReportService.GetReportsForArea(areaCode);                
+                result = participReportService.GetReports(options: options, areaCode: areaCode);
             }
             else // school
             {
                 var schoolId = User.Identity.Name;
-                result = participReportService.GetReportsForSchool(schoolId);                
+                result = participReportService.GetReports(options: options, schoolId: schoolId);
             }
 
             // Success
             if (!result.Errors.Any())
             {
-                memoryCache.Add(PROTOCOLS_CACHE_KEY, result.Result, DateTimeOffset.UtcNow.AddMinutes(10));
                 return Ok(result.Result);
             }
                 
@@ -104,13 +84,34 @@ namespace Monit95App.RESTful_API.Rsur
                 ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
             return BadRequest(ModelState);                        
         }
-        
-        #endregion
-    }
 
-    public class ReportTextDto
-    {
-        [Required]
-        public string Text { get; set; }
+        [HttpGet]
+        [Route("info")]
+        public IHttpActionResult GetReportsInfo()
+        {
+            var result = new ServiceResult<ReportsInfo>();
+            if (User.IsInRole("area"))
+            {
+                var areaCode = int.Parse(User.Identity.Name);
+                result = participReportService.GetReportsInfo(areaCode: areaCode);
+            }
+            else
+            {
+                var schoolId = User.Identity.Name;
+                result = participReportService.GetReportsInfo(schoolId: schoolId);
+            }
+
+            if (!result.Errors.Any())
+            {
+                return Ok(result.Result);
+            }
+
+            // Error: another
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.HttpCode.ToString(), error.Description);
+            return BadRequest(ModelState);
+        }
+
+        #endregion
     }
 }

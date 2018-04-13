@@ -28,7 +28,7 @@ export class RsurTestComponent implements OnInit {
 
     ngOnInit() {
         this.accountService.getAccount().subscribe(data => {
-			this.account = data.json() as AccountModel;
+			this.account = data;
             this.rsurTestService.getProtocolStatus().subscribe(res => {
                 this.protocolValues = res.json() as { [id: number]: RsurTestStatistics };
                 this.componentIsShowing = true;

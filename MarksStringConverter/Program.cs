@@ -15,7 +15,7 @@ namespace MarksStringConverter
 
             var context = new CokoContext();
             var service = new RsurMarksConverter(context);
-            service.GenerateByParticipTestId(18854);
+            service.GenerateAndSaveByParticipTestId(18854);
             //Go(service);
             //service.GenerateByRsurTestIds(new int[] { 2114,2116,2117,2118,2119,2120,2121,2122,2123,2124,2125,2126});
             Console.WriteLine("All done!");
@@ -30,17 +30,17 @@ namespace MarksStringConverter
             switch (Console.ReadLine())
             {
                 case "1":
-                    service.GenerateByParticipTestId(GetId("Введите ParticipTestId"));
+                    service.GenerateAndSaveByParticipTestId(WriteMsgAndGetId("Введите ParticipTestId"));
                     break;
                 case "2":
-                    service.GenerateByRsurTestId(GetId("Введите RsurTestId"));
+                    service.GenerateByRsurTestId(WriteMsgAndGetId("Введите RsurTestId"));
                     break;
                 case "3":
                     Console.WriteLine("Введите первый RsurTestId");
                     var rsurTestIds = new List<int>();
                     do
                     {
-                        rsurTestIds.Add(GetId("Введите RsurTestId"));
+                        rsurTestIds.Add(WriteMsgAndGetId("Введите RsurTestId"));
                         Console.WriteLine("Желаете добавить еще RsurTestId? (y - да; n - нет)");
                     }
                     while (Console.ReadKey().Key == ConsoleKey.Y);
@@ -53,7 +53,7 @@ namespace MarksStringConverter
             //Go();
         }
         
-        private static int GetId(string message)
+        private static int WriteMsgAndGetId(string message)
         {
             Console.Write($"\n{message}: ");
             string participTestId = Console.ReadLine().Trim();
@@ -64,7 +64,7 @@ namespace MarksStringConverter
             else
             {
                 Console.WriteLine("Значение не валидно! Повторите ввод.");
-                return GetId(message);
+                return WriteMsgAndGetId(message);
             }
         }
     }

@@ -152,6 +152,9 @@
     <Compile Include="Models\ParticipProtocol.cs" />
     <Compile Include="ClassParticipImporter.cs" />
     <Compile Include="ParticipResults.cs" />
+    <Compile Include="Rsur\ParticipReport\ReportsInfo.cs" />
+    <Compile Include="Rsur\ParticipReport\ReportsListDto.cs" />
+    <Compile Include="Rsur\ParticipReport\ReportsListOptions.cs" />
     <Compile Include="Rsur\RsurMarksService.cs" />
     <Compile Include="Rsur\ParticipResultsModel.cs" />
     <Compile Include="Rsur\RatingService.cs" />

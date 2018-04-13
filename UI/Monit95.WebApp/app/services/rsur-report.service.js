@@ -8,8 +8,24 @@ var RsurReportService = /** @class */ (function () {
         this.http = http;
         this.ROUTE_PREFIX = 'api/rsur/participReports';
     }
-    RsurReportService.prototype.getReports = function () {
-        return this.http.get("" + this.ROUTE_PREFIX);
+    RsurReportService.prototype.getReports = function (page, length, search, schoolId, testCode, examName) {
+        var params = new http_1.HttpParams();
+        if (page)
+            params = params.append('page', page);
+        if (length)
+            params = params.append('length', length);
+        if (search)
+            params = params.append('search', search);
+        if (schoolId)
+            params = params.append('schoolId', schoolId);
+        if (testCode)
+            params = params.append('testCode', testCode);
+        if (examName)
+            params = params.append('examName', examName);
+        return this.http.get("" + this.ROUTE_PREFIX, { params: params });
+    };
+    RsurReportService.prototype.getReportsInfo = function () {
+        return this.http.get(this.ROUTE_PREFIX + "/info");
     };
     RsurReportService.prototype.getReport = function (rsurParticipTestId) {
         return this.http.get(this.ROUTE_PREFIX + "/" + rsurParticipTestId);

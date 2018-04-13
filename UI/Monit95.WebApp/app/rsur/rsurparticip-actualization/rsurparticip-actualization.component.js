@@ -20,7 +20,7 @@ var RsurParticipsActualizationComponent = /** @class */ (function () {
         var _this = this;
         this.rsurParticipService.getAll()
             .subscribe(function (response) {
-            _this.particips = response.json();
+            _this.particips = response;
             _this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(function (res) {
                 console.log(res);
                 _this.isFinished = res;

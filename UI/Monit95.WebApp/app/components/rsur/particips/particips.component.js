@@ -31,7 +31,7 @@ var RsurParticipsComponent = /** @class */ (function () {
         var _this = this;
         this.rsurParticipService.getAll()
             .subscribe(function (response) {
-            _this.allParticips = response.json();
+            _this.allParticips = response;
             _this.actualParticips = _this.allParticips.filter(function (f) { return f.ActualCode === 1; });
             if (_this.isShowNotActual) {
                 _this.dataSource = new material_1.MatTableDataSource(_this.allParticips);
@@ -58,9 +58,8 @@ var RsurParticipsComponent = /** @class */ (function () {
                 if (result) {
                     particip.ActualCode = 0;
                     _this.rsurParticipService.update(particip.Code, particip)
-                        .subscribe(function (res) {
+                        .subscribe(function () {
                         _this.snackBar.open('участник исключен из проекта', 'OK', { duration: 3000 });
-                        _this.getParticips();
                     });
                 }
                 else {
@@ -73,9 +72,8 @@ var RsurParticipsComponent = /** @class */ (function () {
             // если участник возвращается в проект то подтверждение не требуется
             particip.ActualCode = 1;
             this.rsurParticipService.update(particip.Code, particip)
-                .subscribe(function (res) {
+                .subscribe(function () {
                 _this.snackBar.open('участник добавлен в проект', 'OK', { duration: 3000 });
-                _this.getParticips();
             });
         }
     };

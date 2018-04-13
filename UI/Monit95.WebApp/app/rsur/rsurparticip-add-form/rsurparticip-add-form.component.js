@@ -89,7 +89,7 @@ var RsurParticipAddFormComponent = /** @class */ (function () {
         //this.particip.Birthday = this.newYear + '-' + this.newMonth + '-' + this.newDay;
         console.log(this.particip);
         this.rsurParticipService.createParticip(this.particip).
-            subscribe(function (data) { return _this.router.navigate(['rsurparticips']); });
+            subscribe(function () { return _this.router.navigate(['rsurparticips']); });
     };
     RsurParticipAddFormComponent.prototype.back = function () {
         this.router.navigate(['rsurparticips']);

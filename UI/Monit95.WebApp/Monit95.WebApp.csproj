@@ -394,6 +394,7 @@
   <ItemGroup>
     <Content Include="api.txt" />
     <Content Include="app\components\app\app.component.html" />
+    <Content Include="app\one-two-three\home\home.component.html" />
     <Content Include="app\particips\add-and-update\add.component.css" />
     <Content Include="app\particips\add-and-update\update.component.html" />
     <Content Include="app\particips\add-and-update\add.component.html" />
@@ -454,6 +455,8 @@
     <Content Include="app\shared\confirm-dialog\confirm-dialog.component.html" />
     <Content Include="app\shared\loading-view\loading-view.component.css" />
     <Content Include="app\shared\loading-view\loading-view.component.html" />
+    <Content Include="app\shared\table-paginator\table-paginator.css" />
+    <Content Include="app\shared\table-paginator\table-paginator.html" />
     <Content Include="app\styles\styles.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -461,7 +464,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\mystyle.css" />
     <EmbeddedResource Include="eclipse.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -624,6 +626,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
+    <TypeScriptCompile Include="app\custom-route-reuse-strategy.ts" />
     <TypeScriptCompile Include="app\material.module.ts" />
     <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
@@ -632,6 +635,9 @@
     <TypeScriptCompile Include="app\models\question-protocol-post.model.ts" />
     <TypeScriptCompile Include="app\models\question-protocol-put.model.ts" />
     <TypeScriptCompile Include="app\models\question-protocol-read.model.ts" />
+    <TypeScriptCompile Include="app\models\rsur-reports-info.model.ts" />
+    <TypeScriptCompile Include="app\one-two-three\home\home.component.ts" />
+    <TypeScriptCompile Include="app\one-two-three\one-two-three.module.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\particips\home\home.component.ts" />
@@ -644,7 +650,7 @@
     <TypeScriptCompile Include="app\particips\protocols\protocols.component.ts" />
     <TypeScriptCompile Include="app\particips\particips.module.ts" />
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />
-    <TypeScriptCompile Include="app\class.service.ts" />
+    <TypeScriptCompile Include="app\services\class.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\shared\marks-protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\matching\matching-protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\question\question-protocols-list.component.ts" />
@@ -715,6 +721,7 @@
     <TypeScriptCompile Include="app\models\person.model.ts" />
     <TypeScriptCompile Include="app\models\school-particip.model.ts" />
     <TypeScriptCompile Include="app\shared\shared-module.ts" />
+    <TypeScriptCompile Include="app\shared\table-paginator\table-paginator.ts" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707251307178_ASPNet-Identity-Update.resx">

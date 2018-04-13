@@ -1,23 +1,23 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { AccountModel } from '../models/account.model';
 
 @Injectable()
 export class AccountService {    
     account: AccountModel = new AccountModel();
 
-	constructor(private readonly http: Http) {
+	constructor(private readonly http: HttpClient) {
 		this.loadAccount();
 	}
 
     private loadAccount() {
-		this.http.get('api/account').subscribe(res => {
-            this.account = res.json() as AccountModel;
+		this.http.get<AccountModel>('api/account').subscribe(res => {
+            this.account = res;
 		})
 	}
 
 	getAccount() {
-		return this.http.get('api/account');
+		return this.http.get<AccountModel>('api/account');
 	}
 
 	isArea() {

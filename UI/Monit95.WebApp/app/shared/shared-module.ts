@@ -4,6 +4,7 @@ import { MarksProtocolComponent } from '../components/rsur/protocols/shared/mark
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { LoadingViewComponent } from './loading-view/loading-view.component';
+import { TablePaginator } from './table-paginator/table-paginator';
 
 @NgModule({
 	imports: [
@@ -13,11 +14,13 @@ import { LoadingViewComponent } from './loading-view/loading-view.component';
 	],
 	declarations: [
 		MarksProtocolComponent,
-		LoadingViewComponent
+		LoadingViewComponent,
+		TablePaginator
 	],
 	exports: [
 		MarksProtocolComponent,
-		LoadingViewComponent
+		LoadingViewComponent,
+		TablePaginator
 	]
 })
 export class SharedModule { }
