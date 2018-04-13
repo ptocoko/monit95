@@ -5,7 +5,7 @@
     <div *ngIf="(isArea() || isAdmin())" class="list-container">
         <h3 class="list-header">Диагностика «Апрель-2018»</h3>
         <div>
-            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/042018_ру_распределение_{{account.UserName}}.xlsx"><div><h4>Русский язык: распределение</h4></div></a>
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/042018_ру_распределение_{{account.UserName}}.xlsx"><div><h4><b>Русский язык: распределение</b></h4></div></a>
             <!--<a *ngIf="account.UserName !== '208'" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/296P/v7cLzLULV"><div><h4>Русский язык: варианты ИК по блоку «ОРФОГРАФИЯ»</h4></div></a>
             <a *ngIf="account.UserName !== '208'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/8PMc/2L6MbEuED"><div><h4>Русский язык: варианты ИК по блоку «ПУНКТУАЦИЯ»</h4></div></a>
             <a *ngIf="account.UserName !== '208' && account.UserName !== '214'" target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/Chmz/Q5dkVoGP4"><div><h4>Русский язык: варианты ИК по блоку «ЛЕКСИКА И ФРАЗЕОЛОГИЯ...»</h4></div></a>
@@ -34,7 +34,7 @@
             </a>-->
             <!--Протоколы-->
         </div>
-        <div *ngIf="true" class="list-item">
+        <div *ngIf="false" class="list-item">
             <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                 <div>
                     <h4><b>Протоколы проверки заданий</b></h4>

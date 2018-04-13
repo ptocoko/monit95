@@ -1,5 +1,5 @@
 ﻿(function () {    
-    const appVersionExtension = 'js?v=16';
+    const appVersionExtension = 'js?v=17';
     System.config({
         paths: {
             // псевдоним для пути к модулям
@@ -47,7 +47,7 @@
 			'@ng-bootstrap/ng-bootstrap': `npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.${appVersionExtension}`,
 			'angular-in-memory-web-api': `npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.min.${appVersionExtension}`,
 			'tslib': `npm:tslib/tslib.${appVersionExtension}`,
-			'ngx-order-pipe': `npm:ngx-order-pipe/bundles/ngx-order-pipe.umd.min.${appVersionExtension}`,
+			'ngx-order-pipe': `npm:ngx-order-pipe/bundles/ngx-order-pipe.umd.${appVersionExtension}`,
 
             // пакеты angular2-modal     
 			'angular2-modal': `npm:angular2-modal/bundle/angular2-modal.rollup.umd.min.${appVersionExtension}`,
