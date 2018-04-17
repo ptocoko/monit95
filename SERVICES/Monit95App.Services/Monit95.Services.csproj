@@ -108,6 +108,9 @@
     <Compile Include="ItakeEge\QuestionProtocol\IQuestionProtocolService.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionMarkPutDto.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionProtocolEditDto.cs" />
+    <Compile Include="OneTwoThree\Particips\IParticipService.cs" />
+    <Compile Include="OneTwoThree\Particips\Particip.cs" />
+    <Compile Include="OneTwoThree\Particips\ParticipService.cs" />
     <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
     <Compile Include="Rsur\MarksConvert\RsurMarksConverter.cs" />
     <Compile Include="Rsur\MarksConvert\IRsurMarksConverter.cs" />

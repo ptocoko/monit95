@@ -212,9 +212,8 @@
       <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting">
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Sockets">
       <HintPath>..\..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
@@ -343,6 +342,7 @@
     <Compile Include="RESTful_API\iTakeEge\QuestionProtocolsController.cs" />
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
+    <Compile Include="RESTful_API\OneTwoThree\ParticipsController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
     <Compile Include="RESTful_API\FilesController.cs" />
     <Compile Include="RESTful_API\Rsur\QuestionValuesController.cs" />
@@ -395,6 +395,7 @@
     <Content Include="api.txt" />
     <Content Include="app\components\app\app.component.html" />
     <Content Include="app\one-two-three\home\home.component.html" />
+    <Content Include="app\one-two-three\particips\list\particips-list.component.html" />
     <Content Include="app\particips\add-and-update\add.component.css" />
     <Content Include="app\particips\add-and-update\update.component.html" />
     <Content Include="app\particips\add-and-update\add.component.html" />
@@ -611,6 +612,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\directives\" />
+    <Folder Include="app\one-two-three\particips\add-or-update\" />
     <Folder Include="app\rsur\upload-report\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
@@ -630,6 +632,7 @@
     <TypeScriptCompile Include="app\material.module.ts" />
     <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\models\one-two-three\particip.model.ts" />
     <TypeScriptCompile Include="app\models\particip-protocol.model.ts" />
     <TypeScriptCompile Include="app\models\question-protocol-edit.model.ts" />
     <TypeScriptCompile Include="app\models\question-protocol-post.model.ts" />
@@ -638,6 +641,7 @@
     <TypeScriptCompile Include="app\models\rsur-reports-info.model.ts" />
     <TypeScriptCompile Include="app\one-two-three\home\home.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\one-two-three.module.ts" />
+    <TypeScriptCompile Include="app\one-two-three\particips\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\particips\home\home.component.ts" />
@@ -669,6 +673,7 @@
     <TypeScriptCompile Include="app\pipes\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\models\particip.model.ts" />
     <TypeScriptCompile Include="app\pipes\rsur-protocol-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\services\one-two-three\particips.service.ts" />
     <TypeScriptCompile Include="app\services\particip-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\particip.service.ts" />
     <TypeScriptCompile Include="app\pipes\rsur-report-filter.pipe.ts" />

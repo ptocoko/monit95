@@ -38,8 +38,8 @@ namespace Monit95App.Domain.Core.Entities
         public DateTime? Birthday { get; set; }
         public string DataSource { get; set; }
         public DateTime? AddedDate { get; set; }
-        //public int ClassId { get; set; }
-        //public virtual Class Class { get; set; }
+        public string ClassId { get; set; }
+        public virtual Class Class { get; set; }
         public int ProjectId { get; set; }        
         public Project Project { get; set; }
         public string SchoolId { get; set; }
