@@ -6,13 +6,16 @@ import { ParticipModel } from '../../../models/one-two-three/particip.model';
 	templateUrl: `./app/one-two-three/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
 })
 export class ParticipsListComponent {
-	particip: ParticipModel[] = [];
+	particips: ParticipModel[] = [];
+	isLoading: boolean;
 
 	constructor(private participService: ParticipService) { }
 
 	ngOnInit() {
+		this.isLoading = true;
 		this.participService.getAll().subscribe(res => {
-			this.particip = res;
+			this.particips = res;
+			this.isLoading = false;
 		});
 	}
 }

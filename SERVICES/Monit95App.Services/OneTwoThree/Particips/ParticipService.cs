@@ -9,6 +9,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
 {
     public class ParticipService : IParticipService
     {
+        private const int ProjectId = 201701;
         private readonly CokoContext context;
 
         public ParticipService(CokoContext context)
@@ -35,7 +36,12 @@ namespace Monit95App.Services.OneTwoThree.Particips
                 throw new ArgumentNullException($"{nameof(schoolId)} is null!");
             }
 
-            return context.Particips.Where(p => p.SchoolId == schoolId).Select(MapToParticipDto);
+            return context.Particips
+                .Where(p => p.SchoolId == schoolId && p.ProjectId == ProjectId)
+                .OrderBy(ob => ob.ClassId)
+                .ThenBy(tb => tb.Surname)
+                .ThenBy(tb => tb.Name)
+                .Select(MapToParticipDto);
         }
 
         private Particip MapToParticipDto(Domain.Core.Entities.Particip entity)

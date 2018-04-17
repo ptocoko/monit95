@@ -654,6 +654,7 @@
     <TypeScriptCompile Include="app\particips\protocols\protocols.component.ts" />
     <TypeScriptCompile Include="app\particips\particips.module.ts" />
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />
+    <TypeScriptCompile Include="app\pipes\one-two-three\particips.pipe.ts" />
     <TypeScriptCompile Include="app\services\class.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\shared\marks-protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\matching\matching-protocol.component.ts" />

@@ -1,1 +1,30 @@
-﻿<h4>particips list component!</h4>
+﻿<h4>Список участников</h4>
+
+<div>
+    <mat-form-field>
+        <input matInput [(ngModel)]="searchText" placeholder="поиск участника..." />
+    </mat-form-field>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>код участника</th>
+        <th>фамилия</th>
+        <th>имя</th>
+        <th>отчество</th>
+        <th>класс</th>
+    </tr>
+    <tr *ngFor="let particip of particips; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ particip.Id }}</td>
+        <td>{{ particip.Surname }}</td>
+        <td>{{ particip.Name }}</td>
+        <td>{{ particip.SecondName }}</td>
+        <td>{{ particip.ClassName }}</td>
+    </tr>
+</table>
+<div class="text-center" *ngIf="particips.length === 0">
+    <span *ngIf="isLoading; else noParticips"><i>Загрузка...</i></span>
+    <ng-template #noParticips><span><i>Участников нет.</i></span></ng-template>
+</div>

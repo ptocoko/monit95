@@ -6,12 +6,14 @@ var particips_service_1 = require("../../../services/one-two-three/particips.ser
 var ParticipsListComponent = /** @class */ (function () {
     function ParticipsListComponent(participService) {
         this.participService = participService;
-        this.particip = [];
+        this.particips = [];
     }
     ParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.isLoading = true;
         this.participService.getAll().subscribe(function (res) {
-            _this.particip = res;
+            _this.particips = res;
+            _this.isLoading = false;
         });
     };
     ParticipsListComponent = tslib_1.__decorate([
