@@ -1,6 +1,7 @@
 ﻿import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import { QuestionResult } from "../../../../models/marks-protocol.model";
-import { Observable } from 'rxjs/Observable';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { filter } from 'rxjs/operators/filter';
 
 @Component({
 	selector: 'marks-protocol',
@@ -28,8 +29,9 @@ export class MarksProtocolComponent implements AfterViewInit {
 			this.inputElements.get(0).focus();
 			this.inputElements.get(0).setSelectionRange(0, this.inputElements.get(0).value.length);
 
-			Observable.fromEvent(document.getElementsByClassName('markInput'), 'keyup')
-				.filter((event: any) => [38, 40].indexOf(event.keyCode) > -1)
+			fromEvent(document.getElementsByClassName('markInput'), 'keyup').pipe(
+					filter((event: any) => [38, 40].indexOf(event.keyCode) > -1)
+				)
 				.subscribe((event: any) => {
 					if (event.keyCode === 40) {
 						this.focusOnNextElement(event);
@@ -72,7 +74,7 @@ export class MarksProtocolComponent implements AfterViewInit {
 
 	focusOnNextElement(event: any) {
 		const nextInputDiv = event.target.parentElement.nextElementSibling;
-		if (nextInputDiv && nextInputDiv.className === 'form-inline') {
+		if (nextInputDiv && nextInputDiv.className.includes('form-inline')) {
 			nextInputDiv.children[1].focus();
 		}
 		else {
@@ -82,7 +84,7 @@ export class MarksProtocolComponent implements AfterViewInit {
 
 	focusOnPrevElement(event: any) {
 		const prevInputDiv = event.target.parentElement.previousElementSibling;
-		if (prevInputDiv && prevInputDiv.className === 'form-inline') {
+		if (prevInputDiv && prevInputDiv.className.includes('form-inline')) {
 			prevInputDiv.children[1].focus();
 		}
 	}

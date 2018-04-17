@@ -1,16 +1,17 @@
 ﻿import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Observable } from "rxjs/Observable";
 import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 import { Protocol } from '../../../../models/protocol.model';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { filter } from 'rxjs/operators/filter';
+
 
 @Component({
 	templateUrl: `./app/components/rsur/protocols/question/question-protocols-list.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/components/rsur/protocols/question/question-protocols-list.component.css?v=${new Date().getTime()}`]
 })
 export class QuestionProtocolsList {
-	questionProtocols: Protocol[];
+	questionProtocols: Protocol[] = new Array<Protocol>();
 	processedProtocols = () => this.questionProtocols.filter(f => f.RsurQuestionValues).length;
 	notProcessedProtocols = () => this.questionProtocols.filter(f => !f.RsurQuestionValues).length;
 
@@ -20,23 +21,22 @@ export class QuestionProtocolsList {
 	@ViewChild('participCodeInput') participCodeInput: ElementRef;
 
 	constructor(private rsurProtocolsService: RsurProtocolsService,
-				private router: Router,
-				private location: Location) { }
+				private router: Router) { }
 
-	ngOnInit() {
+	ngAfterViewInit() {
 		this.rsurProtocolsService.getQuestionProtocols().subscribe(questionProtocols => {
 			this.questionProtocols = questionProtocols;
-			$().ready(() => this.initCodeListener());
+			this.initCodeListener();
 		});
 	}
 
 	private initCodeListener() {
 		this.participCodeInput.nativeElement.focus();
-		let codeInput$ = Observable.fromEvent(this.participCodeInput.nativeElement, 'keyup');
+		let codeInput$ = fromEvent(this.participCodeInput.nativeElement, 'keyup');
 
 		codeInput$.subscribe(() => this.pageIndex = 0);
 
-		codeInput$.filter((event: any) => event.keyCode === 13 && this.checkIfOnlyOneMatch(event.target.value))
+		codeInput$.pipe(filter((event: any) => event.keyCode === 13 && this.checkIfOnlyOneMatch(event.target.value)))
 			.subscribe(event => this.changeMarks(this.getProtocol(event.target.value).ParticipCode));
 	}
 

@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
-var Observable_1 = require("rxjs/Observable");
+var fromEvent_1 = require("rxjs/observable/fromEvent");
+var filter_1 = require("rxjs/operators/filter");
 var MarksProtocolComponent = /** @class */ (function () {
     function MarksProtocolComponent() {
         this.onSend = new core_1.EventEmitter();
@@ -17,8 +18,7 @@ var MarksProtocolComponent = /** @class */ (function () {
         if (this.inputElements.get(0)) {
             this.inputElements.get(0).focus();
             this.inputElements.get(0).setSelectionRange(0, this.inputElements.get(0).value.length);
-            Observable_1.Observable.fromEvent(document.getElementsByClassName('markInput'), 'keyup')
-                .filter(function (event) { return [38, 40].indexOf(event.keyCode) > -1; })
+            fromEvent_1.fromEvent(document.getElementsByClassName('markInput'), 'keyup').pipe(filter_1.filter(function (event) { return [38, 40].indexOf(event.keyCode) > -1; }))
                 .subscribe(function (event) {
                 if (event.keyCode === 40) {
                     _this.focusOnNextElement(event);
@@ -58,7 +58,7 @@ var MarksProtocolComponent = /** @class */ (function () {
     };
     MarksProtocolComponent.prototype.focusOnNextElement = function (event) {
         var nextInputDiv = event.target.parentElement.nextElementSibling;
-        if (nextInputDiv && nextInputDiv.className === 'form-inline') {
+        if (nextInputDiv && nextInputDiv.className.includes('form-inline')) {
             nextInputDiv.children[1].focus();
         }
         else {
@@ -67,7 +67,7 @@ var MarksProtocolComponent = /** @class */ (function () {
     };
     MarksProtocolComponent.prototype.focusOnPrevElement = function (event) {
         var prevInputDiv = event.target.parentElement.previousElementSibling;
-        if (prevInputDiv && prevInputDiv.className === 'form-inline') {
+        if (prevInputDiv && prevInputDiv.className.includes('form-inline')) {
             prevInputDiv.children[1].focus();
         }
     };
