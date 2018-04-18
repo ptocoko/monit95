@@ -9,7 +9,7 @@ var router_1 = require("@angular/router");
 var home_component_1 = require("./home/home.component");
 var http_1 = require("@angular/common/http");
 var forms_1 = require("@angular/forms");
-//import { ParticipFilterPipe } from '../pipes/particip-filter.pipe';
+var particip_filter_pipe_1 = require("../pipes/particip-filter.pipe");
 var material_module_1 = require("../material.module");
 //import { ProtocolsComponent } from './protocols/protocols.component';
 //import { AddParticipComponent } from './add-and-update/add.component';
@@ -45,6 +45,8 @@ var ParticipsModule = /** @class */ (function () {
             ],
             declarations: [
                 home_component_1.HomeComponent,
+                //ParticipsListComponent,
+                particip_filter_pipe_1.ParticipFilterPipe,
             ],
         })
     ], ParticipsModule);

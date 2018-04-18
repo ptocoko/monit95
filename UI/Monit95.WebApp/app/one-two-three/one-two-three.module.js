@@ -35,7 +35,9 @@ var OneTwoThreeModule = /** @class */ (function () {
             declarations: [
                 home_component_1.HomeComponent,
                 particips_list_component_1.ParticipsListComponent,
-                particips_pipe_1.ClassFilterPipe
+                particips_pipe_1.ClassFilterPipe,
+                particips_pipe_1.ClassesGetterPipe,
+                particips_pipe_1.ParticipFilterPipe
             ],
             providers: [
                 particips_service_1.ParticipService

@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ParticipsListComponent } from './particips/list/particips-list.component';
 import { ParticipService } from '../services/one-two-three/particips.service';
-import { ClassFilterPipe } from '../pipes/one-two-three/particips.pipe';
+import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes/one-two-three/particips.pipe';
 
 const routes: Routes = [
 	{ path: 'one-two-three/home', component: HomeComponent },
@@ -31,7 +31,9 @@ const routes: Routes = [
 	declarations: [
 		HomeComponent,
 		ParticipsListComponent,
-		ClassFilterPipe
+		ClassFilterPipe,
+		ClassesGetterPipe,
+		ParticipFilterPipe
 	],
 	providers: [
 		ParticipService

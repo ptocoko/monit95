@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//import { ParticipFilterPipe } from '../pipes/particip-filter.pipe';
+import { ParticipFilterPipe } from '../pipes/particip-filter.pipe';
 import { MaterialModule } from '../material.module';
 //import { ProtocolsComponent } from './protocols/protocols.component';
 //import { AddParticipComponent } from './add-and-update/add.component';
@@ -41,7 +41,7 @@ const routes: Routes = [
 	declarations: [
 		HomeComponent,
 		//ParticipsListComponent,
-		//ParticipFilterPipe,
+		ParticipFilterPipe,
 		//AddParticipComponent,
 		//ProtocolsComponent,
 		//ParticipProtocolComponent,

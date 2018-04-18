@@ -1,0 +1,11 @@
+﻿.actions-bar{
+    display: flex;
+}
+
+.mat-form-field + .mat-form-field{
+    margin-left: 25px;
+}
+
+.class-select{
+    width: 135px;
+}

@@ -19,6 +19,7 @@ var ParticipsListComponent = /** @class */ (function () {
     ParticipsListComponent = tslib_1.__decorate([
         core_1.Component({
             templateUrl: "./app/one-two-three/particips/list/particips-list.component.html?v=" + new Date().getTime(),
+            styleUrls: ["./app/one-two-three/particips/list/particips-list.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [particips_service_1.ParticipService])
     ], ParticipsListComponent);

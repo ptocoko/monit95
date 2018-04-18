@@ -1,8 +1,15 @@
 ﻿<h4>Список участников</h4>
 
-<div>
+<div class="actions-bar">
     <mat-form-field>
         <input matInput [(ngModel)]="searchText" placeholder="поиск участника..." />
+    </mat-form-field>
+
+    <mat-form-field class="class-select">
+        <mat-select placeholder="поиск по классу..." [(ngModel)]="searchClass">
+            <mat-option [value]="">Все классы</mat-option>
+            <mat-option *ngFor="let class of particips | getClasses" [value]="class.Id">{{ class.Name }}</mat-option>
+        </mat-select>
     </mat-form-field>
 </div>
 
@@ -15,7 +22,7 @@
         <th>отчество</th>
         <th>класс</th>
     </tr>
-    <tr *ngFor="let particip of particips; let i = index">
+    <tr *ngFor="let particip of particips | classFilter : searchClass | participFilter : searchText; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ particip.Id }}</td>
         <td>{{ particip.Surname }}</td>
