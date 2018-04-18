@@ -2,24 +2,42 @@
 <h2 *ngIf="!isUpdate">Добавить участника</h2>
 
 <div *ngIf="particip; else spinner">
-    <mat-form-field>
-        <input matInput placeholder="фамилия" [(ngModel)]="particip.Surname" />
-    </mat-form-field>
+    <form [formGroup]="participForm" (ngSubmit)="submitForm()">
+        <mat-form-field>
+            <input id="surname" matInput placeholder="фамилия" [(ngModel)]="particip.Surname" formControlName="surname" />
+            <mat-error *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+                <div *ngIf="surname.errors.required">введите фамилию</div>
+                <div *ngIf="surname.errors.minlength">фамилия должна содержать хотя бы 4 символа</div>
+            </mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput placeholder="имя" [(ngModel)]="particip.Name" />
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="имя" [(ngModel)]="particip.Name" formControlName="name" />
+            <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+                <div *ngIf="name.errors.required">введите имя</div>
+                <div *ngIf="name.errors.minlength">имя должно содержать хотя бы 3 символа</div>
+            </mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput placeholder="отчество" [(ngModel)]="particip.SecondName" />
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="отчество" [(ngModel)]="particip.SecondName" formControlName="secondName" />
+            <mat-error *ngIf="secondName.invalid && (secondName.dirty || secondName.touched)">
+                <div *ngIf="secondName.errors.minlength">отчество должно содержать хотя бы 5 символа</div>
+            </mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="class-select">
-        <mat-select placeholder="класс" [(ngModel)]="particip.ClassId">
-            <mat-option *ngFor="let class of classes" [value]="class.Id">{{ class.Name }}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <p>{{ particip | json }}</p>
+        <mat-form-field class="class-select">
+            <mat-select placeholder="класс" [(ngModel)]="particip.ClassId" formControlName="classId">
+                <mat-option *ngFor="let class of classes" [value]="class.Id">{{ class.Name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="classId.invalid && (classId.dirty || classId.touched)">
+                <div *ngIf="classId.errors.required">выберите класс</div>
+            </mat-error>
+        </mat-form-field>
+        <div>
+            <button mat-raised-button color="primary" type="submit">отправить</button>
+        </div>
+    </form>
 </div>
 
 <ng-template #spinner>

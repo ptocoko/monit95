@@ -34,6 +34,7 @@
         <td>{{ particip.SecondName }}</td>
         <td>{{ particip.ClassName }}</td>
         <td><a href="#" class="glyphicon glyphicon-edit" [routerLink]="['/one-two-three/particips', particip.Id]"></a></td>
+        <td><a style="cursor:pointer" class="glyphicon glyphicon-trash" (click)="deleteParticip(particip)"></a></td>
     </tr>
 </table>
 <div class="text-center" *ngIf="particips.length === 0">

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.OneTwoThree.Particips
 {
-    public class Particip
+    public class ParticipDto
     {
         public int Id { get; set; }
         public string Surname { get; set; }

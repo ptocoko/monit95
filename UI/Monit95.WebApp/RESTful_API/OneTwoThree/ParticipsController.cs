@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Monit95App.Services.OneTwoThree.Particips;
+using ServiceResult.Exceptions;
 
 namespace Monit95.WebApp.RESTful_API.OneTwoThree
 {
@@ -22,7 +23,7 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         public IHttpActionResult Get()
         {
             string schoolId = User.Identity.Name;
-            IEnumerable<Particip> dto;
+            IEnumerable<ParticipDto> dto;
 
             try
             { 
@@ -40,7 +41,7 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         public IHttpActionResult Get(int participId)
         {
             string schoolId = User.Identity.Name;
-            Particip dto;
+            ParticipDto dto;
             try
             {
                 dto = participService.GetParticip(participId, schoolId);
@@ -51,6 +52,54 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
             }
 
             return Ok(dto);
+        }
+
+        [HttpPut, Route("{participId:int}")]
+        public IHttpActionResult Put(int participId, [FromBody]ParticipDto particip)
+        {
+            string schoolId = User.Identity.Name;
+            try
+            {
+                participService.EditParticip(participId, schoolId, particip);
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                return Conflict();
+            }
+
+            return Ok();
+        }
+
+        [HttpPost, Route("")]
+        public IHttpActionResult Post([FromBody]ParticipDto particip)
+        {
+            string schoolId = User.Identity.Name;
+            try
+            {
+                participService.CreateParticip(schoolId, particip);
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                return Conflict();
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete, Route("{participId:int}")]
+        public IHttpActionResult Delete(int participId)
+        {
+            string schoolId = User.Identity.Name;
+            try
+            {
+                participService.RemoveParticip(participId, schoolId);
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Monit95App.Infrastructure.Data;
+﻿using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,36 @@ namespace Monit95App.Services.OneTwoThree.Particips
             this.context = context;
         }
 
-        public Particip GetParticip(int Id, string schoolId)
+        public void CreateParticip(string schoolId, ParticipDto particip)
+        {
+            var entity = new Particip
+            {
+                Surname = particip.Surname,
+                Name = particip.Name,
+                SecondName = particip.SecondName,
+                ClassId = particip.ClassId,
+                SchoolId = schoolId,
+                ProjectId = 201701
+            };
+
+            context.Particips.Add(entity);
+            context.SaveChanges();
+        }
+
+        public void EditParticip(int Id, string schoolId, ParticipDto particip)
+        {
+            var entity = context.Particips
+                .Single(p => p.Id == Id && p.SchoolId == schoolId && p.ProjectId == ProjectId);
+
+            entity.Surname = particip.Surname;
+            entity.Name = particip.Name;
+            entity.SecondName = particip.SecondName;
+            entity.ClassId = particip.ClassId;
+
+            context.SaveChanges();
+        }
+
+        public ParticipDto GetParticip(int Id, string schoolId)
         {
             var entity = context.Particips
                 .Where(p => p.ProjectId == ProjectId && p.SchoolId == schoolId)
@@ -31,7 +61,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
             return MapToParticipDto(entity);
         }
 
-        public IEnumerable<Particip> GetParticips(string schoolId)
+        public IEnumerable<ParticipDto> GetParticips(string schoolId)
         {
             if(schoolId == null)
             {
@@ -46,9 +76,18 @@ namespace Monit95App.Services.OneTwoThree.Particips
                 .Select(MapToParticipDto);
         }
 
-        private Particip MapToParticipDto(Domain.Core.Entities.Particip entity)
+        public void RemoveParticip(int Id, string schoolId)
         {
-            return new Particip
+            var entity = context.Particips
+                .Single(p => p.SchoolId == schoolId && p.Id == Id && p.ProjectId == ProjectId);
+
+            context.Particips.Remove(entity);
+            context.SaveChanges();
+        }
+
+        private ParticipDto MapToParticipDto(Domain.Core.Entities.Particip entity)
+        {
+            return new ParticipDto
             {
                 Id = entity.Id,
                 Surname = entity.Surname,

@@ -19,4 +19,12 @@ export class ParticipsListComponent {
 			this.isLoading = false;
 		});
 	}
+
+	deleteParticip(particip: ParticipModel) {
+		const participId = particip.Id;
+		const participIndex = this.particips.indexOf(particip);
+		this.participService.deleteParticip(participId).subscribe(() => {
+			this.particips.splice(participIndex, 1);
+		});
+	}
 }

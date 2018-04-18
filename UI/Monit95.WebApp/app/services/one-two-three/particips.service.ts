@@ -17,4 +17,16 @@ export class ParticipService {
 	get(participId: number): Observable<ParticipModel> {
 		return this.httpClient.get<ParticipModel>(`${endpoint}/${participId}`);
 	}
+
+	update(particip: ParticipModel): Observable<string> {
+		return this.httpClient.put(`${endpoint}/${particip.Id}`, particip, { responseType: 'text' });
+	}
+
+	post(particip: ParticipModel): Observable<string> {
+		return this.httpClient.post(endpoint, particip, { responseType: 'text' });
+	}
+
+	deleteParticip(participId: number): Observable<string> {
+		return this.httpClient.delete(`${endpoint}/${participId}`, { responseType: 'text' });
+	}
 }

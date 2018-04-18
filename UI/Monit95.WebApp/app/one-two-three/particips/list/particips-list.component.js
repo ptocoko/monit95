@@ -16,6 +16,14 @@ var ParticipsListComponent = /** @class */ (function () {
             _this.isLoading = false;
         });
     };
+    ParticipsListComponent.prototype.deleteParticip = function (particip) {
+        var _this = this;
+        var participId = particip.Id;
+        var participIndex = this.particips.indexOf(particip);
+        this.participService.deleteParticip(participId).subscribe(function () {
+            _this.particips.splice(participIndex, 1);
+        });
+    };
     ParticipsListComponent = tslib_1.__decorate([
         core_1.Component({
             templateUrl: "./app/one-two-three/particips/list/particips-list.component.html?v=" + new Date().getTime(),
