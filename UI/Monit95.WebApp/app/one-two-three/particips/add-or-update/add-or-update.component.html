@@ -1,0 +1,29 @@
+﻿<h2 *ngIf="isUpdate">Редактировать участника</h2>
+<h2 *ngIf="!isUpdate">Добавить участника</h2>
+
+<div *ngIf="particip; else spinner">
+    <mat-form-field>
+        <input matInput placeholder="фамилия" [(ngModel)]="particip.Surname" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="имя" [(ngModel)]="particip.Name" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="отчество" [(ngModel)]="particip.SecondName" />
+    </mat-form-field>
+
+    <mat-form-field class="class-select">
+        <mat-select placeholder="класс" [(ngModel)]="particip.ClassId">
+            <mat-option *ngFor="let class of classes" [value]="class.Id">{{ class.Name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <p>{{ particip | json }}</p>
+</div>
+
+<ng-template #spinner>
+    <div>
+        <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+    </div>
+</ng-template>

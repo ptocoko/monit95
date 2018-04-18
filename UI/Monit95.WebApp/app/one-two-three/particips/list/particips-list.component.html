@@ -1,16 +1,20 @@
-﻿<h4>Список участников</h4>
+﻿<h2>Список участников</h2>
 
 <div class="actions-bar">
-    <mat-form-field>
-        <input matInput [(ngModel)]="searchText" placeholder="поиск участника..." />
-    </mat-form-field>
+    <div>
+        <mat-form-field>
+            <input matInput [(ngModel)]="searchText" placeholder="поиск участника..." />
+        </mat-form-field>
 
-    <mat-form-field class="class-select">
-        <mat-select placeholder="поиск по классу..." [(ngModel)]="searchClass">
-            <mat-option [value]="">Все классы</mat-option>
-            <mat-option *ngFor="let class of particips | getClasses" [value]="class.Id">{{ class.Name }}</mat-option>
-        </mat-select>
-    </mat-form-field>
+        <mat-form-field class="class-select">
+            <mat-select placeholder="поиск по классу..." [(ngModel)]="searchClass">
+                <mat-option [value]="">Все классы</mat-option>
+                <mat-option *ngFor="let class of particips | getClasses" [value]="class.Id">{{ class.Name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" routerLink="/one-two-three/particips/add">Добавить участника...</button>
 </div>
 
 <table class="table table-bordered">
@@ -29,6 +33,7 @@
         <td>{{ particip.Name }}</td>
         <td>{{ particip.SecondName }}</td>
         <td>{{ particip.ClassName }}</td>
+        <td><a href="#" class="glyphicon glyphicon-edit" [routerLink]="['/one-two-three/particips', particip.Id]"></a></td>
     </tr>
 </table>
 <div class="text-center" *ngIf="particips.length === 0">

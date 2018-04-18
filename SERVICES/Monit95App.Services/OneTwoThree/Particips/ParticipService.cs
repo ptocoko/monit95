@@ -17,9 +17,11 @@ namespace Monit95App.Services.OneTwoThree.Particips
             this.context = context;
         }
 
-        public Particip GetParticip(int Id)
+        public Particip GetParticip(int Id, string schoolId)
         {
-            var entity = context.Particips.Find(Id);
+            var entity = context.Particips
+                .Where(p => p.ProjectId == ProjectId && p.SchoolId == schoolId)
+                .SingleOrDefault(p => p.Id == Id);
 
             if(entity == null)
             {

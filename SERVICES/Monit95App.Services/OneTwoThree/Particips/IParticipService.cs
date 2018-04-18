@@ -9,6 +9,6 @@ namespace Monit95App.Services.OneTwoThree.Particips
     public interface IParticipService
     {
         IEnumerable<Particip> GetParticips(string schoolId);
-        Particip GetParticip(int Id);
+        Particip GetParticip(int Id, string schoolId);
     }
 }

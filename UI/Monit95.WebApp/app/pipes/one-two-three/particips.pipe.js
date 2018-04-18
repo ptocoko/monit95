@@ -49,7 +49,8 @@ var ParticipFilterPipe = /** @class */ (function () {
             return particips;
         searchText = searchText.trim().toLowerCase();
         return particips.filter(function (particip) {
-            return particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
+            return particip.Id.toString().indexOf(searchText) > -1
+                || particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
                 || particip.Name.trim().toLowerCase().indexOf(searchText) > -1
                 || particip.SecondName.trim().toLowerCase().indexOf(searchText) > -1;
         });

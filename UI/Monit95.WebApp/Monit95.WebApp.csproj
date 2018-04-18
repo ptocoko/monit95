@@ -395,6 +395,8 @@
     <Content Include="api.txt" />
     <Content Include="app\components\app\app.component.html" />
     <Content Include="app\one-two-three\home\home.component.html" />
+    <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.css" />
+    <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.html" />
     <Content Include="app\one-two-three\particips\list\particips-list.component.css" />
     <Content Include="app\one-two-three\particips\list\particips-list.component.html" />
     <Content Include="app\particips\add-and-update\add.component.css" />
@@ -613,7 +615,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\directives\" />
-    <Folder Include="app\one-two-three\particips\add-or-update\" />
     <Folder Include="app\rsur\upload-report\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
@@ -643,6 +644,7 @@
     <TypeScriptCompile Include="app\models\rsur-reports-info.model.ts" />
     <TypeScriptCompile Include="app\one-two-three\home\home.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\one-two-three.module.ts" />
+    <TypeScriptCompile Include="app\one-two-three\particips\add-or-update\add-or-update.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\particips\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\add.component.ts" />

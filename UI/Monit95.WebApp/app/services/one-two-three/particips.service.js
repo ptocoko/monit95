@@ -11,6 +11,9 @@ var ParticipService = /** @class */ (function () {
     ParticipService.prototype.getAll = function () {
         return this.httpClient.get(endpoint);
     };
+    ParticipService.prototype.get = function (participId) {
+        return this.httpClient.get(endpoint + "/" + participId);
+    };
     ParticipService = tslib_1.__decorate([
         core_1.Injectable(),
         tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])

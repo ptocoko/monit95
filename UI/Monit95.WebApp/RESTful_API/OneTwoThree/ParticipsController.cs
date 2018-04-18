@@ -8,7 +8,7 @@ using Monit95App.Services.OneTwoThree.Particips;
 
 namespace Monit95.WebApp.RESTful_API.OneTwoThree
 {
-    [RoutePrefix("api/onetwothree/particips")]//, Authorize(Roles = "school")]
+    [RoutePrefix("api/onetwothree/particips"), Authorize(Roles = "school")]
     public class OneTwoThreeParticipsController : ApiController
     {
         private readonly IParticipService participService;
@@ -21,7 +21,7 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         [HttpGet, Route("")]
         public IHttpActionResult Get()
         {
-            string schoolId = "0005";
+            string schoolId = User.Identity.Name;
             IEnumerable<Particip> dto;
 
             try
@@ -36,13 +36,14 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
             return Ok(dto);
         }
 
-        [HttpGet, Route("{id:int}")]
-        public IHttpActionResult Get(int id)
+        [HttpGet, Route("{participId:int}")]
+        public IHttpActionResult Get(int participId)
         {
+            string schoolId = User.Identity.Name;
             Particip dto;
             try
             {
-                dto = participService.GetParticip(id);
+                dto = participService.GetParticip(participId, schoolId);
             }
             catch (ArgumentException)
             {

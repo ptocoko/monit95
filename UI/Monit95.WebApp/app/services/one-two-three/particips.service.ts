@@ -13,4 +13,8 @@ export class ParticipService {
 	getAll(): Observable<ParticipModel[]> {
 		return this.httpClient.get<ParticipModel[]>(endpoint);
 	}
+
+	get(participId: number): Observable<ParticipModel> {
+		return this.httpClient.get<ParticipModel>(`${endpoint}/${participId}`);
+	}
 }
