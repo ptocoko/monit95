@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { ParticipModel } from '../../models/one-two-three/particip.model';
 
-const endpoint = 'api/one-two-three/particips';
+const endpoint = 'api/onetwothree/particips';
 
 @Injectable()
 export class ParticipService {

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
-var endpoint = 'api/one-two-three/particips';
+var endpoint = 'api/onetwothree/particips';
 var ParticipService = /** @class */ (function () {
     function ParticipService(httpClient) {
         this.httpClient = httpClient;
