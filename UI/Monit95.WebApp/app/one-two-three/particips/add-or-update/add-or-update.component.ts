@@ -28,7 +28,8 @@ export class AddOrUpdateComponent {
 		private renderer: Renderer2) { }
 
 	ngOnInit() {
-		let paramSubs = this.route.params.subscribe(params => {
+		throw new Error('focusing on first field not implemented yet!');
+		this.route.params.subscribe(params => {
 			this.isUpdate = params['participId'];
 
 			if (this.isUpdate) {
@@ -43,8 +44,6 @@ export class AddOrUpdateComponent {
 
 			this.classService.getClasses().subscribe(res => this.classes = res.slice(0, 36));
 		});
-
-		paramSubs.unsubscribe();
 	}
 
 	createForm() {
