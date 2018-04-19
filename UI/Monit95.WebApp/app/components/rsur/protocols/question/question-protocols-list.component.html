@@ -16,34 +16,32 @@
                              [(pageIndex)]="pageIndex">
         </app-table-paginator>
     </div>
-    <div class="scrollable-content">
-        <table class="table table-bordered">
-            <tr>
-                <th class="row-number-cell">#</th>
-                <th class="particip-code-cell">код участника</th>
-                <th>блок</th>
-                <th>баллы по заданиям</th>
-                <th style="width:295px">действия</th>
-            </tr>
-            <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText
-                                                          | offset : pageIndex * limitToVal
-                                                          | limitTo : limitToVal;
-                        let i = index">
-                <td class="row-number-cell">{{i + 1}}</td>
-                <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
-                <td>{{protocol.TestName}}</td>
-                <td [ngClass]="{'red-cell': !protocol.RsurQuestionValues}">{{protocol.RsurQuestionValues}}</td>
-                <td>
-                    <div class="pull-left">
-                        <button mat-raised-button color="primary" (click)="changeMarks(protocol.ParticipCode)" style="width:135.59px"><i class="glyphicon glyphicon-edit"></i> изменить</button>
-                        <button matTooltip="Указать, что участник отсутствовал" [matTooltipPosition]="'right'" [disabled]="protocol.RsurQuestionValues === 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
-                            <i class="glyphicon glyphicon-header"></i> отсутствовал
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <table class="table table-bordered">
+        <tr>
+            <th class="row-number-cell">#</th>
+            <th class="particip-code-cell">код участника</th>
+            <th>блок</th>
+            <th>баллы по заданиям</th>
+            <th style="width:295px">действия</th>
+        </tr>
+        <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText
+                                                        | offset : pageIndex * limitToVal
+                                                        | limitTo : limitToVal;
+                    let i = index">
+            <td class="row-number-cell">{{i + 1}}</td>
+            <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
+            <td>{{protocol.TestName}}</td>
+            <td [ngClass]="{'red-cell': !protocol.RsurQuestionValues}">{{protocol.RsurQuestionValues}}</td>
+            <td>
+                <div class="pull-left">
+                    <button mat-raised-button color="primary" (click)="changeMarks(protocol.ParticipCode)" style="width:135.59px"><i class="glyphicon glyphicon-edit"></i> изменить</button>
+                    <button matTooltip="Указать, что участник отсутствовал" [matTooltipPosition]="'right'" [disabled]="protocol.RsurQuestionValues === 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
+                        <i class="glyphicon glyphicon-header"></i> отсутствовал
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
 
 </ng-template>
 

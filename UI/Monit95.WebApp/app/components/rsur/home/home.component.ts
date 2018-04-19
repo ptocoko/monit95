@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
             this.account = data;            
             this.isLoading = false;
 			localStorage.clear();
-			//this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
+			this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
         });
     }
 
