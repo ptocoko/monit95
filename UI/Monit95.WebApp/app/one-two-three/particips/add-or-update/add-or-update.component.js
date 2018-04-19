@@ -7,15 +7,20 @@ var router_1 = require("@angular/router");
 var class_service_1 = require("../../../services/class.service");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
+var material_1 = require("@angular/material");
 var AddOrUpdateComponent = /** @class */ (function () {
-    function AddOrUpdateComponent(participService, classService, router, route, location, fb) {
+    function AddOrUpdateComponent(participService, classService, router, route, location, fb, renderer) {
+        var _this = this;
         this.participService = participService;
         this.classService = classService;
         this.router = router;
         this.route = route;
         this.location = location;
         this.fb = fb;
+        this.renderer = renderer;
         this.isUpdate = true;
+        this.cancel = function () { return _this.location.back(); };
+        this.focusOnFirstField = function () { return _this.renderer.selectRootElement(_this.firstField.nativeElement).focus(); };
     }
     AddOrUpdateComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -41,6 +46,7 @@ var AddOrUpdateComponent = /** @class */ (function () {
             secondName: ['', forms_1.Validators.minLength(5)],
             classId: ['', forms_1.Validators.required]
         });
+        //this.focusOnFirstField();
     };
     AddOrUpdateComponent.prototype.submitForm = function () {
         var _this = this;
@@ -51,8 +57,23 @@ var AddOrUpdateComponent = /** @class */ (function () {
             }
         }
         else {
-            this.isUpdate ? this.participService.update(this.particip).subscribe(function () { return _this.location.back(); })
-                : this.participService.post(this.particip).subscribe(function () { return _this.location.back(); });
+            if (this.isUpdate) {
+                this.participService.update(this.particip).subscribe(function () { return _this.location.back(); });
+            }
+            else {
+                this.participService.post(this.particip).subscribe(function () { return _this.location.back(); });
+            }
+        }
+    };
+    AddOrUpdateComponent.prototype.addNext = function () {
+        if (!this.isUpdate) {
+            if (this.participForm.invalid) {
+                this.submitForm();
+            }
+            else {
+                this.particip = {};
+                this.focusOnFirstField();
+            }
         }
     };
     Object.defineProperty(AddOrUpdateComponent.prototype, "surname", {
@@ -75,6 +96,10 @@ var AddOrUpdateComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    tslib_1.__decorate([
+        core_1.ViewChild(material_1.MatFormField),
+        tslib_1.__metadata("design:type", core_1.ElementRef)
+    ], AddOrUpdateComponent.prototype, "firstField", void 0);
     AddOrUpdateComponent = tslib_1.__decorate([
         core_1.Component({
             templateUrl: "./app/one-two-three/particips/add-or-update/add-or-update.component.html?v=" + new Date().getTime(),
@@ -85,7 +110,8 @@ var AddOrUpdateComponent = /** @class */ (function () {
             router_1.Router,
             router_1.ActivatedRoute,
             common_1.Location,
-            forms_1.FormBuilder])
+            forms_1.FormBuilder,
+            core_1.Renderer2])
     ], AddOrUpdateComponent);
     return AddOrUpdateComponent;
 }());

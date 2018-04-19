@@ -34,8 +34,10 @@
                 <div *ngIf="classId.errors.required">выберите класс</div>
             </mat-error>
         </mat-form-field>
-        <div>
+        <div class="form-buttons">
             <button mat-raised-button color="primary" type="submit">отправить</button>
+            <button mat-raised-button color="warn" type="button" (click)="cancel()">отменить</button>
+            <button mat-raised-button *ngIf="!isUpdate" type="button" (click)="addNext()">сохранить и добавить еще</button>
         </div>
     </form>
 </div>

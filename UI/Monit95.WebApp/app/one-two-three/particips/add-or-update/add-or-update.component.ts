@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ParticipService } from '../../../services/one-two-three/particips.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParticipModel } from '../../../models/one-two-three/particip.model';
@@ -6,6 +6,7 @@ import { ClassService } from '../../../services/class.service';
 import { ClassModel } from '../../../models/class.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { MatInput, MatFormField } from '@angular/material';
 
 @Component({
 	templateUrl: `./app/one-two-three/particips/add-or-update/add-or-update.component.html?v=${new Date().getTime()}`,
@@ -16,16 +17,18 @@ export class AddOrUpdateComponent {
 	particip: ParticipModel;
 	classes: ClassModel[];
 	participForm: FormGroup;
+	@ViewChild(MatFormField) firstField: ElementRef;
 
 	constructor(private participService: ParticipService,
 		private classService: ClassService,
 		private router: Router,
 		private route: ActivatedRoute,
 		private location: Location,
-		private fb: FormBuilder) { }
+		private fb: FormBuilder,
+		private renderer: Renderer2) { }
 
 	ngOnInit() {
-		this.route.params.subscribe(params => {
+		let paramSubs = this.route.params.subscribe(params => {
 			this.isUpdate = params['participId'];
 
 			if (this.isUpdate) {
@@ -40,6 +43,8 @@ export class AddOrUpdateComponent {
 
 			this.classService.getClasses().subscribe(res => this.classes = res.slice(0, 36));
 		});
+
+		paramSubs.unsubscribe();
 	}
 
 	createForm() {
@@ -49,6 +54,7 @@ export class AddOrUpdateComponent {
 			secondName: ['', Validators.minLength(5)],
 			classId: ['', Validators.required]
 		});
+		//this.focusOnFirstField();
 	}
 
 	submitForm() {
@@ -57,10 +63,28 @@ export class AddOrUpdateComponent {
 				this.participForm.get(control).markAsTouched();
 			}
 		} else {
-			this.isUpdate ? this.participService.update(this.particip).subscribe(() => this.location.back())
-				: this.participService.post(this.particip).subscribe(() => this.location.back());
+			if (this.isUpdate) {
+				this.participService.update(this.particip).subscribe(() => this.location.back());
+			} else {
+				this.participService.post(this.particip).subscribe(() => this.location.back());
+			}
 		}
 	}
+
+	addNext() {
+		if (!this.isUpdate) {
+			if (this.participForm.invalid) {
+				this.submitForm();
+			} else {
+				this.particip = {} as ParticipModel;
+				this.focusOnFirstField();
+			}
+		}
+	}
+
+	cancel = () => this.location.back();
+
+	focusOnFirstField = () => this.renderer.selectRootElement(this.firstField.nativeElement).focus();
 
 	get surname() { return this.participForm.get('surname'); }
 
