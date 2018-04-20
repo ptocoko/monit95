@@ -28,7 +28,6 @@ export class AddOrUpdateComponent {
 		private renderer: Renderer2) { }
 
 	ngOnInit() {
-		throw new Error('focusing on first field not implemented yet!');
 		this.route.params.subscribe(params => {
 			this.isUpdate = params['participId'];
 
@@ -53,14 +52,11 @@ export class AddOrUpdateComponent {
 			secondName: ['', Validators.minLength(5)],
 			classId: ['', Validators.required]
 		});
-		//this.focusOnFirstField();
 	}
 
 	submitForm() {
 		if (this.participForm.invalid) {
-			for (let control of Object.keys(this.participForm.controls)) {
-				this.participForm.get(control).markAsTouched();
-			}
+			this.markFieldsAsDirty();
 		} else {
 			if (this.isUpdate) {
 				this.participService.update(this.particip).subscribe(() => this.location.back());
@@ -73,17 +69,21 @@ export class AddOrUpdateComponent {
 	addNext() {
 		if (!this.isUpdate) {
 			if (this.participForm.invalid) {
-				this.submitForm();
+				this.markFieldsAsDirty();
 			} else {
-				this.particip = {} as ParticipModel;
-				this.focusOnFirstField();
+				this.participService.post(this.particip)
+					.subscribe(() => this.particip = {} as ParticipModel)
 			}
 		}
 	}
 
-	cancel = () => this.location.back();
+	private markFieldsAsDirty() {
+		for (let control of Object.keys(this.participForm.controls)) {
+			this.participForm.get(control).markAsTouched();
+		}
+	}
 
-	focusOnFirstField = () => this.renderer.selectRootElement(this.firstField.nativeElement).focus();
+	cancel = () => this.location.back();
 
 	get surname() { return this.participForm.get('surname'); }
 
