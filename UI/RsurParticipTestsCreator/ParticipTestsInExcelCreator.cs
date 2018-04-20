@@ -16,13 +16,38 @@ namespace RsurParticipTestsCreator
             _context = cokoContext;
         }
 
-        public IEnumerable<ParticipTestsInExcelCreator> GetModels(CokoContext context)
+        public IEnumerable<ParticipTestsInExcelModel> GetModels(string subjectPrefix)
         {
-            var participTests = context.RsurParticipTests.Where(p => p.RsurTest.IsOpen);
-            throw new NotImplementedException();
+            return _context.RsurParticipTests
+                .AsNoTracking()
+                .Where(p => p.RsurTest.IsOpen && p.RsurTest.Test.NumberCode.Substring(0, 2) == subjectPrefix && p.RsurParticip.School.AreaCode != 1000)
+                .GroupBy(gb => new
+                {
+                    gb.RsurParticip.School.AreaCode,
+                    gb.RsurTest.TestDate,
+                    SubjectName = gb.RsurParticip.RsurSubject.Name
+                })
+                .Select(s => new ParticipTestsInExcelModel
+                {
+                    AreaCode = s.Key.AreaCode,
+                    TestDate = s.Key.TestDate,
+                    SubjectName = s.Key.SubjectName,
+                    ParticipTests = s.Select(selector => new ParticipTestModel
+                    {
+                        Code = selector.RsurParticipCode,
+                        Surname = selector.RsurParticip.Surname,
+                        Name = selector.RsurParticip.Name,
+                        SecondName = selector.RsurParticip.SecondName,
+                        SchoolName = selector.RsurParticip.School.Name,
+                        BlockName = selector.RsurTest.Test.Name,
+                        NumberCode = selector.RsurTest.Test.NumberCode
+                    })
+                    .OrderBy(ob => ob.NumberCode)
+                    .ThenBy(tb => tb.Code)
+                }).ToArray();
         }
 
-        public ParticipTestsInExcelModel GetModelByAreaCode(int areaCode, CokoContext context)
+        public ParticipTestsInExcelModel GetModelByAreaCode(string subjectPrefix, int areaCode, CokoContext context)
         {
             throw new NotImplementedException();
         }
@@ -31,13 +56,15 @@ namespace RsurParticipTestsCreator
         {
             throw new NotImplementedException();
         }
+
+
     }
 
     internal class ParticipTestsInExcelModel
     {
         public int AreaCode { get; set; }
-        public string TestDate { get; set; }
-        public int SubjectName { get; set; }
+        public DateTime TestDate { get; set; }
+        public string SubjectName { get; set; }
         public IEnumerable<ParticipTestModel> ParticipTests { get; set; }
     }
 
@@ -49,5 +76,6 @@ namespace RsurParticipTestsCreator
         public string SecondName { get; set; }
         public string SchoolName { get; set; }
         public string BlockName { get; set; }
+        public string NumberCode { get; set; }
     }
 }
