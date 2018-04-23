@@ -18,7 +18,7 @@ var HomeComponent = /** @class */ (function () {
             _this.account = data;
             _this.isLoading = false;
             localStorage.clear();
-            _this.rsurProtocolService.getStatistics().subscribe(function (progress) { return _this._fillingProgress = progress; });
+            //this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
         });
     };
     HomeComponent.prototype.isArea = function () {
@@ -42,12 +42,6 @@ var HomeComponent = /** @class */ (function () {
     };
     HomeComponent.prototype.isAdmin = function () {
         return this.account.UserName && this.account.UserName === '200';
-    };
-    HomeComponent.prototype.fillingProgress = function () {
-        if (!this._fillingProgress) {
-            return 0;
-        }
-        return Number.parseInt(this._fillingProgress);
     };
     HomeComponent = tslib_1.__decorate([
         core_1.Component({
