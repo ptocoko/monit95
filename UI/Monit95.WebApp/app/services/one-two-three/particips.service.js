@@ -3,13 +3,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
+var http_2 = require("@angular/common/http");
 var endpoint = 'api/onetwothree/particips';
 var ParticipService = /** @class */ (function () {
     function ParticipService(httpClient) {
         this.httpClient = httpClient;
     }
-    ParticipService.prototype.getAll = function () {
-        return this.httpClient.get(endpoint);
+    ParticipService.prototype.getAll = function (options) {
+        var params = new http_2.HttpParams();
+        if (options.page)
+            params = params.append('page', options.page.toString());
+        if (options.length)
+            params = params.append('length', options.length.toString());
+        if (options.search)
+            params = params.append('search', options.search);
+        if (options.classId)
+            params = params.append('classid', options.classId);
+        return this.httpClient.get(endpoint, { params: params });
     };
     ParticipService.prototype.get = function (participId) {
         return this.httpClient.get(endpoint + "/" + participId);

@@ -61,19 +61,32 @@ namespace Monit95App.Services.OneTwoThree.Particips
             return MapToParticipDto(entity);
         }
 
-        public IEnumerable<ParticipDto> GetParticips(string schoolId)
+        public ParticipList GetParticips(string schoolId, GetAllOptions options)
         {
             if(schoolId == null)
             {
                 throw new ArgumentNullException($"{nameof(schoolId)} is null!");
             }
 
-            return context.Particips
-                .Where(p => p.SchoolId == schoolId && p.ProjectId == ProjectId)
-                .OrderBy(ob => ob.ClassId)
-                .ThenBy(tb => tb.Surname)
-                .ThenBy(tb => tb.Name)
-                .Select(MapToParticipDto);
+            int offset = (int)((options.Page - 1) * options.Length);
+            int length = (int)options.Length;
+
+            var entity = context.Particips
+                .AsNoTracking()
+                .Where(p => p.SchoolId == schoolId && p.ProjectId == ProjectId);
+            var totalCount = entity.Count();
+
+            entity = FilterQuery(entity, options);
+            entity = entity.OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name);
+            entity = entity.Skip(offset).Take(length);
+
+            var particips = entity.Select(MapToParticipDto);
+
+            return new ParticipList
+            {
+                Items = particips,
+                TotalCount = totalCount
+            };
         }
 
         public void RemoveParticip(int Id, string schoolId)
@@ -96,6 +109,23 @@ namespace Monit95App.Services.OneTwoThree.Particips
                 ClassName = entity.Class.Name,
                 ClassId = entity.ClassId
             };
+        }
+
+        private IQueryable<Particip> FilterQuery(IQueryable<Particip> particips, GetAllOptions options)
+        {
+            if (!String.IsNullOrEmpty(options.Search))
+            {
+                particips = particips.Where(p => p.Id.ToString().Contains(options.Search)
+                                              || p.Surname.Contains(options.Search)
+                                              || p.Name.Contains(options.Search));
+            }
+
+            if (!String.IsNullOrEmpty(options.ClassId))
+            {
+                particips = particips.Where(p => p.ClassId == options.ClassId);
+            }
+
+            return particips;
         }
     }
 }

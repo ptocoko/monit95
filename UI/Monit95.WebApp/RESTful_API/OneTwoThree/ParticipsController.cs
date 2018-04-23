@@ -9,7 +9,7 @@ using ServiceResult.Exceptions;
 
 namespace Monit95.WebApp.RESTful_API.OneTwoThree
 {
-    [RoutePrefix("api/onetwothree/particips"), Authorize(Roles = "school")]
+    [RoutePrefix("api/onetwothree/particips")]//, Authorize(Roles = "school")]
     public class OneTwoThreeParticipsController : ApiController
     {
         private readonly IParticipService participService;
@@ -20,14 +20,14 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         }
         
         [HttpGet, Route("")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri]GetAllOptions options)
         {
-            string schoolId = User.Identity.Name;
-            IEnumerable<ParticipDto> dto;
+            //string schoolId = User.Identity.Name;
+            ParticipList dto;
 
             try
             { 
-                dto = participService.GetParticips(schoolId);
+                dto = participService.GetParticips("0005", options);
             }
             catch(ArgumentNullException)
             {

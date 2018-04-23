@@ -1,6 +1,16 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ParticipService } from '../../../services/one-two-three/particips.service';
-import { ParticipModel } from '../../../models/one-two-three/particip.model';
+import { ParticipModel, ParticipsList } from '../../../models/one-two-three/particip.model';
+import { TablePaginator } from '../../../shared/table-paginator/table-paginator';
+import { Subject } from 'rxjs/Subject';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { debounceTime } from 'rxjs/operators/debounceTime';
+import { merge } from 'rxjs/observable/merge';
+import { startWith } from 'rxjs/operators/startWith';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { map } from 'rxjs/operators/map';
+import { Observable } from 'rxjs/Observable';
+import { ClassService } from '../../../services/class.service';
 
 @Component({
 	templateUrl: `./app/one-two-three/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
@@ -9,14 +19,51 @@ import { ParticipModel } from '../../../models/one-two-three/particip.model';
 export class ParticipsListComponent {
 	particips: ParticipModel[] = [];
 	isLoading: boolean;
+	searchText: string;
+	searchClass: string;
+	pageIndex = 0;
+	limitToVal = 20;
+	participsLength = 0;
 
-	constructor(private participService: ParticipService) { }
+	selectionChange$ = new Subject<any>();
+	@ViewChild(TablePaginator) paginator: TablePaginator;
+	@ViewChild('searchField') searchField: ElementRef;
+
+	constructor(private participService: ParticipService, private classService: ClassService) { }
 
 	ngOnInit() {
 		this.isLoading = true;
-		this.participService.getAll().subscribe(res => {
-			this.particips = res;
-			this.isLoading = false;
+
+		const search$ = fromEvent(this.searchField.nativeElement, 'input')
+			.pipe(
+				debounceTime(1000)
+		);
+		search$.subscribe(() => this.pageIndex = 0);
+
+		merge(this.paginator.page, search$, this.selectionChange$)
+			.pipe(
+				startWith({}),
+				switchMap(() => {
+					return this.createRequest();
+				}),
+				map((data: ParticipsList) => {
+					this.isLoading = false;
+					this.participsLength = data.TotalCount;
+					return data.Items;
+				})
+			).subscribe((particips: ParticipModel[]) => this.particips = particips);
+		//this.participService.getAll().subscribe(res => {
+		//	this.particips = res;
+		//	this.isLoading = false;
+		//});
+	}
+
+	private createRequest(): Observable<ParticipsList> {
+		return this.participService.getAll({
+			page: this.pageIndex + 1,
+			length: this.limitToVal,
+			search: this.searchText,
+			classId: this.searchClass
 		});
 	}
 
@@ -26,5 +73,10 @@ export class ParticipsListComponent {
 		this.participService.deleteParticip(participId).subscribe(() => {
 			this.particips.splice(participIndex, 1);
 		});
+	}
+
+	selectionChange() {
+		this.pageIndex = 0;
+		this.selectionChange$.next({});
 	}
 }

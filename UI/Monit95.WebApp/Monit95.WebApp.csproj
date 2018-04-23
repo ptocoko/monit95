@@ -705,7 +705,7 @@
     <TypeScriptCompile Include="app\rsur\edit-modal-form\edit-particip.component.ts" />
     <TypeScriptCompile Include="app\rsur\edit-modal-form\edit-particip.model.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-details.component.ts" />
-    <TypeScriptCompile Include="app\limit-to.pipe.ts" />
+    <TypeScriptCompile Include="app\pipes\limit-to.pipe.ts" />
     <TypeScriptCompile Include="app\components\rsur\particips\particips.component.ts" />
     <TypeScriptCompile Include="app\pipes\rsur-particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\rsur\details\particip-modal.component.ts" />

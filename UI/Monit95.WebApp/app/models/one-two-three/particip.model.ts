@@ -6,3 +6,8 @@
 	ClassName: string;
 	ClassId: string;
 }
+
+export interface ParticipsList {
+	Items: ParticipModel[];
+	TotalCount: number;
+}

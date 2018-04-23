@@ -15,4 +15,10 @@ namespace Monit95App.Services.OneTwoThree.Particips
         public string ClassName { get; set; }
         public string ClassId { get; set; }
     }
+
+    public class ParticipList
+    {
+        public IEnumerable<ParticipDto> Items { get; set; }
+        public int TotalCount { get; set; }
+    }
 }

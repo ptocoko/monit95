@@ -8,7 +8,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
 {
     public interface IParticipService
     {
-        IEnumerable<ParticipDto> GetParticips(string schoolId);
+        ParticipList GetParticips(string schoolId, GetAllOptions options);
         ParticipDto GetParticip(int Id, string schoolId);
         void EditParticip(int Id, string schoolId, ParticipDto particip);
         void CreateParticip(string schoolId, ParticipDto particip);
