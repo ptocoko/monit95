@@ -7,7 +7,7 @@ import { ClassModel } from '../../models/class.model';
 })
 export class ClassFilterPipe implements PipeTransform {
 	transform(particips: ParticipModel[], classId: string): ParticipModel[] {
-		if (!classId || !particips) return particips;
+		if (!classId || !particips || particips.length === 0) return particips;
 
 		return particips.filter((particip) => particip.ClassId === classId);
 	}
@@ -19,6 +19,8 @@ export class ClassFilterPipe implements PipeTransform {
 })
 export class ClassesGetterPipe implements PipeTransform {
 	transform(values: any[], ...args: any[]): ClassModel[] {
+		if (!values || values.length === 0) return values;
+
 		return values
 			.map(val => { return { Name: val.ClassName, Id: val.ClassId } })
 			.filter((value: ClassModel, index: number, self: ClassModel[]) => {
@@ -32,15 +34,14 @@ export class ClassesGetterPipe implements PipeTransform {
 })
 export class ParticipFilterPipe implements PipeTransform {
 	transform(particips: ParticipModel[], searchText: string) {
-		if (searchText == null) return particips;
+		if (!searchText || !particips || particips.length === 0) return particips;
 
 		searchText = searchText.trim().toLowerCase();
 
 		return particips.filter((particip: ParticipModel) => {
 			return particip.Id.toString().indexOf(searchText) > -1
 				|| particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
-				|| particip.Name.trim().toLowerCase().indexOf(searchText) > -1
-				|| particip.SecondName.trim().toLowerCase().indexOf(searchText) > -1;
+				|| particip.Name.trim().toLowerCase().indexOf(searchText) > -1;
 		});
 	}
 

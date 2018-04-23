@@ -6,7 +6,7 @@ var ClassFilterPipe = /** @class */ (function () {
     function ClassFilterPipe() {
     }
     ClassFilterPipe.prototype.transform = function (particips, classId) {
-        if (!classId || !particips)
+        if (!classId || !particips || particips.length === 0)
             return particips;
         return particips.filter(function (particip) { return particip.ClassId === classId; });
     };
@@ -26,6 +26,8 @@ var ClassesGetterPipe = /** @class */ (function () {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
+        if (!values || values.length === 0)
+            return values;
         return values
             .map(function (val) { return { Name: val.ClassName, Id: val.ClassId }; })
             .filter(function (value, index, self) {
@@ -45,14 +47,13 @@ var ParticipFilterPipe = /** @class */ (function () {
     function ParticipFilterPipe() {
     }
     ParticipFilterPipe.prototype.transform = function (particips, searchText) {
-        if (searchText == null)
+        if (!searchText || !particips || particips.length === 0)
             return particips;
         searchText = searchText.trim().toLowerCase();
         return particips.filter(function (particip) {
             return particip.Id.toString().indexOf(searchText) > -1
                 || particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
-                || particip.Name.trim().toLowerCase().indexOf(searchText) > -1
-                || particip.SecondName.trim().toLowerCase().indexOf(searchText) > -1;
+                || particip.Name.trim().toLowerCase().indexOf(searchText) > -1;
         });
     };
     ParticipFilterPipe = tslib_1.__decorate([

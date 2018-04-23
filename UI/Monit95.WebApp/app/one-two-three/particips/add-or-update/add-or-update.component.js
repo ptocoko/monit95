@@ -20,7 +20,6 @@ var AddOrUpdateComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.isUpdate = true;
         this.cancel = function () { return _this.location.back(); };
-        this.focusOnFirstField = function () { return _this.renderer.selectRootElement(_this.firstField.nativeElement).focus(); };
     }
     AddOrUpdateComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -46,15 +45,11 @@ var AddOrUpdateComponent = /** @class */ (function () {
             secondName: ['', forms_1.Validators.minLength(5)],
             classId: ['', forms_1.Validators.required]
         });
-        //this.focusOnFirstField();
     };
     AddOrUpdateComponent.prototype.submitForm = function () {
         var _this = this;
         if (this.participForm.invalid) {
-            for (var _i = 0, _a = Object.keys(this.participForm.controls); _i < _a.length; _i++) {
-                var control = _a[_i];
-                this.participForm.get(control).markAsTouched();
-            }
+            this.markFieldsAsDirty();
         }
         else {
             if (this.isUpdate) {
@@ -66,14 +61,21 @@ var AddOrUpdateComponent = /** @class */ (function () {
         }
     };
     AddOrUpdateComponent.prototype.addNext = function () {
+        var _this = this;
         if (!this.isUpdate) {
             if (this.participForm.invalid) {
-                this.submitForm();
+                this.markFieldsAsDirty();
             }
             else {
-                this.particip = {};
-                this.focusOnFirstField();
+                this.participService.post(this.particip)
+                    .subscribe(function () { return _this.particip = {}; });
             }
+        }
+    };
+    AddOrUpdateComponent.prototype.markFieldsAsDirty = function () {
+        for (var _i = 0, _a = Object.keys(this.participForm.controls); _i < _a.length; _i++) {
+            var control = _a[_i];
+            this.participForm.get(control).markAsTouched();
         }
     };
     Object.defineProperty(AddOrUpdateComponent.prototype, "surname", {

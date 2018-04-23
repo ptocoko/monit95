@@ -10,7 +10,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
 {
     public class ParticipService : IParticipService
     {
-        private const int ProjectId = 201701;
+        private const int ProjectId = 14;
         private readonly CokoContext context;
 
         public ParticipService(CokoContext context)
