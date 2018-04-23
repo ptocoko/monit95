@@ -14,7 +14,7 @@
                         [(ngModel)]="searchClass" 
                         (selectionsChange)="selectionChange()">
                 <mat-option [value]="">Все классы</mat-option>
-                <mat-option *ngFor="let class of particips | getClasses" 
+                <mat-option *ngFor="let class of classes" 
                             [value]="class.Id">
                     {{ class.Name }}
                 </mat-option>
@@ -37,7 +37,7 @@
         <th>отчество</th>
         <th>класс</th>
     </tr>
-    <tr *ngFor="let particip of particips | offset: limitToVal * pageIndex | limitTo: limitToVal; let i = index">
+    <tr *ngFor="let particip of particips; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ particip.Id }}</td>
         <td>{{ particip.Surname }}</td>

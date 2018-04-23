@@ -17,6 +17,7 @@ var ParticipsListComponent = /** @class */ (function () {
         this.participService = participService;
         this.classService = classService;
         this.particips = [];
+        this.classes = [];
         this.pageIndex = 0;
         this.limitToVal = 20;
         this.participsLength = 0;
@@ -34,6 +35,7 @@ var ParticipsListComponent = /** @class */ (function () {
         }), map_1.map(function (data) {
             _this.isLoading = false;
             _this.participsLength = data.TotalCount;
+            _this.classes = data.Classes;
             return data.Items;
         })).subscribe(function (particips) { return _this.particips = particips; });
         //this.participService.getAll().subscribe(res => {

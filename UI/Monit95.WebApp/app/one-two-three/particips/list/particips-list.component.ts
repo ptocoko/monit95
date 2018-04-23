@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { map } from 'rxjs/operators/map';
 import { Observable } from 'rxjs/Observable';
 import { ClassService } from '../../../services/class.service';
+import { ClassModel } from '../../../models/class.model';
 
 @Component({
 	templateUrl: `./app/one-two-three/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
@@ -18,6 +19,8 @@ import { ClassService } from '../../../services/class.service';
 })
 export class ParticipsListComponent {
 	particips: ParticipModel[] = [];
+	classes: ClassModel[] = [];
+
 	isLoading: boolean;
 	searchText: string;
 	searchClass: string;
@@ -49,6 +52,7 @@ export class ParticipsListComponent {
 				map((data: ParticipsList) => {
 					this.isLoading = false;
 					this.participsLength = data.TotalCount;
+					this.classes = data.Classes;
 					return data.Items;
 				})
 			).subscribe((particips: ParticipModel[]) => this.particips = particips);

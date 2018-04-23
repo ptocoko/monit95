@@ -1,5 +1,6 @@
 ﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,9 +75,17 @@ namespace Monit95App.Services.OneTwoThree.Particips
             var entity = context.Particips
                 .AsNoTracking()
                 .Where(p => p.SchoolId == schoolId && p.ProjectId == ProjectId);
-            var totalCount = entity.Count();
 
             entity = FilterQuery(entity, options);
+
+            var totalCount = entity.Count();
+            IEnumerable<ClassDto> classes = entity
+                .Select(s => new ClassDto { Id = s.ClassId, Name = s.Class.Name })
+                .Distinct(Comparer<ClassDto>.Create((class1, class2) =>
+                {
+                    if(class1.Id ==)
+                }));
+
             entity = entity.OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name);
             entity = entity.Skip(offset).Take(length);
 
@@ -85,7 +94,8 @@ namespace Monit95App.Services.OneTwoThree.Particips
             return new ParticipList
             {
                 Items = particips,
-                TotalCount = totalCount
+                TotalCount = totalCount,
+                Classes = classes
             };
         }
 

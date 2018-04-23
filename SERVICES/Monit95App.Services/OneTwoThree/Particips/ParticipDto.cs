@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monit95App.Services.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,6 @@ namespace Monit95App.Services.OneTwoThree.Particips
     {
         public IEnumerable<ParticipDto> Items { get; set; }
         public int TotalCount { get; set; }
+        public IEnumerable<ClassDto> Classes { get; set; }
     }
 }
