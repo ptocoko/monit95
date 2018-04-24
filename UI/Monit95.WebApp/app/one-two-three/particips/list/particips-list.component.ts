@@ -47,6 +47,7 @@ export class ParticipsListComponent {
 			.pipe(
 				startWith({}),
 				switchMap(() => {
+					this.isLoading = true;
 					return this.createRequest();
 				}),
 				map((data: ParticipsList) => {

@@ -31,6 +31,7 @@ var ParticipsListComponent = /** @class */ (function () {
         search$.subscribe(function () { return _this.pageIndex = 0; });
         merge_1.merge(this.paginator.page, search$, this.selectionChange$)
             .pipe(startWith_1.startWith({}), switchMap_1.switchMap(function () {
+            _this.isLoading = true;
             return _this.createRequest();
         }), map_1.map(function (data) {
             _this.isLoading = false;

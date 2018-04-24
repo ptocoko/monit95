@@ -11,7 +11,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
 {
     public class ParticipService : IParticipService
     {
-        private const int ProjectId = 14;
+        private const int _projectId = 14;
         private readonly CokoContext context;
 
         public ParticipService(CokoContext context)
@@ -28,7 +28,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
                 SecondName = particip.SecondName,
                 ClassId = particip.ClassId,
                 SchoolId = schoolId,
-                ProjectId = 201701
+                ProjectId = _projectId
             };
 
             context.Particips.Add(entity);
@@ -38,7 +38,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
         public void EditParticip(int Id, string schoolId, ParticipDto particip)
         {
             var entity = context.Particips
-                .Single(p => p.Id == Id && p.SchoolId == schoolId && p.ProjectId == ProjectId);
+                .Single(p => p.Id == Id && p.SchoolId == schoolId && p.ProjectId == _projectId);
 
             entity.Surname = particip.Surname;
             entity.Name = particip.Name;
@@ -51,7 +51,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
         public ParticipDto GetParticip(int Id, string schoolId)
         {
             var entity = context.Particips
-                .Where(p => p.ProjectId == ProjectId && p.SchoolId == schoolId)
+                .Where(p => p.ProjectId == _projectId && p.SchoolId == schoolId)
                 .SingleOrDefault(p => p.Id == Id);
 
             if(entity == null)
@@ -74,17 +74,16 @@ namespace Monit95App.Services.OneTwoThree.Particips
 
             var entity = context.Particips
                 .AsNoTracking()
-                .Where(p => p.SchoolId == schoolId && p.ProjectId == ProjectId);
+                .Where(p => p.SchoolId == schoolId && p.ProjectId == _projectId);
+
+            IEnumerable<ClassDto> classes = entity
+                .Select(s => new ClassDto { Id = s.ClassId, Name = s.Class.Name })
+                .GroupBy(gb => gb.Id)
+                .Select(s => s.FirstOrDefault());
 
             entity = FilterQuery(entity, options);
 
             var totalCount = entity.Count();
-            IEnumerable<ClassDto> classes = entity
-                .Select(s => new ClassDto { Id = s.ClassId, Name = s.Class.Name })
-                .Distinct(Comparer<ClassDto>.Create((class1, class2) =>
-                {
-                    if(class1.Id ==)
-                }));
 
             entity = entity.OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name);
             entity = entity.Skip(offset).Take(length);
@@ -102,7 +101,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
         public void RemoveParticip(int Id, string schoolId)
         {
             var entity = context.Particips
-                .Single(p => p.SchoolId == schoolId && p.Id == Id && p.ProjectId == ProjectId);
+                .Single(p => p.SchoolId == schoolId && p.Id == Id && p.ProjectId == _projectId);
 
             context.Particips.Remove(entity);
             context.SaveChanges();
