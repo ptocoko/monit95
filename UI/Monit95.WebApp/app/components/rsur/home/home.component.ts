@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
             this.account = data;            
             this.isLoading = false;
 			localStorage.clear();
-			//this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
+			this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
         });
     }
 
@@ -53,11 +53,11 @@ export class HomeComponent implements OnInit {
 		return this.account.UserName && this.account.UserName === '200';
 	}
 
-	//fillingProgress() {
-	//	if (!this._fillingProgress) {
-	//		return 0;
-	//	}
+	fillingProgress() {
+		if (!this._fillingProgress) {
+			return 0;
+		}
 
-	//	return Number.parseInt(this._fillingProgress);
-	//}
+		return Number.parseInt(this._fillingProgress);
+	}
 }
