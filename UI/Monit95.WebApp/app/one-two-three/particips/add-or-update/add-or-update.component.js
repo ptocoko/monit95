@@ -19,21 +19,20 @@ var AddOrUpdateComponent = /** @class */ (function () {
         this.fb = fb;
         this.renderer = renderer;
         this.isUpdate = true;
+        this.isLoading = true;
+        this.particip = {};
         this.cancel = function () { return _this.location.back(); };
     }
     AddOrUpdateComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.createForm();
         this.route.params.subscribe(function (params) {
             _this.isUpdate = params['participId'];
             if (_this.isUpdate) {
                 _this.participService.get(params['participId']).subscribe(function (res) {
                     _this.particip = res;
-                    _this.createForm();
+                    //this.isLoading = false;
                 });
-            }
-            else {
-                _this.particip = {};
-                _this.createForm();
             }
             _this.classService.getClasses().subscribe(function (res) { return _this.classes = res.slice(0, 36); });
         });

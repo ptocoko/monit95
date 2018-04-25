@@ -14,7 +14,8 @@ import { MatInput, MatFormField } from '@angular/material';
 })
 export class AddOrUpdateComponent {
 	isUpdate: boolean = true;
-	particip: ParticipModel;
+	isLoading = true;
+	particip = {} as ParticipModel;
 	classes: ClassModel[];
 	participForm: FormGroup;
 	@ViewChild(MatFormField) firstField: ElementRef;
@@ -28,17 +29,17 @@ export class AddOrUpdateComponent {
 		private renderer: Renderer2) { }
 
 	ngOnInit() {
+		this.createForm();
 		this.route.params.subscribe(params => {
 			this.isUpdate = params['participId'];
 
 			if (this.isUpdate) {
 				this.participService.get(params['participId']).subscribe(res => {
 					this.particip = res;
-					this.createForm();
+					this.isLoading = false;
 				});
 			} else {
-				this.particip = {} as ParticipModel;
-				this.createForm();
+				this.isLoading = false;
 			}
 
 			this.classService.getClasses().subscribe(res => this.classes = res.slice(0, 36));

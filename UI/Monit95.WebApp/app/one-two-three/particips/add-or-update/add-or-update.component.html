@@ -1,7 +1,7 @@
 ﻿<h2 *ngIf="isUpdate">Редактировать участника</h2>
 <h2 *ngIf="!isUpdate">Добавить участника</h2>
 
-<div *ngIf="particip; else spinner">
+<div>
     <form [formGroup]="participForm" (ngSubmit)="submitForm()">
         <mat-form-field>
             <input id="surname" matInput placeholder="фамилия" [(ngModel)]="particip.Surname" formControlName="surname" />
@@ -42,8 +42,4 @@
     </form>
 </div>
 
-<ng-template #spinner>
-    <div>
-        <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
-    </div>
-</ng-template>
+<spinner-view *ngIf="isLoading" [caption]="'загрузка...'"></spinner-view>
