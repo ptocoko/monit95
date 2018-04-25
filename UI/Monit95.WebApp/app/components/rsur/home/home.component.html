@@ -82,9 +82,9 @@
         </div>
     </div>    
 
-    <div *ngIf="false" class="list-container">
+    <div *ngIf="true" class="list-container">
         <h3 class="list-header">Отчеты</h3>
-        <div *ngIf="true" class="list-item">
+        <div *ngIf="false" class="list-item">
             <a class="list-item-link" routerLink="/rsur/results-list">
                 <div>
                     <h4>Результаты диагностик</h4>
@@ -98,7 +98,7 @@
                 </div>
             </a>
         </div>
-        <div *ngIf="false" class="list-item">
+        <div *ngIf="account.UserName === '211'" class="list-item">
             <a class="list-item-link" routerLink="/rsur/seminar-reports">
                 <div>
                     <h4><b>Отчеты по семинарам</b></h4>
