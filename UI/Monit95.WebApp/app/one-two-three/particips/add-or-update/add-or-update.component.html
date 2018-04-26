@@ -4,7 +4,7 @@
 <div>
     <form [formGroup]="participForm" (ngSubmit)="submitForm()">
         <mat-form-field>
-            <input id="surname" matInput placeholder="фамилия" [(ngModel)]="particip.Surname" formControlName="surname" />
+            <input #surnameInput matInput placeholder="фамилия" [(ngModel)]="particip.Surname" formControlName="surname" />
             <mat-error *ngIf="surname.invalid && (surname.dirty || surname.touched)">
                 <div *ngIf="surname.errors.required">введите фамилию</div>
                 <div *ngIf="surname.errors.minlength">фамилия должна содержать хотя бы 4 символа</div>
@@ -34,6 +34,7 @@
                 <div *ngIf="classId.errors.required">выберите класс</div>
             </mat-error>
         </mat-form-field>
+        <p class="alert alert-danger" *ngIf="participForm.pristine && formIsPristine">изменений не обнаружено!</p>
         <div class="form-buttons">
             <button mat-raised-button color="primary" type="submit">отправить</button>
             <button mat-raised-button color="warn" type="button" (click)="cancel()">отменить</button>

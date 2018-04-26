@@ -7,7 +7,6 @@ var router_1 = require("@angular/router");
 var class_service_1 = require("../../../services/class.service");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var material_1 = require("@angular/material");
 var AddOrUpdateComponent = /** @class */ (function () {
     function AddOrUpdateComponent(participService, classService, router, route, location, fb, renderer) {
         var _this = this;
@@ -20,8 +19,10 @@ var AddOrUpdateComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.isUpdate = true;
         this.isLoading = true;
+        this.formIsPristine = false;
         this.particip = {};
         this.cancel = function () { return _this.location.back(); };
+        this.focusOnFirstField = function () { return _this.renderer.selectRootElement(_this.firstField.nativeElement).focus(); };
     }
     AddOrUpdateComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -31,10 +32,14 @@ var AddOrUpdateComponent = /** @class */ (function () {
             if (_this.isUpdate) {
                 _this.participService.get(params['participId']).subscribe(function (res) {
                     _this.particip = res;
-                    //this.isLoading = false;
+                    _this.isLoading = false;
                 });
             }
+            else {
+                _this.isLoading = false;
+            }
             _this.classService.getClasses().subscribe(function (res) { return _this.classes = res.slice(0, 36); });
+            _this.focusOnFirstField();
         });
     };
     AddOrUpdateComponent.prototype.createForm = function () {
@@ -49,6 +54,9 @@ var AddOrUpdateComponent = /** @class */ (function () {
         var _this = this;
         if (this.participForm.invalid) {
             this.markFieldsAsDirty();
+        }
+        else if (this.participForm.pristine) {
+            this.formIsPristine = true;
         }
         else {
             if (this.isUpdate) {
@@ -65,9 +73,16 @@ var AddOrUpdateComponent = /** @class */ (function () {
             if (this.participForm.invalid) {
                 this.markFieldsAsDirty();
             }
+            else if (this.participForm.pristine) {
+                this.formIsPristine = true;
+            }
             else {
                 this.participService.post(this.particip)
-                    .subscribe(function () { return _this.particip = {}; });
+                    .subscribe(function () {
+                    _this.particip = {};
+                    _this.participForm.reset();
+                    _this.focusOnFirstField();
+                });
             }
         }
     };
@@ -98,7 +113,7 @@ var AddOrUpdateComponent = /** @class */ (function () {
         configurable: true
     });
     tslib_1.__decorate([
-        core_1.ViewChild(material_1.MatFormField),
+        core_1.ViewChild('surnameInput'),
         tslib_1.__metadata("design:type", core_1.ElementRef)
     ], AddOrUpdateComponent.prototype, "firstField", void 0);
     AddOrUpdateComponent = tslib_1.__decorate([

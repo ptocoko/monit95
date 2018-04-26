@@ -15,10 +15,12 @@ import { MatInput, MatFormField } from '@angular/material';
 export class AddOrUpdateComponent {
 	isUpdate: boolean = true;
 	isLoading = true;
+	formIsPristine = false;
+
 	particip = {} as ParticipModel;
 	classes: ClassModel[];
 	participForm: FormGroup;
-	@ViewChild(MatFormField) firstField: ElementRef;
+	@ViewChild('surnameInput') firstField: ElementRef;
 
 	constructor(private participService: ParticipService,
 		private classService: ClassService,
@@ -43,6 +45,8 @@ export class AddOrUpdateComponent {
 			}
 
 			this.classService.getClasses().subscribe(res => this.classes = res.slice(0, 36));
+
+			this.focusOnFirstField();
 		});
 	}
 
@@ -58,6 +62,8 @@ export class AddOrUpdateComponent {
 	submitForm() {
 		if (this.participForm.invalid) {
 			this.markFieldsAsDirty();
+		} else if (this.participForm.pristine) {
+			this.formIsPristine = true;
 		} else {
 			if (this.isUpdate) {
 				this.participService.update(this.particip).subscribe(() => this.location.back());
@@ -71,9 +77,15 @@ export class AddOrUpdateComponent {
 		if (!this.isUpdate) {
 			if (this.participForm.invalid) {
 				this.markFieldsAsDirty();
+			} else if (this.participForm.pristine) {
+				this.formIsPristine = true;
 			} else {
 				this.participService.post(this.particip)
-					.subscribe(() => this.particip = {} as ParticipModel)
+					.subscribe(() => {
+						this.particip = {} as ParticipModel;
+						this.participForm.reset();
+						this.focusOnFirstField();
+					})
 			}
 		}
 	}
@@ -85,6 +97,8 @@ export class AddOrUpdateComponent {
 	}
 
 	cancel = () => this.location.back();
+
+	focusOnFirstField = () => this.renderer.selectRootElement(this.firstField.nativeElement).focus();
 
 	get surname() { return this.participForm.get('surname'); }
 
