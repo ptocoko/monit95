@@ -7,6 +7,7 @@ import { LoadingViewComponent } from './loading-view/loading-view.component';
 import { TablePaginator } from './table-paginator/table-paginator';
 import { LimitToPipe } from '../pipes/limit-to.pipe';
 import { OffsetPipe } from '../pipes/offset.pipe';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
 	imports: [
@@ -19,14 +20,17 @@ import { OffsetPipe } from '../pipes/offset.pipe';
 		LoadingViewComponent,
 		TablePaginator,
 		LimitToPipe,
-		OffsetPipe
+		OffsetPipe,
+		ConfirmDialogComponent
 	],
 	exports: [
 		MarksProtocolComponent,
 		LoadingViewComponent,
 		TablePaginator,
 		LimitToPipe,
-		OffsetPipe
-	]
+		OffsetPipe,
+		ConfirmDialogComponent
+	],
+	entryComponents: [ConfirmDialogComponent]
 })
 export class SharedModule { }

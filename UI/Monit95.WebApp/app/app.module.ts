@@ -36,7 +36,6 @@ import { SchoolFilesComponent } from './components/school-files/school-files.com
 import { QuestionProtocolsList } from './components/rsur/protocols/question/question-protocols-list.component';
 import { MarksProtocolComponent } from './components/rsur/protocols/shared/marks-protocol.component';
 import { QuestionProtocolComponent } from './components/rsur/protocols/protocol/question-protocol.component';
-import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 // Services
 import { AccountService } from './services/account.service';
@@ -150,8 +149,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		//ScanProtocolsComponent,
 		QuestionProtocolsList,
 		//MarksProtocolComponent,
-		QuestionProtocolComponent,
-		ConfirmDialogComponent
+		QuestionProtocolComponent
 	],
 	providers: [
         AccountService,
@@ -174,7 +172,6 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		{ provide: MatPaginatorIntl, useClass: RussianMatPaginator },
 		{ provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
     ],    
-    bootstrap: [AppComponent],
-	entryComponents: [ConfirmDialogComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

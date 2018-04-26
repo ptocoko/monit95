@@ -12,6 +12,8 @@ import { map } from 'rxjs/operators/map';
 import { Observable } from 'rxjs/Observable';
 import { ClassService } from '../../../services/class.service';
 import { ClassModel } from '../../../models/class.model';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
 	templateUrl: `./app/one-two-three/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
@@ -32,7 +34,10 @@ export class ParticipsListComponent {
 	@ViewChild(TablePaginator) paginator: TablePaginator;
 	@ViewChild('searchField') searchField: ElementRef;
 
-	constructor(private participService: ParticipService, private classService: ClassService) { }
+	constructor(private participService: ParticipService,
+		private classService: ClassService,
+		private dialog: MatDialog,
+	private snackBar: MatSnackBar) { }
 
 	ngOnInit() {
 		this.isLoading = true;
@@ -75,8 +80,20 @@ export class ParticipsListComponent {
 	deleteParticip(particip: ParticipModel) {
 		const participId = particip.Id;
 		const participIndex = this.particips.indexOf(particip);
-		this.participService.deleteParticip(participId).subscribe(() => {
-			this.particips.splice(participIndex, 1);
+
+		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+			width: '400px',
+			disableClose: true,
+			data: { message: `Вы уверены что хотите исключить участника '${particip.Surname} ${particip.Name} ${particip.SecondName}' из диагностики?` }
+		});
+
+		dialogRef.afterClosed().subscribe((result: boolean) => {
+			if (result) {
+				this.participService.deleteParticip(participId).subscribe(() => {
+					this.particips.splice(participIndex, 1);
+					this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 1000 });
+				});
+			}
 		});
 	}
 

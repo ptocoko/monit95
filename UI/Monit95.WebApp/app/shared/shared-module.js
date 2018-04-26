@@ -10,6 +10,7 @@ var loading_view_component_1 = require("./loading-view/loading-view.component");
 var table_paginator_1 = require("./table-paginator/table-paginator");
 var limit_to_pipe_1 = require("../pipes/limit-to.pipe");
 var offset_pipe_1 = require("../pipes/offset.pipe");
+var confirm_dialog_component_1 = require("./confirm-dialog/confirm-dialog.component");
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
@@ -25,15 +26,18 @@ var SharedModule = /** @class */ (function () {
                 loading_view_component_1.LoadingViewComponent,
                 table_paginator_1.TablePaginator,
                 limit_to_pipe_1.LimitToPipe,
-                offset_pipe_1.OffsetPipe
+                offset_pipe_1.OffsetPipe,
+                confirm_dialog_component_1.ConfirmDialogComponent
             ],
             exports: [
                 marks_protocol_component_1.MarksProtocolComponent,
                 loading_view_component_1.LoadingViewComponent,
                 table_paginator_1.TablePaginator,
                 limit_to_pipe_1.LimitToPipe,
-                offset_pipe_1.OffsetPipe
-            ]
+                offset_pipe_1.OffsetPipe,
+                confirm_dialog_component_1.ConfirmDialogComponent
+            ],
+            entryComponents: [confirm_dialog_component_1.ConfirmDialogComponent]
         })
     ], SharedModule);
     return SharedModule;

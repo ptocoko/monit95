@@ -37,7 +37,6 @@ var school_files_component_1 = require("./components/school-files/school-files.c
 //import { ScanProtocolsComponent, FilterPipe } from './components/rsur/protocols/scan/scan-protocols.component';
 var question_protocols_list_component_1 = require("./components/rsur/protocols/question/question-protocols-list.component");
 var question_protocol_component_1 = require("./components/rsur/protocols/protocol/question-protocol.component");
-var confirm_dialog_component_1 = require("./shared/confirm-dialog/confirm-dialog.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
@@ -149,8 +148,7 @@ var AppModule = /** @class */ (function () {
                 //ScanProtocolsComponent,
                 question_protocols_list_component_1.QuestionProtocolsList,
                 //MarksProtocolComponent,
-                question_protocol_component_1.QuestionProtocolComponent,
-                confirm_dialog_component_1.ConfirmDialogComponent
+                question_protocol_component_1.QuestionProtocolComponent
             ],
             providers: [
                 account_service_1.AccountService,
@@ -173,8 +171,7 @@ var AppModule = /** @class */ (function () {
                 { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator },
                 { provide: router_1.RouteReuseStrategy, useClass: custom_route_reuse_strategy_1.CustomReuseStrategy }
             ],
-            bootstrap: [app_component_1.AppComponent],
-            entryComponents: [confirm_dialog_component_1.ConfirmDialogComponent]
+            bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
     return AppModule;
