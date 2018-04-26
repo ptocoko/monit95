@@ -45,7 +45,7 @@ namespace Monit95App.Web.Api
             //var rsurParticipCode = this._rsurParticipService.Add(dto);
 
             //return Ok(rsurParticipCode);
-            return Ok();
+            return BadRequest();
         }
 
         [HttpGet]
@@ -86,16 +86,16 @@ namespace Monit95App.Web.Api
         [Route("{code:int}")]
         public IHttpActionResult Put([FromBody] RsurParticipPutDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return this.BadRequest();
+            //}
 
-            var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
+            //var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
 
-            this._rsurParticipService.Update(code, dto);
+            //this._rsurParticipService.Update(code, dto);
 
-            return this.Ok();
+            return BadRequest();
         }
 
         //[HttpDelete]
