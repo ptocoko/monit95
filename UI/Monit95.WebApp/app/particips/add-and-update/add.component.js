@@ -14,13 +14,17 @@ var AddParticipComponent = /** @class */ (function () {
         this.location = location;
         this.route = route;
         this.particip = new particip_model_1.ParticipModel();
-        this.actionText = 'Добавить';
         this.isSending = false;
         this.isConflict = false;
     }
     AddParticipComponent.prototype.ngOnInit = function () {
         this.projectId = this.route.snapshot.data['projectId'];
-        console.log(this.projectId);
+        if (this.projectId === 15) {
+            this.EgeOrOge = 'ЕГЭ';
+        }
+        else {
+            this.EgeOrOge = 'ОГЭ';
+        }
     };
     AddParticipComponent.prototype.onSubmit = function () {
         var _this = this;

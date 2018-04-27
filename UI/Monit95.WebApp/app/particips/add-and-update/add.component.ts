@@ -11,19 +11,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddParticipComponent {
 	particip = new ParticipModel();
-	actionText: string = 'Добавить';
+	EgeOrOge: 'ЕГЭ' | 'ОГЭ';
 	isSending = false;
 	isConflict = false;
 	projectId: number;
 
 	constructor(private readonly participService: ParticipService,
 				private readonly accountService: AccountService,
-		private readonly location: Location,
-	private readonly route: ActivatedRoute) { }
+				private readonly location: Location,
+				private readonly route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.projectId = this.route.snapshot.data['projectId'];
-		console.log(this.projectId);
+		if (this.projectId === 15) {
+			this.EgeOrOge = 'ЕГЭ';
+		} else {
+			this.EgeOrOge = 'ОГЭ';
+		}
 	}
 
 	onSubmit() {
