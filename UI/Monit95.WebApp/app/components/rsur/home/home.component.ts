@@ -9,7 +9,7 @@ import { RsurProtocolsService } from '../../../services/rsur-protocols.service';
 export class HomeComponent implements OnInit {
     account = new AccountModel(); 
 	isLoading: boolean = true;
-	_fillingProgress: string;
+	//_fillingProgress: string;
 
     constructor(        
 		private readonly accountService: AccountService,
@@ -21,8 +21,7 @@ export class HomeComponent implements OnInit {
             this.account = data;            
             this.isLoading = false;
 			localStorage.clear();
-			if(data.UserName === '213')
-				this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
+			//this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
         });
     }
 
@@ -54,11 +53,11 @@ export class HomeComponent implements OnInit {
 		return this.account.UserName && this.account.UserName === '200';
 	}
 
-	fillingProgress() {
-		if (!this._fillingProgress) {
-			return 0;
-		}
+	//fillingProgress() {
+	//	if (!this._fillingProgress) {
+	//		return 0;
+	//	}
 
-		return Number.parseInt(this._fillingProgress);
-	}
+	//	return Number.parseInt(this._fillingProgress);
+	//}
 }
