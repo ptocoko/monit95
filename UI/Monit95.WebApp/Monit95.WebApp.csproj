@@ -400,6 +400,8 @@
     <Content Include="app\particips\add-and-update\add.component.html" />
     <Content Include="app\particips\home\home.component.html" />
     <Content Include="app\particips\list\particips-list.component.css" />
+    <Content Include="app\particips\oge\home\home.component.html" />
+    <Content Include="app\particips\oge\list\particips-list.component.html" />
     <Content Include="app\particips\plan\class-particips-plan.component.html" />
     <Content Include="app\particips\protocols\protocols.component.css" />
     <Content Include="app\particips\protocols\protocol\protocol.component.css" />
@@ -429,6 +431,8 @@
     <Content Include="app\components\rsur\reports\report\report.component.css" />
     <Content Include="app\components\rsur\reports\report\report.component.html" />
     <Content Include="app\components\rsur\reports\report-list\report-list.component.html" />
+    <Content Include="app\particips\shared\list\list.component.css" />
+    <Content Include="app\particips\shared\list\list.component.html" />
     <Content Include="app\rsur\rsur-test\rsur-test.component.css" />
     <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol-list.component.html" />
     <Content Include="app\rsur\rsur-test-protocol\rsur-test-protocol.component.html" />
@@ -642,6 +646,8 @@
     <TypeScriptCompile Include="app\particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\particips\home\home.component.ts" />
     <TypeScriptCompile Include="app\particips\list\particips-list.component.ts" />
+    <TypeScriptCompile Include="app\particips\oge\home\home.component.ts" />
+    <TypeScriptCompile Include="app\particips\oge\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\particips\plan\class-particips-plan.component.ts" />
     <TypeScriptCompile Include="app\particips\ClassParticip.ts" />
     <TypeScriptCompile Include="app\particips\excel-export\export-excel-modal.component.ts" />
@@ -650,6 +656,7 @@
     <TypeScriptCompile Include="app\particips\protocols\protocols.component.ts" />
     <TypeScriptCompile Include="app\particips\particips.module.ts" />
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />
+    <TypeScriptCompile Include="app\particips\shared\list\list.component.ts" />
     <TypeScriptCompile Include="app\services\class.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\shared\marks-protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\matching\matching-protocol.component.ts" />

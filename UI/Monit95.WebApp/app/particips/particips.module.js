@@ -16,10 +16,17 @@ var add_component_1 = require("./add-and-update/add.component");
 var particip_protocols_service_1 = require("../services/particip-protocols.service");
 var protocol_component_1 = require("./protocols/protocol/protocol.component");
 var shared_module_1 = require("../shared/shared-module");
+var list_component_1 = require("./shared/list/list.component");
+var home_component_2 = require("./oge/home/home.component");
+var particips_list_component_2 = require("./oge/list/particips-list.component");
 var routes = [
     { path: 'particips/home', component: home_component_1.HomeComponent },
+    { path: 'particips/oge/home', component: home_component_2.OgeHomeComponent },
+    { path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
     { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
-    { path: 'particips/new', component: add_component_1.AddParticipComponent },
+    { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
+    { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 15 } },
+    { path: 'particips/oge/new', component: add_component_1.AddParticipComponent, data: { projectId: 16 } },
     { path: 'particips/protocols', component: protocols_component_1.ProtocolsComponent },
     { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
     { path: 'particips/put-protocol/:id', component: protocol_component_1.ParticipProtocolComponent, data: { restMethod: 'PUT' } },
@@ -49,6 +56,9 @@ var ParticipsModule = /** @class */ (function () {
                 add_component_1.AddParticipComponent,
                 protocols_component_1.ProtocolsComponent,
                 protocol_component_1.ParticipProtocolComponent,
+                list_component_1.ListComponent,
+                home_component_2.OgeHomeComponent,
+                particips_list_component_2.OgeParticipsListComponent
             ],
             providers: [
                 particip_service_1.ParticipService,

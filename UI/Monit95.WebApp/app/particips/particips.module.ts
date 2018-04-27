@@ -14,11 +14,18 @@ import { ParticipProtocolsService } from '../services/particip-protocols.service
 import { ParticipProtocolComponent } from './protocols/protocol/protocol.component';
 import { MarksProtocolComponent } from '../components/rsur/protocols/shared/marks-protocol.component';
 import { SharedModule } from '../shared/shared-module';
+import { ListComponent } from './shared/list/list.component';
+import { OgeHomeComponent } from './oge/home/home.component';
+import { OgeParticipsListComponent } from './oge/list/particips-list.component';
 
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
+	{ path: 'particips/oge/home', component: OgeHomeComponent },
+	{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
 	{ path: 'particips/list', component: ParticipsListComponent },
-	{ path: 'particips/new', component: AddParticipComponent },
+	{ path: 'particips/oge/list', component: OgeParticipsListComponent},
+	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 15 } },
+	{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 16 } },
 	{ path: 'particips/protocols', component: ProtocolsComponent },
 	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
 	{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
@@ -45,7 +52,9 @@ const routes: Routes = [
 		AddParticipComponent,
 		ProtocolsComponent,
 		ParticipProtocolComponent,
-		
+		ListComponent,
+		OgeHomeComponent,
+		OgeParticipsListComponent
 	],
 	providers: [
 		ParticipService,

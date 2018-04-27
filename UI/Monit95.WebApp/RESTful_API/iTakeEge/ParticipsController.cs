@@ -17,12 +17,6 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
     [Authorize(Roles = "school")]
     public class ParticipsController : ApiController
     {
-        #region Fields
-
-        private const int ItakeEgeProjectId = 12;
-
-        #endregion
-
         #region Dependencies
 
         private readonly IParticipService participService;        
@@ -42,7 +36,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// <param name="postOrPutDto"></param>
         /// <returns></returns>
         [HttpPost, Route("")]        
-        public IHttpActionResult Add([FromBody]ParticipPostOrPutDto postOrPutDto)
+        public IHttpActionResult AddForEge([FromBody]ParticipPostOrPutDto postOrPutDto, [FromUri]int projectId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);                                  
@@ -52,7 +46,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
             int createdParticipId;
             try
             {
-                createdParticipId = participService.Add(postOrPutDto, schoolId, dataSource);
+                createdParticipId = participService.Add(postOrPutDto, schoolId, dataSource, projectId);
             }
             catch (DublicateEntityException)
             {
@@ -60,7 +54,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
             }
             
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.Created, createdParticipId));            
-        }        
+        }
 
         /// <summary>
         /// Получить список участников пользователя
@@ -68,27 +62,28 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// <remarks>Получить список участников для таблицы, где отображается весь список участников</remarks>
         /// <returns></returns>
         [HttpGet, Route("")]
-        [Authorize(Roles = "area, school")]
-        public IHttpActionResult GetAllParticipants()
+        public IHttpActionResult GetAllForEge()
         {
             IEnumerable<ParticipGetViewDto> viewDtos;
-
-            if (User.IsInRole("area"))
-            {
-                var areaCode = Convert.ToInt32(User.Identity.Name);
-                viewDtos = participService.GetAllParticipantsByArea(areaCode);
-            }
-            else
-            {
-                var schoolId = User.Identity.Name;
-                viewDtos = participService.GetAllParticipantsBySchool(schoolId);
-            }
+            const int projectId = 15;
+            var schoolId = User.Identity.Name;
+            viewDtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
                                                                                       
             return Ok(viewDtos);
         }
 
+        [HttpGet, Route("~/api/oge/participants")]
+        public IHttpActionResult GetAllForOge()
+        {
+            IEnumerable<ParticipGetViewDto> viewDtos;
+            const int projectId = 16;
+            var schoolId = User.Identity.Name;
+            viewDtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
+
+            return Ok(viewDtos);
+        }
+
         [HttpPut]
-        [Authorize(Roles = "school")]
         [Route("{id:int}")]
         public IHttpActionResult Put([FromBody]ParticipPostOrPutDto dto)
         {
@@ -124,18 +119,18 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         [Route("{id:int}")]
         public IHttpActionResult Delete()
         {
-            //var schoolId = User.Identity.Name;
-            //var participId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            var schoolId = User.Identity.Name;
+            var participId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
 
-            //try
-            //{
-            //    participService.Delete(participId, schoolId);
-            //}
-            //catch (EntityNotFoundOrAccessException)
-            //{
-            //    return NotFound();
-            //}
-            
+            try
+            {
+                participService.Delete(participId, schoolId);
+            }
+            catch (EntityNotFoundOrAccessException)
+            {
+                return NotFound();
+            }
+
             return Ok();
         }
 
