@@ -8,7 +8,7 @@ var TablePaginator = /** @class */ (function () {
         this.pageSizeChange = new core_1.EventEmitter();
     }
     TablePaginator.prototype.ngDoCheck = function () {
-        this.maxPageIndex = this.length / this.pageSize;
+        this.maxPageIndex = Math.floor(this.length / this.pageSize);
     };
     TablePaginator.prototype.toPrev = function () {
         if (this.pageIndex >= 1) {
@@ -16,7 +16,7 @@ var TablePaginator = /** @class */ (function () {
         }
     };
     TablePaginator.prototype.toNext = function () {
-        if (this.pageIndex < this.maxPageIndex - 1) {
+        if (this.pageIndex < this.maxPageIndex) {
             this.pageIndexChange.emit(++this.pageIndex);
         }
     };
