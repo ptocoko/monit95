@@ -23,7 +23,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         #region Fields
 
         //private readonly IMapper _mapper;
-        private const int ItakeEgeProjectId = 12;
+        private const int ItakeEgeProjectId = 15; // projectId for i pass ege 2018 (may)
 
         private readonly MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipGetViewDto>()
             .ForMember(d => d.DocumNumber, opt => opt.MapFrom(src => (int)src.DocumNumber))
@@ -81,9 +81,9 @@ namespace Monit95App.Services.ItakeEge.Participant
             if (dto.SecondName != null)            
                 newParticip.SecondName = dto.SecondName; 
                         
-            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2013 }); // русский язык
-            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2014 }); // математика п
-            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2015 }); // математика б 
+            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2017 }); // русский язык
+            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2018 }); // математика б
+            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2019 }); // математика п
 
             // Try add new participant entity in database
             cokoContext.Particips.Add(newParticip);
