@@ -4,26 +4,25 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
-//import { ParticipsListComponent } from './list/particips-list.component';
-//import { ParticipService } from '../services/particip.service';
+var particips_list_component_1 = require("./list/particips-list.component");
+var particip_service_1 = require("../services/particip.service");
 var home_component_1 = require("./home/home.component");
 var http_1 = require("@angular/common/http");
 var forms_1 = require("@angular/forms");
-//import { ParticipFilterPipe } from '../pipes/particip-filter.pipe';
+var particip_filter_pipe_1 = require("../pipes/particip-filter.pipe");
 var material_module_1 = require("../material.module");
-//import { ProtocolsComponent } from './protocols/protocols.component';
-//import { AddParticipComponent } from './add-and-update/add.component';
-//import { ParticipProtocolsService } from '../services/particip-protocols.service';
-//import { ParticipProtocolComponent } from './protocols/protocol/protocol.component';
-//import { MarksProtocolComponent } from '../components/rsur/protocols/shared/marks-protocol.component';
+var protocols_component_1 = require("./protocols/protocols.component");
+var add_component_1 = require("./add-and-update/add.component");
+var particip_protocols_service_1 = require("../services/particip-protocols.service");
+var protocol_component_1 = require("./protocols/protocol/protocol.component");
 var shared_module_1 = require("../shared/shared-module");
 var routes = [
     { path: 'particips/home', component: home_component_1.HomeComponent },
-    //{ path: 'particips/list', component: ParticipsListComponent },
-    //{ path: 'particips/new', component: AddParticipComponent },
-    //{ path: 'particips/protocols', component: ProtocolsComponent },
-    //{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
-    //{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
+    { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
+    { path: 'particips/new', component: add_component_1.AddParticipComponent },
+    { path: 'particips/protocols', component: protocols_component_1.ProtocolsComponent },
+    { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
+    { path: 'particips/put-protocol/:id', component: protocol_component_1.ParticipProtocolComponent, data: { restMethod: 'PUT' } },
     { path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ];
 var ParticipsModule = /** @class */ (function () {
@@ -45,7 +44,16 @@ var ParticipsModule = /** @class */ (function () {
             ],
             declarations: [
                 home_component_1.HomeComponent,
+                particips_list_component_1.ParticipsListComponent,
+                particip_filter_pipe_1.ParticipFilterPipe,
+                add_component_1.AddParticipComponent,
+                protocols_component_1.ProtocolsComponent,
+                protocol_component_1.ParticipProtocolComponent,
             ],
+            providers: [
+                particip_service_1.ParticipService,
+                particip_protocols_service_1.ParticipProtocolsService
+            ]
         })
     ], ParticipsModule);
     return ParticipsModule;
