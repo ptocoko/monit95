@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ParticipService } from '../../services/particip.service';
 import { AccountService } from '../../services/account.service';
 import { ParticipModel } from '../../models/particip.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	templateUrl: `./app/particips/add-and-update/add.component.html?v=${new Date().getTime()}`,
@@ -10,14 +11,25 @@ import { ParticipModel } from '../../models/particip.model';
 })
 export class AddParticipComponent {
 	particip = new ParticipModel();
-	actionText: string = 'Добавить';
+	EgeOrOge: 'ЕГЭ' | 'ОГЭ';
 	isSending = false;
 	isConflict = false;
+	projectId: number;
 
 	constructor(private readonly participService: ParticipService,
 				private readonly accountService: AccountService,
-				private readonly location: Location) { }
-	
+				private readonly location: Location,
+				private readonly route: ActivatedRoute) { }
+
+	ngOnInit() {
+		this.projectId = this.route.snapshot.data['projectId'];
+		if (this.projectId === 15) {
+			this.EgeOrOge = 'ЕГЭ';
+		} else {
+			this.EgeOrOge = 'ОГЭ';
+		}
+	}
+
 	onSubmit() {
 		this.isSending = true;
 		this.isConflict = false;
@@ -30,7 +42,7 @@ export class AddParticipComponent {
 			this.particip.SecondName = this.particip.SecondName.trim();
 		};
 
-		this.participService.postParticip(this.particip).subscribe(_ => {
+		this.participService.postParticip(this.particip, this.projectId).subscribe(_ => {
 			this.back();
 		},
 		error => {

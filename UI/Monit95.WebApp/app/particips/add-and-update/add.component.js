@@ -6,16 +6,26 @@ var common_1 = require("@angular/common");
 var particip_service_1 = require("../../services/particip.service");
 var account_service_1 = require("../../services/account.service");
 var particip_model_1 = require("../../models/particip.model");
+var router_1 = require("@angular/router");
 var AddParticipComponent = /** @class */ (function () {
-    function AddParticipComponent(participService, accountService, location) {
+    function AddParticipComponent(participService, accountService, location, route) {
         this.participService = participService;
         this.accountService = accountService;
         this.location = location;
+        this.route = route;
         this.particip = new particip_model_1.ParticipModel();
-        this.actionText = 'Добавить';
         this.isSending = false;
         this.isConflict = false;
     }
+    AddParticipComponent.prototype.ngOnInit = function () {
+        this.projectId = this.route.snapshot.data['projectId'];
+        if (this.projectId === 15) {
+            this.EgeOrOge = 'ЕГЭ';
+        }
+        else {
+            this.EgeOrOge = 'ОГЭ';
+        }
+    };
     AddParticipComponent.prototype.onSubmit = function () {
         var _this = this;
         this.isSending = true;
@@ -27,7 +37,7 @@ var AddParticipComponent = /** @class */ (function () {
             this.particip.SecondName = this.particip.SecondName.trim();
         }
         ;
-        this.participService.postParticip(this.particip).subscribe(function (_) {
+        this.participService.postParticip(this.particip, this.projectId).subscribe(function (_) {
             _this.back();
         }, function (error) {
             _this.isSending = false;
@@ -49,7 +59,8 @@ var AddParticipComponent = /** @class */ (function () {
         }),
         tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
             account_service_1.AccountService,
-            common_1.Location])
+            common_1.Location,
+            router_1.ActivatedRoute])
     ], AddParticipComponent);
     return AddParticipComponent;
 }());

@@ -1,0 +1,85 @@
+﻿<div class="table-container mat-elevation-z8" [hidden]="particips.length === 0">
+    <div class="actions-container">
+        <mat-form-field class="filter-field">
+            <input matInput
+                   #filter
+                   (keyup)="applyFilter(filter.value)"
+                   placeholder="поиск..." />
+        </mat-form-field>
+
+        <div>
+            <button mat-raised-button
+                    color="primary"
+                    (click)="addClassParticip()">
+                Добавить участника...
+            </button>
+        </div>
+        <!--<button class="btn btn-default" routerLink="/class-particips/upload-excel">
+        <i class="fa fa-file-excel-o fa-lg"></i>
+            Добавить список учеников из .xlsx...
+    </button>-->
+        <!--<button class="btn btn-primary" routerLink="/class-particips/marks">Перейти к заполнению оценок</button>-->
+    </div>
+
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="$id">
+            <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+            <mat-cell *matCellDef="let particip; let i = index">{{ i + 1 }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Surname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> фамилия </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.Surname }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> имя </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.Name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SecondName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> отчество </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.SecondName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="DocumNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> номер документа </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.DocumNumber }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SourceName">
+            <mat-header-cell *matHeaderCellDef> источник </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.DataSource }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="del-action">
+            <mat-header-cell *matHeaderCellDef> удалить </mat-header-cell>
+            <mat-cell *matCellDef="let particip">
+                <a style="cursor:pointer"
+                   *ngIf="particip.SourceName !== 'РЦОИ'"
+                   class="glyphicon glyphicon-trash"
+                   (click)="deleteClassParticip(particip)">
+                </a>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                   [length]="particips.length"
+                   [pageSizeOptions]="['50', '100']">
+    </mat-paginator>
+</div>
+<p class="alert alert-info text-center" *ngIf="particips.length === 0">
+    <span>Данные об участниках отсутсвуют</span>
+    <button mat-raised-button
+            style="margin-left: 15px"
+            color="primary"
+            (click)="addClassParticip()">
+        Добавить участника...
+    </button>
+</p>
+
+<button style="position:fixed;left:90%;top:80%;color:white; background-color:green; z-index:10; font-size:x-large" mat-fab color="primary" (click)="addClassParticip()">+</button>

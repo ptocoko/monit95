@@ -13,6 +13,8 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
 {
     public class QuestionProtocolService : IQuestionProtocolService
     {
+        private const int ItakeEgeProjectId = 15; // projectId for i pass ege 2018 (may)
+
         #region Dependencies
 
         private readonly CokoContext cokoContext;
@@ -38,7 +40,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         /// TODO: ref
         public IEnumerable<QuestionProtocolReadDto> GetReadDtos(string schoolId)
         {
-            var participTestEntities = cokoContext.ParticipTests.AsNoTracking().Where(pt => pt.ProjectTest.IsOpen && pt.Particip.SchoolId == schoolId).ToList();
+            var participTestEntities = cokoContext.ParticipTests.AsNoTracking().Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTest.ProjectId == ItakeEgeProjectId && pt.Particip.SchoolId == schoolId).ToList();
             var readDtoCollection = new Collection<QuestionProtocolReadDto>();
             foreach (var entity in participTestEntities)
             {
