@@ -18,8 +18,7 @@ var HomeComponent = /** @class */ (function () {
             _this.account = data;
             _this.isLoading = false;
             localStorage.clear();
-            if (data.UserName === '213')
-                _this.rsurProtocolService.getStatistics().subscribe(function (progress) { return _this._fillingProgress = progress; });
+            _this.rsurProtocolService.getStatistics().subscribe(function (progress) { return _this._fillingProgress = progress; });
         });
     };
     HomeComponent.prototype.isArea = function () {

@@ -4,36 +4,39 @@
 
     <div *ngIf="(isArea() || isAdmin())" class="list-container">
         <h3 class="list-header">Диагностика «Апрель-2018»</h3>
-        <div>
-            <a *ngIf="true" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/042018_ис_распределение_{{account.UserName}}.xlsx"><div><h4>История: распределение</h4></div></a>
-            <!--Варианты ИК-->
-            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/6FMQ/EkTQF6H8M"><div><h4><b>История: варианты ИК по блоку «Даты. Основные факты, процессы и явления»</b></h4></div></a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/4jwE/tJtUxdNZj"><div><h4><b>История: варианты ИК по блоку «Термины. Исторические деятели»</b></h4></div></a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/4Juq/bA2kDjyYf"><div><h4><b>История: варианты ИК по блоку «Текстовые источники. Историческая карта…»</b></h4></div></a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/Bj9A/JRcxLfsba"><div><h4><b>История: варианты ИК по блоку «Систематизация знаний»</b></h4></div></a>
-            
-
-            <!--Ключи-->
-            <div *ngIf="false">
-                <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/4fwo/ATi2TQM6u">
-                    <div>
-                        <h4>Математика: КЛЮЧИ для проверки работ по блоку «АЛГЕБРА»</h4>
-                    </div>
-                </a>
-                <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/Me7u/JYDgbKucc">
-                    <div>
-                        <h4>Математика: КЛЮЧИ для проверки работ по блоку «ГЕОМЕТРИЯ»</h4>
-                    </div>
-                </a>
-                <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/2m1i/5U2CGiwSV">
-                    <div>
-                        <h4>Математика: КЛЮЧИ для проверки работ по блоку «ФУНКЦИИ && МАТАНАЛИЗ...»</h4>
-                    </div>
-                </a>
-            </div>
-            <!--Протоколы-->
+        <a *ngIf="true" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/042018_ис_распределение_{{account.UserName}}.xlsx"><div><h4>История: распределение</h4></div></a>
+        <!--Варианты ИК-->
+        <div *ngIf="false">
+            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/6FMQ/EkTQF6H8M"><div><h4>История: варианты ИК по блоку «Даты. Основные факты, процессы и явления»</h4></div></a>
+            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/4jwE/tJtUxdNZj"><div><h4>История: варианты ИК по блоку «Термины. Исторические деятели»</h4></div></a>
+            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/4Juq/bA2kDjyYf"><div><h4>История: варианты ИК по блоку «Текстовые источники. Историческая карта…»</h4></div></a>
+            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/Bj9A/JRcxLfsba"><div><h4>История: варианты ИК по блоку «Систематизация знаний»</h4></div></a>
         </div>
-        <div *ngIf="account.UserName === '213'" class="list-item">
+
+        <!--Ключи-->
+        <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/DRh5/HXBUGt7xQ">
+            <div>
+                <h4><b>История: КЛЮЧИ для проверки работ по блоку «Даты. Основные факты, процессы и явления»</b></h4>
+            </div>
+        </a>
+        <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/8KTL/e8W5RQmPV">
+            <div>
+                <h4><b>История: КЛЮЧИ для проверки работ по блоку «Термины. Исторические деятели»</b></h4>
+            </div>
+        </a>
+        <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/HAPd/9REL5FKiL">
+            <div>
+                <h4><b>История: КЛЮЧИ для проверки работ по блоку «Текстовые источники. Историческая карта…»</b></h4>
+            </div>
+        </a>
+        <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/9bP6/MbepSCpS3">
+            <div>
+                <h4><b>История: КЛЮЧИ для проверки работ по блоку «Систематизация знаний»</b></h4>
+            </div>
+        </a>
+
+            <!--Протоколы-->
+        <div *ngIf="true" class="list-item">
             <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                 <div>
                     <h4><b>Протоколы проверки заданий</b></h4>
