@@ -4,7 +4,8 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
-var Observable_1 = require("rxjs/Observable");
+var fromEvent_1 = require("rxjs/observable/fromEvent");
+var filter_1 = require("rxjs/operators/filter");
 var SeminarReportComponent = /** @class */ (function () {
     function SeminarReportComponent(route, seminarReportService) {
         this.route = route;
@@ -20,8 +21,7 @@ var SeminarReportComponent = /** @class */ (function () {
                 //this.photoKeys = this.report.SeminarFiles.map(sf => sf.Key).filter(f => f.includes('image'));
                 _this.isLoading = false;
                 // пролистывание фотографий в режиме просмотра
-                Observable_1.Observable.fromEvent(document, 'keydown')
-                    .filter(function (e) { return [37, 39, 27].indexOf(e.keyCode) >= 0 && _this.viewingImage != null; })
+                fromEvent_1.fromEvent(document, 'keydown').pipe(filter_1.filter(function (e) { return [37, 39, 27].indexOf(e.keyCode) >= 0 && _this.viewingImage != null; }))
                     .subscribe(_this.keyUpHandler.bind(_this));
             });
         });

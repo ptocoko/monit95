@@ -58,6 +58,14 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
         }
 
+        public void GenerateAndSaveByParticipTestIds(IEnumerable<int> participTestIds)
+        {
+            foreach (int participTestId in participTestIds)
+            {
+                GenerateAndSaveByParticipTestId(participTestId);
+            }
+        }
+
         /// <summary>
         /// Вычисление EgeQuestionValues и Grade5
         /// </summary>

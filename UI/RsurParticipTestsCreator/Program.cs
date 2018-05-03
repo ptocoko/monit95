@@ -13,7 +13,9 @@ namespace RsurParticipTestsCreator
         static void Main(string[] args)
         {
             CokoContext context = new CokoContext();
-            GenerateParticipTests(context);
+            //GenerateParticipTests(context);
+            ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context);
+            var models = cretor.GetModels("02");
         }
 
         private static void GenerateParticipTests(CokoContext context)

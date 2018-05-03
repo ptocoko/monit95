@@ -23,7 +23,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         #region Fields
 
         //private readonly IMapper _mapper;
-        private const int ItakeEgeProjectId = 12;
+        //private const int ItakeEgeProjectId = 15; // projectId for i pass ege 2018 (may)
 
         private readonly MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipGetViewDto>()
             .ForMember(d => d.DocumNumber, opt => opt.MapFrom(src => (int)src.DocumNumber))
@@ -55,7 +55,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         /// <param name="schoolId"></param>
         /// <param name="dataSource"></param>
         /// <returns></returns>
-        public int Add(ParticipPostOrPutDto dto, string schoolId, string dataSource)
+        public int Add(ParticipPostOrPutDto dto, string schoolId, string dataSource, int projectId)
         {
             // Validate
             var validationResults = new Collection<ValidationResult>();
@@ -71,7 +71,7 @@ namespace Monit95App.Services.ItakeEge.Participant
             // Create new participant entity
             var newParticip = new Particip
             {
-                ProjectId = ItakeEgeProjectId,
+                ProjectId = projectId,
                 Surname = dto.Surname,                
                 Name = dto.Name,                
                 DocumNumber = dto.DocumNumber,
@@ -80,10 +80,12 @@ namespace Monit95App.Services.ItakeEge.Participant
             };
             if (dto.SecondName != null)            
                 newParticip.SecondName = dto.SecondName; 
-                        
-            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2013 }); // русский язык
-            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2014 }); // математика п
-            newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = 2015 }); // математика б 
+            
+
+            foreach (var projectTestId in cokoContext.ProjectTests.Where(p => p.ProjectId == projectId).Select(s => s.Id))
+            {
+                newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = projectTestId });
+            }
 
             // Try add new participant entity in database
             cokoContext.Particips.Add(newParticip);
@@ -105,16 +107,16 @@ namespace Monit95App.Services.ItakeEge.Participant
         /// </summary>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public IEnumerable<ParticipGetViewDto> GetAllParticipantsByArea(int areaCode)
-        {
-            if(!areaCode.IsBetween(201, 217))
-                throw new ArgumentOutOfRangeException($"{nameof(areaCode)} parameter value must be between 201 and 217");
-            var entities = cokoContext.Particips.AsNoTracking()
-                .Where(p => p.ProjectId == ItakeEgeProjectId && p.School.AreaCode == areaCode)
-                .ProjectTo<ParticipGetViewDto>(mapperConfiguration);                                                           
+        //public IEnumerable<ParticipGetViewDto> GetAllParticipantsByArea(int areaCode)
+        //{
+        //    if(!areaCode.IsBetween(201, 217))
+        //        throw new ArgumentOutOfRangeException($"{nameof(areaCode)} parameter value must be between 201 and 217");
+        //    var entities = cokoContext.Particips.AsNoTracking()
+        //        .Where(p => p.ProjectId == ItakeEgeProjectId && p.School.AreaCode == areaCode)
+        //        .ProjectTo<ParticipGetViewDto>(mapperConfiguration);                                                           
 
-            return entities;
-        }
+        //    return entities;
+        //}
 
         /// <summary>
         /// Получения списка участников для школьного координатора
@@ -122,12 +124,12 @@ namespace Monit95App.Services.ItakeEge.Participant
         /// <param name="schoolId"></param>
         /// <returns></returns>
         /// TODO: use automapper
-        public IEnumerable<ParticipGetViewDto> GetAllParticipantsBySchool(string schoolId)
+        public IEnumerable<ParticipGetViewDto> GetAllParticipantsBySchool(string schoolId, int projectId)
         {
             if (!cokoContext.Schools.Any(s => s.Id == schoolId))
                 throw new ArgumentException(nameof(schoolId));
             var entities = cokoContext.Particips.AsNoTracking()
-                .Where(p => p.ProjectId == ItakeEgeProjectId && p.SchoolId == schoolId)
+                .Where(p => p.ProjectId == projectId && p.SchoolId == schoolId)
                 .ProjectTo<ParticipGetViewDto>(mapperConfiguration);               
 
             return entities;

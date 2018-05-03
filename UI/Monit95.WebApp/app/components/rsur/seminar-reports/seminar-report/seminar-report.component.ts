@@ -6,6 +6,8 @@ import { SeminarReportEdit, SeminarFile } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
 import { AccountService } from "../../../../services/account.service";
 import { Observable } from 'rxjs/Observable';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { filter } from 'rxjs/operators/filter';
 
 @Component({
 	selector: 'seminar-report',
@@ -32,8 +34,8 @@ export class SeminarReportComponent implements OnInit {
 				this.isLoading = false;
 
 				// пролистывание фотографий в режиме просмотра
-				Observable.fromEvent(document, 'keydown')
-					.filter((e: any) => [37, 39, 27].indexOf(e.keyCode) >= 0 && this.viewingImage != null)
+				fromEvent(document, 'keydown').pipe(
+					filter((e: any) => [37, 39, 27].indexOf(e.keyCode) >= 0 && this.viewingImage != null))
 					.subscribe(this.keyUpHandler.bind(this))
 			});
 		})

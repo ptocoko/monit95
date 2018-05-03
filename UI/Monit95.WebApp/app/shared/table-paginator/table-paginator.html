@@ -11,7 +11,8 @@
     </span>
     <span class="page-navigator-arrow"
           (click)="toNext()"
-          matTooltip="следующая страница">
+          matTooltip="следующая страница"
+          [ngClass]="{'disabled': pageIndex === maxPageIndex }">
         <i class="fa fa-chevron-right"></i>
     </span>
 </div>

@@ -17,6 +17,7 @@ var ParticipService = /** @class */ (function () {
     function ParticipService(http) {
         this.http = http;
         this.endpoint = "/api/ITakeEGE/participants/";
+        this.ogeEndpoint = '/api/oge/participants';
     }
     ParticipService.prototype.getAll = function () {
         return this.http.get(this.endpoint).map(function (particips) {
@@ -25,11 +26,18 @@ var ParticipService = /** @class */ (function () {
             return particips;
         });
     };
+    ParticipService.prototype.getAllOge = function () {
+        return this.http.get(this.ogeEndpoint).map(function (particips) {
+            // превращаем 'school' в 'Школа'
+            particips.forEach(dataSourceMapperFunc);
+            return particips;
+        });
+    };
     ParticipService.prototype.getParticip = function (participId) {
         return this.http.get(this.endpoint + participId).map(dataSourceMapperFunc);
     };
-    ParticipService.prototype.postParticip = function (particip) {
-        return this.http.post(this.endpoint, particip, { responseType: 'text' });
+    ParticipService.prototype.postParticip = function (particip, projectId) {
+        return this.http.post(this.endpoint, particip, { responseType: 'text', params: { 'projectId': projectId.toString() } });
     };
     ParticipService.prototype.putParticip = function (particip, participId) {
         return this.http.put(this.endpoint + participId, particip, { responseType: 'text' });

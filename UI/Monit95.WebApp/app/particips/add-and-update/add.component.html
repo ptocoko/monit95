@@ -1,4 +1,4 @@
-﻿<h2>«Я сдам ЕГЭ!»: добавление нового участника</h2>
+﻿<h2>«Я сдам {{EgeOrOge}}!»: добавление нового участника</h2>
 <hr />
 <form #participForm="ngForm" (ngSubmit)="onSubmit()">
 
@@ -42,7 +42,7 @@
 
     <hr />
     <div>
-        <button type="submit" class="btn btn-success" [disabled]="participForm.invalid">{{actionText}}</button>
+        <button type="submit" class="btn btn-success" [disabled]="participForm.invalid">Добавить</button>
         <button type="button" class="btn btn-default" (click)="back()">Отменить</button>
     </div>
 </form>

@@ -24,8 +24,7 @@ export class TablePaginator {
 	page = this.change$.asObservable();
 
 	ngDoCheck() {
-		this.maxPageIndex = this.length / this.pageSize;
-		//this.page = this.change$.asObservable();
+		this.maxPageIndex = Math.floor(this.length / this.pageSize);
 	}
 
 	private toPrev() {
@@ -35,8 +34,8 @@ export class TablePaginator {
 		}
 	}
 
-	private toNext() {
-		if (this.pageIndex < this.maxPageIndex - 1) {
+	toNext() {
+		if (this.pageIndex < this.maxPageIndex) {
 			this.pageIndexChange.emit(++this.pageIndex);
 			this.change$.next({});
 		}

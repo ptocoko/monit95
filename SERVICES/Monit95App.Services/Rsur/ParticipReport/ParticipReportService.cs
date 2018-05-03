@@ -118,9 +118,9 @@ namespace Monit95App.Services.Rsur.ParticipReport
                                                                              && rtr.RsurParticipTest.RsurParticip.ActualCode == 1);
 
             if (areaCode != null)
-                entities = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode);
+                entities = entities.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode);
             else if (schoolId != null)
-                entities = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurParticip.SchoolId == schoolId);
+                entities = entities.Where(rtr => rtr.RsurParticipTest.RsurParticip.SchoolId == schoolId);
             else
             {
                 serviceResult.Errors.Add(new ServiceError { Description = "Неавторизированный запрос!", HttpCode = 401 });
