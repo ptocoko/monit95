@@ -1,5 +1,25 @@
 ﻿<h2>«Я сдам ЕГЭ!»: главное меню</h2>
 
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">02 - Математика базовая</h3>
+    <div>
+        <a *ngIf="timeIsCome" class="list-item-link" href="https://cloud.mail.ru/public/GiCW/R1EzEHjgj" target="_blank">
+            <div>
+                <h4><b>Варианты ИК</b></h4>
+            </div>
+        </a>
+        <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/7nbB/Eo5d3yaKz" target="_blank">
+            <div>
+                <h4><b>Математика профильная: ключи для проверки работ</b></h4>
+            </div>
+        </a>
+        <a *ngIf="true" class="list-item-link" routerLink="/particips/protocols">
+            <div>
+                <h4><b>Заполнение протоколов проверки заданий</b></h4>
+            </div>
+        </a>
+    </div>
+</div>
 
 <div class="list-container">
     <h3 class="list-header">Методический материал</h3>
@@ -15,7 +35,7 @@
             </div>
         </a>
     </div>
-</div>    
+</div>
 
 <!-- Общее -->
 <div class="list-container" *ngIf="true">
@@ -32,28 +52,8 @@
             </div>
         </a>-->
     </div>
-</div>    
-
-<div class="list-container" *ngIf="false">
-    <h3 class="list-header">02 - Математика профильная</h3>
-    <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/GiCW/R1EzEHjgj" target="_blank">
-            <div>
-                <h4><b>Варианты ИК</b></h4>
-            </div>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/7nbB/Eo5d3yaKz" target="_blank">
-            <div>
-                <h4><b>Математика профильная: ключи для проверки работ</b></h4>
-            </div>
-        </a>
-        <a class="list-item-link" routerLink="/particips/protocols">
-            <div>
-                <h4><b>Заполнение протоколов проверки заданий</b> (начало: 10.02.2018, 18:00; окончание: 12.02.2018, 17:00)</h4>
-            </div>
-        </a>
-    </div>
 </div>
+
 
 <div class="list-container">
     <h3 class="list-header">Задания</h3>
