@@ -2,10 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
+var Subject_1 = require("rxjs/Subject");
 var TablePaginator = /** @class */ (function () {
     function TablePaginator() {
         this.pageIndexChange = new core_1.EventEmitter();
         this.pageSizeChange = new core_1.EventEmitter();
+        this.change$ = new Subject_1.Subject();
+        this.page = this.change$.asObservable();
     }
     TablePaginator.prototype.ngDoCheck = function () {
         this.maxPageIndex = Math.floor(this.length / this.pageSize);
@@ -13,17 +16,20 @@ var TablePaginator = /** @class */ (function () {
     TablePaginator.prototype.toPrev = function () {
         if (this.pageIndex >= 1) {
             this.pageIndexChange.emit(--this.pageIndex);
+            this.change$.next({});
         }
     };
     TablePaginator.prototype.toNext = function () {
         if (this.pageIndex < this.maxPageIndex) {
             this.pageIndexChange.emit(++this.pageIndex);
+            this.change$.next({});
         }
     };
     TablePaginator.prototype.sizeChange = function () {
         this.pageSizeChange.emit(this.pageSize);
         this.pageIndex = 0;
         this.pageIndexChange.emit(this.pageIndex);
+        this.change$.next({});
     };
     tslib_1.__decorate([
         core_1.Input(),
