@@ -117,6 +117,7 @@
     <Compile Include="OneTwoThree\QuestionProtocol\QuestionListDto.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\QuestionMarkDto.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\QuestionProtocolDto.cs" />
+    <Compile Include="OneTwoThree\QuestionProtocol\QuestionProtocolService.cs" />
     <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
     <Compile Include="Rsur\MarksConvert\RsurMarksConverter.cs" />
     <Compile Include="Rsur\MarksConvert\IRsurMarksConverter.cs" />
