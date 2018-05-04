@@ -15,6 +15,9 @@ var ClassService = /** @class */ (function () {
             });
         });
     };
+    ClassService.prototype.getClasses = function () {
+        return this.http.get(this.GET_CLASSES_URL);
+    };
     ClassService = tslib_1.__decorate([
         core_1.Injectable(),
         tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])

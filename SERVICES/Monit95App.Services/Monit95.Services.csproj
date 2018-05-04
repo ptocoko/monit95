@@ -85,6 +85,7 @@
     <Compile Include="Document\DocumentService.cs" />
     <Compile Include="Document\IPrivateFileService.cs" />
     <Compile Include="Document\PrivateFileService.cs" />
+    <Compile Include="DTOs\ClassDto.cs" />
     <Compile Include="DTOs\ClassParticipReport.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />
     <Compile Include="DTOs\PutMarksDto.cs" />
@@ -108,6 +109,10 @@
     <Compile Include="ItakeEge\QuestionProtocol\IQuestionProtocolService.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionMarkPutDto.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionProtocolEditDto.cs" />
+    <Compile Include="OneTwoThree\Particips\GetAllOptions.cs" />
+    <Compile Include="OneTwoThree\Particips\IParticipService.cs" />
+    <Compile Include="OneTwoThree\Particips\ParticipDto.cs" />
+    <Compile Include="OneTwoThree\Particips\ParticipService.cs" />
     <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
     <Compile Include="Rsur\MarksConvert\RsurMarksConverter.cs" />
     <Compile Include="Rsur\MarksConvert\IRsurMarksConverter.cs" />

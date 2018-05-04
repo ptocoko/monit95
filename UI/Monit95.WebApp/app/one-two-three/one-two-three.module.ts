@@ -7,9 +7,16 @@ import { SharedModule } from '../shared/shared-module';
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { ParticipsListComponent } from './particips/list/particips-list.component';
+import { ParticipService } from '../services/one-two-three/particips.service';
+import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes/one-two-three/particips.pipe';
+import { AddOrUpdateComponent } from './particips/add-or-update/add-or-update.component';
 
 const routes: Routes = [
 	{ path: 'one-two-three/home', component: HomeComponent },
+	{ path: 'one-two-three/particips/list', component: ParticipsListComponent },
+	{ path: 'one-two-three/particips/add', component: AddOrUpdateComponent },
+	{ path: 'one-two-three/particips/:participId', component: AddOrUpdateComponent },
 	{ path: 'one-two-three', redirectTo: 'one-two-three/home', pathMatch: 'full' }
 ]
 
@@ -25,7 +32,15 @@ const routes: Routes = [
 	],
 	exports: [RouterModule],
 	declarations: [
-		HomeComponent
+		HomeComponent,
+		ParticipsListComponent,
+		AddOrUpdateComponent,
+		ClassFilterPipe,
+		ClassesGetterPipe,
+		ParticipFilterPipe
+	],
+	providers: [
+		ParticipService
 	]
 })
 export class OneTwoThreeModule { }

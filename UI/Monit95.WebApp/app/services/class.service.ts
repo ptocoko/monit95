@@ -1,6 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
+import { ClassModel } from '../models/class.model';
 
 @Injectable()
 export class ClassService {
@@ -14,5 +15,9 @@ export class ClassService {
 				return schoolClass.Name;
 			});
 		});
+	}
+
+	getClasses(): Observable<ClassModel[]> {
+		return this.http.get<ClassModel[]>(this.GET_CLASSES_URL);
 	}
 }

@@ -9,8 +9,15 @@ var forms_1 = require("@angular/forms");
 var shared_module_1 = require("../shared/shared-module");
 var router_1 = require("@angular/router");
 var home_component_1 = require("./home/home.component");
+var particips_list_component_1 = require("./particips/list/particips-list.component");
+var particips_service_1 = require("../services/one-two-three/particips.service");
+var particips_pipe_1 = require("../pipes/one-two-three/particips.pipe");
+var add_or_update_component_1 = require("./particips/add-or-update/add-or-update.component");
 var routes = [
     { path: 'one-two-three/home', component: home_component_1.HomeComponent },
+    { path: 'one-two-three/particips/list', component: particips_list_component_1.ParticipsListComponent },
+    { path: 'one-two-three/particips/add', component: add_or_update_component_1.AddOrUpdateComponent },
+    { path: 'one-two-three/particips/:participId', component: add_or_update_component_1.AddOrUpdateComponent },
     { path: 'one-two-three', redirectTo: 'one-two-three/home', pathMatch: 'full' }
 ];
 var OneTwoThreeModule = /** @class */ (function () {
@@ -29,7 +36,15 @@ var OneTwoThreeModule = /** @class */ (function () {
             ],
             exports: [router_1.RouterModule],
             declarations: [
-                home_component_1.HomeComponent
+                home_component_1.HomeComponent,
+                particips_list_component_1.ParticipsListComponent,
+                add_or_update_component_1.AddOrUpdateComponent,
+                particips_pipe_1.ClassFilterPipe,
+                particips_pipe_1.ClassesGetterPipe,
+                particips_pipe_1.ParticipFilterPipe
+            ],
+            providers: [
+                particips_service_1.ParticipService
             ]
         })
     ], OneTwoThreeModule);

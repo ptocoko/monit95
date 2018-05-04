@@ -36,7 +36,6 @@ import { SchoolFilesComponent } from './components/school-files/school-files.com
 import { QuestionProtocolsList } from './components/rsur/protocols/question/question-protocols-list.component';
 import { MarksProtocolComponent } from './components/rsur/protocols/shared/marks-protocol.component';
 import { QuestionProtocolComponent } from './components/rsur/protocols/protocol/question-protocol.component';
-import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 // Services
 import { AccountService } from './services/account.service';
@@ -56,7 +55,7 @@ import { SchoolFileService } from './services/school-file.service';
 import { RsurProtocolsService } from './services/rsur-protocols.service';
 
 // Pipes
-import { LimitToPipe } from './limit-to.pipe';
+//import { LimitToPipe } from './limit-to.pipe';
 import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 //import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
@@ -65,7 +64,7 @@ import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilt
 import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
 import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rsur-particip-filter.pipe';
 import { RsurProtocolFilter } from './pipes/rsur-protocol-filter.pipe';
-import { OffsetPipe } from './pipes/offset.pipe';
+//import { OffsetPipe } from './pipes/offset.pipe';
 
 // Additional 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -121,8 +120,8 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
         //RsurParticipAddFormComponent,
         RsurParticipFilterPipe,
 		ClassNameFilterPipe,
-		LimitToPipe,
-		OffsetPipe,
+		//LimitToPipe,
+		//OffsetPipe,
 		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
 		//FilterPipe,
@@ -150,8 +149,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		//ScanProtocolsComponent,
 		QuestionProtocolsList,
 		//MarksProtocolComponent,
-		QuestionProtocolComponent,
-		ConfirmDialogComponent
+		QuestionProtocolComponent
 	],
 	providers: [
         AccountService,
@@ -174,7 +172,6 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		{ provide: MatPaginatorIntl, useClass: RussianMatPaginator },
 		{ provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
     ],    
-    bootstrap: [AppComponent],
-	entryComponents: [ConfirmDialogComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

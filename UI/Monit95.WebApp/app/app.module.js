@@ -37,7 +37,6 @@ var school_files_component_1 = require("./components/school-files/school-files.c
 //import { ScanProtocolsComponent, FilterPipe } from './components/rsur/protocols/scan/scan-protocols.component';
 var question_protocols_list_component_1 = require("./components/rsur/protocols/question/question-protocols-list.component");
 var question_protocol_component_1 = require("./components/rsur/protocols/protocol/question-protocol.component");
-var confirm_dialog_component_1 = require("./shared/confirm-dialog/confirm-dialog.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
@@ -54,7 +53,7 @@ var seminar_report_service_1 = require("./services/seminar-report.service");
 var school_file_service_1 = require("./services/school-file.service");
 var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
 // Pipes
-var limit_to_pipe_1 = require("./limit-to.pipe");
+//import { LimitToPipe } from './limit-to.pipe';
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 //import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
 var school_filter_pipe_1 = require("./school-filter.pipe");
@@ -63,7 +62,7 @@ var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
 var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
 var rsur_particip_filter_pipe_1 = require("./pipes/rsur-particip-filter.pipe");
 var rsur_protocol_filter_pipe_1 = require("./pipes/rsur-protocol-filter.pipe");
-var offset_pipe_1 = require("./pipes/offset.pipe");
+//import { OffsetPipe } from './pipes/offset.pipe';
 // Additional 
 var common_1 = require("@angular/common");
 var error_handler_1 = require("./error-handler");
@@ -120,8 +119,8 @@ var AppModule = /** @class */ (function () {
                 //RsurParticipAddFormComponent,
                 rsur_particip_filter_pipe_1.RsurParticipFilterPipe,
                 class_name_filter_pipe_1.ClassNameFilterPipe,
-                limit_to_pipe_1.LimitToPipe,
-                offset_pipe_1.OffsetPipe,
+                //LimitToPipe,
+                //OffsetPipe,
                 particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
                 rsur_report_filter_pipe_1.TestIdPipe,
                 //FilterPipe,
@@ -149,8 +148,7 @@ var AppModule = /** @class */ (function () {
                 //ScanProtocolsComponent,
                 question_protocols_list_component_1.QuestionProtocolsList,
                 //MarksProtocolComponent,
-                question_protocol_component_1.QuestionProtocolComponent,
-                confirm_dialog_component_1.ConfirmDialogComponent
+                question_protocol_component_1.QuestionProtocolComponent
             ],
             providers: [
                 account_service_1.AccountService,
@@ -173,8 +171,7 @@ var AppModule = /** @class */ (function () {
                 { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator },
                 { provide: router_1.RouteReuseStrategy, useClass: custom_route_reuse_strategy_1.CustomReuseStrategy }
             ],
-            bootstrap: [app_component_1.AppComponent],
-            entryComponents: [confirm_dialog_component_1.ConfirmDialogComponent]
+            bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
     return AppModule;

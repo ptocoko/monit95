@@ -11,12 +11,13 @@ namespace Monit95App.App_Start
     {
         public static void Register(HttpConfiguration config)
         {
-            config.MapHttpAttributeRoutes();
-  
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{action}/{id}",
-            //    defaults: new { id = RouteParameter.Optional });
+            //    routeTemplate: "api/{controller}/{key}",
+            //    defaults: new { key = RouteParameter.Optional }
+            //);
+
+            config.MapHttpAttributeRoutes();
 
             var json = config.Formatters.JsonFormatter;
             json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
