@@ -91,7 +91,7 @@ export class ParticipsListComponent {
 			if (result) {
 				this.participService.deleteParticip(participId).subscribe(() => {
 					this.particips.splice(participIndex, 1);
-					this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 1000 });
+					this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 3000 });
 				});
 			}
 		});

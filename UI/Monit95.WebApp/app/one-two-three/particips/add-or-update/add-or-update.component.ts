@@ -7,6 +7,7 @@ import { ClassModel } from '../../../models/class.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatInput, MatFormField } from '@angular/material';
+import { delay } from 'rxjs/operators/delay';
 
 @Component({
 	templateUrl: `./app/one-two-three/particips/add-or-update/add-or-update.component.html?v=${new Date().getTime()}`,
@@ -75,17 +76,26 @@ export class AddOrUpdateComponent {
 
 	addNext() {
 		if (!this.isUpdate) {
+			this.participForm.disable();
+			this.isLoading = true;
+
 			if (this.participForm.invalid) {
 				this.markFieldsAsDirty();
+				this.participForm.enable();
+				this.isLoading = false;
 			} else if (this.participForm.pristine) {
 				this.formIsPristine = true;
+				this.participForm.enable();
+				this.isLoading = false;
 			} else {
-				this.participService.post(this.particip)
-					.subscribe(() => {
-						this.particip = {} as ParticipModel;
-						this.participForm.reset();
-						this.focusOnFirstField();
-					})
+				this.participService.post(this.particip).pipe(delay(3000))
+						.subscribe(() => {
+							this.participForm.enable();
+							this.isLoading = false;
+							this.particip = {} as ParticipModel;
+							this.participForm.reset();
+							this.focusOnFirstField();
+						});
 			}
 		}
 	}

@@ -7,6 +7,7 @@ var router_1 = require("@angular/router");
 var class_service_1 = require("../../../services/class.service");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
+var delay_1 = require("rxjs/operators/delay");
 var AddOrUpdateComponent = /** @class */ (function () {
     function AddOrUpdateComponent(participService, classService, router, route, location, fb, renderer) {
         var _this = this;
@@ -70,15 +71,23 @@ var AddOrUpdateComponent = /** @class */ (function () {
     AddOrUpdateComponent.prototype.addNext = function () {
         var _this = this;
         if (!this.isUpdate) {
+            this.participForm.disable();
+            this.isLoading = true;
             if (this.participForm.invalid) {
                 this.markFieldsAsDirty();
+                this.participForm.enable();
+                this.isLoading = false;
             }
             else if (this.participForm.pristine) {
                 this.formIsPristine = true;
+                this.participForm.enable();
+                this.isLoading = false;
             }
             else {
-                this.participService.post(this.particip)
+                this.participService.post(this.particip).pipe(delay_1.delay(3000))
                     .subscribe(function () {
+                    _this.participForm.enable();
+                    _this.isLoading = false;
                     _this.particip = {};
                     _this.participForm.reset();
                     _this.focusOnFirstField();

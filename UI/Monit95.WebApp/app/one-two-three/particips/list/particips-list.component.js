@@ -69,7 +69,7 @@ var ParticipsListComponent = /** @class */ (function () {
             if (result) {
                 _this.participService.deleteParticip(participId).subscribe(function () {
                     _this.particips.splice(participIndex, 1);
-                    _this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 1000 });
+                    _this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 3000 });
                 });
             }
         });
