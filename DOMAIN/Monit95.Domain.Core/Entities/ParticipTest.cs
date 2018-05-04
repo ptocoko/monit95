@@ -27,8 +27,10 @@ namespace Monit95App.Domain.Core.Entities
         /// </summary>
         public virtual ICollection<QuestionMark> QuestionMarks { get; set; } = new HashSet<QuestionMark>();
 
+        public virtual ICollection<OneTwoThreeQuestionMark> OneTwoThreeQuestionMarks { get; set; } = new HashSet<OneTwoThreeQuestionMark>();
+
         #region Computed indicators
-        
+
         /// <summary>
         /// Первичный балл
         /// </summary>

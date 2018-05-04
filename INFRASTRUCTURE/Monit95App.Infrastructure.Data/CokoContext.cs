@@ -48,6 +48,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<EgeQuestion> EgeQuestions { get; set; }
         public virtual DbSet<RsurQuestion> RsurQuestions { get; set; }
         public virtual DbSet<QuestionMark> QuestionMarks { get; set; }
+        public virtual DbSet<OneTwoThreeQuestion> OneTwoThreeQuestions { get; set; }
+        public virtual DbSet<OneTwoThreeQuestionMark> OneTwoThreeQuestionMarks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
