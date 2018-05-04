@@ -57,9 +57,9 @@ export class ProtocolsComponent {
 	}
 
 	markAsAbsent(protocol: QuestionProtocolRead) {
+		const index = this.dataSource.data.indexOf(protocol);
 		this.participProtocolsService.markAsAbsent(protocol.ParticipTestId).subscribe(_ => {
-			//protocol.QuestionMarks = this.AbsentText;
-			this.getProtocols();
+			this.dataSource.data[index].QuestionMarks = this.AbsentText;
 		});
 	}
 }

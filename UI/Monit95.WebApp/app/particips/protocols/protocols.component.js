@@ -46,9 +46,9 @@ var ProtocolsComponent = /** @class */ (function () {
     };
     ProtocolsComponent.prototype.markAsAbsent = function (protocol) {
         var _this = this;
+        var index = this.dataSource.data.indexOf(protocol);
         this.participProtocolsService.markAsAbsent(protocol.ParticipTestId).subscribe(function (_) {
-            //protocol.QuestionMarks = this.AbsentText;
-            _this.getProtocols();
+            _this.dataSource.data[index].QuestionMarks = _this.AbsentText;
         });
     };
     tslib_1.__decorate([

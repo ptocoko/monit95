@@ -15,7 +15,7 @@
 
         public string SchoolName { get; set; }
 
-        public int DocumNumber { get; set; }
+        public string DocumNumber { get; set; }
        
         public string DataSource { get; set; }
     }

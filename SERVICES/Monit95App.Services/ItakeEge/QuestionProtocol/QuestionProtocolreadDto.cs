@@ -14,7 +14,7 @@
         /// <example>Шахабов Адам Хаважиевич</example>
         public string ParticipInfo { get; set; }
 
-        public int? DocumNumber { get; set; }
+        public string DocumNumber { get; set; }
 
         /// <summary>
         /// Баллы по заданиям:
