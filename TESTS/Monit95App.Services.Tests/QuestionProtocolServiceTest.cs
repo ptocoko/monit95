@@ -26,7 +26,7 @@ namespace Monit95App.Services.Tests
                     SchoolId = "0005",
                     Surname = "test",
                     Name = "test",
-                    DocumNumber = 12345,
+                    DocumNumber = "12345",
                     ProjectId = 2013
                 }
             };

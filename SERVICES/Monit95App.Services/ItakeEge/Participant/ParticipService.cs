@@ -26,7 +26,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         //private const int ItakeEgeProjectId = 15; // projectId for i pass ege 2018 (may)
 
         private readonly MapperConfiguration mapperConfiguration = new MapperConfiguration(cfg => cfg.CreateMap<Particip, ParticipGetViewDto>()
-            .ForMember(d => d.DocumNumber, opt => opt.MapFrom(src => (int)src.DocumNumber))
+            .ForMember(d => d.DocumNumber, opt => opt.MapFrom(src => src.DocumNumber))
             .ReverseMap());
 
         #endregion

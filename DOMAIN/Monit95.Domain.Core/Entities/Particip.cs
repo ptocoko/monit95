@@ -22,7 +22,7 @@ namespace Monit95App.Domain.Core.Entities
         /// <summary>
         /// Номер документа (паспорта)
         /// </summary>
-        public int? DocumNumber { get; set; }
+        public string DocumNumber { get; set; }
 
         public string Phone { get; set; }
         public string Email { get; set; }
