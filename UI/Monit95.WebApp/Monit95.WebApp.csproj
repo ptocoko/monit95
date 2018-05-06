@@ -641,6 +641,8 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\models\class.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\particip.model.ts" />
+    <TypeScriptCompile Include="app\models\one-two-three\protocol-list.model.ts" />
+    <TypeScriptCompile Include="app\models\one-two-three\question-protocol.model.ts" />
     <TypeScriptCompile Include="app\models\particip-protocol.model.ts" />
     <TypeScriptCompile Include="app\models\question-protocol-edit.model.ts" />
     <TypeScriptCompile Include="app\models\question-protocol-post.model.ts" />
@@ -651,6 +653,7 @@
     <TypeScriptCompile Include="app\one-two-three\one-two-three.module.ts" />
     <TypeScriptCompile Include="app\one-two-three\particips\add-or-update\add-or-update.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\particips\list\particips-list.component.ts" />
+    <TypeScriptCompile Include="app\one-two-three\question-protocols\list\protocols-list.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\particips\home\home.component.ts" />
@@ -687,6 +690,7 @@
     <TypeScriptCompile Include="app\models\particip.model.ts" />
     <TypeScriptCompile Include="app\pipes\rsur-protocol-filter.pipe.ts" />
     <TypeScriptCompile Include="app\services\one-two-three\particips.service.ts" />
+    <TypeScriptCompile Include="app\services\one-two-three\question-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\particip-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\particip.service.ts" />
     <TypeScriptCompile Include="app\pipes\rsur-report-filter.pipe.ts" />
