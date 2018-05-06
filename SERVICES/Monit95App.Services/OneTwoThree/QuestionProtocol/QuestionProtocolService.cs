@@ -18,11 +18,11 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             this.context = context;
         }
 
-        public void EditQuestionMarks(int participTestId, IEnumerable<QuestionMarkDto> questionMarks)
+        public void EditQuestionMarks(int participTestId, string schoolId, IEnumerable<QuestionMarkDto> questionMarks)
         {
-            //TODO: check input object
+            CheckPostedQuestionMarks(questionMarks);
 
-            var participTest = context.ParticipTests.Find(participTestId);
+            var participTest = context.ParticipTests.SingleOrDefault(p => p.Id == participTestId && p.Particip.SchoolId == schoolId);
             if (participTest == null)
                 throw new ArgumentException("ParticipTest with this Id not exist");
 
@@ -30,6 +30,8 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             {
                 context.OneTwoThreeQuestionMarks.RemoveRange(participTest.OneTwoThreeQuestionMarks);
             }
+
+            participTest.Grade5 = null;
 
             context.OneTwoThreeQuestionMarks.AddRange(questionMarks.Select(s => new OneTwoThreeQuestionMark
             {
@@ -41,9 +43,9 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             context.SaveChanges();
         }
 
-        public QuestionProtocolDto GetProtocol(int participTestId)
+        public QuestionProtocolDto GetProtocol(int participTestId, string schoolId)
         {
-            var participTest = context.ParticipTests.Find(participTestId);
+            var participTest = context.ParticipTests.SingleOrDefault(p => p.Id == participTestId && p.Particip.SchoolId == schoolId);
             if (participTest == null)
                 throw new ArgumentException("ParticipTest with this Id not exist");
 
@@ -73,16 +75,16 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                     ParticipId = participTest.ParticipId,
                     ParticipFIO = participTest.Particip.Surname + " " + participTest.Particip.Name + " " + participTest.Particip.SecondName,
                     ClassName = participTest.Particip.Class.Name.Trim(),
-                    Marks = participTest.OneTwoThreeQuestionMarks.Select(s => s.AwardedMark.ToString()).AsEnumerable().Aggregate((source, dest) => $"{source};{dest}")
+                    Marks = GetMarks(participTest)
                 });
             }
 
             return questionList;
         }
 
-        public void MarkAsAbsent(int participTestId)
+        public void MarkAsAbsent(int participTestId, string schoolId)
         {
-            var participTest = context.ParticipTests.Find(participTestId);
+            var participTest = context.ParticipTests.SingleOrDefault(p => p.Id == participTestId && p.Particip.SchoolId == schoolId);
             if (participTest == null)
                 throw new ArgumentException("ParticipTest with this Id not exist");
 
@@ -94,6 +96,40 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             participTest.Grade5 = -1;
 
             context.SaveChanges();
+        }
+
+        private void CheckPostedQuestionMarks(IEnumerable<QuestionMarkDto> questionMarks)
+        {
+            if(questionMarks.Any(p => p.CurrentMark == null))
+            {
+                throw new ArgumentException("Posted CurrentMarks cannot be null");
+            }
+
+            if(questionMarks.Any(p => p.CurrentMark > p.MaxMark))
+            {
+                throw new ArgumentException("CurrentMarks should be less or equal to MaxMark");
+            }
+
+            if(questionMarks.Any(p => p.CurrentMark < 0))
+            {
+                throw new ArgumentException("CurrentMarks should be more than 0");
+            }
+        }
+
+        private string GetMarks(ParticipTest participTest)
+        {
+            if(participTest.Grade5 == -1)
+            {
+                return "отсутствовал";
+            }
+            else if (!participTest.OneTwoThreeQuestionMarks.Any())
+            {
+                return null;
+            }
+            else
+            {
+                return participTest.OneTwoThreeQuestionMarks.AsEnumerable().Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+            }
         }
     }
 }

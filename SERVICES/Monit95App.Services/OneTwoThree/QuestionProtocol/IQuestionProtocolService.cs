@@ -9,8 +9,8 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
     public interface IQuestionProtocolService
     {
         IEnumerable<QuestionListDto> GetQuestionListDtos(string schoolId);
-        QuestionProtocolDto GetProtocol(int participTestId);
-        void EditQuestionMarks(int participTestId, IEnumerable<QuestionMarkDto> questionMarks);
-        void MarkAsAbsent(int participTestId);
+        QuestionProtocolDto GetProtocol(int participTestId, string schoolId);
+        void EditQuestionMarks(int participTestId, string schoolId, IEnumerable<QuestionMarkDto> questionMarks);
+        void MarkAsAbsent(int participTestId, string schoolId);
     }
 }
