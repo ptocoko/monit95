@@ -38,7 +38,7 @@ export class ParticipProtocolComponent implements OnInit {
 						CurrentMark: val.AwardedMark,
 						Name: val.Order.toString(),
 						MaxMark: val.MaxMark,
-						QuestionResultId: val.QuestionMarkId
+						QuestionId: val.QuestionMarkId
 					};
 					return questionRes;
 				});

@@ -8,6 +8,10 @@ import { QuestionProtocolService } from '../../../services/one-two-three/questio
 })
 export class ProtocolsListComponent {
 	protocols: ProtocolList[] = [];
+	AbsentText = 'отсутствовал';
+
+	pageIndex = 0;
+	limitToVal = 20;
 
 	constructor(private protocolService: QuestionProtocolService) { }
 
@@ -17,7 +21,7 @@ export class ProtocolsListComponent {
 
 	markAsAbsent(protocol: ProtocolList) {
 		this.protocolService.markAsAbsent(protocol.ParticipTestId).subscribe(_ => {
-			protocol.Marks = 'отсутствовал';
+			protocol.Marks = this.AbsentText;
 		});
 	}
 }
