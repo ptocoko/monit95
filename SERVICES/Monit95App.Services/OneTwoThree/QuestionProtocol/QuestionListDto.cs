@@ -10,6 +10,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
     {
         public int ParticipTestId { get; set; }
         public int ParticipId { get; set; }
+        public string ParticipFIO { get; set; }
         public string ClassName { get; set; }
         public string Marks { get; set; }
     }

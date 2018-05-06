@@ -115,7 +115,6 @@
     <Compile Include="OneTwoThree\Particips\ParticipService.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\IQuestionProtocolService.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\QuestionListDto.cs" />
-    <Compile Include="OneTwoThree\QuestionProtocol\QuestionMarkDto.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\QuestionProtocolDto.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\QuestionProtocolService.cs" />
     <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
