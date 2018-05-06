@@ -10,6 +10,6 @@ export class HomeComponent {
 
 	ngOnInit() {
 		const date = new Date();
-		//this.timeIsCome = (date.getDate() === 4 && date.getHours() >= 8) || date.getDate() > 4;
+		this.timeIsCome = (date.getDate() === 7 && date.getHours() >= 8) || date.getDate() > 7;
 	}
 }

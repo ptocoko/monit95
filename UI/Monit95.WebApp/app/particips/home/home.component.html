@@ -1,5 +1,36 @@
 ﻿<h2>«Я сдам ЕГЭ!»: главное меню</h2>
 
+<div class="list-container" *ngIf="timeIsCome">
+    <h3 class="list-header">01 - Русский язык</h3>
+    <div>
+        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/KJTe/EfYhScvB7" target="_blank">
+            <div>
+                <h4>Бланк ответов</h4>
+            </div>
+        </a>
+        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/Kuru/dysgVSd7y" target="_blank">
+            <div>
+                <h4>Инструкция по выполнению работы</h4>
+            </div>
+        </a>
+        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/EvZb/uaMFiYz6u" target="_blank">
+            <div>
+                <h4>Варианты ИК</h4>
+            </div>
+        </a>
+        <a *ngIf="false" class="list-item-link" href="" target="_blank">
+            <div>
+                <h4><b>Ключи для проверки работ</b></h4>
+            </div>
+        </a>
+        <a *ngIf="false" class="list-item-link" routerLink="/particips/protocols">
+            <div>
+                <h4><b>Заполнение протоколов проверки заданий</b></h4>
+            </div>
+        </a>
+    </div>
+</div>
+
 <div class="list-container" *ngIf="true">
     <h3 class="list-header">02 - Математика базовая</h3>
     <div>
