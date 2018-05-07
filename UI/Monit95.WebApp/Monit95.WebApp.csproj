@@ -652,6 +652,7 @@
     <TypeScriptCompile Include="app\models\question-protocol-read.model.ts" />
     <TypeScriptCompile Include="app\models\rsur-reports-info.model.ts" />
     <TypeScriptCompile Include="app\one-two-three\home\home.component.ts" />
+    <TypeScriptCompile Include="app\one-two-three\NumberCodes.ts" />
     <TypeScriptCompile Include="app\one-two-three\one-two-three.module.ts" />
     <TypeScriptCompile Include="app\one-two-three\particips\add-or-update\add-or-update.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\particips\list\particips-list.component.ts" />

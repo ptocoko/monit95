@@ -62,9 +62,9 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             };
         }
 
-        public IEnumerable<QuestionListDto> GetQuestionListDtos(string schoolId)
+        public IEnumerable<QuestionListDto> GetQuestionListDtos(string schoolId, string numberCode)
         {
-            var participTests = context.ParticipTests.AsNoTracking().Where(p => p.Particip.SchoolId == schoolId && p.ProjectTest.ProjectId == _projectId && p.ProjectTest.IsOpen);
+            var participTests = context.ParticipTests.AsNoTracking().Where(p => p.Particip.SchoolId == schoolId && p.ProjectTest.ProjectId == _projectId && p.ProjectTest.IsOpen && p.ProjectTest.Test.NumberCode.Substring(2, 2) == numberCode);
 
             var questionList = new List<QuestionListDto>();
             foreach (var participTest in participTests)
@@ -74,6 +74,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                     ParticipTestId = participTest.Id,
                     ParticipId = participTest.ParticipId,
                     ParticipFIO = participTest.Particip.Surname + " " + participTest.Particip.Name + " " + participTest.Particip.SecondName,
+                    ClassId = participTest.Particip.ClassId,
                     ClassName = participTest.Particip.Class.Name.Trim(),
                     Marks = GetMarks(participTest)
                 });

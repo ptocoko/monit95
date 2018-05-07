@@ -19,12 +19,12 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
             this.protocolService = protocolService;
         }
 
-        [HttpGet, Route("")]
-        public IHttpActionResult GetProtocols()
+        [HttpGet, Route("{numberCode}")]
+        public IHttpActionResult GetProtocols([FromUri]string numberCode)
         {
             var schoolId = "0005";
 
-            var protocols = protocolService.GetQuestionListDtos(schoolId);
+            var protocols = protocolService.GetQuestionListDtos(schoolId, numberCode);
 
             return Ok(protocols);
         }

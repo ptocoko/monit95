@@ -1,4 +1,4 @@
-﻿<h3>РСУР: Протоколы проверки заданий</h3>
+﻿<h3>{{TestName}}: Протоколы проверки заданий</h3>
 <hr />
 <div>общее количество протоколов: {{protocols.length}}</div>
 <div>из них</div>
@@ -6,9 +6,26 @@
 <div>не обработано: {{notProcessedProtocols()}}</div>
 
 <div class="table-actions">
-    <mat-form-field>
-        <input #participCodeInput [(ngModel)]="searchText" maxlength="5" placeholder="поиск по коду участника..." matInput />
-    </mat-form-field>
+    <div>
+        <mat-form-field>
+            <input #participCodeInput
+                   [(ngModel)]="searchText"
+                   placeholder="поиск участника..."
+                   matInput />
+        </mat-form-field>
+
+        <mat-form-field class="class-select">
+            <mat-select placeholder="поиск по классу..."
+                        [(ngModel)]="searchClass"
+                        (selectionChange)="selectionChange()">
+                <mat-option [value]="">Все классы</mat-option>
+                <mat-option *ngFor="let class of protocols | getClasses"
+                            [value]="class.Id">
+                    {{ class.Name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <app-table-paginator [length]="protocols.length"
                             [pageSizeOptions]="[20, 50, 70]"
                             [(pageSize)]="limitToVal"
@@ -17,15 +34,15 @@
 </div>
 <table class="table table-bordered">
     <tr>
-        <th class="row-number-cell">#</th>
-        <th class="particip-code-cell">код участника</th>
+        <th>#</th>
+        <th>код участника</th>
         <th>фио</th>
         <th>баллы по заданиям</th>
         <th style="width:295px">действия</th>
     </tr>
-    <tr *ngFor="let protocol of protocols | rsurProtocolFilter : searchText | offset : pageIndex * limitToVal | limitTo : limitToVal; let i = index">
-        <td class="row-number-cell">{{i + 1}}</td>
-        <td class="particip-code-cell">{{protocol.ParticipId}}</td>
+    <tr *ngFor="let protocol of protocols | classFilter : searchClass | offset : pageIndex * limitToVal | limitTo : limitToVal; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{protocol.ParticipId}}</td>
         <td>{{protocol.ParticipFIO}}</td>
         <td [ngClass]="{'red-cell': !protocol.Marks}">{{protocol.Marks}}</td>
         <td>
