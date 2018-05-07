@@ -57,6 +57,11 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         [HttpPut, Route("{participId:int}")]
         public IHttpActionResult Put(int participId, [FromBody]ParticipDto particip)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             string schoolId = User.Identity.Name;
             try
             {

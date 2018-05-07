@@ -14,22 +14,26 @@ var map_1 = require("rxjs/operators/map");
 var class_service_1 = require("../../../services/class.service");
 var material_1 = require("@angular/material");
 var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm-dialog.component");
+var account_service_1 = require("../../../services/account.service");
 var ParticipsListComponent = /** @class */ (function () {
-    function ParticipsListComponent(participService, classService, dialog, snackBar) {
+    function ParticipsListComponent(participService, classService, dialog, snackBar, accountService) {
         this.participService = participService;
         this.classService = classService;
         this.dialog = dialog;
         this.snackBar = snackBar;
+        this.accountService = accountService;
         this.particips = [];
         this.classes = [];
         this.pageIndex = 0;
         this.limitToVal = 20;
         this.participsLength = 0;
+        this.isFailingSchool = false;
         this.selectionChange$ = new Subject_1.Subject();
     }
     ParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
+        this.isFailingSchool = ["0303", "0302", "0331", "0587", "0001", "0613", "0289"].indexOf(this.accountService.account.UserName) > 0;
         var search$ = fromEvent_1.fromEvent(this.searchField.nativeElement, 'input')
             .pipe(debounceTime_1.debounceTime(1000));
         search$.subscribe(function () { return _this.pageIndex = 0; });
@@ -94,7 +98,8 @@ var ParticipsListComponent = /** @class */ (function () {
         tslib_1.__metadata("design:paramtypes", [particips_service_1.ParticipService,
             class_service_1.ClassService,
             material_1.MatDialog,
-            material_1.MatSnackBar])
+            material_1.MatSnackBar,
+            account_service_1.AccountService])
     ], ParticipsListComponent);
     return ParticipsListComponent;
 }());

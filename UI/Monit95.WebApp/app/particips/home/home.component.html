@@ -1,29 +1,29 @@
 ﻿<h2>«Я сдам ЕГЭ!»: главное меню</h2>
 
-<div class="list-container" *ngIf="timeIsCome">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">01 - Русский язык</h3>
     <div>
-        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/KJTe/EfYhScvB7" target="_blank">
+        <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/KJTe/EfYhScvB7" target="_blank">
             <div>
                 <h4>Бланк ответов</h4>
             </div>
         </a>
-        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/Kuru/dysgVSd7y" target="_blank">
+        <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/Kuru/dysgVSd7y" target="_blank">
             <div>
                 <h4>Инструкция по выполнению работы</h4>
             </div>
         </a>
-        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/9yYi/QbJCA8MCQ" target="_blank">
+        <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/9yYi/QbJCA8MCQ" target="_blank">
             <div>
                 <h4>Варианты ИК</h4>
             </div>
         </a>
-        <a *ngIf="false" class="list-item-link" href="" target="_blank">
+        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/LLgd/Fi3GDUZ22" target="_blank">
             <div>
                 <h4><b>Ключи для проверки работ</b></h4>
             </div>
         </a>
-        <a *ngIf="false" class="list-item-link" routerLink="/particips/protocols">
+        <a *ngIf="true" class="list-item-link" routerLink="/particips/protocols">
             <div>
                 <h4><b>Заполнение протоколов проверки заданий</b></h4>
             </div>
@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">02 - Математика базовая</h3>
     <div>
         <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/4SoF/xKNuVLJJJ" target="_blank">
@@ -68,7 +68,7 @@
 </div>
 
 <!-- Общее -->
-<div class="list-container" *ngIf="accountService.account.UserName === '0521' || accountService.account.UserName === '0495'">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Общее</h3>
     <div>
         <a class="list-item-link" routerLink="/particips/list">
