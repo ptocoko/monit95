@@ -72,6 +72,7 @@
     <Compile Include="Interfaces\ParticipProtocol.cs" />
     <Compile Include="ExtendParticipProtocol.cs" />
     <Compile Include="ExtendParticipProtocolFactory.cs" />
+    <Compile Include="ITakeEge.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolProtocol.cs" />
