@@ -67,6 +67,23 @@
     </div>
 </div>
 
+<!-- Общее -->
+<div class="list-container" *ngIf="accountService.account.UserName === '0521' || accountService.account.UserName === '0495'">
+    <h3 class="list-header">Общее</h3>
+    <div>
+        <a class="list-item-link" routerLink="/particips/list">
+            <div>
+                <h4>Список участников</h4>
+            </div>
+        </a>
+        <!--<a class="list-item-link" href="https://t.me/iTakeEge" target="_blank">
+            <div>
+                <h4><b>Telegram-группа технической поддержки: https://t.me/iTakeEge</b></h4>
+            </div>
+        </a>-->
+    </div>
+</div>
+
 <div class="list-container">
     <h3 class="list-header">Методический материал</h3>
     <div>
@@ -88,22 +105,6 @@
     </div>
 </div>
 
-<!-- Общее -->
-<div class="list-container" *ngIf="false">
-    <h3 class="list-header">Общее</h3>
-    <div>
-        <a class="list-item-link" routerLink="/particips/list">
-            <div>
-                <h4>Список участников</h4>
-            </div>
-        </a>
-        <!--<a class="list-item-link" href="https://t.me/iTakeEge" target="_blank">
-            <div>
-                <h4><b>Telegram-группа технической поддержки: https://t.me/iTakeEge</b></h4>
-            </div>
-        </a>-->
-    </div>
-</div>
 
 
 <div class="list-container">
