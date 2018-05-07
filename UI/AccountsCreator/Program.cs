@@ -35,15 +35,16 @@ namespace AccountsCreator
             //    ["217_coko"] = "175814"
 
             //};
-            Console.WriteLine("here we go!");
-            foreach (var logingPair in CHOU_accounts.Get())
-            {
-                Console.WriteLine($"user {logingPair.Key} creating...");
-                accountsManager.CreateUser(logingPair.Key, logingPair.Value);
-                accountsManager.AddRoleToUser(logingPair.Key, "school");
-                Console.WriteLine($"user {logingPair.Key} created!");
-            }
-
+            //Console.WriteLine("here we go!");
+            //foreach (var logingPair in CHOU_accounts.Get())
+            //{
+            //    Console.WriteLine($"user {logingPair.Key} creating...");
+            //    accountsManager.CreateUser(logingPair.Key, logingPair.Value);
+            //    accountsManager.AddRoleToUser(logingPair.Key, "school");
+            //    Console.WriteLine($"user {logingPair.Key} created!");
+            //}
+            accountsManager.CreateUser("0495", "45165351");
+            accountsManager.AddRoleToUser("0495", "school");
             //bool toExit = false;
             //while (!toExit)
             //{

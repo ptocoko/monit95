@@ -76,19 +76,16 @@ export class AddOrUpdateComponent {
 
 	addNext() {
 		if (!this.isUpdate) {
-			this.participForm.disable();
 			this.isLoading = true;
 
 			if (this.participForm.invalid) {
 				this.markFieldsAsDirty();
-				this.participForm.enable();
 				this.isLoading = false;
 			} else if (this.participForm.pristine) {
 				this.formIsPristine = true;
-				this.participForm.enable();
 				this.isLoading = false;
 			} else {
-				this.participService.post(this.particip).pipe(delay(3000))
+				this.participService.post(this.particip)
 						.subscribe(() => {
 							this.participForm.enable();
 							this.isLoading = false;

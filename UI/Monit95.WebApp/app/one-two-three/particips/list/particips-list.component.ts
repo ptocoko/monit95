@@ -14,6 +14,7 @@ import { ClassService } from '../../../services/class.service';
 import { ClassModel } from '../../../models/class.model';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
 	templateUrl: `./app/one-two-three/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
@@ -30,6 +31,8 @@ export class ParticipsListComponent {
 	limitToVal = 20;
 	participsLength = 0;
 
+	isFailingSchool = false;
+
 	selectionChange$ = new Subject<any>();
 	@ViewChild(TablePaginator) paginator: TablePaginator;
 	@ViewChild('searchField') searchField: ElementRef;
@@ -37,10 +40,13 @@ export class ParticipsListComponent {
 	constructor(private participService: ParticipService,
 		private classService: ClassService,
 		private dialog: MatDialog,
-	private snackBar: MatSnackBar) { }
+		private snackBar: MatSnackBar,
+		private accountService: AccountService) { }
 
 	ngOnInit() {
 		this.isLoading = true;
+
+		this.isFailingSchool = ["0303", "0302", "0331", "0587", "0001", "0613", "0289"].indexOf(this.accountService.account.UserName) > 0;
 
 		const search$ = fromEvent(this.searchField.nativeElement, 'input')
 			.pipe(
