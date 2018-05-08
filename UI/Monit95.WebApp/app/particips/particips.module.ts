@@ -26,7 +26,7 @@ const routes: Routes = [
 	{ path: 'particips/oge/list', component: OgeParticipsListComponent},
 	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 15 } },
 	{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 16 } },
-	{ path: 'particips/protocols', component: ProtocolsComponent },
+	{ path: 'particips/protocols/:id', component: ProtocolsComponent },
 	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
 	{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
 	{ path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },

@@ -6,7 +6,7 @@ namespace Monit95App.Services.ItakeEge.QuestionResult
 {
     public interface IQuestionProtocolService
     {
-        IEnumerable<QuestionProtocolReadDto> GetReadDtos(string schoolId);
+        IEnumerable<QuestionProtocolReadDto> GetReadDtos(string schoolId, int projectTestId);
 
         QuestionProtocolEditDto GetEditDto(string schoolId, int participTestId);
 

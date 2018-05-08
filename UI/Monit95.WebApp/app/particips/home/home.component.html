@@ -1,14 +1,14 @@
 ﻿<h2>«Я сдам ЕГЭ!»: главное меню</h2>
 
-<div class="list-container" *ngIf="timeIsCome">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">22 - Математика профильная</h3>
     <div>
-        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/7mpR/7zUAx7Mh1" target="_blank">
+        <a *ngIf="!timeIsCome" class="list-item-link" href="https://cloud.mail.ru/public/7mpR/7zUAx7Mh1" target="_blank">
             <div>
                 <h4><b>Бланк ответов</b></h4>
             </div>
         </a>
-        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/LAYC/tsWwtje3R" target="_blank">
+        <a *ngIf="!timeIsCome" class="list-item-link" href="https://cloud.mail.ru/public/LAYC/tsWwtje3R" target="_blank">
             <div>
                 <h4><b>Инструкция по выполнению работы</b></h4>
             </div>
@@ -18,17 +18,17 @@
                 <h4><b>Справочные материалы</b></h4>
             </div>
         </a>
-        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/6nCc/GzDDJvU2k" target="_blank">
+        <a *ngIf="!timeIsCome" class="list-item-link" href="https://cloud.mail.ru/public/6nCc/GzDDJvU2k" target="_blank">
             <div>
                 <h4><b>Варианты ИК</b></h4>
             </div>
         </a>
-        <a *ngIf="false" class="list-item-link" href="" target="_blank">
+        <a *ngIf="timeIsCome" class="list-item-link" href="https://cloud.mail.ru/public/5dtm/XbHZaKq2b" target="_blank">
             <div>
                 <h4><b>Ключи для проверки работ</b></h4>
             </div>
         </a>
-        <a *ngIf="false" class="list-item-link" routerLink="/particips/protocols">
+        <a *ngIf="timeIsCome" class="list-item-link" routerLink="/particips/protocols/2019">
             <div>
                 <h4><b>Заполнение протоколов проверки заданий</b></h4>
             </div>
@@ -59,7 +59,7 @@
                 <h4>Ключи для проверки работ</h4>
             </div>
         </a>
-        <a *ngIf="true" class="list-item-link" routerLink="/particips/protocols">
+        <a *ngIf="true" class="list-item-link" routerLink="/particips/protocols/2017">
             <div>
                 <h4>Заполнение протоколов проверки заданий</h4>
             </div>

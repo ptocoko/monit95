@@ -1,5 +1,5 @@
 ﻿import { Component, ViewChild } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ParticipProtocolsService } from '../../services/particip-protocols.service';
 import { Observable } from 'rxjs/Observable';
 import { QuestionProtocolRead } from '../../models/question-protocol-read.model';
@@ -26,7 +26,8 @@ export class ProtocolsComponent {
 	notProcessedProtocols = () => this.protocols.filter(f => !f.QuestionMarks).length;
 
 	constructor(private participProtocolsService: ParticipProtocolsService,
-				private router: Router) { }
+		private router: Router,
+		private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.getProtocols();
@@ -34,13 +35,18 @@ export class ProtocolsComponent {
 	
 	getProtocols() {
 		this.isLoading = true;
-	    this.participProtocolsService.getProtocolsList().subscribe(res => {
-			this.protocolsCount = res.length;
-			this.protocols = res;
-			this.dataSource = new MatTableDataSource<QuestionProtocolRead>(res);
-			this.isLoading = false;
-			this.dataSource.paginator = this.paginator;
-	    });
+		this.route.params.subscribe(params => {
+			const projectTestId = Number.parseInt(params['id']);
+
+			this.participProtocolsService.getProtocolsList(projectTestId).subscribe(res => {
+				this.protocolsCount = res.length;
+				this.protocols = res;
+				this.dataSource = new MatTableDataSource<QuestionProtocolRead>(res);
+				this.isLoading = false;
+				this.dataSource.paginator = this.paginator;
+			});
+
+		})
 
 	}
 

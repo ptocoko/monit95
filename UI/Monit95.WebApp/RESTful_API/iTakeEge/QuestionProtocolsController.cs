@@ -53,12 +53,12 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// Получение списка протоколов проверки заданий для чтения
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("api/iTakeEGE/questionProtocols")]
-        public IHttpActionResult GetReadDtos()
+        [HttpGet, Route("api/iTakeEGE/questionProtocols/{projectTestId}")]
+        public IHttpActionResult GetReadDtos([FromUri]int projectTestId)
         {
             var schoolId = User.Identity.Name;
 
-            IEnumerable<QuestionProtocolReadDto> readDtos = questionProtocolService.GetReadDtos(schoolId);
+            IEnumerable<QuestionProtocolReadDto> readDtos = questionProtocolService.GetReadDtos(schoolId, projectTestId);
 
             return Ok(readDtos);
         }
