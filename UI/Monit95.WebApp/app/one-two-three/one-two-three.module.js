@@ -15,12 +15,14 @@ var particips_pipe_1 = require("../pipes/one-two-three/particips.pipe");
 var add_or_update_component_1 = require("./particips/add-or-update/add-or-update.component");
 var protocols_list_component_1 = require("./question-protocols/list/protocols-list.component");
 var question_protocols_service_1 = require("../services/one-two-three/question-protocols.service");
+var protocol_component_1 = require("./question-protocols/protocol/protocol.component");
 var routes = [
     { path: 'one-two-three/home', component: home_component_1.HomeComponent },
     { path: 'one-two-three/particips/list', component: particips_list_component_1.ParticipsListComponent },
     { path: 'one-two-three/particips/add', component: add_or_update_component_1.AddOrUpdateComponent },
     { path: 'one-two-three/particips/:participId', component: add_or_update_component_1.AddOrUpdateComponent },
     { path: 'one-two-three/protocols/:numberCode', component: protocols_list_component_1.ProtocolsListComponent },
+    { path: 'one-two-three/protocol/:participTestId', component: protocol_component_1.ProtocolComponent },
     { path: 'one-two-three', redirectTo: 'one-two-three/home', pathMatch: 'full' }
 ];
 var OneTwoThreeModule = /** @class */ (function () {
@@ -46,6 +48,7 @@ var OneTwoThreeModule = /** @class */ (function () {
                 particips_pipe_1.ClassesGetterPipe,
                 particips_pipe_1.ParticipFilterPipe,
                 protocols_list_component_1.ProtocolsListComponent,
+                protocol_component_1.ProtocolComponent
             ],
             providers: [
                 particips_service_1.ParticipService,

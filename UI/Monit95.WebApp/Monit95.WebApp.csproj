@@ -343,7 +343,7 @@
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\OneTwoThree\ParticipsController.cs" />
-    <Compile Include="RESTful_API\OneTwoThree\QuestionProtocolsController.cs" />
+    <Compile Include="RESTful_API\OneTwoThree\OneTwoThreeProtocolsController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
     <Compile Include="RESTful_API\FilesController.cs" />
     <Compile Include="RESTful_API\Rsur\QuestionValuesController.cs" />
@@ -402,6 +402,7 @@
     <Content Include="app\one-two-three\particips\list\particips-list.component.html" />
     <Content Include="app\one-two-three\question-protocols\list\protocols-list.component.css" />
     <Content Include="app\one-two-three\question-protocols\list\protocols-list.component.html" />
+    <Content Include="app\one-two-three\question-protocols\protocol\protocol.component.html" />
     <Content Include="app\particips\add-and-update\add.component.css" />
     <Content Include="app\particips\add-and-update\update.component.html" />
     <Content Include="app\particips\add-and-update\add.component.html" />
@@ -657,6 +658,7 @@
     <TypeScriptCompile Include="app\one-two-three\particips\add-or-update\add-or-update.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\particips\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\question-protocols\list\protocols-list.component.ts" />
+    <TypeScriptCompile Include="app\one-two-three\question-protocols\protocol\protocol.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\update.component.ts" />
     <TypeScriptCompile Include="app\particips\add-and-update\add.component.ts" />
     <TypeScriptCompile Include="app\particips\home\home.component.ts" />

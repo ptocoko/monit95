@@ -8,7 +8,7 @@ var delay_1 = require("rxjs/operators/delay");
 var QuestionProtocolService = /** @class */ (function () {
     function QuestionProtocolService(http) {
         this.http = http;
-        this.endpoint = '/api/onetwothree/questionProtocols';
+        this.endpoint = '/api/onetwothree/protocols';
     }
     QuestionProtocolService.prototype.getAll = function (numberCode) {
         //return this.http.get<ProtocolList[]>(`${this.endpoint}/${numberCode}`);
@@ -32,16 +32,40 @@ var QuestionProtocolService = /** @class */ (function () {
         ]).pipe(delay_1.delay(3000));
     };
     QuestionProtocolService.prototype.get = function (participTestId) {
-        //return this.http.get<QuestionProtocol>(`${this.endpoint}/${participTestId}`);
-        return of_1.of({}).pipe(delay_1.delay(2000));
+        //return this.http.get<QuestionProtocol>(`/api/onetwothree/protocol/${participTestId}`);
+        return of_1.of({
+            ParticipFIO: 'Эсамбаев Хусайн Арбиевич',
+            QuestionMarks: [
+                {
+                    Name: '1',
+                    MaxMark: 1,
+                },
+                {
+                    Name: '2',
+                    MaxMark: 2,
+                },
+                {
+                    Name: '3',
+                    MaxMark: 4,
+                },
+                {
+                    Name: '4',
+                    MaxMark: 4,
+                },
+                {
+                    Name: '5',
+                    MaxMark: 5,
+                }
+            ]
+        }).pipe(delay_1.delay(2000));
     };
     QuestionProtocolService.prototype.editMarks = function (participTestId, marks) {
-        //return this.http.post(`${this.endpoint}/${participTestId}`, marks, { responseType: 'text' });
-        return of_1.of('hegh').pipe(delay_1.delay(2000));
+        return this.http.post(this.endpoint + "/" + participTestId, marks, { responseType: 'text' });
+        //return of('hegh').pipe(delay(2000));
     };
     QuestionProtocolService.prototype.markAsAbsent = function (participTestId) {
-        //return this.http.put(`${this.endpoint}/${participTestId}/markAsAbsent`, null, { responseType: 'text' });
-        return of_1.of('hegh').pipe(delay_1.delay(2000));
+        return this.http.put(this.endpoint + "/" + participTestId + "/markAsAbsent", null, { responseType: 'text' });
+        //return of('hegh').pipe(delay(2000));
     };
     QuestionProtocolService = tslib_1.__decorate([
         core_1.Injectable(),

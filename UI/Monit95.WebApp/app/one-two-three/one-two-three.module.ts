@@ -13,6 +13,7 @@ import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes
 import { AddOrUpdateComponent } from './particips/add-or-update/add-or-update.component';
 import { ProtocolsListComponent } from './question-protocols/list/protocols-list.component';
 import { QuestionProtocolService } from '../services/one-two-three/question-protocols.service';
+import { ProtocolComponent } from './question-protocols/protocol/protocol.component';
 
 const routes: Routes = [
 	{ path: 'one-two-three/home', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
 	{ path: 'one-two-three/particips/:participId', component: AddOrUpdateComponent },
 
 	{ path: 'one-two-three/protocols/:numberCode', component: ProtocolsListComponent },
+	{ path: 'one-two-three/protocol/:participTestId', component: ProtocolComponent },
 
 	{ path: 'one-two-three', redirectTo: 'one-two-three/home', pathMatch: 'full' }
 ]
@@ -44,6 +46,7 @@ const routes: Routes = [
 		ClassesGetterPipe,
 		ParticipFilterPipe,
 		ProtocolsListComponent,
+		ProtocolComponent
 	],
 	providers: [
 		ParticipService,

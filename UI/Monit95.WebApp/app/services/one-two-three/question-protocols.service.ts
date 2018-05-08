@@ -9,7 +9,7 @@ import { delay } from 'rxjs/operators/delay';
 
 @Injectable()
 export class QuestionProtocolService {
-	readonly endpoint = '/api/onetwothree/questionProtocols'
+	readonly endpoint = '/api/onetwothree/protocols'
 
 	constructor(private http: HttpClient) { }
 
@@ -36,17 +36,41 @@ export class QuestionProtocolService {
 	}
 
 	get(participTestId: number): Observable<QuestionProtocol> {
-		//return this.http.get<QuestionProtocol>(`${this.endpoint}/${participTestId}`);
-		return of({} as QuestionProtocol).pipe(delay(2000));
+		//return this.http.get<QuestionProtocol>(`/api/onetwothree/protocol/${participTestId}`);
+		return of({
+			ParticipFIO: 'Эсамбаев Хусайн Арбиевич',
+			QuestionMarks: [
+				{
+					Name: '1',
+					MaxMark: 1,
+				},
+				{
+					Name: '2',
+					MaxMark: 2,
+				},
+				{
+					Name: '3',
+					MaxMark: 4,
+				},
+				{
+					Name: '4',
+					MaxMark: 4,
+				},
+				{
+					Name: '5',
+					MaxMark: 5,
+				}
+			]
+		} as QuestionProtocol).pipe(delay(2000));
 	}
 
 	editMarks(participTestId: number, marks: QuestionResult[]): Observable<string> {
-		//return this.http.post(`${this.endpoint}/${participTestId}`, marks, { responseType: 'text' });
-		return of('hegh').pipe(delay(2000));
+		return this.http.post(`${this.endpoint}/${participTestId}`, marks, { responseType: 'text' });
+		//return of('hegh').pipe(delay(2000));
 	}
 
 	markAsAbsent(participTestId: number): Observable<string> {
-		//return this.http.put(`${this.endpoint}/${participTestId}/markAsAbsent`, null, { responseType: 'text' });
-		return of('hegh').pipe(delay(2000));
+		return this.http.put(`${this.endpoint}/${participTestId}/markAsAbsent`, null, { responseType: 'text' });
+		//return of('hegh').pipe(delay(2000));
 	}
 }
