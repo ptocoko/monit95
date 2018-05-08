@@ -43,8 +43,6 @@ namespace AccountsCreator
             //    accountsManager.AddRoleToUser(logingPair.Key, "school");
             //    Console.WriteLine($"user {logingPair.Key} created!");
             //}
-            accountsManager.CreateUser("0495", "45165351");
-            accountsManager.AddRoleToUser("0495", "school");
             //bool toExit = false;
             //while (!toExit)
             //{
