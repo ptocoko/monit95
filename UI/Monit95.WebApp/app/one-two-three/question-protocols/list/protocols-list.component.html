@@ -37,13 +37,15 @@
         <th>#</th>
         <th>код участника</th>
         <th>фио</th>
+        <th>класс</th>
         <th>баллы по заданиям</th>
         <th style="width:295px">действия</th>
     </tr>
     <tr *ngFor="let protocol of protocols | classFilter : searchClass | offset : pageIndex * limitToVal | limitTo : limitToVal; let i = index">
-        <td>{{i + 1}}</td>
+        <td class="text-center">{{i + 1}}</td>
         <td>{{protocol.ParticipId}}</td>
         <td>{{protocol.ParticipFIO}}</td>
+        <td class="text-center">{{protocol.ClassName}}</td>
         <td [ngClass]="{'red-cell': !protocol.Marks}">{{protocol.Marks}}</td>
         <td>
             <div class="pull-left">
@@ -65,3 +67,7 @@
         </td>
     </tr>
 </table>
+
+<p *ngIf="isLoading" class="text-center"><i>Загрузка...</i></p>
+
+<p *ngIf="!isLoading && protocols.length === 0" class="text-center"><i>Протоколов нет.</i></p>

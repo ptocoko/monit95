@@ -16,22 +16,26 @@ var ProtocolsListComponent = /** @class */ (function () {
         this.AbsentText = 'отсутствовал';
         this.pageIndex = 0;
         this.limitToVal = 20;
-        this.numberCodes = {
-            '01': 'Русский язык',
-            '02': 'Математика',
-            '03': 'Чтение'
+        this.projectTestIds = {
+            2033: 'Русский язык',
+            2034: 'Математика',
+            2035: 'Чтение'
         };
     }
     ProtocolsListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.isLoading = true;
         this.route.params.subscribe(function (params) {
-            _this.numberCode = params['numberCode'];
-            _this.TestName = _this.numberCodes[_this.numberCode];
+            _this.projectTestId = params['projectTestId'];
+            _this.TestName = _this.projectTestIds[_this.projectTestId];
         });
     };
     ProtocolsListComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.protocolService.getAll(this.numberCode).subscribe(function (res) { return _this.protocols = res; });
+        this.protocolService.getAll(this.projectTestId).subscribe(function (res) {
+            _this.protocols = res;
+            _this.isLoading = false;
+        });
     };
     ProtocolsListComponent.prototype.changeMarks = function (participTestId) {
         this.router.navigate(['/one-two-three/protocol', participTestId]);

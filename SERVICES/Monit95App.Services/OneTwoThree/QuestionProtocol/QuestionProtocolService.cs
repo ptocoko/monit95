@@ -56,15 +56,15 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 {
                     QuestionId = s.Id,
                     MaxMark = s.MaxMark,
-                    CurrentMark = s.OneTwoThreeQuestionMarks.FirstOrDefault().AwardedMark,
+                    CurrentMark = s.OneTwoThreeQuestionMarks.FirstOrDefault()?.AwardedMark,
                     Name = s.Name
                 })
             };
         }
 
-        public IEnumerable<QuestionListDto> GetQuestionListDtos(string schoolId, string numberCode)
+        public IEnumerable<QuestionListDto> GetQuestionListDtos(string schoolId, int projectTestId)
         {
-            var participTests = context.ParticipTests.AsNoTracking().Where(p => p.Particip.SchoolId == schoolId && p.ProjectTest.ProjectId == _projectId && p.ProjectTest.IsOpen && p.ProjectTest.Test.NumberCode.Substring(2, 2) == numberCode);
+            var participTests = context.ParticipTests.AsNoTracking().Where(p => p.Particip.SchoolId == schoolId && p.ProjectTest.ProjectId == _projectId && p.ProjectTestId == projectTestId);
 
             var questionList = new List<QuestionListDto>();
             foreach (var participTest in participTests)

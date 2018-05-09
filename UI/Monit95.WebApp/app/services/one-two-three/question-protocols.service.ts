@@ -13,64 +13,19 @@ export class QuestionProtocolService {
 
 	constructor(private http: HttpClient) { }
 
-	getAll(numberCode: string): Observable<ProtocolList[]> {
-		//return this.http.get<ProtocolList[]>(`${this.endpoint}/${numberCode}`);
-		return of([
-			{
-				ParticipTestId: 17,
-				ParticipId: 177,
-				ParticipFIO: 'Эсамбаев Хусайн Арбиевич',
-				Marks: null,
-				ClassId: '0201',
-				ClassName: '2 А'
-			},
-			{
-				ParticipTestId: 18,
-				ParticipId: 178,
-				ParticipFIO: 'Эсамбаев Хусс Арбиевич',
-				Marks: '1;1;1;0;1;1;0;1;1;1;0;1',
-				ClassId: '0202',
-				ClassName: '2 Б'
-			},
-		]).pipe(delay(3000));
+	getAll(projectTestId: number): Observable<ProtocolList[]> {
+		return this.http.get<ProtocolList[]>(`${this.endpoint}/${projectTestId}`);
 	}
 
 	get(participTestId: number): Observable<QuestionProtocol> {
-		//return this.http.get<QuestionProtocol>(`/api/onetwothree/protocol/${participTestId}`);
-		return of({
-			ParticipFIO: 'Эсамбаев Хусайн Арбиевич',
-			QuestionMarks: [
-				{
-					Name: '1',
-					MaxMark: 1,
-				},
-				{
-					Name: '2',
-					MaxMark: 2,
-				},
-				{
-					Name: '3',
-					MaxMark: 4,
-				},
-				{
-					Name: '4',
-					MaxMark: 4,
-				},
-				{
-					Name: '5',
-					MaxMark: 5,
-				}
-			]
-		} as QuestionProtocol).pipe(delay(2000));
+		return this.http.get<QuestionProtocol>(`/api/onetwothree/protocol/${participTestId}`);
 	}
 
 	editMarks(participTestId: number, marks: QuestionResult[]): Observable<string> {
 		return this.http.post(`${this.endpoint}/${participTestId}`, marks, { responseType: 'text' });
-		//return of('hegh').pipe(delay(2000));
 	}
 
 	markAsAbsent(participTestId: number): Observable<string> {
 		return this.http.put(`${this.endpoint}/${participTestId}/markAsAbsent`, null, { responseType: 'text' });
-		//return of('hegh').pipe(delay(2000));
 	}
 }

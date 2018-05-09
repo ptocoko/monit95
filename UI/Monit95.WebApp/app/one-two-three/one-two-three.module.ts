@@ -21,7 +21,7 @@ const routes: Routes = [
 	{ path: 'one-two-three/particips/add', component: AddOrUpdateComponent },
 	{ path: 'one-two-three/particips/:participId', component: AddOrUpdateComponent },
 
-	{ path: 'one-two-three/protocols/:numberCode', component: ProtocolsListComponent },
+	{ path: 'one-two-three/protocols/:projectTestId', component: ProtocolsListComponent },
 	{ path: 'one-two-three/protocol/:participTestId', component: ProtocolComponent },
 
 	{ path: 'one-two-three', redirectTo: 'one-two-three/home', pathMatch: 'full' }

@@ -9,13 +9,14 @@ import { NumberCodes } from '../../NumberCodes';
 	styleUrls: [`./app/one-two-three/question-protocols/list/protocols-list.component.css?v=${new Date().getTime()}`]
 })
 export class ProtocolsListComponent {
-	numberCode: string;
+	projectTestId: number;
 	protocols: ProtocolList[] = [];
 	processedProtocols = () => this.protocols.filter(f => f.Marks).length;
 	notProcessedProtocols = () => this.protocols.filter(f => !f.Marks).length;
 
 	AbsentText = 'отсутствовал';
 	TestName: string;
+	isLoading: boolean;
 
 	pageIndex = 0;
 	limitToVal = 20;
@@ -25,14 +26,18 @@ export class ProtocolsListComponent {
 		private route: ActivatedRoute) { }
 
 	ngOnInit() {
+		this.isLoading = true;
 		this.route.params.subscribe(params => {
-			this.numberCode = params['numberCode'];
-			this.TestName = this.numberCodes[this.numberCode];
+			this.projectTestId = params['projectTestId'];
+			this.TestName = this.projectTestIds[this.projectTestId];
 		});
 	}
 
 	ngAfterViewInit() {
-		this.protocolService.getAll(this.numberCode).subscribe(res => this.protocols = res);
+		this.protocolService.getAll(this.projectTestId).subscribe(res => {
+			this.protocols = res;
+			this.isLoading = false;
+		});
 	}
 
 	changeMarks(participTestId: number) {
@@ -49,9 +54,9 @@ export class ProtocolsListComponent {
 		this.pageIndex = 0;
 	}
 
-	numberCodes: { [numberCode: string]: string } = {
-		'01': 'Русский язык',
-		'02': 'Математика',
-		'03': 'Чтение'
+	projectTestIds: { [projectTestId: number]: string } = {
+		2033: 'Русский язык',
+		2034: 'Математика',
+		2035: 'Чтение'
 	};
 }

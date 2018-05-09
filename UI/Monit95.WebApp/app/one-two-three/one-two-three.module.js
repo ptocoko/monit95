@@ -21,7 +21,7 @@ var routes = [
     { path: 'one-two-three/particips/list', component: particips_list_component_1.ParticipsListComponent },
     { path: 'one-two-three/particips/add', component: add_or_update_component_1.AddOrUpdateComponent },
     { path: 'one-two-three/particips/:participId', component: add_or_update_component_1.AddOrUpdateComponent },
-    { path: 'one-two-three/protocols/:numberCode', component: protocols_list_component_1.ProtocolsListComponent },
+    { path: 'one-two-three/protocols/:projectTestId', component: protocols_list_component_1.ProtocolsListComponent },
     { path: 'one-two-three/protocol/:participTestId', component: protocol_component_1.ProtocolComponent },
     { path: 'one-two-three', redirectTo: 'one-two-three/home', pathMatch: 'full' }
 ];

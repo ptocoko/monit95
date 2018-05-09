@@ -19,12 +19,12 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
             this.protocolService = protocolService;
         }
 
-        [HttpGet, Route("{numberCode}")]
-        public IHttpActionResult GetProtocols([FromUri]string numberCode)
+        [HttpGet, Route("{projectTestId}")]
+        public IHttpActionResult GetProtocols([FromUri]int projectTestId)
         {
-            var schoolId = "0005";
+            var schoolId = User.Identity.Name;
 
-            var protocols = protocolService.GetQuestionListDtos(schoolId, numberCode);
+            var protocols = protocolService.GetQuestionListDtos(schoolId, projectTestId);
 
             return Ok(protocols);
         }
@@ -32,47 +32,17 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         [HttpGet, Route("~/api/onetwothree/protocol/{participTestId}")]
         public IHttpActionResult Get([FromUri]int participTestId)
         {
-            var schoolId = "0005";
+            var schoolId = User.Identity.Name;
 
-            QuestionProtocolDto protocol = new QuestionProtocolDto
+            QuestionProtocolDto protocol;
+            try
             {
-                ParticipFIO = "Эсамбаев Хусайн Арбиевич",
-                QuestionMarks = new List<QuestionMarkDto>
-                {
-                    new QuestionMarkDto
-                    {
-                        Name = "1",
-                        MaxMark = 1,
-                        QuestionId = 17
-                    },
-                    new QuestionMarkDto
-                    {
-                        Name = "2",
-                        MaxMark = 2,
-                        QuestionId = 18
-                    },
-                    new QuestionMarkDto
-                    {
-                        Name = "3",
-                        MaxMark = 3,
-                        QuestionId = 19
-                    },
-                    new QuestionMarkDto
-                    {
-                        Name = "4",
-                        MaxMark = 4,
-                        QuestionId = 20
-                    }
-                }
-            };
-            //try
-            //{
-            //    protocol = protocolService.GetProtocol(participTestId, schoolId);
-            //}
-            //catch (ArgumentException e)
-            //{
-            //    return BadRequest(e.Message);
-            //}
+                protocol = protocolService.GetProtocol(participTestId, schoolId);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
 
             return Ok(protocol);
         }
@@ -80,20 +50,20 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         [HttpPost, Route("{participTestId}")]
         public IHttpActionResult EditProtocol([FromUri]int participTestId, [FromBody]IEnumerable<QuestionMarkDto> questionMarks)
         {
-            var schoolId = "0005";
+            var schoolId = User.Identity.Name;
 
-            //try
-            //{
-            //    protocolService.EditQuestionMarks(participTestId, schoolId, questionMarks);
-            //}
-            //catch(ArgumentException e)
-            //{
-            //    return BadRequest(e.Message);
-            //}
-            //catch (DbUpdateException)
-            //{
-            //    return BadRequest();
-            //}
+            try
+            {
+                protocolService.EditQuestionMarks(participTestId, schoolId, questionMarks);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }
@@ -101,16 +71,16 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         [HttpPut, Route("{participTestId}/markAsAbsent")]
         public IHttpActionResult MarkAsAbsent([FromUri]int participTestId)
         {
-            var schoolId = "0005";
+            var schoolId = User.Identity.Name;
 
-            //try
-            //{
-            //    protocolService.MarkAsAbsent(participTestId, schoolId);
-            //}
-            //catch(ArgumentException e)
-            //{
-            //    return BadRequest(e.Message);
-            //}
+            try
+            {
+                protocolService.MarkAsAbsent(participTestId, schoolId);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
 
             return Ok();
         }
