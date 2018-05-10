@@ -27,7 +27,7 @@ var routes = [
     { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
     { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 15 } },
     { path: 'particips/oge/new', component: add_component_1.AddParticipComponent, data: { projectId: 16 } },
-    { path: 'particips/protocols', component: protocols_component_1.ProtocolsComponent },
+    { path: 'particips/protocols/:id', component: protocols_component_1.ProtocolsComponent },
     { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
     { path: 'particips/put-protocol/:id', component: protocol_component_1.ParticipProtocolComponent, data: { restMethod: 'PUT' } },
     { path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },

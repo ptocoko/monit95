@@ -38,9 +38,9 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         /// <param name="schoolId"></param>
         /// <returns></returns>
         /// TODO: ref
-        public IEnumerable<QuestionProtocolReadDto> GetReadDtos(string schoolId)
+        public IEnumerable<QuestionProtocolReadDto> GetReadDtos(string schoolId, int projectTestId)
         {
-            var participTestEntities = cokoContext.ParticipTests.AsNoTracking().Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTest.ProjectId == ItakeEgeProjectId && pt.Particip.SchoolId == schoolId).ToList();
+            var participTestEntities = cokoContext.ParticipTests.AsNoTracking().Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTestId == projectTestId && pt.ProjectTest.ProjectId == ItakeEgeProjectId && pt.Particip.SchoolId == schoolId).ToList();
             var readDtoCollection = new Collection<QuestionProtocolReadDto>();
             foreach (var entity in participTestEntities)
             {

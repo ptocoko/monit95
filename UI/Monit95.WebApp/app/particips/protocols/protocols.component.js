@@ -7,10 +7,11 @@ var particip_protocols_service_1 = require("../../services/particip-protocols.se
 var material_1 = require("@angular/material");
 var PROJECT_TEST_ID = 1;
 var ProtocolsComponent = /** @class */ (function () {
-    function ProtocolsComponent(participProtocolsService, router) {
+    function ProtocolsComponent(participProtocolsService, router, route) {
         var _this = this;
         this.participProtocolsService = participProtocolsService;
         this.router = router;
+        this.route = route;
         this.displayedColumns = ['index', 'FIO', 'DocumNumber', 'Marks', 'actions'];
         this.protocolsCount = 0;
         this.AbsentText = 'отсутствовал';
@@ -27,12 +28,15 @@ var ProtocolsComponent = /** @class */ (function () {
     ProtocolsComponent.prototype.getProtocols = function () {
         var _this = this;
         this.isLoading = true;
-        this.participProtocolsService.getProtocolsList().subscribe(function (res) {
-            _this.protocolsCount = res.length;
-            _this.protocols = res;
-            _this.dataSource = new material_1.MatTableDataSource(res);
-            _this.isLoading = false;
-            _this.dataSource.paginator = _this.paginator;
+        this.route.params.subscribe(function (params) {
+            var projectTestId = Number.parseInt(params['id']);
+            _this.participProtocolsService.getProtocolsList(projectTestId).subscribe(function (res) {
+                _this.protocolsCount = res.length;
+                _this.protocols = res;
+                _this.dataSource = new material_1.MatTableDataSource(res);
+                _this.isLoading = false;
+                _this.dataSource.paginator = _this.paginator;
+            });
         });
     };
     ProtocolsComponent.prototype.changeMarks = function (participTestId) {
@@ -61,7 +65,8 @@ var ProtocolsComponent = /** @class */ (function () {
             styleUrls: ["./app/particips/protocols/protocols.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [particip_protocols_service_1.ParticipProtocolsService,
-            router_1.Router])
+            router_1.Router,
+            router_1.ActivatedRoute])
     ], ProtocolsComponent);
     return ProtocolsComponent;
 }());

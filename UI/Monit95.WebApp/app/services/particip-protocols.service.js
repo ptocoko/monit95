@@ -8,8 +8,8 @@ var ParticipProtocolsService = /** @class */ (function () {
         this.http = http;
         this.endpoint = '/api/iTakeEge/';
     }
-    ParticipProtocolsService.prototype.getProtocolsList = function () {
-        return this.http.get(this.endpoint + 'questionProtocols');
+    ParticipProtocolsService.prototype.getProtocolsList = function (projectTestId) {
+        return this.http.get(this.endpoint + 'questionProtocols/' + projectTestId);
     };
     ParticipProtocolsService.prototype.getProtocol = function (participTestId) {
         return this.http.get(this.endpoint + "questionProtocols?participTestId=" + participTestId);

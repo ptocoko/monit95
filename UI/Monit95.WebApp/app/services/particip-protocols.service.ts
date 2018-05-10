@@ -16,8 +16,8 @@ export class ParticipProtocolsService {
 
 	constructor(private http: HttpClient) { }
 
-	getProtocolsList(): Observable<QuestionProtocolRead[]> {
-		return this.http.get<QuestionProtocolRead[]>(this.endpoint + 'questionProtocols');
+	getProtocolsList(projectTestId: number): Observable<QuestionProtocolRead[]> {
+		return this.http.get<QuestionProtocolRead[]>(this.endpoint + 'questionProtocols/' + projectTestId);
 	}
 
 	getProtocol(participTestId: number): Observable<QuestionProtocolEdit> {
