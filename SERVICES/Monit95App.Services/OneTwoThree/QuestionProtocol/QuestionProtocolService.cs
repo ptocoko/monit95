@@ -49,16 +49,31 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             if (participTest == null)
                 throw new ArgumentException("ParticipTest with this Id not exist");
 
-            return new QuestionProtocolDto
+            IEnumerable<QuestionMarkDto> questionMarks;
+            if (participTest.OneTwoThreeQuestionMarks.Any())
             {
-                ParticipFIO = $"{participTest.Particip.Surname} {participTest.Particip.Name} {participTest.Particip.SecondName}",
-                QuestionMarks = participTest.ProjectTest.Test.OneTwoThreeQuestions.Select(s => new QuestionMarkDto
+                questionMarks = participTest.OneTwoThreeQuestionMarks.Select(s => new QuestionMarkDto
+                {
+                    QuestionId = s.OneTwoThreeQuestionId,
+                    MaxMark = s.OneTwoThreeQuestion.MaxMark,
+                    CurrentMark = s.AwardedMark,
+                    Name = s.OneTwoThreeQuestion.Name
+                });
+            }
+            else
+            {
+                questionMarks = participTest.ProjectTest.Test.OneTwoThreeQuestions.Select(s => new QuestionMarkDto
                 {
                     QuestionId = s.Id,
                     MaxMark = s.MaxMark,
-                    CurrentMark = s.OneTwoThreeQuestionMarks.FirstOrDefault()?.AwardedMark,
                     Name = s.Name
-                })
+                });
+            }
+
+            return new QuestionProtocolDto
+            {
+                ParticipFIO = $"{participTest.Particip.Surname} {participTest.Particip.Name} {participTest.Particip.SecondName}",
+                QuestionMarks = questionMarks
             };
         }
 
