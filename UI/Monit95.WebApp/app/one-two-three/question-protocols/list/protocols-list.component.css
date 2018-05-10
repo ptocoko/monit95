@@ -12,3 +12,7 @@ th {
 .red-cell {
     background-color: #f44336;
 }
+
+.mat-form-field + .mat-form-field{
+    margin-left: 15px;
+}

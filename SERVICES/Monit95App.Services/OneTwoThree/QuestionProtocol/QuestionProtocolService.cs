@@ -80,7 +80,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 });
             }
 
-            return questionList;
+            return questionList.OrderBy(ob => ob.ClassId).ThenBy(tb => tb.ParticipFIO);
         }
 
         public void MarkAsAbsent(int participTestId, string schoolId)

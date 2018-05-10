@@ -12,6 +12,9 @@
                    [(ngModel)]="searchText"
                    placeholder="поиск участника..."
                    matInput />
+            <button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="очистить" (click)="searchText=''">
+                <mat-icon>close</mat-icon>
+            </button>
         </mat-form-field>
 
         <mat-form-field class="class-select">
@@ -41,7 +44,7 @@
         <th>баллы по заданиям</th>
         <th style="width:295px">действия</th>
     </tr>
-    <tr *ngFor="let protocol of protocols | classFilter : searchClass | offset : pageIndex * limitToVal | limitTo : limitToVal; let i = index">
+    <tr *ngFor="let protocol of protocols | participFilter : searchText | classFilter : searchClass | offset : pageIndex * limitToVal | limitTo : limitToVal; let i = index">
         <td class="text-center">{{i + 1}}</td>
         <td>{{protocol.ParticipId}}</td>
         <td>{{protocol.ParticipFIO}}</td>
