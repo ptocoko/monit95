@@ -33,15 +33,19 @@ export class ClassesGetterPipe implements PipeTransform {
 	name: 'participFilter'
 })
 export class ParticipFilterPipe implements PipeTransform {
-	transform(particips: ParticipModel[], searchText: string) {
+	transform(particips: any, searchText: string) {
 		if (!searchText || !particips || particips.length === 0) return particips;
 
 		searchText = searchText.trim().toLowerCase();
-
-		return particips.filter((particip: ParticipModel) => {
-			return particip.Id.toString().indexOf(searchText) > -1
-				|| particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
-				|| particip.Name.trim().toLowerCase().indexOf(searchText) > -1;
+		
+		return particips.filter((particip: any) => {
+			if (particip.ParticipFIO) {
+				return particip.ParticipFIO.trim().toLowerCase().indexOf(searchText) > -1
+			} else {
+				return particip.Id.toString().indexOf(searchText) > -1
+					|| particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
+					|| particip.Name.trim().toLowerCase().indexOf(searchText) > -1;
+			}
 		});
 	}
 

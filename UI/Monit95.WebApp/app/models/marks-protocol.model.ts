@@ -11,5 +11,5 @@ export interface QuestionResult {
 	Order: number;
 	MaxMark: number;
 	CurrentMark: number;
-	QuestionResultId: number;
+	QuestionId: number;
 }

@@ -51,9 +51,14 @@ var ParticipFilterPipe = /** @class */ (function () {
             return particips;
         searchText = searchText.trim().toLowerCase();
         return particips.filter(function (particip) {
-            return particip.Id.toString().indexOf(searchText) > -1
-                || particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
-                || particip.Name.trim().toLowerCase().indexOf(searchText) > -1;
+            if (particip.ParticipFIO) {
+                return particip.ParticipFIO.trim().toLowerCase().indexOf(searchText) > -1;
+            }
+            else {
+                return particip.Id.toString().indexOf(searchText) > -1
+                    || particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
+                    || particip.Name.trim().toLowerCase().indexOf(searchText) > -1;
+            }
         });
     };
     ParticipFilterPipe = tslib_1.__decorate([

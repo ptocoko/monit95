@@ -25,7 +25,8 @@ var MaterialModule = /** @class */ (function () {
                 material_1.MatSelectModule,
                 material_1.MatSnackBarModule,
                 material_1.MatSlideToggleModule,
-                material_1.MatCheckboxModule
+                material_1.MatCheckboxModule,
+                material_1.MatIconModule
             ],
             exports: [
                 material_1.MatButtonModule,
@@ -43,7 +44,8 @@ var MaterialModule = /** @class */ (function () {
                 material_1.MatSelectModule,
                 material_1.MatSnackBarModule,
                 material_1.MatSlideToggleModule,
-                material_1.MatCheckboxModule
+                material_1.MatCheckboxModule,
+                material_1.MatIconModule
             ]
         })
     ], MaterialModule);

@@ -1,0 +1,13 @@
+﻿<h2>Протокол проверки заданий</h2>
+<hr />
+<div *ngIf="protocol">
+    <h4>{{protocol.ParticipFIO}}</h4>
+    <marks-protocol [questions]="protocol.QuestionMarks"
+                    (onSend)="submit($event)"
+                    (onCancel)="back()">
+    </marks-protocol>
+</div>
+
+<div *ngIf="!protocol">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>

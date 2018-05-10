@@ -113,6 +113,10 @@
     <Compile Include="OneTwoThree\Particips\IParticipService.cs" />
     <Compile Include="OneTwoThree\Particips\ParticipDto.cs" />
     <Compile Include="OneTwoThree\Particips\ParticipService.cs" />
+    <Compile Include="OneTwoThree\QuestionProtocol\IQuestionProtocolService.cs" />
+    <Compile Include="OneTwoThree\QuestionProtocol\QuestionListDto.cs" />
+    <Compile Include="OneTwoThree\QuestionProtocol\QuestionProtocolDto.cs" />
+    <Compile Include="OneTwoThree\QuestionProtocol\QuestionProtocolService.cs" />
     <Compile Include="Rsur\EgeQuestion\EgeQuestionService.cs" />
     <Compile Include="Rsur\MarksConvert\RsurMarksConverter.cs" />
     <Compile Include="Rsur\MarksConvert\IRsurMarksConverter.cs" />
