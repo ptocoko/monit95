@@ -1,5 +1,20 @@
 ﻿<h2>Диагностика учебных достижений 1, 2 и 3 классы: главное меню</h2>
 
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Русский язык</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/22z1/SSVJB9BKf" target="_blank">
+            <h4><b>1 класс: </b>Варианты ИК</h4>
+        </a>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/7N5Q/FSmPiwDUW" target="_blank">
+            <h4><b>2 класс: </b>Варианты ИК</h4>
+        </a>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/DyVu/guQACD6Dt" target="_blank">
+            <h4><b>3 класс: </b>Варианты ИК</h4>
+        </a>
+    </div>
+</div>
+
 <div class="list-container">
     <h3 class="list-header">Вспомогательный материал</h3>
     <div>
@@ -21,7 +36,7 @@
     </div>
 </div>
 
-<div class="list-container">
+<div class="list-container" *ngIf="!timeIsCome">
     <h3 class="list-header">Участники</h3>
     <div>
         <a class="list-item-link" routerLink="/one-two-three/particips/list">

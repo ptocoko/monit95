@@ -19,7 +19,13 @@ var ProtocolsListComponent = /** @class */ (function () {
         this.projectTestIds = {
             2033: 'Русский язык',
             2034: 'Математика',
-            2035: 'Чтение'
+            2035: 'Чтение',
+            2036: 'Русский язык',
+            2037: 'Математика',
+            2038: 'Чтение',
+            2039: 'Русский язык',
+            2040: 'Математика',
+            2041: 'Чтение'
         };
     }
     ProtocolsListComponent.prototype.ngOnInit = function () {

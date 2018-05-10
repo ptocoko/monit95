@@ -29,11 +29,6 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <app-table-paginator [length]="protocols.length"
-                            [pageSizeOptions]="[20, 50, 70]"
-                            [(pageSize)]="limitToVal"
-                            [(pageIndex)]="pageIndex">
-    </app-table-paginator>
 </div>
 <table class="table table-bordered">
     <tr>
@@ -74,3 +69,11 @@
 <p *ngIf="isLoading" class="text-center"><i>Загрузка...</i></p>
 
 <p *ngIf="!isLoading && protocols.length === 0" class="text-center"><i>Протоколов нет.</i></p>
+
+<p>
+    <app-table-paginator [length]="protocols.length"
+                         [pageSizeOptions]="[20, 50, 70]"
+                         [(pageSize)]="limitToVal"
+                         [(pageIndex)]="pageIndex">
+    </app-table-paginator>
+</p>
