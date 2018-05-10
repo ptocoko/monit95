@@ -113,6 +113,7 @@
     <Compile Include="OneTwoThree\Particips\IParticipService.cs" />
     <Compile Include="OneTwoThree\Particips\ParticipDto.cs" />
     <Compile Include="OneTwoThree\Particips\ParticipService.cs" />
+    <Compile Include="OneTwoThree\QuestionProtocol\GradeSolver.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\IQuestionProtocolService.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\QuestionListDto.cs" />
     <Compile Include="OneTwoThree\QuestionProtocol\QuestionProtocolDto.cs" />
