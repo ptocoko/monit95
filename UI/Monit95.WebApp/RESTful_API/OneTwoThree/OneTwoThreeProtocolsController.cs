@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Monit95.WebApp.RESTful_API.OneTwoThree
 {
-    [RoutePrefix("api/onetwothree/protocols")]
+    [RoutePrefix("api/onetwothree/protocols"), Authorize(Roles = "school")]
     public class OneTwoThreeProtocolsController : ApiController
     {
         private readonly IQuestionProtocolService protocolService;
