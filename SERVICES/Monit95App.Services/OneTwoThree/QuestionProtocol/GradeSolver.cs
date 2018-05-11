@@ -9,27 +9,23 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
 {
     public class GradeSolver
     {
-        public void SolveForRussian(ParticipTest participTest)
+        public static (int, string) SolveForRussian(ParticipTest participTest)
         {
             int minNotFailTasks;
-            int maxMidGradeMarks;
             int minHigherGradeTasks;
 
             switch (participTest.ProjectTestId)
             {
                 case 2033:
                     minNotFailTasks = 7;
-                    maxMidGradeMarks = 12;
                     minHigherGradeTasks = 9;
                     break;
                 case 2036:
                     minNotFailTasks = 7;
-                    maxMidGradeMarks = 8;
                     minHigherGradeTasks = 9;
                     break;
                 case 2039:
                     minNotFailTasks = 9;
-                    maxMidGradeMarks = 11;
                     minHigherGradeTasks = 12;
                     break;
                 default:
@@ -39,42 +35,27 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             var marksByNumber = generalPartMarks.GroupBy(gb => gb.OneTwoThreeQuestion.Number).Select(s => s.Select(s2 => s2.AwardedMark).Sum());
 
             int countOfSolvedTasks = marksByNumber.Where(p => p != 0).Count();
-            int sumOfMarks = generalPartMarks.Select(s => s.AwardedMark).Sum();
 
             if(countOfSolvedTasks < minNotFailTasks)
             {
                 participTest.Grade5 = 2;
                 participTest.GradeString = "Уровень ниже базового";
-                return;
+                return (2, "Уровень ниже базового");
             }
-            else if(sumOfMarks <= maxMidGradeMarks)
+            if(countOfSolvedTasks < minHigherGradeTasks)
             {
                 participTest.Grade5 = 3;
                 participTest.GradeString = "Уровень базовой подготовки";
-                return;
-            }
-            if(countOfSolvedTasks >= minHigherGradeTasks)
-            {
-                participTest.Grade5 = 4;
-                participTest.GradeString = "Уровень прочной базовой подготовки";
-                return;
+                return (3, "Уровень базовой подготовки");
             }
             else
             {
-                participTest.Grade5 = 3;
-                participTest.GradeString = "Уровень базовой подготовки";
-                return;
+                participTest.Grade5 = 4;
+                participTest.GradeString = "Уровень прочной базовой подготовки";
+                return (4, "Уровень прочной базовой подготовки");
             }
 
             throw new Exception("Something went wrong");
         }
-
-
-    }
-
-    public class TasksMarks
-    {
-        public int Tasks { get; set; }
-        public int Marks { get; set; }
     }
 }

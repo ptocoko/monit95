@@ -31,7 +31,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 context.OneTwoThreeQuestionMarks.RemoveRange(participTest.OneTwoThreeQuestionMarks);
             }
 
-            participTest.Grade5 = null;
+            //participTest.Grade5 = null;
 
             context.OneTwoThreeQuestionMarks.AddRange(questionMarks.Select(s => new OneTwoThreeQuestionMark
             {
@@ -39,6 +39,8 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 AwardedMark = s.CurrentMark.Value,
                 OneTwoThreeQuestionId = s.QuestionId
             }));
+
+            GradeSolver.SolveForRussian(participTest);
 
             context.SaveChanges();
         }
