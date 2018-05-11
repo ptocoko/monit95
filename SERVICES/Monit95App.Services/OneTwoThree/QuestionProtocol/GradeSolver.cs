@@ -23,11 +23,15 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                     minHigherGradeTasks = 9;
                     break;
                 case 2036:
-                    minNotFailTasks = 8;
-                    maxMidGradeMarks = 13;
-                    minHigherGradeTasks = 10;
+                    minNotFailTasks = 7;
+                    maxMidGradeMarks = 8;
+                    minHigherGradeTasks = 9;
                     break;
-
+                case 2039:
+                    minNotFailTasks = 9;
+                    maxMidGradeMarks = 11;
+                    minHigherGradeTasks = 12;
+                    break;
                 default:
                     throw new ArgumentException();
             }
