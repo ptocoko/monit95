@@ -9,7 +9,7 @@ export class HomeComponent {
 	constructor() { }
 
 	ngOnInit() {
-		const date = new Date();
-		this.timeIsCome = (date.getDate() === 11 && date.getHours() >= 8) || date.getDate() > 11;
+		//const date = new Date();
+		//this.timeIsCome = (date.getDate() === 11 && date.getHours() >= 8) || date.getDate() > 11;
 	}
 }

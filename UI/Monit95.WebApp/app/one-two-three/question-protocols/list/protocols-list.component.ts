@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ProtocolList } from '../../../models/one-two-three/protocol-list.model';
 import { QuestionProtocolService } from '../../../services/one-two-three/question-protocols.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,13 +17,15 @@ export class ProtocolsListComponent {
 	AbsentText = 'отсутствовал';
 	TestName: string;
 	isLoading: boolean;
+	@ViewChild('participFioInput') participFioInput: ElementRef;
 
 	pageIndex = 0;
 	limitToVal = 20;
 
 	constructor(private protocolService: QuestionProtocolService,
 		private router: Router,
-		private route: ActivatedRoute) { }
+		private route: ActivatedRoute,
+		private renderer: Renderer2) { }
 
 	ngOnInit() {
 		this.isLoading = true;
@@ -37,6 +39,7 @@ export class ProtocolsListComponent {
 		this.protocolService.getAll(this.projectTestId).subscribe(res => {
 			this.protocols = res;
 			this.isLoading = false;
+			this.focusOnFioField();
 		});
 	}
 
@@ -53,6 +56,8 @@ export class ProtocolsListComponent {
 	selectionChange() {
 		this.pageIndex = 0;
 	}
+
+	focusOnFioField = () => this.renderer.selectRootElement(this.participFioInput.nativeElement).focus();
 
 	projectTestIds: { [projectTestId: number]: string } = {
 		2033: 'Русский язык',

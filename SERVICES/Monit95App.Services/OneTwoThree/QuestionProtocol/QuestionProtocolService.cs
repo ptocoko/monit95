@@ -79,7 +79,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
 
         public IEnumerable<QuestionListDto> GetQuestionListDtos(string schoolId, int projectTestId)
         {
-            var participTests = context.ParticipTests.AsNoTracking().Where(p => p.Particip.SchoolId == schoolId && p.ProjectTest.ProjectId == _projectId && p.ProjectTestId == projectTestId);
+            var participTests = context.ParticipTests.AsNoTracking().Where(p => p.Particip.SchoolId == schoolId && p.ProjectTest.ProjectId == _projectId && p.ProjectTestId == projectTestId && p.ProjectTest.IsOpen);
 
             var questionList = new List<QuestionListDto>();
             foreach (var participTest in participTests)
