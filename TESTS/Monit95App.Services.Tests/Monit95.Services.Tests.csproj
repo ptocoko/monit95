@@ -117,6 +117,7 @@
     <Compile Include="SeminarReportServiceTest.cs" />
     <Compile Include="QuestionProtocolServiceTest.cs" />
     <Compile Include="ExtensionsTests.cs" />
+    <Compile Include="OneTwoThree_GradeSolver.cs" />
     <Compile Include="ValidatorTest.cs" />
     <Compile Include="Util\MockDbSet.cs" />
     <Compile Include="Util\MyExpectedException.cs" />
