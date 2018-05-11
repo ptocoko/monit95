@@ -47,6 +47,8 @@ namespace Monit95App.Domain.Core.Entities
         /// <remarks>-1 - отсутствовал</remarks>
         public int? Grade5 { get; set; }
 
+        public string GradeString { get; set; }
+
         #endregion
     }
 }
