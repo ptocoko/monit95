@@ -38,6 +38,10 @@ td {
     color: black;
 }
 
+.warn-border:hover {
+    border-color: red;
+    box-shadow: 0 8px 8px #ff00002e, 0 0 8px #ff00005c, 0 6px 18px #ff000042;
+}
 
 .list-item-link:link {
     text-decoration: none;
