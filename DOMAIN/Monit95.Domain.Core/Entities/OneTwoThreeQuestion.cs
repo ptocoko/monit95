@@ -18,6 +18,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public Guid TestId { get; set; }
 
+        public bool IsGeneralPart { get; set; }
+
         public virtual Test Test { get; set; }
 
         public virtual ICollection<OneTwoThreeQuestionMark> OneTwoThreeQuestionMarks { get; set; } = new HashSet<OneTwoThreeQuestionMark>();
