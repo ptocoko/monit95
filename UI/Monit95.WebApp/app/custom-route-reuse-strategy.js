@@ -5,7 +5,8 @@ var CustomReuseStrategy = /** @class */ (function () {
         this.handlers = {};
     }
     CustomReuseStrategy.prototype.shouldDetach = function (route) {
-        return route.routeConfig.path === 'rsur/results-list';
+        console.log(route.routeConfig.path);
+        return ['rsur/results-list', 'one-two-three/protocols/:projectTestId'].indexOf(route.routeConfig.path) > -1;
     };
     CustomReuseStrategy.prototype.store = function (route, handle) {
         this.handlers[route.routeConfig.path] = handle;
