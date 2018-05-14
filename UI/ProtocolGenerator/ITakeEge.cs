@@ -1,7 +1,9 @@
 ﻿using ClosedXML.Excel;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,36 +36,53 @@ namespace ProtocolGenerator
             this.projectId = projectId;
         }
 
+        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1);
+
+        public void SolveAndSaveGrade5AndPrimaryMark()
+        {
+            var participTests = GetCorrectParticipTestsQuery().Include(inc => inc.QuestionMarks).Include(inc => inc.ProjectTest);
+
+            foreach (var participTest in participTests)
+            {
+                participTest.PrimaryMark = participTest.QuestionMarks.Select(s => s.AwardedMark).Sum();
+                participTest.Grade5 = (int?)participTest.PrimaryMark >= participTest.ProjectTest.PassPrimaryMark ? 5 : 2;
+            }
+
+            context.SaveChanges();
+        }
+
         public void GenerateForAllSchools()
         {
-            var results = context.ParticipTests.Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1)
-                .Select(s => new
-                {
-                    s.Particip.SchoolId,
-                    SchoolName = s.Particip.School.Name.Trim(),
-                    s.Particip.Surname,
-                    s.Particip.Name,
-                    s.Particip.SecondName,
-                    TestName = s.ProjectTest.Test.Name,
-                    Marks = s.QuestionMarks.Select(qm => qm.AwardedMark.ToString()).AsEnumerable().Aggregate((s1, s2) => $"{s1};{s2}"),
-                    PrimaryMark = s.QuestionMarks.Select(qm => qm.AwardedMark).Sum(),
-                    IsPass = s.QuestionMarks.Select(qm => qm.AwardedMark).Sum() > s.ProjectTest.PassPrimaryMark
-                })
+            var participTests = GetCorrectParticipTestsQuery();
+
+            GenerateReports(participTests);
+        }
+
+        public void GenerateReportsForSchools(string[] schoolIds)
+        {
+            var participTests = GetCorrectParticipTestsQuery().Where(p => schoolIds.Contains(p.Particip.SchoolId));
+
+            GenerateReports(participTests);
+        }
+
+        private void GenerateReports(IQueryable<ParticipTest> participTests)
+        {
+            var groupedTestResults = participTests
+                .Select(MapToReportModel)
                 .GroupBy(gb => new { gb.SchoolId, gb.SchoolName });
 
-            foreach (var schoolResult in results)
+            foreach (var schoolResult in groupedTestResults)
             {
                 if (!Directory.Exists($@"{destFolderPath}\{schoolResult.Key.SchoolId}"))
                     Directory.CreateDirectory($@"{destFolderPath}\{schoolResult.Key.SchoolId}");
 
-                using(var excelTemplate = new XLWorkbook($@"{destFolderPath}\{templateName}"))
+                using (var excelTemplate = new XLWorkbook($@"{destFolderPath}\{templateName}"))
                 {
-
-                    using(var sheet = excelTemplate.Worksheets.First())
+                    using (var sheet = excelTemplate.Worksheets.First())
                     {
                         sheet.Cell(2, 1).Value = $"{schoolResult.Key.SchoolName}";
                         int i = 0;
-                        foreach(var result in schoolResult)
+                        foreach (var result in schoolResult)
                         {
                             sheet.Cell(i + 3, 2).Value = result.Surname;
                             sheet.Cell(i + 3, 3).Value = result.Name;
@@ -79,5 +98,34 @@ namespace ProtocolGenerator
                 }
             }
         }
+
+        private ITakeEgeReportModel MapToReportModel(ParticipTest participTest)
+        {
+            return new ITakeEgeReportModel
+            {
+                SchoolId = participTest.Particip.SchoolId,
+                SchoolName = participTest.Particip.School.Name.Trim(),
+                Surname = participTest.Particip.Surname,
+                Name = participTest.Particip.Name,
+                SecondName = participTest.Particip.SecondName,
+                TestName = participTest.ProjectTest.Test.Name,
+                Marks = participTest.QuestionMarks.Select(qm => qm.AwardedMark.ToString()).AsEnumerable().Aggregate((s1, s2) => $"{s1};{s2}"),
+                PrimaryMark = (int)participTest.PrimaryMark,
+                IsPass = participTest.PrimaryMark >= participTest.ProjectTest.PassPrimaryMark
+            };
+        }
+    }
+
+    internal class ITakeEgeReportModel
+    {
+        public string SchoolId { get; set; }
+        public string SchoolName { get; set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string SecondName { get; set; }
+        public string TestName { get; set; }
+        public string Marks { get; set; }
+        public int PrimaryMark { get; set; }
+        public bool IsPass { get; set; }
     }
 }

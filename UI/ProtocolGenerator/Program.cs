@@ -5,6 +5,7 @@ using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
+using ProtocolGenerator;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,53 +24,54 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             var context = new CokoContext();
-
-            CreateReports(context);
+            var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template", context: context, projectId: 15);
+            iTakeEge.SolveAndSaveGrade5AndPrimaryMark();
+            //CreatePhysicsReports(context);
 
             Console.WriteLine("All done!");
         }
 
-        static void CreateReports(CokoContext context)
-        {
-            string folderPath = @"D:\Work\participsCompetences";
+        //static void CreatePhysicsReports(CokoContext context)
+        //{
+        //    string folderPath = @"D:\Work\participsCompetences";
 
-            var entities = context.ParticipsCompetences.GroupBy(ks => ks.SchoolId);
+        //    var entities = context.ParticipsCompetences.GroupBy(ks => ks.SchoolId);
 
-            foreach (var competences in entities)
-            {
-                if(!Directory.Exists($@"{folderPath}\{competences.Key}"))
-                {
-                    Directory.CreateDirectory($@"{folderPath}\{competences.Key}");
-                }
+        //    foreach (var competences in entities)
+        //    {
+        //        if(!Directory.Exists($@"{folderPath}\{competences.Key}"))
+        //        {
+        //            Directory.CreateDirectory($@"{folderPath}\{competences.Key}");
+        //        }
 
-                using (var excelTemplate = new XLWorkbook($@"{folderPath}\template.xlsx"))
-                {
-                    using (IXLWorksheet sheet = excelTemplate.Worksheets.First())
-                    {
-                        int i = 0;
-                        foreach (var competence in competences)
-                        {
-                            sheet.Cell(i + 3, 1).Value = competence.Code;
-                            sheet.Cell(i + 3, 2).Value = competence.FIO;
-                            sheet.Cell(i + 3, 3).Value = competence.PrimaryMark;
-                            sheet.Cell(i + 3, 4).Value = getCompetenceString(competence.CompetenceLevel);
+        //        using (var excelTemplate = new XLWorkbook($@"{folderPath}\template.xlsx"))
+        //        {
+        //            using (IXLWorksheet sheet = excelTemplate.Worksheets.First())
+        //            {
+        //                int i = 0;
+        //                foreach (var competence in competences)
+        //                {
+        //                    sheet.Cell(i + 3, 1).Value = competence.Code;
+        //                    sheet.Cell(i + 3, 2).Value = competence.FIO;
+        //                    sheet.Cell(i + 3, 3).Value = competence.PrimaryMark;
+        //                    sheet.Cell(i + 3, 4).Value = getCompetenceString(competence.CompetenceLevel);
 
-                            int j = 0;
-                            foreach (var mark in competence.Marks.Split(';'))
-                            {
-                                sheet.Cell(i + 3, j + 5).Value = mark;
+        //                    int j = 0;
+        //                    foreach (var mark in competence.Marks.Split(';'))
+        //                    {
+        //                        sheet.Cell(i + 3, j + 5).Value = mark;
 
-                                j++;
-                            }
+        //                        j++;
+        //                    }
 
-                            i ++;
-                        }
-                    }
+        //                    i ++;
+        //                }
+        //            }
 
-                    excelTemplate.SaveAs($@"{folderPath}\{competences.Key}\{competences.Key}_201700.xlsx");
-                }
-            }
-        }
+        //            excelTemplate.SaveAs($@"{folderPath}\{competences.Key}\{competences.Key}_201700.xlsx");
+        //        }
+        //    }
+        //}
 
         static string getCompetenceString(int level)
         {
