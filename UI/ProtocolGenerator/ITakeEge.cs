@@ -69,10 +69,13 @@ namespace ProtocolGenerator
         {
             var groupedTestResults = participTests
                 .OrderBy(ob => ob.Particip.SchoolId).ThenBy(ob => ob.Particip.Surname).ThenBy(tb => tb.Particip.Name).ThenBy(tb => tb.ProjectTest.Test.NumberCode)
-                .Include(inc => inc.Particip.School)
-                .Include(inc => inc.ProjectTest.Test)
-                .AsEnumerable()
+                //.Include(inc => inc.Particip)
+                //.Include(inc => inc.ProjectTest)
+                //.Include(inc => inc.Particip.School)
+                //.Include(inc => inc.ProjectTest.Test)
                 .Select(MapToReportModel)
+                //.AsEnumerable()
+                //.GetMarks()
                 .GroupBy(gb => new { gb.SchoolId, gb.SchoolName });
 
             foreach (var schoolResult in groupedTestResults)
@@ -117,7 +120,8 @@ namespace ProtocolGenerator
                 DocumNumber = participTest.Particip.DocumNumber,
                 TestName = participTest.ProjectTest.Test.Name,
                 NumberCode = participTest.ProjectTest.Test.NumberCode,
-                Marks = participTest.QuestionMarks.Select(qm => qm.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}"),
+                //AwardedMarks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()),
+                Marks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}"),
                 PrimaryMark = (int)participTest.PrimaryMark,
                 IsPass = participTest.Grade5 == 5
             };
@@ -135,7 +139,21 @@ namespace ProtocolGenerator
         public string TestName { get; set; }
         public string NumberCode { get; set; }
         public string Marks { get; set; }
+        public IEnumerable<string> AwardedMarks { get; set; }
         public int PrimaryMark { get; set; }
         public bool IsPass { get; set; }
+    }
+
+    internal static class ITakeEgeReporterHelpers
+    {
+        public static IEnumerable<ITakeEgeReportModel> GetMarks(this IEnumerable<ITakeEgeReportModel> reports)
+        {
+            foreach (var report in reports)
+            {
+                report.Marks = report.AwardedMarks.Aggregate((s1, s2) => $"{s1};{s2}");
+            }
+
+            return reports;
+        }
     }
 }
