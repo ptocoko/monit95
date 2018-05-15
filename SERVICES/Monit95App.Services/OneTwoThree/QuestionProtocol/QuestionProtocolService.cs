@@ -2,6 +2,7 @@
 using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,7 +80,12 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
 
         public IEnumerable<QuestionListDto> GetQuestionListDtos(string schoolId, int projectTestId)
         {
-            var participTests = context.ParticipTests.AsNoTracking().Where(p => p.Particip.SchoolId == schoolId && p.ProjectTest.ProjectId == _projectId && p.ProjectTestId == projectTestId && p.ProjectTest.IsOpen);
+            var participTests = context.ParticipTests
+                .AsNoTracking()
+                .Where(p => p.Particip.SchoolId == schoolId && p.ProjectTest.ProjectId == _projectId && p.ProjectTestId == projectTestId && p.ProjectTest.IsOpen)
+                .Include(inc => inc.OneTwoThreeQuestionMarks)
+                .Include(inc => inc.Particip)
+                .Include(inc => inc.Particip.Class);
 
             var questionList = new List<QuestionListDto>();
             foreach (var participTest in participTests)
@@ -144,7 +150,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             }
             else
             {
-                return participTest.OneTwoThreeQuestionMarks.AsEnumerable().Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+                return participTest.OneTwoThreeQuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
             }
         }
     }

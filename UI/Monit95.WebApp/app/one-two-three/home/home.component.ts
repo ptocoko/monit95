@@ -11,6 +11,6 @@ export class HomeComponent {
 
 	ngOnInit() {
 		//const date = new Date();
-		//this.timeIsCome = (date.getDate() === 11 && date.getHours() >= 8) || date.getDate() > 11;
+		//this.timeIsCome = (date.getDate() === 15 && date.getHours() >= 8) || date.getDate() > 15;
 	}
 }
