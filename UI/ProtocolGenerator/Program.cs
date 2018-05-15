@@ -24,8 +24,8 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             var context = new CokoContext();
-            var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template", context: context, projectId: 15);
-            iTakeEge.SolveAndSaveGrade5AndPrimaryMark();
+            var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template.xlsx", context: context, projectId: 15);
+            iTakeEge.GenerateReportsForSchools(new string[] { "0005" });
             //CreatePhysicsReports(context);
 
             Console.WriteLine("All done!");
