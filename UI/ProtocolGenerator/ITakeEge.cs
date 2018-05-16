@@ -36,7 +36,7 @@ namespace ProtocolGenerator
             this.projectId = projectId;
         }
 
-        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1);
+        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.AsNoTracking().Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1);
 
         public void SolveAndSaveGrade5AndPrimaryMark()
         {
@@ -102,7 +102,7 @@ namespace ProtocolGenerator
                             i++;
                         }
 
-                        excelTemplate.SaveAs($@"{destFolderPath}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}_15.xlsx");
+                        excelTemplate.SaveAs($@"{destFolderPath}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}_201815.xlsx");
                     }
                 }
             }
