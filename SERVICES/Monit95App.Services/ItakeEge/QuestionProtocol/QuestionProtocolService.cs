@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using Monit95App.Domain.Core.Entities;
@@ -13,7 +14,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
 {
     public class QuestionProtocolService : IQuestionProtocolService
     {
-        private const int ItakeEgeProjectId = 15; // projectId for i pass ege 2018 (may)
+        private const int ItakeEgeProjectId = 16; // projectId for i pass ege 2018 (may)
 
         #region Dependencies
 
@@ -40,45 +41,51 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         /// TODO: ref
         public IEnumerable<QuestionProtocolReadDto> GetReadDtos(string schoolId, int projectTestId)
         {
-            var participTestEntities = cokoContext.ParticipTests.AsNoTracking().Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTestId == projectTestId && pt.ProjectTest.ProjectId == ItakeEgeProjectId && pt.Particip.SchoolId == schoolId).ToList();
-            var readDtoCollection = new Collection<QuestionProtocolReadDto>();
-            foreach (var entity in participTestEntities)
-            {
-                var readDto = new QuestionProtocolReadDto
+            var participTestEntities = cokoContext.ParticipTests
+                .AsNoTracking()
+                .Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTestId == projectTestId && pt.ProjectTest.ProjectId == ItakeEgeProjectId && pt.Particip.SchoolId == schoolId)
+                .Include(inc => inc.QuestionMarks)
+                .AsEnumerable()
+                .Select(entity => new QuestionProtocolReadDto
                 {
                     ParticipTestId = entity.Id,
                     ParticipInfo = $"{entity.Particip.Surname} {entity.Particip.Name} {entity.Particip.SecondName}",
-                    DocumNumber = entity.Particip.DocumNumber
-                };
+                    DocumNumber = entity.Particip.DocumNumber,
+                    QuestionMarks = entity.QuestionMarks.Any() ? entity.Grade5 < 0 ? "отсутствовал" : entity.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}") : null
+                });
 
-                string questionMarksString = null;
+            //var readDtoCollection = new Collection<QuestionProtocolReadDto>();
+            //foreach (var entity in participTestEntities)
+            //{
+            //    string questionMarksString = null;
 
-                // если Grade5 = -1 значит участник отсутствовал
-                if(entity.Grade5 < 0)
-                {
-                    questionMarksString = "отсутствовал";
-                }
-                else
-                {
-                    StringBuilder strBuilder = new StringBuilder();
-                    foreach (var qm in entity.QuestionMarks.OrderBy(qm => qm.Question.Order))
-                    {
-                        strBuilder.Append(qm.AwardedMark.ToString() + ";");
-                    }
-                    // убираем последний символ точки с запятой: 1;0;1;0;1;0';'
-                    if (strBuilder.Length > 1)
-                    {
-                        strBuilder.Length = strBuilder.Length - 1;
-                        questionMarksString = strBuilder.ToString();
-                    }
-                }
+            //    // если Grade5 = -1 значит участник отсутствовал
+            //    if(entity.Grade5 < 0)
+            //    {
+            //        questionMarksString = "отсутствовал";
+            //    }
+            //    else
+            //    {
+            //        StringBuilder strBuilder = new StringBuilder();
+            //        foreach (var qm in entity.QuestionMarks.OrderBy(qm => qm.Question.Order))
+            //        {
+            //            strBuilder.Append(qm.AwardedMark.ToString() + ";");
+            //        }
+            //        // убираем последний символ точки с запятой: 1;0;1;0;1;0';'
+            //        if (strBuilder.Length > 1)
+            //        {
+            //            strBuilder.Length = strBuilder.Length - 1;
+            //            questionMarksString = strBuilder.ToString();
+            //        }
+            //    }
 
-                readDto.QuestionMarks = questionMarksString;
+            //    readDto.QuestionMarks = questionMarksString;
 
-                readDtoCollection.Add(readDto);
-            }
+            //    readDtoCollection.Add(readDto);
+            //}
 
-            return readDtoCollection.OrderBy(qp => qp.ParticipInfo);
+            //return readDtoCollection.OrderBy(qp => qp.ParticipInfo);
+            return participTestEntities.OrderBy(ob => ob.ParticipInfo);
         }
 
         /// <summary>
