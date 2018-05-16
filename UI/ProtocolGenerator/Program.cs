@@ -5,6 +5,7 @@ using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.OneTwoThree.QuestionProtocol;
 using ProtocolGenerator;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,17 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             var context = new CokoContext();
-            var schoolids = context.ParticipTests.Where(p => p.ProjectTest.ProjectId == 15 && p.Grade5 != -1).Select(s => s.Particip.SchoolId).Distinct().ToList();
-            var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template.xlsx", context: context, projectId: 15);
-            foreach (var schoolid in schoolids)
-            {
-                iTakeEge.GenerateReportsForSchools(new string[] { schoolid });
-            }
-            
+            var gradeSolver = new GradeSolver();
+            //var schoolids = context.ParticipTests.Where(p => p.ProjectTest.ProjectId == 15 && p.Grade5 != -1).Select(s => s.Particip.SchoolId).Distinct().ToList();
+            //var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template.xlsx", context: context, projectId: 15);
+            //foreach (var schoolid in schoolids)
+            //{
+            //    iTakeEge.GenerateReportsForSchools(new string[] { schoolid });
+            //}
+
+            var oneTwoThree = new OneTwoThree(context, gradeSolver);
+            oneTwoThree.Generate();
+
             //CreatePhysicsReports(context);
 
             Console.WriteLine("All done!");

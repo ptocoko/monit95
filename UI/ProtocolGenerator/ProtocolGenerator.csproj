@@ -73,6 +73,7 @@
     <Compile Include="ExtendParticipProtocol.cs" />
     <Compile Include="ExtendParticipProtocolFactory.cs" />
     <Compile Include="ITakeEge.cs" />
+    <Compile Include="OneTwoThree.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolProtocol.cs" />
