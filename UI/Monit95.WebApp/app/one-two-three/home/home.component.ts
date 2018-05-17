@@ -10,7 +10,7 @@ export class HomeComponent {
 	constructor(private accountService: AccountService) { }
 
 	ngOnInit() {
-		//const date = new Date();
-		//this.timeIsCome = (date.getDate() === 15 && date.getHours() >= 8) || date.getDate() > 15;
+		const date = new Date();
+		this.timeIsCome = (date.getDate() === 17 && date.getHours() >= 8) || date.getDate() > 17;
 	}
 }
