@@ -1,5 +1,35 @@
 ﻿<h2>«Я сдам ОГЭ!»: главное меню</h2>
 
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">01 - Русский язык</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/LJEA/5oangzkbq" *ngIf="!timeIsCome" target="_blank">
+            <div>
+                <h4><b>Бланк ответов</b></h4>
+            </div>
+        </a>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/3AMF/RvdJQwcdU" *ngIf="!timeIsCome" target="_blank">
+            <div>
+                <h4><b>Инструкция</b></h4>
+            </div>
+        </a>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/Cfqc/iB5MRcHZ2" *ngIf="!timeIsCome" target="_blank">
+            <div>
+                <h4><b>Варианты ИК</b></h4>
+            </div>
+        </a>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/FjbH/Z92TqThUh" *ngIf="timeIsCome" target="_blank">
+            <div>
+                <h4><b>Ключи для проверки работ</b></h4>
+            </div>
+        </a>
+        <a class="list-item-link" routerLink="/particips/protocols/2020" *ngIf="timeIsCome">
+            <div>
+                <h4><b>Заполнение протоколов проверки заданий</b></h4>
+            </div>
+        </a>
+    </div>
+</div>
 
 <div class="list-container" *ngIf="true">
     <h3 class="list-header">02 - Математика</h3>
