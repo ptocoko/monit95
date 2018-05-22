@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Monit95App.Domain.Core.Entities
 {
@@ -29,6 +30,8 @@ namespace Monit95App.Domain.Core.Entities
         /// <summary>
         /// Максимальный балл, который можно получить по заданию
         /// </summary>
-        public int MaxMark { get; set; }     
+        public int MaxMark { get; set; }
+
+        public virtual ICollection<QuestionMark> QuestionMarks { get; set; } = new HashSet<QuestionMark>();
     }
 }

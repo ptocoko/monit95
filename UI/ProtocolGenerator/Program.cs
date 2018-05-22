@@ -24,13 +24,14 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             var context = new CokoContext();
-            var schoolids = context.ParticipTests.Where(p => p.ProjectTest.ProjectId == 15 && p.Grade5 != -1).Select(s => s.Particip.SchoolId).Distinct().ToList();
-            var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template.xlsx", context: context, projectId: 15);
-            foreach (var schoolid in schoolids)
-            {
-                iTakeEge.GenerateReportsForSchools(new string[] { schoolid });
-            }
-            
+            //var schoolids = context.ParticipTests.Where(p => p.ProjectTest.ProjectId == 15 && p.Grade5 != -1).Select(s => s.Particip.SchoolId).Distinct().ToList();
+            //var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template.xlsx", context: context, projectId: 15);
+            //foreach (var schoolid in schoolids)
+            //{
+            //    iTakeEge.GenerateReportsForSchools(new string[] { schoolid });
+            //}
+            var statGen = new StatGenerator(context);
+            statGen.Generate();
             //CreatePhysicsReports(context);
 
             Console.WriteLine("All done!");
