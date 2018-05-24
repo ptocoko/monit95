@@ -36,7 +36,7 @@ namespace ProtocolGenerator
             this.projectId = projectId;
         }
 
-        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.AsNoTracking().Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1);
+        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.Where(p => p.ProjectTestId == 2020 && p.Grade5 != -1);
 
         public void SolveAndSaveGrade5AndPrimaryMark()
         {

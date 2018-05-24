@@ -25,7 +25,7 @@ namespace ProtocolGenerator
                 using (var sheet = excel.Worksheet("List1"))
                 {
                     var entity = context.ParticipTests
-                        .Where(pt => pt.ProjectTestId == 2018)
+                        .Where(pt => pt.ProjectTestId == 2020)
                         .Select(pt => pt.Particip.School)
                         .Distinct()
                         .Select(s => new
@@ -34,7 +34,7 @@ namespace ProtocolGenerator
                             SchoolId = s.Id,
                             s.AreaCode,
                             AvgMarks = context.QuestionMarks
-                                .Where(qm => qm.ParticipTest.Particip.SchoolId == s.Id && qm.ParticipTest.ProjectTestId == 2018)
+                                .Where(qm => qm.ParticipTest.Particip.SchoolId == s.Id && qm.ParticipTest.ProjectTestId == 2020)
                                 .Select(qm => new { qm.AwardedMark, qm.Question.MaxMark, qm.Question.Order })
                                 .GroupBy(gb => new { gb.Order, gb.MaxMark })
                                 .OrderBy(ob => ob.Key.Order)
