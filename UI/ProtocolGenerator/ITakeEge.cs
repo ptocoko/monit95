@@ -36,7 +36,7 @@ namespace ProtocolGenerator
             this.projectId = projectId;
         }
 
-        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.Where(p => p.ProjectTestId == 2020 && p.Grade5 != -1);
+        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.AsNoTracking().Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1);
 
         public void SolveAndSaveGrade5AndPrimaryMark()
         {
@@ -69,14 +69,8 @@ namespace ProtocolGenerator
         {
             var groupedTestResults = participTests
                 .OrderBy(ob => ob.Particip.SchoolId).ThenBy(ob => ob.Particip.Surname).ThenBy(tb => tb.Particip.Name).ThenBy(tb => tb.ProjectTest.Test.NumberCode)
-                //.Include(inc => inc.Particip)
-                //.Include(inc => inc.ProjectTest)
-                //.Include(inc => inc.Particip.School)
-                //.Include(inc => inc.ProjectTest.Test)
-                .Select(MapToReportModel)
-                //.AsEnumerable()
-                //.GetMarks()
-                .GroupBy(gb => new { gb.SchoolId, gb.SchoolName });
+                .GroupBy(gb => new { gb.Particip.SchoolId, SchoolName = gb.Particip.School.Name });
+                
 
             foreach (var schoolResult in groupedTestResults)
             {
@@ -89,7 +83,7 @@ namespace ProtocolGenerator
                     {
                         sheet.Cell(2, 1).Value = $"{schoolResult.Key.SchoolName}";
                         int i = 0;
-                        foreach (var result in schoolResult)
+                        foreach (var result in schoolResult.Select(MapToReportModel).OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode))
                         {
                             sheet.Cell(i + 4, 2).Value = result.Surname;
                             sheet.Cell(i + 4, 3).Value = result.Name;
@@ -102,7 +96,7 @@ namespace ProtocolGenerator
                             i++;
                         }
 
-                        excelTemplate.SaveAs($@"{destFolderPath}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}_201815.xlsx");
+                        excelTemplate.SaveAs($@"{destFolderPath}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}_201816.xlsx");
                     }
                 }
             }
