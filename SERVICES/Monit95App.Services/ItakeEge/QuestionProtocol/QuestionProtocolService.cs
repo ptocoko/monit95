@@ -51,7 +51,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
                     ParticipTestId = entity.Id,
                     ParticipInfo = $"{entity.Particip.Surname} {entity.Particip.Name} {entity.Particip.SecondName}",
                     DocumNumber = entity.Particip.DocumNumber,
-                    QuestionMarks = entity.QuestionMarks.Any() ? entity.Grade5 < 0 ? "отсутствовал" : entity.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}") : null
+                    QuestionMarks = GetMarks(entity)
                 });
 
             //var readDtoCollection = new Collection<QuestionProtocolReadDto>();
@@ -206,5 +206,21 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         }
 
         #endregion
+
+        private string GetMarks(ParticipTest participTest)
+        {
+            if (participTest.Grade5 == -1)
+            {
+                return "отсутствовал";
+            }
+            else if (!participTest.QuestionMarks.Any())
+            {
+                return null;
+            }
+            else
+            {
+                return participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+            }
+        }
     }
 }
