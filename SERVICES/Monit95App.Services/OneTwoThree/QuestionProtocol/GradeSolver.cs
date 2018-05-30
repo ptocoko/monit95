@@ -163,6 +163,35 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             }
         }
 
+        public void HotFixForFirstClassReading(IQueryable<ParticipTest> participTests)
+        {
+            foreach (var participTest in participTests)
+            {
+                var countOfSolvedNotGeneralPartTasks = participTest.OneTwoThreeQuestionMarks.Where(p => !p.OneTwoThreeQuestion.IsGeneralPart).Select(s => s.AwardedMark).Count(p => p != 0);
+                var countOfSolvedGeneralPartTasks = participTest.OneTwoThreeQuestionMarks.Where(p => p.OneTwoThreeQuestion.IsGeneralPart).Select(s => s.AwardedMark).Count(p => p != 0);
+
+                if (countOfSolvedGeneralPartTasks == 8 && countOfSolvedNotGeneralPartTasks > 0)
+                {
+                    participTest.Grade5 = 4;
+                    participTest.GradeString = "Учащийся имеет хороший уровень осознанности чтения";
+                }
+                else if(countOfSolvedGeneralPartTasks <= 8 && countOfSolvedGeneralPartTasks >= 6)
+                {
+                    participTest.Grade5 = 3;
+                    participTest.GradeString = "Учащийся достиг необходимого уровня осознанности чтения";
+                }
+                else if(countOfSolvedGeneralPartTasks < 6)
+                {
+                    participTest.Grade5 = 2;
+                    participTest.GradeString = "Учащийся не достиг необходимого уровня осознанности чтения";
+                }
+                else
+                {
+                    throw new Exception("something went wrong");
+                }
+            }
+        }
+
         private int GetCountOfSolvedTasks(ParticipTest participTest)
         {
             var generalPartMarks = participTest.OneTwoThreeQuestionMarks.Where(p => p.OneTwoThreeQuestion.IsGeneralPart);

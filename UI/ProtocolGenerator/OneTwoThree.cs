@@ -38,7 +38,7 @@ namespace ProtocolGenerator
 
         public void SolveGrades()
         {
-            //var participTests = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == projectId && pt.Grade5 == null);
+            var participTests = context.ParticipTests.Where(pt => pt.ProjectTestId == 2035 && pt.Grade5 > 0).Include(inc => inc.OneTwoThreeQuestionMarks);
 
             ////gradeSolver.SolveForRussianByList(participTests);
             ////Console.WriteLine("russian is over!");
@@ -48,9 +48,10 @@ namespace ProtocolGenerator
 
             //gradeSolver.SolveForReadingByList(participTests);
             //Console.WriteLine("reading is over!");
+            gradeSolver.HotFixForFirstClassReading(participTests);
 
-            //context.SaveChanges();
-            throw new NotImplementedException();
+            context.SaveChanges();
+            //throw new NotImplementedException();
         }
 
         public void GenerateExcelReports(IEnumerable<string> schoolIds)
@@ -73,7 +74,7 @@ namespace ProtocolGenerator
                 .Distinct()
                 .ToList();
 
-            foreach (var school in schoolids.Where(s => s.SchoolId == "0324"))
+            foreach (var school in schoolids)
             {
                 Console.WriteLine($"started for {school.SchoolId}");
 
@@ -82,16 +83,15 @@ namespace ProtocolGenerator
                     //.AsEnumerable()
                     .Select(MapToDto)
                     .OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.TestCode);
-                Console.WriteLine($"query fetched for {school.SchoolId}");
 
-                if (!Directory.Exists($@"{destFolder}\{school.SchoolId}"))
-                    Directory.CreateDirectory($@"{destFolder}\{school.SchoolId}");
+                
+                if (!Directory.Exists($@"{destFolder}\res\{school.SchoolId}"))
+                    Directory.CreateDirectory($@"{destFolder}\res\{school.SchoolId}");
 
                 using (var excel = new XLWorkbook($@"{destFolder}\template_onetwothree.xlsx"))
                 {
                     using (var sheet = excel.Worksheets.First())
                     {
-                        Console.WriteLine($"started write down results for {school.SchoolId}");
                         sheet.Cell(2, 1).Value = $"{school.SchoolName} ({school.AreaName})";
                         int i = 0;
                         foreach (var res in schoolRes)
@@ -101,8 +101,7 @@ namespace ProtocolGenerator
                             i++;
                         }
 
-                        excel.SaveAs($@"{destFolder}\{school.SchoolId}\201814_{school.SchoolId}.xlsx");
-                        Console.WriteLine($"ended for {school.SchoolId}");
+                        excel.SaveAs($@"{destFolder}\res\{school.SchoolId}\201814_{school.SchoolId}.xlsx");
                     }
                 }
             }
