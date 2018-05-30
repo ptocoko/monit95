@@ -1,6 +1,7 @@
 ﻿using Monit95App.Domain.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -138,17 +139,9 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             throw new Exception("Something went wrong");
         }
 
-        private int GetCountOfSolvedTasks(ParticipTest participTest)
-        {
-            var generalPartMarks = participTest.OneTwoThreeQuestionMarks.Where(p => p.OneTwoThreeQuestion.IsGeneralPart);
-            var marksByNumber = generalPartMarks.GroupBy(gb => gb.OneTwoThreeQuestion.Number).Select(s => s.Select(s2 => s2.AwardedMark).Sum());
-
-            return marksByNumber.Where(p => p != 0).Count();
-        }
-
         public void SolveForRussianByList(IQueryable<ParticipTest> participTests)
         {
-            foreach (var participTest in participTests.Where(p => p.ProjectTest.Test.NumberCode.Substring(2, 2) == "01"))
+            foreach (var participTest in participTests.Where(p => p.ProjectTest.Test.NumberCode.Substring(2, 2) == "01").Include(inc => inc.OneTwoThreeQuestionMarks))
             {
                 (participTest.Grade5, participTest.GradeString) = SolveForRussian(participTest);
             }
@@ -156,7 +149,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
 
         public void SolveForMathByList(IQueryable<ParticipTest> participTests)
         {
-            foreach (var participTest in participTests.Where(p => p.ProjectTest.Test.NumberCode.Substring(2, 2) == "02"))
+            foreach (var participTest in participTests.Where(p => p.ProjectTest.Test.NumberCode.Substring(2, 2) == "02").Include(inc => inc.OneTwoThreeQuestionMarks))
             {
                 (participTest.Grade5, participTest.GradeString) = SolveForMath(participTest);
             }
@@ -164,10 +157,18 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
 
         public void SolveForReadingByList(IQueryable<ParticipTest> participTests)
         {
-            foreach (var participTest in participTests.Where(p => p.ProjectTest.Test.NumberCode.Substring(2, 2) == "03"))
+            foreach (var participTest in participTests.Where(p => p.ProjectTest.Test.NumberCode.Substring(2, 2) == "03").Include(inc => inc.OneTwoThreeQuestionMarks))
             {
                 (participTest.Grade5, participTest.GradeString) = SolveForReading(participTest);
             }
+        }
+
+        private int GetCountOfSolvedTasks(ParticipTest participTest)
+        {
+            var generalPartMarks = participTest.OneTwoThreeQuestionMarks.Where(p => p.OneTwoThreeQuestion.IsGeneralPart);
+            var marksByNumber = generalPartMarks.GroupBy(gb => gb.OneTwoThreeQuestion.Number).Select(s => s.Select(s2 => s2.AwardedMark).Sum());
+
+            return marksByNumber.Where(p => p != 0).Count();
         }
     }
 }
