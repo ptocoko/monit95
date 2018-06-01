@@ -36,7 +36,7 @@ namespace ProtocolGenerator
             this.projectId = projectId;
         }
 
-        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.AsNoTracking().Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1);
+        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.AsNoTracking().Where(p => p.ProjectTest.ProjectId == projectId);// && p.Grade5 != -1);
 
         public void SolveAndSaveGrade5AndPrimaryMark()
         {
@@ -68,35 +68,44 @@ namespace ProtocolGenerator
         private void GenerateReports(IQueryable<ParticipTest> participTests)
         {
             var groupedTestResults = participTests
-                .OrderBy(ob => ob.Particip.SchoolId).ThenBy(ob => ob.Particip.Surname).ThenBy(tb => tb.Particip.Name).ThenBy(tb => tb.ProjectTest.Test.NumberCode)
-                .GroupBy(gb => new { gb.Particip.SchoolId, SchoolName = gb.Particip.School.Name });
-                
+                //.OrderBy(ob => ob.Particip.SchoolId).ThenBy(ob => ob.Particip.Surname).ThenBy(tb => tb.Particip.Name).ThenBy(tb => tb.ProjectTest.Test.NumberCode)
+                .Select(MapToReportModel)
+                .OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
+                .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
+
+            string reportFolder = $@"{destFolderPath}\результаты худших школ\я сдам огэ";
 
             foreach (var schoolResult in groupedTestResults)
             {
-                if (!Directory.Exists($@"{destFolderPath}\{schoolResult.Key.SchoolId}"))
-                    Directory.CreateDirectory($@"{destFolderPath}\{schoolResult.Key.SchoolId}");
-                
+                //if (!Directory.Exists($@"{destFolderPath}\{schoolResult.Key.SchoolId}"))
+                //    Directory.CreateDirectory($@"{destFolderPath}\{schoolResult.Key.SchoolId}");
+                if (!Directory.Exists($@"{reportFolder}\{schoolResult.Key.AreaName}"))
+                {
+                    Directory.CreateDirectory($@"{reportFolder}\{schoolResult.Key.AreaName}");
+                }
+
                 using (var excelTemplate = new XLWorkbook($@"{destFolderPath}\{templateName}"))
                 {
                     using (var sheet = excelTemplate.Worksheets.First())
                     {
                         sheet.Cell(2, 1).Value = $"{schoolResult.Key.SchoolName}";
                         int i = 0;
-                        foreach (var result in schoolResult.Select(MapToReportModel).OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode))
+                        foreach (var result in schoolResult)
                         {
                             sheet.Cell(i + 4, 2).Value = result.Surname;
                             sheet.Cell(i + 4, 3).Value = result.Name;
                             sheet.Cell(i + 4, 4).Value = result.SecondName;
                             sheet.Cell(i + 4, 5).Value = result.DocumNumber;
                             sheet.Cell(i + 4, 6).Value = result.TestName;
-                            sheet.Cell(i + 4, 7).Value = result.Marks;
-                            sheet.Cell(i + 4, 8).Value = result.PrimaryMark;
-                            sheet.Cell(i + 4, 9).Value = result.IsPass ? "зачет" : "незачет";
+                            //sheet.Cell(i + 4, 7).Value = result.Marks;
+                            sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
+                            sheet.Cell(i + 4, 8).Value = result.GradeStr;
                             i++;
                         }
 
-                        excelTemplate.SaveAs($@"{destFolderPath}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}_201816.xlsx");
+                        
+
+                        excelTemplate.SaveAs($@"{reportFolder}\{schoolResult.Key.AreaName}\{schoolResult.Key.SchoolName}.xlsx");
                     }
                 }
             }
@@ -106,6 +115,7 @@ namespace ProtocolGenerator
         {
             return new ITakeEgeReportModel
             {
+                AreaName = participTest.Particip.School.Area.Name.Trim(),
                 SchoolId = participTest.Particip.SchoolId,
                 SchoolName = participTest.Particip.School.Name.Trim(),
                 Surname = participTest.Particip.Surname,
@@ -115,15 +125,28 @@ namespace ProtocolGenerator
                 TestName = participTest.ProjectTest.Test.Name,
                 NumberCode = participTest.ProjectTest.Test.NumberCode,
                 //AwardedMarks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()),
-                Marks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}"),
-                PrimaryMark = (int)participTest.PrimaryMark,
-                IsPass = participTest.Grade5 == 5
+                //Marks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}"),
+                PrimaryMark = participTest.PrimaryMark.HasValue ? (int?)participTest.PrimaryMark : null,
+                GradeStr = GetGradeStr(participTest)
             };
+        }
+
+        private string GetGradeStr(ParticipTest participTest)
+        {
+            if (participTest.Grade5 == 5)
+                return "зачет";
+            else if (participTest.Grade5 == 2)
+                return "незачет";
+            else if (participTest.Grade5 < 0)
+                return "отсутствовал";
+            else
+                throw new ArgumentException("something went wrong");
         }
     }
 
     internal class ITakeEgeReportModel
     {
+        public string AreaName { get; set; }
         public string SchoolId { get; set; }
         public string SchoolName { get; set; }
         public string Surname { get; set; }
@@ -133,21 +156,22 @@ namespace ProtocolGenerator
         public string TestName { get; set; }
         public string NumberCode { get; set; }
         public string Marks { get; set; }
-        public IEnumerable<string> AwardedMarks { get; set; }
-        public int PrimaryMark { get; set; }
-        public bool IsPass { get; set; }
+        //public IEnumerable<string> AwardedMarks { get; set; }
+        public int? PrimaryMark { get; set; }
+        //public bool IsPass { get; set; }
+        public string GradeStr { get; set; }
     }
 
-    internal static class ITakeEgeReporterHelpers
-    {
-        public static IEnumerable<ITakeEgeReportModel> GetMarks(this IEnumerable<ITakeEgeReportModel> reports)
-        {
-            foreach (var report in reports)
-            {
-                report.Marks = report.AwardedMarks.Aggregate((s1, s2) => $"{s1};{s2}");
-            }
+    //internal static class ITakeEgeReporterHelpers
+    //{
+    //    public static IEnumerable<ITakeEgeReportModel> GetMarks(this IEnumerable<ITakeEgeReportModel> reports)
+    //    {
+    //        foreach (var report in reports)
+    //        {
+    //            report.Marks = report.AwardedMarks.Aggregate((s1, s2) => $"{s1};{s2}");
+    //        }
 
-            return reports;
-        }
-    }
+    //        return reports;
+    //    }
+    //}
 }
