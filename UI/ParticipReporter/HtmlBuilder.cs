@@ -13,7 +13,7 @@ namespace ParticipReporter
         static int _headerColSpan;
         static int _currentMarksColSpan;
         
-        public static string GetReportHeader(string fio, string testName, string className, DateTime testDate)
+        public static string GetReportHeader(string fio, string testName, string className, string testDate)
         {
             return $"<html><head><title>Результаты</title><meta charset='UTF-8'>{ GetStyles() }</head><body>{ GetCaption(fio, testName, className, testDate) }";
         }
@@ -27,54 +27,58 @@ namespace ParticipReporter
             return res;
         }
 
-        public static string GetFooter()
+        #region oldCode
+        //public static string GetFooter()
+        //{
+        //    return $"</body></html>";
+        //}
+
+        //private static string GetCurrentMarksSection(List<ParticipResultDto> results)
+        //{
+        //    string result;
+
+        //    if(results.Count() > 1)
+        //    {
+        //        result = $@"<tr><th class='general-header' colspan='{_headerColSpan}'>Баллы</th></tr>
+        //                    <tr><th colspan='{_currentMarksColSpan}'></th>";
+        //        for(int i=0; i<results.Count; i++)
+        //            result += $"<th align='center'>срез №{i+1}</th>";
+        //        result += "</tr>\n";
+
+        //        result += $"<tr><td align='right' colspan='{_currentMarksColSpan}'>Первичный балл:</td>";
+        //        for (int i = 0; i < results.Count; i++)
+        //            result += $"<td align='center'>{results[i].PrimaryMark}</td>";
+        //        result += "</tr>\n";
+
+        //        result += $"<tr><td align='right' colspan='{_currentMarksColSpan}'>Отметка:</td>";
+        //        for (int i = 0; i < results.Count; i++)
+        //            result += $"<td align='center'>{results[i].Grade5}</td>";
+        //        result += "</tr>\n";
+        //    }
+        //    else
+        //        result = $@"<tr><th class='general-header' colspan='{_headerColSpan}'>Баллы</th></tr>
+        //                <tr><td colspan='2'>Баллы за задания:</td><td colspan='{_currentMarksColSpan}'>{results.First().Marks}</td></tr>
+        //                <tr><td colspan='2'>Первичный балл:</td><td colspan='{_currentMarksColSpan}'>{results.First().PrimaryMark}</td></tr>
+        //                <tr><td colspan='2'>Отметка:</td><td colspan='{_currentMarksColSpan}'>{results.First().Grade5}</td></tr>";
+
+        //    return result;
+        //}
+        #endregion
+
+        private static string GetOverviewSection(int doneTasks, int allTasks, string gradeStr)
         {
-            return $"</body></html>";
-        }
+            var overviewHtml = new StringBuilder();
 
-        private static string GetTableStart()
-        {
-            return "<table align='center' class='result-table'>";
-        }
+            overviewHtml.Append("<table>");
 
-        private static string GetTableHeader()
-        {
-            return "<tr><th>Элемент содержания</th><th>Балл</th><th>Макс. балл</th></tr>";
-        }
+            overviewHtml.Append("<tr><th colspan=\"2\">Выполнение работы</th></tr>");
 
-        private static string GetCurrentMarksSection(List<ParticipResultDto> results)
-        {
-            string result;
+            overviewHtml.Append($"<tr><td>Выполнено { doneTasks } из { allTasks } основных заданий</td><td>{ gradeStr }</td></tr>");
 
-            if(results.Count() > 1)
-            {
-                result = $@"<tr><th class='general-header' colspan='{_headerColSpan}'>Баллы</th></tr>
-                            <tr><th colspan='{_currentMarksColSpan}'></th>";
-                for(int i=0; i<results.Count; i++)
-                    result += $"<th align='center'>срез №{i+1}</th>";
-                result += "</tr>\n";
+            overviewHtml.Append("</table>");
 
-                result += $"<tr><td align='right' colspan='{_currentMarksColSpan}'>Первичный балл:</td>";
-                for (int i = 0; i < results.Count; i++)
-                    result += $"<td align='center'>{results[i].PrimaryMark}</td>";
-                result += "</tr>\n";
+            return overviewHtml.ToString();
 
-                result += $"<tr><td align='right' colspan='{_currentMarksColSpan}'>Отметка:</td>";
-                for (int i = 0; i < results.Count; i++)
-                    result += $"<td align='center'>{results[i].Grade5}</td>";
-                result += "</tr>\n";
-            }
-            else
-                result = $@"<tr><th class='general-header' colspan='{_headerColSpan}'>Баллы</th></tr>
-                        <tr><td colspan='2'>Баллы за задания:</td><td colspan='{_currentMarksColSpan}'>{results.First().Marks}</td></tr>
-                        <tr><td colspan='2'>Первичный балл:</td><td colspan='{_currentMarksColSpan}'>{results.First().PrimaryMark}</td></tr>
-                        <tr><td colspan='2'>Отметка:</td><td colspan='{_currentMarksColSpan}'>{results.First().Grade5}</td></tr>";
-
-            return result;
-        }
-
-        private static string GetPartsSection(List<ParticipResultDto> results, List<DescriptionDto> partsDesc)
-        {
             #region oldCode
             //string result = $"<tr><th class='general-header' colspan='{_headerColSpan}'>Освоение разделов, проверяемых заданиями КИМ</th></tr>";
             //if (results.Count() == 1)
@@ -126,6 +130,12 @@ namespace ParticipReporter
         {
             StringBuilder elementsHtml = new StringBuilder();
 
+            elementsHtml.Append("<table>");
+
+            elementsHtml.Append($"<tr><th colspan=\"2\">Выполняемость элементов содержания</th></tr>");
+
+            elementsHtml.Append($"<tr><th>Элементы содержания</th><th>Выполнение</th></tr>");
+
             foreach (var elementsDto in groupingElementsDto)
             {
                 elementsHtml.Append($"<tr><th colspan=\"2\">{ elementsDto.Key }</th></tr>");
@@ -135,6 +145,8 @@ namespace ParticipReporter
                     elementsHtml.Append($"<tr><td>{ elementDto.ElementName }</td><td style=\"background-color: { GetGradeColor(elementDto.Grade100) }\">{ elementDto.Grade100 }%</td></tr>");
                 }
             }
+
+            elementsHtml.Append("</table>");
 
             return elementsHtml.ToString();
 
