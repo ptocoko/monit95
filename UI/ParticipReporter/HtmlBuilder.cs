@@ -12,19 +12,19 @@ namespace ParticipReporter
     {
         private readonly HeadingDto heading;
         private readonly OverviewDto overview;
-        private readonly IEnumerable<IGrouping<string, ElementsDto>> groupingElementsDto;
+        private readonly IEnumerable<ElementsDto> elementsDto;
 
         //static int _headerColSpan;
         //static int _currentMarksColSpan;
 
-        public HtmlBuilder(HeadingDto heading, OverviewDto overview, IEnumerable<IGrouping<string, ElementsDto>> groupingElementsDto)
+        public HtmlBuilder(ReportDto reportDto)
         {
-            this.heading = heading;
-            this.overview = overview;
-            this.groupingElementsDto = groupingElementsDto;
+            heading = reportDto.HeadingDto;
+            overview = reportDto.OverviewDto;
+            elementsDto = reportDto.ElementsDto;
         }
         
-        public string GetReportHeader()
+        public string GetReport()
         {
             return $@"<html>
                         <head>
@@ -80,11 +80,12 @@ namespace ParticipReporter
         
         private string GetHeading()
         {
-            return $@"<div style='text-align:center; font-size:20pt; margin-top:50px; margin-bottom:20px;'>
+            return $@"<p class='coko-text'>центр оценки качества образования</p>
+                      < div style='text-align:center; font-size:20pt; margin-top:50px; margin-bottom:20px;'>
                         <div>КАРТА</div>
                         <div>диагностики учебных достижений 1, 2 и 3 классов</div>
                     </div>
-                    <table>
+                    <table class='heading-table'>
                         <tr><td>ФИО:</td><td>{ heading.Fio }</td></tr>
                         <tr><td>Образовательная организация:</td><td>{ heading.SchoolName }</td></tr>
                         <tr><td>Класс:</td><td>{ heading.ClassName }</td></tr>
@@ -97,13 +98,15 @@ namespace ParticipReporter
         {
             var overviewHtml = new StringBuilder();
 
-            overviewHtml.Append("<table>");
+            overviewHtml.Append("<table class=\"result-table\">");
 
-            overviewHtml.Append("<tr><th colspan=\"2\">Выполнение работы</th></tr>");
+            overviewHtml.Append("<tr><th colspan=\"2\" class=\"table-header\">Выполнение работы</th></tr>");
 
-            overviewHtml.Append($"<tr><td>Выполнено { overview.DoneTasks } из { overview.AllTasks } основных заданий</td><td style=\"background-color: { GetGrade5Color(overview.Grade5) }\">{ overview.GradeStr }</td></tr>");
+            overviewHtml.Append($"<tr><td>Выполнено <b>{ overview.DoneTasks }</b> из <b>{ overview.AllTasks }</b> основных заданий*</td><td style=\"background-color: { GetGrade5Color(overview.Grade5) }\">{ overview.GradeStr }</td></tr>");
 
             overviewHtml.Append("</table>");
+
+            overviewHtml.Append("<p class=\"footnote\">* - выполненными считаются задания, за которые учащийся получил хотя бы 1 балл</p>");
 
             return overviewHtml.ToString();
 
@@ -158,20 +161,15 @@ namespace ParticipReporter
         {
             StringBuilder elementsHtml = new StringBuilder();
 
-            elementsHtml.Append("<table>");
+            elementsHtml.Append("<table class=\"result-table\">");
 
-            elementsHtml.Append($"<tr><th colspan=\"2\">Выполняемость элементов содержания</th></tr>");
+            elementsHtml.Append($"<tr><th colspan=\"2\" class=\"table-header\">Умения</th></tr>");
 
-            elementsHtml.Append($"<tr><th>Элементы содержания</th><th>Выполнение</th></tr>");
-
-            foreach (var elementsDto in groupingElementsDto)
+            elementsHtml.Append($"<tr><th>Умения</th><th>Выполнение</th></tr>");
+            
+            foreach (var elementDto in elementsDto)
             {
-                elementsHtml.Append($"<tr><th colspan=\"2\">{ elementsDto.Key }</th></tr>");
-
-                foreach (var elementDto in elementsDto)
-                {
-                    elementsHtml.Append($"<tr><td>{ elementDto.ElementName }</td><td style=\"background-color: { GetGrade100Color(elementDto.Grade100) }\">{ elementDto.Grade100 }%</td></tr>");
-                }
+                elementsHtml.Append($"<tr><td>{ elementDto.ElementName }</td><td style=\"background-color: { GetGrade100Color(elementDto.Grade100) }; width: 120px; text-align: center\">{ elementDto.Grade100 }%</td></tr>");
             }
 
             elementsHtml.Append("</table>");
@@ -224,41 +222,54 @@ namespace ParticipReporter
         private string GetStyles()
         {
             return @"<style>
-            body {
-                padding-right: 15px;
-                padding-left: 15px;
+             body {
+                width: 700px;
+                font-size: 15pt;
+                font-family: 'Segoe UI', 'sans-serif';
                 margin-right: auto;
                 margin-left: auto;
             }
-            .result-table {
-                width: 80%;
-                border-collapse: collapse;
-            }
-            .result-table .general-header {
-                text-align: center;
-                background: #005fff;
+            .coko-text{
+                background-color: #437fda;
                 color: white;
-                padding: 5px;
-                border: 1px solid black;
+                text-transform: uppercase;
+                font-size: 10pt;
+                font-weight: bold;
+                text-align: center;
+                padding: 3px;
             }
-            .result-table th {
+            .footnote{
+                font-size: 8pt;
+                font-style: italic;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 45px;
+            }
+            table th {
                 text-align: center;
                 background: #c4e3f3;
                 padding: 5px;
                 border: 1px solid black;
             }
-            .result-table td {
+            table td {
                 padding: 5px;
                 border: 1px solid black;
             }
-            .header-table{
-                width: 80%;
-                margin-bottom: 10px;
+            .table-header{
+                border: none;
+                background-color: white;
+                font-weight: normal;
             }
-            .header-table td{
+            .heading-table{
+                border: none;
+                width: 80%;
+            }
+            .heading-table td{
+                border: none;
                 padding: 15px;
                 padding-left: 0px;
-                border-width: 2px;
             }
         </style>";
         }
@@ -315,6 +326,13 @@ namespace ParticipReporter
         }
     }
 
+    public class ReportDto
+    {
+        public HeadingDto HeadingDto { get; set; }
+        public OverviewDto OverviewDto { get; set; }
+        public IEnumerable<ElementsDto> ElementsDto { get; set; }
+    }
+
     public class HeadingDto
     {
         public string Fio { get; set; }
@@ -336,5 +354,6 @@ namespace ParticipReporter
     {
         public string ElementName { get; set; }
         public int Grade100 { get; set; }
+        public string Part { get; set; }
     }
 }
