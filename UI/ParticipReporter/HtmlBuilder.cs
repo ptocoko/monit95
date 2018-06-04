@@ -8,25 +8,38 @@ using System.Threading.Tasks;
 
 namespace ParticipReporter
 {
-    public static class HtmlBuilder
+    public class HtmlBuilder
     {
-        static int _headerColSpan;
-        static int _currentMarksColSpan;
+        private readonly HeadingDto heading;
+        private readonly OverviewDto overview;
+        private readonly IEnumerable<IGrouping<string, ElementsDto>> groupingElementsDto;
+
+        //static int _headerColSpan;
+        //static int _currentMarksColSpan;
+
+        public HtmlBuilder(HeadingDto heading, OverviewDto overview, IEnumerable<IGrouping<string, ElementsDto>> groupingElementsDto)
+        {
+            this.heading = heading;
+            this.overview = overview;
+            this.groupingElementsDto = groupingElementsDto;
+        }
         
-        public static string GetReportHeader(string fio, string testName, string className, string testDate)
+        public string GetReportHeader()
         {
-            return $"<html><head><title>Результаты</title><meta charset='UTF-8'>{ GetStyles() }</head><body>{ GetCaption(fio, testName, className, testDate) }";
+            return $@"<html>
+                        <head>
+                            <title>Результаты</title>
+                            <meta charset='UTF-8'>
+                            { GetStyles() }
+                        </head>
+                        <body>
+                            { GetHeading() }
+                            { GetOverviewSection() }
+                            { GetElementsSection() }
+                        </body>
+                    </html>";
         }
-
-        public static string GetTable(List<ParticipResultDto> results, List<DescriptionDto> partsDesc, List<DescriptionDto> elementsDesc)
-        {
-            SetColSpans(results.Count);
-
-            string res = GetTableStart() + GetTableHeader() + GetCurrentMarksSection(results) + GetPartsSection(results, partsDesc) + GetElementsSection(results, elementsDesc) + "</table>";
-
-            return res;
-        }
-
+        
         #region oldCode
         //public static string GetFooter()
         //{
@@ -64,8 +77,23 @@ namespace ParticipReporter
         //    return result;
         //}
         #endregion
-
-        private static string GetOverviewSection(int doneTasks, int allTasks, string gradeStr)
+        
+        private string GetHeading()
+        {
+            return $@"<div style='text-align:center; font-size:20pt; margin-top:50px; margin-bottom:20px;'>
+                        <div>КАРТА</div>
+                        <div>диагностики учебных достижений 1, 2 и 3 классов</div>
+                    </div>
+                    <table>
+                        <tr><td>ФИО:</td><td>{ heading.Fio }</td></tr>
+                        <tr><td>Образовательная организация:</td><td>{ heading.SchoolName }</td></tr>
+                        <tr><td>Класс:</td><td>{ heading.ClassName }</td></tr>
+                        <tr><td>Предмет:</td><td>{ heading.TestName }</td></tr>
+                        <tr><td>Дата тестирования:</td><td>{ heading.TestDate }</td></tr>
+                    </table>";
+        }
+        
+        private string GetOverviewSection()
         {
             var overviewHtml = new StringBuilder();
 
@@ -73,7 +101,7 @@ namespace ParticipReporter
 
             overviewHtml.Append("<tr><th colspan=\"2\">Выполнение работы</th></tr>");
 
-            overviewHtml.Append($"<tr><td>Выполнено { doneTasks } из { allTasks } основных заданий</td><td>{ gradeStr }</td></tr>");
+            overviewHtml.Append($"<tr><td>Выполнено { overview.DoneTasks } из { overview.AllTasks } основных заданий</td><td style=\"background-color: { GetGrade5Color(overview.Grade5) }\">{ overview.GradeStr }</td></tr>");
 
             overviewHtml.Append("</table>");
 
@@ -126,7 +154,7 @@ namespace ParticipReporter
             #endregion
         }
 
-        private static string GetElementsSection(IEnumerable<IGrouping<string, ElementsDto>> groupingElementsDto)
+        private string GetElementsSection()
         {
             StringBuilder elementsHtml = new StringBuilder();
 
@@ -142,7 +170,7 @@ namespace ParticipReporter
 
                 foreach (var elementDto in elementsDto)
                 {
-                    elementsHtml.Append($"<tr><td>{ elementDto.ElementName }</td><td style=\"background-color: { GetGradeColor(elementDto.Grade100) }\">{ elementDto.Grade100 }%</td></tr>");
+                    elementsHtml.Append($"<tr><td>{ elementDto.ElementName }</td><td style=\"background-color: { GetGrade100Color(elementDto.Grade100) }\">{ elementDto.Grade100 }%</td></tr>");
                 }
             }
 
@@ -193,7 +221,7 @@ namespace ParticipReporter
             #endregion
         }
 
-        private static string GetStyles()
+        private string GetStyles()
         {
             return @"<style>
             body {
@@ -235,55 +263,73 @@ namespace ParticipReporter
         </style>";
         }
 
-        private static string GetCaption(string fio, string testName, string className, DateTime testDate)
-        {
-            return $@"<div style='text-align:center; font-size:20pt; margin-top:50px; margin-bottom:20px;'>
-                        <div>КАРТА</div>
-                        <div>диагностики учебных достижений 1, 2 и 3 классов</div>
-                    </div>
-                    <table align='center' class='header-table'>
-                        <tr><td>ФИО:</td><td>{ fio }</td></tr>
-                        <tr><td>Образовательная организация:</td><td style = 'border-bottom-style:dashed'></td></tr>
-                        <tr><td>Предмет:</td><td>{ testName }</td></tr>
-                        <tr><td>Класс:</td><td>{ className }</td></tr>
-                        <tr><td>Дата тестирования:</td><td>{ testDate.ToShortDateString() }</td></tr>
-                    </table>";
-        }
+        #region oldCode
+        //private static void SetColSpans(int resultsCount)
+        //{
+        //    if(resultsCount == 1)
+        //    {
+        //        _headerColSpan = resultsCount + 3;
+        //        _currentMarksColSpan = resultsCount + 1;
+        //    }
+        //    else if (resultsCount == 2)
+        //    {
+        //        _headerColSpan = resultsCount + 3;
+        //        _currentMarksColSpan = resultsCount + 1;
+        //    }
+        //    else if (resultsCount > 2)
+        //    {
+        //        _headerColSpan = resultsCount + 2;
+        //        _currentMarksColSpan = 2; 
+        //    }
+        //    else
+        //    {
+        //        throw new ArgumentException("отсутствуют результаты для обработки");
+        //    }
+        //}
+        #endregion
 
-        private static void SetColSpans(int resultsCount)
+        private string GetGrade100Color(int grade100)
         {
-            if(resultsCount == 1)
-            {
-                _headerColSpan = resultsCount + 3;
-                _currentMarksColSpan = resultsCount + 1;
-            }
-            else if (resultsCount == 2)
-            {
-                _headerColSpan = resultsCount + 3;
-                _currentMarksColSpan = resultsCount + 1;
-            }
-            else if (resultsCount > 2)
-            {
-                _headerColSpan = resultsCount + 2;
-                _currentMarksColSpan = 2; 
-            }
-            else
-            {
-                throw new ArgumentException("отсутствуют результаты для обработки");
-            }
-        }
-
-        private static string GetGradeColor(int grade)
-        {
-            if (grade >= 65)
+            if (grade100 >= 65)
                 return "green";
-            else if (grade < 65 && grade >= 30)
+            else if (grade100 < 65 && grade100 >= 30)
                 return "yellow";
-            else if (grade < 30)
+            else if (grade100 < 30)
                 return "red";
             else
                 throw new ArgumentException();
         }
+
+        private string GetGrade5Color(int grade5)
+        {
+            if (grade5 == 5)
+                return "green";
+            else if (grade5 == 4)
+                return "lightgreen";
+            else if (grade5 == 3)
+                return "yellow";
+            else if (grade5 == 2)
+                return "red";
+            else
+                throw new ArgumentException();
+        }
+    }
+
+    public class HeadingDto
+    {
+        public string Fio { get; set; }
+        public string SchoolName { get; set; }
+        public string ClassName { get; set; }
+        public string TestName { get; set; }
+        public string TestDate { get; set; }
+    }
+
+    public class OverviewDto
+    {
+        public int DoneTasks { get; set; }
+        public int AllTasks { get; set; }
+        public string GradeStr { get; set; }
+        public int Grade5 { get; set; }
     }
 
     public class ElementsDto
