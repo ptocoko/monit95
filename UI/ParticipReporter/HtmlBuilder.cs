@@ -104,7 +104,7 @@ namespace ParticipReporter
 
             overviewHtml.Append($"<tr><td>Выполнено <b>{ overview.DoneGeneralTasks }</b> из <b>{ overview.AllGeneralTasks }</b> основных заданий*</td><td rowspan=\"2\" style=\"background-color: { GetGrade5Color(overview.Grade5) }\">{ overview.GradeStr }</td></tr>");
 
-            overviewHtml.Append($"<tr><td>Выполнено <b>{ overview.DoneAdditionalTasks }</b> из <b>{ overview.AllAdditionalTasks }</b> дополнительных заданий*</td></tr>");
+            overviewHtml.Append($"<tr><td>Получено <b>{ overview.AdditionalTasksPoints }</b> из <b>{ overview.MaxAdditionalTasksPoints }</b> баллов за дополнительные задания</td></tr>");
 
             overviewHtml.Append("</table>");
 
@@ -326,38 +326,5 @@ namespace ParticipReporter
             else
                 throw new ArgumentException();
         }
-    }
-
-    public class ReportDto
-    {
-        public HeadingDto HeadingDto { get; set; }
-        public OverviewDto OverviewDto { get; set; }
-        public IEnumerable<QuestionsDto> QuestionsDto { get; set; }
-    }
-
-    public class HeadingDto
-    {
-        public string Fio { get; set; }
-        public string SchoolName { get; set; }
-        public string ClassName { get; set; }
-        public string TestName { get; set; }
-        public string TestDate { get; set; }
-    }
-
-    public class OverviewDto
-    {
-        public int DoneGeneralTasks { get; set; }
-        public int AllGeneralTasks { get; set; }
-        public int DoneAdditionalTasks { get; set; }
-        public int AllAdditionalTasks { get; set; }
-        public string GradeStr { get; set; }
-        public int Grade5 { get; set; }
-    }
-
-    public class QuestionsDto
-    {
-        public string Name { get; set; }
-        public string ElementName { get; set; }
-        public int Grade100 { get; set; }
     }
 }
