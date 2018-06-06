@@ -12,7 +12,7 @@ namespace ParticipReporter
     {
         private readonly HeadingDto heading;
         private readonly OverviewDto overview;
-        private readonly IEnumerable<ElementsDto> elementsDto;
+        private readonly IEnumerable<QuestionsDto> questionsDto;
 
         //static int _headerColSpan;
         //static int _currentMarksColSpan;
@@ -21,7 +21,7 @@ namespace ParticipReporter
         {
             heading = reportDto.HeadingDto;
             overview = reportDto.OverviewDto;
-            elementsDto = reportDto.ElementsDto;
+            questionsDto = reportDto.QuestionsDto;
         }
         
         public string GetReport()
@@ -81,9 +81,9 @@ namespace ParticipReporter
         private string GetHeading()
         {
             return $@"<p class='coko-text'>центр оценки качества образования</p>
-                      < div style='text-align:center; font-size:20pt; margin-top:50px; margin-bottom:20px;'>
+                      <div style='text-align:center; font-size:20pt; margin-top:15px; margin-bottom:10px;'>
                         <div>КАРТА</div>
-                        <div>диагностики учебных достижений 1, 2 и 3 классов</div>
+                        <div>диагностики учебных достижений</div>
                     </div>
                     <table class='heading-table'>
                         <tr><td>ФИО:</td><td>{ heading.Fio }</td></tr>
@@ -102,7 +102,9 @@ namespace ParticipReporter
 
             overviewHtml.Append("<tr><th colspan=\"2\" class=\"table-header\">Выполнение работы</th></tr>");
 
-            overviewHtml.Append($"<tr><td>Выполнено <b>{ overview.DoneTasks }</b> из <b>{ overview.AllTasks }</b> основных заданий*</td><td style=\"background-color: { GetGrade5Color(overview.Grade5) }\">{ overview.GradeStr }</td></tr>");
+            overviewHtml.Append($"<tr><td>Выполнено <b>{ overview.DoneGeneralTasks }</b> из <b>{ overview.AllGeneralTasks }</b> основных заданий*</td><td rowspan=\"2\" style=\"background-color: { GetGrade5Color(overview.Grade5) }\">{ overview.GradeStr }</td></tr>");
+
+            overviewHtml.Append($"<tr><td>Выполнено <b>{ overview.DoneAdditionalTasks }</b> из <b>{ overview.AllAdditionalTasks }</b> дополнительных заданий*</td></tr>");
 
             overviewHtml.Append("</table>");
 
@@ -163,13 +165,13 @@ namespace ParticipReporter
 
             elementsHtml.Append("<table class=\"result-table\">");
 
-            elementsHtml.Append($"<tr><th colspan=\"2\" class=\"table-header\">Умения</th></tr>");
+            elementsHtml.Append($"<tr><th colspan=\"3\" class=\"table-header\">Задания</th></tr>");
 
-            elementsHtml.Append($"<tr><th>Умения</th><th>Выполнение</th></tr>");
+            elementsHtml.Append($"<tr><th>Номер задания</th><th>Проверяемые умения</th><th>Выполнение</th></tr>");
             
-            foreach (var elementDto in elementsDto)
+            foreach (var questionDto in questionsDto)
             {
-                elementsHtml.Append($"<tr><td>{ elementDto.ElementName }</td><td style=\"background-color: { GetGrade100Color(elementDto.Grade100) }; width: 120px; text-align: center\">{ elementDto.Grade100 }%</td></tr>");
+                elementsHtml.Append($"<tr><td style=\"text-align: center\">{ questionDto.Name }</td><td>{ questionDto.ElementName }</td><td style=\"background-color: { GetGrade100Color(questionDto.Grade100) }; width: 120px; text-align: center\">{ questionDto.Grade100 }%</td></tr>");
             }
 
             elementsHtml.Append("</table>");
@@ -224,7 +226,7 @@ namespace ParticipReporter
             return @"<style>
              body {
                 width: 700px;
-                font-size: 15pt;
+                font-size: 13pt;
                 font-family: 'Segoe UI', 'sans-serif';
                 margin-right: auto;
                 margin-left: auto;
@@ -245,7 +247,7 @@ namespace ParticipReporter
             table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-top: 45px;
+                margin-top: 25px;
             }
             table th {
                 text-align: center;
@@ -330,7 +332,7 @@ namespace ParticipReporter
     {
         public HeadingDto HeadingDto { get; set; }
         public OverviewDto OverviewDto { get; set; }
-        public IEnumerable<ElementsDto> ElementsDto { get; set; }
+        public IEnumerable<QuestionsDto> QuestionsDto { get; set; }
     }
 
     public class HeadingDto
@@ -344,16 +346,18 @@ namespace ParticipReporter
 
     public class OverviewDto
     {
-        public int DoneTasks { get; set; }
-        public int AllTasks { get; set; }
+        public int DoneGeneralTasks { get; set; }
+        public int AllGeneralTasks { get; set; }
+        public int DoneAdditionalTasks { get; set; }
+        public int AllAdditionalTasks { get; set; }
         public string GradeStr { get; set; }
         public int Grade5 { get; set; }
     }
 
-    public class ElementsDto
+    public class QuestionsDto
     {
+        public string Name { get; set; }
         public string ElementName { get; set; }
         public int Grade100 { get; set; }
-        public string Part { get; set; }
     }
 }

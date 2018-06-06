@@ -3,6 +3,9 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +16,43 @@ namespace ParticipReporter
     {       
         static void Main(string[] args)
         {
+            var context = new CokoContext();
+            ReportDto reportDto = context.ParticipTests.Where(pt => pt.Id == 401733).Select(pt => new ReportDto
+            {
+                HeadingDto = new HeadingDto
+                {
+                    Fio = pt.Particip.Surname + " " + pt.Particip.Name + " " + pt.Particip.SecondName,
+                    ClassName = pt.Particip.Class.Name.Trim(),
+                    SchoolName = pt.Particip.School.Name.Trim(),
+                    TestName = pt.ProjectTest.Test.Name.Trim(),
+                    TestDate = pt.ProjectTest.TestDate.Day + " " + SqlFunctions.DateName("month", pt.ProjectTest.TestDate).ToLower() + " " + pt.ProjectTest.TestDate.Year
+                },
+                OverviewDto = new OverviewDto
+                {
+                    DoneGeneralTasks = pt.OneTwoThreeQuestionMarks.Where(p=>p.OneTwoThreeQuestion.IsGeneralPart).GroupBy(gb => gb.OneTwoThreeQuestion.Number).Select(gb => gb.Select(s => s.AwardedMark).Sum()).Count(p => p != 0),
+                    AllGeneralTasks = pt.OneTwoThreeQuestionMarks.Where(p => p.OneTwoThreeQuestion.IsGeneralPart).GroupBy(gb => gb.OneTwoThreeQuestion.Number).Count(),
+                    DoneAdditionalTasks = pt.OneTwoThreeQuestionMarks.Where(p => !p.OneTwoThreeQuestion.IsGeneralPart).GroupBy(gb => gb.OneTwoThreeQuestion.Number).Select(gb => gb.Select(s => s.AwardedMark).Sum()).Count(p => p != 0),
+                    AllAdditionalTasks = pt.OneTwoThreeQuestionMarks.Where(p => !p.OneTwoThreeQuestion.IsGeneralPart).GroupBy(gb => gb.OneTwoThreeQuestion.Number).Count(),
+                    GradeStr = pt.GradeString,
+                    Grade5 = pt.Grade5.Value
+                },
+                QuestionsDto = pt.OneTwoThreeQuestionMarks.OrderBy(ob => ob.OneTwoThreeQuestion.Number).ThenBy(tb => tb.OneTwoThreeQuestion.Name).Select(qm => new QuestionsDto
+                {
+                    Name = qm.OneTwoThreeQuestion.Name,
+                    ElementName = qm.OneTwoThreeQuestion.ElementNames,
+                    Grade100 = (qm.AwardedMark * 100) / qm.OneTwoThreeQuestion.MaxMark
+                })
+            }).Single();
+
+            var htmlBuilder = new HtmlBuilder(reportDto);
+            var reportHtml = htmlBuilder.GetReport();
+            var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(reportHtml);
+            using (FileStream fs = new FileStream(@"D:\Work\reports\example.pdf", FileMode.Create))
+            {
+                fs.Write(pdfBytes, 0, pdfBytes.Length);
+            }
+            Console.WriteLine("End");
+            #region oldCode
             //Console.OutputEncoding = Encoding.UTF8;
             //Console.WriteLine("Процесс");
 
@@ -68,11 +108,10 @@ namespace ParticipReporter
 
             ////var htmlProcessor = new HtmlProcessor(_reportFolder);
             ////htmlProcessor.Process();
-
-            Console.WriteLine("End");
-            Console.ReadKey();
+            #endregion
         }
 
+        #region oldCode
         static void GetReports(Guid testId, DateTime testDate)
         {
             //var context = new CokoContext();
@@ -112,6 +151,7 @@ namespace ParticipReporter
         //        sw.Write(resultTable);
         //        sw.Write(htmlFooter);
         //    }
-        //}          
+        //}    
+        #endregion
     }
 }

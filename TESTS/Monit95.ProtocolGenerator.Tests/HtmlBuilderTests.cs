@@ -31,21 +31,21 @@ namespace Monit95.ParticipReporter.Tests
                 Grade5 = 5
             };
 
-            var elementsDto = new List<ElementsDto>()
+            var elementsDto = new List<QuestionsDto>()
             {
-                new ElementsDto
+                new QuestionsDto
                 {
                     ElementName = "Element first",
                     Grade100 = 70,
                     Part = "Основная часть"
                 },
-                new ElementsDto
+                new QuestionsDto
                 {
                     ElementName = "Element second",
                     Grade100 = 30,
                     Part = "Основная часть"
                 },
-                new ElementsDto
+                new QuestionsDto
                 {
                     ElementName = "Element third",
                     Grade100 = 100,
@@ -53,7 +53,7 @@ namespace Monit95.ParticipReporter.Tests
                 }
             };
 
-            builder = new HtmlBuilder(new ReportDto { ElementsDto = elementsDto, HeadingDto = heading, OverviewDto = overview });
+            builder = new HtmlBuilder(new ReportDto { QuestionsDto = elementsDto, HeadingDto = heading, OverviewDto = overview });
         }
 
         [TestMethod]

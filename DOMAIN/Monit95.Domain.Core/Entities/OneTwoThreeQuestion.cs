@@ -12,6 +12,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public int Number { get; set; }
 
+        public string ElementNames { get; set; }
+
         public string Name { get; set; }
 
         public int MaxMark { get; set; }
