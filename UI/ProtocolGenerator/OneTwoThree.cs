@@ -53,15 +53,8 @@ namespace ProtocolGenerator
             context.SaveChanges();
             //throw new NotImplementedException();
         }
-
-        public void GenerateExcelReports(IEnumerable<string> schoolIds)
-        {
-            query = query.Where(pt => schoolIds.Contains(pt.Particip.SchoolId));
-
-            GenerateExcelReports();
-        }
-
-        public void GenerateExcelReports()
+        
+        public void GenerateExcelReports(string [] schoolIds = null)
         {
             var schoolids = context.ParticipTests.AsNoTracking()
                 .Where(pt => pt.ProjectTest.ProjectId == 14 && pt.Grade5 > 0)
@@ -74,7 +67,7 @@ namespace ProtocolGenerator
                 .Distinct()
                 .ToList();
 
-            foreach (var school in schoolids)
+            foreach (var school in schoolids.Where(p => schoolIds.Contains(p.SchoolId)))
             {
                 Console.WriteLine($"started for {school.SchoolId}");
 
@@ -85,8 +78,8 @@ namespace ProtocolGenerator
                     .OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.TestCode);
 
                 
-                if (!Directory.Exists($@"{destFolder}\res\{school.SchoolId}"))
-                    Directory.CreateDirectory($@"{destFolder}\res\{school.SchoolId}");
+                if (!Directory.Exists($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}"))
+                    Directory.CreateDirectory($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}");
 
                 using (var excel = new XLWorkbook($@"{destFolder}\template_onetwothree.xlsx"))
                 {
@@ -101,7 +94,7 @@ namespace ProtocolGenerator
                             i++;
                         }
 
-                        excel.SaveAs($@"{destFolder}\res\{school.SchoolId}\201814_{school.SchoolId}.xlsx");
+                        excel.SaveAs($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}.xlsx");
                     }
                 }
             }

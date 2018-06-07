@@ -17,7 +17,7 @@ namespace ParticipReporter
         static void Main(string[] args)
         {
             var context = new CokoContext();
-            ReportDto reportDto = context.ParticipTests.Where(pt => pt.Id == 401733).Select(pt => new ReportDto
+            var reportDto = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 14 && pt.Particip.SchoolId == "0005").Select(pt => new ReportDto
             {
                 HeadingDto = new HeadingDto
                 {
@@ -42,9 +42,9 @@ namespace ParticipReporter
                     ElementName = qm.OneTwoThreeQuestion.ElementNames,
                     Grade100 = (qm.AwardedMark * 100) / qm.OneTwoThreeQuestion.MaxMark
                 })
-            }).Single();
+            });
 
-            var htmlBuilder = new HtmlBuilder(reportDto);
+            var htmlBuilder = new HtmlBuilder(reportDto.Single());
             var reportHtml = htmlBuilder.GetReport();
             var pdfBytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(reportHtml);
             using (FileStream fs = new FileStream(@"D:\Work\reports\example.pdf", FileMode.Create))
