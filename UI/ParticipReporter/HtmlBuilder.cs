@@ -226,7 +226,7 @@ namespace ParticipReporter
             return @"<style>
              body {
                 width: 700px;
-                font-size: 13pt;
+                font-size: 10pt;
                 font-family: 'Segoe UI', 'sans-serif';
                 margin-right: auto;
                 margin-left: auto;

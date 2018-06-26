@@ -13,6 +13,7 @@ namespace ParticipReporter
     {
         public string Fio { get; set; }
         public string SchoolName { get; set; }
+        public string AreaName { get; set; }
         public string ClassName { get; set; }
         public string TestName { get; set; }
         public string TestDate { get; set; }
