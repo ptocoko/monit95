@@ -17,7 +17,7 @@ namespace ParticipReporter
         public void GenerateCards()
         {
             var context = new CokoContext();
-            foreach (var schoolid in BadSchoolsIds)
+            foreach (var schoolid in new string[] { "0369", "0416", "0382", "0434" })//in BadSchoolsIds)
             {
                 //var schoolInfo = context.Schools.Where(s => s.Id == schoolid).Select(s => new { SchoolName = s.Name.Trim(), AreaName = s.Area.Name.Trim() }).Single();
                 string schoolIdDirPath = $@"D:\Work\reports\1-3 класс(по айди)\{schoolid}";
@@ -82,6 +82,11 @@ namespace ParticipReporter
                     using (FileStream fs = new FileStream(schoolIdDirPath + $"\\{schoolid}_201817.zip", FileMode.Create))
                     {
                         zip.Save(fs);
+                    }
+
+                    foreach (var dirToDel in Directory.EnumerateDirectories(schoolIdDirPath))
+                    {
+                        Directory.Delete(dirToDel, true);
                     }
                 }
 

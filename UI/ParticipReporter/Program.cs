@@ -15,19 +15,16 @@ using System.Threading.Tasks;
 namespace ParticipReporter
 {
     class Program
-    {       
+    {
+        private static OneTwoThree oneTwoThree;
+        private static CokoContext context;
+
         static void Main(string[] args)
         {
-            var oneTwoThree = new OneTwoThree();
-            //oneTwoThree.GenerateCards();
-            string dirPath = $@"D:\Work\reports\1-3 класс(по айди)";
-            var directories = Directory.EnumerateDirectories(dirPath)
-                .Select(dir => dir.Split('\\').Last())
-                .Where(dir => oneTwoThree.BadSchoolsIds.Contains(dir));
-            foreach (var schoolId in directories)
-            {
-                System.IO.File.Copy($@"D:\Work\reports\201818.rar", $@"{schoolId}\{schoolId}_201818.rar");
-            }
+            oneTwoThree = new OneTwoThree();
+            context = new CokoContext();
+            oneTwoThree.GenerateCards();
+
 
             Console.WriteLine("End");
             #region oldCode
@@ -89,7 +86,27 @@ namespace ParticipReporter
             #endregion
         }
 
-        
+        static void CopyFiles()
+        {
+            string destFolder = $@"D:\Work\reports\1-e классы";
+            string sourceFolder = $@"\\192.168.88.254\PTO_Cloud Mail.Ru\Reports";
+            string reportCode = "201692";
+
+            foreach (var schoolId in oneTwoThree.BadSchoolsIds)
+            {
+                var school = context.Schools.Find(schoolId);
+                var destSchoolFolder = $@"{destFolder}\{school.Area.Name.Trim()}";
+                var sourceReportFile = $@"{sourceFolder}\{schoolId}\{schoolId}_{reportCode}.zip";
+
+                if (System.IO.File.Exists(sourceReportFile))
+                {
+                    if (!Directory.Exists(destSchoolFolder))
+                        Directory.CreateDirectory(destSchoolFolder);
+
+                    System.IO.File.Copy(sourceReportFile, $@"{destFolder}\{school.Area.Name.Trim()}\{school.Name.Trim()}.zip");
+                }
+            }
+        } 
 
         #region oldCode
         static void GetReports(Guid testId, DateTime testDate)
