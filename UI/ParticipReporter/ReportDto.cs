@@ -27,6 +27,8 @@ namespace ParticipReporter
         public int MaxAdditionalTasksPoints { get; set; }
         public string GradeStr { get; set; }
         public int Grade5 { get; set; }
+        public short? FirstClassGrade5 { get; set; }
+        public string FirstClassGradeStr { get; set; }
     }
 
     public class QuestionsDto

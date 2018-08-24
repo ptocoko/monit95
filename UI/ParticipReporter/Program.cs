@@ -22,8 +22,9 @@ namespace ParticipReporter
         static void Main(string[] args)
         {
             oneTwoThree = new OneTwoThree();
-            context = new CokoContext();
-            oneTwoThree.GenerateCards();
+            //context = new CokoContext();
+            //oneTwoThree.GenerateCards();
+            //GenerateReportEntitiesForSeveralSchools(oneTwoThree.BadSchoolsIds);
 
 
             Console.WriteLine("End");
@@ -107,6 +108,23 @@ namespace ParticipReporter
                 }
             }
         } 
+
+        static void GenerateReportEntitiesForSeveralSchools(IEnumerable<string> schoolIds)
+        {
+            string destFolder = $@"D:\Work\reports\temp";
+            string reportCode = "201819";
+            string destSchoolFolder = string.Empty;
+
+            foreach (var schoolid in schoolIds)
+            {
+                destSchoolFolder = $@"{destFolder}\{schoolid}";
+
+                if (!Directory.Exists(destSchoolFolder))
+                    Directory.CreateDirectory(destSchoolFolder);
+
+                System.IO.File.Copy($@"{destFolder}\{reportCode}.rar", $@"{destSchoolFolder}\{schoolid}_{reportCode}.rar");
+            }
+        }
 
         #region oldCode
         static void GetReports(Guid testId, DateTime testDate)

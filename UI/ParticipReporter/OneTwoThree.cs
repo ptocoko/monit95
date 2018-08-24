@@ -17,13 +17,13 @@ namespace ParticipReporter
         public void GenerateCards()
         {
             var context = new CokoContext();
-            foreach (var schoolid in new string[] { "0369", "0416", "0382", "0434" })//in BadSchoolsIds)
+            foreach (var schoolid in BadSchoolsIds)
             {
-                //var schoolInfo = context.Schools.Where(s => s.Id == schoolid).Select(s => new { SchoolName = s.Name.Trim(), AreaName = s.Area.Name.Trim() }).Single();
-                string schoolIdDirPath = $@"D:\Work\reports\1-3 класс(по айди)\{schoolid}";
+                var schoolInfo = context.Schools.Where(s => s.Id == schoolid).Select(s => new { SchoolName = s.Name.Trim(), AreaName = s.Area.Name.Trim() }).Single();
+                string schoolIdDirPath = $@"D:\Work\reports\1-3 (новое)\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
                 CreateDirectories(schoolIdDirPath);
 
-                var reportDtos = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 14 && pt.Particip.SchoolId == schoolid && pt.Grade5 > 0)
+                var reportDtos = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 14 && pt.Particip.SchoolId == schoolid && pt.Grade5 > 0 && new int[] { 2033, 2034, 2035 }.Contains(pt.ProjectTestId))
                     .Include("Particip.School.Area")
                     .Include("OneTwoThreeQuestionMarks.OneTwoThreeQuestion")
                     .Include("ProjectTest.Test")
@@ -47,7 +47,9 @@ namespace ParticipReporter
                             AdditionalTasksPoints = pt.OneTwoThreeQuestionMarks.Where(p => !p.OneTwoThreeQuestion.IsGeneralPart).Sum(s => s.AwardedMark),
                             MaxAdditionalTasksPoints = pt.OneTwoThreeQuestionMarks.Where(p => !p.OneTwoThreeQuestion.IsGeneralPart).Sum(s => s.OneTwoThreeQuestion.MaxMark),
                             GradeStr = pt.GradeString,
-                            Grade5 = pt.Grade5.Value
+                            Grade5 = pt.Grade5.Value,
+                            FirstClassGrade5 = pt.Particip.FirstClassGrades?.FirstClassGrade5,
+                            FirstClassGradeStr = pt.Particip.FirstClassGrades?.FirstClassGradeStr
                         },
                         QuestionsDto = pt.OneTwoThreeQuestionMarks.OrderBy(ob => ob.OneTwoThreeQuestion.Number).ThenBy(tb => tb.OneTwoThreeQuestion.Name).Select(qm => new QuestionsDto
                         {
@@ -72,23 +74,23 @@ namespace ParticipReporter
                     }
                 });
 
-                using (ZipFile zip = new ZipFile())
-                {
-                    zip.AlternateEncoding = Encoding.UTF8;
-                    zip.AlternateEncodingUsage = ZipOption.Always;
+                //using (ZipFile zip = new ZipFile())
+                //{
+                //    zip.AlternateEncoding = Encoding.UTF8;
+                //    zip.AlternateEncodingUsage = ZipOption.Always;
 
-                    zip.AddDirectory(schoolIdDirPath);
+                //    zip.AddDirectory(schoolIdDirPath);
 
-                    using (FileStream fs = new FileStream(schoolIdDirPath + $"\\{schoolid}_201817.zip", FileMode.Create))
-                    {
-                        zip.Save(fs);
-                    }
+                //    using (FileStream fs = new FileStream(schoolIdDirPath + $"\\{schoolid}_201817.zip", FileMode.Create))
+                //    {
+                //        zip.Save(fs);
+                //    }
 
-                    foreach (var dirToDel in Directory.EnumerateDirectories(schoolIdDirPath))
-                    {
-                        Directory.Delete(dirToDel, true);
-                    }
-                }
+                //    foreach (var dirToDel in Directory.EnumerateDirectories(schoolIdDirPath))
+                //    {
+                //        Directory.Delete(dirToDel, true);
+                //    }
+                //}
 
                 Console.WriteLine("ended for " + schoolid);
             }
@@ -98,7 +100,7 @@ namespace ParticipReporter
         {
             foreach (var subject in new string[] { "Математика", "Русский язык", "Чтение" })
             {
-                foreach (var className in new string[] { "1 класс", "2 класс", "3 класс" })
+                foreach (var className in new string[] { "1 класс" }) //, "2 класс", "3 класс" })
                 {
                     if (!Directory.Exists(dirPath + $@"\{className}\{subject}"))
                         Directory.CreateDirectory(dirPath + $@"\{className}\{subject}");

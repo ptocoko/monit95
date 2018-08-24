@@ -43,7 +43,8 @@ namespace Monit95App.Domain.Core.Entities
         public int ProjectId { get; set; }        
         public Project Project { get; set; }
         public string SchoolId { get; set; }
-        public virtual School School { get; set; }                
+        public virtual School School { get; set; }    
+        public virtual FirstClassGrades FirstClassGrades { get; set; }
         public virtual ICollection<ParticipTest> ParticipTests { get; set; } = new HashSet<ParticipTest>();                
     }
 }

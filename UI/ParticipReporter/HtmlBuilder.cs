@@ -106,6 +106,11 @@ namespace ParticipReporter
 
             overviewHtml.Append($"<tr><td>Получено <b>{ overview.AdditionalTasksPoints }</b> из <b>{ overview.MaxAdditionalTasksPoints }</b> баллов за дополнительные задания</td></tr>");
 
+            if (overview.FirstClassGrade5 != null && overview.FirstClassGradeStr != null)
+            {
+                overviewHtml.Append($"<tr><td>Результат диагностики в первом классе</td><td style=\"background-color: { GetGrade5Color(Convert.ToInt32(overview.FirstClassGrade5.Value)) }\">{ overview.FirstClassGradeStr }</td></tr>");
+            }
+
             overviewHtml.Append("</table>");
 
             overviewHtml.Append("<p class=\"footnote\">* - выполненными считаются задания, за которые учащийся получил хотя бы 1 балл</p>");
