@@ -15,6 +15,7 @@ var particips_module_1 = require("./particips/particips.module");
 var one_two_three_module_1 = require("./one-two-three/one-two-three.module");
 var shared_module_1 = require("./shared/shared-module");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var first_class_module_1 = require("./components/first-class/first-class.module");
 // Components
 var app_component_1 = require("./components/app/app.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
@@ -87,6 +88,7 @@ var AppModule = /** @class */ (function () {
                 material_module_1.MaterialModule,
                 particips_module_1.ParticipsModule,
                 one_two_three_module_1.OneTwoThreeModule,
+                first_class_module_1.FirstClassModule,
                 router_1.RouterModule.forRoot([
                     { path: 'rsur', component: home_component_1.HomeComponent },
                     //{ path: 'rsur/test', component: RsurTestComponent },

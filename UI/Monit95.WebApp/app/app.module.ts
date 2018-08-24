@@ -12,6 +12,7 @@ import { ParticipsModule } from './particips/particips.module';
 import { OneTwoThreeModule } from './one-two-three/one-two-three.module';
 import { SharedModule } from './shared/shared-module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FirstClassModule } from './components/first-class/first-class.module';
 
 // Components
 import { AppComponent } from './components/app/app.component';
@@ -87,6 +88,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		MaterialModule,
 		ParticipsModule,
 		OneTwoThreeModule,
+		FirstClassModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
                 //{ path: 'rsur/test', component: RsurTestComponent },

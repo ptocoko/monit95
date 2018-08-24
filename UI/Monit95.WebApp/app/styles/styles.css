@@ -13,6 +13,10 @@ td {
     vertical-align: middle;
 }
 
+label{
+    font-weight: normal !important;
+}
+
 .list-container {
     margin-top: 50px;
 }
