@@ -653,7 +653,8 @@
     <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\models\class.model.ts" />
-    <TypeScriptCompile Include="app\models\first-class\particip.model.ts" />
+    <TypeScriptCompile Include="app\models\first-class\particip-get.model.ts" />
+    <TypeScriptCompile Include="app\models\first-class\particip-post.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\particip.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\protocol-list.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\question-protocol.model.ts" />

@@ -4,7 +4,7 @@
 <div>
     <form [formGroup]="participForm" (ngSubmit)="submitForm()">
         <mat-form-field>
-            <input #surnameInput matInput placeholder="фамилия" [(ngModel)]="particip.Surname" formControlName="surname" />
+            <input #surnameInput matInput placeholder="фамилия" formControlName="surname" />
             <mat-error *ngIf="surname.invalid && (surname.dirty || surname.touched)">
                 <div *ngIf="surname.errors.required">введите фамилию</div>
                 <div *ngIf="surname.errors.minlength">фамилия должна содержать хотя бы 4 символа</div>
@@ -12,7 +12,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="имя" [(ngModel)]="particip.Name" formControlName="name" />
+            <input matInput placeholder="имя" formControlName="name" />
             <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
                 <div *ngIf="name.errors.required">введите имя</div>
                 <div *ngIf="name.errors.minlength">имя должно содержать хотя бы 3 символа</div>
@@ -20,14 +20,43 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="отчество" [(ngModel)]="particip.SecondName" formControlName="secondName" />
+            <input matInput placeholder="отчество" formControlName="secondName" />
             <mat-error *ngIf="secondName.invalid && (secondName.dirty || secondName.touched)">
                 <div *ngIf="secondName.errors.minlength">отчество должно содержать хотя бы 5 символа</div>
             </mat-error>
         </mat-form-field>
 
+        <div class="birthday-wrapper" formGroupName="birthday">
+            <mat-form-field>
+                <mat-select placeholder="день" formControlName="day">
+                    <mat-option *ngFor="let day of monthDays" [value]="day">{{ day }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="birthday.day.invalid && (birthday.day.dirty || birthday.day.touched)">
+                    <div *ngIf="birthday.day.errors.required">выберите день</div>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select placeholder="месяц" formControlName="month">
+                    <mat-option *ngFor="let month of months" [value]="month.index">{{ month.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="birthday.month.invalid && (birthday.month.dirty || birthday.month.touched)">
+                    <div *ngIf="birthday.month.errors.required">выберите месяц</div>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select placeholder="год" formControlName="year">
+                    <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="birthday.year.invalid && (birthday.year.dirty || birthday.year.touched)">
+                    <div *ngIf="birthday.year.errors.required">выберите год</div>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
         <mat-form-field class="class-select">
-            <mat-select placeholder="класс" [(ngModel)]="particip.ClassId" formControlName="classId">
+            <mat-select placeholder="класс" formControlName="classId">
                 <mat-option *ngFor="let class of classes" [value]="class.Id">{{ class.Name }}</mat-option>
             </mat-select>
             <mat-error *ngIf="classId.invalid && (classId.dirty || classId.touched)">
@@ -35,7 +64,7 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-checkbox color="primary" [(ngModel)]="particip.WasDoo" formControlName="wasDoo">Ходил(-а) в дошкольное образовательное учреждение</mat-checkbox>
+        <mat-checkbox color="primary" formControlName="wasDoo">Ходил(-а) в дошкольное образовательное учреждение</mat-checkbox>
 
         <p class="alert alert-danger" *ngIf="participForm.pristine && formIsPristine">изменений не обнаружено!</p>
 

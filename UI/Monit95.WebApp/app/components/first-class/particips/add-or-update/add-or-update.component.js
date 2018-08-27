@@ -20,6 +20,58 @@ var AddOrUpdateComponent = /** @class */ (function () {
         this.isUpdate = true;
         this.isLoading = true;
         this.formIsPristine = false;
+        this.monthDays = Array.from({ length: 32 }, function (val, key) { return key; }).splice(1).slice();
+        this.months = [
+            {
+                index: 0,
+                name: 'Январь'
+            },
+            {
+                index: 1,
+                name: 'Февраль'
+            },
+            {
+                index: 2,
+                name: 'Март'
+            },
+            {
+                index: 3,
+                name: 'Апрель'
+            },
+            {
+                index: 4,
+                name: 'Май'
+            },
+            {
+                index: 5,
+                name: 'Июнь'
+            },
+            {
+                index: 6,
+                name: 'Июль'
+            },
+            {
+                index: 7,
+                name: 'Август'
+            },
+            {
+                index: 8,
+                name: 'Сентябрь'
+            },
+            {
+                index: 9,
+                name: 'Октябрь'
+            },
+            {
+                index: 10,
+                name: 'Ноябрь'
+            },
+            {
+                index: 11,
+                name: 'Декабрь'
+            }
+        ];
+        this.years = [2009, 2010, 2011, 2012, 2013, 2014];
         this.particip = {};
         this.cancel = function () { return _this.location.back(); };
         this.focusOnFirstField = function () { return _this.renderer.selectRootElement(_this.firstField.nativeElement).focus(); };
@@ -32,6 +84,7 @@ var AddOrUpdateComponent = /** @class */ (function () {
             if (_this.isUpdate) {
                 _this.participService.get(params['participId']).subscribe(function (res) {
                     _this.particip = res;
+                    _this.setForm();
                     _this.isLoading = false;
                 });
             }
@@ -47,12 +100,33 @@ var AddOrUpdateComponent = /** @class */ (function () {
             surname: ['', [forms_1.Validators.required, forms_1.Validators.minLength(4)]],
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
             secondName: ['', forms_1.Validators.minLength(5)],
+            birthday: this.fb.group({
+                day: ['', forms_1.Validators.required],
+                month: ['', forms_1.Validators.required],
+                year: ['', forms_1.Validators.required]
+            }),
             classId: ['', forms_1.Validators.required],
             wasDoo: false
         });
     };
+    AddOrUpdateComponent.prototype.setForm = function () {
+        this.participForm.patchValue({
+            surname: this.particip.Surname,
+            name: this.particip.Name,
+            secondName: this.particip.SecondName,
+            classId: this.particip.ClassId,
+            wasDoo: this.particip.WasDoo
+        });
+        if (this.particip.Birthday) {
+            this.particip.Birthday = new Date(this.particip.Birthday);
+            this.participForm.get('birthday').patchValue({
+                day: this.particip.Birthday.getDate(),
+                month: this.particip.Birthday.getMonth(),
+                year: this.particip.Birthday.getFullYear()
+            });
+        }
+    };
     AddOrUpdateComponent.prototype.submitForm = function () {
-        var _this = this;
         if (this.participForm.invalid) {
             this.markFieldsAsDirty();
         }
@@ -61,10 +135,12 @@ var AddOrUpdateComponent = /** @class */ (function () {
         }
         else {
             if (this.isUpdate) {
-                this.participService.update(this.particip).subscribe(function () { return _this.location.back(); });
+                //this.participService.update(this.particip).subscribe(() => this.location.back());
+                this.putParticip(this.convertParticip());
             }
             else {
-                this.participService.post(this.particip).subscribe(function () { return _this.location.back(); });
+                //this.participService.post(this.particip).subscribe(() => this.location.back());
+                this.postParticip(this.convertParticip());
             }
         }
     };
@@ -81,8 +157,9 @@ var AddOrUpdateComponent = /** @class */ (function () {
                 this.isLoading = false;
             }
             else {
-                this.participService.post(this.particip)
-                    .subscribe(function () {
+                //this.participService.post(this.particip)
+                //		.subscribe();
+                this.postParticip(this.convertParticip(), function () {
                     _this.participForm.enable();
                     _this.isLoading = false;
                     _this.particip = {};
@@ -91,6 +168,36 @@ var AddOrUpdateComponent = /** @class */ (function () {
                 });
             }
         }
+    };
+    AddOrUpdateComponent.prototype.convertParticip = function () {
+        var birthday = new Date(this.birthday.year.value, this.birthday.month.value, this.birthday.day.value + 1);
+        return {
+            Id: this.particip.Id,
+            Surname: this.surname.value,
+            Name: this.name.value,
+            SecondName: this.secondName.value,
+            Birthday: birthday,
+            ClassId: this.classId.value,
+            WasDoo: this.wasDoo.value
+        };
+    };
+    /**
+     * Вызывает метод POST сервиса ParticipService, по умолчанию в коллбэк подписки вызывается location.back
+     * @param particip
+     * @param callback next-коллбэк для subscribe (по умолчанию вызывается location.back)
+     */
+    AddOrUpdateComponent.prototype.postParticip = function (particip, callback) {
+        var _this = this;
+        this.participService.post(particip).subscribe(callback ? callback : function () { return _this.location.back(); });
+    };
+    /**
+     * Вызывает метод PUT сервиса ParticipService, по умолчанию в коллбэк подписки вызывается location.back
+     * @param particip
+     * @param callback next-коллбэк для subscribe (по умолчанию вызывается location.back)
+     */
+    AddOrUpdateComponent.prototype.putParticip = function (particip, callback) {
+        var _this = this;
+        this.participService.update(particip).subscribe(callback ? callback : function () { return _this.location.back(); });
     };
     AddOrUpdateComponent.prototype.markFieldsAsDirty = function () {
         for (var _i = 0, _a = Object.keys(this.participForm.controls); _i < _a.length; _i++) {
@@ -115,6 +222,23 @@ var AddOrUpdateComponent = /** @class */ (function () {
     });
     Object.defineProperty(AddOrUpdateComponent.prototype, "classId", {
         get: function () { return this.participForm.get('classId'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AddOrUpdateComponent.prototype, "birthday", {
+        get: function () {
+            var birthdayFb = this.participForm.get('birthday');
+            return {
+                day: birthdayFb.get('day'),
+                month: birthdayFb.get('month'),
+                year: birthdayFb.get('year')
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AddOrUpdateComponent.prototype, "wasDoo", {
+        get: function () { return this.participForm.get('wasDoo'); },
         enumerable: true,
         configurable: true
     });

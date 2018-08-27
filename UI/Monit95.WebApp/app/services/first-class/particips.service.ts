@@ -1,8 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-import { ParticipModel, ParticipsList } from '../../models/first-class/particip.model';
+import { ParticipGetModel, ParticipsList } from '../../models/first-class/particip-get.model';
 import { HttpParams } from '@angular/common/http';
+import { ParticipPostModel } from '../../models/first-class/particip-post.model';
 
 const endpoint = 'api/firstclass/particips';
 
@@ -21,15 +22,15 @@ export class ParticipService {
 		return this.httpClient.get<ParticipsList>(endpoint, { params });
 	}
 
-	get(participId: number): Observable<ParticipModel> {
-		return this.httpClient.get<ParticipModel>(`${endpoint}/${participId}`);
+	get(participId: number): Observable<ParticipGetModel> {
+		return this.httpClient.get<ParticipGetModel>(`${endpoint}/${participId}`);
 	}
 
-	update(particip: ParticipModel): Observable<string> {
+	update(particip: ParticipPostModel): Observable<string> {
 		return this.httpClient.put(`${endpoint}/${particip.Id}`, particip, { responseType: 'text' });
 	}
 
-	post(particip: ParticipModel): Observable<string> {
+	post(particip: ParticipPostModel): Observable<string> {
 		return this.httpClient.post(endpoint, particip, { responseType: 'text' });
 	}
 

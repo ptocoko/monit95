@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.FirstClass.Particips
+namespace Monit95App.Services.FirstClass.Dtos
 {
     public class GetAllOptions
     {

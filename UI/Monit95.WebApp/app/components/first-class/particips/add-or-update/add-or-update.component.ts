@@ -5,8 +5,10 @@ import { Location } from '@angular/common';
 import { MatInput, MatFormField } from '@angular/material';
 import { ClassService } from '../../../../services/class.service';
 import { ClassModel } from '../../../../models/class.model';
-import { ParticipModel } from '../../../../models/first-class/particip.model';
+import { ParticipGetModel } from '../../../../models/first-class/particip-get.model';
 import { ParticipService } from '../../../../services/first-class/particips.service';
+import { VALID } from '@angular/forms/src/model';
+import { ParticipPostModel } from '../../../../models/first-class/particip-post.model';
 
 @Component({
 	templateUrl: `./app/components/first-class/particips/add-or-update/add-or-update.component.html?v=${new Date().getTime()}`,
@@ -17,7 +19,60 @@ export class AddOrUpdateComponent {
 	isLoading = true;
 	formIsPristine = false;
 
-	particip = {} as ParticipModel;
+	monthDays = [...Array.from({ length: 32 }, (val, key) => key).splice(1)];
+	months = [
+		{
+			index: 0,
+			name: 'Январь'
+		},
+		{
+			index: 1,
+			name: 'Февраль'
+		},
+		{
+			index: 2,
+			name: 'Март'
+		},
+		{
+			index: 3,
+			name: 'Апрель'
+		},
+		{
+			index: 4,
+			name: 'Май'
+		},
+		{
+			index: 5,
+			name: 'Июнь'
+		},
+		{
+			index: 6,
+			name: 'Июль'
+		},
+		{
+			index: 7,
+			name: 'Август'
+		},
+		{
+			index: 8,
+			name: 'Сентябрь'
+		},
+		{
+			index: 9,
+			name: 'Октябрь'
+		},
+		{
+			index: 10,
+			name: 'Ноябрь'
+		},
+		{
+			index: 11,
+			name: 'Декабрь'
+		}
+	];
+	years = [2009, 2010, 2011, 2012, 2013, 2014];
+
+	particip = {} as ParticipGetModel;
 	classes: ClassModel[];
 	participForm: FormGroup;
 	@ViewChild('surnameInput') firstField: ElementRef;
@@ -38,6 +93,7 @@ export class AddOrUpdateComponent {
 			if (this.isUpdate) {
 				this.participService.get(params['participId']).subscribe(res => {
 					this.particip = res;
+					this.setForm();
 					this.isLoading = false;
 				});
 			} else {
@@ -55,9 +111,33 @@ export class AddOrUpdateComponent {
 			surname: ['', [Validators.required, Validators.minLength(4)]],
 			name: ['', [Validators.required, Validators.minLength(3)]],
 			secondName: ['', Validators.minLength(5)],
+			birthday: this.fb.group({
+				day: ['', Validators.required],
+				month: ['', Validators.required],
+				year: ['', Validators.required]
+			}),
 			classId: ['', Validators.required],
 			wasDoo: false
 		});
+	}
+
+	setForm() {
+		this.participForm.patchValue({
+			surname: this.particip.Surname,
+			name: this.particip.Name,
+			secondName: this.particip.SecondName,
+			classId: this.particip.ClassId,
+			wasDoo: this.particip.WasDoo
+		});
+
+		if (this.particip.Birthday) {
+			this.particip.Birthday = new Date(this.particip.Birthday);
+			this.participForm.get('birthday').patchValue({
+				day: this.particip.Birthday.getDate(),
+				month: this.particip.Birthday.getMonth(),
+				year: this.particip.Birthday.getFullYear()
+			});
+		}
 	}
 
 	submitForm() {
@@ -67,9 +147,11 @@ export class AddOrUpdateComponent {
 			this.formIsPristine = true;
 		} else {
 			if (this.isUpdate) {
-				this.participService.update(this.particip).subscribe(() => this.location.back());
+				//this.participService.update(this.particip).subscribe(() => this.location.back());
+				this.putParticip(this.convertParticip());
 			} else {
-				this.participService.post(this.particip).subscribe(() => this.location.back());
+				//this.participService.post(this.particip).subscribe(() => this.location.back());
+				this.postParticip(this.convertParticip());
 			}
 		}
 	}
@@ -85,16 +167,48 @@ export class AddOrUpdateComponent {
 				this.formIsPristine = true;
 				this.isLoading = false;
 			} else {
-				this.participService.post(this.particip)
-						.subscribe(() => {
-							this.participForm.enable();
-							this.isLoading = false;
-							this.particip = {} as ParticipModel;
-							this.participForm.reset();
-							this.focusOnFirstField();
-						});
+				//this.participService.post(this.particip)
+				//		.subscribe();
+				this.postParticip(this.convertParticip(), () => {
+					this.participForm.enable();
+					this.isLoading = false;
+					this.particip = {} as ParticipGetModel;
+					this.participForm.reset();
+					this.focusOnFirstField();
+				});
 			}
 		}
+	}
+
+	private convertParticip(): ParticipPostModel {
+		const birthday = new Date(this.birthday.year.value, this.birthday.month.value, this.birthday.day.value + 1);
+		return {
+			Id: this.particip.Id,
+			Surname: this.surname.value,
+			Name: this.name.value,
+			SecondName: this.secondName.value,
+			Birthday: birthday,
+			ClassId: this.classId.value,
+			WasDoo: this.wasDoo.value
+		};
+	}
+
+	/**
+	 * Вызывает метод POST сервиса ParticipService, по умолчанию в коллбэк подписки вызывается location.back
+	 * @param particip
+	 * @param callback next-коллбэк для subscribe (по умолчанию вызывается location.back)
+	 */
+	private postParticip(particip: ParticipPostModel, callback?: () => void) {
+		this.participService.post(particip).subscribe(callback ? callback : () => this.location.back());
+	}
+
+	/**
+	 * Вызывает метод PUT сервиса ParticipService, по умолчанию в коллбэк подписки вызывается location.back
+	 * @param particip
+	 * @param callback next-коллбэк для subscribe (по умолчанию вызывается location.back)
+	 */
+	private putParticip(particip: ParticipPostModel, callback?: () => void) {
+		this.participService.update(particip).subscribe(callback ? callback : () => this.location.back());
 	}
 
 	private markFieldsAsDirty() {
@@ -114,4 +228,16 @@ export class AddOrUpdateComponent {
 	get secondName() { return this.participForm.get('secondName'); }
 
 	get classId() { return this.participForm.get('classId'); }
+
+	get birthday() {
+		const birthdayFb = this.participForm.get('birthday') as FormGroup;
+
+		return {
+			day: birthdayFb.get('day'),
+			month: birthdayFb.get('month'),
+			year: birthdayFb.get('year')
+		};
+	}
+
+	get wasDoo() { return this.participForm.get('wasDoo'); }
 }

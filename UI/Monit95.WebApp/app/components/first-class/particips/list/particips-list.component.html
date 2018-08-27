@@ -32,7 +32,9 @@
         <app-table-paginator [length]="participsLength"
                              [pageSizeOptions]="[20, 50, 70]"
                              [(pageSize)]="limitToVal"
-                             [(pageIndex)]="pageIndex"></app-table-paginator>
+                             [(pageIndex)]="pageIndex">
+
+        </app-table-paginator>
     </div>
     <table class="table table-bordered">
         <tr>
@@ -41,6 +43,7 @@
             <th>фамилия</th>
             <th>имя</th>
             <th>отчество</th>
+            <th>дата рождения</th>
             <th>ходил в ДОО</th>
             <th>класс</th>
         </tr>
@@ -50,13 +53,17 @@
             <td>{{ particip.Surname }}</td>
             <td>{{ particip.Name }}</td>
             <td>{{ particip.SecondName }}</td>
-            <td>
+            <td class="text-center">
+                <span *ngIf="!particip.Birthday">—</span>
+                <span *ngIf="particip.Birthday">{{ particip.Birthday | date : 'dd.MM.yyyy г.' }}</span>
+            </td>
+            <td class="text-center">
                 <span *ngIf="particip.WasDoo">да</span>
                 <span *ngIf="!particip.WasDoo">нет</span>
             </td>
             <td>{{ particip.ClassName }}</td>
             <td><a href="#" class="glyphicon glyphicon-edit" [routerLink]="['/first-class/particips', particip.Id]"></a></td>
-            <td><a style="cursor:pointer" class="glyphicon glyphicon-trash" (click)="deleteParticip(particip)"></a></td>
+            <td><a href="#" class="glyphicon glyphicon-trash" (click)="deleteParticip(particip)"></a></td>
         </tr>
     </table>
     <div class="text-center" *ngIf="particips.length === 0">

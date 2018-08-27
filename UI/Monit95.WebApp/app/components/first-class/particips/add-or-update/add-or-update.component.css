@@ -1,4 +1,4 @@
-﻿.mat-form-field{
+﻿form > .mat-form-field{
     display: block;
     width: 350px;
 }
@@ -9,4 +9,17 @@
 
 .form-buttons{
     margin-top:30px;
+}
+
+.birthday-wrapper {
+    display: flex;
+
+}
+
+.birthday-wrapper > .mat-form-field{
+    width: 250px;
+}
+
+.birthday-wrapper > .mat-form-field+.mat-form-field{
+    margin-left: 15px;
 }

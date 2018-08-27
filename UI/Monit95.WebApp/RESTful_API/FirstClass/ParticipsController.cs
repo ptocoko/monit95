@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Monit95App.Services.FirstClass.Particips;
+using Monit95App.Services.FirstClass.Dtos;
 using ServiceResult.Exceptions;
 
 namespace Monit95.WebApp.RESTful_API.FirstClass
@@ -42,7 +42,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         public IHttpActionResult Get(int participId)
         {
             string schoolId = User.Identity.Name;
-            ParticipDto dto;
+            ParticipGetDto dto;
             try
             {
                 dto = participService.GetParticip(participId, schoolId);
@@ -56,7 +56,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         }
 
         [HttpPut, Route("{participId:int}")]
-        public IHttpActionResult Put(int participId, [FromBody]ParticipDto particip)
+        public IHttpActionResult Put(int participId, [FromBody]ParticipPostDto particip)
         {
             string schoolId = User.Identity.Name;
             
@@ -78,7 +78,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         }
 
         [HttpPost, Route("")]
-        public IHttpActionResult Post([FromBody]ParticipDto particip)
+        public IHttpActionResult Post([FromBody]ParticipPostDto particip)
         {
             string schoolId = User.Identity.Name;
             

@@ -13,7 +13,7 @@ import { ClassModel } from '../../../../models/class.model';
 import { ClassService } from '../../../../services/class.service';
 import { AccountService } from '../../../../services/account.service';
 import { ConfirmDialogComponent } from '../../../../shared/confirm-dialog/confirm-dialog.component';
-import { ParticipModel, ParticipsList } from '../../../../models/first-class/particip.model';
+import { ParticipGetModel, ParticipsList } from '../../../../models/first-class/particip-get.model';
 import { ParticipService } from '../../../../services/first-class/particips.service';
 
 @Component({
@@ -21,7 +21,7 @@ import { ParticipService } from '../../../../services/first-class/particips.serv
 	styleUrls: [`./app/components/first-class/particips/list/particips-list.component.css?v=${new Date().getTime()}`]
 })
 export class ParticipsListComponent {
-	particips: ParticipModel[] = [];
+	particips: ParticipGetModel[] = [];
 	classes: ClassModel[] = [];
 
 	isLoading: boolean;
@@ -67,7 +67,7 @@ export class ParticipsListComponent {
 					this.classes = data.Classes;
 					return data.Items;
 				})
-			).subscribe((particips: ParticipModel[]) => this.particips = particips);
+			).subscribe((particips: ParticipGetModel[]) => this.particips = particips);
 		//this.participService.getAll().subscribe(res => {
 		//	this.particips = res;
 		//	this.isLoading = false;
@@ -83,7 +83,7 @@ export class ParticipsListComponent {
 		});
 	}
 
-	deleteParticip(particip: ParticipModel) {
+	deleteParticip(particip: ParticipGetModel) {
 		const participId = particip.Id;
 		const participIndex = this.particips.indexOf(particip);
 

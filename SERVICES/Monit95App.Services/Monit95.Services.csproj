@@ -100,9 +100,10 @@
     <Compile Include="Exceptions\FileNotFoundOrAccessException.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="File\UserPermission.cs" />
+    <Compile Include="FirstClass\Dtos\ParticipPostDto.cs" />
     <Compile Include="FirstClass\Particips\GetAllOptions.cs" />
     <Compile Include="FirstClass\Particips\IParticipService.cs" />
-    <Compile Include="FirstClass\Particips\ParticipDto.cs" />
+    <Compile Include="FirstClass\Dtos\ParticipGetDto.cs" />
     <Compile Include="FirstClass\Particips\ParticipService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monit95App.Services.FirstClass.Particips
+namespace Monit95App.Services.FirstClass.Dtos
 {
     public class ParticipService : IParticipService
     {
@@ -18,13 +18,14 @@ namespace Monit95App.Services.FirstClass.Particips
             this.context = context;
         }
 
-        public void CreateParticip(string schoolId, int projectId, ParticipDto particip)
+        public void CreateParticip(string schoolId, int projectId, ParticipPostDto particip)
         {
             var entity = new Particip
             {
                 Surname = particip.Surname,
                 Name = particip.Name,
                 SecondName = particip.SecondName,
+                Birthday = particip.Birthday,
                 ClassId = particip.ClassId,
                 SchoolId = schoolId,
                 ProjectId = projectId,
@@ -35,7 +36,7 @@ namespace Monit95App.Services.FirstClass.Particips
             context.SaveChanges();
         }
 
-        public void EditParticip(int Id, string schoolId, ParticipDto particip)
+        public void EditParticip(int Id, string schoolId, ParticipPostDto particip)
         {
             var entity = context.Particips
                 .Single(p => p.Id == Id && p.SchoolId == schoolId);
@@ -43,19 +44,20 @@ namespace Monit95App.Services.FirstClass.Particips
             entity.Surname = particip.Surname;
             entity.Name = particip.Name;
             entity.SecondName = particip.SecondName;
+            entity.Birthday = particip.Birthday;
             entity.ClassId = particip.ClassId;
             entity.WasDoo = particip.WasDoo;
 
             context.SaveChanges();
         }
 
-        public ParticipDto GetParticip(int Id, string schoolId)
+        public ParticipGetDto GetParticip(int Id, string schoolId)
         {
             var entity = context.Particips
                 .Where(p => p.SchoolId == schoolId)
                 .SingleOrDefault(p => p.Id == Id);
 
-            if(entity == null)
+            if (entity == null)
             {
                 throw new ArgumentException($"particip with ID equals to {Id} not found");
             }
@@ -65,7 +67,7 @@ namespace Monit95App.Services.FirstClass.Particips
 
         public ParticipList GetParticips(string schoolId, int projectId, GetAllOptions options)
         {
-            if(schoolId == null)
+            if (schoolId == null)
             {
                 throw new ArgumentNullException($"{nameof(schoolId)} is null!");
             }
@@ -108,14 +110,15 @@ namespace Monit95App.Services.FirstClass.Particips
             context.SaveChanges();
         }
 
-        private ParticipDto MapToParticipDto(Domain.Core.Entities.Particip entity)
+        private ParticipGetDto MapToParticipDto(Domain.Core.Entities.Particip entity)
         {
-            return new ParticipDto
+            return new ParticipGetDto
             {
                 Id = entity.Id,
                 Surname = entity.Surname,
                 Name = entity.Name,
                 SecondName = entity.SecondName,
+                Birthday = entity.Birthday,
                 ClassName = entity.Class.Name,
                 ClassId = entity.ClassId,
                 WasDoo = entity.WasDoo

@@ -61,7 +61,7 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<ReportMetaHandler>().As<IReportMetaHandler>();
             builder.RegisterType<Monit95App.Services.OneTwoThree.Particips.ParticipService>().As<Monit95App.Services.OneTwoThree.Particips.IParticipService>();
             builder.RegisterType<Monit95App.Services.OneTwoThree.QuestionProtocol.QuestionProtocolService>().As<Monit95App.Services.OneTwoThree.QuestionProtocol.IQuestionProtocolService>();
-            builder.RegisterType<Monit95App.Services.FirstClass.Particips.ParticipService>().As<Monit95App.Services.FirstClass.Particips.IParticipService>();
+            builder.RegisterType<Monit95App.Services.FirstClass.Dtos.ParticipService>().As<Monit95App.Services.FirstClass.Dtos.IParticipService>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
