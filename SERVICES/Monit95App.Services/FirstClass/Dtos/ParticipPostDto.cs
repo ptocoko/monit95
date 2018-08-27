@@ -19,7 +19,7 @@ namespace Monit95App.Services.FirstClass.Dtos
 
         public string SecondName { get; set; }
 
-        [Required]
+        [Required, Range(typeof(DateTime), "1.1.2009", "1.1.2015")]
         public DateTime Birthday { get; set; }
 
         [Required]

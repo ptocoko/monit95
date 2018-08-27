@@ -215,6 +215,10 @@ export class AddOrUpdateComponent {
 		for (let control of Object.keys(this.participForm.controls)) {
 			this.participForm.get(control).markAsTouched();
 		}
+
+		for (let birthdayCtrl of Object.keys(this.birthday)) {
+			this.birthday[birthdayCtrl].markAsTouched();
+		}
 	}
 
 	cancel = () => this.location.back();

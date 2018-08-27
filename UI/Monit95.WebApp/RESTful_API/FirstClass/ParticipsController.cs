@@ -62,7 +62,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
             
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             try
@@ -84,7 +84,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
             
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             try

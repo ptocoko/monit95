@@ -204,6 +204,10 @@ var AddOrUpdateComponent = /** @class */ (function () {
             var control = _a[_i];
             this.participForm.get(control).markAsTouched();
         }
+        for (var _b = 0, _c = Object.keys(this.birthday); _b < _c.length; _b++) {
+            var birthdayCtrl = _c[_b];
+            this.birthday[birthdayCtrl].markAsTouched();
+        }
     };
     Object.defineProperty(AddOrUpdateComponent.prototype, "surname", {
         get: function () { return this.participForm.get('surname'); },
