@@ -26,7 +26,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }        
         public virtual DbSet<Report> Reports { get; set; }
-        public virtual DbSet<Repository> Repositories { get; set; }        
+        public virtual DbSet<Repository> Repositories { get; set; }   
+        public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<RsurParticipEdit> RsurParticipEdits { get; set; }
         public virtual DbSet<RsurParticip> RsurParticips { get; set; }
         public virtual DbSet<RsurParticipTest> RsurParticipTests { get; set; }
@@ -53,6 +54,13 @@ namespace Monit95App.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Result>()
+                .HasRequired(e => e.ParticipTest)
+                .WithOptional(e => e.Result);
+
+            modelBuilder.Entity<Result>()
+                .HasKey(e => e.ParticipTestId);
+
             modelBuilder.Entity<OneTwoThreeQuestion>()
                 .HasMany(e => e.OneTwoThreeQuestionMarks)
                 .WithRequired(e => e.OneTwoThreeQuestion)

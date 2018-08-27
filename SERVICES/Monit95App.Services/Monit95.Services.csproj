@@ -101,10 +101,14 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="File\UserPermission.cs" />
     <Compile Include="FirstClass\Dtos\ParticipPostDto.cs" />
+    <Compile Include="FirstClass\Dtos\ProtocolGetDto.cs" />
+    <Compile Include="FirstClass\Dtos\ProtocolPostDto.cs" />
+    <Compile Include="FirstClass\Dtos\QuestionResultDto.cs" />
     <Compile Include="FirstClass\Particips\GetAllOptions.cs" />
     <Compile Include="FirstClass\Particips\IParticipService.cs" />
     <Compile Include="FirstClass\Dtos\ParticipGetDto.cs" />
     <Compile Include="FirstClass\Particips\ParticipService.cs" />
+    <Compile Include="FirstClass\Protocols\ProtocolService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />
     <Compile Include="File\FileService.cs" />

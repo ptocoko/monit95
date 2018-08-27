@@ -9,7 +9,7 @@ namespace Monit95App.Domain.Core.Entities
     public partial class ParticipTest
     {
         public int Id { get; set; }
-        
+
         /// <summary>
         /// ”частник проекта
         /// </summary>
@@ -20,7 +20,7 @@ namespace Monit95App.Domain.Core.Entities
         /// Ёкзамен проекта
         /// </summary>
         public virtual ProjectTest ProjectTest { get; set; }
-        public int ProjectTestId { get; set; }      
+        public int ProjectTestId { get; set; }
 
         /// <summary>
         /// Ѕаллы по задани€м
@@ -28,6 +28,8 @@ namespace Monit95App.Domain.Core.Entities
         public virtual ICollection<QuestionMark> QuestionMarks { get; set; } = new HashSet<QuestionMark>();
 
         public virtual ICollection<OneTwoThreeQuestionMark> OneTwoThreeQuestionMarks { get; set; } = new HashSet<OneTwoThreeQuestionMark>();
+
+        public virtual Result Result { get; set; }
 
         #region Computed indicators
 

@@ -34,6 +34,14 @@ namespace Monit95App.Services.FirstClass.Dtos
 
             context.Particips.Add(entity);
             context.SaveChanges();
+
+            var participTest = new ParticipTest
+            {
+                ParticipId = entity.Id,
+                ProjectTestId = 2043
+            };
+            context.ParticipTests.Add(participTest);
+            context.SaveChanges();
         }
 
         public void EditParticip(int Id, string schoolId, ParticipPostDto particip)
