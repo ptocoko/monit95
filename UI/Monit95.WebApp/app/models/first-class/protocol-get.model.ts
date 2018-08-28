@@ -4,4 +4,5 @@ export interface ProtocolGetModel extends PersonModel {
 	ParticipTestId: number;
 	Marks: string;
 	ClassName: string;
+	ClassId: string;
 }

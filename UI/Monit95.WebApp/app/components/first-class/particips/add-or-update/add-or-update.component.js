@@ -164,6 +164,7 @@ var AddOrUpdateComponent = /** @class */ (function () {
                     _this.isLoading = false;
                     _this.particip = {};
                     _this.participForm.reset();
+                    _this.participForm.patchValue({ wasDoo: false });
                     _this.focusOnFirstField();
                 });
             }

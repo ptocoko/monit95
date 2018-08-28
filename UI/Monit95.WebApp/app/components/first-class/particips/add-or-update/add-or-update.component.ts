@@ -174,6 +174,7 @@ export class AddOrUpdateComponent {
 					this.isLoading = false;
 					this.particip = {} as ParticipGetModel;
 					this.participForm.reset();
+					this.participForm.patchValue({ wasDoo: false });
 					this.focusOnFirstField();
 				});
 			}

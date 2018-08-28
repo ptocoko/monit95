@@ -42,8 +42,7 @@ export class ParticipFilterPipe implements PipeTransform {
 			if (particip.ParticipFIO) {
 				return particip.ParticipFIO.trim().toLowerCase().indexOf(searchText) > -1
 			} else {
-				return particip.Id.toString().indexOf(searchText) > -1
-					|| particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
+				return particip.Surname.trim().toLowerCase().indexOf(searchText) > -1
 					|| particip.Name.trim().toLowerCase().indexOf(searchText) > -1;
 			}
 		});

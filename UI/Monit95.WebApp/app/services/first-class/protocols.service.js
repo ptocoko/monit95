@@ -11,6 +11,12 @@ var ProtocolsService = /** @class */ (function () {
     ProtocolsService.prototype.getAll = function () {
         return this.http.get(this.endpoint);
     };
+    ProtocolsService.prototype.get = function (participTestId) {
+        return this.http.get(this.endpoint + "/" + participTestId);
+    };
+    ProtocolsService.prototype.edit = function (participTestId, protocol) {
+        return this.http.post(this.endpoint + "/" + participTestId, protocol, { responseType: 'text' });
+    };
     ProtocolsService.prototype.markAsAbsent = function (participTestId) {
         return this.http.put(this.endpoint + "/" + participTestId + "/markAsAbsent", { responseType: 'text' });
     };

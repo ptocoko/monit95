@@ -1,0 +1,37 @@
+﻿<h3>{{protocol?.Surname}} {{protocol?.Name}} {{protocol?.SecondName}}</h3>
+
+<form *ngIf="protocol" #marksForm="ngForm">
+    <div *ngFor="let question of protocol.QuestionResultsList; let i = index" class="control-wrapper">
+        <label>{{question.Name}}:</label>
+        <input class="form-control" 
+               [(ngModel)]="question.CurrentMark"
+               (keyup.enter)="enterHandler(i, $event)"
+               id="mark{{i}}"
+               #mark{{i}} 
+               name="mark{{i}}" 
+               type="number" 
+               step="{{question.Step}}" 
+               max="{{question.MaxMark}}" 
+               min="0" 
+               required />
+    </div>
+    <br />
+    <p class="alert alert-danger" *ngIf="validateMsg">{{validateMsg}}</p>
+    <p>
+        <button id="submitBtn"
+                type="button"
+                (click)="send()"
+                mat-raised-button
+                color="primary"
+                [disabled]="marksForm.invalid || marksForm.pristine || marksSending">
+            Сохранить
+        </button>
+
+        <button type="button"
+                mat-raised-button
+                color="warn"
+                (click)="cancel()">
+            Отмена
+        </button>
+    </p>
+</form>

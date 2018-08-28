@@ -404,6 +404,8 @@
     <Content Include="app\components\first-class\particips\list\particips-list.component.html" />
     <Content Include="app\components\first-class\protocols\list\protocols-list.component.css" />
     <Content Include="app\components\first-class\protocols\list\protocols-list.component.html" />
+    <Content Include="app\components\first-class\protocols\protocol\protocol.component.css" />
+    <Content Include="app\components\first-class\protocols\protocol\protocol.component.html" />
     <Content Include="app\one-two-three\home\home.component.html" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.css" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.html" />
@@ -651,6 +653,7 @@
     <TypeScriptCompile Include="app\components\first-class\particips\add-or-update\add-or-update.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\particips\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\list\protocols-list.component.ts" />
+    <TypeScriptCompile Include="app\components\first-class\protocols\protocol\protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
     <TypeScriptCompile Include="app\custom-route-reuse-strategy.ts" />
     <TypeScriptCompile Include="app\material.module.ts" />
