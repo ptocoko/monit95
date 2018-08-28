@@ -42,9 +42,6 @@ const routes: Routes = [
 		HomeComponent,
 		ParticipsListComponent,
 		AddOrUpdateComponent,
-		ClassFilterPipe,
-		ClassesGetterPipe,
-		ParticipFilterPipe,
 		ProtocolsListComponent,
 		ProtocolComponent
 	],

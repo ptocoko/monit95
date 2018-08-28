@@ -10,12 +10,16 @@ import { AddOrUpdateComponent } from './particips/add-or-update/add-or-update.co
 import { SharedModule } from '../../shared/shared-module';
 import { MaterialModule } from '../../material.module';
 import { ParticipService } from '../../services/first-class/particips.service';
+import { ProtocolsService } from '../../services/first-class/protocols.service';
+import { ProtocolsListComponent } from './protocols/list/protocols-list.component';
 
 const routes: Routes = [
 	{ path: 'first-class/home', component: HomeComponent },
 	{ path: 'first-class/particips/list', component: ParticipsListComponent },
 	{ path: 'first-class/particips/add', component: AddOrUpdateComponent },
 	{ path: 'first-class/particips/:participId', component: AddOrUpdateComponent },
+
+	{ path: 'first-class/protocols/list', component: ProtocolsListComponent },
 
 	{ path: 'first-class', redirectTo: 'first-class/home', pathMatch: 'full' }
 ]
@@ -35,9 +39,11 @@ const routes: Routes = [
 		HomeComponent,
 		ParticipsListComponent,
 		AddOrUpdateComponent,
+		ProtocolsListComponent
 	],
 	providers: [
-		ParticipService
+		ParticipService,
+		ProtocolsService
 	]
 })
 export class FirstClassModule { }

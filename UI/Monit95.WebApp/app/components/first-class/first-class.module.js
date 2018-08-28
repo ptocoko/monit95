@@ -12,11 +12,14 @@ var add_or_update_component_1 = require("./particips/add-or-update/add-or-update
 var shared_module_1 = require("../../shared/shared-module");
 var material_module_1 = require("../../material.module");
 var particips_service_1 = require("../../services/first-class/particips.service");
+var protocols_service_1 = require("../../services/first-class/protocols.service");
+var protocols_list_component_1 = require("./protocols/list/protocols-list.component");
 var routes = [
     { path: 'first-class/home', component: home_component_1.HomeComponent },
     { path: 'first-class/particips/list', component: particips_list_component_1.ParticipsListComponent },
     { path: 'first-class/particips/add', component: add_or_update_component_1.AddOrUpdateComponent },
     { path: 'first-class/particips/:participId', component: add_or_update_component_1.AddOrUpdateComponent },
+    { path: 'first-class/protocols/list', component: protocols_list_component_1.ProtocolsListComponent },
     { path: 'first-class', redirectTo: 'first-class/home', pathMatch: 'full' }
 ];
 var FirstClassModule = /** @class */ (function () {
@@ -38,9 +41,11 @@ var FirstClassModule = /** @class */ (function () {
                 home_component_1.HomeComponent,
                 particips_list_component_1.ParticipsListComponent,
                 add_or_update_component_1.AddOrUpdateComponent,
+                protocols_list_component_1.ProtocolsListComponent
             ],
             providers: [
-                particips_service_1.ParticipService
+                particips_service_1.ParticipService,
+                protocols_service_1.ProtocolsService
             ]
         })
     ], FirstClassModule);

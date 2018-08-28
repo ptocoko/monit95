@@ -11,6 +11,7 @@ var table_paginator_1 = require("./table-paginator/table-paginator");
 var limit_to_pipe_1 = require("../pipes/limit-to.pipe");
 var offset_pipe_1 = require("../pipes/offset.pipe");
 var confirm_dialog_component_1 = require("./confirm-dialog/confirm-dialog.component");
+var particips_pipe_1 = require("../pipes/one-two-three/particips.pipe");
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
@@ -27,7 +28,10 @@ var SharedModule = /** @class */ (function () {
                 table_paginator_1.TablePaginator,
                 limit_to_pipe_1.LimitToPipe,
                 offset_pipe_1.OffsetPipe,
-                confirm_dialog_component_1.ConfirmDialogComponent
+                confirm_dialog_component_1.ConfirmDialogComponent,
+                particips_pipe_1.ClassFilterPipe,
+                particips_pipe_1.ClassesGetterPipe,
+                particips_pipe_1.ParticipFilterPipe,
             ],
             exports: [
                 marks_protocol_component_1.MarksProtocolComponent,
@@ -35,7 +39,10 @@ var SharedModule = /** @class */ (function () {
                 table_paginator_1.TablePaginator,
                 limit_to_pipe_1.LimitToPipe,
                 offset_pipe_1.OffsetPipe,
-                confirm_dialog_component_1.ConfirmDialogComponent
+                confirm_dialog_component_1.ConfirmDialogComponent,
+                particips_pipe_1.ClassFilterPipe,
+                particips_pipe_1.ClassesGetterPipe,
+                particips_pipe_1.ParticipFilterPipe,
             ],
             entryComponents: [confirm_dialog_component_1.ConfirmDialogComponent]
         })

@@ -11,6 +11,6 @@ namespace Monit95App.Services.FirstClass.Dtos
     {
         public int ParticipTestId { get; set; }
 
-        public IList<QuestionResultDto> QuestionResultsCollection { get; set; }
+        public IList<QuestionResultDto> QuestionResultsList { get; set; }
     }
 }

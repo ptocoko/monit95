@@ -9,6 +9,7 @@ namespace Monit95App.Services.FirstClass.Dtos
 {
     public class ProtocolGetDto : Person
     {
+        public int ParticipTestId { get; set; }
         public string Marks { get; set; }
         public string ClassName { get; set; }
     }

@@ -11,7 +11,6 @@ var router_1 = require("@angular/router");
 var home_component_1 = require("./home/home.component");
 var particips_list_component_1 = require("./particips/list/particips-list.component");
 var particips_service_1 = require("../services/one-two-three/particips.service");
-var particips_pipe_1 = require("../pipes/one-two-three/particips.pipe");
 var add_or_update_component_1 = require("./particips/add-or-update/add-or-update.component");
 var protocols_list_component_1 = require("./question-protocols/list/protocols-list.component");
 var question_protocols_service_1 = require("../services/one-two-three/question-protocols.service");
@@ -44,9 +43,6 @@ var OneTwoThreeModule = /** @class */ (function () {
                 home_component_1.HomeComponent,
                 particips_list_component_1.ParticipsListComponent,
                 add_or_update_component_1.AddOrUpdateComponent,
-                particips_pipe_1.ClassFilterPipe,
-                particips_pipe_1.ClassesGetterPipe,
-                particips_pipe_1.ParticipFilterPipe,
                 protocols_list_component_1.ProtocolsListComponent,
                 protocol_component_1.ProtocolComponent
             ],

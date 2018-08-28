@@ -8,6 +8,7 @@ import { TablePaginator } from './table-paginator/table-paginator';
 import { LimitToPipe } from '../pipes/limit-to.pipe';
 import { OffsetPipe } from '../pipes/offset.pipe';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes/one-two-three/particips.pipe';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,10 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 		TablePaginator,
 		LimitToPipe,
 		OffsetPipe,
-		ConfirmDialogComponent
+		ConfirmDialogComponent,
+		ClassFilterPipe,
+		ClassesGetterPipe,
+		ParticipFilterPipe,
 	],
 	exports: [
 		MarksProtocolComponent,
@@ -29,7 +33,10 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 		TablePaginator,
 		LimitToPipe,
 		OffsetPipe,
-		ConfirmDialogComponent
+		ConfirmDialogComponent,
+		ClassFilterPipe,
+		ClassesGetterPipe,
+		ParticipFilterPipe,
 	],
 	entryComponents: [ConfirmDialogComponent]
 })

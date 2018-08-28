@@ -1,0 +1,18 @@
+﻿.table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 20px;
+}
+
+th {
+    text-align: center;
+}
+
+.red-cell {
+    background-color: #f44336;
+}
+
+.mat-form-field + .mat-form-field {
+    margin-left: 15px;
+}

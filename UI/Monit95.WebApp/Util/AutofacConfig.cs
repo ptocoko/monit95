@@ -7,6 +7,7 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Models;
 using Monit95App.Services;
 using Monit95App.Services.File;
+using Monit95App.Services.FirstClass.Protocols;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.ItakeEge.Participant;
 using Monit95App.Services.ItakeEge.QuestionProtocol;
@@ -62,6 +63,7 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<Monit95App.Services.OneTwoThree.Particips.ParticipService>().As<Monit95App.Services.OneTwoThree.Particips.IParticipService>();
             builder.RegisterType<Monit95App.Services.OneTwoThree.QuestionProtocol.QuestionProtocolService>().As<Monit95App.Services.OneTwoThree.QuestionProtocol.IQuestionProtocolService>();
             builder.RegisterType<Monit95App.Services.FirstClass.Dtos.ParticipService>().As<Monit95App.Services.FirstClass.Dtos.IParticipService>();
+            builder.RegisterType<ProtocolService>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

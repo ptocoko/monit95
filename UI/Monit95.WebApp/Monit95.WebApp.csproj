@@ -339,6 +339,7 @@
     <Compile Include="RESTful_API\ClassController.cs" />
     <Compile Include="RESTful_API\DocumentsController.cs" />
     <Compile Include="RESTful_API\ExcelFilesController.cs" />
+    <Compile Include="RESTful_API\FirstClass\FirstClassProtocolsController.cs" />
     <Compile Include="RESTful_API\FirstClass\ParticipsController.cs" />
     <Compile Include="RESTful_API\iTakeEge\QuestionProtocolsController.cs" />
     <Compile Include="RESTful_API\MarksController.cs" />
@@ -401,6 +402,8 @@
     <Content Include="app\components\first-class\particips\add-or-update\add-or-update.component.html" />
     <Content Include="app\components\first-class\particips\list\particips-list.component.css" />
     <Content Include="app\components\first-class\particips\list\particips-list.component.html" />
+    <Content Include="app\components\first-class\protocols\list\protocols-list.component.css" />
+    <Content Include="app\components\first-class\protocols\list\protocols-list.component.html" />
     <Content Include="app\one-two-three\home\home.component.html" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.css" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.html" />
@@ -647,6 +650,7 @@
     <TypeScriptCompile Include="app\components\first-class\first-class.module.ts" />
     <TypeScriptCompile Include="app\components\first-class\particips\add-or-update\add-or-update.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\particips\list\particips-list.component.ts" />
+    <TypeScriptCompile Include="app\components\first-class\protocols\list\protocols-list.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
     <TypeScriptCompile Include="app\custom-route-reuse-strategy.ts" />
     <TypeScriptCompile Include="app\material.module.ts" />
@@ -655,6 +659,9 @@
     <TypeScriptCompile Include="app\models\class.model.ts" />
     <TypeScriptCompile Include="app\models\first-class\particip-get.model.ts" />
     <TypeScriptCompile Include="app\models\first-class\particip-post.model.ts" />
+    <TypeScriptCompile Include="app\models\first-class\protocol-get.model.ts" />
+    <TypeScriptCompile Include="app\models\first-class\protocol-post.model.ts" />
+    <TypeScriptCompile Include="app\models\first-class\question-result.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\particip.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\protocol-list.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\question-protocol.model.ts" />
@@ -707,6 +714,7 @@
     <TypeScriptCompile Include="app\models\particip.model.ts" />
     <TypeScriptCompile Include="app\pipes\rsur-protocol-filter.pipe.ts" />
     <TypeScriptCompile Include="app\services\first-class\particips.service.ts" />
+    <TypeScriptCompile Include="app\services\first-class\protocols.service.ts" />
     <TypeScriptCompile Include="app\services\one-two-three\particips.service.ts" />
     <TypeScriptCompile Include="app\services\one-two-three\question-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\particip-protocols.service.ts" />
