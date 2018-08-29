@@ -30,9 +30,9 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
             { 
                 dto = participService.GetParticips(schoolId, _projectId, options);
             }
-            catch(ArgumentNullException)
+            catch(ArgumentNullException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
             return Ok(dto);
@@ -69,9 +69,9 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
             {
                 participService.EditParticip(participId, schoolId, particip);
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                return Conflict();
+                return BadRequest(e.Message);
             }
 
             return Ok();
@@ -91,9 +91,9 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
             {
                 participService.CreateParticip(schoolId, _projectId, particip);
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                return Conflict();
+                return BadRequest(e.Message);
             }
 
             return Ok();
@@ -108,9 +108,9 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
             {
                 participService.RemoveParticip(participId, schoolId);
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
             return Ok();

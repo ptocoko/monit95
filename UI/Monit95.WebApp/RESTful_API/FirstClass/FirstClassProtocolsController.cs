@@ -56,6 +56,11 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         [HttpPost, Route("{participTestId}")]
         public IHttpActionResult EditProtocol([FromUri]int participTestId, [FromBody]ProtocolPostDto protocolPost)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 protocolService.EditProtocol(protocolPost);

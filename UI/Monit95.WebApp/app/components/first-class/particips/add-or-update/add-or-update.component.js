@@ -101,9 +101,9 @@ var AddOrUpdateComponent = /** @class */ (function () {
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
             secondName: ['', forms_1.Validators.minLength(5)],
             birthday: this.fb.group({
-                day: ['', forms_1.Validators.required],
-                month: ['', forms_1.Validators.required],
-                year: ['', forms_1.Validators.required]
+                day: ['', [forms_1.Validators.required, forms_1.Validators.min(1), forms_1.Validators.max(31)]],
+                month: ['', [forms_1.Validators.required, forms_1.Validators.min(0), forms_1.Validators.max(12)]],
+                year: ['', [forms_1.Validators.required, forms_1.Validators.min(2009), forms_1.Validators.max(2014)]]
             }),
             classId: ['', forms_1.Validators.required],
             wasDoo: false

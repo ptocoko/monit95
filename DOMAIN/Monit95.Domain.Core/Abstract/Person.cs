@@ -5,11 +5,11 @@ namespace Monit95App.Domain.Core.Abstract
     public abstract class Person
     {
         [Required]
-        [StringLength(25, MinimumLength = 4)]
+        [StringLength(25, MinimumLength = 3)]
         public string Surname { get; set; }
 
         [Required]
-        [StringLength(25, MinimumLength = 3)]
+        [StringLength(25, MinimumLength = 2)]
         public string Name { get; set; }
 
         [StringLength(25)]

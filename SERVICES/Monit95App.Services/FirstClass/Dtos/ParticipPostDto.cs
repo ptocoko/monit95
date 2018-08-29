@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monit95App.Domain.Core.Abstract;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Monit95App.Services.FirstClass.Dtos
 {
-    public class ParticipPostDto
+    public class ParticipPostDto : Person
     {
         public int? Id { get; set; }
 
-        [Required]
-        public string Surname { get; set; }
+        //[Required]
+        //public string Surname { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        //[Required]
+        //public string Name { get; set; }
 
-        public string SecondName { get; set; }
+        //public string SecondName { get; set; }
 
         [Required, Range(typeof(DateTime), "1.1.2009", "1.1.2015")]
         public DateTime Birthday { get; set; }
@@ -25,7 +26,7 @@ namespace Monit95App.Services.FirstClass.Dtos
         [Required]
         public bool WasDoo { get; set; }
 
-        [Required]
+        [Required, StringLength(4, MinimumLength = 4)]
         public string ClassId { get; set; }
     }
 }

@@ -112,9 +112,9 @@ export class AddOrUpdateComponent {
 			name: ['', [Validators.required, Validators.minLength(3)]],
 			secondName: ['', Validators.minLength(5)],
 			birthday: this.fb.group({
-				day: ['', Validators.required],
-				month: ['', Validators.required],
-				year: ['', Validators.required]
+				day: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
+				month: ['', [Validators.required, Validators.min(0), Validators.max(12)]],
+				year: ['', [Validators.required, Validators.min(2009), Validators.max(2014)]]
 			}),
 			classId: ['', Validators.required],
 			wasDoo: false
