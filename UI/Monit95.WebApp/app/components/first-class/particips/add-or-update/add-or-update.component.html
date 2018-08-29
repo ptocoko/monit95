@@ -27,7 +27,7 @@
         </mat-form-field>
 
         <div class="birthday-wrapper" formGroupName="birthday">
-            <mat-form-field>
+            <mat-form-field class="birthday-day">
                 <mat-select placeholder="день" formControlName="day">
                     <mat-option *ngFor="let day of monthDays" [value]="day">{{ day }}</mat-option>
                 </mat-select>
@@ -36,7 +36,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="birthday-month">
                 <mat-select placeholder="месяц" formControlName="month">
                     <mat-option *ngFor="let month of months" [value]="month.index">{{ month.name }}</mat-option>
                 </mat-select>
@@ -45,7 +45,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="birthday-year">
                 <mat-select placeholder="год" formControlName="year">
                     <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
                 </mat-select>
