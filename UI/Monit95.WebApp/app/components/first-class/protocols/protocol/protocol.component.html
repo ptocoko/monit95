@@ -5,25 +5,35 @@
         <label>{{question.Name}}:</label>
         <input class="form-control" 
                [(ngModel)]="question.CurrentMark"
-               (keyup.enter)="enterHandler(i, $event)"
+               (keydown.enter)="enterKeyHandler(i, $event)"
                id="mark{{i}}"
-               #mark{{i}} 
+               #mark{{i}}="ngModel"
                name="mark{{i}}" 
                type="number" 
                step="{{question.Step}}" 
                max="{{question.MaxMark}}" 
                min="0" 
-               required />
+               required
+               [appMark]="question"/>
+        <div class="alert alert-warning" *ngIf="marksForm.controls['mark' + i]?.invalid && (marksForm.controls['mark' + i]?.dirty || marksForm.controls['mark' + i]?.touched)">
+
+            <div *ngIf="marksForm.controls['mark' + i].errors.required">
+                Введите оценку
+            </div>
+
+            <div *ngIf="marksForm.controls['mark' + i].errors.markValidate">
+                {{ marksForm.controls['mark' + i].errors.markValidate.value }}
+            </div>
+        </div>
     </div>
     <br />
-    <p class="alert alert-danger" *ngIf="validateMsg">{{validateMsg}}</p>
     <p>
         <button id="submitBtn"
                 type="button"
                 (click)="send()"
                 mat-raised-button
                 color="primary"
-                [disabled]="marksForm.invalid || marksForm.pristine || marksSending">
+                [disabled]="marksSending">
             Сохранить
         </button>
 

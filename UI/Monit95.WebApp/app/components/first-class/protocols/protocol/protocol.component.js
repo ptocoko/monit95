@@ -5,6 +5,7 @@ var core_1 = require("@angular/core");
 var protocols_service_1 = require("../../../../services/first-class/protocols.service");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
 var ProtocolComponent = /** @class */ (function () {
     function ProtocolComponent(protocolService, route, location) {
         this.protocolService = protocolService;
@@ -22,7 +23,7 @@ var ProtocolComponent = /** @class */ (function () {
             });
         });
     };
-    ProtocolComponent.prototype.enterHandler = function (index, evt) {
+    ProtocolComponent.prototype.enterKeyHandler = function (index, evt) {
         evt.preventDefault();
         var input = document.querySelector('#mark' + (index + 1));
         var submitBtn = document.querySelector('#submitBtn');
@@ -30,12 +31,21 @@ var ProtocolComponent = /** @class */ (function () {
     };
     ProtocolComponent.prototype.send = function () {
         var _this = this;
-        this.marksSending = true;
-        if (this.checkMarks()) {
+        if (this.marksForm.valid) {
+            this.marksSending = true;
             this.protocolService.edit(this.participTestId, this.protocol).subscribe(function (_) {
                 _this.marksSending = false;
                 _this.location.back();
             });
+        }
+        else {
+            for (var _i = 0, _a = Object.getOwnPropertyNames(this.marksForm.controls); _i < _a.length; _i++) {
+                var propName = _a[_i];
+                if (this.marksForm.controls[propName].invalid) {
+                    this.focusOnInput(Number.parseInt(propName.slice(-1)));
+                    break;
+                }
+            }
         }
     };
     ProtocolComponent.prototype.cancel = function () { this.location.back(); };
@@ -45,31 +55,10 @@ var ProtocolComponent = /** @class */ (function () {
             firstInput && firstInput.focus();
         }, 0);
     };
-    ProtocolComponent.prototype.checkMarks = function () {
-        var resBool = true;
-        for (var i = 0; i < this.protocol.QuestionResultsList.length; i++) {
-            var question = this.protocol.QuestionResultsList[i];
-            var possibleMark = this.getPossibleMarks(question.MaxMark, question.Step);
-            resBool = possibleMark.indexOf(question.CurrentMark) > -1;
-            if (!resBool) {
-                this.marksSending = false;
-                this.focusOnInput(i);
-                this.setValidMsg(question.Name);
-                return resBool;
-            }
-        }
-        return resBool;
-    };
-    ProtocolComponent.prototype.getPossibleMarks = function (maxMark, step) {
-        var resArr = [];
-        for (var i = 0; i <= maxMark; i += step) {
-            resArr.push(i);
-        }
-        return resArr;
-    };
-    ProtocolComponent.prototype.setValidMsg = function (questionName) {
-        this.validateMsg = "\u041D\u0435\u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u0430\u044F \u043E\u0446\u0435\u043D\u043A\u0430 \u0437\u0430 \u0437\u0430\u0434\u0430\u043D\u0438\u0435 \u00AB" + questionName + "\u00BB";
-    };
+    tslib_1.__decorate([
+        core_1.ViewChild('marksForm'),
+        tslib_1.__metadata("design:type", forms_1.NgForm)
+    ], ProtocolComponent.prototype, "marksForm", void 0);
     ProtocolComponent = tslib_1.__decorate([
         core_1.Component({
             templateUrl: "./app/components/first-class/protocols/protocol/protocol.component.html?v=" + new Date().getTime(),

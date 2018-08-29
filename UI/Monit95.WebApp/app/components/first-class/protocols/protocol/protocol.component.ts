@@ -1,8 +1,10 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewChild } from '@angular/core';
 import { ProtocolsService } from '../../../../services/first-class/protocols.service';
 import { ProtocolPostModel } from '../../../../models/first-class/protocol-post.model';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { NgForm } from '@angular/forms';
+import { QuestionResultModel } from '../../../../models/first-class/question-result.model';
 
 @Component({
 	templateUrl: `./app/components/first-class/protocols/protocol/protocol.component.html?v=${new Date().getTime()}`,
@@ -13,6 +15,7 @@ export class ProtocolComponent {
 	participTestId: number;
 	marksSending = false;
 	validateMsg: string;
+	@ViewChild('marksForm') marksForm: NgForm;
 
 	constructor(private protocolService: ProtocolsService,
 		private route: ActivatedRoute,
@@ -28,7 +31,7 @@ export class ProtocolComponent {
 		});
 	}
 	
-	enterHandler(index: number, evt: any) {
+	enterKeyHandler(index: number, evt: any) {
 		evt.preventDefault();
 		const input = document.querySelector('#mark' + (index + 1)) as HTMLInputElement;
 		const submitBtn = document.querySelector('#submitBtn') as HTMLButtonElement;
@@ -37,12 +40,19 @@ export class ProtocolComponent {
 	}
 
 	send() {
-		this.marksSending = true;
-		if (this.checkMarks()) {
+		if (this.marksForm.valid) {
+			this.marksSending = true;
 			this.protocolService.edit(this.participTestId, this.protocol).subscribe(_ => {
 				this.marksSending = false;
 				this.location.back();
 			});
+		} else {
+			for (let propName of Object.getOwnPropertyNames(this.marksForm.controls)) {
+				if (this.marksForm.controls[propName].invalid) {
+					this.focusOnInput(Number.parseInt(propName.slice(-1)));
+					break;
+				}
+			}
 		}
 	}
 
@@ -54,35 +64,6 @@ export class ProtocolComponent {
 			firstInput && firstInput.focus();
 		}, 0);
 	}
-
-	private checkMarks(): boolean {
-		let resBool = true;
-		for (let i = 0; i < this.protocol.QuestionResultsList.length; i++) {
-			const question = this.protocol.QuestionResultsList[i];
-			const possibleMark = this.getPossibleMarks(question.MaxMark, question.Step);
-			resBool = possibleMark.indexOf(question.CurrentMark) > -1;
-
-			if (!resBool) {
-				this.marksSending = false;
-				this.focusOnInput(i);
-				this.setValidMsg(question.Name);
-				return resBool;
-			}
-		}
-
-		return resBool;
-	}
-
-	private getPossibleMarks(maxMark: number, step: number): number[] {
-		const resArr = [];
-		for (let i = 0; i <= maxMark; i += step) {
-			resArr.push(i);
-		}
-
-		return resArr;
-	}
-
-	private setValidMsg(questionName: string) {
-		this.validateMsg = `Неправильная оценка за задание «${questionName}»`;
-	}
 }
+
+

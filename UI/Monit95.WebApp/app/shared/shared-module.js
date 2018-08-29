@@ -12,6 +12,7 @@ var limit_to_pipe_1 = require("../pipes/limit-to.pipe");
 var offset_pipe_1 = require("../pipes/offset.pipe");
 var confirm_dialog_component_1 = require("./confirm-dialog/confirm-dialog.component");
 var particips_pipe_1 = require("../pipes/one-two-three/particips.pipe");
+var mark_validate_directive_1 = require("./mark-validate.directive");
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
@@ -32,6 +33,7 @@ var SharedModule = /** @class */ (function () {
                 particips_pipe_1.ClassFilterPipe,
                 particips_pipe_1.ClassesGetterPipe,
                 particips_pipe_1.ParticipFilterPipe,
+                mark_validate_directive_1.MarkValidateDirective
             ],
             exports: [
                 marks_protocol_component_1.MarksProtocolComponent,
@@ -43,6 +45,7 @@ var SharedModule = /** @class */ (function () {
                 particips_pipe_1.ClassFilterPipe,
                 particips_pipe_1.ClassesGetterPipe,
                 particips_pipe_1.ParticipFilterPipe,
+                mark_validate_directive_1.MarkValidateDirective
             ],
             entryComponents: [confirm_dialog_component_1.ConfirmDialogComponent]
         })

@@ -9,6 +9,7 @@ import { LimitToPipe } from '../pipes/limit-to.pipe';
 import { OffsetPipe } from '../pipes/offset.pipe';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes/one-two-three/particips.pipe';
+import { MarkValidateDirective } from './mark-validate.directive';
 
 @NgModule({
 	imports: [
@@ -26,6 +27,7 @@ import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes
 		ClassFilterPipe,
 		ClassesGetterPipe,
 		ParticipFilterPipe,
+		MarkValidateDirective
 	],
 	exports: [
 		MarksProtocolComponent,
@@ -37,6 +39,7 @@ import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes
 		ClassFilterPipe,
 		ClassesGetterPipe,
 		ParticipFilterPipe,
+		MarkValidateDirective
 	],
 	entryComponents: [ConfirmDialogComponent]
 })

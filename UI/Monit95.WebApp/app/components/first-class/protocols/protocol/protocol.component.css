@@ -14,3 +14,10 @@ form{
     display: inline;
     width: 70px;
 }
+
+.alert{
+    margin-bottom: 0;
+    min-width: 215px;
+    width: max-content;
+}
+
