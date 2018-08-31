@@ -108,7 +108,7 @@ namespace ParticipReporter
 
             if (overview.FirstClassGrade5 != null && overview.FirstClassGradeStr != null)
             {
-                overviewHtml.Append($"<tr><td>Результат диагностики в первом классе</td><td style=\"background-color: { GetGrade5Color(Convert.ToInt32(overview.FirstClassGrade5.Value)) }\">{ overview.FirstClassGradeStr }</td></tr>");
+                overviewHtml.Append($"<tr><td>Уровень подготовки к обучению учащегося</td><td style=\"background-color: { GetGrade5Color(Convert.ToInt32(overview.FirstClassGrade5.Value)) }\">{ overview.FirstClassGradeStr }</td></tr>");
             }
 
             overviewHtml.Append("</table>");
