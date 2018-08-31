@@ -12,9 +12,6 @@
                    [(ngModel)]="searchText"
                    placeholder="поиск участника..."
                    matInput />
-            <button mat-button *ngIf="searchText" matSuffix mat-icon-button aria-label="очистить" (click)="searchText=''">
-                <mat-icon>close</mat-icon>
-            </button>
         </mat-form-field>
 
         <mat-form-field class="class-select">
@@ -22,8 +19,7 @@
                         [(ngModel)]="searchClass"
                         (selectionChange)="selectionChange()">
                 <mat-option [value]="">Все классы</mat-option>
-                <mat-option *ngFor="let class of protocols | getClasses"
-                            [value]="class.Id">
+                <mat-option *ngFor="let class of classes" [value]="class.Id">
                     {{ class.Name }}
                 </mat-option>
             </mat-select>
@@ -39,7 +35,7 @@
         <th>баллы по заданиям</th>
         <th style="width:295px">действия</th>
     </tr>
-    <tr *ngFor="let protocol of protocols | participFilter : searchText | classFilter : searchClass | offset : pageIndex * limitToVal | limitTo : limitToVal; let i = index">
+    <tr *ngFor="let protocol of protocols; let i = index">
         <td class="text-center">{{i + 1}}</td>
         <td>{{protocol.Surname}} {{protocol.Name}} {{protocol.SecondName}}</td>
         <td class="text-center">{{protocol.ClassName}}</td>
@@ -70,7 +66,7 @@
 <p *ngIf="!isLoading && protocols.length === 0" class="text-center"><i>Протоколов нет.</i></p>
 
 <p>
-    <app-table-paginator [length]="protocols.length"
+    <app-table-paginator [length]="protocolsLength"
                          [pageSizeOptions]="[20, 50, 70]"
                          [(pageSize)]="limitToVal"
                          [(pageIndex)]="pageIndex">

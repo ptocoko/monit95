@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { ProtocolGetModel } from '../../models/first-class/protocol-get.model';
+import { ProtocolGetModel, ProtocolsList } from '../../models/first-class/protocol-get.model';
 import { ProtocolPostModel } from '../../models/first-class/protocol-post.model';
 
 @Injectable()
@@ -10,8 +10,14 @@ export class ProtocolsService {
 
 	constructor(private http: HttpClient) { }
 
-	getAll(): Observable<ProtocolGetModel[]> {
-		return this.http.get<ProtocolGetModel[]>(this.endpoint);
+	getAll(options: ListGetOptions): Observable<ProtocolsList> {
+		let params = new HttpParams();
+		if (options.page) params = params.append('page', options.page.toString());
+		if (options.length) params = params.append('length', options.length.toString());
+		if (options.search) params = params.append('search', options.search);
+		if (options.classId) params = params.append('classid', options.classId);
+
+		return this.http.get<ProtocolsList>(this.endpoint, { params });
 	}
 
 	get(participTestId: number): Observable<ProtocolPostModel> {
@@ -25,4 +31,11 @@ export class ProtocolsService {
 	markAsAbsent(participTestId: number) {
 		return this.http.put(`${this.endpoint}/${participTestId}/markAsAbsent`, { responseType: 'text' });
 	}
+}
+
+export interface ListGetOptions {
+	page?: number;
+	length?: number;
+	search?: string;
+	classId?: string;
 }

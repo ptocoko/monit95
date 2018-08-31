@@ -8,8 +8,17 @@ var ProtocolsService = /** @class */ (function () {
         this.http = http;
         this.endpoint = '/api/firstclass/protocols';
     }
-    ProtocolsService.prototype.getAll = function () {
-        return this.http.get(this.endpoint);
+    ProtocolsService.prototype.getAll = function (options) {
+        var params = new http_1.HttpParams();
+        if (options.page)
+            params = params.append('page', options.page.toString());
+        if (options.length)
+            params = params.append('length', options.length.toString());
+        if (options.search)
+            params = params.append('search', options.search);
+        if (options.classId)
+            params = params.append('classid', options.classId);
+        return this.http.get(this.endpoint, { params: params });
     };
     ProtocolsService.prototype.get = function (participTestId) {
         return this.http.get(this.endpoint + "/" + participTestId);

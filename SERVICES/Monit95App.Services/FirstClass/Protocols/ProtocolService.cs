@@ -1,5 +1,6 @@
 ﻿using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.DTOs;
 using Monit95App.Services.FirstClass.Dtos;
 using ServiceResult.Exceptions;
 using System;
@@ -19,23 +20,49 @@ namespace Monit95App.Services.FirstClass.Protocols
             this.context = context;
         }
 
-        public IEnumerable<ProtocolGetDto> GetProtocols(string schoolId, int projectTestId)
+        public ProtocolsList GetProtocols(string schoolId, int projectTestId, ListGetOptions options)
         {
-            return context.ParticipTests
+            if (schoolId == null)
+            {
+                throw new ArgumentNullException($"{nameof(schoolId)} is null!");
+            }
+
+            int offset = (int)((options.Page - 1) * options.Length);
+            int length = (int)options.Length;
+
+            var entity = context.ParticipTests
                 .AsNoTracking()
-                .Where(p => p.ProjectTest.Id == projectTestId && p.Particip.SchoolId == schoolId)
-                .OrderBy(ob => ob.Particip.ClassId).ThenBy(tb => tb.Particip.Surname).ThenBy(tb => tb.Particip.Name)
-                .AsEnumerable()
-                .Select(s => new ProtocolGetDto
-                {
-                    ParticipTestId = s.Id,
-                    Surname = s.Particip.Surname,
-                    Name = s.Particip.Name,
-                    SecondName = s.Particip.SecondName,
-                    Marks = GetMarks(s),
-                    ClassName = s.Particip.Class.Name.Trim(),
-                    ClassId = s.Particip.ClassId
-                });
+                .Where(p => p.ProjectTest.Id == projectTestId && p.Particip.SchoolId == schoolId);
+
+            IEnumerable<ClassDto> classes = entity
+                .Select(s => new ClassDto { Id = s.Particip.ClassId, Name = s.Particip.Class.Name })
+                .GroupBy(gb => gb.Id)
+                .Select(s => s.FirstOrDefault());
+
+            entity = FilterQuery(entity, options);
+
+            var totalCount = entity.Count();
+
+            entity = entity.OrderBy(ob => ob.Particip.ClassId).ThenBy(tb => tb.Particip.Surname).ThenBy(tb => tb.Particip.Name);
+            entity = entity.Skip(offset).Take(length);
+
+            var participTests = entity.AsEnumerable().Select(s => new ProtocolGetDto
+            {
+                ParticipTestId = s.Id,
+                Surname = s.Particip.Surname,
+                Name = s.Particip.Name,
+                SecondName = s.Particip.SecondName,
+                Marks = GetMarks(s),
+                ClassName = s.Particip.Class.Name.Trim(),
+                ClassId = s.Particip.ClassId
+            });
+
+            return new ProtocolsList
+            {
+                Items = participTests,
+                TotalCount = totalCount,
+                Classes = classes
+            };
         }
 
         public ProtocolPostDto GetEditProtocol(int participTestId)
@@ -123,6 +150,23 @@ namespace Monit95App.Services.FirstClass.Protocols
             }
 
             context.SaveChanges();
+        }
+
+        private IQueryable<ParticipTest> FilterQuery(IQueryable<ParticipTest> participTests, ListGetOptions options)
+        {
+            if (!String.IsNullOrEmpty(options.Search))
+            {
+                participTests = participTests.Where(p => p.ParticipId.ToString().Contains(options.Search)
+                                              || p.Particip.Surname.Contains(options.Search)
+                                              || p.Particip.Name.Contains(options.Search));
+            }
+
+            if (!String.IsNullOrEmpty(options.ClassId))
+            {
+                participTests = participTests.Where(p => p.Particip.ClassId == options.ClassId);
+            }
+
+            return participTests;
         }
 
         private string GetMarks(ParticipTest participTest)

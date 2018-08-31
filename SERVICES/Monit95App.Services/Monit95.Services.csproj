@@ -108,6 +108,7 @@
     <Compile Include="FirstClass\Particips\IParticipService.cs" />
     <Compile Include="FirstClass\Dtos\ParticipGetDto.cs" />
     <Compile Include="FirstClass\Particips\ParticipService.cs" />
+    <Compile Include="FirstClass\Protocols\ListGetOptions.cs" />
     <Compile Include="FirstClass\Protocols\ProtocolService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="File\IFileService.cs" />

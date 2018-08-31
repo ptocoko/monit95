@@ -24,13 +24,21 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         }
 
         [HttpGet, Route("")]
-        public IHttpActionResult GetProtocols()
+        public IHttpActionResult GetProtocols([FromUri]ListGetOptions options)
         {
             var schoolId = User.Identity.Name;
+            ProtocolsList dto;
 
-            var protocols = protocolService.GetProtocols(schoolId, projectTestId);
+            try
+            {
+                dto = protocolService.GetProtocols(schoolId, projectTestId, options);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
 
-            return Ok(protocols);
+            return Ok(dto);
         }
 
         [HttpGet, Route("{participTestId}")]
