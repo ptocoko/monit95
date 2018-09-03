@@ -105,7 +105,7 @@ namespace Monit95App.Services.Rsur
 
         public IEnumerable<RsurParticipGetDto> GetAll(int? areaCode = null, string schoolId = null)
         {
-            var query = this._cokoContext.RsurParticips.AsQueryable();
+            var query = this._cokoContext.RsurParticips.AsNoTracking().AsQueryable();
 
             if (areaCode != null)
             {
@@ -119,7 +119,23 @@ namespace Monit95App.Services.Rsur
 
             var entities = query.ToList();
 
-            var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);
+            //var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);
+            var dtos = entities.AsEnumerable().Select(src => new RsurParticipGetDto
+            {
+                SchoolParticipInfo = new Domain.Core.SchoolParticip
+                {
+                    Surname = src.Surname,
+                    Name = src.Name,
+                    SecondName = src.SecondName,
+                    SchoolName = $"{src.SchoolId} - {src.School.Name.TrimEnd()}"
+                },
+                Code = src.Code,
+                RsurSubjectName = src.RsurSubject.Name,
+                AreaCodeWithName = $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}",
+                LastBlockName = LastBlockNameMapper(src),
+                LastBlockStatus = LastBlockStatusMapper(src),
+                ActualCode = src.ActualCode
+            });
 
             return dtos.OrderBy(ob => ob.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name).ThenBy(tb => tb.SchoolParticipInfo.SecondName);
         }
@@ -167,23 +183,23 @@ namespace Monit95App.Services.Rsur
 
         private string LastBlockNameMapper(RsurParticip src)
         {
-            var participTestResults = src.RsurParticipTests.Where(p => p.RsurTestResult.Grade5 != null);
+            var participTestResults = src.RsurParticipTests.Where(p => p.RsurTestResult != null && p.RsurTestResult.Grade5 != null).ToList();
 
-            if (participTestResults == null || !participTestResults.Any())
+            if (participTestResults == null || participTestResults.Count() < 1 || !participTestResults.Any())
             {
                 return null;
             }
-
-            var testName = participTestResults
+            var test = participTestResults
                 .OrderBy(ob => ob.RsurTestId)
                 .Last()
                 .RsurTest
-                .Test
-                .Name;
+                .Test;
 
-            if(testName.Length > 30)
+            var testName = test.NumberCode + " - " + test.Name;
+
+            if(testName.Length > 40)
             {
-                testName = testName.Substring(0, 20) + "...";
+                testName = testName.Substring(0, 40) + "...";
             }
 
             return testName;
@@ -191,9 +207,9 @@ namespace Monit95App.Services.Rsur
 
         private int LastBlockStatusMapper(RsurParticip src)
         {
-            var participTestResults = src.RsurParticipTests.Where(p => p.RsurTestResult.Grade5 != null);
+            var participTestResults = src.RsurParticipTests.Where(p => p.RsurTestResult != null && p.RsurTestResult.Grade5 != null).ToList();
 
-            if (participTestResults == null || !participTestResults.Any())
+            if (participTestResults == null || participTestResults.Count() < 1 || !participTestResults.Any())
             {
                 return 2;
             }
