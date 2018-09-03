@@ -30,6 +30,10 @@ namespace Monit95App.Services.DTOs
 
         public string ClassNumbers { get; set; }
 
-        public int ActualCode { get; set; }                
+        public int ActualCode { get; set; }
+
+        public string LastBlockName { get; set; }
+
+        public int? LastBlockStatus { get; set; }
     }
 }

@@ -1,0 +1,10 @@
+﻿.table-container{
+    margin: 15px 0;
+}
+
+.content-center{
+    height: 100%;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}

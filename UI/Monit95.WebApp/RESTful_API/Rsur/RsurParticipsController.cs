@@ -84,16 +84,14 @@ namespace Monit95App.Web.Api
         [HttpPut]
         [Authorize(Roles = "coko")]
         [Route("{code:int}")]
-        public IHttpActionResult Put([FromBody] RsurParticipPutDto dto)
+        public IHttpActionResult Put([FromUri]int code, [FromBody] RsurParticipPutDto dto)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return this.BadRequest();
-            //}
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
 
-            //var code = Convert.ToInt32(RequestContext.RouteData.Values["code"]);
-
-            //this._rsurParticipService.Update(code, dto);
+            this._rsurParticipService.Update(code, dto);
 
             return BadRequest();
         }

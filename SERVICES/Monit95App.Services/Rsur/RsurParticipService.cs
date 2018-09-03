@@ -56,7 +56,14 @@ namespace Monit95App.Services.Rsur
                         opt => opt.MapFrom(src => src.SecondName))
                    .ForMember(
                        dist => dist.AreaCodeWithName,
-                       opt => opt.MapFrom(src => $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}")));
+                       opt => opt.MapFrom(src => $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}"))
+                    .ForMember(
+                        dist => dist.LastBlockName,
+                        opt => opt.MapFrom(src => LastBlockNameMapper(src)))
+                    .ForMember(
+                        dist => dist.LastBlockStatus,
+                        opt => opt.MapFrom(src => LastBlockStatusMapper(src)))
+                );
         }
 
         #region Methods
@@ -157,5 +164,45 @@ namespace Monit95App.Services.Rsur
         }        
 
         #endregion
+
+        private string LastBlockNameMapper(RsurParticip src)
+        {
+            var participTestResults = src.RsurParticipTests.Where(p => p.RsurTestResult.Grade5 != null);
+
+            if (participTestResults == null || !participTestResults.Any())
+            {
+                return null;
+            }
+
+            var testName = participTestResults
+                .OrderBy(ob => ob.RsurTestId)
+                .Last()
+                .RsurTest
+                .Test
+                .Name;
+
+            if(testName.Length > 30)
+            {
+                testName = testName.Substring(0, 20) + "...";
+            }
+
+            return testName;
+        }
+
+        private int LastBlockStatusMapper(RsurParticip src)
+        {
+            var participTestResults = src.RsurParticipTests.Where(p => p.RsurTestResult.Grade5 != null);
+
+            if (participTestResults == null || !participTestResults.Any())
+            {
+                return 2;
+            }
+
+            return participTestResults
+                .OrderBy(ob => ob.RsurTestId)
+                .Last()
+                .RsurTestResult
+                .Grade5.Value == 5 ? 1 : 0;
+        }
     }
 }

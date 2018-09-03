@@ -37,6 +37,7 @@ import { SchoolFilesComponent } from './components/school-files/school-files.com
 import { QuestionProtocolsList } from './components/rsur/protocols/question/question-protocols-list.component';
 import { MarksProtocolComponent } from './components/rsur/protocols/shared/marks-protocol.component';
 import { QuestionProtocolComponent } from './components/rsur/protocols/protocol/question-protocol.component';
+import { FiringListComponent } from './components/rsur/actualization/firing/list/firing-list.component';
 
 // Services
 import { AccountService } from './services/account.service';
@@ -54,6 +55,7 @@ import { RsurRatingService } from './services/rsur-rating.service';
 import { SeminarReportService } from './services/seminar-report.service';
 import { SchoolFileService } from './services/school-file.service';
 import { RsurProtocolsService } from './services/rsur-protocols.service';
+import { ActualizationService } from './services/rsur/actualization.service';
 
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
@@ -92,7 +94,8 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
                 //{ path: 'rsur/test', component: RsurTestComponent },
-                { path: 'rsur/particips', component: RsurParticipsComponent },
+				{ path: 'rsur/particips', component: RsurParticipsComponent },
+				{ path: 'rsur/actualization/firing/list', component: FiringListComponent },
                 //{ path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
     //            { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
 				//{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
@@ -151,7 +154,8 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		//ScanProtocolsComponent,
 		QuestionProtocolsList,
 		//MarksProtocolComponent,
-		QuestionProtocolComponent
+		QuestionProtocolComponent,
+		FiringListComponent
 	],
 	providers: [
         AccountService,
@@ -169,6 +173,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
         SeminarReportService,
 		SchoolFileService,
 		RsurProtocolsService,
+		ActualizationService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler },
 		{ provide: MatPaginatorIntl, useClass: RussianMatPaginator },

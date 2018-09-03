@@ -1,0 +1,57 @@
+﻿<h3>Актуализация РСУР: этап 1</h3>
+
+<div *ngIf="isActualizing; else actualizationIsEnding">
+    <div class="jumbotron">
+        На данном этапе необходимо <b>удалить</b> из списка ниже участников, которые по той или иной причине не будут принимать участие в ближайшей диагностике РСУР. <br/>
+        <b>Ближайшая диагностика РСУР будет проходить *дата* - *дата*</b>
+    </div>
+
+    <div class="table-container">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>код участника</th>
+                <th>фио</th>
+                <th>предмет</th>
+                <th>последняя диагностика</th>
+            </tr>
+            <tr *ngFor="let particip of particips; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ particip.Code }}</td>
+                <td>{{ particip.SchoolParticipInfo.Surname }} {{ particip.SchoolParticipInfo.Name }} {{ particip.SchoolParticipInfo.SecondName }}</td>
+                <td>{{ particip.RsurSubjectName }}</td>
+                <td>
+                    {{ particip.LastBlockName }}
+                    <span *ngIf="particip.LastBlockStatus === 0">(не сдан)</span>
+                    <span *ngIf="particip.LastBlockStatus === 1">(сдан)</span>
+                    <span *ngIf="particip.LastBlockStatus === 2">(не участвовал(-а) в диагностиках РСУР)</span>
+                </td>
+                <td>
+                    <span *ngIf="particip.ActualCode === 0">
+                        <button mat-raised-button
+                                (click)="cancelFiring(particip)"
+                                color="primary">
+                            Включить в список
+                        </button>
+                    </span>
+                    <span *ngIf="particip.ActualCode === 1">
+                        <button mat-raised-button
+                                (click)="fire(particip)"
+                                color="warn">
+                            Удалить из списка
+                        </button>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="text-right">
+        <button mat-raised-button (click)="endFiring()" color="primary">Завершить этап 1</button>
+    </div>
+</div>
+<ng-template #actualizationIsEnding>
+    <div class="content-center">
+        <h2>Первый этап актуализации окончен</h2>
+    </div>
+</ng-template>

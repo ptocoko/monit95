@@ -408,6 +408,8 @@
     <Content Include="app\components\first-class\protocols\list\protocols-list.component.html" />
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.css" />
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.html" />
+    <Content Include="app\components\rsur\actualization\firing\list\firing-list.component.css" />
+    <Content Include="app\components\rsur\actualization\firing\list\firing-list.component.html" />
     <Content Include="app\one-two-three\home\home.component.html" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.css" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.html" />
@@ -635,8 +637,11 @@
     <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\components\rsur\actualization\hiring\" />
     <Folder Include="app\directives\" />
+    <Folder Include="app\models\rsur\" />
     <Folder Include="app\rsur\upload-report\" />
+    <Folder Include="app\services\rsur\actualization\" />
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Images\seminar-photos\" />
@@ -656,8 +661,10 @@
     <TypeScriptCompile Include="app\components\first-class\particips\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\list\protocols-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\protocol\protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\actualization\firing\list\firing-list.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
     <TypeScriptCompile Include="app\custom-route-reuse-strategy.ts" />
+    <TypeScriptCompile Include="app\enums\rsur.block-status.ts" />
     <TypeScriptCompile Include="app\material.module.ts" />
     <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
@@ -728,6 +735,7 @@
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\models\rsur-report.model.ts" />
     <TypeScriptCompile Include="app\services\rsur-protocols.service.ts" />
+    <TypeScriptCompile Include="app\services\rsur\actualization.service.ts" />
     <TypeScriptCompile Include="app\services\school-file.service.ts" />
     <TypeScriptCompile Include="app\services\rsur-rating.service.ts" />
     <TypeScriptCompile Include="app\services\rsur-report.service.ts" />

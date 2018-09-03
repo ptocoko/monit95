@@ -38,6 +38,7 @@ var school_files_component_1 = require("./components/school-files/school-files.c
 //import { ScanProtocolsComponent, FilterPipe } from './components/rsur/protocols/scan/scan-protocols.component';
 var question_protocols_list_component_1 = require("./components/rsur/protocols/question/question-protocols-list.component");
 var question_protocol_component_1 = require("./components/rsur/protocols/protocol/question-protocol.component");
+var firing_list_component_1 = require("./components/rsur/actualization/firing/list/firing-list.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
@@ -53,6 +54,7 @@ var rsur_rating_service_1 = require("./services/rsur-rating.service");
 var seminar_report_service_1 = require("./services/seminar-report.service");
 var school_file_service_1 = require("./services/school-file.service");
 var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
+var actualization_service_1 = require("./services/rsur/actualization.service");
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
 var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
@@ -93,6 +95,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'rsur', component: home_component_1.HomeComponent },
                     //{ path: 'rsur/test', component: RsurTestComponent },
                     { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },
+                    { path: 'rsur/actualization/firing/list', component: firing_list_component_1.FiringListComponent },
                     //{ path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
                     //            { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
                     //{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
@@ -150,7 +153,8 @@ var AppModule = /** @class */ (function () {
                 //ScanProtocolsComponent,
                 question_protocols_list_component_1.QuestionProtocolsList,
                 //MarksProtocolComponent,
-                question_protocol_component_1.QuestionProtocolComponent
+                question_protocol_component_1.QuestionProtocolComponent,
+                firing_list_component_1.FiringListComponent
             ],
             providers: [
                 account_service_1.AccountService,
@@ -168,6 +172,7 @@ var AppModule = /** @class */ (function () {
                 seminar_report_service_1.SeminarReportService,
                 school_file_service_1.SchoolFileService,
                 rsur_protocols_service_1.RsurProtocolsService,
+                actualization_service_1.ActualizationService,
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
                 { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler },
                 { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator },
