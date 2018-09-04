@@ -16,7 +16,7 @@ var FiringListComponent = /** @class */ (function () {
         var _this = this;
         this.actualizationService.getActualizeStatus().subscribe(function (status) {
             _this.isActualizing = !status.IsFinished;
-            if (status) {
+            if (_this.isActualizing) {
                 _this.rsurParticipService.getAll().subscribe(function (res) {
                     _this.particips = res;
                 });
@@ -34,7 +34,8 @@ var FiringListComponent = /** @class */ (function () {
             if (res) {
                 var firedParticip = tslib_1.__assign({}, particip, { ActualCode: 0 });
                 _this.rsurParticipService.update(particip.Code, firedParticip).subscribe(function () {
-                    _this.particips.find(function (prt) { return prt.Code === particip.Code; }).ActualCode === 0;
+                    var participIndex = _this.particips.findIndex(function (prt) { return prt.Code === particip.Code; });
+                    _this.particips[participIndex].ActualCode = 0;
                 });
             }
         });
@@ -50,7 +51,8 @@ var FiringListComponent = /** @class */ (function () {
             if (res) {
                 var firedParticip = tslib_1.__assign({}, particip, { ActualCode: 1 });
                 _this.rsurParticipService.update(particip.Code, firedParticip).subscribe(function () {
-                    _this.particips.find(function (prt) { return prt.Code === particip.Code; }).ActualCode === 1;
+                    var participIndex = _this.particips.findIndex(function (prt) { return prt.Code === particip.Code; });
+                    _this.particips[participIndex].ActualCode = 1;
                 });
             }
         });

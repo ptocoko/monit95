@@ -10,7 +10,7 @@ import { ConfirmDialogComponent } from '../../../../../shared/confirm-dialog/con
 	styleUrls: [`./app/components/rsur/actualization/firing/list/firing-list.component.css?v=${new Date().getTime()}`]
 })
 export class FiringListComponent {
-	isActualizing: boolean;
+	isActualizing = true;
 	particips: RsurParticipModel[];
 
 	constructor(private rsurParticipService: RsurParticipService,
@@ -20,7 +20,7 @@ export class FiringListComponent {
 	ngOnInit() {
 		this.actualizationService.getActualizeStatus().subscribe(status => {
 			this.isActualizing = !status.IsFinished;
-			if (status) {
+			if (this.isActualizing) {
 				this.rsurParticipService.getAll().subscribe(res => {
 					this.particips = res;
 				});
@@ -39,7 +39,8 @@ export class FiringListComponent {
 			if (res) {
 				const firedParticip: RsurParticipModel = { ...particip, ActualCode: 0 };
 				this.rsurParticipService.update(particip.Code, firedParticip).subscribe(() => {
-					this.particips.find(prt => prt.Code === particip.Code).ActualCode === 0;
+					const participIndex = this.particips.findIndex(prt => prt.Code === particip.Code);
+					this.particips[participIndex].ActualCode = 0;
 				});
 			}
 		});
@@ -56,7 +57,8 @@ export class FiringListComponent {
 			if (res) {
 				const firedParticip: RsurParticipModel = { ...particip, ActualCode: 1 };
 				this.rsurParticipService.update(particip.Code, firedParticip).subscribe(() => {
-					this.particips.find(prt => prt.Code === particip.Code).ActualCode === 1;
+					const participIndex = this.particips.findIndex(prt => prt.Code === particip.Code);
+					this.particips[participIndex].ActualCode = 1;
 				});
 			}
 		});

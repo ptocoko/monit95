@@ -82,18 +82,18 @@ namespace Monit95App.Web.Api
         }
 
         [HttpPut]
-        [Authorize(Roles = "coko")]
+        [Authorize(Roles = "coko, school")]
         [Route("{code:int}")]
         public IHttpActionResult Put([FromUri]int code, [FromBody] RsurParticipPutDto dto)
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest();
+                return this.BadRequest(ModelState);
             }
 
             this._rsurParticipService.Update(code, dto);
 
-            return BadRequest();
+            return Ok();
         }
 
         //[HttpDelete]
