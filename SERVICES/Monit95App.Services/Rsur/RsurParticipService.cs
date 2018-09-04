@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 
 using AutoMapper;
@@ -105,7 +106,12 @@ namespace Monit95App.Services.Rsur
 
         public IEnumerable<RsurParticipGetDto> GetAll(int? areaCode = null, string schoolId = null)
         {
-            var query = this._cokoContext.RsurParticips.AsNoTracking().AsQueryable();
+            var query = this._cokoContext.RsurParticips
+                .AsNoTracking()
+                .AsQueryable()
+                .Include(inc => inc.School.Area)
+                .Include("RsurParticipTests.RsurTestResult")
+                .Include("RsurParticipTests.RsurTest.Test");
 
             if (areaCode != null)
             {
@@ -119,23 +125,30 @@ namespace Monit95App.Services.Rsur
 
             var entities = query.ToList();
 
+            // Mapper работает некорректно
             //var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);
-            var dtos = entities.AsEnumerable().Select(src => new RsurParticipGetDto
-            {
-                SchoolParticipInfo = new Domain.Core.SchoolParticip
+
+            var dtos = entities
+                .Select(src => new RsurParticipGetDto
                 {
-                    Surname = src.Surname,
-                    Name = src.Name,
-                    SecondName = src.SecondName,
-                    SchoolName = $"{src.SchoolId} - {src.School.Name.TrimEnd()}"
-                },
-                Code = src.Code,
-                RsurSubjectName = src.RsurSubject.Name,
-                AreaCodeWithName = $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}",
-                LastBlockName = LastBlockNameMapper(src),
-                LastBlockStatus = LastBlockStatusMapper(src),
-                ActualCode = src.ActualCode
-            });
+                    SchoolParticipInfo = new Domain.Core.SchoolParticip
+                    {
+                        Surname = src.Surname,
+                        Name = src.Name,
+                        SecondName = src.SecondName,
+                        SchoolName = $"{src.SchoolId} - {src.School.Name.TrimEnd()}"
+                    },
+                    Code = src.Code,
+                    RsurSubjectName = src.RsurSubject.Name,
+                    AreaCodeWithName = $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}",
+                    LastBlockName = LastBlockNameMapper(src),
+                    LastBlockStatus = LastBlockStatusMapper(src),
+                    ActualCode = src.ActualCode,
+                    Email = src.Email,
+                    Phone = src.Phone,
+                    CategoryName = src.Category.Name.TrimEnd(),
+                    Birthday = src.Birthday.HasValue ? src.Birthday.Value.ToString("dd.MM.yyyy г.") : null
+                });
 
             return dtos.OrderBy(ob => ob.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name).ThenBy(tb => tb.SchoolParticipInfo.SecondName);
         }
