@@ -1,0 +1,54 @@
+﻿<h2>Этап 2: добавление участников</h2>
+<p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
+    <mat-spinner></mat-spinner>
+</p>
+<div class="example-container mat-elevation-z8">
+    <div class="table-filters">
+        <mat-form-field class="filter-field">
+            <input matInput 
+                   [(ngModel)]="filterText"
+                   (keyup)="applyFilter()" 
+                   (focus)="focusFilterInput()" 
+                   placeholder="поиск..." />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary">Добавить участника</button>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="Code">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> код участника </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Code}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Surname">
+            <mat-header-cell *matHeaderCellDef> фамилия </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.Surname}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef> имя </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.Name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SecondName">
+            <mat-header-cell *matHeaderCellDef> отчество </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.SecondName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="RsurSubjectName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> предмет </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.RsurSubjectName}} </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                   [length]="actualParticips.length"
+                   [pageSizeOptions]="['50', '100']">
+    </mat-paginator>
+</div>

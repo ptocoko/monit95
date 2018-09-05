@@ -128,29 +128,41 @@ namespace Monit95App.Services.Rsur
             // Mapper работает некорректно
             //var dtos = Mapper.Map<List<RsurParticip>, IEnumerable<RsurParticipGetDto>>(entities);
 
-            var dtos = entities
-                .Select(src => new RsurParticipGetDto
-                {
-                    SchoolParticipInfo = new Domain.Core.SchoolParticip
-                    {
-                        Surname = src.Surname,
-                        Name = src.Name,
-                        SecondName = src.SecondName,
-                        SchoolName = $"{src.SchoolId} - {src.School.Name.TrimEnd()}"
-                    },
-                    Code = src.Code,
-                    RsurSubjectName = src.RsurSubject.Name,
-                    AreaCodeWithName = $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}",
-                    LastBlockName = LastBlockNameMapper(src),
-                    LastBlockStatus = LastBlockStatusMapper(src),
-                    ActualCode = src.ActualCode,
-                    Email = src.Email,
-                    Phone = src.Phone,
-                    CategoryName = src.Category.Name.TrimEnd(),
-                    Birthday = src.Birthday.HasValue ? src.Birthday.Value.ToString("dd.MM.yyyy г.") : null
-                });
+            var dtos = entities.Select(MapParticips);
 
             return dtos.OrderBy(ob => ob.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name).ThenBy(tb => tb.SchoolParticipInfo.SecondName);
+        }
+
+        public IEnumerable<RsurParticipGetDto> Search(SearchOptions options)
+        {
+            var query = _cokoContext.RsurParticips.AsNoTracking().AsQueryable();
+
+            if(options != null)
+            {
+                if (options.AreaCode.HasValue)
+                {
+                    query = query.Where(p => p.School.AreaCode == options.AreaCode);
+                }
+
+                if(options.SchoolId != null)
+                {
+                    query = query.Where(p => p.SchoolId == options.SchoolId);
+                }
+
+                if(options.Search != null)
+                {
+                    query = query.Where(p => p.Code.ToString().Contains(options.Search)
+                                          || p.Surname.Contains(options.Search)
+                                          || p.Name.Contains(options.Search)
+                                          || p.SecondName.Contains(options.Search));
+                }
+            }
+
+            query = query.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.SecondName);
+
+            var dtos = query.AsEnumerable().Select(MapParticips);
+
+            return dtos;
         }
 
         public void Update(int code, RsurParticipPutDto dto)
@@ -194,6 +206,30 @@ namespace Monit95App.Services.Rsur
 
         #endregion
 
+        private RsurParticipGetDto MapParticips(RsurParticip src)
+        {
+            return new RsurParticipGetDto
+            {
+                SchoolParticipInfo = new Domain.Core.SchoolParticip
+                {
+                    Surname = src.Surname,
+                    Name = src.Name,
+                    SecondName = src.SecondName,
+                    SchoolName = $"{src.SchoolId} - {src.School.Name.TrimEnd()}"
+                },
+                Code = src.Code,
+                RsurSubjectName = src.RsurSubject.Name,
+                AreaCodeWithName = $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}",
+                LastBlockName = LastBlockNameMapper(src),
+                LastBlockStatus = LastBlockStatusMapper(src),
+                ActualCode = src.ActualCode,
+                Email = src.Email,
+                Phone = src.Phone,
+                CategoryName = src.Category.Name.TrimEnd(),
+                Birthday = src.Birthday.HasValue ? src.Birthday.Value.ToString("dd.MM.yyyy г.") : null
+            };
+        }
+
         private string LastBlockNameMapper(RsurParticip src)
         {
             var participTestResults = src.RsurParticipTests.Where(p => p.RsurTestResult != null && p.RsurTestResult.Grade5 != null).ToList();
@@ -233,5 +269,12 @@ namespace Monit95App.Services.Rsur
                 .RsurTestResult
                 .Grade5.Value == 5 ? 1 : 0;
         }
+    }
+
+    public class SearchOptions
+    {
+        public int? AreaCode { get; set; }
+        public string SchoolId { get; set; }
+        public string Search { get; set; }
     }
 }

@@ -12,6 +12,7 @@ using Monit95App.Services.Interfaces;
 namespace Monit95App.Web.Api
 {
     using Monit95App.Services.DTOs;
+    using Monit95App.Services.Rsur;
     using Monit95App.Services.Rsur.Particip;
 
     [Authorize]
@@ -78,6 +79,15 @@ namespace Monit95App.Web.Api
                 return this.Conflict();
             }
                               
+            return Ok(dtos);
+        }
+
+        [HttpGet]
+        [Route("search")]
+        public IHttpActionResult Search([FromUri]SearchOptions options)
+        {
+            var dtos = _rsurParticipService.Search(options);
+
             return Ok(dtos);
         }
 

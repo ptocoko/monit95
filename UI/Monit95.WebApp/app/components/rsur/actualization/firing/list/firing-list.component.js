@@ -11,6 +11,7 @@ var FiringListComponent = /** @class */ (function () {
         this.rsurParticipService = rsurParticipService;
         this.actualizationService = actualizationService;
         this.dialog = dialog;
+        this.isActualizing = true;
     }
     FiringListComponent.prototype.ngOnInit = function () {
         var _this = this;

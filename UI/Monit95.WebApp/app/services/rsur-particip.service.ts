@@ -1,5 +1,5 @@
 ﻿import { Injectable, Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { RsurParticipModel } from '../models/rsur-particip.model';
@@ -14,7 +14,7 @@ export class RsurParticipService {
         return this.http.post(this.ROUTE_PREFIX + '/Post', obj);
     }
 
-    getAll() {
+	getAll() {
         return this.http.get<RsurParticipModel[]>(this.ROUTE_PREFIX);
     }
 
@@ -24,11 +24,21 @@ export class RsurParticipService {
 
     delete(code: number) {
         return this.http.delete(`${this.ROUTE_PREFIX}/${code}`);
-    }
+	}
+
+	search(options: SearchOptions) {
+		return this.http.get(`${this.ROUTE_PREFIX}/search`, { params: <any>options });
+	}
 
     //downloadFile(data: HttpResponse) {
     //    const blob = new Blob([data]);
     //    const url = window.URL.createObjectURL(blob);
     //    window.open(url);
     //}		
+}
+
+export interface SearchOptions {
+	AreaCode: number;
+	SchoolId: string;
+	Search: string;
 }

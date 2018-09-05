@@ -39,6 +39,7 @@ var school_files_component_1 = require("./components/school-files/school-files.c
 var question_protocols_list_component_1 = require("./components/rsur/protocols/question/question-protocols-list.component");
 var question_protocol_component_1 = require("./components/rsur/protocols/protocol/question-protocol.component");
 var firing_list_component_1 = require("./components/rsur/actualization/firing/list/firing-list.component");
+var hiring_list_component_1 = require("./components/rsur/actualization/hiring/list/hiring-list.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
@@ -96,6 +97,7 @@ var AppModule = /** @class */ (function () {
                     //{ path: 'rsur/test', component: RsurTestComponent },
                     { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },
                     { path: 'rsur/actualization/firing/list', component: firing_list_component_1.FiringListComponent },
+                    { path: 'rsur/actualization/hiring/list', component: hiring_list_component_1.HiringListComponent },
                     //{ path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
                     //            { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
                     //{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
@@ -154,7 +156,8 @@ var AppModule = /** @class */ (function () {
                 question_protocols_list_component_1.QuestionProtocolsList,
                 //MarksProtocolComponent,
                 question_protocol_component_1.QuestionProtocolComponent,
-                firing_list_component_1.FiringListComponent
+                firing_list_component_1.FiringListComponent,
+                hiring_list_component_1.HiringListComponent
             ],
             providers: [
                 account_service_1.AccountService,

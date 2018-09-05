@@ -12,8 +12,8 @@ var RsurParticipService = /** @class */ (function () {
     RsurParticipService.prototype.createParticip = function (obj) {
         return this.http.post(this.ROUTE_PREFIX + '/Post', obj);
     };
-    RsurParticipService.prototype.getAll = function () {
-        return this.http.get(this.ROUTE_PREFIX);
+    RsurParticipService.prototype.getAll = function (options) {
+        return this.http.get(this.ROUTE_PREFIX, { params: options });
     };
     RsurParticipService.prototype.update = function (code, particip) {
         return this.http.put(this.ROUTE_PREFIX + "/" + particip.Code, particip, { responseType: 'text' });
