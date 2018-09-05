@@ -37,16 +37,19 @@ namespace Monit95App.Web.Api
         public IHttpActionResult Post([FromBody]ParticipAddDto dto)
         {
             //dto.SchoolId = User.Identity.Name;
+            if (User.IsInRole("school"))
+            {
+                dto.SchoolId = User.Identity.Name;
+            }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return this.BadRequest(ModelState);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            //var rsurParticipCode = this._rsurParticipService.Add(dto);
+            var rsurParticipCode = this._rsurParticipService.Add(dto);
 
-            //return Ok(rsurParticipCode);
-            return BadRequest();
+            return Ok(rsurParticipCode);
         }
 
         [HttpGet]

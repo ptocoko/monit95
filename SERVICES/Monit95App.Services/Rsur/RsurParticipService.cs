@@ -72,8 +72,8 @@ namespace Monit95App.Services.Rsur
         public int Add(ParticipAddDto dto)
         {
             _ = dto ?? throw new ArgumentNullException();
-            var validContext = new ValidationContext(dto);
-            Validator.ValidateObject(dto, validContext, true);
+            //var validContext = new ValidationContext(dto);
+            //Validator.ValidateObject(dto, validContext, true);
 
             Mapper.Initialize(cfg => cfg.CreateMap<ParticipAddDto, RsurParticip>()
                                         .AfterMap((s, d) => d.ActualCode = 2));
