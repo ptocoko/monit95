@@ -40,5 +40,6 @@ export class RsurParticipService {
 export interface SearchOptions {
 	AreaCode: number;
 	SchoolId: string;
+	ActualCode: number;
 	Search: string;
 }

@@ -149,6 +149,11 @@ namespace Monit95App.Services.Rsur
                     query = query.Where(p => p.SchoolId == options.SchoolId);
                 }
 
+                if (options.ActualCode.HasValue)
+                {
+                    query = query.Where(p => p.ActualCode == options.ActualCode.Value);
+                }
+
                 if(options.Search != null)
                 {
                     query = query.Where(p => p.Code.ToString().Contains(options.Search)
@@ -275,6 +280,7 @@ namespace Monit95App.Services.Rsur
     {
         public int? AreaCode { get; set; }
         public string SchoolId { get; set; }
+        public int? ActualCode { get; set; }
         public string Search { get; set; }
     }
 }
