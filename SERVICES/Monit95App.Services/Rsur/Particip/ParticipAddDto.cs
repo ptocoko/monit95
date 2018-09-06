@@ -17,7 +17,7 @@
         [Required]
         public int RsurSubjectCode { get; set; }
 
-        [Required]
+        //[Required]
         public string SchoolId { get; set; }
 
         #endregion
@@ -32,7 +32,6 @@
         
         public string Phone { get; set; } 
         
-        [EmailAddress]
         public string Email { get; set; } // TODO: validate by MailAdress   
         
         public string ClassNumbers { get; set; } // TODO: need custom attribute to avoide repetion class's numbers                      

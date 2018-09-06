@@ -410,6 +410,10 @@
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.html" />
     <Content Include="app\components\rsur\actualization\firing\list\firing-list.component.css" />
     <Content Include="app\components\rsur\actualization\firing\list\firing-list.component.html" />
+    <Content Include="app\components\rsur\actualization\hiring\add\add-particip.component.css" />
+    <Content Include="app\components\rsur\actualization\hiring\add\add-particip.component.html" />
+    <Content Include="app\components\rsur\actualization\hiring\hire-particip.component.css" />
+    <Content Include="app\components\rsur\actualization\hiring\hire-particip.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\list\hiring-list.component.css" />
     <Content Include="app\components\rsur\actualization\hiring\list\hiring-list.component.html" />
     <Content Include="app\one-two-three\home\home.component.html" />
@@ -640,7 +644,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\directives\" />
-    <Folder Include="app\models\rsur\" />
     <Folder Include="app\rsur\upload-report\" />
     <Folder Include="app\services\rsur\actualization\" />
     <Folder Include="App_Data\" />
@@ -664,6 +667,7 @@
     <TypeScriptCompile Include="app\components\first-class\protocols\protocol\protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\firing\list\firing-list.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\add\add-particip.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\actualization\hiring\hire-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\list\hiring-list.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
     <TypeScriptCompile Include="app\custom-route-reuse-strategy.ts" />
@@ -686,6 +690,7 @@
     <TypeScriptCompile Include="app\models\question-protocol-put.model.ts" />
     <TypeScriptCompile Include="app\models\question-protocol-read.model.ts" />
     <TypeScriptCompile Include="app\models\rsur-reports-info.model.ts" />
+    <TypeScriptCompile Include="app\models\rsur\particip-post.model.ts" />
     <TypeScriptCompile Include="app\one-two-three\home\home.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\NumberCodes.ts" />
     <TypeScriptCompile Include="app\one-two-three\one-two-three.module.ts" />

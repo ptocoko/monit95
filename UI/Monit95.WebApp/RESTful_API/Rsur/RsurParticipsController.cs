@@ -33,6 +33,7 @@ namespace Monit95App.Web.Api
         #region APIs 
 
         [HttpPost]
+        [Route("")]
         [Authorize(Roles = "school")]
         public IHttpActionResult Post([FromBody]ParticipAddDto dto)
         {

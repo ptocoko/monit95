@@ -39,6 +39,8 @@ import { MarksProtocolComponent } from './components/rsur/protocols/shared/marks
 import { QuestionProtocolComponent } from './components/rsur/protocols/protocol/question-protocol.component';
 import { FiringListComponent } from './components/rsur/actualization/firing/list/firing-list.component';
 import { HiringListComponent } from './components/rsur/actualization/hiring/list/hiring-list.component';
+import { HireComponent } from './components/rsur/actualization/hiring/hire-particip.component';
+import { CreateParticipComponent } from './components/rsur/actualization/hiring/add/add-particip.component';
 
 // Services
 import { AccountService } from './services/account.service';
@@ -97,7 +99,8 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
                 //{ path: 'rsur/test', component: RsurTestComponent },
 				{ path: 'rsur/particips', component: RsurParticipsComponent },
 				{ path: 'rsur/actualization/firing/list', component: FiringListComponent },
-				{ path: 'rsur/actualization/hiring/list', component: HiringListComponent },
+			{ path: 'rsur/actualization/hiring/list', component: HiringListComponent },
+			{ path: 'rsur/actualization/hire', component: HireComponent },
                 //{ path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
     //            { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
 				//{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
@@ -158,7 +161,9 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		//MarksProtocolComponent,
 		QuestionProtocolComponent,
 		FiringListComponent,
-		HiringListComponent
+		HiringListComponent,
+		HireComponent,
+		CreateParticipComponent
 	],
 	providers: [
         AccountService,

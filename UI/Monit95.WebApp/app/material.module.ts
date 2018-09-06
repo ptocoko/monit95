@@ -16,9 +16,11 @@ import {
 	MatSelectModule,
 	MatSlideToggleModule,
 	MatSnackBarModule,
-	MatCheckboxModule,
+	MatCheckboxModule,
+	MatRadioModule,
 	MatIconModule
 } from '@angular/material';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
     imports: [
@@ -38,7 +40,9 @@ import {
 		MatSnackBarModule,
 		MatSlideToggleModule,
 		MatCheckboxModule,
-		MatIconModule
+		MatIconModule,
+		MatRadioModule,
+		A11yModule
     ],
     exports: [
         MatButtonModule,
@@ -57,7 +61,9 @@ import {
 		MatSnackBarModule,
 		MatSlideToggleModule,
 		MatCheckboxModule,
-		MatIconModule
+		MatIconModule,
+		MatRadioModule,
+		A11yModule
     ]  
 })
 export class MaterialModule { }

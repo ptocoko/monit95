@@ -4,6 +4,7 @@ var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 //import { CommonModule } from '@angular/common';
 var material_1 = require("@angular/material");
+var a11y_1 = require("@angular/cdk/a11y");
 var MaterialModule = /** @class */ (function () {
     function MaterialModule() {
     }
@@ -26,7 +27,9 @@ var MaterialModule = /** @class */ (function () {
                 material_1.MatSnackBarModule,
                 material_1.MatSlideToggleModule,
                 material_1.MatCheckboxModule,
-                material_1.MatIconModule
+                material_1.MatIconModule,
+                material_1.MatRadioModule,
+                a11y_1.A11yModule
             ],
             exports: [
                 material_1.MatButtonModule,
@@ -45,7 +48,9 @@ var MaterialModule = /** @class */ (function () {
                 material_1.MatSnackBarModule,
                 material_1.MatSlideToggleModule,
                 material_1.MatCheckboxModule,
-                material_1.MatIconModule
+                material_1.MatIconModule,
+                material_1.MatRadioModule,
+                a11y_1.A11yModule
             ]
         })
     ], MaterialModule);

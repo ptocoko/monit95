@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { RsurParticipModel } from '../models/rsur-particip.model';
+import { RsurParticipPostModel } from '../models/rsur/particip-post.model';
 
 @Injectable()
 export class RsurParticipService {    
@@ -10,8 +11,8 @@ export class RsurParticipService {
 
     constructor(private readonly http: HttpClient) { }       
 
-    createParticip(obj: any): Observable<any> {
-        return this.http.post(this.ROUTE_PREFIX + '/Post', obj);
+    createParticip(obj: RsurParticipPostModel): Observable<any> {
+        return this.http.post(this.ROUTE_PREFIX, obj);
     }
 
 	getAll() {

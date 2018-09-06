@@ -40,6 +40,8 @@ var question_protocols_list_component_1 = require("./components/rsur/protocols/q
 var question_protocol_component_1 = require("./components/rsur/protocols/protocol/question-protocol.component");
 var firing_list_component_1 = require("./components/rsur/actualization/firing/list/firing-list.component");
 var hiring_list_component_1 = require("./components/rsur/actualization/hiring/list/hiring-list.component");
+var hire_particip_component_1 = require("./components/rsur/actualization/hiring/hire-particip.component");
+var add_particip_component_1 = require("./components/rsur/actualization/hiring/add/add-particip.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
@@ -98,6 +100,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },
                     { path: 'rsur/actualization/firing/list', component: firing_list_component_1.FiringListComponent },
                     { path: 'rsur/actualization/hiring/list', component: hiring_list_component_1.HiringListComponent },
+                    { path: 'rsur/actualization/hire', component: hire_particip_component_1.HireComponent },
                     //{ path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
                     //            { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
                     //{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
@@ -157,7 +160,9 @@ var AppModule = /** @class */ (function () {
                 //MarksProtocolComponent,
                 question_protocol_component_1.QuestionProtocolComponent,
                 firing_list_component_1.FiringListComponent,
-                hiring_list_component_1.HiringListComponent
+                hiring_list_component_1.HiringListComponent,
+                hire_particip_component_1.HireComponent,
+                add_particip_component_1.CreateParticipComponent
             ],
             providers: [
                 account_service_1.AccountService,

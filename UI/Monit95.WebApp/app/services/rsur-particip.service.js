@@ -10,16 +10,19 @@ var RsurParticipService = /** @class */ (function () {
         this.ROUTE_PREFIX = 'api/rsurParticips';
     }
     RsurParticipService.prototype.createParticip = function (obj) {
-        return this.http.post(this.ROUTE_PREFIX + '/Post', obj);
+        return this.http.post(this.ROUTE_PREFIX, obj);
     };
-    RsurParticipService.prototype.getAll = function (options) {
-        return this.http.get(this.ROUTE_PREFIX, { params: options });
+    RsurParticipService.prototype.getAll = function () {
+        return this.http.get(this.ROUTE_PREFIX);
     };
     RsurParticipService.prototype.update = function (code, particip) {
         return this.http.put(this.ROUTE_PREFIX + "/" + particip.Code, particip, { responseType: 'text' });
     };
     RsurParticipService.prototype.delete = function (code) {
         return this.http.delete(this.ROUTE_PREFIX + "/" + code);
+    };
+    RsurParticipService.prototype.search = function (options) {
+        return this.http.get(this.ROUTE_PREFIX + "/search", { params: options });
     };
     RsurParticipService = tslib_1.__decorate([
         core_1.Injectable(),

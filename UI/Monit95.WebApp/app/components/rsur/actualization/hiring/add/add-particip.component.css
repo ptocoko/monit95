@@ -1,0 +1,32 @@
+﻿.mat-form-field {
+    display: block;
+    width: 350px;
+}
+
+.form-buttons {
+    margin-top: 30px;
+}
+
+.birthday-wrapper {
+    display: flex;
+}
+
+.birthday-wrapper > .mat-form-field {
+    width: 250px;
+}
+
+.birthday-wrapper > .mat-form-field + .mat-form-field {
+    margin-left: 15px;
+}
+
+.birthday-wrapper > .birthday-day {
+    width: 70px;
+}
+
+.birthday-wrapper > .birthday-month {
+    width: 150px;
+}
+
+.birthday-wrapper > .birthday-year {
+    width: 110px;
+}

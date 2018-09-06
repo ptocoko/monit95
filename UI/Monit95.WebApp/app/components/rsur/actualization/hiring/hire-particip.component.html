@@ -1,0 +1,9 @@
+﻿<h2>РСУР: Добавление участника</h2>
+<hr/>
+
+<mat-radio-group [(ngModel)]="isCreatingNew">
+    <mat-radio-button [value]="0">Участвовал в РСУР за другую школу</mat-radio-button>
+    <mat-radio-button [value]="1">Не участвовал в предыдущих диагностиках РСУР</mat-radio-button>
+</mat-radio-group>
+
+<app-create-particip *ngIf="isCreatingNew === 1"></app-create-particip>
