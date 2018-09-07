@@ -17,13 +17,6 @@ import { FirstClassModule } from './components/first-class/first-class.module';
 // Components
 import { AppComponent } from './components/app/app.component';
 import { RsurParticipsComponent } from './components/rsur/particips/particips.component';
-//import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
-//import { PlanComponent } from './plan/plan.component';
-//import { ResultComponent } from './result/result.component';
-//import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
-//import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
-//import { RsurTestProtocolComponent } from './rsur/rsur-test-protocol/rsur-test-protocol.component';
-//import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 import { HomeComponent } from './components/rsur/home/home.component';
 import { ReportComponent } from './components/rsur/reports/report/report.component';
 import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
@@ -46,23 +39,16 @@ import { CreateParticipComponent } from './components/rsur/actualization/hiring/
 import { AccountService } from './services/account.service';
 import { ParticipService } from './services/particip.service';
 import { RsurParticipService } from './services/rsur-particip.service';
-//import { RsurTestService } from './rsur/rsur-test/rsur-test.service';
-//import { SchoolService } from './school.service';
-//import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 import { ClassService } from './services/class.service';
-//import { MarksService } from './rsur/rsur-test-protocol/marks.service';
-//import { SchoolCollectorService } from './shared/school-collector.service';
-//import { ResultsService } from './shared/results.service';
+import { SchoolCollectorService } from './shared/school-collector.service';
 import { RsurReportService } from './services/rsur-report.service';
 import { RsurRatingService } from './services/rsur-rating.service';
 import { SeminarReportService } from './services/seminar-report.service';
 import { SchoolFileService } from './services/school-file.service';
 import { RsurProtocolsService } from './services/rsur-protocols.service';
-import { ActualizationService } from './services/rsur/actualization.service';
 
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
-import { ParticipsWithoutDetailsPipe } from './rsur/details/particips-without-details.filter';
 //import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
 import { SchoolFilter } from './school-filter.pipe';
 import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
@@ -96,14 +82,10 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		FirstClassModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
-                //{ path: 'rsur/test', component: RsurTestComponent },
 				{ path: 'rsur/particips', component: RsurParticipsComponent },
 				{ path: 'rsur/actualization/firing/list', component: FiringListComponent },
-			{ path: 'rsur/actualization/hiring/list', component: HiringListComponent },
-			{ path: 'rsur/actualization/hire', component: HireComponent },
-                //{ path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
-    //            { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
-				//{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
+				{ path: 'rsur/actualization/hiring/list', component: HiringListComponent },
+				{ path: 'rsur/actualization/hire', component: HireComponent },
                 { path: 'rsur/seminar-reports', component: SeminarReportsListComponent },
                 { path: 'rsur/seminar-reports/create', component: SeminarReportCreateFormComponent },
 				{ path: 'rsur/seminar-reports/:id', component: SeminarReportComponent },                
@@ -115,9 +97,6 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 				{ path: 'rsur/question-protocols', component: QuestionProtocolsList },
 				{ path: 'rsur/question-protocol/:participCode', component: QuestionProtocolComponent },
                 { path: 'school-files', component: SchoolFilesComponent },
-    //            { path: 'plan', component: PlanComponent },
-    //            { path: 'result', component: ResultComponent },                
-				//{ path: 'particip-correction', component: ParticipCorrectionComponent },
                 { path: '', redirectTo: '/rsur', pathMatch: 'full' }
             ]
         )
@@ -125,14 +104,11 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 	declarations: [
         AppComponent,
         HomeComponent,
-	    //RsurTestComponent,
-        RsurParticipsComponent,	
-        //RsurParticipAddFormComponent,
+        RsurParticipsComponent,
         RsurParticipFilterPipe,
 		ClassNameFilterPipe,
 		//LimitToPipe,
 		//OffsetPipe,
-		ParticipsWithoutDetailsPipe,
 		TestIdPipe,
 		//FilterPipe,
 		SchoolFilter,    
@@ -143,11 +119,6 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
         SubjectFilterPipe,
 		RsurParticipActualFilterPipe,
 		ExamNameFilterPipe,
-		//PlanComponent,
-		//ResultComponent,   
-  //      ParticipCorrectionComponent,
-  //      RsurTestProtocolListComponent,
-		//RsurTestProtocolComponent,
 		ReportComponent,
 	    ReportListComponent,			
         SeminarReportCreateFormComponent,
@@ -158,7 +129,6 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		//MatchingProtocolComponent,
 		//ScanProtocolsComponent,
 		QuestionProtocolsList,
-		//MarksProtocolComponent,
 		QuestionProtocolComponent,
 		FiringListComponent,
 		HiringListComponent,
@@ -168,20 +138,13 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 	providers: [
         AccountService,
         RsurParticipService,
-	    //RsurTestService,
-     //   SchoolService,
-     //   ParticipCorrectionService,
         ClassService,
-        //ParticipService,
-		//MarksService,
-		//SchoolCollectorService,
-		//ResultsService,
+		SchoolCollectorService,
 	    RsurReportService,
 		RsurRatingService,
         SeminarReportService,
 		SchoolFileService,
 		RsurProtocolsService,
-		ActualizationService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler },
 		{ provide: MatPaginatorIntl, useClass: RussianMatPaginator },

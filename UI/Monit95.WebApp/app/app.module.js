@@ -19,13 +19,6 @@ var first_class_module_1 = require("./components/first-class/first-class.module"
 // Components
 var app_component_1 = require("./components/app/app.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
-//import { RsurParticipAddFormComponent } from './rsur/rsurparticip-add-form/rsurparticip-add-form.component';
-//import { PlanComponent } from './plan/plan.component';
-//import { ResultComponent } from './result/result.component';
-//import { ParticipCorrectionComponent } from './rsur/correction/particip-correction.component';
-//import { RsurTestProtocolListComponent } from './rsur/rsur-test-protocol/rsur-test-protocol-list.component';
-//import { RsurTestProtocolComponent } from './rsur/rsur-test-protocol/rsur-test-protocol.component';
-//import { RsurTestComponent } from './rsur/rsur-test/rsur-test.component';
 var home_component_1 = require("./components/rsur/home/home.component");
 var report_component_1 = require("./components/rsur/reports/report/report.component");
 var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
@@ -45,22 +38,15 @@ var add_particip_component_1 = require("./components/rsur/actualization/hiring/a
 // Services
 var account_service_1 = require("./services/account.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
-//import { RsurTestService } from './rsur/rsur-test/rsur-test.service';
-//import { SchoolService } from './school.service';
-//import { ParticipCorrectionService } from './rsur/correction/particip-correction.service';
 var class_service_1 = require("./services/class.service");
-//import { MarksService } from './rsur/rsur-test-protocol/marks.service';
-//import { SchoolCollectorService } from './shared/school-collector.service';
-//import { ResultsService } from './shared/results.service';
+var school_collector_service_1 = require("./shared/school-collector.service");
 var rsur_report_service_1 = require("./services/rsur-report.service");
 var rsur_rating_service_1 = require("./services/rsur-rating.service");
 var seminar_report_service_1 = require("./services/seminar-report.service");
 var school_file_service_1 = require("./services/school-file.service");
 var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
-var actualization_service_1 = require("./services/rsur/actualization.service");
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
-var particips_without_details_filter_1 = require("./rsur/details/particips-without-details.filter");
 //import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
 var school_filter_pipe_1 = require("./school-filter.pipe");
 var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
@@ -96,14 +82,10 @@ var AppModule = /** @class */ (function () {
                 first_class_module_1.FirstClassModule,
                 router_1.RouterModule.forRoot([
                     { path: 'rsur', component: home_component_1.HomeComponent },
-                    //{ path: 'rsur/test', component: RsurTestComponent },
                     { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },
                     { path: 'rsur/actualization/firing/list', component: firing_list_component_1.FiringListComponent },
                     { path: 'rsur/actualization/hiring/list', component: hiring_list_component_1.HiringListComponent },
                     { path: 'rsur/actualization/hire', component: hire_particip_component_1.HireComponent },
-                    //{ path: 'rsur/particips/add', component: RsurParticipAddFormComponent },
-                    //            { path: 'rsur/tests/:id/protocols', component: RsurTestProtocolListComponent },
-                    //{ path: 'rsur/testprotocols/:id', component: RsurTestProtocolComponent },
                     { path: 'rsur/seminar-reports', component: seminar_report_list_component_1.SeminarReportsListComponent },
                     { path: 'rsur/seminar-reports/create', component: create_form_component_1.SeminarReportCreateFormComponent },
                     { path: 'rsur/seminar-reports/:id', component: seminar_report_component_1.SeminarReportComponent },
@@ -115,23 +97,17 @@ var AppModule = /** @class */ (function () {
                     { path: 'rsur/question-protocols', component: question_protocols_list_component_1.QuestionProtocolsList },
                     { path: 'rsur/question-protocol/:participCode', component: question_protocol_component_1.QuestionProtocolComponent },
                     { path: 'school-files', component: school_files_component_1.SchoolFilesComponent },
-                    //            { path: 'plan', component: PlanComponent },
-                    //            { path: 'result', component: ResultComponent },                
-                    //{ path: 'particip-correction', component: ParticipCorrectionComponent },
                     { path: '', redirectTo: '/rsur', pathMatch: 'full' }
                 ])
             ],
             declarations: [
                 app_component_1.AppComponent,
                 home_component_1.HomeComponent,
-                //RsurTestComponent,
                 particips_component_1.RsurParticipsComponent,
-                //RsurParticipAddFormComponent,
                 rsur_particip_filter_pipe_1.RsurParticipFilterPipe,
                 class_name_filter_pipe_1.ClassNameFilterPipe,
                 //LimitToPipe,
                 //OffsetPipe,
-                particips_without_details_filter_1.ParticipsWithoutDetailsPipe,
                 rsur_report_filter_pipe_1.TestIdPipe,
                 //FilterPipe,
                 school_filter_pipe_1.SchoolFilter,
@@ -142,11 +118,6 @@ var AppModule = /** @class */ (function () {
                 subject_filter_pipe_1.SubjectFilterPipe,
                 rsur_particip_filter_pipe_1.RsurParticipActualFilterPipe,
                 rsur_report_filter_pipe_1.ExamNameFilterPipe,
-                //PlanComponent,
-                //ResultComponent,   
-                //      ParticipCorrectionComponent,
-                //      RsurTestProtocolListComponent,
-                //RsurTestProtocolComponent,
                 report_component_1.ReportComponent,
                 report_list_component_1.ReportListComponent,
                 create_form_component_1.SeminarReportCreateFormComponent,
@@ -157,7 +128,6 @@ var AppModule = /** @class */ (function () {
                 //MatchingProtocolComponent,
                 //ScanProtocolsComponent,
                 question_protocols_list_component_1.QuestionProtocolsList,
-                //MarksProtocolComponent,
                 question_protocol_component_1.QuestionProtocolComponent,
                 firing_list_component_1.FiringListComponent,
                 hiring_list_component_1.HiringListComponent,
@@ -167,20 +137,13 @@ var AppModule = /** @class */ (function () {
             providers: [
                 account_service_1.AccountService,
                 rsur_particip_service_1.RsurParticipService,
-                //RsurTestService,
-                //   SchoolService,
-                //   ParticipCorrectionService,
                 class_service_1.ClassService,
-                //ParticipService,
-                //MarksService,
-                //SchoolCollectorService,
-                //ResultsService,
+                school_collector_service_1.SchoolCollectorService,
                 rsur_report_service_1.RsurReportService,
                 rsur_rating_service_1.RsurRatingService,
                 seminar_report_service_1.SeminarReportService,
                 school_file_service_1.SchoolFileService,
                 rsur_protocols_service_1.RsurProtocolsService,
-                actualization_service_1.ActualizationService,
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
                 { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler },
                 { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator },

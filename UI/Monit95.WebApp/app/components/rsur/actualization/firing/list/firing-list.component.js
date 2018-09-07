@@ -3,20 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var rsur_particip_service_1 = require("../../../../../services/rsur-particip.service");
-var actualization_service_1 = require("../../../../../services/rsur/actualization.service");
 var material_1 = require("@angular/material");
 var confirm_dialog_component_1 = require("../../../../../shared/confirm-dialog/confirm-dialog.component");
+var school_collector_service_1 = require("../../../../../shared/school-collector.service");
+var COLLECTOR_ID = 2;
 var FiringListComponent = /** @class */ (function () {
-    function FiringListComponent(rsurParticipService, actualizationService, dialog) {
+    function FiringListComponent(rsurParticipService, schoolCollectorService, dialog) {
         this.rsurParticipService = rsurParticipService;
-        this.actualizationService = actualizationService;
+        this.schoolCollectorService = schoolCollectorService;
         this.dialog = dialog;
         this.isActualizing = true;
     }
     FiringListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.actualizationService.getActualizeStatus().subscribe(function (status) {
-            _this.isActualizing = !status.IsFinished;
+        this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(function (state) {
+            _this.isActualizing = !state.IsFinished;
             if (_this.isActualizing) {
                 _this.rsurParticipService.getAll().subscribe(function (res) {
                     _this.particips = res;
@@ -67,7 +68,7 @@ var FiringListComponent = /** @class */ (function () {
         });
         dialogRef.afterClosed().subscribe(function (res) {
             if (res) {
-                _this.actualizationService.endActualization().subscribe(function () { return _this.isActualizing = false; });
+                _this.schoolCollectorService.isFinished(COLLECTOR_ID, true).subscribe(function () { return _this.isActualizing = false; });
             }
         });
     };
@@ -77,7 +78,7 @@ var FiringListComponent = /** @class */ (function () {
             styleUrls: ["./app/components/rsur/actualization/firing/list/firing-list.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
-            actualization_service_1.ActualizationService,
+            school_collector_service_1.SchoolCollectorService,
             material_1.MatDialog])
     ], FiringListComponent);
     return FiringListComponent;

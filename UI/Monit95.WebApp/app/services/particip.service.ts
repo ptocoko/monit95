@@ -2,7 +2,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { ParticipModel } from "../models/particip.model";
-import { ParticipWithMarks } from "../rsur/rsur-test-protocol/marks.service";
 import { HttpParams } from '@angular/common/http/src/params';
 import { of } from 'rxjs/observable/of';
 

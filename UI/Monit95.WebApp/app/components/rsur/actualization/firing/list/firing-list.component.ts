@@ -1,9 +1,11 @@
 ﻿import { Component } from '@angular/core';
 import { RsurParticipModel } from '../../../../../models/rsur-particip.model';
 import { RsurParticipService } from '../../../../../services/rsur-particip.service';
-import { ActualizationService } from '../../../../../services/rsur/actualization.service';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../../../shared/confirm-dialog/confirm-dialog.component';
+import { SchoolCollectorService } from '../../../../../shared/school-collector.service';
+
+const COLLECTOR_ID = 2;
 
 @Component({
 	templateUrl: `./app/components/rsur/actualization/firing/list/firing-list.component.html?v=${new Date().getTime()}`,
@@ -14,12 +16,12 @@ export class FiringListComponent {
 	particips: RsurParticipModel[];
 
 	constructor(private rsurParticipService: RsurParticipService,
-		private actualizationService: ActualizationService,
+		private schoolCollectorService: SchoolCollectorService,
 		private dialog: MatDialog) { }
 
 	ngOnInit() {
-		this.actualizationService.getActualizeStatus().subscribe(status => {
-			this.isActualizing = !status.IsFinished;
+		this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(state => {
+			this.isActualizing = !state.IsFinished;
 			if (this.isActualizing) {
 				this.rsurParticipService.getAll().subscribe(res => {
 					this.particips = res;
@@ -73,7 +75,7 @@ export class FiringListComponent {
 
 		dialogRef.afterClosed().subscribe(res => {
 			if (res) {
-				this.actualizationService.endActualization().subscribe(() => this.isActualizing = false);
+				this.schoolCollectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isActualizing = false);
 			}
 		});
 	}

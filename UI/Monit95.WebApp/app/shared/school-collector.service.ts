@@ -1,28 +1,22 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptionsArgs, RequestOptions, Headers } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 
 const SCHOOL_COLLECTOR_API: string = '/api/collectors'
 
-export class SchoolCollector {
-	constructor(public CollectorId: number, public IsFinished: boolean) { }
-}
-
 @Injectable()
 export class SchoolCollectorService {
-	constructor(public http: Http) { }
+	constructor(public http: HttpClient) { }
 
-	getSchoolCollectorState(collectorId: number): Observable<boolean> {
-		return this.http.get(SCHOOL_COLLECTOR_API + `/${collectorId}`).map((response: Response) => {
-			return response.json().IsFinished as boolean;
-		});
+	getSchoolCollectorState(collectorId: number): Observable<SchoolCollectorModel> {
+		return this.http.get<SchoolCollectorModel>(SCHOOL_COLLECTOR_API + `/${collectorId}`);
 	}
 
 	isFinished(collectorId: number, isFinished: boolean) {
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		let options = new RequestOptions({ headers: headers });
-
-		return this.http.put(SCHOOL_COLLECTOR_API + `/${collectorId}`, { 'IsFinished': isFinished }, options);
+		return this.http.put(SCHOOL_COLLECTOR_API + `/${collectorId}`, { isFinished }, { responseType: 'text' });
 	}
+}
+
+export interface SchoolCollectorModel {
+	IsFinished: boolean;
 }
