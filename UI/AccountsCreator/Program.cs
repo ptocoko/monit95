@@ -43,46 +43,46 @@ namespace AccountsCreator
             //    accountsManager.AddRoleToUser(logingPair.Key, "school");
             //    Console.WriteLine($"user {logingPair.Key} created!");
             //}
-            //bool toExit = false;
-            //while (!toExit)
-            //{
-            //    Console.Write("Введите команду -> ");
-            //    var command = Console.ReadLine();
+            bool toExit = false;
+            while (!toExit)
+            {
+                Console.Write("Введите команду -> ");
+                var command = Console.ReadLine();
 
-            //    switch (command.Trim().ToUpper())
-            //    {
-            //        case "EXIT":
-            //            toExit = true;
-            //            break;
-            //        case "CREATE USER":
-            //            AddUser();
-            //            break;
-            //        case "DELETE USER":
-            //            DeleteUser();
-            //            break;
-            //        case "CREATE ROLE":
-            //            AddRole();
-            //            break;
-            //        case "DELETE ROLE":
-            //            DeleteRole();
-            //            break;
-            //        case "ADD ROLE TO USER":
-            //            AddRoleToUser();
-            //            break;
-            //        case "CHANGE PASSWORD":
-            //            ChangePassword();
-            //            break;
-            //        case "CLEAR":
-            //            Console.Clear();
-            //            break;
-            //        case "HELP":
-            //            ShowAllCommands();
-            //            break;
-            //        default:
-            //            Console.WriteLine($"Команда '{command}' не найдена. Для помощи воспользуйтесь командой 'help'\n");
-            //            break;
-            //    }
-            //}
+                switch (command.Trim().ToUpper())
+                {
+                    case "EXIT":
+                        toExit = true;
+                        break;
+                    case "CREATE USER":
+                        AddUser();
+                        break;
+                    case "DELETE USER":
+                        DeleteUser();
+                        break;
+                    case "CREATE ROLE":
+                        AddRole();
+                        break;
+                    case "DELETE ROLE":
+                        DeleteRole();
+                        break;
+                    case "ADD ROLE TO USER":
+                        AddRoleToUser();
+                        break;
+                    case "CHANGE PASSWORD":
+                        ChangePassword();
+                        break;
+                    case "CLEAR":
+                        Console.Clear();
+                        break;
+                    case "HELP":
+                        ShowAllCommands();
+                        break;
+                    default:
+                        Console.WriteLine($"Команда '{command}' не найдена. Для помощи воспользуйтесь командой 'help'\n");
+                        break;
+                }
+            }
         }
 
         private static void AddUser()

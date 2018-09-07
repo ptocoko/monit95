@@ -1,144 +1,150 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
-var router_1 = require("@angular/router");
-var school_service_1 = require("../../school.service");
-var rsur_particip_service_1 = require("../../services/rsur-particip.service");
-var basic_validators_1 = require("../../shared/basic-validators");
-var AddRsurParticip = /** @class */ (function () {
-    function AddRsurParticip() {
-    }
-    return AddRsurParticip;
-}());
-exports.AddRsurParticip = AddRsurParticip;
-var School = /** @class */ (function () {
-    function School() {
-    }
-    return School;
-}());
-exports.School = School;
-var CATEGORIES = [
-    { Id: 0, Name: 'Без категории' },
-    { Id: 1, Name: 'Первая категория' },
-    { Id: 2, Name: 'Высшая категория' }
-];
-var RSURSUBJECTS = [
-    { Code: 1, Name: 'Русский язык' },
-    { Code: 2, Name: 'Математика' },
-    { Code: 7, Name: 'История' }
-];
-var RsurParticipAddFormComponent = /** @class */ (function () {
-    function RsurParticipAddFormComponent(router, route, rsurParticipService, schoolService) {
-        this.router = router;
-        this.route = route;
-        this.rsurParticipService = rsurParticipService;
-        this.schoolService = schoolService;
-        this.particip = new AddRsurParticip();
-        this.categories = CATEGORIES;
-        this.rsurSubjects = RSURSUBJECTS;
-        this.schools = [];
-        this.formGroup = new forms_1.FormGroup({
-            "surname": new forms_1.FormControl('', [forms_1.Validators.required,
-                forms_1.Validators.minLength(4),
-                forms_1.Validators.maxLength(25)]),
-            "name": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.maxLength(25)]),
-            "secondName": new forms_1.FormControl('', [forms_1.Validators.minLength(4), forms_1.Validators.maxLength(25)]),
-            "experience": new forms_1.FormControl('', [forms_1.Validators.required,
-                forms_1.Validators.min(0),
-                forms_1.Validators.max(60),
-                forms_1.Validators.pattern('[0-9]+')]),
-            "email": new forms_1.FormControl('', basic_validators_1.BasicValidators.emailOrEmpty),
-            "phone": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern('[0-9]{11}')]),
-            "categoryId": new forms_1.FormControl(),
-            "rsurSubjectCode": new forms_1.FormControl(''),
-            "newday": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.min(1), forms_1.Validators.max(31)]),
-            "newmonth": new forms_1.FormControl('', forms_1.Validators.required),
-            "newyear": new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.min(1930), forms_1.Validators.max(1999)]),
-            "areaCodeWithName": new forms_1.FormControl(),
-            "schoolIdFrom": new forms_1.FormControl()
-        });
-    }
-    RsurParticipAddFormComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.particip.ClassNumbers = '';
-        this.particip.CategoryId = 0;
-        this.particip.RsurSubjectCode = 1;
-        this.particip.Email = '';
-        this.radioValue = 1;
-        this.selectedSchool = '';
-        this.schoolService.getAll()
-            .subscribe(function (response) {
-            _this.schools = response.json();
-            _this.areaCodeWithNames = _this.schools.map(function (_a) {
-                var AreaCodeWithName = _a.AreaCodeWithName;
-                return AreaCodeWithName;
-            });
-            _this.areaCodeWithNames = _this.areaCodeWithNames.filter(function (el, index, array) { return array.indexOf(el) === index
-                && el !== '1000 - Fake Area'; });
-            _this.areaCodeWithNames.push('Неизвестно');
-            _this.areaCodeWithNames.sort();
-            _this.selectedArea = 'Неизвестно';
-        });
-    };
-    RsurParticipAddFormComponent.prototype.submit = function () {
-        var _this = this;
-        var milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
-        this.particip.Birthday = new Date(milliseconds + 10800000);
-        //this.particip.Birthday = this.newYear + '-' + this.newMonth + '-' + this.newDay;
-        console.log(this.particip);
-        this.rsurParticipService.createParticip(this.particip).
-            subscribe(function () { return _this.router.navigate(['rsurparticips']); });
-    };
-    RsurParticipAddFormComponent.prototype.back = function () {
-        this.router.navigate(['rsurparticips']);
-    };
-    RsurParticipAddFormComponent.prototype.classesChange = function () {
-        var _this = this;
-        this.classNumbersTouched = true;
-        this.particip.ClassNumbers = '';
-        var checkboxes = $('#classes').find(':checkbox:checked');
-        checkboxes.each(function (index, element) {
-            _this.particip.ClassNumbers += element.id + ';';
-        });
-        if (this.particip.ClassNumbers.length > 0) {
-            this.particip.ClassNumbers = this.particip.ClassNumbers.slice(0, this.particip.ClassNumbers.length - 1);
-        }
-    };
-    RsurParticipAddFormComponent.prototype.schoolIdFromValidator = function () {
-        var _this = this;
-        return function (control) {
-            var valid;
-            if (_this.radioValue === 0) {
-                valid = false;
-            }
-            //if (this.radioValue === 0 || (this.radioValue === 1 && control.value)) {
-            //	valid = true;
-            //}
-            //else {
-            //	valid = false;
-            //}
-            //console.log(valid);
-            return valid ? null : {
-                validateSchoolIdFrom: {
-                    valid: false
-                }
-            };
-        };
-    };
-    RsurParticipAddFormComponent = tslib_1.__decorate([
-        core_1.Component({
-            selector: 'rsurparticip-add-form',
-            templateUrl: "./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=" + new Date().getTime(),
-            styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']
-        }),
-        tslib_1.__metadata("design:paramtypes", [router_1.Router,
-            router_1.ActivatedRoute,
-            rsur_particip_service_1.RsurParticipService,
-            school_service_1.SchoolService])
-    ], RsurParticipAddFormComponent);
-    return RsurParticipAddFormComponent;
-}());
-exports.RsurParticipAddFormComponent = RsurParticipAddFormComponent;
+//import { Component, OnInit } from '@angular/core';
+//import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+//import { Router, ActivatedRoute } from '@angular/router';
+//import { Response } from '@angular/http';
+//import { SchoolService } from '../../school.service';
+//import { RsurParticipService } from '../../services/rsur-particip.service';
+//import { BasicValidators } from '../../shared/basic-validators';
+//export class AddRsurParticip {
+//    Code: number;
+//    Surname: string;
+//    Name: string;
+//    RsurSubjectCode: number;
+//    SchoolIdWithName: string;
+//    CategoryId: number;
+//    AreaCodeWithName: string;
+//    //Birthday: string;
+//    Birthday: Date;
+//    Experience: number;
+//    Phone: string;
+//    ClassNumbers: string;
+//    ActualCode: number;
+//    Email: string;
+//    SecondName: string;
+//    SchoolIdFrom: string;    
+//}
+//export class School {
+//    Id: string;
+//    SchoolIdWithName: string;
+//    AreaCodeWithName: string;
+//}
+//const CATEGORIES: any[] = [
+//    { Id: 0, Name: 'Без категории' },
+//    { Id: 1, Name: 'Первая категория' },
+//    { Id: 2, Name: 'Высшая категория' }
+//];
+//const RSURSUBJECTS: any[] = [
+//    { Code: 1, Name: 'Русский язык' },
+//    { Code: 2, Name: 'Математика' },
+//    { Code: 7, Name: 'История' }
+//];
+//@Component({
+//    selector: 'rsurparticip-add-form',
+//    templateUrl: `./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.html?v=${new Date().getTime()}`,      
+//    styleUrls: ['./app/rsur/rsurparticip-add-form/rsurparticip-add-form.component.css']    
+//})
+//export class RsurParticipAddFormComponent implements OnInit {      
+//    particip = new AddRsurParticip();    
+//    formGroup: FormGroup;
+//    categories = CATEGORIES;
+//    rsurSubjects = RSURSUBJECTS;
+//	schools: School[] = [];
+//	schoolId: string;	
+//    classNumbersTouched: boolean;
+//    newDay: number;
+//    newMonth: number;
+//    newYear: number;
+//    areaCodeWithNames: Array<any>;
+//    radioValue: number;
+//    selectedArea: string;
+//    selectedSchool: string;
+//    tempB: boolean;
+//    constructor(        
+//        private readonly router: Router,
+//        private readonly route: ActivatedRoute,
+//        private readonly rsurParticipService: RsurParticipService,
+//        private readonly schoolService: SchoolService
+//    ) {
+//        this.formGroup = new FormGroup({
+//            "surname": new FormControl('', [Validators.required,
+//                                            Validators.minLength(4),
+//                                            Validators.maxLength(25)]),                                            
+//            "name": new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(25)]),
+//            "secondName": new FormControl('', [Validators.minLength(4), Validators.maxLength(25)]),
+//            "experience": new FormControl('', [Validators.required,
+//                                               Validators.min(0),
+//                                               Validators.max(60),
+//                                               Validators.pattern('[0-9]+')]),
+//            "email": new FormControl('', BasicValidators.emailOrEmpty),  
+//            "phone": new FormControl('', [Validators.required, Validators.pattern('[0-9]{11}')]),
+//            "categoryId": new FormControl(),
+//            "rsurSubjectCode": new FormControl(''),
+//            "newday": new FormControl('', [Validators.required, Validators.min(1), Validators.max(31)]),
+//            "newmonth": new FormControl('', Validators.required),
+//            "newyear": new FormControl('', [Validators.required, Validators.min(1930), Validators.max(1999)]),
+//			"areaCodeWithName": new FormControl(),
+//			"schoolIdFrom": new FormControl()
+//        });       
+//    }
+//    ngOnInit() {
+//        this.particip.ClassNumbers = '';
+//        this.particip.CategoryId = 0;
+//        this.particip.RsurSubjectCode = 1;
+//        this.particip.Email = '';
+//        this.radioValue = 1;        
+//        this.selectedSchool = '';
+//        this.schoolService.getAll()
+//            .subscribe((response: Response) => {
+//                this.schools = response.json() as School[];
+//                this.areaCodeWithNames = this.schools.map(({ AreaCodeWithName }) => AreaCodeWithName);
+//                this.areaCodeWithNames = this.areaCodeWithNames.filter((el: any, index: any, array: any) => array.indexOf(el) === index
+//                    && el !== '1000 - Fake Area');
+//                this.areaCodeWithNames.push('Неизвестно');
+//                this.areaCodeWithNames.sort();
+//                this.selectedArea = 'Неизвестно';
+//            });
+//    }
+//	submit() {		
+//		const milliseconds = new Date().setUTCFullYear(this.newYear, this.newMonth, this.newDay);
+//	    this.particip.Birthday = new Date(milliseconds + 10800000);		
+//	    //this.particip.Birthday = this.newYear + '-' + this.newMonth + '-' + this.newDay;
+//	    console.log(this.particip);
+//	    this.rsurParticipService.createParticip(this.particip).
+//	              subscribe(() => this.router.navigate(['rsurparticips']));     				
+//    }
+//    back() {
+//        this.router.navigate(['rsurparticips'])
+//    }
+//    classesChange(): void {
+//        this.classNumbersTouched = true;
+//        this.particip.ClassNumbers = '';
+//        const checkboxes = $('#classes').find(':checkbox:checked');
+//        checkboxes.each((index, element) => {
+//            this.particip.ClassNumbers += element.id + ';';
+//        });
+//        if (this.particip.ClassNumbers.length > 0) {
+//            this.particip.ClassNumbers = this.particip.ClassNumbers.slice(0, this.particip.ClassNumbers.length - 1);            
+//        }
+//	}
+//    schoolIdFromValidator(): ValidatorFn {
+//        return (control: FormControl) => {
+//			let valid: boolean;
+//            if (this.radioValue === 0) {
+//                valid = false;
+//            }
+//            //if (this.radioValue === 0 || (this.radioValue === 1 && control.value)) {
+//            //	valid = true;
+//            //}
+//            //else {
+//            //	valid = false;
+//            //}
+//            //console.log(valid);
+//            return valid ? null : {
+//            	validateSchoolIdFrom: {
+//            		valid: false
+//            	}
+//            }
+//        }
+//	}
+//}
 //# sourceMappingURL=rsurparticip-add-form.component.js.map

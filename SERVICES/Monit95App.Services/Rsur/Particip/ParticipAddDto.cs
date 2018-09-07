@@ -17,7 +17,8 @@
         [Required]
         public int RsurSubjectCode { get; set; }
 
-        //[Required]
+        [Required]
+        [StringLength(4, MinimumLength = 4)]
         public string SchoolId { get; set; }
 
         #endregion

@@ -3,6 +3,7 @@ import { RsurParticipService } from '../../../../../services/rsur-particip.servi
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RsurParticipPostModel } from '../../../../../models/rsur/particip-post.model';
 import { Location } from '@angular/common';
+import { AccountService } from '../../../../../services/account.service';
 
 @Component({
 	selector: 'app-create-particip',
@@ -108,7 +109,8 @@ export class CreateParticipComponent {
 	constructor(private participService: RsurParticipService,
 		private fb: FormBuilder,
 		private renderer: Renderer2,
-		private location: Location) { }
+		private location: Location,
+		private accountService: AccountService) { }
 
 	ngOnInit() {
 		this.participForm = this.fb.group({
@@ -118,7 +120,7 @@ export class CreateParticipComponent {
 			birthday: this.fb.group({
 				day: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
 				month: ['', [Validators.required, Validators.min(0), Validators.max(12)]],
-				year: ['', [Validators.required, Validators.min(2009), Validators.max(2014)]]
+				year: ['', [Validators.required, Validators.min(1945), Validators.max(2005)]]
 			}),
 			subjectCode: ['', Validators.required],
 			categoryId: ['', Validators.required],
@@ -131,7 +133,6 @@ export class CreateParticipComponent {
 	}
 
 	submitForm() {
-		console.log(this.convertFormToModel());
 		this.participService.createParticip(this.convertFormToModel()).subscribe(() => this.location.back())
 	}
 
@@ -147,7 +148,8 @@ export class CreateParticipComponent {
 			CategoryId: this.categoryId.value,
 			Experience: this.experience.value,
 			Phone: this.phone.value,
-			Email: this.email.value
+			Email: this.email.value,
+			SchoolId: this.accountService.account.UserName
 		};
 	}
 

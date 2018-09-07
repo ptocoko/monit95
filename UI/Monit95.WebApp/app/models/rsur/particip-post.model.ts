@@ -7,4 +7,5 @@ export interface RsurParticipPostModel extends PersonModel {
 	Experience: number;
 	Phone: string;
 	Email: string;
+	SchoolId: string;
 }

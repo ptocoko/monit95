@@ -5,13 +5,15 @@ var core_1 = require("@angular/core");
 var rsur_particip_service_1 = require("../../../../../services/rsur-particip.service");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
+var account_service_1 = require("../../../../../services/account.service");
 var CreateParticipComponent = /** @class */ (function () {
-    function CreateParticipComponent(participService, fb, renderer, location) {
+    function CreateParticipComponent(participService, fb, renderer, location, accountService) {
         var _this = this;
         this.participService = participService;
         this.fb = fb;
         this.renderer = renderer;
         this.location = location;
+        this.accountService = accountService;
         this.monthDays = Array.from({ length: 32 }, function (val, key) { return key; }).splice(1).slice();
         this.months = [
             {
@@ -110,7 +112,7 @@ var CreateParticipComponent = /** @class */ (function () {
             birthday: this.fb.group({
                 day: ['', [forms_1.Validators.required, forms_1.Validators.min(1), forms_1.Validators.max(31)]],
                 month: ['', [forms_1.Validators.required, forms_1.Validators.min(0), forms_1.Validators.max(12)]],
-                year: ['', [forms_1.Validators.required, forms_1.Validators.min(2009), forms_1.Validators.max(2014)]]
+                year: ['', [forms_1.Validators.required, forms_1.Validators.min(1945), forms_1.Validators.max(2005)]]
             }),
             subjectCode: ['', forms_1.Validators.required],
             categoryId: ['', forms_1.Validators.required],
@@ -122,7 +124,6 @@ var CreateParticipComponent = /** @class */ (function () {
     };
     CreateParticipComponent.prototype.submitForm = function () {
         var _this = this;
-        console.log(this.convertFormToModel());
         this.participService.createParticip(this.convertFormToModel()).subscribe(function () { return _this.location.back(); });
     };
     CreateParticipComponent.prototype.convertFormToModel = function () {
@@ -136,7 +137,8 @@ var CreateParticipComponent = /** @class */ (function () {
             CategoryId: this.categoryId.value,
             Experience: this.experience.value,
             Phone: this.phone.value,
-            Email: this.email.value
+            Email: this.email.value,
+            SchoolId: this.accountService.account.UserName
         };
     };
     Object.defineProperty(CreateParticipComponent.prototype, "surname", {
@@ -204,7 +206,8 @@ var CreateParticipComponent = /** @class */ (function () {
         tslib_1.__metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
             forms_1.FormBuilder,
             core_1.Renderer2,
-            common_1.Location])
+            common_1.Location,
+            account_service_1.AccountService])
     ], CreateParticipComponent);
     return CreateParticipComponent;
 }());

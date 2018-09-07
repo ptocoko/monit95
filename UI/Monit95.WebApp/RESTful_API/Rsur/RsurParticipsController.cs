@@ -37,12 +37,6 @@ namespace Monit95App.Web.Api
         [Authorize(Roles = "school")]
         public IHttpActionResult Post([FromBody]ParticipAddDto dto)
         {
-            //dto.SchoolId = User.Identity.Name;
-            if (User.IsInRole("school"))
-            {
-                dto.SchoolId = User.Identity.Name;
-            }
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
