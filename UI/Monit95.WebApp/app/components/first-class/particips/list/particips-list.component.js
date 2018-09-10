@@ -16,14 +16,17 @@ var account_service_1 = require("../../../../services/account.service");
 var confirm_dialog_component_1 = require("../../../../shared/confirm-dialog/confirm-dialog.component");
 var particips_service_1 = require("../../../../services/first-class/particips.service");
 var local_storage_1 = require("../../../../utils/local-storage");
+var school_collector_service_1 = require("../../../../shared/school-collector.service");
 var CLASS_ID_KEY = 'FIRST_CLASS_ID';
+var COLLECTOR_ID = 3;
 var ParticipsListComponent = /** @class */ (function () {
-    function ParticipsListComponent(participService, classService, dialog, snackBar, accountService) {
+    function ParticipsListComponent(participService, classService, dialog, snackBar, accountService, collectorService) {
         this.participService = participService;
         this.classService = classService;
         this.dialog = dialog;
         this.snackBar = snackBar;
         this.accountService = accountService;
+        this.collectorService = collectorService;
         this.particips = [];
         this.classes = [];
         this.pageIndex = 0;
@@ -35,24 +38,25 @@ var ParticipsListComponent = /** @class */ (function () {
     ParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.searchClass = local_storage_1.getFromLocalStorage(CLASS_ID_KEY);
-        var search$ = fromEvent_1.fromEvent(this.searchField.nativeElement, 'input')
-            .pipe(debounceTime_1.debounceTime(1000));
-        search$.subscribe(function () { return _this.pageIndex = 0; });
-        merge_1.merge(this.paginator.page, search$, this.selectionChange$)
-            .pipe(startWith_1.startWith({}), switchMap_1.switchMap(function () {
-            _this.isLoading = true;
-            return _this.createRequest();
-        }), map_1.map(function (data) {
-            _this.isLoading = false;
-            _this.participsLength = data.TotalCount;
-            _this.classes = data.Classes;
-            return data.Items;
-        })).subscribe(function (particips) { return _this.particips = particips; });
-        //this.participService.getAll().subscribe(res => {
-        //	this.particips = res;
-        //	this.isLoading = false;
-        //});
+        this.collectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(function (state) {
+            _this.isFinished = state.IsFinished;
+            if (!_this.isFinished) {
+                _this.searchClass = local_storage_1.getFromLocalStorage(CLASS_ID_KEY);
+                var search$ = fromEvent_1.fromEvent(_this.searchField.nativeElement, 'input')
+                    .pipe(debounceTime_1.debounceTime(1000));
+                search$.subscribe(function () { return _this.pageIndex = 0; });
+                merge_1.merge(_this.paginator.page, search$, _this.selectionChange$)
+                    .pipe(startWith_1.startWith({}), switchMap_1.switchMap(function () {
+                    _this.isLoading = true;
+                    return _this.createRequest();
+                }), map_1.map(function (data) {
+                    _this.isLoading = false;
+                    _this.participsLength = data.TotalCount;
+                    _this.classes = data.Classes;
+                    return data.Items;
+                })).subscribe(function (particips) { return _this.particips = particips; });
+            }
+        });
     };
     ParticipsListComponent.prototype.createRequest = function () {
         return this.participService.getAll({
@@ -95,6 +99,19 @@ var ParticipsListComponent = /** @class */ (function () {
         }
         this.selectionChange$.next({});
     };
+    ParticipsListComponent.prototype.finish = function () {
+        var _this = this;
+        var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
+            width: '400px',
+            disableClose: true,
+            data: { message: "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435 \u0441\u043F\u0438\u0441\u043A\u0430 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432?" }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result) {
+                _this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(function () { return _this.isFinished = true; });
+            }
+        });
+    };
     tslib_1.__decorate([
         core_1.ViewChild(table_paginator_1.TablePaginator),
         tslib_1.__metadata("design:type", table_paginator_1.TablePaginator)
@@ -112,7 +129,8 @@ var ParticipsListComponent = /** @class */ (function () {
             class_service_1.ClassService,
             material_1.MatDialog,
             material_1.MatSnackBar,
-            account_service_1.AccountService])
+            account_service_1.AccountService,
+            school_collector_service_1.SchoolCollectorService])
     ], ParticipsListComponent);
     return ParticipsListComponent;
 }());

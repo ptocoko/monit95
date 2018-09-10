@@ -16,8 +16,10 @@ import { ConfirmDialogComponent } from '../../../../shared/confirm-dialog/confir
 import { ParticipGetModel, ParticipsList } from '../../../../models/first-class/particip-get.model';
 import { ParticipService } from '../../../../services/first-class/particips.service';
 import { setToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../../../utils/local-storage';
+import { SchoolCollectorService } from '../../../../shared/school-collector.service';
 
 const CLASS_ID_KEY = 'FIRST_CLASS_ID';
+const COLLECTOR_ID = 3;
 
 @Component({
 	templateUrl: `./app/components/first-class/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
@@ -27,6 +29,7 @@ export class ParticipsListComponent {
 	particips: ParticipGetModel[] = [];
 	classes: ClassModel[] = [];
 
+	isFinished: boolean;
 	isLoading: boolean;
 	searchText: string;
 	searchClass: string;
@@ -44,37 +47,40 @@ export class ParticipsListComponent {
 		private classService: ClassService,
 		private dialog: MatDialog,
 		private snackBar: MatSnackBar,
-		private accountService: AccountService) { }
+		private accountService: AccountService,
+		private collectorService: SchoolCollectorService) { }
 
 	ngOnInit() {
 		this.isLoading = true;
 
-		this.searchClass = getFromLocalStorage(CLASS_ID_KEY);
+		this.collectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(state => {
+			this.isFinished = state.IsFinished;
 
-		const search$ = fromEvent(this.searchField.nativeElement, 'input')
-			.pipe(
-				debounceTime(1000)
-		);
-		search$.subscribe(() => this.pageIndex = 0);
+			if (!this.isFinished) {
+				this.searchClass = getFromLocalStorage(CLASS_ID_KEY);
 
-		merge(this.paginator.page, search$, this.selectionChange$)
-			.pipe(
-				startWith({}),
-				switchMap(() => {
-					this.isLoading = true;
-					return this.createRequest();
-				}),
-				map((data: ParticipsList) => {
-					this.isLoading = false;
-					this.participsLength = data.TotalCount;
-					this.classes = data.Classes;
-					return data.Items;
-				})
-			).subscribe((particips: ParticipGetModel[]) => this.particips = particips);
-		//this.participService.getAll().subscribe(res => {
-		//	this.particips = res;
-		//	this.isLoading = false;
-		//});
+				const search$ = fromEvent(this.searchField.nativeElement, 'input')
+					.pipe(
+						debounceTime(1000)
+					);
+				search$.subscribe(() => this.pageIndex = 0);
+
+				merge(this.paginator.page, search$, this.selectionChange$)
+					.pipe(
+						startWith({}),
+						switchMap(() => {
+							this.isLoading = true;
+							return this.createRequest();
+						}),
+						map((data: ParticipsList) => {
+							this.isLoading = false;
+							this.participsLength = data.TotalCount;
+							this.classes = data.Classes;
+							return data.Items;
+						})
+					).subscribe((particips: ParticipGetModel[]) => this.particips = particips);
+			}
+		});
 	}
 
 	private createRequest(): Observable<ParticipsList> {
@@ -120,5 +126,19 @@ export class ParticipsListComponent {
 		}
 
 		this.selectionChange$.next({});
+	}
+
+	finish() {
+		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+			width: '400px',
+			disableClose: true,
+			data: { message: `Завершить заполнение списка участников?` }
+		});
+
+		dialogRef.afterClosed().subscribe((result: boolean) => {
+			if (result) {
+				this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isFinished = true);
+			}
+		});
 	}
 }

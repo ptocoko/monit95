@@ -32,3 +32,10 @@
     background-color: rgba(0,0,0,0.3);
     z-index: 10;
 }
+
+.content-center {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
