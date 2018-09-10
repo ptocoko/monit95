@@ -20,8 +20,8 @@ var routes = [
     { path: 'first-class/particips/list', component: particips_list_component_1.ParticipsListComponent },
     { path: 'first-class/particips/add', component: add_or_update_component_1.AddOrUpdateComponent },
     { path: 'first-class/particips/:participId', component: add_or_update_component_1.AddOrUpdateComponent },
-    { path: 'first-class/protocols/list', component: protocols_list_component_1.ProtocolsListComponent },
-    { path: 'first-class/protocol/:participTestId', component: protocol_component_1.ProtocolComponent },
+    //{ path: 'first-class/protocols/list', component: ProtocolsListComponent },
+    //{ path: 'first-class/protocol/:participTestId', component: ProtocolComponent },
     { path: 'first-class', redirectTo: 'first-class/home', pathMatch: 'full' }
 ];
 var FirstClassModule = /** @class */ (function () {

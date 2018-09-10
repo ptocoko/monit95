@@ -15,6 +15,9 @@ import { AccountService } from '../../../../services/account.service';
 import { ConfirmDialogComponent } from '../../../../shared/confirm-dialog/confirm-dialog.component';
 import { ParticipGetModel, ParticipsList } from '../../../../models/first-class/particip-get.model';
 import { ParticipService } from '../../../../services/first-class/particips.service';
+import { setToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../../../utils/local-storage';
+
+const CLASS_ID_KEY = 'FIRST_CLASS_ID';
 
 @Component({
 	templateUrl: `./app/components/first-class/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
@@ -46,7 +49,7 @@ export class ParticipsListComponent {
 	ngOnInit() {
 		this.isLoading = true;
 
-		//this.isFailingSchool = ["0303", "0302", "0331", "0587", "0001", "0613", "0289"].indexOf(this.accountService.account.UserName) > 0;
+		this.searchClass = getFromLocalStorage(CLASS_ID_KEY);
 
 		const search$ = fromEvent(this.searchField.nativeElement, 'input')
 			.pipe(
@@ -84,6 +87,7 @@ export class ParticipsListComponent {
 	}
 
 	deleteParticip(particip: ParticipGetModel) {
+		particip.isDeleting = true;
 		const participId = particip.Id;
 		const participIndex = this.particips.indexOf(particip);
 
@@ -96,15 +100,25 @@ export class ParticipsListComponent {
 		dialogRef.afterClosed().subscribe((result: boolean) => {
 			if (result) {
 				this.participService.deleteParticip(participId).subscribe(() => {
+					particip.isDeleting = false;
 					this.particips.splice(participIndex, 1);
 					this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 3000 });
 				});
+			} else {
+				particip.isDeleting = false;
 			}
 		});
 	}
 
 	selectionChange() {
 		this.pageIndex = 0;
+
+		if (this.searchClass) {
+			setToLocalStorage(CLASS_ID_KEY, this.searchClass);
+		} else {
+			removeFromLocalStorage(CLASS_ID_KEY);
+		}
+
 		this.selectionChange$.next({});
 	}
 }

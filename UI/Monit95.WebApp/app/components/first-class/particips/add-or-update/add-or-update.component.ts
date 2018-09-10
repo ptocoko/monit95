@@ -9,6 +9,7 @@ import { ParticipGetModel } from '../../../../models/first-class/particip-get.mo
 import { ParticipService } from '../../../../services/first-class/particips.service';
 import { VALID } from '@angular/forms/src/model';
 import { ParticipPostModel } from '../../../../models/first-class/particip-post.model';
+import { getFromLocalStorage } from '../../../../utils/local-storage';
 
 @Component({
 	templateUrl: `./app/components/first-class/particips/add-or-update/add-or-update.component.html?v=${new Date().getTime()}`,
@@ -87,6 +88,8 @@ export class AddOrUpdateComponent {
 
 	ngOnInit() {
 		this.createForm();
+		this.setFormDefault();
+
 		this.route.params.subscribe(params => {
 			this.isUpdate = params['participId'];
 
@@ -147,10 +150,8 @@ export class AddOrUpdateComponent {
 			this.formIsPristine = true;
 		} else {
 			if (this.isUpdate) {
-				//this.participService.update(this.particip).subscribe(() => this.location.back());
 				this.putParticip(this.convertParticip());
 			} else {
-				//this.participService.post(this.particip).subscribe(() => this.location.back());
 				this.postParticip(this.convertParticip());
 			}
 		}
@@ -167,18 +168,21 @@ export class AddOrUpdateComponent {
 				this.formIsPristine = true;
 				this.isLoading = false;
 			} else {
-				//this.participService.post(this.particip)
-				//		.subscribe();
 				this.postParticip(this.convertParticip(), () => {
 					this.participForm.enable();
 					this.isLoading = false;
 					this.particip = {} as ParticipGetModel;
-					this.participForm.reset();
-					this.participForm.patchValue({ wasDoo: false });
+					this.setFormDefault();
 					this.focusOnFirstField();
 				});
 			}
 		}
+	}
+
+	private setFormDefault() {
+		const classId = getFromLocalStorage('FIRST_CLASS_ID');
+		this.participForm.reset();
+		this.participForm.patchValue({ wasDoo: false, classId });
 	}
 
 	private convertParticip(): ParticipPostModel {

@@ -18,13 +18,13 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="false">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">Участники</h3>
     <div>
         <a class="list-item-link" routerLink="/first-class/particips/list">
-            <h4>Список участников</h4>
+            <h4><b>Список участников</b></h4>
         </a>
-        <a class="list-item-link" routerLink="/first-class/protocols/list">
+        <a class="list-item-link" *ngIf="false" routerLink="/first-class/protocols/list">
             <h4>Протоколы проверки заданий</h4>
         </a>
     </div>

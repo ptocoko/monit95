@@ -26,90 +26,94 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         [HttpGet, Route("")]
         public IHttpActionResult GetProtocols([FromUri]ListGetOptions options)
         {
-            var schoolId = User.Identity.Name;
-            ProtocolsList dto;
+            //var schoolId = User.Identity.Name;
+            //ProtocolsList dto;
 
-            try
-            {
-                dto = protocolService.GetProtocols(schoolId, projectTestId, options);
-            }
-            catch (ArgumentException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //try
+            //{
+            //    dto = protocolService.GetProtocols(schoolId, projectTestId, options);
+            //}
+            //catch (ArgumentException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
 
-            return Ok(dto);
+            //return Ok(dto);
+            return BadRequest();
         }
 
         [HttpGet, Route("{participTestId}")]
         public IHttpActionResult Get([FromUri]int participTestId)
         {
-            ProtocolPostDto protocol;
-            try
-            {
-                protocol = protocolService.GetEditProtocol(participTestId);
-            }
-            catch (EntityNotFoundOrAccessException e)
-            {
-                return BadRequest(e.Message);
-            }
-            catch (ArgumentException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //ProtocolPostDto protocol;
+            //try
+            //{
+            //    protocol = protocolService.GetEditProtocol(participTestId);
+            //}
+            //catch (EntityNotFoundOrAccessException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
+            //catch (ArgumentException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
 
-            return Ok(protocol);
+            //return Ok(protocol);
+            return BadRequest();
         }
 
         [HttpPost, Route("{participTestId}")]
         public IHttpActionResult EditProtocol([FromUri]int participTestId, [FromBody]ProtocolPostDto protocolPost)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            try
-            {
-                protocolService.EditProtocol(protocolPost);
-            }
-            catch (EntityNotFoundOrAccessException)
-            {
-                return BadRequest("неверный ключ запроса");
-            }
-            catch (MarksParseException e)
-            {
-                return BadRequest(e.Message);
-            }
-            catch (ArgumentException e)
-            {
-                return BadRequest(e.Message);
-            }
-            catch (DbUpdateException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //try
+            //{
+            //    protocolService.EditProtocol(protocolPost);
+            //}
+            //catch (EntityNotFoundOrAccessException)
+            //{
+            //    return BadRequest("неверный ключ запроса");
+            //}
+            //catch (MarksParseException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
+            //catch (ArgumentException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
+            //catch (DbUpdateException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
 
-            return Ok();
+            //return Ok();
+            return BadRequest();
         }
 
         [HttpPut, Route("{participTestId}/markAsAbsent")]
         public IHttpActionResult MarkAsAbsent([FromUri]int participTestId)
         {
-            try
-            {
-                protocolService.MarkAsAbsent(participTestId);
-            }
-            catch (EntityNotFoundOrAccessException)
-            {
-                return BadRequest("неверный ключ запроса");
-            }
-            catch (ArgumentException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //try
+            //{
+            //    protocolService.MarkAsAbsent(participTestId);
+            //}
+            //catch (EntityNotFoundOrAccessException)
+            //{
+            //    return BadRequest("неверный ключ запроса");
+            //}
+            //catch (ArgumentException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
 
-            return Ok();
+            //return Ok();
+            return BadRequest();
         }
     }
 }

@@ -754,6 +754,7 @@
     <TypeScriptCompile Include="app\models\school-particip.model.ts" />
     <TypeScriptCompile Include="app\shared\shared-module.ts" />
     <TypeScriptCompile Include="app\shared\table-paginator\table-paginator.ts" />
+    <TypeScriptCompile Include="app\utils\local-storage.ts" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707251307178_ASPNet-Identity-Update.resx">

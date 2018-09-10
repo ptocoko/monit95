@@ -15,6 +15,8 @@ var class_service_1 = require("../../../../services/class.service");
 var account_service_1 = require("../../../../services/account.service");
 var confirm_dialog_component_1 = require("../../../../shared/confirm-dialog/confirm-dialog.component");
 var particips_service_1 = require("../../../../services/first-class/particips.service");
+var local_storage_1 = require("../../../../utils/local-storage");
+var CLASS_ID_KEY = 'FIRST_CLASS_ID';
 var ParticipsListComponent = /** @class */ (function () {
     function ParticipsListComponent(participService, classService, dialog, snackBar, accountService) {
         this.participService = participService;
@@ -33,7 +35,7 @@ var ParticipsListComponent = /** @class */ (function () {
     ParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        //this.isFailingSchool = ["0303", "0302", "0331", "0587", "0001", "0613", "0289"].indexOf(this.accountService.account.UserName) > 0;
+        this.searchClass = local_storage_1.getFromLocalStorage(CLASS_ID_KEY);
         var search$ = fromEvent_1.fromEvent(this.searchField.nativeElement, 'input')
             .pipe(debounceTime_1.debounceTime(1000));
         search$.subscribe(function () { return _this.pageIndex = 0; });
@@ -62,6 +64,7 @@ var ParticipsListComponent = /** @class */ (function () {
     };
     ParticipsListComponent.prototype.deleteParticip = function (particip) {
         var _this = this;
+        particip.isDeleting = true;
         var participId = particip.Id;
         var participIndex = this.particips.indexOf(particip);
         var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
@@ -72,14 +75,24 @@ var ParticipsListComponent = /** @class */ (function () {
         dialogRef.afterClosed().subscribe(function (result) {
             if (result) {
                 _this.participService.deleteParticip(participId).subscribe(function () {
+                    particip.isDeleting = false;
                     _this.particips.splice(participIndex, 1);
                     _this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 3000 });
                 });
+            }
+            else {
+                particip.isDeleting = false;
             }
         });
     };
     ParticipsListComponent.prototype.selectionChange = function () {
         this.pageIndex = 0;
+        if (this.searchClass) {
+            local_storage_1.setToLocalStorage(CLASS_ID_KEY, this.searchClass);
+        }
+        else {
+            local_storage_1.removeFromLocalStorage(CLASS_ID_KEY);
+        }
         this.selectionChange$.next({});
     };
     tslib_1.__decorate([

@@ -62,8 +62,11 @@
                 <span *ngIf="!particip.WasDoo">нет</span>
             </td>
             <td>{{ particip.ClassName }}</td>
-            <td><a href="#" class="glyphicon glyphicon-edit" [routerLink]="['/first-class/particips', particip.Id]"></a></td>
-            <td><a style="cursor:pointer" class="glyphicon glyphicon-trash" (click)="deleteParticip(particip)"></a></td>
+            <td class="text-center"><a style="cursor:pointer" matTooltip="изменить" class="glyphicon glyphicon-edit" [routerLink]="['/first-class/particips', particip.Id]"></a></td>
+            <td class="text-center">
+                <a style="cursor:pointer" *ngIf="!particip.isDeleting" matTooltip="удалить" class="glyphicon glyphicon-trash" (click)="deleteParticip(particip)"></a>
+                <mat-spinner style="margin: 0 auto" *ngIf="particip.isDeleting" [diameter]="17"></mat-spinner>
+            </td>
         </tr>
     </table>
     <div class="text-center" *ngIf="particips.length === 0">

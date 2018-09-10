@@ -7,6 +7,7 @@ var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var class_service_1 = require("../../../../services/class.service");
 var particips_service_1 = require("../../../../services/first-class/particips.service");
+var local_storage_1 = require("../../../../utils/local-storage");
 var AddOrUpdateComponent = /** @class */ (function () {
     function AddOrUpdateComponent(participService, classService, router, route, location, fb, renderer) {
         var _this = this;
@@ -79,6 +80,7 @@ var AddOrUpdateComponent = /** @class */ (function () {
     AddOrUpdateComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createForm();
+        this.setFormDefault();
         this.route.params.subscribe(function (params) {
             _this.isUpdate = params['participId'];
             if (_this.isUpdate) {
@@ -135,11 +137,9 @@ var AddOrUpdateComponent = /** @class */ (function () {
         }
         else {
             if (this.isUpdate) {
-                //this.participService.update(this.particip).subscribe(() => this.location.back());
                 this.putParticip(this.convertParticip());
             }
             else {
-                //this.participService.post(this.particip).subscribe(() => this.location.back());
                 this.postParticip(this.convertParticip());
             }
         }
@@ -157,18 +157,20 @@ var AddOrUpdateComponent = /** @class */ (function () {
                 this.isLoading = false;
             }
             else {
-                //this.participService.post(this.particip)
-                //		.subscribe();
                 this.postParticip(this.convertParticip(), function () {
                     _this.participForm.enable();
                     _this.isLoading = false;
                     _this.particip = {};
-                    _this.participForm.reset();
-                    _this.participForm.patchValue({ wasDoo: false });
+                    _this.setFormDefault();
                     _this.focusOnFirstField();
                 });
             }
         }
+    };
+    AddOrUpdateComponent.prototype.setFormDefault = function () {
+        var classId = local_storage_1.getFromLocalStorage('FIRST_CLASS_ID');
+        this.participForm.reset();
+        this.participForm.patchValue({ wasDoo: false, classId: classId });
     };
     AddOrUpdateComponent.prototype.convertParticip = function () {
         var birthday = new Date(this.birthday.year.value, this.birthday.month.value, this.birthday.day.value + 1);

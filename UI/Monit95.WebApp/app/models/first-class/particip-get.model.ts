@@ -9,6 +9,7 @@ export interface ParticipGetModel {
 	ClassName: string;
 	ClassId: string;
 	WasDoo: boolean;
+	isDeleting: boolean;
 }
 
 export interface ParticipsList {
