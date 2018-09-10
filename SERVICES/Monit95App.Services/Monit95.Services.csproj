@@ -78,6 +78,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreasService.cs" />
     <Compile Include="ClassParticipConverter.cs" />
     <Compile Include="ClassService.cs" />
     <Compile Include="ClassParticip.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Document\DocumentService.cs" />
     <Compile Include="Document\IPrivateFileService.cs" />
     <Compile Include="Document\PrivateFileService.cs" />
+    <Compile Include="DTOs\AreaDto.cs" />
     <Compile Include="DTOs\ClassDto.cs" />
     <Compile Include="DTOs\ClassParticipReport.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />

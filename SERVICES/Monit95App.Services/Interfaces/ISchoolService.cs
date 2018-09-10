@@ -12,6 +12,8 @@ namespace Monit95App.Services.Interfaces
 
         IEnumerable<SchoolDto> GetAll();
 
+        IEnumerable<SchoolDto> GetByAreaCode(int areaCode);
+
         void Update(string schoolId, SchoolDto dto, bool isAdmin);
     }
 }

@@ -33,5 +33,7 @@ namespace Monit95App.Services.DTOs
         public string VprCode { get; set; }
 
         public bool HasNameCorrection { get; set; }
+
+        public string Name { get; set; }
     }
 }

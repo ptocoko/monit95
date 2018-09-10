@@ -165,6 +165,8 @@ namespace Monit95App.Services.Rsur
 
             query = query.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.SecondName);
 
+            query = query.Skip(options.PageSize * (options.Page - 1)).Take(options.PageSize);
+
             var dtos = query.AsEnumerable().Select(MapParticips);
 
             return dtos;
@@ -282,5 +284,7 @@ namespace Monit95App.Services.Rsur
         public string SchoolId { get; set; }
         public int? ActualCode { get; set; }
         public string Search { get; set; }
+        public int PageSize { get; set; } = 30;
+        public int Page { get; set; } = 1;
     }
 }

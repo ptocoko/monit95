@@ -1,9 +1,16 @@
 ﻿<h2>РСУР: Добавление участника</h2>
 <hr/>
 
+<div class="jumbotron">
+    <p>На данном этапе актуализации РСУР нужно дополнить список участников РСУР своей школы.</p> 
+    <p>Если новый участник ранее <b>участвовал</b> в РСУР по <b>своему предмету</b> за другую школу, то его нужно найти в форме снизу и добавить в свой список.</p>
+    <p>Если новый участник ранее <b>не</b> участвовал в РСУР по своему предмету, то нужно на переключателе снизу включить «Не участвовал в предыдущих диагностиках РСУР» и создать нового участника</p>
+</div>
+
 <mat-radio-group [(ngModel)]="isCreatingNew">
     <mat-radio-button [value]="0">Участвовал в РСУР за другую школу</mat-radio-button>
     <mat-radio-button [value]="1">Не участвовал в предыдущих диагностиках РСУР</mat-radio-button>
 </mat-radio-group>
 
 <app-create-particip *ngIf="isCreatingNew === 1"></app-create-particip>
+<app-transfer-particip *ngIf="isCreatingNew === 0"></app-transfer-particip>

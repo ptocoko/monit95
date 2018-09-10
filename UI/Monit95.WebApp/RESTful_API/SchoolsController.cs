@@ -35,16 +35,29 @@ namespace Monit95App.Web.Api
             return this.Ok(this._schoolService.GetAll());
         }
 
-        [HttpPut]
-        [Route("{id:length(4)}")]
-        public IHttpActionResult Put([FromBody] SchoolDto dto)
+        [HttpGet]
+        [Route("{areaCode:int}")]
+        public IHttpActionResult GetByAreaCode([FromUri]int areaCode)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            return Ok(dto);
+            return Ok(_schoolService.GetByAreaCode(areaCode));
+        }
+
+        [HttpPut]
+        [Route("{id:length(4)}")]
+        public IHttpActionResult Put([FromBody] SchoolDto dto)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            //return Ok(dto);
+            return BadRequest();
         }
 
         #endregion     

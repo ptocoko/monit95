@@ -28,7 +28,7 @@ export class RsurParticipService {
 	}
 
 	search(options: SearchOptions) {
-		return this.http.get(`${this.ROUTE_PREFIX}/search`, { params: <any>options });
+		return this.http.get<RsurParticipModel[]>(`${this.ROUTE_PREFIX}/search`, { params: <any>options });
 	}
 
     //downloadFile(data: HttpResponse) {
@@ -39,8 +39,10 @@ export class RsurParticipService {
 }
 
 export interface SearchOptions {
-	AreaCode: number;
-	SchoolId: string;
-	ActualCode: number;
-	Search: string;
+	AreaCode?: number;
+	SchoolId?: string;
+	ActualCode?: number;
+	Search?: string;
+	PageSize?: number;
+	Page?: number;
 }

@@ -19,13 +19,16 @@ namespace Monit95App.Services.School
     {
         private readonly IGenericRepository<Domain.Core.Entities.School> _schoolRepository;
         private readonly IGenericRepository<SchoolEdit> _schoolEditRepository;
+        private readonly CokoContext context;
 
         public SchoolService(
             IGenericRepository<Domain.Core.Entities.School> schoolRepository,
-            IGenericRepository<SchoolEdit> schoolEditRepository)
+            IGenericRepository<SchoolEdit> schoolEditRepository,
+            CokoContext context)
         {
             _schoolRepository = schoolRepository;
             _schoolEditRepository = schoolEditRepository;
+            this.context = context;
         }
         
         public SchoolDto GetModel(string id)
@@ -63,6 +66,15 @@ namespace Monit95App.Services.School
             var dtos = Mapper.Map<IEnumerable<School>, List<SchoolDto>>(entities);
 
             return dtos;
+        }
+
+        public IEnumerable<SchoolDto> GetByAreaCode(int areaCode)
+        {
+            return context.Schools.Where(sch => sch.AreaCode == areaCode).Select(sch => new SchoolDto
+            {
+                Name = sch.Name.Trim(),
+                Id = sch.Id
+            });
         }
 
         public void Update(string schoolId, SchoolDto dto, bool isAdmin)

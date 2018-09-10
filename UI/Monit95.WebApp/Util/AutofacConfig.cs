@@ -64,6 +64,7 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<Monit95App.Services.OneTwoThree.QuestionProtocol.QuestionProtocolService>().As<Monit95App.Services.OneTwoThree.QuestionProtocol.IQuestionProtocolService>();
             builder.RegisterType<Monit95App.Services.FirstClass.Dtos.ParticipService>().As<Monit95App.Services.FirstClass.Dtos.IParticipService>();
             builder.RegisterType<ProtocolService>();
+            builder.RegisterType<AreasService>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

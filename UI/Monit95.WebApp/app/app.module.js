@@ -35,6 +35,7 @@ var firing_list_component_1 = require("./components/rsur/actualization/firing/li
 var hiring_list_component_1 = require("./components/rsur/actualization/hiring/list/hiring-list.component");
 var hire_particip_component_1 = require("./components/rsur/actualization/hiring/hire-particip.component");
 var add_particip_component_1 = require("./components/rsur/actualization/hiring/add/add-particip.component");
+var transfer_particip_component_1 = require("./components/rsur/actualization/hiring/transfer/transfer-particip.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
@@ -45,6 +46,8 @@ var rsur_rating_service_1 = require("./services/rsur-rating.service");
 var seminar_report_service_1 = require("./services/seminar-report.service");
 var school_file_service_1 = require("./services/school-file.service");
 var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
+var school_service_1 = require("./school.service");
+var area_service_1 = require("./services/area.service");
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
 //import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
@@ -132,7 +135,8 @@ var AppModule = /** @class */ (function () {
                 firing_list_component_1.FiringListComponent,
                 hiring_list_component_1.HiringListComponent,
                 hire_particip_component_1.HireComponent,
-                add_particip_component_1.CreateParticipComponent
+                add_particip_component_1.CreateParticipComponent,
+                transfer_particip_component_1.TransferParticipComponent
             ],
             providers: [
                 account_service_1.AccountService,
@@ -144,6 +148,8 @@ var AppModule = /** @class */ (function () {
                 seminar_report_service_1.SeminarReportService,
                 school_file_service_1.SchoolFileService,
                 rsur_protocols_service_1.RsurProtocolsService,
+                school_service_1.SchoolService,
+                area_service_1.AreaService,
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
                 { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler },
                 { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator },

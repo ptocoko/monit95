@@ -338,6 +338,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RESTful_API\AreasController.cs" />
     <Compile Include="RESTful_API\ClassController.cs" />
     <Compile Include="RESTful_API\DocumentsController.cs" />
     <Compile Include="RESTful_API\ExcelFilesController.cs" />
@@ -416,6 +417,8 @@
     <Content Include="app\components\rsur\actualization\hiring\hire-particip.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\list\hiring-list.component.css" />
     <Content Include="app\components\rsur\actualization\hiring\list\hiring-list.component.html" />
+    <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.css" />
+    <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.html" />
     <Content Include="app\one-two-three\home\home.component.html" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.css" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.html" />
@@ -651,12 +654,14 @@
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\add\add-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\hire-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\list\hiring-list.component.ts" />
+    <TypeScriptCompile Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
     <TypeScriptCompile Include="app\custom-route-reuse-strategy.ts" />
     <TypeScriptCompile Include="app\enums\rsur.block-status.ts" />
     <TypeScriptCompile Include="app\material.module.ts" />
     <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\models\area.model.ts" />
     <TypeScriptCompile Include="app\models\class.model.ts" />
     <TypeScriptCompile Include="app\models\first-class\particip-get.model.ts" />
     <TypeScriptCompile Include="app\models\first-class\particip-post.model.ts" />
@@ -673,6 +678,7 @@
     <TypeScriptCompile Include="app\models\question-protocol-read.model.ts" />
     <TypeScriptCompile Include="app\models\rsur-reports-info.model.ts" />
     <TypeScriptCompile Include="app\models\rsur\particip-post.model.ts" />
+    <TypeScriptCompile Include="app\models\school.model.ts" />
     <TypeScriptCompile Include="app\one-two-three\home\home.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\NumberCodes.ts" />
     <TypeScriptCompile Include="app\one-two-three\one-two-three.module.ts" />
@@ -696,6 +702,7 @@
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />
     <TypeScriptCompile Include="app\pipes\one-two-three\particips.pipe.ts" />
     <TypeScriptCompile Include="app\particips\shared\list\list.component.ts" />
+    <TypeScriptCompile Include="app\services\area.service.ts" />
     <TypeScriptCompile Include="app\services\class.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\shared\marks-protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\matching\matching-protocol.component.ts" />
