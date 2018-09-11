@@ -112,6 +112,10 @@ var ParticipsListComponent = /** @class */ (function () {
             }
         });
     };
+    ParticipsListComponent.prototype.notFinished = function () {
+        var _this = this;
+        this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(function () { return _this.isFinished = false; });
+    };
     tslib_1.__decorate([
         core_1.ViewChild(table_paginator_1.TablePaginator),
         tslib_1.__metadata("design:type", table_paginator_1.TablePaginator)

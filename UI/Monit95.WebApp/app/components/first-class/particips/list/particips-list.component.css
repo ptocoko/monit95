@@ -38,4 +38,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
 }

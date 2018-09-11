@@ -23,10 +23,10 @@
         <div class="card-wrapper">
             <div class="particip-info">
                 <h4>{{ particip.Code }} - {{ particip.SchoolParticipInfo.Surname }} {{ particip.SchoolParticipInfo.Name }} {{ particip.SchoolParticipInfo.SecondName }}</h4>
-                <div>Предмет: {{ particip.RsurSubjectName }}</div>
-                <div>Школа: {{ particip.SchoolParticipInfo.SchoolName }}</div>
+                <div><span class="text-muted">Предмет:</span> {{ particip.RsurSubjectName }}</div>
+                <div><span class="text-muted">Предыдущая школа:</span> {{ particip.SchoolParticipInfo.SchoolName }}</div>
                 <div class="block-name">
-                    Последняя диагностика: 
+                    <span class="text-muted">Последняя диагностика:</span> 
                     <span style="color:red" *ngIf="particip.LastBlockStatus === 0">{{ particip.LastBlockName }} (не сдана)</span>
                     <span style="color:green" *ngIf="particip.LastBlockStatus === 1">{{ particip.LastBlockName }} (сдана)</span>
                     <span style="color:orange" *ngIf="particip.LastBlockStatus === 2">(не участвовал(-а) в диагностиках РСУР)</span>

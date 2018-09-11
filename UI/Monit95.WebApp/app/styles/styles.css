@@ -42,6 +42,23 @@ label{
     color: black;
 }
 
+.list-item-link__disabled {
+    display: block;
+    text-decoration: none;
+    color: gray;
+    cursor: default;
+    padding: 5px 23px;
+    background-color: white;
+    border-radius: 5px;
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.list-item-link__disabled:hover{
+    text-decoration:none;
+    color:gray;
+}
+
 .warn-border:hover {
     border-color: red;
     box-shadow: 0 8px 8px #ff00002e, 0 0 8px #ff00005c, 0 6px 18px #ff000042;

@@ -136,6 +136,10 @@ export class CreateParticipComponent {
 		this.participService.createParticip(this.convertFormToModel()).subscribe(() => this.location.back())
 	}
 
+	cancel() {
+		this.location.back();
+	}
+
 	private convertFormToModel(): RsurParticipPostModel {
 		const birthday = new Date(this.birthday.year.value, this.birthday.month.value, this.birthday.day.value + 1);
 

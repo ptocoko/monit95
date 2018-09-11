@@ -1,9 +1,9 @@
-﻿<h3>Актуализация РСУР: этап 1</h3>
+﻿<h3>Актуализация РСУР: Этап 1</h3>
 <hr/>
 <div *ngIf="isActualizing; else actualizationIsEnding">
     <div class="jumbotron">
-        На данном этапе необходимо <b>удалить</b> из списка ниже участников, которые по той или иной причине не будут принимать участие в ближайшей диагностике РСУР. <br/>
-        <b>Ближайшая диагностика РСУР будет проходить *дата* - *дата*</b>
+        <p>На данном этапе необходимо <b>удалить</b> из списка участников РСУР уволившихся учителей.</p>
+        <p><b>ВНИМАНИЕ!</b> Список исключенных участников будет проверен на наличие соответствующих приказов.</p>
     </div>
 
     <div class="table-container">
@@ -15,7 +15,7 @@
                 <th>предмет</th>
                 <th>последняя диагностика участника</th>
             </tr>
-            <tr *ngFor="let particip of particips; let i = index" [ngClass]="{'notActual': particip.ActualCode === 0}">
+            <tr *ngFor="let particip of particips; let i = index" [ngClass]="{'notActual': particip.ActualCode === 2}">
                 <td>{{ i + 1 }}</td>
                 <td>{{ particip.Code }}</td>
                 <td>{{ particip.SchoolParticipInfo.Surname }} {{ particip.SchoolParticipInfo.Name }} {{ particip.SchoolParticipInfo.SecondName }}</td>
@@ -26,11 +26,11 @@
                     <span class="no-participate-color" *ngIf="particip.LastBlockStatus === 2">{{ particip.LastBlockName }} (не участвовал(-а) в диагностиках РСУР)</span>
                 </td>
                 <td>
-                    <span *ngIf="particip.ActualCode === 0">
+                    <span *ngIf="particip.ActualCode === 2">
                         <button mat-raised-button
                                 (click)="cancelFiring(particip)"
                                 color="primary">
-                            Включить в список
+                            Отмена
                         </button>
                     </span>
                     <span *ngIf="particip.ActualCode === 1">
@@ -52,5 +52,6 @@
 <ng-template #actualizationIsEnding>
     <div class="content-center">
         <h2>Первый этап актуализации окончен</h2>
+        <button mat-raised-button (click)="notEnded()" color="primary">Отменить завершение</button>
     </div>
 </ng-template>

@@ -126,6 +126,9 @@ var CreateParticipComponent = /** @class */ (function () {
         var _this = this;
         this.participService.createParticip(this.convertFormToModel()).subscribe(function () { return _this.location.back(); });
     };
+    CreateParticipComponent.prototype.cancel = function () {
+        this.location.back();
+    };
     CreateParticipComponent.prototype.convertFormToModel = function () {
         var birthday = new Date(this.birthday.year.value, this.birthday.month.value, this.birthday.day.value + 1);
         return {

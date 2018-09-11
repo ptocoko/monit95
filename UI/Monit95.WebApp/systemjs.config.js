@@ -1,5 +1,5 @@
 ﻿(function () {    
-    const appVersionExtension = 'js?v=291';
+    const appVersionExtension = 'js?v=295';
     System.config({
         paths: {
             // псевдоним для пути к модулям

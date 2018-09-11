@@ -141,4 +141,8 @@ export class ParticipsListComponent {
 			}
 		});
 	}
+
+	notFinished() {
+		this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(() => this.isFinished = false);
+	}
 }

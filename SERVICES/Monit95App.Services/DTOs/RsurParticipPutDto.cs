@@ -5,7 +5,7 @@
     public class RsurParticipPutDto
     {       
         [Required]
-        [Range(0, 1)]
+        [Range(0, 3)]
         public int ActualCode { get; set; }                
     }
 }

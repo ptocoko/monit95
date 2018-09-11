@@ -20,7 +20,7 @@ var FiringListComponent = /** @class */ (function () {
             _this.isActualizing = !state.IsFinished;
             if (_this.isActualizing) {
                 _this.rsurParticipService.getAll().subscribe(function (res) {
-                    _this.particips = res;
+                    _this.particips = res.filter(function (f) { return f.ActualCode === 1 || f.ActualCode === 2; });
                 });
             }
         });
@@ -34,10 +34,10 @@ var FiringListComponent = /** @class */ (function () {
         });
         dialogRef.afterClosed().subscribe(function (res) {
             if (res) {
-                var firedParticip = tslib_1.__assign({}, particip, { ActualCode: 0 });
+                var firedParticip = tslib_1.__assign({}, particip, { ActualCode: 2 });
                 _this.rsurParticipService.update(particip.Code, firedParticip).subscribe(function () {
                     var participIndex = _this.particips.findIndex(function (prt) { return prt.Code === particip.Code; });
-                    _this.particips[participIndex].ActualCode = 0;
+                    _this.particips[participIndex].ActualCode = 2;
                 });
             }
         });
@@ -64,13 +64,17 @@ var FiringListComponent = /** @class */ (function () {
         var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
             width: '400px',
             disableClose: true,
-            data: { message: "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u044D\u0442\u0430\u043F 1? (\u044D\u0442\u043E \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043B\u044C\u0437\u044F \u043E\u0442\u043C\u0435\u043D\u0438\u0442\u044C)" }
+            data: { message: "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u044D\u0442\u0430\u043F 1?" }
         });
         dialogRef.afterClosed().subscribe(function (res) {
             if (res) {
                 _this.schoolCollectorService.isFinished(COLLECTOR_ID, true).subscribe(function () { return _this.isActualizing = false; });
             }
         });
+    };
+    FiringListComponent.prototype.notEnded = function () {
+        var _this = this;
+        this.schoolCollectorService.isFinished(COLLECTOR_ID, false).subscribe(function () { return _this.ngOnInit(); });
     };
     FiringListComponent = tslib_1.__decorate([
         core_1.Component({

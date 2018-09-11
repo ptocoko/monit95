@@ -24,7 +24,7 @@ export class FiringListComponent {
 			this.isActualizing = !state.IsFinished;
 			if (this.isActualizing) {
 				this.rsurParticipService.getAll().subscribe(res => {
-					this.particips = res;
+					this.particips = res.filter(f => f.ActualCode === 1 || f.ActualCode === 2);
 				});
 			}
 		});
@@ -39,10 +39,10 @@ export class FiringListComponent {
 
 		dialogRef.afterClosed().subscribe(res => {
 			if (res) {
-				const firedParticip: RsurParticipModel = { ...particip, ActualCode: 0 };
+				const firedParticip: RsurParticipModel = { ...particip, ActualCode: 2 };
 				this.rsurParticipService.update(particip.Code, firedParticip).subscribe(() => {
 					const participIndex = this.particips.findIndex(prt => prt.Code === particip.Code);
-					this.particips[participIndex].ActualCode = 0;
+					this.particips[participIndex].ActualCode = 2;
 				});
 			}
 		});
@@ -70,7 +70,7 @@ export class FiringListComponent {
 		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
 			width: '400px',
 			disableClose: true,
-			data: { message: `Вы уверены что хотите завершить этап 1? (это действие нельзя отменить)` }
+			data: { message: `Вы уверены что хотите завершить этап 1?` }
 		});
 
 		dialogRef.afterClosed().subscribe(res => {
@@ -78,5 +78,9 @@ export class FiringListComponent {
 				this.schoolCollectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isActualizing = false);
 			}
 		});
+	}
+
+	notEnded() {
+		this.schoolCollectorService.isFinished(COLLECTOR_ID, false).subscribe(() => this.ngOnInit());
 	}
 }
