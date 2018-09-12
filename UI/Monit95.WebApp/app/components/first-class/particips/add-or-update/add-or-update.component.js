@@ -99,9 +99,9 @@ var AddOrUpdateComponent = /** @class */ (function () {
     };
     AddOrUpdateComponent.prototype.createForm = function () {
         this.participForm = this.fb.group({
-            surname: ['', [forms_1.Validators.required, forms_1.Validators.minLength(4)]],
-            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
-            secondName: ['', forms_1.Validators.minLength(5)],
+            surname: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3), forms_1.Validators.maxLength(25)]],
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2), forms_1.Validators.maxLength(25)]],
+            secondName: ['', forms_1.Validators.maxLength(25)],
             birthday: this.fb.group({
                 day: ['', [forms_1.Validators.required, forms_1.Validators.min(1), forms_1.Validators.max(31)]],
                 month: ['', [forms_1.Validators.required, forms_1.Validators.min(0), forms_1.Validators.max(12)]],

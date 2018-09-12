@@ -111,9 +111,9 @@ export class AddOrUpdateComponent {
 
 	createForm() {
 		this.participForm = this.fb.group({
-			surname: ['', [Validators.required, Validators.minLength(4)]],
-			name: ['', [Validators.required, Validators.minLength(3)]],
-			secondName: ['', Validators.minLength(5)],
+			surname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
+			name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+			secondName: ['', Validators.maxLength(25)],
 			birthday: this.fb.group({
 				day: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
 				month: ['', [Validators.required, Validators.min(0), Validators.max(12)]],

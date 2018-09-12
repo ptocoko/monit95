@@ -6,6 +6,10 @@
     {       
         [Required]
         [Range(0, 3)]
-        public int ActualCode { get; set; }                
+        public short ActualCode { get; set; }
+
+        public string SchoolId { get; set; }
+
+        public string SchoolIdFrom { get; set; }
     }
 }

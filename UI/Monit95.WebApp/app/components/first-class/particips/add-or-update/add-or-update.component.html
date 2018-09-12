@@ -7,7 +7,8 @@
             <input #surnameInput matInput placeholder="фамилия" formControlName="surname" />
             <mat-error *ngIf="surname.invalid && (surname.dirty || surname.touched)">
                 <div *ngIf="surname.errors.required">введите фамилию</div>
-                <div *ngIf="surname.errors.minlength">фамилия должна содержать хотя бы 4 символа</div>
+                <div *ngIf="surname.errors.minlength">фамилия должна содержать хотя бы 3 символа</div>
+                <div *ngIf="surname.errors.maxlength">фамилия должна содержать максимум 25 символов</div>
             </mat-error>
         </mat-form-field>
 
@@ -15,14 +16,15 @@
             <input matInput placeholder="имя" formControlName="name" />
             <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
                 <div *ngIf="name.errors.required">введите имя</div>
-                <div *ngIf="name.errors.minlength">имя должно содержать хотя бы 3 символа</div>
+                <div *ngIf="name.errors.minlength">имя должно содержать хотя бы 2 символа</div>
+                <div *ngIf="name.errors.maxlength">имя должно содержать максимум 25 символов</div>
             </mat-error>
         </mat-form-field>
 
         <mat-form-field>
             <input matInput placeholder="отчество" formControlName="secondName" />
             <mat-error *ngIf="secondName.invalid && (secondName.dirty || secondName.touched)">
-                <div *ngIf="secondName.errors.minlength">отчество должно содержать хотя бы 5 символа</div>
+                <div *ngIf="secondName.errors.maxlength">отчество должно содержать максимум 25 символов</div>
             </mat-error>
         </mat-form-field>
 

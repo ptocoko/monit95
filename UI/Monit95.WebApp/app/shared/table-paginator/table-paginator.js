@@ -6,6 +6,8 @@ var Subject_1 = require("rxjs/Subject");
 var TablePaginator = /** @class */ (function () {
     function TablePaginator() {
         this.pageIndexChange = new core_1.EventEmitter();
+        this.pageSizeOptions = [30, 60, 100];
+        this.pageSize = 30;
         this.pageSizeChange = new core_1.EventEmitter();
         this.change$ = new Subject_1.Subject();
         this.page = this.change$.asObservable();

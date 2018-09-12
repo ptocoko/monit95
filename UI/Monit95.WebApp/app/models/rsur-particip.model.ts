@@ -21,5 +21,7 @@ export class RsurParticipModel {
 	public Email?: string;
 	
 	public ClassNumbers?: string;
+
+	public SchoolId?: string;
 	public SchoolIdFrom?: string;
 }

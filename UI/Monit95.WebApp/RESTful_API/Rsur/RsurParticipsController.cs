@@ -99,7 +99,14 @@ namespace Monit95App.Web.Api
                 return this.BadRequest(ModelState);
             }
 
-            this._rsurParticipService.Update(code, dto);
+            try
+            {
+                this._rsurParticipService.Update(code, dto);
+            }
+            catch(ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
 
             return Ok();
         }

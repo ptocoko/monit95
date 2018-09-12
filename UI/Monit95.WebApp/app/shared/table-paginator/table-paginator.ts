@@ -15,9 +15,9 @@ export class TablePaginator {
 	@Input() length: number;
 	private maxPageIndex: number;
 
-	@Input() pageSizeOptions: number[];
+	@Input() pageSizeOptions: number[] = [30, 60, 100];
 
-	@Input() pageSize: number;
+	@Input() pageSize: number = 30;
 	@Output() pageSizeChange = new EventEmitter<number>();
 
 	private change$ = new Subject<any>();

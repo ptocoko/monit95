@@ -14,7 +14,7 @@ namespace Monit95App.Services.Interfaces
 
         IEnumerable<RsurParticipGetDto> GetAll(int? areaCode = null, string schoolId = null);
 
-        IEnumerable<RsurParticipGetDto> Search(SearchOptions options);
+        ParticipSearch Search(SearchOptions options);
 
         void Update(int code, RsurParticipPutDto dto);
 

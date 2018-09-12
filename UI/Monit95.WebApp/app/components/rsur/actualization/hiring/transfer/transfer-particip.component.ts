@@ -11,7 +11,11 @@ import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { map } from 'rxjs/operators/map';
 import { RsurParticipModel } from '../../../../../models/rsur-particip.model';
-import { RsurParticipService } from '../../../../../services/rsur-particip.service';
+import { RsurParticipService, SearchParticips } from '../../../../../services/rsur-particip.service';
+import { TablePaginator } from '../../../../../shared/table-paginator/table-paginator';
+import { ParticipPostModel } from '../../../../../models/first-class/particip-post.model';
+import { RsurParticipPostModel } from '../../../../../models/rsur/particip-post.model';
+import { AccountService } from '../../../../../services/account.service';
 
 @Component({
 	selector: 'app-transfer-particip',
@@ -28,12 +32,19 @@ export class TransferParticipComponent {
 	searchText: string;
 	isLoading: boolean = false;
 
+	pageIndex = 0;
+	pageSize = 30;
+	totalItems = 0;
+
 	selectionChange$ = new Subject<any>();
-	//searchChange$ = new Subject<any>();
 	
 	@ViewChild('searchField') searchField: ElementRef;
+	@ViewChild(TablePaginator) paginator: TablePaginator;
 
-	constructor(private schoolService: SchoolService, private areaService: AreaService, private rsurParticipService: RsurParticipService) { }
+	constructor(private schoolService: SchoolService,
+		private areaService: AreaService,
+		private rsurParticipService: RsurParticipService,
+		private accountService: AccountService) { }
 
 	ngOnInit() {
 		this.areaService.getAll().subscribe(areas => this.areas = areas);
@@ -43,29 +54,28 @@ export class TransferParticipComponent {
 				debounceTime(1000)
 			);
 
-		merge(search$, this.selectionChange$)
+		this.paginator.page.subscribe(() => window.scrollTo(0, 0));
+
+		merge(search$, this.selectionChange$, this.paginator.page)
 			.pipe(
 				switchMap(() => {
 					this.isLoading = true;
 					return this.rsurParticipService.search({
-						ActualCode: 0,
+						ActualCodes: [0, 2],
+						Page: this.pageIndex + 1,
+						PageSize: this.pageSize,
 						...(this.areaCode && { AreaCode: this.areaCode }),
 						...(this.schoolId && { SchoolId: this.schoolId }),
 						...(this.searchText && { Search: this.searchText })
 					});
 				}),
-				map((data: RsurParticipModel[]) => {
+				map((data: SearchParticips) => {
 					this.isLoading = false;
-					//this.participsLength = data.TotalCount;
-					//this.classes = data.Classes;
-					return data;
+					this.totalItems = data.TotalItems;
+					return data.Items;
 				})
 			).subscribe((particips: RsurParticipModel[]) => this.particips = particips);
 	}
-
-	//search() {
-	//	this.searchChange$.next({});
-	//}
 
 	areaSelected(areaCode: number) {
 		this.selectionChange$.next({});
@@ -78,5 +88,24 @@ export class TransferParticipComponent {
 
 	schoolSelected() {
 		this.selectionChange$.next({});
+	}
+
+	hire(particip: RsurParticipModel) {
+		const part = {
+			ActualCode: 3,
+			SchoolId: this.accountService.account.UserName,
+			SchoolIdFrom: particip.SchoolId
+		} as RsurParticipModel;
+
+		this.rsurParticipService.update(particip.Code, part).subscribe(() => particip.ActualCode = 3);
+	}
+
+	cancelHiring(particip: RsurParticipModel) {
+		const part = {
+			ActualCode: 2,
+			SchoolId: particip.SchoolIdFrom
+		} as RsurParticipModel;
+
+		this.rsurParticipService.update(particip.Code, part).subscribe(() => particip.ActualCode = 2);
 	}
 }

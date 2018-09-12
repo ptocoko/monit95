@@ -35,5 +35,9 @@ namespace Monit95App.Services.DTOs
         public string LastBlockName { get; set; }
 
         public int? LastBlockStatus { get; set; }
+
+        public string SchoolId { get; set; }
+
+        public string SchoolIdFrom { get; set; }
     }
 }

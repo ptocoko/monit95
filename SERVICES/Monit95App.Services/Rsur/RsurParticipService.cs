@@ -133,7 +133,7 @@ namespace Monit95App.Services.Rsur
             return dtos.OrderBy(ob => ob.SchoolParticipInfo.Surname).ThenBy(tb => tb.SchoolParticipInfo.Name).ThenBy(tb => tb.SchoolParticipInfo.SecondName);
         }
 
-        public IEnumerable<RsurParticipGetDto> Search(SearchOptions options)
+        public ParticipSearch Search(SearchOptions options)
         {
             var query = _cokoContext.RsurParticips.AsNoTracking().AsQueryable();
 
@@ -149,9 +149,9 @@ namespace Monit95App.Services.Rsur
                     query = query.Where(p => p.SchoolId == options.SchoolId);
                 }
 
-                if (options.ActualCode.HasValue)
+                if (options.ActualCodes != null)
                 {
-                    query = query.Where(p => p.ActualCode == options.ActualCode.Value);
+                    query = query.Where(p => options.ActualCodes.Contains(p.ActualCode));
                 }
 
                 if(options.Search != null)
@@ -165,11 +165,17 @@ namespace Monit95App.Services.Rsur
 
             query = query.OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.SecondName);
 
+            var totalItems = query.Count();
+
             query = query.Skip(options.PageSize * (options.Page - 1)).Take(options.PageSize);
 
             var dtos = query.AsEnumerable().Select(MapParticips);
 
-            return dtos;
+            return new ParticipSearch
+            {
+                TotalItems = totalItems,
+                Items = dtos
+            };
         }
 
         public void Update(int code, RsurParticipPutDto dto)
@@ -188,8 +194,18 @@ namespace Monit95App.Services.Rsur
                 throw new ArgumentException(nameof(code));
             }
 
-            Mapper.Initialize(cfg => cfg.CreateMap<RsurParticipPutDto, RsurParticip>());
-            Mapper.Map(dto, entity);
+            //Mapper.Initialize(cfg => cfg.CreateMap<RsurParticipPutDto, RsurParticip>());
+            //Mapper.Map(dto, entity);
+
+            entity.ActualCode = dto.ActualCode;
+            if(dto.SchoolId != null)
+            {
+                entity.SchoolId = dto.SchoolId;
+            }
+            if(dto.SchoolIdFrom != null)
+            {
+                entity.SchoolIdFrom = dto.SchoolIdFrom;
+            }
 
             this._cokoContext.SaveChanges();
         }
@@ -233,7 +249,9 @@ namespace Monit95App.Services.Rsur
                 Email = src.Email,
                 Phone = src.Phone,
                 CategoryName = src.Category.Name.TrimEnd(),
-                Birthday = src.Birthday.HasValue ? src.Birthday.Value.ToString("dd.MM.yyyy г.") : null
+                Birthday = src.Birthday.HasValue ? src.Birthday.Value.ToString("dd.MM.yyyy г.") : null,
+                SchoolId = src.SchoolId,
+                SchoolIdFrom = src.SchoolIdFrom
             };
         }
 
@@ -278,11 +296,17 @@ namespace Monit95App.Services.Rsur
         }
     }
 
+    public class ParticipSearch
+    {
+        public int TotalItems { get; set; }
+        public IEnumerable<RsurParticipGetDto> Items { get; set; }
+    }
+
     public class SearchOptions
     {
         public int? AreaCode { get; set; }
         public string SchoolId { get; set; }
-        public int? ActualCode { get; set; }
+        public int[] ActualCodes { get; set; }
         public string Search { get; set; }
         public int PageSize { get; set; } = 30;
         public int Page { get; set; } = 1;
