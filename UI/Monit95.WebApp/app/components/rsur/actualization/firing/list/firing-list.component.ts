@@ -13,6 +13,7 @@ const COLLECTOR_ID = 2;
 })
 export class FiringListComponent {
 	isActualizing = true;
+	isLoading = false;
 	particips: RsurParticipModel[];
 
 	constructor(private rsurParticipService: RsurParticipService,
@@ -23,8 +24,10 @@ export class FiringListComponent {
 		this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(state => {
 			this.isActualizing = !state.IsFinished;
 			if (this.isActualizing) {
+				this.isLoading = true;
 				this.rsurParticipService.getAll().subscribe(res => {
 					this.particips = res.filter(f => f.ActualCode === 1 || f.ActualCode === 2);
+					this.isLoading = false;
 				});
 			}
 		});

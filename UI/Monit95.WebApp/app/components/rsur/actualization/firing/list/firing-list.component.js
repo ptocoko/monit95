@@ -13,14 +13,17 @@ var FiringListComponent = /** @class */ (function () {
         this.schoolCollectorService = schoolCollectorService;
         this.dialog = dialog;
         this.isActualizing = true;
+        this.isLoading = false;
     }
     FiringListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(function (state) {
             _this.isActualizing = !state.IsFinished;
             if (_this.isActualizing) {
+                _this.isLoading = true;
                 _this.rsurParticipService.getAll().subscribe(function (res) {
                     _this.particips = res.filter(function (f) { return f.ActualCode === 1 || f.ActualCode === 2; });
+                    _this.isLoading = false;
                 });
             }
         });

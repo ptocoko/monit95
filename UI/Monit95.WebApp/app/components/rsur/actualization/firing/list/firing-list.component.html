@@ -6,6 +6,8 @@
         <p><b>ВНИМАНИЕ!</b> Список исключенных участников будет проверен на наличие соответствующих приказов.</p>
     </div>
 
+    <spinner-view *ngIf="isLoading" [caption]="'Загрузка...'"></spinner-view>
+
     <div class="table-container">
         <table class="table table-bordered">
             <tr>
