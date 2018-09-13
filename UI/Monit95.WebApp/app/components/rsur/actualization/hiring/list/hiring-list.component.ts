@@ -17,9 +17,9 @@ import { SCHOOLNAME_DEFAULT_SELECTION } from '../../../reports/report-list/repor
 	styleUrls: [`./app/components/rsur/actualization/hiring/list/hiring-list.component.css?v=${new Date().getTime()}`]
 })
 export class HiringListComponent implements OnInit {
-    allParticips: RsurParticipModel[] = [];
-    actualParticips: RsurParticipModel[] = [];
-    displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName'];
+    //allParticips: RsurParticipModel[] = [];
+    particips: RsurParticipModel[] = [];
+    displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'action'];
     dataSource = new MatTableDataSource<RsurParticipModel>();
 	isLoading = true;
 	
@@ -41,11 +41,11 @@ export class HiringListComponent implements OnInit {
 	getParticips() {
 		this.rsurParticipService.getAll()
             .subscribe(response => {
-				this.allParticips = response;
-				this.actualParticips = this.allParticips.filter(f => f.ActualCode === 1);
+				this.particips = response.filter(f => f.ActualCode === 1 || f.ActualCode === 3 || f.ActualCode === 4);
 				
-				this.dataSource = new MatTableDataSource<RsurParticipModel>(this.actualParticips);
-                
+				this.dataSource = new MatTableDataSource<RsurParticipModel>(this.particips);
+				this.dataSource.filterPredicate = defaultFilterPredicate;
+
                 this.isLoading = false;
 				this.dataSource.sort = this.sort;
 				this.dataSource.paginator = this.paginator;
@@ -56,11 +56,40 @@ export class HiringListComponent implements OnInit {
 		this.dataSource.filter = this.filterText.trim().toLowerCase();
 	}
 
-	focusFilterInput() {
+	cancelHiring(particip: RsurParticipModel) {
+		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+			width: '400px',
+			disableClose: true,
+			data: { message: `Вы уверены что хотите отменить добавление участника '${particip.SchoolParticipInfo.Surname} ${particip.SchoolParticipInfo.Name} ${particip.SchoolParticipInfo.SecondName}'? Это действие нельзя отменить` }
+		});
 
-		// на случай если используется кастомный предикат, заменяем его предикатом по умолчанию
-		this.dataSource.filterPredicate = defaultFilterPredicate;
+		dialogRef.afterClosed().subscribe(res => {
+			if (res) {
+				if (particip.ActualCode === 3) {
+					const part = {
+						ActualCode: 2,
+						SchoolId: particip.SchoolIdFrom
+					} as RsurParticipModel;
+
+					this.rsurParticipService.update(particip.Code, part).subscribe(() => this.deleteItem(particip.Code));
+				} else if (particip.ActualCode === 4) {
+					this.rsurParticipService.delete(particip.Code).subscribe(() => this.deleteItem(particip.Code));
+				}
+			}
+		});
 	}
+
+	private deleteItem(itemCode: number) {
+		const partIndex = this.particips.findIndex(p => p.Code === itemCode);
+
+		this.particips.splice(partIndex);
+		this.dataSource = new MatTableDataSource<RsurParticipModel>(this.particips);
+	}
+	//focusFilterInput() {
+
+	//	// на случай если используется кастомный предикат, заменяем его предикатом по умолчанию
+	//	this.dataSource.filterPredicate = defaultFilterPredicate;
+	//}
 };
 
 

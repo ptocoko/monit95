@@ -20,11 +20,11 @@ export class RsurParticipService {
     }
 
     update(code: number, particip: RsurParticipModel) {
-		return this.http.put(`${this.ROUTE_PREFIX}/${particip.Code}`, particip, { responseType: 'text' });
+		return this.http.put(`${this.ROUTE_PREFIX}/${code}`, particip, { responseType: 'text' });
     }
 
     delete(code: number) {
-        return this.http.delete(`${this.ROUTE_PREFIX}/${code}`);
+		return this.http.delete(`${this.ROUTE_PREFIX}/${code}`, { responseType: 'text' });
 	}
 
 	search(options: SearchOptions) {

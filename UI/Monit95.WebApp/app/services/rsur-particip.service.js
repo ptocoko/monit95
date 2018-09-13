@@ -16,10 +16,10 @@ var RsurParticipService = /** @class */ (function () {
         return this.http.get(this.ROUTE_PREFIX);
     };
     RsurParticipService.prototype.update = function (code, particip) {
-        return this.http.put(this.ROUTE_PREFIX + "/" + particip.Code, particip, { responseType: 'text' });
+        return this.http.put(this.ROUTE_PREFIX + "/" + code, particip, { responseType: 'text' });
     };
     RsurParticipService.prototype.delete = function (code) {
-        return this.http.delete(this.ROUTE_PREFIX + "/" + code);
+        return this.http.delete(this.ROUTE_PREFIX + "/" + code, { responseType: 'text' });
     };
     RsurParticipService.prototype.search = function (options) {
         return this.http.get(this.ROUTE_PREFIX + "/search", { params: options });

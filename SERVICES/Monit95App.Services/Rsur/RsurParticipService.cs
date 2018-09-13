@@ -76,7 +76,7 @@ namespace Monit95App.Services.Rsur
             //Validator.ValidateObject(dto, validContext, true);
 
             Mapper.Initialize(cfg => cfg.CreateMap<ParticipAddDto, RsurParticip>()
-                                        .AfterMap((s, d) => d.ActualCode = 2));
+                                        .AfterMap((s, d) => d.ActualCode = 4));
             var entity = Mapper.Map<ParticipAddDto, RsurParticip>(dto);
 
             this._cokoContext.RsurParticips.Add(entity);

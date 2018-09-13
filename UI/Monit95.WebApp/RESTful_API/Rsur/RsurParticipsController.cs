@@ -110,6 +110,28 @@ namespace Monit95App.Web.Api
 
             return Ok();
         }
+
+        [HttpDelete]
+        [Authorize(Roles = "school")]
+        [Route("{code:int}")]
+        public IHttpActionResult Delete([FromUri]int code)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                _rsurParticipService.Delete(code);
+            }
+            catch(ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            return Ok();
+        }
         #endregion
     }
 }

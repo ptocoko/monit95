@@ -8,7 +8,6 @@
             <input matInput 
                    [(ngModel)]="filterText"
                    (keyup)="applyFilter()" 
-                   (focus)="focusFilterInput()" 
                    placeholder="поиск..." />
         </mat-form-field>
 
@@ -43,12 +42,18 @@
             <mat-cell *matCellDef="let element"> {{element.RsurSubjectName}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button color="warn" *ngIf="element.ActualCode === 3 || element.ActualCode === 4" mat-raised-button (click)="cancelHiring(element)">отменить добавление</button>
+            </mat-cell>
+        </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row [ngClass]="{'newItem': row.ActualCode === 3 || row.ActualCode === 4 }" *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <mat-paginator #paginator
-                   [length]="actualParticips.length"
+                   [length]="particips.length"
                    [pageSizeOptions]="['50', '100']">
     </mat-paginator>
 </div>

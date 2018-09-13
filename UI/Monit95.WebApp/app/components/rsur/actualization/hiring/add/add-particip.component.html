@@ -73,9 +73,9 @@
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput type="number" placeholder="стаж работы" formControlName="experience" />
+        <input matInput type="number" min="0" placeholder="стаж работы" formControlName="experience" />
         <mat-error *ngIf="experience.invalid && (experience.dirty || experience.touched)">
-            <div *ngIf="surname.errors.required">укажите стаж работы</div>
+            <div *ngIf="experience.errors.required">укажите стаж работы</div>
         </mat-error>
     </mat-form-field>
 
