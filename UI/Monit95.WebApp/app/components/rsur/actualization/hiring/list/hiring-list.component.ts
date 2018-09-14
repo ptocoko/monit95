@@ -10,6 +10,9 @@ import { AccountModel } from '../../../../../models/account.model';
 import { RsurParticipService } from '../../../../../services/rsur-particip.service';
 import { AccountService } from '../../../../../services/account.service';
 import { SCHOOLNAME_DEFAULT_SELECTION } from '../../../reports/report-list/report-list.component';
+import { SchoolCollectorService } from '../../../../../shared/school-collector.service';
+
+const COLLECTOR_ID = 4;
 
 @Component({
     selector: 'rsur/particips',
@@ -17,25 +20,25 @@ import { SCHOOLNAME_DEFAULT_SELECTION } from '../../../reports/report-list/repor
 	styleUrls: [`./app/components/rsur/actualization/hiring/list/hiring-list.component.css?v=${new Date().getTime()}`]
 })
 export class HiringListComponent implements OnInit {
-    //allParticips: RsurParticipModel[] = [];
     particips: RsurParticipModel[] = [];
-    displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'action'];
-    dataSource = new MatTableDataSource<RsurParticipModel>();
 	isLoading = true;
+	isFinished = false;
 	
-	filterText: string;
-
-	@ViewChild(MatSort) sort: MatSort;
-	@ViewChild(MatPaginator) paginator: MatPaginator;
 	
     constructor(private readonly rsurParticipService: RsurParticipService,
 				private readonly accauntService: AccountService,
 				private readonly snackBar: MatSnackBar,
-				private readonly dialog: MatDialog) {
+				private readonly dialog: MatDialog,
+				private readonly collectorService: SchoolCollectorService) {
     }
 
 	ngOnInit() {
-		this.getParticips();
+		this.collectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(state => {
+			this.isFinished = state.IsFinished;
+			if (!this.isFinished) {
+				this.getParticips();
+			}
+		});
 	}
 
 	getParticips() {
@@ -43,17 +46,8 @@ export class HiringListComponent implements OnInit {
             .subscribe(response => {
 				this.particips = response.filter(f => f.ActualCode === 1 || f.ActualCode === 3 || f.ActualCode === 4);
 				
-				this.dataSource = new MatTableDataSource<RsurParticipModel>(this.particips);
-				this.dataSource.filterPredicate = defaultFilterPredicate;
-
                 this.isLoading = false;
-				this.dataSource.sort = this.sort;
-				this.dataSource.paginator = this.paginator;
             });
-	}
-
-	applyFilter() {
-		this.dataSource.filter = this.filterText.trim().toLowerCase();
 	}
 
 	cancelHiring(particip: RsurParticipModel) {
@@ -79,11 +73,29 @@ export class HiringListComponent implements OnInit {
 		});
 	}
 
+	finish() {
+		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+			width: '400px',
+			disableClose: true,
+			data: { message: `Вы уверены что хотите завершить этап 2?` }
+		});
+
+		dialogRef.afterClosed().subscribe(res => {
+			if (res) {
+				this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isFinished = true);
+			}
+		});
+	}
+
+	notFinish() {
+		this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(() => this.isFinished = false);
+		this.ngOnInit();
+	}
+
 	private deleteItem(itemCode: number) {
 		const partIndex = this.particips.findIndex(p => p.Code === itemCode);
 
 		this.particips.splice(partIndex, 1);
-		this.dataSource = new MatTableDataSource<RsurParticipModel>(this.particips);
 	}
 	//focusFilterInput() {
 

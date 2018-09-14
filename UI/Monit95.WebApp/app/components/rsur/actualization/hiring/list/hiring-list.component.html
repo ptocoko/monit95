@@ -1,60 +1,46 @@
 ﻿<h2>Этап 2: добавление участников</h2>
-<p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
-    <mat-spinner></mat-spinner>
-</p>
 
-<div class="example-container mat-elevation-z8">
-    <div class="table-filters">
-        <mat-form-field class="filter-field">
-            <input matInput 
-                   [(ngModel)]="filterText"
-                   (keyup)="applyFilter()" 
-                   placeholder="поиск..." />
-        </mat-form-field>
-
+<div *ngIf="!isFinished">
+    <p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
+        <mat-spinner></mat-spinner>
+    </p>
+    <p class="text-right">
         <button mat-raised-button color="primary" routerLink="/rsur/actualization/hire">Добавить участника</button>
+    </p>
+
+    <div class="table-container">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>код участника</th>
+                <th>фио</th>
+                <th>предмет</th>
+            </tr>
+            <tr style="height:53px" *ngFor="let particip of particips; let i = index" [ngClass]="{'newItem': particip.ActualCode === 3 || particip.ActualCode === 4}">
+                <td class="text-center">{{ i + 1 }}</td>
+                <td class="text-center">{{ particip.Code }}</td>
+                <td>{{ particip.SchoolParticipInfo.Surname }} {{ particip.SchoolParticipInfo.Name }} {{ particip.SchoolParticipInfo.SecondName }}</td>
+                <td>{{ particip.RsurSubjectName }}</td>
+                <td style="width:200px">
+                    <span *ngIf="particip.ActualCode === 3 || particip.ActualCode === 4">
+                        <button mat-raised-button
+                                (click)="cancelHiring(particip)"
+                                color="warn">
+                            Отменить добавление
+                        </button>
+                    </span>
+                </td>
+            </tr>
+        </table>
     </div>
+    
+    <div class="text-right">
+        <button mat-raised-button color="primary" (click)="finish()">Завершить этап 2</button>
+    </div>
+</div>
 
-    <mat-table #table [dataSource]="dataSource" matSort>
 
-        <!-- Position Column -->
-        <ng-container matColumnDef="Code">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> код участника </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Code}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="Surname">
-            <mat-header-cell *matHeaderCellDef> фамилия </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.Surname}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="Name">
-            <mat-header-cell *matHeaderCellDef> имя </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.Name}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="SecondName">
-            <mat-header-cell *matHeaderCellDef> отчество </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.SecondName}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="RsurSubjectName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> предмет </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.RsurSubjectName}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <button color="warn" *ngIf="element.ActualCode === 3 || element.ActualCode === 4" mat-raised-button (click)="cancelHiring(element)">отменить добавление</button>
-            </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row [ngClass]="{'newItem': row.ActualCode === 3 || row.ActualCode === 4 }" *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <mat-paginator #paginator
-                   [length]="particips.length"
-                   [pageSizeOptions]="['50', '100']">
-    </mat-paginator>
+<div *ngIf="isFinished" class="content-center">
+    <h2>Первый этап актуализации окончен</h2>
+    <button mat-raised-button (click)="notFinish()" color="primary">Отменить завершение</button>
 </div>

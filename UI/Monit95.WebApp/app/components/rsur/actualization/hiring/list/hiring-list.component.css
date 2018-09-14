@@ -32,6 +32,17 @@
     font-weight: normal;
 }
 
-.newItem{
-    background-color: lightgreen;
+.newItem {
+    background-color: #90ee9078;
+}
+
+
+.content-center {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
 }
