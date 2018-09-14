@@ -14,6 +14,7 @@ namespace Monit95App.Web.Api
     using Monit95App.Services.DTOs;
     using Monit95App.Services.Rsur;
     using Monit95App.Services.Rsur.Particip;
+    using ServiceResult.Exceptions;
 
     [Authorize]
     [RoutePrefix("api/RsurParticips")]
@@ -42,7 +43,15 @@ namespace Monit95App.Web.Api
                 return BadRequest(ModelState);
             }
 
-            var rsurParticipCode = this._rsurParticipService.Add(dto);
+            int rsurParticipCode;
+            try
+            {
+                rsurParticipCode = this._rsurParticipService.Add(dto);
+            }
+            catch (DublicateEntityException)
+            {
+                return Conflict();
+            }
 
             return Ok(rsurParticipCode);
         }

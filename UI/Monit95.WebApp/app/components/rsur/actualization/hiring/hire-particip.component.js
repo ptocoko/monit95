@@ -6,6 +6,10 @@ var HireComponent = /** @class */ (function () {
     function HireComponent() {
         this.isCreatingNew = 0;
     }
+    HireComponent.prototype.conflictHandler = function (participFio) {
+        this.isCreatingNew = 0;
+        this.searchText = participFio;
+    };
     HireComponent = tslib_1.__decorate([
         core_1.Component({
             templateUrl: "./app/components/rsur/actualization/hiring/hire-particip.component.html?v=" + new Date().getTime(),

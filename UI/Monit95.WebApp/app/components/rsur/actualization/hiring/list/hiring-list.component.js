@@ -61,7 +61,7 @@ var HiringListComponent = /** @class */ (function () {
     };
     HiringListComponent.prototype.deleteItem = function (itemCode) {
         var partIndex = this.particips.findIndex(function (p) { return p.Code === itemCode; });
-        this.particips.splice(partIndex);
+        this.particips.splice(partIndex, 1);
         this.dataSource = new material_1.MatTableDataSource(this.particips);
     };
     tslib_1.__decorate([

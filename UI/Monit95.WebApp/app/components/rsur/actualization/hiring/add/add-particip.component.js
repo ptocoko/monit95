@@ -14,6 +14,7 @@ var CreateParticipComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.location = location;
         this.accountService = accountService;
+        this.conflict = new core_1.EventEmitter();
         this.monthDays = Array.from({ length: 32 }, function (val, key) { return key; }).splice(1).slice();
         this.months = [
             {
@@ -124,7 +125,16 @@ var CreateParticipComponent = /** @class */ (function () {
     };
     CreateParticipComponent.prototype.submitForm = function () {
         var _this = this;
-        this.participService.createParticip(this.convertFormToModel()).subscribe(function () { return _this.location.back(); });
+        var particip = this.convertFormToModel();
+        this.participService.createParticip(particip).subscribe(function () { return _this.location.back(); }, function (error) {
+            if (error.status === 409) {
+                alert('Учитель с такими данными уже участвовал в РСУР');
+                _this.conflict.emit(particip.Surname + " " + particip.Name + " " + particip.SecondName);
+            }
+            else {
+                throw error;
+            }
+        });
     };
     CreateParticipComponent.prototype.cancel = function () {
         this.location.back();
@@ -196,6 +206,10 @@ var CreateParticipComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    tslib_1.__decorate([
+        core_1.Output(),
+        tslib_1.__metadata("design:type", Object)
+    ], CreateParticipComponent.prototype, "conflict", void 0);
     tslib_1.__decorate([
         core_1.ViewChild('surname'),
         tslib_1.__metadata("design:type", core_1.ElementRef)

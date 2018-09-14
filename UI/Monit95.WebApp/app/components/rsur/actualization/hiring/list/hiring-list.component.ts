@@ -82,7 +82,7 @@ export class HiringListComponent implements OnInit {
 	private deleteItem(itemCode: number) {
 		const partIndex = this.particips.findIndex(p => p.Code === itemCode);
 
-		this.particips.splice(partIndex);
+		this.particips.splice(partIndex, 1);
 		this.dataSource = new MatTableDataSource<RsurParticipModel>(this.particips);
 	}
 	//focusFilterInput() {

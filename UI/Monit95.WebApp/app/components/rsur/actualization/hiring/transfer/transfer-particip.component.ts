@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, ElementRef } from '@angular/core';
+﻿import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { SchoolService } from '../../../../../school.service';
 import { AreaService } from '../../../../../services/area.service';
 import { AreaModel } from '../../../../../models/area.model';
@@ -23,13 +23,14 @@ import { AccountService } from '../../../../../services/account.service';
 	styleUrls: [`./app/components/rsur/actualization/hiring/transfer/transfer-particip.component.css?v=${new Date().getTime()}`]
 })
 export class TransferParticipComponent {
+
 	areas: AreaModel[] = [];
 	schools: SchoolModel[] = [];
 	particips: RsurParticipModel[];
 
 	areaCode: number;
 	schoolId: string;
-	searchText: string;
+	@Input() searchText: string;
 	isLoading: boolean = false;
 
 	pageIndex = 0;
@@ -58,6 +59,7 @@ export class TransferParticipComponent {
 
 		merge(search$, this.selectionChange$, this.paginator.page)
 			.pipe(
+			    startWith({}),
 				switchMap(() => {
 					this.isLoading = true;
 					return this.rsurParticipService.search({

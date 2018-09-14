@@ -11,6 +11,7 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using Monit95App.Services.Interfaces;
 using Monit95App.Services.Rsur.Particip;
+using ServiceResult.Exceptions;
 
 namespace Monit95App.Services.Rsur
 {
@@ -74,6 +75,16 @@ namespace Monit95App.Services.Rsur
             _ = dto ?? throw new ArgumentNullException();
             //var validContext = new ValidationContext(dto);
             //Validator.ValidateObject(dto, validContext, true);
+
+            var identicalParticip = _cokoContext.RsurParticips.AsNoTracking().AsEnumerable().Where(p => p.Surname == dto.Surname 
+                                                                                                   && p.Name == dto.Name 
+                                                                                                   && p.RsurSubjectCode == dto.RsurSubjectCode 
+                                                                                                   && p.Birthday.HasValue 
+                                                                                                   && p.Birthday.Value.ToShortDateString() == dto.Birthday.Value.ToShortDateString());
+            if (identicalParticip.Any())
+            {
+                throw new DublicateEntityException();
+            }
 
             Mapper.Initialize(cfg => cfg.CreateMap<ParticipAddDto, RsurParticip>()
                                         .AfterMap((s, d) => d.ActualCode = 4));
@@ -157,9 +168,7 @@ namespace Monit95App.Services.Rsur
                 if(options.Search != null)
                 {
                     query = query.Where(p => p.Code.ToString().Contains(options.Search)
-                                          || p.Surname.Contains(options.Search)
-                                          || p.Name.Contains(options.Search)
-                                          || p.SecondName.Contains(options.Search));
+                                          || (p.Surname + " " + p.Name + " " + p.SecondName).Contains(options.Search));
                 }
             }
 

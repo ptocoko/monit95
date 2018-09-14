@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+﻿import { Component, ViewChild, ElementRef, Renderer2, EventEmitter, Output } from '@angular/core';
 import { RsurParticipService } from '../../../../../services/rsur-particip.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RsurParticipPostModel } from '../../../../../models/rsur/particip-post.model';
@@ -11,6 +11,8 @@ import { AccountService } from '../../../../../services/account.service';
 	styleUrls: [`./app/components/rsur/actualization/hiring/add/add-particip.component.css?v=${new Date().getTime()}`]
 })
 export class CreateParticipComponent {
+	@Output() conflict = new EventEmitter<string>();
+
 	participForm: FormGroup;
 
 	monthDays = [...Array.from({ length: 32 }, (val, key) => key).splice(1)];
@@ -133,7 +135,16 @@ export class CreateParticipComponent {
 	}
 
 	submitForm() {
-		this.participService.createParticip(this.convertFormToModel()).subscribe(() => this.location.back())
+		const particip = this.convertFormToModel();
+		this.participService.createParticip(particip).subscribe(() => this.location.back(), error => {
+			
+			if (error.status === 409) {
+				alert('Учитель с такими данными уже участвовал в РСУР');
+				this.conflict.emit(`${particip.Surname} ${particip.Name} ${particip.SecondName}`);
+			} else {
+				throw error;
+			}
+		});
 	}
 
 	cancel() {

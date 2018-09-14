@@ -12,5 +12,5 @@
     <mat-radio-button [value]="1">Не участвовал в предыдущих диагностиках РСУР</mat-radio-button>
 </mat-radio-group>
 
-<app-create-particip *ngIf="isCreatingNew === 1"></app-create-particip>
-<app-transfer-particip *ngIf="isCreatingNew === 0"></app-transfer-particip>
+<app-create-particip (conflict)="conflictHandler($event)" *ngIf="isCreatingNew === 1"></app-create-particip>
+<app-transfer-particip [searchText]="searchText" *ngIf="isCreatingNew === 0"></app-transfer-particip>
