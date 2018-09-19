@@ -19,8 +19,8 @@ var ProtocolsListComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.router = router;
         this.protocols = [];
-        this.processedProtocols = function () { return _this.protocols.filter(function (f) { return f.Marks; }).length; };
-        this.notProcessedProtocols = function () { return _this.protocols.filter(function (f) { return !f.Marks; }).length; };
+        this.processedProtocols = 0; //= () => this.protocols.filter(f => f.Marks).length;
+        this.notProcessedProtocols = 0; //() => this.protocols.filter(f => !f.Marks).length;
         this.classes = [];
         this.AbsentText = 'отсутствовал';
         this.isLoading = true;
@@ -50,6 +50,8 @@ var ProtocolsListComponent = /** @class */ (function () {
             _this.isLoading = false;
             _this.protocolsLength = data.TotalCount;
             _this.classes = data.Classes;
+            _this.processedProtocols = data.ProcessedItemsCount;
+            _this.notProcessedProtocols = data.NotProcessedItemsCount;
             return data.Items;
         })).subscribe(function (protocols) { return _this.protocols = protocols; });
     };

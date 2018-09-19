@@ -19,8 +19,8 @@ import { ClassModel } from '../../../../models/class.model';
 })
 export class ProtocolsListComponent {
 	protocols: ProtocolGetModel[] = [];
-	processedProtocols = () => this.protocols.filter(f => f.Marks).length;
-	notProcessedProtocols = () => this.protocols.filter(f => !f.Marks).length;
+	processedProtocols = 0; //= () => this.protocols.filter(f => f.Marks).length;
+	notProcessedProtocols = 0; //() => this.protocols.filter(f => !f.Marks).length;
 
 	classes: ClassModel[] = [];
 
@@ -64,8 +64,13 @@ export class ProtocolsListComponent {
 				}),
 				map((data: ProtocolsList) => {
 					this.isLoading = false;
+
 					this.protocolsLength = data.TotalCount;
 					this.classes = data.Classes;
+
+					this.processedProtocols = data.ProcessedItemsCount;
+					this.notProcessedProtocols = data.NotProcessedItemsCount;
+
 					return data.Items;
 				})
 			).subscribe((protocols: ProtocolGetModel[]) => this.protocols = protocols);

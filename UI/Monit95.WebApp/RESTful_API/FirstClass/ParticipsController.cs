@@ -23,97 +23,102 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         [HttpGet, Route("")]
         public IHttpActionResult Get([FromUri]GetAllOptions options)
         {
-            string schoolId = User.Identity.Name;
-            ParticipList dto;
+            //string schoolId = User.Identity.Name;
+            //ParticipList dto;
 
-            try
-            { 
-                dto = participService.GetParticips(schoolId, _projectId, options);
-            }
-            catch(ArgumentNullException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //try
+            //{ 
+            //    dto = participService.GetParticips(schoolId, _projectId, options);
+            //}
+            //catch(ArgumentNullException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
 
-            return Ok(dto);
+            //return Ok(dto);
+            return BadRequest();
         }
 
         [HttpGet, Route("{participId:int}")]
         public IHttpActionResult Get(int participId)
         {
-            string schoolId = User.Identity.Name;
-            ParticipGetDto dto;
-            try
-            {
-                dto = participService.GetParticip(participId, schoolId);
-            }
-            catch (ArgumentException)
-            {
-                return NotFound();
-            }
+            //string schoolId = User.Identity.Name;
+            //ParticipGetDto dto;
+            //try
+            //{
+            //    dto = participService.GetParticip(participId, schoolId);
+            //}
+            //catch (ArgumentException)
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(dto);
+            //return Ok(dto);
+            return BadRequest();
         }
 
         [HttpPut, Route("{participId:int}")]
         public IHttpActionResult Put(int participId, [FromBody]ParticipPostDto particip)
         {
-            string schoolId = User.Identity.Name;
-            
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //string schoolId = User.Identity.Name;
 
-            try
-            {
-                participService.EditParticip(participId, schoolId, particip);
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            return Ok();
+            //try
+            //{
+            //    participService.EditParticip(participId, schoolId, particip);
+            //}
+            //catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
+
+            //return Ok();
+            return BadRequest();
         }
 
         [HttpPost, Route("")]
         public IHttpActionResult Post([FromBody]ParticipPostDto particip)
         {
-            string schoolId = User.Identity.Name;
-            
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //string schoolId = User.Identity.Name;
 
-            try
-            {
-                participService.CreateParticip(schoolId, _projectId, particip);
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            return Ok();
+            //try
+            //{
+            //    participService.CreateParticip(schoolId, _projectId, particip);
+            //}
+            //catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
+
+            //return Ok();
+            return BadRequest();
         }
 
         [HttpDelete, Route("{participId:int}")]
         public IHttpActionResult Delete(int participId)
         {
-            string schoolId = User.Identity.Name;
-            
-            try
-            {
-                participService.RemoveParticip(participId, schoolId);
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //string schoolId = User.Identity.Name;
 
-            return Ok();
+            //try
+            //{
+            //    participService.RemoveParticip(participId, schoolId);
+            //}
+            //catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
+
+            //return Ok();
+            return BadRequest();
         }
     }
 }

@@ -22,6 +22,9 @@ namespace Monit95App.Services.FirstClass.Dtos
 
         public int TotalCount { get; set; }
 
+        public int ProcessedItemsCount { get; set; }
+        public int NotProcessedItemsCount { get; set; }
+
         public IEnumerable<ClassDto> Classes { get; set; }
     }
 }

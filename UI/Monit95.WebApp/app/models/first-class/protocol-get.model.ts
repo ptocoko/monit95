@@ -11,5 +11,7 @@ export interface ProtocolGetModel extends PersonModel {
 export interface ProtocolsList {
 	Items: ProtocolGetModel[];
 	TotalCount: number;
+	ProcessedItemsCount: number;
+	NotProcessedItemsCount: number;
 	Classes: ClassModel[];
 }

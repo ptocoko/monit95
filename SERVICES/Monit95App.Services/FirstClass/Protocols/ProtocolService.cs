@@ -34,6 +34,9 @@ namespace Monit95App.Services.FirstClass.Protocols
                 .AsNoTracking()
                 .Where(p => p.ProjectTest.Id == projectTestId && p.Particip.SchoolId == schoolId);
 
+            var processedProtocolsCount = entity.Count(p => p.Grade5 != null);
+            var notProcessedProtocolsCount = entity.Count(p => p.Grade5 == null);
+
             IEnumerable<ClassDto> classes = entity
                 .Select(s => new ClassDto { Id = s.Particip.ClassId, Name = s.Particip.Class.Name })
                 .GroupBy(gb => gb.Id)
@@ -61,6 +64,8 @@ namespace Monit95App.Services.FirstClass.Protocols
             {
                 Items = participTests,
                 TotalCount = totalCount,
+                ProcessedItemsCount = processedProtocolsCount,
+                NotProcessedItemsCount = notProcessedProtocolsCount,
                 Classes = classes
             };
         }
