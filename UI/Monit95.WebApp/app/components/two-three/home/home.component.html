@@ -1,0 +1,40 @@
+﻿<h2>Диагностика учащихся 2-х и 3-х классов: главное меню</h2>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Вспомогательный материал</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/Ca4D/Fwva3y6so" target="_blank">
+            <h4>2-й класс: Методический материал по проведению диагностической работы</h4>
+        </a>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/BYpn/X18SL77k4" target="_blank">
+            <h4>3-й класс: Методический материал по проведению диагностической работы</h4>
+        </a>
+    </div>
+</div>
+
+<div class="upload-area alert alert-info">
+    <span *ngIf="uploadStatus === 'waiting'">
+        Отправить заполненный бланк ответов
+    </span>
+
+    <span *ngIf="uploadStatus === 'uploading'">
+        Отправляется...
+    </span>
+
+    <span *ngIf="uploadStatus === 'uploaded'">
+        Отправлено!
+    </span>
+
+    <span class="upload-btn-wrapper">
+        <input type="file"
+               id="selectedFotos"
+               (change)="uploadXlsx($event)"
+               accept=".xlsx" />
+        <button type="button"
+                mat-raised-button
+                color="primary"
+                onclick="document.getElementById('selectedFotos').click();">
+            Выбрать бланк ответов...
+        </button>
+    </span>
+</div>

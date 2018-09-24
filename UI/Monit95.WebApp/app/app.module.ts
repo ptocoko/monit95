@@ -13,6 +13,7 @@ import { OneTwoThreeModule } from './one-two-three/one-two-three.module';
 import { SharedModule } from './shared/shared-module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FirstClassModule } from './components/first-class/first-class.module';
+import { TwoThreeModule } from './components/two-three/two-three.module';
 
 // Components
 import { AppComponent } from './components/app/app.component';
@@ -49,6 +50,7 @@ import { SchoolFileService } from './services/school-file.service';
 import { RsurProtocolsService } from './services/rsur-protocols.service';
 import { SchoolService } from './school.service';
 import { AreaService } from './services/area.service';
+import { FileService } from './services/file.service';
 
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
@@ -83,6 +85,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		ParticipsModule,
 		OneTwoThreeModule,
 		FirstClassModule,
+		TwoThreeModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
 				{ path: 'rsur/particips', component: RsurParticipsComponent },
@@ -151,6 +154,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		RsurProtocolsService,
 		SchoolService,
 		AreaService,
+		FileService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler },
 		{ provide: MatPaginatorIntl, useClass: RussianMatPaginator },

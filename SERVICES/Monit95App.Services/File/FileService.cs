@@ -52,7 +52,7 @@ namespace Monit95App.Services.File
         /// <param name="sourceFileName">Имя файла также необходимо для получения расширения</param>
         /// <param name="userName">Для указанного пользователя устанавливаются уровни доступа READ и DELETE</param>
         /// <returns>fileId</returns>
-        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName)
+        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, bool useHashAsFileName = true)
         {
             return Add(repositoryId, sourceFileStream, sourceFileName, userName, new List<UserPermission>
             {
@@ -66,7 +66,7 @@ namespace Monit95App.Services.File
                     UserName = userName,
                     Access = Access.Delete
                 }
-            });
+            }, useHashAsFileName);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Monit95App.Services.File
         /// <param name="permissions">список объектов с информацией о пользователях и разрешенных им действиях над файлом</param>
         /// <returns>fileId</returns>
         /// TODO: validate permissions
-        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<UserPermission> permissions)
+        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<UserPermission> permissions, bool useHashAsFileName = true)
         {
             var repositoryEntity = context.Repositories.Find(repositoryId);            
             if (repositoryEntity == null)
@@ -101,8 +101,17 @@ namespace Monit95App.Services.File
 
             sourceFileName = Path.GetFileName(sourceFileName); // delete path if it exist
             var sourceFileExtension = Path.GetExtension(sourceFileName);
-            
-            var destFileName = $"{hexHash}.{sourceFileExtension}";
+
+            string destFileName;
+            if (useHashAsFileName)
+            {
+                destFileName = $"{hexHash}{sourceFileExtension}";
+            }
+            else
+            {
+                destFileName = $"{sourceFileName}";
+            }
+
             var destFilePath = Path.Combine(repositoryEntity.Path, destFileName);
             using (var destFileStream = System.IO.File.Create(destFilePath))
             {

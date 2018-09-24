@@ -419,6 +419,8 @@
     <Content Include="app\components\rsur\actualization\hiring\list\hiring-list.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.css" />
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.html" />
+    <Content Include="app\components\two-three\home\home.component.css" />
+    <Content Include="app\components\two-three\home\home.component.html" />
     <Content Include="app\one-two-three\home\home.component.html" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.css" />
     <Content Include="app\one-two-three\particips\add-or-update\add-or-update.component.html" />
@@ -656,6 +658,8 @@
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\list\hiring-list.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\two-three\home\home.component.ts" />
+    <TypeScriptCompile Include="app\components\two-three\two-three.module.ts" />
     <TypeScriptCompile Include="app\custom-route-reuse-strategy.ts" />
     <TypeScriptCompile Include="app\enums\rsur.block-status.ts" />
     <TypeScriptCompile Include="app\material.module.ts" />
@@ -722,6 +726,7 @@
     <TypeScriptCompile Include="app\pipes\particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\models\particip.model.ts" />
     <TypeScriptCompile Include="app\pipes\rsur-protocol-filter.pipe.ts" />
+    <TypeScriptCompile Include="app\services\file.service.ts" />
     <TypeScriptCompile Include="app\services\first-class\particips.service.ts" />
     <TypeScriptCompile Include="app\services\first-class\protocols.service.ts" />
     <TypeScriptCompile Include="app\services\one-two-three\particips.service.ts" />
@@ -761,6 +766,7 @@
     <TypeScriptCompile Include="app\models\school-particip.model.ts" />
     <TypeScriptCompile Include="app\shared\shared-module.ts" />
     <TypeScriptCompile Include="app\shared\table-paginator\table-paginator.ts" />
+    <TypeScriptCompile Include="app\utils\functions.ts" />
     <TypeScriptCompile Include="app\utils\local-storage.ts" />
   </ItemGroup>
   <ItemGroup>

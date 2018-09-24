@@ -38,11 +38,11 @@ namespace Monit95.WebApp.RESTful_API
         /// <returns>fileId</returns>
         // TODO: refactoring, поймать что дубликат
         [HttpPost]
-        [Route("~/api/repositories/{id:int}/files")]        
+        [Route("~/api/repositories/{repositoryId:int}/files")]        
         [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
-        public HttpResponseMessage AddFileToRepository()
+        public HttpResponseMessage AddFileToRepository([FromUri] int repositoryId, [FromUri] bool useHashAsFileName)
         {
-            var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
+            //var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             // Find file in requestBody
             var httpFileCollection = HttpContext.Current.Request.Files;
             if (httpFileCollection.Count == 0)            
@@ -53,7 +53,7 @@ namespace Monit95.WebApp.RESTful_API
             int fileId;
             try
             {
-                fileId = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name);
+                fileId = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name, useHashAsFileName);
             }
             catch(ArgumentException exception)
             {

@@ -16,6 +16,7 @@ var one_two_three_module_1 = require("./one-two-three/one-two-three.module");
 var shared_module_1 = require("./shared/shared-module");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var first_class_module_1 = require("./components/first-class/first-class.module");
+var two_three_module_1 = require("./components/two-three/two-three.module");
 // Components
 var app_component_1 = require("./components/app/app.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
@@ -48,6 +49,7 @@ var school_file_service_1 = require("./services/school-file.service");
 var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
 var school_service_1 = require("./school.service");
 var area_service_1 = require("./services/area.service");
+var file_service_1 = require("./services/file.service");
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
 //import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
@@ -83,6 +85,7 @@ var AppModule = /** @class */ (function () {
                 particips_module_1.ParticipsModule,
                 one_two_three_module_1.OneTwoThreeModule,
                 first_class_module_1.FirstClassModule,
+                two_three_module_1.TwoThreeModule,
                 router_1.RouterModule.forRoot([
                     { path: 'rsur', component: home_component_1.HomeComponent },
                     { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },
@@ -150,6 +153,7 @@ var AppModule = /** @class */ (function () {
                 rsur_protocols_service_1.RsurProtocolsService,
                 school_service_1.SchoolService,
                 area_service_1.AreaService,
+                file_service_1.FileService,
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
                 { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler },
                 { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator },
