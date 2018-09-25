@@ -1,6 +1,6 @@
 ﻿<div class="upload-area alert" [ngClass]="{'alert-info': uploadStatus !== 'uploaded', 'alert-success': uploadStatus === 'uploaded' }">
     <span *ngIf="uploadStatus === 'waiting'">
-        <b>Отправить заполненный бланк ответов</b>
+        <b>Отправить заполненный протокол проверки заданий</b>
     </span>
 
     <span *ngIf="uploadStatus === 'uploading'">
@@ -20,7 +20,7 @@
                 mat-raised-button
                 color="primary"
                 (click)="selectedFotos.click()">
-            Выбрать бланк ответов...
+            Выбрать протокол проверки заданий...
         </button>
     </span>
 </div>

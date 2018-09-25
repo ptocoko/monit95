@@ -54,10 +54,10 @@ namespace Monit95.WebApp.RESTful_API
             int fileId;
             try
             {
-                if (fileService.CheckIfFileExists(fileStream, repositoryId))
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Такой файл уже существует в репозитории");
-                }
+                //if (fileService.CheckIfFileExists(fileStream, repositoryId))
+                //{
+                //    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Такой файл уже существует в репозитории");
+                //}
 
                 fileId = fileService.Add(repositoryId, fileStream, postedFile.FileName, User.Identity.Name, useHashAsFileName);
             }

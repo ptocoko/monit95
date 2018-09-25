@@ -1,34 +1,39 @@
 ﻿<h2>Диагностика учащихся 2-х и 3-х классов: главное меню</h2>
 
-<div class="list-container" *ngIf="true">
-    <h3 class="list-header">2-й класс: Бланк ответов</h3>
-    <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/GhZb/JUmLdaaDr" target="_blank">
-            <h4><b>Бланк заполнения ответов</b></h4>
-        </a>
-        <app-excel-upload [testCode]="'0201'"></app-excel-upload>
-    </div>
+<div class="jumbotron" style="margin-top:25px">
+    <p><b>Инструкция по работе с электронной формой "Протокол проверки заданий":</b></p>
+    <p>Загрузите  электронную форму "Протокол проверки заданий" для соответствующего класса, заполните его и отправьте на сервер.</p>
 </div>
 
 <div class="list-container" *ngIf="true">
-    <h3 class="list-header">3-й класс: Бланк ответов</h3>
+    <h3 class="list-header">Критерии оценки: Русский язык</h3>
     <div>
         <a class="list-item-link" href="https://cloud.mail.ru/public/GhZb/JUmLdaaDr" target="_blank">
-            <h4><b>Бланк заполнения ответов</b></h4>
-        </a>
-        <app-excel-upload [testCode]="'0301'"></app-excel-upload>
-    </div>
-</div>
-
-<div class="list-container" *ngIf="true">
-    <h3 class="list-header">Критерии оценки</h3>
-    <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/GhZb/JUmLdaaDr" target="_blank">
-            <h4>2-й класс: Критерии оценки работ</h4>
+            <h4>2-й класс: Критерии оценки работ по русскому языку</h4>
         </a>
         <a class="list-item-link" href="https://cloud.mail.ru/public/BnNq/NTiM9jBcu" target="_blank">
-            <h4>3-й класс: Критерии оценки работ</h4>
+            <h4>3-й класс: Критерии оценки работ по русскому языку</h4>
         </a>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">2-й класс: Протокол проверки заданий по русскому языку</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/K4uD/xPSup4Xuy" target="_blank">
+            <h4><b>Протокол проверки заданий</b></h4>
+        </a>
+        <app-excel-upload [testCode]="'0201'" [collectorId]="6"></app-excel-upload>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">3-й класс: Протокол проверки заданий по русскому языку</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/AdKG/XN3SYJfv2" target="_blank">
+            <h4><b>Протокол проверки заданий</b></h4>
+        </a>
+        <app-excel-upload [testCode]="'0301'" [collectorId]="7"></app-excel-upload>
     </div>
 </div>
 

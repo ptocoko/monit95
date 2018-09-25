@@ -92,8 +92,8 @@ namespace Monit95App.Services.File
             // Generate hexHash
             string hexHash = GetHash(sourceFileStream);
             
-            if (CheckIfFileExists(sourceFileStream, repositoryId)) // check exist dublicate in repository by hexHash
-                throw new ArgumentException("Already exists");
+            //if (CheckIfFileExists(sourceFileStream, repositoryId)) // check exist dublicate in repository by hexHash
+            //    throw new ArgumentException("Already exists");
 
             sourceFileName = Path.GetFileName(sourceFileName); // delete path if it exist
             var sourceFileExtension = Path.GetExtension(sourceFileName);
