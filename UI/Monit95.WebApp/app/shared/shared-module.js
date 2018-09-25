@@ -13,6 +13,7 @@ var offset_pipe_1 = require("../pipes/offset.pipe");
 var confirm_dialog_component_1 = require("./confirm-dialog/confirm-dialog.component");
 var particips_pipe_1 = require("../pipes/one-two-three/particips.pipe");
 var mark_validate_directive_1 = require("./mark-validate.directive");
+var uploader_component_1 = require("../components/two-three/excel-uploader/uploader.component");
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
@@ -33,7 +34,8 @@ var SharedModule = /** @class */ (function () {
                 particips_pipe_1.ClassFilterPipe,
                 particips_pipe_1.ClassesGetterPipe,
                 particips_pipe_1.ParticipFilterPipe,
-                mark_validate_directive_1.MarkValidateDirective
+                mark_validate_directive_1.MarkValidateDirective,
+                uploader_component_1.ExcelUploadComponent
             ],
             exports: [
                 marks_protocol_component_1.MarksProtocolComponent,
@@ -45,7 +47,8 @@ var SharedModule = /** @class */ (function () {
                 particips_pipe_1.ClassFilterPipe,
                 particips_pipe_1.ClassesGetterPipe,
                 particips_pipe_1.ParticipFilterPipe,
-                mark_validate_directive_1.MarkValidateDirective
+                mark_validate_directive_1.MarkValidateDirective,
+                uploader_component_1.ExcelUploadComponent
             ],
             entryComponents: [confirm_dialog_component_1.ConfirmDialogComponent]
         })

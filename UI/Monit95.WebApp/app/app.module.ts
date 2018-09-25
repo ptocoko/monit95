@@ -36,6 +36,7 @@ import { HiringListComponent } from './components/rsur/actualization/hiring/list
 import { HireComponent } from './components/rsur/actualization/hiring/hire-particip.component';
 import { CreateParticipComponent } from './components/rsur/actualization/hiring/add/add-particip.component';
 import { TransferParticipComponent } from './components/rsur/actualization/hiring/transfer/transfer-particip.component';
+import { NewParticipComponent } from './components/rsur/actualization/hiring/new-particip/new-particip.component';
 
 // Services
 import { AccountService } from './services/account.service';
@@ -92,6 +93,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 				{ path: 'rsur/actualization/firing/list', component: FiringListComponent },
 				{ path: 'rsur/actualization/hiring/list', component: HiringListComponent },
 				{ path: 'rsur/actualization/hire', component: HireComponent },
+				{ path: 'rsur/actualization/new-particip', component: NewParticipComponent },
                 { path: 'rsur/seminar-reports', component: SeminarReportsListComponent },
                 { path: 'rsur/seminar-reports/create', component: SeminarReportCreateFormComponent },
 				{ path: 'rsur/seminar-reports/:id', component: SeminarReportComponent },                
@@ -140,7 +142,8 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		HiringListComponent,
 		HireComponent,
 		CreateParticipComponent,
-		TransferParticipComponent
+		TransferParticipComponent,
+		NewParticipComponent
 	],
 	providers: [
         AccountService,

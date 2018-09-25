@@ -12,7 +12,7 @@ import { AccountService } from '../../../../../services/account.service';
 import { SCHOOLNAME_DEFAULT_SELECTION } from '../../../reports/report-list/report-list.component';
 import { SchoolCollectorService } from '../../../../../shared/school-collector.service';
 
-const COLLECTOR_ID = 4;
+const COLLECTOR_ID = 5;
 
 @Component({
     selector: 'rsur/particips',
@@ -45,7 +45,8 @@ export class HiringListComponent implements OnInit {
 		this.rsurParticipService.getAll()
             .subscribe(response => {
 				this.particips = response.filter(f => f.ActualCode === 1 || f.ActualCode === 3 || f.ActualCode === 4);
-				
+				this.particips = this.particips.sort((p1, p2) => p2.RsurSubjectCode - p1.RsurSubjectCode);
+
                 this.isLoading = false;
             });
 	}
@@ -59,14 +60,17 @@ export class HiringListComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe(res => {
 			if (res) {
-				if (particip.ActualCode === 3) {
-					const part = {
-						ActualCode: 2,
-						SchoolId: particip.SchoolIdFrom
-					} as RsurParticipModel;
+				//if (particip.ActualCode === 3) {
+				//	const part = {
+				//		ActualCode: 2,
+				//		SchoolId: particip.SchoolIdFrom
+				//	} as RsurParticipModel;
 
-					this.rsurParticipService.update(particip.Code, part).subscribe(() => this.deleteItem(particip.Code));
-				} else if (particip.ActualCode === 4) {
+				//	this.rsurParticipService.update(particip.Code, part).subscribe(() => this.deleteItem(particip.Code));
+				//} else if (particip.ActualCode === 4) {
+				//	this.rsurParticipService.delete(particip.Code).subscribe(() => this.deleteItem(particip.Code));
+				//}
+				if (particip.RsurSubjectCode === 12) {
 					this.rsurParticipService.delete(particip.Code).subscribe(() => this.deleteItem(particip.Code));
 				}
 			}
@@ -77,7 +81,7 @@ export class HiringListComponent implements OnInit {
 		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
 			width: '400px',
 			disableClose: true,
-			data: { message: `Вы уверены что хотите завершить этап 2?` }
+			data: { message: `Вы уверены что хотите завершить добавление учителей обществознания?` }
 		});
 
 		dialogRef.afterClosed().subscribe(res => {
@@ -105,12 +109,12 @@ export class HiringListComponent implements OnInit {
 };
 
 
-function defaultFilterPredicate(data: RsurParticipModel, filter: string): boolean {
-	if (!filter || filter === '') return true;
+//function defaultFilterPredicate(data: RsurParticipModel, filter: string): boolean {
+//	if (!filter || filter === '') return true;
 
-	return data.Code.toString().indexOf(filter) > -1
-		|| data.SchoolParticipInfo.Surname.toLowerCase().indexOf(filter) > -1
-		|| data.SchoolParticipInfo.Name.toLowerCase().indexOf(filter) > -1
-		|| data.SchoolParticipInfo.SchoolName.toLowerCase().indexOf(filter) > -1
-		|| data.RsurSubjectName.toLowerCase().indexOf(filter) > -1;
-}
+//	return data.Code.toString().indexOf(filter) > -1
+//		|| data.SchoolParticipInfo.Surname.toLowerCase().indexOf(filter) > -1
+//		|| data.SchoolParticipInfo.Name.toLowerCase().indexOf(filter) > -1
+//		|| data.SchoolParticipInfo.SchoolName.toLowerCase().indexOf(filter) > -1
+//		|| data.RsurSubjectName.toLowerCase().indexOf(filter) > -1;
+//}

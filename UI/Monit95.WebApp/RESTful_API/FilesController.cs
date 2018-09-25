@@ -46,14 +46,20 @@ namespace Monit95.WebApp.RESTful_API
             // Find file in requestBody
             var httpFileCollection = HttpContext.Current.Request.Files;
             if (httpFileCollection.Count == 0)            
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Body has not file");                               
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Body has not file");
             // Get file's content from body
             HttpPostedFile postedFile = httpFileCollection.Get(0);
+            Stream fileStream = postedFile.InputStream;
             // Call service
             int fileId;
             try
             {
-                fileId = fileService.Add(repositoryId, postedFile.InputStream, postedFile.FileName, User.Identity.Name, useHashAsFileName);
+                if (fileService.CheckIfFileExists(fileStream, repositoryId))
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Такой файл уже существует в репозитории");
+                }
+
+                fileId = fileService.Add(repositoryId, fileStream, postedFile.FileName, User.Identity.Name, useHashAsFileName);
             }
             catch(ArgumentException exception)
             {

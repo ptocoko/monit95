@@ -20,6 +20,8 @@ namespace Monit95App.Services.DTOs
 
         public string RsurSubjectName { get; set; }
 
+        public int RsurSubjectCode { get; set; }
+
         public string CategoryName { get; set; }
 
         public string Phone { get; set; }

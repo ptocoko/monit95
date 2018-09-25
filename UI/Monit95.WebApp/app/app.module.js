@@ -37,6 +37,7 @@ var hiring_list_component_1 = require("./components/rsur/actualization/hiring/li
 var hire_particip_component_1 = require("./components/rsur/actualization/hiring/hire-particip.component");
 var add_particip_component_1 = require("./components/rsur/actualization/hiring/add/add-particip.component");
 var transfer_particip_component_1 = require("./components/rsur/actualization/hiring/transfer/transfer-particip.component");
+var new_particip_component_1 = require("./components/rsur/actualization/hiring/new-particip/new-particip.component");
 // Services
 var account_service_1 = require("./services/account.service");
 var rsur_particip_service_1 = require("./services/rsur-particip.service");
@@ -92,6 +93,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'rsur/actualization/firing/list', component: firing_list_component_1.FiringListComponent },
                     { path: 'rsur/actualization/hiring/list', component: hiring_list_component_1.HiringListComponent },
                     { path: 'rsur/actualization/hire', component: hire_particip_component_1.HireComponent },
+                    { path: 'rsur/actualization/new-particip', component: new_particip_component_1.NewParticipComponent },
                     { path: 'rsur/seminar-reports', component: seminar_report_list_component_1.SeminarReportsListComponent },
                     { path: 'rsur/seminar-reports/create', component: create_form_component_1.SeminarReportCreateFormComponent },
                     { path: 'rsur/seminar-reports/:id', component: seminar_report_component_1.SeminarReportComponent },
@@ -139,7 +141,8 @@ var AppModule = /** @class */ (function () {
                 hiring_list_component_1.HiringListComponent,
                 hire_particip_component_1.HireComponent,
                 add_particip_component_1.CreateParticipComponent,
-                transfer_particip_component_1.TransferParticipComponent
+                transfer_particip_component_1.TransferParticipComponent,
+                new_particip_component_1.NewParticipComponent
             ],
             providers: [
                 account_service_1.AccountService,

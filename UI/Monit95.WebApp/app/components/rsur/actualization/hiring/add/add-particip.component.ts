@@ -69,25 +69,29 @@ export class CreateParticipComponent {
 	years = [...Array.from({length: 60}, (val, key) => key + 1945)];
 
 	subjects = [
+		//{
+		//	code: 1,
+		//	name: 'Русский язык'
+		//},
+		//{
+		//	code: 2,
+		//	name: 'Математика'
+		//},
+		//{
+		//	code: 7,
+		//	name: 'История'
+		//},
+		//{
+		//	code: 8,
+		//	name: 'География'
+		//},
+		//{
+		//	code: 3,
+		//	name: 'Физика'
+		//},
 		{
-			code: 1,
-			name: 'Русский язык'
-		},
-		{
-			code: 2,
-			name: 'Математика'
-		},
-		{
-			code: 7,
-			name: 'История'
-		},
-		{
-			code: 8,
-			name: 'География'
-		},
-		{
-			code: 3,
-			name: 'Физика'
+			code: 12,
+			name: 'Обществознание'
 		}
 	];
 
@@ -124,7 +128,7 @@ export class CreateParticipComponent {
 				month: ['', [Validators.required, Validators.min(0), Validators.max(12)]],
 				year: ['', [Validators.required, Validators.min(1945), Validators.max(2005)]]
 			}),
-			subjectCode: ['', Validators.required],
+			subjectCode: [{ value: 12, disabled: true }, Validators.required],
 			categoryId: ['', Validators.required],
 			experience: ['', Validators.required],
 			phone: '',

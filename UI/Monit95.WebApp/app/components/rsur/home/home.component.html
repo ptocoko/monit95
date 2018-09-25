@@ -2,7 +2,7 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div class="jumbotron">
+    <div class="jumbotron" *ngIf="false">
         <p>С 12 по 20 сентября проводится актуализация списка участников РСУР. Актуализация разделена на два этапа.</p>
         <p><b>Этап 1:</b> удаление из списка участников РСУР уволившихся учителей <i>(проходит с 12 по 13 сентября)</i></p>
         <p><b>Этап 2:</b> добавление в список новых участников РСУР <i>(проходит с 15 по 20 сентября)</i></p>
@@ -58,17 +58,10 @@
 
     <div *ngIf="isSchool()" class="list-container">
         <h3 class="list-header">Актуализация</h3>
-        <div class="list-item">
-            <a class="list-item-link__disabled">
-                <div>
-                    <h4>Этап 1: удаление участников <i>(проходил с 12 по 13 сентября)</i></h4>
-                </div>
-            </a>
-        </div>
-        <div class="list-item">
+        <div class="list-item" *ngIf="true">
             <a class="list-item-link" routerLink="/rsur/actualization/hiring/list">
                 <div>
-                    <h4><b>Этап 2: добавление участников <i>(проходит с 15 по 20 сентября)</i></b></h4>
+                    <h4><b>Добавление учителей обществознания <i>(проходит с 25 по 27 сентября)</i></b></h4>
                 </div>
             </a>
         </div>
@@ -88,13 +81,13 @@
     <div class="list-container">
         <h3 class="list-header">Вспомогательный материал</h3>
 
-        <div class="list-item">
+        <!--div class="list-item">
             <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/Bm92/QZwweHH9f">
                 <div>
                     <h4><b>Видео-инструкция по 2-му этапу актуализации</b></h4>
                 </div>
             </a>
-        </div>
+        </div>-->
 
         <div class="list-item">
             <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/E6sR/WAFY5mpEu">

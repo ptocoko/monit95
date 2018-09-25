@@ -8,6 +8,7 @@ export class RsurParticipModel {
 	public AreaCodeWithName?: string;
 
 	public RsurSubjectName?: string;
+	public RsurSubjectCode?: number;
 	public LastBlockName?: string;
 	public LastBlockStatus?: BlockStatuses;
 	public ActualCode: number;

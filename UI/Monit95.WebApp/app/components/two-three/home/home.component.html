@@ -1,6 +1,50 @@
 ﻿<h2>Диагностика учащихся 2-х и 3-х классов: главное меню</h2>
 
 <div class="list-container" *ngIf="true">
+    <h3 class="list-header">2-й класс: Бланк ответов</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/GhZb/JUmLdaaDr" target="_blank">
+            <h4><b>Бланк заполнения ответов</b></h4>
+        </a>
+        <app-excel-upload [testCode]="'0201'"></app-excel-upload>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">3-й класс: Бланк ответов</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/GhZb/JUmLdaaDr" target="_blank">
+            <h4><b>Бланк заполнения ответов</b></h4>
+        </a>
+        <app-excel-upload [testCode]="'0301'"></app-excel-upload>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Критерии оценки</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/GhZb/JUmLdaaDr" target="_blank">
+            <h4>2-й класс: Критерии оценки работ</h4>
+        </a>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/BnNq/NTiM9jBcu" target="_blank">
+            <h4>3-й класс: Критерии оценки работ</h4>
+        </a>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Варианты работ</h3>
+    <div>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/3jFj/BFrTSJbfv" target="_blank">
+            <h4>2-й класс: Работы</h4>
+        </a>
+        <a class="list-item-link" href="https://cloud.mail.ru/public/DWXJ/YRR2ZMFfq" target="_blank">
+            <h4>3-й класс: Работы</h4>
+        </a>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">Вспомогательный материал</h3>
     <div>
         <a class="list-item-link" href="https://cloud.mail.ru/public/Ca4D/Fwva3y6so" target="_blank">
@@ -12,29 +56,4 @@
     </div>
 </div>
 
-<div class="upload-area alert alert-info">
-    <span *ngIf="uploadStatus === 'waiting'">
-        Отправить заполненный бланк ответов
-    </span>
 
-    <span *ngIf="uploadStatus === 'uploading'">
-        Отправляется...
-    </span>
-
-    <span *ngIf="uploadStatus === 'uploaded'">
-        Отправлено!
-    </span>
-
-    <span class="upload-btn-wrapper">
-        <input type="file"
-               id="selectedFotos"
-               (change)="uploadXlsx($event)"
-               accept=".xlsx" />
-        <button type="button"
-                mat-raised-button
-                color="primary"
-                onclick="document.getElementById('selectedFotos').click();">
-            Выбрать бланк ответов...
-        </button>
-    </span>
-</div>

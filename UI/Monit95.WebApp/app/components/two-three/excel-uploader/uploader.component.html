@@ -1,0 +1,26 @@
+﻿<div class="upload-area alert" [ngClass]="{'alert-info': uploadStatus !== 'uploaded', 'alert-success': uploadStatus === 'uploaded' }">
+    <span *ngIf="uploadStatus === 'waiting'">
+        <b>Отправить заполненный бланк ответов</b>
+    </span>
+
+    <span *ngIf="uploadStatus === 'uploading'">
+        Отправляется...
+    </span>
+
+    <span *ngIf="uploadStatus === 'uploaded'">
+        Отправлено!
+    </span>
+
+    <span class="upload-btn-wrapper" *ngIf="uploadStatus === 'waiting'">
+        <input type="file"
+               #selectedFotos
+               (change)="uploadXlsx($event)"
+               accept=".xlsx" />
+        <button type="button"
+                mat-raised-button
+                color="primary"
+                (click)="selectedFotos.click()">
+            Выбрать бланк ответов...
+        </button>
+    </span>
+</div>

@@ -232,6 +232,11 @@ namespace Monit95App.Services.Rsur
                 throw new ArgumentException(nameof(entity));
             }
 
+            if(entity.RsurSubjectCode != 12)
+            {
+                throw new ArgumentException("This Action not Allowed");
+            }
+
             this._cokoContext.RsurParticips.Remove(entity);
             this._cokoContext.SaveChanges();
         }        
@@ -251,6 +256,7 @@ namespace Monit95App.Services.Rsur
                 },
                 Code = src.Code,
                 RsurSubjectName = src.RsurSubject.Name,
+                RsurSubjectCode = src.RsurSubjectCode,
                 AreaCodeWithName = $"{src.School.AreaCode} - {src.School.Area.Name.TrimEnd()}",
                 LastBlockName = LastBlockNameMapper(src),
                 LastBlockStatus = LastBlockStatusMapper(src),

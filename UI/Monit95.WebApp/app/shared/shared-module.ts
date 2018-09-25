@@ -10,6 +10,7 @@ import { OffsetPipe } from '../pipes/offset.pipe';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes/one-two-three/particips.pipe';
 import { MarkValidateDirective } from './mark-validate.directive';
+import { ExcelUploadComponent } from '../components/two-three/excel-uploader/uploader.component';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { MarkValidateDirective } from './mark-validate.directive';
 		ClassFilterPipe,
 		ClassesGetterPipe,
 		ParticipFilterPipe,
-		MarkValidateDirective
+		MarkValidateDirective,
+		ExcelUploadComponent
 	],
 	exports: [
 		MarksProtocolComponent,
@@ -39,7 +41,8 @@ import { MarkValidateDirective } from './mark-validate.directive';
 		ClassFilterPipe,
 		ClassesGetterPipe,
 		ParticipFilterPipe,
-		MarkValidateDirective
+		MarkValidateDirective,
+		ExcelUploadComponent
 	],
 	entryComponents: [ConfirmDialogComponent]
 })

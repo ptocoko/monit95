@@ -1,11 +1,11 @@
-﻿<h2>Этап 2: добавление участников</h2>
+﻿<h2>Добавление учителей обществознания</h2>
 
 <div *ngIf="!isFinished">
     <p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
         <mat-spinner></mat-spinner>
     </p>
     <p class="text-right">
-        <button mat-raised-button color="primary" routerLink="/rsur/actualization/hire">Добавить участника</button>
+        <button mat-raised-button color="primary" routerLink="/rsur/actualization/new-particip">Добавить учителя обществознания</button>
     </p>
 
     <div class="table-container">
@@ -16,13 +16,13 @@
                 <th>фио</th>
                 <th>предмет</th>
             </tr>
-            <tr style="height:53px" *ngFor="let particip of particips; let i = index" [ngClass]="{'newItem': particip.ActualCode === 3 || particip.ActualCode === 4}">
+            <tr style="height:53px" *ngFor="let particip of particips; let i = index" [ngClass]="{'newItem': particip.RsurSubjectCode === 12 }">
                 <td class="text-center">{{ i + 1 }}</td>
                 <td class="text-center">{{ particip.Code }}</td>
                 <td>{{ particip.SchoolParticipInfo.Surname }} {{ particip.SchoolParticipInfo.Name }} {{ particip.SchoolParticipInfo.SecondName }}</td>
                 <td>{{ particip.RsurSubjectName }}</td>
                 <td style="width:200px">
-                    <span *ngIf="particip.ActualCode === 3 || particip.ActualCode === 4">
+                    <span *ngIf="particip.RsurSubjectCode === 12">
                         <button mat-raised-button
                                 (click)="cancelHiring(particip)"
                                 color="warn">
@@ -35,12 +35,12 @@
     </div>
     
     <div class="text-right">
-        <button mat-raised-button color="primary" (click)="finish()">Завершить этап 2</button>
+        <button mat-raised-button color="primary" (click)="finish()">Завершить добавление учителей обществознания</button>
     </div>
 </div>
 
 
 <div *ngIf="isFinished" class="content-center">
-    <h2>Второй этап актуализации окончен</h2>
+    <h2>Добавление учителей обществознания окончено</h2>
     <button mat-raised-button (click)="notFinish()" color="primary">Отменить завершение</button>
 </div>

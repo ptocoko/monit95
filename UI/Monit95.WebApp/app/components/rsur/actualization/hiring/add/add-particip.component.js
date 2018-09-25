@@ -68,25 +68,29 @@ var CreateParticipComponent = /** @class */ (function () {
         ];
         this.years = Array.from({ length: 60 }, function (val, key) { return key + 1945; }).slice();
         this.subjects = [
+            //{
+            //	code: 1,
+            //	name: 'Русский язык'
+            //},
+            //{
+            //	code: 2,
+            //	name: 'Математика'
+            //},
+            //{
+            //	code: 7,
+            //	name: 'История'
+            //},
+            //{
+            //	code: 8,
+            //	name: 'География'
+            //},
+            //{
+            //	code: 3,
+            //	name: 'Физика'
+            //},
             {
-                code: 1,
-                name: 'Русский язык'
-            },
-            {
-                code: 2,
-                name: 'Математика'
-            },
-            {
-                code: 7,
-                name: 'История'
-            },
-            {
-                code: 8,
-                name: 'География'
-            },
-            {
-                code: 3,
-                name: 'Физика'
+                code: 12,
+                name: 'Обществознание'
             }
         ];
         this.categories = [
@@ -115,7 +119,7 @@ var CreateParticipComponent = /** @class */ (function () {
                 month: ['', [forms_1.Validators.required, forms_1.Validators.min(0), forms_1.Validators.max(12)]],
                 year: ['', [forms_1.Validators.required, forms_1.Validators.min(1945), forms_1.Validators.max(2005)]]
             }),
-            subjectCode: ['', forms_1.Validators.required],
+            subjectCode: [{ value: 12, disabled: true }, forms_1.Validators.required],
             categoryId: ['', forms_1.Validators.required],
             experience: ['', forms_1.Validators.required],
             phone: '',

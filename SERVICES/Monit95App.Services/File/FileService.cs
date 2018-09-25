@@ -87,16 +87,12 @@ namespace Monit95App.Services.File
             if (sourceFileStream == null || sourceFileStream.Length > MAX_FILE_SIZE) // validate sourceFileStream            
                 throw new ArgumentException($"{nameof(sourceFileStream)} is invalid: null or > 15 Mb", nameof(sourceFileStream));            
             if (!context.Monit95Users.Any(mu => mu.Login.Equals(userName))) // validate userName
-                throw new ArgumentException($"{ nameof(userName) } is invalid", nameof(userName));        
+                throw new ArgumentException($"{ nameof(userName) } is invalid", nameof(userName));
 
             // Generate hexHash
-            string hexHash;
-            using (var md5 = MD5.Create())
-            {
-                var hash = md5.ComputeHash(sourceFileStream);
-                hexHash = BitConverter.ToString(hash).Replace("-", "").ToLower();
-            }            
-            if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash.Equals(hexHash))) // check exist dublicate in repository by hexHash
+            string hexHash = GetHash(sourceFileStream);
+            
+            if (CheckIfFileExists(sourceFileStream, repositoryId)) // check exist dublicate in repository by hexHash
                 throw new ArgumentException("Already exists");
 
             sourceFileName = Path.GetFileName(sourceFileName); // delete path if it exist
@@ -266,6 +262,15 @@ namespace Monit95App.Services.File
             tiffFileStream.Close();
             return base64String;
         }
+
+        public bool CheckIfFileExists(Stream fileStream, int repositoryId)
+        {
+            var hash = GetHash(fileStream);
+            if (context.Files.Any(file => file.RepositoryId == repositoryId && file.HexHash.Equals(hash))) // check exist dublicate in repository by hexHash
+                return true;
+
+            return false;
+        }
         #endregion
 
         #region Private methods       
@@ -325,6 +330,22 @@ namespace Monit95App.Services.File
 
             return filePath;
         }       
+
+        /// <summary>
+        /// Получить хэш потока
+        /// </summary>
+        /// <param name="fileStream">поток</param>
+        /// <returns>хэш</returns>
+        private string GetHash(Stream fileStream)
+        {
+            string hexHash;
+            using (var md5 = MD5.Create())
+            {
+                var hash = md5.ComputeHash(fileStream);
+                hexHash = BitConverter.ToString(hash).Replace("-", "").ToLower();
+            }
+            return hexHash;
+        }
 
         #endregion
     }
