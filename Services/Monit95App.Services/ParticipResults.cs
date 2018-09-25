@@ -21,24 +21,24 @@ namespace Monit95App.Services
             //_resultRepository = resultRepository;
         }
 
-        public ClassParticipReport GetClassParticipReportDto(int participTestId)
+        public FirstClassReportDto GetClassParticipReportDto(int participTestId)
         {
             var participRes = context.Results.Where(p => p.ParticipTestId == participTestId && p.PrimaryMark != null).ToList().Select(GetReportDto()).Single();
 
             return participRes;
         }
 
-        public IEnumerable<ClassParticipReport> GetListClassParticipReportDto(ICollection<int> participTestIds)
+        public IEnumerable<FirstClassReportDto> GetListClassParticipReportDto(ICollection<int> participTestIds)
         {
             var participsRes = context.Results.Where(p => participTestIds.Contains(p.ParticipTestId) && p.PrimaryMark != null).ToList().Select(GetReportDto()).ToList();
 
             return participsRes;
         }
 
-        private static Func<Result, ClassParticipReport> GetReportDto()
+        private static Func<Result, FirstClassReportDto> GetReportDto()
         {
             //throw new NotImplementedException();
-            return s => new ClassParticipReport
+            return s => new FirstClassReportDto
             {
                 SchoolParticipInfo = new Domain.Core.SchoolParticip
                 {

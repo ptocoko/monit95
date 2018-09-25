@@ -339,6 +339,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RESTful_API\AreasController.cs" />
+    <Compile Include="RESTful_API\CardsController.cs" />
     <Compile Include="RESTful_API\ClassController.cs" />
     <Compile Include="RESTful_API\DocumentsController.cs" />
     <Compile Include="RESTful_API\ExcelFilesController.cs" />

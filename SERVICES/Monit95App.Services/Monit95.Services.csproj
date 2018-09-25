@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreasService.cs" />
+    <Compile Include="CardsGenerator.cs" />
     <Compile Include="ClassParticipConverter.cs" />
     <Compile Include="ClassService.cs" />
     <Compile Include="ClassParticip.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Document\PrivateFileService.cs" />
     <Compile Include="DTOs\AreaDto.cs" />
     <Compile Include="DTOs\ClassDto.cs" />
-    <Compile Include="DTOs\ClassParticipReport.cs" />
+    <Compile Include="DTOs\FirstClassReportDto.cs" />
     <Compile Include="DTOs\ParticipMarksDto.cs" />
     <Compile Include="DTOs\PutMarksDto.cs" />
     <Compile Include="DTOs\RsurGetMarksDto.cs" />

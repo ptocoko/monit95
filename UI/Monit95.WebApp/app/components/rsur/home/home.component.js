@@ -5,11 +5,13 @@ var core_1 = require("@angular/core");
 var account_service_1 = require("../../../services/account.service");
 var account_model_1 = require("../../../models/account.model");
 var rsur_protocols_service_1 = require("../../../services/rsur-protocols.service");
+var http_1 = require("@angular/common/http");
 var HomeComponent = /** @class */ (function () {
     //_fillingProgress: string;
-    function HomeComponent(accountService, rsurProtocolService) {
+    function HomeComponent(accountService, rsurProtocolService, http) {
         this.accountService = accountService;
         this.rsurProtocolService = rsurProtocolService;
+        this.http = http;
         this.account = new account_model_1.AccountModel();
         this.isLoading = true;
     }
@@ -20,6 +22,19 @@ var HomeComponent = /** @class */ (function () {
             _this.isLoading = false;
             localStorage.clear();
             //this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
+        });
+    };
+    HomeComponent.prototype.downTest = function () {
+        this.http.get('/api/cards/2043', { responseType: 'blob' }).subscribe(function (cards) {
+            var url = window.URL.createObjectURL(cards);
+            var a = document.createElement('a');
+            document.body.appendChild(a);
+            a.setAttribute('style', 'display: none');
+            a.href = url;
+            a.download = 'карты.rar';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove(); // remove the element
         });
     };
     HomeComponent.prototype.isArea = function () {
@@ -49,7 +64,7 @@ var HomeComponent = /** @class */ (function () {
             templateUrl: "./app/components/rsur/home/home.component.html?v=" + new Date().getTime()
         }),
         tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService,
-            rsur_protocols_service_1.RsurProtocolsService])
+            rsur_protocols_service_1.RsurProtocolsService, http_1.HttpClient])
     ], HomeComponent);
     return HomeComponent;
 }());

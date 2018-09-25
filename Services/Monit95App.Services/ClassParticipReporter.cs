@@ -9,13 +9,13 @@ namespace Monit95App.Services
 {
     public class ClassParticipReporter
     {
-        public byte[] GetClassParticipReportBytes(ClassParticipReport particip, string[] maxMarks, string testDate)
+        public byte[] GetClassParticipReportBytes(FirstClassReportDto particip, string[] maxMarks, string testDate)
         {
             string htmlText = GetReportHtml(particip, maxMarks, testDate);
             return GetPdfBytesOfHtml(htmlText);
         }
 
-        public string GetReportHtml(ClassParticipReport particip, string[] maxMarks, string testDate)
+        public string GetReportHtml(FirstClassReportDto particip, string[] maxMarks, string testDate)
         {
             string firstMarkColor = double.Parse(particip.Marks[0]) > 2 ? "" : "red-background";
             string secondMarkColor = double.Parse(particip.Marks[1]) > 0.5 ? "" : "red-background";

@@ -2,7 +2,7 @@
 
 namespace Monit95App.Services.DTOs
 {
-    public class ClassParticipReport
+    public class FirstClassReportDto
     {
         public SchoolParticip SchoolParticipInfo { get; set; }
 
