@@ -76,7 +76,7 @@ namespace Monit95App.Services
         <br />
         <div class='row particip-about'>
             <p class='col-xs-4 col-sm-4'>ФИО:</p>
-            <p class='col-xs-8 col-sm-8 text-uppercase'></p>
+            <p class='col-xs-8 col-sm-8 text-uppercase'>{particip.SchoolParticipInfo.Surname} {particip.SchoolParticipInfo.Name} {particip.SchoolParticipInfo.SecondName}</p>
             <br />
             <br />
             <p class='col-xs-4 col-sm-4'>Образовательная организация:</p>
@@ -144,7 +144,7 @@ namespace Monit95App.Services
             </tr>
             <tr>
                 <td style='text-align:center; vertical-align:middle'>3</td>
-                <td style='vertical-align:middle'>«Рисунок человека»</td>
+                <td style='vertical-align:middle'>«Рисунок»</td>
                 <td>
                     - сформированность первичных представлений о мире
                     <br />- ориентация в пространстве

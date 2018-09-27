@@ -52,6 +52,7 @@ import { RsurProtocolsService } from './services/rsur-protocols.service';
 import { SchoolService } from './school.service';
 import { AreaService } from './services/area.service';
 import { FileService } from './services/file.service';
+import { CardsService } from './services/cards.service';
 
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
@@ -158,6 +159,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		SchoolService,
 		AreaService,
 		FileService,
+		CardsService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler },
 		{ provide: MatPaginatorIntl, useClass: RussianMatPaginator },

@@ -18,12 +18,16 @@ namespace ParticipReporter
     {
         private static OneTwoThree oneTwoThree;
         private static CokoContext context;
+        private static CardsGenerator cardsGenerator;
+        private static ClassParticipReporter participReporter;
 
         static void Main(string[] args)
         {
-            oneTwoThree = new OneTwoThree();
-            //context = new CokoContext();
-            oneTwoThree.GenerateCards();
+            //oneTwoThree = new OneTwoThree();
+            context = new CokoContext();
+            participReporter = new ClassParticipReporter();
+            cardsGenerator = new CardsGenerator(context, participReporter);
+            //oneTwoThree.GenerateCards();
             //GenerateReportEntitiesForSeveralSchools(oneTwoThree.BadSchoolsIds);
 
 
@@ -85,6 +89,18 @@ namespace ParticipReporter
             //var htmlProcessor = new HtmlProcessor(_reportFolder);
             //htmlProcessor.Process();
             #endregion
+        }
+
+        static void GenerateFirstClassCards()
+        {
+            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTestId == 2043 && pt.Grade5 > 0).Select(pt => pt.Particip.SchoolId);
+            foreach (var schoolId in schoolIds)
+            {
+                Console.WriteLine($"Started for {schoolId}");
+                cardsGenerator.GetCardsArchievePath(schoolId, 2043);
+                Console.WriteLine($"Ended for {schoolId}");
+            }
+            Console.WriteLine("Ended");
         }
 
         static void CopyFiles()

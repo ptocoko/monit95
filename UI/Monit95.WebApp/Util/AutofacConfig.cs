@@ -65,6 +65,7 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<Monit95App.Services.FirstClass.Dtos.ParticipService>().As<Monit95App.Services.FirstClass.Dtos.IParticipService>();
             builder.RegisterType<ProtocolService>();
             builder.RegisterType<AreasService>();
+            builder.RegisterType<ClassParticipReporter>();
             builder.RegisterType<CardsGenerator>();
 
             var container = builder.Build();

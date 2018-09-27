@@ -23,9 +23,9 @@ namespace Monit95.WebApp.RESTful_API
 
         [HttpGet]
         [Route("{projectTestId:int}")]
-        public async Task<HttpResponseMessage> GetCardsArchieve([FromUri] int projectTestId)
+        public HttpResponseMessage GetCardsArchieve([FromUri] int projectTestId)
         {
-            var path = await cardsGenerator.GetCardsArchievePathAsync(User.Identity.Name, projectTestId);
+            var path = cardsGenerator.GetCardsArchievePath(User.Identity.Name, projectTestId);
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
             var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
             result.Content = new StreamContent(stream);

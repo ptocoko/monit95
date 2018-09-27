@@ -14,6 +14,8 @@ namespace Monit95App.Services.DTOs
 
         public string GradeGroup { get; set; }
 
+        public string MarksString { get; set; }
+
         public string[] Marks { get; set; }
     }
 }

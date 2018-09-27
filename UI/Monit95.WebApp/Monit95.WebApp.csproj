@@ -713,6 +713,7 @@
     <TypeScriptCompile Include="app\pipes\one-two-three\particips.pipe.ts" />
     <TypeScriptCompile Include="app\particips\shared\list\list.component.ts" />
     <TypeScriptCompile Include="app\services\area.service.ts" />
+    <TypeScriptCompile Include="app\services\cards.service.ts" />
     <TypeScriptCompile Include="app\services\class.service.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\shared\marks-protocol.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\matching\matching-protocol.component.ts" />

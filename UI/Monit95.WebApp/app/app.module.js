@@ -51,6 +51,7 @@ var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
 var school_service_1 = require("./school.service");
 var area_service_1 = require("./services/area.service");
 var file_service_1 = require("./services/file.service");
+var cards_service_1 = require("./services/cards.service");
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
 //import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
@@ -157,6 +158,7 @@ var AppModule = /** @class */ (function () {
                 school_service_1.SchoolService,
                 area_service_1.AreaService,
                 file_service_1.FileService,
+                cards_service_1.CardsService,
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
                 { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler },
                 { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator },

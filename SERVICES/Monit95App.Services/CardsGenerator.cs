@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Monit95App.Services.DTOs;
 using Monit95App.Infrastructure.Data;
+using Ionic.Zip;
 
 namespace Monit95App.Services
 {
@@ -21,49 +22,98 @@ namespace Monit95App.Services
             this.reporter = reporter;
         }
 
-        public async Task<string> GetCardsArchievePathAsync(string schoolId, int projectTestId)
+        public string GetCardsArchievePath(string schoolId, int projectTestId)
         {
-            var cardArchievePath = $@"{_cardsFolderPath}\{projectTestId}\{schoolId}.rar";
+            var cardArchievePath = $@"{_cardsFolderPath}\{projectTestId}\{schoolId}.zip";
             if (System.IO.File.Exists(cardArchievePath))
             {
                 return cardArchievePath;
             }
             else
             {
-                var maxMarks = new string[] { "4", "1", "3", "1", "1" };
-                var loopResult = Parallel.ForEach(GetFirstClassReportDtos(schoolId, projectTestId), reportDto =>
-                {
-                    var pdfBytes = reporter.GetClassParticipReportBytes(reportDto, maxMarks, "20 сентября 2018 г.");
+                return GenerateCardsForSchool(schoolId, projectTestId);
 
-                });
-                
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
             }
         }
 
+        private string GenerateCardsForSchool(string schoolId, int projectTestId)
+        {
+            var maxMarks = new string[] { "4", "1", "3", "1", "1" };
+            var zipFolder = $@"{_cardsFolderPath}\{projectTestId}";
+            var zipPath = $@"{zipFolder}\{schoolId}.zip";
+            CreateFolder(zipFolder);
 
+            Parallel.ForEach(GetFirstClassReportDtos(schoolId, projectTestId), reportDto =>
+            {
+                var pdfBytes = reporter.GetClassParticipReportBytes(reportDto, maxMarks, "20 сентября 2018 г.");
+
+                var participCardFolder = $@"{_cardsFolderPath}\{projectTestId}\{schoolId}\{reportDto.ClassName}";
+                CreateFolder(participCardFolder);
+
+                var participCardPath = $@"{participCardFolder}\{reportDto.SchoolParticipInfo.Surname} {reportDto.SchoolParticipInfo.Name} {reportDto.SchoolParticipInfo.SecondName}.pdf";
+                using (FileStream fs = new FileStream(participCardPath, FileMode.Create))
+                {
+                    fs.Write(pdfBytes, 0, pdfBytes.Length);
+                }
+            });
+
+            using (FileStream fs = new FileStream(zipPath, FileMode.Create))
+            {
+                using (ZipFile zip = new ZipFile())
+                {
+                    zip.AlternateEncoding = Encoding.UTF8;
+                    zip.AlternateEncodingUsage = ZipOption.Always;
+
+                    zip.AddDirectory(zipFolder + "\\" + schoolId);
+                    zip.Save(fs);
+                }
+            }
+
+            Directory.Delete($@"{zipFolder}\{schoolId}", true);
+
+            return zipPath;
+        }
+
+        private static void CreateFolder(string folderPath)
+        {
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+        }
 
         private IEnumerable<FirstClassReportDto> GetFirstClassReportDtos(string schoolId, int projectTestId)
         {
-            return context.ParticipTests
+            var entities = context.ParticipTests
                 .AsNoTracking()
-                .AsEnumerable()
+                //.Include("Particip.School")
+                //.Include("Particip.Class")
+                //.Include("Result")
+                //.AsEnumerable()
                 .Where(pt => pt.ProjectTestId == projectTestId && pt.Particip.SchoolId == schoolId && pt.Grade5 > 0)
                 .Select(pt => new FirstClassReportDto
                 {
                     SchoolParticipInfo = new Domain.Core.SchoolParticip
                     {
-                        Surname = pt.Particip.Surname,
-                        Name = pt.Particip.Name,
-                        SecondName = pt.Particip.SecondName,
+                        Surname = pt.Particip.Surname.Trim(),
+                        Name = pt.Particip.Name.Trim(),
+                        SecondName = pt.Particip.SecondName.Trim(),
                         SchoolName = pt.Particip.SchoolId + " - " + pt.Particip.School.Name.Trim()
                     },
                     ParticipTestId = pt.Id,
-                    ClassName = pt.Particip.Class.Name.Trim(),
+                    ClassName = pt.Particip.Class.Name,
                     PrimaryMark = pt.PrimaryMark,
                     GradeGroup = pt.GradeString,
-                    Marks = pt.Result.Marks.Split(';')
-                });
+                    MarksString = pt.Result.Marks
+                })
+                .ToList();
+
+            entities.ForEach(dto =>
+            {
+                dto.Marks = dto.MarksString.Split(';');
+                dto.ClassName = dto.ClassName.Replace(" ", "");
+            });
+
+            return entities;
         }
     }
 }
