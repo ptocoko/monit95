@@ -2,57 +2,18 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div class="jumbotron" *ngIf="false">
-        <p>С 12 по 20 сентября проводится актуализация списка участников РСУР. Актуализация разделена на два этапа.</p>
-        <p><b>Этап 1:</b> удаление из списка участников РСУР уволившихся учителей <i>(проходит с 12 по 13 сентября)</i></p>
-        <p><b>Этап 2:</b> добавление в список новых участников РСУР <i>(проходит с 15 по 20 сентября)</i></p>
-    </div>
-
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">Диагностика «Апрель-2018»</h3>
+    <div *ngIf="isArea() && false" class="list-container">
+        <h3 class="list-header">Диагностика «Сентябрь-2018»</h3>
         <a *ngIf="false" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/042018_ис_распределение_{{account.UserName}}.xlsx"><div><h4>История: распределение</h4></div></a>
-        <!--Варианты ИК-->
-        <div *ngIf="false">
-            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/6FMQ/EkTQF6H8M"><div><h4>История: варианты ИК по блоку «Даты. Основные факты, процессы и явления»</h4></div></a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/4jwE/tJtUxdNZj"><div><h4>История: варианты ИК по блоку «Термины. Исторические деятели»</h4></div></a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/4Juq/bA2kDjyYf"><div><h4>История: варианты ИК по блоку «Текстовые источники. Историческая карта…»</h4></div></a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/Bj9A/JRcxLfsba"><div><h4>История: варианты ИК по блоку «Систематизация знаний»</h4></div></a>
-        </div>
 
-        <!--Ключи-->
-        <div *ngIf="false">
-            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/DRh5/HXBUGt7xQ">
-                <div>
-                    <h4><b>История: КЛЮЧИ для проверки работ по блоку «Даты. Основные факты, процессы и явления»</b></h4>
-                </div>
-            </a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/8KTL/e8W5RQmPV">
-                <div>
-                    <h4><b>История: КЛЮЧИ для проверки работ по блоку «Термины. Исторические деятели»</b></h4>
-                </div>
-            </a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/HAPd/9REL5FKiL">
-                <div>
-                    <h4><b>История: КЛЮЧИ для проверки работ по блоку «Текстовые источники. Историческая карта…»</b></h4>
-                </div>
-            </a>
-            <a target="_blank" class="list-item-link" href="https://cloud.mail.ru/public/9bP6/MbepSCpS3">
-                <div>
-                    <h4><b>История: КЛЮЧИ для проверки работ по блоку «Систематизация знаний»</b></h4>
-                </div>
-            </a>
-        </div>
         <!--Протоколы-->
-        <div *ngIf="false" class="list-item">
+        <div *ngIf="true" class="list-item">
             <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                 <div>
                     <h4><b>Протоколы проверки заданий</b></h4>
                 </div>
                 <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
             </a>
-            <!--<ng-template #area208>
-                <a *ngIf="false" class="list-item-link" href="#"><div><h4>История: Бланки ответов</h4></div></a>
-            </ng-template>-->
         </div>
     </div>
 

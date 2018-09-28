@@ -14,6 +14,9 @@ var FileService = /** @class */ (function () {
         formData.append('file', file, fileName ? fileName : file.name);
         return this.http.post(this.endpoint + "/" + repositoryId + "/files", formData, { responseType: 'text', params: { 'useHashAsFileName': "" + useHashAsFileName } });
     };
+    FileService.prototype.deleteFile = function (fileId) {
+        return this.http.delete("api/files/" + fileId, { responseType: 'text' });
+    };
     FileService = tslib_1.__decorate([
         core_1.Injectable(),
         tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])

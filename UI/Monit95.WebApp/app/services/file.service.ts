@@ -13,4 +13,8 @@ export class FileService {
 		formData.append('file', file, fileName ? fileName : file.name);
 		return this.http.post(`${this.endpoint}/${repositoryId}/files`, formData, { responseType: 'text', params: { 'useHashAsFileName': `${useHashAsFileName}` } });
 	}
+
+	deleteFile(fileId: number) {
+		return this.http.delete(`api/files/${fileId}`, { responseType: 'text' });
+	}
 }

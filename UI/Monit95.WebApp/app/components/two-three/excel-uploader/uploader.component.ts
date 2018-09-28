@@ -4,6 +4,8 @@ import { AccountService } from '../../../services/account.service';
 import { getFileExtension } from '../../../utils/functions';
 import { SchoolCollectorService } from '../../../shared/school-collector.service';
 import { stagger } from '@angular/core/src/animation/dsl';
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 const REPOSITORY_ID = 4;
 
@@ -14,13 +16,15 @@ const REPOSITORY_ID = 4;
 })
 export class ExcelUploadComponent {
 	uploadStatus: 'waiting' | 'uploading' | 'uploaded' = 'waiting';
+	uploadedFileId: number;
 
 	@Input('testCode') testCode: string;
 	@Input('collectorId') collectorId: number;
 
 	constructor(private fileService: FileService,
 		private accountService: AccountService,
-		private collectorService: SchoolCollectorService) { }
+		private collectorService: SchoolCollectorService,
+		private dialog: MatDialog) { }
 
 	ngOnInit() {
 		this.collectorService.getSchoolCollectorState(this.collectorId).subscribe(state => {
@@ -38,7 +42,8 @@ export class ExcelUploadComponent {
 
 			this.uploadStatus = 'uploading';
 			this.fileService.uploadFile(REPOSITORY_ID, file, fileName, false)
-				.subscribe(() => {
+				.subscribe(fileId => {
+					this.uploadedFileId = Number.parseInt(fileId);
 					this.collectorService.isFinished(this.collectorId, true).subscribe(() => this.uploadStatus = 'uploaded');
 				},
 				error => {
@@ -52,6 +57,24 @@ export class ExcelUploadComponent {
 		}
 		evt.target.value = '';
 	}
+
+	//cancelUploaded() {
+	//	if (this.uploadedFileId) {
+	//		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+	//			width: '400px',
+	//			disableClose: true,
+	//			data: { message: 'Вы действительно хотите удалить отправленный протокол проверки заданий?' }
+	//		});
+
+	//		dialogRef.afterClosed().subscribe(res => {
+	//			if (res) {
+	//				this.fileService.deleteFile(this.uploadedFileId).subscribe(() => {
+	//					this.collectorService.isFinished(this.collectorId, false).subscribe(() => this.uploadStatus = 'waiting');
+	//				});
+	//			}
+	//		});
+	//	}
+	//}
 
 	private getFileName(file: File) {
 		return `${this.testCode}_${this.accountService.account.UserName}.${getFileExtension(file.name)}`;
