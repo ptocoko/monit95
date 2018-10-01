@@ -421,6 +421,8 @@
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.css" />
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\new-particip\new-particip.component.html" />
+    <Content Include="app\components\two-three-2\home\home.component.css" />
+    <Content Include="app\components\two-three-2\home\home.component.html" />
     <Content Include="app\components\two-three\excel-uploader\uploader.component.css" />
     <Content Include="app\components\two-three\excel-uploader\uploader.component.html" />
     <Content Include="app\components\two-three\home\home.component.css" />
@@ -663,6 +665,8 @@
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\new-particip\new-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\two-three-2\home\home.component.ts" />
+    <TypeScriptCompile Include="app\components\two-three-2\two-three.module.ts" />
     <TypeScriptCompile Include="app\components\two-three\excel-uploader\uploader.component.ts" />
     <TypeScriptCompile Include="app\components\two-three\home\home.component.ts" />
     <TypeScriptCompile Include="app\components\two-three\two-three.module.ts" />
