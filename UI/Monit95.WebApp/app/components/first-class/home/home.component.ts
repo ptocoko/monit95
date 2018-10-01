@@ -29,11 +29,18 @@ export class HomeComponent {
 			document.body.appendChild(a);
 			a.setAttribute('style', 'display: none');
 			a.href = url;
-			a.download = 'карты.zip';
+			a.download = '1-е классы карты.zip';
 			a.click();
 			window.URL.revokeObjectURL(url);
 			a.remove();
 			this.cardsIdGenerating = false;
+		}, error => {
+			this.cardsIdGenerating = false;
+			if (error.status === 404) {
+				alert('Карты не найдены. Если Вы уверены что загружали результаты участников, пожалуйста, обратитесть к администратору');
+			} else {
+				throw error;
+			}
 		});
 	}
 }

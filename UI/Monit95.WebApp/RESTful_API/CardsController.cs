@@ -25,7 +25,16 @@ namespace Monit95.WebApp.RESTful_API
         [Route("{projectTestId:int}")]
         public HttpResponseMessage GetCardsArchieve([FromUri] int projectTestId)
         {
-            var path = cardsGenerator.GetCardsArchievePath(User.Identity.Name, projectTestId);
+            string path;
+            try
+            {
+                path = cardsGenerator.GetCardsArchievePath(User.Identity.Name, projectTestId);
+            }
+            catch(ArgumentException)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
             var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
             result.Content = new StreamContent(stream);

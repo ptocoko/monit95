@@ -1,11 +1,11 @@
 ﻿<h2>Диагностика учащихся 2-х и 3-х классов: главное меню</h2>
 
-<div class="jumbotron" style="margin-top:25px" *ngIf="!timeIsCome">
+<div class="jumbotron" style="margin-top:25px">
     <p><b>Инструкция по работе с электронной формой "Протокол проверки заданий":</b></p>
     <p>Загрузите  электронную форму "Протокол проверки заданий" для соответствующего класса, заполните его и отправьте на сервер.</p>
 </div>
 
-<div class="list-container" *ngIf="timeIsCome && accountService.account.UserName && accountService.account.UserName !== '0382'">
+<div class="list-container" *ngIf="accountService.account.UserName && accountService.account.UserName !== '0382'">
     <h3 class="list-header">Смысловое чтение (только для 3-х классов)</h3>
     <div>
         <a class="list-item-link" href="https://cloud.mail.ru/public/8145/rvxggDTsc" target="_blank">

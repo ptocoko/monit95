@@ -29,7 +29,8 @@ namespace ParticipReporter
             cardsGenerator = new CardsGenerator(context, participReporter);
             //oneTwoThree.GenerateCards();
             //GenerateReportEntitiesForSeveralSchools(oneTwoThree.BadSchoolsIds);
-
+            GenerateFirstClassCards();
+            //NormalizeParticipNames();
 
             Console.WriteLine("End");
             #region oldCode
@@ -91,9 +92,27 @@ namespace ParticipReporter
             #endregion
         }
 
+        static void NormalizeParticipNames()
+        {
+            var particips = context.Particips.Where(p => p.ProjectId == 17);
+
+            foreach (var particip in particips)
+            {
+                particip.Surname = NormalizeName(particip.Surname);
+                particip.Name = NormalizeName(particip.Name);
+                particip.SecondName = particip.SecondName == null ? null : NormalizeName(particip.SecondName);
+            }
+            context.SaveChanges();
+        }
+
+        static string NormalizeName(string name)
+        {
+            return name.Replace('\t', '\0').Replace('\n', '\0').Replace('\r', '\0').Replace(' ', '\0');
+        }
+
         static void GenerateFirstClassCards()
         {
-            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTestId == 2043 && pt.Grade5 > 0).Select(pt => pt.Particip.SchoolId);
+            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTestId == 2043 && pt.Grade5 > 0).Select(pt => pt.Particip.SchoolId).Distinct();
             foreach (var schoolId in schoolIds)
             {
                 Console.WriteLine($"Started for {schoolId}");

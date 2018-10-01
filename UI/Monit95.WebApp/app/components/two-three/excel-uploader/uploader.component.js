@@ -7,7 +7,6 @@ var account_service_1 = require("../../../services/account.service");
 var functions_1 = require("../../../utils/functions");
 var school_collector_service_1 = require("../../../shared/school-collector.service");
 var material_1 = require("@angular/material");
-var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm-dialog.component");
 var REPOSITORY_ID = 4;
 var ExcelUploadComponent = /** @class */ (function () {
     function ExcelUploadComponent(fileService, accountService, collectorService, dialog) {
@@ -47,23 +46,22 @@ var ExcelUploadComponent = /** @class */ (function () {
         }
         evt.target.value = '';
     };
-    ExcelUploadComponent.prototype.cancelUploaded = function () {
-        var _this = this;
-        if (this.uploadedFileId) {
-            var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
-                width: '400px',
-                disableClose: true,
-                data: { message: 'Вы действительно хотите удалить отправленный протокол проверки заданий?' }
-            });
-            dialogRef.afterClosed().subscribe(function (res) {
-                if (res) {
-                    _this.fileService.deleteFile(_this.uploadedFileId).subscribe(function () {
-                        _this.collectorService.isFinished(_this.collectorId, false).subscribe(function () { return _this.uploadStatus = 'waiting'; });
-                    });
-                }
-            });
-        }
-    };
+    //cancelUploaded() {
+    //	if (this.uploadedFileId) {
+    //		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    //			width: '400px',
+    //			disableClose: true,
+    //			data: { message: 'Вы действительно хотите удалить отправленный протокол проверки заданий?' }
+    //		});
+    //		dialogRef.afterClosed().subscribe(res => {
+    //			if (res) {
+    //				this.fileService.deleteFile(this.uploadedFileId).subscribe(() => {
+    //					this.collectorService.isFinished(this.collectorId, false).subscribe(() => this.uploadStatus = 'waiting');
+    //				});
+    //			}
+    //		});
+    //	}
+    //}
     ExcelUploadComponent.prototype.getFileName = function (file) {
         return this.testCode + "_" + this.accountService.account.UserName + "." + functions_1.getFileExtension(file.name);
     };

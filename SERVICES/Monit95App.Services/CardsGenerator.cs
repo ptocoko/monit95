@@ -7,6 +7,7 @@ using System.IO;
 using Monit95App.Services.DTOs;
 using Monit95App.Infrastructure.Data;
 using Ionic.Zip;
+using System.Text.RegularExpressions;
 
 namespace Monit95App.Services
 {
@@ -31,9 +32,11 @@ namespace Monit95App.Services
             }
             else
             {
-                return GenerateCardsForSchool(schoolId, projectTestId);
+                //return GenerateCardsForSchool(schoolId, projectTestId);
 
                 //throw new NotImplementedException();
+
+                throw new ArgumentException();
             }
         }
 
@@ -111,9 +114,19 @@ namespace Monit95App.Services
             {
                 dto.Marks = dto.MarksString.Split(';');
                 dto.ClassName = dto.ClassName.Replace(" ", "");
+                dto.SchoolParticipInfo.Surname = NormalizeName(dto.SchoolParticipInfo.Surname);
+                dto.SchoolParticipInfo.Name = NormalizeName(dto.SchoolParticipInfo.Name);
+
+                if (dto.SchoolParticipInfo.SecondName != null)
+                    dto.SchoolParticipInfo.SecondName = NormalizeName(dto.SchoolParticipInfo.SecondName);
             });
 
             return entities;
+        }
+
+        private string NormalizeName(string name)
+        {
+            return Regex.Replace(name, @"\W", "");
         }
     }
 }
