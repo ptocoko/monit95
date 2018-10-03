@@ -168,7 +168,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
             int badCount = egeValues.Count(p => p == 0);
             int allCount = egeValues.Count();
 
-            return allCount - badCount >= 22 ? 5 : 2;
+            return allCount - badCount >= 21 ? 5 : 2;
         }
 
         private string GetEgeQuestionValues(IEnumerable<EgeQuestionsModel> questionsModel)
