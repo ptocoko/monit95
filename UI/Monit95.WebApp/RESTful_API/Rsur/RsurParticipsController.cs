@@ -38,22 +38,23 @@ namespace Monit95App.Web.Api
         [Authorize(Roles = "school")]
         public IHttpActionResult Post([FromBody]ParticipAddDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            int rsurParticipCode;
-            try
-            {
-                rsurParticipCode = this._rsurParticipService.Add(dto);
-            }
-            catch (DublicateEntityException)
-            {
-                return Conflict();
-            }
+            //int rsurParticipCode;
+            //try
+            //{
+            //    rsurParticipCode = this._rsurParticipService.Add(dto);
+            //}
+            //catch (DublicateEntityException)
+            //{
+            //    return Conflict();
+            //}
 
-            return Ok(rsurParticipCode);
+            //return Ok(rsurParticipCode);
+            return BadRequest();
         }
 
         [HttpGet]
@@ -103,21 +104,22 @@ namespace Monit95App.Web.Api
         [Route("{code:int}")]
         public IHttpActionResult Put([FromUri]int code, [FromBody] RsurParticipPutDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return this.BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return this.BadRequest(ModelState);
+            //}
 
-            try
-            {
-                this._rsurParticipService.Update(code, dto);
-            }
-            catch(ArgumentException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //try
+            //{
+            //    this._rsurParticipService.Update(code, dto);
+            //}
+            //catch(ArgumentException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
 
-            return Ok();
+            //return Ok();
+            return BadRequest();
         }
 
         [HttpDelete]
@@ -125,21 +127,22 @@ namespace Monit95App.Web.Api
         [Route("{code:int}")]
         public IHttpActionResult Delete([FromUri]int code)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            try
-            {
-                _rsurParticipService.Delete(code);
-            }
-            catch(ArgumentException e)
-            {
-                return BadRequest(e.Message);
-            }
+            //try
+            //{
+            //    _rsurParticipService.Delete(code);
+            //}
+            //catch(ArgumentException e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
 
-            return Ok();
+            //return Ok();
+            return BadRequest();
         }
         #endregion
     }

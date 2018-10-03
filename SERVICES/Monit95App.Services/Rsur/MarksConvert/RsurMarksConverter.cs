@@ -120,7 +120,17 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 throw new ArgumentException("Отсутствует поле Order в таблице Questions");
 
             var egeValues = questionsModel.Select(s => s.EgeValue);
-            var grade5 = GetGrade5(egeValues);
+
+            int grade5;
+            if(testResultEntity.RsurParticipTest.RsurTestId == 2138)
+            {
+                grade5 = GetGrade5ForGeo(egeValues);
+            }
+            else
+            {
+                grade5 = GetGrade5(egeValues);
+            }
+
             var egeQuestionValues = GetEgeQuestionValues(questionsModel);
 
             testResultEntity.Grade5 = grade5;
@@ -151,6 +161,14 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 return 5;
             }
+        }
+
+        private int GetGrade5ForGeo(IEnumerable<int> egeValues)
+        {
+            int badCount = egeValues.Count(p => p == 0);
+            int allCount = egeValues.Count();
+
+            return allCount - badCount >= 22 ? 5 : 2;
         }
 
         private string GetEgeQuestionValues(IEnumerable<EgeQuestionsModel> questionsModel)

@@ -2,8 +2,8 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="isArea() && false" class="list-container">
-        <h3 class="list-header">Диагностика «Сентябрь-2018»</h3>
+    <div *ngIf="isAdmin()" class="list-container">
+        <h3 class="list-header">География. Комплексная работа</h3>
         <a *ngIf="false" class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/GhWx/bn9GnxmXg/{{account.UserName}}/042018_ис_распределение_{{account.UserName}}.xlsx"><div><h4>История: распределение</h4></div></a>
 
         <!--Протоколы-->
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div *ngIf="isSchool()" class="list-container">
+    <div *ngIf="false" class="list-container">
         <h3 class="list-header">Актуализация</h3>
         <div class="list-item" *ngIf="true">
             <a class="list-item-link" routerLink="/rsur/actualization/hiring/list">
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="list-container">
+    <div class="list-container" *ngIf="false">
         <h3 class="list-header">Вспомогательный материал</h3>
 
         <!--div class="list-item">

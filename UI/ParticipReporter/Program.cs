@@ -23,13 +23,14 @@ namespace ParticipReporter
 
         static void Main(string[] args)
         {
-            //oneTwoThree = new OneTwoThree();
+            oneTwoThree = new OneTwoThree();
             context = new CokoContext();
-            participReporter = new ClassParticipReporter();
-            cardsGenerator = new CardsGenerator(context, participReporter);
+            CopyFiles();
+            //participReporter = new ClassParticipReporter();
+            //cardsGenerator = new CardsGenerator(context, participReporter);
             //oneTwoThree.GenerateCards();
             //GenerateReportEntitiesForSeveralSchools(oneTwoThree.BadSchoolsIds);
-            GenerateFirstClassCards();
+            //GenerateFirstClassCards();
             //NormalizeParticipNames();
 
             Console.WriteLine("End");
@@ -124,15 +125,15 @@ namespace ParticipReporter
 
         static void CopyFiles()
         {
-            string destFolder = $@"D:\Work\reports\1-e классы";
-            string sourceFolder = $@"\\192.168.88.254\PTO_Cloud Mail.Ru\Reports";
-            string reportCode = "201692";
+            string destFolder = $@"D:\Work\милена\1-e классы";
+            string sourceFolder = $@"C:\cards\2043";
+            //string reportCode = "201692";
 
             foreach (var schoolId in oneTwoThree.BadSchoolsIds)
             {
                 var school = context.Schools.Find(schoolId);
                 var destSchoolFolder = $@"{destFolder}\{school.Area.Name.Trim()}";
-                var sourceReportFile = $@"{sourceFolder}\{schoolId}\{schoolId}_{reportCode}.zip";
+                var sourceReportFile = $@"{sourceFolder}\{schoolId}.zip";
 
                 if (System.IO.File.Exists(sourceReportFile))
                 {
