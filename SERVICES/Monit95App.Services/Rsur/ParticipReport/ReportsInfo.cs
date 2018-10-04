@@ -12,6 +12,17 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         public IEnumerable<string> TestNames { get; set; }
 
-        public IEnumerable<string> ExamNames { get; set; }
+        public IEnumerable<ExamDto> ExamNames { get; set; }
+    }
+
+    public class ExamDto : IComparable<ExamDto>
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+
+        public int CompareTo(ExamDto dto2)
+        {
+            return String.Compare(this.Code, dto2.Code);
+        }
     }
 }

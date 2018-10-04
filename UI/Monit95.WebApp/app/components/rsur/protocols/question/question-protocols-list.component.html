@@ -9,6 +9,7 @@
         <mat-form-field>
             <input #participCodeInput [(ngModel)]="searchText" maxlength="5" placeholder="поиск по коду участника..." matInput />
             <i class="glyphicon glyphicon-ok" matSuffix style="color:green" *ngIf="checkIfOnlyOneMatch(searchText)"></i>
+            <mat-hint *ngIf="checkIfOnlyOneMatch(searchText)">Нажмите Enter чтобы перейти</mat-hint>
         </mat-form-field>
         <app-table-paginator [length]="questionProtocols.length"
                              [pageSizeOptions]="[20, 50, 70]"

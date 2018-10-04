@@ -8,7 +8,7 @@ var RsurReportService = /** @class */ (function () {
         this.http = http;
         this.ROUTE_PREFIX = 'api/rsur/participReports';
     }
-    RsurReportService.prototype.getReports = function (page, length, search, schoolId, testCode, examName) {
+    RsurReportService.prototype.getReports = function (page, length, search, schoolId, testCode, examCode) {
         var params = new http_1.HttpParams();
         if (page)
             params = params.append('page', page);
@@ -20,8 +20,8 @@ var RsurReportService = /** @class */ (function () {
             params = params.append('schoolId', schoolId);
         if (testCode)
             params = params.append('testCode', testCode);
-        if (examName)
-            params = params.append('examName', examName);
+        if (examCode)
+            params = params.append('examCode', examCode);
         return this.http.get("" + this.ROUTE_PREFIX, { params: params });
     };
     RsurReportService.prototype.getReportsInfo = function () {

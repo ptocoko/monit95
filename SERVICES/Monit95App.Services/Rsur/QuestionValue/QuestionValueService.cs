@@ -230,7 +230,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
             
             questionValueEditDto.QuestionResults.ForEach(questionResult =>
             {
-                var maxValue = 1;
+                var maxValue = 2;
 
                 // если балл указан балл ниже -1 (отсутствовал) или больше допустимого, то устанавливается максимально допустимый
                 if (questionResult.CurrentMark < -1 || questionResult.CurrentMark > maxValue)

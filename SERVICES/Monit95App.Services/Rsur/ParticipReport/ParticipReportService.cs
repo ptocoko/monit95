@@ -114,6 +114,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
             var serviceResult = new ServiceResult<ReportsInfo>();
 
             var minDateTime = new DateTime(2017, 4, 20);
+
             IQueryable<RsurTestResult> entities = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с апреля                              
                                                                              && rtr.RsurParticipTest.RsurParticip.ActualCode == 1);
 
@@ -132,7 +133,11 @@ namespace Monit95App.Services.Rsur.ParticipReport
             {
                 SchoolNames = GetSchoolNames(entities),
                 TestNames = GetTestNames(entities),
-                ExamNames = entities.Select(s => s.RsurParticipTest.RsurTest.ExamName.Trim()).Distinct()
+                ExamNames = entities.Select(s => new ExamDto
+                {
+                    Name = s.RsurParticipTest.RsurTest.ExamName.Trim(),
+                    Code = s.RsurParticipTest.RsurTest.ExamCode.Trim()
+                }).Distinct()
             };
 
             return serviceResult;
@@ -194,9 +199,9 @@ namespace Monit95App.Services.Rsur.ParticipReport
                 queryable = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.Test.NumberCode.Trim().Contains(options.TestCode));
             }
 
-            if (!String.IsNullOrEmpty(options.ExamName))
+            if (!String.IsNullOrEmpty(options.ExamCode))
             {
-                queryable = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.ExamName.Contains(options.ExamName));
+                queryable = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.ExamCode.Trim().Contains(options.ExamCode));
             }
 
             return queryable;

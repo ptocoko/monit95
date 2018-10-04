@@ -32,7 +32,7 @@ export class ReportListComponent {
 
     selectedSchool = SCHOOLNAME_DEFAULT_SELECTION;
 	selectedTest = TESTNAME_DEFAULT_SELECTION;
-	selectedExam = EXAMNAME_DEFAULT_SELECTION;
+	selectedExamCode: string = EXAMNAME_DEFAULT_SELECTION;
 	searchParticipText: string;
 
 	@ViewChild('paginator') paginator: MatPaginator;
@@ -77,7 +77,7 @@ export class ReportListComponent {
 	private createRequest(): Observable<ReportsList> {
 		const schoolId = getSchoolIdFromName(this.selectedSchool);
 		const testCode = getTestCodeFromName(this.selectedTest);
-		const examName = getExamName(this.selectedExam);
+		const examCode = getExamCode(this.selectedExamCode);
 
 		return this.rsurReportService.getReports(
 			(this.paginator.pageIndex + 1).toString(),
@@ -85,7 +85,7 @@ export class ReportListComponent {
 			this.searchParticipText,
 			schoolId,
 			testCode,
-			examName
+			examCode
 		);
 	}
 
@@ -115,6 +115,6 @@ function getTestCodeFromName(selectedTestName: string): string {
 	return null;
 }
 
-function getExamName(selectedExamName: string): string {
-	return selectedExamName && selectedExamName !== EXAMNAME_DEFAULT_SELECTION ? selectedExamName : null;
+function getExamCode(selectedExamCode: string): string {
+	return selectedExamCode && selectedExamCode !== EXAMNAME_DEFAULT_SELECTION ? selectedExamCode : null;
 }

@@ -35,9 +35,9 @@ namespace Monit95App.Domain.Core.Entities
 
         public int RsurSubjectCode { get; set; }
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
-        public int Experience { get; set; }
+        public int? Experience { get; set; }
 
         [StringLength(20)]
         public string Phone { get; set; }

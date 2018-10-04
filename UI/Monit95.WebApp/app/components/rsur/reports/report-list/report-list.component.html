@@ -25,10 +25,10 @@
 
         <!-- Нисподающее меню для списка диагностик -->
         <mat-form-field>
-            <mat-select [(ngModel)]="selectedExam"
+            <mat-select [(ngModel)]="selectedExamCode"
                         (selectionChange)="selectionChange()">
                 <mat-option value="все диагностики">все диагностики</mat-option>
-                <mat-option *ngFor="let examName of reportsInfo.ExamNames" [value]="examName">{{examName}}</mat-option>
+                <mat-option *ngFor="let examName of reportsInfo.ExamNames" [value]="examName.Code">{{examName.Name}}</mat-option>
             </mat-select>
         </mat-form-field>
 

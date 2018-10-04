@@ -19,6 +19,6 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
         public string TestCode { get; set; }
 
-        public string ExamName { get; set; }
+        public string ExamCode { get; set; }
     }
 }

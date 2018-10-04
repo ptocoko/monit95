@@ -12,14 +12,14 @@ export class RsurReportService {
 	    
 	}
 
-    getReports(page: string, length: string, search: string, schoolId: string, testCode: string, examName: string): Observable<ReportsList> {
+    getReports(page: string, length: string, search: string, schoolId: string, testCode: string, examCode: string): Observable<ReportsList> {
 		let params = new HttpParams();
 		if (page) params = params.append('page', page);
 		if (length) params = params.append('length', length);
 		if (search) params = params.append('search', search);
 		if (schoolId) params = params.append('schoolId', schoolId);
 		if (testCode) params = params.append('testCode', testCode);
-		if (examName) params = params.append('examName', examName);
+		if (examCode) params = params.append('examCode', examCode);
 
 		return this.http.get<ReportsList>(`${this.ROUTE_PREFIX}`, { params: params });
     }

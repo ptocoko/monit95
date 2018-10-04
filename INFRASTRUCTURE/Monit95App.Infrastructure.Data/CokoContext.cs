@@ -103,7 +103,7 @@ namespace Monit95App.Infrastructure.Data
 
             modelBuilder.Entity<Category>()
                 .HasMany(e => e.RsurParticips)
-                .WithRequired(e => e.Category)
+                .WithOptional(e => e.Category)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Class>()

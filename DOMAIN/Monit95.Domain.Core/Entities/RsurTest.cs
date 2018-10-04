@@ -33,6 +33,8 @@ namespace Monit95App.Domain.Core.Entities
         /// <example>"ќкт€брь-2017" | "ƒекабрь-2017"</example>
         public string ExamName { get; set; }
 
+        public string ExamCode { get; set; }
+
         public int? ProjectId { get; set; }
 
         public virtual Project Project { get; set; }

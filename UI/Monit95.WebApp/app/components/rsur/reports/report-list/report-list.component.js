@@ -26,7 +26,7 @@ var ReportListComponent = /** @class */ (function () {
         this.dataSource = new material_1.MatTableDataSource();
         this.selectedSchool = exports.SCHOOLNAME_DEFAULT_SELECTION;
         this.selectedTest = exports.TESTNAME_DEFAULT_SELECTION;
-        this.selectedExam = exports.EXAMNAME_DEFAULT_SELECTION;
+        this.selectedExamCode = exports.EXAMNAME_DEFAULT_SELECTION;
         this.selectionChange$ = new Subject_1.Subject();
         this.isLoadingReports = true;
         this.reportsLength = 0;
@@ -52,8 +52,8 @@ var ReportListComponent = /** @class */ (function () {
     ReportListComponent.prototype.createRequest = function () {
         var schoolId = getSchoolIdFromName(this.selectedSchool);
         var testCode = getTestCodeFromName(this.selectedTest);
-        var examName = getExamName(this.selectedExam);
-        return this.rsurReportService.getReports((this.paginator.pageIndex + 1).toString(), this.paginator.pageSize.toString(), this.searchParticipText, schoolId, testCode, examName);
+        var examCode = getExamCode(this.selectedExamCode);
+        return this.rsurReportService.getReports((this.paginator.pageIndex + 1).toString(), this.paginator.pageSize.toString(), this.searchParticipText, schoolId, testCode, examCode);
     };
     ReportListComponent.prototype.selectionChange = function () {
         this.paginator.pageIndex = 0;
@@ -97,7 +97,7 @@ function getTestCodeFromName(selectedTestName) {
     }
     return null;
 }
-function getExamName(selectedExamName) {
-    return selectedExamName && selectedExamName !== exports.EXAMNAME_DEFAULT_SELECTION ? selectedExamName : null;
+function getExamCode(selectedExamCode) {
+    return selectedExamCode && selectedExamCode !== exports.EXAMNAME_DEFAULT_SELECTION ? selectedExamCode : null;
 }
 //# sourceMappingURL=report-list.component.js.map
