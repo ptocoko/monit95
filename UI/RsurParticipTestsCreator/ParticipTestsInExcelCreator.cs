@@ -1,4 +1,5 @@
-﻿using Monit95App.Infrastructure.Data;
+﻿using ClosedXML.Excel;
+using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,11 @@ namespace RsurParticipTestsCreator
             _context = cokoContext;
         }
 
-        public IEnumerable<ParticipTestsInExcelModel> GetModels(string subjectPrefix)
+        public IEnumerable<ParticipTestsInExcelModel> GetModels(int[] rsurTestIds)
         {
             return _context.RsurParticipTests
                 .AsNoTracking()
-                .Where(p => p.RsurTest.IsOpen && p.RsurTest.Test.NumberCode.Substring(0, 2) == subjectPrefix && p.RsurParticip.School.AreaCode != 1000)
+                .Where(p => rsurTestIds.Contains(p.RsurTestId) && p.RsurParticip.School.AreaCode != 1000)
                 .GroupBy(gb => new
                 {
                     gb.RsurParticip.School.AreaCode,
@@ -44,20 +45,44 @@ namespace RsurParticipTestsCreator
                     })
                     .OrderBy(ob => ob.NumberCode)
                     .ThenBy(tb => tb.Code)
+                    .ToList()
                 }).ToArray();
         }
 
-        public ParticipTestsInExcelModel GetModelByAreaCode(string subjectPrefix, int areaCode, CokoContext context)
+        public ParticipTestsInExcelModel GetModelByAreaCode(int[] rsurTestIds, int areaCode)
         {
-            throw new NotImplementedException();
+            return GetModels(rsurTestIds).Single(p => p.AreaCode == areaCode);
         }
 
-        public void SaveModelsIntoExcel(IEnumerable<ParticipTestsInExcelModel> models)
+        public void SaveModelsIntoExcel(ParticipTestsInExcelModel models)
         {
-            throw new NotImplementedException();
+            var destFolder = @"\\192.168.88.220\файлы_пто\Работы\[2016-61] - рсур\Диагностика «Октябрь-2018»\распределения";
+            var templatePath = @"\\192.168.88.220\файлы_пто\Работы\[2016-61] - рсур\templates\распределение.xlsx";
+            using (var excel = new XLWorkbook(templatePath))
+            {
+                using (var sheet = excel.Worksheets.First())
+                {
+                    sheet.Cell(2, 3).Value = models.AreaCode;
+                    sheet.Cell(1, 5).Value = models.TestDate.ToString("dd.MM.yyyy");
+                    sheet.Cell(2, 5).Value = models.SubjectName;
+
+                    ParticipTestModel pt;
+                    for (int i = 8; i < models.ParticipTests.Count(); i++)
+                    {
+                        pt = models.ParticipTests[i];
+                        sheet.Cell(i, 1).Value = i-7;
+                        sheet.Cell(i, 2).Value = pt.Code;
+                        sheet.Cell(i, 3).Value = pt.Surname;
+                        sheet.Cell(i, 4).Value = pt.Name;
+                        sheet.Cell(i, 5).Value = pt.SecondName;
+                        sheet.Cell(i, 6).Value = pt.SchoolName;
+                        sheet.Cell(i, 7).Value = pt.BlockName;
+                    }
+                }
+
+                excel.SaveAs($@"{destFolder}\102018_{models.SubjectName.Substring(0, 2).ToLower()}_распределение_{models.AreaCode}.xlsx");
+            }
         }
-
-
     }
 
     internal class ParticipTestsInExcelModel
@@ -65,7 +90,7 @@ namespace RsurParticipTestsCreator
         public int AreaCode { get; set; }
         public DateTime TestDate { get; set; }
         public string SubjectName { get; set; }
-        public IEnumerable<ParticipTestModel> ParticipTests { get; set; }
+        public IList<ParticipTestModel> ParticipTests { get; set; }
     }
 
     internal class ParticipTestModel

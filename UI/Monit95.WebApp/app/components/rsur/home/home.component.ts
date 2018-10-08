@@ -9,7 +9,7 @@ import { RsurProtocolsService } from '../../../services/rsur-protocols.service';
 export class HomeComponent implements OnInit {
     account = new AccountModel(); 
 	isLoading: boolean = true;
-	_fillingProgress: string;
+	//_fillingProgress: string;
 
     constructor(        
 		private readonly accountService: AccountService,
@@ -21,13 +21,13 @@ export class HomeComponent implements OnInit {
             this.account = data;            
             this.isLoading = false;
 			localStorage.clear();
-			this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
+			//this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress);
         });
     }
 
     isArea() {                
         if (this.account.RoleNames != null)
-            return this.account.RoleNames.indexOf('area') > -1;
+            return this.account.RoleNames.indexOf('area') > -1 && this.account.UserName !== '200';
         return null;
 	}
 
@@ -53,11 +53,11 @@ export class HomeComponent implements OnInit {
 		return this.account.UserName && this.account.UserName === '200';
 	}
 
-	fillingProgress() {
-		if (!this._fillingProgress) {
-			return 0;
-		}
+	//fillingProgress() {
+	//	if (!this._fillingProgress) {
+	//		return 0;
+	//	}
 
-		return Number.parseInt(this._fillingProgress);
-	}
+	//	return Number.parseInt(this._fillingProgress);
+	//}
 }

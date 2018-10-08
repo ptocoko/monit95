@@ -2,6 +2,7 @@
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
+using Monit95App.Services.TwoThree;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -20,18 +21,17 @@ namespace ParticipReporter
         private static CokoContext context;
         private static CardsGenerator cardsGenerator;
         private static ClassParticipReporter participReporter;
+        private static ResultsImporter importer;
 
         static void Main(string[] args)
         {
-            oneTwoThree = new OneTwoThree();
+            //oneTwoThree = new OneTwoThree();
             context = new CokoContext();
+            //importer = new ResultsImporter(context);
+
+            //importer.ImportByTestCode("0303");
+
             CopyFiles();
-            //participReporter = new ClassParticipReporter();
-            //cardsGenerator = new CardsGenerator(context, participReporter);
-            //oneTwoThree.GenerateCards();
-            //GenerateReportEntitiesForSeveralSchools(oneTwoThree.BadSchoolsIds);
-            //GenerateFirstClassCards();
-            //NormalizeParticipNames();
 
             Console.WriteLine("End");
             #region oldCode
@@ -125,22 +125,22 @@ namespace ParticipReporter
 
         static void CopyFiles()
         {
-            string destFolder = $@"D:\Work\милена\1-e классы";
-            string sourceFolder = $@"C:\cards\2043";
+            string destFolder = $@"\\192.168.88.220\файлы_пто\Работы\[2016-61] - рсур\Диагностика «Октябрь-2018»\распределения";
+            string sourceFolder = $@"\\192.168.88.220\файлы_пто\Работы\[2016-61] - рсур\Диагностика «Октябрь-2018»\распределения";
             //string reportCode = "201692";
 
-            foreach (var schoolId in oneTwoThree.BadSchoolsIds)
+            foreach (var areaCode in context.Areas.Where(p => p.Code != 1000).Select(s => s.Code))
             {
-                var school = context.Schools.Find(schoolId);
-                var destSchoolFolder = $@"{destFolder}\{school.Area.Name.Trim()}";
-                var sourceReportFile = $@"{sourceFolder}\{schoolId}.zip";
+                //var school = context.Schools.Find(schoolId);
+                var destFile = $@"{destFolder}\{areaCode}";
+                var sourceFile = $@"{sourceFolder}\102018_ру_распределение_{areaCode}.xlsx";
 
-                if (System.IO.File.Exists(sourceReportFile))
+                if (System.IO.File.Exists(sourceFile))
                 {
-                    if (!Directory.Exists(destSchoolFolder))
-                        Directory.CreateDirectory(destSchoolFolder);
+                    if (!Directory.Exists(destFile))
+                        Directory.CreateDirectory(destFile);
 
-                    System.IO.File.Copy(sourceReportFile, $@"{destFolder}\{school.Area.Name.Trim()}\{school.Name.Trim()}.zip");
+                    System.IO.File.Copy(sourceFile, $@"{destFile}\102018_ру_распределение_{areaCode}.xlsx");
                 }
             }
         } 

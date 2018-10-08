@@ -134,6 +134,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
             var egeQuestionValues = GetEgeQuestionValues(questionsModel);
 
             testResultEntity.Grade5 = grade5;
+            testResultEntity.PrimaryMark = marks.Sum();
             testResultEntity.EgeQuestionValues = egeQuestionValues;
             context.SaveChanges();
 

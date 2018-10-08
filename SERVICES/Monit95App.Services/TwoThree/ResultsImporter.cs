@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,18 @@ namespace Monit95App.Services.TwoThree
 
         public void ImportByTestCode(string testCode)
         {
-            IEnumerable<ResultDto> dto;
+            List<TwoThreeResult> dto = new List<TwoThreeResult>();
             foreach(var fileName in Directory.EnumerateFiles(destFolderPath).Select(Path.GetFileNameWithoutExtension).Where(p => p.StartsWith(testCode)))
             {
-                var schoolId = fileName.Substring(4, 4);
-                dto = ImportByFilePath($@"{destFolderPath}\{fileName}.xlsx", testCode, schoolId);
+                var schoolId = fileName.Substring(5, 4);
+                dto.AddRange(ImportByFilePath($@"{destFolderPath}\{fileName}.xlsx", testCode, schoolId));
             }
+
+            context.TwoThreeResults.AddRange(dto);
+            context.SaveChanges();
         }
 
-        public IEnumerable<ResultDto> ImportByFilePath(string filePath, string testCode, string schoolId)
+        public IEnumerable<TwoThreeResult> ImportByFilePath(string filePath, string testCode, string schoolId)
         {
             using (var excel = new XLWorkbook(filePath))
             {
@@ -38,19 +42,18 @@ namespace Monit95App.Services.TwoThree
                     return ImportForCht(page, testCode, schoolId);
                 }
             }
-            throw new NotImplementedException();
         }
 
-        private IEnumerable<ResultDto> ImportForCht(IXLWorksheet sheet, string testCode, string schoolId)
+        private IEnumerable<TwoThreeResult> ImportForCht(IXLWorksheet sheet, string testCode, string schoolId)
         {
             int marksCount = 9;
-            var dtoList = new List<ResultDto>();
+            var dtoList = new List<TwoThreeResult>();
             for(int i = 3; i <= sheet.RowsUsed().Count(); i++)
             {
                 var row = sheet.Row(i);
                 if(CheckSheetsRow(row, marksCount + 3))
                 {
-                    var resultDto = new ResultDto
+                    var resultDto = new TwoThreeResult
                     {
                         Surname = row.Cell(2).Value.ToString().Trim(),
                         Name = row.Cell(3).Value.ToString().Trim(),
@@ -64,13 +67,7 @@ namespace Monit95App.Services.TwoThree
                     dtoList.Add(resultDto);
                 }
             }
-            //var marks = 
-            //return new ResultDto
-            //{
-            //    PrimaryMark = sheet
-            //}
-
-            throw new NotImplementedException();
+            return dtoList;
         }
 
         private bool CheckSheetsRow(IXLRow row, int columnsCount)

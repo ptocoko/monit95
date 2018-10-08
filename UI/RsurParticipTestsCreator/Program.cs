@@ -15,27 +15,24 @@ namespace RsurParticipTestsCreator
             CokoContext context = new CokoContext();
             //GenerateParticipTests(context);
             ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context);
-            var models = cretor.GetModels("02");
+            var models = cretor.GetModels(new int[] { 2141, 2142, 2143, 2144 });
+            foreach (var model in models)
+            {
+                cretor.SaveModelsIntoExcel(model);
+            }
         }
 
         private static void GenerateParticipTests(CokoContext context)
         {
             var rsurTestNumberCodeDict = new Dictionary<string, int>
             {
-                {"0101", 2127 },
-                {"0102", 2128 },
-                {"0103", 2129 },
-                {"0104", 2130 },
-                {"0201", 2131 },
-                {"0202", 2132 },
-                {"0203", 2133 },
-                {"0701", 2134 },
-                {"0702", 2135 },
-                {"0703", 2136 },
-                {"0704", 2137 }
+                {"0101", 2141 },
+                {"0102", 2142 },
+                {"0103", 2143 },
+                {"0104", 2144 }
             };
 
-            var whoMustPass = GetWhoMustPass(context.RsurParticips);
+            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => p.RsurSubjectCode == 1));
 
             var notPassLastExam = GetNotPassLastExam(whoMustPass);
             var passLastExam = GetPassLastExam(whoMustPass);
@@ -84,7 +81,8 @@ namespace RsurParticipTestsCreator
 
         private static IQueryable<RsurParticip> GetWhoMustPass(IQueryable<RsurParticip> rsurParticips)
         {
-            return rsurParticips.Where(p => p.ActualCode == 1 && !p.RsurParticipTests.Any(rpt => rpt.RsurTest.Test.IsFinal && rpt.RsurTestResult.Grade5 == 5));
+            return rsurParticips
+                .Where(p => new int[] { 1, 3, 4 }.Contains(p.ActualCode) && !p.RsurParticipTests.Any(rpt => rpt.RsurTest.Test.IsFinal && rpt.RsurTestResult.Grade5 == 5));
         }
 
         private static IQueryable<RsurParticip> GetPassLastExam(IQueryable<RsurParticip> whoMustPass)

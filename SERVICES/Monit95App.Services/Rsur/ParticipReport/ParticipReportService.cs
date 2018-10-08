@@ -51,7 +51,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                 return serviceResult;
             }
 
-            serviceResult.Result.FullParticipName = $"{entity.RsurParticipTest.RsurParticip.Surname.ToUpper()} {entity.RsurParticipTest.RsurParticip.Name.ToUpper()} {entity.RsurParticipTest.RsurParticip.SecondName.ToUpper()}";
+            serviceResult.Result.FullParticipName = $"{entity.RsurParticipTest.RsurParticip.Surname.ToUpper()} {entity.RsurParticipTest.RsurParticip.Name.ToUpper()} {entity.RsurParticipTest.RsurParticip.SecondName?.ToUpper()}";
             serviceResult.Result.SchoolParticipInfo = new SchoolParticip
             {                
                 SchoolName = entity.RsurParticipTest.RsurParticip.School.Name

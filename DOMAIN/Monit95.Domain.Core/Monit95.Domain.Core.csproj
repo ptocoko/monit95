@@ -91,6 +91,7 @@
     <Compile Include="Entities\SchoolReportsCollector.cs" />
     <Compile Include="Entities\Test.cs" />
     <Compile Include="Entities\TownType.cs" />
+    <Compile Include="Entities\TwoThreeResult.cs" />
     <Compile Include="Entities\Wish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingItem.cs" />

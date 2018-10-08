@@ -80,6 +80,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public virtual ICollection<SchoolReportsCollector> SchoolReportsCollectors { get; set; } = new HashSet<SchoolReportsCollector>();
 
+        public virtual ICollection<TwoThreeResult> TwoThreeResults { get; set; } = new HashSet<TwoThreeResult>();
+
         public virtual SchoolEdit SchoolEdit { get; set; }
 
         public virtual TownType TownType { get; set; }
