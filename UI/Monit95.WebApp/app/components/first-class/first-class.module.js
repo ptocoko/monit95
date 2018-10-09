@@ -17,9 +17,9 @@ var protocols_list_component_1 = require("./protocols/list/protocols-list.compon
 var protocol_component_1 = require("./protocols/protocol/protocol.component");
 var routes = [
     { path: 'first-class/home', component: home_component_1.HomeComponent },
-    //{ path: 'first-class/particips/list', component: ParticipsListComponent },
-    //{ path: 'first-class/particips/add', component: AddOrUpdateComponent },
-    //{ path: 'first-class/particips/:participId', component: AddOrUpdateComponent },
+    { path: 'first-class/particips/list', component: particips_list_component_1.ParticipsListComponent },
+    { path: 'first-class/particips/add', component: add_or_update_component_1.AddOrUpdateComponent },
+    { path: 'first-class/particips/:participId', component: add_or_update_component_1.AddOrUpdateComponent },
     { path: 'first-class/protocols/list', component: protocols_list_component_1.ProtocolsListComponent },
     { path: 'first-class/protocol/:participTestId', component: protocol_component_1.ProtocolComponent },
     { path: 'first-class', redirectTo: 'first-class/home', pathMatch: 'full' }

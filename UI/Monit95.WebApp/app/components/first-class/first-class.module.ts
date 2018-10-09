@@ -16,9 +16,9 @@ import { ProtocolComponent } from './protocols/protocol/protocol.component';
 
 const routes: Routes = [
 	{ path: 'first-class/home', component: HomeComponent },
-	//{ path: 'first-class/particips/list', component: ParticipsListComponent },
-	//{ path: 'first-class/particips/add', component: AddOrUpdateComponent },
-	//{ path: 'first-class/particips/:participId', component: AddOrUpdateComponent },
+	{ path: 'first-class/particips/list', component: ParticipsListComponent },
+	{ path: 'first-class/particips/add', component: AddOrUpdateComponent },
+	{ path: 'first-class/particips/:participId', component: AddOrUpdateComponent },
 
 	{ path: 'first-class/protocols/list', component: ProtocolsListComponent },
 	{ path: 'first-class/protocol/:participTestId', component: ProtocolComponent },

@@ -27,11 +27,11 @@ namespace ParticipReporter
         {
             //oneTwoThree = new OneTwoThree();
             context = new CokoContext();
-            //importer = new ResultsImporter(context);
+            importer = new ResultsImporter(context);
 
-            //importer.ImportByTestCode("0303");
+            importer.ImportAndSave("0303", 9);
 
-            CopyFiles();
+            //CopyFiles();
 
             Console.WriteLine("End");
             #region oldCode

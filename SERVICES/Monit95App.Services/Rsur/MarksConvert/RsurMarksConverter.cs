@@ -106,13 +106,14 @@ namespace Monit95App.Services.Rsur.MarksConvert
                     TestQuestionId = testQuestion.Id,
                     QuestionId = testQuestion.EgeQuestion.Id,
                     EgeOrder = testQuestion.EgeQuestion.Order,
+                    MaxMark = testQuestion.MaxMark,
                     Mark = marks[testQuestion.Order - 1]
                 })
                 .GroupBy(gb => gb.QuestionId)
                 .Select(s => new EgeQuestionsModel
                 {
                     QuestionId = s.Key,
-                    EgeValue = (int)Math.Round(s.Select(rsurQuestion => rsurQuestion.Mark).Average() * 100, MidpointRounding.AwayFromZero),
+                    EgeValue = (int)Math.Round((s.Select(rsurQuestion => rsurQuestion.Mark).Average() * 100) / s.First().MaxMark, MidpointRounding.AwayFromZero),
                     EgeOrder = s.First().EgeOrder
                 });
 
@@ -125,6 +126,10 @@ namespace Monit95App.Services.Rsur.MarksConvert
             if(testResultEntity.RsurParticipTest.RsurTestId == 2138)
             {
                 grade5 = GetGrade5ForGeo(egeValues);
+            }
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 2139)
+            {
+                grade5 = marks.Sum() >= 28 ? 5 : 2;
             }
             else
             {
@@ -192,6 +197,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
         public int QuestionId { get; set; }
         public int? EgeOrder { get; set; }
         public int Mark { get; set; }
+        public int MaxMark { get; set; }
     }
 
     class EgeQuestionsModel

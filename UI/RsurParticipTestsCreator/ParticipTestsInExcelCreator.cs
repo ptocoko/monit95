@@ -67,9 +67,9 @@ namespace RsurParticipTestsCreator
                     sheet.Cell(2, 5).Value = models.SubjectName;
 
                     ParticipTestModel pt;
-                    for (int i = 8; i < models.ParticipTests.Count(); i++)
+                    for (int i = 8; i < models.ParticipTests.Count() + 8; i++)
                     {
-                        pt = models.ParticipTests[i];
+                        pt = models.ParticipTests[i-8];
                         sheet.Cell(i, 1).Value = i-7;
                         sheet.Cell(i, 2).Value = pt.Code;
                         sheet.Cell(i, 3).Value = pt.Surname;

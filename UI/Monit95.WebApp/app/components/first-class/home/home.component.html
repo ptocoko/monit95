@@ -24,13 +24,13 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="false">
-    <h3 class="list-header">Участники</h3>
+<div class="list-container" *ngIf="accountService.account.UserName === '0093'">
+    <h3 class="list-header">Участники (только для МБОУ «НОШ с. Комсомольское Грозненского МР»)</h3>
     <div>
-        <a class="list-item-link" *ngIf="false" routerLink="/first-class/particips/list">
-            <h4><b>Список участников</b></h4>
+        <a class="list-item-link" routerLink="/first-class/particips/list">
+            <h4>Список участников</h4>
         </a>
-        <a class="list-item-link" *ngIf="false" routerLink="/first-class/protocols/list">
+        <a class="list-item-link" routerLink="/first-class/protocols/list">
             <h4>Протоколы проверки заданий</h4>
         </a>
     </div>

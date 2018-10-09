@@ -20,38 +20,57 @@ namespace Monit95App.Services.TwoThree
             this.context = context;
         }
 
-        public void ImportByTestCode(string testCode)
+        public void ImportAndSave(string testCode, int marksCount)
         {
             List<TwoThreeResult> dto = new List<TwoThreeResult>();
             foreach(var fileName in Directory.EnumerateFiles(destFolderPath).Select(Path.GetFileNameWithoutExtension).Where(p => p.StartsWith(testCode)))
             {
                 var schoolId = fileName.Substring(5, 4);
-                dto.AddRange(ImportByFilePath($@"{destFolderPath}\{fileName}.xlsx", testCode, schoolId));
+                var models = ImportModels(testCode, schoolId, marksCount);
+                models.ForEach(model =>
+                {
+                    if(model.PrimaryMark < 5)
+                    {
+                        model.Grade5 = 2;
+                    }
+                    else if(model.PrimaryMark < 9)
+                    {
+                        model.Grade5 = 3;
+                    }
+                    else if(model.PrimaryMark < 11)
+                    {
+                        model.Grade5 = 4;
+                    }
+                    else
+                    {
+                        model.Grade5 = 5;
+                    }
+                });
+                dto.AddRange(models);
             }
 
             context.TwoThreeResults.AddRange(dto);
             context.SaveChanges();
         }
 
-        public IEnumerable<TwoThreeResult> ImportByFilePath(string filePath, string testCode, string schoolId)
+        public IEnumerable<TwoThreeResult> ImportModels(string testCode, string schoolId, int marksCount)
         {
-            using (var excel = new XLWorkbook(filePath))
+            using (var excel = new XLWorkbook($@"{destFolderPath}\{testCode}_{schoolId}.xlsx"))
             {
                 using (var page = excel.Worksheets.First())
                 {
-                    return ImportForCht(page, testCode, schoolId);
+                    return ImportModelsFromExcel(page, testCode, schoolId, marksCount);
                 }
             }
         }
 
-        private IEnumerable<TwoThreeResult> ImportForCht(IXLWorksheet sheet, string testCode, string schoolId)
+        private IEnumerable<TwoThreeResult> ImportModelsFromExcel(IXLWorksheet sheet, string testCode, string schoolId, int marksCount)
         {
-            int marksCount = 9;
             var dtoList = new List<TwoThreeResult>();
             for(int i = 3; i <= sheet.RowsUsed().Count(); i++)
             {
                 var row = sheet.Row(i);
-                if(CheckSheetsRow(row, marksCount + 3))
+                if(CheckSheetsRow(row))
                 {
                     var resultDto = new TwoThreeResult
                     {
@@ -59,10 +78,22 @@ namespace Monit95App.Services.TwoThree
                         Name = row.Cell(3).Value.ToString().Trim(),
                         SecondName = row.Cell(4).Value.ToString().Trim(),
                         SchoolId = schoolId,
-                        Marks = row.Cells("5:13").Select(s => s.Value.ToString()).Aggregate((s1, s2) => $"{s1};{s2}")
+                        Marks = row.Cells("5:13").Select(s => 
+                        {
+                            string val = s.Value.ToString().Trim();
+                            if (string.IsNullOrEmpty(val))
+                            {
+                                return "0";
+                            }
+                            else
+                            {
+                                return val;
+                            }
+                        }).Aggregate((s1, s2) => $"{s1};{s2}")
                     };
                     resultDto.PrimaryMark = resultDto.Marks.Split(';').Select(int.Parse).Sum();
                     resultDto.TestCode = testCode;
+                    resultDto.Times = 1;
 
                     dtoList.Add(resultDto);
                 }
@@ -70,15 +101,13 @@ namespace Monit95App.Services.TwoThree
             return dtoList;
         }
 
-        private bool CheckSheetsRow(IXLRow row, int columnsCount)
+        private bool CheckSheetsRow(IXLRow row)
         {
-            for(int i = 2; i<=columnsCount; i++)
+            if(row.Cells("2:3").Any(c => string.IsNullOrEmpty(c.Value.ToString().Trim())))
             {
-                if (String.IsNullOrEmpty(row.Cell(i).Value.ToString().Trim()))
-                {
-                    return false;
-                }
+                return false;
             }
+
             return true;
         }
     }
