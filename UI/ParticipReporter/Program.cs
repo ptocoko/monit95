@@ -27,11 +27,14 @@ namespace ParticipReporter
         {
             //oneTwoThree = new OneTwoThree();
             context = new CokoContext();
-            importer = new ResultsImporter(context);
+            //importer = new ResultsImporter(context);
 
-            importer.ImportAndSave("0303", 9);
+            //importer.ImportAndSave("0303", 9);
 
             //CopyFiles();
+            participReporter = new ClassParticipReporter();
+            cardsGenerator = new CardsGenerator(context, participReporter);
+            cardsGenerator.GenerateCardsForSchool("0093", 2043);
 
             Console.WriteLine("End");
             #region oldCode
@@ -133,14 +136,14 @@ namespace ParticipReporter
             {
                 //var school = context.Schools.Find(schoolId);
                 var destFile = $@"{destFolder}\{areaCode}";
-                var sourceFile = $@"{sourceFolder}\102018_ру_распределение_{areaCode}.xlsx";
+                var sourceFile = $@"{sourceFolder}\102018_ма_распределение_{areaCode}.xlsx";
 
                 if (System.IO.File.Exists(sourceFile))
                 {
                     if (!Directory.Exists(destFile))
                         Directory.CreateDirectory(destFile);
 
-                    System.IO.File.Copy(sourceFile, $@"{destFile}\102018_ру_распределение_{areaCode}.xlsx");
+                    System.IO.File.Copy(sourceFile, $@"{destFile}\102018_ма_распределение_{areaCode}.xlsx");
                 }
             }
         } 

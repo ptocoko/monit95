@@ -114,8 +114,10 @@ namespace Monit95App.Services.Rsur.ParticipReport
             var serviceResult = new ServiceResult<ReportsInfo>();
 
             var minDateTime = new DateTime(2017, 4, 20);
+            var maxDateTime = new DateTime(2018, 10, 4);
 
-            IQueryable<RsurTestResult> entities = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с апреля                              
+            IQueryable<RsurTestResult> entities = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с апреля  
+                                                                             && rtr.RsurParticipTest.RsurTest.TestDate < maxDateTime
                                                                              && rtr.RsurParticipTest.RsurParticip.ActualCode == 1);
 
             if (areaCode != null)
@@ -155,8 +157,10 @@ namespace Monit95App.Services.Rsur.ParticipReport
         private ReportsListDto GetResults(IQueryable<RsurTestResult> queryable, ReportsListOptions options)
         {            
             var minDateTime = new DateTime(2017, 4, 20);
+            var maxDateTime = new DateTime(2018, 10, 4);
 
-            queryable = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с апреля                              
+            queryable = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с апреля       
+                                                  && rtr.RsurParticipTest.RsurTest.TestDate < maxDateTime
                                                   && rtr.RsurParticipTest.RsurParticip.ActualCode == 1);
 
             queryable = FilterTestResults(queryable, options);

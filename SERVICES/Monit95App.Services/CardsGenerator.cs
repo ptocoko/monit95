@@ -40,7 +40,7 @@ namespace Monit95App.Services
             }
         }
 
-        private string GenerateCardsForSchool(string schoolId, int projectTestId)
+        public string GenerateCardsForSchool(string schoolId, int projectTestId)
         {
             var maxMarks = new string[] { "4", "1", "3", "1", "1" };
             var zipFolder = $@"{_cardsFolderPath}\{projectTestId}";
