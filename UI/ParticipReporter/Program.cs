@@ -1,4 +1,5 @@
-﻿using Ionic.Zip;
+﻿using ClosedXML.Excel;
+using Ionic.Zip;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
@@ -22,19 +23,14 @@ namespace ParticipReporter
         private static CardsGenerator cardsGenerator;
         private static ClassParticipReporter participReporter;
         private static ResultsImporter importer;
+        private static Reporter twoThreeReporter;
 
         static void Main(string[] args)
         {
-            //oneTwoThree = new OneTwoThree();
             context = new CokoContext();
-            //importer = new ResultsImporter(context);
-
-            //importer.ImportAndSave("0303", 9);
+            twoThreeReporter = new Reporter(context);
 
             //CopyFiles();
-            participReporter = new ClassParticipReporter();
-            cardsGenerator = new CardsGenerator(context, participReporter);
-            cardsGenerator.GenerateCardsForSchool("0093", 2043);
 
             Console.WriteLine("End");
             #region oldCode
@@ -96,22 +92,74 @@ namespace ParticipReporter
             #endregion
         }
 
-        static void NormalizeParticipNames()
+        static Dictionary<string, Dictionary<int, int>> maxMakrs = new Dictionary<string, Dictionary<int, int>>
         {
-            var particips = context.Particips.Where(p => p.ProjectId == 17);
-
-            foreach (var particip in particips)
+            ["0201"] = new Dictionary<int, int>
             {
-                particip.Surname = NormalizeName(particip.Surname);
-                particip.Name = NormalizeName(particip.Name);
-                particip.SecondName = particip.SecondName == null ? null : NormalizeName(particip.SecondName);
+                [1] = 2,
+                [2] = 2,
+                [3] = 2,
+                [4] = 1,
+                [5] = 3,
+                [6] = 1,
+                [7] = 1,
+                [8] = 1,
+                [9] = 2,
+                [10] = 2,
+                [11] = 1,
+                [12] = 1,
+                [13] = 2,
+                [14] = 1
+            },
+            ["0202"] = new Dictionary<int, int>
+            {
+                [1] = 1,
+                [2] = 1,
+                [3] = 1,
+                [4] = 1,
+                [5] = 1,
+                [6] = 2,
+                [7] = 1,
+                [8] = 1,
+                [9] = 1,
+                [10] = 1,
+                [11] = 2,
+                [12] = 2,
+                [13] = 2,
+                [14] = 2
+            },
+            ["0204"] = new Dictionary<int, int>
+            {
+                [1] = 1,
+                [2] = 1,
+                [3] = 1,
+                [4] = 1,
+                [5] = 2,
+                [6] = 1,
+                [7] = 1,
+                [8] = 1
             }
-            context.SaveChanges();
         }
 
-        static string NormalizeName(string name)
+        static void GenerateTwoThreeQuestionMarks()
         {
-            return name.Replace('\t', '\0').Replace('\n', '\0').Replace('\r', '\0').Replace(' ', '\0');
+            foreach (var result in context.TwoThreeResults.Where(p => p.TestCode != "0303" && p.Times == 2))
+            {
+                var marks = result.Marks.Split(';').Select(int.Parse).ToArray();
+
+                var questionMarks = new List<TwoThreeResultsMarks>();
+                for (int i = 0; i < marks.Count(); i++)
+                {
+                    var mark = marks[i];
+                    var entity = new TwoThreeResultsMarks
+                    {
+                        ResultId = result.Id,
+                        AwardedMark = mark,
+                        QuestionOrder = i + 1,
+                        MaxMark = 
+                    }
+                }
+            }
         }
 
         static void GenerateFirstClassCards()
@@ -136,14 +184,14 @@ namespace ParticipReporter
             {
                 //var school = context.Schools.Find(schoolId);
                 var destFile = $@"{destFolder}\{areaCode}";
-                var sourceFile = $@"{sourceFolder}\102018_ма_распределение_{areaCode}.xlsx";
+                var sourceFile = $@"{sourceFolder}\102018_ис_распределение_{areaCode}.xlsx";
 
                 if (System.IO.File.Exists(sourceFile))
                 {
                     if (!Directory.Exists(destFile))
                         Directory.CreateDirectory(destFile);
 
-                    System.IO.File.Copy(sourceFile, $@"{destFile}\102018_ма_распределение_{areaCode}.xlsx");
+                    System.IO.File.Copy(sourceFile, $@"{destFile}\102018_ис_распределение_{areaCode}.xlsx");
                 }
             }
         } 
@@ -208,4 +256,6 @@ namespace ParticipReporter
         //}    
         #endregion
     }
+
+    
 }

@@ -52,6 +52,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<OneTwoThreeQuestion> OneTwoThreeQuestions { get; set; }
         public virtual DbSet<OneTwoThreeQuestionMark> OneTwoThreeQuestionMarks { get; set; }
         public virtual DbSet<TwoThreeResult> TwoThreeResults { get; set; }
+        public virtual DbSet<TwoThreeResultsMarks> TwoThreeResultsMarks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

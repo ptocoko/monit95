@@ -62,7 +62,8 @@ export class ListComponent {
 				this.participService.deleteParticip(particip.Id)
 					.subscribe(() => {
 						//this.getParticips();
-						this.dataSource.data = this.particips.splice(participIndex, 1);
+						this.particips.splice(participIndex, 1);
+						this.dataSource.data = this.particips;
 						this.snackBar.open('участник удален!', 'OK', { duration: 3000 });
 					});
 			}

@@ -14,24 +14,25 @@ namespace RsurParticipTestsCreator
         {
             CokoContext context = new CokoContext();
             //GenerateParticipTests(context);
-            //ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context);
-            //var models = cretor.GetModels(new int[] { 2145, 2146, 2147 });
-            //foreach (var model in models)
-            //{
-            //    cretor.SaveModelsIntoExcel(model);
-            //}
+            ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context);
+            var models = cretor.GetModels(new int[] { 2148, 2149, 2150, 2151 });
+            foreach (var model in models)
+            {
+                cretor.SaveModelsIntoExcel(model);
+            }
         }
 
         private static void GenerateParticipTests(CokoContext context)
         {
             var rsurTestNumberCodeDict = new Dictionary<string, int>
             {
-                {"0201", 2145 },
-                {"0202", 2146 },
-                {"0203", 2147 }
+                {"0701", 2148 },
+                {"0702", 2149 },
+                {"0703", 2150 },
+                {"0704", 2151 }
             };
 
-            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => p.RsurSubjectCode == 2));
+            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => p.RsurSubjectCode == 7 && p.SchoolId != "0000"));
 
             var notPassLastExam = GetNotPassLastExam(whoMustPass);
             var passLastExam = GetPassLastExam(whoMustPass);

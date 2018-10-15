@@ -218,6 +218,8 @@
     <Compile Include="School\SchoolReportFileNameOffline.cs" />
     <Compile Include="School\SchoolService.cs" />
     <Compile Include="Extensions\IntegerExtensions.cs" />
+    <Compile Include="TwoThree\ReportDto.cs" />
+    <Compile Include="TwoThree\Reporter.cs" />
     <Compile Include="TwoThree\ResultDto.cs" />
     <Compile Include="TwoThree\ResultsImporter.cs" />
     <Compile Include="Validation\MustHaveOneElementAttribute.cs" />

@@ -24,7 +24,7 @@ const routes: Routes = [
 	{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
 	{ path: 'particips/list', component: ParticipsListComponent },
 	{ path: 'particips/oge/list', component: OgeParticipsListComponent},
-	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 15 } },
+	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 18 } },
 	{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 16 } },
 	{ path: 'particips/protocols/:id', component: ProtocolsComponent },
 	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },

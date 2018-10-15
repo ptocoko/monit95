@@ -17,6 +17,8 @@ namespace Monit95App.Domain.Core.Entities
         public string TestCode { get; set; }
         public int? Grade5 { get; set; }
         public int? Times { get; set; }
+        public int? GeneralTasksSum { get; set; }
+        public string GradeString { get; set; }
 
         public string SchoolId { get; set; }
         

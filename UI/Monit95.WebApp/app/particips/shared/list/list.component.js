@@ -46,7 +46,8 @@ var ListComponent = /** @class */ (function () {
                 _this.participService.deleteParticip(particip.Id)
                     .subscribe(function () {
                     //this.getParticips();
-                    _this.dataSource.data = _this.particips.splice(participIndex, 1);
+                    _this.particips.splice(participIndex, 1);
+                    _this.dataSource.data = _this.particips;
                     _this.snackBar.open('участник удален!', 'OK', { duration: 3000 });
                 });
             }
