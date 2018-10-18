@@ -8,7 +8,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         private string surname;
         [Required]
         [RegularExpression(@"^[А-я-\s]*$")]
-        [StringLength(25, MinimumLength = 4)]
+        [StringLength(25, MinimumLength = 3)]
         public string Surname {
             get
             {
@@ -23,7 +23,7 @@ namespace Monit95App.Services.ItakeEge.Participant
         private string name;
         [Required]
         [RegularExpression(@"^[А-я-\s]*$")]
-        [StringLength(25, MinimumLength = 3)]
+        [StringLength(25, MinimumLength = 2)]
         public string Name {
             get
             {

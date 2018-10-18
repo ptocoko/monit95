@@ -45,19 +45,22 @@ export class MarksProtocolComponent implements AfterViewInit {
 
 	markChange(event: any, maxMark: number, step = 1) {
 		const elem = event.target as HTMLInputElement;
-		const elemIndex = this.inputElements.index(elem);
-		const mark = Number.parseInt(elem.value);
-		const possibleMarks = this.getPossibleMarks(maxMark, step);
 
-		if (elem.value) {
-			if (possibleMarks.indexOf(mark) > -1) {
-				this.questionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
-				this.focusOnNextElement(event);
-			}
-			else {
-				elem.value = maxMark.toString();
-				this.questionResults[elemIndex].CurrentMark = maxMark;
-				this.focusOnNextElement(event);
+		if (elem.value.length === maxMark.toString().length) {
+			const elemIndex = this.inputElements.index(elem);
+			const mark = Number.parseInt(elem.value);
+			const possibleMarks = this.getPossibleMarks(maxMark, step);
+
+			if (elem.value) {
+				if (possibleMarks.indexOf(mark) > -1) {
+					this.questionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
+					this.focusOnNextElement(event);
+				}
+				else {
+					elem.value = maxMark.toString();
+					this.questionResults[elemIndex].CurrentMark = maxMark;
+					this.focusOnNextElement(event);
+				}
 			}
 		}
 	}

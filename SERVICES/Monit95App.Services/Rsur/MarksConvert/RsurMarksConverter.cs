@@ -42,6 +42,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
 
             var participTestIds = context.RsurTestResults
                 .Where(p => p.RsurParticipTest.RsurTestId == rsurTestId 
+                         && p.RsurParticipTest.RsurParticip.SchoolId != "0000"
                          && p.RsurQuestionValues != "wasnot" 
                          && p.RsurQuestionValues != null)
                 .Select(s => s.RsurParticipTestId)
@@ -131,6 +132,10 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = marks.Sum() >= 28 ? 5 : 2;
             }
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "0104")
+            {
+                grade5 = GetGrade5ForRus4(egeValues);
+            }
             else
             {
                 grade5 = GetGrade5(egeValues);
@@ -144,6 +149,29 @@ namespace Monit95App.Services.Rsur.MarksConvert
             context.SaveChanges();
 
             return (grade5, egeQuestionValues);
+        }
+
+        private int GetGrade5ForRus4(IEnumerable<int> egeValues)
+        {
+            int allValuesCount = egeValues.Count();
+            int badCount = egeValues.Count(p => p < 50); //Количество EgeQuestionValues со значение меньше 60
+            int midCount = egeValues.Count(p => p >= 50 && p < 81);
+            int goodCount = egeValues.Count(p => p > 80);
+
+            int percentOfGoodValues = (int)Math.Round(goodCount / (allValuesCount / 100M), MidpointRounding.AwayFromZero);
+
+            if (badCount > 0)
+            {
+                return 2;
+            }
+            else if (percentOfGoodValues < 51)  //нужно чтобы количество EgeQuestionValues со средним значение было не больше 40% от общего числа оценок
+            {
+                return 2;
+            }
+            else
+            {
+                return 5;
+            }
         }
 
         private int GetGrade5(IEnumerable<int> egeValues)

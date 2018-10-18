@@ -18,6 +18,22 @@ var ReportComponent = /** @class */ (function () {
             });
         });
     };
+    ReportComponent.prototype.getGradeColor = function (grade100) {
+        if (this.reportData.TestNumberCode === "0104" && this.reportData.RsurTestId > 2141) {
+            return grade100 < 50 ? 'low-grade' : grade100 < 80 ? 'medium-grade' : 'high-grade';
+        }
+        else {
+            if (grade100 < 60) {
+                return 'low-grade';
+            }
+            else if (grade100 > 59 && grade100 < 81) {
+                return 'medium-grade';
+            }
+            else {
+                return 'high-grade';
+            }
+        }
+    };
     ReportComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'report',

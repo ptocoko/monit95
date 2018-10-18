@@ -28,9 +28,11 @@ namespace ParticipReporter
         static void Main(string[] args)
         {
             context = new CokoContext();
-            twoThreeReporter = new Reporter(context);
+            //twoThreeReporter = new Reporter(context);
+            
 
             //CopyFiles();
+            //twoThreeReporter.F0_ParticipsResults();
 
             Console.WriteLine("End");
             #region oldCode
@@ -92,7 +94,7 @@ namespace ParticipReporter
             #endregion
         }
 
-        static Dictionary<string, Dictionary<int, int>> maxMakrs = new Dictionary<string, Dictionary<int, int>>
+        static readonly Dictionary<string, Dictionary<int, int>> maxMakrs = new Dictionary<string, Dictionary<int, int>>
         {
             ["0201"] = new Dictionary<int, int>
             {
@@ -138,11 +140,82 @@ namespace ParticipReporter
                 [6] = 1,
                 [7] = 1,
                 [8] = 1
+            },
+            ["0301"] = new Dictionary<int, int>
+            {
+                [1] = 1,
+                [2] = 1,
+                [3] = 1,
+                [4] = 1,
+                [5] = 1,
+                [6] = 1,
+                [7] = 1,
+                [8] = 1,
+                [9] = 2,
+                [10] = 2,
+                [11] = 2,
+                [12] = 2,
+                [13] = 3,
+                [14] = 1,
+                [15] = 2,
+                [16] = 3,
+                [17] = 1
+            },
+            ["0302"] = new Dictionary<int, int>
+            {
+                [1] = 1,
+                [2] = 1,
+                [3] = 1,
+                [4] = 1,
+                [5] = 1,
+                [6] = 1,
+                [7] = 2,
+                [8] = 1,
+                [9] = 1,
+                [10] = 1,
+                [11] = 1,
+                [12] = 1,
+                [13] = 2,
+                [14] = 2,
+                [15] = 2,
+                [16] = 2
+            },
+            ["0304"] = new Dictionary<int, int>
+            {
+                [1] = 1,
+                [2] = 1,
+                [3] = 1,
+                [4] = 1,
+                [5] = 1,
+                [6] = 1,
+                [7] = 2
             }
+        };
+
+        static void GenerateTwoThreePrimaryMark(string testCode, int minMidMark, int maxMidMark)
+        {
+            foreach (var entity in context.TwoThreeResults.Where(p => p.TestCode == testCode))
+            {
+                if(entity.GeneralTasksSum < minMidMark)
+                {
+                    entity.Grade5 = 3;
+                }
+                else if (entity.GeneralTasksSum <= maxMidMark)
+                {
+                    entity.Grade5 = 4;
+                }
+                else
+                {
+                    entity.Grade5 = 5;
+                }
+            }
+            context.SaveChanges();
         }
 
         static void GenerateTwoThreeQuestionMarks()
         {
+            var results = new List<TwoThreeResultsMarks>();
+
             foreach (var result in context.TwoThreeResults.Where(p => p.TestCode != "0303" && p.Times == 2))
             {
                 var marks = result.Marks.Split(';').Select(int.Parse).ToArray();
@@ -156,10 +229,15 @@ namespace ParticipReporter
                         ResultId = result.Id,
                         AwardedMark = mark,
                         QuestionOrder = i + 1,
-                        MaxMark = 
-                    }
+                        MaxMark = maxMakrs[result.TestCode][i + 1]
+                    };
+                    questionMarks.Add(entity);
                 }
+                results.AddRange(questionMarks);
             }
+
+            context.TwoThreeResultsMarks.AddRange(results);
+            context.SaveChanges();
         }
 
         static void GenerateFirstClassCards()

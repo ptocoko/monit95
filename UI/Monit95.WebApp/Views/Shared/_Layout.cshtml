@@ -34,7 +34,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    @if (User.IsInRole("school") || User.IsInRole("area") || User.IsInRole("rsur-particip"))
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -45,18 +45,13 @@
                                 <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
                                 @if (User.IsInRole("school"))
                                 {
-                                    @*<li><a href="/rsur/spa#particips">«Я сдам ЕГЭ!»</a></li>
-                                    <li><a href="/rsur/spa#particips/oge">«Я сдам ОГЭ!»</a></li>
+                                    @*<li><a href="/rsur/spa#particips/oge">«Я сдам ОГЭ!»</a></li>
                                     <li><a href="/rsur/spa#one-two-three">1-3 классы</a></li>*@
                                     <li><a href="/rsur/spa#first-class">1 классы</a></li>
-                                    if (badSchools.Contains(User.Identity.Name))
-                                    {
-                                        <li><a href="/rsur/spa#two-three">2-3 классы</a></li>
-                                    }
-                                    if (badSchools2.Contains(User.Identity.Name))
-                                    {
-                                        <li><a href="/rsur/spa#two-three-2">2-3 классы</a></li>
-                                    }
+                                }
+                                @if (User.IsInRole("i-take-ege"))
+                                {
+                                    <li><a href="/rsur/spa#particips">«Я сдам ЕГЭ!»</a></li>
                                 }
                             </ul>
                         </li>

@@ -12,7 +12,10 @@ namespace Monit95App.Services.Rsur.ParticipReport
         /// </summary>
         public string FullParticipName { get; set; }                
 
-        public string TestDateString { get; set; }              
+        public string TestDateString { get; set; }
+
+        public string TestNumberCode { get; set; }
+        public int RsurTestId { get; set; }
 
         public List<EgeQuestionResult> EgeQuestionResults { get; set; }
     }

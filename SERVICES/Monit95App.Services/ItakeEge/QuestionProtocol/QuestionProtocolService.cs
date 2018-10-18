@@ -43,7 +43,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         {
             var participTestEntities = cokoContext.ParticipTests
                 .AsNoTracking()
-                .Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTestId == projectTestId && pt.ProjectTest.ProjectId == ItakeEgeProjectId && pt.Particip.SchoolId == schoolId)
+                .Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTestId == projectTestId && pt.Particip.SchoolId == schoolId)
                 .Include(inc => inc.QuestionMarks)
                 .AsEnumerable()
                 .Select(entity => new QuestionProtocolReadDto

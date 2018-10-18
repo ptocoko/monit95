@@ -11,7 +11,17 @@ namespace Monit95App.Services.TwoThree
     public class Reporter
     {
         private readonly CokoContext context;
-
+        public Dictionary<string, string> testNameDict = new Dictionary<string, string>
+        {
+            ["0201"] = "2 кл. русский язык",
+            ["0202"] = "2 кл. математика",
+            ["0204"] = "2 кл. метапредметная диагностика",
+            ["0301"] = "3 кл. русский язык",
+            ["0302"] = "3 кл. математика",
+            ["0304"] = "3 кл. метапредметная диагностика"
+        };
+        Random rand = new Random();
+        
         public Reporter(CokoContext context)
         {
             this.context = context;
@@ -19,31 +29,8 @@ namespace Monit95App.Services.TwoThree
 
         public void F0_ParticipsResults()
         {
-            Random rand = new Random();
-            var testNameDict = new Dictionary<string, string>
-            {
-                ["0201"] = "2 кл. русский язык",
-                ["0202"] = "2 кл. математика",
-                ["0204"] = "2 кл. метапредметная диагностика",
-                ["0301"] = "3 кл. русский язык",
-                ["0302"] = "3 кл. математика",
-                ["0304"] = "3 кл. метапредметная диагностика"
-            };
 
-            var entities = context.TwoThreeResults.Where(p => p.TestCode != "0303").Select(s => new ReportDto
-            {
-                Id = s.Id,
-                Surname = s.Surname,
-                Name = s.Name,
-                SecondName = s.SecondName,
-                SchoolName = s.School.Name.Trim(),
-                AreaName = s.School.Area.Name.Trim(),
-                TestCode = s.TestCode,
-                Marks = s.Marks,
-                PrimaryMark = s.PrimaryMark,
-                Grade5 = s.Grade5.Value,
-                GradeString = s.GradeString
-            }).GroupBy(gb => new { gb.SchoolName, gb.AreaName });
+            var entities = context.TwoThreeResults.Where(p => p.TestCode != "0303").Select(MapToReportDto()).GroupBy(gb => new { gb.SchoolName, gb.AreaName });
 
             foreach (var schoolResults in entities)
             {
@@ -74,20 +61,7 @@ namespace Monit95App.Services.TwoThree
                                 sheet.Cell(i + 3, marks.Length + 6).Value = res.PrimaryMark;
 
                                 var gradeStrCell = sheet.Cell(i + 3, marks.Length + 7);
-                                gradeStrCell.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Left);
-                                if (res.Grade5 == 3)
-                                {
-                                    gradeStrCell.Style.Fill.BackgroundColor = XLColor.PersianRed;
-                                }
-                                else if (res.Grade5 == 4)
-                                {
-                                    gradeStrCell.Style.Fill.BackgroundColor = XLColor.Yellow;
-                                }
-                                else
-                                {
-                                    gradeStrCell.Style.Fill.BackgroundColor = XLColor.ForestGreen;
-                                }
-                                gradeStrCell.WorksheetColumn().Width = 38;
+                                StyleGradeCell(res.Grade5, gradeStrCell);
 
                                 sheet.Cell(i + 3, marks.Length + 7).Value = res.GradeString;
                             }
@@ -99,6 +73,83 @@ namespace Monit95App.Services.TwoThree
             }
         }
 
+        public void F0_IndividualResults()
+        {
+            var destFolder = @"D:\Work\reports\two-three\Ф0. Индивидуальные результаты участников";
+            var tempPath = @"D:\Work\reports\two-three\Ф0. Индивидуальные результаты участников\temp.xlsx";
+
+            foreach (var report in context.TwoThreeResults.Where(p => p.TestCode != "0303").Select(MapToReportDto()))
+            {
+                using (var excel = new XLWorkbook(tempPath))
+                {
+                    using (var sheet = excel.Worksheets.First())
+                    {
+                        sheet.Cell(2, 1).Value = report.Id;
+                        sheet.Cell(2, 2).Value = report.Surname;
+                        sheet.Cell(2, 3).Value = report.Name;
+                        sheet.Cell(2, 4).Value = report.SecondName;
+                        sheet.Cell(2, 5).Value = rand.Next(1, 4);
+                        sheet.Cell(2, 6).Value = report.Marks;
+                        sheet.Cell(2, 7).Value = report.PrimaryMark;
+
+                        var gradeCell = sheet.Cell(2, 8);
+                        gradeCell.Value = report.GradeString;
+                        StyleGradeCell(report.Grade5, gradeCell);
+                    }
+                    excel.SaveAs($@"{destFolder}\{report.AreaName}\{report.SchoolName}\{testNameDict[report.TestCode]}\{report.Surname} {report.Name} {report.SecondName}.xlsx");
+                }
+            }
+        }
+
+        public void F1_IndividualResults()
+        {
+            var destFolder = @"";
+            var tempPath = @"";
+
+            using (var excel = new XLWorkbook(tempPath))
+            {
+                using(var sheet = excel.Worksheets.First())
+                {
+
+                }
+            }
+        }
+        
+        private static void StyleGradeCell(int grade5, IXLCell gradeStrCell)
+        {
+            gradeStrCell.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Left);
+            if (grade5 == 3)
+            {
+                gradeStrCell.Style.Fill.BackgroundColor = XLColor.PersianRed;
+            }
+            else if (grade5 == 4)
+            {
+                gradeStrCell.Style.Fill.BackgroundColor = XLColor.Yellow;
+            }
+            else
+            {
+                gradeStrCell.Style.Fill.BackgroundColor = XLColor.ForestGreen;
+            }
+            gradeStrCell.WorksheetColumn().Width = 38;
+        }
+
+        private static System.Linq.Expressions.Expression<Func<Domain.Core.Entities.TwoThreeResult, ReportDto>> MapToReportDto()
+        {
+            return s => new ReportDto
+            {
+                Id = s.Id,
+                Surname = s.Surname,
+                Name = s.Name,
+                SecondName = s.SecondName,
+                SchoolName = s.School.Name.Trim(),
+                AreaName = s.School.Area.Name.Trim(),
+                TestCode = s.TestCode,
+                Marks = s.Marks,
+                PrimaryMark = s.PrimaryMark,
+                Grade5 = s.Grade5.Value,
+                GradeString = s.GradeString
+            };
+        }
 
     }
 }

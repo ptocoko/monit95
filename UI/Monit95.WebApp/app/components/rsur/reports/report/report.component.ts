@@ -22,4 +22,18 @@ export class ReportComponent implements OnInit {
             });
 		});
 	}
+
+	getGradeColor(grade100: number) {
+		if (this.reportData.TestNumberCode === "0104" && this.reportData.RsurTestId > 2141) {
+			return grade100 < 50 ? 'low-grade' : grade100 < 80 ? 'medium-grade' : 'high-grade';
+		} else {
+			if (grade100 < 60) {
+				return 'low-grade';
+			} else if (grade100 > 59 && grade100 < 81) {
+				return 'medium-grade';
+			} else {
+				return 'high-grade';
+			}
+		}
+	}
 }

@@ -32,18 +32,20 @@ var MarksProtocolComponent = /** @class */ (function () {
     MarksProtocolComponent.prototype.markChange = function (event, maxMark, step) {
         if (step === void 0) { step = 1; }
         var elem = event.target;
-        var elemIndex = this.inputElements.index(elem);
-        var mark = Number.parseInt(elem.value);
-        var possibleMarks = this.getPossibleMarks(maxMark, step);
-        if (elem.value) {
-            if (possibleMarks.indexOf(mark) > -1) {
-                this.questionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
-                this.focusOnNextElement(event);
-            }
-            else {
-                elem.value = maxMark.toString();
-                this.questionResults[elemIndex].CurrentMark = maxMark;
-                this.focusOnNextElement(event);
+        if (elem.value.length === maxMark.toString().length) {
+            var elemIndex = this.inputElements.index(elem);
+            var mark = Number.parseInt(elem.value);
+            var possibleMarks = this.getPossibleMarks(maxMark, step);
+            if (elem.value) {
+                if (possibleMarks.indexOf(mark) > -1) {
+                    this.questionResults[elemIndex].CurrentMark = Number.parseInt(elem.value);
+                    this.focusOnNextElement(event);
+                }
+                else {
+                    elem.value = maxMark.toString();
+                    this.questionResults[elemIndex].CurrentMark = maxMark;
+                    this.focusOnNextElement(event);
+                }
             }
         }
     };

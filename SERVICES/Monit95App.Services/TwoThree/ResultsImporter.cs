@@ -74,31 +74,31 @@ namespace Monit95App.Services.TwoThree
                         }).Aggregate((s1, s2) => $"{s1};{s2}")
                     };
 
-                    var marks = resultDto.Marks.Split(';').Select(int.Parse).ToArray();
+                    //var marks = resultDto.Marks.Split(';').Select(int.Parse).ToArray();
                     //List<int> generalMarks = new List<int>();
                     //foreach (var number in generalTasksNumbers)
                     //{
                     //    generalMarks.Add(marks[number - 1] == 0 ? 0 : 1);
                     //}
 
-                    resultDto.PrimaryMark = marks.Sum();
-                    //resultDto.GeneralTasksSum = generalMarks.Sum();
+                    //resultDto.PrimaryMark = marks.Sum();
+                    ////resultDto.GeneralTasksSum = generalMarks.Sum();
 
-                    if(resultDto.PrimaryMark < minMidMark)
-                    {
-                        resultDto.Grade5 = 3;
-                        resultDto.GradeString = "Низкий уровень";
-                    }
-                    else if (resultDto.PrimaryMark <= maxMidMark)
-                    {
-                        resultDto.Grade5 = 4;
-                        resultDto.GradeString = "Средний уровень";
-                    }
-                    else
-                    {
-                        resultDto.Grade5 = 5;
-                        resultDto.GradeString = "Высокий уровень";
-                    }
+                    //if(resultDto.PrimaryMark < minMidMark)
+                    //{
+                    //    resultDto.Grade5 = 3;
+                    //    resultDto.GradeString = "Низкий уровень";
+                    //}
+                    //else if (resultDto.PrimaryMark <= maxMidMark)
+                    //{
+                    //    resultDto.Grade5 = 4;
+                    //    resultDto.GradeString = "Средний уровень";
+                    //}
+                    //else
+                    //{
+                    //    resultDto.Grade5 = 5;
+                    //    resultDto.GradeString = "Высокий уровень";
+                    //}
 
                     resultDto.TestCode = testCode;
                     resultDto.Times = 2;

@@ -12,7 +12,9 @@ export class RsurReportModel {
 	RsurParticipTestId?: number;
 	SchoolParticipInfo: SchoolParticip;
 	TestName: string;
+	TestNumberCode: string;
 	TestStatus: string;
+	RsurTestId: number;
 	TestDate?: string;	
 	ExamName: string;
 	EgeQuestionResults?: EgeQuestionResult[];
