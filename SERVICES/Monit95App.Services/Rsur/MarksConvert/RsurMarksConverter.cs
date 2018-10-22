@@ -132,6 +132,10 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = marks.Sum() >= 28 ? 5 : 2;
             }
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 2152)
+            {
+                grade5 = marks.Sum() >= 25 ? 5 : 2;
+            }
             else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "0104")
             {
                 grade5 = GetGrade5ForRus4(egeValues);

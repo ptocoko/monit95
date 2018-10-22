@@ -1,4 +1,4 @@
 ﻿export class AccountModel {	
-		UserName: string;
-        RoleNames: Array<string>;	
+	UserName: string;
+    RoleNames: Array<string>;
 }

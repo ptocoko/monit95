@@ -17,6 +17,19 @@ var FileService = /** @class */ (function () {
     FileService.prototype.deleteFile = function (fileId) {
         return this.http.delete("api/files/" + fileId, { responseType: 'text' });
     };
+    FileService.prototype.downloadFile = function (fileId, fileName) {
+        this.http.get('/api/files/' + fileId, { responseType: 'blob' }).subscribe(function (file) {
+            var url = window.URL.createObjectURL(file);
+            var a = document.createElement('a');
+            document.body.appendChild(a);
+            a.setAttribute('style', 'display: none');
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        });
+    };
     FileService = tslib_1.__decorate([
         core_1.Injectable(),
         tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])

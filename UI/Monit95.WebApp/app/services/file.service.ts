@@ -17,4 +17,18 @@ export class FileService {
 	deleteFile(fileId: number) {
 		return this.http.delete(`api/files/${fileId}`, { responseType: 'text' });
 	}
+
+	downloadFile(fileId: number, fileName: string) {
+		this.http.get('/api/files/' + fileId, { responseType: 'blob' }).subscribe(file => {
+			var url = window.URL.createObjectURL(file);
+			var a = document.createElement('a');
+			document.body.appendChild(a);
+			a.setAttribute('style', 'display: none');
+			a.href = url;
+			a.download = fileName;
+			a.click();
+			window.URL.revokeObjectURL(url);
+			a.remove();
+		});
+	}
 }

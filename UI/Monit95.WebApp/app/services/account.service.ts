@@ -1,12 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AccountModel } from '../models/account.model';
+import { SchoolService } from '../school.service';
 
 @Injectable()
 export class AccountService {    
     account: AccountModel = new AccountModel();
 
-	constructor(private readonly http: HttpClient) {
+	constructor(private readonly http: HttpClient, private readonly schoolService: SchoolService) {
 		this.loadAccount();
 	}
 
@@ -41,6 +42,20 @@ export class AccountService {
 	isCoko() {
 		if (this.account.RoleNames) {
 			return this.account.RoleNames.indexOf('coko') > -1;
+		}
+		return null;
+	}
+
+	isITakeEGE() {
+		if (this.account.RoleNames) {
+			return this.account.RoleNames.indexOf('i-take-ege') > -1;
+		}
+		return null;
+	}
+
+	isGroznySchool() {
+		if (this.account.RoleNames) {
+			return this.account.RoleNames.indexOf('grozny-school') > -1;
 		}
 		return null;
 	}

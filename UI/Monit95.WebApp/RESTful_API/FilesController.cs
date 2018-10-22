@@ -93,7 +93,7 @@ namespace Monit95.WebApp.RESTful_API
         public HttpResponseMessage GetFileContent()
         {
             var userName = User.Identity.Name;
-            userName = "0005";
+            userName = User.Identity.Name;
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             FileStream fileStream;            
             try
