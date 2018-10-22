@@ -56,6 +56,11 @@ namespace Monit95App.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<QuestionMark>()
+                .HasRequired(e => e.Question)
+                .WithMany(e => e.QuestionMarks)
+                .HasForeignKey(e => e.QuestionId);
+
             modelBuilder.Entity<Result>()
                 .HasRequired(e => e.ParticipTest)
                 .WithOptional(e => e.Result);

@@ -64,6 +64,8 @@ namespace Monit95App.Services.Rsur.ParticipReport
             serviceResult.Result.TestNumberCode = entity.RsurParticipTest.RsurTest.Test.NumberCode;
             serviceResult.Result.RsurTestId = entity.RsurParticipTest.RsurTestId;
 
+            serviceResult.Result.Marks = entity.RsurQuestionValues.Split(';').Select(int.Parse).ToArray();
+
             // Формирование EgeQuestionResults
             serviceResult.Result.EgeQuestionResults = new List<EgeQuestionResult>();
             var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');

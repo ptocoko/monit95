@@ -17,6 +17,7 @@ export class RsurReportModel {
 	RsurTestId: number;
 	TestDate?: string;	
 	ExamName: string;
+	Marks: number[];
 	EgeQuestionResults?: EgeQuestionResult[];
 }
 

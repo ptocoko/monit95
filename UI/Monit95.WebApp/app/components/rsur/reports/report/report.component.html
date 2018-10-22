@@ -60,6 +60,26 @@
                 <td *ngIf="reportData.TestStatus != 'ЗАЧЕТ'" class="red text-uppercase cell-center"><b>НЕЗАЧЕТ</b></td>
             </tr>
         </table>
+        <br/>
+        <br />
+
+        <table border="1" class="report-table" *ngIf="reportData">
+            <tr>
+                <th [colSpan]="reportData.Marks.length + 1" class="section-head">Выполнение заданий КИМ РСУР</th>
+            </tr>
+            <tr>
+                <td>Номера заданий</td>
+                <td *ngFor="let mark of reportData.Marks; let i = index" class="text-center">
+                    {{ i + 1}}
+                </td>
+            </tr>
+            <tr>
+                <td>Полученно баллов</td>
+                <td *ngFor="let mark of reportData.Marks" class="text-center">
+                    {{ mark }}
+                </td>
+            </tr>
+        </table>
 
         <br />
         <br />

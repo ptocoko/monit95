@@ -9,7 +9,7 @@ import { RsurReportService } from '../../../../services/rsur-report.service';
 	styleUrls: [`./app/components/rsur/reports/report/report.component.css?v=${new Date().getTime()}`]
 })
 export class ReportComponent implements OnInit {
-    reportData: RsurReportModel;    
+	reportData: RsurReportModel;    
 
     constructor(private readonly reportService: RsurReportService,
 				private readonly router: ActivatedRoute) { }

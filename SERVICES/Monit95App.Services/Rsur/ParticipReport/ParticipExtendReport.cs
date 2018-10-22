@@ -17,6 +17,8 @@ namespace Monit95App.Services.Rsur.ParticipReport
         public string TestNumberCode { get; set; }
         public int RsurTestId { get; set; }
 
+        public int[] Marks { get; set; }
+
         public List<EgeQuestionResult> EgeQuestionResults { get; set; }
     }
 }

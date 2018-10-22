@@ -19,7 +19,7 @@ namespace MarksStringConverter
             //var rsurParticipTestIds = context.RsurParticipTests.AsNoTracking().Where(p => p.RsurTest.IsOpen && p.RsurTest.Test.NumberCode.Substring(0, 2) == "01" && new string[] { "0183", "0246" }.Contains(p.RsurParticip.SchoolId) && p.RsurTestResult.RsurQuestionValues != "wasnot" && p.RsurTestResult.Grade5 == null).Select(s => s.Id).ToArray();
             //service.GenerateAndSaveByParticipTestId(29497);
             //Go(service);
-            service.GenerateByRsurTestIds(new int[] { 2152 });
+            service.GenerateByRsurTestIds(new int[] { 2148, 2149, 2150, 2151 });
             Console.WriteLine("All done!");
             Console.ReadKey();
         }
