@@ -114,7 +114,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 .Select(s => new EgeQuestionsModel
                 {
                     QuestionId = s.Key,
-                    EgeValue = (int)Math.Round((s.Select(rsurQuestion => rsurQuestion.Mark).Average() * 100) / s.First().MaxMark, MidpointRounding.AwayFromZero),
+                    EgeValue = (int)Math.Round(s.Select(rsurQuestion => rsurQuestion.Mark).Sum() * 100.0 / s.Select(rsurQuestion => rsurQuestion.MaxMark).Sum(), MidpointRounding.AwayFromZero),
                     EgeOrder = s.First().EgeOrder
                 });
 
