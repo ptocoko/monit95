@@ -19,5 +19,6 @@ namespace Monit95App.Services.TwoThree
         public int PrimaryMark { get; set; }
         public int Grade5 { get; set; }
         public string GradeString { get; set; }
+        public int? GiaCode { get; set; }
     }
 }

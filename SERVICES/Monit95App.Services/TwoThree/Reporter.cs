@@ -105,13 +105,42 @@ namespace Monit95App.Services.TwoThree
         {
             var destFolder = @"";
             var tempPath = @"";
-
+            var entities = context.TwoThreeResults
+                .Where(p => p.TestCode != "0303")
+                .OrderBy(ob => ob.School.AreaCode)
+                .ThenBy(tb => tb.SchoolId)
+                .ThenBy(tb => tb.TestCode)
+                .ThenBy(tb => tb.Surname)
+                .ThenBy(tb => tb.Name)
+                .Select(MapToReportDto())
+                .GroupBy(gb => gb.TestCode);
+                
             using (var excel = new XLWorkbook(tempPath))
             {
-                using(var sheet = excel.Worksheets.First())
+                int i = 0;
+                if (excel.Worksheets.Count < i + 1)
                 {
-
+                    excel.Worksheets.Add("Лист" + i + 1);
                 }
+                foreach (var testResults in entities)
+                {
+                    using (var sheet = excel.Worksheets.ToArray()[i])
+                    {
+                        sheet.Name = testNameDict[testResults.Key];
+
+                        int j = 2;
+                        foreach (var res in testResults)
+                        {
+                            sheet.Cell(j, 1).Value = res.Id;
+                            sheet.Cell()
+                            
+                            j++;
+                        }
+                    }
+
+                    i++;
+                }
+                
             }
         }
         
@@ -142,6 +171,7 @@ namespace Monit95App.Services.TwoThree
                 Name = s.Name,
                 SecondName = s.SecondName,
                 SchoolName = s.School.Name.Trim(),
+                GiaCode = s.School.GiaCode,
                 AreaName = s.School.Area.Name.Trim(),
                 TestCode = s.TestCode,
                 Marks = s.Marks,

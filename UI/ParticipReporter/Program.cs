@@ -28,8 +28,8 @@ namespace ParticipReporter
         static void Main(string[] args)
         {
             context = new CokoContext();
-            //twoThreeReporter = new Reporter(context);
-            
+            twoThreeReporter = new Reporter(context);
+            twoThreeReporter.F0_IndividualResults();
 
             //CopyFiles();
             //twoThreeReporter.F0_ParticipsResults();
