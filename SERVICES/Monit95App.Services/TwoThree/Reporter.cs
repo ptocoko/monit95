@@ -15,10 +15,10 @@ namespace Monit95App.Services.TwoThree
         {
             ["0201"] = "2 кл. русский язык",
             ["0202"] = "2 кл. математика",
-            ["0204"] = "2 кл. метапредметная диагностика",
+            ["0204"] = "2 кл. метапр-ая диаг-ка",
             ["0301"] = "3 кл. русский язык",
             ["0302"] = "3 кл. математика",
-            ["0304"] = "3 кл. метапредметная диагностика"
+            ["0304"] = "3 кл. метапр-ая диаг-ка"
         };
         Random rand = new Random();
         
@@ -103,8 +103,9 @@ namespace Monit95App.Services.TwoThree
 
         public void F1_IndividualResults()
         {
-            var destFolder = @"";
-            var tempPath = @"";
+            var destFolder = @"D:\Work\reports\two-three\Ф1. Индивидуальные результаты участников";
+            var tempPath = @"D:\Work\reports\two-three\Ф1. Индивидуальные результаты участников\temp.xlsx";
+
             var entities = context.TwoThreeResults
                 .Where(p => p.TestCode != "0303")
                 .OrderBy(ob => ob.School.AreaCode)
@@ -118,29 +119,53 @@ namespace Monit95App.Services.TwoThree
             using (var excel = new XLWorkbook(tempPath))
             {
                 int i = 0;
-                if (excel.Worksheets.Count < i + 1)
-                {
-                    excel.Worksheets.Add("Лист" + i + 1);
-                }
+                
                 foreach (var testResults in entities)
                 {
+                    //if (excel.Worksheets.Count <= i)
+                    //{
+                    //    excel.Worksheets.Add("Лист" + i + 1);
+                    //}
+                    
                     using (var sheet = excel.Worksheets.ToArray()[i])
                     {
+                        //if (i > 0)
+                        //{
+                        //    var header = excel.Worksheets.ToArray()[i - 1].Range("A1:I1");
+                        //    sheet.Rows().
+                        //}
+
                         sheet.Name = testNameDict[testResults.Key];
 
                         int j = 2;
                         foreach (var res in testResults)
                         {
                             sheet.Cell(j, 1).Value = res.Id;
-                            sheet.Cell()
+                            sheet.Cell(j, 2).Value = res.VprCode;
+                            sheet.Cell(j, 3).Value = res.Surname;
+                            sheet.Cell(j, 4).Value = res.Name;
+                            sheet.Cell(j, 5).Value = res.SecondName;
+                            sheet.Cell(j, 6).Value = rand.Next(1, 4);
+                            sheet.Cell(j, 7).Value = res.PrimaryMark;
+                            sheet.Cell(j, 8).Value = res.Marks;
+
+                            var gradeCell = sheet.Cell(j, 9);
+                            gradeCell.Value = res.GradeString;
+                            StyleGradeCell(res.Grade5, gradeCell);
+
                             
+
                             j++;
                         }
+
+                        sheet.RangeUsed(false).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                        sheet.RangeUsed(false).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                     }
 
                     i++;
                 }
-                
+
+                excel.SaveAs(destFolder + @"\результаты.xlsx");
             }
         }
         
@@ -171,7 +196,7 @@ namespace Monit95App.Services.TwoThree
                 Name = s.Name,
                 SecondName = s.SecondName,
                 SchoolName = s.School.Name.Trim(),
-                GiaCode = s.School.GiaCode,
+                VprCode = s.School.VprCode,
                 AreaName = s.School.Area.Name.Trim(),
                 TestCode = s.TestCode,
                 Marks = s.Marks,

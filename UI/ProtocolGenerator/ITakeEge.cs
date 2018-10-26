@@ -40,7 +40,10 @@ namespace ProtocolGenerator
 
         public void SolveAndSaveGrade5AndPrimaryMark()
         {
-            var participTests = GetCorrectParticipTestsQuery().Include(inc => inc.QuestionMarks).Include(inc => inc.ProjectTest);
+            var participTests = context.ParticipTests
+                .Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1)
+                .Include(inc => inc.QuestionMarks)
+                .Include(inc => inc.ProjectTest);
 
             foreach (var participTest in participTests)
             {
