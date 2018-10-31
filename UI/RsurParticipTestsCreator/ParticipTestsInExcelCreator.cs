@@ -80,7 +80,7 @@ namespace RsurParticipTestsCreator
                     }
                 }
 
-                excel.SaveAs($@"{destFolder}\102018_{models.SubjectName.Substring(0, 2).ToLower()}_распределение_{models.AreaCode}.xlsx");
+                excel.SaveAs($@"{destFolder}\физика\{models.AreaCode}\102018_{models.SubjectName.Substring(0, 2).ToLower()}_распределение_{models.AreaCode}.xlsx");
             }
         }
     }

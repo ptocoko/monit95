@@ -59,7 +59,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 participTests = participTests.Where(rpt => rpt.RsurParticip.School.AreaCode == areaCode);
 
             if (!participTests.Any())
-                result.Errors.Add(new ServiceError { Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
+                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
 
             // Получаем кол-во участников распределенных на диагностику
             var participTestCount = participTests.Count();
