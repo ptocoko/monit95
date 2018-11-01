@@ -471,6 +471,10 @@
     <Content Include="app\components\rsur\reports\report\report.component.css" />
     <Content Include="app\components\rsur\reports\report\report.component.html" />
     <Content Include="app\components\rsur\reports\report-list\report-list.component.html" />
+    <Content Include="app\particips\reports\list\list.component.css" />
+    <Content Include="app\particips\reports\list\list.component.html" />
+    <Content Include="app\particips\reports\report\report.component.css" />
+    <Content Include="app\particips\reports\report\report.component.html" />
     <Content Include="app\particips\shared\list\list.component.css" />
     <Content Include="app\particips\shared\list\list.component.html" />
     <Content Include="app\components\rsur\home\home.component.html" />
@@ -682,6 +686,7 @@
     <TypeScriptCompile Include="app\models\first-class\protocol-get.model.ts" />
     <TypeScriptCompile Include="app\models\first-class\protocol-post.model.ts" />
     <TypeScriptCompile Include="app\models\first-class\question-result.model.ts" />
+    <TypeScriptCompile Include="app\models\iTakeEge\reports.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\particip.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\protocol-list.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\question-protocol.model.ts" />
@@ -714,6 +719,8 @@
     <TypeScriptCompile Include="app\particips\protocols\protocol\protocol.component.ts" />
     <TypeScriptCompile Include="app\particips\protocols\protocols.component.ts" />
     <TypeScriptCompile Include="app\particips\particips.module.ts" />
+    <TypeScriptCompile Include="app\particips\reports\list\list.component.ts" />
+    <TypeScriptCompile Include="app\particips\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />
     <TypeScriptCompile Include="app\pipes\one-two-three\particips.pipe.ts" />
     <TypeScriptCompile Include="app\particips\shared\list\list.component.ts" />
@@ -741,6 +748,7 @@
     <TypeScriptCompile Include="app\services\file.service.ts" />
     <TypeScriptCompile Include="app\services\first-class\particips.service.ts" />
     <TypeScriptCompile Include="app\services\first-class\protocols.service.ts" />
+    <TypeScriptCompile Include="app\services\iTakeEge\reports.service.ts" />
     <TypeScriptCompile Include="app\services\one-two-three\particips.service.ts" />
     <TypeScriptCompile Include="app\services\one-two-three\question-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\particip-protocols.service.ts" />

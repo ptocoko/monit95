@@ -1,34 +1,23 @@
 ﻿<h2>«Я сдам ЕГЭ!»: главное меню</h2>
 
-<div class="list-container" *ngIf="false">
-    <h3 class="list-header">02 - Математика профильная</h3>
+<div class="list-container" *ngIf="timeIsCome">
+    <h3 class="list-header">22 - Математика базовая</h3>
     <div>
-        <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/7mpR/7zUAx7Mh1" target="_blank">
+        <a *ngIf="true" class="list-item-link" href="/file/iTakeEge/102018/all/варианты работ/МА-Б.rar" download="МА-Б_варианты_работ.rar">
             <div>
-                <h4><b>Бланк ответов</b></h4>
+                <h4>Варианты работ</h4>
             </div>
         </a>
-        <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/LAYC/tsWwtje3R" target="_blank">
-            <div>
-                <h4><b>Инструкция по выполнению работы</b></h4>
-            </div>
-        </a>
-        <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/J6iW/sPP53VFJk" target="_blank">
-            <div>
-                <h4><b>Справочные материалы</b></h4>
-            </div>
-        </a>
-        <a *ngIf="false" class="list-item-link" href="https://cloud.mail.ru/public/6nCc/GzDDJvU2k" target="_blank">
-            <div>
-                <h4><b>Варианты ИК</b></h4>
-            </div>
-        </a>
-        <a *ngIf="true" class="list-item-link" href="https://cloud.mail.ru/public/5dtm/XbHZaKq2b" target="_blank">
+        <a *ngIf="true" class="list-item-link" href="/file/iTakeEge/102018/all/ключи/МА-Б_ключи.rar" download="МА-Б_ключи.rar">
             <div>
                 <h4><b>Ключи для проверки работ</b></h4>
             </div>
         </a>
-        
+        <a *ngIf="true" class="list-item-link" routerLink="/particips/protocols/2045">
+            <div>
+                <h4><b>Заполнение протоколов проверки заданий</b></h4>
+            </div>
+        </a>
     </div>
 </div>
 

@@ -121,8 +121,17 @@ namespace Monit95App.Services.Rsur.MarksConvert
             if (questionsModel.Any(x => x.EgeOrder == null))
                 throw new ArgumentException("Отсутствует поле Order в таблице Questions");
 
-            var egeValues = questionsModel.Select(s => s.EgeValue);
-
+            IEnumerable<int> egeValues;
+            // в КИМ по географии в задания 15 и 16, которые соответствуют заданию 26 с КИМ ЕГЭ, прокралась ошибочка, пытаемся исправиться
+            if (testResultEntity.RsurParticipTest.RsurTestId == 2153 && questionsModel.Single(p => p.EgeOrder == 26).EgeValue == 0)
+            {
+                egeValues = questionsModel.Where(p => p.EgeOrder != 26).Select(s => s.EgeValue);
+            }
+            else
+            {
+                egeValues = questionsModel.Select(s => s.EgeValue);
+            }
+            
             int grade5;
             if(testResultEntity.RsurParticipTest.RsurTestId == 2138)
             {

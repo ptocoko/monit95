@@ -11,8 +11,8 @@ var HomeComponent = /** @class */ (function () {
         this.timeIsCome = false;
     }
     HomeComponent.prototype.ngOnInit = function () {
-        //const date = new Date();
-        //this.timeIsCome = (date.getDate() === 8 && date.getHours() >= 14) || date.getDate() > 8;
+        var date = new Date();
+        this.timeIsCome = (date.getDate() === 1 && date.getHours() >= 8) || date.getDate() === 2;
     };
     HomeComponent = tslib_1.__decorate([
         core_1.Component({
