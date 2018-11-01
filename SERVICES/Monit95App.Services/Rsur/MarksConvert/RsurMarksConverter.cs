@@ -123,7 +123,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
 
             IEnumerable<int> egeValues;
             // в КИМ по географии в задания 15 и 16, которые соответствуют заданию 26 с КИМ ЕГЭ, прокралась ошибочка, пытаемся исправиться
-            if (testResultEntity.RsurParticipTest.RsurTestId == 2153 && questionsModel.Single(p => p.EgeOrder == 26).EgeValue == 0)
+            if (testResultEntity.RsurParticipTest.RsurTestId == 2153 && questionsModel.Single(p => p.EgeOrder == 26).EgeValue < 100)
             {
                 egeValues = questionsModel.Where(p => p.EgeOrder != 26).Select(s => s.EgeValue);
             }
@@ -145,9 +145,9 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
-            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "0104")
+            else if (new string[] { "0104", "0801" }.Contains(testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode))
             {
-                grade5 = GetGrade5ForRus4(egeValues);
+                grade5 = GetGrade5ForTestsWithTwoQuestionsForOne(egeValues);
             }
             else
             {
@@ -164,7 +164,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
             return (grade5, egeQuestionValues);
         }
 
-        private int GetGrade5ForRus4(IEnumerable<int> egeValues)
+        private int GetGrade5ForTestsWithTwoQuestionsForOne(IEnumerable<int> egeValues)
         {
             int allValuesCount = egeValues.Count();
             int badCount = egeValues.Count(p => p < 50); //Количество EgeQuestionValues со значение меньше 60

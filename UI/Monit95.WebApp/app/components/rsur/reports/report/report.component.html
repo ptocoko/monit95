@@ -8,7 +8,7 @@
                 <img height="75" style="margin-top:4px" src="/Images/rsur_logo.png" />
             </div>
             <div class="col-sm-10 col-xs-10">
-                <h3 class="card-caption"><b>КАРТА <br/>ПРЕДМЕТНОЙ КОМПЕТЕНЦИИ УЧИТЕЛЯ</b></h3>
+                <h3 class="card-caption"><b>КАРТА <br />ПРЕДМЕТНОЙ КОМПЕТЕНЦИИ УЧИТЕЛЯ</b></h3>
             </div>
         </div>
         <div class="myhead"></div>
@@ -60,9 +60,12 @@
                 <td *ngIf="reportData.TestStatus != 'ЗАЧЕТ'" class="red text-uppercase cell-center"><b>НЕЗАЧЕТ</b></td>
             </tr>
         </table>
-        <br/>
         <br />
-
+        <br />
+        <div class="alert alert-danger" *ngIf="isWarnAboutGeoKimFail">
+            В связи с тем, что в вариантах КИМ в 15 и 16 заданиях присутствовала неточность масштабирования изображения карты, эти задания не были учтены при вычислении статуса сдачи блока
+        </div>
+        <br />
         <table border="1" class="report-table" *ngIf="reportData">
             <tr>
                 <th [colSpan]="reportData.Marks.length + 1" class="section-head">Выполнение заданий КИМ РСУР</th>
@@ -80,9 +83,9 @@
                 </td>
             </tr>
         </table>
+        <br />
+        <br />
 
-        <br />
-        <br />
         <table border="1" class="report-table">
             <tr>
                 <th class="section-head" colspan="4"><b>Выполнение заданий КИМ ЕГЭ-2018</b></th>
@@ -101,7 +104,7 @@
                 <td>{{result.ElementNames}}</td>
                 <td class="cell-center {{getGradeColor(result.Value)}}">{{result.Value}}%</td>
             </tr>
-           
+
         </table>
     </div>
 </div>

@@ -8,6 +8,7 @@ var ReportComponent = /** @class */ (function () {
     function ReportComponent(reportService, router) {
         this.reportService = reportService;
         this.router = router;
+        this.isWarnAboutGeoKimFail = false;
     }
     ReportComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -15,11 +16,12 @@ var ReportComponent = /** @class */ (function () {
             var code = params['id'];
             _this.reportService.getReport(code).subscribe(function (res) {
                 _this.reportData = res;
+                _this.needToWarn();
             });
         });
     };
     ReportComponent.prototype.getGradeColor = function (grade100) {
-        if (this.reportData.TestNumberCode === "0104" && this.reportData.RsurTestId > 2141) {
+        if (["0104", "0801"].indexOf(this.reportData.TestNumberCode) > -1 && this.reportData.RsurTestId > 2141) {
             return grade100 < 50 ? 'low-grade' : grade100 < 80 ? 'medium-grade' : 'high-grade';
         }
         else if (this.reportData.RsurTestId === 2152) {
@@ -35,6 +37,11 @@ var ReportComponent = /** @class */ (function () {
             else {
                 return 'high-grade';
             }
+        }
+    };
+    ReportComponent.prototype.needToWarn = function () {
+        if (this.reportData.RsurTestId === 2153 && this.reportData.EgeQuestionResults.find(function (val) { return val.EgeQuestionNumber === 26; }).Value < 100) {
+            this.isWarnAboutGeoKimFail = true;
         }
     };
     ReportComponent = tslib_1.__decorate([
