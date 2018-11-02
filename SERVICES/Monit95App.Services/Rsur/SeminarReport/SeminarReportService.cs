@@ -23,7 +23,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         #region Fields
 
-        private const int seminarReportFileRepositoryId = 1;
+        private const int seminarReportFileRepositoryId = 5;
         private const int maxFileSize = 15728640; // 15 MB 
 
         #endregion
@@ -249,7 +249,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
         public IEnumerable<SeminarReportViewDto> GetViewDtos(string userName)
         {
             IEnumerable<RsurReport> reportEntities;
-            var date2018YearReports = new DateTime(2018, 3, 1);
+            var date2018YearReports = new DateTime(2018, 9, 1);
             var queryToGetReportEntities = context.RsurReports.Where(report => report.Date > date2018YearReports)
                                                               .OrderBy(ob => ob.Date);
             if (userName.Length == 3) // areaCode is three-digit number
