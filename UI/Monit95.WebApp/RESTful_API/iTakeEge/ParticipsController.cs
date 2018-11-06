@@ -61,6 +61,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// </summary>
         /// <remarks>Получить список участников для таблицы, где отображается весь список участников</remarks>
         /// <returns></returns>
+        [Authorize(Roles = "i-take-oge")]
         [HttpGet, Route("")]
         public IHttpActionResult GetAllForEge()
         {

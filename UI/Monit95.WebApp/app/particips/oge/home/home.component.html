@@ -1,7 +1,7 @@
 ﻿<h2>«Я сдам ОГЭ!»: главное меню</h2>
 
 <!-- Общее -->
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="account.isITakeOGE()">
     <h3 class="list-header">Общее</h3>
     <div>
         <a class="list-item-link" routerLink="/particips/oge/list">
@@ -48,7 +48,7 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Методический материал</h3>
     <div>
         <a class="list-item-link" href="https://cloud.mail.ru/public/GoGZ/sXgu2vUCk" target="_blank">

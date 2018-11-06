@@ -53,6 +53,13 @@ export class AccountService {
 		return null;
 	}
 
+	isITakeOGE() {
+		if (this.account.RoleNames) {
+			return this.account.RoleNames.indexOf('i-take-oge') > -1;
+		}
+		return null;
+	}
+
 	isGroznySchool() {
 		if (this.account.RoleNames) {
 			return this.account.RoleNames.indexOf('grozny-school') > -1;

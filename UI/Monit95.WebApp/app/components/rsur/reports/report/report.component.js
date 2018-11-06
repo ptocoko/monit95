@@ -24,7 +24,7 @@ var ReportComponent = /** @class */ (function () {
         if (["0104", "0801"].indexOf(this.reportData.TestNumberCode) > -1 && this.reportData.RsurTestId > 2141) {
             return grade100 < 50 ? 'low-grade' : grade100 < 80 ? 'medium-grade' : 'high-grade';
         }
-        else if (this.reportData.RsurTestId === 2152) {
+        else if (this.reportData.RsurTestId === 2152 || this.reportData.RsurTestId === 2155) {
             return grade100 > 70 ? 'high-grade' : 'low-grade';
         }
         else {

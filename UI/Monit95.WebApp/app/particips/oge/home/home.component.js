@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
+var account_service_1 = require("../../../services/account.service");
 var OgeHomeComponent = /** @class */ (function () {
-    function OgeHomeComponent() {
+    function OgeHomeComponent(account) {
+        this.account = account;
         this.timeIsCome = false;
     }
     OgeHomeComponent.prototype.ngOnInit = function () {
@@ -14,7 +16,7 @@ var OgeHomeComponent = /** @class */ (function () {
         core_1.Component({
             templateUrl: "./app/particips/oge/home/home.component.html?v=" + new Date().getTime()
         }),
-        tslib_1.__metadata("design:paramtypes", [])
+        tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService])
     ], OgeHomeComponent);
     return OgeHomeComponent;
 }());
