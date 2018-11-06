@@ -1,5 +1,22 @@
 ﻿<h2>«Я сдам ОГЭ!»: главное меню</h2>
 
+<!-- Общее -->
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Общее</h3>
+    <div>
+        <a class="list-item-link" routerLink="/particips/oge/list">
+            <div>
+                <h4>Список участников</h4>
+            </div>
+        </a>
+        <!--<a class="list-item-link" href="https://t.me/iTakeEge" target="_blank">
+            <div>
+                <h4><b>Telegram-группа технической поддержки: https://t.me/iTakeEge</b></h4>
+            </div>
+        </a>-->
+    </div>
+</div>
+
 <div class="list-container" *ngIf="false">
     <h3 class="list-header">01 - Русский язык</h3>
     <div>
@@ -31,7 +48,7 @@
     </div>
 </div>
 
-<div class="list-container">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">Методический материал</h3>
     <div>
         <a class="list-item-link" href="https://cloud.mail.ru/public/GoGZ/sXgu2vUCk" target="_blank">
@@ -45,22 +62,6 @@
             </div>
         </a>
     </div>
-</div>    
+</div>
 
-<!-- Общее -->
-<div class="list-container" *ngIf="true">
-    <h3 class="list-header">Общее</h3>
-    <div>
-        <a class="list-item-link" routerLink="/particips/oge/list">
-            <div>
-                <h4>Список участников</h4>
-            </div>
-        </a>
-        <!--<a class="list-item-link" href="https://t.me/iTakeEge" target="_blank">
-            <div>
-                <h4><b>Telegram-группа технической поддержки: https://t.me/iTakeEge</b></h4>
-            </div>
-        </a>-->
-    </div>
-</div>    
 

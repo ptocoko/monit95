@@ -68,6 +68,47 @@ namespace ProtocolGenerator
             GenerateReports(participTests);
         }
 
+        public void GenerateReportsForAreas()
+        {
+            var groupedTestResults = context.ParticipTests.
+                Where(pt => pt.ProjectTest.ProjectId == 18 && pt.Grade5 != null && !new string[] { "0005", "0520", "0001", "0002", "0495", "0552", "0588", "0173", "0445" }.Contains(pt.Particip.SchoolId))
+                //.OrderBy(ob => ob.Particip.SchoolId).ThenBy(ob => ob.Particip.Surname).ThenBy(tb => tb.Particip.Name).ThenBy(tb => tb.ProjectTest.Test.NumberCode)
+                .Select(MapToReportModel)
+                .OrderBy(ob => ob.SchoolId).ThenBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
+                .GroupBy(gb => gb.AreaName );
+
+            string reportFolder = $@"\\192.168.88.220\файлы_пто\Работы\[18] - «Я сдам ЕГЭ!»-осень 2018\отчеты\для координаторов";
+
+            foreach (var areaResult in groupedTestResults)
+            {
+                using (var excel = new XLWorkbook($@"{reportFolder}\template ege area.xlsx"))
+                {
+                    using(var sheet = excel.Worksheets.First())
+                    {
+                        int i = 0;
+                        foreach (var result in areaResult)
+                        {
+                            sheet.Cell(i + 3, 1).Value = i + 1;
+                            sheet.Cell(i + 3, 2).Value = result.Surname;
+                            sheet.Cell(i + 3, 3).Value = result.Name;
+                            sheet.Cell(i + 3, 4).Value = result.SecondName;
+                            sheet.Cell(i + 3, 5).Value = result.DocumNumber;
+                            sheet.Cell(i + 3, 6).Value = result.TestName;
+                            sheet.Cell(i + 3, 7).Value = result.SchoolName;
+                            //sheet.Cell(i + 4, 7).Value = result.Marks;
+                            sheet.Cell(i + 3, 8).Value = result.PrimaryMark;
+                            sheet.Cell(i + 3, 9).Value = result.GradeStr;
+                            i++;
+                        }
+
+                        //sheet.RowsUsed(false).Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
+                        //sheet.RowsUsed(false).Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
+                        excel.SaveAs($@"{reportFolder}\{areaResult.Key}.xlsx");
+                    }
+                }
+            }
+        }
+
         private void GenerateReports(IQueryable<ParticipTest> participTests)
         {
             var groupedTestResults = participTests
