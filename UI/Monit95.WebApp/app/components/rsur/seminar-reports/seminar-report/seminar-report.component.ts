@@ -8,6 +8,7 @@ import { AccountService } from "../../../../services/account.service";
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { filter } from 'rxjs/operators/filter';
+import { downloadFile } from '../../../../utils/functions';
 
 @Component({
 	selector: 'seminar-report',
@@ -43,9 +44,11 @@ export class SeminarReportComponent implements OnInit {
 
 	getPreviewer(seminarFile: SeminarFile): string {
 		if (seminarFile.Type === 'image') {
-			return 'data:image/png;base64,' + seminarFile.FileSourceString;
-		} else {
+			return seminarFile.FileUrl; //'data:image/png;base64,' + seminarFile.FileSourceString;
+		} else if (seminarFile.Type === 'pdf') {
 			return '/images/pdf-previewer.png';
+		} else {
+			return '/images/docx-previewer.png';
 		}
 	}
 
@@ -53,7 +56,8 @@ export class SeminarReportComponent implements OnInit {
 		if (seminarFile.Type === 'image')
 			this.viewingImage = seminarFile;
 		else {
-			this.openPdf(seminarFile);
+			//this.openPdf(seminarFile);
+			downloadFile(seminarFile.FileUrl, `протокол.${seminarFile.Type}`);
 		}
 	}
 

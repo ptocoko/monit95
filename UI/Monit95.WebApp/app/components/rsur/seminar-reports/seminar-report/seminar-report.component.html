@@ -24,7 +24,7 @@
 
     <div class="image-viewer" 
          *ngIf="viewingImage">
-        <img [src]="getPreviewer(viewingImage)"
+        <img [src]="viewingImage.FileUrl"
                 class="viewing-img" />
 
         <span class="img-caption"

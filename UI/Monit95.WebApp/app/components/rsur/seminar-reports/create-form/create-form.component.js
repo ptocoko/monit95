@@ -16,7 +16,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         this.fileIndex = 1; // используется для генерации уникальных ключей для файлов семинара
         this.isSending = false;
         this.acceptedImageExtensions = ['jpg', 'jpeg', 'png', 'bmp'];
-        this.acceptedProtocolExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif', 'pdf'];
+        this.acceptedProtocolExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'tiff', 'tif', 'pdf', 'docx'];
         this.getNotProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === false; }); };
         this.getProtocolFiles = function () { return _this.seminarFiles.filter(function (f) { return f.isProtocol === true; }); };
         this.getFilesWithError = function () { return _this.seminarFiles.filter(function (f) { return f.errorMessage; }); };

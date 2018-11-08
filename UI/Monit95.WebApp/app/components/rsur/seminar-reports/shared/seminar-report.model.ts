@@ -10,7 +10,8 @@ export class SeminarReportEdit {
 }
 
 export class SeminarFile {
-	Type: 'pdf' | 'image';
+	Type: 'pdf' | 'image' | 'docx';
 	Key: string;
 	FileSourceString: string;
+	FileUrl: string;
 }

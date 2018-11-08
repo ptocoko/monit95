@@ -23,6 +23,6 @@ namespace Monit95App.Services.File
 
         string ConvertTiffToJpegBase64(FileStream tiffFileStream);
 
-        bool CheckIfFileExists(Stream fileStream, int repositoryId);
+        bool CheckIfFileExists(string hash, int repositoryId);
     }
 }

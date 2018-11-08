@@ -44,7 +44,7 @@
         <input type="file"
                id="selectedProtocol"
                (change)="addFiles($event, true)"
-               accept=".jpg, .jpeg, .png, .bmp, .tiff, .tif, .pdf" />
+               accept=".jpg, .jpeg, .png, .bmp, .tiff, .tif, .pdf, .docx" />
         <button [disabled]="getProtocolFiles().length > 0"
                 mat-raised-button
                 color="primary"

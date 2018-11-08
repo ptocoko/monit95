@@ -18,6 +18,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
 
         private readonly CokoContext context;
         private readonly IFileService fileService;
+        private readonly string seminarReportsFolder = "/file/rsur/seminar-files";
 
         #endregion
 
@@ -296,7 +297,8 @@ namespace Monit95App.Services.Rsur.SeminarReport
                 {
                     Type = GetSeminarFileType(report.File.Name),
                     Key = report.IsProtocol ? "protocol" : $"image_{i++}",
-                    FileSourceString = GetBase64String(report.File)
+                    //FileSourceString = GetBase64String(report.File),
+                    FileUrl = $"{seminarReportsFolder}/{report.File.RepositoryId}/{report.File.Name}"
                 });
             }
             return seminarFiles;
@@ -332,6 +334,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
             if (!String.IsNullOrEmpty(extension))
             {
                 if (extension == "pdf") return "pdf";
+                else if (extension == "docx") return "docx";
                 else return "image";
             }
             else

@@ -6,6 +6,7 @@ var router_1 = require("@angular/router");
 var seminar_report_service_1 = require("../../../../services/seminar-report.service");
 var fromEvent_1 = require("rxjs/observable/fromEvent");
 var filter_1 = require("rxjs/operators/filter");
+var functions_1 = require("../../../../utils/functions");
 var SeminarReportComponent = /** @class */ (function () {
     function SeminarReportComponent(route, seminarReportService) {
         this.route = route;
@@ -28,17 +29,21 @@ var SeminarReportComponent = /** @class */ (function () {
     };
     SeminarReportComponent.prototype.getPreviewer = function (seminarFile) {
         if (seminarFile.Type === 'image') {
-            return 'data:image/png;base64,' + seminarFile.FileSourceString;
+            return seminarFile.FileUrl; //'data:image/png;base64,' + seminarFile.FileSourceString;
+        }
+        else if (seminarFile.Type === 'pdf') {
+            return '/images/pdf-previewer.png';
         }
         else {
-            return '/images/pdf-previewer.png';
+            return '/images/docx-previewer.png';
         }
     };
     SeminarReportComponent.prototype.showViewer = function (seminarFile) {
         if (seminarFile.Type === 'image')
             this.viewingImage = seminarFile;
         else {
-            this.openPdf(seminarFile);
+            //this.openPdf(seminarFile);
+            functions_1.downloadFile(seminarFile.FileUrl, "\u043F\u0440\u043E\u0442\u043E\u043A\u043E\u043B." + seminarFile.Type);
         }
     };
     SeminarReportComponent.prototype.hideViewer = function () {

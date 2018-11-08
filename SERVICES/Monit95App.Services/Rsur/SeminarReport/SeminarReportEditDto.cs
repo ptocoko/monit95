@@ -14,5 +14,6 @@ namespace Monit95App.Services.Rsur.SeminarReport
         public string Type { get; set; }
         public string Key { get; set; }
         public string FileSourceString { get; set; }
+        public string FileUrl { get; set; }
     }
 }
