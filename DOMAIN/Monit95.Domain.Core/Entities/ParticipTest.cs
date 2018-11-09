@@ -51,6 +51,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public string GradeString { get; set; }
 
+        public int? Grade5_v2 { get; set; }
+
         #endregion
     }
 }

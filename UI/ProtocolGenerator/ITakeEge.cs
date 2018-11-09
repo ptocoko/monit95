@@ -41,7 +41,7 @@ namespace ProtocolGenerator
         public void SolveAndSaveGrade5AndPrimaryMark()
         {
             var participTests = context.ParticipTests
-                .Where(p => p.ProjectTest.ProjectId == projectId && p.Grade5 != -1)
+                .Where(p => p.ProjectTestId == 2045 && p.Grade5 != -1 && p.Particip.SchoolId == "0221")
                 .Include(inc => inc.QuestionMarks)
                 .Include(inc => inc.ProjectTest);
 
@@ -50,6 +50,20 @@ namespace ProtocolGenerator
                 participTest.PrimaryMark = participTest.QuestionMarks.Select(s => s.AwardedMark).Sum();
                 participTest.Grade5 = (int?)participTest.PrimaryMark >= participTest.ProjectTest.PassPrimaryMark ? 5 : 2;
             }
+
+            context.SaveChanges();
+        }
+
+        public void SolveGrade5_v2()
+        {
+            context.ParticipTests
+                .Where(pt => pt.ProjectTestId == 2044 && pt.Grade5 > 0)
+                .ForEach(pt =>
+                {
+                    var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
+
+                    pt.Grade5_v2 = (int)marksSum >= pt.ProjectTest.PassPrimaryMark ? 5 : 2;
+                });
 
             context.SaveChanges();
         }

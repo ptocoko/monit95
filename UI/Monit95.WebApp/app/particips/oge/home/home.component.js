@@ -10,7 +10,7 @@ var OgeHomeComponent = /** @class */ (function () {
     }
     OgeHomeComponent.prototype.ngOnInit = function () {
         var date = new Date();
-        this.timeIsCome = (date.getDate() === 18 && date.getHours() >= 14) || date.getDate() > 18;
+        this.timeIsCome = this.account.account.UserName === '0000' ? true : (date.getDate() === 12 && date.getHours() >= 8) || date.getDate() > 12;
     };
     OgeHomeComponent = tslib_1.__decorate([
         core_1.Component({
