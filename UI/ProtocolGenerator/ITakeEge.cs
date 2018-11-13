@@ -57,12 +57,12 @@ namespace ProtocolGenerator
         public void SolveGrade5_v2()
         {
             context.ParticipTests
-                .Where(pt => pt.ProjectTestId == 2044 && pt.Grade5 > 0)
+                .Where(pt => pt.ProjectTestId == 2045 && pt.Grade5 > 0)
                 .ForEach(pt =>
                 {
                     var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
 
-                    pt.Grade5_v2 = (int)marksSum >= pt.ProjectTest.PassPrimaryMark ? 5 : 2;
+                    pt.Grade5_v2 = (int)marksSum >= 9 ? 5 : 2;
                 });
 
             context.SaveChanges();

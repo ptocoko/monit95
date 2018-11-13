@@ -53,6 +53,18 @@ namespace ProtocolGenerator
             context.SaveChanges();
             //throw new NotImplementedException();
         }
+
+        public void GetAndSavePrimaryMark()
+        {
+            var participTests = context.ParticipTests.Where(pt => new int[] { 2033, 2034, 2035 }.Contains(pt.ProjectTestId) && pt.Grade5 > 0).Include(inc => inc.OneTwoThreeQuestionMarks);
+
+            foreach (var pt in participTests)
+            {
+                pt.PrimaryMark = pt.OneTwoThreeQuestionMarks.Select(s => s.AwardedMark).Sum();
+            }
+
+            context.SaveChanges();
+        }
         
         public void GenerateExcelReports(string [] schoolIds = null)
         {

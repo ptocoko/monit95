@@ -186,6 +186,9 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
             }
             participTestEntity.QuestionMarks = resultQuestionMarks;
 
+            participTestEntity.PrimaryMark = participTestEntity.QuestionMarks.Select(s => s.AwardedMark).Sum();
+            participTestEntity.Grade5 = participTestEntity.PrimaryMark >= participTestEntity.ProjectTest.PassPrimaryMark ? 5 : 2;
+
             cokoContext.SaveChanges();
         }
 
@@ -202,6 +205,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
                 throw new EntityNotFoundOrAccessException();
             cokoContext.QuestionMarks.RemoveRange(participTestEntity.QuestionMarks);
             participTestEntity.Grade5 = (int)Grade5Value.Absent; // отсутствовал
+            participTestEntity.PrimaryMark = null;
             cokoContext.SaveChanges();            
         }
 
