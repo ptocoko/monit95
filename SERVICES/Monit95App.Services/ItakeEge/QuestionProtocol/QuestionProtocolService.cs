@@ -14,7 +14,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
 {
     public class QuestionProtocolService : IQuestionProtocolService
     {
-        private const int ItakeEgeProjectId = 16; // projectId for i pass ege 2018 (may)
+        //private const int ItakeEgeProjectId = 16; // projectId for i pass ege 2018 (may)
 
         #region Dependencies
 
@@ -54,37 +54,6 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
                     QuestionMarks = GetMarks(entity)
                 });
 
-            //var readDtoCollection = new Collection<QuestionProtocolReadDto>();
-            //foreach (var entity in participTestEntities)
-            //{
-            //    string questionMarksString = null;
-
-            //    // если Grade5 = -1 значит участник отсутствовал
-            //    if(entity.Grade5 < 0)
-            //    {
-            //        questionMarksString = "отсутствовал";
-            //    }
-            //    else
-            //    {
-            //        StringBuilder strBuilder = new StringBuilder();
-            //        foreach (var qm in entity.QuestionMarks.OrderBy(qm => qm.Question.Order))
-            //        {
-            //            strBuilder.Append(qm.AwardedMark.ToString() + ";");
-            //        }
-            //        // убираем последний символ точки с запятой: 1;0;1;0;1;0';'
-            //        if (strBuilder.Length > 1)
-            //        {
-            //            strBuilder.Length = strBuilder.Length - 1;
-            //            questionMarksString = strBuilder.ToString();
-            //        }
-            //    }
-
-            //    readDto.QuestionMarks = questionMarksString;
-
-            //    readDtoCollection.Add(readDto);
-            //}
-
-            //return readDtoCollection.OrderBy(qp => qp.ParticipInfo);
             return participTestEntities.OrderBy(ob => ob.ParticipInfo);
         }
 

@@ -125,6 +125,8 @@
     <Compile Include="ItakeEge\QuestionProtocol\IQuestionProtocolService.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionMarkPutDto.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionProtocolEditDto.cs" />
+    <Compile Include="ItakeEge\Report\ReportDto.cs" />
+    <Compile Include="ItakeEge\Report\ReportService.cs" />
     <Compile Include="OneTwoThree\Particips\GetAllOptions.cs" />
     <Compile Include="OneTwoThree\Particips\IParticipService.cs" />
     <Compile Include="OneTwoThree\Particips\ParticipDto.cs" />

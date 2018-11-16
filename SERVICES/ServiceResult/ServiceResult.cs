@@ -11,6 +11,8 @@ namespace ServiceResult
         /// </summary>
         public T Result { get; set; }
         
+        public bool HasError { get; set; }
+
         public List<ServiceError> Errors { get; set; } = new List<ServiceError>();
 
         /// <summary>
