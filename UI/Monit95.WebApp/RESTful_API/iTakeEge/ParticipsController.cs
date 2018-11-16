@@ -30,6 +30,41 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
 
         #region APIs
 
+        [HttpGet, Route("{projectId:int}")]
+        public IHttpActionResult Get([FromUri] int projectId)
+        {
+            var schoolId = User.Identity.Name;
+            var dtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
+            return Ok(dtos);
+        }
+
+        /// <summary>
+        /// Получить список участников пользователя
+        /// </summary>
+        /// <remarks>Получить список участников для таблицы, где отображается весь список участников</remarks>
+        /// <returns></returns>
+        [HttpGet, Route("")]
+        public IHttpActionResult GetAllForEge()
+        {
+            IEnumerable<ParticipGetViewDto> viewDtos;
+            const int projectId = 18;
+            var schoolId = User.Identity.Name;
+            viewDtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
+                                                                                      
+            return Ok(viewDtos);
+        }
+
+        [HttpGet, Route("~/api/oge/participants")]
+        public IHttpActionResult GetAllForOge()
+        {
+            IEnumerable<ParticipGetViewDto> viewDtos;
+            const int projectId = 19;
+            var schoolId = User.Identity.Name;
+            viewDtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
+
+            return Ok(viewDtos);
+        }
+
         /// <summary>
         /// Добавление участника "Я сдам ЕГЭ!"
         /// </summary>
@@ -54,34 +89,6 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
             }
             
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.Created, createdParticipId));            
-        }
-
-        /// <summary>
-        /// Получить список участников пользователя
-        /// </summary>
-        /// <remarks>Получить список участников для таблицы, где отображается весь список участников</remarks>
-        /// <returns></returns>
-        [Authorize(Roles = "i-take-oge")]
-        [HttpGet, Route("")]
-        public IHttpActionResult GetAllForEge()
-        {
-            IEnumerable<ParticipGetViewDto> viewDtos;
-            const int projectId = 18;
-            var schoolId = User.Identity.Name;
-            viewDtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
-                                                                                      
-            return Ok(viewDtos);
-        }
-
-        [HttpGet, Route("~/api/oge/participants")]
-        public IHttpActionResult GetAllForOge()
-        {
-            IEnumerable<ParticipGetViewDto> viewDtos;
-            const int projectId = 19;
-            var schoolId = User.Identity.Name;
-            viewDtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
-
-            return Ok(viewDtos);
         }
 
         [HttpPut]

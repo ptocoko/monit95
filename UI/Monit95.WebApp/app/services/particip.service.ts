@@ -39,6 +39,14 @@ export class ParticipService {
 		});
 	}
 
+	getByProjectId(projectId: number) {
+		return this.http.get<ParticipModel[]>(`${this.endpoint}/${projectId}`).map(particips => {
+			// превращаем 'school' в 'Школа'
+			particips.forEach(dataSourceMapperFunc);
+			return particips;
+		});
+	}
+
 	getParticip(participId: number): Observable<ParticipModel> {
 		return this.http.get<ParticipModel>(this.endpoint + participId).map(dataSourceMapperFunc);
 	}

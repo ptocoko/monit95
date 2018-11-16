@@ -19,16 +19,21 @@ var shared_module_1 = require("../shared/shared-module");
 var list_component_1 = require("./shared/list/list.component");
 var home_component_2 = require("./oge/home/home.component");
 var particips_list_component_2 = require("./oge/list/particips-list.component");
+var home_component_3 = require("./society/home/home.component");
+var particips_list_component_3 = require("./society/list/particips-list.component");
 var routes = [
     { path: 'particips/home', component: home_component_1.HomeComponent },
-    { path: 'particips/oge/home', component: home_component_2.OgeHomeComponent },
-    { path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
     { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
-    { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
-    { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 18 } },
-    { path: 'particips/oge/new', component: add_component_1.AddParticipComponent, data: { projectId: 19 } },
+    { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 18, projectName: 'ЕГЭ' } },
     { path: 'particips/protocols/:id', component: protocols_component_1.ProtocolsComponent },
     { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
+    { path: 'particips/oge/home', component: home_component_2.OgeHomeComponent },
+    { path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
+    { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
+    { path: 'particips/oge/new', component: add_component_1.AddParticipComponent, data: { projectId: 19, projectName: 'ОГЭ' } },
+    { path: 'particips/society', component: home_component_3.SocietyHomeComponent },
+    { path: 'particips/society/list', component: particips_list_component_3.SocietyParticipsListComponent },
+    { path: 'particips/society/new', component: add_component_1.AddParticipComponent, data: { projectId: 20, projectName: 'Обществознание' } },
     { path: 'particips/put-protocol/:id', component: protocol_component_1.ParticipProtocolComponent, data: { restMethod: 'PUT' } },
     { path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ];
@@ -58,7 +63,9 @@ var ParticipsModule = /** @class */ (function () {
                 protocol_component_1.ParticipProtocolComponent,
                 list_component_1.ListComponent,
                 home_component_2.OgeHomeComponent,
-                particips_list_component_2.OgeParticipsListComponent
+                particips_list_component_2.OgeParticipsListComponent,
+                home_component_3.SocietyHomeComponent,
+                particips_list_component_3.SocietyParticipsListComponent
             ],
             providers: [
                 particip_service_1.ParticipService,

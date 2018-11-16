@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
+using Monit95App.Services.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,6 +18,14 @@ namespace ProtocolGenerator
         private readonly string templateName;
         private readonly CokoContext context;
         private readonly int projectId;
+
+        Random rand = new Random();
+        public Dictionary<int, string> testNameDict = new Dictionary<int, string>
+        {
+            [2033] = "русский язык",
+            [2034] = "математика",
+            [2035] = "чтение"
+        };
 
         public ITakeEge(string destFolderPath, string templateName, CokoContext context, int projectId)
         {
@@ -57,12 +66,12 @@ namespace ProtocolGenerator
         public void SolveGrade5_v2()
         {
             context.ParticipTests
-                .Where(pt => pt.ProjectTestId == 2045 && pt.Grade5 > 0)
+                .Where(pt => pt.ProjectTestId == 2044 && pt.Grade5 > 0)
                 .ForEach(pt =>
                 {
                     var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
 
-                    pt.Grade5_v2 = (int)marksSum >= 9 ? 5 : 2;
+                    pt.Grade5_v2 = (int)marksSum >= 13 ? 5 : 2;
                 });
 
             context.SaveChanges();
@@ -121,6 +130,147 @@ namespace ProtocolGenerator
                         excel.SaveAs($@"{reportFolder}\{areaResult.Key.SchoolName.Replace("\"", "")}.xlsx");
                     }
                 }
+            }
+        }
+
+        public void F0_ParticipsResults()
+        {
+            var destFolder = $@"D:\Work\reports\1-е классы отчеты\Ф0. Таблица результатов участников";
+
+            var entities = context.ParticipTests
+                .AsNoTracking()
+                .Where(p => new int[] { 2033, 2034, 2035 }.Contains(p.ProjectTestId) && p.Grade5.HasValue && p.Grade5 > 0)
+                .Select(MapToReportDto())
+                .GroupBy(gb => new { gb.SchoolName, gb.AreaName });
+
+            foreach (var schoolResults in entities)
+            {
+                foreach (var testResults in schoolResults.GroupBy(gb => gb.ProjectTestId))
+                {
+                    using (var excel = new XLWorkbook($@"{destFolder}\temp.xlsx"))
+                    {
+                        using (var sheet = excel.Worksheets.First())
+                        {
+                            for (int i = 0; i < testResults.Count(); i++)
+                            {
+                                var orderedResults = testResults.OrderByDescending(ob => ob.PrimaryMark);
+                                var res = orderedResults.ToArray()[i];
+
+                                sheet.Cell(i + 2, 1).Value = res.Id;
+                                sheet.Cell(i + 2, 2).Value = res.Surname;
+                                sheet.Cell(i + 2, 3).Value = res.Name;
+                                sheet.Cell(i + 2, 4).Value = res.SecondName;
+                                sheet.Cell(i + 2, 5).Value = rand.Next(1, 4);
+                                sheet.Cell(i + 2, 6).Value = res.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+                                sheet.Cell(i + 2, 7).Value = res.PrimaryMark;
+
+                                var gradeStrCell = sheet.Cell(i + 2, 8);
+                                StyleGradeCell(res.Grade5, gradeStrCell);
+
+                                sheet.Cell(i + 2, 8).Value = res.GradeString;
+                            }
+                            sheet.Name = testNameDict[testResults.Key];
+                        }
+                        excel.SaveAs($@"{destFolder}\{schoolResults.Key.AreaName}\{schoolResults.Key.SchoolName.RemoveInvalidPathChars()}\{testNameDict[testResults.Key]}.xlsx");
+                    }
+                }
+            }
+        }
+
+        public void F0_IndividualResults()
+        {
+            var destFolder = @"D:\Work\reports\1-е классы отчеты\Ф0. Индивидуальные результаты участников";
+            var tempPath = $@"{destFolder}\temp.xlsx";
+
+            foreach (var report in context.ParticipTests
+                .AsNoTracking()
+                .Where(p => new int[] { 2033, 2034, 2035 }.Contains(p.ProjectTestId) && p.Grade5.HasValue && p.Grade5 > 0)
+                .Select(MapToReportDto()))
+            {
+                using (var excel = new XLWorkbook(tempPath))
+                {
+                    using (var sheet = excel.Worksheets.First())
+                    {
+                        sheet.Cell(2, 1).Value = report.Id;
+                        sheet.Cell(2, 2).Value = report.Surname;
+                        sheet.Cell(2, 3).Value = report.Name;
+                        sheet.Cell(2, 4).Value = report.SecondName;
+                        sheet.Cell(2, 5).Value = rand.Next(1, 4);
+                        sheet.Cell(2, 6).Value = report.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+                        sheet.Cell(2, 7).Value = report.PrimaryMark;
+
+                        var gradeCell = sheet.Cell(2, 8);
+                        gradeCell.Value = report.GradeString;
+                        StyleGradeCell(report.Grade5, gradeCell);
+                    }
+                    excel.SaveAs($@"{destFolder}\{report.AreaName}\{report.SchoolName.RemoveInvalidPathChars()}\{testNameDict[report.ProjectTestId]}\{report.Surname.RemoveInvalidPathChars()} {report.Name.RemoveInvalidPathChars()} {report.SecondName.RemoveInvalidPathChars()}.xlsx");
+                }
+            }
+        }
+
+        public void F1_IndividualResults()
+        {
+            var destFolder = @"D:\Work\reports\1-е классы отчеты\Ф1. Индивидуальные результаты участников";
+            var tempPath = $@"{destFolder}\temp.xlsx";
+
+            var entities = context.ParticipTests
+                .Where(p => new int[] { 2033, 2034, 2035 }.Contains(p.ProjectTestId) && p.Grade5.HasValue && p.Grade5 > 0)
+                .OrderBy(ob => ob.Particip.School.AreaCode)
+                .ThenBy(tb => tb.Particip.SchoolId)
+                .ThenBy(tb => tb.ProjectTestId)
+                .ThenBy(tb => tb.Particip.Surname)
+                .ThenBy(tb => tb.Particip.Name)
+                .Select(MapToReportDto())
+                .GroupBy(gb => gb.ProjectTestId);
+
+            using (var excel = new XLWorkbook(tempPath))
+            {
+                int i = 0;
+
+                foreach (var testResults in entities)
+                {
+                    //if (excel.Worksheets.Count <= i)
+                    //{
+                    //    excel.Worksheets.Add("Лист" + i + 1);
+                    //}
+
+                    using (var sheet = excel.Worksheets.ToArray()[i])
+                    {
+                        //if (i > 0)
+                        //{
+                        //    var header = excel.Worksheets.ToArray()[i - 1].Range("A1:I1");
+                        //    sheet.Rows().
+                        //}
+
+                        sheet.Name = testNameDict[testResults.Key];
+
+                        int j = 2;
+                        foreach (var res in testResults)
+                        {
+                            sheet.Cell(j, 1).Value = res.Id;
+                            sheet.Cell(j, 2).Value = res.VprCode;
+                            sheet.Cell(j, 3).Value = res.Surname;
+                            sheet.Cell(j, 4).Value = res.Name;
+                            sheet.Cell(j, 5).Value = res.SecondName;
+                            sheet.Cell(j, 6).Value = rand.Next(1, 4);
+                            sheet.Cell(j, 7).Value = res.PrimaryMark;
+                            sheet.Cell(j, 8).Value = res.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+
+                            var gradeCell = sheet.Cell(j, 9);
+                            gradeCell.Value = res.GradeString;
+                            StyleGradeCell(res.Grade5, gradeCell);
+                            
+                            j++;
+                        }
+
+                        sheet.RangeUsed(false).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                        sheet.RangeUsed(false).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    }
+
+                    i++;
+                }
+
+                excel.SaveAs(destFolder + @"\результаты.xlsx");
             }
         }
 
@@ -201,6 +351,58 @@ namespace ProtocolGenerator
             else
                 throw new ArgumentException("something went wrong");
         }
+
+        private static void StyleGradeCell(int grade5, IXLCell gradeStrCell)
+        {
+            gradeStrCell.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Left);
+            if (grade5 == 2)
+            {
+                gradeStrCell.Style.Fill.BackgroundColor = XLColor.PersianRed;
+            }
+            else if (grade5 == 3)
+            {
+                gradeStrCell.Style.Fill.BackgroundColor = XLColor.Yellow;
+            }
+            else
+            {
+                gradeStrCell.Style.Fill.BackgroundColor = XLColor.ForestGreen;
+            }
+        }
+
+        private static System.Linq.Expressions.Expression<Func<ParticipTest, ReportDto>> MapToReportDto()
+        {
+            return s => new ReportDto
+            {
+                Id = s.Id,
+                Surname = s.Particip.Surname,
+                Name = s.Particip.Name,
+                SecondName = s.Particip.SecondName,
+                SchoolName = s.Particip.School.Name.Trim(),
+                VprCode = s.Particip.School.VprCode,
+                AreaName = s.Particip.School.Area.Name.Trim(),
+                ProjectTestId = s.ProjectTestId,
+                Marks = s.OneTwoThreeQuestionMarks.Select(qm => qm.AwardedMark),
+                PrimaryMark = (int)s.PrimaryMark,
+                Grade5 = s.Grade5.Value,
+                GradeString = s.GradeString
+            };
+        }
+    }
+
+    internal class ReportDto
+    {
+        public int Id { get; set; }
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string SecondName { get; set; }
+        public string SchoolName { get; set; }
+        public int ProjectTestId { get; set; }
+        public string AreaName { get; set; }
+        public IEnumerable<int> Marks { get; set; }
+        public int PrimaryMark { get; set; }
+        public int Grade5 { get; set; }
+        public string GradeString { get; set; }
+        public string VprCode { get; set; }
     }
 
     internal class ITakeEgeReportModel

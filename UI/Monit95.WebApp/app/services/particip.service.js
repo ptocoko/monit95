@@ -33,6 +33,13 @@ var ParticipService = /** @class */ (function () {
             return particips;
         });
     };
+    ParticipService.prototype.getByProjectId = function (projectId) {
+        return this.http.get(this.endpoint + "/" + projectId).map(function (particips) {
+            // превращаем 'school' в 'Школа'
+            particips.forEach(dataSourceMapperFunc);
+            return particips;
+        });
+    };
     ParticipService.prototype.getParticip = function (participId) {
         return this.http.get(this.endpoint + participId).map(dataSourceMapperFunc);
     };

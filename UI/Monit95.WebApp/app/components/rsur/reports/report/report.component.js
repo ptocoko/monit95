@@ -40,7 +40,7 @@ var ReportComponent = /** @class */ (function () {
         }
     };
     ReportComponent.prototype.needToWarn = function () {
-        if (this.reportData.RsurTestId === 2153 && this.reportData.EgeQuestionResults.find(function (val) { return val.EgeQuestionNumber === 26; }).Value < 100) {
+        if (this.reportData.RsurTestId === 2153 && this.reportData.EgeQuestionResults.filter(function (f) { return [26, 27].indexOf(f.EgeQuestionNumber) > -1 && f.Value < 100; }).length > 0) {
             this.isWarnAboutGeoKimFail = true;
         }
     };

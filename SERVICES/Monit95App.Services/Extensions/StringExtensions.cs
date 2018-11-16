@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Monit95App.Services.Extensions
@@ -25,6 +27,22 @@ namespace Monit95App.Services.Extensions
                 return name.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries)
                            .Select(s => s.Substring(0, 1).ToUpper() + s.Remove(0, 1).ToLower())
                            .Aggregate((s1, s2) => $"{s1}-{s2}");
+            }
+        }
+
+        public static string RemoveInvalidPathChars(this string stringToBePath)
+        {
+            if (!string.IsNullOrEmpty(stringToBePath))
+            {
+                var invalidChars = Path.GetInvalidPathChars();
+
+                return new string(stringToBePath
+                    .Where(p => !invalidChars.Contains(p))
+                    .ToArray());
+            }
+            else
+            {
+                return "";
             }
         }
     }

@@ -2,9 +2,9 @@
 import { AccountService } from '../../../services/account.service';
 
 @Component({
-	templateUrl: `./app/particips/oge/home/home.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/particips/society/home/home.component.html?v=${new Date().getTime()}`
 })
-export class OgeHomeComponent {
+export class SocietyHomeComponent {
 	timeIsCome = false;
 
 	constructor(public account: AccountService) { }

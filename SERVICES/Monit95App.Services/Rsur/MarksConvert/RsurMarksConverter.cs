@@ -123,9 +123,10 @@ namespace Monit95App.Services.Rsur.MarksConvert
 
             IEnumerable<int> egeValues;
             // в КИМ по географии в задания 15 и 16, которые соответствуют заданию 26 с КИМ ЕГЭ, прокралась ошибочка, пытаемся исправиться
-            if (testResultEntity.RsurParticipTest.RsurTestId == 2153 && questionsModel.Single(p => p.EgeOrder == 26).EgeValue < 100)
+            // еще и в заданиях 17 и 18 такая же фигня
+            if (testResultEntity.RsurParticipTest.RsurTestId == 2153)
             {
-                egeValues = questionsModel.Where(p => p.EgeOrder != 26).Select(s => s.EgeValue);
+                egeValues = GetEgeValuesForGeo(questionsModel);
             }
             else
             {
@@ -133,18 +134,22 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
             
             int grade5;
+            // География. Комплексная
             if(testResultEntity.RsurParticipTest.RsurTestId == 2138)
             {
                 grade5 = GetGrade5ForGeo(egeValues);
             }
+            // Общество. Комплексная
             else if (testResultEntity.RsurParticipTest.RsurTestId == 2139)
             {
                 grade5 = marks.Sum() >= 28 ? 5 : 2;
             }
+            // Физика. Комплексная и РСУР
             else if (testResultEntity.RsurParticipTest.RsurTestId == 2152 || testResultEntity.RsurParticipTest.RsurTestId == 2155)
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
+            // Общество. РСУР
             else if (testResultEntity.RsurParticipTest.RsurTestId == 2154)
             {
                 grade5 = marks.Sum() >= 22 ? 5 : 2;
@@ -189,6 +194,13 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 return 5;
             }
+        }
+
+        private IEnumerable<int> GetEgeValuesForGeo(IEnumerable<EgeQuestionsModel> questionsModel)
+        {
+            var ordersWhereValueUnder100 = questionsModel.Where(p => p.EgeValue < 100 && p.EgeOrder >= 26).Select(s => s.EgeOrder);
+
+            return questionsModel.Where(p => !ordersWhereValueUnder100.Contains(p.EgeOrder)).Select(s => s.EgeValue);
         }
 
         private int GetGrade5(IEnumerable<int> egeValues)

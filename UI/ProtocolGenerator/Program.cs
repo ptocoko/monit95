@@ -25,19 +25,20 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             var context = new CokoContext();
-            //var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template new oge.xlsx", context: context, projectId: 18);
+            var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template new oge.xlsx", context: context, projectId: 18);
             //var rsur = new RsurStatsAndReports(context);
 
             ////iTakeEge.GenerateReportsForSchools(new string[] { "0012", "0015", "0019", "0025", "0028", "0043", "0059", "0068", "0078", "0090", "0129", "0132", "0141", "0150", "0160", "0171", "0203", "0208", "0213", "0218", "0219", "0228", "0229", "0232", "0235", "0241", "0242", "0245", "0246", "0254", "0264", "0269", "0277", "0293", "0297", "0299", "0303", "0304", "0307", "0309", "0311", "0313", "0319", "0323", "0327", "0328", "0330", "0339", "0347", "0352", "0358", "0362", "0363", "0364", "0366", "0367", "0369", "0370", "0379", "0380", "0381", "0382", "0389", "0393", "0394", "0395", "0398", "0401", "0409", "0411", "0413", "0416", "0419", "0421", "0426", "0427", "0431", "0432", "0434", "0436", "0437", "0445", "0451", "0456", "0458", "0460", "0462", "0469", "0557" });
-            var gradeSolver = new GradeSolver();
-            var oneTwoThree = new OneTwoThree(context, gradeSolver, 14);
+            //var gradeSolver = new GradeSolver();
+            //var oneTwoThree = new OneTwoThree(context, gradeSolver, 14);
 
             //oneTwoThree.GenerateExcelReports(new string[] { "0012", "0015", "0019", "0025", "0028", "0043", "0059", "0068", "0078", "0090", "0129", "0132", "0141", "0150", "0160", "0171", "0203", "0208", "0213", "0218", "0219", "0228", "0229", "0232", "0235", "0241", "0242", "0245", "0246", "0254", "0264", "0269", "0277", "0293", "0297", "0299", "0303", "0304", "0307", "0309", "0311", "0313", "0319", "0323", "0327", "0328", "0330", "0339", "0347", "0352", "0358", "0362", "0363", "0364", "0366", "0367", "0369", "0370", "0379", "0380", "0381", "0382", "0389", "0393", "0394", "0395", "0398", "0401", "0409", "0411", "0413", "0416", "0419", "0421", "0426", "0427", "0431", "0432", "0434", "0436", "0437", "0445", "0451", "0456", "0458", "0460", "0462", "0469", "0557" });
             //iTakeEge.GenerateReportsForAreas();
             //iTakeEge.SolveAndSaveGrade5AndPrimaryMark();
             //rsur.GeoLoosers();
-            //iTakeEge.SolveGrade5_v2();
-            oneTwoThree.GetAndSavePrimaryMark();
+            iTakeEge.SolveGrade5_v2();
+            //oneTwoThree.GetAndSavePrimaryMark();
+            //iTakeEge.F1_IndividualResults();
             Console.WriteLine("All done!");
         }
 

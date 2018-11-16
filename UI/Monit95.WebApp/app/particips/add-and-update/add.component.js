@@ -19,12 +19,7 @@ var AddParticipComponent = /** @class */ (function () {
     }
     AddParticipComponent.prototype.ngOnInit = function () {
         this.projectId = this.route.snapshot.data['projectId'];
-        if (this.projectId === 18) {
-            this.EgeOrOge = 'ЕГЭ';
-        }
-        else {
-            this.EgeOrOge = 'ОГЭ';
-        }
+        this.EgeOrOge = this.route.snapshot.data['projectName'];
     };
     AddParticipComponent.prototype.onSubmit = function () {
         var _this = this;

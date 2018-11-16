@@ -484,6 +484,8 @@
     <Content Include="app\components\rsur\particips\particips.component.html" />
     <Content Include="app\components\rsur\seminar-reports\create-form\create-form.component.css" />
     <Content Include="app\components\rsur\seminar-reports\create-form\create-form.component.html" />
+    <Content Include="app\particips\society\home\home.component.html" />
+    <Content Include="app\particips\society\list\particips-list.component.html" />
     <Content Include="app\shared\confirm-dialog\confirm-dialog.component.html" />
     <Content Include="app\shared\loading-view\loading-view.component.css" />
     <Content Include="app\shared\loading-view\loading-view.component.html" />
@@ -723,6 +725,8 @@
     <TypeScriptCompile Include="app\particips\reports\list\list.component.ts" />
     <TypeScriptCompile Include="app\particips\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />
+    <TypeScriptCompile Include="app\particips\society\home\home.component.ts" />
+    <TypeScriptCompile Include="app\particips\society\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\pipes\one-two-three\particips.pipe.ts" />
     <TypeScriptCompile Include="app\particips\shared\list\list.component.ts" />
     <TypeScriptCompile Include="app\services\area.service.ts" />

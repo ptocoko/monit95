@@ -17,17 +17,25 @@ import { SharedModule } from '../shared/shared-module';
 import { ListComponent } from './shared/list/list.component';
 import { OgeHomeComponent } from './oge/home/home.component';
 import { OgeParticipsListComponent } from './oge/list/particips-list.component';
+import { SocietyHomeComponent } from './society/home/home.component';
+import { SocietyParticipsListComponent } from './society/list/particips-list.component';
 
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
-	{ path: 'particips/oge/home', component: OgeHomeComponent },
-	{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
 	{ path: 'particips/list', component: ParticipsListComponent },
-	{ path: 'particips/oge/list', component: OgeParticipsListComponent},
-	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 18 } },
-	{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 19 } },
+	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 18, projectName: 'ЕГЭ' } },
 	{ path: 'particips/protocols/:id', component: ProtocolsComponent },
 	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
+
+	{ path: 'particips/oge/home', component: OgeHomeComponent },
+	{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
+	{ path: 'particips/oge/list', component: OgeParticipsListComponent},
+	{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 19, projectName: 'ОГЭ' } },
+
+	{ path: 'particips/society', component: SocietyHomeComponent },
+	{ path: 'particips/society/list', component: SocietyParticipsListComponent },
+	{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 20, projectName: 'Обществознание' } },
+
 	{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
 	{ path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ]
@@ -54,7 +62,9 @@ const routes: Routes = [
 		ParticipProtocolComponent,
 		ListComponent,
 		OgeHomeComponent,
-		OgeParticipsListComponent
+		OgeParticipsListComponent,
+		SocietyHomeComponent,
+		SocietyParticipsListComponent
 	],
 	providers: [
 		ParticipService,

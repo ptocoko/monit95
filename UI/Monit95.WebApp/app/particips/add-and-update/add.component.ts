@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddParticipComponent {
 	particip = new ParticipModel();
-	EgeOrOge: 'ЕГЭ' | 'ОГЭ';
+	EgeOrOge: string;
 	isSending = false;
 	isConflict = false;
 	projectId: number;
@@ -23,11 +23,7 @@ export class AddParticipComponent {
 
 	ngOnInit() {
 		this.projectId = this.route.snapshot.data['projectId'];
-		if (this.projectId === 18) {
-			this.EgeOrOge = 'ЕГЭ';
-		} else {
-			this.EgeOrOge = 'ОГЭ';
-		}
+		this.EgeOrOge = this.route.snapshot.data['projectName'];
 	}
 
 	onSubmit() {

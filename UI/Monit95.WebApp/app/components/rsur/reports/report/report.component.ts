@@ -42,7 +42,7 @@ export class ReportComponent implements OnInit {
 	}
 
 	needToWarn() {
-		if (this.reportData.RsurTestId === 2153 && this.reportData.EgeQuestionResults.find(val => val.EgeQuestionNumber === 26).Value < 100) {
+		if (this.reportData.RsurTestId === 2153 && this.reportData.EgeQuestionResults.filter(f => [26, 27].indexOf(f.EgeQuestionNumber) > -1 && f.Value < 100).length > 0) {
 			this.isWarnAboutGeoKimFail = true;
 		}
 	}
