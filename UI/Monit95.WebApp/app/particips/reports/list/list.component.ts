@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatSelectChange, MatPaginator, MatSelect } from '@angular/material';
 import { merge } from 'rxjs/observable/merge';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -14,7 +14,6 @@ import { ReportsListModel, ReportItem } from '../../../models/iTakeEge/reports/r
 import { ReportsInfo } from '../../../models/iTakeEge/reports/reports-info.model';
 import { ReportsService } from '../../../services/iTakeEge/reports/reports.service';
 import { AccountService } from '../../../services/account.service';
-import { ActivatedRouteSnapshot } from '@angular/router';
 
 @Component({
 	templateUrl: `./app/particips/reports/list/list.component.html?v=${new Date().getTime()}`,
@@ -22,10 +21,10 @@ import { ActivatedRouteSnapshot } from '@angular/router';
 })
 export class ReportsListComponent {
 	reportsList: ReportsListModel[];
-	reportsInfo: ReportsInfo;
-	projectTestId: number;
+	reportsInfo: ReportsInfo = {} as ReportsInfo;
+	projectId: number;
 
-	testCode: string;
+	testCode: string = '';
 	searchParticipText: string;
 
 	displayedColumns = ['number', 'surname', 'name', 'secondName', 'testName', 'passStatus'];
@@ -42,14 +41,14 @@ export class ReportsListComponent {
 
 	constructor(private readonly rsurReportService: ReportsService,
 		private readonly route: Router,
-		private readonly router: ActivatedRouteSnapshot,
+		private readonly router: ActivatedRoute,
 		private readonly accountService: AccountService) {
 	}
 
 	ngAfterViewInit() {
-		this.projectTestId = this.router.params['projectTestId'];
+		this.projectId = this.router.snapshot.params['projectId'];
 
-		this.rsurReportService.getReportsInfo(this.projectTestId).subscribe(info => {
+		this.rsurReportService.getReportsInfo(this.projectId).subscribe(info => {
 			this.reportsInfo = info;
 
 			const search$ = fromEvent(this.searchField.nativeElement, 'input')
@@ -78,9 +77,11 @@ export class ReportsListComponent {
 
 		return this.rsurReportService.getReportsList(
 			{
-				testCode: this.testCode,
-				searchParticipText: this.searchParticipText,
-				projectTestId: this.projectTestId.toString()
+				... this.testCode ? { testCode: this.testCode } : {},
+				... this.searchParticipText ? { searchParticipText: this.searchParticipText } : {},
+				projectId: this.projectId.toString(),
+				page: (this.paginator.pageIndex + 1).toString(),
+				pageSize: this.paginator.pageSize.toString()
 			}
 		);
 	}

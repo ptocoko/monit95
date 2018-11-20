@@ -21,12 +21,15 @@ var home_component_2 = require("./oge/home/home.component");
 var particips_list_component_2 = require("./oge/list/particips-list.component");
 var home_component_3 = require("./society/home/home.component");
 var particips_list_component_3 = require("./society/list/particips-list.component");
+var list_component_2 = require("./reports/list/list.component");
+var reports_service_1 = require("../services/iTakeEge/reports/reports.service");
 var routes = [
     { path: 'particips/home', component: home_component_1.HomeComponent },
     { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
     { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 18, projectName: 'ЕГЭ' } },
     { path: 'particips/protocols/:id', component: protocols_component_1.ProtocolsComponent },
     { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
+    { path: 'particips/reports/:projectId', component: list_component_2.ReportsListComponent },
     { path: 'particips/oge/home', component: home_component_2.OgeHomeComponent },
     { path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
     { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
@@ -65,11 +68,13 @@ var ParticipsModule = /** @class */ (function () {
                 home_component_2.OgeHomeComponent,
                 particips_list_component_2.OgeParticipsListComponent,
                 home_component_3.SocietyHomeComponent,
-                particips_list_component_3.SocietyParticipsListComponent
+                particips_list_component_3.SocietyParticipsListComponent,
+                list_component_2.ReportsListComponent
             ],
             providers: [
                 particip_service_1.ParticipService,
-                particip_protocols_service_1.ParticipProtocolsService
+                particip_protocols_service_1.ParticipProtocolsService,
+                reports_service_1.ReportsService
             ]
         })
     ], ParticipsModule);

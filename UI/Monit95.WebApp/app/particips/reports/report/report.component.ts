@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ReportModel } from '../../../models/iTakeEge/reports.model';
-import { ReportsService } from '../../../services/iTakeEge/reports.service';
+import { ReportsService } from '../../../services/iTakeEge/reports/reports.service';
+import { ReportModel } from '../../../models/iTakeEge/reports/report.model';
 
 @Component({
 	templateUrl: `./app/particips/reports/report/report.component.html?v=${new Date().getTime()}`,

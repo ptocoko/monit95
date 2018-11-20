@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var reports_service_1 = require("../../../services/iTakeEge/reports.service");
+var reports_service_1 = require("../../../services/iTakeEge/reports/reports.service");
 var ReportComponent = /** @class */ (function () {
     function ReportComponent(reportService, router) {
         this.reportService = reportService;

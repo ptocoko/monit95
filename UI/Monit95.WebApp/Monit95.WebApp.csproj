@@ -346,6 +346,7 @@
     <Compile Include="RESTful_API\FirstClass\FirstClassProtocolsController.cs" />
     <Compile Include="RESTful_API\FirstClass\ParticipsController.cs" />
     <Compile Include="RESTful_API\iTakeEge\QuestionProtocolsController.cs" />
+    <Compile Include="RESTful_API\iTakeEge\ReportsController.cs" />
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\OneTwoThree\ParticipsController.cs" />

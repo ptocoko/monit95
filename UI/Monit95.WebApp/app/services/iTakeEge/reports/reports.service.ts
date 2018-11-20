@@ -15,8 +15,8 @@ export class ReportsService {
 		return this.http.get<ReportModel>(`${this.endpoint}/extend/${participTestId}`);
 	}
 
-	getReportsInfo(projectTestId: number) {
-		return this.http.get<ReportsInfo>(`${this.endpoint}/info/${projectTestId}`);
+	getReportsInfo(projectId: number) {
+		return this.http.get<ReportsInfo>(`${this.endpoint}/info/${projectId}`);
 	}
 
 	getReportsList(search: ReportsSearch) {

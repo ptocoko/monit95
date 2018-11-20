@@ -1,4 +1,5 @@
-﻿import { PersonModel } from '../person.model';
+﻿import { PersonModel } from '../../person.model';
+
 
 export interface ReportModel extends PersonModel {
 	TestDateString: string;

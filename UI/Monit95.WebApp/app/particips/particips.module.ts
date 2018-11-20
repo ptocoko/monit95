@@ -19,6 +19,8 @@ import { OgeHomeComponent } from './oge/home/home.component';
 import { OgeParticipsListComponent } from './oge/list/particips-list.component';
 import { SocietyHomeComponent } from './society/home/home.component';
 import { SocietyParticipsListComponent } from './society/list/particips-list.component';
+import { ReportsListComponent } from './reports/list/list.component';
+import { ReportsService } from '../services/iTakeEge/reports/reports.service';
 
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
@@ -26,6 +28,7 @@ const routes: Routes = [
 	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 18, projectName: 'ЕГЭ' } },
 	{ path: 'particips/protocols/:id', component: ProtocolsComponent },
 	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
+	{ path: 'particips/reports/:projectId', component: ReportsListComponent },
 
 	{ path: 'particips/oge/home', component: OgeHomeComponent },
 	{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
@@ -64,11 +67,13 @@ const routes: Routes = [
 		OgeHomeComponent,
 		OgeParticipsListComponent,
 		SocietyHomeComponent,
-		SocietyParticipsListComponent
+		SocietyParticipsListComponent,
+		ReportsListComponent
 	],
 	providers: [
 		ParticipService,
-		ParticipProtocolsService
+		ParticipProtocolsService,
+		ReportsService
 	]
 })
 export class ParticipsModule { }

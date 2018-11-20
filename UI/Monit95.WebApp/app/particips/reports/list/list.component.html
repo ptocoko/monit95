@@ -11,7 +11,7 @@
         <mat-form-field>
             <mat-select [(ngModel)]="testCode"
                         (selectionChange)="selectionChange()">
-                <mat-option>все предметы</mat-option>
+                <mat-option [value]="''">все предметы</mat-option>
                 <mat-option *ngFor="let test of reportsInfo.Tests" [value]="test.Code">{{ test.Name }}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -59,7 +59,7 @@
             <mat-cell *matCellDef="let report"> {{ report.TestName }} </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="PassStatus">
+        <ng-container matColumnDef="passStatus">
             <mat-header-cell *matHeaderCellDef> зачет/незачет </mat-header-cell>
             <mat-cell *matCellDef="let report"> {{ report.PassStatus }} </mat-cell>
         </ng-container>
