@@ -71,7 +71,7 @@ namespace ProtocolGenerator
                 {
                     var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
 
-                    pt.Grade5_v2 = (int)marksSum >= 13 ? 5 : 2;
+                    pt.Grade5_v2 = (int)marksSum >= 12 ? 5 : 2;
                 });
 
             context.SaveChanges();

@@ -1,1 +1,112 @@
-﻿
+﻿th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    min-height: 500px;
+    position: relative;
+}
+
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
+.loading-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 56px;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.reports-empty {
+    top: 113px;
+}
+
+.mat-table {
+    min-height: 500px;
+}
+
+mat-header-row {
+    background-color: #222222;
+}
+
+mat-header-cell {
+    color: #9d9d9d;
+}
+
+.mat-column-number {
+    max-width: 44px;
+}
+
+.mat-column-code {
+    max-width: 90px;
+}
+
+.mat-column-testStatus {
+    max-width: 120px;
+}
+
+.mat-column-examName {
+    max-width: 150px;
+}
+
+.mat-column-name {
+    max-width: 110px;
+}
+
+.mat-column-surname {
+    max-width: 120px
+}
+
+.mat-column-secondName {
+    max-width: 150px;
+}
+
+.isClickable {
+    cursor: pointer;
+}
+
+mat-form-field + mat-form-field {
+    margin-left: 15px;
+}
+
+.test-pass-cell {
+    background-color: lightgreen;
+}
+
+.test-pass-row {
+    background-color: #c3ffcd;
+}
+
+.test-failed-cell {
+    background-color: orangered;
+}
+
+.test-failed-row {
+    background-color: #ffdfdf;
+}
+
+.absent-cell {
+    background-color: yellow;
+}
+
+.absent-row {
+    background-color: #f2f3b5;
+}
