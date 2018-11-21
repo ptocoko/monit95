@@ -11,6 +11,6 @@ export class SocietyHomeComponent {
 
 	ngOnInit() {
 		const date = new Date();
-		this.timeIsCome = this.account.account.UserName === '0000' ? true : (date.getDate() === 14 && date.getHours() >= 8) || date.getDate() > 14;
+		this.timeIsCome = this.account.account.UserName === '0000' ? true : (date.getDate() === 21 && date.getHours() >= 8) || date.getDate() > 21;
 	}
 }

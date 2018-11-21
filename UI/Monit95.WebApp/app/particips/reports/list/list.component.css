@@ -68,15 +68,15 @@ mat-header-cell {
 }
 
 .mat-column-name {
-    max-width: 110px;
+    max-width: 190px;
 }
 
 .mat-column-surname {
-    max-width: 120px
+    max-width: 200px
 }
 
 .mat-column-secondName {
-    max-width: 150px;
+    max-width: 220px;
 }
 
 .isClickable {

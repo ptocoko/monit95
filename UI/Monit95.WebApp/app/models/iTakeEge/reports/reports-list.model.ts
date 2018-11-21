@@ -8,6 +8,7 @@ export interface ReportItem extends PersonModel {
 	ClassName: string;
 	ClassCode: string;
 	Grade5: number;
+	PassStatus: string;
 }
 
 export interface ReportsListModel {

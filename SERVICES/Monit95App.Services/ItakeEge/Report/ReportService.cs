@@ -46,15 +46,18 @@ namespace Monit95App.Services.ItakeEge.Report
             {
                 entities = entities.Where(pt => pt.ProjectTest.Test.NumberCode == searchDto.TestCode);
             }
-            if (!string.IsNullOrEmpty(searchDto.ParticipSearchText))
+            if (!string.IsNullOrEmpty(searchDto.SearchParticipText))
             {
-                var srch = searchDto.ParticipSearchText;
-                entities = entities.Where(pt => pt.Particip.Surname.Contains(srch) || pt.Particip.Name.Contains(srch));
+                var srch = searchDto.SearchParticipText.ToLower();
+                entities = entities.Where(pt => pt.Particip.Surname.ToLower().Contains(srch) || pt.Particip.Name.ToLower().Contains(srch));
             }
 
             var totalCount = entities.Count();
 
-            entities = entities.Skip(searchDto.Page * searchDto.PageSize).Take(searchDto.PageSize);
+            entities = entities.OrderBy(ob => ob.Particip.Surname)
+                .ThenBy(tb => tb.Particip.Name);
+
+            entities = entities.Skip((searchDto.Page - 1) * searchDto.PageSize).Take(searchDto.PageSize);
 
             serviceRes.Result = new ReportsListDto
             {

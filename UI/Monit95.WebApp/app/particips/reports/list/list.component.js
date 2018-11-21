@@ -55,14 +55,14 @@ var ReportsListComponent = /** @class */ (function () {
     };
     ReportsListComponent.prototype.getRowStylingObject = function (report) {
         return {
-            'isClickable': report.PassStatus.toLowerCase() !== 'отсутствовал',
-            'absent-row': report.PassStatus.toLowerCase() === 'отсутствовал',
-            'test-failed-row': report.PassStatus.toLowerCase() === 'незачет',
-            'test-pass-row': report.PassStatus.toLowerCase() === 'зачет'
+            'isClickable': report.Grade5 > 0,
+            'absent-row': report.Grade5 === -1,
+            'test-failed-row': report.Grade5 === 2,
+            'test-pass-row': report.Grade5 === 5
         };
     };
     ReportsListComponent.prototype.openReport = function (report) {
-        if (report.PassStatus.toLowerCase() !== 'отсутствовал') {
+        if (report.Grade5 > 0) {
             this.route.navigate(['/particips/report', report.ParticipTestId]);
         }
     };
