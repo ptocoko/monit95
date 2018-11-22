@@ -5,6 +5,7 @@ export interface ReportModel extends PersonModel {
 	TestDateString: string;
 	ParticipTestId: number;
 	SchoolName: string;
+	ProjectName: string;
 	TestName: string;
 	TestStatus: string;
 	ProjectTestId: number;

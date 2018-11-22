@@ -13,6 +13,7 @@ namespace Monit95App.Services.ItakeEge.Report
         public int ParticipTestId { get; set; }
         public string TestDateString { get; set; }
         public string TestName { get; set; }
+        public string ProjectName { get; set; }
         public string TestStatus { get; set; }
         public int ProjectTestId { get; set; }
         public int PrimaryMark { get; set; }

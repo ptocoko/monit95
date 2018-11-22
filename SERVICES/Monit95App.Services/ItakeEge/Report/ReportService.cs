@@ -116,7 +116,7 @@ namespace Monit95App.Services.ItakeEge.Report
             var entity = context.ParticipTests
                 .Include("Particip.School")
                 .Include("QuestionMarks")
-                .Include("ProjectTest.Test.RsurQuestions.EgeQuestion")
+                .Include("ProjectTest.Test.Questions.EgeQuestion")
                 .SingleOrDefault(p => p.Id == participTestId && p.Grade5.HasValue && p.Grade5 > 0);
             if(entity == null)
             {
@@ -135,13 +135,14 @@ namespace Monit95App.Services.ItakeEge.Report
                 Name = entity.Particip.Name,
                 SecondName = entity.Particip.SecondName,
                 SchoolName = entity.Particip.School.Name.Trim(),
+                ProjectName = entity.ProjectTest.Project.Name,
                 ParticipTestId = entity.Id,
                 TestDateString = entity.ProjectTest.TestDate.ToString("dd.MM.yyyy"),
                 TestName = entity.ProjectTest.Test.Name,
                 TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ",
                 ProjectTestId = entity.ProjectTestId,
                 PrimaryMark = (int)entity.PrimaryMark,
-                Marks = entity.QuestionMarks.Select(s => (int)s.AwardedMark),
+                Marks = entity.QuestionMarks.OrderBy(qm => qm.Question.Order).Select(s => (int)s.AwardedMark),
                 ElementsResults = GetElementResults(entity)
             };
 

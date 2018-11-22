@@ -1,19 +1,19 @@
 ﻿<h2>«Я сдам ЕГЭ!»: главное меню</h2>
 
 <!-- Общее -->
-<div class="list-container" *ngIf="false">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">Общее</h3>
     <div>
-        <a class="list-item-link" routerLink="/particips/list">
+        <a class="list-item-link" routerLink="/particips/list" *ngIf="false">
             <div>
                 <h4>Список участников</h4>
             </div>
         </a>
-        <!--<a class="list-item-link" href="https://t.me/iTakeEge" target="_blank">
+        <a class="list-item-link" href="http://mcoko.ru/tutors" target="_blank">
             <div>
-                <h4><b>Telegram-группа технической поддержки: https://t.me/iTakeEge</b></h4>
+                <h4><b>Сайт для занесения результатов участников «Я сдам ЕГЭ!»</b></h4>
             </div>
-        </a>-->
+        </a>
     </div>
 </div>
 
@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Результаты</h3>
     <div>
         <a class="list-item-link" routerLink="/school-files" *ngIf="false">

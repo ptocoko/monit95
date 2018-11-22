@@ -23,6 +23,7 @@ var home_component_3 = require("./society/home/home.component");
 var particips_list_component_3 = require("./society/list/particips-list.component");
 var list_component_2 = require("./reports/list/list.component");
 var reports_service_1 = require("../services/iTakeEge/reports/reports.service");
+var report_component_1 = require("./reports/report/report.component");
 var routes = [
     { path: 'particips/home', component: home_component_1.HomeComponent },
     { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
@@ -30,6 +31,7 @@ var routes = [
     { path: 'particips/protocols/:id', component: protocols_component_1.ProtocolsComponent },
     { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
     { path: 'particips/reports/:projectId', component: list_component_2.ReportsListComponent },
+    { path: 'particips/report/:participTestId', component: report_component_1.ReportComponent },
     { path: 'particips/oge/home', component: home_component_2.OgeHomeComponent },
     { path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
     { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
@@ -69,7 +71,8 @@ var ParticipsModule = /** @class */ (function () {
                 particips_list_component_2.OgeParticipsListComponent,
                 home_component_3.SocietyHomeComponent,
                 particips_list_component_3.SocietyParticipsListComponent,
-                list_component_2.ReportsListComponent
+                list_component_2.ReportsListComponent,
+                report_component_1.ReportComponent
             ],
             providers: [
                 particip_service_1.ParticipService,

@@ -12,13 +12,22 @@ var ReportComponent = /** @class */ (function () {
     ReportComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.router.params.subscribe(function (params) {
-            var participTestId = params['id'];
+            var participTestId = params['participTestId'];
             _this.reportService.getExtendReport(participTestId).subscribe(function (res) {
                 _this.reportData = res;
             });
         });
     };
     ReportComponent.prototype.getGradeColor = function (grade100) {
+        if (grade100 < 60) {
+            return 'low-grade';
+        }
+        else if (grade100 > 59 && grade100 < 81) {
+            return 'medium-grade';
+        }
+        else {
+            return 'high-grade';
+        }
     };
     ReportComponent = tslib_1.__decorate([
         core_1.Component({

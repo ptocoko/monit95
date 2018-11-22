@@ -53,5 +53,22 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
 
             return Request.CreateResponse(HttpStatusCode.OK, serviceResult.Result);
         }
+
+        [HttpGet]
+        [Route("extend/{participTestId:int}")]
+        public HttpResponseMessage GetExtendReport([FromUri] int participTestId)
+        {
+            var response = new HttpResponseMessage();
+            var serviceResult = reportService.GetReport(participTestId);
+
+            if (serviceResult.HasError)
+            {
+                var error = serviceResult.Errors.First();
+                HttpError err = new HttpError(error.Description);
+                return Request.CreateResponse((HttpStatusCode)error.HttpCode, err);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, serviceResult.Result);
+        }
     }
 }

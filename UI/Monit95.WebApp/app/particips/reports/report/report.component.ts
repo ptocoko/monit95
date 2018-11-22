@@ -15,7 +15,7 @@ export class ReportComponent {
 
 	ngOnInit() {
 		this.router.params.subscribe(params => {
-			const participTestId: number = params['id'];
+			const participTestId: number = params['participTestId'];
 			this.reportService.getExtendReport(participTestId).subscribe(res => {
 				this.reportData = res;
 			});
@@ -23,6 +23,12 @@ export class ReportComponent {
 	}
 
 	getGradeColor(grade100: number) {
-		
+		if (grade100 < 60) {
+			return 'low-grade';
+		} else if (grade100 > 59 && grade100 < 81) {
+			return 'medium-grade';
+		} else {
+			return 'high-grade';
+		}
 	}
 }
