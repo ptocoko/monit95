@@ -76,6 +76,10 @@
                         @*<li>@Html.ActionLink("Файлы", "Report", "Report")</li>*@
                         <li><a href="/rsur/spa#school-files">Файлы</a></li>
                     }
+                    @if (User.IsInRole("area"))
+                    {
+                        <li><a href="http://mcoko.ru/tutors">«Я сдам ЕГЭ!»</a></li>
+                    }
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {

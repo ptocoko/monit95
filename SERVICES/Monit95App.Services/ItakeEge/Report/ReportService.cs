@@ -151,25 +151,7 @@ namespace Monit95App.Services.ItakeEge.Report
 
         private IEnumerable<ElementResultDto> GetElementResults(ParticipTest entity)
         {
-            var questions = entity.ProjectTest.Test.Questions;
-            var egeQuestionIds = questions.Select(q => q.EgeQuestionId);
-            var elementResults = new List<ElementResultDto>();
-
-            foreach(var egeQuestionId in egeQuestionIds)
-            {
-                var egeQuestion = questions.First(q => q.EgeQuestionId == egeQuestionId).EgeQuestion;
-                var egeQuestonMarks = entity.QuestionMarks.Where(qm => qm.Question.EgeQuestionId == egeQuestionId);
-
-                elementResults.Add(new ElementResultDto
-                {
-                    ElementNumber = egeQuestion.Order,
-                    QuestionNumbers = questions.Where(q => q.EgeQuestionId == egeQuestionId).Select(q => q.Order),
-                    Name = egeQuestion.ElementNames,
-                    Value = Math.Round(egeQuestonMarks.Select(qm => qm.AwardedMark).Sum() * 100.0 / egeQuestonMarks.Select(qm => qm.Question.MaxMark).Sum(), MidpointRounding.AwayFromZero)
-                });
-            }
-
-            return elementResults;
+            throw new NotImplementedException();
         }
     }
 }

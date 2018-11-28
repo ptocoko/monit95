@@ -156,7 +156,10 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
             participTestEntity.QuestionMarks = resultQuestionMarks;
 
             participTestEntity.PrimaryMark = participTestEntity.QuestionMarks.Select(s => s.AwardedMark).Sum();
-            participTestEntity.Grade5 = participTestEntity.PrimaryMark >= participTestEntity.ProjectTest.PassPrimaryMark ? 5 : 2;
+            if (participTestEntity.ProjectTest.PassPrimaryMark.HasValue)
+            {
+                participTestEntity.Grade5 = participTestEntity.PrimaryMark >= participTestEntity.ProjectTest.PassPrimaryMark ? 5 : 2;
+            }
 
             cokoContext.SaveChanges();
         }

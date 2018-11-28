@@ -10,7 +10,11 @@
     max-width: 295px;
 }
 
-.search-field{
+.mat-column-Marks{
+    font-size: 9pt;
+}
+
+.search-field {
     margin-top: 20px;
 }
 
