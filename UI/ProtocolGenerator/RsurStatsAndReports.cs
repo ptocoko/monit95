@@ -3,6 +3,7 @@ using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -77,6 +78,30 @@ namespace ProtocolGenerator
                 }
                 excel.Save();
             }
+        }
+
+        public void GetElementResults()
+        {
+            var entities = context.RsurTestResults.Where(tr => tr.RsurQuestionValues != null && tr.RsurParticipTest.RsurTest.ExamCode == "10-18");
+            foreach (var entity in entities)
+            {
+                var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');
+                foreach (var egeQuestionValueString in egeQuestionValuesArray)
+                {
+                    // Get egeQuestionNumber from egeQuestionValueString = "2(70%)" (e.g.) 
+                    var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - исключить из результата открывающую скобку                
+
+                    var rsurElementResult = new RsurElementResult
+                    {
+                        RsurParticipTestId = entity.RsurParticipTestId,
+                        ElementOrder = egeQuestionNumber,
+                        Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ','), CultureInfo.CreateSpecificCulture("ru-RU")) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
+                    };
+
+                    context.RsurElementResults.Add(rsurElementResult);
+                }
+            }
+            context.SaveChanges();
         }
     }
 }

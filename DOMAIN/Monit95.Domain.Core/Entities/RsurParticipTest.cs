@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Monit95App.Domain.Core.Entities
 {
     public partial class RsurParticipTest
@@ -15,5 +17,7 @@ namespace Monit95App.Domain.Core.Entities
         public virtual RsurTest RsurTest { get; set; }
 
         public virtual RsurTestResult RsurTestResult { get; set; }
+
+        public virtual ICollection<RsurElementResult> RsurElementResults { get; set; } = new HashSet<RsurElementResult>();
     }
 }

@@ -21,6 +21,7 @@
 
 .card-caption {
     font-family: 'Times New Roman', Times, serif;
+    padding: 0 20px;
 }
 
 .cell-center {
@@ -39,4 +40,11 @@
 
 .particip-info div {
     clear: both;
+}
+
+.risk-group-cell{
+    background-color: red;
+    color: white;
+    text-transform: uppercase;
+
 }

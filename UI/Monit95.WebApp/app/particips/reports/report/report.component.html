@@ -4,10 +4,10 @@
             <p>ЦЕНТР ОЦЕНКИ КАЧЕСТВА ОБРАЗОВАНИЯ</p>
         </div>
         <div class="row" style="background-color:#eee; margin:0">
-            <div class="col-sm-2 col-xs-2" style="padding-left:5px">
+            <!--<div class="col-sm-2 col-xs-2" style="padding-left:5px">
                 <img height="75" style="margin-top:4px" src="/Images/rsur_logo.png" />
-            </div>
-            <div class="col-sm-10 col-xs-10">
+            </div>-->
+            <div>
                 <h3 class="card-caption"><b>КАРТА РЕЗУЛЬТАТОВ УЧАСТНИКА ДИАГНОСТИКИ<br />{{reportData.ProjectName}}</b></h3>
             </div>
         </div>
@@ -53,6 +53,11 @@
                 <td *ngIf="reportData.TestStatus == 'ЗАЧЕТ'" class="high-grade text-uppercase cell-center"><b>ЗАЧЕТ</b></td>
                 <td *ngIf="reportData.TestStatus != 'ЗАЧЕТ'" class="red text-uppercase cell-center"><b>НЕЗАЧЕТ</b></td>
             </tr>
+            <tr *ngIf="reportData.IsRiskGroup">
+                <th colspan="3" class="section-head risk-group-cell">
+                    Группа риска
+                </th>
+            </tr>
         </table>
         <br />
         <br />
@@ -77,14 +82,14 @@
 
         <br />
         <br />
-        <table border="1" class="report-table">
+        <table border="1" class="report-table" *ngIf="reportData.ElementsResults">
             <tr>
                 <th class="section-head" colspan="4"><b>Выполнение элементов содержания</b></th>
             </tr>
             <tr style="background-color: #eee">
-                <td style="width:10%" class="cell-center">обозначение задания в КИМ ЕГЭ</td>
-                <td style="width:10%" class="cell-center">обозначения заданий в КИМ РСУР</td>
-                <td class="cell-center">элементы содержания</td>
+                <td style="width:10%" class="cell-center">код элемента содержания</td>
+                <td style="width:10%" class="cell-center">обозначения заданий в КИМ</td>
+                <td class="cell-center">элемент содержания</td>
                 <td style="width:15%" class="cell-center">выполнение</td>
             </tr>
             <tr *ngFor="let result of reportData.ElementsResults">

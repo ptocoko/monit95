@@ -8,7 +8,7 @@ namespace Monit95App.Domain.Core.Abstract
 {
     public class ElementResultDto
     {
-        public int ElementNumber { get; set; }
+        public string ElementNumber { get; set; }
         public IEnumerable<int> QuestionNumbers { get; set; }
         public string Name { get; set; }
         public double? Value { get; set; }

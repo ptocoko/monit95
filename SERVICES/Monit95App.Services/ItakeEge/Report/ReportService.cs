@@ -140,6 +140,7 @@ namespace Monit95App.Services.ItakeEge.Report
                 TestDateString = entity.ProjectTest.TestDate.ToString("dd.MM.yyyy"),
                 TestName = entity.ProjectTest.Test.Name,
                 TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ",
+                IsRiskGroup = entity.Grade5_v2 == 2,
                 ProjectTestId = entity.ProjectTestId,
                 PrimaryMark = (int)entity.PrimaryMark,
                 Marks = entity.QuestionMarks.OrderBy(qm => qm.Question.Order).Select(s => (int)s.AwardedMark),
@@ -151,7 +152,36 @@ namespace Monit95App.Services.ItakeEge.Report
 
         private IEnumerable<ElementResultDto> GetElementResults(ParticipTest entity)
         {
-            throw new NotImplementedException();
+            var results = new List<ElementResultDto>();
+            var testSubjectCode = int.Parse(entity.ProjectTest.Test.NumberCode);
+            if(testSubjectCode == 22)
+            {
+                testSubjectCode = 2;
+            }
+
+            var elements = context.Elements.Where(e => e.SubjectCode == testSubjectCode && e.EgeElementQuestions.Any());
+
+            foreach(var element in elements)
+            {
+                var elementResDto = new ElementResultDto
+                {
+                    ElementNumber = element.Code,
+                    Name = element.Name
+                };
+
+                var egeQuestons = context.EgeElementQuestions.Where(eeq => eeq.ElementId == element.Id).Select(eeq => eeq.EgeQuestion).ToList();
+                elementResDto.QuestionNumbers = egeQuestons.Select(eq => eq.Order).OrderBy(ob => ob);
+
+                var egeQuestoinIds = egeQuestons.Select(eq => eq.Id);
+                var elementQuestionMarks = entity.QuestionMarks.Where(qm => egeQuestoinIds.Contains(qm.Question.EgeQuestionId)).ToList();
+                double awardedByElementValue = elementQuestionMarks.Select(qm => qm.AwardedMark).Sum();
+                double maxPossibleElementValue = elementQuestionMarks.Select(qm => qm.Question.MaxMark).Sum();
+                elementResDto.Value = Math.Round(awardedByElementValue * 100 / maxPossibleElementValue, MidpointRounding.AwayFromZero);
+
+                results.Add(elementResDto);
+            }
+
+            return results;
         }
     }
 }
