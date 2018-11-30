@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ElementResultDto.cs" />
+    <Compile Include="Abstract\MarkDto.cs" />
     <Compile Include="Abstract\Person.cs" />
     <Compile Include="Entities\Area.cs" />
     <Compile Include="Entities\Category.cs" />

@@ -66,6 +66,11 @@ var ReportsListComponent = /** @class */ (function () {
             this.route.navigate(['/particips/report', report.ParticipTestId]);
         }
     };
+    ReportsListComponent.prototype.clearSearchText = function () {
+        this.searchParticipText = '';
+        this.paginator.pageIndex = 0;
+        this.selectionChange$.next(1);
+    };
     tslib_1.__decorate([
         core_1.ViewChild('paginator'),
         tslib_1.__metadata("design:type", material_1.MatPaginator)

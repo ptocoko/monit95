@@ -694,6 +694,7 @@
     <TypeScriptCompile Include="app\models\iTakeEge\reports\reports-info.model.ts" />
     <TypeScriptCompile Include="app\models\iTakeEge\reports\reports-list.model.ts" />
     <TypeScriptCompile Include="app\models\iTakeEge\reports\reports-search.model.ts" />
+    <TypeScriptCompile Include="app\models\marks.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\particip.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\protocol-list.model.ts" />
     <TypeScriptCompile Include="app\models\one-two-three\question-protocol.model.ts" />

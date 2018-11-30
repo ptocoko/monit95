@@ -15,10 +15,11 @@ namespace Monit95App.Services.ItakeEge.Report
         public string TestName { get; set; }
         public string ProjectName { get; set; }
         public string TestStatus { get; set; }
+        public int Grade5 { get; set; }
         public int ProjectTestId { get; set; }
         public int PrimaryMark { get; set; }
         public bool IsRiskGroup { get; set; }
-        public IEnumerable<int> Marks { get; set; }
+        public IEnumerable<MarkDto> Marks { get; set; }
         public IEnumerable<ElementResultDto> ElementsResults { get; set; }
     }
 }

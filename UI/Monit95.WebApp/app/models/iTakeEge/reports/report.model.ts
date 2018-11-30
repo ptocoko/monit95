@@ -1,4 +1,5 @@
 ﻿import { PersonModel } from '../../person.model';
+import { MarksModel } from '../../marks.model';
 
 
 export interface ReportModel extends PersonModel {
@@ -8,9 +9,11 @@ export interface ReportModel extends PersonModel {
 	ProjectName: string;
 	TestName: string;
 	TestStatus: string;
+	Grade5: number;
 	IsRiskGroup: boolean;
+	PrimaryMark: number;
 	ProjectTestId: number;
-	Marks: number[];
+	Marks: MarksModel[];
 	ElementsResults: ElementResult[];
 }
 

@@ -101,7 +101,8 @@ input[type="checkbox"].input-validation-error {
 }
 
 .red {
-    background-color: red
+    background-color: red;
+    color: white;
 }
 
 .unactive-row {

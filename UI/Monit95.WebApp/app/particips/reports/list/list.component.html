@@ -20,6 +20,9 @@
             <input matInput #searchField
                    placeholder="поиск участника"
                    [(ngModel)]="searchParticipText">
+            <button mat-button *ngIf="searchField.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchText()">
+                <mat-icon>close</mat-icon>
+            </button>
         </mat-form-field>
     </div>
 

@@ -1,5 +1,5 @@
 ﻿.report-card {
-    width: 1000px;
+    width: 1200px;
 }
 
 .section-head {
@@ -30,8 +30,9 @@
 }
 
 .report-table {
-    width: 960px;
+    width: 1160px;
     border: 1px solid black;
+    margin: 25px 0;
 }
 
 .report-table td {
@@ -40,6 +41,7 @@
 
 .particip-info div {
     clear: both;
+    margin: 15px 0;
 }
 
 .risk-group-cell{
@@ -47,4 +49,8 @@
     color: white;
     text-transform: uppercase;
 
+}
+
+.w-15{
+    width: 15%;
 }

@@ -140,14 +140,25 @@ namespace Monit95App.Services.ItakeEge.Report
                 TestDateString = entity.ProjectTest.TestDate.ToString("dd.MM.yyyy"),
                 TestName = entity.ProjectTest.Test.Name,
                 TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ",
+                Grade5 = entity.Grade5.Value,
                 IsRiskGroup = entity.Grade5_v2 == 2,
                 ProjectTestId = entity.ProjectTestId,
                 PrimaryMark = (int)entity.PrimaryMark,
-                Marks = entity.QuestionMarks.OrderBy(qm => qm.Question.Order).Select(s => (int)s.AwardedMark),
+                Marks = GetMarkDtos(entity),
                 ElementsResults = GetElementResults(entity)
             };
 
             return result;
+        }
+
+        private IEnumerable<MarkDto> GetMarkDtos(ParticipTest entity)
+        {
+            return entity.QuestionMarks.OrderBy(ob => ob.Question.Order).Select(qm => new MarkDto
+            {
+                Name = qm.Question.Order.ToString(),
+                MaxMark = qm.Question.MaxMark,
+                AwardedMark = (int)qm.AwardedMark
+            });
         }
 
         private IEnumerable<ElementResultDto> GetElementResults(ParticipTest entity)

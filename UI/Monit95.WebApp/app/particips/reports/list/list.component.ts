@@ -105,4 +105,10 @@ export class ReportsListComponent {
 			this.route.navigate(['/particips/report', report.ParticipTestId]);
 		}
 	}
+
+	clearSearchText() {
+		this.searchParticipText = '';
+		this.paginator.pageIndex = 0;
+		this.selectionChange$.next(1);
+	}
 }

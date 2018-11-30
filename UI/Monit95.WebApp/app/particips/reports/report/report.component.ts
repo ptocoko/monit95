@@ -23,9 +23,9 @@ export class ReportComponent {
 	}
 
 	getGradeColor(grade100: number) {
-		if (grade100 < 60) {
+		if (grade100 < 34) {
 			return 'low-grade';
-		} else if (grade100 > 59 && grade100 < 81) {
+		} else if (grade100 > 33 && grade100 < 67) {
 			return 'medium-grade';
 		} else {
 			return 'high-grade';
