@@ -23,9 +23,9 @@ namespace Monit95App.Services
             this.reporter = reporter;
         }
 
-        public string GetCardsArchievePath(string schoolId, int projectTestId)
+        public string GetCardsArchievePath(string schoolId, int projectId)
         {
-            var cardArchievePath = $@"{_cardsFolderPath}\{projectTestId}\{schoolId}.zip";
+            var cardArchievePath = $@"{_cardsFolderPath}\{projectId}\{schoolId}.zip";
             if (System.IO.File.Exists(cardArchievePath))
             {
                 return cardArchievePath;

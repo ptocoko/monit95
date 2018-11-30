@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Ionic.Zip;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Extensions;
@@ -45,7 +46,9 @@ namespace ProtocolGenerator
             this.projectId = projectId;
         }
 
-        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests.AsNoTracking().Where(p => p.ProjectTest.ProjectId == projectId);// && p.Grade5 != -1);
+        public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests
+            .AsNoTracking()
+            .Where(p => p.ProjectTest.ProjectId == projectId && p.Particip.SchoolId != "0000");// && p.Grade5 != -1);
 
         public void SolveAndSaveGrade5AndPrimaryMark()
         {
@@ -278,27 +281,30 @@ namespace ProtocolGenerator
         private void GenerateReports(IQueryable<ParticipTest> participTests)
         {
             var groupedTestResults = participTests
+                .Include("Particip.School.Area")
+                .Include("ProjectTest.Test")
+                .ToList()
                 //.OrderBy(ob => ob.Particip.SchoolId).ThenBy(ob => ob.Particip.Surname).ThenBy(tb => tb.Particip.Name).ThenBy(tb => tb.ProjectTest.Test.NumberCode)
                 .Select(MapToReportModel)
                 .OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
                 .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
 
-            string reportFolder = $@"{destFolderPath}\результаты худших школ\я сдам огэ";
+            string reportFolder = $@"{destFolderPath}\iTakeEge";
 
             foreach (var schoolResult in groupedTestResults)
             {
                 //if (!Directory.Exists($@"{destFolderPath}\{schoolResult.Key.SchoolId}"))
                 //    Directory.CreateDirectory($@"{destFolderPath}\{schoolResult.Key.SchoolId}");
-                if (!Directory.Exists($@"{reportFolder}\{schoolResult.Key.AreaName}"))
-                {
-                    Directory.CreateDirectory($@"{reportFolder}\{schoolResult.Key.AreaName}");
-                }
+                //if (!Directory.Exists($@"{reportFolder}\{schoolResult.Key.AreaName}"))
+                //{
+                //    Directory.CreateDirectory($@"{reportFolder}\{schoolResult.Key.AreaName}");
+                //}
 
-                using (var excelTemplate = new XLWorkbook($@"{destFolderPath}\{templateName}"))
+                using (var excelTemplate = new XLWorkbook($@"{reportFolder}\{templateName}"))
                 {
                     using (var sheet = excelTemplate.Worksheets.First())
                     {
-                        sheet.Cell(2, 1).Value = $"{schoolResult.Key.SchoolName}";
+                        sheet.Cell(2, 1).Value = $"{schoolResult.Key.SchoolName}, {schoolResult.Key.AreaName}";
                         int i = 0;
                         foreach (var result in schoolResult)
                         {
@@ -309,15 +315,22 @@ namespace ProtocolGenerator
                             sheet.Cell(i + 4, 6).Value = result.TestName;
                             //sheet.Cell(i + 4, 7).Value = result.Marks;
                             sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
-                            sheet.Cell(i + 4, 8).Value = result.GradeStr;
+                            sheet.Cell(i + 4, 8).Value = result.RiskGroup;
+                            sheet.Cell(i + 4, 9).Value = result.GradeStr;
                             i++;
                         }
-
                         
-
-                        excelTemplate.SaveAs($@"{reportFolder}\{schoolResult.Key.AreaName}\{schoolResult.Key.SchoolName}.xlsx");
+                        excelTemplate.SaveAs($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx");
                     }
                 }
+
+                using (var zip = new ZipFile())
+                {
+                    zip.AddFile($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx", "");
+                    zip.Save($@"{reportFolder}\{schoolResult.Key.SchoolId}.zip");
+                }
+
+                System.IO.File.Delete($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx");
             }
         }
 
@@ -337,6 +350,7 @@ namespace ProtocolGenerator
                 //AwardedMarks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()),
                 //Marks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}"),
                 PrimaryMark = participTest.PrimaryMark.HasValue ? (int?)participTest.PrimaryMark : null,
+                RiskGroup = participTest.Grade5_v2.HasValue ? participTest.Grade5_v2 == 2 ? "да" : "нет" : " - ",
                 GradeStr = GetGradeStr(participTest)
             };
         }
@@ -418,6 +432,7 @@ namespace ProtocolGenerator
         public string TestName { get; set; }
         public string NumberCode { get; set; }
         public string Marks { get; set; }
+        public string RiskGroup { get; set; }
         //public IEnumerable<string> AwardedMarks { get; set; }
         public int? PrimaryMark { get; set; }
         //public bool IsPass { get; set; }
