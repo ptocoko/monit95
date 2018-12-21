@@ -22,7 +22,7 @@ namespace Monit95.WebApp.RESTful_API
         }
 
         [HttpGet]
-        [Route("{projectTestId:int}")]
+        [Route("{projectId:int}")]
         public HttpResponseMessage GetCardsArchieve([FromUri] int projectId)
         {
             string path;
