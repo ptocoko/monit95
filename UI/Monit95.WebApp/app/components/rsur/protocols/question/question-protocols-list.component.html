@@ -29,7 +29,7 @@
                                                         | offset : pageIndex * limitToVal
                                                         | limitTo : limitToVal;
                     let i = index">
-            <td class="row-number-cell">{{i + 1}}</td>
+            <td class="row-number-cell">{{i + 1 + (limitToVal * pageIndex)}}</td>
             <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
             <td>{{protocol.TestName}}</td>
             <td [ngClass]="{'red-cell': !protocol.RsurQuestionValues}">{{protocol.RsurQuestionValues}}</td>

@@ -11,10 +11,14 @@ namespace RsurParticipTestsCreator
     internal class ParticipTestsInExcelCreator
     {
         private readonly CokoContext _context;
+        private readonly string examCode;
+        private readonly string examName;
 
-        public ParticipTestsInExcelCreator(CokoContext cokoContext)
+        public ParticipTestsInExcelCreator(CokoContext cokoContext, string examCode, string examName)
         {
             _context = cokoContext;
+            this.examCode = examCode;
+            this.examName = examName;
         }
 
         public IEnumerable<ParticipTestsInExcelModel> GetModels(int[] rsurTestIds)
@@ -56,12 +60,15 @@ namespace RsurParticipTestsCreator
 
         public void SaveModelsIntoExcel(ParticipTestsInExcelModel models)
         {
-            var destFolder = @"\\192.168.88.220\файлы_пто\Работы\[2016-61] - рсур\Диагностика «Октябрь-2018»\распределения";
-            var templatePath = @"\\192.168.88.220\файлы_пто\Работы\[2016-61] - рсур\templates\распределение.xlsx";
+            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-61] - рсур\Диагностика «{examName}»\распределения";
+            var templatePath = @"\\192.168.88.223\файлы_пто\Работы\[2016-61] - рсур\templates\распределение.xlsx";
+            var shortSubjectName = models.SubjectName.Substring(0, 2);
+
             using (var excel = new XLWorkbook(templatePath))
             {
                 using (var sheet = excel.Worksheets.First())
                 {
+                    sheet.Name = shortSubjectName.ToUpper();
                     sheet.Cell(2, 3).Value = models.AreaCode;
                     sheet.Cell(1, 5).Value = models.TestDate.ToString("dd.MM.yyyy");
                     sheet.Cell(2, 5).Value = models.SubjectName;
@@ -80,7 +87,7 @@ namespace RsurParticipTestsCreator
                     }
                 }
 
-                excel.SaveAs($@"{destFolder}\физика\{models.AreaCode}\102018_{models.SubjectName.Substring(0, 2).ToLower()}_распределение_{models.AreaCode}.xlsx");
+                excel.SaveAs($@"{destFolder}\{models.AreaCode}\{examCode}_{shortSubjectName.ToLower()}_распределение_{models.AreaCode}.xlsx");
             }
         }
     }
