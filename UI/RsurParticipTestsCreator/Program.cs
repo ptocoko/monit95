@@ -26,16 +26,16 @@ namespace RsurParticipTestsCreator
         {
             var rsurTestNumberCodeDict = new Dictionary<string, int>
             {
-                {"0101", 3169 },
-                {"0102", 3170 },
-                {"0103", 3171 },
-                {"0104", 3172 },
+                //{"0101", 3169 },
+                //{"0102", 3170 },
+                //{"0103", 3171 },
+                //{"0104", 3172 },
                 {"0201", 3173 },
                 {"0202", 3174 },
                 {"0203", 3175 },
             };
 
-            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => new int[] { 1,2 }.Contains(p.RsurSubjectCode) && p.SchoolId != "0000"));
+            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => new int[] { 2 }.Contains(p.RsurSubjectCode) && p.SchoolId != "0000"));
 
             var notPassLastExam = GetNotPassLastExam(whoMustPass);
             var passLastExam = GetPassLastExam(whoMustPass);
@@ -92,6 +92,7 @@ namespace RsurParticipTestsCreator
         {
             return whoMustPass.Where(p => p.RsurParticipTests.Any() 
                                            && p.RsurParticipTests
+                                               .Where(pt => pt.RsurTest.RsurExamName.IsGeneralRsur)
                                                .OrderByDescending(ob => ob.RsurTestId)
                                                .FirstOrDefault()
                                                .RsurTestResult
@@ -100,12 +101,19 @@ namespace RsurParticipTestsCreator
 
         private static IQueryable<RsurParticip> GetNotPassLastExam(IQueryable<RsurParticip> whoMustPass)
         {
-            return whoMustPass.Where(p => p.RsurParticipTests.Any() && p.RsurParticipTests.OrderByDescending(ob => ob.RsurTestId).FirstOrDefault().RsurTestResult.Grade5 != 5);
+            return whoMustPass.Where(p => p.RsurParticipTests.Any() 
+                                            && p.RsurParticipTests
+                                            .Where(pt => pt.RsurTest.RsurExamName.IsGeneralRsur)
+                                            .OrderByDescending(ob => ob.RsurTestId)
+                                            .FirstOrDefault()
+                                            .RsurTestResult.Grade5 != 5);
         }
 
         private static IQueryable<RsurParticip> GetHaveNotResults(IQueryable<RsurParticip> whoMustPass)
         {
-            return whoMustPass.Where(p => !p.RsurParticipTests.Any());
+            return whoMustPass.Where(p => !p.RsurParticipTests
+                                            .Where(pt => pt.RsurTest.RsurExamName.IsGeneralRsur)
+                                            .Any());
         }
     }
 }

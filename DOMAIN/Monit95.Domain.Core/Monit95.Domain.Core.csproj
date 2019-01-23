@@ -81,6 +81,7 @@
     <Compile Include="Entities\Repository.cs" />
     <Compile Include="Entities\Result.cs" />
     <Compile Include="Entities\RsurElementResult.cs" />
+    <Compile Include="Entities\RsurExamName.cs" />
     <Compile Include="Entities\RsurParticip.cs" />
     <Compile Include="Entities\RsurParticipEdit.cs" />
     <Compile Include="Entities\RsurParticipTest.cs" />

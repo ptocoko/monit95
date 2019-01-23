@@ -44,6 +44,8 @@ namespace Monit95App.Domain.Core.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RsurParticipTest> RsurParticipTests { get; set; }
 
+        public virtual RsurExamName RsurExamName { get; set; }
+
         public virtual Test Test { get; set; }
     }
 }
