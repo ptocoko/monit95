@@ -15,7 +15,7 @@ namespace RsurParticipTestsCreator
             CokoContext context = new CokoContext();
             //GenerateParticipTests(context);
             ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context, "01-19", "Январь-2019");
-            var models = cretor.GetModels(new int[] { 3169, 3170, 3171, 3172, 3173, 3174, 3175 });
+            var models = cretor.GetModels(new int[] { 3176 });
             foreach (var model in models)
             {
                 cretor.SaveModelsIntoExcel(model);

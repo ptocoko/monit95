@@ -1,4 +1,5 @@
-﻿using Monit95App.Infrastructure.Data;
+﻿using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -164,6 +165,14 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
 
             var egeQuestionValues = GetEgeQuestionValues(questionsModel);
+
+            context.RsurElementResults.AddRange(questionsModel.Select(s => new RsurElementResult
+            {
+                RsurParticipTestId = participTestId,
+                ElementOrder = (int)s.EgeOrder,
+                Value = s.EgeValue,
+                ElementId = s.QuestionId
+            }));
 
             testResultEntity.Grade5 = grade5;
             testResultEntity.PrimaryMark = marks.Sum();

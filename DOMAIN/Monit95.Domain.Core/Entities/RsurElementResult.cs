@@ -18,7 +18,9 @@ namespace Monit95App.Domain.Core.Entities
         public int ElementOrder { get; set; }
 
         public double Value { get; set; }
-        
+
+        public int ElementId { get; set; }
+
         public virtual RsurParticipTest RsurParticipTest { get; set; }
     }
 }
