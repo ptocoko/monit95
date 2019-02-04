@@ -80,22 +80,28 @@ namespace ProtocolGenerator
             }
         }
 
-        public void GetElementResults()
+        public void ParseElementResults()
         {
-            var entities = context.RsurTestResults.Where(tr => tr.RsurQuestionValues != null && tr.RsurParticipTest.RsurTest.ExamCode == "10-18");
+            throw new NotImplementedException();
+            var entities = context.RsurTestResults.Where(tr => tr.EgeQuestionValues != null && tr.RsurParticipTest.RsurTestId == 2154);
             foreach (var entity in entities)
             {
                 var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');
+                var egeQuestions = context.RsurQuestions.Where(rq => rq.TestId == entity.RsurParticipTest.RsurTest.TestId).Select(rq => rq.EgeQuestion).Distinct();
+
                 foreach (var egeQuestionValueString in egeQuestionValuesArray)
                 {
                     // Get egeQuestionNumber from egeQuestionValueString = "2(70%)" (e.g.) 
                     var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - исключить из результата открывающую скобку                
 
+                    //var egeQuestion = egeQuestions.Single(eq => eq)
+
                     var rsurElementResult = new RsurElementResult
                     {
                         RsurParticipTestId = entity.RsurParticipTestId,
                         ElementOrder = egeQuestionNumber,
-                        Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ','), CultureInfo.CreateSpecificCulture("ru-RU")) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
+                        Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ','), CultureInfo.CreateSpecificCulture("ru-RU")), // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
+                        //ElementId = entity.
                     };
 
                     context.RsurElementResults.Add(rsurElementResult);

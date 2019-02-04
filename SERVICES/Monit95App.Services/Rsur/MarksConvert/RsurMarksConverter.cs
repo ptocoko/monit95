@@ -146,7 +146,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 grade5 = marks.Sum() >= 28 ? 5 : 2;
             }
             // Физика. Комплексная и РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 2152 || testResultEntity.RsurParticipTest.RsurTestId == 2155 || testResultEntity.RsurParticipTest.RsurTestId == 3168)
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3176)
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
@@ -165,6 +165,8 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
 
             var egeQuestionValues = GetEgeQuestionValues(questionsModel);
+
+            context.RsurElementResults.RemoveRange(context.RsurElementResults.Where(p => p.RsurParticipTestId == participTestId));
 
             context.RsurElementResults.AddRange(questionsModel.Select(s => new RsurElementResult
             {

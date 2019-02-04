@@ -5,7 +5,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var particip_protocols_service_1 = require("../../services/particip-protocols.service");
 var material_1 = require("@angular/material");
-var PROJECT_TEST_ID = 1;
+//const PROJECT_TEST_ID: number = 1;
 var ProtocolsComponent = /** @class */ (function () {
     function ProtocolsComponent(participProtocolsService, router, route) {
         var _this = this;

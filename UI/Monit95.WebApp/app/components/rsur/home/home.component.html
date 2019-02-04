@@ -5,14 +5,15 @@
     <div *ngIf="isArea()" class="list-container">
         <h3 class="list-header">Диагностика «Январь-2019»</h3>
         <div>
-            <a *ngIf="true" class="list-item-link" target="_blank" href="/file/rsur-particip-tests/{{account.UserName}}/01-19_фи_распределение_{{account.UserName}}.xlsx">
-                <h4 style="font-weight:bold">Физика: распределение</h4>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/01-19_об_распределение_{{account.UserName}}.xlsx" download="Общество. Распределение.xlsx">
+                <h4>Обществознание: распределение</h4>
             </a>
-            <a class="list-item-link" href="/file/rsur/012019/keys/КЛ-МА.rar" download="Математика. Ключи.rar">
-                <h4><b>Математика: Ключи</b></h4>
+
+            <a class="list-item-link" href="/file/rsur/012019/keys/КЛ-ОБ.rar" download="Общество. Ключи.rar">
+                <h4 style="font-weight:bold">Обществознание: Ключи</h4>
             </a>
-            <a class="list-item-link" href="/file/rsur/012019/keys/КЛ-РУ.rar" download="Русский. Ключи.rar">
-                <h4>Русский язык: Ключи</h4>
+            <a class="list-item-link" href="/file/rsur/012019/keys/КЛ-ФИ.rar" download="Физика. Ключи.rar">
+                <h4>Физика: Ключи</h4>
             </a>
             <!--<a class="list-item-link" href="" download="Физика. Ключи.rar">
         <h4><b>Ключи для проверки работ</b></h4>
