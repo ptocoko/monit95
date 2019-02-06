@@ -33,7 +33,6 @@ var ParticipsListComponent = /** @class */ (function () {
     ParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.isFailingSchool = ["0303", "0302", "0331", "0587", "0001", "0613", "0289"].indexOf(this.accountService.account.UserName) > 0;
         var search$ = fromEvent_1.fromEvent(this.searchField.nativeElement, 'input')
             .pipe(debounceTime_1.debounceTime(1000));
         search$.subscribe(function () { return _this.pageIndex = 0; });

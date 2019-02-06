@@ -145,6 +145,11 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = marks.Sum() >= 28 ? 5 : 2;
             }
+            // Общество. Экономика
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3177)
+            {
+                grade5 = marks.Sum() >= 22 ? 5 : 2;
+            }
             // Физика. Комплексная и РСУР
             else if (testResultEntity.RsurParticipTest.RsurTestId == 3176)
             {

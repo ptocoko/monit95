@@ -46,8 +46,6 @@ export class ParticipsListComponent {
 	ngOnInit() {
 		this.isLoading = true;
 
-		this.isFailingSchool = ["0303", "0302", "0331", "0587", "0001", "0613", "0289"].indexOf(this.accountService.account.UserName) > 0;
-
 		const search$ = fromEvent(this.searchField.nativeElement, 'input')
 			.pipe(
 				debounceTime(1000)

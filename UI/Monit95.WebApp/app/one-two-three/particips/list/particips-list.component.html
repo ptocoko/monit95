@@ -1,13 +1,8 @@
 ﻿<h2>Список участников</h2>
 
 <div style="text-align:right">
-    
-
     <button mat-raised-button color="primary" routerLink="/one-two-three/particips/add">Добавить участника...</button>
 </div>
-<p class="alert alert-info" *ngIf="isFailingSchool">
-    ВНИМАНИЕ! В связи с техническими проблемами на сервере несколько занесенных Вами участников не было сохранено в базе данных. Просим перепроверить списки занесенных участников.
-</p>
 <div class="table-container">
     <div class="loading-wrapper" *ngIf="isLoading">
         <mat-spinner></mat-spinner>

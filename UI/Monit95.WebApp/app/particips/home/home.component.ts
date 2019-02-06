@@ -13,7 +13,7 @@ export class HomeComponent {
 
 	ngOnInit() {
 		const date = new Date();
-		this.timeIsCome = (date.getDate() === 1 && date.getHours() >= 8) || date.getDate() === 2;
+		this.timeIsCome = (date.getDate() === 7 && date.getHours() >= 8) || date.getDate() === 8;
 	}
 
 	downloadCards() {
