@@ -11,14 +11,14 @@ var merge_1 = require("rxjs/observable/merge");
 var startWith_1 = require("rxjs/operators/startWith");
 var switchMap_1 = require("rxjs/operators/switchMap");
 var map_1 = require("rxjs/operators/map");
-var class_service_1 = require("../../../services/class.service");
 var material_1 = require("@angular/material");
 var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm-dialog.component");
 var account_service_1 = require("../../../services/account.service");
 var ParticipsListComponent = /** @class */ (function () {
-    function ParticipsListComponent(participService, classService, dialog, snackBar, accountService) {
+    function ParticipsListComponent(participService, 
+        //private classService: ClassService,
+        dialog, snackBar, accountService) {
         this.participService = participService;
-        this.classService = classService;
         this.dialog = dialog;
         this.snackBar = snackBar;
         this.accountService = accountService;
@@ -95,7 +95,6 @@ var ParticipsListComponent = /** @class */ (function () {
             styleUrls: ["./app/one-two-three/particips/list/particips-list.component.css?v=" + new Date().getTime()]
         }),
         tslib_1.__metadata("design:paramtypes", [particips_service_1.ParticipService,
-            class_service_1.ClassService,
             material_1.MatDialog,
             material_1.MatSnackBar,
             account_service_1.AccountService])

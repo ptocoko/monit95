@@ -11,7 +11,15 @@ namespace Monit95App.Services.OneTwoThree.Particips
 {
     public class ParticipService : IParticipService
     {
-        private const int _projectId = 14;
+        private const int _projectId = 22;
+
+        private readonly Dictionary<string, int[]> projectTestIdsByClass = new Dictionary<string, int[]>
+        {
+            ["01"] = new int[] { 2051 },
+            ["02"] = new int[] { 2054 },
+            ["03"] = new int[] { 2055 }
+        };
+
         private readonly CokoContext context;
 
         public ParticipService(CokoContext context)
@@ -31,7 +39,11 @@ namespace Monit95App.Services.OneTwoThree.Particips
                 ProjectId = _projectId
             };
 
+            var classNumber = particip.ClassId.Substring(0, 2);
+            var participTests = GetParticipTests(entity, projectTestIdsByClass[classNumber]);
+
             context.Particips.Add(entity);
+            context.ParticipTests.AddRange(participTests);
             context.SaveChanges();
         }
 
@@ -135,6 +147,15 @@ namespace Monit95App.Services.OneTwoThree.Particips
             }
 
             return particips;
+        }
+
+        private IEnumerable<ParticipTest> GetParticipTests(Particip particip, int[] projectTestIds)
+        {
+            return projectTestIds.Select(projectTestId => new ParticipTest
+            {
+                Particip = particip,
+                ProjectTestId = projectTestId
+            });
         }
     }
 }

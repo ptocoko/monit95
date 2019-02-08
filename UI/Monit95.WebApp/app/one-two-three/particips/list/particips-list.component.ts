@@ -38,7 +38,7 @@ export class ParticipsListComponent {
 	@ViewChild('searchField') searchField: ElementRef;
 
 	constructor(private participService: ParticipService,
-		private classService: ClassService,
+		//private classService: ClassService,
 		private dialog: MatDialog,
 		private snackBar: MatSnackBar,
 		private accountService: AccountService) { }

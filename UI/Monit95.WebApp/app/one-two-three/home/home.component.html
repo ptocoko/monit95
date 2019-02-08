@@ -1,6 +1,6 @@
 ﻿<h2>Диагностика учебных достижений 1, 2 и 3 классы: главное меню</h2>
 
-<div class="list-container">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Результаты</h3>
     <div>
         <a class="list-item-link" routerLink="/school-files">
@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="list-container">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Вспомогательный материал</h3>
     <div>
         <a class="list-item-link" href="https://cloud.mail.ru/public/A9id/QWNChM749" target="_blank">
@@ -18,11 +18,26 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="false">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">Участники</h3>
     <div>
         <a class="list-item-link" routerLink="/one-two-three/particips/list">
             <h4>Список участников</h4>
+        </a>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Русский язык</h3>
+    <div>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/2051">
+            <h4>1 класс: Протоколы проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/2054">
+            <h4>2 класс: Протоколы проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/2055">
+            <h4>3 класс: Протоколы проверки заданий</h4>
         </a>
     </div>
 </div>

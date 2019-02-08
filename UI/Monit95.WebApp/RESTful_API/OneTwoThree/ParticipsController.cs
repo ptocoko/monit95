@@ -58,74 +58,61 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         public IHttpActionResult Put(int participId, [FromBody]ParticipDto particip)
         {
             string schoolId = User.Identity.Name;
-
-            if (schoolId == "0308")
+            
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
-
-                try
-                {
-                    participService.EditParticip(participId, schoolId, particip);
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException)
-                {
-                    return Conflict();
-                }
-
-                return Ok();
+                return BadRequest();
             }
 
-            return BadRequest();
+            try
+            {
+                participService.EditParticip(participId, schoolId, particip);
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                return Conflict();
+            }
+
+            return Ok();
         }
 
         [HttpPost, Route("")]
         public IHttpActionResult Post([FromBody]ParticipDto particip)
         {
             string schoolId = User.Identity.Name;
-
-            if (schoolId == "0308")
+            
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
-
-                try
-                {
-                    participService.CreateParticip(schoolId, particip);
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException)
-                {
-                    return Conflict();
-                }
-
-                return Ok();
+                return BadRequest();
             }
-            return BadRequest();
+
+            try
+            {
+                participService.CreateParticip(schoolId, particip);
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                return Conflict();
+            }
+
+            return Ok();
         }
 
         [HttpDelete, Route("{participId:int}")]
         public IHttpActionResult Delete(int participId)
         {
             string schoolId = User.Identity.Name;
-
-            if (schoolId == "0308")
+            
+            try
             {
-                try
-                {
-                    participService.RemoveParticip(participId, schoolId);
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException)
-                {
-                    return BadRequest();
-                }
-
-                return Ok();
+                participService.RemoveParticip(participId, schoolId);
             }
-            return BadRequest();
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }
