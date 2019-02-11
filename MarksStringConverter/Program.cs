@@ -20,7 +20,7 @@ namespace MarksStringConverter
             //service.GenerateAndSaveByParticipTestIds(new int[] { 27075, 31513 });
             //Go(service);
             //service.GenerateByRsurTestIds(new int[] { 3177 });
-            service.GenerateAndSaveByParticipTestId(37080);
+            service.GenerateAndSaveByParticipTestId(37113);
             Console.WriteLine("All done!");
             Console.ReadKey();
         }
