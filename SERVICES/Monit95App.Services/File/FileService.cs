@@ -52,7 +52,7 @@ namespace Monit95App.Services.File
         /// <param name="sourceFileName">Имя файла также необходимо для получения расширения</param>
         /// <param name="userName">Для указанного пользователя устанавливаются уровни доступа READ и DELETE</param>
         /// <returns>fileId</returns>
-        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, bool useHashAsFileName = true)
+        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, FileAddingOptions options)
         {
             return Add(repositoryId, sourceFileStream, sourceFileName, userName, new List<UserPermission>
             {
@@ -66,7 +66,7 @@ namespace Monit95App.Services.File
                     UserName = userName,
                     Access = Access.Delete
                 }
-            }, useHashAsFileName);
+            }, options);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Monit95App.Services.File
         /// <param name="permissions">список объектов с информацией о пользователях и разрешенных им действиях над файлом</param>
         /// <returns>fileId</returns>
         /// TODO: validate permissions
-        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<UserPermission> permissions, bool useHashAsFileName = true)
+        public int Add(int repositoryId, Stream sourceFileStream, string sourceFileName, string userName, IEnumerable<UserPermission> permissions, FileAddingOptions options)
         {
             var repositoryEntity = context.Repositories.Find(repositoryId);            
             if (repositoryEntity == null)
@@ -92,14 +92,17 @@ namespace Monit95App.Services.File
             // Generate hexHash
             string hexHash = GetHash(sourceFileStream);
 
-            if (CheckIfFileExists(hexHash, repositoryId)) // check exist dublicate in repository by hexHash
-                throw new ArgumentException("Already exists");
+            if (options.CheckIfFileExists)
+            {
+                if (CheckIfFileExists(hexHash, repositoryId)) // check exist dublicate in repository by hexHash
+                    throw new ArgumentException("Already exists");
+            }
 
             sourceFileName = Path.GetFileName(sourceFileName); // delete path if it exist
             var sourceFileExtension = Path.GetExtension(sourceFileName);
 
             string destFileName;
-            if (useHashAsFileName)
+            if (options.UseHashAsFileName)
             {
                 destFileName = $"{hexHash}{sourceFileExtension}";
             }

@@ -54,6 +54,7 @@ import { SchoolService } from './school.service';
 import { AreaService } from './services/area.service';
 import { FileService } from './services/file.service';
 import { CardsService } from './services/cards.service';
+import { AreaCollectorService } from './shared/area-collector.service';
 
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
@@ -88,8 +89,8 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		ParticipsModule,
 		OneTwoThreeModule,
 		FirstClassModule,
-		TwoThreeModule,
-		TwoThreeModule2,
+		//TwoThreeModule,
+		//TwoThreeModule2,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
 				{ path: 'rsur/particips', component: RsurParticipsComponent },
@@ -153,6 +154,7 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
         RsurParticipService,
         ClassService,
 		SchoolCollectorService,
+		AreaCollectorService,
 	    RsurReportService,
 		RsurRatingService,
         SeminarReportService,

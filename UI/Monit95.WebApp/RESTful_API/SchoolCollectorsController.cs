@@ -18,12 +18,12 @@ namespace Monit95App.Api
     }
 
     [Authorize(Roles = "school")]
-    [RoutePrefix("api/collectors")]
-    public class CollectorsController : ApiController
+    [RoutePrefix("api/school-collectors")]
+    public class SchoolCollectorsController : ApiController
     {
         private readonly CokoContext _context;
 
-        public CollectorsController(CokoContext context)
+        public SchoolCollectorsController(CokoContext context)
         {
             _context = context;
         }

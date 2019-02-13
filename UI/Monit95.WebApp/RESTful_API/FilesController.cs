@@ -40,7 +40,7 @@ namespace Monit95.WebApp.RESTful_API
         [HttpPost]
         [Route("~/api/repositories/{repositoryId:int}/files")]        
         [SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
-        public HttpResponseMessage AddFileToRepository([FromUri] int repositoryId, [FromUri] bool useHashAsFileName)
+        public HttpResponseMessage AddFileToRepository([FromUri]int repositoryId, [FromUri]FileAddingOptions options)
         {
             //var repositoryId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             // Find file in requestBody
@@ -59,7 +59,7 @@ namespace Monit95.WebApp.RESTful_API
                 //    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Такой файл уже существует в репозитории");
                 //}
 
-                fileId = fileService.Add(repositoryId, fileStream, postedFile.FileName, User.Identity.Name, useHashAsFileName);
+                fileId = fileService.Add(repositoryId, fileStream, postedFile.FileName, User.Identity.Name, options);
             }
             catch(ArgumentException exception)
             {

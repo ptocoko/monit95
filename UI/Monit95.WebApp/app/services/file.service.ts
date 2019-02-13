@@ -8,10 +8,16 @@ export class FileService {
 
 	constructor(private http: HttpClient) { }
 
-	uploadFile(repositoryId: number, file: File, fileName?: string, useHashAsFileName = true): Observable<string> {
+	uploadFile(repositoryId: number, file: File, fileName?: string, useHashAsFileName: boolean = true, checkIfFileExists: boolean = true): Observable<string> {
 		const formData = new FormData();
 		formData.append('file', file, fileName ? fileName : file.name);
-		return this.http.post(`${this.endpoint}/${repositoryId}/files`, formData, { responseType: 'text', params: { 'useHashAsFileName': `${useHashAsFileName}` } });
+		return this.http.post(`${this.endpoint}/${repositoryId}/files`, formData, {
+			responseType: 'text',
+			params: {
+				'useHashAsFileName': `${useHashAsFileName}`,
+				'checkIfFileExists': `${checkIfFileExists}`
+			}
+		});
 	}
 
 	deleteFile(fileId: number) {
@@ -31,4 +37,9 @@ export class FileService {
 			a.remove();
 		});
 	}
+}
+
+export class UploadFileOptions {
+	useHashAsFileName: boolean = true;
+	checkIfFileExists: boolean = true;
 }

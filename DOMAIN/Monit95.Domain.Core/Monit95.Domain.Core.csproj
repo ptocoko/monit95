@@ -53,6 +53,7 @@
     <Compile Include="Abstract\MarkDto.cs" />
     <Compile Include="Abstract\Person.cs" />
     <Compile Include="Entities\Area.cs" />
+    <Compile Include="Entities\AreaCollector.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Class.cs" />
     <Compile Include="Entities\Collector.cs" />

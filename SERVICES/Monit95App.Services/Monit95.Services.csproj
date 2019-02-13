@@ -106,6 +106,7 @@
     <Compile Include="Enums\Grade5Value.cs" />
     <Compile Include="Exceptions\FileNotFoundOrAccessException.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="File\FileAddingOptions.cs" />
     <Compile Include="File\UserPermission.cs" />
     <Compile Include="FirstClass\Dtos\ParticipPostDto.cs" />
     <Compile Include="FirstClass\Dtos\ProtocolGetDto.cs" />

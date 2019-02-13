@@ -38,7 +38,7 @@ var ParticipsListComponent = /** @class */ (function () {
     ParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.collectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(function (state) {
+        this.collectorService.getCollectorState(COLLECTOR_ID).subscribe(function (state) {
             _this.isFinished = state.IsFinished;
             if (!_this.isFinished) {
                 _this.searchClass = local_storage_1.getFromLocalStorage(CLASS_ID_KEY);

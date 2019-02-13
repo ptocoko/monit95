@@ -17,7 +17,7 @@ var FiringListComponent = /** @class */ (function () {
     }
     FiringListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(function (state) {
+        this.schoolCollectorService.getCollectorState(COLLECTOR_ID).subscribe(function (state) {
             _this.isActualizing = !state.IsFinished;
             if (_this.isActualizing) {
                 _this.isLoading = true;

@@ -7,18 +7,29 @@ var account_service_1 = require("../../../services/account.service");
 var functions_1 = require("../../../utils/functions");
 var school_collector_service_1 = require("../../../shared/school-collector.service");
 var material_1 = require("@angular/material");
-var REPOSITORY_ID = 4;
+var area_collector_service_1 = require("../../../shared/area-collector.service");
+var REPOSITORY_ID = 6;
 var ExcelUploadComponent = /** @class */ (function () {
-    function ExcelUploadComponent(fileService, accountService, collectorService, dialog) {
+    function ExcelUploadComponent(fileService, accountService, schoolCollectorService, areaCollectorService, dialog) {
         this.fileService = fileService;
         this.accountService = accountService;
-        this.collectorService = collectorService;
+        this.schoolCollectorService = schoolCollectorService;
+        this.areaCollectorService = areaCollectorService;
         this.dialog = dialog;
         this.uploadStatus = 'waiting';
     }
     ExcelUploadComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.collectorService.getSchoolCollectorState(this.collectorId).subscribe(function (state) {
+        if (this.collectorFor === 'school') {
+            this.collectorService = this.schoolCollectorService;
+        }
+        else if (this.collectorFor === 'area') {
+            this.collectorService = this.areaCollectorService;
+        }
+        else {
+            throw new Error('collectorFor is not setted');
+        }
+        this.collecterStateSub$ = this.collectorService.getCollectorState(this.collectorId).subscribe(function (state) {
             if (state.IsFinished) {
                 _this.uploadStatus = 'uploaded';
             }
@@ -30,10 +41,10 @@ var ExcelUploadComponent = /** @class */ (function () {
         if (validateFile(file)) {
             var fileName = this.getFileName(file);
             this.uploadStatus = 'uploading';
-            this.fileService.uploadFile(REPOSITORY_ID, file, fileName, false)
+            this.uploadFileSub$ = this.fileService.uploadFile(REPOSITORY_ID, file, fileName, false, false)
                 .subscribe(function (fileId) {
                 _this.uploadedFileId = Number.parseInt(fileId);
-                _this.collectorService.isFinished(_this.collectorId, true).subscribe(function () { return _this.uploadStatus = 'uploaded'; });
+                _this.collectorIsFinishedSub$ = _this.collectorService.isFinished(_this.collectorId, true).subscribe(function () { return _this.uploadStatus = 'uploaded'; });
             }, function (error) {
                 if (error.status === 409) {
                     alert(JSON.parse(error.error).Message);
@@ -63,7 +74,14 @@ var ExcelUploadComponent = /** @class */ (function () {
     //	}
     //}
     ExcelUploadComponent.prototype.getFileName = function (file) {
-        return this.testCode + "_" + this.accountService.account.UserName + "." + functions_1.getFileExtension(file.name);
+        return this.fileNamePrefix + "_" + this.accountService.account.UserName + "." + functions_1.getFileExtension(file.name);
+    };
+    ExcelUploadComponent.prototype.ngOnDestroy = function () {
+        this.collecterStateSub$.unsubscribe();
+        if (this.uploadFileSub$)
+            this.uploadFileSub$.unsubscribe();
+        if (this.collectorIsFinishedSub$)
+            this.collectorIsFinishedSub$.unsubscribe();
     };
     tslib_1.__decorate([
         core_1.Input('testCode'),
@@ -73,6 +91,18 @@ var ExcelUploadComponent = /** @class */ (function () {
         core_1.Input('collectorId'),
         tslib_1.__metadata("design:type", Number)
     ], ExcelUploadComponent.prototype, "collectorId", void 0);
+    tslib_1.__decorate([
+        core_1.Input('fileNamePrefix'),
+        tslib_1.__metadata("design:type", String)
+    ], ExcelUploadComponent.prototype, "fileNamePrefix", void 0);
+    tslib_1.__decorate([
+        core_1.Input('collectorFor'),
+        tslib_1.__metadata("design:type", String)
+    ], ExcelUploadComponent.prototype, "collectorFor", void 0);
+    tslib_1.__decorate([
+        core_1.Input('caption'),
+        tslib_1.__metadata("design:type", String)
+    ], ExcelUploadComponent.prototype, "caption", void 0);
     ExcelUploadComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-excel-upload',
@@ -82,6 +112,7 @@ var ExcelUploadComponent = /** @class */ (function () {
         tslib_1.__metadata("design:paramtypes", [file_service_1.FileService,
             account_service_1.AccountService,
             school_collector_service_1.SchoolCollectorService,
+            area_collector_service_1.AreaCollectorService,
             material_1.MatDialog])
     ], ExcelUploadComponent);
     return ExcelUploadComponent;

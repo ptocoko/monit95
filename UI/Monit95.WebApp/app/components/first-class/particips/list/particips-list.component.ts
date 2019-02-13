@@ -53,7 +53,7 @@ export class ParticipsListComponent {
 	ngOnInit() {
 		this.isLoading = true;
 
-		this.collectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(state => {
+		this.collectorService.getCollectorState(COLLECTOR_ID).subscribe(state => {
 			this.isFinished = state.IsFinished;
 
 			if (!this.isFinished) {

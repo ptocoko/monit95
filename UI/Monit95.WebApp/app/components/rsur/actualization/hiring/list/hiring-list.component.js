@@ -22,7 +22,7 @@ var HiringListComponent = /** @class */ (function () {
     }
     HiringListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.collectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(function (state) {
+        this.collectorService.getCollectorState(COLLECTOR_ID).subscribe(function (state) {
             _this.isFinished = state.IsFinished;
             if (!_this.isFinished) {
                 _this.getParticips();

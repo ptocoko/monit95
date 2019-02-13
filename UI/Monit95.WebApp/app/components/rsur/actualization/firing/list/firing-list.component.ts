@@ -21,7 +21,7 @@ export class FiringListComponent {
 		private dialog: MatDialog) { }
 
 	ngOnInit() {
-		this.schoolCollectorService.getSchoolCollectorState(COLLECTOR_ID).subscribe(state => {
+		this.schoolCollectorService.getCollectorState(COLLECTOR_ID).subscribe(state => {
 			this.isActualizing = !state.IsFinished;
 			if (this.isActualizing) {
 				this.isLoading = true;

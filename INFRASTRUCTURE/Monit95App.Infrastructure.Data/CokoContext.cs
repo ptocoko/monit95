@@ -11,6 +11,7 @@ namespace Monit95App.Infrastructure.Data
         }
         
         public virtual DbSet<Area> Areas { get; set; }
+        public virtual DbSet<AreaCollector> AreaCollectors { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Collector> Collectors { get; set; }

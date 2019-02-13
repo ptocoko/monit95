@@ -8,11 +8,18 @@ var FileService = /** @class */ (function () {
         this.http = http;
         this.endpoint = '/api/repositories';
     }
-    FileService.prototype.uploadFile = function (repositoryId, file, fileName, useHashAsFileName) {
+    FileService.prototype.uploadFile = function (repositoryId, file, fileName, useHashAsFileName, checkIfFileExists) {
         if (useHashAsFileName === void 0) { useHashAsFileName = true; }
+        if (checkIfFileExists === void 0) { checkIfFileExists = true; }
         var formData = new FormData();
         formData.append('file', file, fileName ? fileName : file.name);
-        return this.http.post(this.endpoint + "/" + repositoryId + "/files", formData, { responseType: 'text', params: { 'useHashAsFileName': "" + useHashAsFileName } });
+        return this.http.post(this.endpoint + "/" + repositoryId + "/files", formData, {
+            responseType: 'text',
+            params: {
+                'useHashAsFileName': "" + useHashAsFileName,
+                'checkIfFileExists': "" + checkIfFileExists
+            }
+        });
     };
     FileService.prototype.deleteFile = function (fileId) {
         return this.http.delete("api/files/" + fileId, { responseType: 'text' });
@@ -37,4 +44,12 @@ var FileService = /** @class */ (function () {
     return FileService;
 }());
 exports.FileService = FileService;
+var UploadFileOptions = /** @class */ (function () {
+    function UploadFileOptions() {
+        this.useHashAsFileName = true;
+        this.checkIfFileExists = true;
+    }
+    return UploadFileOptions;
+}());
+exports.UploadFileOptions = UploadFileOptions;
 //# sourceMappingURL=file.service.js.map
