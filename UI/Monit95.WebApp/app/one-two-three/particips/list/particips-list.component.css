@@ -32,3 +32,29 @@
     background-color: rgba(0,0,0,0.3);
     z-index: 10;
 }
+
+.content-center {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.isFinished-info-wrapper {
+    display: flex;
+    text-align: center;
+    -webkit-align-items: baseline;
+    align-items: baseline;
+}
+
+.isFinished-info-wrapper > div {
+    flex: 1 1 auto;
+    font-weight:bold;
+}
+
+.gray-back{
+    background-color: lightgray;
+}

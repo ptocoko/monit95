@@ -48,7 +48,7 @@ namespace ProtocolGenerator
 
         public IQueryable<ParticipTest> GetCorrectParticipTestsQuery() => context.ParticipTests
             .AsNoTracking()
-            .Where(p => p.ProjectTest.ProjectId == projectId && p.Particip.SchoolId != "0000");// && p.Grade5 != -1);
+            .Where(p => p.ProjectTest.ProjectId == projectId && p.Particip.SchoolId != "0000" && p.Grade5.HasValue);// && p.Grade5 != -1);
 
         public void SolveAndSaveGrade5AndPrimaryMark()
         {
@@ -289,7 +289,7 @@ namespace ProtocolGenerator
                 .OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
                 .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
 
-            string reportFolder = $@"{destFolderPath}\iTakeSociety";
+            string reportFolder = $@"{destFolderPath}\iTakeEge2";
 
             foreach (var schoolResult in groupedTestResults)
             {
@@ -312,11 +312,11 @@ namespace ProtocolGenerator
                             sheet.Cell(i + 4, 3).Value = result.Name;
                             sheet.Cell(i + 4, 4).Value = result.SecondName;
                             sheet.Cell(i + 4, 5).Value = result.DocumNumber;
-                            //sheet.Cell(i + 4, 6).Value = result.TestName;
+                            sheet.Cell(i + 4, 6).Value = result.TestName;
                             //sheet.Cell(i + 4, 7).Value = result.Marks;
-                            sheet.Cell(i + 4, 6).Value = result.PrimaryMark;
-                            sheet.Cell(i + 4, 7).Value = result.RiskGroup;
-                            sheet.Cell(i + 4, 8).Value = result.GradeStr;
+                            sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
+                            sheet.Cell(i + 4, 8).Value = result.RiskGroup;
+                            sheet.Cell(i + 4, 9).Value = result.GradeStr;
                             i++;
                         }
                         

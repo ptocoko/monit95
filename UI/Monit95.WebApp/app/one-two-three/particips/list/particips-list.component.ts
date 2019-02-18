@@ -24,7 +24,8 @@ export class ParticipsListComponent {
 	particips: ParticipModel[] = [];
 	classes: ClassModel[] = [];
 
-	isLoading: boolean;
+	isLoading: boolean = true;
+	isFinished: boolean = false;
 	searchText: string;
 	searchClass: string;
 	pageIndex = 0;
@@ -44,8 +45,6 @@ export class ParticipsListComponent {
 		private accountService: AccountService) { }
 
 	ngOnInit() {
-		this.isLoading = true;
-
 		const search$ = fromEvent(this.searchField.nativeElement, 'input')
 			.pipe(
 				debounceTime(1000)
@@ -104,5 +103,26 @@ export class ParticipsListComponent {
 	selectionChange() {
 		this.pageIndex = 0;
 		this.selectionChange$.next({});
+	}
+
+	finish() {
+		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+			width: '400px',
+			disableClose: true,
+			data: { message: `Вы уверены что хотите завершить редактирование списка участников?` }
+		});
+
+		dialogRef.afterClosed().subscribe(res => {
+			if (res) {
+				//this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isFinished = true);
+				this.isFinished = true;
+			}
+		});
+	}
+
+	notFinish() {
+		//this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(() => this.isFinished = false);
+		//this.ngOnInit();
+		this.isFinished = false;
 	}
 }

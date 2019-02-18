@@ -15,8 +15,8 @@ var HomeComponent = /** @class */ (function () {
         var date = new Date();
         this.timeIsCome = (date.getDate() === 7 && date.getHours() >= 8) || date.getDate() === 8;
     };
-    HomeComponent.prototype.downloadCards = function () {
-        this.cards.getForSchool(18).subscribe(function (cards) {
+    HomeComponent.prototype.downloadCards = function (projectId) {
+        this.cards.getForSchool(projectId).subscribe(function (cards) {
             var url = window.URL.createObjectURL(cards);
             functions_1.downloadFile(url, 'результаты.zip');
         });

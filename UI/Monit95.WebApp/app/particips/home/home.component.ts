@@ -16,8 +16,8 @@ export class HomeComponent {
 		this.timeIsCome = (date.getDate() === 7 && date.getHours() >= 8) || date.getDate() === 8;
 	}
 
-	downloadCards() {
-		this.cards.getForSchool(18).subscribe(cards => {
+	downloadCards(projectId: number) {
+		this.cards.getForSchool(projectId).subscribe(cards => {
 			const url = window.URL.createObjectURL(cards);
 			downloadFile(url, 'результаты.zip');
 		});

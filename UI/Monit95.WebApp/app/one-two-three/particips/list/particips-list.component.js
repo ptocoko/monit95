@@ -24,6 +24,8 @@ var ParticipsListComponent = /** @class */ (function () {
         this.accountService = accountService;
         this.particips = [];
         this.classes = [];
+        this.isLoading = true;
+        this.isFinished = false;
         this.pageIndex = 0;
         this.limitToVal = 20;
         this.participsLength = 0;
@@ -32,7 +34,6 @@ var ParticipsListComponent = /** @class */ (function () {
     }
     ParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.isLoading = true;
         var search$ = fromEvent_1.fromEvent(this.searchField.nativeElement, 'input')
             .pipe(debounceTime_1.debounceTime(1000));
         search$.subscribe(function () { return _this.pageIndex = 0; });
@@ -80,6 +81,25 @@ var ParticipsListComponent = /** @class */ (function () {
     ParticipsListComponent.prototype.selectionChange = function () {
         this.pageIndex = 0;
         this.selectionChange$.next({});
+    };
+    ParticipsListComponent.prototype.finish = function () {
+        var _this = this;
+        var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
+            width: '400px',
+            disableClose: true,
+            data: { message: "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0441\u043F\u0438\u0441\u043A\u0430 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432?" }
+        });
+        dialogRef.afterClosed().subscribe(function (res) {
+            if (res) {
+                //this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isFinished = true);
+                _this.isFinished = true;
+            }
+        });
+    };
+    ParticipsListComponent.prototype.notFinish = function () {
+        //this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(() => this.isFinished = false);
+        //this.ngOnInit();
+        this.isFinished = false;
     };
     tslib_1.__decorate([
         core_1.ViewChild(table_paginator_1.TablePaginator),
