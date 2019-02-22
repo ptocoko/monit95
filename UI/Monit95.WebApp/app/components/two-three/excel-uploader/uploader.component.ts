@@ -28,6 +28,8 @@ export class ExcelUploadComponent implements OnDestroy {
 	@Input('fileNamePrefix') fileNamePrefix: string;
 	@Input('collectorFor') collectorFor: 'school' | 'area';
 	@Input('caption') caption: string;
+	@Input('downloadHref') downloadHref: string;
+	@Input('downloadExt') downloadExt: string;
 
 	collecterStateSub$: Subscription;
 	uploadFileSub$: Subscription;
@@ -46,6 +48,10 @@ export class ExcelUploadComponent implements OnDestroy {
 			this.collectorService = this.areaCollectorService;
 		} else {
 			throw new Error('collectorFor is not setted');
+		}
+
+		if (this.downloadHref && this.downloadExt) {
+			this.downloadHref += `/${this.fileNamePrefix}_${this.accountService.account.UserName}.${this.downloadExt}`;
 		}
 
 		this.collecterStateSub$ = this.collectorService.getCollectorState(this.collectorId).subscribe(state => {

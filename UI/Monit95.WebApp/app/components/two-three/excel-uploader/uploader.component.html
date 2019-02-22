@@ -9,6 +9,11 @@
 
     <span *ngIf="uploadStatus === 'uploaded'">
         Отправлено!
+        <a *ngIf="downloadHref"
+           href="{{downloadHref}}"
+           download="отчет.xlsx">
+            Скачать отчет
+        </a>
     </span>
 
     <span class="upload-btn-wrapper" *ngIf="uploadStatus === 'waiting'">

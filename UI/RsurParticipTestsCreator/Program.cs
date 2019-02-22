@@ -14,8 +14,8 @@ namespace RsurParticipTestsCreator
         {
             CokoContext context = new CokoContext();
             //GenerateParticipTests(context);
-            ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context, "01-19", "Январь-2019");
-            var models = cretor.GetModels(new int[] { 3177 });
+            ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context, "02-19", "Февраль-2019");
+            var models = cretor.GetModels(new int[] { 3184, 3185 });
             foreach (var model in models)
             {
                 cretor.SaveModelsIntoExcel(model);
@@ -35,7 +35,7 @@ namespace RsurParticipTestsCreator
                 {"0203", 3175 },
             };
 
-            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => new int[] { 2 }.Contains(p.RsurSubjectCode) && p.SchoolId != "0000"));
+            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => new int[] { 7 }.Contains(p.RsurSubjectCode) && p.SchoolId != "0000" && p.ActualCode == 1));
 
             var notPassLastExam = GetNotPassLastExam(whoMustPass);
             var passLastExam = GetPassLastExam(whoMustPass);

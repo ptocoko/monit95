@@ -97,6 +97,12 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 throw new ArgumentException("Нет баллов по заданиям для указанной записи", nameof(participTestId));
             }
 
+            if (testResultEntity.RsurParticipTest.RsurTestId == 3180)
+            {
+                marks[4] = 0;
+                marks[10] = 0;
+            }
+
             var testId = testResultEntity.RsurParticipTest.RsurTest.TestId;
 
             var questionsModel = context.RsurQuestions
@@ -151,14 +157,14 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 grade5 = marks.Sum() >= 22 ? 5 : 2;
             }
             // Физика. Комплексная и РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3176)
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3181)
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
             // Общество. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 2154)
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3180)
             {
-                grade5 = marks.Sum() >= 22 ? 5 : 2;
+                grade5 = marks.Sum() >= 20 ? 5 : 2;
             }
             else if (new string[] { "0104", "0801" }.Contains(testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode))
             {

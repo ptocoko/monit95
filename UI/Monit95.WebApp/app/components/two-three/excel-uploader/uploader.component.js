@@ -29,6 +29,9 @@ var ExcelUploadComponent = /** @class */ (function () {
         else {
             throw new Error('collectorFor is not setted');
         }
+        if (this.downloadHref && this.downloadExt) {
+            this.downloadHref += "/" + this.fileNamePrefix + "_" + this.accountService.account.UserName + "." + this.downloadExt;
+        }
         this.collecterStateSub$ = this.collectorService.getCollectorState(this.collectorId).subscribe(function (state) {
             if (state.IsFinished) {
                 _this.uploadStatus = 'uploaded';
@@ -103,6 +106,14 @@ var ExcelUploadComponent = /** @class */ (function () {
         core_1.Input('caption'),
         tslib_1.__metadata("design:type", String)
     ], ExcelUploadComponent.prototype, "caption", void 0);
+    tslib_1.__decorate([
+        core_1.Input('downloadHref'),
+        tslib_1.__metadata("design:type", String)
+    ], ExcelUploadComponent.prototype, "downloadHref", void 0);
+    tslib_1.__decorate([
+        core_1.Input('downloadExt'),
+        tslib_1.__metadata("design:type", String)
+    ], ExcelUploadComponent.prototype, "downloadExt", void 0);
     ExcelUploadComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-excel-upload',

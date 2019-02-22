@@ -2,7 +2,35 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="true" class="list-container">
+    <div *ngIf="isArea()" class="list-container">
+        <h3 class="list-header">Диагностика «Февраль-2019»</h3>
+        <div>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/02-19_ге_распределение_{{account.UserName}}.xlsx" download="География. Распределение.xlsx">
+                <h4 style="font-weight:bold">География: распределение</h4>
+            </a>
+
+            <a *ngIf="false" class="list-item-link" href="/file/rsur/012019/keys/КЛ-ОБ.rar" download="Общество. Ключи.rar">
+                <h4 style="font-weight:bold">Обществознание: Ключи</h4>
+            </a>
+            <a *ngIf="false" class="list-item-link" href="/file/rsur/012019/keys/КЛ-ФИ.rar" download="Физика. Ключи.rar">
+                <h4>Физика: Ключи</h4>
+            </a>
+            <!--<a class="list-item-link" href="" download="Физика. Ключи.rar">
+                <h4><b>Ключи для проверки работ</b></h4>
+            </a>-->
+            <!--Протоколы-->
+            <!--<div *ngIf="true" class="list-item">
+                <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
+                    <div>
+                        <h4><b>Протоколы проверки заданий</b></h4>
+                    </div>
+                    <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+                </a>
+            </div>-->
+        </div>
+    </div>
+
+    <div *ngIf="!isAdmin()" class="list-container">
         <h3 class="list-header">Алгоритм работы с первым блоком</h3>
 
         <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/РУ-2.rar" download="Русский язык 2 неделя.rar">
@@ -17,14 +45,36 @@
                           [fileNamePrefix]="'1_РУ'"
                           [collectorId]="14"
                           [collectorFor]="'area'"
-                          [caption]="'Заполненный отчет по Русскому языку  1-я неделя'">
+                          [caption]="'Заполненный отчет по Русскому языку - 1-я неделя'"
+                          [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                          [downloadExt]="'xlsx'">
         </app-excel-upload>
 
         <app-excel-upload *ngIf="isArea()"
                           [fileNamePrefix]="'1_МА'"
                           [collectorId]="22"
                           [collectorFor]="'area'"
-                          [caption]="'Заполненный отчет по Математике - 1-я неделя'">
+                          [caption]="'Заполненный отчет по Математике - 1-я неделя'"
+                          [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                          [downloadExt]="'xlsx'">
+        </app-excel-upload>
+
+        <app-excel-upload *ngIf="isArea()"
+                          [fileNamePrefix]="'2_РУ'"
+                          [collectorId]="15"
+                          [collectorFor]="'area'"
+                          [caption]="'Заполненный отчет по Русскому языку - 2-я неделя'"
+                          [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                          [downloadExt]="'xlsx'">
+        </app-excel-upload>
+
+        <app-excel-upload *ngIf="isArea()"
+                          [fileNamePrefix]="'2_МА'"
+                          [collectorId]="23"
+                          [collectorFor]="'area'"
+                          [caption]="'Заполненный отчет по Математике - 2-я неделя'"
+                          [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                          [downloadExt]="'xlsx'">
         </app-excel-upload>
 
         <div *ngIf="isArea()" class="list-item">
@@ -57,36 +107,8 @@
 
     </div>
 
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">Диагностика «Январь-2019»</h3>
-        <div>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/01-19_об_распределение_{{account.UserName}}.xlsx" download="Общество. Распределение.xlsx">
-                <h4>Обществознание: распределение</h4>
-            </a>
-
-            <a class="list-item-link" href="/file/rsur/012019/keys/КЛ-ОБ.rar" download="Общество. Ключи.rar">
-                <h4 style="font-weight:bold">Обществознание: Ключи</h4>
-            </a>
-            <a class="list-item-link" href="/file/rsur/012019/keys/КЛ-ФИ.rar" download="Физика. Ключи.rar">
-                <h4>Физика: Ключи</h4>
-            </a>
-            <!--<a class="list-item-link" href="" download="Физика. Ключи.rar">
-                <h4><b>Ключи для проверки работ</b></h4>
-            </a>-->
-            <!--Протоколы-->
-            <div *ngIf="true" class="list-item">
-                <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                    <div>
-                        <h4><b>Протоколы проверки заданий</b></h4>
-                    </div>
-                    <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">Протоколы проверки заданий</h3>
+    <div *ngIf="isAdmin()" class="list-container">
+        <h3 class="list-header">Протоколы проверки заданий по пересдачам</h3>
 
         <!--Протоколы-->
         <div *ngIf="true" class="list-item">
@@ -122,7 +144,7 @@
         </div>-->
 
         <div class="list-item">
-            <a class="list-item-link" target="_blank" href="https://cloud.mail.ru/public/B3gk/HGhoZVnFL">
+            <a class="list-item-link" download="РСУР. Спецификации.rar" href="/file/rsur/спекШ.rar">
                 <div>
                     <h4>Спецификации КИМ</h4>
                 </div>
@@ -146,7 +168,7 @@
         </div>
     </div>
 
-    <div *ngIf="true" class="list-container">
+    <div *ngIf="!isAdmin()" class="list-container">
         <h3 class="list-header">Отчеты</h3>
 
         <div *ngIf="true" class="list-item">
