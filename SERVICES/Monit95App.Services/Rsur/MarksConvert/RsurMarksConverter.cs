@@ -135,6 +135,10 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 egeValues = GetEgeValuesForGeo(questionsModel);
             }
+            else if(testResultEntity.RsurParticipTest.RsurTestId == 3184)
+            {
+                egeValues = GetEgeValuesForGeo2(questionsModel);
+            }
             else
             {
                 egeValues = questionsModel.Select(s => s.EgeValue);
@@ -166,7 +170,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = marks.Sum() >= 20 ? 5 : 2;
             }
-            else if (new string[] { "0104", "0801" }.Contains(testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode))
+            else if (new string[] { "0104", "0801" }.Contains(testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode) && testResultEntity.RsurParticipTest.RsurTestId < 3180)
             {
                 grade5 = GetGrade5ForTestsWithTwoQuestionsForOne(egeValues);
             }
@@ -225,11 +229,21 @@ namespace Monit95App.Services.Rsur.MarksConvert
             return questionsModel.Where(p => !ordersWhereValueUnder100.Contains(p.EgeOrder)).Select(s => s.EgeValue);
         }
 
+        private IEnumerable<int> GetEgeValuesForGeo2(IEnumerable<EgeQuestionsModel> questionsModel)
+        {
+            var ordersWhereValueUnder100 = questionsModel.Where(p => p.EgeValue < 100 && p.EgeOrder == 17).Select(s => s.EgeOrder);
+
+            return questionsModel.Where(p => !ordersWhereValueUnder100.Contains(p.EgeOrder)).Select(s => s.EgeValue);
+        }
+
         private int GetGrade5(IEnumerable<int> egeValues)
         {
             int allValuesCount = egeValues.Count();
-            int badCount = egeValues.Count(p => p < 60); //Количество EgeQuestionValues со значение меньше 60
-            int midCount = egeValues.Count(p => p >= 60 && p < 81);
+
+            var midGradePercent = allValuesCount <= 2 ? 50 : 60;
+
+            int badCount = egeValues.Count(p => p < midGradePercent); //Количество EgeQuestionValues со значение меньше 60
+            int midCount = egeValues.Count(p => p >= midGradePercent && p < 81);
             int goodCount = egeValues.Count(p => p > 80);
 
             int percentOfGoodValues = (int)Math.Round(goodCount / (allValuesCount / 100M), MidpointRounding.AwayFromZero);

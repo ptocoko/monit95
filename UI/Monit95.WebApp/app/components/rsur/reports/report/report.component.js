@@ -9,6 +9,8 @@ var ReportComponent = /** @class */ (function () {
         this.reportService = reportService;
         this.router = router;
         this.isWarnAboutGeoKimFail = false;
+        this.isWarnAboutGeoKimFail_2 = false;
+        this.isSocietyKimFail = false;
     }
     ReportComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -21,7 +23,7 @@ var ReportComponent = /** @class */ (function () {
         });
     };
     ReportComponent.prototype.getGradeColor = function (grade100) {
-        if (["0104", "0801"].indexOf(this.reportData.TestNumberCode) > -1 && this.reportData.RsurTestId > 2141) {
+        if (["0104", "0801"].indexOf(this.reportData.TestNumberCode) > -1 && this.reportData.RsurTestId > 2141 && this.reportData.RsurTestId < 3180) {
             return grade100 < 50 ? 'low-grade' : grade100 < 80 ? 'medium-grade' : 'high-grade';
         }
         else if (this.reportData.RsurTestId === 2152 || this.reportData.RsurTestId === 2155) {
@@ -42,6 +44,12 @@ var ReportComponent = /** @class */ (function () {
     ReportComponent.prototype.needToWarn = function () {
         if (this.reportData.RsurTestId === 2153 && this.reportData.EgeQuestionResults.filter(function (f) { return [26, 27].indexOf(f.EgeQuestionNumber) > -1 && f.Value < 100; }).length > 0) {
             this.isWarnAboutGeoKimFail = true;
+        }
+        if (this.reportData.RsurTestId === 3184 && this.reportData.EgeQuestionResults.filter(function (f) { return f.EgeQuestionNumber === 17 && f.Value < 100; }).length > 0) {
+            this.isWarnAboutGeoKimFail_2 = true;
+        }
+        if (this.reportData.RsurTestId === 3180) {
+            this.isSocietyKimFail = true;
         }
     };
     ReportComponent = tslib_1.__decorate([

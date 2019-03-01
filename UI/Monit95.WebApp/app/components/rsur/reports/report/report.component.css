@@ -40,3 +40,7 @@
 .particip-info div{
     clear:both;
 }
+
+.red-back {
+    background-color: red;
+}

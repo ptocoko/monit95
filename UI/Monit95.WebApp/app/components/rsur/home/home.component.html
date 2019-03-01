@@ -5,40 +5,38 @@
     <div *ngIf="isArea()" class="list-container">
         <h3 class="list-header">Диагностика «Февраль-2019»</h3>
         <div>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/02-19_ге_распределение_{{account.UserName}}.xlsx" download="География. Распределение.xlsx">
-                <h4 style="font-weight:bold">География: распределение</h4>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/02-19_ис_распределение_{{account.UserName}}.xlsx" download="История. Распределение.xlsx">
+                <h4 style="font-weight:bold">История: распределение</h4>
             </a>
 
-            <a *ngIf="false" class="list-item-link" href="/file/rsur/012019/keys/КЛ-ОБ.rar" download="Общество. Ключи.rar">
-                <h4 style="font-weight:bold">Обществознание: Ключи</h4>
+            <a class="list-item-link" href="/file/rsur/022019/keys/КЛ-ГЕ.rar" download="География. Ключи.rar">
+                <h4>География: Ключи</h4>
             </a>
-            <a *ngIf="false" class="list-item-link" href="/file/rsur/012019/keys/КЛ-ФИ.rar" download="Физика. Ключи.rar">
-                <h4>Физика: Ключи</h4>
+
+            <a class="list-item-link" href="/file/rsur/022019/keys/КЛ-ИС.rar" download="История. Ключи.rar">
+                <h4 style="font-weight:bold">История: Ключи</h4>
             </a>
-            <!--<a class="list-item-link" href="" download="Физика. Ключи.rar">
-                <h4><b>Ключи для проверки работ</b></h4>
-            </a>-->
             <!--Протоколы-->
-            <!--<div *ngIf="true" class="list-item">
+            <div *ngIf="true" class="list-item">
                 <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                     <div>
                         <h4><b>Протоколы проверки заданий</b></h4>
                     </div>
                     <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
                 </a>
-            </div>-->
+            </div>
         </div>
     </div>
 
     <div *ngIf="!isAdmin()" class="list-container">
         <h3 class="list-header">Алгоритм работы с первым блоком</h3>
 
-        <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/РУ-2.rar" download="Русский язык 2 неделя.rar">
-            <h4 style="font-weight:bold">Русский язык: 2-я неделя</h4>
+        <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/РУ-3.rar" download="Русский язык 3 неделя.rar">
+            <h4 style="font-weight:bold">Русский язык: 3-я неделя</h4>
         </a>
 
-        <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/МА-2.rar" download="Математика 2 неделя.rar">
-            <h4 style="font-weight:bold">Математика: 2-я неделя</h4>
+        <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/МА-3.rar" download="Математика 3 неделя.rar">
+            <h4 style="font-weight:bold">Математика: 3-я неделя</h4>
         </a>
 
         <app-excel-upload *ngIf="isArea()"
@@ -73,6 +71,24 @@
                           [collectorId]="23"
                           [collectorFor]="'area'"
                           [caption]="'Заполненный отчет по Математике - 2-я неделя'"
+                          [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                          [downloadExt]="'xlsx'">
+        </app-excel-upload>
+
+        <app-excel-upload *ngIf="isArea()"
+                          [fileNamePrefix]="'3_РУ'"
+                          [collectorId]="16"
+                          [collectorFor]="'area'"
+                          [caption]="'Заполненный отчет по Русскому языку - 3-я неделя'"
+                          [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                          [downloadExt]="'xlsx'">
+        </app-excel-upload>
+
+        <app-excel-upload *ngIf="isArea()"
+                          [fileNamePrefix]="'3_МА'"
+                          [collectorId]="24"
+                          [collectorFor]="'area'"
+                          [caption]="'Заполненный отчет по Математике - 3-я неделя'"
                           [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
                           [downloadExt]="'xlsx'">
         </app-excel-upload>

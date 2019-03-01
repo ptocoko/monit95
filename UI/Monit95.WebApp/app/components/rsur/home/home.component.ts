@@ -9,7 +9,7 @@ import { RsurProtocolsService } from '../../../services/rsur-protocols.service';
 export class HomeComponent implements OnInit {
     account = new AccountModel(); 
 	isLoading: boolean = true;
-	//_fillingProgress: string;
+	_fillingProgress: string;
 
     constructor(        
 		private readonly accountService: AccountService,
@@ -21,18 +21,18 @@ export class HomeComponent implements OnInit {
             this.account = data;            
             this.isLoading = false;
 			localStorage.clear();
-			//this.getStatistics();
+			this.getStatistics();
         });
     }
 
-	//private getStatistics() {
- //       this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress, error => {
- //           const modelState = JSON.parse(error.error).ModelState;
- //           if (!modelState['404']) {
- //               throw error;
- //           }
- //       });
- //   }
+	private getStatistics() {
+        this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress, error => {
+            const modelState = JSON.parse(error.error).ModelState;
+            if (!modelState['404']) {
+                throw error;
+            }
+        });
+    }
 
     isArea() {                
         if (this.account.RoleNames != null)
@@ -62,11 +62,11 @@ export class HomeComponent implements OnInit {
 		return this.account.UserName && this.account.UserName === '200';
 	}
 
-	//fillingProgress() {
-	//	if (!this._fillingProgress) {
-	//		return 0;
-	//	}
+	fillingProgress() {
+		if (!this._fillingProgress) {
+			return 0;
+		}
 
-	//	return Number.parseInt(this._fillingProgress);
-	//}
+		return Number.parseInt(this._fillingProgress);
+	}
 }
