@@ -105,7 +105,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
 
             var testId = testResultEntity.RsurParticipTest.RsurTest.TestId;
 
-            var questionsModel = context.RsurQuestions
+            var rsurQuestionsModel = context.RsurQuestions
                 .Where(testQuestion => testQuestion.TestId == testId)
                 .Include(x => x.EgeQuestion)
                 .ToList()
@@ -116,32 +116,35 @@ namespace Monit95App.Services.Rsur.MarksConvert
                     EgeOrder = testQuestion.EgeQuestion.Order,
                     MaxMark = testQuestion.MaxMark,
                     Mark = marks[testQuestion.Order - 1]
-                })
+                });
+
+            var egeQuestionsModel = rsurQuestionsModel
                 .GroupBy(gb => gb.QuestionId)
                 .Select(s => new EgeQuestionsModel
                 {
                     QuestionId = s.Key,
                     EgeValue = (int)Math.Round(s.Select(rsurQuestion => rsurQuestion.Mark).Sum() * 100.0 / s.Select(rsurQuestion => rsurQuestion.MaxMark).Sum(), MidpointRounding.AwayFromZero),
-                    EgeOrder = s.First().EgeOrder
+                    EgeOrder = s.First().EgeOrder,
+                    RsurQuestionsCount = s.Count()
                 });
 
-            if (questionsModel.Any(x => x.EgeOrder == null))
+            if (egeQuestionsModel.Any(x => x.EgeOrder == null))
                 throw new ArgumentException("Отсутствует поле Order в таблице Questions");
-
-            IEnumerable<int> egeValues;
+            
+            IEnumerable<EgeValueModel> egeValues;
             // в КИМ по географии в задания 15 и 16, которые соответствуют заданию 26 с КИМ ЕГЭ, прокралась ошибочка, пытаемся исправиться
             // еще и в заданиях 17 и 18 такая же фигня
             if (testResultEntity.RsurParticipTest.RsurTestId == 2153)
             {
-                egeValues = GetEgeValuesForGeo(questionsModel);
+                egeValues = GetEgeValuesForGeo(egeQuestionsModel);
             }
             else if(testResultEntity.RsurParticipTest.RsurTestId == 3184)
             {
-                egeValues = GetEgeValuesForGeo2(questionsModel);
+                egeValues = GetEgeValuesForGeo2(egeQuestionsModel);
             }
             else
             {
-                egeValues = questionsModel.Select(s => s.EgeValue);
+                egeValues = egeQuestionsModel.Select(MapToEgeValuesModel);
             }
             
             int grade5;
@@ -174,16 +177,20 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = GetGrade5ForTestsWithTwoQuestionsForOne(egeValues);
             }
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3185)
+            {
+                grade5 = GetGrade5ForTestsWithTwoQuestionsForOne(egeValues);
+            }
             else
             {
                 grade5 = GetGrade5(egeValues);
             }
 
-            var egeQuestionValues = GetEgeQuestionValues(questionsModel);
+            var egeQuestionValues = GetEgeQuestionValues(egeQuestionsModel);
 
             context.RsurElementResults.RemoveRange(context.RsurElementResults.Where(p => p.RsurParticipTestId == participTestId));
 
-            context.RsurElementResults.AddRange(questionsModel.Select(s => new RsurElementResult
+            context.RsurElementResults.AddRange(egeQuestionsModel.Select(s => new RsurElementResult
             {
                 RsurParticipTestId = participTestId,
                 ElementOrder = (int)s.EgeOrder,
@@ -199,12 +206,12 @@ namespace Monit95App.Services.Rsur.MarksConvert
             return (grade5, egeQuestionValues);
         }
 
-        private int GetGrade5ForTestsWithTwoQuestionsForOne(IEnumerable<int> egeValues)
+        private int GetGrade5ForTestsWithTwoQuestionsForOne(IEnumerable<EgeValueModel> egeValues)
         {
             int allValuesCount = egeValues.Count();
-            int badCount = egeValues.Count(p => p < 50); //Количество EgeQuestionValues со значение меньше 60
-            int midCount = egeValues.Count(p => p >= 50 && p < 81);
-            int goodCount = egeValues.Count(p => p > 80);
+            int badCount = egeValues.Count(p => p.EgeValue < 50); //Количество EgeQuestionValues со значение меньше 60
+            int midCount = egeValues.Count(p => p.EgeValue >= 50 && p.EgeValue < 80);
+            int goodCount = egeValues.Count(p => p.EgeValue >= 80);
 
             int percentOfGoodValues = (int)Math.Round(goodCount / (allValuesCount / 100M), MidpointRounding.AwayFromZero);
 
@@ -222,29 +229,28 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
         }
 
-        private IEnumerable<int> GetEgeValuesForGeo(IEnumerable<EgeQuestionsModel> questionsModel)
+        private IEnumerable<EgeValueModel> GetEgeValuesForGeo(IEnumerable<EgeQuestionsModel> questionsModel)
         {
             var ordersWhereValueUnder100 = questionsModel.Where(p => p.EgeValue < 100 && p.EgeOrder >= 26).Select(s => s.EgeOrder);
 
-            return questionsModel.Where(p => !ordersWhereValueUnder100.Contains(p.EgeOrder)).Select(s => s.EgeValue);
+            return questionsModel.Where(p => !ordersWhereValueUnder100.Contains(p.EgeOrder))
+                .Select(MapToEgeValuesModel);
         }
 
-        private IEnumerable<int> GetEgeValuesForGeo2(IEnumerable<EgeQuestionsModel> questionsModel)
+        private IEnumerable<EgeValueModel> GetEgeValuesForGeo2(IEnumerable<EgeQuestionsModel> questionsModel)
         {
             var ordersWhereValueUnder100 = questionsModel.Where(p => p.EgeValue < 100 && p.EgeOrder == 17).Select(s => s.EgeOrder);
 
-            return questionsModel.Where(p => !ordersWhereValueUnder100.Contains(p.EgeOrder)).Select(s => s.EgeValue);
+            return questionsModel.Where(p => !ordersWhereValueUnder100.Contains(p.EgeOrder)).Select(MapToEgeValuesModel);
         }
 
-        private int GetGrade5(IEnumerable<int> egeValues)
+        private int GetGrade5(IEnumerable<EgeValueModel> egeValues)
         {
             int allValuesCount = egeValues.Count();
 
-            var midGradePercent = allValuesCount <= 2 ? 50 : 60;
-
-            int badCount = egeValues.Count(p => p < midGradePercent); //Количество EgeQuestionValues со значение меньше 60
-            int midCount = egeValues.Count(p => p >= midGradePercent && p < 81);
-            int goodCount = egeValues.Count(p => p > 80);
+            int badCount = egeValues.Count(p => p.EgeValue < GetMidPercent(p.RsurValuesCount));
+            int midCount = egeValues.Count(p => p.EgeValue >= GetMidPercent(p.RsurValuesCount) && p.EgeValue < 81);
+            int goodCount = egeValues.Count(p => p.EgeValue > 80);
 
             int percentOfGoodValues = (int)Math.Round(goodCount / (allValuesCount / 100M), MidpointRounding.AwayFromZero);
 
@@ -262,13 +268,24 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
         }
 
-        private int GetGrade5ForGeo(IEnumerable<int> egeValues)
+        private int GetMidPercent(int RsurValuesCount)
         {
-            int badCount = egeValues.Count(p => p == 0);
+            return RsurValuesCount <= 2 ? 50 : 60;
+        }
+
+        private int GetGrade5ForGeo(IEnumerable<EgeValueModel> egeValues)
+        {
+            int badCount = egeValues.Count(p => p.EgeValue == 0);
             int allCount = egeValues.Count();
 
             return allCount - badCount >= 21 ? 5 : 2;
         }
+        
+        private Func<EgeQuestionsModel, EgeValueModel> MapToEgeValuesModel = s => new EgeValueModel
+        {
+            EgeValue = s.EgeValue,
+            RsurValuesCount = s.RsurQuestionsCount
+        };
 
         private string GetEgeQuestionValues(IEnumerable<EgeQuestionsModel> questionsModel)
         {
@@ -298,5 +315,12 @@ namespace Monit95App.Services.Rsur.MarksConvert
         public int QuestionId { get; set; }
         public int EgeValue { get; set; }
         public int? EgeOrder { get; set; }
+        public int RsurQuestionsCount { get; set; }
+    }
+
+    class EgeValueModel
+    {
+        public int EgeValue { get; set; }
+        public int RsurValuesCount { get; set; }
     }
 }

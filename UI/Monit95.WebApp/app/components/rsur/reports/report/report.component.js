@@ -22,23 +22,30 @@ var ReportComponent = /** @class */ (function () {
             });
         });
     };
-    ReportComponent.prototype.getGradeColor = function (grade100) {
-        if (["0104", "0801"].indexOf(this.reportData.TestNumberCode) > -1 && this.reportData.RsurTestId > 2141 && this.reportData.RsurTestId < 3180) {
-            return grade100 < 50 ? 'low-grade' : grade100 < 80 ? 'medium-grade' : 'high-grade';
+    ReportComponent.prototype.getGradeColor = function (grade100, rsurQuestionsCount) {
+        //if (["0104", "0801"].indexOf(this.reportData.TestNumberCode) > -1 && this.reportData.RsurTestId > 2141 && this.reportData.RsurTestId < 3180) {
+        //	return grade100 < 50 ? 'low-grade' : grade100 < 80 ? 'medium-grade' : 'high-grade';
+        //} else if (this.reportData.RsurTestId === 2152 || this.reportData.RsurTestId === 2155) {
+        //	return grade100 > 70 ? 'high-grade' : 'low-grade';
+        //} else {
+        //	if (grade100 < 60) {
+        //		return 'low-grade';
+        //	} else if (grade100 > 59 && grade100 < 81) {
+        //		return 'medium-grade';
+        //	} else {
+        //		return 'high-grade';
+        //	}
+        //}
+        var midPercent = rsurQuestionsCount <= 2 ? 50 : 60;
+        var highPercent = this.reportData.RsurTestId === 3185 ? 80 : 81;
+        if (grade100 < midPercent) {
+            return 'low-grade';
         }
-        else if (this.reportData.RsurTestId === 2152 || this.reportData.RsurTestId === 2155) {
-            return grade100 > 70 ? 'high-grade' : 'low-grade';
+        else if (grade100 >= midPercent && grade100 < highPercent) {
+            return 'medium-grade';
         }
         else {
-            if (grade100 < 60) {
-                return 'low-grade';
-            }
-            else if (grade100 > 59 && grade100 < 81) {
-                return 'medium-grade';
-            }
-            else {
-                return 'high-grade';
-            }
+            return 'high-grade';
         }
     };
     ReportComponent.prototype.needToWarn = function () {
@@ -47,9 +54,6 @@ var ReportComponent = /** @class */ (function () {
         }
         if (this.reportData.RsurTestId === 3184 && this.reportData.EgeQuestionResults.filter(function (f) { return f.EgeQuestionNumber === 17 && f.Value < 100; }).length > 0) {
             this.isWarnAboutGeoKimFail_2 = true;
-        }
-        if (this.reportData.RsurTestId === 3180) {
-            this.isSocietyKimFail = true;
         }
     };
     ReportComponent = tslib_1.__decorate([

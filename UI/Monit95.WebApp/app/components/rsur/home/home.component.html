@@ -2,15 +2,23 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
+    <div *ngIf="false" class="list-container">
+        <h3 class="list-header">Диагностика преподавателей начальных классов (ЧИКПРО)</h3>
+
+        <a class="list-item-link" href="/file/rsur/chikpro/ОКР.rar" download="Окружающий мир.rar">
+            <h4 style="font-weight:bold">Окружающий мир</h4>
+        </a>
+
+        <a class="list-item-link" href="/file/rsur/chikpro/РУ.rar" download="Русский язык.rar">
+            <h4 style="font-weight:bold">Русский язык</h4>
+        </a>
+    </div>
+
     <div *ngIf="isArea()" class="list-container">
         <h3 class="list-header">Диагностика «Февраль-2019»</h3>
         <div>
             <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/02-19_ис_распределение_{{account.UserName}}.xlsx" download="История. Распределение.xlsx">
                 <h4 style="font-weight:bold">История: распределение</h4>
-            </a>
-
-            <a class="list-item-link" href="/file/rsur/022019/keys/КЛ-ГЕ.rar" download="География. Ключи.rar">
-                <h4>География: Ключи</h4>
             </a>
 
             <a class="list-item-link" href="/file/rsur/022019/keys/КЛ-ИС.rar" download="История. Ключи.rar">
@@ -31,12 +39,12 @@
     <div *ngIf="!isAdmin()" class="list-container">
         <h3 class="list-header">Алгоритм работы с первым блоком</h3>
 
-        <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/РУ-3.rar" download="Русский язык 3 неделя.rar">
-            <h4 style="font-weight:bold">Русский язык: 3-я неделя</h4>
+        <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/РУ-4.rar" download="Русский язык 4 неделя.rar">
+            <h4 style="font-weight:bold">Русский язык: 4-я неделя</h4>
         </a>
 
-        <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/МА-3.rar" download="Математика 3 неделя.rar">
-            <h4 style="font-weight:bold">Математика: 3-я неделя</h4>
+        <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/МА-4.rar" download="Математика 4 неделя.rar">
+            <h4 style="font-weight:bold">Математика: 4-я неделя</h4>
         </a>
 
         <app-excel-upload *ngIf="isArea()"

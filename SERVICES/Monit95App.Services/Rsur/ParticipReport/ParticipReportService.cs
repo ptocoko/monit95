@@ -142,8 +142,11 @@ namespace Monit95App.Services.Rsur.ParticipReport
                 ExamNames = entities.Select(s => new ExamDto
                 {
                     Name = s.RsurParticipTest.RsurTest.ExamName.Trim(),
-                    Code = s.RsurParticipTest.RsurTest.ExamCode.Trim()
-                }).Distinct()
+                    Code = s.RsurParticipTest.RsurTest.ExamCode.Trim(),
+                    Date = s.RsurParticipTest.RsurTest.RsurExamName.Date
+                })
+                .Distinct()
+                .OrderBy(ob => ob.Date)
             };
 
             return serviceResult;

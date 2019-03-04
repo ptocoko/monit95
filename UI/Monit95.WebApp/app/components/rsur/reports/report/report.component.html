@@ -71,10 +71,6 @@
             В связи с тем, что в вариантах КИМ в 15, 16 и 17 заданиях присутствовала неточность масштабирования изображения карты, эти задания не были учтены при вычислении статуса сдачи блока
         </div>
 
-        <div class="alert alert-danger" *ngIf="isSocietyKimFail">
-            В связи с тем, что в вариантах КИМ в 5 и 11 заданиях присутствовала ошибка, эти задания не были учтены при вычислении статуса сдачи блока
-        </div>
-
         <br />
         <table border="1" class="report-table" *ngIf="reportData">
             <tr>
@@ -112,7 +108,7 @@
                     <span *ngFor="let rsurNumber of result.RsurQuestionNumbers.split(';')">{{rsurNumber}}<br /></span>
                 </td>
                 <td>{{result.ElementNames}}</td>
-                <td class="cell-center {{getGradeColor(result.Value)}}">{{result.Value}}%</td>
+                <td class="cell-center {{getGradeColor(result.Value, result.RsurQuestionNumbers.split(';').length)}}">{{result.Value}}%</td>
             </tr>
 
         </table>

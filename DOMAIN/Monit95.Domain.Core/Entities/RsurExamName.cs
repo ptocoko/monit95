@@ -13,6 +13,7 @@ namespace Monit95App.Domain.Core.Entities
         public string Code { get; set; }
         public string Name { get; set; }
         public bool IsGeneralRsur { get; set; }
+        public DateTime Date { get; set; }
 
         public virtual ICollection<RsurTest> RsurTests { get; set; } = new HashSet<RsurTest>();
     }
