@@ -1,4 +1,6 @@
-﻿<div class="table-container mat-elevation-z8" [hidden]="particips.length === 0">
+﻿<h2>«{{ projectName }}»: список участников</h2>
+
+<div class="table-container mat-elevation-z8" [hidden]="particips.length === 0">
     <div class="actions-container">
         <mat-form-field class="filter-field">
             <input matInput
@@ -14,11 +16,6 @@
                 Добавить участника...
             </button>
         </div>
-        <!--<button class="btn btn-default" routerLink="/class-particips/upload-excel">
-        <i class="fa fa-file-excel-o fa-lg"></i>
-            Добавить список учеников из .xlsx...
-    </button>-->
-        <!--<button class="btn btn-primary" routerLink="/class-particips/marks">Перейти к заполнению оценок</button>-->
     </div>
 
 
@@ -43,15 +40,15 @@
             <mat-cell *matCellDef="let particip">{{ particip.SecondName }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="DocumNumber">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> номер документа </mat-header-cell>
-            <mat-cell *matCellDef="let particip">{{ particip.DocumNumber }}</mat-cell>
+        <ng-container matColumnDef="ClassName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> класс </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.ClassName }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="SourceName">
-            <mat-header-cell *matHeaderCellDef> источник </mat-header-cell>
-            <mat-cell *matCellDef="let particip">{{ particip.DataSource }}</mat-cell>
-        </ng-container>
+        <!--<ng-container matColumnDef="DocumNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> номер документа </mat-header-cell>
+        <mat-cell *matCellDef="let particip">{{ particip.DocumNumber }}</mat-cell>
+    </ng-container>-->
 
         <ng-container matColumnDef="del-action">
             <mat-header-cell *matHeaderCellDef> удалить </mat-header-cell>
@@ -71,6 +68,7 @@
                    [pageSizeOptions]="['50', '100']">
     </mat-paginator>
 </div>
+
 <p class="alert alert-info text-center" *ngIf="particips.length === 0">
     <span>Данные об участниках отсутсвуют</span>
     <button mat-raised-button

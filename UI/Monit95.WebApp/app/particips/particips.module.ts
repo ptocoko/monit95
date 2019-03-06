@@ -25,23 +25,23 @@ import { ReportComponent } from './reports/report/report.component';
 
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
-	//{ path: 'particips/list', component: ParticipsListComponent },
-	//{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 18, projectName: 'ЕГЭ' } },
-	{ path: 'particips/protocols/:id', component: ProtocolsComponent },
-	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
-	{ path: 'particips/reports/:projectId', component: ReportsListComponent },
-	{ path: 'particips/report/:participTestId', component: ReportComponent },
+	{ path: 'particips/list', component: ParticipsListComponent }, //, data: { projectId: 18, projectName: 'Я сдам EГЭ!' } },
+	{ path: 'particips/new', component: AddParticipComponent } //, data: { projectId: 18, projectName: 'Я сдам EГЭ!' } },
+	//{ path: 'particips/protocols/:id', component: ProtocolsComponent },
+	//{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
+	//{ path: 'particips/reports/:projectId', component: ReportsListComponent },
+	//{ path: 'particips/report/:participTestId', component: ReportComponent },
 
-	{ path: 'particips/oge/home', component: OgeHomeComponent },
-	{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
-	{ path: 'particips/oge/list', component: OgeParticipsListComponent},
-	{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 19, projectName: 'ОГЭ' } },
+	//{ path: 'particips/oge/home', component: OgeHomeComponent },
+	//{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
+	//{ path: 'particips/oge/list', component: OgeParticipsListComponent},
+	//{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 19, projectName: 'Я сдам ОГЭ!' } },
 
-	{ path: 'particips/society', component: SocietyHomeComponent },
-	{ path: 'particips/society/list', component: SocietyParticipsListComponent },
-	{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 20, projectName: 'Обществознание' } },
+	//{ path: 'particips/society', component: SocietyHomeComponent },
+	//{ path: 'particips/society/list', component: SocietyParticipsListComponent },
+	//{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 20, projectName: 'Обществознание' } },
 
-	{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
+	//{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
 	{ path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ]
 

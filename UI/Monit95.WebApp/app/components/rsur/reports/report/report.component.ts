@@ -27,7 +27,7 @@ export class ReportComponent implements OnInit {
 		});
 	}
 
-	getGradeColor(grade100: number, rsurQuestionsCount: number) {
+	getGradeColor(grade100: number, rsurQuestionsCount: number): GradeLevel {
 		//if (["0104", "0801"].indexOf(this.reportData.TestNumberCode) > -1 && this.reportData.RsurTestId > 2141 && this.reportData.RsurTestId < 3180) {
 		//	return grade100 < 50 ? 'low-grade' : grade100 < 80 ? 'medium-grade' : 'high-grade';
 		//} else if (this.reportData.RsurTestId === 2152 || this.reportData.RsurTestId === 2155) {
@@ -41,6 +41,18 @@ export class ReportComponent implements OnInit {
 		//		return 'high-grade';
 		//	}
 		//}
+		if (this.reportData.TestNumberCode.substr(0, 2) === "03") {
+			if (grade100 > 79) {
+				return 'high-grade';
+			}
+
+			if (this.reportData.Grade5 === 5) {
+				return 'medium-grade';
+			} else {
+				return 'low-grade';
+			}
+		}
+
 		const midPercent = rsurQuestionsCount <= 2 ? 50 : 60;
 		const highPercent = this.reportData.RsurTestId === 3185 ? 80 : 81;
 
@@ -63,3 +75,5 @@ export class ReportComponent implements OnInit {
 		}
 	}
 }
+
+type GradeLevel = 'low-grade' | 'medium-grade' | 'high-grade';

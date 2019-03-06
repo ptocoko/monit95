@@ -352,6 +352,7 @@
     <Compile Include="RESTful_API\MarksFileController.cs" />
     <Compile Include="RESTful_API\OneTwoThree\ParticipsController.cs" />
     <Compile Include="RESTful_API\OneTwoThree\OneTwoThreeProtocolsController.cs" />
+    <Compile Include="RESTful_API\ParticipsController.cs" />
     <Compile Include="RESTful_API\ResultReportController.cs" />
     <Compile Include="RESTful_API\FilesController.cs" />
     <Compile Include="RESTful_API\Rsur\QuestionValuesController.cs" />
@@ -412,6 +413,10 @@
     <Content Include="app\components\first-class\protocols\list\protocols-list.component.html" />
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.css" />
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.html" />
+    <Content Include="app\components\particips\add\add.component.css" />
+    <Content Include="app\components\particips\add\add.component.html" />
+    <Content Include="app\components\particips\list\list.component.css" />
+    <Content Include="app\components\particips\list\list.component.html" />
     <Content Include="app\components\rsur\actualization\firing\list\firing-list.component.css" />
     <Content Include="app\components\rsur\actualization\firing\list\firing-list.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\add\add-particip.component.css" />
@@ -667,6 +672,9 @@
     <TypeScriptCompile Include="app\components\first-class\particips\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\list\protocols-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\protocol\protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\particips\add\add.component.ts" />
+    <TypeScriptCompile Include="app\components\particips\list\list.component.ts" />
+    <TypeScriptCompile Include="app\components\particips\particips.module.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\firing\list\firing-list.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\add\add-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\hire-particip.component.ts" />
@@ -769,6 +777,7 @@
     <TypeScriptCompile Include="app\pipes\rsur-report-filter.pipe.ts" />
     <TypeScriptCompile Include="app\components\rsur\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\models\rsur-report.model.ts" />
+    <TypeScriptCompile Include="app\services\refactored\particips.service.ts" />
     <TypeScriptCompile Include="app\services\rsur-protocols.service.ts" />
     <TypeScriptCompile Include="app\services\school-file.service.ts" />
     <TypeScriptCompile Include="app\services\rsur-rating.service.ts" />

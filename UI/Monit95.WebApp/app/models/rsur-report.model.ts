@@ -14,6 +14,7 @@ export class RsurReportModel {
 	TestName: string;
 	TestNumberCode: string;
 	TestStatus: string;
+	Grade5: number;
 	RsurTestId: number;
 	TestDate?: string;	
 	ExamName: string;

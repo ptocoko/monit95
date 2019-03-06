@@ -59,6 +59,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
             serviceResult.Result.ParticipCode = entity.RsurParticipTest.RsurParticipCode;
             serviceResult.Result.TestStatus = entity.Grade5 == 2 ? "НЕЗАЧЕТ" : "ЗАЧЕТ";
+            serviceResult.Result.Grade5 = entity.Grade5;
             serviceResult.Result.TestDateString = entity.RsurParticipTest.RsurTest.TestDate.ToShortDateString();
             serviceResult.Result.TestName = $"{entity.RsurParticipTest.RsurTest.Test.NumberCode} — {entity.RsurParticipTest.RsurTest.Test.Name}";
             serviceResult.Result.TestNumberCode = entity.RsurParticipTest.RsurTest.Test.NumberCode;

@@ -36,6 +36,17 @@ var ReportComponent = /** @class */ (function () {
         //		return 'high-grade';
         //	}
         //}
+        if (this.reportData.TestNumberCode.substr(0, 2) === "03") {
+            if (grade100 > 79) {
+                return 'high-grade';
+            }
+            if (this.reportData.Grade5 === 5) {
+                return 'medium-grade';
+            }
+            else {
+                return 'low-grade';
+            }
+        }
         var midPercent = rsurQuestionsCount <= 2 ? 50 : 60;
         var highPercent = this.reportData.RsurTestId === 3185 ? 80 : 81;
         if (grade100 < midPercent) {

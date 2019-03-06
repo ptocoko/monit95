@@ -14,7 +14,7 @@
         </a>
     </div>
 
-    <div *ngIf="isArea()" class="list-container">
+    <div *ngIf="isArea() && false" class="list-container">
         <h3 class="list-header">Диагностика «Февраль-2019»</h3>
         <div>
             <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/02-19_ис_распределение_{{account.UserName}}.xlsx" download="История. Распределение.xlsx">
@@ -97,6 +97,24 @@
                           [collectorId]="24"
                           [collectorFor]="'area'"
                           [caption]="'Заполненный отчет по Математике - 3-я неделя'"
+                          [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                          [downloadExt]="'xlsx'">
+        </app-excel-upload>
+
+        <app-excel-upload *ngIf="isArea()"
+                          [fileNamePrefix]="'4_РУ'"
+                          [collectorId]="17"
+                          [collectorFor]="'area'"
+                          [caption]="'Заполненный отчет по Русскому языку - 4-я неделя'"
+                          [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                          [downloadExt]="'xlsx'">
+        </app-excel-upload>
+
+        <app-excel-upload *ngIf="isArea()"
+                          [fileNamePrefix]="'4_МА'"
+                          [collectorId]="25"
+                          [collectorFor]="'area'"
+                          [caption]="'Заполненный отчет по Математике - 4-я неделя'"
                           [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
                           [downloadExt]="'xlsx'">
         </app-excel-upload>
