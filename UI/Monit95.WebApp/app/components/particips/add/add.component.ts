@@ -38,8 +38,8 @@ export class AddComponent {
 		private readonly route: ActivatedRoute) { }
 
 	ngOnInit() {
-		this.projectId = this.route.snapshot.data['projectId'];
-		this.projectName = this.route.snapshot.data['projectName'];
+		this.projectId = this.route.snapshot.queryParams['projectId'];
+		this.projectName = this.route.snapshot.queryParams['projectName'];
 
 		this.availableClasses = CLASSES;
 	}

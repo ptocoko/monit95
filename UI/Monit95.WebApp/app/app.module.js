@@ -68,6 +68,8 @@ var error_handler_1 = require("./error-handler");
 var material_1 = require("@angular/material");
 var russian_paginator_provider_1 = require("./shared/russian-paginator.provider");
 var custom_route_reuse_strategy_1 = require("./custom-route-reuse-strategy");
+var particips_module_2 = require("./components/particips/particips.module");
+var _9_11_classes_module_1 = require("./components/9-11_classes/9-11_classes.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -85,6 +87,8 @@ var AppModule = /** @class */ (function () {
                 shared_module_1.SharedModule,
                 material_module_1.MaterialModule,
                 particips_module_1.ParticipsModule,
+                particips_module_2.ParticipsModule2,
+                _9_11_classes_module_1.DamnClassesModule,
                 one_two_three_module_1.OneTwoThreeModule,
                 first_class_module_1.FirstClassModule,
                 //TwoThreeModule,

@@ -49,7 +49,9 @@ namespace Monit95App.Services.ItakeEge.Participant
             }
         }
 
-        [Required]
+        [StringLength(4)]
+        public string ClassId { get; set; }
+        
         public string DocumNumber { get; set; }        
     }
 }

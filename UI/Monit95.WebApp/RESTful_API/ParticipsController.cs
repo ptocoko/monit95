@@ -9,19 +9,25 @@ using System.Web.Http;
 
 namespace Monit95.WebApp.RESTful_API
 {
-    [Authorize(Roles = "school"), RoutePrefix("api/particips")]
-    public class ParticipsController : ApiController
+    [RoutePrefix("api/particips2")]
+    public class Particips2Controller : ApiController
     {
         private readonly IParticipService participService;
 
-        public ParticipsController(IParticipService participService)
+        public Particips2Controller(IParticipService participService)
         {
             this.participService = participService;
         }
 
-        [HttpGet, Route("{projectId:int}")]
+        [HttpGet]
+        [Route("{projectId:int}")]
         public IHttpActionResult GetAll([FromUri] int projectId)
         {
+            if (projectId == 23 && !User.IsInRole("9-11_classes"))
+            {
+                return BadRequest("Not allowed for current user");
+            }
+
             var schoolId = User.Identity.Name;
             var dtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
             return Ok(dtos);
@@ -39,6 +45,11 @@ namespace Monit95.WebApp.RESTful_API
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            if (projectId == 23 && !User.IsInRole("9-11_classes"))
+            {
+                return BadRequest("Not allowed for current user");
+            }
 
             var schoolId = User.Identity.Name;
             const string dataSource = "school";

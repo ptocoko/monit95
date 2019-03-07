@@ -75,6 +75,7 @@ namespace Monit95App.Services.ItakeEge.Participant
                 Surname = dto.Surname,                
                 Name = dto.Name,                
                 DocumNumber = dto.DocumNumber,
+                ClassId = dto.ClassId,
                 SchoolId = schoolId,
                 DataSource = dataSource                
             };
@@ -82,10 +83,10 @@ namespace Monit95App.Services.ItakeEge.Participant
                 newParticip.SecondName = dto.SecondName; 
             
 
-            foreach (var projectTestId in cokoContext.ProjectTests.Where(p => p.ProjectId == projectId).Select(s => s.Id))
-            {
-                newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = projectTestId });
-            }
+            //foreach (var projectTestId in cokoContext.ProjectTests.Where(p => p.ProjectId == projectId).Select(s => s.Id))
+            //{
+            //    newParticip.ParticipTests.Add(new ParticipTest { ProjectTestId = projectTestId });
+            //}
 
             // Try add new participant entity in database
             cokoContext.Particips.Add(newParticip);

@@ -403,6 +403,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="api.txt" />
+    <Content Include="app\components\9-11_classes\home\home.component.html" />
     <Content Include="app\components\app\app.component.html" />
     <Content Include="app\components\first-class\home\home.component.html" />
     <Content Include="app\components\first-class\particips\add-or-update\add-or-update.component.css" />
@@ -666,6 +667,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\components\9-11_classes\9-11_classes.module.ts" />
+    <TypeScriptCompile Include="app\components\9-11_classes\home\home.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\home\home.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\first-class.module.ts" />
     <TypeScriptCompile Include="app\components\first-class\particips\add-or-update\add-or-update.component.ts" />

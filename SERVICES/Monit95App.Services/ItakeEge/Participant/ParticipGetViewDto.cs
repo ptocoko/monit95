@@ -15,6 +15,10 @@
 
         public string SchoolName { get; set; }
 
+        public string ClassName { get; set; }
+
+        public string ClassId { get; set; }
+
         public string DocumNumber { get; set; }
        
         public string DataSource { get; set; }

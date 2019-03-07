@@ -5,7 +5,7 @@ import { ParticipModel } from '../../models/particip.model';
 
 @Injectable()
 export class ParticipsService {
-	endpoint = '/api/particips';
+	endpoint = '/api/particips2';
 
 	constructor(private http: HttpClient) { }
 

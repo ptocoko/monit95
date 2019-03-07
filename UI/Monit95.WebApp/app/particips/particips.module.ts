@@ -26,11 +26,11 @@ import { ReportComponent } from './reports/report/report.component';
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
 	{ path: 'particips/list', component: ParticipsListComponent }, //, data: { projectId: 18, projectName: 'Я сдам EГЭ!' } },
-	{ path: 'particips/new', component: AddParticipComponent } //, data: { projectId: 18, projectName: 'Я сдам EГЭ!' } },
+	{ path: 'particips/new', component: AddParticipComponent }, //, data: { projectId: 18, projectName: 'Я сдам EГЭ!' } },
 	//{ path: 'particips/protocols/:id', component: ProtocolsComponent },
 	//{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
-	//{ path: 'particips/reports/:projectId', component: ReportsListComponent },
-	//{ path: 'particips/report/:participTestId', component: ReportComponent },
+	{ path: 'particips/reports/:projectId', component: ReportsListComponent },
+	{ path: 'particips/report/:participTestId', component: ReportComponent },
 
 	//{ path: 'particips/oge/home', component: OgeHomeComponent },
 	//{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },

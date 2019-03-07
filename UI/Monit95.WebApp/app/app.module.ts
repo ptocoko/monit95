@@ -73,6 +73,8 @@ import { GlobalErrorHandler } from './error-handler';
 import { MatPaginatorIntl } from '@angular/material';
 import { RussianMatPaginator } from './shared/russian-paginator.provider';
 import { CustomReuseStrategy } from './custom-route-reuse-strategy';
+import { ParticipsModule2 } from './components/particips/particips.module';
+import { DamnClassesModule } from './components/9-11_classes/9-11_classes.module';
 
 @NgModule({
     imports: [
@@ -87,6 +89,8 @@ import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 		SharedModule,
 		MaterialModule,
 		ParticipsModule,
+		ParticipsModule2,
+		DamnClassesModule,
 		OneTwoThreeModule,
 		FirstClassModule,
 		//TwoThreeModule,

@@ -28,12 +28,16 @@ export class ListComponent {
 		private readonly participsService: ParticipsService) { }
 
 	ngAfterViewInit() {
-		this.projectId = this.route.snapshot.data['projectId'];
-		this.projectName = this.route.snapshot.data['projectName'];
+		this.projectId = this.route.snapshot.queryParams['projectId'];
+
+		//this.route.queryParams.subscribe(queryParams => {
+		//	this.projectName = queryParams['projectName'];
+		//});
 
 		this.participsService.getAll(this.projectId).subscribe(particips => {
 			this.dataSource = new MatTableDataSource<ParticipModel>(particips);
 			this.particips = particips;
+			this.projectName = this.route.snapshot.queryParams['projectName'];
 		});
 
 		this.dataSource.sort = this.sort;
@@ -41,7 +45,7 @@ export class ListComponent {
 	}
 
 	addClassParticip() {
-		this.router.navigate(['/particips2/new', { 'projectId': this.projectId, 'projectName': this.projectName }]);
+		this.router.navigate(['/particips2/new'], { queryParams: { 'projectId': this.projectId, 'projectName': this.projectName } });
 	}
 
 	applyFilter(filterValue: string) {
@@ -58,7 +62,7 @@ export class ListComponent {
 		const modalRef = this.modal.open(ConfirmDialogComponent, {
 			width: '400px',
 			disableClose: true,
-			data: { message: `Вместе с участником будут удалены все его результаты! Продолжить удаление?` }
+			data: { message: `Вы уверены что хотите удалить данного участника?` }
 		});
 
 		modalRef.afterClosed().subscribe((isDelete: boolean) => {
