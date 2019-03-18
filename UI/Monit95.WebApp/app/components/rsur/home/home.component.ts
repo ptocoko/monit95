@@ -4,7 +4,8 @@ import { AccountModel } from '../../../models/account.model';
 import { RsurProtocolsService } from '../../../services/rsur-protocols.service';
 
 @Component({    
-    templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`
+	templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`,
+	styleUrls: [`./app/components/rsur/home/home.component.css?v=${new Date().getTime()}`]
 })
 export class HomeComponent implements OnInit {
     account = new AccountModel(); 

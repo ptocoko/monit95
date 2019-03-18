@@ -429,6 +429,7 @@
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.css" />
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\new-particip\new-particip.component.html" />
+    <Content Include="app\components\rsur\home\home.component.css" />
     <Content Include="app\components\two-three-2\home\home.component.css" />
     <Content Include="app\components\two-three-2\home\home.component.html" />
     <Content Include="app\components\two-three\excel-uploader\uploader.component.css" />

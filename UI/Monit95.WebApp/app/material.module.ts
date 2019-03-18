@@ -18,7 +18,9 @@ import {
 	MatSnackBarModule,
 	MatCheckboxModule,
 	MatRadioModule,
-	MatIconModule
+	MatIconModule,
+	MatExpansionModule,
+	MatListModule
 } from '@angular/material';
 import { A11yModule } from '@angular/cdk/a11y';
 
@@ -42,7 +44,9 @@ import { A11yModule } from '@angular/cdk/a11y';
 		MatCheckboxModule,
 		MatIconModule,
 		MatRadioModule,
-		A11yModule
+		A11yModule,
+		MatExpansionModule,
+		MatListModule
     ],
     exports: [
         MatButtonModule,
@@ -63,7 +67,9 @@ import { A11yModule } from '@angular/cdk/a11y';
 		MatCheckboxModule,
 		MatIconModule,
 		MatRadioModule,
-		A11yModule
+		A11yModule,
+		MatExpansionModule,
+		MatListModule
     ]  
 })
 export class MaterialModule { }

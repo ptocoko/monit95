@@ -23,11 +23,6 @@ namespace Monit95.WebApp.RESTful_API
         [Route("{projectId:int}")]
         public IHttpActionResult GetAll([FromUri] int projectId)
         {
-            if (projectId == 23 && !User.IsInRole("9-11_classes"))
-            {
-                return BadRequest("Not allowed for current user");
-            }
-
             var schoolId = User.Identity.Name;
             var dtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
             return Ok(dtos);
@@ -45,11 +40,6 @@ namespace Monit95.WebApp.RESTful_API
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            if (projectId == 23 && !User.IsInRole("9-11_classes"))
-            {
-                return BadRequest("Not allowed for current user");
-            }
 
             var schoolId = User.Identity.Name;
             const string dataSource = "school";

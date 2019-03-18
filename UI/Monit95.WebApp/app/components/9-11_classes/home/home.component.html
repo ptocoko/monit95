@@ -1,8 +1,83 @@
 ﻿<h2>Исследование в 9-х и 11-х классах: Главное меню</h2>
 
-<div class="list-container">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Общее</h3>
     <a class="list-item-link" [routerLink]="['/particips2/list']" [queryParams]="{ projectId: 23, projectName: 'Исследование в 9-х и 11-х классах' }">
         <h4 style="font-weight:bold">Список участников</h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="timeIsCome1">
+    <h3 class="list-header">Физика</h3>
+
+    <a class="list-item-link" download="9кл КИМ ФИЗ.rar" href="/file/9-11_classes/tasks/9_ФИ.rar">
+        <h4>9-й класс: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл КИМ ФИЗ.rar" href="/file/9-11_classes/tasks/11_ФИ.rar">
+        <h4>11-й класс: Варианты работ</h4>
+    </a>
+
+    <a *ngIf="timeIsCome2" class="list-item-link" download="9кл Ключи ФИЗ.rar" href="/file/9-11_classes/keys/9_КЛ_ФИ.rar">
+        <h4 style="font-weight:bold">9-й класс: Ключи для проверки работ</h4>
+    </a>
+    <a *ngIf="timeIsCome2" class="list-item-link" download="11кл Ключи ФИЗ.rar" href="/file/9-11_classes/keys/11_КЛ_ФИ.rar">
+        <h4 style="font-weight:bold">11-й класс: Ключи для проверки работ</h4>
+    </a>
+
+    <a *ngIf="timeIsCome2" class="list-item-link" routerLink="/particips/protocols/3055">
+        <h4 style="font-weight:bold">9-й класс: Протоколы проверки заданий</h4>
+    </a>
+    <a *ngIf="timeIsCome2" class="list-item-link" routerLink="/particips/protocols/3057">
+        <h4 style="font-weight:bold">11-й класс: Протоколы проверки заданий</h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">География</h3>
+
+    <a class="list-item-link" download="9кл КИМ ГЕО.rar" href="/file/9-11_classes/tasks/9_ГЕ.rar">
+        <h4>9-й класс: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл КИМ ГЕО.rar" href="/file/9-11_classes/tasks/11_ГЕ.rar">
+        <h4>11-й класс: Варианты работ</h4>
+    </a>
+
+    <a class="list-item-link" download="9кл Ключи ГЕО.rar" href="/file/9-11_classes/keys/9_КЛ_ГЕ.rar">
+        <h4 style="font-weight:bold">9-й класс: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл Ключи ГЕО.rar" href="/file/9-11_classes/keys/11_КЛ_ГЕ.rar">
+        <h4 style="font-weight:bold">11-й класс: Ключи для проверки работ</h4>
+    </a>
+
+    <a class="list-item-link" routerLink="/particips/protocols/3054">
+        <h4 style="font-weight:bold">9-й класс: Протоколы проверки заданий</h4>
+    </a>
+    <a class="list-item-link" routerLink="/particips/protocols/3053">
+        <h4 style="font-weight:bold">11-й класс: Протоколы проверки заданий</h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Обществознание</h3>
+
+    <a class="list-item-link" download="9кл КИМ.rar" href="/file/9-11_classes/tasks/9_ОБ.rar">
+        <h4>9-й класс: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл КИМ.rar" href="/file/9-11_classes/tasks/11_ОБ.rar">
+        <h4>11-й класс: Варианты работ</h4>
+    </a>
+
+    <a class="list-item-link" download="9кл Ключи.rar" href="/file/9-11_classes/keys/9_КЛ_ОБ.rar">
+        <h4 style="font-weight:bold">9-й класс: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл Ключи.rar" href="/file/9-11_classes/keys/11_КЛ_ОБ.rar">
+        <h4 style="font-weight:bold">11-й класс: Ключи для проверки работ</h4>
+    </a>
+
+    <a class="list-item-link" routerLink="/particips/protocols/3051">
+        <h4 style="font-weight:bold">9-й класс: Протоколы проверки заданий</h4>
+    </a>
+    <a class="list-item-link" routerLink="/particips/protocols/3052">
+        <h4 style="font-weight:bold">11-й класс: Протоколы проверки заданий</h4>
     </a>
 </div>

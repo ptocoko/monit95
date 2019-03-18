@@ -29,7 +29,9 @@ var MaterialModule = /** @class */ (function () {
                 material_1.MatCheckboxModule,
                 material_1.MatIconModule,
                 material_1.MatRadioModule,
-                a11y_1.A11yModule
+                a11y_1.A11yModule,
+                material_1.MatExpansionModule,
+                material_1.MatListModule
             ],
             exports: [
                 material_1.MatButtonModule,
@@ -50,7 +52,9 @@ var MaterialModule = /** @class */ (function () {
                 material_1.MatCheckboxModule,
                 material_1.MatIconModule,
                 material_1.MatRadioModule,
-                a11y_1.A11yModule
+                a11y_1.A11yModule,
+                material_1.MatExpansionModule,
+                material_1.MatListModule
             ]
         })
     ], MaterialModule);
