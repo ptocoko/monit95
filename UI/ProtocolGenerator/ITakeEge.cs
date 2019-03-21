@@ -50,16 +50,14 @@ namespace ProtocolGenerator
             .AsNoTracking()
             .Where(p => p.ProjectTest.ProjectId == projectId && p.Particip.SchoolId != "0000" && p.Grade5.HasValue);// && p.Grade5 != -1);
 
-        public void SolveAndSaveGrade5AndPrimaryMark()
+        public void SolveAndSaveGrade5(int[] projectTestIds)
         {
             var participTests = context.ParticipTests
-                .Where(p => p.ProjectTestId == 2048 && !p.Grade5.HasValue && p.PrimaryMark.HasValue)
-                .Include(inc => inc.QuestionMarks)
+                .Where(p => projectTestIds.Contains(p.ProjectTestId) && !p.Grade5.HasValue && p.PrimaryMark.HasValue)
                 .Include(inc => inc.ProjectTest);
 
             foreach (var participTest in participTests)
             {
-                //participTest.PrimaryMark = participTest.QuestionMarks.Select(s => s.AwardedMark).Sum();
                 participTest.Grade5 = (int?)participTest.PrimaryMark >= participTest.ProjectTest.PassPrimaryMark ? 5 : 2;
             }
 

@@ -5,6 +5,7 @@ using Monit95App.Domain.Interfaces;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
 using Monit95App.Services.Interfaces;
+using Monit95App.Services.ItakeEge.Report;
 using Monit95App.Services.OneTwoThree.QuestionProtocol;
 using ProtocolGenerator;
 using System;
@@ -25,9 +26,14 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             var context = new CokoContext();
-            var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template new ege.xlsx", context: context, projectId: 21);
+            var reporter = new ReportService(context);
+            //var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template new ege.xlsx", context: context, projectId: 21);
+
             //iTakeEge.SolveGrade5_v2();
-            iTakeEge.GenerateForAllSchools();
+            //iTakeEge.GenerateForAllSchools();
+            //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
+
+            var report = reporter.GetReport(758706);
             Console.WriteLine("All done!");
         }
 

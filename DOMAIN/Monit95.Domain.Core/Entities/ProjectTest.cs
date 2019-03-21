@@ -32,6 +32,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public int? PassPrimaryMark { get; set; }
 
+        public int? SubjectCode { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParticipTest> ParticipTests { get; set; }
 

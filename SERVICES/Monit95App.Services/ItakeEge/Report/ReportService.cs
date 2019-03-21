@@ -135,6 +135,7 @@ namespace Monit95App.Services.ItakeEge.Report
                 Name = entity.Particip.Name,
                 SecondName = entity.Particip.SecondName,
                 SchoolName = entity.Particip.School.Name.Trim(),
+                ClassName = entity.Particip.Class?.Name,
                 ProjectName = entity.ProjectTest.Project.Name,
                 ParticipTestId = entity.Id,
                 TestDateString = entity.ProjectTest.TestDate.ToString("dd.MM.yyyy"),
@@ -163,36 +164,72 @@ namespace Monit95App.Services.ItakeEge.Report
 
         private IEnumerable<ElementResultDto> GetElementResults(ParticipTest entity)
         {
-            var results = new List<ElementResultDto>();
-            var testSubjectCode = int.Parse(entity.ProjectTest.Test.NumberCode);
-            if(testSubjectCode == 22)
-            {
-                testSubjectCode = 2;
-            }
+            var egeElementQuestions = entity.QuestionMarks
+                .SelectMany(qm => qm.Question.EgeQuestion.EgeElementQuestions);
+            
+            var groupedEgeElementQuestions = egeElementQuestions
+                .GroupBy(eeq => new ElementHead { Name = eeq.Element.Name, Order = eeq.Element.Code }, new ElementHeadComparer());
 
-            var elements = context.Elements.Where(e => e.SubjectCode == testSubjectCode && e.EgeElementQuestions.Any());
-
-            foreach(var element in elements)
-            {
-                var elementResDto = new ElementResultDto
+            var results = groupedEgeElementQuestions
+                .AsEnumerable()
+                .Select(geeq => new ElementResultDto
                 {
-                    ElementNumber = element.Code,
-                    Name = element.Name
-                };
-
-                var egeQuestons = context.EgeElementQuestions.Where(eeq => eeq.ElementId == element.Id).Select(eeq => eeq.EgeQuestion).ToList();
-                elementResDto.QuestionNumbers = egeQuestons.Select(eq => eq.Order).OrderBy(ob => ob);
-
-                var egeQuestoinIds = egeQuestons.Select(eq => eq.Id);
-                var elementQuestionMarks = entity.QuestionMarks.Where(qm => egeQuestoinIds.Contains(qm.Question.EgeQuestionId)).ToList();
-                double awardedByElementValue = elementQuestionMarks.Select(qm => qm.AwardedMark).Sum();
-                double maxPossibleElementValue = elementQuestionMarks.Select(qm => qm.Question.MaxMark).Sum();
-                elementResDto.Value = Math.Round(awardedByElementValue * 100 / maxPossibleElementValue, MidpointRounding.AwayFromZero);
-
-                results.Add(elementResDto);
-            }
+                    ElementNumber = geeq.Key.Order,
+                    Name = geeq.Key.Name,
+                    QuestionNumbers = GetElementQuestionNumbers(entity, geeq.Select(eeq => eeq.EgeQuestionId)),
+                    Value = GetEgeElementValue(entity, geeq.Select(eeq => eeq.EgeQuestionId))
+                })
+                .OrderBy(ob => ob.ElementNumber);
 
             return results;
+        }
+
+        private IEnumerable<int> GetElementQuestionNumbers(ParticipTest participTest, IEnumerable<int> egeQuestionIds)
+        {
+            return participTest.QuestionMarks
+                .Where(qm => egeQuestionIds.Contains(qm.Question.EgeQuestionId))
+                .Select(qm => qm.Question.Order)
+                .OrderBy(ob => ob);
+        }
+
+        private double GetEgeElementValue(ParticipTest participTest, IEnumerable<int> egeQuestionIds)
+        {
+            var awardedSum = participTest.QuestionMarks
+                .Where(qm => egeQuestionIds.Contains(qm.Question.EgeQuestionId))
+                .Select(qm => qm.AwardedMark)
+                .Sum();
+
+            var maxMarkSum = (double)participTest.QuestionMarks
+                .Where(qm => egeQuestionIds.Contains(qm.Question.EgeQuestionId))
+                .Select(qm => qm.Question.MaxMark)
+                .Sum();
+
+            return Math.Round(awardedSum * 100 / maxMarkSum, MidpointRounding.AwayFromZero);
+        }
+    }
+
+    internal class ElementHead
+    {
+        public string Name { get; set; }
+        public string Order { get; set; }
+    }
+
+    internal class ElementHeadComparer : IEqualityComparer<ElementHead>
+    {
+        public bool Equals(ElementHead x, ElementHead y)
+        {
+            if (x == null && y == null)
+                return true;
+            else if (x == null || y == null)
+                return false;
+            else
+                return x.Name == y.Name && x.Order == y.Order;
+        }
+
+        public int GetHashCode(ElementHead obj)
+        {
+            int hCode = obj.Name.GetHashCode() ^ obj.Order.GetHashCode();
+            return hCode.GetHashCode();
         }
     }
 }

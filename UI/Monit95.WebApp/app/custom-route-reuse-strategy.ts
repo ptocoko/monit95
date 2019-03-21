@@ -5,7 +5,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
 	handlers: { [key: string]: DetachedRouteHandle } = {};
 
 	shouldDetach(route: ActivatedRouteSnapshot): boolean {
-		return ['rsur/results-list'].indexOf(route.routeConfig.path) > -1
+		return ['rsur/results-list', 'particips/reports/:projectId'].indexOf(route.routeConfig.path) > -1
 	}
 	store(route: ActivatedRouteSnapshot, handle: {}): void {
 		this.handlers[route.routeConfig.path] = handle;

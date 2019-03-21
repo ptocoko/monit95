@@ -10,5 +10,7 @@
         
         /// <example>"Школа номер 1" || "0001 - Школа номер 1"</example>
         public string SchoolName { get; set; }
+
+        public string ClassName { get; set; }
     }
 }
