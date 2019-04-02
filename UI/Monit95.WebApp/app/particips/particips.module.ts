@@ -37,7 +37,7 @@ const routes: Routes = [
 	//{ path: 'particips/oge/list', component: OgeParticipsListComponent},
 	//{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 19, projectName: 'Я сдам ОГЭ!' } },
 
-	//{ path: 'particips/society', component: SocietyHomeComponent },
+	{ path: 'particips/society', component: SocietyHomeComponent },
 	//{ path: 'particips/society/list', component: SocietyParticipsListComponent },
 	//{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 20, projectName: 'Обществознание' } },
 

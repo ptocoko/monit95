@@ -29,6 +29,8 @@ namespace ParticipReporter
         public int Grade5 { get; set; }
         public short? FirstClassGrade5 { get; set; }
         public string FirstClassGradeStr { get; set; }
+        public string TestName { get; set; }
+        public int PrimaryMark { get; set; }
     }
 
     public class QuestionsDto

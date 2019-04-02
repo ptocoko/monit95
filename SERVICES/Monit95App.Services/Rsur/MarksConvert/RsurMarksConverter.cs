@@ -178,6 +178,11 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = marks.Sum() >= 23 ? 5 : 2;
             }
+            // Физика. Механические колебания. Волны. РСУР
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3191)
+            {
+                grade5 = marks.Sum() >= 25 ? 5 : 2;
+            }
             else if (new string[] { "0104", "0801" }.Contains(testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode) && testResultEntity.RsurParticipTest.RsurTestId < 3180)
             {
                 grade5 = GetGrade5ForTestsWithTwoQuestionsForOne(egeValues);

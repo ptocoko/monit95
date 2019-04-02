@@ -1,5 +1,6 @@
 ﻿using Ionic.Zip;
 using Monit95App.Infrastructure.Data;
+using ParticipReporter.Builders;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -61,7 +62,7 @@ namespace ParticipReporter
 
                 Parallel.ForEach(reportDtos, reportDto =>
                 {
-                    var htmlBuilder = new HtmlBuilder(reportDto);
+                    var htmlBuilder = new HtmlBuilder(reportDto, new OneTwoThreeBuilder());
                     var reportHtml = htmlBuilder.GetReport();
 
                     var pdfGenerator = new NReco.PdfGenerator.HtmlToPdfConverter();

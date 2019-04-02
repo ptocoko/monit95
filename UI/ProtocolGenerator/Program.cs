@@ -26,14 +26,17 @@ namespace OneTwoThreeReporter
         static void Main(string[] args)
         {
             var context = new CokoContext();
-            var reporter = new ReportService(context);
-            //var iTakeEge = new ITakeEge(destFolderPath: @"D:\Work", templateName: "template new ege.xlsx", context: context, projectId: 21);
+            //var reporter = new ReportService(context);
+            var iTakeEge = new ITakeEge(
+                context: context,
+                projectId: 23);
 
             //iTakeEge.SolveGrade5_v2();
-            //iTakeEge.GenerateForAllSchools();
+            iTakeEge.GenerateForAllSchools();
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
 
-            var report = reporter.GetReport(758706);
+            //var report = reporter.GetReport(758706);
+
             Console.WriteLine("All done!");
         }
 

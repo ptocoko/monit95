@@ -3,6 +3,7 @@ using Ionic.Zip;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services;
+using Monit95App.Services.ItakeEge.Report;
 using Monit95App.Services.TwoThree;
 using System;
 using System.Collections.Generic;
@@ -28,11 +29,10 @@ namespace ParticipReporter
         static void Main(string[] args)
         {
             context = new CokoContext();
-            twoThreeReporter = new Reporter(context);
-            twoThreeReporter.F0_IndividualResults();
+            var participReporter = new ReportService(context);
 
-            //CopyFiles();
-            //twoThreeReporter.F0_ParticipsResults();
+            var _9_11Classes = new _9_11Classes(context, participReporter);
+            _9_11Classes.GenerateCards();
 
             Console.WriteLine("End");
             #region oldCode

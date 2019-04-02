@@ -28,20 +28,8 @@ namespace ProtocolGenerator
             [2035] = "чтение"
         };
 
-        public ITakeEge(string destFolderPath, string templateName, CokoContext context, int projectId)
+        public ITakeEge(CokoContext context, int projectId)
         {
-            if (string.IsNullOrEmpty(destFolderPath))
-            {
-                throw new ArgumentException("message", nameof(destFolderPath));
-            }
-
-            if (string.IsNullOrEmpty(templateName))
-            {
-                throw new ArgumentException("message", nameof(templateName));
-            }
-
-            this.destFolderPath = destFolderPath;
-            this.templateName = templateName;
             this.context = context;
             this.projectId = projectId;
         }
@@ -102,7 +90,7 @@ namespace ProtocolGenerator
                 .OrderBy(ob => ob.SchoolId).ThenBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
                 .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
 
-            string reportFolder = $@"\\192.168.88.220\файлы_пто\Работы\[18] - «Я сдам ЕГЭ!»-осень 2018\отчеты\для координаторов";
+            string reportFolder = $@"\\192.168.88.220\файлы_пто\Работы\[23] - Диагностика в 9 и 11 классах\протоколы";
 
             foreach (var areaResult in groupedTestResults)
             {
@@ -287,8 +275,6 @@ namespace ProtocolGenerator
                 .OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
                 .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
 
-            string reportFolder = $@"{destFolderPath}\iTakeEge2";
-
             foreach (var schoolResult in groupedTestResults)
             {
                 //if (!Directory.Exists($@"{destFolderPath}\{schoolResult.Key.SchoolId}"))
@@ -298,7 +284,10 @@ namespace ProtocolGenerator
                 //    Directory.CreateDirectory($@"{reportFolder}\{schoolResult.Key.AreaName}");
                 //}
 
-                using (var excelTemplate = new XLWorkbook($@"{reportFolder}\{templateName}"))
+                string path = @"\\192.168.88.223\файлы_пто\Работы\[23] - Диагностика в 9 и 11 классах\Протоколы";
+                string tempPath = $@"{path}\templates\template school.xlsx";
+
+                using (var excelTemplate = new XLWorkbook(tempPath))
                 {
                     using (var sheet = excelTemplate.Worksheets.First())
                     {
@@ -309,26 +298,27 @@ namespace ProtocolGenerator
                             sheet.Cell(i + 4, 2).Value = result.Surname;
                             sheet.Cell(i + 4, 3).Value = result.Name;
                             sheet.Cell(i + 4, 4).Value = result.SecondName;
-                            sheet.Cell(i + 4, 5).Value = result.DocumNumber;
-                            sheet.Cell(i + 4, 6).Value = result.TestName;
+                            //sheet.Cell(i + 4, 5).Value = result.DocumNumber;
+                            sheet.Cell(i + 4, 5).Value = result.TestName;
+                            sheet.Cell(i + 4, 6).Value = result.ClassName;
                             //sheet.Cell(i + 4, 7).Value = result.Marks;
                             sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
-                            sheet.Cell(i + 4, 8).Value = result.RiskGroup;
-                            sheet.Cell(i + 4, 9).Value = result.GradeStr;
+                            //sheet.Cell(i + 4, 8).Value = result.RiskGroup;
+                            sheet.Cell(i + 4, 8).Value = result.GradeStr;
                             i++;
                         }
                         
-                        excelTemplate.SaveAs($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx");
+                        excelTemplate.SaveAs($@"{path}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}.xlsx");
                     }
                 }
 
-                using (var zip = new ZipFile())
-                {
-                    zip.AddFile($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx", "");
-                    zip.Save($@"{reportFolder}\{schoolResult.Key.SchoolId}.zip");
-                }
+                //using (var zip = new ZipFile())
+                //{
+                //    zip.AddFile($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx", "");
+                //    zip.Save($@"{reportFolder}\{schoolResult.Key.SchoolId}.zip");
+                //}
 
-                System.IO.File.Delete($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx");
+                //System.IO.File.Delete($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx");
             }
         }
 
@@ -342,6 +332,7 @@ namespace ProtocolGenerator
                 Surname = participTest.Particip.Surname,
                 Name = participTest.Particip.Name,
                 SecondName = participTest.Particip.SecondName,
+                ClassName = participTest.Particip.Class?.Name.Trim(),
                 DocumNumber = participTest.Particip.DocumNumber,
                 TestName = participTest.ProjectTest.Test.Name,
                 NumberCode = participTest.ProjectTest.Test.NumberCode,
@@ -426,6 +417,7 @@ namespace ProtocolGenerator
         public string Surname { get; set; }
         public string Name { get; set; }
         public string SecondName { get; set; }
+        public string ClassName { get; set; }
         public string DocumNumber { get; set; }
         public string TestName { get; set; }
         public string NumberCode { get; set; }

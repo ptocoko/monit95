@@ -77,8 +77,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HtmlBuilder.cs" />
+    <Compile Include="9-11Classes.cs" />
+    <Compile Include="Builders\9-11Builder.cs" />
+    <Compile Include="Builders\HtmlBuilder.cs" />
+    <Compile Include="Builders\OneTwoThreeBuilder.cs" />
     <Compile Include="HtmlProcessor.cs" />
+    <Compile Include="Builders\IHtmlBuilder.cs" />
     <Compile Include="OneTwoThree.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +110,10 @@
     <ProjectReference Include="..\..\SERVICES\Monit95App.Services\Monit95.Services.csproj">
       <Project>{5E38A333-C51E-4910-A650-440C8D7F0A94}</Project>
       <Name>Monit95.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SERVICES\ServiceResult\ServiceResult.csproj">
+      <Project>{C3455394-07AF-469D-A1DB-5B191DFFAD9F}</Project>
+      <Name>ServiceResult</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
