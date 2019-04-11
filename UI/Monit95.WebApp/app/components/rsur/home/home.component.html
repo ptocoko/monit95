@@ -2,7 +2,7 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="isArea()" class="list-container">
+    <div *ngIf="false" class="list-container">
         <h3 class="list-header">Диагностика «Обществознание»</h3>
         <div>
             <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/04-19_об_распределение_{{account.UserName}}.xlsx" download="Обществознание. Распределение.xlsx">
@@ -10,46 +10,31 @@
             </a>
 
             <a class="list-item-link" href="/file/rsur/042019/tasks/ОБЩ-1.rar" download="Человек и общество. Варианты работ.rar">
-                <h4 style="font-weight:bold">Человек и общество: Варианты работ</h4>
+                <h4>Человек и общество: Варианты работ</h4>
             </a>
 
             <a class="list-item-link" href="/file/rsur/042019/tasks/ОБЩ-2.rar" download="Экономика. Варианты работ.rar">
-                <h4 style="font-weight:bold">Экономика: Варианты работ</h4>
+                <h4>Экономика: Варианты работ</h4>
             </a>
 
             <a class="list-item-link" href="/file/rsur/042019/tasks/ОБЩ-4.rar" download="Политика. Варианты работ.rar">
-                <h4 style="font-weight:bold">Политика: Варианты работ</h4>
+                <h4>Политика: Варианты работ</h4>
+            </a>
+
+            <a class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-1.rar" download="Человек и общество. Ключи.rar">
+                <h4 style="font-weight:bold">Человек и общество: Ключи для проверки работ</h4>
+            </a>
+
+            <a class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-2.rar" download="Экономика. Ключи.rar">
+                <h4 style="font-weight:bold">Экономика: Ключи для проверки работ</h4>
+            </a>
+
+            <a class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-4.rar" download="Политика. Ключи.rar">
+                <h4 style="font-weight:bold">Политика: Ключи для проверки работ</h4>
             </a>
 
             <!--Протоколы-->
-            <div class="list-item" *ngIf="false">
-                <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                    <div>
-                        <h4><b>Протоколы проверки заданий</b></h4>
-                    </div>
-                    <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">Диагностика «Март-2019»</h3>
-        <div>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/03-19_фи_распределение_{{account.UserName}}.xlsx" download="Механические колебания и волны. Статика. Распределение.xlsx">
-                <h4>Механические колебания и волны. Статика: распределение</h4>
-            </a>
-
-            <a class="list-item-link" href="/file/rsur/032019/tasks/ФИ-3.rar" download="Механические колебания и волны. Статика. Варианты работ.rar">
-                <h4>Механические колебания и волны. Статика: Варианты работ</h4>
-            </a>
-
-            <a class="list-item-link" href="/file/rsur/032019/keys/КЛ-ФИ-3.rar" download="Механические колебания и волны. Статика. Ключи.rar">
-                <h4 style="font-weight:bold">Механические колебания и волны. Статика: Ключи для проверки работ</h4>
-            </a>
-
-            <!--Протоколы-->
-            <div class="list-item">
+            <div class="list-item" *ngIf="true">
                 <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                     <div>
                         <h4><b>Протоколы проверки заданий</b></h4>
@@ -153,6 +138,15 @@
                                       [collectorId]="20"
                                       [collectorFor]="'area'"
                                       [caption]="'Заполненный отчет по Русскому языку - 7-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
+
+                    <h3 mat-subheader>8-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'8_РУ'"
+                                      [collectorId]="21"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Русскому языку - 8-я неделя'"
                                       [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
                                       [downloadExt]="'xlsx'">
                     </app-excel-upload>
@@ -262,6 +256,15 @@
                                       [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
                                       [downloadExt]="'xlsx'">
                     </app-excel-upload>
+
+                    <h3 mat-subheader>8-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'8_МА'"
+                                      [collectorId]="29"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Математике - 8-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
                 </mat-list>
             </mat-expansion-panel>
         </mat-expansion-panel>
@@ -291,12 +294,12 @@
                 <h4 style="font-weight:bold">Алгоритм работы 1-й блок</h4>
             </a>
 
-            <a class="list-item-link" href="/file/rsur/1-block-algoritm/material/ИС-3.docx" download="Матетериал История Тема 3.docx" *ngIf="false">
-                <h4>Подводящий материал. Тема №3</h4>
+            <a class="list-item-link" href="/file/rsur/1-block-algoritm/material/ИС-5.docx" download="Матетериал История Тема 5.docx">
+                <h4>Подводящий материал. Тема №5</h4>
             </a>
 
-            <a class="list-item-link" *ngIf="isArea()" download="История 4я неделя промежуточная диагностика.rar" href="/file/rsur/1-block-algoritm/tasks/ИС-4.rar">
-                <h4 style="font-weight:bold">4-я неделя. Промежуточная диагностика</h4>
+            <a class="list-item-link" *ngIf="isArea()" download="История 5я тема.rar" href="/file/rsur/1-block-algoritm/tasks/ИС-5.rar">
+                <h4 style="font-weight:bold">5-я неделя. Промежуточная диагностика</h4>
             </a>
 
             <mat-expansion-panel *ngIf="isArea()" class="mat-elevation-z0">
@@ -336,6 +339,16 @@
                                       [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
                                       [downloadExt]="'xlsx'">
                     </app-excel-upload>
+
+
+                    <h3 mat-subheader>4-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'4_ИС'"
+                                      [collectorId]="33"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Истории - 4-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
                 </mat-list>
             </mat-expansion-panel>
 
@@ -366,12 +379,12 @@
                 <h4 style="font-weight:bold">Алгоритм работы для учителей географии 1-й блок</h4>
             </a>
 
-            <a class="list-item-link" href="/file/rsur/1-block-algoritm/material/ГЕ-3.docx" download="Матетериал по РСУР-География 3-я неделя.docx">
-                <h4 style="font-weight:bold">Подводящий материал. 3-я неделя</h4>
+            <a class="list-item-link" href="/file/rsur/1-block-algoritm/material/ГЕ-4.docx" download="Матетериал по РСУР-География 4-я неделя.docx">
+                <h4 style="font-weight:bold">Подводящий материал. 4-я неделя</h4>
             </a>
 
-            <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/ГЕ-3.rar" download="География 3 неделя.rar">
-                <h4 style="font-weight:bold">Задания по 3-й неделе</h4>
+            <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/ГЕ-4.rar" download="География 4 неделя.rar">
+                <h4 style="font-weight:bold">Задания по 4-й неделе</h4>
             </a>
 
             <mat-expansion-panel *ngIf="isArea()" class="mat-elevation-z0">
@@ -399,6 +412,15 @@
                                       [collectorId]="39"
                                       [collectorFor]="'area'"
                                       [caption]="'Заполненный отчет по Географии - 2-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
+
+                    <h3 mat-subheader>3-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'3_ГЕ'"
+                                      [collectorId]="40"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Географии - 3-я неделя'"
                                       [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
                                       [downloadExt]="'xlsx'">
                     </app-excel-upload>

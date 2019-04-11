@@ -37,6 +37,8 @@
                    placeholder="поиск участника"
                    [(ngModel)]="searchParticipText">
         </mat-form-field>
+
+        <button mat-raised-button (click)="clearFilter()" color="primary" class="mat-elevation-z2">Очистить фильтр</button>
     </div>
 
     <div *ngIf="isLoadingReports" class="loading-wrapper">

@@ -20,6 +20,10 @@ td{
     padding: 8px 24px 0;
 }
 
+.table-header > .mat-raised-button {
+    margin-left: 25px;
+}
+
 .loading-wrapper {
     position: absolute;
     top: 0;

@@ -7,19 +7,20 @@ import { downloadFile } from '../../utils/functions';
 	templateUrl: `./app/particips/home/home.component.html?v=${new Date().getTime()}`
 })
 export class HomeComponent {
-	timeIsCome = false;
+	date = new Date();
 
 	constructor(private account: AccountService, private cards: CardsService) { }
 
-	ngOnInit() {
-		const date = new Date();
-		this.timeIsCome = (date.getDate() === 7 && date.getHours() >= 8) || date.getDate() === 8;
-	}
+	ngOnInit() {}
 
 	downloadCards(projectId: number) {
 		this.cards.getForSchool(projectId).subscribe(cards => {
 			const url = window.URL.createObjectURL(cards);
 			downloadFile(url, 'результаты.zip');
 		});
+	}
+
+	setTimer(day: number, hours: number = 12): boolean {
+		return (this.date.getDate() === day && this.date.getHours() >= hours) || this.date.getDate() > day;
 	}
 }

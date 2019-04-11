@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { RsurReportService } from '../../../../services/rsur-report.service';
 import { AccountService } from '../../../../services/account.service';
@@ -13,6 +13,7 @@ import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 export const SCHOOLNAME_DEFAULT_SELECTION = 'все организации';
 export const TESTNAME_DEFAULT_SELECTION = 'все блоки';
@@ -23,9 +24,12 @@ export const EXAMNAME_DEFAULT_SELECTION = 'все диагностики';
 	templateUrl: `./app/components/rsur/reports/report-list/report-list.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/components/rsur/reports/report-list/report-list.component.css?v=${new Date().getTime()}`]
 })
-export class ReportListComponent {
+export class ReportListComponent implements AfterViewInit, OnDestroy {
 	reportsList: RsurReportModel[];
 	reportsInfo: ReportsInfo = {};
+
+	searchSub$: Subscription;
+	reportsSub$: Subscription;
 	
 	displayedColumns = ['number', 'code', 'surname', 'name', 'secondName', 'schoolName', 'examName', 'testStatus'];
 	dataSource = new MatTableDataSource();
@@ -39,39 +43,41 @@ export class ReportListComponent {
 	@ViewChild('searchField') searchField: ElementRef;
 	
 	selectionChange$ = new Subject<number>();
+	clearHook$ = new Subject<void>();
 
 	isLoadingReports: boolean = true;
 	reportsLength = 0;
     
-	constructor(private readonly rsurReportService: RsurReportService, 
+	constructor(private readonly rsurReportService: RsurReportService,
                 private readonly route: Router,
                 private readonly accountService: AccountService) {
     }
     
 	ngAfterViewInit() {
-		this.rsurReportService.getReportsInfo().subscribe(info => {
-			this.reportsInfo = info;
-
-			const search$ = fromEvent(this.searchField.nativeElement, 'input')
-				.pipe(
-					debounceTime(1000)
+		const search$ = fromEvent(this.searchField.nativeElement, 'input')
+			.pipe(
+				debounceTime(1000)
 			);
-			search$.subscribe(() => this.paginator.pageIndex = 0);
+		this.searchSub$ = search$.subscribe(() => this.paginator.pageIndex = 0);
 
-			merge(this.paginator.page, search$, this.selectionChange$)
-				.pipe(
-					startWith([]),
-					switchMap(() => {
-						this.isLoadingReports = true;
-						return this.createRequest();
-					}),
-					map((data: ReportsList) => {
-						this.isLoadingReports = false;
-						this.reportsLength = data.TotalCount;
-						return data.Items;
-					})
-				).subscribe((reports: RsurReportModel[]) => this.dataSource.data = reports);
-		});
+		this.reportsSub$ = this.rsurReportService.getReportsInfo()
+			.pipe(
+				switchMap(info => {
+					this.reportsInfo = info;
+					return merge(this.paginator.page, search$, this.selectionChange$, this.clearHook$)
+				}),
+				startWith([]),
+				switchMap(() => {
+					this.isLoadingReports = true;
+					return this.createRequest();
+				}),
+				map((data: ReportsList) => {
+					this.isLoadingReports = false;
+					this.reportsLength = data.TotalCount;
+					return data.Items;
+				})
+			)
+			.subscribe((reports: RsurReportModel[]) => this.dataSource.data = reports);
 	}
 	
 	private createRequest(): Observable<ReportsList> {
@@ -89,6 +95,15 @@ export class ReportListComponent {
 		);
 	}
 
+	clearFilter() {
+		this.selectedSchool = SCHOOLNAME_DEFAULT_SELECTION;
+		this.selectedTest = TESTNAME_DEFAULT_SELECTION;
+		this.selectedExamCode = EXAMNAME_DEFAULT_SELECTION;
+		this.searchParticipText = null;
+
+		this.clearHook$.next();
+	}
+
 	selectionChange() {
 		this.paginator.pageIndex = 0;
 		this.selectionChange$.next(1);
@@ -98,6 +113,11 @@ export class ReportListComponent {
 		if (report.TestStatus.toLowerCase() !== 'отсутствовал' && report.ExamName.toLowerCase() !== 'апрель-2017') {
 			this.route.navigate(['/rsur/report', report.RsurParticipTestId]);
 		}
+	}
+
+	ngOnDestroy() {
+		this.searchSub$.unsubscribe();
+		this.reportsSub$.unsubscribe();
 	}
 }
 

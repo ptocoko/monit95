@@ -32,10 +32,10 @@ const routes: Routes = [
 	{ path: 'particips/reports/:projectId', component: ReportsListComponent },
 	{ path: 'particips/report/:participTestId', component: ReportComponent },
 
-	//{ path: 'particips/oge/home', component: OgeHomeComponent },
-	//{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
-	//{ path: 'particips/oge/list', component: OgeParticipsListComponent},
-	//{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 19, projectName: 'Я сдам ОГЭ!' } },
+	{ path: 'particips/oge/home', component: OgeHomeComponent },
+	{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
+	{ path: 'particips/oge/list', component: OgeParticipsListComponent},
+	{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 19, projectName: 'Я сдам ОГЭ!' } },
 
 	{ path: 'particips/society', component: SocietyHomeComponent },
 	//{ path: 'particips/society/list', component: SocietyParticipsListComponent },

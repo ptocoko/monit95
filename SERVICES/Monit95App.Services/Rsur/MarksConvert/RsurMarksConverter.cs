@@ -183,6 +183,21 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
+            // Общество. Человек и общество. РСУР
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3192)
+            {
+                grade5 = marks.Sum() >= 23 ? 5 : 2;
+            }
+            // Общество. Экономика. РСУР
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3193)
+            {
+                grade5 = marks.Sum() >= 22 ? 5 : 2;
+            }
+            // Общество. Политика. РСУР
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3194)
+            {
+                grade5 = marks.Sum() >= 21 ? 5 : 2;
+            }
             else if (new string[] { "0104", "0801" }.Contains(testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode) && testResultEntity.RsurParticipTest.RsurTestId < 3180)
             {
                 grade5 = GetGrade5ForTestsWithTwoQuestionsForOne(egeValues);

@@ -9,17 +9,18 @@ var HomeComponent = /** @class */ (function () {
     function HomeComponent(account, cards) {
         this.account = account;
         this.cards = cards;
-        this.timeIsCome = false;
+        this.date = new Date();
     }
-    HomeComponent.prototype.ngOnInit = function () {
-        var date = new Date();
-        this.timeIsCome = (date.getDate() === 7 && date.getHours() >= 8) || date.getDate() === 8;
-    };
+    HomeComponent.prototype.ngOnInit = function () { };
     HomeComponent.prototype.downloadCards = function (projectId) {
         this.cards.getForSchool(projectId).subscribe(function (cards) {
             var url = window.URL.createObjectURL(cards);
             functions_1.downloadFile(url, 'результаты.zip');
         });
+    };
+    HomeComponent.prototype.setTimer = function (day, hours) {
+        if (hours === void 0) { hours = 12; }
+        return (this.date.getDate() === day && this.date.getHours() >= hours) || this.date.getDate() > day;
     };
     HomeComponent = tslib_1.__decorate([
         core_1.Component({

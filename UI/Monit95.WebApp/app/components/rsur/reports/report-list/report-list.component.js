@@ -28,32 +28,41 @@ var ReportListComponent = /** @class */ (function () {
         this.selectedTest = exports.TESTNAME_DEFAULT_SELECTION;
         this.selectedExamCode = exports.EXAMNAME_DEFAULT_SELECTION;
         this.selectionChange$ = new Subject_1.Subject();
+        this.clearHook$ = new Subject_1.Subject();
         this.isLoadingReports = true;
         this.reportsLength = 0;
     }
     ReportListComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.rsurReportService.getReportsInfo().subscribe(function (info) {
+        var search$ = fromEvent_1.fromEvent(this.searchField.nativeElement, 'input')
+            .pipe(debounceTime_1.debounceTime(1000));
+        this.searchSub$ = search$.subscribe(function () { return _this.paginator.pageIndex = 0; });
+        this.reportsSub$ = this.rsurReportService.getReportsInfo()
+            .pipe(switchMap_1.switchMap(function (info) {
             _this.reportsInfo = info;
-            var search$ = fromEvent_1.fromEvent(_this.searchField.nativeElement, 'input')
-                .pipe(debounceTime_1.debounceTime(1000));
-            search$.subscribe(function () { return _this.paginator.pageIndex = 0; });
-            merge_1.merge(_this.paginator.page, search$, _this.selectionChange$)
-                .pipe(startWith_1.startWith([]), switchMap_1.switchMap(function () {
-                _this.isLoadingReports = true;
-                return _this.createRequest();
-            }), map_1.map(function (data) {
-                _this.isLoadingReports = false;
-                _this.reportsLength = data.TotalCount;
-                return data.Items;
-            })).subscribe(function (reports) { return _this.dataSource.data = reports; });
-        });
+            return merge_1.merge(_this.paginator.page, search$, _this.selectionChange$, _this.clearHook$);
+        }), startWith_1.startWith([]), switchMap_1.switchMap(function () {
+            _this.isLoadingReports = true;
+            return _this.createRequest();
+        }), map_1.map(function (data) {
+            _this.isLoadingReports = false;
+            _this.reportsLength = data.TotalCount;
+            return data.Items;
+        }))
+            .subscribe(function (reports) { return _this.dataSource.data = reports; });
     };
     ReportListComponent.prototype.createRequest = function () {
         var schoolId = getSchoolIdFromName(this.selectedSchool);
         var testCode = getTestCodeFromName(this.selectedTest);
         var examCode = getExamCode(this.selectedExamCode);
         return this.rsurReportService.getReports((this.paginator.pageIndex + 1).toString(), this.paginator.pageSize.toString(), this.searchParticipText, schoolId, testCode, examCode);
+    };
+    ReportListComponent.prototype.clearFilter = function () {
+        this.selectedSchool = exports.SCHOOLNAME_DEFAULT_SELECTION;
+        this.selectedTest = exports.TESTNAME_DEFAULT_SELECTION;
+        this.selectedExamCode = exports.EXAMNAME_DEFAULT_SELECTION;
+        this.searchParticipText = null;
+        this.clearHook$.next();
     };
     ReportListComponent.prototype.selectionChange = function () {
         this.paginator.pageIndex = 0;
@@ -63,6 +72,10 @@ var ReportListComponent = /** @class */ (function () {
         if (report.TestStatus.toLowerCase() !== 'отсутствовал' && report.ExamName.toLowerCase() !== 'апрель-2017') {
             this.route.navigate(['/rsur/report', report.RsurParticipTestId]);
         }
+    };
+    ReportListComponent.prototype.ngOnDestroy = function () {
+        this.searchSub$.unsubscribe();
+        this.reportsSub$.unsubscribe();
     };
     tslib_1.__decorate([
         core_1.ViewChild('paginator'),
