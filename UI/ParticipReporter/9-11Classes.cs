@@ -29,8 +29,8 @@ namespace ParticipReporter
             foreach (var schoolid in BadSchoolsIds)
             {
                 var schoolInfo = context.Schools.Where(s => s.Id == schoolid).Select(s => new { SchoolName = s.Name.Trim(), AreaName = s.Area.Name.Trim() }).Single();
-                string schoolIdDirPath = $@"D:\Work\reports\1-3 (новое)\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
-                //CreateDirectories(schoolIdDirPath);
+                string schoolIdDirPath = $@"\\192.168.88.223\файлы_пто\Работы\[23] - Диагностика в 9 и 11 классах\Карты\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
+                CreateDirectories(schoolIdDirPath);
 
                 var reportDtos = context.ParticipTests
                     .Where(pt => pt.ProjectTest.ProjectId == 23 && pt.Particip.SchoolId == schoolid && pt.Grade5.HasValue && pt.Grade5 > 0)
@@ -64,20 +64,20 @@ namespace ParticipReporter
                         };
                     });
 
-                Parallel.ForEach(reportDtos, reportDto =>
+                foreach(var reportDto in reportDtos)
                 {
-                    var htmlBuilder = new HtmlBuilder(reportDtos.First(), new _9_11Builder());
+                    var htmlBuilder = new HtmlBuilder(reportDto, new _9_11Builder());
                     var reportHtml = htmlBuilder.GetReport();
 
                     var pdfGenerator = new NReco.PdfGenerator.HtmlToPdfConverter();
                     pdfGenerator.Margins.Top = 5;
                     pdfGenerator.Margins.Bottom = 5;
                     var pdfBytes = pdfGenerator.GeneratePdf(reportHtml);
-                    using (FileStream fs = new FileStream($@"{schoolIdDirPath}\{reportDtos.First().HeadingDto.ClassName.Substring(0, 1)} класс\{reportDtos.First().HeadingDto.TestName}\{reportDtos.First().HeadingDto.ClassName}-{reportDtos.First().HeadingDto.Fio}.pdf", FileMode.Create))
+                    using (FileStream fs = new FileStream($@"{schoolIdDirPath}\{reportDto.HeadingDto.ClassName} класс\{reportDto.OverviewDto.TestName.Split(',')[0]}\{reportDto.HeadingDto.ClassName}-{reportDto.HeadingDto.Fio}.pdf", FileMode.Create))
                     {
                         fs.Write(pdfBytes, 0, pdfBytes.Length);
                     }
-                });
+                }
 
                 Console.WriteLine("ended for " + schoolid);
             }
@@ -85,9 +85,9 @@ namespace ParticipReporter
 
         private void CreateDirectories(string dirPath)
         {
-            foreach (var subject in new string[] { "Математика", "Русский язык", "Чтение" })
+            foreach (var subject in new string[] { "География", "Обществознание", "Физика" })
             {
-                foreach (var className in new string[] { "1 класс" }) //, "2 класс", "3 класс" })
+                foreach (var className in new string[] { "11 класс", "9 класс" }) //, "2 класс", "3 класс" })
                 {
                     if (!Directory.Exists(dirPath + $@"\{className}\{subject}"))
                         Directory.CreateDirectory(dirPath + $@"\{className}\{subject}");

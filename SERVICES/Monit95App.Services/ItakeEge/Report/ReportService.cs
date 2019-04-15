@@ -135,7 +135,7 @@ namespace Monit95App.Services.ItakeEge.Report
                 Name = entity.Particip.Name,
                 SecondName = entity.Particip.SecondName,
                 SchoolName = entity.Particip.School.Name.Trim(),
-                ClassName = entity.Particip.Class?.Name,
+                ClassName = entity.Particip.Class?.Name.Trim(),
                 ProjectName = entity.ProjectTest.Project.Name,
                 ParticipTestId = entity.Id,
                 TestDateString = entity.ProjectTest.TestDate.ToString("dd.MM.yyyy"),

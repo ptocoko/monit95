@@ -2,39 +2,24 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">Диагностика «Обществознание»</h3>
+    <div *ngIf="isArea()" class="list-container">
+        <h3 class="list-header">Диагностика «Русский язык»</h3>
         <div>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/04-19_об_распределение_{{account.UserName}}.xlsx" download="Обществознание. Распределение.xlsx">
-                <h4>Обществознание: распределение</h4>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/04-19_ру_распределение_{{account.UserName}}.xlsx" download="Русский язык. Распределение.xlsx">
+                <h4>Русский язык: распределение</h4>
             </a>
 
-            <a class="list-item-link" href="/file/rsur/042019/tasks/ОБЩ-1.rar" download="Человек и общество. Варианты работ.rar">
-                <h4>Человек и общество: Варианты работ</h4>
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/tasks/РУ.rar" download="Русский язык. Варианты работ.rar">
+                <h4 style="font-weight:bold">Русский язык: Варианты работ</h4>
             </a>
 
-            <a class="list-item-link" href="/file/rsur/042019/tasks/ОБЩ-2.rar" download="Экономика. Варианты работ.rar">
-                <h4>Экономика: Варианты работ</h4>
-            </a>
 
-            <a class="list-item-link" href="/file/rsur/042019/tasks/ОБЩ-4.rar" download="Политика. Варианты работ.rar">
-                <h4>Политика: Варианты работ</h4>
-            </a>
-
-            <a class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-1.rar" download="Человек и общество. Ключи.rar">
-                <h4 style="font-weight:bold">Человек и общество: Ключи для проверки работ</h4>
-            </a>
-
-            <a class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-2.rar" download="Экономика. Ключи.rar">
-                <h4 style="font-weight:bold">Экономика: Ключи для проверки работ</h4>
-            </a>
-
-            <a class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-4.rar" download="Политика. Ключи.rar">
+            <a *ngIf="false" class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-4.rar" download="Политика. Ключи.rar">
                 <h4 style="font-weight:bold">Политика: Ключи для проверки работ</h4>
             </a>
 
             <!--Протоколы-->
-            <div class="list-item" *ngIf="true">
+            <div class="list-item" *ngIf="false">
                 <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
                     <div>
                         <h4><b>Протоколы проверки заданий</b></h4>
