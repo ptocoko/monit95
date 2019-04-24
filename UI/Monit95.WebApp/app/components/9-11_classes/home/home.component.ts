@@ -5,14 +5,14 @@ import { AccountService } from '../../../services/account.service';
 	templateUrl: `./app/components/9-11_classes/home/home.component.html?v=${new Date().getTime()}`
 })
 export class HomeComponent {
-	timeIsCome1 = false;
-	timeIsCome2 = false;
+	date = new Date();
 
 	constructor(public account: AccountService) { }
 
-	ngOnInit() {
-		const date = new Date();
-		this.timeIsCome1 = (date.getDate() === 16 && date.getHours() >= 8) || date.getDate() > 16;
-		this.timeIsCome2 = (date.getDate() === 16 && date.getHours() >= 14) || date.getDate() > 16;
+	ngOnInit() { }
+
+
+	setTimer(day: number, hours: number = 12): boolean {
+		return (this.date.getDate() === day && this.date.getHours() >= hours) || this.date.getDate() > day;
 	}
 }

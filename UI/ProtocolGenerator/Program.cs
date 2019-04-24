@@ -31,8 +31,8 @@ namespace OneTwoThreeReporter
                 context: context,
                 projectId: 23);
 
-            //iTakeEge.SolveGrade5_v2();
-            iTakeEge.GenerateForAllSchools();
+            iTakeEge.SolveGrade5_v2();
+            //iTakeEge.GenerateForAllSchools();
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
 
             //var report = reporter.GetReport(758706);

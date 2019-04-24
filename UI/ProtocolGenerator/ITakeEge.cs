@@ -55,13 +55,13 @@ namespace ProtocolGenerator
         public void SolveGrade5_v2()
         {
             context.ParticipTests
-                .Where(pt => pt.ProjectTestId == 2057 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
+                .Where(pt => pt.ProjectTestId == 3058 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
                 .ForEach(pt =>
                 {
-                    //var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
+                    var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
 
-                    //pt.Grade5_v2 = (int)marksSum >= 12 ? 5 : 2;
-                    pt.Grade5_v2 = pt.PrimaryMark >= 9 ? 5 : 2;
+                    pt.Grade5_v2 = (int)marksSum >= 12 ? 5 : 2;
+                    //pt.Grade5_v2 = pt.PrimaryMark >= 9 ? 5 : 2;
                 });
 
             context.SaveChanges();

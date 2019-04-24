@@ -1,5 +1,16 @@
 ﻿<form *ngIf="questionResults" #marksForm="ngForm">
 
+    <div class="form-inline" style="margin-bottom:5px" *ngIf="hasOptionNumber">
+        <label class="markLabel">
+            № Варианта
+        </label>
+        <input class="markInput" 
+                (input)="onOptionNumberChange($event)" 
+                name="optionNumber" 
+                #optionNumber="ngModel" 
+                [(ngModel)]="optionNumber"/>
+    </div>
+
     <div *ngFor="let question of questionResults; let i = index" 
          class="form-inline" 
          style="margin-bottom:5px">

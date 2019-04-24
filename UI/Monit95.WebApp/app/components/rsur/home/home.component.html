@@ -3,19 +3,19 @@
     <h2>РСУР: Главное меню</h2>
 
     <div *ngIf="isArea()" class="list-container">
-        <h3 class="list-header">Диагностика «Русский язык»</h3>
+        <h3 class="list-header">Диагностика «Математика»</h3>
         <div>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/04-19_ру_распределение_{{account.UserName}}.xlsx" download="Русский язык. Распределение.xlsx">
-                <h4>Русский язык: распределение</h4>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/04-19_ма_распределение_{{account.UserName}}.xlsx" download="Математика. Распределение.xlsx">
+                <h4>Математика: распределение</h4>
             </a>
 
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/tasks/РУ.rar" download="Русский язык. Варианты работ.rar">
-                <h4 style="font-weight:bold">Русский язык: Варианты работ</h4>
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/tasks/МА.rar" download="Математика. Варианты работ.rar">
+                <h4 style="font-weight:bold">Математика: Варианты работ</h4>
             </a>
 
 
-            <a *ngIf="false" class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-4.rar" download="Политика. Ключи.rar">
-                <h4 style="font-weight:bold">Политика: Ключи для проверки работ</h4>
+            <a *ngIf="false" class="list-item-link" href="/file/rsur/042019/keys/РУ.rar" download="Русский язык. Ключи.rar">
+                <h4 style="font-weight:bold">Русский язык: Ключи для проверки работ</h4>
             </a>
 
             <!--Протоколы-->
@@ -279,12 +279,12 @@
                 <h4 style="font-weight:bold">Алгоритм работы 1-й блок</h4>
             </a>
 
-            <a class="list-item-link" href="/file/rsur/1-block-algoritm/material/ИС-5.docx" download="Матетериал История Тема 5.docx">
-                <h4>Подводящий материал. Тема №5</h4>
+            <a class="list-item-link" href="/file/rsur/1-block-algoritm/material/ИС-6.docx" download="Матетериал История Тема 6.docx">
+                <h4>Подводящий материал. Тема №6</h4>
             </a>
 
-            <a class="list-item-link" *ngIf="isArea()" download="История 5я тема.rar" href="/file/rsur/1-block-algoritm/tasks/ИС-5.rar">
-                <h4 style="font-weight:bold">5-я неделя. Промежуточная диагностика</h4>
+            <a class="list-item-link" *ngIf="isArea()" download="История 6я тема.rar" href="/file/rsur/1-block-algoritm/tasks/ИС-6.rar">
+                <h4 style="font-weight:bold">6-я неделя. Промежуточная диагностика</h4>
             </a>
 
             <mat-expansion-panel *ngIf="isArea()" class="mat-elevation-z0">
@@ -334,6 +334,24 @@
                                       [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
                                       [downloadExt]="'xlsx'">
                     </app-excel-upload>
+
+                    <h3 mat-subheader>5-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'5_ИС'"
+                                      [collectorId]="34"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Истории - 5-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
+
+                    <h3 mat-subheader>6-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'6_ИС'"
+                                      [collectorId]="35"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Истории - 6-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
                 </mat-list>
             </mat-expansion-panel>
 
@@ -364,12 +382,12 @@
                 <h4 style="font-weight:bold">Алгоритм работы для учителей географии 1-й блок</h4>
             </a>
 
-            <a class="list-item-link" href="/file/rsur/1-block-algoritm/material/ГЕ-4.docx" download="Матетериал по РСУР-География 4-я неделя.docx">
-                <h4 style="font-weight:bold">Подводящий материал. 4-я неделя</h4>
+            <a class="list-item-link" href="/file/rsur/1-block-algoritm/material/ГЕ-6.docx" download="Матетериал по РСУР-География 6-я неделя.docx">
+                <h4 style="font-weight:bold">Подводящий материал. 6-я неделя</h4>
             </a>
 
-            <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/ГЕ-4.rar" download="География 4 неделя.rar">
-                <h4 style="font-weight:bold">Задания по 4-й неделе</h4>
+            <a *ngIf="isArea()" class="list-item-link" href="/file/rsur/1-block-algoritm/tasks/ГЕ-6.rar" download="География 6-я неделя.rar">
+                <h4 style="font-weight:bold">Задания по 6-й неделе</h4>
             </a>
 
             <mat-expansion-panel *ngIf="isArea()" class="mat-elevation-z0">
@@ -406,6 +424,34 @@
                                       [collectorId]="40"
                                       [collectorFor]="'area'"
                                       [caption]="'Заполненный отчет по Географии - 3-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
+
+                    <h3 mat-subheader>4-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'4_ГЕ'"
+                                      [collectorId]="41"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Географии - 4-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
+
+
+                    <h3 mat-subheader>5-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'5_ГЕ'"
+                                      [collectorId]="42"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Географии - 5-я неделя'"
+                                      [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
+                                      [downloadExt]="'xlsx'">
+                    </app-excel-upload>
+
+                    <h3 mat-subheader>6-я неделя</h3>
+                    <app-excel-upload [fileNamePrefix]="'6_ГЕ'"
+                                      [collectorId]="43"
+                                      [collectorFor]="'area'"
+                                      [caption]="'Заполненный отчет по Географии - 6-я неделя'"
                                       [downloadHref]="'/file/rsur/1-block-algoritm/reports'"
                                       [downloadExt]="'xlsx'">
                     </app-excel-upload>

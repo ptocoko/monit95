@@ -6,11 +6,13 @@ var account_service_1 = require("../../../services/account.service");
 var OgeHomeComponent = /** @class */ (function () {
     function OgeHomeComponent(account) {
         this.account = account;
-        this.timeIsCome = false;
+        this.date = new Date();
     }
     OgeHomeComponent.prototype.ngOnInit = function () {
-        var date = new Date();
-        this.timeIsCome = this.account.account.UserName === '0000' ? true : (date.getDate() === 14 && date.getHours() >= 8) || date.getDate() > 14;
+    };
+    OgeHomeComponent.prototype.setTimer = function (day, hours) {
+        if (hours === void 0) { hours = 8; }
+        return (this.date.getDate() === day && this.date.getHours() >= hours) || this.date.getDate() > day;
     };
     OgeHomeComponent = tslib_1.__decorate([
         core_1.Component({

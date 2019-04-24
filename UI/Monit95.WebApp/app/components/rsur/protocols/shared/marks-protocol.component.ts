@@ -1,25 +1,27 @@
-﻿import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { QuestionResult } from "../../../../models/marks-protocol.model";
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { filter } from 'rxjs/operators/filter';
+import { Subscription } from 'rxjs/Subscription';
+import { NgForm } from '@angular/forms';
 
 @Component({
 	selector: 'marks-protocol',
 	templateUrl: `./app/components/rsur/protocols/shared/marks-protocol.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/components/rsur/protocols/shared/marks-protocol.component.css?v=${new Date().getTime()}`]
 })
-export class MarksProtocolComponent implements AfterViewInit {
-	inputElements: JQuery<HTMLInputElement>;
-
+export class MarksProtocolComponent implements AfterViewInit, OnDestroy {
 	@Input('questions') questionResults: QuestionResult[];
+	@Input() hasOptionNumber: boolean;
+	@Input() optionNumber: number;
 
 	@Output() onSend = new EventEmitter<QuestionResult[]>();
 	@Output() onCancel = new EventEmitter();
-
+	@Output() optionNumberChange = new EventEmitter<number>();
+	
+	inputElements: JQuery<HTMLInputElement>;
 	marksSending: boolean;
-
-	ngOnInit() {
-	}
+	keyUpSub$: Subscription;
 
 	ngAfterViewInit(): void {
 		this.inputElements = $('.markInput') as JQuery<HTMLInputElement>;
@@ -29,7 +31,8 @@ export class MarksProtocolComponent implements AfterViewInit {
 			this.inputElements.get(0).focus();
 			this.inputElements.get(0).setSelectionRange(0, this.inputElements.get(0).value.length);
 
-			fromEvent(document.getElementsByClassName('markInput'), 'keyup').pipe(
+			this.keyUpSub$ = fromEvent(document.getElementsByClassName('markInput'), 'keyup')
+				.pipe(
 					filter((event: any) => [38, 40].indexOf(event.keyCode) > -1)
 				)
 				.subscribe((event: any) => {
@@ -41,6 +44,11 @@ export class MarksProtocolComponent implements AfterViewInit {
 				});
 		}
 
+	}
+
+	onOptionNumberChange(event: any) {
+		this.optionNumberChange.emit(this.optionNumber);
+		this.focusOnNextElement(event);
 	}
 
 	markChange(event: any, maxMark: number, step = 1) {
@@ -100,4 +108,14 @@ export class MarksProtocolComponent implements AfterViewInit {
 	cancel() {
 		this.onCancel.emit();
 	}
+
+	ngOnDestroy() {
+		if (this.keyUpSub$)
+			this.keyUpSub$.unsubscribe();
+	}
+}
+
+function convertToInput(elem: Element): HTMLInputElement {
+	const inputElem = elem as HTMLInputElement;
+	return inputElem;
 }
