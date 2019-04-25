@@ -31,9 +31,9 @@ namespace Monit95App.Services.OneTwoThree.Particips
         {
             var entity = new Particip
             {
-                Surname = particip.Surname,
-                Name = particip.Name,
-                SecondName = particip.SecondName,
+                Surname = particip.Surname.Trim(),
+                Name = particip.Name.Trim(),
+                SecondName = particip.SecondName.Trim(),
                 ClassId = particip.ClassId,
                 SchoolId = schoolId,
                 ProjectId = _projectId
@@ -52,9 +52,9 @@ namespace Monit95App.Services.OneTwoThree.Particips
             var entity = context.Particips
                 .Single(p => p.Id == Id && p.SchoolId == schoolId && p.ProjectId == _projectId);
 
-            entity.Surname = particip.Surname;
-            entity.Name = particip.Name;
-            entity.SecondName = particip.SecondName;
+            entity.Surname = particip.Surname.Trim();
+            entity.Name = particip.Name.Trim();
+            entity.SecondName = particip.SecondName.Trim();
             entity.ClassId = particip.ClassId;
 
             context.SaveChanges();
