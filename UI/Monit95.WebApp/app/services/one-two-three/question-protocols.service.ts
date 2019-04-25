@@ -21,8 +21,8 @@ export class QuestionProtocolService {
 		return this.http.get<QuestionProtocol>(`/api/onetwothree/protocol/${participTestId}`);
 	}
 
-	editMarks(participTestId: number, marks: QuestionResult[]): Observable<string> {
-		return this.http.post(`${this.endpoint}/${participTestId}`, marks, { responseType: 'text' });
+	editMarks(participTestId: number, protocol: QuestionProtocol): Observable<string> {
+		return this.http.post(`${this.endpoint}/${participTestId}`, protocol, { responseType: 'text' });
 	}
 
 	markAsAbsent(participTestId: number): Observable<string> {

@@ -10,7 +10,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
     {
         IEnumerable<QuestionListDto> GetQuestionListDtos(string schoolId, int projectTestId);
         QuestionProtocolDto GetProtocol(int participTestId, string schoolId);
-        void EditQuestionMarks(int participTestId, string schoolId, IEnumerable<QuestionMarkDto> questionMarks);
+        void EditQuestionMarks(int participTestId, string schoolId, QuestionProtocolDto protocolDto);
         void MarkAsAbsent(int participTestId, string schoolId);
     }
 }

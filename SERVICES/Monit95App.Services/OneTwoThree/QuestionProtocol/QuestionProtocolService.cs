@@ -19,9 +19,12 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             this.context = context;
         }
 
-        public void EditQuestionMarks(int participTestId, string schoolId, IEnumerable<QuestionMarkDto> questionMarks)
+        public void EditQuestionMarks(int participTestId, string schoolId, QuestionProtocolDto protocolDto)
         {
-            CheckPostedQuestionMarks(questionMarks);
+            if (!protocolDto.OptionNumber.HasValue)
+                throw new ArgumentException("OptionNumber is required");
+
+            CheckPostedQuestionMarks(protocolDto.QuestionMarks);
 
             var participTest = context.ParticipTests.SingleOrDefault(p => p.Id == participTestId && p.Particip.SchoolId == schoolId);
             if (participTest == null)
@@ -32,9 +35,11 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 context.OneTwoThreeQuestionMarks.RemoveRange(participTest.OneTwoThreeQuestionMarks);
             }
 
+            // TODO: Solve Grade5!
             participTest.Grade5 = null;
+            participTest.OptionNumber = protocolDto.OptionNumber;
 
-            context.OneTwoThreeQuestionMarks.AddRange(questionMarks.Select(s => new OneTwoThreeQuestionMark
+            context.OneTwoThreeQuestionMarks.AddRange(protocolDto.QuestionMarks.Select(s => new OneTwoThreeQuestionMark
             {
                 ParticipTestId = participTestId,
                 AwardedMark = s.CurrentMark.Value,
@@ -74,6 +79,8 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             return new QuestionProtocolDto
             {
                 ParticipFIO = $"{participTest.Particip.Surname} {participTest.Particip.Name} {participTest.Particip.SecondName}",
+                TestName = participTest.ProjectTest.Test.Name,
+                OptionNumber = participTest.OptionNumber,
                 QuestionMarks = questionMarks
             };
         }
@@ -116,6 +123,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
             }
 
             participTest.Grade5 = -1;
+            participTest.OptionNumber = null;
 
             context.SaveChanges();
         }

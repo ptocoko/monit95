@@ -48,13 +48,13 @@ namespace Monit95.WebApp.RESTful_API.OneTwoThree
         }
 
         [HttpPost, Route("{participTestId}")]
-        public IHttpActionResult EditProtocol([FromUri]int participTestId, [FromBody]IEnumerable<QuestionMarkDto> questionMarks)
+        public IHttpActionResult EditProtocol([FromUri]int participTestId, [FromBody]QuestionProtocolDto protocolDto)
         {
             var schoolId = User.Identity.Name;
 
             try
             {
-                protocolService.EditQuestionMarks(participTestId, schoolId, questionMarks);
+                protocolService.EditQuestionMarks(participTestId, schoolId, protocolDto);
             }
             catch (ArgumentException e)
             {

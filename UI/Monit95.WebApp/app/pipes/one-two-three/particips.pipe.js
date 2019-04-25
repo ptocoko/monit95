@@ -12,7 +12,8 @@ var ClassFilterPipe = /** @class */ (function () {
     };
     ClassFilterPipe = tslib_1.__decorate([
         core_1.Pipe({
-            name: 'classFilter'
+            name: 'classFilter',
+            pure: true
         })
     ], ClassFilterPipe);
     return ClassFilterPipe;
@@ -32,7 +33,8 @@ var ClassesGetterPipe = /** @class */ (function () {
             .map(function (val) { return { Name: val.ClassName, Id: val.ClassId }; })
             .filter(function (value, index, self) {
             return self.map(function (mapSelf) { return mapSelf.Id; }).indexOf(value.Id) === index;
-        });
+        })
+            .sort(function (a, b) { return a.Id - b.Id; });
     };
     ClassesGetterPipe = tslib_1.__decorate([
         core_1.Pipe({
@@ -62,7 +64,8 @@ var ParticipFilterPipe = /** @class */ (function () {
     };
     ParticipFilterPipe = tslib_1.__decorate([
         core_1.Pipe({
-            name: 'participFilter'
+            name: 'participFilter',
+            pure: true
         })
     ], ParticipFilterPipe);
     return ParticipFilterPipe;

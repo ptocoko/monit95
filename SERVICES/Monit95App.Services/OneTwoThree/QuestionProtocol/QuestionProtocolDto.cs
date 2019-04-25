@@ -11,6 +11,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
     {
         public string ParticipFIO { get; set; }
         public string TestName { get; set; }
+        public short? OptionNumber { get; set; }
 
         public IEnumerable<QuestionMarkDto> QuestionMarks { get; set; }
     }

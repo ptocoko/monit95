@@ -3,7 +3,8 @@ import { ParticipModel } from '../../models/one-two-three/particip.model';
 import { ClassModel } from '../../models/class.model';
 
 @Pipe({
-	name: 'classFilter'
+	name: 'classFilter',
+	pure: true
 })
 export class ClassFilterPipe implements PipeTransform {
 	transform(particips: ParticipModel[], classId: string): ParticipModel[] {
@@ -25,12 +26,14 @@ export class ClassesGetterPipe implements PipeTransform {
 			.map(val => { return { Name: val.ClassName, Id: val.ClassId } })
 			.filter((value: ClassModel, index: number, self: ClassModel[]) => {
 				return self.map(mapSelf => mapSelf.Id).indexOf(value.Id) === index;
-			});
+			})
+			.sort((a, b) => a.Id - b.Id);
 	}
 }
 
 @Pipe({
-	name: 'participFilter'
+	name: 'participFilter',
+	pure: true
 })
 export class ParticipFilterPipe implements PipeTransform {
 	transform(particips: any, searchText: string) {

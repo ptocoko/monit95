@@ -23,10 +23,12 @@ var ProtocolComponent = /** @class */ (function () {
             .subscribe(function (res) { return _this.protocol = res; });
     };
     ProtocolComponent.prototype.submit = function (questionResults) {
-        //this.protocolService
-        //	.editMarks(this.participTestId, questionResults)
-        //	.subscribe(() => this.back());
-        console.log(this.protocol);
+        var _this = this;
+        this.protocol.QuestionMarks = questionResults;
+        this.protocolService
+            .editMarks(this.participTestId, this.protocol)
+            .subscribe(function () { return _this.back(); });
+        //console.log(this.protocol);
     };
     ProtocolComponent.prototype.back = function () {
         this.location.back();

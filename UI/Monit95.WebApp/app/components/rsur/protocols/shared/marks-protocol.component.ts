@@ -48,8 +48,10 @@ export class MarksProtocolComponent implements AfterViewInit, OnDestroy {
 	}
 
 	onOptionNumberChange(event: any) {
-		this.optionNumberChange.emit(this.optionNumber);
-		this.focusOnNextElement(event);
+		if (event.target.value) {
+			this.optionNumberChange.emit(this.optionNumber);
+			this.focusOnNextElement(event);
+		}
 	}
 
 	markChange(event: any, maxMark: number, step = 1) {

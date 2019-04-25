@@ -14,8 +14,8 @@ var QuestionProtocolService = /** @class */ (function () {
     QuestionProtocolService.prototype.get = function (participTestId) {
         return this.http.get("/api/onetwothree/protocol/" + participTestId);
     };
-    QuestionProtocolService.prototype.editMarks = function (participTestId, marks) {
-        return this.http.post(this.endpoint + "/" + participTestId, marks, { responseType: 'text' });
+    QuestionProtocolService.prototype.editMarks = function (participTestId, protocol) {
+        return this.http.post(this.endpoint + "/" + participTestId, protocol, { responseType: 'text' });
     };
     QuestionProtocolService.prototype.markAsAbsent = function (participTestId) {
         return this.http.put(this.endpoint + "/" + participTestId + "/markAsAbsent", null, { responseType: 'text' });

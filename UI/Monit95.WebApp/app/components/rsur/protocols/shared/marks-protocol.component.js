@@ -30,8 +30,10 @@ var MarksProtocolComponent = /** @class */ (function () {
         }
     };
     MarksProtocolComponent.prototype.onOptionNumberChange = function (event) {
-        this.optionNumberChange.emit(this.optionNumber);
-        this.focusOnNextElement(event);
+        if (event.target.value) {
+            this.optionNumberChange.emit(this.optionNumber);
+            this.focusOnNextElement(event);
+        }
     };
     MarksProtocolComponent.prototype.markChange = function (event, maxMark, step) {
         if (step === void 0) { step = 1; }
