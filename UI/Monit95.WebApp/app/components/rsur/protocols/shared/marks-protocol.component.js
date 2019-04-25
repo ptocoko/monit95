@@ -8,9 +8,8 @@ var MarksProtocolComponent = /** @class */ (function () {
     function MarksProtocolComponent() {
         this.onSend = new core_1.EventEmitter();
         this.onCancel = new core_1.EventEmitter();
+        this.optionNumberChange = new core_1.EventEmitter();
     }
-    MarksProtocolComponent.prototype.ngOnInit = function () {
-    };
     MarksProtocolComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         this.inputElements = $('.markInput');
@@ -18,7 +17,8 @@ var MarksProtocolComponent = /** @class */ (function () {
         if (this.inputElements.get(0)) {
             this.inputElements.get(0).focus();
             this.inputElements.get(0).setSelectionRange(0, this.inputElements.get(0).value.length);
-            fromEvent_1.fromEvent(document.getElementsByClassName('markInput'), 'keyup').pipe(filter_1.filter(function (event) { return [38, 40].indexOf(event.keyCode) > -1; }))
+            this.keyUpSub$ = fromEvent_1.fromEvent(document.getElementsByClassName('markInput'), 'keyup')
+                .pipe(filter_1.filter(function (event) { return [38, 40].indexOf(event.keyCode) > -1; }))
                 .subscribe(function (event) {
                 if (event.keyCode === 40) {
                     _this.focusOnNextElement(event);
@@ -29,11 +29,18 @@ var MarksProtocolComponent = /** @class */ (function () {
             });
         }
     };
+    MarksProtocolComponent.prototype.onOptionNumberChange = function (event) {
+        this.optionNumberChange.emit(this.optionNumber);
+        this.focusOnNextElement(event);
+    };
     MarksProtocolComponent.prototype.markChange = function (event, maxMark, step) {
         if (step === void 0) { step = 1; }
         var elem = event.target;
-        if (elem.value.length === maxMark.toString().length) {
+        if (elem.value.length >= maxMark.toString().length) {
             var elemIndex = this.inputElements.index(elem);
+            if (this.hasOptionNumber) {
+                elemIndex--;
+            }
             var mark = Number.parseInt(elem.value);
             var possibleMarks = this.getPossibleMarks(maxMark, step);
             if (elem.value) {
@@ -73,6 +80,10 @@ var MarksProtocolComponent = /** @class */ (function () {
             prevInputDiv.children[1].focus();
         }
     };
+    MarksProtocolComponent.prototype.isFocused = function (elemSelector) {
+        var elem = document.getElementById(elemSelector);
+        return elem === document.activeElement;
+    };
     MarksProtocolComponent.prototype.send = function () {
         this.marksSending = true;
         this.onSend.emit(this.questionResults);
@@ -80,10 +91,26 @@ var MarksProtocolComponent = /** @class */ (function () {
     MarksProtocolComponent.prototype.cancel = function () {
         this.onCancel.emit();
     };
+    MarksProtocolComponent.prototype.ngOnDestroy = function () {
+        if (this.keyUpSub$)
+            this.keyUpSub$.unsubscribe();
+    };
     tslib_1.__decorate([
         core_1.Input('questions'),
         tslib_1.__metadata("design:type", Array)
     ], MarksProtocolComponent.prototype, "questionResults", void 0);
+    tslib_1.__decorate([
+        core_1.Input(),
+        tslib_1.__metadata("design:type", Boolean)
+    ], MarksProtocolComponent.prototype, "hasOptionNumber", void 0);
+    tslib_1.__decorate([
+        core_1.Input(),
+        tslib_1.__metadata("design:type", Number)
+    ], MarksProtocolComponent.prototype, "optionNumber", void 0);
+    tslib_1.__decorate([
+        core_1.Input(),
+        tslib_1.__metadata("design:type", Boolean)
+    ], MarksProtocolComponent.prototype, "showPossibleMarks", void 0);
     tslib_1.__decorate([
         core_1.Output(),
         tslib_1.__metadata("design:type", Object)
@@ -92,6 +119,10 @@ var MarksProtocolComponent = /** @class */ (function () {
         core_1.Output(),
         tslib_1.__metadata("design:type", Object)
     ], MarksProtocolComponent.prototype, "onCancel", void 0);
+    tslib_1.__decorate([
+        core_1.Output(),
+        tslib_1.__metadata("design:type", Object)
+    ], MarksProtocolComponent.prototype, "optionNumberChange", void 0);
     MarksProtocolComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'marks-protocol',
@@ -102,4 +133,8 @@ var MarksProtocolComponent = /** @class */ (function () {
     return MarksProtocolComponent;
 }());
 exports.MarksProtocolComponent = MarksProtocolComponent;
+function convertToInput(elem) {
+    var inputElem = elem;
+    return inputElem;
+}
 //# sourceMappingURL=marks-protocol.component.js.map

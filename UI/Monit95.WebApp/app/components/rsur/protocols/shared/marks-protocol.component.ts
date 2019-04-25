@@ -14,6 +14,7 @@ export class MarksProtocolComponent implements AfterViewInit, OnDestroy {
 	@Input('questions') questionResults: QuestionResult[];
 	@Input() hasOptionNumber: boolean;
 	@Input() optionNumber: number;
+	@Input() showPossibleMarks: boolean;
 
 	@Output() onSend = new EventEmitter<QuestionResult[]>();
 	@Output() onCancel = new EventEmitter();
@@ -54,8 +55,11 @@ export class MarksProtocolComponent implements AfterViewInit, OnDestroy {
 	markChange(event: any, maxMark: number, step = 1) {
 		const elem = event.target as HTMLInputElement;
 
-		if (elem.value.length === maxMark.toString().length) {
-			const elemIndex = this.inputElements.index(elem);
+		if (elem.value.length >= maxMark.toString().length) {
+			let elemIndex = this.inputElements.index(elem);
+			if (this.hasOptionNumber) {
+				elemIndex--;
+			}
 			const mark = Number.parseInt(elem.value);
 			const possibleMarks = this.getPossibleMarks(maxMark, step);
 
@@ -98,6 +102,11 @@ export class MarksProtocolComponent implements AfterViewInit, OnDestroy {
 		if (prevInputDiv && prevInputDiv.className.includes('form-inline')) {
 			prevInputDiv.children[1].focus();
 		}
+	}
+
+	isFocused(elemSelector: string): boolean {
+		const elem = document.getElementById(elemSelector);
+		return elem === document.activeElement;
 	}
 
 	send() {

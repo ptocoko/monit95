@@ -5,6 +5,7 @@ var core_1 = require("@angular/core");
 var question_protocols_service_1 = require("../../../services/one-two-three/question-protocols.service");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
+var switchMap_1 = require("rxjs/operators/switchMap");
 var ProtocolComponent = /** @class */ (function () {
     function ProtocolComponent(location, activatedRoute, protocolService) {
         this.location = location;
@@ -13,19 +14,26 @@ var ProtocolComponent = /** @class */ (function () {
     }
     ProtocolComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.activatedRoute.params.subscribe(function (params) {
+        this.protocolSub$ = this.activatedRoute
+            .params
+            .pipe(switchMap_1.switchMap(function (params) {
             _this.participTestId = Number.parseInt(params['participTestId']);
-            _this.protocolService.get(_this.participTestId).subscribe(function (res) {
-                _this.protocol = res;
-            });
-        });
+            return _this.protocolService.get(_this.participTestId);
+        }))
+            .subscribe(function (res) { return _this.protocol = res; });
     };
     ProtocolComponent.prototype.submit = function (questionResults) {
-        var _this = this;
-        this.protocolService.editMarks(this.participTestId, questionResults).subscribe(function () { return _this.back(); });
+        //this.protocolService
+        //	.editMarks(this.participTestId, questionResults)
+        //	.subscribe(() => this.back());
+        console.log(this.protocol);
     };
     ProtocolComponent.prototype.back = function () {
         this.location.back();
+    };
+    ProtocolComponent.prototype.ngOnDestroy = function () {
+        if (this.protocolSub$)
+            this.protocolSub$.unsubscribe();
     };
     ProtocolComponent = tslib_1.__decorate([
         core_1.Component({

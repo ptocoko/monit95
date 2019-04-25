@@ -1,14 +1,15 @@
 ﻿<form *ngIf="questionResults" #marksForm="ngForm">
 
-    <div class="form-inline" style="margin-bottom:5px" *ngIf="hasOptionNumber">
-        <label class="markLabel">
+    <div class="form-inline option-number-wrapper" style="margin-bottom:5px" *ngIf="hasOptionNumber">
+        <label class="optionLabel">
             № Варианта
         </label>
-        <input class="markInput" 
+        <input class="markInput optionInput" 
                 (input)="onOptionNumberChange($event)" 
-                name="optionNumber" 
-                #optionNumber="ngModel" 
-                [(ngModel)]="optionNumber"/>
+                name="optionNumberField" 
+                #optionNumberField="ngModel" 
+                [(ngModel)]="optionNumber"
+               required/>
     </div>
 
     <div *ngFor="let question of questionResults; let i = index" 
@@ -22,8 +23,13 @@
                (input)="markChange($event, question.MaxMark)" 
                [(ngModel)]="question.CurrentMark" 
                #mark{{i}}="ngModel" 
-               name="mark{{i}}" 
+               name="mark{{i}}"
+               id="mark{{i}}"
                required />
+
+        <div class="max-mark-wrapper mat-elevation-z2" *ngIf="showPossibleMarks && isFocused('mark' + i.toString())">
+             Максимальный балл за задание: <span class="max-question-mark">{{ question.MaxMark }}</span>
+        </div>
     </div>
     <br />
     <p>

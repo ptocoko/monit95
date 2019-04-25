@@ -8,3 +8,36 @@
 .markLabel {
     width: 40px;
 }
+
+.max-mark-wrapper{
+    display: inline-block;
+    position: relative;
+    border: 1px solid lightgray;
+    padding: 5px 8px;
+    margin-left: 10px;
+    background-color: #fbfafa;
+}
+
+.max-mark-wrapper::after {
+    content: " ";
+    position: absolute;
+    top: 35%; /* At the middle of the tooltip's left side */
+    left: -5px;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.option-number-wrapper{
+    font-size: 16pt;
+}
+
+.optionLabel{
+    width: auto;
+}

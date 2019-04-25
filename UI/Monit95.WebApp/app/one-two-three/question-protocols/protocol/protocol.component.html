@@ -2,14 +2,11 @@
 <hr />
 <div *ngIf="protocol">
     <h4>{{protocol.ParticipFIO}}</h4>
-    <label>
-        № Варианта
-        <input type="text" [(ngModel)]="protocol.OptionNumber" />
-    </label>
     <marks-protocol [questions]="protocol.QuestionMarks"
                     (onSend)="submit($event)"
                     (onCancel)="back()"
-                    hasOptionNumber
+                    [hasOptionNumber]="true"
+                    [showPossibleMarks]="true"
                     [(optionNumber)]="protocol.OptionNumber">
     </marks-protocol>
 </div>

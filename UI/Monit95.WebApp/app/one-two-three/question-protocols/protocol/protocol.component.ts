@@ -33,9 +33,10 @@ export class ProtocolComponent implements OnInit, OnDestroy {
 	}
 
 	submit(questionResults: QuestionResult[]) {
-		this.protocolService
-			.editMarks(this.participTestId, questionResults)
-			.subscribe(() => this.back());
+		//this.protocolService
+		//	.editMarks(this.participTestId, questionResults)
+		//	.subscribe(() => this.back());
+		console.log(this.protocol);
 	}
 
 	back() {
