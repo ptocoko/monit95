@@ -7,6 +7,7 @@ var router_1 = require("@angular/router");
 var class_service_1 = require("../../../services/class.service");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
+var operators_1 = require("rxjs/operators");
 var AddOrUpdateComponent = /** @class */ (function () {
     function AddOrUpdateComponent(participService, classService, router, route, location, fb, renderer) {
         var _this = this;
@@ -20,7 +21,16 @@ var AddOrUpdateComponent = /** @class */ (function () {
         this.isUpdate = true;
         this.isLoading = true;
         this.formIsPristine = false;
+        this.isConflict = false;
         this.particip = {};
+        this.errCallback = function (err) {
+            if (err.status === 409) {
+                _this.isConflict = true;
+            }
+            else {
+                throw err;
+            }
+        };
         this.cancel = function () { return _this.location.back(); };
         this.focusOnFirstField = function () { return _this.renderer.selectRootElement(_this.firstField.nativeElement).focus(); };
     }
@@ -60,10 +70,16 @@ var AddOrUpdateComponent = /** @class */ (function () {
         }
         else {
             if (this.isUpdate) {
-                this.participService.update(this.particip).subscribe(function () { return _this.location.back(); });
+                this.participService
+                    .update(this.particip)
+                    .pipe(operators_1.map(function () { return _this.isConflict = false; }))
+                    .subscribe(function () { return _this.location.back(); }, this.errCallback);
             }
             else {
-                this.participService.post(this.particip).subscribe(function () { return _this.location.back(); });
+                this.participService
+                    .post(this.particip)
+                    .pipe(operators_1.map(function () { return _this.isConflict = false; }))
+                    .subscribe(function () { return _this.location.back(); }, this.errCallback);
             }
         }
     };
@@ -80,14 +96,16 @@ var AddOrUpdateComponent = /** @class */ (function () {
                 this.isLoading = false;
             }
             else {
-                this.participService.post(this.particip)
+                this.participService
+                    .post(this.particip)
+                    .pipe(operators_1.map(function () { return _this.isConflict = false; }))
                     .subscribe(function () {
                     _this.participForm.enable();
                     _this.isLoading = false;
                     _this.particip = {};
                     _this.participForm.reset();
                     _this.focusOnFirstField();
-                });
+                }, this.errCallback);
             }
         }
     };

@@ -7,7 +7,7 @@ import { ClassModel } from '../../../models/class.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatInput, MatFormField } from '@angular/material';
-import { delay } from 'rxjs/operators/delay';
+import { delay, map } from 'rxjs/operators';
 
 @Component({
 	templateUrl: `./app/one-two-three/particips/add-or-update/add-or-update.component.html?v=${new Date().getTime()}`,
@@ -17,6 +17,7 @@ export class AddOrUpdateComponent {
 	isUpdate: boolean = true;
 	isLoading = true;
 	formIsPristine = false;
+	isConflict = false;
 
 	particip = {} as ParticipModel;
 	classes: ClassModel[];
@@ -67,9 +68,19 @@ export class AddOrUpdateComponent {
 			this.formIsPristine = true;
 		} else {
 			if (this.isUpdate) {
-				this.participService.update(this.particip).subscribe(() => this.location.back());
+				this.participService
+						.update(this.particip)
+						.pipe(
+							map(() => this.isConflict = false)
+						)
+						.subscribe(() => this.location.back(), this.errCallback);
 			} else {
-				this.participService.post(this.particip).subscribe(() => this.location.back());
+				this.participService
+						.post(this.particip)
+						.pipe(
+							map(() => this.isConflict = false)
+						)
+						.subscribe(() => this.location.back(), this.errCallback);
 			}
 		}
 	}
@@ -85,14 +96,18 @@ export class AddOrUpdateComponent {
 				this.formIsPristine = true;
 				this.isLoading = false;
 			} else {
-				this.participService.post(this.particip)
+				this.participService
+						.post(this.particip)
+						.pipe(
+							map(() => this.isConflict = false)
+						)
 						.subscribe(() => {
 							this.participForm.enable();
 							this.isLoading = false;
 							this.particip = {} as ParticipModel;
 							this.participForm.reset();
 							this.focusOnFirstField();
-						});
+						}, this.errCallback);
 			}
 		}
 	}
@@ -100,6 +115,15 @@ export class AddOrUpdateComponent {
 	private markFieldsAsDirty() {
 		for (let control of Object.keys(this.participForm.controls)) {
 			this.participForm.get(control).markAsTouched();
+		}
+	}
+
+	private errCallback = (err: any) => {
+		if (err.status === 409) {
+			this.isConflict = true;
+			this.focusOnFirstField();
+		} else {
+			throw err;
 		}
 	}
 

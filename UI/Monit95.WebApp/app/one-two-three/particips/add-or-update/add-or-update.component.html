@@ -34,7 +34,10 @@
                 <div *ngIf="classId.errors.required">выберите класс</div>
             </mat-error>
         </mat-form-field>
+
         <p class="alert alert-danger" *ngIf="participForm.pristine && formIsPristine">изменений не обнаружено!</p>
+        <p class="alert alert-danger" *ngIf="isConflict">Участник с такими данными уже добавлен в базу!</p>
+
         <div class="form-buttons">
             <button mat-raised-button color="primary" type="submit">отправить</button>
             <button mat-raised-button color="warn" type="button" (click)="cancel()">отменить</button>
