@@ -25,11 +25,11 @@ export class ParticipService {
 		return this.httpClient.get<ParticipModel>(`${endpoint}/${participId}`);
 	}
 
-	update(particip: ParticipModel): Observable<string> {
+	update = (particip: ParticipModel): Observable<string> => {
 		return this.httpClient.put(`${endpoint}/${particip.Id}`, particip, { responseType: 'text' });
 	}
 
-	post(particip: ParticipModel): Observable<string> {
+	post = (particip: ParticipModel): Observable<string> => {
 		return this.httpClient.post(endpoint, particip, { responseType: 'text' });
 	}
 

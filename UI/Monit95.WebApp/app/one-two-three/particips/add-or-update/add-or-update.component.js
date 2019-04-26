@@ -26,10 +26,18 @@ var AddOrUpdateComponent = /** @class */ (function () {
         this.errCallback = function (err) {
             if (err.status === 409) {
                 _this.isConflict = true;
+                _this.isLoading = false;
+                _this.focusOnFirstField();
             }
             else {
                 throw err;
             }
+        };
+        this.saveParticip = function (method, particip, callback) {
+            if (callback === void 0) { callback = function () { return _this.location.back(); }; }
+            _this.participSaveSub$ = method(particip)
+                .pipe(operators_1.map(function () { return _this.isConflict = false; }))
+                .subscribe(callback, _this.errCallback);
         };
         this.cancel = function () { return _this.location.back(); };
         this.focusOnFirstField = function () { return _this.renderer.selectRootElement(_this.firstField.nativeElement).focus(); };
@@ -37,10 +45,10 @@ var AddOrUpdateComponent = /** @class */ (function () {
     AddOrUpdateComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.createForm();
-        this.route.params.subscribe(function (params) {
+        this.routeSub$ = this.route.params.subscribe(function (params) {
             _this.isUpdate = params['participId'];
             if (_this.isUpdate) {
-                _this.participService.get(params['participId']).subscribe(function (res) {
+                _this.participGetSub$ = _this.participService.get(params['participId']).subscribe(function (res) {
                     _this.particip = res;
                     _this.isLoading = false;
                 });
@@ -48,20 +56,20 @@ var AddOrUpdateComponent = /** @class */ (function () {
             else {
                 _this.isLoading = false;
             }
-            _this.classService.getClasses().subscribe(function (res) { return _this.classes = res.slice(0, 36); });
+            _this.classesSub$ = _this.classService.getClasses()
+                .subscribe(function (res) { return _this.classes = res.slice(0, 36); });
             _this.focusOnFirstField();
         });
     };
     AddOrUpdateComponent.prototype.createForm = function () {
         this.participForm = this.fb.group({
-            surname: ['', [forms_1.Validators.required, forms_1.Validators.minLength(4)]],
-            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
-            secondName: ['', forms_1.Validators.minLength(5)],
+            surname: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2)]],
+            secondName: ['', forms_1.Validators.minLength(4)],
             classId: ['', forms_1.Validators.required]
         });
     };
     AddOrUpdateComponent.prototype.submitForm = function () {
-        var _this = this;
         if (this.participForm.invalid) {
             this.markFieldsAsDirty();
         }
@@ -70,16 +78,10 @@ var AddOrUpdateComponent = /** @class */ (function () {
         }
         else {
             if (this.isUpdate) {
-                this.participService
-                    .update(this.particip)
-                    .pipe(operators_1.map(function () { return _this.isConflict = false; }))
-                    .subscribe(function () { return _this.location.back(); }, this.errCallback);
+                this.saveParticip(this.participService.update, this.particip);
             }
             else {
-                this.participService
-                    .post(this.particip)
-                    .pipe(operators_1.map(function () { return _this.isConflict = false; }))
-                    .subscribe(function () { return _this.location.back(); }, this.errCallback);
+                this.saveParticip(this.participService.post, this.particip);
             }
         }
     };
@@ -96,16 +98,25 @@ var AddOrUpdateComponent = /** @class */ (function () {
                 this.isLoading = false;
             }
             else {
-                this.participService
-                    .post(this.particip)
-                    .pipe(operators_1.map(function () { return _this.isConflict = false; }))
-                    .subscribe(function () {
+                //this.participService
+                //		.post(this.particip)
+                //		.pipe(
+                //			map(() => this.isConflict = false)
+                //		)
+                //		.subscribe(() => {
+                //			this.participForm.enable();
+                //			this.isLoading = false;
+                //			this.particip = { ClassId: this.particip.ClassId } as ParticipModel;
+                //			this.participForm.reset();
+                //			this.focusOnFirstField();
+                //		}, this.errCallback);
+                this.saveParticip(this.participService.post, this.particip, function () {
                     _this.participForm.enable();
                     _this.isLoading = false;
-                    _this.particip = {};
-                    _this.participForm.reset();
+                    _this.participForm.reset({ classId: _this.particip.ClassId });
+                    _this.particip = _this.particip;
                     _this.focusOnFirstField();
-                }, this.errCallback);
+                });
             }
         }
     };
@@ -135,6 +146,16 @@ var AddOrUpdateComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    AddOrUpdateComponent.prototype.ngOnDestroy = function () {
+        if (this.routeSub$)
+            this.routeSub$.unsubscribe();
+        if (this.participGetSub$)
+            this.participGetSub$.unsubscribe();
+        if (this.participSaveSub$)
+            this.participSaveSub$.unsubscribe();
+        if (this.classesSub$)
+            this.classesSub$.unsubscribe();
+    };
     tslib_1.__decorate([
         core_1.ViewChild('surnameInput'),
         tslib_1.__metadata("design:type", core_1.ElementRef)

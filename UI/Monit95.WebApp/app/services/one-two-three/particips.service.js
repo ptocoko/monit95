@@ -7,7 +7,14 @@ var http_2 = require("@angular/common/http");
 var endpoint = 'api/onetwothree/particips';
 var ParticipService = /** @class */ (function () {
     function ParticipService(httpClient) {
+        var _this = this;
         this.httpClient = httpClient;
+        this.update = function (particip) {
+            return _this.httpClient.put(endpoint + "/" + particip.Id, particip, { responseType: 'text' });
+        };
+        this.post = function (particip) {
+            return _this.httpClient.post(endpoint, particip, { responseType: 'text' });
+        };
     }
     ParticipService.prototype.getAll = function (options) {
         var params = new http_2.HttpParams();
@@ -23,12 +30,6 @@ var ParticipService = /** @class */ (function () {
     };
     ParticipService.prototype.get = function (participId) {
         return this.httpClient.get(endpoint + "/" + participId);
-    };
-    ParticipService.prototype.update = function (particip) {
-        return this.httpClient.put(endpoint + "/" + particip.Id, particip, { responseType: 'text' });
-    };
-    ParticipService.prototype.post = function (particip) {
-        return this.httpClient.post(endpoint, particip, { responseType: 'text' });
     };
     ParticipService.prototype.deleteParticip = function (participId) {
         return this.httpClient.delete(endpoint + "/" + participId, { responseType: 'text' });
