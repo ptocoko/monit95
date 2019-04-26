@@ -2,7 +2,7 @@
 <h2 *ngIf="!isUpdate">Добавить участника</h2>
 
 <div>
-    <form [formGroup]="participForm" (ngSubmit)="submitForm()">
+    <form [formGroup]="participForm">
         <mat-form-field>
             <input #surnameInput matInput placeholder="фамилия" [(ngModel)]="particip.Surname" formControlName="surname" />
             <mat-error *ngIf="surname.invalid && (surname.dirty || surname.touched)">
@@ -39,7 +39,7 @@
         <p class="alert alert-danger" *ngIf="isConflict">Участник с такими данными уже добавлен в базу!</p>
 
         <div class="form-buttons">
-            <button mat-raised-button color="primary" type="submit">отправить</button>
+            <button mat-raised-button color="primary" type="button" (click)="submitForm()">отправить</button>
             <button mat-raised-button color="warn" type="button" (click)="cancel()">отменить</button>
             <button mat-raised-button *ngIf="!isUpdate" type="button" (click)="addNext()">сохранить и добавить еще</button>
         </div>

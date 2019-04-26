@@ -36,7 +36,10 @@ var AddOrUpdateComponent = /** @class */ (function () {
         this.saveParticip = function (method, particip, callback) {
             if (callback === void 0) { callback = function () { return _this.location.back(); }; }
             _this.participSaveSub$ = method(particip)
-                .pipe(operators_1.map(function () { return _this.isConflict = false; }))
+                .pipe(operators_1.map(function () {
+                _this.isConflict = false;
+                _this.isLoading = true;
+            }))
                 .subscribe(callback, _this.errCallback);
         };
         this.cancel = function () { return _this.location.back(); };
@@ -88,33 +91,17 @@ var AddOrUpdateComponent = /** @class */ (function () {
     AddOrUpdateComponent.prototype.addNext = function () {
         var _this = this;
         if (!this.isUpdate) {
-            this.isLoading = true;
             if (this.participForm.invalid) {
                 this.markFieldsAsDirty();
-                this.isLoading = false;
             }
             else if (this.participForm.pristine) {
                 this.formIsPristine = true;
-                this.isLoading = false;
             }
             else {
-                //this.participService
-                //		.post(this.particip)
-                //		.pipe(
-                //			map(() => this.isConflict = false)
-                //		)
-                //		.subscribe(() => {
-                //			this.participForm.enable();
-                //			this.isLoading = false;
-                //			this.particip = { ClassId: this.particip.ClassId } as ParticipModel;
-                //			this.participForm.reset();
-                //			this.focusOnFirstField();
-                //		}, this.errCallback);
                 this.saveParticip(this.participService.post, this.particip, function () {
                     _this.participForm.enable();
                     _this.isLoading = false;
                     _this.participForm.reset({ classId: _this.particip.ClassId });
-                    _this.particip = _this.particip;
                     _this.focusOnFirstField();
                 });
             }

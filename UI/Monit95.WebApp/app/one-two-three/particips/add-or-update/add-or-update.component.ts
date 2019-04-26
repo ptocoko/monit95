@@ -85,14 +85,10 @@ export class AddOrUpdateComponent implements OnInit, OnDestroy {
 
 	addNext() {
 		if (!this.isUpdate) {
-			this.isLoading = true;
-
 			if (this.participForm.invalid) {
 				this.markFieldsAsDirty();
-				this.isLoading = false;
 			} else if (this.participForm.pristine) {
 				this.formIsPristine = true;
-				this.isLoading = false;
 			} else {
 				this.saveParticip(this.participService.post, this.particip, () => {
 					this.participForm.enable();
@@ -123,11 +119,14 @@ export class AddOrUpdateComponent implements OnInit, OnDestroy {
 	private saveParticip = (method: (particip: ParticipModel) => Observable<string>, particip: ParticipModel, callback = () => this.location.back()) => {
 		this.participSaveSub$ = method(particip)
 			.pipe(
-				map(() => this.isConflict = false)
+				map(() => {
+					this.isConflict = false;
+					this.isLoading = true;
+				})
 			)
 			.subscribe(callback, this.errCallback);
 	}
-
+	
 	cancel = () => this.location.back();
 
 	focusOnFirstField = () => this.renderer.selectRootElement(this.firstField.nativeElement).focus();
