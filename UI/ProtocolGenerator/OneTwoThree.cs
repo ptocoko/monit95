@@ -69,7 +69,7 @@ namespace ProtocolGenerator
         public void GenerateExcelReports(string [] schoolIds = null)
         {
             var schoolids = context.ParticipTests.AsNoTracking()
-                .Where(pt => pt.ProjectTest.ProjectId == 14 && pt.Grade5 > 0)
+                .Where(pt => pt.ProjectTest.ProjectId == 22 && pt.Grade5 > 0)
                 .Select(pt => new
                 {
                     pt.Particip.SchoolId,
@@ -87,26 +87,42 @@ namespace ProtocolGenerator
                     .Where(pt => pt.Particip.SchoolId == school.SchoolId)
                     //.AsEnumerable()
                     .Select(MapToDto)
-                    .OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.TestCode);
+                    .OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name)
+                    .GroupBy(gb => new { gb.ClassId, gb.ClassName, gb.TestName });
 
                 
                 if (!Directory.Exists($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}"))
                     Directory.CreateDirectory($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}");
 
-                using (var excel = new XLWorkbook($@"{destFolder}\template_onetwothree.xlsx"))
+                foreach (var classResults in schoolRes)
                 {
-                    using (var sheet = excel.Worksheets.First())
+                    using (var excel = new XLWorkbook($@"{destFolder}\template_onetwothree.xlsx"))
                     {
-                        sheet.Cell(2, 1).Value = $"{school.SchoolName} ({school.AreaName})";
-                        int i = 0;
-                        foreach (var res in schoolRes)
+                        using (var sheet = excel.Worksheets.First())
                         {
-                            WriteDownResult(sheet, i, res);
+                            sheet.Cell(1, 1).Value = $"Протокол проверки результатов диагностических работ в {classResults.Key.ClassName} классе {classResults.Key.TestName}";
+                            int i = 0;
+                            foreach (var res in classResults)
+                            {
+                                WriteDownResult(sheet, i, res);
 
-                            i++;
+                                i++;
+                            }
+
+                            sheet.Cell(i, 2).Value = "% выполнения заданий";
+                            sheet.Cell(i, 2).Style.Fill.BackgroundColor = XLColor.LightGray;
+                            sheet.Row(i).Style.Font.Bold = true;
+                            sheet.Cell(i, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            for(int j = 0; j < classResults.First().Marks.Count(); j++)
+                            {
+                                sheet.Cell(i, j + 5).DataType = XLCellValues.Number;
+                                sheet.Cell(i, j + 5).Value = 
+                                    Math.Round((double)classResults.Select(cr => cr.Marks[j]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[j]).Sum(), 0, MidpointRounding.AwayFromZero);
+                            }
+
+                            excel.SaveAs($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}.xlsx");
                         }
-
-                        excel.SaveAs($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}.xlsx");
                     }
                 }
             }
@@ -114,15 +130,19 @@ namespace ProtocolGenerator
 
         private static void WriteDownResult(IXLWorksheet sheet, int i, OneTwoThreeReportModel res)
         {
-            sheet.Cell(i + 4, 2).Value = res.Surname;
-            sheet.Cell(i + 4, 3).Value = res.Name;
-            sheet.Cell(i + 4, 4).Value = res.SecondName;
-            sheet.Cell(i + 4, 5).Value = res.ClassName;
-            sheet.Cell(i + 4, 6).Value = res.TestName;
-            sheet.Cell(i + 4, 7).Value = res.TotalMark;
-            sheet.Cell(i + 4, 8).Value = res.PerformanceOfGeneralTasks;
-            sheet.Cell(i + 4, 9).Value = res.PerformanceOfAdditionalTasks;
-            sheet.Cell(i + 4, 10).Value = res.GradeLevel;
+            sheet.Cell(i + 5, 1).Value = i + 5;
+            sheet.Cell(i + 5, 2).Value = $"{res.Surname} {res.Name} {res.SecondName}";
+            sheet.Cell(i + 5, 3).Value = res.TestName;
+            sheet.Cell(i + 5, 4).Value = res.OptionNumber;
+
+            for(int j = 0; j < res.Marks.Count(); j++)
+            {
+                sheet.Cell(i + 5, j + 5).Value = res.Marks[j];
+            }
+
+            sheet.Cell(i + 5, 8).Value = res.PerformanceOfGeneralTasks;
+            sheet.Cell(i + 5, 9).Value = res.PerformanceOfAdditionalTasks;
+            sheet.Cell(i + 5, 10).Value = res.GradeLevel;
         }
 
         private OneTwoThreeReportModel MapToDto(ParticipTest participTest)
@@ -139,7 +159,10 @@ namespace ProtocolGenerator
                 TotalMark = (int)GetTotalMark(participTest),
                 PerformanceOfGeneralTasks = (int)GetGeneralPerformance(participTest),
                 PerformanceOfAdditionalTasks = (int)GetAdditionalPerformance(participTest),
-                GradeLevel = participTest.GradeString
+                GradeLevel = participTest.GradeString,
+                OptionNumber = participTest.OptionNumber,
+                Marks = participTest.OneTwoThreeQuestionMarks.Select(qm => qm.AwardedMark).ToArray(),
+                MaxMarks = participTest.OneTwoThreeQuestionMarks.Select(qm => qm.OneTwoThreeQuestion.MaxMark).ToArray()
             };
         }
 
@@ -177,5 +200,8 @@ namespace ProtocolGenerator
         public int PerformanceOfGeneralTasks { get; set; }
         public int PerformanceOfAdditionalTasks { get; set; }
         public string GradeLevel { get; set; }
+        public short? OptionNumber { get; set; }
+        public int[] Marks { get; set; }
+        public int[] MaxMarks { get; set; }
     }
 }

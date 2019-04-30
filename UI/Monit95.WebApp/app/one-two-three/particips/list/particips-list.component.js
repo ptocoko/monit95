@@ -14,14 +14,15 @@ var map_1 = require("rxjs/operators/map");
 var material_1 = require("@angular/material");
 var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm-dialog.component");
 var account_service_1 = require("../../../services/account.service");
+var school_collector_service_1 = require("../../../shared/school-collector.service");
+var COLLECTOR_ID = 46;
 var ParticipsListComponent = /** @class */ (function () {
-    function ParticipsListComponent(participService, 
-        //private classService: ClassService,
-        dialog, snackBar, accountService) {
+    function ParticipsListComponent(participService, dialog, snackBar, accountService, collectorService) {
         this.participService = participService;
         this.dialog = dialog;
         this.snackBar = snackBar;
         this.accountService = accountService;
+        this.collectorService = collectorService;
         this.particips = [];
         this.classes = [];
         this.isLoading = true;
@@ -34,10 +35,12 @@ var ParticipsListComponent = /** @class */ (function () {
     }
     ParticipsListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.collectorGetSub$ = this.collectorService.getCollectorState(COLLECTOR_ID)
+            .subscribe(function (state) { return _this.isFinished = state.IsFinished; });
         var search$ = fromEvent_1.fromEvent(this.searchField.nativeElement, 'input')
             .pipe(debounceTime_1.debounceTime(1000));
-        search$.subscribe(function () { return _this.pageIndex = 0; });
-        merge_1.merge(this.paginator.page, search$, this.selectionChange$)
+        this.searchSub$ = search$.subscribe(function () { return _this.pageIndex = 0; });
+        this.participsSub$ = merge_1.merge(this.paginator.page, search$, this.selectionChange$)
             .pipe(startWith_1.startWith({}), switchMap_1.switchMap(function () {
             _this.isLoading = true;
             return _this.createRequest();
@@ -47,10 +50,6 @@ var ParticipsListComponent = /** @class */ (function () {
             _this.classes = data.Classes;
             return data.Items;
         })).subscribe(function (particips) { return _this.particips = particips; });
-        //this.participService.getAll().subscribe(res => {
-        //	this.particips = res;
-        //	this.isLoading = false;
-        //});
     };
     ParticipsListComponent.prototype.createRequest = function () {
         return this.participService.getAll({
@@ -71,7 +70,7 @@ var ParticipsListComponent = /** @class */ (function () {
         });
         dialogRef.afterClosed().subscribe(function (result) {
             if (result) {
-                _this.participService.deleteParticip(participId).subscribe(function () {
+                _this.participDelSub$ = _this.participService.deleteParticip(participId).subscribe(function () {
                     _this.particips.splice(participIndex, 1);
                     _this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 3000 });
                 });
@@ -91,15 +90,29 @@ var ParticipsListComponent = /** @class */ (function () {
         });
         dialogRef.afterClosed().subscribe(function (res) {
             if (res) {
-                //this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isFinished = true);
-                _this.isFinished = true;
+                _this.setCollectorState(true);
             }
         });
     };
     ParticipsListComponent.prototype.notFinish = function () {
-        //this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(() => this.isFinished = false);
-        //this.ngOnInit();
-        this.isFinished = false;
+        this.setCollectorState(false);
+    };
+    ParticipsListComponent.prototype.setCollectorState = function (state) {
+        var _this = this;
+        this.collectorSetSub$ = this.collectorService.isFinished(COLLECTOR_ID, state)
+            .subscribe(function () { return _this.isFinished = state; });
+    };
+    ParticipsListComponent.prototype.ngOnDestroy = function () {
+        if (this.participsSub$)
+            this.participsSub$.unsubscribe();
+        if (this.searchSub$)
+            this.searchSub$.unsubscribe();
+        if (this.participDelSub$)
+            this.participDelSub$.unsubscribe();
+        if (this.collectorSetSub$)
+            this.collectorSetSub$.unsubscribe();
+        if (this.collectorGetSub$)
+            this.collectorGetSub$.unsubscribe();
     };
     tslib_1.__decorate([
         core_1.ViewChild(table_paginator_1.TablePaginator),
@@ -117,7 +130,8 @@ var ParticipsListComponent = /** @class */ (function () {
         tslib_1.__metadata("design:paramtypes", [particips_service_1.ParticipService,
             material_1.MatDialog,
             material_1.MatSnackBar,
-            account_service_1.AccountService])
+            account_service_1.AccountService,
+            school_collector_service_1.SchoolCollectorService])
     ], ParticipsListComponent);
     return ParticipsListComponent;
 }());

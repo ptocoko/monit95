@@ -19,15 +19,15 @@ var ProtocolsListComponent = /** @class */ (function () {
         this.limitToVal = 20;
         this.focusOnFioField = function () { return _this.renderer.selectRootElement(_this.participFioInput.nativeElement).focus(); };
         this.projectTestIds = {
-            2051: 'Русский язык',
-            2034: 'Математика',
-            2035: 'Чтение',
-            2054: 'Русский язык',
-            2037: 'Математика',
-            2038: 'Чтение',
-            2055: 'Русский язык',
-            2040: 'Математика',
-            2041: 'Чтение'
+            3069: 'Русский язык',
+            3070: 'Математика',
+            3071: 'Чтение',
+            3072: 'Русский язык',
+            3073: 'Математика',
+            3074: 'Чтение',
+            3075: 'Русский язык',
+            3076: 'Математика',
+            3077: 'Чтение'
         };
     }
     ProtocolsListComponent.prototype.ngOnInit = function () {

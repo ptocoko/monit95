@@ -7,7 +7,6 @@ var router_1 = require("@angular/router");
 var class_service_1 = require("../../../services/class.service");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var operators_1 = require("rxjs/operators");
 var AddOrUpdateComponent = /** @class */ (function () {
     function AddOrUpdateComponent(participService, classService, router, route, location, fb, renderer) {
         var _this = this;
@@ -35,11 +34,9 @@ var AddOrUpdateComponent = /** @class */ (function () {
         };
         this.saveParticip = function (method, particip, callback) {
             if (callback === void 0) { callback = function () { return _this.location.back(); }; }
+            _this.isConflict = false;
+            _this.isLoading = true;
             _this.participSaveSub$ = method(particip)
-                .pipe(operators_1.map(function () {
-                _this.isConflict = false;
-                _this.isLoading = true;
-            }))
                 .subscribe(callback, _this.errCallback);
         };
         this.cancel = function () { return _this.location.back(); };

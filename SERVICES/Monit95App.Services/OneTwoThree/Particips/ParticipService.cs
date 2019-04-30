@@ -15,9 +15,9 @@ namespace Monit95App.Services.OneTwoThree.Particips
 
         private readonly Dictionary<string, int[]> projectTestIdsByClass = new Dictionary<string, int[]>
         {
-            ["01"] = new int[] { 2051 },
-            ["02"] = new int[] { 2054 },
-            ["03"] = new int[] { 2055 }
+            ["01"] = new int[] { 3069, 3070, 3071 },
+            ["02"] = new int[] { 3072, 3073, 3074 },
+            ["03"] = new int[] { 3075, 3076, 3077 }
         };
 
         private readonly CokoContext context;

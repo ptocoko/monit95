@@ -7,7 +7,6 @@ import { ClassModel } from '../../../models/class.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatInput, MatFormField } from '@angular/material';
-import { delay, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -117,13 +116,10 @@ export class AddOrUpdateComponent implements OnInit, OnDestroy {
 	}
 
 	private saveParticip = (method: (particip: ParticipModel) => Observable<string>, particip: ParticipModel, callback = () => this.location.back()) => {
+		this.isConflict = false;
+		this.isLoading = true;
+
 		this.participSaveSub$ = method(particip)
-			.pipe(
-				map(() => {
-					this.isConflict = false;
-					this.isLoading = true;
-				})
-			)
 			.subscribe(callback, this.errCallback);
 	}
 	

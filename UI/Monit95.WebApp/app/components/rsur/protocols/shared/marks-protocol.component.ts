@@ -49,6 +49,11 @@ export class MarksProtocolComponent implements AfterViewInit, OnDestroy {
 
 	onOptionNumberChange(event: any) {
 		if (event.target.value) {
+			const optionNumber = Number.parseInt(event.target.value);
+			if (optionNumber === NaN || [1, 2].indexOf(optionNumber) < 0) {
+				event.target.value = 2;
+				this.optionNumber = 2;
+			}
 			this.optionNumberChange.emit(this.optionNumber);
 			this.focusOnNextElement(event);
 		}

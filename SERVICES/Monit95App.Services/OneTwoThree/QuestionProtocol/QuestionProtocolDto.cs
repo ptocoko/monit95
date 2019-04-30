@@ -25,5 +25,7 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
         public string Name { get; set; }
 
         public int MaxMark { get; set; }
+
+        public int Number { get; set; }
     }
 }

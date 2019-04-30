@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, ElementRef } from '@angular/core';
+﻿import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { ParticipService } from '../../../services/one-two-three/particips.service';
 import { ParticipModel, ParticipsList } from '../../../models/one-two-three/particip.model';
 import { TablePaginator } from '../../../shared/table-paginator/table-paginator';
@@ -15,12 +15,16 @@ import { ClassModel } from '../../../models/class.model';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { AccountService } from '../../../services/account.service';
+import { Subscription } from 'rxjs/Subscription';
+import { SchoolCollectorService } from '../../../shared/school-collector.service';
+
+const COLLECTOR_ID = 46;
 
 @Component({
 	templateUrl: `./app/one-two-three/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
 	styleUrls: [`./app/one-two-three/particips/list/particips-list.component.css?v=${new Date().getTime()}`]
 })
-export class ParticipsListComponent {
+export class ParticipsListComponent implements OnInit, OnDestroy {
 	particips: ParticipModel[] = [];
 	classes: ClassModel[] = [];
 
@@ -38,20 +42,29 @@ export class ParticipsListComponent {
 	@ViewChild(TablePaginator) paginator: TablePaginator;
 	@ViewChild('searchField') searchField: ElementRef;
 
+	participsSub$: Subscription;
+	participDelSub$: Subscription;
+	searchSub$: Subscription;
+	collectorGetSub$: Subscription;
+	collectorSetSub$: Subscription;
+
 	constructor(private participService: ParticipService,
-		//private classService: ClassService,
 		private dialog: MatDialog,
 		private snackBar: MatSnackBar,
-		private accountService: AccountService) { }
+		private accountService: AccountService,
+		private collectorService: SchoolCollectorService) { }
 
 	ngOnInit() {
+		this.collectorGetSub$ = this.collectorService.getCollectorState(COLLECTOR_ID)
+			.subscribe(state => this.isFinished = state.IsFinished);
+
 		const search$ = fromEvent(this.searchField.nativeElement, 'input')
 			.pipe(
 				debounceTime(1000)
 		);
-		search$.subscribe(() => this.pageIndex = 0);
+		this.searchSub$ = search$.subscribe(() => this.pageIndex = 0);
 
-		merge(this.paginator.page, search$, this.selectionChange$)
+		this.participsSub$ = merge(this.paginator.page, search$, this.selectionChange$)
 			.pipe(
 				startWith({}),
 				switchMap(() => {
@@ -65,10 +78,6 @@ export class ParticipsListComponent {
 					return data.Items;
 				})
 			).subscribe((particips: ParticipModel[]) => this.particips = particips);
-		//this.participService.getAll().subscribe(res => {
-		//	this.particips = res;
-		//	this.isLoading = false;
-		//});
 	}
 
 	private createRequest(): Observable<ParticipsList> {
@@ -92,7 +101,7 @@ export class ParticipsListComponent {
 
 		dialogRef.afterClosed().subscribe((result: boolean) => {
 			if (result) {
-				this.participService.deleteParticip(participId).subscribe(() => {
+				this.participDelSub$ = this.participService.deleteParticip(participId).subscribe(() => {
 					this.particips.splice(participIndex, 1);
 					this.snackBar.open('участник исключен из диагностики', 'OK', { duration: 3000 });
 				});
@@ -114,15 +123,34 @@ export class ParticipsListComponent {
 
 		dialogRef.afterClosed().subscribe(res => {
 			if (res) {
-				//this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isFinished = true);
-				this.isFinished = true;
+				this.setCollectorState(true);
 			}
 		});
 	}
 
 	notFinish() {
-		//this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(() => this.isFinished = false);
-		//this.ngOnInit();
-		this.isFinished = false;
+		this.setCollectorState(false);
+	}
+
+	private setCollectorState(state: boolean) {
+		this.collectorSetSub$ = this.collectorService.isFinished(COLLECTOR_ID, state)
+			.subscribe(() => this.isFinished = state);
+	}
+
+	ngOnDestroy() {
+		if (this.participsSub$)
+			this.participsSub$.unsubscribe();
+
+		if (this.searchSub$)
+			this.searchSub$.unsubscribe();
+
+		if (this.participDelSub$)
+			this.participDelSub$.unsubscribe();
+
+		if (this.collectorSetSub$)
+			this.collectorSetSub$.unsubscribe();
+
+		if (this.collectorGetSub$)
+			this.collectorGetSub$.unsubscribe();
 	}
 }

@@ -35,8 +35,11 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 context.OneTwoThreeQuestionMarks.RemoveRange(participTest.OneTwoThreeQuestionMarks);
             }
 
+            var (countOfPassedGeneralQuestions, percentOfNonGeneralQuestionMarks) = GetParticipResults(participTest.ProjectTest.Test.OneTwoThreeQuestions.AsEnumerable(), protocolDto);
+
+            (participTest.Grade5, participTest.GradeString) = GetGrades(countOfPassedGeneralQuestions, percentOfNonGeneralQuestionMarks, _marksCountsByProjectId[participTest.ProjectTestId]);
             // TODO: Solve Grade5!
-            participTest.Grade5 = null;
+            //participTest.Grade5 = null;
             participTest.OptionNumber = protocolDto.OptionNumber;
 
             context.OneTwoThreeQuestionMarks.AddRange(protocolDto.QuestionMarks.Select(s => new OneTwoThreeQuestionMark
@@ -63,7 +66,8 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                     QuestionId = s.OneTwoThreeQuestionId,
                     MaxMark = s.OneTwoThreeQuestion.MaxMark,
                     CurrentMark = s.AwardedMark,
-                    Name = s.OneTwoThreeQuestion.Name
+                    Name = s.OneTwoThreeQuestion.Name,
+                    Number = s.OneTwoThreeQuestion.Number
                 });
             }
             else
@@ -72,7 +76,8 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 {
                     QuestionId = s.Id,
                     MaxMark = s.MaxMark,
-                    Name = s.Name
+                    Name = s.Name,
+                    Number = s.Number
                 });
             }
 
@@ -124,8 +129,55 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
 
             participTest.Grade5 = -1;
             participTest.OptionNumber = null;
+            participTest.GradeString = null;
 
             context.SaveChanges();
+        }
+
+        private (int, decimal) GetParticipResults(IEnumerable<OneTwoThreeQuestion> questions, QuestionProtocolDto protocolDto)
+        {
+            var questionMarks = protocolDto.QuestionMarks;
+            var generalQuestionIds = questions.Where(q => q.IsGeneralPart).Select(q => q.Id);
+
+            var generalQuestionMarks = questionMarks.Where(qm => generalQuestionIds.Contains(qm.QuestionId));
+            var nonGeneralQuestionMarks = questionMarks.Where(qm => !generalQuestionIds.Contains(qm.QuestionId));
+
+            var countOfPassedGeneralQuestions = generalQuestionMarks.GroupBy(qm => qm.Number).Select(gqm => gqm.Select(qm => qm.CurrentMark).Sum()).Count(cm => cm > 0);
+            var percentOfNonGeneralQuestionMarks = ((decimal)nonGeneralQuestionMarks.Sum(qm => qm.CurrentMark) * 100) / (decimal)nonGeneralQuestionMarks.Sum(qm => qm.MaxMark);
+
+            return (countOfPassedGeneralQuestions, percentOfNonGeneralQuestionMarks);
+        }
+
+        private (int, string) GetGrades(int countOfPassedGeneralQuestions, decimal percentOfNonGeneralQuestionMarks, GradesOptions marksCountLevels)
+        {
+            if (countOfPassedGeneralQuestions < marksCountLevels.MinCountForThree)
+            {
+                return (2, marksCountLevels.TwoGradeStr);
+            }
+            else if (countOfPassedGeneralQuestions >= marksCountLevels.MinCountForThree && countOfPassedGeneralQuestions <= marksCountLevels.MaxCountForThree)
+            {
+                return (3, marksCountLevels.ThreeGradeStr);
+            }
+            else if (countOfPassedGeneralQuestions >= marksCountLevels.MinCountForFour && countOfPassedGeneralQuestions <= marksCountLevels.MaxCountForFour)
+            {
+                if (countOfPassedGeneralQuestions >= marksCountLevels.MaxCountForFour && percentOfNonGeneralQuestionMarks > marksCountLevels.MinPercentToPassNonGeneralPart)
+                {
+                    return (5, marksCountLevels.FiveGradeStr);
+                }
+                return (4, marksCountLevels.FourGradeStr);
+            }
+            //else if (countOfPassedGeneralQuestions > marksCountLevels.MaxCountForFour && percentOfNonGeneralQuestionMarks > marksCountLevels.MinPercentToPassNonGeneralPart)
+            //{
+            //    return (5, marksCountLevels.FiveGradeStr);
+            //}
+            //else if (countOfPassedGeneralQuestions > marksCountLevels.MaxCountForFour)
+            //{
+            //    return (4, marksCountLevels.FourGradeStr);
+            //}
+            else
+            {
+                throw new ArgumentException("something wrong with grade solver");
+            }
         }
 
         private void CheckPostedQuestionMarks(IEnumerable<QuestionMarkDto> questionMarks)
@@ -161,5 +213,100 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 return participTest.OneTwoThreeQuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
             }
         }
+
+        private readonly Dictionary<int, GradesOptions> _marksCountsByProjectId = new Dictionary<int, GradesOptions>
+        {
+            [3069] = new GradesOptions
+            {
+                MinCountForThree = 7,
+                MaxCountForThree = 8,
+                MinCountForFour = 9,
+                MaxCountForFour = 10
+            },
+            [3070] = new GradesOptions
+            {
+                MinCountForThree = 6,
+                MaxCountForThree = 7,
+                MinCountForFour = 8,
+                MaxCountForFour = 8
+            },
+            [3071] = new GradesOptions
+            {
+                MinCountForThree = 6,
+                MaxCountForThree = 7,
+                MinCountForFour = 8,
+                MaxCountForFour = 8,
+                TwoGradeStr = "Учащийся не достиг необходимого уровня осознанности чтения",
+                ThreeGradeStr = "Учащийся достиг необходимого уровня осознанности чтения",
+                FourGradeStr = "Учащийся имеет хороший уровень осознанности чтения",
+                FiveGradeStr = "Учащийся имеет повышенный уровень осознанности чтения"
+            },
+            [3072] = new GradesOptions
+            {
+                MinCountForThree = 9,
+                MaxCountForThree = 11,
+                MinCountForFour = 12,
+                MaxCountForFour = 13
+            },
+            [3073] = new GradesOptions
+            {
+                MinCountForThree = 8,
+                MaxCountForThree = 9,
+                MinCountForFour = 10,
+                MaxCountForFour = 12
+            },
+            [3074] = new GradesOptions
+            {
+                MinCountForThree = 8,
+                MaxCountForThree = 10,
+                MinCountForFour = 11,
+                MaxCountForFour = 12,
+                TwoGradeStr = "Учащийся не достиг необходимого уровня осознанности чтения",
+                ThreeGradeStr = "Учащийся достиг необходимого уровня осознанности чтения",
+                FourGradeStr = "Учащийся имеет хороший уровень осознанности чтения",
+                FiveGradeStr = "Учащийся имеет повышенный уровень осознанности чтения"
+            },
+            [3075] = new GradesOptions
+            {
+                MinCountForThree = 10,
+                MaxCountForThree = 12,
+                MinCountForFour = 13,
+                MaxCountForFour = 15
+            },
+            [3076] = new GradesOptions
+            {
+                MinCountForThree = 10,
+                MaxCountForThree = 12,
+                MinCountForFour = 13,
+                MaxCountForFour = 15
+            },
+            [3077] = new GradesOptions
+            {
+                MinCountForThree = 10,
+                MaxCountForThree = 12,
+                MinCountForFour = 13,
+                MaxCountForFour = 14,
+                TwoGradeStr = "Учащийся не достиг необходимого уровня осознанности чтения",
+                ThreeGradeStr = "Учащийся достиг необходимого уровня осознанности чтения",
+                FourGradeStr = "Учащийся имеет хороший уровень осознанности чтения",
+                FiveGradeStr = "Учащийся имеет повышенный уровень осознанности чтения"
+            }
+        };
+    }
+
+    public class GradesOptions
+    {
+        public int MinCountForThree { get; set; }
+        public int MaxCountForThree { get; set; }
+        public int MinCountForFour { get; set; }
+        public int MaxCountForFour { get; set; }
+        public int MinPercentToPassNonGeneralPart { get; set; } = 50;
+
+        //public bool IsCht { get; set; } = false;
+
+        public string TwoGradeStr { get; set; } = "Уровень ниже базового";
+        public string ThreeGradeStr { get; set; } = "Уровень базовой подготовки";
+        public string FourGradeStr { get; set; } = "Уровень прочной базовой подготовки";
+        public string FiveGradeStr { get; set; } = "Уровень повышенной подготовки";
     }
 }

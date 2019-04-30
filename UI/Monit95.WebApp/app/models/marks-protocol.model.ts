@@ -12,4 +12,5 @@ export interface QuestionResult {
 	MaxMark: number;
 	CurrentMark: number;
 	QuestionId: number;
+	Number?: number;
 }
