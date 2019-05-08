@@ -23,6 +23,7 @@ export class ReportsListComponent {
 	reportsList: ReportsListModel[];
 	reportsInfo: ReportsInfo = {} as ReportsInfo;
 	projectId: number;
+	projectName: string;
 
 	testCode: string = '';
 	searchParticipText: string;
@@ -47,6 +48,10 @@ export class ReportsListComponent {
 
 	ngAfterViewInit() {
 		this.projectId = this.router.snapshot.params['projectId'];
+		const projectName = this.router.snapshot.queryParams['projectName'];
+		if (projectName) {
+			setTimeout(() => this.projectName = projectName, 0);
+		}
 
 		this.rsurReportService.getReportsInfo(this.projectId).subscribe(info => {
 			this.reportsInfo = info;

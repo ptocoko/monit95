@@ -30,6 +30,10 @@ var ReportsListComponent = /** @class */ (function () {
     ReportsListComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         this.projectId = this.router.snapshot.params['projectId'];
+        var projectName = this.router.snapshot.queryParams['projectName'];
+        if (projectName) {
+            setTimeout(function () { return _this.projectName = projectName; }, 0);
+        }
         this.rsurReportService.getReportsInfo(this.projectId).subscribe(function (info) {
             _this.reportsInfo = info;
             var search$ = fromEvent_1.fromEvent(_this.searchField.nativeElement, 'input')

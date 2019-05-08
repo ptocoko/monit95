@@ -3,6 +3,40 @@
     <h2>РСУР: Главное меню</h2>
 
     <div *ngIf="isArea()" class="list-container">
+        <h3 class="list-header">Диагностика «Май-2019»</h3>
+        <div>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_фи_распределение_{{account.UserName}}.xlsx" download="Физика. Распределение.xlsx">
+                <h4 style="font-weight:bold">Физика: распределение</h4>
+            </a>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_ис_распределение_{{account.UserName}}.xlsx" download="История. Распределение.xlsx">
+                <h4 style="font-weight:bold">История: распределение</h4>
+            </a>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_ге_распределение_{{account.UserName}}.xlsx" download="География. Распределение.xlsx">
+                <h4 style="font-weight:bold">География: распределение</h4>
+            </a>
+
+            <a *ngIf="false" class="list-item-link" href="/file/rsur/042019/tasks/МА.rar" download="Математика. Варианты работ.rar">
+                <h4>Математика: Варианты работ</h4>
+            </a>
+
+
+            <a *ngIf="false" class="list-item-link" href="/file/rsur/042019/keys/МА.rar" download="Математика. Ключи.rar">
+                <h4 style="font-weight:bold">Математика: Ключи для проверки работ</h4>
+            </a>
+
+            <!--Протоколы-->
+            <div class="list-item" *ngIf="false">
+                <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
+                    <div>
+                        <h4><b>Протоколы проверки заданий</b></h4>
+                    </div>
+                    <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="false" class="list-container">
         <h3 class="list-header">Диагностика «Обществознание»</h3>
         <div>
             <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/04-19_об_распределение_2_{{account.UserName}}.xlsx" download="Обществознание. Распределение.xlsx">
@@ -23,34 +57,6 @@
 
             <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-5.rar" download="Право. Ключи для проверки работ.rar">
                 <h4 style="font-weight: bold">Право: Ключи для проверки работ</h4>
-            </a>
-
-            <!--Протоколы-->
-            <div class="list-item" *ngIf="true">
-                <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                    <div>
-                        <h4><b>Протоколы проверки заданий</b></h4>
-                    </div>
-                    <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">Диагностика «Математика»</h3>
-        <div>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/04-19_ма_распределение_{{account.UserName}}.xlsx" download="Математика. Распределение.xlsx">
-                <h4>Математика: распределение</h4>
-            </a>
-
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/tasks/МА.rar" download="Математика. Варианты работ.rar">
-                <h4>Математика: Варианты работ</h4>
-            </a>
-
-
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/keys/МА.rar" download="Математика. Ключи.rar">
-                <h4 style="font-weight:bold">Математика: Ключи для проверки работ</h4>
             </a>
 
             <!--Протоколы-->

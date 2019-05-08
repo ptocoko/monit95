@@ -17,19 +17,22 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="isBadSchool">
+<div class="list-container" *ngIf="isBadSchool || account.isArea()">
     <h3 class="list-header">Я сдам ЕГЭ май 2019</h3>
 
-    <a class="list-item-link" href="/file/iTakeEge/052019/МА.rar" download="Математика.rar">
+    <a *ngIf="isBadSchool" class="list-item-link" href="/file/iTakeEge/052019/МА.rar" download="Математика.rar">
         <h4>Математика</h4>
     </a>
 
-    <a class="list-item-link" href="/file/iTakeEge/052019/РУ.rar" download="Русский язык.rar">
+    <a *ngIf="isBadSchool" class="list-item-link" href="/file/iTakeEge/052019/РУ.rar" download="Русский язык.rar">
         <h4>Русский язык</h4>
     </a>
 
-    <a class="list-item-link" href="/file/iTakeEge/052019/Алгоритм работы школ (1-12 мая).rar" download="Алгоритм работы школ (1-12 мая).rar">
+    <a *ngIf="isBadSchool" class="list-item-link" href="/file/iTakeEge/052019/Алгоритм работы школ (1-12 мая).rar" download="Алгоритм работы школ (1-12 мая).rar">
         <h4 style="font-weight:bold">Алгоритм работы</h4>
+    </a>
+    <a *ngIf="isBadSchool || account.isArea()" class="list-item-link" href="/file/iTakeEge/tasks/new_algoritm/schools_otchet.docx" download="Форма отчета.docx">
+        <h4>Форма отчета</h4>
     </a>
 </div>
 
@@ -68,7 +71,7 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="account.isSchool()">
     <h3 class="list-header">Результаты «Я сдам ЕГЭ!»-2018-2019 - февраль</h3>
     <div>
         <a class="list-item-link" style="cursor:pointer" (click)="downloadCards(21)">
@@ -108,17 +111,17 @@
 
 
 
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="account.isSchool()">
     <h3 class="list-header">Задания</h3>
     <div>
-        <a class="list-item-link" href="/file/iTakeEge/tasks/РУ/РУ-24.rar" download="Материалы и КИМ по 24 заданию.rar">
+        <a class="list-item-link" href="/file/iTakeEge/tasks/РУ/РУ-26.rar" download="Материалы и КИМ по 26 заданию.rar">
             <div>
-                <h4><b>Русский язык: Материалы и КИМ по 24 заданию</b></h4>
+                <h4><b>Русский язык: Материалы и КИМ по 26 заданию</b></h4>
             </div>
         </a>
-        <a class="list-item-link" href="/file/iTakeEge/tasks/МА/МА-9.rar" download="Материалы по 9-му заданию.rar">
+        <a class="list-item-link" href="/file/iTakeEge/tasks/МА/МА-18.rar" download="Материалы по 18-му заданию.rar">
             <div>
-                <h4><b>Математика: Материалы по 9-му заданию</b></h4>
+                <h4><b>Математика: Материалы по 18-му заданию</b></h4>
             </div>
         </a>
     </div>

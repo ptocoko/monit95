@@ -66,10 +66,13 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
         
-        public void GenerateExcelReports(string [] schoolIds = null)
+        public void GenerateExcelReports(int projectTestId, string [] schoolIds = null)
         {
+            var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты\templates\{projectTestId}\template.xlsx";
+            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты";
+
             var schoolids = context.ParticipTests.AsNoTracking()
-                .Where(pt => pt.ProjectTest.ProjectId == 22 && pt.Grade5 > 0)
+                .Where(pt => pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
                 .Select(pt => new
                 {
                     pt.Particip.SchoolId,
@@ -83,20 +86,18 @@ namespace ProtocolGenerator
             {
                 Console.WriteLine($"started for {school.SchoolId}");
 
-                var schoolRes = query
-                    .Where(pt => pt.Particip.SchoolId == school.SchoolId)
+                var schoolRes = context.ParticipTests
+                    .Where(pt => pt.Particip.SchoolId == school.SchoolId && pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
                     //.AsEnumerable()
                     .Select(MapToDto)
                     .OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name)
                     .GroupBy(gb => new { gb.ClassId, gb.ClassName, gb.TestName });
 
-                
-                if (!Directory.Exists($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}"))
-                    Directory.CreateDirectory($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}");
+                var schoolFolder = $@"{destFolder}\{school.SchoolId}";
 
                 foreach (var classResults in schoolRes)
                 {
-                    using (var excel = new XLWorkbook($@"{destFolder}\template_onetwothree.xlsx"))
+                    using (var excel = new XLWorkbook(templatePath))
                     {
                         using (var sheet = excel.Worksheets.First())
                         {
@@ -111,18 +112,54 @@ namespace ProtocolGenerator
 
                             sheet.Cell(i, 2).Value = "% выполнения заданий";
                             sheet.Cell(i, 2).Style.Fill.BackgroundColor = XLColor.LightGray;
-                            sheet.Row(i).Style.Font.Bold = true;
                             sheet.Cell(i, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                             for(int j = 0; j < classResults.First().Marks.Count(); j++)
                             {
-                                sheet.Cell(i, j + 5).DataType = XLCellValues.Number;
-                                sheet.Cell(i, j + 5).Value = 
-                                    Math.Round((double)classResults.Select(cr => cr.Marks[j]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[j]).Sum(), 0, MidpointRounding.AwayFromZero);
+                                sheet.Cell(i, j + 5).Style.NumberFormat.NumberFormatId = 9;
+                                sheet.Cell(i, j + 5).SetFormulaR1C1($"=СРЗНАЧ(R5C{j}:R{i}C{j})/{classResults.First().MaxMarks[j]}");
+                                    //Math.Round((double)classResults.Select(cr => cr.Marks[j]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[j]).Sum(), 0, MidpointRounding.AwayFromZero);
                             }
 
-                            excel.SaveAs($@"{destFolder}\res\{school.AreaName}\{school.SchoolName}.xlsx");
+                            foreach (var cell in sheet.Range(i, 5, i, classResults.First().Marks.Length + 4).Cells(cell => (int)cell.Value <= 50))
+                            {
+                                sheet.Cell(4, cell.Address.ColumnNumber).Style.Fill.BackgroundColor = XLColor.Red;
+                                cell.Style.Fill.BackgroundColor = XLColor.Red;
+                            }
+
+                            var generalResultsRange = sheet.Range(3, 1, i, classResults.First().Marks.Count() + 7);
+                            generalResultsRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            generalResultsRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                            i += 10;
+
+                            WriteDownParticipStats(sheet, i, classResults.First().Marks.Length + 9, classResults);
+
                         }
+
+                        using (var sheet = excel.Worksheets.ToArray()[1])
+                        {
+                            sheet.Cell(2, 2).Value = $"{classResults.Key.TestName}: Выполнение заданий учащимися {classResults.Key.ClassName} класса";
+
+                            var resDict = new Dictionary<int, int>();
+                            for(int i = 0; i < classResults.First().Marks.Length; i++)
+                            {
+                                var questionRes = (int)Math.Round((double)classResults.Select(cr => cr.Marks[i]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[i]).Sum(), 0, MidpointRounding.AwayFromZero);
+                                resDict.Add(i + 1, questionRes);
+                            }
+
+                            var orderedDict = resDict.OrderByDescending(ob => ob.Value);
+
+                            int j = 0;
+                            foreach (var res in orderedDict)
+                            {
+                                sheet.Cell(j, 2).Value = $"Задание №{res.Key}";
+                                sheet.Cell(j, 3).Value = res.Value;
+                                sheet.Cell(j, 3).Style.Fill.BackgroundColor = res.Value > 50 ? XLColor.Blue : XLColor.Red;
+                            }
+                        }
+
+                        excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()} класс\{classResults.Key.TestName}\{classResults.Key.ClassName} класс.xlsx");
                     }
                 }
             }
@@ -140,9 +177,28 @@ namespace ProtocolGenerator
                 sheet.Cell(i + 5, j + 5).Value = res.Marks[j];
             }
 
-            sheet.Cell(i + 5, 8).Value = res.PerformanceOfGeneralTasks;
-            sheet.Cell(i + 5, 9).Value = res.PerformanceOfAdditionalTasks;
-            sheet.Cell(i + 5, 10).Value = res.GradeLevel;
+            sheet.Cell(i + 5, res.Marks.Length + 5).Value = res.PerformanceOfGeneralTasks;
+            sheet.Cell(i + 5, res.Marks.Length + 6).Value = res.PerformanceOfAdditionalTasks;
+            sheet.Cell(i + 5, res.Marks.Length + 7).Value = res.GradeLevel;
+        }
+
+        //private static void SetResultsTableBorders()
+
+        private static void WriteDownParticipStats(IXLWorksheet sheet, int rowNumber, int firstColumnNumber, IGrouping<object, OneTwoThreeReportModel> classResults)
+        {
+            sheet.Cell(rowNumber, firstColumnNumber).Value = classResults.Count();
+
+            sheet.Cell(rowNumber, firstColumnNumber + 1).Value = classResults.Where(cr => cr.Grade5 == 2).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 2).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 1}/R{rowNumber}C{firstColumnNumber}");
+
+            sheet.Cell(rowNumber, firstColumnNumber + 3).Value = classResults.Where(cr => cr.Grade5 == 3).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 4).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 3}/R{rowNumber}C{firstColumnNumber}");
+
+            sheet.Cell(rowNumber, firstColumnNumber + 5).Value = classResults.Where(cr => cr.Grade5 == 4).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 6).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 5}/R{rowNumber}C{firstColumnNumber}");
+
+            sheet.Cell(rowNumber, firstColumnNumber + 7).Value = classResults.Where(cr => cr.Grade5 == 5).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 8).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 7}/R{rowNumber}C{firstColumnNumber}");
         }
 
         private OneTwoThreeReportModel MapToDto(ParticipTest participTest)
@@ -159,6 +215,7 @@ namespace ProtocolGenerator
                 TotalMark = (int)GetTotalMark(participTest),
                 PerformanceOfGeneralTasks = (int)GetGeneralPerformance(participTest),
                 PerformanceOfAdditionalTasks = (int)GetAdditionalPerformance(participTest),
+                Grade5 = participTest.Grade5.Value,
                 GradeLevel = participTest.GradeString,
                 OptionNumber = participTest.OptionNumber,
                 Marks = participTest.OneTwoThreeQuestionMarks.Select(qm => qm.AwardedMark).ToArray(),
@@ -199,6 +256,7 @@ namespace ProtocolGenerator
         public int TotalMark { get; set; }
         public int PerformanceOfGeneralTasks { get; set; }
         public int PerformanceOfAdditionalTasks { get; set; }
+        public int Grade5 { get; set; }
         public string GradeLevel { get; set; }
         public short? OptionNumber { get; set; }
         public int[] Marks { get; set; }
