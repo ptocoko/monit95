@@ -24,7 +24,7 @@ namespace ParticipReporter
                 string schoolIdDirPath = $@"D:\Work\reports\1-3 (новое)\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
                 CreateDirectories(schoolIdDirPath);
 
-                var reportDtos = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 14 && pt.Particip.SchoolId == schoolid && pt.Grade5 > 0 && new int[] { 2033, 2034, 2035 }.Contains(pt.ProjectTestId))
+                var reportDtos = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 22 && pt.Particip.SchoolId == schoolid && pt.Grade5 > 0)
                     .Include("Particip.School.Area")
                     .Include("OneTwoThreeQuestionMarks.OneTwoThreeQuestion")
                     .Include("ProjectTest.Test")
@@ -49,8 +49,8 @@ namespace ParticipReporter
                             MaxAdditionalTasksPoints = pt.OneTwoThreeQuestionMarks.Where(p => !p.OneTwoThreeQuestion.IsGeneralPart).Sum(s => s.OneTwoThreeQuestion.MaxMark),
                             GradeStr = pt.GradeString,
                             Grade5 = pt.Grade5.Value,
-                            FirstClassGrade5 = pt.Particip.FirstClassGrades?.FirstClassGrade5,
-                            FirstClassGradeStr = pt.Particip.FirstClassGrades?.FirstClassGradeStr
+                            //FirstClassGrade5 = pt.Particip.FirstClassGrades?.FirstClassGrade5,
+                            //FirstClassGradeStr = pt.Particip.FirstClassGrades?.FirstClassGradeStr
                         },
                         QuestionsDto = pt.OneTwoThreeQuestionMarks.OrderBy(ob => ob.OneTwoThreeQuestion.Number).ThenBy(tb => tb.OneTwoThreeQuestion.Name).Select(qm => new QuestionsDto
                         {

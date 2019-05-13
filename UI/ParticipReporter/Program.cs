@@ -31,8 +31,9 @@ namespace ParticipReporter
             context = new CokoContext();
             var participReporter = new ReportService(context);
 
-            var _9_11Classes = new _9_11Classes(context, participReporter);
-            _9_11Classes.GenerateCards();
+            //var _9_11Classes = new _9_11Classes(context, participReporter);
+            //_9_11Classes.GenerateCards();
+            var oneTwoThree = new OneTwoThree();
 
             Console.WriteLine("End");
             #region oldCode

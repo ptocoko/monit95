@@ -22,58 +22,57 @@ namespace ProtocolGenerator
 
             using (var excel = new ClosedXML.Excel.XLWorkbook(@"D:\Work\stat_template.xlsx"))
             {
-                using (var sheet = excel.Worksheet("List1"))
-                {
-                    var entity = context.ParticipTests
-                        .Where(pt => pt.ProjectTestId == 2020)
-                        .Select(pt => pt.Particip.School)
-                        .Distinct()
-                        .Select(s => new
-                        {
-                            SchoolName = s.Name,
-                            SchoolId = s.Id,
-                            s.AreaCode,
-                            AvgMarks = context.QuestionMarks
-                                .Where(qm => qm.ParticipTest.Particip.SchoolId == s.Id && qm.ParticipTest.ProjectTestId == 2020)
-                                .Select(qm => new { qm.AwardedMark, qm.Question.MaxMark, qm.Question.Order })
-                                .GroupBy(gb => new { gb.Order, gb.MaxMark })
-                                .OrderBy(ob => ob.Key.Order)
-                                .Select(avg => avg.Select(mark => mark.AwardedMark).Sum() / (avg.Count() * avg.Key.MaxMark))
-                        })
-                        .OrderBy(ob => ob.AreaCode).ThenBy(tb => tb.SchoolId);
-
-                    int i = 5;
-                    foreach(var order in entity)
+                var sheet = excel.Worksheet("List1");
+                var entity = context.ParticipTests
+                    .Where(pt => pt.ProjectTestId == 2020)
+                    .Select(pt => pt.Particip.School)
+                    .Distinct()
+                    .Select(s => new
                     {
-                        sheet.Cell(i, 1).Value = order.AreaCode;
-                        sheet.Cell(i, 2).Value = order.SchoolName;
+                        SchoolName = s.Name,
+                        SchoolId = s.Id,
+                        s.AreaCode,
+                        AvgMarks = context.QuestionMarks
+                            .Where(qm => qm.ParticipTest.Particip.SchoolId == s.Id && qm.ParticipTest.ProjectTestId == 2020)
+                            .Select(qm => new { qm.AwardedMark, qm.Question.MaxMark, qm.Question.Order })
+                            .GroupBy(gb => new { gb.Order, gb.MaxMark })
+                            .OrderBy(ob => ob.Key.Order)
+                            .Select(avg => avg.Select(mark => mark.AwardedMark).Sum() / (avg.Count() * avg.Key.MaxMark))
+                    })
+                    .OrderBy(ob => ob.AreaCode).ThenBy(tb => tb.SchoolId);
 
-                        int j = 3;
-                        foreach(var avgMark in order.AvgMarks)
-                        {
-                            sheet.Cell(i, j).Value = avgMark;
+                int i = 5;
+                foreach(var order in entity)
+                {
+                    sheet.Cell(i, 1).Value = order.AreaCode;
+                    sheet.Cell(i, 2).Value = order.SchoolName;
 
-                            j++;
-                        }
+                    int j = 3;
+                    foreach(var avgMark in order.AvgMarks)
+                    {
+                        sheet.Cell(i, j).Value = avgMark;
 
-                        i++;
+                        j++;
                     }
 
-                    
-                    //int i = 4;
-                    //foreach (var school in entity)
-                    //{
-                    //    sheet.Cell(i, 2).Value = school.Key;
-
-                    //    int j = 3;
-                    //    foreach (var order in school)
-                    //    {
-                    //        sheet.Cell(i, j).Value = order.
-                    //    }
-
-                    //    i++;
-                    //}
+                    i++;
                 }
+
+                    
+                //int i = 4;
+                //foreach (var school in entity)
+                //{
+                //    sheet.Cell(i, 2).Value = school.Key;
+
+                //    int j = 3;
+                //    foreach (var order in school)
+                //    {
+                //        sheet.Cell(i, j).Value = order.
+                //    }
+
+                //    i++;
+                //}
+                
 
                 excel.Save();
             }

@@ -27,15 +27,18 @@ namespace OneTwoThreeReporter
         {
             var context = new CokoContext();
             //var reporter = new ReportService(context);
-            var iTakeEge = new ITakeEge(
-                context: context,
-                projectId: 23);
+            //var iTakeEge = new ITakeEge(
+            //    context: context,
+            //    projectId: 23);
 
-            iTakeEge.SolveGrade5_v2();
+            //iTakeEge.SolveGrade5_v2();
             //iTakeEge.GenerateForAllSchools();
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
 
             //var report = reporter.GetReport(758706);
+
+            var oneTwoThree = new OneTwoThree(context, null, 22);
+            oneTwoThree.GenerateExcelReports(2, "Математика", new string[] { "0000" });
 
             Console.WriteLine("All done!");
         }

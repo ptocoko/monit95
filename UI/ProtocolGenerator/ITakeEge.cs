@@ -56,7 +56,7 @@ namespace ProtocolGenerator
         {
             context.ParticipTests
                 .Where(pt => pt.ProjectTestId == 3058 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
-                .ForEach(pt =>
+                .ForEachAsync(pt =>
                 {
                     var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
 
@@ -96,29 +96,28 @@ namespace ProtocolGenerator
             {
                 using (var excel = new XLWorkbook($@"{reportFolder}\template ege school.xlsx"))
                 {
-                    using(var sheet = excel.Worksheets.First())
+                    var sheet = excel.Worksheets.First();
+                    sheet.Cell(2, 1).Value = $"{areaResult.Key.SchoolName}";
+                    int i = 4;
+                    foreach (var result in areaResult)
                     {
-                        sheet.Cell(2, 1).Value = $"{areaResult.Key.SchoolName}";
-                        int i = 4;
-                        foreach (var result in areaResult)
-                        {
-                            sheet.Cell(i, 1).Value = i - 3;
-                            sheet.Cell(i, 2).Value = result.Surname;
-                            sheet.Cell(i, 3).Value = result.Name;
-                            sheet.Cell(i, 4).Value = result.SecondName;
-                            sheet.Cell(i, 5).Value = result.DocumNumber;
-                            sheet.Cell(i, 6).Value = result.TestName;
-                            //sheet.Cell(i, 7).Value = result.SchoolName;
-                            //sheet.Cell (i, 7).Value = result.Marks;
-                            sheet.Cell(i, 7).Value = result.PrimaryMark;
-                            sheet.Cell(i, 8).Value = result.GradeStr;
-                            i++;
-                        }
-
-                        //sheet.RowsUsed(false).Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
-                        //sheet.RowsUsed(false).Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
-                        excel.SaveAs($@"{reportFolder}\{areaResult.Key.SchoolName.Replace("\"", "")}.xlsx");
+                        sheet.Cell(i, 1).Value = i - 3;
+                        sheet.Cell(i, 2).Value = result.Surname;
+                        sheet.Cell(i, 3).Value = result.Name;
+                        sheet.Cell(i, 4).Value = result.SecondName;
+                        sheet.Cell(i, 5).Value = result.DocumNumber;
+                        sheet.Cell(i, 6).Value = result.TestName;
+                        //sheet.Cell(i, 7).Value = result.SchoolName;
+                        //sheet.Cell (i, 7).Value = result.Marks;
+                        sheet.Cell(i, 7).Value = result.PrimaryMark;
+                        sheet.Cell(i, 8).Value = result.GradeStr;
+                        i++;
                     }
+
+                    //sheet.RowsUsed(false).Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
+                    //sheet.RowsUsed(false).Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
+                    excel.SaveAs($@"{reportFolder}\{areaResult.Key.SchoolName.Replace("\"", "")}.xlsx");
+                    
                 }
             }
         }
@@ -139,28 +138,27 @@ namespace ProtocolGenerator
                 {
                     using (var excel = new XLWorkbook($@"{destFolder}\temp.xlsx"))
                     {
-                        using (var sheet = excel.Worksheets.First())
+                        var sheet = excel.Worksheets.First();
+                        for (int i = 0; i < testResults.Count(); i++)
                         {
-                            for (int i = 0; i < testResults.Count(); i++)
-                            {
-                                var orderedResults = testResults.OrderByDescending(ob => ob.PrimaryMark);
-                                var res = orderedResults.ToArray()[i];
+                            var orderedResults = testResults.OrderByDescending(ob => ob.PrimaryMark);
+                            var res = orderedResults.ToArray()[i];
 
-                                sheet.Cell(i + 2, 1).Value = res.Id;
-                                sheet.Cell(i + 2, 2).Value = res.Surname;
-                                sheet.Cell(i + 2, 3).Value = res.Name;
-                                sheet.Cell(i + 2, 4).Value = res.SecondName;
-                                sheet.Cell(i + 2, 5).Value = rand.Next(1, 4);
-                                sheet.Cell(i + 2, 6).Value = res.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
-                                sheet.Cell(i + 2, 7).Value = res.PrimaryMark;
+                            sheet.Cell(i + 2, 1).Value = res.Id;
+                            sheet.Cell(i + 2, 2).Value = res.Surname;
+                            sheet.Cell(i + 2, 3).Value = res.Name;
+                            sheet.Cell(i + 2, 4).Value = res.SecondName;
+                            sheet.Cell(i + 2, 5).Value = rand.Next(1, 4);
+                            sheet.Cell(i + 2, 6).Value = res.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+                            sheet.Cell(i + 2, 7).Value = res.PrimaryMark;
 
-                                var gradeStrCell = sheet.Cell(i + 2, 8);
-                                StyleGradeCell(res.Grade5, gradeStrCell);
+                            var gradeStrCell = sheet.Cell(i + 2, 8);
+                            StyleGradeCell(res.Grade5, gradeStrCell);
 
-                                sheet.Cell(i + 2, 8).Value = res.GradeString;
-                            }
-                            sheet.Name = testNameDict[testResults.Key];
+                            sheet.Cell(i + 2, 8).Value = res.GradeString;
                         }
+                        sheet.Name = testNameDict[testResults.Key];
+                        
                         excel.SaveAs($@"{destFolder}\{schoolResults.Key.AreaName}\{schoolResults.Key.SchoolName.RemoveInvalidPathChars()}\{testNameDict[testResults.Key]}.xlsx");
                     }
                 }
@@ -179,20 +177,19 @@ namespace ProtocolGenerator
             {
                 using (var excel = new XLWorkbook(tempPath))
                 {
-                    using (var sheet = excel.Worksheets.First())
-                    {
-                        sheet.Cell(2, 1).Value = report.Id;
-                        sheet.Cell(2, 2).Value = report.Surname;
-                        sheet.Cell(2, 3).Value = report.Name;
-                        sheet.Cell(2, 4).Value = report.SecondName;
-                        sheet.Cell(2, 5).Value = rand.Next(1, 4);
-                        sheet.Cell(2, 6).Value = report.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
-                        sheet.Cell(2, 7).Value = report.PrimaryMark;
+                    var sheet = excel.Worksheets.First();
+                    sheet.Cell(2, 1).Value = report.Id;
+                    sheet.Cell(2, 2).Value = report.Surname;
+                    sheet.Cell(2, 3).Value = report.Name;
+                    sheet.Cell(2, 4).Value = report.SecondName;
+                    sheet.Cell(2, 5).Value = rand.Next(1, 4);
+                    sheet.Cell(2, 6).Value = report.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+                    sheet.Cell(2, 7).Value = report.PrimaryMark;
 
-                        var gradeCell = sheet.Cell(2, 8);
-                        gradeCell.Value = report.GradeString;
-                        StyleGradeCell(report.Grade5, gradeCell);
-                    }
+                    var gradeCell = sheet.Cell(2, 8);
+                    gradeCell.Value = report.GradeString;
+                    StyleGradeCell(report.Grade5, gradeCell);
+                    
                     excel.SaveAs($@"{destFolder}\{report.AreaName}\{report.SchoolName.RemoveInvalidPathChars()}\{testNameDict[report.ProjectTestId]}\{report.Surname.RemoveInvalidPathChars()} {report.Name.RemoveInvalidPathChars()} {report.SecondName.RemoveInvalidPathChars()}.xlsx");
                 }
             }
@@ -224,38 +221,37 @@ namespace ProtocolGenerator
                     //    excel.Worksheets.Add("Лист" + i + 1);
                     //}
 
-                    using (var sheet = excel.Worksheets.ToArray()[i])
+                    var sheet = excel.Worksheets.ToArray()[i];
+                    //if (i > 0)
+                    //{
+                    //    var header = excel.Worksheets.ToArray()[i - 1].Range("A1:I1");
+                    //    sheet.Rows().
+                    //}
+
+                    sheet.Name = testNameDict[testResults.Key];
+
+                    int j = 2;
+                    foreach (var res in testResults)
                     {
-                        //if (i > 0)
-                        //{
-                        //    var header = excel.Worksheets.ToArray()[i - 1].Range("A1:I1");
-                        //    sheet.Rows().
-                        //}
+                        sheet.Cell(j, 1).Value = res.Id;
+                        sheet.Cell(j, 2).Value = res.VprCode;
+                        sheet.Cell(j, 3).Value = res.Surname;
+                        sheet.Cell(j, 4).Value = res.Name;
+                        sheet.Cell(j, 5).Value = res.SecondName;
+                        sheet.Cell(j, 6).Value = rand.Next(1, 4);
+                        sheet.Cell(j, 7).Value = res.PrimaryMark;
+                        sheet.Cell(j, 8).Value = res.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
 
-                        sheet.Name = testNameDict[testResults.Key];
-
-                        int j = 2;
-                        foreach (var res in testResults)
-                        {
-                            sheet.Cell(j, 1).Value = res.Id;
-                            sheet.Cell(j, 2).Value = res.VprCode;
-                            sheet.Cell(j, 3).Value = res.Surname;
-                            sheet.Cell(j, 4).Value = res.Name;
-                            sheet.Cell(j, 5).Value = res.SecondName;
-                            sheet.Cell(j, 6).Value = rand.Next(1, 4);
-                            sheet.Cell(j, 7).Value = res.PrimaryMark;
-                            sheet.Cell(j, 8).Value = res.Marks.Select(s => s.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
-
-                            var gradeCell = sheet.Cell(j, 9);
-                            gradeCell.Value = res.GradeString;
-                            StyleGradeCell(res.Grade5, gradeCell);
+                        var gradeCell = sheet.Cell(j, 9);
+                        gradeCell.Value = res.GradeString;
+                        StyleGradeCell(res.Grade5, gradeCell);
                             
-                            j++;
-                        }
-
-                        sheet.RangeUsed(false).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                        sheet.RangeUsed(false).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        j++;
                     }
+
+                    sheet.RangeUsed(false).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    sheet.RangeUsed(false).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    
 
                     i++;
                 }
@@ -289,27 +285,26 @@ namespace ProtocolGenerator
 
                 using (var excelTemplate = new XLWorkbook(tempPath))
                 {
-                    using (var sheet = excelTemplate.Worksheets.First())
+                    var sheet = excelTemplate.Worksheets.First();
+                    sheet.Cell(2, 1).Value = $"{schoolResult.Key.SchoolName}, {schoolResult.Key.AreaName}";
+                    int i = 0;
+                    foreach (var result in schoolResult)
                     {
-                        sheet.Cell(2, 1).Value = $"{schoolResult.Key.SchoolName}, {schoolResult.Key.AreaName}";
-                        int i = 0;
-                        foreach (var result in schoolResult)
-                        {
-                            sheet.Cell(i + 4, 2).Value = result.Surname;
-                            sheet.Cell(i + 4, 3).Value = result.Name;
-                            sheet.Cell(i + 4, 4).Value = result.SecondName;
-                            //sheet.Cell(i + 4, 5).Value = result.DocumNumber;
-                            sheet.Cell(i + 4, 5).Value = result.TestName;
-                            sheet.Cell(i + 4, 6).Value = result.ClassName;
-                            //sheet.Cell(i + 4, 7).Value = result.Marks;
-                            sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
-                            //sheet.Cell(i + 4, 8).Value = result.RiskGroup;
-                            sheet.Cell(i + 4, 8).Value = result.GradeStr;
-                            i++;
-                        }
-                        
-                        excelTemplate.SaveAs($@"{path}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}.xlsx");
+                        sheet.Cell(i + 4, 2).Value = result.Surname;
+                        sheet.Cell(i + 4, 3).Value = result.Name;
+                        sheet.Cell(i + 4, 4).Value = result.SecondName;
+                        //sheet.Cell(i + 4, 5).Value = result.DocumNumber;
+                        sheet.Cell(i + 4, 5).Value = result.TestName;
+                        sheet.Cell(i + 4, 6).Value = result.ClassName;
+                        //sheet.Cell(i + 4, 7).Value = result.Marks;
+                        sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
+                        //sheet.Cell(i + 4, 8).Value = result.RiskGroup;
+                        sheet.Cell(i + 4, 8).Value = result.GradeStr;
+                        i++;
                     }
+                        
+                    excelTemplate.SaveAs($@"{path}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}.xlsx");
+                    
                 }
 
                 //using (var zip = new ZipFile())

@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Ionic.Zip;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.OneTwoThree.QuestionProtocol;
@@ -20,6 +21,13 @@ namespace ProtocolGenerator
         private readonly string destFolder;
 
         private IQueryable<ParticipTest> query;
+
+        private readonly Dictionary<int, int[]> projectTestIdsByTestCode = new Dictionary<int, int[]>
+        {
+            [1] = new int[] { 3069, 3072, 3075 },
+            [2] = new int[] { 3070, 3073, 3076 },
+            [21] = new int[] { 3071, 3074, 3077 }
+        };
 
         public OneTwoThree(CokoContext context, GradeSolver gradeSolver, int projectId)
         {
@@ -66,100 +74,126 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
         
-        public void GenerateExcelReports(int projectTestId, string [] schoolIds = null)
+        public void GenerateExcelReports(int testCode, string testName, string [] schoolIds = null)
         {
-            var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты\templates\{projectTestId}\template.xlsx";
-            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты";
+            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты\{testName}";
+            if (!Directory.Exists(destFolder))
+                Directory.CreateDirectory(destFolder);
 
-            var schoolids = context.ParticipTests.AsNoTracking()
-                .Where(pt => pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
-                .Select(pt => new
-                {
-                    pt.Particip.SchoolId,
-                    SchoolName = pt.Particip.School.Name.Trim(),
-                    AreaName = pt.Particip.School.Area.Name.Trim()
-                })
-                .Distinct()
-                .ToList();
-
-            foreach (var school in schoolids.Where(p => schoolIds.Contains(p.SchoolId)))
+            foreach (var projectTestId in projectTestIdsByTestCode[testCode])
             {
-                Console.WriteLine($"started for {school.SchoolId}");
-
-                var schoolRes = context.ParticipTests
-                    .Where(pt => pt.Particip.SchoolId == school.SchoolId && pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
-                    //.AsEnumerable()
-                    .Select(MapToDto)
-                    .OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name)
-                    .GroupBy(gb => new { gb.ClassId, gb.ClassName, gb.TestName });
-
-                var schoolFolder = $@"{destFolder}\{school.SchoolId}";
-
-                foreach (var classResults in schoolRes)
-                {
-                    using (var excel = new XLWorkbook(templatePath))
+                var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты\templates\{projectTestId}\template.xlsx";
+                
+                var schoolids = context.ParticipTests.AsNoTracking()
+                    .Where(pt => pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
+                    .Select(pt => new
                     {
-                        using (var sheet = excel.Worksheets.First())
+                        pt.Particip.SchoolId,
+                        SchoolName = pt.Particip.School.Name.Trim(),
+                        AreaName = pt.Particip.School.Area.Name.Trim()
+                    })
+                    .Distinct()
+                    .ToList();
+
+                foreach (var school in schoolids.Where(p => schoolIds.Contains(p.SchoolId)))
+                {
+                    Console.WriteLine($"started for {school.SchoolId}");
+
+                    var schoolRes = context.ParticipTests
+                        .Where(pt => pt.Particip.SchoolId == school.SchoolId && pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
+                        //.AsEnumerable()
+                        .Select(MapToDto)
+                        .OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name)
+                        .GroupBy(gb => new { gb.ClassId, gb.ClassName, gb.TestName });
+
+                    var schoolFolder = $@"{destFolder}\{school.SchoolId}";
+
+                    foreach (var classResults in schoolRes)
+                    {
+                        using (var excel = new XLWorkbook(templatePath))
                         {
+                            var sheet = excel.Worksheets.First();
+
                             sheet.Cell(1, 1).Value = $"Протокол проверки результатов диагностических работ в {classResults.Key.ClassName} классе {classResults.Key.TestName}";
-                            int i = 0;
+                            int i = 5;
                             foreach (var res in classResults)
                             {
                                 WriteDownResult(sheet, i, res);
 
                                 i++;
                             }
-
+                        
                             sheet.Cell(i, 2).Value = "% выполнения заданий";
                             sheet.Cell(i, 2).Style.Fill.BackgroundColor = XLColor.LightGray;
                             sheet.Cell(i, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            for(int j = 0; j < classResults.First().Marks.Count(); j++)
+                            for(int j = 5; j < classResults.First().Marks.Count() + 5; j++)
                             {
-                                sheet.Cell(i, j + 5).Style.NumberFormat.NumberFormatId = 9;
-                                sheet.Cell(i, j + 5).SetFormulaR1C1($"=СРЗНАЧ(R5C{j}:R{i}C{j})/{classResults.First().MaxMarks[j]}");
-                                    //Math.Round((double)classResults.Select(cr => cr.Marks[j]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[j]).Sum(), 0, MidpointRounding.AwayFromZero);
+                                sheet.Cell(i, j).Style.NumberFormat.NumberFormatId = 9;
+                                sheet.Cell(i, j).Value =
+                                    Math.Round((double)classResults.Select(cr => cr.Marks[j - 5]).Sum() / (double)classResults.Select(cr => cr.MaxMarks[j - 5]).Sum(), 2, MidpointRounding.AwayFromZero);
                             }
 
-                            foreach (var cell in sheet.Range(i, 5, i, classResults.First().Marks.Length + 4).Cells(cell => (int)cell.Value <= 50))
+                            foreach (var cell in sheet.Range(i, 5, i, classResults.First().Marks.Length + 4).Cells())//.Cells(cell => (int)cell.Value <= 50))
                             {
-                                sheet.Cell(4, cell.Address.ColumnNumber).Style.Fill.BackgroundColor = XLColor.Red;
-                                cell.Style.Fill.BackgroundColor = XLColor.Red;
+                                if (Convert.ToDouble(cell.Value) <= 0.5)
+                                {
+                                    sheet.Cell(4, cell.Address.ColumnNumber).Style.Fill.BackgroundColor = XLColor.Red;
+                                    cell.Style.Fill.BackgroundColor = XLColor.Red;
+                                }
                             }
 
                             var generalResultsRange = sheet.Range(3, 1, i, classResults.First().Marks.Count() + 7);
                             generalResultsRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                             generalResultsRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            generalResultsRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                            generalResultsRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            generalResultsRange.Style.Font.FontSize = 14;
+                            generalResultsRange.Style.Font.Bold = true;
+                            generalResultsRange.Style.Alignment.WrapText = true;
+                            sheet.Rows(5, i).Height = 38.25;
 
-                            i += 10;
+                            var participStatsRowNumber = 11;
+                            var participStatsFirstColumnNumber = classResults.First().Marks.Length + 9;
+                            WriteDownParticipStats(sheet, participStatsRowNumber, participStatsFirstColumnNumber, classResults);
 
-                            WriteDownParticipStats(sheet, i, classResults.First().Marks.Length + 9, classResults);
+                            var participStatsRange = sheet.Range(participStatsRowNumber, participStatsFirstColumnNumber, participStatsRowNumber, participStatsFirstColumnNumber + 9);
+                            participStatsRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            participStatsRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                            participStatsRange.Style.Font.FontSize = 10;
+                            participStatsRange.Style.Font.Bold = true;
 
+                            // второй лист не нужен
+                            //using (var sheet = excel.Worksheets.ToArray()[1])
+                            //{
+                            //    sheet.Cell(2, 2).Value = $"{classResults.Key.TestName}: Выполнение заданий учащимися {classResults.Key.ClassName} класса";
+
+                            //    var resDict = new Dictionary<int, int>();
+                            //    for(int i = 0; i < classResults.First().Marks.Length; i++)
+                            //    {
+                            //        var questionRes = (int)Math.Round((double)classResults.Select(cr => cr.Marks[i]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[i]).Sum(), 0, MidpointRounding.AwayFromZero);
+                            //        resDict.Add(i + 1, questionRes);
+                            //    }
+
+                            //    var orderedDict = resDict.OrderByDescending(ob => ob.Value);
+
+                            //    int j = 0;
+                            //    foreach (var res in orderedDict)
+                            //    {
+                            //        sheet.Cell(j, 2).Value = $"Задание №{res.Key}";
+                            //        sheet.Cell(j, 3).Value = res.Value;
+                            //        sheet.Cell(j, 3).Style.Fill.BackgroundColor = res.Value > 50 ? XLColor.Blue : XLColor.Red;
+                            //    }
+                            //}
+
+                            excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()} класс\{classResults.Key.TestName}\{classResults.Key.ClassName} класс.xlsx");
                         }
+                    }
 
-                        using (var sheet = excel.Worksheets.ToArray()[1])
-                        {
-                            sheet.Cell(2, 2).Value = $"{classResults.Key.TestName}: Выполнение заданий учащимися {classResults.Key.ClassName} класса";
-
-                            var resDict = new Dictionary<int, int>();
-                            for(int i = 0; i < classResults.First().Marks.Length; i++)
-                            {
-                                var questionRes = (int)Math.Round((double)classResults.Select(cr => cr.Marks[i]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[i]).Sum(), 0, MidpointRounding.AwayFromZero);
-                                resDict.Add(i + 1, questionRes);
-                            }
-
-                            var orderedDict = resDict.OrderByDescending(ob => ob.Value);
-
-                            int j = 0;
-                            foreach (var res in orderedDict)
-                            {
-                                sheet.Cell(j, 2).Value = $"Задание №{res.Key}";
-                                sheet.Cell(j, 3).Value = res.Value;
-                                sheet.Cell(j, 3).Style.Fill.BackgroundColor = res.Value > 50 ? XLColor.Blue : XLColor.Red;
-                            }
-                        }
-
-                        excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()} класс\{classResults.Key.TestName}\{classResults.Key.ClassName} класс.xlsx");
+                    using (var zip = new ZipFile(Encoding.UTF8))
+                    {
+                        zip.AddDirectory(schoolFolder, "");
+                        zip.Save($@"{destFolder}\{school.SchoolId}.zip");
                     }
                 }
             }
@@ -167,19 +201,19 @@ namespace ProtocolGenerator
 
         private static void WriteDownResult(IXLWorksheet sheet, int i, OneTwoThreeReportModel res)
         {
-            sheet.Cell(i + 5, 1).Value = i + 5;
-            sheet.Cell(i + 5, 2).Value = $"{res.Surname} {res.Name} {res.SecondName}";
-            sheet.Cell(i + 5, 3).Value = res.TestName;
-            sheet.Cell(i + 5, 4).Value = res.OptionNumber;
+            sheet.Cell(i, 1).Value = i - 4;
+            sheet.Cell(i, 2).Value = $"{res.Surname} {res.Name} {res.SecondName}";
+            sheet.Cell(i, 3).Value = res.TestName;
+            sheet.Cell(i, 4).Value = res.OptionNumber;
 
             for(int j = 0; j < res.Marks.Count(); j++)
             {
-                sheet.Cell(i + 5, j + 5).Value = res.Marks[j];
+                sheet.Cell(i, j + 5).Value = res.Marks[j];
             }
 
-            sheet.Cell(i + 5, res.Marks.Length + 5).Value = res.PerformanceOfGeneralTasks;
-            sheet.Cell(i + 5, res.Marks.Length + 6).Value = res.PerformanceOfAdditionalTasks;
-            sheet.Cell(i + 5, res.Marks.Length + 7).Value = res.GradeLevel;
+            sheet.Cell(i, res.Marks.Length + 5).Value = res.PerformanceOfGeneralTasks;
+            sheet.Cell(i, res.Marks.Length + 6).Value = res.PerformanceOfAdditionalTasks;
+            sheet.Cell(i, res.Marks.Length + 7).Value = res.GradeLevel;
         }
 
         //private static void SetResultsTableBorders()

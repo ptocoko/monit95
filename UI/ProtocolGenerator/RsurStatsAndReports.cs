@@ -51,31 +51,30 @@ namespace ProtocolGenerator
 
             using (var excel = new XLWorkbook(@"D:\Work\geo_stat.xlsx"))
             {
-                using(var sheet = excel.Worksheets.First())
+                var sheet = excel.Worksheets.First();
+                int i = 2;
+                foreach (var result in entities)
                 {
-                    int i = 2;
-                    foreach (var result in entities)
+                    var failedElementNames = new List<string>();
+                    var egeQuestionNumbers = Regex.Matches(result.EgeQuestionValues, @"(\d{1,2})\(0%\)");
+                    foreach(var match in egeQuestionNumbers)
                     {
-                        var failedElementNames = new List<string>();
-                        var egeQuestionNumbers = Regex.Matches(result.EgeQuestionValues, @"(\d{1,2})\(0%\)");
-                        foreach(var match in egeQuestionNumbers)
-                        {
-                            var questionNumber = int.Parse(match.ToString().Replace("(0%)", ""));
-                            failedElementNames.Add(questionNumber + ". " + egeQuestions[questionNumber].ElementNames);
-                        }
-
-                        sheet.Cell(i, 1).Value = i - 1;
-                        sheet.Cell(i, 2).Value = result.Code;
-                        sheet.Cell(i, 3).Value = result.FIO;
-                        sheet.Cell(i, 4).Value = result.SchoolName;
-                        sheet.Cell(i, 5).Value = result.AreaName;
-                        sheet.Cell(i, 6).Value = failedElementNames.Aggregate((s1, s2) => $"{s1};\n{s2}");
-
-                        i++;
+                        var questionNumber = int.Parse(match.ToString().Replace("(0%)", ""));
+                        failedElementNames.Add(questionNumber + ". " + egeQuestions[questionNumber].ElementNames);
                     }
-                    sheet.RangeUsed(false).Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
-                    sheet.RangeUsed(false).Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
+
+                    sheet.Cell(i, 1).Value = i - 1;
+                    sheet.Cell(i, 2).Value = result.Code;
+                    sheet.Cell(i, 3).Value = result.FIO;
+                    sheet.Cell(i, 4).Value = result.SchoolName;
+                    sheet.Cell(i, 5).Value = result.AreaName;
+                    sheet.Cell(i, 6).Value = failedElementNames.Aggregate((s1, s2) => $"{s1};\n{s2}");
+
+                    i++;
                 }
+                sheet.RangeUsed(false).Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
+                sheet.RangeUsed(false).Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
+                
                 excel.Save();
             }
         }
