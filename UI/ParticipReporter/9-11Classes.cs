@@ -29,11 +29,11 @@ namespace ParticipReporter
             foreach (var schoolid in BadSchoolsIds)
             {
                 var schoolInfo = context.Schools.Where(s => s.Id == schoolid).Select(s => new { SchoolName = s.Name.Trim(), AreaName = s.Area.Name.Trim() }).Single();
-                string schoolIdDirPath = $@"\\192.168.88.223\файлы_пто\Работы\[23] - Диагностика в 9 и 11 классах\Карты\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
+                string schoolIdDirPath = $@"\\192.168.88.223\файлы_пто\Работы\[23] - Диагностика в 9 и 11 классах\Карты\042019\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
                 CreateDirectories(schoolIdDirPath);
 
                 var reportDtos = context.ParticipTests
-                    .Where(pt => pt.ProjectTest.ProjectId == 23 && pt.Particip.SchoolId == schoolid && pt.Grade5.HasValue && pt.Grade5 > 0)
+                    .Where(pt => pt.ProjectTest.ProjectId == 26 && pt.Particip.SchoolId == schoolid && pt.Grade5.HasValue && pt.Grade5 > 0)
                     .AsEnumerable()
                     .Select(pt =>
                     {

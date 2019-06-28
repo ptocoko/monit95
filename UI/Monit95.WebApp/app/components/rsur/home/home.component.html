@@ -2,10 +2,10 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="isArea()" class="list-container">
+    <div *ngIf="false" class="list-container">
         <h3 class="list-header">Диагностика «Май-2019»</h3>
         <div>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_фи_распределение_{{account.UserName}}.xlsx" download="Физика. Распределение.xlsx">
+            <!--<a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_фи_распределение_{{account.UserName}}.xlsx" download="Физика. Распределение.xlsx">
                 <h4>Физика: распределение</h4>
             </a>
             <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_ис_распределение_{{account.UserName}}.xlsx" download="История. Распределение.xlsx">
@@ -13,53 +13,30 @@
             </a>
             <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_ге_распределение_{{account.UserName}}.xlsx" download="География. Распределение.xlsx">
                 <h4>География: распределение</h4>
-            </a>
+            </a>-->
 
             <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/tasks/ИСТ.rar" download="История. Варианты работ.rar">
-                <h4 style="font-weight:bold">История: Варианты работ</h4>
+                <h4>История: Варианты работ</h4>
             </a>
 
             <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/tasks/ГЕО.rar" download="География. Варианты работ.rar">
-                <h4 style="font-weight:bold">География: Варианты работ</h4>
+                <h4>География: Варианты работ</h4>
             </a>
 
-            <a *ngIf="false" class="list-item-link" href="/file/rsur/042019/keys/МА.rar" download="Математика. Ключи.rar">
-                <h4 style="font-weight:bold">Математика: Ключи для проверки работ</h4>
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/tasks/ФИЗ.rar" download="Физика. Варианты работ.rar">
+                <h4>Физика. МКТ. Термодинамика: Варианты работ</h4>
             </a>
 
-            <!--Протоколы-->
-            <div class="list-item" *ngIf="false">
-                <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                    <div>
-                        <h4><b>Протоколы проверки заданий</b></h4>
-                    </div>
-                    <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">Диагностика «Обществознание»</h3>
-        <div>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/04-19_об_распределение_2_{{account.UserName}}.xlsx" download="Обществознание. Распределение.xlsx">
-                <h4>Обществознание: распределение</h4>
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/keys/ИСТ.rar" download="История. Ключи.rar">
+                <h4>История: Ключи для проверки работ</h4>
             </a>
 
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/tasks/ОБЩ-3.rar" download="Соц отношения. Варианты работ.rar">
-                <h4>Социальные отношения: Варианты работ</h4>
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/keys/ГЕО.rar" download="География. Ключи.rar">
+                <h4>География: Ключи для проверки работ</h4>
             </a>
 
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/tasks/ОБЩ-5.rar" download="Право. Варианты работ.rar">
-                <h4>Право: Варианты работ</h4>
-            </a>
-
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-3.rar" download="Соц отношения. Ключи для проверки работ.rar">
-                <h4 style="font-weight: bold">Социальные отношения: Ключи для проверки работ</h4>
-            </a>
-
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/042019/keys/ОБЩ-5.rar" download="Право. Ключи для проверки работ.rar">
-                <h4 style="font-weight: bold">Право: Ключи для проверки работ</h4>
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/keys/ФИЗ.rar" download="Физика. Ключи.rar">
+                <h4 style="font-weight:bold">Физика. МКТ. Термодинамика: Ключи для проверки работ работ</h4>
             </a>
 
             <!--Протоколы-->

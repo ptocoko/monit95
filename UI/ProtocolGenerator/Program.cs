@@ -29,7 +29,7 @@ namespace OneTwoThreeReporter
             //var reporter = new ReportService(context);
             //var iTakeEge = new ITakeEge(
             //    context: context,
-            //    projectId: 23);
+            //    projectId: 25);
 
             //iTakeEge.SolveGrade5_v2();
             //iTakeEge.GenerateForAllSchools();
@@ -38,9 +38,10 @@ namespace OneTwoThreeReporter
             //var report = reporter.GetReport(758706);
 
             var oneTwoThree = new OneTwoThree(context, null, 22);
-            oneTwoThree.GenerateExcelReports(2, "Математика", new string[] { "0000" });
+            oneTwoThree.GenerateExcelReports();
 
             Console.WriteLine("All done!");
+            Console.ReadKey();
         }
 
         //static void CreatePhysicsReports(CokoContext context)

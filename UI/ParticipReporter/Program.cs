@@ -31,9 +31,11 @@ namespace ParticipReporter
             context = new CokoContext();
             var participReporter = new ReportService(context);
 
-            //var _9_11Classes = new _9_11Classes(context, participReporter);
-            //_9_11Classes.GenerateCards();
-            var oneTwoThree = new OneTwoThree();
+            var _9_11Classes = new _9_11Classes(context, participReporter);
+            _9_11Classes.GenerateCards();
+            //var oneTwoThree = new OneTwoThree();
+            //oneTwoThree.GenerateCards();
+            //RenameAndMoveCardFolders();
 
             Console.WriteLine("End");
             #region oldCode
@@ -289,6 +291,21 @@ namespace ParticipReporter
                     Directory.CreateDirectory(destSchoolFolder);
 
                 System.IO.File.Copy($@"{destFolder}\{reportCode}.rar", $@"{destSchoolFolder}\{schoolid}_{reportCode}.rar");
+            }
+        }
+
+        static void RenameAndMoveCardFolders()
+        {
+            string destPath = $@"\\192.168.88.223\файлы_пто\Работы\[23] - Диагностика в 9 и 11 классах\Карты";
+
+            foreach (var areaFolder in Directory.EnumerateDirectories(destPath))
+            {
+                foreach (var schoolFolder in Directory.EnumerateDirectories($@"{areaFolder}"))
+                {
+                    var schoolName = schoolFolder.Split('\\').Last();
+                    var schoolId = context.Schools.Where(s => s.Name == schoolName).Select(s => s.Id).First();
+                    Directory.Move(schoolFolder, $@"{destPath}\(по айди)\{schoolId}");
+                }
             }
         }
 

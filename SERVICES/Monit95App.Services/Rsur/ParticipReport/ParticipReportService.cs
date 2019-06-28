@@ -123,7 +123,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
             IQueryable<RsurTestResult> entities = context.RsurTestResults.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с апреля  
                                                                              && rtr.RsurParticipTest.RsurTest.IsShown.Value
-                                                                             && rtr.RsurParticipTest.RsurParticip.ActualCode == 1);
+                                                                             && new int[] { 1, 5 }.Contains(rtr.RsurParticipTest.RsurParticip.ActualCode));
 
             if (areaCode != null)
                 entities = entities.Where(rtr => rtr.RsurParticipTest.RsurParticip.School.AreaCode == areaCode);
@@ -169,7 +169,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
             queryable = queryable.Where(rtr => rtr.RsurParticipTest.RsurTest.TestDate >= minDateTime   // начало с апреля
                                                   && rtr.RsurParticipTest.RsurTest.IsShown.Value
-                                                  && rtr.RsurParticipTest.RsurParticip.ActualCode == 1);
+                                                  && new int[] { 1, 5 }.Contains(rtr.RsurParticipTest.RsurParticip.ActualCode));
 
             queryable = FilterTestResults(queryable, options);
 

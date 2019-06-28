@@ -103,6 +103,12 @@ namespace Monit95App.Services.Rsur.MarksConvert
                 marks[10] = 0;
             }
 
+            // в КИМ по географии первый блок прокралась ошибка, решено засчитать всем второе задание
+            if (testResultEntity.RsurParticipTest.RsurTestId == 3208)
+            {
+                marks[1] = 1;
+            }
+
             var testId = testResultEntity.RsurParticipTest.RsurTest.TestId;
 
             var rsurQuestionsModel = context.RsurQuestions
@@ -180,6 +186,11 @@ namespace Monit95App.Services.Rsur.MarksConvert
             }
             // Физика. Механические колебания. Волны. РСУР
             else if (testResultEntity.RsurParticipTest.RsurTestId == 3191)
+            {
+                grade5 = marks.Sum() >= 25 ? 5 : 2;
+            }
+            // Физика. МКТ. Термодинамика. РСУР
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3215)
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }

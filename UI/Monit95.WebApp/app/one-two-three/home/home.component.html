@@ -1,15 +1,23 @@
 ﻿<h2>Диагностика учебных достижений 1, 2 и 3 классы: главное меню</h2>
 
-<div class="list-container" *ngIf="false">
+<div class="list-container" *ngIf="accountService.account.UserName">
     <h3 class="list-header">Результаты</h3>
     <div>
-        <a class="list-item-link" routerLink="/school-files">
-            <h4><b>Протокол проверки результатов находится в разделе "Файлы"</b></h4>
+        <a class="list-item-link" href="/file/1-3/protocols/{{accountService.account.UserName}}.zip" download="протокол 1-3 классы.zip">
+            <h4><b>Протокол проверки результатов</b></h4>
+        </a>
+
+        <a class="list-item-link" href="/file/1-3/cards/{{accountService.account.UserName}}.zip" download="карты 1-3 классы.zip" *ngIf="['0240', '0411', '0150', '0416', '0237', '0271', '0028', '0263', '0078', '0016', '0382', '0171', '0192', '0068', '0307', '0058', '0409', '0440', '0462', '0141', '0160', '0213', '0026', '0311', '0134', '0223', '0045', '0293', '0348', '0422', '0191', '0067', '0145', '0299', '0152', '0202', '0398', '0427', '0369', '0456', '0553', '0288', '0420', '0435', '0190', '0228', '0395', '0195', '0467', '0347', '0081', '0229', '0204', '0297', '0350', '0328', '0156', '0025', '0269', '0319', '0144', '0555', '0247', '0133', '0019', '0175', '0389', '0070', '0437', '0264', '0419', '0373', '0015', '0043', '0322', '0327', '0241', '0200', '0455', '0421', '0132', '0362', '0062', '0352', '0380', '0385', '0469', '0129', '0436', '0341', '0438', '0558', '0339', '0164', '0219', '0059', '0012'].indexOf(accountService.account.UserName) > -1">
+            <h4 style="font-weight:bold">Карты диагностики учебних достижений учащихся</h4>
+        </a>
+
+        <a class="list-item-link" href="/file/1-3/recommendations.ppt" download="метод рекомендации.ppt">
+            <h4 style="font-weight:bold">Использование результатов диагностики учебных достижений 1-3 классы</h4>
         </a>
     </div>
 </div>
 
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Участники</h3>
     <div>
         <a class="list-item-link" routerLink="/one-two-three/particips/list">
@@ -19,57 +27,107 @@
 </div>
 
 <div class="list-container" *ngIf="false">
-    <h3 class="list-header">Русский язык</h3>
+    <h3 class="list-header">Чтение</h3>
     <div>
-        <a class="list-item-link" routerLink="/one-two-three/protocols/3069">
-            <h4>1 класс: Протоколы проверки заданий</h4>
+        <a class="list-item-link" href="/file/1-3/tasks/ЧТ-1.rar" download="Чтение 1кл: Варианты работ.rar">
+            <h4>1 класс: Варианты работ</h4>
         </a>
-        <a class="list-item-link" routerLink="/one-two-three/protocols/3072">
-            <h4>2 класс: Протоколы проверки заданий</h4>
+        <a class="list-item-link" href="/file/1-3/tasks/ЧТ-2.rar" download="Чтение 2кл: Варианты работ.rar">
+            <h4>2 класс: Варианты работ</h4>
         </a>
-        <!--<a class="list-item-link" routerLink="/one-two-three/protocols/2055">
-            <h4>3 класс: Протоколы проверки заданий</h4>
-        </a>-->
-    </div>
-</div>
-
-<div class="list-container" *ngIf="timeIsCome">
-    <h3 class="list-header">Математика</h3>
-    <div>
-        <a class="list-item-link" href="/file/1-3/tasks/MA-1" download="Математика 1кл: Варианты работ.rar">
-            <h4 style="font-weight:bold">1 класс: Варианты работ</h4>
-        </a>
-        <a class="list-item-link" href="/file/1-3/tasks/MA-2" download="Математика 2кл: Варианты работ.rar">
-            <h4 style="font-weight:bold">2 класс: Варианты работ</h4>
-        </a>
-        <a class="list-item-link" href="/file/1-3/tasks/MA-3" download="Математика 3кл: Варианты работ.rar">
-            <h4 style="font-weight:bold">3 класс: Варианты работ</h4>
+        <a class="list-item-link" href="/file/1-3/tasks/ЧТ-3.rar" download="Чтение 3кл: Варианты работ.rar">
+            <h4>3 класс: Варианты работ</h4>
         </a>
 
-        <!--<a class="list-item-link" routerLink="/one-two-three/protocols/3070">
-        <h4>1 класс: Протоколы проверки заданий</h4>
-    </a>
-    <a class="list-item-link" routerLink="/one-two-three/protocols/3073">
-        <h4>2 класс: Протоколы проверки заданий</h4>
-    </a>-->
-        <!--<a class="list-item-link" routerLink="/one-two-three/protocols/2055">
-        <h4>3 класс: Протоколы проверки заданий</h4>
-    </a>-->
+        <a class="list-item-link" href="/file/1-3/keys/ЧТ-1.rar" download="Чтение 1кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">1 класс: Ключи для проверки работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/keys/ЧТ-2.rar" download="Чтение 2кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">2 класс: Ключи для проверки работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/keys/ЧТ-3.rar" download="Чтение 3кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">3 класс: Ключи для проверки работ</h4>
+        </a>
+
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3071">
+            <h4 style="font-weight:bold">1 класс: Протоколы проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3074">
+            <h4 style="font-weight:bold">2 класс: Протоколы проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3077">
+            <h4 style="font-weight:bold">3 класс: Протоколы проверки заданий</h4>
+        </a>
     </div>
 </div>
 
 <div class="list-container" *ngIf="false">
-    <h3 class="list-header">Чтение</h3>
+    <h3 class="list-header">Русский язык</h3>
     <div>
-        <a class="list-item-link" routerLink="/one-two-three/protocols/3071">
-            <h4>1 класс: Протоколы проверки заданий</h4>
+        <a class="list-item-link" href="/file/1-3/tasks/РУ-1.rar" download="Русский язык 1кл: Варианты работ.rar">
+            <h4>1 класс: Варианты работ</h4>
         </a>
-        <a class="list-item-link" routerLink="/one-two-three/protocols/3074">
-            <h4>2 класс: Протоколы проверки заданий</h4>
+        <a class="list-item-link" href="/file/1-3/tasks/РУ-2.rar" download="Русский язык 2кл: Варианты работ.rar">
+            <h4>2 класс: Варианты работ</h4>
         </a>
-        <!--<a class="list-item-link" routerLink="/one-two-three/protocols/2055">
-            <h4>3 класс: Протоколы проверки заданий</h4>
-        </a>-->
+        <a class="list-item-link" href="/file/1-3/tasks/РУ-3.rar" download="Русский язык 3кл: Варианты работ.rar">
+            <h4>3 класс: Варианты работ</h4>
+        </a>
+
+        <a class="list-item-link" href="/file/1-3/keys/РУ-1.rar" download="Русский язык 1кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">1 класс: Ключи для проверки работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/keys/РУ-2.rar" download="Русский язык 2кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">2 класс: Ключи для проверки работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/keys/РУ-3.rar" download="Русский язык 3кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">3 класс: Ключи для проверки работ</h4>
+        </a>
+
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3069">
+            <h4 style="font-weight:bold">1 класс: Протоколы проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3072">
+            <h4 style="font-weight:bold">2 класс: Протоколы проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3075">
+            <h4 style="font-weight:bold">3 класс: Протоколы проверки заданий</h4>
+        </a>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="false">
+    <h3 class="list-header">Математика</h3>
+    <div>
+        <a class="list-item-link" href="/file/1-3/tasks/MA-1.rar" download="Математика 1кл: Варианты работ.rar">
+            <h4>1 класс: Варианты работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/tasks/MA-2.rar" download="Математика 2кл: Варианты работ.rar">
+            <h4>2 класс: Варианты работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/tasks/MA-3.rar" download="Математика 3кл: Варианты работ.rar">
+            <h4>3 класс: Варианты работ</h4>
+        </a>
+
+        <a class="list-item-link" href="/file/1-3/keys/MA-1.rar" download="Математика 1кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">1 класс: Ключи для проверки работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/keys/MA-2.rar" download="Математика 2кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">2 класс: Ключи для проверки работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/keys/MA-3.rar" download="Математика 3кл: Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">3 класс: Ключи для проверки работ</h4>
+        </a>
+
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3070">
+            <h4 style="font-weight:bold">1 класс: Протоколы проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3073">
+            <h4 style="font-weight:bold">2 класс: Протоколы проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/one-two-three/protocols/3076">
+            <h4 style="font-weight:bold">3 класс: Протоколы проверки заданий</h4>
+        </a>
     </div>
 </div>
 

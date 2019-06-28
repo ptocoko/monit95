@@ -280,8 +280,8 @@ namespace ProtocolGenerator
                 //    Directory.CreateDirectory($@"{reportFolder}\{schoolResult.Key.AreaName}");
                 //}
 
-                string path = @"\\192.168.88.223\файлы_пто\Работы\[23] - Диагностика в 9 и 11 классах\Протоколы";
-                string tempPath = $@"{path}\templates\template school.xlsx";
+                string path = @"D:\Work\ITakeOge\042019";
+                string tempPath = $@"{path}\template new oge.xlsx";
 
                 using (var excelTemplate = new XLWorkbook(tempPath))
                 {
@@ -293,9 +293,9 @@ namespace ProtocolGenerator
                         sheet.Cell(i + 4, 2).Value = result.Surname;
                         sheet.Cell(i + 4, 3).Value = result.Name;
                         sheet.Cell(i + 4, 4).Value = result.SecondName;
-                        //sheet.Cell(i + 4, 5).Value = result.DocumNumber;
-                        sheet.Cell(i + 4, 5).Value = result.TestName;
-                        sheet.Cell(i + 4, 6).Value = result.ClassName;
+                        sheet.Cell(i + 4, 5).Value = result.DocumNumber;
+                        sheet.Cell(i + 4, 6).Value = result.TestName;
+                        //sheet.Cell(i + 4, 7).Value = result.ClassName;
                         //sheet.Cell(i + 4, 7).Value = result.Marks;
                         sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
                         //sheet.Cell(i + 4, 8).Value = result.RiskGroup;
@@ -303,7 +303,7 @@ namespace ProtocolGenerator
                         i++;
                     }
                         
-                    excelTemplate.SaveAs($@"{path}\{schoolResult.Key.SchoolId}\{schoolResult.Key.SchoolId}.xlsx");
+                    excelTemplate.SaveAs($@"{path}\{schoolResult.Key.SchoolId}.xlsx");
                     
                 }
 

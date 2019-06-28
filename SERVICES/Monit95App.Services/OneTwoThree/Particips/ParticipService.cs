@@ -41,7 +41,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
 
             var classNumber = particip.ClassId.Substring(0, 2);
             var participTests = GetParticipTests(entity, projectTestIdsByClass[classNumber]);
-
+            
             context.Particips.Add(entity);
             context.ParticipTests.AddRange(participTests);
             context.SaveChanges();

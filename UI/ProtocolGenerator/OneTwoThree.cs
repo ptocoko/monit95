@@ -74,14 +74,17 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
         
-        public void GenerateExcelReports(int testCode, string testName, string [] schoolIds = null)
+        public void GenerateExcelReports(string [] schoolIds = null)
         {
-            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты\{testName}";
+            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты";
             if (!Directory.Exists(destFolder))
                 Directory.CreateDirectory(destFolder);
 
-            foreach (var projectTestId in projectTestIdsByTestCode[testCode])
+            foreach (var projectTestId in new int[] { 3071, 3074, 3077 })
             {
+                Console.WriteLine();
+                Console.WriteLine($"projectTest {projectTestId} starter");
+                Console.WriteLine();
                 var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты\templates\{projectTestId}\template.xlsx";
                 
                 var schoolids = context.ParticipTests.AsNoTracking()
@@ -95,13 +98,21 @@ namespace ProtocolGenerator
                     .Distinct()
                     .ToList();
 
-                foreach (var school in schoolids.Where(p => schoolIds.Contains(p.SchoolId)))
+                //var projectTestRes =
+                //    .Include("Particip.School.Area")
+                //    .Include("OneTwoThreeQuestionMarks.OneTwoThreeQuestion")
+                //    .Include("ProjectTest.Test")
+                //    .Include("Particip.Class")
+                //    .ToList();
+
+                foreach (var school in schoolids.Where(p => schoolIds != null ? schoolIds.Contains(p.SchoolId) : true))
                 {
                     Console.WriteLine($"started for {school.SchoolId}");
 
                     var schoolRes = context.ParticipTests
                         .Where(pt => pt.Particip.SchoolId == school.SchoolId && pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
-                        //.AsEnumerable()
+                        //.Where(pt => )
+                        .AsEnumerable()
                         .Select(MapToDto)
                         .OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name)
                         .GroupBy(gb => new { gb.ClassId, gb.ClassName, gb.TestName });
