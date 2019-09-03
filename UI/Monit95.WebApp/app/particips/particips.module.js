@@ -27,7 +27,7 @@ var report_component_1 = require("./reports/report/report.component");
 var routes = [
     { path: 'particips/home', component: home_component_1.HomeComponent },
     { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
-    { path: 'particips/new', component: add_component_1.AddParticipComponent },
+    { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 27, projectName: 'EГЭ' } },
     { path: 'particips/protocols/:id', component: protocols_component_1.ProtocolsComponent },
     { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
     { path: 'particips/reports/:projectId', component: list_component_2.ReportsListComponent },
@@ -35,7 +35,7 @@ var routes = [
     { path: 'particips/oge/home', component: home_component_2.OgeHomeComponent },
     { path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
     { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
-    { path: 'particips/oge/new', component: add_component_1.AddParticipComponent, data: { projectId: 19, projectName: 'Я сдам ОГЭ!' } },
+    { path: 'particips/oge/new', component: add_component_1.AddParticipComponent, data: { projectId: 28, projectName: 'ОГЭ' } },
     { path: 'particips/society', component: home_component_3.SocietyHomeComponent },
     //{ path: 'particips/society/list', component: SocietyParticipsListComponent },
     //{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 20, projectName: 'Обществознание' } },

@@ -1,4 +1,5 @@
-﻿<div class="table-container mat-elevation-z8" [hidden]="particips.length === 0">
+﻿<p *ngIf="isFinished" class="alert alert-success">Редактирование списка завершено</p>
+<div class="table-container mat-elevation-z8" [hidden]="particips.length === 0">
     <div class="actions-container">
         <mat-form-field class="filter-field">
             <input matInput
@@ -10,6 +11,7 @@
         <div>
             <button mat-raised-button
                     color="primary"
+                    *ngIf="!isFinished"
                     (click)="addClassParticip()">
                 Добавить участника...
             </button>
@@ -53,7 +55,7 @@
             <mat-cell *matCellDef="let particip">{{ particip.DataSource }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="del-action">
+        <ng-container matColumnDef="del-action" *ngIf="!isFinished">
             <mat-header-cell *matHeaderCellDef> удалить </mat-header-cell>
             <mat-cell *matCellDef="let particip">
                 <a style="cursor:pointer"
@@ -63,22 +65,52 @@
             </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-header-row *matHeaderRowDef="isFinished ? columnsWhenFinished : displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: isFinished ? columnsWhenFinished : displayedColumns;"></mat-row>
     </mat-table>
     <mat-paginator #paginator
                    [length]="particips.length"
                    [pageSizeOptions]="['50', '100']">
     </mat-paginator>
+
+    <div class="table-footer">
+        <button mat-raised-button
+                *ngIf="!isFinished"
+                color="primary"
+                (click)="setAsFinished()">
+            Закрыть занесение участников
+        </button>
+        <button mat-raised-button
+                *ngIf="isFinished"
+                color="primary"
+                (click)="cancelFinish()">
+            Отменить завершение
+        </button>
+    </div>
 </div>
 <p class="alert alert-info text-center" *ngIf="particips.length === 0">
     <span>Данные об участниках отсутсвуют</span>
     <button mat-raised-button
+            *ngIf="!isFinished"
             style="margin-left: 15px"
             color="primary"
             (click)="addClassParticip()">
         Добавить участника...
     </button>
+    <button mat-raised-button
+            *ngIf="!isFinished"
+            style="margin-left: 15px"
+            color="primary"
+            (click)="setAsFinished()">
+        Закрыть занесение участников
+    </button>
+    <button mat-raised-button
+            *ngIf="isFinished"
+            style="margin-left: 15px"
+            color="primary"
+            (click)="cancelFinish()">
+        Отменить завершение
+    </button>
 </p>
 
-<button style="position:fixed;left:90%;top:80%;color:white; background-color:green; z-index:10; font-size:x-large" mat-fab color="primary" (click)="addClassParticip()">+</button>
+<button *ngIf="!isFinished" style="position:fixed;left:90%;top:80%;color:white; background-color:green; z-index:10; font-size:x-large" mat-fab color="primary" (click)="addClassParticip()">+</button>

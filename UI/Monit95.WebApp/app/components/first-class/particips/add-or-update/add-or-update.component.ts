@@ -2,14 +2,13 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { MatInput, MatFormField } from '@angular/material';
 import { ClassService } from '../../../../services/class.service';
 import { ClassModel } from '../../../../models/class.model';
 import { ParticipGetModel } from '../../../../models/first-class/particip-get.model';
 import { ParticipService } from '../../../../services/first-class/particips.service';
-import { VALID } from '@angular/forms/src/model';
 import { ParticipPostModel } from '../../../../models/first-class/particip-post.model';
-import { getFromLocalStorage } from '../../../../utils/local-storage';
+import { getFromLocalStorage, setToLocalStorage } from '../../../../utils/local-storage';
+import { CLASS_ID_KEY } from '../list/particips-list.component';
 
 @Component({
 	templateUrl: `./app/components/first-class/particips/add-or-update/add-or-update.component.html?v=${new Date().getTime()}`,
@@ -140,6 +139,12 @@ export class AddOrUpdateComponent {
 				month: this.particip.Birthday.getMonth(),
 				year: this.particip.Birthday.getFullYear()
 			});
+		}
+	}
+
+	classChanged() {
+		if (this.classId.value && this.classId.value.length > 0) {
+			setToLocalStorage(CLASS_ID_KEY, this.classId.value);
 		}
 	}
 

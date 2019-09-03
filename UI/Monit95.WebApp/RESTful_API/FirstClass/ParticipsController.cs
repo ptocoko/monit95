@@ -13,7 +13,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
     public class FirstClassParticipsController : ApiController
     {
         private readonly IParticipService participService;
-        private readonly int _projectId = 17;
+        private readonly int _projectId = 29;
 
         public FirstClassParticipsController(IParticipService participService)
         {

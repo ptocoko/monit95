@@ -58,7 +58,7 @@
         </div>
 
         <mat-form-field class="class-select">
-            <mat-select placeholder="класс" formControlName="classId">
+            <mat-select placeholder="класс" formControlName="classId" (selectionChange)="classChanged()">
                 <mat-option *ngFor="let class of classes" [value]="class.Id">{{ class.Name }}</mat-option>
             </mat-select>
             <mat-error *ngIf="classId.invalid && (classId.dirty || classId.touched)">

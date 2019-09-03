@@ -4,6 +4,7 @@ import { MatDialog, MatSnackBar, MatSort, MatPaginator, MatTableDataSource } fro
 import { ParticipModel } from '../../../models/particip.model';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { ParticipService } from '../../../services/particip.service';
+import { SchoolCollectorService } from '../../../shared/school-collector.service';
 
 @Component({
 	selector: 'table-list',
@@ -11,12 +12,15 @@ import { ParticipService } from '../../../services/particip.service';
 	styleUrls: [`./app/particips/shared/list/list.component.css?v=${new Date().getTime()}`]
 })
 export class ListComponent {
-	displayedColumns = ['$id', 'Surname', 'Name', 'SecondName', 'DocumNumber', 'SourceName', 'del-action']
+	displayedColumns = ['$id', 'Surname', 'Name', 'SecondName', 'DocumNumber', 'SourceName', 'del-action'];
+	columnsWhenFinished = ['$id', 'Surname', 'Name', 'SecondName', 'DocumNumber', 'SourceName'];
 	participsCount = 0;
 	dataSource = new MatTableDataSource<ParticipModel>();
+	isFinished: boolean;
 
 	@Input() particips: ParticipModel[];
 	@Input() addParticipRouterLink: string;
+	@Input() collectorId: number;
 
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
@@ -24,12 +28,17 @@ export class ListComponent {
 	constructor(private readonly router: Router,
 				private readonly modal: MatDialog,
 				private readonly snackBar: MatSnackBar,
-				private readonly participService: ParticipService) { }
+				private readonly participService: ParticipService,
+				private readonly collectorService: SchoolCollectorService) { }
 
 	ngAfterViewInit() {
 		this.dataSource = new MatTableDataSource<ParticipModel>(this.particips);
 		this.dataSource.sort = this.sort;
 		this.dataSource.paginator = this.paginator;
+
+		if (this.collectorId) {
+			this.collectorService.getCollectorState(this.collectorId).subscribe(res => this.isFinished = res.IsFinished);
+		}
 	}
 
 	addClassParticip() {
@@ -42,6 +51,14 @@ export class ListComponent {
 
 		filterValue = filterValue.trim().toLowerCase();
 		this.dataSource.filter = filterValue;
+	}
+
+	setAsFinished() {
+		this.collectorService.isFinished(this.collectorId, true).subscribe(_ => this.isFinished = true);
+	}
+
+	cancelFinish() {
+		this.collectorService.isFinished(this.collectorId, false).subscribe(() => this.isFinished = false);
 	}
 
 

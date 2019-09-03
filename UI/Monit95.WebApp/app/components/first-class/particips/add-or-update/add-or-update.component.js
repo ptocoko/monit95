@@ -8,6 +8,7 @@ var common_1 = require("@angular/common");
 var class_service_1 = require("../../../../services/class.service");
 var particips_service_1 = require("../../../../services/first-class/particips.service");
 var local_storage_1 = require("../../../../utils/local-storage");
+var particips_list_component_1 = require("../list/particips-list.component");
 var AddOrUpdateComponent = /** @class */ (function () {
     function AddOrUpdateComponent(participService, classService, router, route, location, fb, renderer) {
         var _this = this;
@@ -126,6 +127,11 @@ var AddOrUpdateComponent = /** @class */ (function () {
                 month: this.particip.Birthday.getMonth(),
                 year: this.particip.Birthday.getFullYear()
             });
+        }
+    };
+    AddOrUpdateComponent.prototype.classChanged = function () {
+        if (this.classId.value && this.classId.value.length > 0) {
+            local_storage_1.setToLocalStorage(particips_list_component_1.CLASS_ID_KEY, this.classId.value);
         }
     };
     AddOrUpdateComponent.prototype.submitForm = function () {

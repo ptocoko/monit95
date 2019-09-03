@@ -46,7 +46,7 @@ var ScanProtocolsComponent = /** @class */ (function () {
         this.rsurProtocolsService.postScan(answerSheet.FileContent).subscribe(function (response) { return _this.responseHandler(response, answerSheet); }, function (error) { return _this.errorResponseHandler(error, answerSheet); }, function () { return answerSheet.Status = 'isComplete'; });
     };
     ScanProtocolsComponent.prototype.responseHandler = function (res, answerSheet) {
-        if (res instanceof http_1.HttpResponse) {
+        if (res instanceof http_1.HttpResponse) { //запрос возвращает сначала статус загрузки в процентах, а после загрузки FileId
             answerSheet.FileId = res.body; //этот кусок кода для того чтобы отличить FileId от процента загрузки файла
             answerSheet.FileContent = null; //очищаем FileContent после отправки чтобы не забивать оперативную память
         }
@@ -55,7 +55,7 @@ var ScanProtocolsComponent = /** @class */ (function () {
         }
     };
     ScanProtocolsComponent.prototype.errorResponseHandler = function (error, answerSheet) {
-        if (error.status && error.status === 409) {
+        if (error.status && error.status === 409) { //если ошибка имеет код 409 отмечаем файл как дубликат, т.е. убираем из списка
             var duplicatedScanIndex = this.answerSheets.indexOf(answerSheet);
             this.answerSheets.splice(duplicatedScanIndex, 1);
             this.duplicatesCount += 1;

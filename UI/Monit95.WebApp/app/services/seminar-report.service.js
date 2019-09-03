@@ -54,5 +54,5 @@ exports.SeminarReportService = SeminarReportService;
 //    let params = new HttpParams();
 //    params = params.append('isProtocol', 'true');
 //    return this.http.post(`${this.endpoint}/${reportId}/files`, formData, { params: params });
-//} 
+//}
 //# sourceMappingURL=seminar-report.service.js.map

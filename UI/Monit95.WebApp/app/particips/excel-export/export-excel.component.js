@@ -56,5 +56,5 @@
 //		a.download = 'excel';
 //		a.click();
 //	}
-//} 
+//}
 //# sourceMappingURL=export-excel.component.js.map

@@ -1,11 +1,11 @@
 ﻿import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { debounceTime } from 'rxjs/operators/debounceTime';
+import { debounceTime, startWith, switchMap, takeUntil, map } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { map } from 'rxjs/operators/map';
+//import { startWith } from 'rxjs/operators/startWith';
+//import { switchMap } from 'rxjs/operators/switchMap';
+//import { map } from 'rxjs/operators/map';
 import { Observable } from 'rxjs/Observable';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { TablePaginator } from '../../../../shared/table-paginator/table-paginator';
@@ -18,8 +18,8 @@ import { ParticipService } from '../../../../services/first-class/particips.serv
 import { setToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../../../utils/local-storage';
 import { SchoolCollectorService } from '../../../../shared/school-collector.service';
 
-const CLASS_ID_KEY = 'FIRST_CLASS_ID';
-const COLLECTOR_ID = 3;
+export const CLASS_ID_KEY = 'FIRST_CLASS_ID';
+const COLLECTOR_ID = 49;
 
 @Component({
 	templateUrl: `./app/components/first-class/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
@@ -40,6 +40,8 @@ export class ParticipsListComponent {
 	isFailingSchool = false;
 
 	selectionChange$ = new Subject<any>();
+	isFinished$ = new Subject<void>();
+
 	@ViewChild(TablePaginator) paginator: TablePaginator;
 	@ViewChild('searchField') searchField: ElementRef;
 
@@ -77,7 +79,8 @@ export class ParticipsListComponent {
 							this.participsLength = data.TotalCount;
 							this.classes = data.Classes;
 							return data.Items;
-						})
+						}),
+						takeUntil(this.isFinished$)
 					).subscribe((particips: ParticipGetModel[]) => this.particips = particips);
 			}
 		});
@@ -137,12 +140,18 @@ export class ParticipsListComponent {
 
 		dialogRef.afterClosed().subscribe((result: boolean) => {
 			if (result) {
-				this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(() => this.isFinished = true);
+				this.collectorService.isFinished(COLLECTOR_ID, true).subscribe(() => {
+					this.isFinished = true;
+					this.isFinished$.next();
+				});
 			}
 		});
 	}
 
 	notFinished() {
-		this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(() => this.isFinished = false);
+		this.collectorService.isFinished(COLLECTOR_ID, false).subscribe(() => {
+			this.isFinished = false;
+			this.ngOnInit();
+		});
 	}
 }

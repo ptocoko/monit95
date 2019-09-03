@@ -10,6 +10,7 @@ var MarkValidateDirective = /** @class */ (function () {
     MarkValidateDirective.prototype.validate = function (control) {
         return this.question && control.value ? markValidator(this.question)(control) : null;
     };
+    var MarkValidateDirective_1;
     tslib_1.__decorate([
         core_1.Input('appMark'),
         tslib_1.__metadata("design:type", Object)
@@ -21,7 +22,6 @@ var MarkValidateDirective = /** @class */ (function () {
         })
     ], MarkValidateDirective);
     return MarkValidateDirective;
-    var MarkValidateDirective_1;
 }());
 exports.MarkValidateDirective = MarkValidateDirective;
 function getPossibleMarks(maxMark, step) {

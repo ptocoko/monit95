@@ -51,5 +51,5 @@
 //	cancel() {
 //		this.router.navigate(['class-particips/list']);
 //	}
-//} 
+//}
 //# sourceMappingURL=update.component.js.map
