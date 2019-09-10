@@ -42,20 +42,30 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         /// TODO: ref
         public async Task<IEnumerable<QuestionProtocolReadDto>> GetReadDtos(string schoolId, int projectTestId)
         {
-            var participTestEntities = cokoContext.ParticipTests
+            var participTestEntities = (await cokoContext.ParticipTests
                 .AsNoTracking()
                 .Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTestId == projectTestId && pt.Particip.SchoolId == schoolId)
                 .Include(inc => inc.QuestionMarks)
-                .AsEnumerable()
-                .Select(entity => new QuestionProtocolReadDto
+                .Include("Particip")
+                .Select(entity => new
                 {
                     ParticipTestId = entity.Id,
-                    ParticipInfo = $"{entity.Particip.Surname} {entity.Particip.Name} {entity.Particip.SecondName}",
-                    DocumNumber = entity.Particip.DocumNumber,
-                    QuestionMarks = GetMarks(entity)
+                    ParticipInfo = entity.Particip.Surname + " " + entity.Particip.Name + " " + entity.Particip.SecondName,
+                    entity.Particip.DocumNumber,
+                    entity.Grade5,
+                    Marks = entity.Grade5 > 0 ? entity.QuestionMarks == null ? null : entity.QuestionMarks.Select(qm => qm.AwardedMark) : null
+                })
+                .OrderBy(ob => ob.ParticipInfo)
+                .ToListAsync())
+                .Select(query => new QuestionProtocolReadDto
+                {
+                    ParticipTestId = query.ParticipTestId,
+                    ParticipInfo = query.ParticipInfo,
+                    DocumNumber = query.DocumNumber,
+                    QuestionMarks = query.Grade5 > 0 ? GetMarksFromEnumerable(query.Marks) : "отсутствовал"
                 });
 
-            return participTestEntities.OrderBy(ob => ob.ParticipInfo);
+            return participTestEntities;
         }
 
         /// <summary>
@@ -65,11 +75,17 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         /// <param name="participTestId"></param>
         /// <returns></returns>
         /// TODO: ref
-        public QuestionProtocolEditDto GetEditDto(string schoolId, int participTestId)
+        public async Task<QuestionProtocolEditDto> GetEditDto(string schoolId, int participTestId)
         {
-            var participTestEntity = cokoContext.ParticipTests.AsNoTracking().SingleOrDefault(pt => pt.ProjectTest.IsOpen &&
-                                                                                                    pt.Particip.SchoolId == schoolId &&
-                                                                                                    pt.Id == participTestId);
+            var participTestEntity = await cokoContext.ParticipTests
+                .AsNoTracking()
+                .Include("ProjectTest.Test.Questions")
+                .Include("Particip")
+                .Include("QuestionMarks")
+                .SingleOrDefaultAsync(pt => pt.ProjectTest.IsOpen &&
+                                            pt.Particip.SchoolId == schoolId &&
+                                            pt.Id == participTestId);
+
             if (participTestEntity == null)
                 throw new EntityNotFoundOrAccessException();
 
@@ -114,10 +130,14 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         /// <param name="participTestId"></param>
         /// <param name="postDtos"></param>
         /// TODO: ref
-        public void Create(string schoolId, int participTestId, Dictionary<int, double> orderMarkDict)
+        public async Task Create(string schoolId, int participTestId, Dictionary<int, double> orderMarkDict)
         {            
-            var participTestEntity = cokoContext.ParticipTests.SingleOrDefault(pt => pt.Particip.SchoolId == schoolId &&
-                                                                                                    pt.Id == participTestId);
+            var participTestEntity = await cokoContext.ParticipTests
+                .Include("ProjectTest.Test.Questions")
+                .Include("QuestionMarks")
+                .SingleOrDefaultAsync(pt => pt.Particip.SchoolId == schoolId &&
+                                       pt.Id == participTestId);
+
             if (participTestEntity == null)
                 throw new EntityNotFoundOrAccessException();
 
@@ -162,7 +182,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
                 participTestEntity.Grade5 = participTestEntity.PrimaryMark >= participTestEntity.ProjectTest.PassPrimaryMark ? 5 : 2;
             }
 
-            cokoContext.SaveChanges();
+            await cokoContext.SaveChangesAsync();
         }
 
         /// <summary>
@@ -171,15 +191,19 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         /// <param name="schoolId"></param>
         /// <param name="participTestId"></param>
         /// TODO: ref
-        public void MarkAsWasNot(string schoolId, int participTestId)
+        public async Task MarkAsWasNot(string schoolId, int participTestId)
         {
-            var participTestEntity = cokoContext.ParticipTests.Single(pt => pt.Particip.SchoolId == schoolId && pt.Id == participTestId);
+            var participTestEntity = await cokoContext.ParticipTests
+                .Include("QuestionMarks")
+                .SingleOrDefaultAsync(pt => pt.Particip.SchoolId == schoolId && pt.Id == participTestId);
+
             if (participTestEntity == null)
                 throw new EntityNotFoundOrAccessException();
+
             cokoContext.QuestionMarks.RemoveRange(participTestEntity.QuestionMarks);
             participTestEntity.Grade5 = (int)Grade5Value.Absent; // отсутствовал
             participTestEntity.PrimaryMark = null;
-            cokoContext.SaveChanges();            
+            await cokoContext.SaveChangesAsync();            
         }
 
         #endregion
@@ -197,6 +221,17 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
             else
             {
                 return participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+            }
+        }
+
+        private string GetMarksFromEnumerable(IEnumerable<double> marks)
+        {
+            if (marks == null)
+            {
+                return null;
+            } else
+            {
+                return marks.Select(s => s.ToString()).Aggregate((agg, curr) => $"{agg};{curr}");
             }
         }
     }

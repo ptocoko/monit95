@@ -266,7 +266,7 @@ namespace Monit95App.Services.FirstClass.Protocols
             },
             new FirstClassResultModel
             {
-                Name = "Рисунок дома-дерева –человека",
+                Name = "Рисунок дома-дерева – человека",
                 Step = 0.5,
                 MaxMark = 3
             },

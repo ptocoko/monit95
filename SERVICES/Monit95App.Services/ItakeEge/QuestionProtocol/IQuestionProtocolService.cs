@@ -1,17 +1,18 @@
 ﻿using Monit95App.Services.QuestionResult.ITakeEgeDtos;
 using System.Collections.Generic;
 using Monit95App.Services.ItakeEge.QuestionProtocol;
+using System.Threading.Tasks;
 
 namespace Monit95App.Services.ItakeEge.QuestionResult
 {
     public interface IQuestionProtocolService
     {
-        IEnumerable<QuestionProtocolReadDto> GetReadDtos(string schoolId, int projectTestId);
+        Task<IEnumerable<QuestionProtocolReadDto>> GetReadDtos(string schoolId, int projectTestId);
 
-        QuestionProtocolEditDto GetEditDto(string schoolId, int participTestId);
+        Task<QuestionProtocolEditDto> GetEditDto(string schoolId, int participTestId);
 
-        void Create(string schoolId, int participTestId, Dictionary<int, double> orderMarkDict);
+        Task Create(string schoolId, int participTestId, Dictionary<int, double> orderMarkDict);
         
-        void MarkAsWasNot(string schoolId, int participTestId);
+        Task MarkAsWasNot(string schoolId, int participTestId);
     }
 }

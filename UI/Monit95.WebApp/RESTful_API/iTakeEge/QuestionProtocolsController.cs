@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using Monit95App.Services.ItakeEge.QuestionProtocol;
+using System.Threading.Tasks;
 
 namespace Monit95.WebApp.RESTful_API.iTakeEge
 {
@@ -39,12 +40,12 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// </remarks>
         /// TODO: ref
         [HttpPost, Route("api/iTakeEGE/participTests/{id}/questionProtocols")]
-        public IHttpActionResult PostProtocol([FromBody]Dictionary<int, double> orderMarkDict)
+        public async Task<IHttpActionResult> PostProtocol([FromBody]Dictionary<int, double> orderMarkDict)
         {
             var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             var schoolId = User.Identity.Name;
 
-            questionProtocolService.Create(schoolId, participTestId, orderMarkDict);
+            await questionProtocolService.Create(schoolId, participTestId, orderMarkDict);
             
             return Ok();
         }
@@ -54,11 +55,11 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("api/iTakeEGE/questionProtocols/{projectTestId}")]
-        public IHttpActionResult GetReadDtos([FromUri]int projectTestId)
+        public async Task<IHttpActionResult> GetReadDtos([FromUri]int projectTestId)
         {
             var schoolId = User.Identity.Name;
 
-            IEnumerable<QuestionProtocolReadDto> readDtos = questionProtocolService.GetReadDtos(schoolId, projectTestId);
+            IEnumerable<QuestionProtocolReadDto> readDtos = await questionProtocolService.GetReadDtos(schoolId, projectTestId);
 
             return Ok(readDtos);
         }
@@ -70,10 +71,10 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// <returns><see cref="QuestionProtocolEditDto"/>></returns>
         /// TODO: ref
         [HttpGet, Route("api/iTakeEGE/questionProtocols")]
-        public IHttpActionResult GetEditDto(int participTestId)
+        public async Task<IHttpActionResult> GetEditDto(int participTestId)
         {
             var schoolId = User.Identity.Name;
-            var editDto = questionProtocolService.GetEditDto(schoolId, participTestId);
+            var editDto = await questionProtocolService.GetEditDto(schoolId, participTestId);
 
             return Ok(editDto);
         }
@@ -83,12 +84,12 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         /// </summary>
         /// <returns></returns>
         [HttpPut, Route("api/iTakeEge/participTests/{id}")]        
-        public IHttpActionResult MarkAsWasNot()
+        public async Task<IHttpActionResult> MarkAsWasNot()
         {
             var participTestId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
             var schoolId = User.Identity.Name;
 
-            questionProtocolService.MarkAsWasNot(schoolId, participTestId);
+            await questionProtocolService.MarkAsWasNot(schoolId, participTestId);
             return Ok();
         }
 

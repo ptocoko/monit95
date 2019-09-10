@@ -29,7 +29,7 @@ export class ProtocolsService {
 	}
 
 	markAsAbsent(participTestId: number) {
-		return this.http.put(`${this.endpoint}/${participTestId}/markAsAbsent`, { responseType: 'text' });
+		return this.http.put<string>(`${this.endpoint}/${participTestId}/markAsAbsent`, { responseType: 'text' });
 	}
 }
 
