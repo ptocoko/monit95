@@ -13,7 +13,7 @@ namespace AccountsCreator
 
         }
 
-        public IdentityException(string message) : base(message)
+        public IdentityException(string mes) : base(mes)
         {
 
         }

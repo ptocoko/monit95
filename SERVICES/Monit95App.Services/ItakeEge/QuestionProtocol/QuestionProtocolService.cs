@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Enums;
@@ -39,7 +40,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
         /// <param name="schoolId"></param>
         /// <returns></returns>
         /// TODO: ref
-        public IEnumerable<QuestionProtocolReadDto> GetReadDtos(string schoolId, int projectTestId)
+        public async Task<IEnumerable<QuestionProtocolReadDto>> GetReadDtos(string schoolId, int projectTestId)
         {
             var participTestEntities = cokoContext.ParticipTests
                 .AsNoTracking()

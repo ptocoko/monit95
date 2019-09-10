@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Monit95.WebApp.RESTful_API.FirstClass
@@ -24,14 +25,14 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         }
 
         [HttpGet, Route("")]
-        public IHttpActionResult GetProtocols([FromUri]ListGetOptions options)
+        public async Task<IHttpActionResult> GetProtocols([FromUri]ListGetOptions options)
         {
             var schoolId = User.Identity.Name;
             ProtocolsList dto;
 
             try
             {
-                dto = protocolService.GetProtocols(schoolId, projectTestId, options);
+                dto = await protocolService.GetProtocols(schoolId, projectTestId, options);
             }
             catch (ArgumentException e)
             {
@@ -43,12 +44,12 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         }
 
         [HttpGet, Route("{participTestId}")]
-        public IHttpActionResult Get([FromUri]int participTestId)
+        public async Task<IHttpActionResult> Get([FromUri]int participTestId)
         {
             ProtocolPostDto protocol;
             try
             {
-                protocol = protocolService.GetEditProtocol(participTestId);
+                protocol = await protocolService.GetEditProtocol(participTestId);
             }
             catch (EntityNotFoundOrAccessException e)
             {
@@ -64,7 +65,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         }
 
         [HttpPost, Route("{participTestId}")]
-        public IHttpActionResult EditProtocol([FromUri]int participTestId, [FromBody]ProtocolPostDto protocolPost)
+        public async Task<IHttpActionResult> EditProtocol([FromUri]int participTestId, [FromBody]ProtocolPostDto protocolPost)
         {
             if (!ModelState.IsValid)
             {
@@ -73,7 +74,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
 
             try
             {
-                protocolService.EditProtocol(protocolPost);
+                await protocolService.EditProtocol(protocolPost);
             }
             catch (EntityNotFoundOrAccessException)
             {
@@ -97,11 +98,11 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
         }
 
         [HttpPut, Route("{participTestId}/markAsAbsent")]
-        public IHttpActionResult MarkAsAbsent([FromUri]int participTestId)
+        public async Task<IHttpActionResult> MarkAsAbsent([FromUri]int participTestId)
         {
             try
             {
-                protocolService.MarkAsAbsent(participTestId);
+                await protocolService.MarkAsAbsent(participTestId);
             }
             catch (EntityNotFoundOrAccessException)
             {

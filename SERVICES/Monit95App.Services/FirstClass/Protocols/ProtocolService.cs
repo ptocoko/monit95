@@ -5,6 +5,7 @@ using Monit95App.Services.FirstClass.Dtos;
 using ServiceResult.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace Monit95App.Services.FirstClass.Protocols
             this.context = context;
         }
 
-        public ProtocolsList GetProtocols(string schoolId, int projectTestId, ListGetOptions options)
+        public async Task<ProtocolsList> GetProtocols(string schoolId, int projectTestId, ListGetOptions options)
         {
             if (schoolId == null)
             {
@@ -34,31 +35,35 @@ namespace Monit95App.Services.FirstClass.Protocols
                 .AsNoTracking()
                 .Where(p => p.ProjectTest.Id == projectTestId && p.Particip.SchoolId == schoolId);
 
-            var processedProtocolsCount = entity.Count(p => p.Grade5 != null);
-            var notProcessedProtocolsCount = entity.Count(p => p.Grade5 == null);
+            var processedProtocolsCount = await entity.CountAsync(p => p.Grade5 != null);
+            var notProcessedProtocolsCount = await entity.CountAsync(p => p.Grade5 == null);
 
-            IEnumerable<ClassDto> classes = entity
+            IEnumerable<ClassDto> classes = await entity
                 .Select(s => new ClassDto { Id = s.Particip.ClassId, Name = s.Particip.Class.Name })
                 .GroupBy(gb => gb.Id)
-                .Select(s => s.FirstOrDefault());
+                .Select(s => s.FirstOrDefault())
+                .ToListAsync();
 
             entity = FilterQuery(entity, options);
 
-            var totalCount = entity.Count();
+            var totalCount = await entity.CountAsync();
 
             entity = entity.OrderBy(ob => ob.Particip.ClassId).ThenBy(tb => tb.Particip.Surname).ThenBy(tb => tb.Particip.Name);
             entity = entity.Skip(offset).Take(length);
 
-            var participTests = entity.AsEnumerable().Select(s => new ProtocolGetDto
-            {
-                ParticipTestId = s.Id,
-                Surname = s.Particip.Surname,
-                Name = s.Particip.Name,
-                SecondName = s.Particip.SecondName,
-                Marks = GetMarks(s),
-                ClassName = s.Particip.Class.Name.Trim(),
-                ClassId = s.Particip.ClassId
-            });
+            var participTests = (await entity
+                .Include("Result")
+                .ToListAsync())
+                .Select(s => new ProtocolGetDto
+                {
+                    ParticipTestId = s.Id,
+                    Surname = s.Particip.Surname,
+                    Name = s.Particip.Name,
+                    SecondName = s.Particip.SecondName,
+                    Marks = GetMarks(s),
+                    ClassName = s.Particip.Class.Name.Trim(),
+                    ClassId = s.Particip.ClassId
+                });
 
             return new ProtocolsList
             {
@@ -70,9 +75,13 @@ namespace Monit95App.Services.FirstClass.Protocols
             };
         }
 
-        public ProtocolPostDto GetEditProtocol(int participTestId)
+        public async Task<ProtocolPostDto> GetEditProtocol(int participTestId)
         {
-            var entity = context.ParticipTests.Find(participTestId);
+            var entity = await context.ParticipTests
+                .Include("Particip")
+                .Include("Result")
+                .SingleOrDefaultAsync(pt => pt.Id == participTestId);
+
             if (entity == null)
             {
                 throw new EntityNotFoundOrAccessException("неверный ключ запроса");
@@ -109,9 +118,11 @@ namespace Monit95App.Services.FirstClass.Protocols
             return editDto;
         }
 
-        public void EditProtocol(ProtocolPostDto protocol)
+        public async Task EditProtocol(ProtocolPostDto protocol)
         {
-            var participTestEntity = context.ParticipTests.Find(protocol.ParticipTestId);
+            var participTestEntity = await context.ParticipTests
+                .Include("Result")
+                .SingleOrDefaultAsync(pt => pt.Id == protocol.ParticipTestId);
 
             if (participTestEntity == null)
                 throw new EntityNotFoundOrAccessException("неверный ключ запроса");
@@ -134,12 +145,13 @@ namespace Monit95App.Services.FirstClass.Protocols
                 participTestEntity.Result.Marks = protocol.QuestionResultsList.Select(s => s.CurrentMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
             }
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void MarkAsAbsent(int participTestId)
+        public async Task MarkAsAbsent(int participTestId)
         {
-            var participTest = context.ParticipTests.Find(participTestId);
+            var participTest = await context.ParticipTests
+                .FindAsync(participTestId);
 
             if (participTest== null)
                 throw new EntityNotFoundOrAccessException("неверный ключ запроса");
@@ -148,13 +160,13 @@ namespace Monit95App.Services.FirstClass.Protocols
             participTest.GradeString = null;
             participTest.PrimaryMark = null;
 
-            var entity = context.Results.Find(participTestId);
+            var entity = await context.Results.FindAsync(participTestId);
             if(entity != null)
             {
                 context.Results.Remove(entity);
             }
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         private IQueryable<ParticipTest> FilterQuery(IQueryable<ParticipTest> participTests, ListGetOptions options)
@@ -254,7 +266,7 @@ namespace Monit95App.Services.FirstClass.Protocols
             },
             new FirstClassResultModel
             {
-                Name = "Рисунок",
+                Name = "Рисунок дома-дерева –человека",
                 Step = 0.5,
                 MaxMark = 3
             },
@@ -267,7 +279,7 @@ namespace Monit95App.Services.FirstClass.Protocols
             new FirstClassResultModel
             {
                 Name = "Моторика",
-                Step = 1,
+                Step = 0.5,
                 MaxMark = 1
             },
         };

@@ -3,7 +3,9 @@ using Monit95App.Infrastructure.Data;
 using Monit95App.Services.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +20,7 @@ namespace Monit95App.Services.FirstClass.Dtos
             this.context = context;
         }
 
-        public void CreateParticip(string schoolId, int projectId, ParticipPostDto particip)
+        public async Task CreateParticip(string schoolId, int projectId, ParticipPostDto particip)
         {
             var entity = new Particip
             {
@@ -33,21 +35,21 @@ namespace Monit95App.Services.FirstClass.Dtos
             };
 
             context.Particips.Add(entity);
-            context.SaveChanges();
+            //context.SaveChanges();
 
             var participTest = new ParticipTest
             {
                 ParticipId = entity.Id,
-                ProjectTestId = 2043
+                ProjectTestId = 3078
             };
             context.ParticipTests.Add(participTest);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void EditParticip(int Id, string schoolId, ParticipPostDto particip)
+        public async Task EditParticip(int Id, string schoolId, ParticipPostDto particip)
         {
-            var entity = context.Particips
-                .Single(p => p.Id == Id && p.SchoolId == schoolId);
+            var entity = await context.Particips
+                .SingleAsync(p => p.Id == Id && p.SchoolId == schoolId);
 
             entity.Surname = particip.Surname;
             entity.Name = particip.Name;
@@ -56,24 +58,25 @@ namespace Monit95App.Services.FirstClass.Dtos
             entity.ClassId = particip.ClassId;
             entity.WasDoo = particip.WasDoo;
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public ParticipGetDto GetParticip(int Id, string schoolId)
+        public async Task<ParticipGetDto> GetParticip(int Id, string schoolId)
         {
-            var entity = context.Particips
+            var entity = await context.Particips
                 .Where(p => p.SchoolId == schoolId)
-                .SingleOrDefault(p => p.Id == Id);
+                .Include("Class")
+                .SingleOrDefaultAsync(p => p.Id == Id);
 
             if (entity == null)
             {
                 throw new ArgumentException($"particip with ID equals to {Id} not found");
             }
 
-            return MapToParticipDto(entity);
+            return MapToParticipDto.Compile()(entity);
         }
 
-        public ParticipList GetParticips(string schoolId, int projectId, GetAllOptions options)
+        public async Task<ParticipList> GetParticips(string schoolId, int projectId, GetAllOptions options)
         {
             if (schoolId == null)
             {
@@ -87,19 +90,20 @@ namespace Monit95App.Services.FirstClass.Dtos
                 .AsNoTracking()
                 .Where(p => p.SchoolId == schoolId && p.ProjectId == projectId);
 
-            IEnumerable<ClassDto> classes = entity
+            IEnumerable<ClassDto> classes = await entity
                 .Select(s => new ClassDto { Id = s.ClassId, Name = s.Class.Name })
                 .GroupBy(gb => gb.Id)
-                .Select(s => s.FirstOrDefault());
+                .Select(s => s.FirstOrDefault())
+                .ToListAsync();
 
             entity = FilterQuery(entity, options);
 
-            var totalCount = entity.Count();
+            var totalCount = await entity.CountAsync();
 
             entity = entity.OrderBy(ob => ob.ClassId).ThenBy(tb => tb.Surname).ThenBy(tb => tb.Name);
             entity = entity.Skip(offset).Take(length);
 
-            var particips = entity.Select(MapToParticipDto);
+            var particips = await entity.Select(MapToParticipDto).ToListAsync();
 
             return new ParticipList
             {
@@ -109,18 +113,17 @@ namespace Monit95App.Services.FirstClass.Dtos
             };
         }
 
-        public void RemoveParticip(int Id, string schoolId)
+        public async Task RemoveParticip(int Id, string schoolId)
         {
-            var entity = context.Particips
-                .Single(p => p.SchoolId == schoolId && p.Id == Id);
+            var entity = await context.Particips
+                .SingleAsync(p => p.SchoolId == schoolId && p.Id == Id);
 
             context.Particips.Remove(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        private ParticipGetDto MapToParticipDto(Domain.Core.Entities.Particip entity)
-        {
-            return new ParticipGetDto
+        private Expression<Func<Particip, ParticipGetDto>> MapToParticipDto = 
+            (entity) =>  new ParticipGetDto
             {
                 Id = entity.Id,
                 Surname = entity.Surname,
@@ -131,8 +134,7 @@ namespace Monit95App.Services.FirstClass.Dtos
                 ClassId = entity.ClassId,
                 WasDoo = entity.WasDoo
             };
-        }
-
+        
         private IQueryable<Particip> FilterQuery(IQueryable<Particip> particips, GetAllOptions options)
         {
             if (!String.IsNullOrEmpty(options.Search))
