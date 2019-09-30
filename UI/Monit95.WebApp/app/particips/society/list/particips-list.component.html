@@ -3,5 +3,80 @@
     <mat-spinner></mat-spinner>
 </p>
 
-<table-list [particips]="particips" [addParticipRouterLink]="'/particips/society/new'" *ngIf="particips"></table-list>
+<div [hidden]="isFinished">
+    <h4 style="margin-top:20px" class="jumbotron">
+        В списке ниже отметьте учеников, которые будут участвовать в диагностике «Я сдам Обществознание!»
+    </h4>
 
+    <!--<table-list [particips]="particips" [addParticipRouterLink]="'/particips/society/new'" *ngIf="particips"></table-list>-->
+    <div class="table-actions">
+        <mat-form-field class="filter-field">
+            <input matInput
+                   #filter
+                   (keyup)="applyFilter(filter.value)"
+                   placeholder="поиск..." />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="finish()">Завершить определение списка</button>
+    </div>
+    <mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>выбрать</mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="changeSelection(row)"
+                              [checked]="selection.isSelected(row)"
+                              [aria-label]="checkboxLabel(row, i)">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="num">
+            <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+            <mat-cell *matCellDef="let particip: let i = index">{{ i + 1 + (paginator.pageIndex * paginator.pageSize) }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fio">
+            <mat-header-cell *matHeaderCellDef>фио</mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.Surname }} {{ particip.Name }} {{ particip.SecondName ? particip.SecondName : '' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>статус</mat-header-cell>
+            <mat-cell *matCellDef="let particip" [class.green-text]="selection.isSelected(particip)">{{ selection.isSelected(particip) ? 'включен в диагностику' : 'не включен в диагностику' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="prevYearGrade">
+            <mat-header-cell *matHeaderCellDef>оценка за 10 класс</mat-header-cell>
+            <mat-cell *matCellDef="let particip">
+                <div style="display:flex;align-items:baseline" *ngIf="selection.isSelected(particip)">
+                    <mat-form-field style="max-width:150px">
+                        <input matInput type="text" (click)="$event.stopPropagation()" [(ngModel)]="particip.PrevYearGrade" (blur)="updateParticip(particip)" />
+                    </mat-form-field>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="bookAuthor">
+            <mat-header-cell *matHeaderCellDef>УМК</mat-header-cell>
+            <mat-cell *matCellDef="let particip">
+                <div style="display:flex;align-items:baseline" *ngIf="selection.isSelected(particip)">
+                    <mat-form-field #bookInput>
+                        <input matInput type="text" (click)="$event.stopPropagation()" [(ngModel)]="particip.BookAuthor" (blur)="updateParticip(particip)" />
+                    </mat-form-field>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" [class.lightgreen-back]="selection.isSelected(row)"
+                 (click)="changeSelection(row)">
+        </mat-row>
+    </mat-table>
+    <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageSizeOptions]="[30, 60]"></mat-paginator>
+</div>
+
+<div *ngIf="isFinished" class="center-block">
+    <h2>Выбор списка участников диагностики окончен</h2>
+    <button mat-raised-button (click)="notFinished()" color="primary">Отменить завершение</button>
+</div>

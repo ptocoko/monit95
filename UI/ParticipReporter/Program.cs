@@ -29,13 +29,17 @@ namespace ParticipReporter
         static void Main(string[] args)
         {
             context = new CokoContext();
-            var participReporter = new ReportService(context);
+            participReporter = new ClassParticipReporter();
+            cardsGenerator = new CardsGenerator(context, participReporter);
+            
+            //var participReporter = new ReportService(context);
 
-            var _9_11Classes = new _9_11Classes(context, participReporter);
-            _9_11Classes.GenerateCards();
+            //var _9_11Classes = new _9_11Classes(context, participReporter);
+            //_9_11Classes.GenerateCards();
             //var oneTwoThree = new OneTwoThree();
             //oneTwoThree.GenerateCards();
             //RenameAndMoveCardFolders();
+            GenerateFirstClassCards();
 
             Console.WriteLine("End");
             #region oldCode
@@ -245,11 +249,11 @@ namespace ParticipReporter
 
         static void GenerateFirstClassCards()
         {
-            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTestId == 2043 && pt.Grade5 > 0).Select(pt => pt.Particip.SchoolId).Distinct();
+            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTestId == 3078 && pt.Grade5 > 0).Select(pt => pt.Particip.SchoolId).Distinct();
             foreach (var schoolId in schoolIds)
             {
                 Console.WriteLine($"Started for {schoolId}");
-                cardsGenerator.GetCardsArchievePath(schoolId, 2043);
+                cardsGenerator.GetCardsArchievePath(schoolId, 3078);
                 Console.WriteLine($"Ended for {schoolId}");
             }
             Console.WriteLine("Ended");

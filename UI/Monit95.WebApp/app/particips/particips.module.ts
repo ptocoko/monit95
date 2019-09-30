@@ -38,8 +38,8 @@ const routes: Routes = [
 	{ path: 'particips/oge/new', component: AddParticipComponent, data: { projectId: 28, projectName: 'ОГЭ' } },
 
 	{ path: 'particips/society', component: SocietyHomeComponent },
-	//{ path: 'particips/society/list', component: SocietyParticipsListComponent },
-	//{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 20, projectName: 'Обществознание' } },
+	{ path: 'particips/society/list', component: SocietyParticipsListComponent },
+	//{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 27, projectName: 'Обществознание' } },
 
 	//{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
 	{ path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },

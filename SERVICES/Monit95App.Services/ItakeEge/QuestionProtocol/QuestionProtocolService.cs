@@ -45,7 +45,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
             var participTestEntities = (await cokoContext.ParticipTests
                 .AsNoTracking()
                 .Where(pt => pt.ProjectTest.IsOpen && pt.ProjectTestId == projectTestId && pt.Particip.SchoolId == schoolId)
-                .Include(inc => inc.QuestionMarks)
+                .Include("QuestionMarks")
                 .Include("Particip")
                 .Select(entity => new
                 {
@@ -53,17 +53,17 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
                     ParticipInfo = entity.Particip.Surname + " " + entity.Particip.Name + " " + entity.Particip.SecondName,
                     entity.Particip.DocumNumber,
                     entity.Grade5,
-                    Marks = entity.Grade5 > 0 ? entity.QuestionMarks == null ? null : entity.QuestionMarks.Select(qm => qm.AwardedMark) : null
+                    entity.QuestionMarks
                 })
-                .OrderBy(ob => ob.ParticipInfo)
                 .ToListAsync())
                 .Select(query => new QuestionProtocolReadDto
                 {
                     ParticipTestId = query.ParticipTestId,
                     ParticipInfo = query.ParticipInfo,
                     DocumNumber = query.DocumNumber,
-                    QuestionMarks = query.Grade5 > 0 ? GetMarksFromEnumerable(query.Marks) : "отсутствовал"
-                });
+                    QuestionMarks = query.Grade5.HasValue && query.Grade5 < 0 ? "отсутствовал" : GetMarksFromQuestionMarks(query.QuestionMarks)
+                })
+                .OrderBy(ob => ob.ParticipInfo);
 
             return participTestEntities;
         }
@@ -232,6 +232,18 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
             } else
             {
                 return marks.Select(s => s.ToString()).Aggregate((agg, curr) => $"{agg};{curr}");
+            }
+        }
+
+        private string GetMarksFromQuestionMarks(IEnumerable<QuestionMark> questionMarks)
+        {
+            if (questionMarks == null || questionMarks.Count() == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return questionMarks.Select(qm => qm.AwardedMark.ToString()).Aggregate((agg, curr) => $"{agg};{curr}");
             }
         }
     }

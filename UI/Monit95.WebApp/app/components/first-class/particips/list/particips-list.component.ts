@@ -34,7 +34,7 @@ export class ParticipsListComponent {
 	searchText: string;
 	searchClass: string;
 	pageIndex = 0;
-	limitToVal = 20;
+	limitToVal = 40;
 	participsLength = 0;
 
 	isFailingSchool = false;

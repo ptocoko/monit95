@@ -9,13 +9,13 @@ namespace Monit95App.Services
 {
     public class ClassParticipReporter
     {
-        public byte[] GetClassParticipReportBytes(FirstClassReportDto particip, string[] maxMarks, string testDate)
+        public byte[] GetClassParticipReportBytes(FirstClassReportDto particip, string[] maxMarks)
         {
-            string htmlText = GetReportHtml(particip, maxMarks, testDate);
+            string htmlText = GetReportHtml(particip, maxMarks);
             return GetPdfBytesOfHtml(htmlText);
         }
 
-        public string GetReportHtml(FirstClassReportDto particip, string[] maxMarks, string testDate)
+        public string GetReportHtml(FirstClassReportDto particip, string[] maxMarks)
         {
             string firstMarkColor = double.Parse(particip.Marks[0]) > 2 ? "" : "red-background";
             string secondMarkColor = double.Parse(particip.Marks[1]) > 0.5 ? "" : "red-background";
@@ -87,15 +87,15 @@ namespace Monit95App.Services
             <p class='col-xs-8 col-sm-8'>{particip.ClassName}</p>
             <br />
             <br />
-            <p class='col-xs-4 col-sm-4'>Дата тестирования:</p>
-            <p class='col-xs-8 col-sm-8'>{testDate}</p>
+            <p class='col-xs-4 col-sm-4'>Дата обследования:</p>
+            <p class='col-xs-8 col-sm-8'>{particip.TestDate}</p>
             <br />
         </div>
         <br />
         <br />
 
         <table style='width:710px' class='table table-bordered'>
-            <caption class='text-center' style='color:black'>Выполнение работы</caption>
+            <caption class='text-center' style='color:black'>Результаты</caption>
             <tr>
                 <td>
                     <p class='col-xs-4 col-sm-4'>Первичный балл:</p>
@@ -104,7 +104,7 @@ namespace Monit95App.Services
             </tr>
             <tr>
                 <td>
-                    <p class='col-xs-4 col-sm-4'>Группа:</p>
+                    <p class='col-xs-4 col-sm-4'>Уровень готовности:</p>
                     <p class='col-xs-8 col-sm-8'><span style='padding:10px 15px 20px' class='{GetGradeGroupBgrd(particip.PrimaryMark)}'>{particip.GradeGroup}</span></p>
                 </td>
             </tr>
@@ -125,8 +125,7 @@ namespace Monit95App.Services
                 <td style='text-align:center; vertical-align:middle'>1</td>
                 <td style='vertical-align:middle'>«Графические ряды»</td>
                 <td>
-                    - перцептивно-двигательные навыки
-                    <br />- уровень внимания
+                    - внимание
                     <br />- самоконтроль, планирование и организация произвольной деятельности
                 </td>
                 <td class='{firstMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[0]}</td>
@@ -136,18 +135,18 @@ namespace Monit95App.Services
                 <td style='text-align:center; vertical-align:middle'>2</td>
                 <td style='vertical-align:middle'>«Узор из точек»</td>
                 <td>
-                    - ориентация на плоскости
-                    <br />- восприятие зрительного образа
+                    - внимание
+                    <br />- пространственная ориентация
                 </td>
                 <td class='{secondMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[1]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[1]}</td>
             </tr>
             <tr>
                 <td style='text-align:center; vertical-align:middle'>3</td>
-                <td style='vertical-align:middle'>«Рисунок»</td>
+                <td style='vertical-align:middle'>«Рисунок дома-дерева-человека»</td>
                 <td>
-                    - сформированность первичных представлений о мире
-                    <br />- ориентация в пространстве
+                    - пространственная ориентация
+                    <br />- сформированность первичных представлений о мире
                 </td>
                 <td class='{thirdMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[2]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[2]}</td>
@@ -155,14 +154,14 @@ namespace Monit95App.Services
             <tr>
                 <td style='text-align:center; vertical-align:middle'>4</td>
                 <td style='vertical-align:middle'>«Дорожка звуков»</td>
-                <td>- уровень и особенности развития фонематического слуха</td>
+                <td>- фонематический слух</td>
                 <td class='{fourthMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[3]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[3]}</td>
             </tr>
             <tr>
                 <td style='text-align:center; vertical-align:middle'>5</td>
-                <td style='vertical-align:middle'>Моторика</td>
-                <td>- способность выполнять мелкие и точные движения кистями и пальцами рук</td>
+                <td style='vertical-align:middle'>«Графические ряды», «Рисунок дома-дерева-человека»</td>
+                <td>- моторика (перцептивно-двигательные навыки)</td>
                 <td class='{fifthMarkColor}' style='text-align:center; vertical-align:middle'>{particip.Marks[4]}</td>
                 <td style='text-align:center; vertical-align:middle'>{maxMarks[4]}</td>
             </tr>

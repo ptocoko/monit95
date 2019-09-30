@@ -8,6 +8,7 @@ using Monit95App.Services.DTOs;
 using Monit95App.Infrastructure.Data;
 using Ionic.Zip;
 using System.Text.RegularExpressions;
+using System.Data.Entity.SqlServer;
 
 namespace Monit95App.Services
 {
@@ -23,20 +24,20 @@ namespace Monit95App.Services
             this.reporter = reporter;
         }
 
-        public string GetCardsArchievePath(string schoolId, int projectId)
+        public string GetCardsArchievePath(string schoolId, int projectTestId)
         {
-            var cardArchievePath = $@"{_cardsFolderPath}\{projectId}\{schoolId}.zip";
+            var cardArchievePath = $@"{_cardsFolderPath}\{projectTestId}\{schoolId}.zip";
             if (System.IO.File.Exists(cardArchievePath))
             {
                 return cardArchievePath;
             }
             else
             {
-                //return GenerateCardsForSchool(schoolId, projectTestId);
+                return GenerateCardsForSchool(schoolId, projectTestId);
 
                 //throw new NotImplementedException();
 
-                throw new ArgumentException();
+                //throw new ArgumentException();
             }
         }
 
@@ -49,7 +50,7 @@ namespace Monit95App.Services
 
             Parallel.ForEach(GetFirstClassReportDtos(schoolId, projectTestId), reportDto =>
             {
-                var pdfBytes = reporter.GetClassParticipReportBytes(reportDto, maxMarks, "20 сентября 2018 г.");
+                var pdfBytes = reporter.GetClassParticipReportBytes(reportDto, maxMarks);
 
                 var participCardFolder = $@"{_cardsFolderPath}\{projectTestId}\{schoolId}\{reportDto.ClassName}";
                 CreateFolder(participCardFolder);
@@ -106,6 +107,7 @@ namespace Monit95App.Services
                     ClassName = pt.Particip.Class.Name,
                     PrimaryMark = pt.PrimaryMark,
                     GradeGroup = pt.GradeString,
+                    TestDateTime = pt.ProjectTest.TestDate,
                     MarksString = pt.Result.Marks
                 })
                 .ToList();
@@ -116,6 +118,7 @@ namespace Monit95App.Services
                 dto.ClassName = dto.ClassName.Replace(" ", "");
                 dto.SchoolParticipInfo.Surname = NormalizeName(dto.SchoolParticipInfo.Surname);
                 dto.SchoolParticipInfo.Name = NormalizeName(dto.SchoolParticipInfo.Name);
+                dto.TestDate = dto.TestDateTime.ToString("dd MMMM yyyy г.");
 
                 if (dto.SchoolParticipInfo.SecondName != null)
                     dto.SchoolParticipInfo.SecondName = NormalizeName(dto.SchoolParticipInfo.SecondName);

@@ -1,4 +1,5 @@
 ﻿using Monit95App.Domain.Core;
+using System;
 
 namespace Monit95App.Services.DTOs
 {
@@ -15,6 +16,10 @@ namespace Monit95App.Services.DTOs
         public string GradeGroup { get; set; }
 
         public string MarksString { get; set; }
+
+        public DateTime TestDateTime { get; set; }
+
+        public string TestDate { get; set; }
 
         public string[] Marks { get; set; }
     }

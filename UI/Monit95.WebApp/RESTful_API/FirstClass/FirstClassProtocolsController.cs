@@ -93,7 +93,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
                 return BadRequest(e.Message);
             }
 
-            return Ok();
+            return Ok("OK");
             //return BadRequest();
         }
 
@@ -113,7 +113,7 @@ namespace Monit95.WebApp.RESTful_API.FirstClass
                 return BadRequest(e.Message);
             }
 
-            return Ok();
+            return Ok("Ok");
             //return BadRequest();
         }
     }

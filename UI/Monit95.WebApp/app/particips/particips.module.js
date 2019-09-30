@@ -37,8 +37,8 @@ var routes = [
     { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
     { path: 'particips/oge/new', component: add_component_1.AddParticipComponent, data: { projectId: 28, projectName: 'ОГЭ' } },
     { path: 'particips/society', component: home_component_3.SocietyHomeComponent },
-    //{ path: 'particips/society/list', component: SocietyParticipsListComponent },
-    //{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 20, projectName: 'Обществознание' } },
+    { path: 'particips/society/list', component: particips_list_component_3.SocietyParticipsListComponent },
+    //{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 27, projectName: 'Обществознание' } },
     //{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
     { path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
 ];

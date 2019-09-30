@@ -1,0 +1,42 @@
+﻿.green-text {
+    color: green;
+}
+
+.mat-form-field {
+    flex: 1 1 auto;
+}
+
+.mat-column-select, .mat-column-num {
+    max-width: 70px;
+}
+
+.mat-row:hover{
+    cursor:pointer;
+    background-color: #eee;
+}
+
+.lightgreen-back {
+    background-color: #e1ffe1;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 50px;
+}
+
+.table-actions > .mat-form-field {
+    margin-right: 20px;
+}
+
+
+.center-block {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}

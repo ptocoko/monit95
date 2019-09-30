@@ -52,6 +52,12 @@ namespace Monit95App.Services.ItakeEge.Participant
         [StringLength(4)]
         public string ClassId { get; set; }
         
-        public string DocumNumber { get; set; }        
+        public string DocumNumber { get; set; }
+
+        public short? ActualCode12 { get; set; }
+
+        public string PrevYearGrade { get; set; }
+
+        public string BookAuthor { get; set; }
     }
 }

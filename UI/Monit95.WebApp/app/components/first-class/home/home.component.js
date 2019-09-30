@@ -5,7 +5,7 @@ var core_1 = require("@angular/core");
 var account_service_1 = require("../../../services/account.service");
 var local_storage_1 = require("../../../utils/local-storage");
 var cards_service_1 = require("../../../services/cards.service");
-var PROJECT_TEST_ID = 2043;
+var PROJECT_TEST_ID = 3078;
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(accountService, cardsService) {
         this.accountService = accountService;

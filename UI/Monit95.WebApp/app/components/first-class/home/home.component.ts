@@ -3,7 +3,7 @@ import { AccountService } from '../../../services/account.service';
 import { removeFromLocalStorage } from '../../../utils/local-storage';
 import { CardsService } from '../../../services/cards.service';
 
-const PROJECT_TEST_ID = 2043;
+const PROJECT_TEST_ID = 3078;
 
 @Component({
 	templateUrl: `./app/components/first-class/home/home.component.html?v=${new Date().getTime()}`
@@ -12,7 +12,7 @@ export class HomeComponent {
 	timeIsCome = false;
 	cardsIdGenerating = false;
 
-	constructor(private accountService: AccountService,
+	constructor(public accountService: AccountService,
 		private cardsService: CardsService) { }
 
 	ngOnInit() {

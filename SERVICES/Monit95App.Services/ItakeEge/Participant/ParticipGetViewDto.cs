@@ -22,5 +22,11 @@
         public string DocumNumber { get; set; }
        
         public string DataSource { get; set; }
+
+        public short? ActualCode12 { get; set; }
+
+        public string PrevYearGrade { get; set; }
+
+        public string BookAuthor { get; set; }
     }
 }

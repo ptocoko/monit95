@@ -42,6 +42,7 @@ namespace Monit95App.Services.FirstClass.Protocols
                 .Select(s => new ClassDto { Id = s.Particip.ClassId, Name = s.Particip.Class.Name })
                 .GroupBy(gb => gb.Id)
                 .Select(s => s.FirstOrDefault())
+                .OrderBy(ob => ob.Id)
                 .ToListAsync();
 
             entity = FilterQuery(entity, options);

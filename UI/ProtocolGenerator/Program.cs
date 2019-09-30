@@ -27,18 +27,21 @@ namespace OneTwoThreeReporter
         {
             var context = new CokoContext();
             //var reporter = new ReportService(context);
-            //var iTakeEge = new ITakeEge(
-            //    context: context,
-            //    projectId: 25);
+            var iTakeEge = new ITakeEge(
+                context: context,
+                projectId: 27);
 
             //iTakeEge.SolveGrade5_v2();
-            //iTakeEge.GenerateForAllSchools();
+            iTakeEge.GenerateForAllSchools();
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
+            //iTakeEge.SolveAndSaveGrade5(new int[] { 3079, 3082 });
+            //iTakeEge.SolveGrade5IgnoringQuestions(new int[] { 2184, 2185, 2186, 2187, 2188, 2189 }, 3081, 8);
+            //iTakeEge.SetPrimaryMark_v2IngoringQuestionIds(new int[] { 2184, 2185, 2186, 2187, 2188, 2189 }, 3081);
 
             //var report = reporter.GetReport(758706);
 
-            var oneTwoThree = new OneTwoThree(context, null, 22);
-            oneTwoThree.GenerateExcelReports();
+            //var oneTwoThree = new OneTwoThree(context, null, 22);
+            //oneTwoThree.GenerateExcelReports();
 
             Console.WriteLine("All done!");
             Console.ReadKey();

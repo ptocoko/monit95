@@ -155,7 +155,7 @@ namespace Monit95App.Services.ItakeEge.Participant
             if (entity == null)
                 throw new EntityNotFoundOrAccessException();
 
-            var mapper = mapperConfiguration.CreateMapper();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ParticipPostOrPutDto, Particip>()).CreateMapper();
             mapper.Map(dto, entity);                       
 
             cokoContext.SaveChanges();

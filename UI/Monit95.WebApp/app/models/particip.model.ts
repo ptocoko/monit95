@@ -11,4 +11,7 @@ export class ParticipModel extends PersonModel {
 	public SchoolName?: string;
 	public DocumNumber?: number;
 	public DataSource?: string;
+	public ActualCode12?: number;
+	public PrevYearGrade: number;
+	public BookAuthor: string;
 }

@@ -67,6 +67,35 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
 
+        public void SolveGrade5IgnoringQuestions(int[] questionIds, int projectTestId, int passPrimaryMark)
+        {
+            var participTests = context.ParticipTests
+                .Where(pt => pt.ProjectTestId == projectTestId && ((pt.Grade5.HasValue && pt.Grade5 > 0) || !pt.Grade5.HasValue) && pt.PrimaryMark.HasValue)
+                .Include("QuestionMarks");
+
+            foreach (var participTest in participTests)
+            {
+                var marksSum = participTest.QuestionMarks.Where(qm => !questionIds.Contains(qm.QuestionId)).Select(qm => qm.AwardedMark).Sum();
+                participTest.Grade5 = (int)marksSum >= passPrimaryMark ? 5 : 2;
+            }
+
+            context.SaveChanges();
+        }
+
+        public void SetPrimaryMark_v2IngoringQuestionIds(int[] questionIds, int projectTestId)
+        {
+            var participTests = context.ParticipTests
+                .Where(pt => pt.ProjectTestId == projectTestId && pt.PrimaryMark.HasValue)
+                .Include("QuestionMarks");
+
+            foreach (var participTest in participTests)
+            {
+                participTest.PrimaryMark_v2 = (int)participTest.QuestionMarks.Where(qm => !questionIds.Contains(qm.QuestionId)).Select(qm => qm.AwardedMark).Sum();
+            }
+
+            context.SaveChanges();
+        }
+
         public void GenerateForAllSchools()
         {
             var participTests = GetCorrectParticipTestsQuery();
@@ -271,6 +300,9 @@ namespace ProtocolGenerator
                 .OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
                 .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
 
+            string path = @"D:\Work\ITakeEge\092019";
+            string tempPath = $@"{path}\template new ege.xlsx";
+
             foreach (var schoolResult in groupedTestResults)
             {
                 //if (!Directory.Exists($@"{destFolderPath}\{schoolResult.Key.SchoolId}"))
@@ -280,8 +312,6 @@ namespace ProtocolGenerator
                 //    Directory.CreateDirectory($@"{reportFolder}\{schoolResult.Key.AreaName}");
                 //}
 
-                string path = @"D:\Work\ITakeOge\042019";
-                string tempPath = $@"{path}\template new oge.xlsx";
 
                 using (var excelTemplate = new XLWorkbook(tempPath))
                 {
@@ -298,8 +328,8 @@ namespace ProtocolGenerator
                         //sheet.Cell(i + 4, 7).Value = result.ClassName;
                         //sheet.Cell(i + 4, 7).Value = result.Marks;
                         sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
-                        //sheet.Cell(i + 4, 8).Value = result.RiskGroup;
-                        sheet.Cell(i + 4, 8).Value = result.GradeStr;
+                        sheet.Cell(i + 4, 8).Value = result.RiskGroup;
+                        sheet.Cell(i + 4, 9).Value = result.GradeStr;
                         i++;
                     }
                         
@@ -307,13 +337,13 @@ namespace ProtocolGenerator
                     
                 }
 
-                //using (var zip = new ZipFile())
-                //{
-                //    zip.AddFile($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx", "");
-                //    zip.Save($@"{reportFolder}\{schoolResult.Key.SchoolId}.zip");
-                //}
+                using (var zip = new ZipFile())
+                {
+                    zip.AddFile($@"{path}\{schoolResult.Key.SchoolId}.xlsx", "");
+                    zip.Save($@"{path}\{schoolResult.Key.SchoolId}.zip");
+                }
 
-                //System.IO.File.Delete($@"{reportFolder}\{schoolResult.Key.SchoolId}.xlsx");
+                System.IO.File.Delete($@"{path}\{schoolResult.Key.SchoolId}.xlsx");
             }
         }
 
@@ -334,7 +364,7 @@ namespace ProtocolGenerator
                 //AwardedMarks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()),
                 //Marks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}"),
                 PrimaryMark = participTest.PrimaryMark.HasValue ? (int?)participTest.PrimaryMark : null,
-                RiskGroup = participTest.Grade5_v2.HasValue ? participTest.Grade5_v2 == 2 ? "да" : "нет" : " - ",
+                RiskGroup = participTest.Grade5.HasValue ? participTest.Grade5 == 2 ? "да" : "нет" : " - ",
                 GradeStr = GetGradeStr(participTest)
             };
         }
