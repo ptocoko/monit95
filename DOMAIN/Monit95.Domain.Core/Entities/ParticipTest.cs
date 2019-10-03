@@ -53,7 +53,7 @@ namespace Monit95App.Domain.Core.Entities
 
         public int? Grade5_v2 { get; set; }
 
-        public int? PrimaryMark_v2 { get; set; }
+        public double? PrimaryMark_v2 { get; set; }
 
         public short? OptionNumber { get; set; }
 

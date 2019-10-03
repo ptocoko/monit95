@@ -45,23 +45,23 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>
+                                <li><a href="/rsur/spa#particips">«Я сдам ЕГЭ!»</a></li>
                                 @if (User.IsInRole("school"))
                                 {
                                     @*<li><a href="/rsur/spa#one-two-three">1-3 классы</a></li>*@
                                     <li><a href="/rsur/spa#first-class">1 классы</a></li>
-                                    <li><a href="/rsur/spa#particips">«Я сдам ЕГЭ!»</a></li>
                                     <li><a href="/rsur/spa#particips/oge">«Я сдам ОГЭ!»</a></li>
+                                    <li><a href="/rsur/spa#particips/society">«Я сдам Обществознание!»</a></li>
                                 }
                                 @*@if (User.IsInRole("school") || User.IsInRole("area"))
                                 {
                                 }*@
-                                @*@if (badSchools3.Contains(User.Identity.Name))
+                                @if (schools4.Contains(User.Identity.Name))
                                 {
-                                    <li><a href="/rsur/spa#particips/oge">«Я сдам ОГЭ!»</a></li>
-                                }*@
+                                    <li><a href="/rsur/spa#two-three-2/home">2-3 классы</a></li>
+                                }
                                 @*@if (User.IsInRole("grozny-school"))
                                 {
-                                    <li><a href="/rsur/spa#particips/society">«Я сдам Обществознание!»</a></li>
                                 }*@
                                 @*@if (schools4.Contains(User.Identity.Name.Trim()))
                                 {
@@ -81,10 +81,10 @@
                         @*<li>@Html.ActionLink("Файлы", "Report", "Report")</li>*@
                         <li><a href="/rsur/spa#school-files">Файлы</a></li>
                     }
-                    @if (User.IsInRole("area"))
+                    @*@if (User.IsInRole("area"))
                     {
                         <li><a href="http://monit95.ru/ege">«Я сдам ЕГЭ!»</a></li>
-                    }
+                    }*@
                     <li>@Html.ActionLink("О сайте", "About", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {

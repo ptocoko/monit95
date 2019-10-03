@@ -15,22 +15,19 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="false">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">Результаты</h3>
     <div>
-        <a class="list-item-link" style="cursor:pointer" (click)="downloadCards()" *ngIf="!cardsIdGenerating">
-            <h4><b>Скачать карты готовности к обучению</b></h4>
+        <a class="list-item-link" href="/file/1_classes/092019/cards/{{ accountService.account.UserName }}.zip" download="Карты 1-х классов.zip">
+            <h4><b>Результаты диагностического исследования</b></h4>
         </a>
-        <a *ngIf="cardsIdGenerating" class="list-item-link__disabled">
-            <h4>Карты генерируются. Пожалуйста, подождите...</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/HXPV/Jz4JJsZ8H" target="_blank">
-            <h4><b>Алгоритм работы учителя с результатами диагностики</b></h4>
+        <a class="list-item-link" href="/file/1_classes/092019/materials/algoritm.rar" download="Алгоритм КПК.rar">
+            <h4><b>Алгоритм работы учителя с результатами диагностического исследования</b></h4>
         </a>
     </div>
 </div>
 
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Вспомогательный материал</h3>
     <div>
         <a class="list-item-link" href="/file/1_classes/recomendations.pdf" download="Методические рекомендации.pdf">

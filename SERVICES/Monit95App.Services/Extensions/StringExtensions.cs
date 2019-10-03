@@ -17,16 +17,23 @@ namespace Monit95App.Services.Extensions
         /// <returns></returns>
         public static string NormalizeName(this string name)
         {
-            name = name.Replace(" ", "");
-            if (name.Length < 1)
+            if (!string.IsNullOrEmpty(name))
             {
-                return name;
+                name = name.Replace(" ", "");
+                if (name.Length < 1)
+                {
+                    return name;
+                }
+                else
+                {
+                    return name.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries)
+                               .Select(s => s.Substring(0, 1).ToUpper() + s.Remove(0, 1).ToLower())
+                               .Aggregate((s1, s2) => $"{s1}-{s2}");
+                }
             }
             else
             {
-                return name.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries)
-                           .Select(s => s.Substring(0, 1).ToUpper() + s.Remove(0, 1).ToLower())
-                           .Aggregate((s1, s2) => $"{s1}-{s2}");
+                return name;
             }
         }
 

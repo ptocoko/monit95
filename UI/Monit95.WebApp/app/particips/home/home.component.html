@@ -74,15 +74,15 @@
 <div class="list-container" *ngIf="true">
     <h3 class="list-header">Результаты «Я сдам ЕГЭ!»-2019-2020 - сентябрь</h3>
     <div>
-        <a class="list-item-link" href="/file/iTakeEge/092019/protocols/{{account.account.UserName}}.zip" download="Протокол результатов Я сдам ЕГЭ.zip">
+        <a class="list-item-link" href="/file/iTakeEge/092019/protocols/{{account.account.UserName}}.xlsx" download="Протокол результатов Я сдам ЕГЭ.xlsx" *ngIf="account.isSchool()">
             <h4><b>Скачать протокол проверки результатов</b></h4>
         </a>
-        <!--<a class="list-item-link" href="https://t.me/iTakeEge" target="_blank">
-            <div>
-                <h4><b>Telegram-группа технической поддержки: https://t.me/iTakeEge</b></h4>
-            </div>
-        </a>-->
-        <a class="list-item-link" routerLink="/particips/reports/21" *ngIf="false">
+
+        <a class="list-item-link" href="/file/iTakeEge/092019/protocols/areas/{{account.account.UserName}}.xlsx" download="Протокол результатов Я сдам ЕГЭ.xlsx" *ngIf="account.isArea()">
+            <h4><b>Скачать протокол проверки результатов</b></h4>
+        </a>
+        
+        <a class="list-item-link" routerLink="/particips/reports/27" *ngIf="account.isSchool()">
             <h4><b>Индивидуальные карты участников</b></h4>
         </a>
     </div>

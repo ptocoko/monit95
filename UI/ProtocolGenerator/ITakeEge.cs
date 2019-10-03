@@ -67,16 +67,23 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
 
-        public void SolveGrade5IgnoringQuestions(int[] questionIds, int projectTestId, int passPrimaryMark)
+        public void SolveGrade5IgnoringQuestions(int[] questionIds, int projectTestId, int passPrimaryMark, bool is_v2Grade)
         {
             var participTests = context.ParticipTests
-                .Where(pt => pt.ProjectTestId == projectTestId && ((pt.Grade5.HasValue && pt.Grade5 > 0) || !pt.Grade5.HasValue) && pt.PrimaryMark.HasValue)
+                .Where(pt => pt.ProjectTestId == projectTestId && pt.PrimaryMark.HasValue)
                 .Include("QuestionMarks");
 
             foreach (var participTest in participTests)
             {
                 var marksSum = participTest.QuestionMarks.Where(qm => !questionIds.Contains(qm.QuestionId)).Select(qm => qm.AwardedMark).Sum();
-                participTest.Grade5 = (int)marksSum >= passPrimaryMark ? 5 : 2;
+                if (is_v2Grade)
+                {
+                    participTest.Grade5_v2 = (int)marksSum >= passPrimaryMark ? 5 : 2;
+                }
+                else
+                {
+                    participTest.Grade5 = (int)marksSum >= passPrimaryMark ? 5 : 2;
+                }
             }
 
             context.SaveChanges();
@@ -96,18 +103,25 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
 
-        public void GenerateForAllSchools()
+        public void GenerateForAllSchools(string path, string templateName, bool isArchieving)
         {
             var participTests = GetCorrectParticipTestsQuery();
 
-            GenerateReports(participTests);
+            GenerateReports(participTests, path, templateName, isArchieving);
         }
 
-        public void GenerateReportsForSchools(string[] schoolIds)
+        public void GenerateForAllAreas(string path, string templateName, bool isArchieving)
+        {
+            var participTests = GetCorrectParticipTestsQuery();
+
+            GenerateReportsForAreas(participTests, path, templateName, isArchieving);
+        }
+
+        public void GenerateReportsForSchools(string[] schoolIds, string path, string templateName, bool isArchieving)
         {
             var participTests = GetCorrectParticipTestsQuery().Where(p => schoolIds.Contains(p.Particip.SchoolId));
 
-            GenerateReports(participTests);
+            GenerateReports(participTests, path, templateName, isArchieving);
         }
 
         public void GenerateReportsForAreas()
@@ -289,7 +303,56 @@ namespace ProtocolGenerator
             }
         }
 
-        private void GenerateReports(IQueryable<ParticipTest> participTests)
+        private void GenerateReportsForAreas(IQueryable<ParticipTest> participTests, string path, string templateName, bool isArchieving)
+        {
+            var groupedTestResults = participTests
+                .Include("Particip.School.Area")
+                .Include("ProjectTest.Test")
+                .ToList()
+                .Select(MapToReportModel)
+                .OrderBy(ob => ob.SchoolId).ThenBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
+                .GroupBy(gb => new { gb.AreaCode, gb.AreaName });
+
+            string tempPath = $@"{path}\{templateName}";
+
+            foreach (var areaResult in groupedTestResults)
+            {
+                using (var excel = new XLWorkbook(tempPath))
+                {
+                    var sheet = excel.Worksheets.First();
+                    sheet.Cell(2, 1).Value = $"{areaResult.Key.AreaCode} - {areaResult.Key.AreaName}";
+                    int i = 0;
+                    foreach (var result in areaResult)
+                    {
+                        sheet.Cell(i + 4, 2).Value = result.SchoolName;
+                        sheet.Cell(i + 4, 3).Value = result.Surname;
+                        sheet.Cell(i + 4, 4).Value = result.Name;
+                        sheet.Cell(i + 4, 5).Value = result.SecondName;
+                        sheet.Cell(i + 4, 6).Value = result.DocumNumber;
+                        sheet.Cell(i + 4, 7).Value = result.TestName;
+                        sheet.Cell(i + 4, 8).Value = result.PrimaryMark;
+                        sheet.Cell(i + 4, 9).Value = result.RiskGroup;
+                        sheet.Cell(i + 4, 10).Value = result.GradeStr;
+                        i++;
+                    }
+
+                    excel.SaveAs($@"{path}\{areaResult.Key.AreaCode}.xlsx");
+
+                    if (isArchieving)
+                    {
+                        using (var zip = new ZipFile())
+                        {
+                            zip.AddFile($@"{path}\{areaResult.Key.AreaCode}.xlsx", "");
+                            zip.Save($@"{path}\{areaResult.Key.AreaCode}.zip");
+                        }
+
+                        System.IO.File.Delete($@"{path}\{areaResult.Key.AreaCode}.xlsx");
+                    }
+                }
+            }
+        }
+
+        private void GenerateReports(IQueryable<ParticipTest> participTests, string path, string templateName, bool isArchieving)
         {
             var groupedTestResults = participTests
                 .Include("Particip.School.Area")
@@ -300,8 +363,8 @@ namespace ProtocolGenerator
                 .OrderBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
                 .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
 
-            string path = @"D:\Work\ITakeEge\092019";
-            string tempPath = $@"{path}\template new ege.xlsx";
+            // string path = @"D:\Work\ITakeEge\092019";
+            string tempPath = $@"{path}\{templateName}";
 
             foreach (var schoolResult in groupedTestResults)
             {
@@ -337,13 +400,16 @@ namespace ProtocolGenerator
                     
                 }
 
-                using (var zip = new ZipFile())
+                if (isArchieving)
                 {
-                    zip.AddFile($@"{path}\{schoolResult.Key.SchoolId}.xlsx", "");
-                    zip.Save($@"{path}\{schoolResult.Key.SchoolId}.zip");
-                }
+                    using (var zip = new ZipFile())
+                    {
+                        zip.AddFile($@"{path}\{schoolResult.Key.SchoolId}.xlsx", "");
+                        zip.Save($@"{path}\{schoolResult.Key.SchoolId}.zip");
+                    }
 
-                System.IO.File.Delete($@"{path}\{schoolResult.Key.SchoolId}.xlsx");
+                    System.IO.File.Delete($@"{path}\{schoolResult.Key.SchoolId}.xlsx");
+                }
             }
         }
 
@@ -351,6 +417,7 @@ namespace ProtocolGenerator
         {
             return new ITakeEgeReportModel
             {
+                AreaCode = participTest.Particip.School.AreaCode,
                 AreaName = participTest.Particip.School.Area.Name.Trim(),
                 SchoolId = participTest.Particip.SchoolId,
                 SchoolName = participTest.Particip.School.Name.Trim(),
@@ -364,7 +431,7 @@ namespace ProtocolGenerator
                 //AwardedMarks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()),
                 //Marks = participTest.QuestionMarks.Select(s => s.AwardedMark.ToString()).Aggregate((s1, s2) => $"{s1};{s2}"),
                 PrimaryMark = participTest.PrimaryMark.HasValue ? (int?)participTest.PrimaryMark : null,
-                RiskGroup = participTest.Grade5.HasValue ? participTest.Grade5 == 2 ? "да" : "нет" : " - ",
+                RiskGroup = participTest.Grade5_v2.HasValue ? participTest.Grade5_v2 == 2 ? "да" : "нет" : " - ",
                 GradeStr = GetGradeStr(participTest)
             };
         }
@@ -427,6 +494,7 @@ namespace ProtocolGenerator
         public string SchoolName { get; set; }
         public int ProjectTestId { get; set; }
         public string AreaName { get; set; }
+        public int AreaCode { get; set; }
         public IEnumerable<int> Marks { get; set; }
         public int PrimaryMark { get; set; }
         public int Grade5 { get; set; }
@@ -437,6 +505,7 @@ namespace ProtocolGenerator
     internal class ITakeEgeReportModel
     {
         public string AreaName { get; set; }
+        public int AreaCode { get; set; }
         public string SchoolId { get; set; }
         public string SchoolName { get; set; }
         public string Surname { get; set; }

@@ -1,6 +1,11 @@
 ﻿<h2>Диагностика учащихся 2-х и 3-х классов: главное меню</h2>
 
-<div class="list-container">
+<div class="jumbotron" style="margin-top:25px" *ngIf="false">
+    <p><b>Инструкция по работе с электронной формой "Протокол проверки заданий":</b></p>
+    <p>Загрузите  электронную форму "Протокол проверки заданий" для соответствующего класса, заполните его и отправьте на сервер.</p>
+</div>
+
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">2 класс. Метапредметная диагностика</h3>
     <div>
         <a class="list-item-link" href="https://cloud.mail.ru/public/DtHc/uKoGxr9o1" target="_blank">
@@ -16,7 +21,7 @@
     </div>
 </div>
 
-<div class="list-container">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">3 класс. Метапредметная диагностика</h3>
     <div>
         <a class="list-item-link" href="https://cloud.mail.ru/public/MpFK/mEZsg73r8" target="_blank">
@@ -32,81 +37,14 @@
     </div>
 </div>
 
-<div class="list-container">
-    <h3 class="list-header">2 класс. Математика</h3>
-    <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/67GS/c53ZmPtQJ" target="_blank">
-            <h4>Варианты работ</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/LWx1/ShgjGvtat" target="_blank">
-            <h4>Критерии оценки</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/HB5T/jEygksHVD" target="_blank">
-            <h4>Протокол проверки заданий</h4>
-        </a>
-        <app-excel-upload [testCode]="'0202'" [collectorId]="8"></app-excel-upload>
-    </div>
-</div>
-
-<div class="list-container">
-    <h3 class="list-header">3 класс. Математика</h3>
-    <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/94VQ/tUbTLoTHW" target="_blank">
-            <h4>Варианты работ</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/2MXK/NdoRs4uzc" target="_blank">
-            <h4>Критерии оценки</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/51JW/m8jUjmQ6v" target="_blank">
-            <h4>Протокол проверки заданий</h4>
-        </a>
-        <app-excel-upload [testCode]="'0302'" [collectorId]="9"></app-excel-upload>
-    </div>
-</div>
-
-<div class="list-container">
-    <h3 class="list-header">2 класс. Русский язык</h3>
-    <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/3jFj/BFrTSJbfv" target="_blank">
-            <h4>Варианты работ</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/GhZb/JUmLdaaDr" target="_blank">
-            <h4>Критерии оценки</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/K4uD/xPSup4Xuy" target="_blank">
-            <h4>Протокол проверки заданий</h4>
-        </a>
-        <app-excel-upload [testCode]="'0201'" [collectorId]="6"></app-excel-upload>
-    </div>
-</div>
-
-<div class="list-container">
-    <h3 class="list-header">3 класс. Русский язык</h3>
-    <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/DWXJ/YRR2ZMFfq" target="_blank">
-            <h4>Варианты работ</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/BnNq/NTiM9jBcu" target="_blank">
-            <h4>Критерии оценки</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/AdKG/XN3SYJfv2" target="_blank">
-            <h4>Протокол проверки заданий</h4>
-        </a>
-        <app-excel-upload [testCode]="'0301'" [collectorId]="7"></app-excel-upload>
-    </div>
-</div>
-
 <div class="list-container" *ngIf="true">
     <h3 class="list-header">Вспомогательный материал</h3>
     <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/A2ur/6JU6K9zrj" target="_blank">
-            <h4>График проведения диагностики</h4>
+        <a class="list-item-link" href="/file/2-3/092019/specsh.rar" download="Спецификация 2-3 классы.rar">
+            <h4>Спецификация диагностической работы</h4>
         </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/Ca4D/Fwva3y6so" target="_blank">
-            <h4>2-й класс: Методический материал по проведению диагностической работы</h4>
-        </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/BYpn/X18SL77k4" target="_blank">
-            <h4>3-й класс: Методический материал по проведению диагностической работы</h4>
+        <a class="list-item-link" href="/file/2-3/092019/demo.rar" download="Демоверсия.rar">
+            <h4>Демоверсия</h4>
         </a>
     </div>
 </div>

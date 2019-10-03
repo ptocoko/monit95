@@ -94,7 +94,7 @@ import { DamnClassesModule } from './components/9-11_classes/9-11_classes.module
 		OneTwoThreeModule,
 		FirstClassModule,
 		//TwoThreeModule,
-		//TwoThreeModule2,
+		TwoThreeModule2,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
 				{ path: 'rsur/particips', component: RsurParticipsComponent },
