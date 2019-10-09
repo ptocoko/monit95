@@ -10,7 +10,7 @@
     <span *ngIf="uploadStatus === 'uploaded'">
         Отправлено!
         <a *ngIf="downloadHref"
-           href="{{downloadHref}}"
+           href="{{downloadHref}}/{{fileNamePrefix}}_{{accountService.account.UserName}}.{{downloadExt}}"
            download="отчет.xlsx">
             Скачать отчет
         </a>

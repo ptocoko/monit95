@@ -8,13 +8,18 @@ import { getFileExtension } from '../../../utils/functions';
 	styleUrls: [`./app/components/two-three-2/home/home.component.css?v=${new Date().getTime()}`]
 })
 export class HomeComponent {
-	timeIsCome = false;
+	// timeIsCome = false;
+	date = new Date();
 
 	constructor(private accountService: AccountService) { }
 
 	ngOnInit() {
-		const date = new Date();
-		this.timeIsCome = (date.getDate() === 4 && date.getHours() >= 8) || date.getDate() > 4;
+		//
+		//this.timeIsCome = (date.getDate() === 8 && date.getHours() >= 7 && date.getMinutes() >= 30) || date.getDate() > 8;
+	}
+
+	timeIsCome(day: number, hours: number, minutes: number): boolean {
+		return (this.date.getDate() === day && (this.date.getHours() === hours && this.date.getMinutes() >= minutes) || this.date.getHours() > hours) || this.date.getDate() > day;
 	}
 }
 

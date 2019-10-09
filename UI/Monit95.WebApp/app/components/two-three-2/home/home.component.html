@@ -1,39 +1,56 @@
 ﻿<h2>Диагностика учащихся 2-х и 3-х классов: главное меню</h2>
 
 <div class="jumbotron" style="margin-top:25px" *ngIf="false">
-    <p><b>Инструкция по работе с электронной формой "Протокол проверки заданий":</b></p>
-    <p>Загрузите  электронную форму "Протокол проверки заданий" для соответствующего класса, заполните его и отправьте на сервер.</p>
+    <p>Скачайте электронную форму "Протокол проверки заданий" для соответствующего класса, заполните его и отправьте на сервер.</p>
 </div>
 
-<div class="list-container" *ngIf="false">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">2 класс. Метапредметная диагностика</h3>
     <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/DtHc/uKoGxr9o1" target="_blank">
+        <a class="list-item-link" href="/file/2-3/092019/2 class/МТ.rar" download="Метапредмет 2 класс задания.rar" *ngIf="true">
             <h4>Варианты работ</h4>
         </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/8aKE/pxnNLUxVP" target="_blank">
+        <a class="list-item-link" href="/file/2-3/092019/2 class/МТ критерии.rar" download="Метапредмет 2 класс критерии.rar" *ngIf="true">
             <h4><b>Критерии оценки</b></h4>
         </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/6qjV/vD74roUdi" target="_blank">
+        <a class="list-item-link" href="/file/2-3/092019/2 class/МТ 2 класс форма.xlsx" download="Метапредмет 2 класс.xlsx" *ngIf="true">
             <h4><b>Протокол проверки заданий</b></h4>
         </a>
-        <app-excel-upload [testCode]="'0204'" [collectorId]="10"></app-excel-upload>
+        <app-excel-upload 
+            *ngIf="true"
+            [collectorFor]="'school'"
+            [fileNamePrefix]="'0204'"
+            [collectorId]="51"
+            [repositoryId]="7"
+            [caption]="'Заполненный протокол по метапредметной диагностике - 2 класс'"
+            [downloadHref]="'/file/2-3/092019/protocols'"
+            [downloadExt]="'xlsx'">
+        </app-excel-upload>
     </div>
 </div>
 
-<div class="list-container" *ngIf="false">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">3 класс. Метапредметная диагностика</h3>
     <div>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/MpFK/mEZsg73r8" target="_blank">
+        <a class="list-item-link" href="/file/2-3/092019/3 class/МТ.rar" download="Метапредмет 3 класс задания.rar" *ngIf="true">
             <h4>Варианты работ</h4>
         </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/2Wnd/ZcrFyBK9b" target="_blank">
+        <a class="list-item-link" href="/file/2-3/092019/3 class/МТ критерии.rar" download="Метапредмет 3 класс критерии.rar" *ngIf="true">
             <h4><b>Критерии оценки</b></h4>
         </a>
-        <a class="list-item-link" href="https://cloud.mail.ru/public/ER32/woyL3adTf" target="_blank">
+        <a class="list-item-link" href="/file/2-3/092019/3 class/МТ 3 класс форма.xlsx" download="Метапредмет 3 класс.xlsx" *ngIf="true">
             <h4><b>Протокол проверки заданий</b></h4>
         </a>
-        <app-excel-upload [testCode]="'0304'" [collectorId]="11"></app-excel-upload>
+        <app-excel-upload 
+            *ngIf="true"
+            [collectorFor]="'school'" 
+            [fileNamePrefix]="'0304'"
+            [collectorId]="52"
+            [repositoryId]="7"
+            [caption]="'Заполненный протокол по метапредметной диагностике - 3 класс'"
+            [downloadHref]="'/file/2-3/092019/protocols'"
+            [downloadExt]="'xlsx'">
+        </app-excel-upload>
     </div>
 </div>
 

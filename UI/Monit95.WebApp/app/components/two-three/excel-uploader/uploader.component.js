@@ -29,9 +29,12 @@ var ExcelUploadComponent = /** @class */ (function () {
         else {
             throw new Error('collectorFor is not setted');
         }
-        if (this.downloadHref && this.downloadExt) {
-            this.downloadHref += "/" + this.fileNamePrefix + "_" + this.accountService.account.UserName + "." + this.downloadExt;
+        if (this.repositoryId === undefined || this.repositoryId === null || isNaN(this.repositoryId)) {
+            throw new Error('repositoryId is not setted');
         }
+        //if (this.downloadHref && this.downloadExt) {
+        //	this.downloadHref += `/${this.fileNamePrefix}_${this.accountService.account.UserName}.${this.downloadExt}`;
+        //}
         this.collecterStateSub$ = this.collectorService.getCollectorState(this.collectorId).subscribe(function (state) {
             if (state.IsFinished) {
                 _this.uploadStatus = 'uploaded';
@@ -44,7 +47,7 @@ var ExcelUploadComponent = /** @class */ (function () {
         if (validateFile(file)) {
             var fileName = this.getFileName(file);
             this.uploadStatus = 'uploading';
-            this.uploadFileSub$ = this.fileService.uploadFile(REPOSITORY_ID, file, fileName, false, false)
+            this.uploadFileSub$ = this.fileService.uploadFile(this.repositoryId, file, fileName, false, false)
                 .subscribe(function (fileId) {
                 _this.uploadedFileId = Number.parseInt(fileId);
                 _this.collectorIsFinishedSub$ = _this.collectorService.isFinished(_this.collectorId, true).subscribe(function () { return _this.uploadStatus = 'uploaded'; });
@@ -77,7 +80,7 @@ var ExcelUploadComponent = /** @class */ (function () {
     //	}
     //}
     ExcelUploadComponent.prototype.getFileName = function (file) {
-        return this.fileNamePrefix + "_" + this.accountService.account.UserName + "." + functions_1.getFileExtension(file.name);
+        return this.fileNamePrefix + "_" + this.accountService.account.UserName + "." + this.downloadExt;
     };
     ExcelUploadComponent.prototype.ngOnDestroy = function () {
         this.collecterStateSub$.unsubscribe();
@@ -114,6 +117,10 @@ var ExcelUploadComponent = /** @class */ (function () {
         core_1.Input('downloadExt'),
         tslib_1.__metadata("design:type", String)
     ], ExcelUploadComponent.prototype, "downloadExt", void 0);
+    tslib_1.__decorate([
+        core_1.Input('repositoryId'),
+        tslib_1.__metadata("design:type", Number)
+    ], ExcelUploadComponent.prototype, "repositoryId", void 0);
     ExcelUploadComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-excel-upload',

@@ -30,6 +30,7 @@ export class ExcelUploadComponent implements OnDestroy {
 	@Input('caption') caption: string;
 	@Input('downloadHref') downloadHref: string;
 	@Input('downloadExt') downloadExt: string;
+	@Input('repositoryId') repositoryId: number;
 
 	collecterStateSub$: Subscription;
 	uploadFileSub$: Subscription;
@@ -50,9 +51,13 @@ export class ExcelUploadComponent implements OnDestroy {
 			throw new Error('collectorFor is not setted');
 		}
 
-		if (this.downloadHref && this.downloadExt) {
-			this.downloadHref += `/${this.fileNamePrefix}_${this.accountService.account.UserName}.${this.downloadExt}`;
+		if (this.repositoryId === undefined || this.repositoryId === null || isNaN(this.repositoryId)) {
+			throw new Error('repositoryId is not setted');
 		}
+
+		//if (this.downloadHref && this.downloadExt) {
+		//	this.downloadHref += `/${this.fileNamePrefix}_${this.accountService.account.UserName}.${this.downloadExt}`;
+		//}
 
 		this.collecterStateSub$ = this.collectorService.getCollectorState(this.collectorId).subscribe(state => {
 			if (state.IsFinished) {
@@ -68,7 +73,7 @@ export class ExcelUploadComponent implements OnDestroy {
 			const fileName = this.getFileName(file);
 
 			this.uploadStatus = 'uploading';
-			this.uploadFileSub$ = this.fileService.uploadFile(REPOSITORY_ID, file, fileName, false, false)
+			this.uploadFileSub$ = this.fileService.uploadFile(this.repositoryId, file, fileName, false, false)
 				.subscribe(fileId => {
 					this.uploadedFileId = Number.parseInt(fileId);
 					this.collectorIsFinishedSub$ = this.collectorService.isFinished(this.collectorId, true).subscribe(() => this.uploadStatus = 'uploaded');
@@ -104,7 +109,7 @@ export class ExcelUploadComponent implements OnDestroy {
 	//}
 
 	private getFileName(file: File) {
-		return `${this.fileNamePrefix}_${this.accountService.account.UserName}.${getFileExtension(file.name)}`;
+		return `${this.fileNamePrefix}_${this.accountService.account.UserName}.${this.downloadExt}`;
 	}
 
 	ngOnDestroy() {

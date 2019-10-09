@@ -6,11 +6,15 @@ var account_service_1 = require("../../../services/account.service");
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(accountService) {
         this.accountService = accountService;
-        this.timeIsCome = false;
+        // timeIsCome = false;
+        this.date = new Date();
     }
     HomeComponent.prototype.ngOnInit = function () {
-        var date = new Date();
-        this.timeIsCome = (date.getDate() === 4 && date.getHours() >= 8) || date.getDate() > 4;
+        //
+        //this.timeIsCome = (date.getDate() === 8 && date.getHours() >= 7 && date.getMinutes() >= 30) || date.getDate() > 8;
+    };
+    HomeComponent.prototype.timeIsCome = function (day, hours, minutes) {
+        return (this.date.getDate() === day && this.date.getHours() >= hours && this.date.getMinutes() >= minutes) || this.date.getDate() > day;
     };
     HomeComponent = tslib_1.__decorate([
         core_1.Component({
