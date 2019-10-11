@@ -7,7 +7,10 @@ var account_service_1 = require("../../../services/account.service");
 var functions_1 = require("../../../utils/functions");
 var school_collector_service_1 = require("../../../shared/school-collector.service");
 var material_1 = require("@angular/material");
+var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm-dialog.component");
 var area_collector_service_1 = require("../../../shared/area-collector.service");
+var operators_1 = require("rxjs/operators");
+var of_1 = require("rxjs/observable/of");
 var REPOSITORY_ID = 6;
 var ExcelUploadComponent = /** @class */ (function () {
     function ExcelUploadComponent(fileService, accountService, schoolCollectorService, areaCollectorService, dialog) {
@@ -35,52 +38,68 @@ var ExcelUploadComponent = /** @class */ (function () {
         //if (this.downloadHref && this.downloadExt) {
         //	this.downloadHref += `/${this.fileNamePrefix}_${this.accountService.account.UserName}.${this.downloadExt}`;
         //}
-        this.collecterStateSub$ = this.collectorService.getCollectorState(this.collectorId).subscribe(function (state) {
+        var fileName;
+        this.getFileName().pipe(operators_1.switchMap(function (filename) {
+            fileName = filename;
+            return _this.schoolCollectorService.getCollectorState(_this.collectorId);
+        }), operators_1.switchMap(function (state) {
             if (state.IsFinished) {
                 _this.uploadStatus = 'uploaded';
+                return _this.fileService.getFileId(fileName, _this.repositoryId);
+            }
+            else {
+                return of_1.of(-1);
+            }
+        })).subscribe(function (fileId) {
+            if (fileId > 0) {
+                _this.uploadedFileId = fileId;
             }
         });
     };
     ExcelUploadComponent.prototype.uploadXlsx = function (evt) {
+        return tslib_1.__awaiter(this, void 0, void 0, function () {
+            var file;
+            var _this = this;
+            return tslib_1.__generator(this, function (_a) {
+                file = evt.target.files[0];
+                if (validateFile(file)) {
+                    this.getFileName().pipe(operators_1.switchMap(function (filename) {
+                        _this.uploadStatus = 'uploading';
+                        return _this.fileService.uploadFile(_this.repositoryId, file, filename, false, false);
+                    }), operators_1.switchMap(function (fileId) {
+                        _this.uploadedFileId = Number.parseInt(fileId);
+                        return _this.collectorService.isFinished(_this.collectorId, true);
+                    })).subscribe(function () { return _this.uploadStatus = 'uploaded'; });
+                }
+                evt.target.value = '';
+                return [2 /*return*/];
+            });
+        });
+    };
+    ExcelUploadComponent.prototype.cancelUploaded = function () {
         var _this = this;
-        var file = evt.target.files[0];
-        if (validateFile(file)) {
-            var fileName = this.getFileName(file);
-            this.uploadStatus = 'uploading';
-            this.uploadFileSub$ = this.fileService.uploadFile(this.repositoryId, file, fileName, false, false)
-                .subscribe(function (fileId) {
-                _this.uploadedFileId = Number.parseInt(fileId);
-                _this.collectorIsFinishedSub$ = _this.collectorService.isFinished(_this.collectorId, true).subscribe(function () { return _this.uploadStatus = 'uploaded'; });
-            }, function (error) {
-                if (error.status === 409) {
-                    alert(JSON.parse(error.error).Message);
+        if (this.uploadedFileId) {
+            var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
+                width: '400px',
+                disableClose: true,
+                data: { message: 'Вы действительно хотите удалить отправленный протокол проверки заданий?' }
+            });
+            dialogRef.afterClosed().subscribe(function (res) {
+                if (res) {
+                    _this.fileService.deleteFile(_this.uploadedFileId).subscribe(function () {
+                        _this.collectorService.isFinished(_this.collectorId, false).subscribe(function () {
+                            _this.uploadStatus = 'waiting';
+                            _this.uploadedFileId = null;
+                        });
+                    });
                 }
-                else {
-                    throw error;
-                }
-                _this.uploadStatus = 'waiting';
             });
         }
-        evt.target.value = '';
     };
-    //cancelUploaded() {
-    //	if (this.uploadedFileId) {
-    //		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-    //			width: '400px',
-    //			disableClose: true,
-    //			data: { message: 'Вы действительно хотите удалить отправленный протокол проверки заданий?' }
-    //		});
-    //		dialogRef.afterClosed().subscribe(res => {
-    //			if (res) {
-    //				this.fileService.deleteFile(this.uploadedFileId).subscribe(() => {
-    //					this.collectorService.isFinished(this.collectorId, false).subscribe(() => this.uploadStatus = 'waiting');
-    //				});
-    //			}
-    //		});
-    //	}
-    //}
-    ExcelUploadComponent.prototype.getFileName = function (file) {
-        return this.fileNamePrefix + "_" + this.accountService.account.UserName + "." + this.downloadExt;
+    ExcelUploadComponent.prototype.getFileName = function () {
+        var _this = this;
+        return this.accountService.auth$
+            .pipe(operators_1.filter(function (auth) { return auth !== null; }), operators_1.map(function (auth) { return _this.fileNamePrefix + "_" + auth.UserName + "." + _this.downloadExt; }));
     };
     ExcelUploadComponent.prototype.ngOnDestroy = function () {
         this.collecterStateSub$.unsubscribe();

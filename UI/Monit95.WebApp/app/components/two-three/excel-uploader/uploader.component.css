@@ -18,3 +18,7 @@ input[type=file] {
 :host{
     display: block;
 }
+
+.cancel-btn {
+    margin-left: 15px;
+}

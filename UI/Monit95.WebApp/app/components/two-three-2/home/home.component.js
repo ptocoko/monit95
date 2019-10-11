@@ -14,7 +14,7 @@ var HomeComponent = /** @class */ (function () {
         //this.timeIsCome = (date.getDate() === 8 && date.getHours() >= 7 && date.getMinutes() >= 30) || date.getDate() > 8;
     };
     HomeComponent.prototype.timeIsCome = function (day, hours, minutes) {
-        return (this.date.getDate() === day && this.date.getHours() >= hours && this.date.getMinutes() >= minutes) || this.date.getDate() > day;
+        return (this.date.getDate() === day && (this.date.getHours() === hours && this.date.getMinutes() >= minutes) || this.date.getHours() > hours) || this.date.getDate() > day;
     };
     HomeComponent = tslib_1.__decorate([
         core_1.Component({

@@ -11,6 +11,8 @@ using Monit95App.Domain.Core.Entities;
 using Entities = Monit95App.Domain.Core.Entities;
 using System.Drawing.Imaging;
 using Monit95App.Services.Exceptions;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Monit95App.Services.File
 {
@@ -147,8 +149,9 @@ namespace Monit95App.Services.File
         /// <param name="userName">
         /// Данный параметр необходим: 1) Если необходимо проверить права на удаление, 2) Если имя файла содержит маску {userName}
         /// </param>                
-        public void Delete(int fileId, string userName)
+        public async Task<ServiceResult.ServiceResult<int>> Delete(int fileId, string userName)
         {
+            var serviceResult = new ServiceResult.ServiceResult<int>();
             var filePermission = new FilePermission
             {
                 UserName = userName,
@@ -157,16 +160,49 @@ namespace Monit95App.Services.File
 
             var fileEntity = TryGetFileEntity(fileId, filePermission);
             if (fileEntity == null)
-                throw new ArgumentException($"{nameof(fileId)}: {fileId} or {nameof(userName)}: {userName} is invalid");
+            {
+                serviceResult.AddModelError("not found in db", $"{nameof(fileId)}: {fileId} or {nameof(userName)}: {userName} is invalid", 404);
+                return serviceResult;
+            }
             
             // Delete file system object
             var filePath = GetFilePath(userName, fileEntity);
-            System.IO.File.Delete(filePath);
+            try
+            {
+                System.IO.File.Delete(filePath);
+            }
+            catch(Exception ex)
+            {
+                if (ex is IOException || ex is DirectoryNotFoundException)
+                {
+                    serviceResult.AddModelError("not found in disk", $@"cannot find file on disk with path {filePath}", 404);
+                    return serviceResult;
+                }
+                throw ex;
+            }
             
             // Delete database object
             context.Files.Remove(fileEntity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
+
+            serviceResult.Result = fileId;
+            return serviceResult;
         }       
+
+        public async Task<ServiceResult.ServiceResult<int>> GetFileId(string filename, int repositoryId)
+        {
+            var serviceResult = new ServiceResult.ServiceResult<int>();
+
+            var file = await context.Files.SingleOrDefaultAsync(f => f.Name == filename && f.RepositoryId == repositoryId);
+            if (file == null)
+            {
+                serviceResult.AddModelError("not found", $"file with name {filename} not found in repository with id = {repositoryId}, or there is more than one files with this name in repository", 404);
+                return serviceResult;
+            }
+
+            serviceResult.Result = file.Id;
+            return serviceResult;
+        }
 
         /// <summary>
         /// Получает содержимое файла в кодировке Base64

@@ -67,7 +67,7 @@ var SeminarReportCreateFormComponent = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             var fileReader = new FileReader();
             fileReader.onload = function () { return resolve(fileReader.result); };
-            fileReader.onerror = function (error) { return reject(error.message); };
+            fileReader.onerror = function (error) { return reject(error); };
             fileReader.readAsDataURL(file);
         });
     };

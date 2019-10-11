@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Monit95App.Services.File
 {
@@ -17,7 +18,9 @@ namespace Monit95App.Services.File
 
         FileStream GetFileStream(int fileId, string userName);
 
-        void Delete(int fileId, string userName);
+        Task<ServiceResult.ServiceResult<int>> GetFileId(string filename, int repositoryId);
+
+        Task<ServiceResult.ServiceResult<int>> Delete(int fileId, string userName);
 
         string ConvertTiffToJpegBase64(string tiffFilePath);
 

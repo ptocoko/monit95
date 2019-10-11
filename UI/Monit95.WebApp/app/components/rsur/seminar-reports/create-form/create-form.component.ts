@@ -40,11 +40,11 @@ export class SeminarReportCreateFormComponent {
 		event.target.value = '';
 	}
 
-	getBase64String(file: File): Promise<string> {
-		return new Promise<string>((resolve, reject) => {
+	getBase64String(file: File): Promise<string | ArrayBuffer> {
+		return new Promise<string | ArrayBuffer>((resolve, reject) => {
 			let fileReader = new FileReader();
 			fileReader.onload = () => resolve(fileReader.result);
-			fileReader.onerror = error => reject(error.message)
+			fileReader.onerror = error => reject(error)
 			fileReader.readAsDataURL(file);
 		});
 	}
@@ -132,5 +132,5 @@ interface IImageFile {
     errorMessage?: string;
     isProtocol: boolean;
     file: File;
-	base64String?: string; // ProtocolFile do not use this property
+	base64String?: string | ArrayBuffer; // ProtocolFile do not use this property
 }

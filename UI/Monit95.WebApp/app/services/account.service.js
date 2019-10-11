@@ -5,17 +5,22 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/common/http");
 var account_model_1 = require("../models/account.model");
 var school_service_1 = require("../school.service");
+var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
+var operators_1 = require("rxjs/operators");
 var AccountService = /** @class */ (function () {
     function AccountService(http, schoolService) {
         this.http = http;
         this.schoolService = schoolService;
         this.account = new account_model_1.AccountModel();
+        this.auth$ = new BehaviorSubject_1.BehaviorSubject(null);
+        this.auth = this.auth$.pipe(operators_1.filter(function (auth) { return auth !== null; }));
         this.loadAccount();
     }
     AccountService.prototype.loadAccount = function () {
         var _this = this;
         this.http.get('api/account').subscribe(function (res) {
             _this.account = res;
+            _this.auth$.next(res);
         });
     };
     AccountService.prototype.getAccount = function () {

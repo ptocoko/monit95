@@ -21,6 +21,12 @@ var FileService = /** @class */ (function () {
             }
         });
     };
+    FileService.prototype.getFileId = function (fileName, repositoryId) {
+        var params = new http_1.HttpParams();
+        params.append('filename', fileName);
+        params.append('repositoryId', repositoryId.toString());
+        return this.http.get('/api/files/' + fileName + '/' + repositoryId);
+    };
     FileService.prototype.deleteFile = function (fileId) {
         return this.http.delete("api/files/" + fileId, { responseType: 'text' });
     };
