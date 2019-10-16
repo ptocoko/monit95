@@ -35,11 +35,8 @@ var ExcelUploadComponent = /** @class */ (function () {
         if (this.repositoryId === undefined || this.repositoryId === null || isNaN(this.repositoryId)) {
             throw new Error('repositoryId is not setted');
         }
-        //if (this.downloadHref && this.downloadExt) {
-        //	this.downloadHref += `/${this.fileNamePrefix}_${this.accountService.account.UserName}.${this.downloadExt}`;
-        //}
         var fileName;
-        this.getFileName().pipe(operators_1.switchMap(function (filename) {
+        this.fileIdSub$ = this.getFileName().pipe(operators_1.switchMap(function (filename) {
             fileName = filename;
             return _this.schoolCollectorService.getCollectorState(_this.collectorId);
         }), operators_1.switchMap(function (state) {
@@ -57,24 +54,18 @@ var ExcelUploadComponent = /** @class */ (function () {
         });
     };
     ExcelUploadComponent.prototype.uploadXlsx = function (evt) {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var file;
-            var _this = this;
-            return tslib_1.__generator(this, function (_a) {
-                file = evt.target.files[0];
-                if (validateFile(file)) {
-                    this.getFileName().pipe(operators_1.switchMap(function (filename) {
-                        _this.uploadStatus = 'uploading';
-                        return _this.fileService.uploadFile(_this.repositoryId, file, filename, false, false);
-                    }), operators_1.switchMap(function (fileId) {
-                        _this.uploadedFileId = Number.parseInt(fileId);
-                        return _this.collectorService.isFinished(_this.collectorId, true);
-                    })).subscribe(function () { return _this.uploadStatus = 'uploaded'; });
-                }
-                evt.target.value = '';
-                return [2 /*return*/];
-            });
-        });
+        var _this = this;
+        var file = evt.target.files[0];
+        if (validateFile(file)) {
+            this.uploadFileSub$ = this.getFileName().pipe(operators_1.switchMap(function (filename) {
+                _this.uploadStatus = 'uploading';
+                return _this.fileService.uploadFile(_this.repositoryId, file, filename, false, false);
+            }), operators_1.switchMap(function (fileId) {
+                _this.uploadedFileId = Number.parseInt(fileId);
+                return _this.collectorService.isFinished(_this.collectorId, true);
+            })).subscribe(function () { return _this.uploadStatus = 'uploaded'; });
+        }
+        evt.target.value = '';
     };
     ExcelUploadComponent.prototype.cancelUploaded = function () {
         var _this = this;
@@ -86,11 +77,11 @@ var ExcelUploadComponent = /** @class */ (function () {
             });
             dialogRef.afterClosed().subscribe(function (res) {
                 if (res) {
-                    _this.fileService.deleteFile(_this.uploadedFileId).subscribe(function () {
-                        _this.collectorService.isFinished(_this.collectorId, false).subscribe(function () {
-                            _this.uploadStatus = 'waiting';
-                            _this.uploadedFileId = null;
-                        });
+                    _this.deleteFileSub$ = _this.fileService.deleteFile(_this.uploadedFileId)
+                        .pipe(operators_1.switchMap(function () { return _this.collectorService.isFinished(_this.collectorId, false); }))
+                        .subscribe(function () {
+                        _this.uploadStatus = 'waiting';
+                        _this.uploadedFileId = null;
                     });
                 }
             });
@@ -98,15 +89,16 @@ var ExcelUploadComponent = /** @class */ (function () {
     };
     ExcelUploadComponent.prototype.getFileName = function () {
         var _this = this;
-        return this.accountService.auth$
-            .pipe(operators_1.filter(function (auth) { return auth !== null; }), operators_1.map(function (auth) { return _this.fileNamePrefix + "_" + auth.UserName + "." + _this.downloadExt; }));
+        return this.accountService.auth
+            .pipe(operators_1.map(function (auth) { return _this.fileNamePrefix + "_" + auth.UserName + "." + _this.downloadExt; }));
     };
     ExcelUploadComponent.prototype.ngOnDestroy = function () {
-        this.collecterStateSub$.unsubscribe();
+        if (this.fileIdSub$)
+            this.fileIdSub$.unsubscribe();
         if (this.uploadFileSub$)
             this.uploadFileSub$.unsubscribe();
-        if (this.collectorIsFinishedSub$)
-            this.collectorIsFinishedSub$.unsubscribe();
+        if (this.deleteFileSub$)
+            this.deleteFileSub$.unsubscribe();
     };
     tslib_1.__decorate([
         core_1.Input('testCode'),

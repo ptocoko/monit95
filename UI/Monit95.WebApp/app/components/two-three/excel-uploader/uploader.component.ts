@@ -34,11 +34,9 @@ export class ExcelUploadComponent implements OnDestroy {
 	@Input('downloadExt') downloadExt: string;
 	@Input('repositoryId') repositoryId: number;
 
-	collecterStateSub$: Subscription;
 	uploadFileSub$: Subscription;
-	collectorIsFinishedSub$: Subscription;
-	authSub$: Subscription;
 	fileIdSub$: Subscription;
+	deleteFileSub$: Subscription;
 
 	constructor(private fileService: FileService,
 		private accountService: AccountService,
@@ -58,13 +56,9 @@ export class ExcelUploadComponent implements OnDestroy {
 		if (this.repositoryId === undefined || this.repositoryId === null || isNaN(this.repositoryId)) {
 			throw new Error('repositoryId is not setted');
 		}
-
-		//if (this.downloadHref && this.downloadExt) {
-		//	this.downloadHref += `/${this.fileNamePrefix}_${this.accountService.account.UserName}.${this.downloadExt}`;
-		//}
 		
 		let fileName: string;
-		this.getFileName().pipe(
+		this.fileIdSub$ = this.getFileName().pipe(
 			switchMap(filename => {
 				fileName = filename;
 				return this.schoolCollectorService.getCollectorState(this.collectorId);
@@ -88,7 +82,7 @@ export class ExcelUploadComponent implements OnDestroy {
 		const file: File = evt.target.files[0];
 
 		if (validateFile(file)) {
-			this.getFileName().pipe(
+			this.uploadFileSub$ = this.getFileName().pipe(
 				switchMap(filename => {
 					this.uploadStatus = 'uploading';
 					return this.fileService.uploadFile(this.repositoryId, file, filename, false, false)
@@ -112,29 +106,30 @@ export class ExcelUploadComponent implements OnDestroy {
 
 			dialogRef.afterClosed().subscribe(res => {
 				if (res) {
-					this.fileService.deleteFile(this.uploadedFileId).subscribe(() => {
-						this.collectorService.isFinished(this.collectorId, false).subscribe(() => {
+					this.deleteFileSub$ = this.fileService.deleteFile(this.uploadedFileId)
+						.pipe(
+							switchMap(() => this.collectorService.isFinished(this.collectorId, false))
+						)
+						.subscribe(() => {
 							this.uploadStatus = 'waiting';
 							this.uploadedFileId = null;
 						});
-					});
 				}
 			});
 		}
 	}
 
-	private getFileName() {
-		return this.accountService.auth$
+	getFileName() {
+		return this.accountService.auth
 			.pipe(
-				filter(auth => auth !== null),
 				map(auth => `${this.fileNamePrefix}_${auth.UserName}.${this.downloadExt}`)
 			);
 	}
 
 	ngOnDestroy() {
-		this.collecterStateSub$.unsubscribe();
+		if (this.fileIdSub$) this.fileIdSub$.unsubscribe();
 		if (this.uploadFileSub$) this.uploadFileSub$.unsubscribe();
-		if (this.collectorIsFinishedSub$) this.collectorIsFinishedSub$.unsubscribe();
+		if (this.deleteFileSub$) this.deleteFileSub$.unsubscribe();
 	}
 }
 

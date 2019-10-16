@@ -23,14 +23,16 @@ namespace ParticipReporter
         private static CokoContext context;
         private static CardsGenerator cardsGenerator;
         private static ClassParticipReporter participReporter;
-        private static ResultsImporter importer;
         private static Reporter twoThreeReporter;
 
         static void Main(string[] args)
         {
             context = new CokoContext();
-            participReporter = new ClassParticipReporter();
-            cardsGenerator = new CardsGenerator(context, participReporter);
+            var twoThreeResultsImporter = new ResultsImporter(context);
+            var twoThree = new TwoThree(twoThreeResultsImporter, repositoryId: 7);
+            twoThree.ImportAndSaveAll();
+            //participReporter = new ClassParticipReporter();
+            //cardsGenerator = new CardsGenerator(context, participReporter);
             
             //var participReporter = new ReportService(context);
 
@@ -39,7 +41,7 @@ namespace ParticipReporter
             //var oneTwoThree = new OneTwoThree();
             //oneTwoThree.GenerateCards();
             //RenameAndMoveCardFolders();
-            GenerateFirstClassCards();
+            //GenerateFirstClassCards();
 
             Console.WriteLine("End");
             #region oldCode
@@ -198,54 +200,6 @@ namespace ParticipReporter
                 [7] = 2
             }
         };
-
-        static void GenerateTwoThreePrimaryMark(string testCode, int minMidMark, int maxMidMark)
-        {
-            foreach (var entity in context.TwoThreeResults.Where(p => p.TestCode == testCode))
-            {
-                if(entity.GeneralTasksSum < minMidMark)
-                {
-                    entity.Grade5 = 3;
-                }
-                else if (entity.GeneralTasksSum <= maxMidMark)
-                {
-                    entity.Grade5 = 4;
-                }
-                else
-                {
-                    entity.Grade5 = 5;
-                }
-            }
-            context.SaveChanges();
-        }
-
-        static void GenerateTwoThreeQuestionMarks()
-        {
-            var results = new List<TwoThreeResultsMarks>();
-
-            foreach (var result in context.TwoThreeResults.Where(p => p.TestCode != "0303" && p.Times == 2))
-            {
-                var marks = result.Marks.Split(';').Select(int.Parse).ToArray();
-
-                var questionMarks = new List<TwoThreeResultsMarks>();
-                for (int i = 0; i < marks.Count(); i++)
-                {
-                    var mark = marks[i];
-                    var entity = new TwoThreeResultsMarks
-                    {
-                        ResultId = result.Id,
-                        AwardedMark = mark,
-                        QuestionOrder = i + 1,
-                        MaxMark = maxMakrs[result.TestCode][i + 1]
-                    };
-                    questionMarks.Add(entity);
-                }
-                results.AddRange(questionMarks);
-            }
-
-            context.TwoThreeResultsMarks.AddRange(results);
-            context.SaveChanges();
-        }
 
         static void GenerateFirstClassCards()
         {

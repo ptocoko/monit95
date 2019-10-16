@@ -8,8 +8,10 @@ import { filter } from 'rxjs/operators';
 @Injectable()
 export class AccountService {    
 	account: AccountModel = new AccountModel();
-	auth$ = new BehaviorSubject<AccountModel>(null);
-	auth = this.auth$.pipe(filter(auth => auth !== null));
+	private readonly auth$ = new BehaviorSubject<AccountModel>(null);
+	get auth() {
+		return this.auth$.pipe(filter(auth => auth !== null))
+	}
 
 	constructor(private readonly http: HttpClient, private readonly schoolService: SchoolService) {
 		this.loadAccount();

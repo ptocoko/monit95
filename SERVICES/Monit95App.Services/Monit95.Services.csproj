@@ -229,6 +229,7 @@
     <Compile Include="TwoThree\Reporter.cs" />
     <Compile Include="TwoThree\ResultDto.cs" />
     <Compile Include="TwoThree\ResultsImporter.cs" />
+    <Compile Include="TwoThree\TestOptions.cs" />
     <Compile Include="Validation\MustHaveOneElementAttribute.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Validation\Validator.cs" />
