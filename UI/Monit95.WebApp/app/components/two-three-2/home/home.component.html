@@ -7,7 +7,7 @@
 <div class="list-container" *ngIf="true">
     <h3 class="list-header">2 класс. Метапредметная диагностика</h3>
     <div>
-        <a class="list-item-link" href="/file/2-3/092019/2 class/МТ.rar" download="Метапредмет 2 класс задания.rar" *ngIf="true">
+        <!--<a class="list-item-link" href="/file/2-3/092019/2 class/МТ.rar" download="Метапредмет 2 класс задания.rar" *ngIf="true">
             <h4>Варианты работ</h4>
         </a>
         <a class="list-item-link" href="/file/2-3/092019/2 class/МТ критерии.rar" download="Метапредмет 2 класс критерии.rar" *ngIf="true">
@@ -25,14 +25,17 @@
             [caption]="'Заполненный протокол по метапредметной диагностике - 2 класс'"
             [downloadHref]="'/file/2-3/092019/protocols'"
             [downloadExt]="'xlsx'">
-        </app-excel-upload>
+        </app-excel-upload>-->
+        <a class="list-item-link" href="/file/2-3/092019/reports/{{accountService.account.UserName}}/2 кл. метапр-ая диаг-ка.xlsx" download="Результаты Метапредмет 2 класс.xlsx" *ngIf="true">
+            <h4><b>Результаты исследования</b></h4>
+        </a>
     </div>
 </div>
 
 <div class="list-container" *ngIf="true">
     <h3 class="list-header">3 класс. Метапредметная диагностика</h3>
     <div>
-        <a class="list-item-link" href="/file/2-3/092019/3 class/МТ.rar" download="Метапредмет 3 класс задания.rar" *ngIf="true">
+        <!--<a class="list-item-link" href="/file/2-3/092019/3 class/МТ.rar" download="Метапредмет 3 класс задания.rar" *ngIf="true">
             <h4>Варианты работ</h4>
         </a>
         <a class="list-item-link" href="/file/2-3/092019/3 class/МТ критерии.rar" download="Метапредмет 3 класс критерии.rar" *ngIf="true">
@@ -50,7 +53,10 @@
             [caption]="'Заполненный протокол по метапредметной диагностике - 3 класс'"
             [downloadHref]="'/file/2-3/092019/protocols'"
             [downloadExt]="'xlsx'">
-        </app-excel-upload>
+        </app-excel-upload>-->
+        <a class="list-item-link" href="/file/2-3/092019/reports/{{accountService.account.UserName}}/3 кл. метапр-ая диаг-ка.xlsx" download="Результаты Метапредмет 3 класс.xlsx" *ngIf="true">
+            <h4><b>Результаты исследования</b></h4>
+        </a>
     </div>
 </div>
 

@@ -37,10 +37,9 @@ namespace Monit95App.Services.TwoThree
         {
             using (var excel = new XLWorkbook($@"{destFolderPath}\{options.Code}_{schoolId}.xlsx"))
             {
-                using (var page = excel.Worksheets.First())
-                {
-                    return ImportModelsFromExcel(page, schoolId, options);
-                }
+                var page = excel.Worksheets.First();
+                
+                return ImportModelsFromExcel(page, schoolId, options);
             }
         }
 
@@ -53,7 +52,7 @@ namespace Monit95App.Services.TwoThree
             for(int i = 3; i <= sheet.RowsUsed().Count(); i++)
             {
                 var row = sheet.Row(i);
-                if(CheckSheetsRow(row))
+                if (CheckSheetsRow(row))
                 {
                     var resultDto = new ResultDto
                     {
@@ -77,6 +76,7 @@ namespace Monit95App.Services.TwoThree
                         }).ToArray(),
                         OptionNumber = short.Parse(row.Cell(5).Value.ToString())
                     };
+
                     resultDto.Marks = resultDto.MarksArray.Select(m => m.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
                     resultDto.PrimaryMark = resultDto.MarksArray.Sum();
 
@@ -98,7 +98,6 @@ namespace Monit95App.Services.TwoThree
 
                     dtoList.Add(resultDto);
                 }
-                row.Dispose();
             }
             return dtoList;
         }
@@ -147,7 +146,13 @@ namespace Monit95App.Services.TwoThree
 
         private bool CheckSheetsRow(IXLRow row)
         {
+            if (row.Cells("2:12").Any(c => c.HasFormula))
+            {
+                return false;
+            }
+            
             var optionValue = row.Cell(5).Value.ToString();
+
             if(row.Cells("2:3").Any(c => string.IsNullOrEmpty(c.Value.ToString().Trim()) || c.Value.ToString() == "0" || c.Value.ToString().Any(let => char.IsNumber(let))))
             {
                 return false;

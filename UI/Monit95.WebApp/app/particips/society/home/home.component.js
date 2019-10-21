@@ -13,7 +13,7 @@ var SocietyHomeComponent = /** @class */ (function () {
     }
     SocietyHomeComponent.prototype.ngOnInit = function () {
         var date = new Date();
-        this.timeIsCome = this.account.account.UserName === '0000' ? true : (date.getDate() === 21 && date.getHours() >= 8) || date.getDate() > 21;
+        this.timeIsCome = this.account.account.UserName === '0000' ? true : (date.getDate() === 22 && date.getHours() >= 8) || date.getDate() > 22;
     };
     SocietyHomeComponent.prototype.downloadProtocol = function () {
         this.cards.getForSchool(20).subscribe(function (cards) {

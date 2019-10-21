@@ -9,21 +9,17 @@ namespace ParticipReporter
 {
     public class TwoThree
     {
-        private readonly ResultsImporter resultsImporter;
-        private readonly int repositoryId;
-
-        public TwoThree(ResultsImporter resultsImporter, int repositoryId)
-        {
-            this.resultsImporter = resultsImporter;
-            this.repositoryId = repositoryId;
-        }
-
-        public void ImportAndSaveAll()
+        public void ImportAndSaveAll(ResultsImporter resultsImporter, int repositoryId)
         {
             foreach(string testCode in new string[] { "0204", "0304" })
             {
                 resultsImporter.ImportAndSave(testOptions[testCode], repositoryId);
             }
+        }
+
+        public void GenerateReports(Reporter reporter)
+        {
+            reporter.F0_ParticipsResults();
         }
 
         private readonly Dictionary<string, TestOptions> testOptions = new Dictionary<string, TestOptions>
