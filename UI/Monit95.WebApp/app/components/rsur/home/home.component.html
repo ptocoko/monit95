@@ -2,54 +2,36 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">РСУР-ПРОФИ</h3>
-
-        <div class="list-item" *ngIf="true">
-            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                <div>
-                    <h4><b>Протоколы проверки заданий</b></h4>
-                </div>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
-            </a>
-        </div>
-    </div>
-
-    <div *ngIf="false" class="list-container">
-        <h3 class="list-header">Диагностика «Май-2019»</h3>
+    <div *ngIf="isArea()" class="list-container">
+        <h3 class="list-header">Диагностика «Октябрь-2019»</h3>
         <div>
-            <!--<a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_фи_распределение_{{account.UserName}}.xlsx" download="Физика. Распределение.xlsx">
-                <h4>Физика: распределение</h4>
-            </a>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_ис_распределение_{{account.UserName}}.xlsx" download="История. Распределение.xlsx">
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/10-19_ис_распределение_{{account.UserName}}.xlsx" download="История. Распределение.xlsx">
                 <h4>История: распределение</h4>
             </a>
-            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-19_ге_распределение_{{account.UserName}}.xlsx" download="География. Распределение.xlsx">
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/10-19_ге_распределение_{{account.UserName}}.xlsx" download="География. Распределение.xlsx">
                 <h4>География: распределение</h4>
-            </a>-->
-
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/tasks/ИСТ.rar" download="История. Варианты работ.rar">
-                <h4>История: Варианты работ</h4>
+            </a>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/10-19_фи_распределение_{{account.UserName}}.xlsx" download="Физика. Распределение.xlsx">
+                <h4 style="font-weight:bold">Физика: распределение</h4>
+            </a>
+            <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/10-19_об_распределение_{{account.UserName}}.xlsx" download="Обществознание. Распределение.xlsx">
+                <h4 style="font-weight:bold">Обществознание: распределение</h4>
             </a>
 
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/tasks/ГЕО.rar" download="География. Варианты работ.rar">
-                <h4>География: Варианты работ</h4>
+            <!--Варианты работ-->
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/102019/tasks/ИС.rar" download="История. Варианты работ.rar">
+                <h4 style="font-weight:bold">История: Варианты работ</h4>
+            </a>
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/102019/tasks/ГЕ.rar" download="География. Варианты работ.rar">
+                <h4 style="font-weight:bold">География: Варианты работ</h4>
             </a>
 
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/tasks/ФИЗ.rar" download="Физика. Варианты работ.rar">
-                <h4>Физика. МКТ. Термодинамика: Варианты работ</h4>
+            <!--Ключи-->
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/102019/keys/РУ.rar" download="Русский язык. Ключи.rar">
+                <h4 style="font-weight:bold">Русский язык: Ключи</h4>
             </a>
-
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/keys/ИСТ.rar" download="История. Ключи.rar">
-                <h4>История: Ключи для проверки работ</h4>
-            </a>
-
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/keys/ГЕО.rar" download="География. Ключи.rar">
-                <h4>География: Ключи для проверки работ</h4>
-            </a>
-
-            <a *ngIf="true" class="list-item-link" href="/file/rsur/052019/keys/ФИЗ.rar" download="Физика. Ключи.rar">
-                <h4 style="font-weight:bold">Физика. МКТ. Термодинамика: Ключи для проверки работ работ</h4>
+            <a *ngIf="true" class="list-item-link" href="/file/rsur/102019/keys/МА.rar" download="Математика. Ключи.rar">
+                <h4 style="font-weight:bold">Математика: Ключи</h4>
             </a>
 
             <!--Протоколы-->
@@ -518,7 +500,6 @@
     </div>
 
 
-
     <div *ngIf="false" class="list-container">
         <h3 class="list-header">Участники</h3>
         <div class="list-item">
@@ -593,7 +574,7 @@
             </a>
         </div>
 
-        <div class="list-item">
+        <div class="list-item" *ngIf="false">
             <a class="list-item-link" routerLink="/rsur/seminar-reports">
                 <div>
                     <h4><b>Отчеты по семинарам</b></h4>

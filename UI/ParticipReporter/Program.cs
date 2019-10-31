@@ -24,11 +24,13 @@ namespace ParticipReporter
         {
             context = new CokoContext();
             var reporter = new Reporter(context);
+            var importer = new ResultsImporter(context);
             var twoThree = new TwoThree();
             twoThree.GenerateReports(reporter);
+            //twoThree.ImportAndSaveBySchoolIdAndTest(context, importer, 7, "0058", "0304");
             //participReporter = new ClassParticipReporter();
             //cardsGenerator = new CardsGenerator(context, participReporter);
-            
+
             //var participReporter = new ReportService(context);
 
             //var _9_11Classes = new _9_11Classes(context, participReporter);

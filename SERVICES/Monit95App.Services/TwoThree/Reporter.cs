@@ -27,6 +27,7 @@ namespace Monit95App.Services.TwoThree
             this.context = context;
         }
 
+        [Obsolete]
         public void F0_ParticipsResults()
         {
             var destPath = @"\\192.168.88.254\inetpub\wwwroot\monit95\file\2-3\092019\reports\";
@@ -43,6 +44,56 @@ namespace Monit95App.Services.TwoThree
                     {
                         var sheet = excel.Worksheets.First();
                         
+                        for (int i = 0; i < testResults.Count(); i++)
+                        {
+                            var orderedResults = testResults.OrderByDescending(ob => ob.PrimaryMark);
+                            var res = orderedResults.ToArray()[i];
+
+                            sheet.Cell(i + 3, 1).Value = res.Id;
+                            sheet.Cell(i + 3, 2).Value = res.Surname;
+                            sheet.Cell(i + 3, 3).Value = res.Name;
+                            sheet.Cell(i + 3, 4).Value = res.SecondName;
+                            sheet.Cell(i + 3, 5).Value = res.OptionNumber;
+
+                            var marks = res.Marks.Split(';').Select(int.Parse).ToArray();
+                            for (int j = 6; j < marks.Length + 6; j++)
+                            {
+                                var mark = marks[j - 6];
+                                sheet.Cell(i + 3, j).Value = mark;
+                            }
+                            //sheet.Cell(i + 3, 6).SetValue(marks.AsEnumerable());
+                            sheet.Cell(i + 3, marks.Length + 6).Value = res.PrimaryMark;
+
+                            var gradeStrCell = sheet.Cell(i + 3, marks.Length + 7);
+                            StyleGradeCell(res.Grade5, gradeStrCell);
+
+                            sheet.Cell(i + 3, marks.Length + 7).Value = res.GradeString;
+                        }
+
+                        excel.SaveAs($@"{destPath}{schoolResults.Key.SchoolId}\{testNameDict[testResults.Key]}.xlsx");
+                        //excel.SaveAs($@"D:\Work\reports\two-three\{schoolResults.Key.AreaName}\{schoolResults.Key.SchoolName}\{testNameDict[testResults.Key]}.xlsx");
+                    }
+                }
+            }
+        }
+
+        // TODO: make this better!
+        public void GenerateReports()
+        {
+            var destPath = @"\\192.168.88.254\inetpub\wwwroot\monit95\file\2-3\092019\reports\";
+            var entities = context.TwoThreeResults
+                .Where(p => p.Years == "2019/2020" && p.SchoolId == "0058")
+                .Select(MapToReportDto())
+                .GroupBy(gb => new { gb.SchoolName, gb.AreaName, gb.SchoolId });
+
+            foreach (var schoolResults in entities)
+            {
+                foreach (var testResults in schoolResults.GroupBy(gb => gb.TestCode))
+                {
+                    using (var excel = new XLWorkbook($@"D:\Work\reports\two-three\Ф0. Таблица результатов участников\temp_{testResults.Key}.xlsx"))
+                    {
+                        var sheet = excel.Worksheets.First();
+
                         for (int i = 0; i < testResults.Count(); i++)
                         {
                             var orderedResults = testResults.OrderByDescending(ob => ob.PrimaryMark);

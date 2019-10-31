@@ -29,11 +29,11 @@ namespace OneTwoThreeReporter
             //var reporter = new ReportService(context);
             var iTakeEge = new ITakeEge(
                 context: context,
-                projectId: 27);
+                projectId: 30);
 
             //iTakeEge.SolveGrade5_v2();
-            //iTakeEge.GenerateForAllSchools(@"D:\Work\ITakeEge\092019", "template ege.xlsx", false);
-            iTakeEge.GenerateForAllAreas(@"D:\Work\ITakeEge\092019\Areas", "template ege.xlsx", false);
+            iTakeEge.GenerateForAllSchools(@"D:\Work\ITakeSociety\102019", "template society.xlsx", false);
+            //iTakeEge.GenerateForAllAreas(@"D:\Work\ITakeEge\092019\Areas", "template ege.xlsx", false);
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3079, 3082 });
             //iTakeEge.SolveGrade5IgnoringQuestions(new int[] {  }, 3082, 8, true);

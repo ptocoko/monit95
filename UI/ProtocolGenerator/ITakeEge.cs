@@ -387,12 +387,12 @@ namespace ProtocolGenerator
                         sheet.Cell(i + 4, 3).Value = result.Name;
                         sheet.Cell(i + 4, 4).Value = result.SecondName;
                         sheet.Cell(i + 4, 5).Value = result.DocumNumber;
-                        sheet.Cell(i + 4, 6).Value = result.TestName;
+                        //sheet.Cell(i + 4, 6).Value = result.TestName;
                         //sheet.Cell(i + 4, 7).Value = result.ClassName;
                         //sheet.Cell(i + 4, 7).Value = result.Marks;
-                        sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
-                        sheet.Cell(i + 4, 8).Value = result.RiskGroup;
-                        sheet.Cell(i + 4, 9).Value = result.GradeStr;
+                        sheet.Cell(i + 4, 6).Value = result.PrimaryMark;
+                        //sheet.Cell(i + 4, 8).Value = result.RiskGroup;
+                        sheet.Cell(i + 4, 7).Value = result.GradeStr;
                         i++;
                     }
                         

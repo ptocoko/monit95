@@ -72,6 +72,17 @@
 </div>
 
 <div class="list-container" *ngIf="true">
+    <h3 class="list-header">Результаты «Я сдам Обещствознание!», октябрь</h3>
+
+    <a class="list-item-link" href="/file/iTakeSociety/102019/protocols/{{account.account.UserName}}.xlsx" download="Протокол «Я сдам Общество».xlsx">
+        <h4><b>Скачать протокол проверки результатов</b></h4>
+    </a>
+    <a class="list-item-link" routerLink="/particips/reports/30">
+        <h4><b>Индивидуальные карты участников</b></h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">Результаты «Я сдам ЕГЭ!»-2019-2020 - сентябрь</h3>
     <div>
         <a class="list-item-link" href="/file/iTakeEge/092019/protocols/{{account.account.UserName}}.xlsx" download="Протокол результатов Я сдам ЕГЭ.xlsx" *ngIf="account.isSchool()">
@@ -81,11 +92,85 @@
         <a class="list-item-link" href="/file/iTakeEge/092019/protocols/areas/{{account.account.UserName}}.xlsx" download="Протокол результатов Я сдам ЕГЭ.xlsx" *ngIf="account.isArea()">
             <h4><b>Скачать протокол проверки результатов</b></h4>
         </a>
-        
+
         <a class="list-item-link" routerLink="/particips/reports/27" *ngIf="account.isSchool()">
             <h4><b>Индивидуальные карты участников</b></h4>
         </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ma/1.rar">
+            <h4><b>КИМ по Математике</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/1.rar">
+            <h4><b>КИМ по Русскому языку</b></h4>
+        </a>
     </div>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Полезные ссылки</h3>
+    <a class="list-item-link" href="/file/iTakeEge/contacts.docx" download="Контактные данные кураторов проекта .docx">
+        <h4> Контактные данные кураторов проекта "Я сдам ЕГЭ Обществознание"</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/ktp.xlsx" download="КТП.xlsx">
+        <h4> Календарно-тематический план по обществознанию </h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/uch_obsh.docx" download="Учителю обществознания_Алгоритм работы.docx">
+        <h4> Учителю обществознания_Алгоритм работы.docx </h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/salg.docx" download="Школьному координатору_Алгоритм работы.docx">
+        <h4> Школьному координатору_Алгоритм работы в проекте "Я сдам ЕГЭ Обществознание".docx </h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>1-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtube1.com" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Название видео урока1</span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку1</span>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtube2.com" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Название видео урока2</span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку2</span>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtube3.com" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Название видео урока3</span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку3</span>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtube4.com" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Название видео урока4</span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку4</span>
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
 </div>
 
 <div class="list-container" *ngIf="false">

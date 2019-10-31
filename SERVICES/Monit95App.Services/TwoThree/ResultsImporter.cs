@@ -74,7 +74,7 @@ namespace Monit95App.Services.TwoThree
                                 return int.Parse(val);
                             }
                         }).ToArray(),
-                        OptionNumber = short.Parse(row.Cell(5).Value.ToString())
+                        OptionNumber = short.Parse(row.Cell(5).Value.ToString().Trim())
                     };
 
                     resultDto.Marks = resultDto.MarksArray.Select(m => m.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
@@ -102,7 +102,7 @@ namespace Monit95App.Services.TwoThree
             return dtoList;
         }
 
-        private void SaveModels(IEnumerable<ResultDto> results, int[] maxMarks)
+        public void SaveModels(IEnumerable<ResultDto> results, int[] maxMarks)
         {
             //TwoThreeResult resultEntity;
             //int mark;
@@ -151,9 +151,9 @@ namespace Monit95App.Services.TwoThree
                 return false;
             }
             
-            var optionValue = row.Cell(5).Value.ToString();
+            var optionValue = row.Cell(5).Value.ToString().Trim();
 
-            if(row.Cells("2:3").Any(c => string.IsNullOrEmpty(c.Value.ToString().Trim()) || c.Value.ToString() == "0" || c.Value.ToString().Any(let => char.IsNumber(let))))
+            if(row.Cells("2:3").Any(c => string.IsNullOrEmpty(c.Value.ToString().Trim()) || c.Value.ToString().Trim() == "0" || c.Value.ToString().Trim().Any(let => char.IsNumber(let))))
             {
                 return false;
             }
