@@ -285,6 +285,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 return result;
             }
 
+
             result.Result = entities.Select(s => new QuestionValueViewDto
             {
                 ParticipCode = s.RsurParticipCode,

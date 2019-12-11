@@ -38,7 +38,7 @@ var ExcelUploadComponent = /** @class */ (function () {
         var fileName;
         this.fileIdSub$ = this.getFileName().pipe(operators_1.switchMap(function (filename) {
             fileName = filename;
-            return _this.schoolCollectorService.getCollectorState(_this.collectorId);
+            return _this.collectorService.getCollectorState(_this.collectorId);
         }), operators_1.switchMap(function (state) {
             if (state.IsFinished) {
                 _this.uploadStatus = 'uploaded';

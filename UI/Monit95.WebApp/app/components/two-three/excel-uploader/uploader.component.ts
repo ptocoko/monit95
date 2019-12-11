@@ -61,7 +61,7 @@ export class ExcelUploadComponent implements OnDestroy {
 		this.fileIdSub$ = this.getFileName().pipe(
 			switchMap(filename => {
 				fileName = filename;
-				return this.schoolCollectorService.getCollectorState(this.collectorId);
+				return this.collectorService.getCollectorState(this.collectorId);
 			}),
 			switchMap(state => {
 				if (state.IsFinished) {

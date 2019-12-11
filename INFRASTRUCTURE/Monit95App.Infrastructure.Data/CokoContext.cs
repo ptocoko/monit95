@@ -49,6 +49,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<FilePermission> FilePermissions { get; set; }
         public virtual DbSet<Monit95User> Monit95Users { get; set; }
         public virtual DbSet<EgeQuestion> EgeQuestions { get; set; }
+        public virtual DbSet<EgeSkill> EgeSkills { get; set; }
         public virtual DbSet<EgeElementQuestion> EgeElementQuestions { get; set; }
         public virtual DbSet<RsurQuestion> RsurQuestions { get; set; }
         public virtual DbSet<QuestionMark> QuestionMarks { get; set; }
@@ -371,6 +372,10 @@ namespace Monit95App.Infrastructure.Data
                 .Property(e => e.UserId)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            modelBuilder.Entity<EgeSkill>()
+                .HasMany(e => e.RsurQuestions)
+                .WithOptional(e => e.EgeSkill);
         }
     }
 }

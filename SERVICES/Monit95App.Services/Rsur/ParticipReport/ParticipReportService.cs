@@ -147,7 +147,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                     Date = s.RsurParticipTest.RsurTest.RsurExamName.Date
                 })
                 .Distinct()
-                .OrderBy(ob => ob.Date)
+                .OrderByDescending(ob => ob.Date)
             };
 
             return serviceResult;
