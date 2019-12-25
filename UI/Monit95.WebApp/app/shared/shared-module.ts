@@ -11,6 +11,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes/one-two-three/particips.pipe';
 import { MarkValidateDirective } from './mark-validate.directive';
 import { ExcelUploadComponent } from '../components/two-three/excel-uploader/uploader.component';
+import { StackedBarComponent } from './stacked-bar/stacked-bar.components';
 
 @NgModule({
 	imports: [
@@ -29,7 +30,8 @@ import { ExcelUploadComponent } from '../components/two-three/excel-uploader/upl
 		ClassesGetterPipe,
 		ParticipFilterPipe,
 		MarkValidateDirective,
-		ExcelUploadComponent
+		ExcelUploadComponent,
+		StackedBarComponent
 	],
 	exports: [
 		MarksProtocolComponent,
@@ -42,7 +44,8 @@ import { ExcelUploadComponent } from '../components/two-three/excel-uploader/upl
 		ClassesGetterPipe,
 		ParticipFilterPipe,
 		MarkValidateDirective,
-		ExcelUploadComponent
+		ExcelUploadComponent,
+		StackedBarComponent
 	],
 	entryComponents: [ConfirmDialogComponent]
 })

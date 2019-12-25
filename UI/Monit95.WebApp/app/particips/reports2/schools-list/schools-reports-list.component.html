@@ -1,0 +1,5 @@
+﻿<div *ngIf="!isLoading">
+    <app-school-report *ngFor="let report of schoolsReports"></app-school-report>
+</div>
+
+<spinner-view *ngIf="isLoading"></spinner-view>
