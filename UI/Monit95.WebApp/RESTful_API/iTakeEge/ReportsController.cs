@@ -1,4 +1,5 @@
-﻿using Monit95App.Services.ItakeEge.Report;
+﻿using Monit95App    .Services.ItakeEge.Report;
+using ServiceResult;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Web.Http;
 
 namespace Monit95.WebApp.RESTful_API.iTakeEge
 {
-    [Authorize(Roles = "school")]
+    [Authorize(Roles = "school, area")]
     [RoutePrefix("api/iTakeEge/reports")]
     public class ReportsController : ApiController
     {
@@ -23,8 +24,20 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         [Route("info/{projectId:int}")]
         public HttpResponseMessage GetReportsInfo([FromUri] int projectId)
         {
-            var serviceResult = reportService.GetReportInfo(projectId);
-            var response = new HttpResponseMessage();
+            ServiceResult<ReportInfoDto> serviceResult = null;
+            if (User.IsInRole("area"))
+            {
+                var areaCode = int.Parse(User.Identity.Name);
+                serviceResult = reportService.GetReportInfo(projectId, areaCode);
+            }
+            else if (User.IsInRole("school"))
+            {
+                serviceResult = reportService.GetReportInfo(projectId);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not Allowed for current user");
+            }
 
             if (serviceResult.HasError)
             {
@@ -41,8 +54,23 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         public HttpResponseMessage GetReportsList([FromUri] ReportsSearchDto searchDto)
         {
             var response = new HttpResponseMessage();
-            var schoolId = User.Identity.Name;
-            var serviceResult = reportService.GetRepostsList(searchDto, schoolId);
+            ServiceResult<ReportsListDto> serviceResult = null;
+
+            if (User.IsInRole("school") && !User.IsInRole("area"))
+            {
+                var schoolId = User.Identity.Name;
+                serviceResult = reportService.GetRepostsList(searchDto, schoolId);
+            }
+            else if (User.IsInRole("area") && !User.IsInRole("school"))
+            {
+                var areaCode = int.Parse(User.Identity.Name);
+                var schoolId = searchDto.SchoolId;
+                serviceResult = reportService.GetRepostsList(searchDto, schoolId, areaCode);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Что то не так с ролями");
+            }
 
             if (serviceResult.HasError)
             {

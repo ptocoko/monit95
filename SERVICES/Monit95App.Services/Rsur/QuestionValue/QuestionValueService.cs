@@ -157,7 +157,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 ParticipTestId = rsurTestResult.RsurParticipTestId,
                 TestName = $"{rsurTestResult.RsurParticipTest.RsurTest.Test.NumberCode}-{rsurTestResult.RsurParticipTest.RsurTest.Test.Name}"
             };
-
+            var list = new List<int> { 1, 2, 4 };
             // Осталось инициализировать QuestionResults.
             var currentMarks = rsurTestResult.RsurQuestionValues.Split(';'); // if RsurTestResults.FileId != null, then RsurtTesResults.RsurQuestionValues != "wasnot"                        
             var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.Questions; // получаем задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям

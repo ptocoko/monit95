@@ -10,5 +10,6 @@ namespace Monit95App.Services.ItakeEge.Report
     public class ReportInfoDto
     {
         public IEnumerable<TestDto> Tests { get; set; }
+        public IEnumerable<SchoolDto> Schools { get; set; }
     }
 }

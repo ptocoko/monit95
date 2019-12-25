@@ -36,45 +36,49 @@
     </a>
 </div>
 
-<div class="list-container" *ngIf="false">
-    <h3 class="list-header">22 - Математика базовая</h3>
-
-    <a class="list-item-link" href="/file/iTakeEge/092019/tasks/МА.rar" download="Работы Математка.rar">
-        <h4>Варианты работ и Справочные материалы</h4>
-    </a>
-
-    <a class="list-item-link" href="/file/iTakeEge/092019/keys/МА.rar" download="Математка Ключи.rar" *ngIf="true">
-        <h4 style="font-weight:bold">Ключи для проверки работ</h4>
-    </a>
-
-    <a class="list-item-link" routerLink="/particips/protocols/3082" *ngIf="true">
-        <h4 style="font-weight:bold">Заполнение протоколов проверки заданий</h4>
-    </a>
-</div>
-
-<div class="list-container" *ngIf="false">
-    <h3 class="list-header">01 - Русский язык</h3>
-    <div>
-        <a class="list-item-link" href="/file/iTakeEge/092019/tasks/РУ.rar" download="Работы Русский язык.rar">
-            <h4>Варианты работ</h4>
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">«Я сдам ЕГЭ!», промежуточная диагностика - декабрь 2019</h3>
+    <div *ngIf="account.isSchool()">
+        <a class="list-item-link" href="/file/iTakeEge/122019/tasks/МА.rar" download="Варианты работ МАТ.rar">
+            <h4>Математика: Варианты работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/122019/tasks/РУ.rar" download="Варианты работ РУ.rar">
+            <h4>Русский язык: Варианты работ</h4>
         </a>
 
-        <a class="list-item-link" href="/file/iTakeEge/092019/keys/РУ.rar" download="Русский язык Ключи.rar" *ngIf="true">
-            <h4 style="font-weight:bold">Ключи для проверки работ и критерии оценивания</h4>
+        <a class="list-item-link" href="/file/iTakeEge/122019/keys/МА.rar" download="Ключи МАТ.rar" *ngIf="true">
+            <h4>Математика: Ключи для проверки работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/122019/keys/РУ.rar" download="Ключи РУС.rar" *ngIf="setTimer(20, 14)">
+            <h4 style="font-weight:bold">Русский язык: Ключи для проверки работ</h4>
         </a>
 
-        <a class="list-item-link" routerLink="/particips/protocols/3080" *ngIf="true">
-            <div>
-                <h4><b>Заполнение протоколов проверки заданий</b></h4>
-            </div>
+        <a class="list-item-link" routerLink="/particips/protocols/3085" *ngIf="true">
+            <h4>Математика: Заполнение протоколов проверки заданий</h4>
+        </a>
+        <a class="list-item-link" routerLink="/particips/protocols/3086" *ngIf="setTimer(20, 14)">
+            <h4 style="font-weight:bold">Русский язык: Заполнение протоколов проверки заданий</h4>
         </a>
     </div>
+
+    <a class="list-item-link" [routerLink]="['/particips/reports/27']" [queryParams]="{projectName: 'Я сдам ЕГЭ!'}" *ngIf="true">
+        <h4>Индивидуальные карты участников</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам ЕГЭ!'}" *ngIf="true">
+        <h4>Индивидуальные карты участников</h4>
+    </a>
 </div>
 
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">«Я сдам Обществознание!», промежуточная диагностика - декабрь 2019</h3>
 
-
-
-
+    <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам Обществознание!'}" *ngIf="account.isSchool()">
+        <h4>Индивидуальные карты участников</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeSociety/122019/reports/areas/{{account.account.UserName}}.xlsx" download="Протокол Человек и общество.xlsx" *ngIf="account.isArea()">
+        <h4><b>Скачать протокол проверки результатов</b></h4>
+    </a>
+</div>
 
 <div class="list-container" *ngIf="account.account.UserName == '0463'">
     <h3 class="list-header">Ключи по математике профильного уровня</h3>
@@ -228,13 +232,13 @@
 
 
 
-<div class="list-container" *ngIf="true">
-    <h3 class="list-header">Результаты «Я сдам Обещствознание!», октябрь</h3>
+<div class="list-container" *ngIf="false">
+    <h3 class="list-header">Результаты «Я сдам Обществознание!», октябрь</h3>
 
     <a class="list-item-link" href="/file/iTakeSociety/102019/protocols/{{account.account.UserName}}.xlsx" download="Протокол «Я сдам Общество».xlsx">
-        <h4>Скачать протокол проверки результатов</h4>
+        <h4>Скачать протокол проверки результатов входной диагностики (октябрь 2019)</h4>
     </a>
-    <a class="list-item-link" routerLink="/particips/reports/30">
+    <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам Обществознание!'}">
         <h4>Индивидуальные карты участников</h4>
     </a>
 </div>
@@ -253,14 +257,14 @@
         <a class="list-item-link" routerLink="/particips/reports/27" *ngIf="account.isSchool()">
             <h4>Индивидуальные карты участников</h4>
         </a>
-        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ma/6.rar">
-            <h4><b>КИМ №6 по Математике</b></h4>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ma/9.rar">
+            <h4><b>КИМ №9 по Математике</b></h4>
         </a>
-        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/6.rar" download="КИМ №6 по Русскому языку.rar">
-            <h4><b>КИМ №6 по Русскому языку</b></h4>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/9.rar">
+            <h4><b>КИМ №9 по Русскому языку</b></h4>
         </a>
-        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/4.rar">
-            <h4><b>КИМ №4 по Обществознанию</b></h4>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/7.rar">
+            <h4><b>КИМ №7 по Обществознанию</b></h4>
         </a>
         <a class="list-item-link" href="http://monit95.ru/ege">
             <h4><b>Занесение результатов</b></h4>
@@ -546,6 +550,154 @@
     </mat-expansion-panel>
 </div>
 
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>6-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/uMsWA0ayerY" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №16 Понятие общественного прогресса </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №16 Понятие общественного прогресса.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/KadUX8dACuU" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №17 Многовариантность общественного развития (типы обществ) </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №17 Многовариантность общественного развития (типы обществ).docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/QcrdvWZOAjM" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №18 Угрозы XXI в. (глобальные проблемы)</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №18 Угрозы XXI в. (глобальные проблемы).docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>7-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/4QYVQdhs0bg" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №19 Право в системе социальных норм </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №19 Право в системе социальных норм.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/vEROZ1ncS6o" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №20 Система российского права. Законотворческий процесс  </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №20 Система российского права. Законотворческий процесс.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/i4WoGwnZNgs" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №21 Понятие и виды юридической ответственности </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №21 Понятие и виды юридической ответственности.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>8-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/Ce9-E_yP_1E" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №22 Конституция РФ  Часть 1</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №22 Конституция РФ.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/ROlvGo3X8EU" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №22 Конституция РФ Часть 2</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №22 Конституция РФ.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
 
 
 <div class="list-container" *ngIf="false">

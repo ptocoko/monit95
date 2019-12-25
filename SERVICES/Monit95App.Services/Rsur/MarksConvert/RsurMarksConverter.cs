@@ -174,6 +174,11 @@ namespace Monit95App.Services.Rsur.MarksConvert
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
+            // Физика 2 блок "Законы сохранения в механике"
+            else if (testResultEntity.RsurParticipTest.RsurTestId == 3176)
+            {
+                grade5 = marks.Sum() >= 25 ? 5 : 2;
+            }
             // Физика 1 блок "Кинематика. Динамика"
             else if (testResultEntity.RsurParticipTest.RsurTestId == 3237)
             {

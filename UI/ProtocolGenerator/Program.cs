@@ -32,7 +32,8 @@ namespace OneTwoThreeReporter
                 projectId: 30);
 
             //iTakeEge.SolveGrade5_v2();
-            iTakeEge.GenerateForAllSchools(@"D:\Work\ITakeSociety\102019", "template society.xlsx", false);
+            //iTakeEge.GenerateForAllSchools(@"D:\Work\ITakeSociety\102019", "template society.xlsx", false);
+            iTakeEge.GenerateReportsForAreas();
             //iTakeEge.GenerateForAllAreas(@"D:\Work\ITakeEge\092019\Areas", "template ege.xlsx", false);
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3079, 3082 });
