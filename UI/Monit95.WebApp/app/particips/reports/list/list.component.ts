@@ -51,15 +51,25 @@ export class ReportsListComponent {
 	}
 
 	ngAfterViewInit() {
-		this.router.paramMap.subscribe(params => {
+		this.routeSubs = this.router.paramMap.subscribe(params => {
 			this.projectId = Number.parseInt(params.get('projectId'), 10);
 			const projectName = this.router.snapshot.queryParams['projectName'];
+
 			if (projectName) {
 				setTimeout(() => this.projectName = projectName, 0);
 			}
 
 			this.rsurReportService.getReportsInfo(this.projectId).subscribe(info => {
 				this.reportsInfo = info;
+
+				const schoolId = this.router.snapshot.queryParamMap.get('schoolId');
+				const testCode = this.router.snapshot.queryParamMap.get('testCode');
+				if (schoolId) {
+					this.schoolId = schoolId;
+				}
+				if (testCode) {
+					this.testCode = testCode;
+				}
 
 				const search$ = fromEvent(this.searchField.nativeElement, 'input')
 					.pipe(
@@ -125,6 +135,6 @@ export class ReportsListComponent {
 	}
 
 	ngOnDestroy() {
-		this.routeSubs.unsubscribe();
+		if (this.routeSubs) this.routeSubs.unsubscribe();
 	}
 }

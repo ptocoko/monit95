@@ -9,7 +9,7 @@ export class Reports2Service {
 
 	constructor(private http: HttpClient) { }
 
-	getSchoolsReports(): Observable<ISchoolReport[]> {
-		return this.http.get<ISchoolReport[]>(this.endpoint + '/schools');
+	getSchoolsReports(projectTestId: number): Observable<ISchoolReport[]> {
+		return this.http.get<ISchoolReport[]>(this.endpoint + '/schools', { params: { 'projectTestId': projectTestId.toString() }});
 	}
 }

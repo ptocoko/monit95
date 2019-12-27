@@ -133,6 +133,8 @@
     <Compile Include="ItakeEge\QuestionProtocol\IQuestionProtocolService.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionMarkPutDto.cs" />
     <Compile Include="ItakeEge\QuestionProtocol\QuestionProtocolEditDto.cs" />
+    <Compile Include="ItakeEge\Report2\Report2Service.cs" />
+    <Compile Include="ItakeEge\Report2\SchoolReportDto.cs" />
     <Compile Include="ItakeEge\Report\ReportDto.cs" />
     <Compile Include="ItakeEge\Report\ReportInfoDto.cs" />
     <Compile Include="ItakeEge\Report\ReportService.cs" />

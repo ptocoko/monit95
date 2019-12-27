@@ -11,7 +11,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { ClassFilterPipe, ClassesGetterPipe, ParticipFilterPipe } from '../pipes/one-two-three/particips.pipe';
 import { MarkValidateDirective } from './mark-validate.directive';
 import { ExcelUploadComponent } from '../components/two-three/excel-uploader/uploader.component';
-import { StackedBarComponent } from './stacked-bar/stacked-bar.components';
+import { StackedBarComponent } from './stacked-bar/stacked-bar.component';
 
 @NgModule({
 	imports: [

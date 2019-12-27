@@ -36,36 +36,42 @@
     </a>
 </div>
 
+
 <div class="list-container" *ngIf="true">
     <h3 class="list-header">«Я сдам ЕГЭ!», промежуточная диагностика - декабрь 2019</h3>
-    <div *ngIf="account.isSchool()">
-        <a class="list-item-link" href="/file/iTakeEge/122019/tasks/МА.rar" download="Варианты работ МАТ.rar">
-            <h4>Математика: Варианты работ</h4>
-        </a>
-        <a class="list-item-link" href="/file/iTakeEge/122019/tasks/РУ.rar" download="Варианты работ РУ.rar">
-            <h4>Русский язык: Варианты работ</h4>
-        </a>
 
-        <a class="list-item-link" href="/file/iTakeEge/122019/keys/МА.rar" download="Ключи МАТ.rar" *ngIf="true">
-            <h4>Математика: Ключи для проверки работ</h4>
-        </a>
-        <a class="list-item-link" href="/file/iTakeEge/122019/keys/РУ.rar" download="Ключи РУС.rar" *ngIf="setTimer(20, 14)">
-            <h4 style="font-weight:bold">Русский язык: Ключи для проверки работ</h4>
-        </a>
-
-        <a class="list-item-link" routerLink="/particips/protocols/3085" *ngIf="true">
-            <h4>Математика: Заполнение протоколов проверки заданий</h4>
-        </a>
-        <a class="list-item-link" routerLink="/particips/protocols/3086" *ngIf="setTimer(20, 14)">
-            <h4 style="font-weight:bold">Русский язык: Заполнение протоколов проверки заданий</h4>
-        </a>
-    </div>
-
-    <a class="list-item-link" [routerLink]="['/particips/reports/27']" [queryParams]="{projectName: 'Я сдам ЕГЭ!'}" *ngIf="true">
-        <h4>Индивидуальные карты участников</h4>
+    <!--<a class="list-item-link" href="/file/iTakeEge/122019/tasks/МА.rar" download="Варианты работ МАТ.rar">
+        <h4>Математика: Варианты работ</h4>
     </a>
-    <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам ЕГЭ!'}" *ngIf="true">
-        <h4>Индивидуальные карты участников</h4>
+    <a class="list-item-link" href="/file/iTakeEge/122019/tasks/РУ.rar" download="Варианты работ РУ.rar">
+        <h4>Русский язык: Варианты работ</h4>
+    </a>
+
+    <a class="list-item-link" href="/file/iTakeEge/122019/keys/МА.rar" download="Ключи МАТ.rar" *ngIf="true">
+        <h4>Математика: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/122019/keys/РУ.rar" download="Ключи РУС.rar" *ngIf="setTimer(20, 14)">
+        <h4 style="font-weight:bold">Русский язык: Ключи для проверки работ</h4>
+    </a>
+
+    <a class="list-item-link" routerLink="/particips/protocols/3085" *ngIf="true">
+        <h4>Математика: Заполнение протоколов проверки заданий</h4>
+    </a>
+    <a class="list-item-link" routerLink="/particips/protocols/3086" *ngIf="setTimer(20, 14)">
+        <h4 style="font-weight:bold">Русский язык: Заполнение протоколов проверки заданий</h4>
+    </a>-->
+
+    <a class="list-item-link" [routerLink]="['/particips/reports/27']" [queryParams]="{projectName: 'Я сдам ЕГЭ!', testCode: 3086}" *ngIf="account.isSchool()">
+        <h4>Русский язык: Индивидуальные карты участников</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/reports/27']" [queryParams]="{projectName: 'Я сдам ЕГЭ!', testCode: 3085}" *ngIf="account.isSchool()">
+        <h4>Математика: Индивидуальные карты участников</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/reports2/3086']" [queryParams]="{projectName: 'Я сдам ЕГЭ!', projectId: 27}" *ngIf="account.isArea()">
+        <h4>Русский язык: Результаты по школам</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/reports2/3085']" [queryParams]="{projectName: 'Я сдам ЕГЭ!', projectId: 27}" *ngIf="account.isArea()">
+        <h4>Математика: Результаты по школам</h4>
     </a>
 </div>
 
@@ -75,8 +81,11 @@
     <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам Обществознание!'}" *ngIf="account.isSchool()">
         <h4>Индивидуальные карты участников</h4>
     </a>
-    <a class="list-item-link" href="/file/iTakeSociety/122019/reports/areas/{{account.account.UserName}}.xlsx" download="Протокол Человек и общество.xlsx" *ngIf="account.isArea()">
+    <!--<a class="list-item-link" href="/file/iTakeSociety/122019/reports/areas/{{account.account.UserName}}.xlsx" download="Протокол Человек и общество.xlsx" *ngIf="account.isArea()">
         <h4><b>Скачать протокол проверки результатов</b></h4>
+    </a>-->
+    <a class="list-item-link" [routerLink]="['/particips/reports2/3084']" [queryParams]="{projectName: 'Я сдам Обществознание!', projectId: 30}" *ngIf="account.isArea()">
+        <h4>Результаты по школам</h4>
     </a>
 </div>
 
@@ -260,8 +269,8 @@
         <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ma/9.rar">
             <h4><b>КИМ №9 по Математике</b></h4>
         </a>
-        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/9.rar">
-            <h4><b>КИМ №9 по Русскому языку</b></h4>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/10.rar">
+            <h4><b>КИМ №10 по Русскому языку</b></h4>
         </a>
         <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/7.rar">
             <h4><b>КИМ №7 по Обществознанию</b></h4>

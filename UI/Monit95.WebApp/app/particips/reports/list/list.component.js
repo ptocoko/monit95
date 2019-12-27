@@ -30,7 +30,7 @@ var ReportsListComponent = /** @class */ (function () {
     }
     ReportsListComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.router.paramMap.subscribe(function (params) {
+        this.routeSubs = this.router.paramMap.subscribe(function (params) {
             _this.projectId = Number.parseInt(params.get('projectId'), 10);
             var projectName = _this.router.snapshot.queryParams['projectName'];
             if (projectName) {
@@ -38,6 +38,14 @@ var ReportsListComponent = /** @class */ (function () {
             }
             _this.rsurReportService.getReportsInfo(_this.projectId).subscribe(function (info) {
                 _this.reportsInfo = info;
+                var schoolId = _this.router.snapshot.queryParamMap.get('schoolId');
+                var testCode = _this.router.snapshot.queryParamMap.get('testCode');
+                if (schoolId) {
+                    _this.schoolId = schoolId;
+                }
+                if (testCode) {
+                    _this.testCode = testCode;
+                }
                 var search$ = fromEvent_1.fromEvent(_this.searchField.nativeElement, 'input')
                     .pipe(debounceTime_1.debounceTime(1000));
                 search$.subscribe(function () { return _this.paginator.pageIndex = 0; });
@@ -79,7 +87,8 @@ var ReportsListComponent = /** @class */ (function () {
         this.selectionChange$.next(1);
     };
     ReportsListComponent.prototype.ngOnDestroy = function () {
-        this.routeSubs.unsubscribe();
+        if (this.routeSubs)
+            this.routeSubs.unsubscribe();
     };
     tslib_1.__decorate([
         core_1.ViewChild('paginator'),

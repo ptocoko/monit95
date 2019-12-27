@@ -41,7 +41,7 @@ namespace ProtocolGenerator
         public void SolveAndSaveGrade5(int[] projectTestIds)
         {
             var participTests = context.ParticipTests
-                .Where(p => projectTestIds.Contains(p.ProjectTestId) && !p.Grade5.HasValue && p.PrimaryMark.HasValue)
+                .Where(p => projectTestIds.Contains(p.ProjectTestId) && p.PrimaryMark.HasValue)
                 .Include(inc => inc.ProjectTest);
 
             foreach (var participTest in participTests)
@@ -52,15 +52,15 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
 
-        public void SolveGrade5_v2()
+        public async Task SolveGrade5_v2()
         {
-            context.ParticipTests
-                .Where(pt => pt.ProjectTestId == 3058 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
+            await context.ParticipTests
+                .Where(pt => pt.ProjectTestId == 3086 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
                 .ForEachAsync(pt =>
                 {
-                    var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
+                    var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 2163).Select(qm => qm.AwardedMark).Sum();
 
-                    pt.Grade5_v2 = (int)marksSum >= 12 ? 5 : 2;
+                    pt.Grade5_v2 = (int)marksSum >= 10 ? 5 : 2;
                     //pt.Grade5_v2 = pt.PrimaryMark >= 9 ? 5 : 2;
                 });
 

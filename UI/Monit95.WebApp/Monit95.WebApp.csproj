@@ -347,6 +347,7 @@
     <Compile Include="RESTful_API\FirstClass\FirstClassProtocolsController.cs" />
     <Compile Include="RESTful_API\FirstClass\ParticipsController.cs" />
     <Compile Include="RESTful_API\iTakeEge\QuestionProtocolsController.cs" />
+    <Compile Include="RESTful_API\iTakeEge\Reports2Controller.cs" />
     <Compile Include="RESTful_API\iTakeEge\ReportsController.cs" />
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
@@ -503,7 +504,7 @@
     <Content Include="app\shared\loading-view\loading-view.component.css" />
     <Content Include="app\shared\loading-view\loading-view.component.html" />
     <Content Include="app\shared\stacked-bar\stacked-bar.component.html" />
-    <Content Include="app\shared\stacked-bar\stacked-bar.components.css" />
+    <Content Include="app\shared\stacked-bar\stacked-bar.component.css" />
     <Content Include="app\shared\table-paginator\table-paginator.css" />
     <Content Include="app\shared\table-paginator\table-paginator.html" />
     <Content Include="app\styles\styles.css" />
@@ -823,7 +824,7 @@
     <TypeScriptCompile Include="app\models\person.model.ts" />
     <TypeScriptCompile Include="app\models\school-particip.model.ts" />
     <TypeScriptCompile Include="app\shared\shared-module.ts" />
-    <TypeScriptCompile Include="app\shared\stacked-bar\stacked-bar.components.ts" />
+    <TypeScriptCompile Include="app\shared\stacked-bar\stacked-bar.component.ts" />
     <TypeScriptCompile Include="app\shared\table-paginator\table-paginator.ts" />
     <TypeScriptCompile Include="app\utils\functions.ts" />
     <TypeScriptCompile Include="app\utils\local-storage.ts" />
