@@ -75,6 +75,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 import { ParticipsModule2 } from './components/particips/particips.module';
 import { DamnClassesModule } from './components/9-11_classes/9-11_classes.module';
+import { KpkModule } from './components/kpk/kpk.module';
 
 @NgModule({
     imports: [
@@ -95,6 +96,7 @@ import { DamnClassesModule } from './components/9-11_classes/9-11_classes.module
 		FirstClassModule,
 		//TwoThreeModule,
 		TwoThreeModule2,
+		KpkModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
 				{ path: 'rsur/particips', component: RsurParticipsComponent },

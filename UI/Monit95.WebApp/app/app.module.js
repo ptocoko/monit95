@@ -71,6 +71,7 @@ var russian_paginator_provider_1 = require("./shared/russian-paginator.provider"
 var custom_route_reuse_strategy_1 = require("./custom-route-reuse-strategy");
 var particips_module_2 = require("./components/particips/particips.module");
 var _9_11_classes_module_1 = require("./components/9-11_classes/9-11_classes.module");
+var kpk_module_1 = require("./components/kpk/kpk.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -94,6 +95,7 @@ var AppModule = /** @class */ (function () {
                 first_class_module_1.FirstClassModule,
                 //TwoThreeModule,
                 two_three_module_1.TwoThreeModule2,
+                kpk_module_1.KpkModule,
                 router_1.RouterModule.forRoot([
                     { path: 'rsur', component: home_component_1.HomeComponent },
                     { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },

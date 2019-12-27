@@ -415,6 +415,7 @@
     <Content Include="app\components\first-class\protocols\list\protocols-list.component.html" />
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.css" />
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.html" />
+    <Content Include="app\components\kpk\home\home.component.html" />
     <Content Include="app\components\particips\add\add.component.css" />
     <Content Include="app\components\particips\add\add.component.html" />
     <Content Include="app\components\particips\list\list.component.css" />
@@ -683,6 +684,8 @@
     <TypeScriptCompile Include="app\components\first-class\particips\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\list\protocols-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\protocol\protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\kpk\home\home.component.ts" />
+    <TypeScriptCompile Include="app\components\kpk\kpk.module.ts" />
     <TypeScriptCompile Include="app\components\particips\add\add.component.ts" />
     <TypeScriptCompile Include="app\components\particips\list\list.component.ts" />
     <TypeScriptCompile Include="app\components\particips\particips.module.ts" />
