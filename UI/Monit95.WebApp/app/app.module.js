@@ -8,21 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MyDatePickerModule } from 'mydatepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
-import { OrderModule } from 'ngx-order-pipe';
 import { MaterialModule } from './material.module';
 import { ParticipsModule } from './particips/particips.module';
-import { OneTwoThreeModule } from './one-two-three/one-two-three.module';
 import { SharedModule } from './shared/shared-module';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
-import { FirstClassModule } from './components/first-class/first-class.module';
-import { TwoThreeModule2 } from './components/two-three-2/two-three.module';
 // Components
 import { AppComponent } from './components/app/app.component';
-import { RsurParticipsComponent } from './components/rsur/particips/particips.component';
+//import { RsurParticipsComponent } from './components/rsur/particips/particips.component';
 import { HomeComponent } from './components/rsur/home/home.component';
 import { ReportComponent } from './components/rsur/reports/report/report.component';
 import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
@@ -35,12 +30,12 @@ import { SchoolFilesComponent } from './components/school-files/school-files.com
 //import { ScanProtocolsComponent, FilterPipe } from './components/rsur/protocols/scan/scan-protocols.component';
 import { QuestionProtocolsList } from './components/rsur/protocols/question/question-protocols-list.component';
 import { QuestionProtocolComponent } from './components/rsur/protocols/protocol/question-protocol.component';
-import { FiringListComponent } from './components/rsur/actualization/firing/list/firing-list.component';
-import { HiringListComponent } from './components/rsur/actualization/hiring/list/hiring-list.component';
-import { HireComponent } from './components/rsur/actualization/hiring/hire-particip.component';
-import { CreateParticipComponent } from './components/rsur/actualization/hiring/add/add-particip.component';
-import { TransferParticipComponent } from './components/rsur/actualization/hiring/transfer/transfer-particip.component';
-import { NewParticipComponent } from './components/rsur/actualization/hiring/new-particip/new-particip.component';
+//import { FiringListComponent } from './components/rsur/actualization/firing/list/firing-list.component';
+//import { HiringListComponent } from './components/rsur/actualization/hiring/list/hiring-list.component';
+//import { HireComponent } from './components/rsur/actualization/hiring/hire-particip.component';
+//import { CreateParticipComponent } from './components/rsur/actualization/hiring/add/add-particip.component';
+//import { TransferParticipComponent } from './components/rsur/actualization/hiring/transfer/transfer-particip.component';
+//import { NewParticipComponent } from './components/rsur/actualization/hiring/new-particip/new-particip.component';
 // Services
 import { AccountService } from './services/account.service';
 import { RsurParticipService } from './services/rsur-particip.service';
@@ -72,8 +67,6 @@ import { GlobalErrorHandler } from './error-handler';
 import { MatPaginatorIntl } from '@angular/material';
 import { RussianMatPaginator } from './shared/russian-paginator.provider';
 import { CustomReuseStrategy } from './custom-route-reuse-strategy';
-import { ParticipsModule2 } from './components/particips/particips.module';
-import { DamnClassesModule } from './components/9-11_classes/9-11_classes.module';
 import { KpkModule } from './components/kpk/kpk.module';
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -85,33 +78,32 @@ var AppModule = /** @class */ (function () {
                 HttpClientModule,
                 FormsModule,
                 ReactiveFormsModule,
-                MyDatePickerModule,
                 BrowserAnimationsModule,
-                OrderModule,
+                //OrderModule,	
                 NgbProgressbarModule,
                 SharedModule,
                 MaterialModule,
                 ParticipsModule,
-                ParticipsModule2,
-                DamnClassesModule,
-                OneTwoThreeModule,
-                FirstClassModule,
+                //ParticipsModule2,
+                //DamnClassesModule,
+                //OneTwoThreeModule,
+                //FirstClassModule,
                 //TwoThreeModule,
-                TwoThreeModule2,
+                //TwoThreeModule2,
                 KpkModule,
                 RouterModule.forRoot([
                     { path: 'rsur', component: HomeComponent },
-                    { path: 'rsur/particips', component: RsurParticipsComponent },
-                    { path: 'rsur/actualization/firing/list', component: FiringListComponent },
-                    { path: 'rsur/actualization/hiring/list', component: HiringListComponent },
-                    { path: 'rsur/actualization/hire', component: HireComponent },
-                    { path: 'rsur/actualization/new-particip', component: NewParticipComponent },
+                    //{ path: 'rsur/particips', component: RsurParticipsComponent },
+                    //{ path: 'rsur/actualization/firing/list', component: FiringListComponent },
+                    //{ path: 'rsur/actualization/hiring/list', component: HiringListComponent },
+                    //{ path: 'rsur/actualization/hire', component: HireComponent },
+                    //{ path: 'rsur/actualization/new-particip', component: NewParticipComponent },
                     { path: 'rsur/seminar-reports', component: SeminarReportsListComponent },
                     { path: 'rsur/seminar-reports/create', component: SeminarReportCreateFormComponent },
                     { path: 'rsur/seminar-reports/:id', component: SeminarReportComponent },
                     { path: 'rsur/report/:id', component: ReportComponent },
                     { path: 'rsur/results-list', component: ReportListComponent },
-                    { path: 'rsur/ratings', component: RatingsComponent },
+                    //{ path: 'rsur/ratings', component: RatingsComponent },
                     //{ path: 'rsur/match-protocol/:id', component: MatchingProtocolComponent },
                     //{ path: 'rsur/scan-protocols', component: ScanProtocolsComponent },
                     { path: 'rsur/question-protocols', component: QuestionProtocolsList },
@@ -123,7 +115,7 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 AppComponent,
                 HomeComponent,
-                RsurParticipsComponent,
+                //RsurParticipsComponent,
                 RsurParticipFilterPipe,
                 ClassNameFilterPipe,
                 //LimitToPipe,
@@ -149,12 +141,6 @@ var AppModule = /** @class */ (function () {
                 //ScanProtocolsComponent,
                 QuestionProtocolsList,
                 QuestionProtocolComponent,
-                FiringListComponent,
-                HiringListComponent,
-                HireComponent,
-                CreateParticipComponent,
-                TransferParticipComponent,
-                NewParticipComponent
             ],
             providers: [
                 AccountService,

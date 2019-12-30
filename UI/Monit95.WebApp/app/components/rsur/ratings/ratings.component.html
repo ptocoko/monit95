@@ -17,7 +17,7 @@
             <th style="text-align:center">доля, получивших зачет по второму блоку</th>
             <th style="text-align:center">доля, получивших зачет по первому блоку</th>
         </tr>
-        <tr *ngFor="let item of ratings | subjectFilter : selectedSubject | orderBy : 'Place'; let i = index">            
+        <tr *ngFor="let item of ratings | subjectFilter : selectedSubject; let i = index">            
             <td style="text-align:center">{{item.Place}}</td>
             <td>{{item.SchoolName}}</td>
             <td style="text-align:center">{{item.PercentPassSecondTest}}</td>  

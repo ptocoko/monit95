@@ -3,6 +3,6 @@ import { AppModuleNgFactory } from './app.module.ngfactory';
 import { enableProdMode } from '@angular/core';
 import 'hammerjs';
 
-//enableProdMode();
+enableProdMode();
 
 platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
