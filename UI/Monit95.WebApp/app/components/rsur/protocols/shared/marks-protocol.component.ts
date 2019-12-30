@@ -3,12 +3,11 @@ import { QuestionResult } from "../../../../models/marks-protocol.model";
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { filter } from 'rxjs/operators/filter';
 import { Subscription } from 'rxjs/Subscription';
-import { NgForm } from '@angular/forms';
 
 @Component({
 	selector: 'marks-protocol',
-	templateUrl: `./app/components/rsur/protocols/shared/marks-protocol.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/protocols/shared/marks-protocol.component.css?v=${new Date().getTime()}`]
+	templateUrl: `./marks-protocol.component.html`,
+	styleUrls: [`./marks-protocol.component.css`]
 })
 export class MarksProtocolComponent implements AfterViewInit, OnDestroy {
 	@Input('questions') questionResults: QuestionResult[];

@@ -660,6 +660,7 @@
     <Content Include="Views\Wishes\Delete.cshtml" />
     <Content Include="Views\Wishes\Index.cshtml" />
     <Content Include="Views\Wishes\ViewForAdmins.cshtml" />
+    <Content Include="tsconfig-aot.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\directives\" />
@@ -831,6 +832,7 @@
     <TypeScriptCompile Include="app\shared\table-paginator\table-paginator.ts" />
     <TypeScriptCompile Include="app\utils\functions.ts" />
     <TypeScriptCompile Include="app\utils\local-storage.ts" />
+    <Content Include="url-recover.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707251307178_ASPNet-Identity-Update.resx">
