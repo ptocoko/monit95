@@ -7,7 +7,7 @@
 //import { Router } from "@angular/router";
 
 //@Component({
-//	templateUrl: `./app/class-particips/excel-export/export-excel.component.html?v=${new Date().getTime()}`,
+//	templateUrl: './export-excel.component.html',
 //	styles: [
 //		`.fileUploader {
 //				overflow: hidden;

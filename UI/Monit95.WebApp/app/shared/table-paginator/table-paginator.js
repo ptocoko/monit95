@@ -1,15 +1,21 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var Subject_1 = require("rxjs/Subject");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 var TablePaginator = /** @class */ (function () {
     function TablePaginator() {
-        this.pageIndexChange = new core_1.EventEmitter();
+        this.pageIndexChange = new EventEmitter();
         this.pageSizeOptions = [30, 60, 100];
         this.pageSize = 30;
-        this.pageSizeChange = new core_1.EventEmitter();
-        this.change$ = new Subject_1.Subject();
+        this.pageSizeChange = new EventEmitter();
+        this.change$ = new Subject();
         this.page = this.change$.asObservable();
     }
     TablePaginator.prototype.ngDoCheck = function () {
@@ -33,38 +39,38 @@ var TablePaginator = /** @class */ (function () {
         this.pageIndexChange.emit(this.pageIndex);
         this.change$.next({});
     };
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Number)
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
     ], TablePaginator.prototype, "pageIndex", void 0);
-    tslib_1.__decorate([
-        core_1.Output(),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
     ], TablePaginator.prototype, "pageIndexChange", void 0);
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Number)
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
     ], TablePaginator.prototype, "length", void 0);
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Array)
+    __decorate([
+        Input(),
+        __metadata("design:type", Array)
     ], TablePaginator.prototype, "pageSizeOptions", void 0);
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Number)
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
     ], TablePaginator.prototype, "pageSize", void 0);
-    tslib_1.__decorate([
-        core_1.Output(),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
     ], TablePaginator.prototype, "pageSizeChange", void 0);
-    TablePaginator = tslib_1.__decorate([
-        core_1.Component({
+    TablePaginator = __decorate([
+        Component({
             selector: 'app-table-paginator',
-            templateUrl: "./app/shared/table-paginator/table-paginator.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/shared/table-paginator/table-paginator.css?v=" + new Date().getTime()]
+            templateUrl: "./table-paginator.html",
+            styleUrls: ["./table-paginator.css"]
         })
     ], TablePaginator);
     return TablePaginator;
 }());
-exports.TablePaginator = TablePaginator;
+export { TablePaginator };
 //# sourceMappingURL=table-paginator.js.map

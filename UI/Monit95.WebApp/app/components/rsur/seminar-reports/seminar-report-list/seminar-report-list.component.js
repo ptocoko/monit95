@@ -1,15 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var seminar_report_service_1 = require("../../../../services/seminar-report.service");
-var account_service_1 = require("../../../../services/account.service");
-require("rxjs/add/operator/startWith");
-require("rxjs/add/operator/switchMap");
-require("rxjs/add/operator/map");
-require("rxjs/add/operator/catch");
-var material_1 = require("@angular/material");
-var Subject_1 = require("rxjs/Subject");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { map, switchMap, startWith } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { SeminarReportService } from '../../../../services/seminar-report.service';
+import { AccountService } from '../../../../services/account.service';
+import { Subject } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 var SeminarReportsListComponent = /** @class */ (function () {
     function SeminarReportsListComponent(seminarReportService, accountService, snackBar) {
         this.seminarReportService = seminarReportService;
@@ -17,22 +20,19 @@ var SeminarReportsListComponent = /** @class */ (function () {
         this.snackBar = snackBar;
         this.isLoading = true;
         //reportsLoading: boolean = false;
-        this.deleted$ = new Subject_1.Subject();
+        this.deleted$ = new Subject();
     }
     SeminarReportsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.deleted$
-            .startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' })
-            .switchMap(function () {
+        this.deleted$.pipe(startWith({ 'hello': 'there', 'Obi-Wan': 'Kenobi' }), switchMap(function () {
             _this.isLoading = true;
             return _this.seminarReportService.getReportsList();
-        })
-            .map(function (reports) {
+        }), map(function (reports) {
             _this.isLoading = false;
             _this.reportsLength = reports.length;
             return reports;
-        }).
+        })).
             subscribe(function (reports) { return _this.reports = reports; });
     };
     SeminarReportsListComponent.prototype.deleteReport = function (reportId) {
@@ -42,17 +42,17 @@ var SeminarReportsListComponent = /** @class */ (function () {
             _this.snackBar.open('отчет удален', 'OK', { duration: 3000 });
         });
     };
-    SeminarReportsListComponent = tslib_1.__decorate([
-        core_1.Component({
+    SeminarReportsListComponent = __decorate([
+        Component({
             selector: 'reports-list',
-            templateUrl: "./app/components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component.css?v=" + new Date().getTime()]
+            templateUrl: './seminar-report-list.component.html',
+            styleUrls: ['./seminar-report-list.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [seminar_report_service_1.SeminarReportService,
-            account_service_1.AccountService,
-            material_1.MatSnackBar])
+        __metadata("design:paramtypes", [SeminarReportService,
+            AccountService,
+            MatSnackBar])
     ], SeminarReportsListComponent);
     return SeminarReportsListComponent;
 }());
-exports.SeminarReportsListComponent = SeminarReportsListComponent;
+export { SeminarReportsListComponent };
 //# sourceMappingURL=seminar-report-list.component.js.map

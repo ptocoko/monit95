@@ -6,7 +6,7 @@ import { CardsService } from '../../../services/cards.service';
 const PROJECT_TEST_ID = 3078;
 
 @Component({
-	templateUrl: `./app/components/first-class/home/home.component.html?v=${new Date().getTime()}`
+	templateUrl: './home.component.html',
 })
 export class HomeComponent {
 	timeIsCome = false;

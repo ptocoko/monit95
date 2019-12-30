@@ -1,12 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var particip_service_1 = require("../../../services/particip.service");
-var collections_1 = require("@angular/cdk/collections");
-var material_1 = require("@angular/material");
-var school_collector_service_1 = require("../../../shared/school-collector.service");
-var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm-dialog.component");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewChild } from '@angular/core';
+import { ParticipService } from '../../../services/particip.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
+import { SchoolCollectorService } from '../../../shared/school-collector.service';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 var PROJECT_ID = 27;
 var COLLECTOR_ID = 50;
 var SocietyParticipsListComponent = /** @class */ (function () {
@@ -16,8 +22,8 @@ var SocietyParticipsListComponent = /** @class */ (function () {
         this.collectorService = collectorService;
         this.particips = [];
         this.displayedColumns = ['select', 'num', 'fio', 'status', 'prevYearGrade', 'bookAuthor'];
-        this.dataSource = new material_1.MatTableDataSource(this.particips);
-        this.selection = new collections_1.SelectionModel(true, []);
+        this.dataSource = new MatTableDataSource(this.particips);
+        this.selection = new SelectionModel(true, []);
         this.isFinished = false;
     }
     SocietyParticipsListComponent.prototype.ngOnInit = function () {
@@ -70,7 +76,7 @@ var SocietyParticipsListComponent = /** @class */ (function () {
     };
     SocietyParticipsListComponent.prototype.finish = function () {
         var _this = this;
-        var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
+        var dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '400px',
             disableClose: true,
             data: { message: "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u0432\u044B\u0431\u043E\u0440\u043A\u0443 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432 \u0434\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0438?" }
@@ -89,20 +95,20 @@ var SocietyParticipsListComponent = /** @class */ (function () {
             _this.isFinished = false;
         });
     };
-    tslib_1.__decorate([
-        core_1.ViewChild(material_1.MatPaginator),
-        tslib_1.__metadata("design:type", material_1.MatPaginator)
+    __decorate([
+        ViewChild(MatPaginator),
+        __metadata("design:type", MatPaginator)
     ], SocietyParticipsListComponent.prototype, "paginator", void 0);
-    SocietyParticipsListComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/particips/society/list/particips-list.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/particips/society/list/particips-list.component.css?v=" + new Date().getTime()]
+    SocietyParticipsListComponent = __decorate([
+        Component({
+            templateUrl: './particips-list.component.html',
+            styleUrls: ['./particips-list.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [particip_service_1.ParticipService,
-            material_1.MatDialog,
-            school_collector_service_1.SchoolCollectorService])
+        __metadata("design:paramtypes", [ParticipService,
+            MatDialog,
+            SchoolCollectorService])
     ], SocietyParticipsListComponent);
     return SocietyParticipsListComponent;
 }());
-exports.SocietyParticipsListComponent = SocietyParticipsListComponent;
+export { SocietyParticipsListComponent };
 //# sourceMappingURL=particips-list.component.js.map

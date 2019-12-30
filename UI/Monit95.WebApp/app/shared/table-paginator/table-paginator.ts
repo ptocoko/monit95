@@ -1,33 +1,31 @@
-﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-table-paginator',
-	templateUrl: `./app/shared/table-paginator/table-paginator.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/shared/table-paginator/table-paginator.css?v=${new Date().getTime()}`]
+	templateUrl: `./table-paginator.html`,
+	styleUrls: [`./table-paginator.css`]
 })
 export class TablePaginator {
-	@Input() private pageIndex: number;
-	@Output() private pageIndexChange = new EventEmitter<number>();
+	@Input() pageIndex: number;
+	@Output() pageIndexChange = new EventEmitter<number>();
 
 	@Input() length: number;
-	private maxPageIndex: number;
+	maxPageIndex: number;
 
 	@Input() pageSizeOptions: number[] = [30, 60, 100];
 
 	@Input() pageSize: number = 30;
 	@Output() pageSizeChange = new EventEmitter<number>();
 
-	private change$ = new Subject<any>();
+	change$ = new Subject<any>();
 	page = this.change$.asObservable();
 
 	ngDoCheck() {
 		this.maxPageIndex = Math.floor(this.length / this.pageSize);
 	}
 
-	private toPrev() {
+	toPrev() {
 		if (this.pageIndex >= 1) {
 			this.pageIndexChange.emit(--this.pageIndex)
 			this.change$.next({});
@@ -41,7 +39,7 @@ export class TablePaginator {
 		}
 	}
 
-	private sizeChange() {
+	sizeChange() {
 		this.pageSizeChange.emit(this.pageSize);
 		this.pageIndex = 0;
 		this.pageIndexChange.emit(this.pageIndex);

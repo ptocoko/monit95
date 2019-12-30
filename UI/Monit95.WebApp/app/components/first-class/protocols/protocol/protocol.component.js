@@ -1,11 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var protocols_service_1 = require("../../../../services/first-class/protocols.service");
-var router_1 = require("@angular/router");
-var common_1 = require("@angular/common");
-var forms_1 = require("@angular/forms");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewChild } from '@angular/core';
+import { ProtocolsService } from '../../../../services/first-class/protocols.service';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { NgForm } from '@angular/forms';
 var ProtocolComponent = /** @class */ (function () {
     function ProtocolComponent(protocolService, route, location) {
         this.protocolService = protocolService;
@@ -55,20 +61,20 @@ var ProtocolComponent = /** @class */ (function () {
             firstInput && firstInput.focus();
         }, 0);
     };
-    tslib_1.__decorate([
-        core_1.ViewChild('marksForm'),
-        tslib_1.__metadata("design:type", forms_1.NgForm)
+    __decorate([
+        ViewChild('marksForm'),
+        __metadata("design:type", NgForm)
     ], ProtocolComponent.prototype, "marksForm", void 0);
-    ProtocolComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/components/first-class/protocols/protocol/protocol.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/first-class/protocols/protocol/protocol.component.css?v=" + new Date().getTime()]
+    ProtocolComponent = __decorate([
+        Component({
+            templateUrl: './protocol.component.html',
+            styleUrls: ['./protocol.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [protocols_service_1.ProtocolsService,
-            router_1.ActivatedRoute,
-            common_1.Location])
+        __metadata("design:paramtypes", [ProtocolsService,
+            ActivatedRoute,
+            Location])
     ], ProtocolComponent);
     return ProtocolComponent;
 }());
-exports.ProtocolComponent = ProtocolComponent;
+export { ProtocolComponent };
 //# sourceMappingURL=protocol.component.js.map

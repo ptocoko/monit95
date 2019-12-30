@@ -1,12 +1,6 @@
-﻿import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Subject ,  fromEvent ,  merge ,  Observable } from 'rxjs';
 import { debounceTime, startWith, switchMap, takeUntil, map } from 'rxjs/operators';
-import { merge } from 'rxjs/observable/merge';
-//import { startWith } from 'rxjs/operators/startWith';
-//import { switchMap } from 'rxjs/operators/switchMap';
-//import { map } from 'rxjs/operators/map';
-import { Observable } from 'rxjs/Observable';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { TablePaginator } from '../../../../shared/table-paginator/table-paginator';
 import { ClassModel } from '../../../../models/class.model';
@@ -22,8 +16,8 @@ export const CLASS_ID_KEY = 'FIRST_CLASS_ID';
 const COLLECTOR_ID = 49;
 
 @Component({
-	templateUrl: `./app/components/first-class/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/first-class/particips/list/particips-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './particips-list.component.html',
+	styleUrls: ['./particips-list.component.css']
 })
 export class ParticipsListComponent {
 	particips: ParticipGetModel[] = [];

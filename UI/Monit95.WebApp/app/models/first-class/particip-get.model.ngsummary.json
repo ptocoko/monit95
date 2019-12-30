@@ -1,0 +1,1 @@
+{"moduleName":null,"summaries":[{"symbol":{"__symbol":0,"members":[]},"metadata":{"__symbolic":"interface"}},{"symbol":{"__symbol":1,"members":[]},"metadata":{"__symbolic":"interface"}}],"symbols":[{"__symbol":0,"name":"ParticipGetModel","filePath":"./particip-get.model"},{"__symbol":1,"name":"ParticipsList","filePath":"./particip-get.model"}]}

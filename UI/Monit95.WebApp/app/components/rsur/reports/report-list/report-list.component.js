@@ -1,21 +1,22 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var rsur_report_service_1 = require("../../../../services/rsur-report.service");
-var account_service_1 = require("../../../../services/account.service");
-var material_1 = require("@angular/material");
-var merge_1 = require("rxjs/observable/merge");
-var fromEvent_1 = require("rxjs/observable/fromEvent");
-var debounceTime_1 = require("rxjs/operators/debounceTime");
-var map_1 = require("rxjs/operators/map");
-var startWith_1 = require("rxjs/operators/startWith");
-var switchMap_1 = require("rxjs/operators/switchMap");
-var Subject_1 = require("rxjs/Subject");
-exports.SCHOOLNAME_DEFAULT_SELECTION = 'все организации';
-exports.TESTNAME_DEFAULT_SELECTION = 'все блоки';
-exports.EXAMNAME_DEFAULT_SELECTION = 'все диагностики';
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { RsurReportService } from '../../../../services/rsur-report.service';
+import { AccountService } from '../../../../services/account.service';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { merge, fromEvent, Subject } from 'rxjs';
+import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
+export var SCHOOLNAME_DEFAULT_SELECTION = 'все организации';
+export var TESTNAME_DEFAULT_SELECTION = 'все блоки';
+export var EXAMNAME_DEFAULT_SELECTION = 'все диагностики';
 var ReportListComponent = /** @class */ (function () {
     function ReportListComponent(rsurReportService, route, accountService) {
         this.rsurReportService = rsurReportService;
@@ -23,28 +24,28 @@ var ReportListComponent = /** @class */ (function () {
         this.accountService = accountService;
         this.reportsInfo = {};
         this.displayedColumns = ['number', 'code', 'surname', 'name', 'secondName', 'schoolName', 'examName', 'testStatus'];
-        this.dataSource = new material_1.MatTableDataSource();
-        this.selectedSchool = exports.SCHOOLNAME_DEFAULT_SELECTION;
-        this.selectedTest = exports.TESTNAME_DEFAULT_SELECTION;
-        this.selectedExamCode = exports.EXAMNAME_DEFAULT_SELECTION;
-        this.selectionChange$ = new Subject_1.Subject();
-        this.clearHook$ = new Subject_1.Subject();
+        this.dataSource = new MatTableDataSource();
+        this.selectedSchool = SCHOOLNAME_DEFAULT_SELECTION;
+        this.selectedTest = TESTNAME_DEFAULT_SELECTION;
+        this.selectedExamCode = EXAMNAME_DEFAULT_SELECTION;
+        this.selectionChange$ = new Subject();
+        this.clearHook$ = new Subject();
         this.isLoadingReports = true;
         this.reportsLength = 0;
     }
     ReportListComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        var search$ = fromEvent_1.fromEvent(this.searchField.nativeElement, 'input')
-            .pipe(debounceTime_1.debounceTime(1000));
+        var search$ = fromEvent(this.searchField.nativeElement, 'input')
+            .pipe(debounceTime(1000));
         this.searchSub$ = search$.subscribe(function () { return _this.paginator.pageIndex = 0; });
         this.reportsSub$ = this.rsurReportService.getReportsInfo()
-            .pipe(switchMap_1.switchMap(function (info) {
+            .pipe(switchMap(function (info) {
             _this.reportsInfo = info;
-            return merge_1.merge(_this.paginator.page, search$, _this.selectionChange$, _this.clearHook$);
-        }), startWith_1.startWith([]), switchMap_1.switchMap(function () {
+            return merge(_this.paginator.page, search$, _this.selectionChange$, _this.clearHook$);
+        }), startWith([]), switchMap(function () {
             _this.isLoadingReports = true;
             return _this.createRequest();
-        }), map_1.map(function (data) {
+        }), map(function (data) {
             _this.isLoadingReports = false;
             _this.reportsLength = data.TotalCount;
             return data.Items;
@@ -58,9 +59,9 @@ var ReportListComponent = /** @class */ (function () {
         return this.rsurReportService.getReports((this.paginator.pageIndex + 1).toString(), this.paginator.pageSize.toString(), this.searchParticipText, schoolId, testCode, examCode);
     };
     ReportListComponent.prototype.clearFilter = function () {
-        this.selectedSchool = exports.SCHOOLNAME_DEFAULT_SELECTION;
-        this.selectedTest = exports.TESTNAME_DEFAULT_SELECTION;
-        this.selectedExamCode = exports.EXAMNAME_DEFAULT_SELECTION;
+        this.selectedSchool = SCHOOLNAME_DEFAULT_SELECTION;
+        this.selectedTest = TESTNAME_DEFAULT_SELECTION;
+        this.selectedExamCode = EXAMNAME_DEFAULT_SELECTION;
         this.searchParticipText = null;
         this.clearHook$.next();
     };
@@ -77,40 +78,40 @@ var ReportListComponent = /** @class */ (function () {
         this.searchSub$.unsubscribe();
         this.reportsSub$.unsubscribe();
     };
-    tslib_1.__decorate([
-        core_1.ViewChild('paginator'),
-        tslib_1.__metadata("design:type", material_1.MatPaginator)
+    __decorate([
+        ViewChild('paginator'),
+        __metadata("design:type", MatPaginator)
     ], ReportListComponent.prototype, "paginator", void 0);
-    tslib_1.__decorate([
-        core_1.ViewChild('searchField'),
-        tslib_1.__metadata("design:type", core_1.ElementRef)
+    __decorate([
+        ViewChild('searchField'),
+        __metadata("design:type", ElementRef)
     ], ReportListComponent.prototype, "searchField", void 0);
-    ReportListComponent = tslib_1.__decorate([
-        core_1.Component({
+    ReportListComponent = __decorate([
+        Component({
             selector: 'report-list',
-            templateUrl: "./app/components/rsur/reports/report-list/report-list.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/rsur/reports/report-list/report-list.component.css?v=" + new Date().getTime()]
+            templateUrl: './report-list.component.html',
+            styleUrls: ['./report-list.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [rsur_report_service_1.RsurReportService,
-            router_1.Router,
-            account_service_1.AccountService])
+        __metadata("design:paramtypes", [RsurReportService,
+            Router,
+            AccountService])
     ], ReportListComponent);
     return ReportListComponent;
 }());
-exports.ReportListComponent = ReportListComponent;
+export { ReportListComponent };
 function getSchoolIdFromName(selectedSchoolName) {
-    if (selectedSchoolName && selectedSchoolName !== exports.SCHOOLNAME_DEFAULT_SELECTION) {
+    if (selectedSchoolName && selectedSchoolName !== SCHOOLNAME_DEFAULT_SELECTION) {
         return selectedSchoolName.split('-')[0].trim();
     }
     return null;
 }
 function getTestCodeFromName(selectedTestName) {
-    if (selectedTestName && selectedTestName !== exports.TESTNAME_DEFAULT_SELECTION) {
+    if (selectedTestName && selectedTestName !== TESTNAME_DEFAULT_SELECTION) {
         return selectedTestName.split('-')[0].trim();
     }
     return null;
 }
 function getExamCode(selectedExamCode) {
-    return selectedExamCode && selectedExamCode !== exports.EXAMNAME_DEFAULT_SELECTION ? selectedExamCode : null;
+    return selectedExamCode && selectedExamCode !== EXAMNAME_DEFAULT_SELECTION ? selectedExamCode : null;
 }
 //# sourceMappingURL=report-list.component.js.map

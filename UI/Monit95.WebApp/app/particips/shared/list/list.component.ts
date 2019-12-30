@@ -8,8 +8,8 @@ import { SchoolCollectorService } from '../../../shared/school-collector.service
 
 @Component({
 	selector: 'table-list',
-	templateUrl: `./app/particips/shared/list/list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/particips/shared/list/list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './list.component.html',
+	styleUrls: ['./list.component.css']
 })
 export class ListComponent {
 	displayedColumns = ['$id', 'Surname', 'Name', 'SecondName', 'DocumNumber', 'SourceName', 'del-action'];

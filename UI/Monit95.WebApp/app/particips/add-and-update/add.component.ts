@@ -6,8 +6,8 @@ import { ParticipModel } from '../../models/particip.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-	templateUrl: `./app/particips/add-and-update/add.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/particips/add-and-update/add.component.css?v=${new Date().getTime()}`]
+	templateUrl: './add.component.html',
+	styleUrls: ['./add.component.css']
 })
 export class AddParticipComponent {
 	particip = new ParticipModel();

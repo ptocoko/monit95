@@ -1,10 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var common_1 = require("@angular/common");
-var rsur_protocols_service_1 = require("../../../../services/rsur-protocols.service");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 var QuestionProtocolComponent = /** @class */ (function () {
     function QuestionProtocolComponent(rsurProtocolService, route, location) {
         this.rsurProtocolService = rsurProtocolService;
@@ -28,15 +34,15 @@ var QuestionProtocolComponent = /** @class */ (function () {
     QuestionProtocolComponent.prototype.cancel = function () {
         this.location.back();
     };
-    QuestionProtocolComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/components/rsur/protocols/protocol/question-protocol.component.html?v=" + new Date().getTime()
+    QuestionProtocolComponent = __decorate([
+        Component({
+            templateUrl: './question-protocol.component.html',
         }),
-        tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
-            router_1.ActivatedRoute,
-            common_1.Location])
+        __metadata("design:paramtypes", [RsurProtocolsService,
+            ActivatedRoute,
+            Location])
     ], QuestionProtocolComponent);
     return QuestionProtocolComponent;
 }());
-exports.QuestionProtocolComponent = QuestionProtocolComponent;
+export { QuestionProtocolComponent };
 //# sourceMappingURL=question-protocol.component.js.map

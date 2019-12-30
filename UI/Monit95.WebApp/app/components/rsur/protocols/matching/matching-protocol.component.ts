@@ -1,21 +1,24 @@
-﻿
+
+import {fromEvent as observableFromEvent,  Observable } from 'rxjs';
+
+import {filter} from 'rxjs/operators';
+
 import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
 
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { FormControl, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/filter';
+
+
 import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 import { MarksProtocol } from '../../../../models/marks-protocol.model';
 import { Scan } from '../../../../models/scan.model';
 
 @Component({
 	selector: 'matching-protocol-component',
-	templateUrl: `./app/components/rsur/protocols/matching/matching-protocol.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/protocols/matching/matching-protocol.component.css?v=${new Date().getTime()}`]
+	templateUrl: './matching-protocol.component.html',
+	styleUrls: ['./matching-protocol.component.css']
 })
 export class MatchingProtocolComponent implements OnInit{
 	protocolScan: Scan;
@@ -52,8 +55,8 @@ export class MatchingProtocolComponent implements OnInit{
 			this.isUpdate = false;
 			this.focusOnCodeElem();
 
-			let participCodeChange = Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
-				.filter((event: any, i: number) => event.target.value.length == 5)
+			let participCodeChange = observableFromEvent(this.participCodeElem.nativeElement, 'input').pipe(
+				filter((event: any, i: number) => event.target.value.length == 5))
 				.subscribe(event => this.participCodeSubscriber(event));
 		}
 		else {

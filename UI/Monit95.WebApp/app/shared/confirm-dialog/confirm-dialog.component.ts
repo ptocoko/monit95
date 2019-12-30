@@ -2,7 +2,7 @@
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
-	templateUrl: `./app/shared/confirm-dialog/confirm-dialog.component.html?v=${new Date().getTime()}`
+	templateUrl: './confirm-dialog.component.html',
 })
 export class ConfirmDialogComponent {
 

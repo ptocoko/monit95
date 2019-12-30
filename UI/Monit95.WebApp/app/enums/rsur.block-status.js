@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var BlockStatuses;
+export var BlockStatuses;
 (function (BlockStatuses) {
     BlockStatuses[BlockStatuses["\u041D\u0435 \u0441\u0434\u0430\u043B \u0434\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0443"] = 0] = "\u041D\u0435 \u0441\u0434\u0430\u043B \u0434\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0443";
     BlockStatuses[BlockStatuses["\u0421\u0434\u0430\u043B \u0434\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0443"] = 1] = "\u0421\u0434\u0430\u043B \u0434\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0443";
     BlockStatuses[BlockStatuses["\u041D\u0435 \u0443\u0447\u0430\u0441\u0442\u0432\u043E\u0432\u0430\u043B \u0432 \u0434\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0430\u0445"] = 2] = "\u041D\u0435 \u0443\u0447\u0430\u0441\u0442\u0432\u043E\u0432\u0430\u043B \u0432 \u0434\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0430\u0445";
-})(BlockStatuses = exports.BlockStatuses || (exports.BlockStatuses = {}));
+})(BlockStatuses || (BlockStatuses = {}));
 //# sourceMappingURL=rsur.block-status.js.map

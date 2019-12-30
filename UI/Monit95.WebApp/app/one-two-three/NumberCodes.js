@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var NumberCodes = /** @class */ (function () {
     function NumberCodes() {
     }
@@ -10,5 +8,5 @@ var NumberCodes = /** @class */ (function () {
     };
     return NumberCodes;
 }());
-exports.NumberCodes = NumberCodes;
+export { NumberCodes };
 //# sourceMappingURL=NumberCodes.js.map

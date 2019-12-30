@@ -1,18 +1,30 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var material_1 = require("@angular/material");
-var merge_1 = require("rxjs/observable/merge");
-var fromEvent_1 = require("rxjs/observable/fromEvent");
-var debounceTime_1 = require("rxjs/operators/debounceTime");
-var map_1 = require("rxjs/operators/map");
-var startWith_1 = require("rxjs/operators/startWith");
-var switchMap_1 = require("rxjs/operators/switchMap");
-var Subject_1 = require("rxjs/Subject");
-var reports_service_1 = require("../../../services/iTakeEge/reports/reports.service");
-var account_service_1 = require("../../../services/account.service");
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { merge, fromEvent, Subject } from 'rxjs';
+import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
+import { ReportsService } from '../../../services/iTakeEge/reports/reports.service';
+import { AccountService } from '../../../services/account.service';
 var ReportsListComponent = /** @class */ (function () {
     function ReportsListComponent(rsurReportService, route, router, accountService) {
         this.rsurReportService = rsurReportService;
@@ -23,8 +35,8 @@ var ReportsListComponent = /** @class */ (function () {
         this.schoolId = '';
         this.testCode = '';
         this.displayedColumns = ['number', 'surname', 'name', 'secondName', 'testName', 'passStatus'];
-        this.dataSource = new material_1.MatTableDataSource();
-        this.selectionChange$ = new Subject_1.Subject();
+        this.dataSource = new MatTableDataSource();
+        this.selectionChange$ = new Subject();
         this.isLoadingReports = true;
         this.reportsLength = 0;
     }
@@ -46,14 +58,14 @@ var ReportsListComponent = /** @class */ (function () {
                 if (testCode) {
                     _this.testCode = testCode;
                 }
-                var search$ = fromEvent_1.fromEvent(_this.searchField.nativeElement, 'input')
-                    .pipe(debounceTime_1.debounceTime(1000));
+                var search$ = fromEvent(_this.searchField.nativeElement, 'input')
+                    .pipe(debounceTime(1000));
                 search$.subscribe(function () { return _this.paginator.pageIndex = 0; });
-                merge_1.merge(_this.paginator.page, search$, _this.selectionChange$)
-                    .pipe(startWith_1.startWith([]), switchMap_1.switchMap(function () {
+                merge(_this.paginator.page, search$, _this.selectionChange$)
+                    .pipe(startWith([]), switchMap(function () {
                     _this.isLoadingReports = true;
                     return _this.createRequest();
-                }), map_1.map(function (data) {
+                }), map(function (data) {
                     _this.isLoadingReports = false;
                     _this.reportsLength = data.TotalCount;
                     return data.Items;
@@ -62,7 +74,7 @@ var ReportsListComponent = /** @class */ (function () {
         });
     };
     ReportsListComponent.prototype.createRequest = function () {
-        return this.rsurReportService.getReportsList(tslib_1.__assign({}, this.schoolId && this.accountService.isArea() ? { schoolId: this.schoolId } : {}, this.testCode ? { testCode: this.testCode } : {}, this.searchParticipText ? { searchParticipText: this.searchParticipText } : {}, { projectId: this.projectId.toString(), page: (this.paginator.pageIndex + 1).toString(), pageSize: this.paginator.pageSize.toString() }));
+        return this.rsurReportService.getReportsList(__assign({}, this.schoolId && this.accountService.isArea() ? { schoolId: this.schoolId } : {}, this.testCode ? { testCode: this.testCode } : {}, this.searchParticipText ? { searchParticipText: this.searchParticipText } : {}, { projectId: this.projectId.toString(), page: (this.paginator.pageIndex + 1).toString(), pageSize: this.paginator.pageSize.toString() }));
     };
     ReportsListComponent.prototype.selectionChange = function () {
         this.paginator.pageIndex = 0;
@@ -90,25 +102,25 @@ var ReportsListComponent = /** @class */ (function () {
         if (this.routeSubs)
             this.routeSubs.unsubscribe();
     };
-    tslib_1.__decorate([
-        core_1.ViewChild('paginator'),
-        tslib_1.__metadata("design:type", material_1.MatPaginator)
+    __decorate([
+        ViewChild('paginator'),
+        __metadata("design:type", MatPaginator)
     ], ReportsListComponent.prototype, "paginator", void 0);
-    tslib_1.__decorate([
-        core_1.ViewChild('searchField'),
-        tslib_1.__metadata("design:type", core_1.ElementRef)
+    __decorate([
+        ViewChild('searchField'),
+        __metadata("design:type", ElementRef)
     ], ReportsListComponent.prototype, "searchField", void 0);
-    ReportsListComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/particips/reports/list/list.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/particips/reports/list/list.component.css?v=" + new Date().getTime()]
+    ReportsListComponent = __decorate([
+        Component({
+            templateUrl: './list.component.html',
+            styleUrls: ['./list.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [reports_service_1.ReportsService,
-            router_1.Router,
-            router_1.ActivatedRoute,
-            account_service_1.AccountService])
+        __metadata("design:paramtypes", [ReportsService,
+            Router,
+            ActivatedRoute,
+            AccountService])
     ], ReportsListComponent);
     return ReportsListComponent;
 }());
-exports.ReportsListComponent = ReportsListComponent;
+export { ReportsListComponent };
 //# sourceMappingURL=list.component.js.map

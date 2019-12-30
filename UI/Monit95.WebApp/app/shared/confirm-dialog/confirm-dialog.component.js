@@ -1,21 +1,30 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var material_1 = require("@angular/material");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 var ConfirmDialogComponent = /** @class */ (function () {
     function ConfirmDialogComponent(dialogRef, data) {
         this.dialogRef = dialogRef;
         this.data = data;
     }
-    ConfirmDialogComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/shared/confirm-dialog/confirm-dialog.component.html?v=" + new Date().getTime()
+    ConfirmDialogComponent = __decorate([
+        Component({
+            templateUrl: './confirm-dialog.component.html',
         }),
-        tslib_1.__param(1, core_1.Inject(material_1.MAT_DIALOG_DATA)),
-        tslib_1.__metadata("design:paramtypes", [material_1.MatDialogRef, Object])
+        __param(1, Inject(MAT_DIALOG_DATA)),
+        __metadata("design:paramtypes", [MatDialogRef, Object])
     ], ConfirmDialogComponent);
     return ConfirmDialogComponent;
 }());
-exports.ConfirmDialogComponent = ConfirmDialogComponent;
+export { ConfirmDialogComponent };
 //# sourceMappingURL=confirm-dialog.component.js.map

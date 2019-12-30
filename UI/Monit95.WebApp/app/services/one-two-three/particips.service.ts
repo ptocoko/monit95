@@ -1,5 +1,5 @@
-﻿import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ParticipModel, ParticipsList } from '../../models/one-two-three/particip.model';
 import { HttpParams } from '@angular/common/http';

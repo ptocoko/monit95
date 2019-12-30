@@ -10,8 +10,8 @@ import { QuestionProtocolPut } from '../../../models/question-protocol-put.model
 
 
 @Component({
-	templateUrl: `./app/particips/protocols/protocol/protocol.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/particips/protocols/protocol/protocol.component.css?v=${new Date().getTime()}`]
+	templateUrl: './protocol.component.html',
+	styleUrls: ['./protocol.component.css']
 })
 export class ParticipProtocolComponent implements OnInit {
     isUpdate: boolean;

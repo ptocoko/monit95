@@ -1,182 +1,185 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 // Modules
-var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var forms_1 = require("@angular/forms");
-var mydatepicker_1 = require("mydatepicker");
-var animations_1 = require("@angular/platform-browser/animations");
-var http_1 = require("@angular/common/http");
-var router_1 = require("@angular/router");
-var ngx_order_pipe_1 = require("ngx-order-pipe");
-var material_module_1 = require("./material.module");
-var particips_module_1 = require("./particips/particips.module");
-var one_two_three_module_1 = require("./one-two-three/one-two-three.module");
-var shared_module_1 = require("./shared/shared-module");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
-var first_class_module_1 = require("./components/first-class/first-class.module");
-var two_three_module_1 = require("./components/two-three-2/two-three.module");
+import { NgModule, ErrorHandler } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MyDatePickerModule } from 'mydatepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, RouteReuseStrategy } from '@angular/router';
+import { OrderModule } from 'ngx-order-pipe';
+import { MaterialModule } from './material.module';
+import { ParticipsModule } from './particips/particips.module';
+import { OneTwoThreeModule } from './one-two-three/one-two-three.module';
+import { SharedModule } from './shared/shared-module';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { FirstClassModule } from './components/first-class/first-class.module';
+import { TwoThreeModule2 } from './components/two-three-2/two-three.module';
 // Components
-var app_component_1 = require("./components/app/app.component");
-var particips_component_1 = require("./components/rsur/particips/particips.component");
-var home_component_1 = require("./components/rsur/home/home.component");
-var report_component_1 = require("./components/rsur/reports/report/report.component");
-var report_list_component_1 = require("./components/rsur/reports/report-list/report-list.component");
-var ratings_component_1 = require("./components/rsur/ratings/ratings.component");
-var create_form_component_1 = require("./components/rsur/seminar-reports/create-form/create-form.component");
-var seminar_report_list_component_1 = require("./components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component");
-var seminar_report_component_1 = require("./components/rsur/seminar-reports/seminar-report/seminar-report.component");
-var school_files_component_1 = require("./components/school-files/school-files.component");
+import { AppComponent } from './components/app/app.component';
+import { RsurParticipsComponent } from './components/rsur/particips/particips.component';
+import { HomeComponent } from './components/rsur/home/home.component';
+import { ReportComponent } from './components/rsur/reports/report/report.component';
+import { ReportListComponent } from './components/rsur/reports/report-list/report-list.component';
+import { RatingsComponent } from './components/rsur/ratings/ratings.component';
+import { SeminarReportCreateFormComponent } from './components/rsur/seminar-reports/create-form/create-form.component';
+import { SeminarReportsListComponent } from './components/rsur/seminar-reports/seminar-report-list/seminar-report-list.component';
+import { SeminarReportComponent } from './components/rsur/seminar-reports/seminar-report/seminar-report.component';
+import { SchoolFilesComponent } from './components/school-files/school-files.component';
 //import { MatchingProtocolComponent } from './components/rsur/protocols/matching/matching-protocol.component';
 //import { ScanProtocolsComponent, FilterPipe } from './components/rsur/protocols/scan/scan-protocols.component';
-var question_protocols_list_component_1 = require("./components/rsur/protocols/question/question-protocols-list.component");
-var question_protocol_component_1 = require("./components/rsur/protocols/protocol/question-protocol.component");
-var firing_list_component_1 = require("./components/rsur/actualization/firing/list/firing-list.component");
-var hiring_list_component_1 = require("./components/rsur/actualization/hiring/list/hiring-list.component");
-var hire_particip_component_1 = require("./components/rsur/actualization/hiring/hire-particip.component");
-var add_particip_component_1 = require("./components/rsur/actualization/hiring/add/add-particip.component");
-var transfer_particip_component_1 = require("./components/rsur/actualization/hiring/transfer/transfer-particip.component");
-var new_particip_component_1 = require("./components/rsur/actualization/hiring/new-particip/new-particip.component");
+import { QuestionProtocolsList } from './components/rsur/protocols/question/question-protocols-list.component';
+import { QuestionProtocolComponent } from './components/rsur/protocols/protocol/question-protocol.component';
+import { FiringListComponent } from './components/rsur/actualization/firing/list/firing-list.component';
+import { HiringListComponent } from './components/rsur/actualization/hiring/list/hiring-list.component';
+import { HireComponent } from './components/rsur/actualization/hiring/hire-particip.component';
+import { CreateParticipComponent } from './components/rsur/actualization/hiring/add/add-particip.component';
+import { TransferParticipComponent } from './components/rsur/actualization/hiring/transfer/transfer-particip.component';
+import { NewParticipComponent } from './components/rsur/actualization/hiring/new-particip/new-particip.component';
 // Services
-var account_service_1 = require("./services/account.service");
-var rsur_particip_service_1 = require("./services/rsur-particip.service");
-var class_service_1 = require("./services/class.service");
-var school_collector_service_1 = require("./shared/school-collector.service");
-var rsur_report_service_1 = require("./services/rsur-report.service");
-var rsur_rating_service_1 = require("./services/rsur-rating.service");
-var seminar_report_service_1 = require("./services/seminar-report.service");
-var school_file_service_1 = require("./services/school-file.service");
-var rsur_protocols_service_1 = require("./services/rsur-protocols.service");
-var school_service_1 = require("./school.service");
-var area_service_1 = require("./services/area.service");
-var file_service_1 = require("./services/file.service");
-var cards_service_1 = require("./services/cards.service");
-var area_collector_service_1 = require("./shared/area-collector.service");
+import { AccountService } from './services/account.service';
+import { RsurParticipService } from './services/rsur-particip.service';
+import { ClassService } from './services/class.service';
+import { SchoolCollectorService } from './shared/school-collector.service';
+import { RsurReportService } from './services/rsur-report.service';
+import { RsurRatingService } from './services/rsur-rating.service';
+import { SeminarReportService } from './services/seminar-report.service';
+import { SchoolFileService } from './services/school-file.service';
+import { RsurProtocolsService } from './services/rsur-protocols.service';
+import { SchoolService } from './school.service';
+import { AreaService } from './services/area.service';
+import { FileService } from './services/file.service';
+import { CardsService } from './services/cards.service';
+import { AreaCollectorService } from './shared/area-collector.service';
 // Pipes
 //import { LimitToPipe } from './limit-to.pipe';
 //import { ParticipFilterPipe } from './pipes/particip-filter.pipe';
-var school_filter_pipe_1 = require("./school-filter.pipe");
-var class_name_filter_pipe_1 = require("./shared/class-name-filter.pipe");
-var rsur_report_filter_pipe_1 = require("./pipes/rsur-report-filter.pipe");
-var subject_filter_pipe_1 = require("./components/rsur/ratings/subject-filter.pipe");
-var rsur_particip_filter_pipe_1 = require("./pipes/rsur-particip-filter.pipe");
-var rsur_protocol_filter_pipe_1 = require("./pipes/rsur-protocol-filter.pipe");
+import { SchoolFilter } from './school-filter.pipe';
+import { ClassNameFilterPipe } from './shared/class-name-filter.pipe';
+import { SchoolNameFilterPipe, TestNameWithDateFilterPipe, TestIdPipe, TotalFilterPipe, ExamNameFilterPipe } from './pipes/rsur-report-filter.pipe';
+import { SubjectFilterPipe } from './components/rsur/ratings/subject-filter.pipe';
+import { RsurParticipFilterPipe, RsurParticipActualFilterPipe } from './pipes/rsur-particip-filter.pipe';
+import { RsurProtocolFilter } from './pipes/rsur-protocol-filter.pipe';
 //import { OffsetPipe } from './pipes/offset.pipe';
 // Additional 
-var common_1 = require("@angular/common");
-var error_handler_1 = require("./error-handler");
-var material_1 = require("@angular/material");
-var russian_paginator_provider_1 = require("./shared/russian-paginator.provider");
-var custom_route_reuse_strategy_1 = require("./custom-route-reuse-strategy");
-var particips_module_2 = require("./components/particips/particips.module");
-var _9_11_classes_module_1 = require("./components/9-11_classes/9-11_classes.module");
-var kpk_module_1 = require("./components/kpk/kpk.module");
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { GlobalErrorHandler } from './error-handler';
+import { MatPaginatorIntl } from '@angular/material';
+import { RussianMatPaginator } from './shared/russian-paginator.provider';
+import { CustomReuseStrategy } from './custom-route-reuse-strategy';
+import { ParticipsModule2 } from './components/particips/particips.module';
+import { DamnClassesModule } from './components/9-11_classes/9-11_classes.module';
+import { KpkModule } from './components/kpk/kpk.module';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
-    AppModule = tslib_1.__decorate([
-        core_1.NgModule({
+    AppModule = __decorate([
+        NgModule({
             imports: [
-                platform_browser_1.BrowserModule,
-                http_1.HttpClientModule,
-                forms_1.FormsModule,
-                forms_1.ReactiveFormsModule,
-                mydatepicker_1.MyDatePickerModule,
-                animations_1.BrowserAnimationsModule,
-                ngx_order_pipe_1.OrderModule,
-                ng_bootstrap_1.NgbModule.forRoot(),
-                shared_module_1.SharedModule,
-                material_module_1.MaterialModule,
-                particips_module_1.ParticipsModule,
-                particips_module_2.ParticipsModule2,
-                _9_11_classes_module_1.DamnClassesModule,
-                one_two_three_module_1.OneTwoThreeModule,
-                first_class_module_1.FirstClassModule,
+                BrowserModule,
+                HttpClientModule,
+                FormsModule,
+                ReactiveFormsModule,
+                MyDatePickerModule,
+                BrowserAnimationsModule,
+                OrderModule,
+                NgbProgressbarModule,
+                SharedModule,
+                MaterialModule,
+                ParticipsModule,
+                ParticipsModule2,
+                DamnClassesModule,
+                OneTwoThreeModule,
+                FirstClassModule,
                 //TwoThreeModule,
-                two_three_module_1.TwoThreeModule2,
-                kpk_module_1.KpkModule,
-                router_1.RouterModule.forRoot([
-                    { path: 'rsur', component: home_component_1.HomeComponent },
-                    { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },
-                    { path: 'rsur/actualization/firing/list', component: firing_list_component_1.FiringListComponent },
-                    { path: 'rsur/actualization/hiring/list', component: hiring_list_component_1.HiringListComponent },
-                    { path: 'rsur/actualization/hire', component: hire_particip_component_1.HireComponent },
-                    { path: 'rsur/actualization/new-particip', component: new_particip_component_1.NewParticipComponent },
-                    { path: 'rsur/seminar-reports', component: seminar_report_list_component_1.SeminarReportsListComponent },
-                    { path: 'rsur/seminar-reports/create', component: create_form_component_1.SeminarReportCreateFormComponent },
-                    { path: 'rsur/seminar-reports/:id', component: seminar_report_component_1.SeminarReportComponent },
-                    { path: 'rsur/report/:id', component: report_component_1.ReportComponent },
-                    { path: 'rsur/results-list', component: report_list_component_1.ReportListComponent },
-                    { path: 'rsur/ratings', component: ratings_component_1.RatingsComponent },
+                TwoThreeModule2,
+                KpkModule,
+                RouterModule.forRoot([
+                    { path: 'rsur', component: HomeComponent },
+                    { path: 'rsur/particips', component: RsurParticipsComponent },
+                    { path: 'rsur/actualization/firing/list', component: FiringListComponent },
+                    { path: 'rsur/actualization/hiring/list', component: HiringListComponent },
+                    { path: 'rsur/actualization/hire', component: HireComponent },
+                    { path: 'rsur/actualization/new-particip', component: NewParticipComponent },
+                    { path: 'rsur/seminar-reports', component: SeminarReportsListComponent },
+                    { path: 'rsur/seminar-reports/create', component: SeminarReportCreateFormComponent },
+                    { path: 'rsur/seminar-reports/:id', component: SeminarReportComponent },
+                    { path: 'rsur/report/:id', component: ReportComponent },
+                    { path: 'rsur/results-list', component: ReportListComponent },
+                    { path: 'rsur/ratings', component: RatingsComponent },
                     //{ path: 'rsur/match-protocol/:id', component: MatchingProtocolComponent },
                     //{ path: 'rsur/scan-protocols', component: ScanProtocolsComponent },
-                    { path: 'rsur/question-protocols', component: question_protocols_list_component_1.QuestionProtocolsList },
-                    { path: 'rsur/question-protocol/:participCode', component: question_protocol_component_1.QuestionProtocolComponent },
-                    { path: 'school-files', component: school_files_component_1.SchoolFilesComponent },
+                    { path: 'rsur/question-protocols', component: QuestionProtocolsList },
+                    { path: 'rsur/question-protocol/:participCode', component: QuestionProtocolComponent },
+                    { path: 'school-files', component: SchoolFilesComponent },
                     { path: '', redirectTo: '/rsur', pathMatch: 'full' }
                 ])
             ],
             declarations: [
-                app_component_1.AppComponent,
-                home_component_1.HomeComponent,
-                particips_component_1.RsurParticipsComponent,
-                rsur_particip_filter_pipe_1.RsurParticipFilterPipe,
-                class_name_filter_pipe_1.ClassNameFilterPipe,
+                AppComponent,
+                HomeComponent,
+                RsurParticipsComponent,
+                RsurParticipFilterPipe,
+                ClassNameFilterPipe,
                 //LimitToPipe,
                 //OffsetPipe,
-                rsur_report_filter_pipe_1.TestIdPipe,
+                TestIdPipe,
                 //FilterPipe,
-                school_filter_pipe_1.SchoolFilter,
-                rsur_protocol_filter_pipe_1.RsurProtocolFilter,
-                rsur_report_filter_pipe_1.SchoolNameFilterPipe,
-                rsur_report_filter_pipe_1.TestNameWithDateFilterPipe,
-                rsur_report_filter_pipe_1.TotalFilterPipe,
-                subject_filter_pipe_1.SubjectFilterPipe,
-                rsur_particip_filter_pipe_1.RsurParticipActualFilterPipe,
-                rsur_report_filter_pipe_1.ExamNameFilterPipe,
-                report_component_1.ReportComponent,
-                report_list_component_1.ReportListComponent,
-                create_form_component_1.SeminarReportCreateFormComponent,
-                ratings_component_1.RatingsComponent,
-                seminar_report_list_component_1.SeminarReportsListComponent,
-                seminar_report_component_1.SeminarReportComponent,
-                school_files_component_1.SchoolFilesComponent,
+                SchoolFilter,
+                RsurProtocolFilter,
+                SchoolNameFilterPipe,
+                TestNameWithDateFilterPipe,
+                TotalFilterPipe,
+                SubjectFilterPipe,
+                RsurParticipActualFilterPipe,
+                ExamNameFilterPipe,
+                ReportComponent,
+                ReportListComponent,
+                SeminarReportCreateFormComponent,
+                RatingsComponent,
+                SeminarReportsListComponent,
+                SeminarReportComponent,
+                SchoolFilesComponent,
                 //MatchingProtocolComponent,
                 //ScanProtocolsComponent,
-                question_protocols_list_component_1.QuestionProtocolsList,
-                question_protocol_component_1.QuestionProtocolComponent,
-                firing_list_component_1.FiringListComponent,
-                hiring_list_component_1.HiringListComponent,
-                hire_particip_component_1.HireComponent,
-                add_particip_component_1.CreateParticipComponent,
-                transfer_particip_component_1.TransferParticipComponent,
-                new_particip_component_1.NewParticipComponent
+                QuestionProtocolsList,
+                QuestionProtocolComponent,
+                FiringListComponent,
+                HiringListComponent,
+                HireComponent,
+                CreateParticipComponent,
+                TransferParticipComponent,
+                NewParticipComponent
             ],
             providers: [
-                account_service_1.AccountService,
-                rsur_particip_service_1.RsurParticipService,
-                class_service_1.ClassService,
-                school_collector_service_1.SchoolCollectorService,
-                area_collector_service_1.AreaCollectorService,
-                rsur_report_service_1.RsurReportService,
-                rsur_rating_service_1.RsurRatingService,
-                seminar_report_service_1.SeminarReportService,
-                school_file_service_1.SchoolFileService,
-                rsur_protocols_service_1.RsurProtocolsService,
-                school_service_1.SchoolService,
-                area_service_1.AreaService,
-                file_service_1.FileService,
-                cards_service_1.CardsService,
-                { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
-                { provide: core_1.ErrorHandler, useClass: error_handler_1.GlobalErrorHandler },
-                { provide: material_1.MatPaginatorIntl, useClass: russian_paginator_provider_1.RussianMatPaginator },
-                { provide: router_1.RouteReuseStrategy, useClass: custom_route_reuse_strategy_1.CustomReuseStrategy }
+                AccountService,
+                RsurParticipService,
+                ClassService,
+                SchoolCollectorService,
+                AreaCollectorService,
+                RsurReportService,
+                RsurRatingService,
+                SeminarReportService,
+                SchoolFileService,
+                RsurProtocolsService,
+                SchoolService,
+                AreaService,
+                FileService,
+                CardsService,
+                { provide: LocationStrategy, useClass: HashLocationStrategy },
+                { provide: ErrorHandler, useClass: GlobalErrorHandler },
+                { provide: MatPaginatorIntl, useClass: RussianMatPaginator },
+                { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
             ],
-            bootstrap: [app_component_1.AppComponent]
+            bootstrap: [AppComponent]
         })
     ], AppModule);
     return AppModule;
 }());
-exports.AppModule = AppModule;
+export { AppModule };
 //# sourceMappingURL=app.module.js.map

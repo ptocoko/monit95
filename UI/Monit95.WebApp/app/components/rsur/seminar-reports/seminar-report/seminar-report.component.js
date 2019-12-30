@@ -1,12 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var seminar_report_service_1 = require("../../../../services/seminar-report.service");
-var fromEvent_1 = require("rxjs/observable/fromEvent");
-var filter_1 = require("rxjs/operators/filter");
-var functions_1 = require("../../../../utils/functions");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SeminarReportService } from '../../../../services/seminar-report.service';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { downloadFile } from '../../../../utils/functions';
 var SeminarReportComponent = /** @class */ (function () {
     function SeminarReportComponent(route, seminarReportService) {
         this.route = route;
@@ -22,7 +28,7 @@ var SeminarReportComponent = /** @class */ (function () {
                 //this.photoKeys = this.report.SeminarFiles.map(sf => sf.Key).filter(f => f.includes('image'));
                 _this.isLoading = false;
                 // пролистывание фотографий в режиме просмотра
-                fromEvent_1.fromEvent(document, 'keydown').pipe(filter_1.filter(function (e) { return [37, 39, 27].indexOf(e.keyCode) >= 0 && _this.viewingImage != null; }))
+                fromEvent(document, 'keydown').pipe(filter(function (e) { return [37, 39, 27].indexOf(e.keyCode) >= 0 && _this.viewingImage != null; }))
                     .subscribe(_this.keyUpHandler.bind(_this));
             });
         });
@@ -43,7 +49,7 @@ var SeminarReportComponent = /** @class */ (function () {
             this.viewingImage = seminarFile;
         else {
             //this.openPdf(seminarFile);
-            functions_1.downloadFile(seminarFile.FileUrl, "\u043F\u0440\u043E\u0442\u043E\u043A\u043E\u043B." + seminarFile.Type);
+            downloadFile(seminarFile.FileUrl, "\u043F\u0440\u043E\u0442\u043E\u043A\u043E\u043B." + seminarFile.Type);
         }
     };
     SeminarReportComponent.prototype.hideViewer = function () {
@@ -108,16 +114,16 @@ var SeminarReportComponent = /** @class */ (function () {
         win.document.write(objbuilder);
         win.document.write('</body></html>');
     };
-    SeminarReportComponent = tslib_1.__decorate([
-        core_1.Component({
+    SeminarReportComponent = __decorate([
+        Component({
             selector: 'seminar-report',
-            templateUrl: "./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.css?v=" + new Date().getTime()]
+            templateUrl: './seminar-report.component.html',
+            styleUrls: ['./seminar-report.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [router_1.ActivatedRoute,
-            seminar_report_service_1.SeminarReportService])
+        __metadata("design:paramtypes", [ActivatedRoute,
+            SeminarReportService])
     ], SeminarReportComponent);
     return SeminarReportComponent;
 }());
-exports.SeminarReportComponent = SeminarReportComponent;
+export { SeminarReportComponent };
 //# sourceMappingURL=seminar-report.component.js.map

@@ -1,12 +1,14 @@
-﻿
+
+import {of as observableOf,  Observable ,  Subject } from 'rxjs';
+
+import {delay, map} from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/observable/throw';
+
+
+
 import { MarksProtocol } from "../models/marks-protocol.model";
-import { Subject } from "rxjs/Subject";
 import { Scan, AnswerSheet } from "../models/scan.model";
 import { Protocol } from "../models/protocol.model";
 
@@ -33,10 +35,10 @@ export class RsurProtocolsService {
 	 * @returns Observable<MarksProtocol>
 	 */
 	getMarksProtocol(participCode: number): Observable<MarksProtocol> {
-		return this.http.get<MarksProtocol>(`${this.marksProtocolUrl}/${participCode}`).map(s => {
+		return this.http.get<MarksProtocol>(`${this.marksProtocolUrl}/${participCode}`).pipe(map(s => {
 			s.QuestionResults.sort(this.sortFunc);
 			return s;
-		});
+		}));
 	}
 
 	/**
@@ -51,7 +53,7 @@ export class RsurProtocolsService {
 		//else {
 		//	return Observable.of(null).delay(500);
 		//}
-		return Observable.of(null);
+		return observableOf(null);
 		//return this.http.get('/api/ExcelFiles/Upload').map(res => {
 		//	let marksProtocol = res as MarksProtocol;
 		//	if (marksProtocol) {
@@ -65,13 +67,13 @@ export class RsurProtocolsService {
 	}
 
 	getQuestionProtocols() {
-		return this.http.get<Protocol[]>(this.marksProtocolUrl).map(s => {
+		return this.http.get<Protocol[]>(this.marksProtocolUrl).pipe(map(s => {
 			s.forEach(val => {
 				if (val.RsurQuestionValues === 'wasnot')
 					val.RsurQuestionValues = 'отсутствовал';
 			})
 			return s;
-		});
+		}));
 	}
 
 	postMarksProtocol(marksProtocol: MarksProtocol) {
@@ -88,14 +90,14 @@ export class RsurProtocolsService {
 
 	getScan(fileId: number) {
 		//return Observable.of(protocolScanModel).delay(500);
-		return Observable.of(null);
+		return observableOf(null);
 
 		//return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
 	}
 
 	getAnswerSheets() {
 		//return Observable.of(answerSheets).delay(500);
-		return Observable.of(null);
+		return observableOf(null);
 
 		//return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
 	}
@@ -125,7 +127,7 @@ export class RsurProtocolsService {
 	}
 
 	deleteScan(fileId: number) {
-		return Observable.of({}).delay(1000);
+		return observableOf({}).pipe(delay(1000));
 
 		//return this.http.delete(`${this.scansUrl}/${fileId}`);
 	}

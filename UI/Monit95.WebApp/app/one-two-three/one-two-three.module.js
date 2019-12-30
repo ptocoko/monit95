@@ -1,58 +1,61 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var material_module_1 = require("../material.module");
-var common_1 = require("@angular/common");
-var http_1 = require("@angular/common/http");
-var forms_1 = require("@angular/forms");
-var shared_module_1 = require("../shared/shared-module");
-var router_1 = require("@angular/router");
-var home_component_1 = require("./home/home.component");
-var particips_list_component_1 = require("./particips/list/particips-list.component");
-var particips_service_1 = require("../services/one-two-three/particips.service");
-var add_or_update_component_1 = require("./particips/add-or-update/add-or-update.component");
-var protocols_list_component_1 = require("./question-protocols/list/protocols-list.component");
-var question_protocols_service_1 = require("../services/one-two-three/question-protocols.service");
-var protocol_component_1 = require("./question-protocols/protocol/protocol.component");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { NgModule } from '@angular/core';
+import { MaterialModule } from '../material.module';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared-module';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { ParticipsListComponent } from './particips/list/particips-list.component';
+import { ParticipService } from '../services/one-two-three/particips.service';
+import { AddOrUpdateComponent } from './particips/add-or-update/add-or-update.component';
+import { ProtocolsListComponent } from './question-protocols/list/protocols-list.component';
+import { QuestionProtocolService } from '../services/one-two-three/question-protocols.service';
+import { ProtocolComponent } from './question-protocols/protocol/protocol.component';
 var routes = [
-    { path: 'one-two-three/home', component: home_component_1.HomeComponent },
-    { path: 'one-two-three/particips/list', component: particips_list_component_1.ParticipsListComponent },
-    { path: 'one-two-three/particips/add', component: add_or_update_component_1.AddOrUpdateComponent },
-    { path: 'one-two-three/particips/:participId', component: add_or_update_component_1.AddOrUpdateComponent },
-    { path: 'one-two-three/protocols/:projectTestId', component: protocols_list_component_1.ProtocolsListComponent },
-    { path: 'one-two-three/protocol/:participTestId', component: protocol_component_1.ProtocolComponent },
+    { path: 'one-two-three/home', component: HomeComponent },
+    { path: 'one-two-three/particips/list', component: ParticipsListComponent },
+    { path: 'one-two-three/particips/add', component: AddOrUpdateComponent },
+    { path: 'one-two-three/particips/:participId', component: AddOrUpdateComponent },
+    { path: 'one-two-three/protocols/:projectTestId', component: ProtocolsListComponent },
+    { path: 'one-two-three/protocol/:participTestId', component: ProtocolComponent },
     { path: 'one-two-three', redirectTo: 'one-two-three/home', pathMatch: 'full' }
 ];
 var OneTwoThreeModule = /** @class */ (function () {
     function OneTwoThreeModule() {
     }
-    OneTwoThreeModule = tslib_1.__decorate([
-        core_1.NgModule({
+    OneTwoThreeModule = __decorate([
+        NgModule({
             imports: [
-                common_1.CommonModule,
-                http_1.HttpClientModule,
-                forms_1.FormsModule,
-                forms_1.ReactiveFormsModule,
-                shared_module_1.SharedModule,
-                material_module_1.MaterialModule,
-                router_1.RouterModule.forChild(routes)
+                CommonModule,
+                HttpClientModule,
+                FormsModule,
+                ReactiveFormsModule,
+                SharedModule,
+                MaterialModule,
+                RouterModule.forChild(routes)
             ],
-            exports: [router_1.RouterModule],
+            exports: [RouterModule],
             declarations: [
-                home_component_1.HomeComponent,
-                particips_list_component_1.ParticipsListComponent,
-                add_or_update_component_1.AddOrUpdateComponent,
-                protocols_list_component_1.ProtocolsListComponent,
-                protocol_component_1.ProtocolComponent
+                HomeComponent,
+                ParticipsListComponent,
+                AddOrUpdateComponent,
+                ProtocolsListComponent,
+                ProtocolComponent
             ],
             providers: [
-                particips_service_1.ParticipService,
-                question_protocols_service_1.QuestionProtocolService
+                ParticipService,
+                QuestionProtocolService
             ]
         })
     ], OneTwoThreeModule);
     return OneTwoThreeModule;
 }());
-exports.OneTwoThreeModule = OneTwoThreeModule;
+export { OneTwoThreeModule };
 //# sourceMappingURL=one-two-three.module.js.map

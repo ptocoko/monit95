@@ -1,15 +1,14 @@
-﻿
+
 import { Component, OnInit, Pipe, PipeTransform, IterableDiffers, IterableDiffer, KeyValueDiffers, TemplateRef } from '@angular/core';
 import { HttpResponse } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { Subject } from "rxjs/Subject";
+import { Observable ,  Subject } from "rxjs";
 import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 import { AnswerSheet } from '../../../../models/scan.model';
 
 @Component({
 	selector: 'scan-protocols-component',
-	templateUrl: `./app/components/rsur/protocols/scan/scan-protocols.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/protocols/scan/scan-protocols.component.css?v=${new Date().getTime()}`]
+	templateUrl: './scan-protocols.component.html',
+	styleUrls: ['./scan-protocols.component.css']
 })
 export class ScanProtocolsComponent implements OnInit{
 	answerSheets: AnswerSheetForUpload[] = [];

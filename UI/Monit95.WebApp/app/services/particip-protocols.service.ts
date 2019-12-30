@@ -1,9 +1,9 @@
-﻿
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ParticipProtocolModel } from '../models/particip-protocol.model';
 import { QuestionResult } from '../models/marks-protocol.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Constant } from '../shared/constants';
 import { QuestionProtocolRead } from '../models/question-protocol-read.model';
 import { QuestionProtocolEdit, QuestionMarkEdit } from '../models/question-protocol-edit.model';

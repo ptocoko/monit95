@@ -1,10 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var particip_protocols_service_1 = require("../../services/particip-protocols.service");
-var material_1 = require("@angular/material");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from "@angular/router";
+import { ParticipProtocolsService } from '../../services/particip-protocols.service';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 //const PROJECT_TEST_ID: number = 1;
 var ProtocolsComponent = /** @class */ (function () {
     function ProtocolsComponent(participProtocolsService, router, route) {
@@ -15,7 +21,7 @@ var ProtocolsComponent = /** @class */ (function () {
         this.displayedColumns = ['index', 'FIO', 'DocumNumber', 'Marks', 'actions'];
         this.protocolsCount = 0;
         this.AbsentText = 'отсутствовал';
-        this.dataSource = new material_1.MatTableDataSource();
+        this.dataSource = new MatTableDataSource();
         this.protocols = [];
         this.isLoading = true;
         // вычисление статистики
@@ -33,7 +39,7 @@ var ProtocolsComponent = /** @class */ (function () {
             _this.participProtocolsService.getProtocolsList(projectTestId).subscribe(function (res) {
                 _this.protocolsCount = res.length;
                 _this.protocols = res;
-                _this.dataSource = new material_1.MatTableDataSource(res);
+                _this.dataSource = new MatTableDataSource(res);
                 _this.isLoading = false;
                 _this.dataSource.paginator = _this.paginator;
             });
@@ -55,20 +61,20 @@ var ProtocolsComponent = /** @class */ (function () {
             _this.dataSource.data[index].QuestionMarks = _this.AbsentText;
         });
     };
-    tslib_1.__decorate([
-        core_1.ViewChild('paginator'),
-        tslib_1.__metadata("design:type", material_1.MatPaginator)
+    __decorate([
+        ViewChild('paginator'),
+        __metadata("design:type", MatPaginator)
     ], ProtocolsComponent.prototype, "paginator", void 0);
-    ProtocolsComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/particips/protocols/protocols.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/particips/protocols/protocols.component.css?v=" + new Date().getTime()]
+    ProtocolsComponent = __decorate([
+        Component({
+            templateUrl: './protocols.component.html',
+            styleUrls: ['./protocols.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [particip_protocols_service_1.ParticipProtocolsService,
-            router_1.Router,
-            router_1.ActivatedRoute])
+        __metadata("design:paramtypes", [ParticipProtocolsService,
+            Router,
+            ActivatedRoute])
     ], ProtocolsComponent);
     return ProtocolsComponent;
 }());
-exports.ProtocolsComponent = ProtocolsComponent;
+export { ProtocolsComponent };
 //# sourceMappingURL=protocols.component.js.map

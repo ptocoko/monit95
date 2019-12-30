@@ -1,12 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var particips_service_1 = require("../../../services/one-two-three/particips.service");
-var router_1 = require("@angular/router");
-var class_service_1 = require("../../../services/class.service");
-var forms_1 = require("@angular/forms");
-var common_1 = require("@angular/common");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { ParticipService } from '../../../services/one-two-three/particips.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ClassService } from '../../../services/class.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 var AddOrUpdateComponent = /** @class */ (function () {
     function AddOrUpdateComponent(participService, classService, router, route, location, fb, renderer) {
         var _this = this;
@@ -63,10 +69,10 @@ var AddOrUpdateComponent = /** @class */ (function () {
     };
     AddOrUpdateComponent.prototype.createForm = function () {
         this.participForm = this.fb.group({
-            surname: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
-            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2)]],
-            secondName: ['', forms_1.Validators.minLength(4)],
-            classId: ['', forms_1.Validators.required]
+            surname: ['', [Validators.required, Validators.minLength(3)]],
+            name: ['', [Validators.required, Validators.minLength(2)]],
+            secondName: ['', Validators.minLength(4)],
+            classId: ['', Validators.required]
         });
     };
     AddOrUpdateComponent.prototype.submitForm = function () {
@@ -140,24 +146,24 @@ var AddOrUpdateComponent = /** @class */ (function () {
         if (this.classesSub$)
             this.classesSub$.unsubscribe();
     };
-    tslib_1.__decorate([
-        core_1.ViewChild('surnameInput'),
-        tslib_1.__metadata("design:type", core_1.ElementRef)
+    __decorate([
+        ViewChild('surnameInput'),
+        __metadata("design:type", ElementRef)
     ], AddOrUpdateComponent.prototype, "firstField", void 0);
-    AddOrUpdateComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/one-two-three/particips/add-or-update/add-or-update.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/one-two-three/particips/add-or-update/add-or-update.component.css?v=" + new Date().getTime()]
+    AddOrUpdateComponent = __decorate([
+        Component({
+            templateUrl: './add-or-update.component.html',
+            styleUrls: ['./add-or-update.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [particips_service_1.ParticipService,
-            class_service_1.ClassService,
-            router_1.Router,
-            router_1.ActivatedRoute,
-            common_1.Location,
-            forms_1.FormBuilder,
-            core_1.Renderer2])
+        __metadata("design:paramtypes", [ParticipService,
+            ClassService,
+            Router,
+            ActivatedRoute,
+            Location,
+            FormBuilder,
+            Renderer2])
     ], AddOrUpdateComponent);
     return AddOrUpdateComponent;
 }());
-exports.AddOrUpdateComponent = AddOrUpdateComponent;
+export { AddOrUpdateComponent };
 //# sourceMappingURL=add-or-update.component.js.map

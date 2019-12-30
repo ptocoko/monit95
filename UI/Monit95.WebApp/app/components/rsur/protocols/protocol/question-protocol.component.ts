@@ -5,7 +5,7 @@ import { MarksProtocol, QuestionResult } from '../../../../models/marks-protocol
 import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 
 @Component({
-	templateUrl: `./app/components/rsur/protocols/protocol/question-protocol.component.html?v=${new Date().getTime()}`
+	templateUrl: './question-protocol.component.html',
 })
 export class QuestionProtocolComponent {
 	marksProtocol: MarksProtocol;

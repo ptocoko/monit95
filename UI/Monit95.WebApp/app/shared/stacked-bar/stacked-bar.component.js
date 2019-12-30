@@ -1,7 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 var StackedBarComponent = /** @class */ (function () {
     function StackedBarComponent() {
     }
@@ -27,27 +33,27 @@ var StackedBarComponent = /** @class */ (function () {
             });
         }
     };
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Array)
+    __decorate([
+        Input(),
+        __metadata("design:type", Array)
     ], StackedBarComponent.prototype, "values", void 0);
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Array)
+    __decorate([
+        Input(),
+        __metadata("design:type", Array)
     ], StackedBarComponent.prototype, "colorScheme", void 0);
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Array)
+    __decorate([
+        Input(),
+        __metadata("design:type", Array)
     ], StackedBarComponent.prototype, "legend", void 0);
-    StackedBarComponent = tslib_1.__decorate([
-        core_1.Component({
+    StackedBarComponent = __decorate([
+        Component({
             selector: 'app-stacked-bar',
-            templateUrl: "./app/shared/stacked-bar/stacked-bar.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/shared/stacked-bar/stacked-bar.component.css?v=" + new Date().getTime()],
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush
+            templateUrl: './stacked-bar.component.html',
+            styleUrls: ['./stacked-bar.component.css'],
+            changeDetection: ChangeDetectionStrategy.OnPush
         })
     ], StackedBarComponent);
     return StackedBarComponent;
 }());
-exports.StackedBarComponent = StackedBarComponent;
+export { StackedBarComponent };
 //# sourceMappingURL=stacked-bar.component.js.map

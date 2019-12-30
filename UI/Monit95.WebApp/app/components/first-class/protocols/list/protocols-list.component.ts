@@ -1,21 +1,15 @@
-﻿import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ProtocolsService } from '../../../../services/first-class/protocols.service';
 import { ProtocolGetModel, ProtocolsList } from '../../../../models/first-class/protocol-get.model';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { merge } from 'rxjs/observable/merge';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { map } from 'rxjs/operators/map';
+import { Subject ,  fromEvent ,  merge ,  Observable } from 'rxjs';
+import { debounceTime ,  startWith ,  switchMap ,  map } from 'rxjs/operators';
 import { TablePaginator } from '../../../../shared/table-paginator/table-paginator';
-import { Observable } from 'rxjs/Observable';
 import { ClassModel } from '../../../../models/class.model';
 
 @Component({
-	templateUrl: `./app/components/first-class/protocols/list/protocols-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/first-class/protocols/list/protocols-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './protocols-list.component.html',
+	styleUrls: ['./protocols-list.component.css']
 })
 export class ProtocolsListComponent {
 	protocols: ProtocolGetModel[] = [];

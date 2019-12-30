@@ -11,7 +11,7 @@ import { MaterialModule } from './material.module';
 import { ParticipsModule } from './particips/particips.module';
 import { OneTwoThreeModule } from './one-two-three/one-two-three.module';
 import { SharedModule } from './shared/shared-module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { FirstClassModule } from './components/first-class/first-class.module';
 import { TwoThreeModule } from './components/two-three/two-three.module';
 import { TwoThreeModule2 } from './components/two-three-2/two-three.module';
@@ -83,10 +83,10 @@ import { KpkModule } from './components/kpk/kpk.module';
         HttpClientModule,        
         FormsModule,
         ReactiveFormsModule,        
-        MyDatePickerModule, 
+        MyDatePickerModule,
 		BrowserAnimationsModule,		
         OrderModule,	
-		NgbModule.forRoot(),
+		NgbProgressbarModule,
 		SharedModule,
 		MaterialModule,
 		ParticipsModule,

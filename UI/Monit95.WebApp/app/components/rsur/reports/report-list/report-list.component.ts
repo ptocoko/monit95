@@ -1,19 +1,12 @@
-﻿import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { RsurReportService } from '../../../../services/rsur-report.service';
 import { AccountService } from '../../../../services/account.service';
 import { RsurReportModel, ReportsList } from '../../../../models/rsur-report.model';
 import { MatTableDataSource, MatSelectChange, MatPaginator, MatSelect } from '@angular/material';
 import { ReportsInfo } from '../../../../models/rsur-reports-info.model';
-import { merge } from 'rxjs/observable/merge';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { merge ,  fromEvent ,  Observable ,  Subject ,  Subscription } from 'rxjs';
+import { debounceTime ,  map ,  startWith ,  switchMap } from 'rxjs/operators';
 
 export const SCHOOLNAME_DEFAULT_SELECTION = 'все организации';
 export const TESTNAME_DEFAULT_SELECTION = 'все блоки';
@@ -21,8 +14,8 @@ export const EXAMNAME_DEFAULT_SELECTION = 'все диагностики';
 
 @Component({
 	selector: 'report-list',
-	templateUrl: `./app/components/rsur/reports/report-list/report-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/reports/report-list/report-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './report-list.component.html',
+	styleUrls: ['./report-list.component.css']
 })
 export class ReportListComponent implements AfterViewInit, OnDestroy {
 	reportsList: RsurReportModel[];
@@ -50,7 +43,7 @@ export class ReportListComponent implements AfterViewInit, OnDestroy {
     
 	constructor(private readonly rsurReportService: RsurReportService,
                 private readonly route: Router,
-                private readonly accountService: AccountService) {
+                public readonly accountService: AccountService) {
     }
     
 	ngAfterViewInit() {

@@ -16,8 +16,8 @@ const COLLECTOR_ID = 5;
 
 @Component({
     selector: 'rsur/particips',
-	templateUrl: `./app/components/rsur/actualization/hiring/list/hiring-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/actualization/hiring/list/hiring-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './hiring-list.component.html',
+	styleUrls: ['./hiring-list.component.css']
 })
 export class HiringListComponent implements OnInit {
     particips: RsurParticipModel[] = [];

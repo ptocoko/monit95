@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var Constant = /** @class */ (function () {
     function Constant() {
     }
@@ -14,5 +12,5 @@ var Constant = /** @class */ (function () {
     };
     return Constant;
 }());
-exports.Constant = Constant;
+export { Constant };
 //# sourceMappingURL=constants.js.map

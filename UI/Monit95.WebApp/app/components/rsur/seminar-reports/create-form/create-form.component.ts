@@ -4,8 +4,8 @@ import { MatSnackBar } from '@angular/material';
 import { Location } from '@angular/common';
 
 @Component({	
-	templateUrl: `./app/components/rsur/seminar-reports/create-form/create-form.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/seminar-reports/create-form/create-form.component.css?v=${new Date().getTime()}`]
+	templateUrl: './create-form.component.html',
+	styleUrls: ['./create-form.component.css']
 })
 export class SeminarReportCreateFormComponent {
 	seminarFiles: IImageFile[] = [];

@@ -7,8 +7,8 @@ import { NgForm } from '@angular/forms';
 import { QuestionResultModel } from '../../../../models/first-class/question-result.model';
 
 @Component({
-	templateUrl: `./app/components/first-class/protocols/protocol/protocol.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/first-class/protocols/protocol/protocol.component.css?v=${new Date().getTime()}`]
+	templateUrl: './protocol.component.html',
+	styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent {
 	protocol: ProtocolPostModel;

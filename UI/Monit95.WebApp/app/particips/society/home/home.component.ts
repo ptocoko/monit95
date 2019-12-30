@@ -4,7 +4,7 @@ import { CardsService } from '../../../services/cards.service';
 import { downloadFile } from '../../../utils/functions';
 
 @Component({
-	templateUrl: `./app/particips/society/home/home.component.html?v=${new Date().getTime()}`
+	templateUrl: './home.component.html',
 })
 export class SocietyHomeComponent {
 	timeIsCome = false;

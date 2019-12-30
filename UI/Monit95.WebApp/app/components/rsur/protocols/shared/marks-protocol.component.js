@@ -1,14 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var fromEvent_1 = require("rxjs/observable/fromEvent");
-var filter_1 = require("rxjs/operators/filter");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 var MarksProtocolComponent = /** @class */ (function () {
     function MarksProtocolComponent() {
-        this.onSend = new core_1.EventEmitter();
-        this.onCancel = new core_1.EventEmitter();
-        this.optionNumberChange = new core_1.EventEmitter();
+        this.onSend = new EventEmitter();
+        this.onCancel = new EventEmitter();
+        this.optionNumberChange = new EventEmitter();
     }
     MarksProtocolComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -17,8 +23,8 @@ var MarksProtocolComponent = /** @class */ (function () {
         if (this.inputElements.get(0)) {
             this.inputElements.get(0).focus();
             this.inputElements.get(0).setSelectionRange(0, this.inputElements.get(0).value.length);
-            this.keyUpSub$ = fromEvent_1.fromEvent(document.getElementsByClassName('markInput'), 'keyup')
-                .pipe(filter_1.filter(function (event) { return [38, 40].indexOf(event.keyCode) > -1; }))
+            this.keyUpSub$ = fromEvent(document.getElementsByClassName('markInput'), 'keyup')
+                .pipe(filter(function (event) { return [38, 40].indexOf(event.keyCode) > -1; }))
                 .subscribe(function (event) {
                 if (event.keyCode === 40) {
                     _this.focusOnNextElement(event);
@@ -102,44 +108,44 @@ var MarksProtocolComponent = /** @class */ (function () {
         if (this.keyUpSub$)
             this.keyUpSub$.unsubscribe();
     };
-    tslib_1.__decorate([
-        core_1.Input('questions'),
-        tslib_1.__metadata("design:type", Array)
+    __decorate([
+        Input('questions'),
+        __metadata("design:type", Array)
     ], MarksProtocolComponent.prototype, "questionResults", void 0);
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Boolean)
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
     ], MarksProtocolComponent.prototype, "hasOptionNumber", void 0);
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Number)
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
     ], MarksProtocolComponent.prototype, "optionNumber", void 0);
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Boolean)
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
     ], MarksProtocolComponent.prototype, "showPossibleMarks", void 0);
-    tslib_1.__decorate([
-        core_1.Output(),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
     ], MarksProtocolComponent.prototype, "onSend", void 0);
-    tslib_1.__decorate([
-        core_1.Output(),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
     ], MarksProtocolComponent.prototype, "onCancel", void 0);
-    tslib_1.__decorate([
-        core_1.Output(),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
     ], MarksProtocolComponent.prototype, "optionNumberChange", void 0);
-    MarksProtocolComponent = tslib_1.__decorate([
-        core_1.Component({
+    MarksProtocolComponent = __decorate([
+        Component({
             selector: 'marks-protocol',
-            templateUrl: "./app/components/rsur/protocols/shared/marks-protocol.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/rsur/protocols/shared/marks-protocol.component.css?v=" + new Date().getTime()]
+            templateUrl: './marks-protocol.component.html',
+            styleUrls: ['./marks-protocol.component.css']
         })
     ], MarksProtocolComponent);
     return MarksProtocolComponent;
 }());
-exports.MarksProtocolComponent = MarksProtocolComponent;
+export { MarksProtocolComponent };
 function convertToInput(elem) {
     var inputElem = elem;
     return inputElem;

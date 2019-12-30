@@ -4,8 +4,8 @@ import { ReportsService } from '../../../services/iTakeEge/reports/reports.servi
 import { ReportModel } from '../../../models/iTakeEge/reports/report.model';
 
 @Component({
-	templateUrl: `./app/particips/reports/report/report.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/particips/reports/report/report.component.css?v=${new Date().getTime()}`]
+	templateUrl: './report.component.html',
+	styleUrls: ['./report.component.css']
 })
 export class ReportComponent {
 	reportData: ReportModel;

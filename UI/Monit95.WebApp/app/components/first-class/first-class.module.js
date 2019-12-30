@@ -1,58 +1,61 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var common_1 = require("@angular/common");
-var http_1 = require("@angular/common/http");
-var forms_1 = require("@angular/forms");
-var router_1 = require("@angular/router");
-var home_component_1 = require("./home/home.component");
-var particips_list_component_1 = require("./particips/list/particips-list.component");
-var add_or_update_component_1 = require("./particips/add-or-update/add-or-update.component");
-var shared_module_1 = require("../../shared/shared-module");
-var material_module_1 = require("../../material.module");
-var particips_service_1 = require("../../services/first-class/particips.service");
-var protocols_service_1 = require("../../services/first-class/protocols.service");
-var protocols_list_component_1 = require("./protocols/list/protocols-list.component");
-var protocol_component_1 = require("./protocols/protocol/protocol.component");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { ParticipsListComponent } from './particips/list/particips-list.component';
+import { AddOrUpdateComponent } from './particips/add-or-update/add-or-update.component';
+import { SharedModule } from '../../shared/shared-module';
+import { MaterialModule } from '../../material.module';
+import { ParticipService } from '../../services/first-class/particips.service';
+import { ProtocolsService } from '../../services/first-class/protocols.service';
+import { ProtocolsListComponent } from './protocols/list/protocols-list.component';
+import { ProtocolComponent } from './protocols/protocol/protocol.component';
 var routes = [
-    { path: 'first-class/home', component: home_component_1.HomeComponent },
-    { path: 'first-class/particips/list', component: particips_list_component_1.ParticipsListComponent },
-    { path: 'first-class/particips/add', component: add_or_update_component_1.AddOrUpdateComponent },
-    { path: 'first-class/particips/:participId', component: add_or_update_component_1.AddOrUpdateComponent },
-    { path: 'first-class/protocols/list', component: protocols_list_component_1.ProtocolsListComponent },
-    { path: 'first-class/protocol/:participTestId', component: protocol_component_1.ProtocolComponent },
+    { path: 'first-class/home', component: HomeComponent },
+    { path: 'first-class/particips/list', component: ParticipsListComponent },
+    { path: 'first-class/particips/add', component: AddOrUpdateComponent },
+    { path: 'first-class/particips/:participId', component: AddOrUpdateComponent },
+    { path: 'first-class/protocols/list', component: ProtocolsListComponent },
+    { path: 'first-class/protocol/:participTestId', component: ProtocolComponent },
     { path: 'first-class', redirectTo: 'first-class/home', pathMatch: 'full' }
 ];
 var FirstClassModule = /** @class */ (function () {
     function FirstClassModule() {
     }
-    FirstClassModule = tslib_1.__decorate([
-        core_1.NgModule({
+    FirstClassModule = __decorate([
+        NgModule({
             imports: [
-                common_1.CommonModule,
-                http_1.HttpClientModule,
-                forms_1.FormsModule,
-                forms_1.ReactiveFormsModule,
-                shared_module_1.SharedModule,
-                material_module_1.MaterialModule,
-                router_1.RouterModule.forChild(routes)
+                CommonModule,
+                HttpClientModule,
+                FormsModule,
+                ReactiveFormsModule,
+                SharedModule,
+                MaterialModule,
+                RouterModule.forChild(routes)
             ],
-            exports: [router_1.RouterModule],
+            exports: [RouterModule],
             declarations: [
-                home_component_1.HomeComponent,
-                particips_list_component_1.ParticipsListComponent,
-                add_or_update_component_1.AddOrUpdateComponent,
-                protocols_list_component_1.ProtocolsListComponent,
-                protocol_component_1.ProtocolComponent
+                HomeComponent,
+                ParticipsListComponent,
+                AddOrUpdateComponent,
+                ProtocolsListComponent,
+                ProtocolComponent
             ],
             providers: [
-                particips_service_1.ParticipService,
-                protocols_service_1.ProtocolsService
+                ParticipService,
+                ProtocolsService
             ]
         })
     ], FirstClassModule);
     return FirstClassModule;
 }());
-exports.FirstClassModule = FirstClassModule;
+export { FirstClassModule };
 //# sourceMappingURL=first-class.module.js.map

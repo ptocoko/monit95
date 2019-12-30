@@ -3,7 +3,7 @@ import { RsurRatingService } from '../../../services/rsur-rating.service';
 
 @Component({
 	selector: 'ratings',
-    templateUrl: `./app/components/rsur/ratings/ratings.component.html?v=${new Date().getTime()}`
+    templateUrl: './ratings.component.html',
 })
 export class RatingsComponent implements OnInit {
     ratings: RatingItem[];        

@@ -1,24 +1,22 @@
-﻿import { Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FileService } from '../../../services/file.service';
 import { AccountService } from '../../../services/account.service';
 import { getFileExtension } from '../../../utils/functions';
 import { SchoolCollectorService } from '../../../shared/school-collector.service';
-import { stagger } from '@angular/core/src/animation/dsl';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { AreaCollectorService } from '../../../shared/area-collector.service';
 import { Collector } from '../../../shared/collector.interface';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription ,  of } from 'rxjs';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { switchMap, catchError, map, filter } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 
 const REPOSITORY_ID = 6;
 
 @Component({
 	selector: 'app-excel-upload',
-	templateUrl: `./app/components/two-three/excel-uploader/uploader.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/two-three/excel-uploader/uploader.component.css?v=${new Date().getTime()}`]
+	templateUrl: './uploader.component.html',
+	styleUrls: ['./uploader.component.css']
 })
 export class ExcelUploadComponent implements OnDestroy {
 	uploadStatus: 'waiting' | 'uploading' | 'uploaded' = 'waiting';

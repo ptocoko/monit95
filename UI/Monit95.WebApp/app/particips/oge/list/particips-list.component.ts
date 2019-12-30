@@ -3,7 +3,7 @@ import { ParticipService } from '../../../services/particip.service';
 import { ParticipModel } from '../../../models/particip.model';
 
 @Component({
-    templateUrl: `./app/particips/oge/list/particips-list.component.html?v=${new Date().getTime()}`
+    templateUrl: './particips-list.component.html',
 })
 export class OgeParticipsListComponent implements OnInit {
 	particips: ParticipModel[];

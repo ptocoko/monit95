@@ -1,22 +1,28 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, Input } from '@angular/core';
 var LoadingViewComponent = /** @class */ (function () {
     function LoadingViewComponent() {
     }
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", String)
+    __decorate([
+        Input(),
+        __metadata("design:type", String)
     ], LoadingViewComponent.prototype, "caption", void 0);
-    LoadingViewComponent = tslib_1.__decorate([
-        core_1.Component({
+    LoadingViewComponent = __decorate([
+        Component({
             selector: 'spinner-view',
-            templateUrl: "./app/shared/loading-view/loading-view.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/shared/loading-view/loading-view.component.css?v=" + new Date().getTime()]
+            templateUrl: './loading-view.component.html',
+            styleUrls: ['./loading-view.component.css']
         })
     ], LoadingViewComponent);
     return LoadingViewComponent;
 }());
-exports.LoadingViewComponent = LoadingViewComponent;
+export { LoadingViewComponent };
 //# sourceMappingURL=loading-view.component.js.map

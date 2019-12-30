@@ -1,4 +1,4 @@
-﻿import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { CollectorModel } from '../models/collector.model';
 
 export interface Collector {

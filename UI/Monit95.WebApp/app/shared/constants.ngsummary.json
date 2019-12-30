@@ -1,0 +1,1 @@
+{"moduleName":null,"summaries":[{"symbol":{"__symbol":0,"members":[]},"metadata":{"__symbolic":"class","statics":{"PROJECT_ID":12,"questionResultsSortFunc":{"__symbolic":"error","message":"Lambda not supported","fileName":"app\\shared\\constants.ts"}}}}],"symbols":[{"__symbol":0,"name":"Constant","filePath":"./constants"}]}

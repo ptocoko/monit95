@@ -3,8 +3,8 @@ import { ParticipService } from '../../services/particip.service';
 import { ParticipModel } from '../../models/particip.model';
 
 @Component({
-    templateUrl: `./app/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
-    styleUrls: [`./app/particips/list/particips-list.component.css?v=${new Date().getTime()}`]
+    templateUrl: './particips-list.component.html',
+    styleUrls: ['./particips-list.component.css']
 })
 export class ParticipsListComponent implements OnInit {
 	particips: ParticipModel[];

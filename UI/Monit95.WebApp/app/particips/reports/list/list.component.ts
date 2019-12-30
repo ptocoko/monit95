@@ -1,24 +1,17 @@
-﻿import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
-import { merge } from 'rxjs/observable/merge';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { merge ,  fromEvent ,  Observable ,  Subject ,  Subscription } from 'rxjs';
+import { debounceTime ,  map ,  startWith ,  switchMap } from 'rxjs/operators';
 
 import { ReportsListModel, ReportItem } from '../../../models/iTakeEge/reports/reports-list.model';
 import { ReportsInfo } from '../../../models/iTakeEge/reports/reports-info.model';
 import { ReportsService } from '../../../services/iTakeEge/reports/reports.service';
 import { AccountService } from '../../../services/account.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-	templateUrl: `./app/particips/reports/list/list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/particips/reports/list/list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './list.component.html',
+	styleUrls: ['./list.component.css']
 })
 export class ReportsListComponent {
 	reportsList: ReportsListModel[];

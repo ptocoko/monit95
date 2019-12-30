@@ -1,8 +1,8 @@
-﻿
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { SeminarReportView, SeminarReportEdit } from '../components/rsur/seminar-reports/shared/seminar-report.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class SeminarReportService {

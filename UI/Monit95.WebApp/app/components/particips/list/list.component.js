@@ -1,11 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var material_1 = require("@angular/material");
-var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm-dialog.component");
-var particips_service_1 = require("../../../services/refactored/particips.service");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatSnackBar, MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
+import { ParticipsService } from '../../../services/refactored/particips.service';
 var ListComponent = /** @class */ (function () {
     function ListComponent(router, route, modal, snackBar, participsService) {
         this.router = router;
@@ -15,7 +21,7 @@ var ListComponent = /** @class */ (function () {
         this.participsService = participsService;
         this.particips = [];
         this.displayedColumns = ['$id', 'Surname', 'Name', 'SecondName', 'ClassName', 'del-action'];
-        this.dataSource = new material_1.MatTableDataSource();
+        this.dataSource = new MatTableDataSource();
     }
     ListComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -24,7 +30,7 @@ var ListComponent = /** @class */ (function () {
         //	this.projectName = queryParams['projectName'];
         //});
         this.participsService.getAll(this.projectId).subscribe(function (particips) {
-            _this.dataSource = new material_1.MatTableDataSource(particips);
+            _this.dataSource = new MatTableDataSource(particips);
             _this.particips = particips;
             _this.projectName = _this.route.snapshot.queryParams['projectName'];
         });
@@ -43,7 +49,7 @@ var ListComponent = /** @class */ (function () {
     ListComponent.prototype.deleteClassParticip = function (particip) {
         var _this = this;
         var participIndex = this.particips.indexOf(particip);
-        var modalRef = this.modal.open(confirm_dialog_component_1.ConfirmDialogComponent, {
+        var modalRef = this.modal.open(ConfirmDialogComponent, {
             width: '400px',
             disableClose: true,
             data: { message: "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u043E\u0433\u043E \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430?" }
@@ -60,26 +66,26 @@ var ListComponent = /** @class */ (function () {
             }
         });
     };
-    tslib_1.__decorate([
-        core_1.ViewChild(material_1.MatSort),
-        tslib_1.__metadata("design:type", material_1.MatSort)
+    __decorate([
+        ViewChild(MatSort),
+        __metadata("design:type", MatSort)
     ], ListComponent.prototype, "sort", void 0);
-    tslib_1.__decorate([
-        core_1.ViewChild(material_1.MatPaginator),
-        tslib_1.__metadata("design:type", material_1.MatPaginator)
+    __decorate([
+        ViewChild(MatPaginator),
+        __metadata("design:type", MatPaginator)
     ], ListComponent.prototype, "paginator", void 0);
-    ListComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/components/particips/list/list.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/particips/list/list.component.css?v=" + new Date().getTime()]
+    ListComponent = __decorate([
+        Component({
+            templateUrl: './list.component.html',
+            styleUrls: ['./list.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [router_1.Router,
-            router_1.ActivatedRoute,
-            material_1.MatDialog,
-            material_1.MatSnackBar,
-            particips_service_1.ParticipsService])
+        __metadata("design:paramtypes", [Router,
+            ActivatedRoute,
+            MatDialog,
+            MatSnackBar,
+            ParticipsService])
     ], ListComponent);
     return ListComponent;
 }());
-exports.ListComponent = ListComponent;
+export { ListComponent };
 //# sourceMappingURL=list.component.js.map

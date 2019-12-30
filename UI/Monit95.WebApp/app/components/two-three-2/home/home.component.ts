@@ -4,8 +4,8 @@ import { AccountService } from '../../../services/account.service';
 import { getFileExtension } from '../../../utils/functions';
 
 @Component({
-	templateUrl: `./app/components/two-three-2/home/home.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/two-three-2/home/home.component.css?v=${new Date().getTime()}`]
+	templateUrl: './home.component.html',
+	styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
 	// timeIsCome = false;

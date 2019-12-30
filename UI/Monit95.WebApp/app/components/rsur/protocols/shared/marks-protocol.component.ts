@@ -1,13 +1,12 @@
-﻿import { Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { QuestionResult } from "../../../../models/marks-protocol.model";
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { filter } from 'rxjs/operators/filter';
-import { Subscription } from 'rxjs/Subscription';
+import { fromEvent ,  Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
 	selector: 'marks-protocol',
-	templateUrl: `./marks-protocol.component.html`,
-	styleUrls: [`./marks-protocol.component.css`]
+	templateUrl: './marks-protocol.component.html',
+	styleUrls: ['./marks-protocol.component.css']
 })
 export class MarksProtocolComponent implements AfterViewInit, OnDestroy {
 	@Input('questions') questionResults: QuestionResult[];

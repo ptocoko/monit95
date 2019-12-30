@@ -18,8 +18,8 @@ const CLASSES: ClassModel[] = [
 ];
 
 @Component({
-	templateUrl: `./app/components/particips/add/add.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/particips/add/add.component.css?v=${new Date().getTime()}`]
+	templateUrl: './add.component.html',
+	styleUrls: ['./add.component.css']
 })
 export class AddComponent {
 	particip = new ParticipModel();

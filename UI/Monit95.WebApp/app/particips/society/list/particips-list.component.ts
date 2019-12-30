@@ -10,8 +10,8 @@ const PROJECT_ID = 27;
 const COLLECTOR_ID = 50;
 
 @Component({
-	templateUrl: `./app/particips/society/list/particips-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/particips/society/list/particips-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './particips-list.component.html',
+	styleUrls: ['./particips-list.component.css']
 })
 export class SocietyParticipsListComponent implements OnInit {
 	particips: ParticipModel[] = [];

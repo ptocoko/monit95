@@ -1,11 +1,10 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProtocolList } from '../../models/one-two-three/protocol-list.model';
 import { QuestionProtocol } from '../../models/one-two-three/question-protocol.model';
 import { QuestionResult } from '../../models/marks-protocol.model';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
-import { delay } from 'rxjs/operators/delay';
+import { of ,  Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable()
 export class QuestionProtocolService {

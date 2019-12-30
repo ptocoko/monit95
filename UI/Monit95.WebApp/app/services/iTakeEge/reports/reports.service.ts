@@ -1,10 +1,10 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ReportModel } from '../../../models/iTakeEge/reports/report.model';
 import { ReportsInfo } from '../../../models/iTakeEge/reports/reports-info.model';
 import { ReportsSearch } from '../../../models/iTakeEge/reports/reports-search.model';
 import { ReportsListModel } from '../../../models/iTakeEge/reports/reports-list.model';
-import { map } from 'rxjs/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ReportsService {

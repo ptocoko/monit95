@@ -13,8 +13,8 @@ import { SCHOOLNAME_DEFAULT_SELECTION } from '../reports/report-list/report-list
 
 @Component({
     selector: 'rsur/particips',
-    templateUrl: `./app/components/rsur/particips/particips.component.html?v=${new Date().getTime()}`,
-    styleUrls: [`./app/components/rsur/particips/particips.component.css?v=${new Date().getTime()}`]
+    templateUrl: './particips.component.html',
+    styleUrls: ['./particips.component.css']
 })
 export class RsurParticipsComponent implements OnInit {
     allParticips: RsurParticipModel[] = [];

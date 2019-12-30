@@ -19,8 +19,8 @@ export class ClassParticipResult {
 const MAX_MARKS = [4, 1, 3, 1, 1];
 
 @Component({
-	templateUrl: `./app/class-particips/results/particip-report.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/class-particips/results/particip-report.component.css?v=${new Date().getTime()}`]
+	templateUrl: './particip-report.component.html',
+	styleUrls: ['./particip-report.component.css']
 })
 export class ClassParticipReportComponent implements OnInit { //TODO: Need to finish!!
 	maxMarks: number[] = MAX_MARKS;

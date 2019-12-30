@@ -2,8 +2,8 @@
 
 @Component({
 	selector: 'spinner-view',
-	templateUrl: `./app/shared/loading-view/loading-view.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/shared/loading-view/loading-view.component.css?v=${new Date().getTime()}`]
+	templateUrl: './loading-view.component.html',
+	styleUrls: ['./loading-view.component.css']
 })
 export class LoadingViewComponent {
 	@Input() caption: string;

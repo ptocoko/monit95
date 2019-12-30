@@ -2,12 +2,12 @@
 import { AccountService } from '../../services/account.service';
 
 @Component({
-	templateUrl: `./app/one-two-three/home/home.component.html?v=${new Date().getTime()}`
+	templateUrl: './home.component.html',
 })
 export class HomeComponent {
 	timeIsCome = false;
 
-	constructor(private accountService: AccountService) { }
+	constructor(public accountService: AccountService) { }
 
 	ngOnInit() {
 		const date = new Date();

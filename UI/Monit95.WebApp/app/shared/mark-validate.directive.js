@@ -1,8 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Directive, Input } from '@angular/core';
+import { NG_VALIDATORS } from '@angular/forms';
 var MarkValidateDirective = /** @class */ (function () {
     function MarkValidateDirective() {
     }
@@ -11,19 +17,19 @@ var MarkValidateDirective = /** @class */ (function () {
         return this.question && control.value ? markValidator(this.question)(control) : null;
     };
     var MarkValidateDirective_1;
-    tslib_1.__decorate([
-        core_1.Input('appMark'),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        Input('appMark'),
+        __metadata("design:type", Object)
     ], MarkValidateDirective.prototype, "question", void 0);
-    MarkValidateDirective = MarkValidateDirective_1 = tslib_1.__decorate([
-        core_1.Directive({
+    MarkValidateDirective = MarkValidateDirective_1 = __decorate([
+        Directive({
             selector: '[appMark]',
-            providers: [{ provide: forms_1.NG_VALIDATORS, useExisting: MarkValidateDirective_1, multi: true }]
+            providers: [{ provide: NG_VALIDATORS, useExisting: MarkValidateDirective_1, multi: true }]
         })
     ], MarkValidateDirective);
     return MarkValidateDirective;
 }());
-exports.MarkValidateDirective = MarkValidateDirective;
+export { MarkValidateDirective };
 function getPossibleMarks(maxMark, step) {
     var resArr = [];
     for (var i = 0; i <= maxMark; i += step) {

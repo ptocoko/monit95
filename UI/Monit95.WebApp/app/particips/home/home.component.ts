@@ -5,13 +5,13 @@ import { downloadFile } from '../../utils/functions';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-	templateUrl: `./app/particips/home/home.component.html?v=${new Date().getTime()}`
+	templateUrl: './home.component.html',
 })
 export class HomeComponent {
 	date = new Date();
 	isBadSchool: boolean;
 
-	constructor(private account: AccountService, private cards: CardsService, private snackBar: MatSnackBar) { }
+	constructor(public account: AccountService, private cards: CardsService, private snackBar: MatSnackBar) { }
 
 	ngOnInit() {
 		this.account.getAccount().subscribe(account => this.isBadSchool = this.badSchools(account.UserName));

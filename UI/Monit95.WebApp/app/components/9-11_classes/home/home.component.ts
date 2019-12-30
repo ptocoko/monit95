@@ -2,7 +2,7 @@
 import { AccountService } from '../../../services/account.service';
 
 @Component({
-	templateUrl: `./app/components/9-11_classes/home/home.component.html?v=${new Date().getTime()}`
+	templateUrl: './home.component.html',
 })
 export class HomeComponent {
 	date = new Date();

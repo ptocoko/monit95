@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function getFileExtension(name) {
+export function getFileExtension(name) {
     return name.split('.').pop().toLowerCase();
 }
-exports.getFileExtension = getFileExtension;
-function downloadFile(fileUrl, nameWithExtension) {
+export function downloadFile(fileUrl, nameWithExtension) {
     var a = document.createElement('a');
     document.body.appendChild(a);
     a.setAttribute('style', 'display: none');
@@ -13,5 +10,4 @@ function downloadFile(fileUrl, nameWithExtension) {
     a.click();
     a.remove();
 }
-exports.downloadFile = downloadFile;
 //# sourceMappingURL=functions.js.map

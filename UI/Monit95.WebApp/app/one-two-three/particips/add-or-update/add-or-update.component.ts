@@ -1,4 +1,4 @@
-﻿import { Component, ViewChild, ElementRef, Renderer2, OnDestroy, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, Renderer2, OnDestroy, OnInit } from '@angular/core';
 import { ParticipService } from '../../../services/one-two-three/particips.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParticipModel } from '../../../models/one-two-three/particip.model';
@@ -7,12 +7,11 @@ import { ClassModel } from '../../../models/class.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatInput, MatFormField } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  Subscription } from 'rxjs';
 
 @Component({
-	templateUrl: `./app/one-two-three/particips/add-or-update/add-or-update.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/one-two-three/particips/add-or-update/add-or-update.component.css?v=${new Date().getTime()}`]
+	templateUrl: './add-or-update.component.html',
+	styleUrls: ['./add-or-update.component.css']
 })
 export class AddOrUpdateComponent implements OnInit, OnDestroy {
 	isUpdate: boolean = true;

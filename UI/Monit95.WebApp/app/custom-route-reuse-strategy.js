@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var CustomReuseStrategy = /** @class */ (function () {
     function CustomReuseStrategy() {
         this.handlers = {};
@@ -23,5 +21,5 @@ var CustomReuseStrategy = /** @class */ (function () {
     };
     return CustomReuseStrategy;
 }());
-exports.CustomReuseStrategy = CustomReuseStrategy;
+export { CustomReuseStrategy };
 //# sourceMappingURL=custom-route-reuse-strategy.js.map

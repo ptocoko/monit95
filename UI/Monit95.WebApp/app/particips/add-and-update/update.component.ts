@@ -8,7 +8,7 @@
 //const PROJECT_ID: number = 1;
 
 //@Component({
-//	templateUrl: `./app/class-particips/add-and-update/update.component.html?v=${new Date().getTime()}`
+//	templateUrl: './update.component.html',
 //})
 //export class UpdateClassParticipComponent implements OnInit {
 //	particip = new ClassParticip();

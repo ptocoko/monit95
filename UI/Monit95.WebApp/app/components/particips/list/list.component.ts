@@ -6,8 +6,8 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
 import { ParticipsService } from '../../../services/refactored/particips.service';
 
 @Component({
-	templateUrl: `./app/components/particips/list/list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/particips/list/list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './list.component.html',
+	styleUrls: ['./list.component.css']
 })
 export class ListComponent {
 	particips: ParticipModel[] = [];

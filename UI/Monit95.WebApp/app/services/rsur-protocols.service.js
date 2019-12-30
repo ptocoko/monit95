@@ -1,13 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var http_1 = require("@angular/common/http");
-var Observable_1 = require("rxjs/Observable");
-require("rxjs/add/observable/of");
-require("rxjs/add/operator/delay");
-require("rxjs/add/observable/throw");
-var Subject_1 = require("rxjs/Subject");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { of as observableOf, Subject } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from "@angular/common/http";
 var RsurProtocolsService = /** @class */ (function () {
     function RsurProtocolsService(http) {
         this.http = http;
@@ -29,10 +32,10 @@ var RsurProtocolsService = /** @class */ (function () {
      */
     RsurProtocolsService.prototype.getMarksProtocol = function (participCode) {
         var _this = this;
-        return this.http.get(this.marksProtocolUrl + "/" + participCode).map(function (s) {
+        return this.http.get(this.marksProtocolUrl + "/" + participCode).pipe(map(function (s) {
             s.QuestionResults.sort(_this.sortFunc);
             return s;
-        });
+        }));
     };
     /**
      * Возвращает протокол по fileId
@@ -46,7 +49,7 @@ var RsurProtocolsService = /** @class */ (function () {
         //else {
         //	return Observable.of(null).delay(500);
         //}
-        return Observable_1.Observable.of(null);
+        return observableOf(null);
         //return this.http.get('/api/ExcelFiles/Upload').map(res => {
         //	let marksProtocol = res as MarksProtocol;
         //	if (marksProtocol) {
@@ -59,13 +62,13 @@ var RsurProtocolsService = /** @class */ (function () {
         //});
     };
     RsurProtocolsService.prototype.getQuestionProtocols = function () {
-        return this.http.get(this.marksProtocolUrl).map(function (s) {
+        return this.http.get(this.marksProtocolUrl).pipe(map(function (s) {
             s.forEach(function (val) {
                 if (val.RsurQuestionValues === 'wasnot')
                     val.RsurQuestionValues = 'отсутствовал';
             });
             return s;
-        });
+        }));
     };
     RsurProtocolsService.prototype.postMarksProtocol = function (marksProtocol) {
         return this.http.post(this.marksProtocolUrl, marksProtocol, { responseType: 'text' });
@@ -78,29 +81,29 @@ var RsurProtocolsService = /** @class */ (function () {
     };
     RsurProtocolsService.prototype.getScan = function (fileId) {
         //return Observable.of(protocolScanModel).delay(500);
-        return Observable_1.Observable.of(null);
+        return observableOf(null);
         //return this.http.get<Scan>(`${this.scansUrl}/${fileId}`);
     };
     RsurProtocolsService.prototype.getAnswerSheets = function () {
         //return Observable.of(answerSheets).delay(500);
-        return Observable_1.Observable.of(null);
+        return observableOf(null);
         //return this.http.get<AnswerSheet[]>(`${this.scansUrl}`);
     };
     RsurProtocolsService.prototype.postScan = function (file) {
         var fakeUrl = '/api/ExcelFiles/Upload';
         var formData = new FormData();
         formData.append('image', file, file.name);
-        var subject = new Subject_1.Subject();
-        var req = new http_1.HttpRequest('POST', fakeUrl, formData, {
+        var subject = new Subject();
+        var req = new HttpRequest('POST', fakeUrl, formData, {
             reportProgress: true,
             responseType: 'text'
         });
         this.http.request(req).subscribe(function (event) {
-            if (event.type === http_1.HttpEventType.UploadProgress) {
+            if (event.type === HttpEventType.UploadProgress) {
                 var percentDone = Math.round(100 * event.loaded / event.total);
                 subject.next(percentDone);
             }
-            else if (event instanceof http_1.HttpResponse) {
+            else if (event instanceof HttpResponse) {
                 subject.next(event);
                 subject.complete();
             }
@@ -108,16 +111,16 @@ var RsurProtocolsService = /** @class */ (function () {
         return subject.asObservable();
     };
     RsurProtocolsService.prototype.deleteScan = function (fileId) {
-        return Observable_1.Observable.of({}).delay(1000);
+        return observableOf({}).pipe(delay(1000));
         //return this.http.delete(`${this.scansUrl}/${fileId}`);
     };
-    RsurProtocolsService = tslib_1.__decorate([
-        core_1.Injectable(),
-        tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])
+    RsurProtocolsService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [HttpClient])
     ], RsurProtocolsService);
     return RsurProtocolsService;
 }());
-exports.RsurProtocolsService = RsurProtocolsService;
+export { RsurProtocolsService };
 //const protocolScanModel: Scan = {
 //	FileId: 123,
 //	Url: '/Images/rsur-scans/2090/1000/1.jpg',

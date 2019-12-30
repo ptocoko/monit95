@@ -1,10 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, Input, HostListener, Output, EventEmitter, HostBinding } from '@angular/core';
 var SchoolReportComponent = /** @class */ (function () {
     function SchoolReportComponent() {
-        this.navigate = new core_1.EventEmitter();
+        this.navigate = new EventEmitter();
         this.colorScheme = ['#1dab1d', 'red', 'orange'];
         this.legend = ['сдало', 'не сдало', 'отсутствовало'];
         this.classes = 'app-school-report list-item-link';
@@ -19,35 +25,35 @@ var SchoolReportComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    tslib_1.__decorate([
-        core_1.Input(),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
     ], SchoolReportComponent.prototype, "schoolReport", void 0);
-    tslib_1.__decorate([
-        core_1.Output(),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
     ], SchoolReportComponent.prototype, "navigate", void 0);
-    tslib_1.__decorate([
-        core_1.HostBinding('class'),
-        tslib_1.__metadata("design:type", Object)
+    __decorate([
+        HostBinding('class'),
+        __metadata("design:type", Object)
     ], SchoolReportComponent.prototype, "classes", void 0);
-    tslib_1.__decorate([
-        core_1.HostListener('click'),
-        tslib_1.__metadata("design:type", Function),
-        tslib_1.__metadata("design:paramtypes", []),
-        tslib_1.__metadata("design:returntype", void 0)
+    __decorate([
+        HostListener('click'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
     ], SchoolReportComponent.prototype, "onNavigate", null);
-    SchoolReportComponent = tslib_1.__decorate([
-        core_1.Component({
+    SchoolReportComponent = __decorate([
+        Component({
             selector: 'app-school-report',
             template: "\n<h4>{{ schoolReport.SchoolName }}</h4>\n<app-stacked-bar [values]=\"values\" [colorScheme]=\"colorScheme\" [legend]=\"legend\"></app-stacked-bar>\n",
             styles: [
                 "\n:host {\n\tdisplay: block;\n\tpadding: 10px 15px !important;\n    border: 1px solid #eee !important;\n    border-radius: 5px !important;\n\tcursor: pointer;\n}"
             ]
         }),
-        tslib_1.__metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [])
     ], SchoolReportComponent);
     return SchoolReportComponent;
 }());
-exports.SchoolReportComponent = SchoolReportComponent;
+export { SchoolReportComponent };
 //# sourceMappingURL=school-report.component.js.map

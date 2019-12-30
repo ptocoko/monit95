@@ -5,8 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NumberCodes } from '../../NumberCodes';
 
 @Component({
-	templateUrl: `./app/one-two-three/question-protocols/list/protocols-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/one-two-three/question-protocols/list/protocols-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './protocols-list.component.html',
+	styleUrls: ['./protocols-list.component.css']
 })
 export class ProtocolsListComponent {
 	projectTestId: number;
@@ -15,6 +15,8 @@ export class ProtocolsListComponent {
 	notProcessedProtocols = () => this.protocols.filter(f => !f.Marks).length;
 
 	AbsentText = 'отсутствовал';
+	searchText: string;
+	searchClass: string;
 	TestName: string;
 	isLoading: boolean;
 	@ViewChild('participFioInput') participFioInput: ElementRef;

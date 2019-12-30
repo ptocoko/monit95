@@ -4,8 +4,8 @@ import { ISchoolReport } from '../../../models/iTakeEge/reports2/ISchoolReport';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-	templateUrl: `./app/particips/reports2/schools-list/schools-reports-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/particips/reports2/schools-list/schools-reports-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './schools-reports-list.component.html',
+	styleUrls: ['./schools-reports-list.component.css']
 })
 export class SchoolsReportsListComponent implements OnInit {
 	schoolReports: ISchoolReport[];

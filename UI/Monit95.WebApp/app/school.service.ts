@@ -1,8 +1,9 @@
-﻿import { Injectable, Component } from '@angular/core';
+
+import {map} from 'rxjs/operators';
+import { Injectable, Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SchoolModel } from './models/school.model';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { of,  Observable } from 'rxjs';
 
 @Injectable()
 export class SchoolService {    
@@ -20,10 +21,10 @@ export class SchoolService {
 			return of(this.areaSchools[areaCode])
 		};
 		
-		return this.http.get<SchoolModel[]>(`${this.ROUTE_PREFIX}/${areaCode}`).map(model => {
+		return this.http.get<SchoolModel[]>(`${this.ROUTE_PREFIX}/${areaCode}`).pipe(map(model => {
 			this.areaSchools[areaCode] = model;
 			return model;
-		});
+		}));
 	}
 }
 

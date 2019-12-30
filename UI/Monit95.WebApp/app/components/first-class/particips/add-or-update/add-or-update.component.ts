@@ -11,8 +11,8 @@ import { getFromLocalStorage, setToLocalStorage } from '../../../../utils/local-
 import { CLASS_ID_KEY } from '../list/particips-list.component';
 
 @Component({
-	templateUrl: `./app/components/first-class/particips/add-or-update/add-or-update.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/first-class/particips/add-or-update/add-or-update.component.css?v=${new Date().getTime()}`]
+	templateUrl: './add-or-update.component.html',
+	styleUrls: ['./add-or-update.component.css']
 })
 export class AddOrUpdateComponent {
 	isUpdate: boolean = true;

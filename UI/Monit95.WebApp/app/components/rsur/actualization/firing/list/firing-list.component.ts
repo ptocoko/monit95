@@ -8,8 +8,8 @@ import { SchoolCollectorService } from '../../../../../shared/school-collector.s
 const COLLECTOR_ID = 2;
 
 @Component({
-	templateUrl: `./app/components/rsur/actualization/firing/list/firing-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/actualization/firing/list/firing-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './firing-list.component.html',
+	styleUrls: ['./firing-list.component.css']
 })
 export class FiringListComponent {
 	isActualizing = true;

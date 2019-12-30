@@ -6,8 +6,8 @@ import { MatTableDataSource } from '@angular/material';
 
 @Component({
 	selector: 'school-files',
-    templateUrl: `./app/components/school-files/school-files.component.html?v=${new Date().getTime()}`,
-    styleUrls: [`./app/components/school-files/school-files.component.css?v=${new Date().getTime()}`]
+    templateUrl: './school-files.component.html',
+    styleUrls: ['./school-files.component.css']
     
 })
 export class SchoolFilesComponent implements OnInit {

@@ -704,6 +704,7 @@
     <TypeScriptCompile Include="app\components\two-three\two-three.module.ts" />
     <TypeScriptCompile Include="app\custom-route-reuse-strategy.ts" />
     <TypeScriptCompile Include="app\enums\rsur.block-status.ts" />
+    <TypeScriptCompile Include="app\main-jit.ts" />
     <TypeScriptCompile Include="app\material.module.ts" />
     <TypeScriptCompile Include="app\components\app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />

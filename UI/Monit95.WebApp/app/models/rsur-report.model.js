@@ -1,11 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var RsurReportModel = /** @class */ (function () {
     function RsurReportModel() {
     }
     return RsurReportModel;
 }());
-exports.RsurReportModel = RsurReportModel;
+export { RsurReportModel };
 var EgeQuestionResult = /** @class */ (function () {
     function EgeQuestionResult() {
     }

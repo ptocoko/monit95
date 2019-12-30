@@ -2,8 +2,8 @@
 
 @Component({
 	selector: 'app-stacked-bar',
-	templateUrl: `./app/shared/stacked-bar/stacked-bar.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/shared/stacked-bar/stacked-bar.component.css?v=${new Date().getTime()}`],
+	templateUrl: './stacked-bar.component.html',
+	styleUrls: ['./stacked-bar.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StackedBarComponent implements OnChanges {

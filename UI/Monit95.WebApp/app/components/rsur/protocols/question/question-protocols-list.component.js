@@ -1,11 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var rsur_protocols_service_1 = require("../../../../services/rsur-protocols.service");
-var router_1 = require("@angular/router");
-var fromEvent_1 = require("rxjs/observable/fromEvent");
-var filter_1 = require("rxjs/operators/filter");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
+import { Router } from '@angular/router';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 var QuestionProtocolsList = /** @class */ (function () {
     function QuestionProtocolsList(rsurProtocolsService, router) {
         var _this = this;
@@ -27,9 +33,9 @@ var QuestionProtocolsList = /** @class */ (function () {
     QuestionProtocolsList.prototype.initCodeListener = function () {
         var _this = this;
         this.participCodeInput.nativeElement.focus();
-        var codeInput$ = fromEvent_1.fromEvent(this.participCodeInput.nativeElement, 'keyup');
+        var codeInput$ = fromEvent(this.participCodeInput.nativeElement, 'keyup');
         codeInput$.subscribe(function () { return _this.pageIndex = 0; });
-        codeInput$.pipe(filter_1.filter(function (event) { return event.keyCode === 13 && _this.checkIfOnlyOneMatch(event.target.value); }))
+        codeInput$.pipe(filter(function (event) { return event.keyCode === 13 && _this.checkIfOnlyOneMatch(event.target.value); }))
             .subscribe(function (event) { return _this.changeMarks(_this.getProtocol(event.target.value).ParticipCode); });
     };
     QuestionProtocolsList.prototype.changeMarks = function (participCode) {
@@ -45,19 +51,19 @@ var QuestionProtocolsList = /** @class */ (function () {
         this.rsurProtocolsService.markAsAbsent(questionProtocol.ParticipTestId)
             .subscribe(function (res) { return questionProtocol.RsurQuestionValues = 'отсутствовал'; });
     };
-    tslib_1.__decorate([
-        core_1.ViewChild('participCodeInput'),
-        tslib_1.__metadata("design:type", core_1.ElementRef)
+    __decorate([
+        ViewChild('participCodeInput'),
+        __metadata("design:type", ElementRef)
     ], QuestionProtocolsList.prototype, "participCodeInput", void 0);
-    QuestionProtocolsList = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/components/rsur/protocols/question/question-protocols-list.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/rsur/protocols/question/question-protocols-list.component.css?v=" + new Date().getTime()]
+    QuestionProtocolsList = __decorate([
+        Component({
+            templateUrl: './question-protocols-list.component.html',
+            styleUrls: ['./question-protocols-list.component.css']
         }),
-        tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
-            router_1.Router])
+        __metadata("design:paramtypes", [RsurProtocolsService,
+            Router])
     ], QuestionProtocolsList);
     return QuestionProtocolsList;
 }());
-exports.QuestionProtocolsList = QuestionProtocolsList;
+export { QuestionProtocolsList };
 //# sourceMappingURL=question-protocols-list.component.js.map

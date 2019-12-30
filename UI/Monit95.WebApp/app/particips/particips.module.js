@@ -1,47 +1,51 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var common_1 = require("@angular/common");
-var router_1 = require("@angular/router");
-var particips_list_component_1 = require("./list/particips-list.component");
-var particip_service_1 = require("../services/particip.service");
-var home_component_1 = require("./home/home.component");
-var http_1 = require("@angular/common/http");
-var forms_1 = require("@angular/forms");
-var particip_filter_pipe_1 = require("../pipes/particip-filter.pipe");
-var material_module_1 = require("../material.module");
-var protocols_component_1 = require("./protocols/protocols.component");
-var add_component_1 = require("./add-and-update/add.component");
-var particip_protocols_service_1 = require("../services/particip-protocols.service");
-var protocol_component_1 = require("./protocols/protocol/protocol.component");
-var shared_module_1 = require("../shared/shared-module");
-var list_component_1 = require("./shared/list/list.component");
-var home_component_2 = require("./oge/home/home.component");
-var particips_list_component_2 = require("./oge/list/particips-list.component");
-var home_component_3 = require("./society/home/home.component");
-var particips_list_component_3 = require("./society/list/particips-list.component");
-var list_component_2 = require("./reports/list/list.component");
-var reports_service_1 = require("../services/iTakeEge/reports/reports.service");
-var report_component_1 = require("./reports/report/report.component");
-var schools_reports_list_component_1 = require("./reports2/schools-list/schools-reports-list.component");
-var school_report_component_1 = require("./reports2/school/school-report.component");
-var reports2_service_1 = require("../services/iTakeEge/reports2/reports2.service");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ParticipsListComponent } from './list/particips-list.component';
+import { ParticipService } from '../services/particip.service';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ParticipFilterPipe } from '../pipes/particip-filter.pipe';
+import { MaterialModule } from '../material.module';
+import { ProtocolsComponent } from './protocols/protocols.component';
+import { AddParticipComponent } from './add-and-update/add.component';
+import { ParticipProtocolsService } from '../services/particip-protocols.service';
+import { ParticipProtocolComponent } from './protocols/protocol/protocol.component';
+import { SharedModule } from '../shared/shared-module';
+import { ListComponent } from './shared/list/list.component';
+import { OgeHomeComponent } from './oge/home/home.component';
+import { OgeParticipsListComponent } from './oge/list/particips-list.component';
+import { SocietyHomeComponent } from './society/home/home.component';
+import { SocietyParticipsListComponent } from './society/list/particips-list.component';
+import { ReportsListComponent } from './reports/list/list.component';
+import { ReportsService } from '../services/iTakeEge/reports/reports.service';
+import { ReportComponent } from './reports/report/report.component';
+import { SchoolsReportsListComponent } from './reports2/schools-list/schools-reports-list.component';
+import { SchoolReportComponent } from './reports2/school/school-report.component';
+import { Reports2Service } from '../services/iTakeEge/reports2/reports2.service';
+var ɵ0 = { projectId: 27, projectName: 'EГЭ' }, ɵ1 = { projectId: 28, projectName: 'ОГЭ' };
 var routes = [
-    { path: 'particips/home', component: home_component_1.HomeComponent },
-    { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
-    { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 27, projectName: 'EГЭ' } },
-    { path: 'particips/protocols/:id', component: protocols_component_1.ProtocolsComponent },
-    { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
-    { path: 'particips/reports/:projectId', component: list_component_2.ReportsListComponent },
-    { path: 'particips/report/:participTestId', component: report_component_1.ReportComponent },
-    { path: 'particips/reports2/:projectTestId', component: schools_reports_list_component_1.SchoolsReportsListComponent },
-    { path: 'particips/oge/home', component: home_component_2.OgeHomeComponent },
+    { path: 'particips/home', component: HomeComponent },
+    { path: 'particips/list', component: ParticipsListComponent },
+    { path: 'particips/new', component: AddParticipComponent, data: ɵ0 },
+    { path: 'particips/protocols/:id', component: ProtocolsComponent },
+    { path: 'particips/protocol/:id', component: ParticipProtocolComponent },
+    { path: 'particips/reports/:projectId', component: ReportsListComponent },
+    { path: 'particips/report/:participTestId', component: ReportComponent },
+    { path: 'particips/reports2/:projectTestId', component: SchoolsReportsListComponent },
+    { path: 'particips/oge/home', component: OgeHomeComponent },
     { path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
-    { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
-    { path: 'particips/oge/new', component: add_component_1.AddParticipComponent, data: { projectId: 28, projectName: 'ОГЭ' } },
-    { path: 'particips/society', component: home_component_3.SocietyHomeComponent },
-    { path: 'particips/society/list', component: particips_list_component_3.SocietyParticipsListComponent },
+    { path: 'particips/oge/list', component: OgeParticipsListComponent },
+    { path: 'particips/oge/new', component: AddParticipComponent, data: ɵ1 },
+    { path: 'particips/society', component: SocietyHomeComponent },
+    { path: 'particips/society/list', component: SocietyParticipsListComponent },
     //{ path: 'particips/society/new', component: AddParticipComponent, data: { projectId: 27, projectName: 'Обществознание' } },
     //{ path: 'particips/put-protocol/:id', component: ParticipProtocolComponent, data: { restMethod: 'PUT' } },
     { path: 'particips', redirectTo: 'particips/home', pathMatch: 'full' },
@@ -49,46 +53,47 @@ var routes = [
 var ParticipsModule = /** @class */ (function () {
     function ParticipsModule() {
     }
-    ParticipsModule = tslib_1.__decorate([
-        core_1.NgModule({
+    ParticipsModule = __decorate([
+        NgModule({
             imports: [
-                common_1.CommonModule,
-                http_1.HttpClientModule,
-                forms_1.FormsModule,
-                forms_1.ReactiveFormsModule,
-                shared_module_1.SharedModule,
-                material_module_1.MaterialModule,
-                router_1.RouterModule.forChild(routes)
+                CommonModule,
+                HttpClientModule,
+                FormsModule,
+                ReactiveFormsModule,
+                SharedModule,
+                MaterialModule,
+                RouterModule.forChild(routes)
             ],
             exports: [
-                router_1.RouterModule
+                RouterModule
             ],
             declarations: [
-                home_component_1.HomeComponent,
-                particips_list_component_1.ParticipsListComponent,
-                particip_filter_pipe_1.ParticipFilterPipe,
-                add_component_1.AddParticipComponent,
-                protocols_component_1.ProtocolsComponent,
-                protocol_component_1.ParticipProtocolComponent,
-                list_component_1.ListComponent,
-                home_component_2.OgeHomeComponent,
-                particips_list_component_2.OgeParticipsListComponent,
-                home_component_3.SocietyHomeComponent,
-                particips_list_component_3.SocietyParticipsListComponent,
-                list_component_2.ReportsListComponent,
-                report_component_1.ReportComponent,
-                schools_reports_list_component_1.SchoolsReportsListComponent,
-                school_report_component_1.SchoolReportComponent
+                HomeComponent,
+                ParticipsListComponent,
+                ParticipFilterPipe,
+                AddParticipComponent,
+                ProtocolsComponent,
+                ParticipProtocolComponent,
+                ListComponent,
+                OgeHomeComponent,
+                OgeParticipsListComponent,
+                SocietyHomeComponent,
+                SocietyParticipsListComponent,
+                ReportsListComponent,
+                ReportComponent,
+                SchoolsReportsListComponent,
+                SchoolReportComponent
             ],
             providers: [
-                particip_service_1.ParticipService,
-                particip_protocols_service_1.ParticipProtocolsService,
-                reports_service_1.ReportsService,
-                reports2_service_1.Reports2Service
+                ParticipService,
+                ParticipProtocolsService,
+                ReportsService,
+                Reports2Service
             ]
         })
     ], ParticipsModule);
     return ParticipsModule;
 }());
-exports.ParticipsModule = ParticipsModule;
+export { ParticipsModule };
+export { ɵ0, ɵ1 };
 //# sourceMappingURL=particips.module.js.map

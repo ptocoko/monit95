@@ -1,15 +1,10 @@
-﻿import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { SchoolService } from '../../../../../school.service';
 import { AreaService } from '../../../../../services/area.service';
 import { AreaModel } from '../../../../../models/area.model';
 import { SchoolModel } from '../../../../../models/school.model';
-import { Subject } from 'rxjs/Subject';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { merge } from 'rxjs/observable/merge';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { map } from 'rxjs/operators/map';
+import { Subject ,  fromEvent ,  merge } from 'rxjs';
+import { debounceTime ,  startWith ,  switchMap ,  map } from 'rxjs/operators';
 import { RsurParticipModel } from '../../../../../models/rsur-particip.model';
 import { RsurParticipService, SearchParticips } from '../../../../../services/rsur-particip.service';
 import { TablePaginator } from '../../../../../shared/table-paginator/table-paginator';
@@ -19,8 +14,8 @@ import { AccountService } from '../../../../../services/account.service';
 
 @Component({
 	selector: 'app-transfer-particip',
-	templateUrl: `./app/components/rsur/actualization/hiring/transfer/transfer-particip.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/actualization/hiring/transfer/transfer-particip.component.css?v=${new Date().getTime()}`]
+	templateUrl: './transfer-particip.component.html',
+	styleUrls: ['./transfer-particip.component.css']
 })
 export class TransferParticipComponent {
 

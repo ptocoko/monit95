@@ -7,8 +7,8 @@ import { AccountService } from '../../../../../services/account.service';
 
 @Component({
 	selector: 'app-create-particip',
-	templateUrl: `./app/components/rsur/actualization/hiring/add/add-particip.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/actualization/hiring/add/add-particip.component.css?v=${new Date().getTime()}`]
+	templateUrl: './add-particip.component.html',
+	styleUrls: ['./add-particip.component.css']
 })
 export class CreateParticipComponent {
 	@Output() conflict = new EventEmitter<string>();

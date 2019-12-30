@@ -2,7 +2,7 @@
 import { AccountService } from '../../../services/account.service';
 
 @Component({
-	templateUrl: `./app/particips/oge/home/home.component.html?v=${new Date().getTime()}`
+	templateUrl: './home.component.html',
 })
 export class OgeHomeComponent {
 	date = new Date();

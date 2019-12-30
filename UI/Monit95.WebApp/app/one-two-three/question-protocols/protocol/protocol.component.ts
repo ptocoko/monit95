@@ -1,14 +1,14 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuestionProtocol } from '../../../models/one-two-three/question-protocol.model';
 import { QuestionProtocolService } from '../../../services/one-two-three/question-protocols.service';
 import { ActivatedRoute } from '@angular/router';
 import { QuestionResult } from '../../../models/marks-protocol.model';
 import { Location } from '@angular/common';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { Subscription } from 'rxjs/Subscription';
+import { switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
-	templateUrl: `./app/one-two-three/question-protocols/protocol/protocol.component.html?v=${new Date().getTime()}`
+	templateUrl: './protocol.component.html',
 })
 export class ProtocolComponent implements OnInit, OnDestroy {
 	protocol: QuestionProtocol;

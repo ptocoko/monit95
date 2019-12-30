@@ -1,29 +1,32 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var common_1 = require("@angular/common");
-var home_component_1 = require("./home/home.component");
-var router_1 = require("@angular/router");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HomeComponent } from './home/home.component';
+import { RouterModule } from '@angular/router';
 var routes = [
-    { path: '9-11_classes/home', component: home_component_1.HomeComponent }
+    { path: '9-11_classes/home', component: HomeComponent }
 ];
 var DamnClassesModule = /** @class */ (function () {
     function DamnClassesModule() {
     }
-    DamnClassesModule = tslib_1.__decorate([
-        core_1.NgModule({
+    DamnClassesModule = __decorate([
+        NgModule({
             imports: [
-                common_1.CommonModule,
-                router_1.RouterModule.forChild(routes)
+                CommonModule,
+                RouterModule.forChild(routes)
             ],
             exports: [
-                router_1.RouterModule
+                RouterModule
             ],
-            declarations: [home_component_1.HomeComponent]
+            declarations: [HomeComponent]
         })
     ], DamnClassesModule);
     return DamnClassesModule;
 }());
-exports.DamnClassesModule = DamnClassesModule;
+export { DamnClassesModule };
 //# sourceMappingURL=9-11_classes.module.js.map

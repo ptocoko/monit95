@@ -1,14 +1,14 @@
-﻿import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { RsurProtocolsService } from '../../../../services/rsur-protocols.service';
 import { Protocol } from '../../../../models/protocol.model';
 import { Router } from '@angular/router';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { filter } from 'rxjs/operators/filter';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 
 @Component({
-	templateUrl: `./app/components/rsur/protocols/question/question-protocols-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/protocols/question/question-protocols-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './question-protocols-list.component.html',
+	styleUrls: ['./question-protocols-list.component.css']
 })
 export class QuestionProtocolsList {
 	questionProtocols: Protocol[] = new Array<Protocol>();

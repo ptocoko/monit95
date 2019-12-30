@@ -1,7 +1,7 @@
-﻿import { Injectable, Component } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
 import { RsurParticipModel } from '../models/rsur-particip.model';
 import { RsurParticipPostModel } from '../models/rsur/particip-post.model';
 

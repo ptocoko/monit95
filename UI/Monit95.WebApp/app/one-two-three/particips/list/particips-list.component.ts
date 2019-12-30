@@ -1,28 +1,21 @@
-﻿import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { ParticipService } from '../../../services/one-two-three/particips.service';
 import { ParticipModel, ParticipsList } from '../../../models/one-two-three/particip.model';
 import { TablePaginator } from '../../../shared/table-paginator/table-paginator';
-import { Subject } from 'rxjs/Subject';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { merge } from 'rxjs/observable/merge';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { map } from 'rxjs/operators/map';
-import { Observable } from 'rxjs/Observable';
+import { Subject ,  fromEvent ,  merge ,  Observable ,  Subscription } from 'rxjs';
+import { debounceTime ,  startWith ,  switchMap ,  map } from 'rxjs/operators';
 import { ClassService } from '../../../services/class.service';
 import { ClassModel } from '../../../models/class.model';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { AccountService } from '../../../services/account.service';
-import { Subscription } from 'rxjs/Subscription';
 import { SchoolCollectorService } from '../../../shared/school-collector.service';
 
 const COLLECTOR_ID = 46;
 
 @Component({
-	templateUrl: `./app/one-two-three/particips/list/particips-list.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/one-two-three/particips/list/particips-list.component.css?v=${new Date().getTime()}`]
+	templateUrl: './particips-list.component.html',
+	styleUrls: ['./particips-list.component.css']
 })
 export class ParticipsListComponent implements OnInit, OnDestroy {
 	particips: ParticipModel[] = [];

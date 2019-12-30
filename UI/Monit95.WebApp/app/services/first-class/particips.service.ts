@@ -1,5 +1,5 @@
-﻿import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ParticipGetModel, ParticipsList } from '../../models/first-class/particip-get.model';
 import { HttpParams } from '@angular/common/http';

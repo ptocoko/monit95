@@ -1,19 +1,18 @@
-﻿
+
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SeminarReportService } from '../../../../services/seminar-report.service';
 import { SeminarReportEdit, SeminarFile } from '../shared/seminar-report.model';
 import { Location } from '@angular/common';
 import { AccountService } from "../../../../services/account.service";
-import { Observable } from 'rxjs/Observable';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { filter } from 'rxjs/operators/filter';
+import { Observable ,  fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { downloadFile } from '../../../../utils/functions';
 
 @Component({
 	selector: 'seminar-report',
-	templateUrl: `./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.html?v=${new Date().getTime()}`,
-	styleUrls: [`./app/components/rsur/seminar-reports/seminar-report/seminar-report.component.css?v=${new Date().getTime()}`]
+	templateUrl: './seminar-report.component.html',
+	styleUrls: ['./seminar-report.component.css']
 })
 export class SeminarReportComponent implements OnInit {
 	report: SeminarReportEdit;
