@@ -22,6 +22,14 @@ function fromDir(startPath, filter) {
 				const newUrl = url.split('/').pop().split('?')[0];
 				content = content.replace(/templateUrl.+/, 'templateUrl: \'./' + newUrl + '\',');
 
+				if (/styleUrls.+/.test(content)) {
+					const cssLine = content.match(/styleUrls.+/)[0];
+					const cssUrl = cssLine.match(/\..+(?=`)/)[0];
+					const newCssUrl = cssUrl.split('/').pop().split('?')[0];
+					content = content.replace(/styleUrls.+/, 'styleUrls: [\'./' + newCssUrl + '\']');
+				}
+
+				//console.log(content);
 				fs.writeFileSync(filename, content);
 			}
 		}
