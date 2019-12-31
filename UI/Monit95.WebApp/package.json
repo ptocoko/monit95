@@ -35,6 +35,7 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
-    "build:aot": "ngc -p tsconfig-aot.json && rollup -c rollup-config.js"
+    "build:aot": "ngc -p tsconfig-aot.json && rollup -c rollup-config.js",
+    "publish" : "npm run build:aot && cp -r app/dist //192.168.88.254/inetpub/wwwroot/monit95/app/dist"
   }
 }
