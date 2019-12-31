@@ -29,6 +29,9 @@
     </NuGetPackageImportStamp>
     <WebGreaseLibPath>..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -602,6 +605,7 @@
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Images\whatsApp_tech_support_1class.jpg" />
     <Content Include="rollup-config.js" />
+    <Content Include="rollup-plugin-2cshtml.js" />
     <Content Include="Scripts\angularmodules.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

@@ -1,17 +1,11 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-import { Component, ViewChild, ElementRef, Renderer2, EventEmitter, Output } from '@angular/core';
-import { RsurParticipService } from '../../../../../services/rsur-particip.service';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
-import { AccountService } from '../../../../../services/account.service';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
+var core_1 = require("@angular/core");
+var rsur_particip_service_1 = require("../../../../../services/rsur-particip.service");
+var forms_1 = require("@angular/forms");
+var common_1 = require("@angular/common");
+var account_service_1 = require("../../../../../services/account.service");
 var CreateParticipComponent = /** @class */ (function () {
     function CreateParticipComponent(participService, fb, renderer, location, accountService) {
         var _this = this;
@@ -20,7 +14,7 @@ var CreateParticipComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.location = location;
         this.accountService = accountService;
-        this.conflict = new EventEmitter();
+        this.conflict = new core_1.EventEmitter();
         this.monthDays = Array.from({ length: 32 }, function (val, key) { return key; }).splice(1).slice();
         this.months = [
             {
@@ -117,17 +111,17 @@ var CreateParticipComponent = /** @class */ (function () {
     }
     CreateParticipComponent.prototype.ngOnInit = function () {
         this.participForm = this.fb.group({
-            surname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-            name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-            secondName: ['', [Validators.maxLength(25)]],
+            surname: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3), forms_1.Validators.maxLength(25)]],
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2), forms_1.Validators.maxLength(25)]],
+            secondName: ['', [forms_1.Validators.maxLength(25)]],
             birthday: this.fb.group({
-                day: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
-                month: ['', [Validators.required, Validators.min(0), Validators.max(12)]],
-                year: ['', [Validators.required, Validators.min(1945), Validators.max(2005)]]
+                day: ['', [forms_1.Validators.required, forms_1.Validators.min(1), forms_1.Validators.max(31)]],
+                month: ['', [forms_1.Validators.required, forms_1.Validators.min(0), forms_1.Validators.max(12)]],
+                year: ['', [forms_1.Validators.required, forms_1.Validators.min(1945), forms_1.Validators.max(2005)]]
             }),
-            subjectCode: [{ value: 12, disabled: true }, Validators.required],
-            categoryId: ['', Validators.required],
-            experience: ['', Validators.required],
+            subjectCode: [{ value: 12, disabled: true }, forms_1.Validators.required],
+            categoryId: ['', forms_1.Validators.required],
+            experience: ['', forms_1.Validators.required],
             phone: '',
             email: ['']
         });
@@ -216,27 +210,27 @@ var CreateParticipComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    __decorate([
-        Output(),
-        __metadata("design:type", Object)
+    tslib_1.__decorate([
+        core_1.Output(),
+        tslib_1.__metadata("design:type", Object)
     ], CreateParticipComponent.prototype, "conflict", void 0);
-    __decorate([
-        ViewChild('surname'),
-        __metadata("design:type", ElementRef)
+    tslib_1.__decorate([
+        core_1.ViewChild('surname'),
+        tslib_1.__metadata("design:type", core_1.ElementRef)
     ], CreateParticipComponent.prototype, "firstField", void 0);
-    CreateParticipComponent = __decorate([
-        Component({
+    CreateParticipComponent = tslib_1.__decorate([
+        core_1.Component({
             selector: 'app-create-particip',
             templateUrl: './add-particip.component.html',
             styleUrls: ['./add-particip.component.css']
         }),
-        __metadata("design:paramtypes", [RsurParticipService,
-            FormBuilder,
-            Renderer2,
-            Location,
-            AccountService])
+        tslib_1.__metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
+            forms_1.FormBuilder,
+            core_1.Renderer2,
+            common_1.Location,
+            account_service_1.AccountService])
     ], CreateParticipComponent);
     return CreateParticipComponent;
 }());
-export { CreateParticipComponent };
+exports.CreateParticipComponent = CreateParticipComponent;
 //# sourceMappingURL=add-particip.component.js.map

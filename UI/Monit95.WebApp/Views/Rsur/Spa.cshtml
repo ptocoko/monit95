@@ -1,18 +1,21 @@
-﻿@{
+@{
     ViewBag.Title = "Monit95";
 }
 <!-- Angular Code -->
 <base href="/">
-<script src="node_modules/core-js/client/shim.min.js"></script>
-<script src="node_modules/zone.js/dist/zone.js"></script>
-<script src="node_modules/systemjs/dist/system.src.js"></script>
-<script src="systemjs.config.js?v=416"></script>
-<script>    
-    System.import('app').catch(function (err) {
-        console.error(err);
-    });
-</script>
+
+@*
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js?v=416"></script>
+    <script>
+        System.import('app').catch(function (err) {
+            console.error(err);
+        });
+    </script>*@
 
 <app-root>
     <img style="margin-top:20px" height="100" class="center-block" src="~/progress.gif" />
- </app-root>
+</app-root>
+<script src="node_modules/core-js/client/shim.min.js"></script>
+<script src="node_modules/zone.js/dist/zone.js"></script>
+<script type="text/javascript" src="app/dist/main.ff264006.js"></script>

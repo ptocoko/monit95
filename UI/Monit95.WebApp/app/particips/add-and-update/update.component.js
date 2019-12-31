@@ -6,7 +6,7 @@
 //const CLASS_NAMES = ['1', '1 А', '1 Б', '1 В', '1 Г', '1 Д', '1 Е', '1 Ж', '1 З', '1 И', '1 К', '1 Л'];
 //const PROJECT_ID: number = 1;
 //@Component({
-//	templateUrl: `./app/class-particips/add-and-update/update.component.html?v=${new Date().getTime()}`
+//	templateUrl: './update.component.html',
 //})
 //export class UpdateClassParticipComponent implements OnInit {
 //	particip = new ClassParticip();

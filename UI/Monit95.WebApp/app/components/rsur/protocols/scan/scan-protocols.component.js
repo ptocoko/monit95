@@ -103,8 +103,8 @@ var ScanProtocolsComponent = /** @class */ (function () {
     ScanProtocolsComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'scan-protocols-component',
-            templateUrl: "./app/components/rsur/protocols/scan/scan-protocols.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/rsur/protocols/scan/scan-protocols.component.css?v=" + new Date().getTime()]
+            templateUrl: './scan-protocols.component.html',
+            styleUrls: ['./scan-protocols.component.css']
         }),
         tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService])
     ], ScanProtocolsComponent);

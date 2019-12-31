@@ -11,7 +11,7 @@
 //			padding: 15px;
 //		}
 //	`],
-//	templateUrl: `./app/class-particips/excel-export/export-excel-modal.component.html?v=${new Date().getTime()}`
+//	templateUrl: './export-excel-modal.component.html',
 //})
 //export class ExportExcelModal implements CloseGuard, ModalComponent<ExportExcelModalData>, OnInit {
 //	exportedFile: File;

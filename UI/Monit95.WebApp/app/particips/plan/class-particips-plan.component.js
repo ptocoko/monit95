@@ -7,7 +7,7 @@ var ClassParticipsPlanComponent = /** @class */ (function () {
     }
     ClassParticipsPlanComponent = tslib_1.__decorate([
         core_1.Component({
-            templateUrl: "./app/class-particips/class-particips-plan.component.html?v=" + new Date().getTime()
+            templateUrl: './class-particips-plan.component.html',
         })
     ], ClassParticipsPlanComponent);
     return ClassParticipsPlanComponent;

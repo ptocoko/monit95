@@ -50,8 +50,8 @@ var ClassParticipReportComponent = /** @class */ (function () {
     };
     ClassParticipReportComponent = tslib_1.__decorate([
         core_1.Component({
-            templateUrl: "./app/class-particips/results/particip-report.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/class-particips/results/particip-report.component.css?v=" + new Date().getTime()]
+            templateUrl: './particip-report.component.html',
+            styleUrls: ['./particip-report.component.css']
         }),
         tslib_1.__metadata("design:paramtypes", [results_service_1.ResultsService, router_1.ActivatedRoute, http_1.Http])
     ], ClassParticipReportComponent);

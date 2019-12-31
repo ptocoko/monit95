@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
+var rxjs_1 = require("rxjs");
+var operators_1 = require("rxjs/operators");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
-var Observable_1 = require("rxjs/Observable");
-require("rxjs/add/observable/fromEvent");
-require("rxjs/add/operator/filter");
 var rsur_protocols_service_1 = require("../../../../services/rsur-protocols.service");
 var MatchingProtocolComponent = /** @class */ (function () {
     function MatchingProtocolComponent(rsurProtocolsService, location, route, renderer) {
@@ -35,8 +34,7 @@ var MatchingProtocolComponent = /** @class */ (function () {
         if (!marksProtocol) {
             this.isUpdate = false;
             this.focusOnCodeElem();
-            var participCodeChange = Observable_1.Observable.fromEvent(this.participCodeElem.nativeElement, 'input')
-                .filter(function (event, i) { return event.target.value.length == 5; })
+            var participCodeChange = rxjs_1.fromEvent(this.participCodeElem.nativeElement, 'input').pipe(operators_1.filter(function (event, i) { return event.target.value.length == 5; }))
                 .subscribe(function (event) { return _this.participCodeSubscriber(event); });
         }
         else {
@@ -87,8 +85,8 @@ var MatchingProtocolComponent = /** @class */ (function () {
     MatchingProtocolComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'matching-protocol-component',
-            templateUrl: "./app/components/rsur/protocols/matching/matching-protocol.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/rsur/protocols/matching/matching-protocol.component.css?v=" + new Date().getTime()]
+            templateUrl: './matching-protocol.component.html',
+            styleUrls: ['./matching-protocol.component.css']
         }),
         tslib_1.__metadata("design:paramtypes", [rsur_protocols_service_1.RsurProtocolsService,
             common_1.Location,

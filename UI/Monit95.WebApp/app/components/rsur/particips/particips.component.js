@@ -1,18 +1,12 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-import { Component, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator, MatSnackBar, MatDialog } from '@angular/material';
-import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
+var core_1 = require("@angular/core");
+var material_1 = require("@angular/material");
+var confirm_dialog_component_1 = require("../../../shared/confirm-dialog/confirm-dialog.component");
 // Services
-import { RsurParticipService } from '../../../services/rsur-particip.service';
-import { AccountService } from '../../../services/account.service';
+var rsur_particip_service_1 = require("../../../services/rsur-particip.service");
+var account_service_1 = require("../../../services/account.service");
 var RsurParticipsComponent = /** @class */ (function () {
     function RsurParticipsComponent(rsurParticipService, accauntService, snackBar, dialog) {
         this.rsurParticipService = rsurParticipService;
@@ -23,7 +17,7 @@ var RsurParticipsComponent = /** @class */ (function () {
         this.actualParticips = [];
         this.isShowNotActual = true;
         this.displayedColumns = ['Code', 'Surname', 'Name', 'SecondName', 'RsurSubjectName', 'SchoolIdWithName'];
-        this.dataSource = new MatTableDataSource();
+        this.dataSource = new material_1.MatTableDataSource();
         this.isLoading = true;
         this.selectedSchool = '';
     }
@@ -40,10 +34,10 @@ var RsurParticipsComponent = /** @class */ (function () {
             _this.allParticips = response;
             _this.actualParticips = _this.allParticips.filter(function (f) { return f.ActualCode === 1; });
             if (_this.isShowNotActual) {
-                _this.dataSource = new MatTableDataSource(_this.allParticips);
+                _this.dataSource = new material_1.MatTableDataSource(_this.allParticips);
             }
             else {
-                _this.dataSource = new MatTableDataSource(_this.actualParticips);
+                _this.dataSource = new material_1.MatTableDataSource(_this.actualParticips);
             }
             _this.isLoading = false;
             _this.dataSource.sort = _this.sort;
@@ -55,7 +49,7 @@ var RsurParticipsComponent = /** @class */ (function () {
         // checked == false означает, что участник исключен из проекта
         if (!slideToggle.checked) {
             // если участник исключается вызываем модальное окно для подтверждения
-            var dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            var dialogRef = this.dialog.open(confirm_dialog_component_1.ConfirmDialogComponent, {
                 width: '400px',
                 disableClose: true,
                 data: { message: "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0438\u0441\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0430 '" + particip.SchoolParticipInfo.Surname + " " + particip.SchoolParticipInfo.Name + " " + particip.SchoolParticipInfo.SecondName + "' \u0438\u0437 \u043F\u0440\u043E\u0435\u043A\u0442\u0430 \u0420\u0421\u0423\u0420?" }
@@ -99,28 +93,28 @@ var RsurParticipsComponent = /** @class */ (function () {
         this.dataSource.filterPredicate = filterBySchoolPredicate;
         this.dataSource.filter = this.selectedSchool.toLowerCase();
     };
-    __decorate([
-        ViewChild(MatSort),
-        __metadata("design:type", MatSort)
+    tslib_1.__decorate([
+        core_1.ViewChild(material_1.MatSort),
+        tslib_1.__metadata("design:type", material_1.MatSort)
     ], RsurParticipsComponent.prototype, "sort", void 0);
-    __decorate([
-        ViewChild(MatPaginator),
-        __metadata("design:type", MatPaginator)
+    tslib_1.__decorate([
+        core_1.ViewChild(material_1.MatPaginator),
+        tslib_1.__metadata("design:type", material_1.MatPaginator)
     ], RsurParticipsComponent.prototype, "paginator", void 0);
-    RsurParticipsComponent = __decorate([
-        Component({
+    RsurParticipsComponent = tslib_1.__decorate([
+        core_1.Component({
             selector: 'rsur/particips',
             templateUrl: './particips.component.html',
             styleUrls: ['./particips.component.css']
         }),
-        __metadata("design:paramtypes", [RsurParticipService,
-            AccountService,
-            MatSnackBar,
-            MatDialog])
+        tslib_1.__metadata("design:paramtypes", [rsur_particip_service_1.RsurParticipService,
+            account_service_1.AccountService,
+            material_1.MatSnackBar,
+            material_1.MatDialog])
     ], RsurParticipsComponent);
     return RsurParticipsComponent;
 }());
-export { RsurParticipsComponent };
+exports.RsurParticipsComponent = RsurParticipsComponent;
 ;
 function filterBySchoolPredicate(data, filter) {
     if (filter === '')
