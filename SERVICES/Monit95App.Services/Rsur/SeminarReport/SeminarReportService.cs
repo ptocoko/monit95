@@ -80,7 +80,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
                     uniqueStreamDictionary["protocol"].FileName,
                     schoolId,
                     userPermissions,
-                    new FileAddingOptions()
+                    new FileAddingOptions() { CheckIfFileExists = false }
                     );
             }
             catch (ArgumentException exception)
@@ -105,7 +105,7 @@ namespace Monit95App.Services.Rsur.SeminarReport
                         uniqueStreamDictionary[key].FileName,
                         schoolId,
                         userPermissions,
-                        new FileAddingOptions()
+                        new FileAddingOptions() { CheckIfFileExists = false }
                         );
                     addedPhotoFileIds.Add(addedPhotoFileId);
                 }
