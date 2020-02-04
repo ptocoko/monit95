@@ -228,6 +228,8 @@
     <Compile Include="Rsur\QuestionValue\QuestionValueViewDto.cs" />
     <Compile Include="Rsur\SeminarReport\UniqueStream.cs" />
     <Compile Include="SchoolFiles\ReportModel.cs" />
+    <Compile Include="SchoolsProfile\ProfileQuestionDto.cs" />
+    <Compile Include="SchoolsProfile\SchoolsProfileService.cs" />
     <Compile Include="School\SchoolEditService.cs" />
     <Compile Include="DTOs\SchoolDto.cs" />
     <Compile Include="School\SchoolReportFileNameOffline.cs" />

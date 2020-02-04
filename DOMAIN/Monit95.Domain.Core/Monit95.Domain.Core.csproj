@@ -74,6 +74,8 @@
     <Compile Include="Entities\ParticipsCompetence.cs" />
     <Compile Include="Entities\ParticipTest.cs" />
     <Compile Include="Entities\Permission.cs" />
+    <Compile Include="Entities\ProfileQuestion.cs" />
+    <Compile Include="Entities\ProfileQuestionAnswer.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectTest.cs" />
     <Compile Include="Entities\PropertyType.cs" />

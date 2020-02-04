@@ -394,6 +394,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\WishModel.cs" />
     <Compile Include="Models\WishModelCreator.cs" />
+    <Compile Include="RESTful_API\SchoolsProfile\SchoolsProfileController.cs" />
     <Compile Include="Services\IAccountService.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
@@ -432,6 +433,7 @@
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\new-particip\new-particip.component.html" />
     <Content Include="app\components\rsur\home\home.component.css" />
+    <Content Include="app\components\schools-profile\profile\profile.component.html" />
     <Content Include="app\components\two-three-2\home\home.component.css" />
     <Content Include="app\components\two-three-2\home\home.component.html" />
     <Content Include="app\components\two-three\excel-uploader\uploader.component.css" />
@@ -696,6 +698,8 @@
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\new-particip\new-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\schools-profile\profile\profile.component.ts" />
+    <TypeScriptCompile Include="app\components\schools-profile\schools-profile.module.ts" />
     <TypeScriptCompile Include="app\components\teachers-cert\home\home.component.ts" />
     <TypeScriptCompile Include="app\components\teachers-cert\teachers-cert.module.ts" />
     <TypeScriptCompile Include="app\components\two-three-2\home\home.component.ts" />
@@ -734,6 +738,7 @@
     <TypeScriptCompile Include="app\models\rsur\exam.model.ts" />
     <TypeScriptCompile Include="app\models\rsur\particip-post.model.ts" />
     <TypeScriptCompile Include="app\models\school.model.ts" />
+    <TypeScriptCompile Include="app\models\schools-profile\profile-question.model.ts" />
     <TypeScriptCompile Include="app\models\test.model.ts" />
     <TypeScriptCompile Include="app\one-two-three\home\home.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\NumberCodes.ts" />
