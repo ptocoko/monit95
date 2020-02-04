@@ -433,7 +433,9 @@
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\new-particip\new-particip.component.html" />
     <Content Include="app\components\rsur\home\home.component.css" />
+    <Content Include="app\components\schools-profile\profile\profile.component.css" />
     <Content Include="app\components\schools-profile\profile\profile.component.html" />
+    <Content Include="app\components\teachers-cert\home\home.component.html" />
     <Content Include="app\components\two-three-2\home\home.component.css" />
     <Content Include="app\components\two-three-2\home\home.component.html" />
     <Content Include="app\components\two-three\excel-uploader\uploader.component.css" />
@@ -814,6 +816,7 @@
     <TypeScriptCompile Include="app\pipes\rsur-particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\services\rsur-particip.service.ts" />
     <TypeScriptCompile Include="app\models\rsur-particip.model.ts" />
+    <TypeScriptCompile Include="app\services\schools-profile\schools-profile.service.ts" />
     <TypeScriptCompile Include="app\services\seminar-report.service.ts" />
     <TypeScriptCompile Include="app\models\account.model.ts" />
     <TypeScriptCompile Include="app\services\account.service.ts" />

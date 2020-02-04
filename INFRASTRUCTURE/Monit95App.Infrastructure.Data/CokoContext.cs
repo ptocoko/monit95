@@ -378,6 +378,12 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<EgeSkill>()
                 .HasMany(e => e.RsurQuestions)
                 .WithOptional(e => e.EgeSkill);
+
+            modelBuilder.Entity<ProfileQuestion>()
+                .HasMany(e => e.ProfileQuestionAnswers)
+                .WithRequired(e => e.ProfileQuestion)
+                .HasForeignKey(e => e.ProfileQuestionId)
+                .WillCascadeOnDelete(true);
         }
     }
 }

@@ -14,6 +14,6 @@ namespace Monit95App.Domain.Core.Entities
         public string SchoolId { get; set; }
         public School School { get; set; }
         public string Session { get; set; }
-        public int Value { get; set; }
+        public int? Value { get; set; }
     }
 }

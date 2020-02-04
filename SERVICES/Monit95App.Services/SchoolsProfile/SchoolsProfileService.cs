@@ -1,4 +1,5 @@
-﻿using Monit95App.Infrastructure.Data;
+﻿using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,11 @@ namespace Monit95App.Services.SchoolsProfile
 
         public IEnumerable<IEnumerable<ProfileQuestionDto>> GetProfileQuestions(string schoolId)
         {
-            var question = context.ProfileQuestions.ToList().Select(s =>
+            var question = context.ProfileQuestions.Include("ProfileQuestionAnswers").ToList().Select(s =>
             {
                 var res = new ProfileQuestionDto
                 {
+                    Id = s.Id,
                     Body = s.Body,
                     Description = s.Description,
                     HasSessions = s.HasSessions,
@@ -34,14 +36,14 @@ namespace Monit95App.Services.SchoolsProfile
                 {
                     res.SessionValues = new Dictionary<string, int?>
                     {
-                        ["2016-2017"] = s.ProfileQuestionAnswers?.SingleOrDefault(p => p.SchoolId == schoolId && p.Session == "2016-2017").Value,
-                        ["2017-2018"] = s.ProfileQuestionAnswers?.SingleOrDefault(p => p.SchoolId == schoolId && p.Session == "2017-2018").Value,
-                        ["2018-2019"] = s.ProfileQuestionAnswers?.SingleOrDefault(p => p.SchoolId == schoolId && p.Session == "2018-2019").Value
+                        ["2016-2017"] = s.ProfileQuestionAnswers.SingleOrDefault(p => p.SchoolId == schoolId && p.Session == "2016-2017")?.Value,
+                        ["2017-2018"] = s.ProfileQuestionAnswers.SingleOrDefault(p => p.SchoolId == schoolId && p.Session == "2017-2018")?.Value,
+                        ["2018-2019"] = s.ProfileQuestionAnswers.SingleOrDefault(p => p.SchoolId == schoolId && p.Session == "2018-2019")?.Value
                     };
                 }
                 else
                 {
-                    res.Value = s.ProfileQuestionAnswers.SingleOrDefault(p => p.SchoolId == schoolId).Value;
+                    res.Value = s.ProfileQuestionAnswers.SingleOrDefault(p => p.SchoolId == schoolId)?.Value;
                 }
                 return res;
             });
@@ -51,6 +53,28 @@ namespace Monit95App.Services.SchoolsProfile
                 question.Where(p => !p.IsBooleanAnswer).OrderBy(ob => ob.Order),
                 question.Where(p => p.IsBooleanAnswer).OrderBy(ob => ob.Order)
             };
+        }
+
+        public void SaveAnswer(int questionId, int? value, string session, string schoolId)
+        {
+            var entity = context.ProfileQuestionAnswers.SingleOrDefault(p => p.SchoolId == schoolId && p.ProfileQuestionId == questionId && p.Session == session);
+
+            if (entity == null)
+            {
+                context.ProfileQuestionAnswers.Add(new ProfileQuestionAnswer
+                {
+                    SchoolId = schoolId,
+                    Value = value,
+                    ProfileQuestionId = questionId,
+                    Session = session
+                });
+            }
+            else
+            {
+                entity.Value = value;
+            }
+
+            context.SaveChanges();
         }
     }
 }

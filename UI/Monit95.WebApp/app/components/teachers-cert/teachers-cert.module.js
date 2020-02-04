@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var core_1 = require("@angular/core");
-var home_component_1 = require("../../particips/home/home.component");
 var router_1 = require("@angular/router");
+var home_component_1 = require("./home/home.component");
 var routes = [
     {
         path: 'teachers-cert/home',

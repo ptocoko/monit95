@@ -1,42 +1,41 @@
 ﻿<h2>Анкета Образовательного Учреждения</h2>
 
-<div class="question" *ngFor="let question of notBooleanQuestions">
-    <h4>{{ quesiton.Body }}</h4>
-    <p class="question-desc">{{ question.Description }}</p>
+<mat-card class="question" *ngFor="let question of notBooleanQuestions">
+    <mat-card-header>
+        <mat-card-title><strong>{{ question?.Body }}</strong></mat-card-title>
+        <mat-card-subtitle class="question-desc"><i>{{ question?.Description }}</i></mat-card-subtitle>
+    </mat-card-header>
 
-    <div *ngIf="question.HasSessions; else elseBlock">
-        <mat-form-field appearance="outline">
-            <mat-label>
-                2016-2017 учебный год
-            </mat-label>
-            <input matInput type="number" min="0" (blur)="onSessionValuePassed(question, '2016-2017', $event.target.value)" [value]="question.SesstionValues?['2016-2017']" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>
-                2017-2018 учебный год
-            </mat-label>
-            <input matInput type="number" min="0" (blur)="onSessionValuePassed(question, '2017-2018', $event.target.value)" [value]="question.SessionValues?['2017-2018']" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>
-                2018-2019 учебный год
-            </mat-label>
-            <input matInput type="number" min="0" (blur)="onSessionValuePassed(question, '2018-2019', $event.target.value)" [value]="question.SessionValues?['2018-2019']" />
-        </mat-form-field>
-    </div>
+    <mat-card-content *ngIf="question.HasSessions; else elseBlock">
+        <label>
+            2016-2017 учебный год
+            <input class="form-control" type="number" min="0" (blur)="onSessionValuePassed(question, '2016-2017', $event.target.value)" [value]="question.SessionValues['2016-2017']" required />
+        </label>
+        <label>
+            2017-2018 учебный год
+            <input class="form-control" type="number" min="0" (blur)="onSessionValuePassed(question, '2017-2018', $event.target.value)" [value]="question.SessionValues['2017-2018']" required />
+        </label>
+        <label>
+            2018-2019 учебный год
+            <input class="form-control" type="number" min="0" (blur)="onSessionValuePassed(question, '2018-2019', $event.target.value)" [value]="question.SessionValues['2018-2019']" required />
+        </label>
+    </mat-card-content>
     <ng-template #elseBlock>
-        <mat-form-field appearance="outline">
-            <mat-label>Значение</mat-label>
-            <input matInput type="number" min="0" (blur)="onValuePassed(question, $event.target.value)" [value]="question.Value" />
-        </mat-form-field>
+        <input class="form-control" placeholder="Значение" type="number" min="0" (blur)="onValuePassed(question, $event.target.value)" [value]="question.Value" required />
     </ng-template>
-</div>
+</mat-card>
 
-<div class="boolean-question-desc">Следующий блок вопросов является вопросами типа "ДА- НЕТ"</div>
-<div class="question" *ngFor="let question of booleanQuestions">
-    <h4>{{ question.Body }}</h4>
-    <mat-radio-group (selected)="onRadioSelected(question, $event)" [value]="question.Value">
-        <mat-radio-button [value]="1">Да</mat-radio-button>
-        <mat-radio-button [value]="0">Нет</mat-radio-button>
-    </mat-radio-group>
-</div>
+<h3 *ngIf="!isLoading" class="boolean-question-caption">Следующий блок вопросов является вопросами типа "ДА- НЕТ"</h3>
+<mat-card class="question" *ngFor="let question of booleanQuestions">
+    <mat-card-header>
+        <mat-card-title><strong>{{ question?.Body }}</strong></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-radio-group (change)="onRadioSelected(question, $event.value)" [value]="question.Value">
+            <mat-radio-button [value]="1">Да</mat-radio-button>
+            <mat-radio-button [value]="0">Нет</mat-radio-button>
+        </mat-radio-group>
+    </mat-card-content>
+</mat-card>
+
+<spinner-view *ngIf="isLoading"></spinner-view>

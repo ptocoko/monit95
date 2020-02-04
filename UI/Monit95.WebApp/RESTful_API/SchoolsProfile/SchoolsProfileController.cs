@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Monit95.WebApp.RESTful_API.SchoolsProfile
 {
-    //[Authorize(Roles = "school")]
+    [Authorize(Roles = "school")]
     [RoutePrefix("api/schools-profile")]
     public class SchoolsProfileController : ApiController
     {
@@ -24,8 +24,17 @@ namespace Monit95.WebApp.RESTful_API.SchoolsProfile
         public IHttpActionResult GetQuestions()
         {
             var schoolId = User.Identity.Name;
-            var res = profileService.GetProfileQuestions("0005");
+            var res = profileService.GetProfileQuestions(schoolId);
             return Ok(res);
+        }
+
+        [HttpPost]
+        [Route("{questionId:int}")]
+        public IHttpActionResult SaveAnswer([FromUri] int questionId, [FromBody]SaveAnswerDto saveAnswerDto)
+        {
+            var schoolId = User.Identity.Name;
+            profileService.SaveAnswer(questionId, saveAnswerDto.Value, saveAnswerDto.Session, schoolId);
+            return Ok();
         }
     }
 }
