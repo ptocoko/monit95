@@ -17,6 +17,7 @@ var shared_module_1 = require("./shared/shared-module");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var first_class_module_1 = require("./components/first-class/first-class.module");
 var two_three_module_1 = require("./components/two-three-2/two-three.module");
+var teachers_cert_module_1 = require("./components/teachers-cert/teachers-cert.module");
 // Components
 var app_component_1 = require("./components/app/app.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
@@ -96,6 +97,7 @@ var AppModule = /** @class */ (function () {
                 //TwoThreeModule,
                 two_three_module_1.TwoThreeModule2,
                 kpk_module_1.KpkModule,
+                teachers_cert_module_1.TeachersCertModule,
                 router_1.RouterModule.forRoot([
                     { path: 'rsur', component: home_component_1.HomeComponent },
                     { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },

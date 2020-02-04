@@ -15,7 +15,7 @@ namespace AccountsCreator
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
 
-            accountsManager.ChangePassword("0025", "password52", "6645269724");
+            accountsManager.ChangePassword("0425", "password99", "6tVKmwnEr4");
             //accountsManager.CreateUser("0624", "LbInICaTeRon");
             //accountsManager.AddRoleToUser("0624", "school");
 

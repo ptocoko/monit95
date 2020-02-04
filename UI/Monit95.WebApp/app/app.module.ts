@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FirstClassModule } from './components/first-class/first-class.module';
 import { TwoThreeModule } from './components/two-three/two-three.module';
 import { TwoThreeModule2 } from './components/two-three-2/two-three.module';
+import { TeachersCertModule } from './components/teachers-cert/teachers-cert.module';
 
 // Components
 import { AppComponent } from './components/app/app.component';
@@ -97,6 +98,7 @@ import { KpkModule } from './components/kpk/kpk.module';
 		//TwoThreeModule,
 		TwoThreeModule2,
 		KpkModule,
+		TeachersCertModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
 				{ path: 'rsur/particips', component: RsurParticipsComponent },
