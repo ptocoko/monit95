@@ -5,13 +5,14 @@ import { SharedModule } from '../../shared/shared-module';
 import { SchoolsProfileService } from '../../services/schools-profile/schools-profile.service';
 import { MaterialModule } from '../../material.module';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Route[] = [
 	{ path: 'schools-profile', component: ProfileComponent }
 ]
 
 @NgModule({
-	imports: [CommonModule, SharedModule, MaterialModule, RouterModule.forChild(routes)],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, MaterialModule, RouterModule.forChild(routes)],
 	declarations: [ProfileComponent],
 	providers: [SchoolsProfileService]
 })

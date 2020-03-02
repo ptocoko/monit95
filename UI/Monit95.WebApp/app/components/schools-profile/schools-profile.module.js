@@ -8,6 +8,7 @@ var shared_module_1 = require("../../shared/shared-module");
 var schools_profile_service_1 = require("../../services/schools-profile/schools-profile.service");
 var material_module_1 = require("../../material.module");
 var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
 var routes = [
     { path: 'schools-profile', component: profile_component_1.ProfileComponent }
 ];
@@ -16,7 +17,7 @@ var SchoolsProfileModule = /** @class */ (function () {
     }
     SchoolsProfileModule = tslib_1.__decorate([
         core_1.NgModule({
-            imports: [common_1.CommonModule, shared_module_1.SharedModule, material_module_1.MaterialModule, router_1.RouterModule.forChild(routes)],
+            imports: [common_1.CommonModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, shared_module_1.SharedModule, material_module_1.MaterialModule, router_1.RouterModule.forChild(routes)],
             declarations: [profile_component_1.ProfileComponent],
             providers: [schools_profile_service_1.SchoolsProfileService]
         })

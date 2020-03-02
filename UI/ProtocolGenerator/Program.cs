@@ -36,9 +36,9 @@ namespace OneTwoThreeReporter
             //iTakeEge.GenerateReportsForAreas();
             //iTakeEge.GenerateForAllAreas(@"D:\Work\ITakeEge\092019\Areas", "template ege.xlsx", false);
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
-            //iTakeEge.SolveAndSaveGrade5(new int[] { 3086 });
+            iTakeEge.SolveAndSaveGrade5(new int[] { 3088 });
             //iTakeEge.SolveGrade5IgnoringQuestions(new int[] { }, 3085, 8, true);
-            iTakeEge.SetPrimaryMark_v2IngoringQuestionIds(new int[] { 2163 }, 3086);
+            //iTakeEge.SetPrimaryMark_v2IngoringQuestionIds(new int[] { 2163 }, 3086);
 
             //var report = reporter.GetReport(758706);
 

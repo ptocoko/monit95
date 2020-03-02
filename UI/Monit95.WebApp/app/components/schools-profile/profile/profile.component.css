@@ -14,3 +14,13 @@ label{
 .mat-radio-button + .mat-radio-button {
     margin-left: 15px;
 }
+
+.content-center {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
