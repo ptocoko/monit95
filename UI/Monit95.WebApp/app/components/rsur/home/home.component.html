@@ -2,38 +2,49 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="isArea() && false" class="list-container">
-        <h3 class="list-header">Диагностика «Январь-2020»</h3>
+    <div *ngIf="isArea() && setTimer(5, 7)" class="list-container">
+        <h3 class="list-header">Диагностика «Июнь-2020»</h3>
 
-        <!-- <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/01-20_фи_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ФИЗ.xlsx"> -->
-        <!-- <h4>Физика: распределение</h4> -->
-        <!-- </a> -->
-        <!-- <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/01-20_об_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ОБЩ.xlsx"> -->
-        <!-- <h4>Обществознание: распределение</h4> -->
-        <!-- </a> -->
-
-        <a class="list-item-link" href="/file/rsur/012020/tasks/fiz.zip" download="ФИЗ Варианты работ.zip">
-            <h4>Физика: Варианты работ</h4>
+        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_ру_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е РУС.xlsx">
+            <h4>Русский язык: распределение</h4>
         </a>
-        <a class="list-item-link" href="/file/rsur/012020/tasks/soc.rar" download="ОБЩ Варианты работ.rar">
-            <h4>Обществознание: Варианты работ</h4>
+        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_ма_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е МАТ.xlsx">
+            <h4>Математика: распределение</h4>
         </a>
-
-        <a class="list-item-link" href="/file/rsur/012020/keys/fiz.zip" download="ФИЗ Ключи для проверки работ.zip">
-            <h4 style="font-weight:bold">Физика: Ключи для проверки работ</h4>
+        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_фи_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ФИЗ.xlsx">
+            <h4>Физика: распределение</h4>
         </a>
-        <a class="list-item-link" href="/file/rsur/012020/keys/soc.rar" download="ОБЩ Ключи для проверки работ.rar">
-            <h4 style="font-weight:bold">Обществознание: Ключи для проверки работ</h4>
+        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_ис_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ИСТ.xlsx">
+            <h4>История: распределение</h4>
+        </a>
+        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_ге_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ГЕО.xlsx">
+            <h4>География: распределение</h4>
+        </a>
+        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_об_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ОБЩ.xlsx">
+            <h4>Обществознание: распределение</h4>
         </a>
 
+        <!--<a class="list-item-link" href="/file/rsur/012020/tasks/fiz.zip" download="ФИЗ Варианты работ.zip">
+        <h4>Физика: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" href="/file/rsur/012020/tasks/soc.rar" download="ОБЩ Варианты работ.rar">
+        <h4>Обществознание: Варианты работ</h4>
+    </a>
+
+    <a class="list-item-link" href="/file/rsur/012020/keys/fiz.zip" download="ФИЗ Ключи для проверки работ.zip">
+        <h4 style="font-weight:bold">Физика: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" href="/file/rsur/012020/keys/soc.rar" download="ОБЩ Ключи для проверки работ.rar">
+        <h4 style="font-weight:bold">Обществознание: Ключи для проверки работ</h4>
+    </a>-->
         <!--<div class="list-item">
-            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                <div>
-                    <h4><b>Протоколы проверки заданий</b></h4>
-                </div>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
-            </a>
-        </div>-->
+        <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
+            <div>
+                <h4><b>Протоколы проверки заданий</b></h4>
+            </div>
+            <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+        </a>
+    </div>-->
     </div>
 
     <div *ngIf="isAdmin() && false" class="list-container">
@@ -103,6 +114,33 @@
                                           [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
                                           [downloadExt]="'xlsx'">
                         </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'2_РУ'"
+                                          [collectorId]="88"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Русскому языку - 2-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'3_РУ'"
+                                          [collectorId]="89"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Русскому языку - 3-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'4_РУ'"
+                                          [collectorId]="90"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Русскому языку - 4-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
                     </div>
 
                     <div class="list-container" *ngIf="isArea()">
@@ -122,9 +160,25 @@
                                     <h4>Материал по теме №1</h4>
                                 </div>
                             </a>
-                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №1.rar" href="/file/rsur/1-block-algoritm/2020/ru/2.rar">
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №2.rar" href="/file/rsur/1-block-algoritm/2020/ru/2.rar">
                                 <div>
-                                    <h4>Материал по теме №1</h4>
+                                    <h4>Материал по теме №2</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №3.rar" href="/file/rsur/1-block-algoritm/2020/ru/3.rar">
+                                <div>
+                                    <h4>Материал по теме №3</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №4.rar" href="/file/rsur/1-block-algoritm/2020/ru/4.rar">
+                                <div>
+                                    <h4>Материал по теме №4</h4>
+                                </div>
+                            </a>
+
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №5.rar" href="/file/rsur/1-block-algoritm/2020/ru/5.rar">
+                                <div>
+                                    <h4>Материал по теме №5</h4>
                                 </div>
                             </a>
 
@@ -172,6 +226,33 @@
                                           [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
                                           [downloadExt]="'xlsx'">
                         </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'2_МА'"
+                                          [collectorId]="96"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Математике - 2-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'3_МА'"
+                                          [collectorId]="97"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Математике - 3-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'4_МА'"
+                                          [collectorId]="98"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Математике - 4-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
                     </div>
 
                     <div class="list-container" *ngIf="isArea()">
@@ -191,9 +272,24 @@
                                     <h4>Материал по теме №1</h4>
                                 </div>
                             </a>
-                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №1.rar" href="/file/rsur/1-block-algoritm/2020/ma/2.rar">
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №2.rar" href="/file/rsur/1-block-algoritm/2020/ma/2.rar">
                                 <div>
-                                    <h4>Материал по теме №1</h4>
+                                    <h4>Материал по теме №2</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №3.rar" href="/file/rsur/1-block-algoritm/2020/ma/3.rar">
+                                <div>
+                                    <h4>Материал по теме №3</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №4.rar" href="/file/rsur/1-block-algoritm/2020/ma/4.rar">
+                                <div>
+                                    <h4>Материал по теме №4</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №5.rar" href="/file/rsur/1-block-algoritm/2020/ma/5.rar">
+                                <div>
+                                    <h4>Материал по теме №5</h4>
                                 </div>
                             </a>
 
@@ -240,6 +336,33 @@
                                           [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
                                           [downloadExt]="'xlsx'">
                         </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'2_ИС'"
+                                          [collectorId]="104"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Истории - 2-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'3_ИС'"
+                                          [collectorId]="105"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Истории - 3-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'4_ИС'"
+                                          [collectorId]="106"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Истории - 4-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
                     </div>
 
                     <div class="list-container" *ngIf="isArea()">
@@ -262,6 +385,26 @@
                             <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №2.rar" href="/file/rsur/1-block-algoritm/2020/his/2.rar">
                                 <div>
                                     <h4>Материал по теме №2</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №3.rar" href="/file/rsur/1-block-algoritm/2020/his/3.rar">
+                                <div>
+                                    <h4>Материал по теме №3</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №4.rar" href="/file/rsur/1-block-algoritm/2020/his/4.rar">
+                                <div>
+                                    <h4>Материал по теме №4</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №5.rar" href="/file/rsur/1-block-algoritm/2020/his/5.rar">
+                                <div>
+                                    <h4>Материал по теме №5</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №6.rar" href="/file/rsur/1-block-algoritm/2020/his/6.rar">
+                                <div>
+                                    <h4>Материал по теме №6</h4>
                                 </div>
                             </a>
                         </mat-expansion-panel>
@@ -308,6 +451,33 @@
                                           [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
                                           [downloadExt]="'xlsx'">
                         </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'2_ГЕ'"
+                                          [collectorId]="112"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Географии - 2-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'3_ГЕ'"
+                                          [collectorId]="113"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Географии - 3-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
+                        <app-excel-upload *ngIf="isArea()"
+                                          [fileNamePrefix]="'4_ГЕ'"
+                                          [collectorId]="114"
+                                          [collectorFor]="'area'"
+                                          [repositoryId]="9"
+                                          [caption]="'Заполненный отчет по Географии - 4-я неделя'"
+                                          [downloadHref]="'/file/rsur/1-block-algoritm/2020/reports'"
+                                          [downloadExt]="'xlsx'">
+                        </app-excel-upload>
                     </div>
 
                     <div class="list-container" *ngIf="isArea()">
@@ -330,7 +500,26 @@
 
                             <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №2.rar" href="/file/rsur/1-block-algoritm/2020/geo/2.zip">
                                 <div>
-                                    <h4>Материал по теме №12</h4>
+                                    <h4>Материал по теме №2</h4>
+                                </div>
+                            </a>
+
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №3.zip" href="/file/rsur/1-block-algoritm/2020/geo/3.zip">
+                                <div>
+                                    <h4>Материал по теме №3</h4>
+                                </div>
+                            </a><a *ngIf="isArea()" class="list-item-link" download="Материал по промежуточной диагностике.zip" href="/file/rsur/1-block-algoritm/2020/geo/4_1.zip">
+                                <div>
+                                    <h4>Материал по промежуточной диагностике</h4>
+                                </div>
+                            </a><a *ngIf="isArea()" class="list-item-link" download="Материал по теме №4.zip" href="/file/rsur/1-block-algoritm/2020/geo/4.zip">
+                                <div>
+                                    <h4>Материал по теме №4</h4>
+                                </div>
+                            </a>
+                            <a *ngIf="isArea()" class="list-item-link" download="Материал по теме №5.zip" href="/file/rsur/1-block-algoritm/2020/geo/5.zip">
+                                <div>
+                                    <h4>Материал по теме №5</h4>
                                 </div>
                             </a>
 

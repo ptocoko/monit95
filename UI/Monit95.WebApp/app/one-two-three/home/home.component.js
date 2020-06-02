@@ -10,7 +10,7 @@ var HomeComponent = /** @class */ (function () {
     }
     HomeComponent.prototype.ngOnInit = function () {
         var date = new Date();
-        this.timeIsCome = (date.getDate() === 21 && date.getHours() >= 7 && date.getMinutes() >= 30) || date.getDate() > 21;
+        this.timeIsCome = (date.getDate() === 1 && date.getHours() >= 7 && date.getMonth() === 5) || (date.getDate() > 1 && date.getMonth() === 5);
     };
     HomeComponent = tslib_1.__decorate([
         core_1.Component({
