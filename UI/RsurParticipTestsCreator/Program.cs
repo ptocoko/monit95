@@ -13,29 +13,37 @@ namespace RsurParticipTestsCreator
         static void Main(string[] args)
         {
             CokoContext context = new CokoContext();
-            //GenerateParticipTests(context);
-            ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context, "05-19", "Май-2019");
-            var models = cretor.GetModels(new int[] { 3208, 3209, 3210, 3211, 3212, 3213, 3214, 3215 });
-            foreach (var model in models)
-            {
-                cretor.SaveModelsIntoExcel(model);
-            }
+            GenerateParticipTests(context);
+            //ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context, "05-19", "Май-2019");
+            //var models = cretor.GetModels(new int[] { 3208, 3209, 3210, 3211, 3212, 3213, 3214, 3215 });
+            //foreach (var model in models)
+            //{
+            //    cretor.SaveModelsIntoExcel(model);
+            //}
         }
 
         private static void GenerateParticipTests(CokoContext context)
         {
             var rsurTestNumberCodeDict = new Dictionary<string, int>
             {
-                {"0701", 3210 },
-                {"0702", 3211 },
-                {"0703", 3212 },
-                {"0704", 3213 },
-                {"0801", 3208 },
-                {"0802", 3209 },
-                {"0803", 3214 },
+                { "0101", 4263 },
+                { "0102", 4264 },
+                { "0103", 4265 },
+                { "0104", 4266 },
+                { "0201", 4267 },
+                { "0202", 4268 },
+                { "0203", 4269 },
+                { "0701", 4270 },
+                { "0702", 4271 },
+                { "0703", 4272 },
+                { "0704", 4273 },
+                { "0801", 4274 },
+                { "0802", 4275 },
+                { "0803", 4276 },
+                { "0804", 4277 },
             };
 
-            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => new int[] { 7, 8 }.Contains(p.RsurSubjectCode) && p.SchoolId != "0000"));
+            var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => new int[] { 1, 2, 7, 8 }.Contains(p.RsurSubjectCode) && p.SchoolId != "0000"));
 
             var notPassLastExam = GetNotPassLastExam(whoMustPass);
             var passLastExam = GetPassLastExam(whoMustPass);
