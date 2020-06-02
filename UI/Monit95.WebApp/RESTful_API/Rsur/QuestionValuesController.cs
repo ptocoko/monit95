@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Monit95App.Services.Rsur.QuestionValue;
+using Monit95App.Services.Rsur.TestResult;
+using ServiceResult;
 
 namespace Monit95.WebApp.RESTful_API.Rsur
 {
@@ -11,7 +14,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
     /// <summary>
     /// Контроллер по работа с протоколами проверки заданий участника
     /// </summary>
-    [Authorize(Roles = "area")]
+    [Authorize(Roles = "area,school")]
     [RoutePrefix("api/rsur/questionValues")]
     public class QuestionValuesController : ApiController
     {
@@ -35,8 +38,7 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         [Route("")]
         public HttpResponseMessage Post([FromBody]QuestionValueEditDto questionValueEditDto)
         {
-            var areaCode = int.Parse(User.Identity.Name);
-            var result = questionValueService.CreateOrUpdate(questionValueEditDto, areaCode);
+            var result = questionValueService.CreateOrUpdate(questionValueEditDto);
 
             if (!result.Errors.Any())
             {
@@ -54,9 +56,8 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         [Route("{participCode:int}")]
         public HttpResponseMessage Put([FromBody]QuestionValueEditDto testResultDto)
         {
-            var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
-            var areaCode = int.Parse(User.Identity.Name);
-            var result = questionValueService.CreateOrUpdate(testResultDto, areaCode);
+            // var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
+            var result = questionValueService.CreateOrUpdate(testResultDto);
 
             if (!result.Errors.Any())
             {
@@ -80,8 +81,17 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            var areaCode = Convert.ToInt32(User.Identity.Name);
-            var result = questionValueService.GetQuestionProtocolList(areaCode);
+            ServiceResult<IEnumerable<QuestionValueViewDto>> result;
+            if (User.IsInRole("area"))
+            {
+                var areaCode = Convert.ToInt32(User.Identity.Name);
+                result = questionValueService.GetQuestionProtocolList(areaCode);
+            }
+            else
+            {
+                var schoolId = User.Identity.Name;
+                result = questionValueService.GetQuestionProtocolListForSchool(schoolId);
+            }
 
             // Success
             if (!result.Errors.Any())
@@ -104,12 +114,11 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         public IHttpActionResult GetEditDtoByParticipCode()
         {
             var participCode = int.Parse(RequestContext.RouteData.Values["participCode"].ToString());
-            var areaCode = int.Parse(User.Identity.Name);
 
             QuestionValueEditDto marksProtocol;
             try
             {
-                marksProtocol = this.questionValueService.Get(participCode, areaCode);
+                marksProtocol = this.questionValueService.Get(participCode);
             }
             catch (System.ArgumentException ex)
             {
@@ -145,9 +154,8 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         public IHttpActionResult MarkAsAbsent()
         {
             var participTestId = int.Parse(RequestContext.RouteData.Values["participTestId"].ToString());
-            var areaCode = int.Parse(User.Identity.Name);
 
-            var result = questionValueService.MarkAsAbsent(participTestId, areaCode);
+            var result = questionValueService.MarkAsAbsent(participTestId);
 
             if (!result.Errors.Any())
             {
@@ -172,8 +180,18 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         [Route("statistics")]
         public IHttpActionResult GetStatistics()
         {
-            var areaCode = int.Parse(User.Identity.Name);
-            var result = questionValueService.GetStatistics(areaCode);
+            ServiceResult<int> result;
+
+            if (User.IsInRole("area"))
+            {
+                var areaCode = Convert.ToInt32(User.Identity.Name);
+                result = questionValueService.GetStatistics(areaCode);
+            }
+            else
+            {
+                var schoolId = User.Identity.Name;
+                result = questionValueService.GetStatisticsForSchool(schoolId);
+            }
             // Success
             if (!result.Errors.Any())
                 return Ok(result.Result);

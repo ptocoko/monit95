@@ -61,15 +61,23 @@ namespace Monit95App.Services.Rsur.QuestionValue
             if (!participTests.Any())
                 result.Errors.Add(new ServiceError { HttpCode = 404, Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
 
-            // TODO: Delete this!
-            if (areaCode == 200)
-            {
-                participTests = participTests.Where(p => new int[] { 4254, 4258 }.Contains(p.RsurTestId));
-            }
-            else
-            {
-                participTests = participTests.Where(p => !new int[] { 4254, 4258 }.Contains(p.RsurTestId));
-            }
+            // Получаем кол-во участников распределенных на диагностику
+            var participTestCount = participTests.Count();
+
+            // Получаем кол-во участников у которых занесены баллы по заданиям или поставленно «отсутствовал»
+            var testResultsCount = participTests.Count(rpt => rpt.RsurTestResult != null);
+            result.Result = (int)(testResultsCount * 1.0 / participTestCount * 1.0 * 100);
+            return result;
+        }
+
+        public ServiceResult<int> GetStatisticsForSchool(string schoolId)
+        {
+            var result = new ServiceResult<int>();
+
+            var participTests = context.RsurParticipTests.Where(rpt => rpt.RsurTest.IsOpen && rpt.Editable && rpt.RsurParticip.SchoolId == schoolId);
+
+            if (!participTests.Any())
+                result.Errors.Add(new ServiceError { HttpCode = 404, Description = $@"Нет открытых тестов для указанного пользователя '{schoolId}'" });
 
             // Получаем кол-во участников распределенных на диагностику
             var participTestCount = participTests.Count();
@@ -86,19 +94,16 @@ namespace Monit95App.Services.Rsur.QuestionValue
         /// <param name="participCode"></param>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public QuestionValueEditDto Get(int participCode, int areaCode)
+        public QuestionValueEditDto Get(int participCode)
         {
-            if (!Enumerable.Range(10000, 99999).Contains(participCode)
-                || !Enumerable.Range(200, 217).Contains(areaCode))
+            if (!Enumerable.Range(10000, 99999).Contains(participCode))
             {
-                throw new ArgumentException($"{nameof(participCode)} has to be 10000-99999 and {nameof(areaCode)} has to be 200-217");
+                throw new ArgumentException($"{nameof(participCode)} has to be 10000-99999");
             } 
             
             var rsurParticipTest = this.context.RsurParticipTests.SingleOrDefault(x => x.RsurParticipCode == participCode
                                                                                     && x.RsurTest.IsOpen
                                                                                     && x.Editable);
-            if (areaCode != 200)
-                rsurParticipTest = rsurParticipTest.RsurParticip.School.AreaCode == areaCode ? rsurParticipTest : null;
 
             if (rsurParticipTest == null)
             {
@@ -194,7 +199,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
         /// <param name="questionValueEditDto"></param>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public VoidResult CreateOrUpdate(QuestionValueEditDto questionValueEditDto, int areaCode)
+        public VoidResult CreateOrUpdate(QuestionValueEditDto questionValueEditDto)
         {
             var result = new VoidResult();
             
@@ -215,14 +220,11 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 .SingleOrDefault(x => x.RsurTest.IsOpen
                                    && x.Id == questionValueEditDto.ParticipTestId
                                    && x.Editable);
-            if (areaCode != 200)
-                participTest = participTest.RsurParticip.School.AreaCode == areaCode ? participTest : null;
 
             if (participTest == null)
             {
                 result.Errors.Add(new ServiceError {                    
                     Description = "- RsurTest is not open;" +
-                                 $" - Or {nameof(questionValueEditDto.ParticipTestId)} or {nameof(areaCode)} is incorrect;" +
                                   " - Or participTest is not Editable;" +
                                   " - Or user has not access to this entity"
                 });                
@@ -295,16 +297,6 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 return result;
             }
 
-            // TODO: Delete this!
-            if (areaCode == 200)
-            {
-                entities = entities.Where(p => new int[] { 4254, 4258 }.Contains(p.RsurTestId));
-            }
-            else
-            {
-                entities = entities.Where(p => !new int[] { 4254, 4258 }.Contains(p.RsurTestId));
-            }
-
             result.Result = entities.Select(s => new QuestionValueViewDto
             {
                 ParticipCode = s.RsurParticipCode,
@@ -332,13 +324,52 @@ namespace Monit95App.Services.Rsur.QuestionValue
             return result;
         }
 
-        public VoidResult MarkAsAbsent(int participTestId, int areaCode)
+        public ServiceResult<IEnumerable<QuestionValueViewDto>> GetQuestionProtocolListForSchool(string schoolId)
+        {
+            var result = new ServiceResult<IEnumerable<QuestionValueViewDto>>();
+
+            var entities = context.RsurParticipTests.Where(x => x.RsurTest.IsOpen
+                                                             && x.Editable
+                                                             && x.RsurParticip.SchoolId == schoolId);
+
+            if (!entities.Any())
+            {
+                result.Errors.Add(new ServiceError { HttpCode = 404 });
+                return result;
+            }
+
+            result.Result = entities.Select(s => new QuestionValueViewDto
+            {
+                ParticipCode = s.RsurParticipCode,
+                ParticipTestId = s.Id,
+                RsurQuestionValues = s.RsurTestResult.RsurQuestionValues,
+                TestName = s.RsurTest.Test.NumberCode + "-" + s.RsurTest.Test.Name
+            })
+            .ToList()
+            .OrderBy(ob => ob.RsurQuestionValues, Comparer<string>.Create((str1, str2) =>
+            {
+                if (str1 == null && str2 != null)
+                {
+                    return -1;
+                }
+                else if (str1 != null && str2 == null)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            })).ThenBy(tb => tb.ParticipCode);
+
+            return result;
+        }
+
+        public VoidResult MarkAsAbsent(int participTestId)
         {
             var result = new VoidResult();
 
-            if(!context.RsurParticipTests.Any(p => areaCode == 200 ? true : p.RsurParticip.School.AreaCode == areaCode 
-                                                && p.Id == participTestId 
-                                                && p.Editable))
+            if(!context.RsurParticipTests.Any(p => p.Id == participTestId && p.Editable))
             {
                 result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"{nameof(participTestId)} which equals {participTestId} not exist in current area" });
                 return result;
