@@ -19,19 +19,18 @@ namespace ParticipReporter
 {
     class Program
     {
-        private static OneTwoThree oneTwoThree;
         private static CokoContext context;
-        private static CardsGenerator cardsGenerator;
-        private static ClassParticipReporter participReporter;
-        private static ResultsImporter importer;
-        private static Reporter twoThreeReporter;
-
         static void Main(string[] args)
         {
             context = new CokoContext();
-            participReporter = new ClassParticipReporter();
-            cardsGenerator = new CardsGenerator(context, participReporter);
-            
+            var reporter = new Reporter(context);
+            var importer = new ResultsImporter(context);
+            var twoThree = new TwoThree();
+            twoThree.GenerateReports(reporter);
+            //twoThree.ImportAndSaveBySchoolIdAndTest(context, importer, 7, "0058", "0304");
+            //participReporter = new ClassParticipReporter();
+            //cardsGenerator = new CardsGenerator(context, participReporter);
+
             //var participReporter = new ReportService(context);
 
             //var _9_11Classes = new _9_11Classes(context, participReporter);
@@ -39,7 +38,7 @@ namespace ParticipReporter
             //var oneTwoThree = new OneTwoThree();
             //oneTwoThree.GenerateCards();
             //RenameAndMoveCardFolders();
-            GenerateFirstClassCards();
+            //GenerateFirstClassCards();
 
             Console.WriteLine("End");
             #region oldCode
@@ -198,66 +197,6 @@ namespace ParticipReporter
                 [7] = 2
             }
         };
-
-        static void GenerateTwoThreePrimaryMark(string testCode, int minMidMark, int maxMidMark)
-        {
-            foreach (var entity in context.TwoThreeResults.Where(p => p.TestCode == testCode))
-            {
-                if(entity.GeneralTasksSum < minMidMark)
-                {
-                    entity.Grade5 = 3;
-                }
-                else if (entity.GeneralTasksSum <= maxMidMark)
-                {
-                    entity.Grade5 = 4;
-                }
-                else
-                {
-                    entity.Grade5 = 5;
-                }
-            }
-            context.SaveChanges();
-        }
-
-        static void GenerateTwoThreeQuestionMarks()
-        {
-            var results = new List<TwoThreeResultsMarks>();
-
-            foreach (var result in context.TwoThreeResults.Where(p => p.TestCode != "0303" && p.Times == 2))
-            {
-                var marks = result.Marks.Split(';').Select(int.Parse).ToArray();
-
-                var questionMarks = new List<TwoThreeResultsMarks>();
-                for (int i = 0; i < marks.Count(); i++)
-                {
-                    var mark = marks[i];
-                    var entity = new TwoThreeResultsMarks
-                    {
-                        ResultId = result.Id,
-                        AwardedMark = mark,
-                        QuestionOrder = i + 1,
-                        MaxMark = maxMakrs[result.TestCode][i + 1]
-                    };
-                    questionMarks.Add(entity);
-                }
-                results.AddRange(questionMarks);
-            }
-
-            context.TwoThreeResultsMarks.AddRange(results);
-            context.SaveChanges();
-        }
-
-        static void GenerateFirstClassCards()
-        {
-            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTestId == 3078 && pt.Grade5 > 0).Select(pt => pt.Particip.SchoolId).Distinct();
-            foreach (var schoolId in schoolIds)
-            {
-                Console.WriteLine($"Started for {schoolId}");
-                cardsGenerator.GetCardsArchievePath(schoolId, 3078);
-                Console.WriteLine($"Ended for {schoolId}");
-            }
-            Console.WriteLine("Ended");
-        }
 
         static void CopyFiles()
         {

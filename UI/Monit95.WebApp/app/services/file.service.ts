@@ -20,6 +20,14 @@ export class FileService {
 		});
 	}
 
+	getFileId(fileName: string, repositoryId: number) {
+		const params = new HttpParams();
+		params.append('filename', fileName);
+		params.append('repositoryId', repositoryId.toString());
+
+		return this.http.get<number>('/api/files/' + fileName + '/' + repositoryId);
+	}
+
 	deleteFile(fileId: number) {
 		return this.http.delete(`api/files/${fileId}`, { responseType: 'text' });
 	}

@@ -20,11 +20,11 @@ namespace Monit95App.Services.ItakeEge.Report
             this.context = context;
         }
 
-        public ServiceResult<ReportsListDto> GetRepostsList(ReportsSearchDto searchDto, string schoolId)
+        public ServiceResult<ReportsListDto> GetRepostsList(ReportsSearchDto searchDto, string schoolId = null, int? areaCode = null)
         {
             var serviceRes = new ServiceResult<ReportsListDto>();
 
-            if(searchDto.ProjectId == 0 || string.IsNullOrEmpty(schoolId))
+            if(searchDto.ProjectId == 0 || (string.IsNullOrEmpty(schoolId) && !areaCode.HasValue))
             {
                 serviceRes.HasError = true;
                 serviceRes.Errors = new List<ServiceError>
@@ -40,11 +40,21 @@ namespace Monit95App.Services.ItakeEge.Report
             }
 
             var entities = context.ParticipTests
-                .Where(pt => pt.ProjectTest.ProjectId == searchDto.ProjectId && pt.Particip.SchoolId == schoolId);
+                .Where(pt => pt.ProjectTest.ProjectId == searchDto.ProjectId && pt.Grade5.HasValue);
+
+            if (areaCode.HasValue)
+            {
+                entities = entities.Where(pt => pt.Particip.School.AreaCode == areaCode.Value);
+            }
+
+            if (!string.IsNullOrEmpty(schoolId))
+            {
+                entities = entities.Where(pt => pt.Particip.SchoolId == schoolId);
+            }
 
             if (!string.IsNullOrEmpty(searchDto.TestCode))
             {
-                entities = entities.Where(pt => pt.ProjectTest.Test.NumberCode == searchDto.TestCode);
+                entities = entities.Where(pt => pt.ProjectTestId.ToString() == searchDto.TestCode);
             }
             if (!string.IsNullOrEmpty(searchDto.SearchParticipText))
             {
@@ -73,17 +83,17 @@ namespace Monit95App.Services.ItakeEge.Report
                     Grade5 = (int)s.Grade5,
                     Id = s.ParticipId,
                     ParticipTestId = s.Id
-                })
+                }).ToList()
             };
 
             return serviceRes;
         }
 
-        public ServiceResult<ReportInfoDto> GetReportInfo(int projectId)
+        public ServiceResult<ReportInfoDto> GetReportInfo(int projectId, int? areaCode = null)
         {
             var serviceRes = new ServiceResult<ReportInfoDto>();
 
-            var entities = context.ProjectTests.Where(pj => pj.ProjectId == projectId);
+            var entities = context.ProjectTests.Where(pj => pj.ProjectId == projectId).ToList();
             if(entities == null || entities.Count() == 0)
             {
                 serviceRes.HasError = true;
@@ -99,12 +109,20 @@ namespace Monit95App.Services.ItakeEge.Report
 
             serviceRes.Result = new ReportInfoDto
             {
-                Tests = entities.Select(s => new TestDto
+                Tests = entities.OrderByDescending(ob => ob.TestDate).Select(s => new TestDto
                 {
-                    Code = s.Test.NumberCode,
-                    Name = s.Test.Name
+                    Code = s.Id.ToString(),
+                    Name = s.Test.Name + " (" + s.TestDate.ToString("dd.MM.yyyy г.") + ")"
                 })
             };
+
+            if (areaCode.HasValue)
+            {
+                serviceRes.Result.Schools = context.Schools
+                    .Where(s => s.AreaCode == areaCode.Value)
+                    .Select(s => new SchoolDto { Name = s.Name.Trim(), Id = s.Id })
+                    .OrderBy(ob => ob.Id);
+            }
 
             return serviceRes;
         }
@@ -179,7 +197,7 @@ namespace Monit95App.Services.ItakeEge.Report
                     QuestionNumbers = GetElementQuestionNumbers(entity, geeq.Select(eeq => eeq.EgeQuestionId)),
                     Value = GetEgeElementValue(entity, geeq.Select(eeq => eeq.EgeQuestionId))
                 })
-                .OrderBy(ob => ob.ElementNumber);
+                .OrderBy(ob => int.Parse(ob.ElementNumber));
 
             return results;
         }

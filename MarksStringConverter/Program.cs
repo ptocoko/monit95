@@ -16,11 +16,9 @@ namespace MarksStringConverter
 
             var context = new CokoContext();
             var service = new RsurMarksConverter(context);
-            //var rsurParticipTestIds = context.RsurParticipTests.AsNoTracking().Where(p => p.RsurTest.IsOpen && p.RsurTest.Test.NumberCode.Substring(0, 2) == "01" && new string[] { "0183", "0246" }.Contains(p.RsurParticip.SchoolId) && p.RsurTestResult.RsurQuestionValues != "wasnot" && p.RsurTestResult.Grade5 == null).Select(s => s.Id).ToArray();
-            //service.GenerateAndSaveByParticipTestIds(new int[] { 42002 });
             //Go(service);
-            service.GenerateByRsurTestIds(new int[] { 3216, 3217 });
-            //service.GenerateAndSaveByParticipTestId(37358);
+            service.GenerateByRsurTestIds(new int[] { 4239, 4240, 4241, 4242, 4243, 4244, 4245, 4246, 4247, 4248, 4249, 4250, 4251, 4252, 4253, 4254, 4255, 4256, 4257, 4258, 4259, 4260, 4261, 4262 });
+            //service.GenerateAndSaveByParticipTestId(37799);
             Console.WriteLine("All done!");
             Console.ReadKey();
         }

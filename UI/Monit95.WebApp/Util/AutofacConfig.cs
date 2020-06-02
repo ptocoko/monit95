@@ -13,12 +13,14 @@ using Monit95App.Services.ItakeEge.Participant;
 using Monit95App.Services.ItakeEge.QuestionProtocol;
 using Monit95App.Services.ItakeEge.QuestionResult;
 using Monit95App.Services.ItakeEge.Report;
+using Monit95App.Services.ItakeEge.Report2;
 using Monit95App.Services.Rsur;
 using Monit95App.Services.Rsur.ParticipReport;
 using Monit95App.Services.Rsur.QuestionValue;
 using Monit95App.Services.Rsur.SeminarReport;
 using Monit95App.Services.School;
 using Monit95App.Services.SchoolFiles;
+using Monit95App.Services.SchoolsProfile;
 using Monit95App.Web.Services;
 
 namespace Monit95.WebApp.Util
@@ -69,6 +71,8 @@ namespace Monit95.WebApp.Util
             builder.RegisterType<ClassParticipReporter>();
             builder.RegisterType<CardsGenerator>();
             builder.RegisterType<ReportService>();
+            builder.RegisterType<Report2Service>();
+            builder.RegisterType<SchoolsProfileService>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

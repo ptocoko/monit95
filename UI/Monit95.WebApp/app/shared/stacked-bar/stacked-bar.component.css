@@ -1,0 +1,31 @@
+﻿.bar-container {
+    display: flex;
+    height: 15px;
+}
+
+.bar {
+    text-align: center;
+    font-size: 9pt;
+}
+
+.legend-container {
+    display:flex;
+    justify-content: flex-end;
+    margin-bottom: 7px;
+}
+
+.legend-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.legend-color {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+}
+
+.legend-wrapper + .legend-wrapper {
+    margin-left: 20px;
+}

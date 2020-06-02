@@ -2,10 +2,16 @@
 import { HttpClient } from '@angular/common/http';
 import { AccountModel } from '../models/account.model';
 import { SchoolService } from '../school.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class AccountService {    
-    account: AccountModel = new AccountModel();
+	account: AccountModel = new AccountModel();
+	private readonly auth$ = new BehaviorSubject<AccountModel>(null);
+	get auth() {
+		return this.auth$.pipe(filter(auth => auth !== null))
+	}
 
 	constructor(private readonly http: HttpClient, private readonly schoolService: SchoolService) {
 		this.loadAccount();
@@ -13,7 +19,8 @@ export class AccountService {
 
     private loadAccount() {
 		this.http.get<AccountModel>('api/account').subscribe(res => {
-            this.account = res;
+			this.account = res;
+			this.auth$.next(res);
 		})
 	}
 

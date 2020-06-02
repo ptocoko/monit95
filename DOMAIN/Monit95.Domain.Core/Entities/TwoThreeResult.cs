@@ -21,7 +21,10 @@ namespace Monit95App.Domain.Core.Entities
         public string GradeString { get; set; }
 
         public string SchoolId { get; set; }
-        
+
+        public short? OptionNumber { get; set; }
+        public string Years { get; set; }
+
         public virtual School School { get; set; }
     }
 }

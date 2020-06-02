@@ -347,6 +347,7 @@
     <Compile Include="RESTful_API\FirstClass\FirstClassProtocolsController.cs" />
     <Compile Include="RESTful_API\FirstClass\ParticipsController.cs" />
     <Compile Include="RESTful_API\iTakeEge\QuestionProtocolsController.cs" />
+    <Compile Include="RESTful_API\iTakeEge\Reports2Controller.cs" />
     <Compile Include="RESTful_API\iTakeEge\ReportsController.cs" />
     <Compile Include="RESTful_API\MarksController.cs" />
     <Compile Include="RESTful_API\MarksFileController.cs" />
@@ -393,6 +394,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\WishModel.cs" />
     <Compile Include="Models\WishModelCreator.cs" />
+    <Compile Include="RESTful_API\SchoolsProfile\SchoolsProfileController.cs" />
     <Compile Include="Services\IAccountService.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Util\AutofacConfig.cs" />
@@ -414,6 +416,7 @@
     <Content Include="app\components\first-class\protocols\list\protocols-list.component.html" />
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.css" />
     <Content Include="app\components\first-class\protocols\protocol\protocol.component.html" />
+    <Content Include="app\components\kpk\home\home.component.html" />
     <Content Include="app\components\particips\add\add.component.css" />
     <Content Include="app\components\particips\add\add.component.html" />
     <Content Include="app\components\particips\list\list.component.css" />
@@ -430,6 +433,9 @@
     <Content Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.html" />
     <Content Include="app\components\rsur\actualization\hiring\new-particip\new-particip.component.html" />
     <Content Include="app\components\rsur\home\home.component.css" />
+    <Content Include="app\components\schools-profile\profile\profile.component.css" />
+    <Content Include="app\components\schools-profile\profile\profile.component.html" />
+    <Content Include="app\components\teachers-cert\home\home.component.html" />
     <Content Include="app\components\two-three-2\home\home.component.css" />
     <Content Include="app\components\two-three-2\home\home.component.html" />
     <Content Include="app\components\two-three\excel-uploader\uploader.component.css" />
@@ -481,6 +487,8 @@
     <Content Include="app\components\rsur\reports\report\report.component.css" />
     <Content Include="app\components\rsur\reports\report\report.component.html" />
     <Content Include="app\components\rsur\reports\report-list\report-list.component.html" />
+    <Content Include="app\particips\reports2\schools-list\schools-reports-list.component.css" />
+    <Content Include="app\particips\reports2\schools-list\schools-reports-list.component.html" />
     <Content Include="app\particips\reports\list\list.component.css" />
     <Content Include="app\particips\reports\list\list.component.html" />
     <Content Include="app\particips\reports\report\report.component.css" />
@@ -500,6 +508,8 @@
     <Content Include="app\shared\confirm-dialog\confirm-dialog.component.html" />
     <Content Include="app\shared\loading-view\loading-view.component.css" />
     <Content Include="app\shared\loading-view\loading-view.component.html" />
+    <Content Include="app\shared\stacked-bar\stacked-bar.component.html" />
+    <Content Include="app\shared\stacked-bar\stacked-bar.component.css" />
     <Content Include="app\shared\table-paginator\table-paginator.css" />
     <Content Include="app\shared\table-paginator\table-paginator.html" />
     <Content Include="app\styles\styles.css" />
@@ -678,6 +688,8 @@
     <TypeScriptCompile Include="app\components\first-class\particips\list\particips-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\list\protocols-list.component.ts" />
     <TypeScriptCompile Include="app\components\first-class\protocols\protocol\protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\kpk\home\home.component.ts" />
+    <TypeScriptCompile Include="app\components\kpk\kpk.module.ts" />
     <TypeScriptCompile Include="app\components\particips\add\add.component.ts" />
     <TypeScriptCompile Include="app\components\particips\list\list.component.ts" />
     <TypeScriptCompile Include="app\components\particips\particips.module.ts" />
@@ -688,6 +700,10 @@
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\transfer\transfer-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\actualization\hiring\new-particip\new-particip.component.ts" />
     <TypeScriptCompile Include="app\components\rsur\protocols\protocol\question-protocol.component.ts" />
+    <TypeScriptCompile Include="app\components\schools-profile\profile\profile.component.ts" />
+    <TypeScriptCompile Include="app\components\schools-profile\schools-profile.module.ts" />
+    <TypeScriptCompile Include="app\components\teachers-cert\home\home.component.ts" />
+    <TypeScriptCompile Include="app\components\teachers-cert\teachers-cert.module.ts" />
     <TypeScriptCompile Include="app\components\two-three-2\home\home.component.ts" />
     <TypeScriptCompile Include="app\components\two-three-2\two-three.module.ts" />
     <TypeScriptCompile Include="app\components\two-three\excel-uploader\uploader.component.ts" />
@@ -706,6 +722,7 @@
     <TypeScriptCompile Include="app\models\first-class\protocol-get.model.ts" />
     <TypeScriptCompile Include="app\models\first-class\protocol-post.model.ts" />
     <TypeScriptCompile Include="app\models\first-class\question-result.model.ts" />
+    <TypeScriptCompile Include="app\models\iTakeEge\reports2\ISchoolReport.ts" />
     <TypeScriptCompile Include="app\models\iTakeEge\reports\report.model.ts" />
     <TypeScriptCompile Include="app\models\iTakeEge\reports\reports-info.model.ts" />
     <TypeScriptCompile Include="app\models\iTakeEge\reports\reports-list.model.ts" />
@@ -723,6 +740,7 @@
     <TypeScriptCompile Include="app\models\rsur\exam.model.ts" />
     <TypeScriptCompile Include="app\models\rsur\particip-post.model.ts" />
     <TypeScriptCompile Include="app\models\school.model.ts" />
+    <TypeScriptCompile Include="app\models\schools-profile\profile-question.model.ts" />
     <TypeScriptCompile Include="app\models\test.model.ts" />
     <TypeScriptCompile Include="app\one-two-three\home\home.component.ts" />
     <TypeScriptCompile Include="app\one-two-three\NumberCodes.ts" />
@@ -744,6 +762,8 @@
     <TypeScriptCompile Include="app\particips\protocols\protocol\protocol.component.ts" />
     <TypeScriptCompile Include="app\particips\protocols\protocols.component.ts" />
     <TypeScriptCompile Include="app\particips\particips.module.ts" />
+    <TypeScriptCompile Include="app\particips\reports2\schools-list\schools-reports-list.component.ts" />
+    <TypeScriptCompile Include="app\particips\reports2\school\school-report.component.ts" />
     <TypeScriptCompile Include="app\particips\reports\list\list.component.ts" />
     <TypeScriptCompile Include="app\particips\reports\report\report.component.ts" />
     <TypeScriptCompile Include="app\particips\results\particip-report.component.ts" />
@@ -775,6 +795,7 @@
     <TypeScriptCompile Include="app\services\file.service.ts" />
     <TypeScriptCompile Include="app\services\first-class\particips.service.ts" />
     <TypeScriptCompile Include="app\services\first-class\protocols.service.ts" />
+    <TypeScriptCompile Include="app\services\iTakeEge\reports2\reports2.service.ts" />
     <TypeScriptCompile Include="app\services\iTakeEge\reports\reports.service.ts" />
     <TypeScriptCompile Include="app\services\one-two-three\particips.service.ts" />
     <TypeScriptCompile Include="app\services\one-two-three\question-protocols.service.ts" />
@@ -795,6 +816,7 @@
     <TypeScriptCompile Include="app\pipes\rsur-particip-filter.pipe.ts" />
     <TypeScriptCompile Include="app\services\rsur-particip.service.ts" />
     <TypeScriptCompile Include="app\models\rsur-particip.model.ts" />
+    <TypeScriptCompile Include="app\services\schools-profile\schools-profile.service.ts" />
     <TypeScriptCompile Include="app\services\seminar-report.service.ts" />
     <TypeScriptCompile Include="app\models\account.model.ts" />
     <TypeScriptCompile Include="app\services\account.service.ts" />
@@ -815,6 +837,7 @@
     <TypeScriptCompile Include="app\models\person.model.ts" />
     <TypeScriptCompile Include="app\models\school-particip.model.ts" />
     <TypeScriptCompile Include="app\shared\shared-module.ts" />
+    <TypeScriptCompile Include="app\shared\stacked-bar\stacked-bar.component.ts" />
     <TypeScriptCompile Include="app\shared\table-paginator\table-paginator.ts" />
     <TypeScriptCompile Include="app\utils\functions.ts" />
     <TypeScriptCompile Include="app\utils\local-storage.ts" />

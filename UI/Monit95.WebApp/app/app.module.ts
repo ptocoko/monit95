@@ -15,6 +15,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FirstClassModule } from './components/first-class/first-class.module';
 import { TwoThreeModule } from './components/two-three/two-three.module';
 import { TwoThreeModule2 } from './components/two-three-2/two-three.module';
+import { TeachersCertModule } from './components/teachers-cert/teachers-cert.module';
+import { SchoolsProfileModule } from './components/schools-profile/schools-profile.module';
 
 // Components
 import { AppComponent } from './components/app/app.component';
@@ -75,6 +77,7 @@ import { RussianMatPaginator } from './shared/russian-paginator.provider';
 import { CustomReuseStrategy } from './custom-route-reuse-strategy';
 import { ParticipsModule2 } from './components/particips/particips.module';
 import { DamnClassesModule } from './components/9-11_classes/9-11_classes.module';
+import { KpkModule } from './components/kpk/kpk.module';
 
 @NgModule({
     imports: [
@@ -95,6 +98,9 @@ import { DamnClassesModule } from './components/9-11_classes/9-11_classes.module
 		FirstClassModule,
 		//TwoThreeModule,
 		TwoThreeModule2,
+		KpkModule,
+		TeachersCertModule,
+		SchoolsProfileModule,
         RouterModule.forRoot([
                 { path: 'rsur', component: HomeComponent },
 				{ path: 'rsur/particips', component: RsurParticipsComponent },

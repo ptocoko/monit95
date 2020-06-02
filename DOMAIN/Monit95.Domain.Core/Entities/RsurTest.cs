@@ -39,6 +39,8 @@ namespace Monit95App.Domain.Core.Entities
 
         public bool? IsShown { get; set; }
 
+        public bool IsSkillsInsteadElements { get; set; }
+
         public virtual Project Project { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

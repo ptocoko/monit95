@@ -20,6 +20,7 @@ var ReportsListComponent = /** @class */ (function () {
         this.router = router;
         this.accountService = accountService;
         this.reportsInfo = {};
+        this.schoolId = '';
         this.testCode = '';
         this.displayedColumns = ['number', 'surname', 'name', 'secondName', 'testName', 'passStatus'];
         this.dataSource = new material_1.MatTableDataSource();
@@ -29,29 +30,39 @@ var ReportsListComponent = /** @class */ (function () {
     }
     ReportsListComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.projectId = this.router.snapshot.params['projectId'];
-        var projectName = this.router.snapshot.queryParams['projectName'];
-        if (projectName) {
-            setTimeout(function () { return _this.projectName = projectName; }, 0);
-        }
-        this.rsurReportService.getReportsInfo(this.projectId).subscribe(function (info) {
-            _this.reportsInfo = info;
-            var search$ = fromEvent_1.fromEvent(_this.searchField.nativeElement, 'input')
-                .pipe(debounceTime_1.debounceTime(1000));
-            search$.subscribe(function () { return _this.paginator.pageIndex = 0; });
-            merge_1.merge(_this.paginator.page, search$, _this.selectionChange$)
-                .pipe(startWith_1.startWith([]), switchMap_1.switchMap(function () {
-                _this.isLoadingReports = true;
-                return _this.createRequest();
-            }), map_1.map(function (data) {
-                _this.isLoadingReports = false;
-                _this.reportsLength = data.TotalCount;
-                return data.Items;
-            })).subscribe(function (reports) { return _this.dataSource.data = reports; });
+        this.routeSubs = this.router.paramMap.subscribe(function (params) {
+            _this.projectId = Number.parseInt(params.get('projectId'), 10);
+            var projectName = _this.router.snapshot.queryParams['projectName'];
+            if (projectName) {
+                setTimeout(function () { return _this.projectName = projectName; }, 0);
+            }
+            _this.rsurReportService.getReportsInfo(_this.projectId).subscribe(function (info) {
+                _this.reportsInfo = info;
+                var schoolId = _this.router.snapshot.queryParamMap.get('schoolId');
+                var testCode = _this.router.snapshot.queryParamMap.get('testCode');
+                if (schoolId) {
+                    _this.schoolId = schoolId;
+                }
+                if (testCode) {
+                    _this.testCode = testCode;
+                }
+                var search$ = fromEvent_1.fromEvent(_this.searchField.nativeElement, 'input')
+                    .pipe(debounceTime_1.debounceTime(1000));
+                search$.subscribe(function () { return _this.paginator.pageIndex = 0; });
+                merge_1.merge(_this.paginator.page, search$, _this.selectionChange$)
+                    .pipe(startWith_1.startWith([]), switchMap_1.switchMap(function () {
+                    _this.isLoadingReports = true;
+                    return _this.createRequest();
+                }), map_1.map(function (data) {
+                    _this.isLoadingReports = false;
+                    _this.reportsLength = data.TotalCount;
+                    return data.Items;
+                })).subscribe(function (reports) { return _this.dataSource.data = reports; });
+            });
         });
     };
     ReportsListComponent.prototype.createRequest = function () {
-        return this.rsurReportService.getReportsList(tslib_1.__assign({}, this.testCode ? { testCode: this.testCode } : {}, this.searchParticipText ? { searchParticipText: this.searchParticipText } : {}, { projectId: this.projectId.toString(), page: (this.paginator.pageIndex + 1).toString(), pageSize: this.paginator.pageSize.toString() }));
+        return this.rsurReportService.getReportsList(tslib_1.__assign({}, this.schoolId && this.accountService.isArea() ? { schoolId: this.schoolId } : {}, this.testCode ? { testCode: this.testCode } : {}, this.searchParticipText ? { searchParticipText: this.searchParticipText } : {}, { projectId: this.projectId.toString(), page: (this.paginator.pageIndex + 1).toString(), pageSize: this.paginator.pageSize.toString() }));
     };
     ReportsListComponent.prototype.selectionChange = function () {
         this.paginator.pageIndex = 0;
@@ -74,6 +85,10 @@ var ReportsListComponent = /** @class */ (function () {
         this.searchParticipText = '';
         this.paginator.pageIndex = 0;
         this.selectionChange$.next(1);
+    };
+    ReportsListComponent.prototype.ngOnDestroy = function () {
+        if (this.routeSubs)
+            this.routeSubs.unsubscribe();
     };
     tslib_1.__decorate([
         core_1.ViewChild('paginator'),

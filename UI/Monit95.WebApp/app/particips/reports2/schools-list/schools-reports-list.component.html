@@ -1,0 +1,7 @@
+﻿<h2>{{projectName}}: Результаты по школам</h2>
+
+<div *ngIf="!isLoading">
+    <app-school-report (navigate)="onNavigate($event)" [schoolReport]="report" *ngFor="let report of schoolReports"></app-school-report>
+</div>
+
+<spinner-view *ngIf="isLoading"></spinner-view>

@@ -24,6 +24,9 @@ var particips_list_component_3 = require("./society/list/particips-list.componen
 var list_component_2 = require("./reports/list/list.component");
 var reports_service_1 = require("../services/iTakeEge/reports/reports.service");
 var report_component_1 = require("./reports/report/report.component");
+var schools_reports_list_component_1 = require("./reports2/schools-list/schools-reports-list.component");
+var school_report_component_1 = require("./reports2/school/school-report.component");
+var reports2_service_1 = require("../services/iTakeEge/reports2/reports2.service");
 var routes = [
     { path: 'particips/home', component: home_component_1.HomeComponent },
     { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
@@ -32,6 +35,7 @@ var routes = [
     { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
     { path: 'particips/reports/:projectId', component: list_component_2.ReportsListComponent },
     { path: 'particips/report/:participTestId', component: report_component_1.ReportComponent },
+    { path: 'particips/reports2/:projectTestId', component: schools_reports_list_component_1.SchoolsReportsListComponent },
     { path: 'particips/oge/home', component: home_component_2.OgeHomeComponent },
     { path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
     { path: 'particips/oge/list', component: particips_list_component_2.OgeParticipsListComponent },
@@ -72,12 +76,15 @@ var ParticipsModule = /** @class */ (function () {
                 home_component_3.SocietyHomeComponent,
                 particips_list_component_3.SocietyParticipsListComponent,
                 list_component_2.ReportsListComponent,
-                report_component_1.ReportComponent
+                report_component_1.ReportComponent,
+                schools_reports_list_component_1.SchoolsReportsListComponent,
+                school_report_component_1.SchoolReportComponent
             ],
             providers: [
                 particip_service_1.ParticipService,
                 particip_protocols_service_1.ParticipProtocolsService,
-                reports_service_1.ReportsService
+                reports_service_1.ReportsService,
+                reports2_service_1.Reports2Service
             ]
         })
     ], ParticipsModule);

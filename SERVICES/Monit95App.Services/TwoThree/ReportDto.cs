@@ -12,6 +12,7 @@ namespace Monit95App.Services.TwoThree
         public string Surname { get; set; }
         public string Name { get; set; }
         public string SecondName { get; set; }
+        public string SchoolId { get; set; }
         public string SchoolName { get; set; }
         public string TestCode { get; set; }
         public string AreaName { get; set; }
@@ -20,5 +21,6 @@ namespace Monit95App.Services.TwoThree
         public int Grade5 { get; set; }
         public string GradeString { get; set; }
         public string VprCode { get; set; }
+        public short? OptionNumber { get; set; }
     }
 }

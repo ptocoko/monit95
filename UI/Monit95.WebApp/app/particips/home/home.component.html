@@ -17,6 +17,52 @@
     </div>
 </div>
 
+<div class="list-container" *ngIf="isSchool() && setTimer(4, 7)">
+    <h3 class="list-header">«Я сдам ЕГЭ!», диагностика - июнь 2020</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/062020/ru/raspr/{{account.account.UserName}}.xlsx" download="Распределение Я сдам ЕГЭ РУ.xlsx">
+        <h4 style="font-weight:bold">Русский язык: Скачать распределение</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/062020/ma/raspr/{{account.account.UserName}}.xlsx" download="Распределение Я сдам ЕГЭ МАТ.xlsx">
+        <h4 style="font-weight:bold">Математика: Скачать распределение</h4>
+    </a>
+</div>
+
+
+<div class="list-container" *ngIf="true ">
+    <h3 class="list-header">«Я сдам Обществознание!», диагностика Экономика - март 2020</h3>
+    <!-- <a class="list-item-link"  href="/file/iTakeSociety/032020/soc.rar"> -->
+    <!-- <!-- <h4 style="font-weight:bold">Материалы и ключи проверки заданий</h4> --> -->
+    <!-- </a> -->
+    <!--<a class="list-item-link" [routerLink]="['/particips/protocols/3089']"  *ngIf=" setTimer(14) ">
+         <h4 style="font-weight:bold">Протоколы проверки заданий</h4>
+     </a>-->
+
+    <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам Обществознание!', testCode: 3089}" *ngIf="account.isSchool()">
+        <h4 style="font-weight:bold">Индивидуальные карты участников</h4>
+    </a>
+    <!--<a class="list-item-link" href="/file/iTakeSociety/122019/reports/areas/{{account.account.UserName}}.xlsx" download="Протокол Человек и общество.xlsx" *ngIf="account.isArea()">
+        <h4><b>Скачать протокол проверки результатов</b></h4>
+    </a>-->
+    <a class="list-item-link" [routerLink]="['/particips/reports2/3089']" [queryParams]="{projectName: 'Я сдам Обществознание!', projectId: 30}" *ngIf="account.isArea()">
+        <h4 style="font-weight:bold">Результаты по школам</h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">«Я сдам Обществознание!», 2-я промежуточная диагностика - февраль 2020</h3>
+
+    <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам Обществознание!', testCode: 3088}" *ngIf="account.isSchool()">
+        <h4 style="font-weight:bold">Индивидуальные карты участников</h4>
+    </a>
+    <!--<a class="list-item-link" href="/file/iTakeSociety/122019/reports/areas/{{account.account.UserName}}.xlsx" download="Протокол Человек и общество.xlsx" *ngIf="account.isArea()">
+        <h4><b>Скачать протокол проверки результатов</b></h4>
+    </a>-->
+    <a class="list-item-link" [routerLink]="['/particips/reports2/3088']" [queryParams]="{projectName: 'Я сдам Обществознание!', projectId: 30}" *ngIf="account.isArea()">
+        <h4 style="font-weight:bold">Результаты по школам</h4>
+    </a>
+</div>
+
 <div class="list-container" *ngIf="false">
     <h3 class="list-header">Я сдам ЕГЭ май 2019</h3>
 
@@ -36,57 +82,1582 @@
     </a>
 </div>
 
-<div class="list-container" *ngIf="false">
-    <h3 class="list-header">22 - Математика базовая</h3>
 
-    <a class="list-item-link" href="/file/iTakeEge/092019/tasks/МА.rar" download="Работы Математка.rar">
-        <h4>Варианты работ и Справочные материалы</h4>
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">«Я сдам ЕГЭ!», промежуточная диагностика - декабрь 2019</h3>
+
+    <!--<a class="list-item-link" href="/file/iTakeEge/122019/tasks/МА.rar" download="Варианты работ МАТ.rar">
+        <h4>Математика: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/122019/tasks/РУ.rar" download="Варианты работ РУ.rar">
+        <h4>Русский язык: Варианты работ</h4>
     </a>
 
-    <a class="list-item-link" href="/file/iTakeEge/092019/keys/МА.rar" download="Математка Ключи.rar" *ngIf="true">
-        <h4 style="font-weight:bold">Ключи для проверки работ</h4>
+    <a class="list-item-link" href="/file/iTakeEge/122019/keys/МА.rar" download="Ключи МАТ.rar" *ngIf="true">
+        <h4>Математика: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/122019/keys/РУ.rar" download="Ключи РУС.rar" *ngIf="setTimer(20, 14)">
+        <h4 style="font-weight:bold">Русский язык: Ключи для проверки работ</h4>
     </a>
 
-    <a class="list-item-link" routerLink="/particips/protocols/3082" *ngIf="true">
-        <h4 style="font-weight:bold">Заполнение протоколов проверки заданий</h4>
+    <a class="list-item-link" routerLink="/particips/protocols/3085" *ngIf="true">
+        <h4>Математика: Заполнение протоколов проверки заданий</h4>
+    </a>
+    <a class="list-item-link" routerLink="/particips/protocols/3086" *ngIf="setTimer(20, 14)">
+        <h4 style="font-weight:bold">Русский язык: Заполнение протоколов проверки заданий</h4>
+    </a>-->
+
+    <a class="list-item-link" [routerLink]="['/particips/reports/27']" [queryParams]="{projectName: 'Я сдам ЕГЭ!', testCode: 3086}" *ngIf="account.isSchool()">
+        <h4>Русский язык: Индивидуальные карты участников</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/reports/27']" [queryParams]="{projectName: 'Я сдам ЕГЭ!', testCode: 3085}" *ngIf="account.isSchool()">
+        <h4>Математика: Индивидуальные карты участников</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/reports2/3086']" [queryParams]="{projectName: 'Я сдам ЕГЭ!', projectId: 27}" *ngIf="account.isArea()">
+        <h4>Русский язык: Результаты по школам</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/reports2/3085']" [queryParams]="{projectName: 'Я сдам ЕГЭ!', projectId: 27}" *ngIf="account.isArea()">
+        <h4>Математика: Результаты по школам</h4>
     </a>
 </div>
 
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">«Я сдам Обществознание!», промежуточная диагностика - декабрь 2019</h3>
+
+    <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам Обществознание!'}" *ngIf="account.isSchool()">
+        <h4>Индивидуальные карты участников</h4>
+    </a>
+    <!--<a class="list-item-link" href="/file/iTakeSociety/122019/reports/areas/{{account.account.UserName}}.xlsx" download="Протокол Человек и общество.xlsx" *ngIf="account.isArea()">
+        <h4><b>Скачать протокол проверки результатов</b></h4>
+    </a>-->
+    <a class="list-item-link" [routerLink]="['/particips/reports2/3084']" [queryParams]="{projectName: 'Я сдам Обществознание!', projectId: 30}" *ngIf="account.isArea()">
+        <h4>Результаты по школам</h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="account.account.UserName == '0463'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0189'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0242'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0294'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0142'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0273'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0215'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0297'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0050'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0049'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0016'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0377'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0346'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0195'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0149'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0001'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0290'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+<div class="list-container" *ngIf="account.account.UserName == '0197'">
+    <h3 class="list-header">Ключи по математике профильного уровня</h3>
+
+    <a class="list-item-link" href="/file/iTakeEge/tasks/2019/chikpro/kluch.rar">
+        <h4>Скачать материалы</h4>
+    </a>
+
+</div>
+
+
+
+
+
+
+
+
 <div class="list-container" *ngIf="false">
-    <h3 class="list-header">01 - Русский язык</h3>
-    <div>
-        <a class="list-item-link" href="/file/iTakeEge/092019/tasks/РУ.rar" download="Работы Русский язык.rar">
-            <h4>Варианты работ</h4>
-        </a>
+    <h3 class="list-header">Результаты «Я сдам Обществознание!», октябрь</h3>
 
-        <a class="list-item-link" href="/file/iTakeEge/092019/keys/РУ.rar" download="Русский язык Ключи.rar" *ngIf="true">
-            <h4 style="font-weight:bold">Ключи для проверки работ и критерии оценивания</h4>
-        </a>
-
-        <a class="list-item-link" routerLink="/particips/protocols/3080" *ngIf="true">
-            <div>
-                <h4><b>Заполнение протоколов проверки заданий</b></h4>
-            </div>
-        </a>
-    </div>
+    <a class="list-item-link" href="/file/iTakeSociety/102019/protocols/{{account.account.UserName}}.xlsx" download="Протокол «Я сдам Общество».xlsx">
+        <h4>Скачать протокол проверки результатов входной диагностики (октябрь 2019)</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/reports/30']" [queryParams]="{projectName: 'Я сдам Обществознание!'}">
+        <h4>Индивидуальные карты участников</h4>
+    </a>
 </div>
 
 <div class="list-container" *ngIf="true">
     <h3 class="list-header">Результаты «Я сдам ЕГЭ!»-2019-2020 - сентябрь</h3>
     <div>
         <a class="list-item-link" href="/file/iTakeEge/092019/protocols/{{account.account.UserName}}.xlsx" download="Протокол результатов Я сдам ЕГЭ.xlsx" *ngIf="account.isSchool()">
-            <h4><b>Скачать протокол проверки результатов</b></h4>
+            <h4>Скачать протокол проверки результатов</h4>
         </a>
 
         <a class="list-item-link" href="/file/iTakeEge/092019/protocols/areas/{{account.account.UserName}}.xlsx" download="Протокол результатов Я сдам ЕГЭ.xlsx" *ngIf="account.isArea()">
-            <h4><b>Скачать протокол проверки результатов</b></h4>
+            <h4>Скачать протокол проверки результатов</h4>
         </a>
-        
+
         <a class="list-item-link" routerLink="/particips/reports/27" *ngIf="account.isSchool()">
-            <h4><b>Индивидуальные карты участников</b></h4>
+            <h4>Индивидуальные карты участников</h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ma/23.rar">
+            <h4><b>КИМ №23 по Математике </b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ma/24.rar">
+            <h4><b>КИМ №24 по Математике </b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ma/25.rar">
+            <h4><b>КИМ №25 по Математике </b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ma/26.rar">
+            <h4><b>КИМ №26 по Математике </b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/23.rar">
+            <h4><b>КИМ №23 по Русскому языку</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/24.rar">
+            <h4><b>КИМ №24 по Русскому языку</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/25.rar">
+            <h4><b>КИМ №25 по Русскому языку</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/ru/26.rar">
+            <h4><b>КИМ №26 по Русскому языку</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/20.rar">
+            <h4><b>КИМ №20 по Обществознанию</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/21.rar">
+            <h4><b>КИМ №21 по Обществознанию</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/22.rar">
+            <h4><b>КИМ №22 по Обществознанию</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/23.rar">
+            <h4><b>КИМ №23 по Обществознанию</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/24.rar">
+            <h4><b>КИМ №24 по Обществознанию</b></h4>
+        </a>
+        <a class="list-item-link" href="/file/iTakeEge/tasks/2019/soc/25.rar">
+            <h4><b>КИМ №25 по Обществознанию</b></h4>
+        </a>
+        <a class="list-item-link" href="http://monit95.ru/ege">
+            <h4><b>Занесение результатов</b></h4>
         </a>
     </div>
 </div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Полезные ссылки</h3>
+    <a class="list-item-link" href="/file/iTakeEge/contacts.docx" download="Контактные данные кураторов проекта .docx">
+        <h4> Контактные данные кураторов проекта "Я сдам ЕГЭ Обществознание"</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/ktp.xlsx" download="КТП.xlsx">
+        <h4> Календарно-тематический план по обществознанию </h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/uch_obsh.docx" download="Учителю обществознания_Алгоритм работы.docx">
+        <h4> Учителю обществознания_Алгоритм работы.docx </h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/salg.docx" download="Школьному координатору_Алгоритм работы.docx">
+        <h4> Школьному координатору_Алгоритм работы в проекте "Я сдам ЕГЭ Обществознание".docx </h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeSociety/102019/tasks/algoritm.docx" download="Муниципальному координатору_Алгоритм работы.docx">
+        <h4> Муниципальному координатору_Алгоритм работы в проекте "Я сдам ЕГЭ Обществознание".docx </h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/Я сдам ЕГЭ. Алгоритм завуча.pptx" download="Алгоритм действий завуча и школьного координатора в проекте Я сдам ЕГЭ.pptx">
+        <h4> Алгоритм действий завуча и школьного координатора в проекте Я сдам ЕГЭ </h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>1-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/MynPfxZrmJc " target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №1. Природное и общественное в человеке </span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/Sg3ph7DVA3s" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №2.Мировоззрение, его виды и формы </span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/Kj22X6IRs00" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №3.Виды знаний</span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>2-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/NtwvWnaXihQ" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок № 4. Истина и ее критерии  </span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №4 Истина и ее критерии.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/SgppKPN95jw" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №5. Мышление и деятельность </span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №5 Мышление и деятельность.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/CXLClA5v78E" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №6. Потребности и интересы </span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №6 Потребности и интересы.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>3-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/6pXrzhQpzj8" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №7 Свобода и необходимость в человеческой деятельности. Свобода и ответственность</span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №7 Свобода и необходимость в человеческой деятельности.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/JH6pawsAHig" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №8 Системное строение общества: элементы и подсистемы </span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок № 8 Системное строение общества элементы и подсистемы.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/1em4kCfUQ1c" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №9. Основные институты общества  </span>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center;" class="yvideo">Скопировать ссылку</span>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок № 9 Основные институты общества.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>4-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/dMsGfbHoKzQ" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №10 Понятие культуры. Формы и разновидности культуры</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/lesson_10.docx" download="Урок №10 Понятие культуры. Формы и разновидности культуры.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/A_rg5MAyfNI" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №11 Наука. Основные особенности научного мышления. Естественные и социально гуманитарные науки</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/lesson_11.docx" download="Урок №11 Наука. Основные особенности научного мышления. Естественные и социально гуманитарные науки.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/cFqz62_yb30" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №12 Образование, его значение для личности и общества</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/lesson_12.docx" download="Урок №12 Образование, его значение для личности и общества.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>5-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/SShWZPX4c3Y" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №13 Религия</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/lesson_13.docx" download="Урок №13 Религия.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/mzl-EjAjzC8" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №14 Искусство</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/lesson_14.docx" download="Урок №14 Искусство.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/JY9Wrz4_IsI" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №15 Мораль</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/lesson_15.docx" download="Урок №15 Мораль.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>6-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/uMsWA0ayerY" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №16 Понятие общественного прогресса </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №16 Понятие общественного прогресса.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/KadUX8dACuU" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №17 Многовариантность общественного развития (типы обществ) </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №17 Многовариантность общественного развития (типы обществ).docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/QcrdvWZOAjM" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №18 Угрозы XXI в. (глобальные проблемы)</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №18 Угрозы XXI в. (глобальные проблемы).docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>7-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/4QYVQdhs0bg" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №19 Право в системе социальных норм </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №19 Право в системе социальных норм.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/vEROZ1ncS6o" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №20 Система российского права. Законотворческий процесс  </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №20 Система российского права. Законотворческий процесс.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/i4WoGwnZNgs" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №21 Понятие и виды юридической ответственности </span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №21 Понятие и виды юридической ответственности.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>8-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/Ce9-E_yP_1E" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №22 Конституция РФ  Часть 1</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №22 Конституция РФ.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/ROlvGo3X8EU" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №22 Конституция РФ Часть 2</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №22 Конституция РФ.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>9-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/_lqDh7N7mic" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №23. Законодательство Российской Федерации о выборах</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок № 23 Законодательство Российской Федерации о выборах.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/0UvcZwL0AXw" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №24. Субъекты гражданского права</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №24 Субъекты гражданского права.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/2oXWOE3Fl00" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №25. Организационно-правовые формы и правовой режим предпринимательской деятельности</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №25 Организационно-правовые формы и правовой режим предпринимательской деятельности.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/cSaoFOvdtWM" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №26. Имущественные и неимущественные права</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №26 Имущественные и неимущественные права.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>10-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/3RjR9p-6dtY" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок№ 27 Порядок приёма на работу. Порядок заключения и расторжения трудового договора</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №27 Порядок приёма на работу. Порядок заключения и расторжения трудового договора.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/ZnYl_6bvvm4" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №28 Правовое регулирование отношений супругов. Порядок и условия заключения и расторжения брака</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №28 Правовое регулирование отношений супругов. Порядок и условия заключения и расторжения брака.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/HryPGfJiHFk" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №29 Особенности административной юрисдикции</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №29 Особенности административной юрисдикции.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/N7OWry8UcHU" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №30 Право на благоприятную окружающую среду и способы его защиты</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №30 Право на благоприятную окружающую среду и способы его защиты.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>11-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/5fOhjx7sNqA" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №31 Споры, порядок их рассмотрения. Основные правила и принципы гражданского процесса</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок_№31_Споры,_порядок_их_рассмотрения.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/LQiv1bijJlo" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №32 Особенности уголовного процесса</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок_№32_Особенности_уголовного.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/zaUtZRpxYw0" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок№33 Международное право. Международная защита прав человека в условиях мирного и военного времен</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок_№33_Международное_право_международная.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>12-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/APJJye3aEWk" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №34. Гражданство Российской Федерации</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №34 Гражданство Российской Федерации.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/uKje4CMWWb0" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №35. Воинская обязанность, альтернативная гражданская служба</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №35. Воинская обязанность, альтернативная гражданская служба.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/L9kW8fruAKo" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №36. Права и обязанности налогоплательщика</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №36. Права и обязанности налогоплательщика.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/28AK0SD4PMI" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №37. Правоохранительные органы Судебная система</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №37. Правоохранительные органы  Судебная система.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>13-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/F7v6pS9u-Yc" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №38. Экономика и экономическая наука</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №38. Экономика и экономическая наука.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/29318vyjo3Y" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №39. Факторы производства и факторные доходы</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №39. Факторы производства и факторные доходы.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/HYrWxx1vERM" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №40. Экономические системы</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №40. Экономические системы.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>14-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/K74tMDvp2rQ" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №41. Рынок и рыночный механизм Спрос и предложение</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок_№41_Рынок_и_рыночный_механизм.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/M4jqa1qzbLM" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №42. Постоянные и переменные затраты</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок_№42_Постоянные_и_переменные.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/W0VYKLZRXxs" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №43. Финансовые институты. Банковская система</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок_№43_Финансовые_институты_Банковская.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>15-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/vVaJ2eSbeS0" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №44. Основные источники финансирования бизнеса</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №44. Основные источники финансирования бизнеса.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/2lbG-ztshvE" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №45. Ценные бумаги</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №45. Ценные бумаги.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/RzEvXP5hCH8" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №46. Рынок труда. Безработица</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №46. Рынок труда. Безработица.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>16-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/LBn2QfmtMHY" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №47 Виды, причины и последствия инфляции</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №47. Виды, причины и последствия инфляции.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/NAVtq_QVZ6g" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №48 Экономический рост и развитие Понятие ВВП</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №48. Экономический рост и развитие. Понятие ВВП.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/aUpzMX8zqjo" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №49 Роль государства в экономике</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №49.  Роль государства в экономике.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>17-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/VHW1KVeRCCQ" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №50 Налоги</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №50.Налоги.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/VXJFYTglp3w" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №51 Государственный бюджет</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №51.Государственный бюджет.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/omPwTREvvM0" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №52 Мировая экономика</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №52.Мировая экономика.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/BmMsrBEdi2M" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №53 Рациональное экономическое поведение собственника, работника, потребителя, семьянина, граж</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №53.Рациональное экономическое поведение собственника, работника, потребителя, семьянина, гражданина.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>18-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/9TxMBd64Idw" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №54. Социализация индивида</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №54. Социализация индивида.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/EIjQ3JCfdIA" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №55. Социальная стратификация и мобильность</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок_№55_Социальная_стратификация_и_мобильность.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/KAzYyUCMHqY" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №56. Социальные группы</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №56. Социальные группы.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>19-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/4UiwhGPJkmw" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №57. Молодёжь как социальная группа</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №57. Молодёжь как социальная группа.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/x3nf2aVHFL8" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №58. Этнические общности</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №58. Этнические общности.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/gmAIXJH-snM" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №59. Межнациональные отношения, этносоциальные конфликты, пути их разрешения</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №59. Межнациональные отношения, этносоциальные конфликты, пути их разрешения.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>20-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/OWOvbHNZS5E" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №60 Конституционные принципы (основы) национальной политики в Российской Федерации</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №60. Конституционные принципы (основы) национальной политики в РФ.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/CQ18adw0YCk" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №61 Семья и брак</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №61. Семья и брак.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/DFn5hyebqrc" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №62 Социальный конфликт</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+                    <a href="/file/iTakeSociety/102019/tasks/Урок №62. Социальный конфликт.docx" style="display:inline-block;width:100%;padding:10px;    text-align: center;">Скачать материал</a>
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>21-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/RBGjLDjGnEk" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №63 Виды социальных норм</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/Qhu_rbIG9Eo" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №64 Социальный контроль</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/WYkHgIXUEs4" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №65 Отклоняющееся поведение и его типы</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/xdmpzFNytf4" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №66 Социальная роль</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>22-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/zypvOjHda5Y" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №67. Понятие власти</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/NVbXCR3N8Eo" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №68. Государство, его функции</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/_xAxw9e-Scs" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №69. Политическая система</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>23-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/BlfJn6Z6sFo" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №70. Типология политических режимов</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/X8NNGM4sTmY" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №71. Демократия, её основные ценности и признаки</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/DvqZ2vBBrOc" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №72. Гражданское общество и государство</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>24-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/j3PEcDEYJ9U" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №73. Политические элиты</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/wex0NHdPZOg" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №74. Политические партии и движения</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/jKHedzqbMxY" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №75. СМИ в политической системе</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>25-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/5JhchZ1xuz4" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №78. Политический процесс</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/fO0zGB_GGOM" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №79. Политическое участие</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/odaMR2xtsYQ" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Урок №80. Политическое лидерство</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Видео-материалы</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><b>26-я неделя</b></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="list-item-link">
+            <div style="width:100%;display:flex; justify-content: space-around;">
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/U4qSQ7-N-8s" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Федеративное устройство РФ</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+                <div style="display:inline-block; max-width:23%;padding:1%;">
+                    <a href="https://youtu.be/9E_O-0cjdic" target="_blank" style="    margin-bottom: 15px;  text-align: center;width: 100%;display: flex;justify-content: center;align-items: center;">
+                        <img style="width:100%;" src="http://monit95.ru/file/youtube.png" />
+                    </a>
+                    <span style="display:inline-block;width:100%;padding:10px;    text-align: center; margin-bottom: 15px;">Органы государственной власти РФ</span>
+                    <button mat-raised-button style="display:inline-block;width:100%; text-align: center;" class="yvideo">Скопировать ссылку</button>
+
+                </div>
+
+
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+
+
+
+
+
 
 <div class="list-container" *ngIf="false">
     <h3 class="list-header">Методический материал</h3>

@@ -11,6 +11,7 @@ var HomeComponent = /** @class */ (function () {
         this.rsurProtocolService = rsurProtocolService;
         this.account = new account_model_1.AccountModel();
         this.isLoading = true;
+        this.date = new Date();
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -20,6 +21,10 @@ var HomeComponent = /** @class */ (function () {
             localStorage.clear();
             _this.getStatistics();
         });
+    };
+    HomeComponent.prototype.setTimer = function (day, hours) {
+        if (hours === void 0) { hours = 12; }
+        return (this.date.getDate() === day && this.date.getHours() >= hours) || this.date.getDate() > day;
     };
     HomeComponent.prototype.getStatistics = function () {
         var _this = this;

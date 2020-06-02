@@ -23,6 +23,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<ParticipsCompetence> ParticipsCompetences { get; set; }
+        public virtual DbSet<ProfileQuestion> ProfileQuestions { get; set; }
+        public virtual DbSet<ProfileQuestionAnswer> ProfileQuestionAnswers { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }        
@@ -49,6 +51,7 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<FilePermission> FilePermissions { get; set; }
         public virtual DbSet<Monit95User> Monit95Users { get; set; }
         public virtual DbSet<EgeQuestion> EgeQuestions { get; set; }
+        public virtual DbSet<EgeSkill> EgeSkills { get; set; }
         public virtual DbSet<EgeElementQuestion> EgeElementQuestions { get; set; }
         public virtual DbSet<RsurQuestion> RsurQuestions { get; set; }
         public virtual DbSet<QuestionMark> QuestionMarks { get; set; }
@@ -371,6 +374,16 @@ namespace Monit95App.Infrastructure.Data
                 .Property(e => e.UserId)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            modelBuilder.Entity<EgeSkill>()
+                .HasMany(e => e.RsurQuestions)
+                .WithOptional(e => e.EgeSkill);
+
+            modelBuilder.Entity<ProfileQuestion>()
+                .HasMany(e => e.ProfileQuestionAnswers)
+                .WithRequired(e => e.ProfileQuestion)
+                .HasForeignKey(e => e.ProfileQuestionId)
+                .WillCascadeOnDelete(true);
         }
     }
 }

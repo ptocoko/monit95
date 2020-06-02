@@ -14,6 +14,13 @@
            download="отчет.xlsx">
             Скачать отчет
         </a>
+        <button *ngIf="uploadedFileId"
+                type="button"
+                mat-raised-button
+                color="warn"
+                (click)="cancelUploaded()">
+            Отмена
+        </button>
     </span>
 
     <span class="upload-btn-wrapper" *ngIf="uploadStatus === 'waiting'">
@@ -26,14 +33,6 @@
                 color="primary"
                 (click)="selectedFotos.click()">
             Выбрать файл...
-        </button>
-    </span>
-    <span *ngIf="false">
-        <button type="button"
-                mat-raised-button
-                color="warn"
-                (click)="cancelUploaded()">
-            Отмена
         </button>
     </span>
 </div>

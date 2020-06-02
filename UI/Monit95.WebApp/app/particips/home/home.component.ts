@@ -2,6 +2,7 @@
 import { AccountService } from '../../services/account.service';
 import { CardsService } from '../../services/cards.service';
 import { downloadFile } from '../../utils/functions';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
 	templateUrl: `./app/particips/home/home.component.html?v=${new Date().getTime()}`
@@ -10,10 +11,24 @@ export class HomeComponent {
 	date = new Date();
 	isBadSchool: boolean;
 
-	constructor(private account: AccountService, private cards: CardsService) { }
+	constructor(private account: AccountService, private cards: CardsService, private snackBar: MatSnackBar) { }
 
 	ngOnInit() {
 		this.account.getAccount().subscribe(account => this.isBadSchool = this.badSchools(account.UserName));
+	}
+
+	ngAfterViewInit() {
+		const _this = this;
+		$('.yvideo').click(function () {
+			const siblingAnchorHref = this.parentElement.getElementsByTagName('a').item(0).href;
+			const inputEl = document.createElement('input');
+			document.body.appendChild(inputEl);
+			inputEl.value = siblingAnchorHref;
+			inputEl.select();
+			document.execCommand('copy');
+			document.body.removeChild(inputEl);
+			_this.snackBar.open('Ссылка скопирована', 'OK', { duration: 2000 });
+		});
 	}
 
 	downloadCards(projectId: number) {

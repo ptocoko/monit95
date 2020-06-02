@@ -1,0 +1,14 @@
+﻿<div class="legend-container">
+    <span *ngFor="let p of percentsAndValues; let i = index" class="legend-wrapper">
+        <span class="legend-color" [ngStyle]="{ 'background-color': p.backColor }"></span>
+        {{ p.legend }}({{ p.value }})
+    </span>
+</div>
+<div class="bar-container">
+    <span 
+          class="bar"
+          [ngStyle]="{ 'background-color': pV.backColor, flex: pV.percent + ' 1 auto' }" 
+          *ngFor="let pV of percentsAndValues; let i = index" >
+        {{ pV.percentToView }}
+    </span>
+</div>

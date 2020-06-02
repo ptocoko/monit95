@@ -17,6 +17,8 @@ var shared_module_1 = require("./shared/shared-module");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var first_class_module_1 = require("./components/first-class/first-class.module");
 var two_three_module_1 = require("./components/two-three-2/two-three.module");
+var teachers_cert_module_1 = require("./components/teachers-cert/teachers-cert.module");
+var schools_profile_module_1 = require("./components/schools-profile/schools-profile.module");
 // Components
 var app_component_1 = require("./components/app/app.component");
 var particips_component_1 = require("./components/rsur/particips/particips.component");
@@ -71,6 +73,7 @@ var russian_paginator_provider_1 = require("./shared/russian-paginator.provider"
 var custom_route_reuse_strategy_1 = require("./custom-route-reuse-strategy");
 var particips_module_2 = require("./components/particips/particips.module");
 var _9_11_classes_module_1 = require("./components/9-11_classes/9-11_classes.module");
+var kpk_module_1 = require("./components/kpk/kpk.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -94,6 +97,9 @@ var AppModule = /** @class */ (function () {
                 first_class_module_1.FirstClassModule,
                 //TwoThreeModule,
                 two_three_module_1.TwoThreeModule2,
+                kpk_module_1.KpkModule,
+                teachers_cert_module_1.TeachersCertModule,
+                schools_profile_module_1.SchoolsProfileModule,
                 router_1.RouterModule.forRoot([
                     { path: 'rsur', component: home_component_1.HomeComponent },
                     { path: 'rsur/particips', component: particips_component_1.RsurParticipsComponent },

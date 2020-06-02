@@ -61,6 +61,16 @@ namespace Monit95App.Services.Rsur.QuestionValue
             if (!participTests.Any())
                 result.Errors.Add(new ServiceError { HttpCode = 404, Description = $@"Нет открытых тестов для указанного пользователя '{areaCode}'"});
 
+            // TODO: Delete this!
+            if (areaCode == 200)
+            {
+                participTests = participTests.Where(p => new int[] { 4254, 4258 }.Contains(p.RsurTestId));
+            }
+            else
+            {
+                participTests = participTests.Where(p => !new int[] { 4254, 4258 }.Contains(p.RsurTestId));
+            }
+
             // Получаем кол-во участников распределенных на диагностику
             var participTestCount = participTests.Count();
 
@@ -157,7 +167,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 ParticipTestId = rsurTestResult.RsurParticipTestId,
                 TestName = $"{rsurTestResult.RsurParticipTest.RsurTest.Test.NumberCode}-{rsurTestResult.RsurParticipTest.RsurTest.Test.Name}"
             };
-
+            var list = new List<int> { 1, 2, 4 };
             // Осталось инициализировать QuestionResults.
             var currentMarks = rsurTestResult.RsurQuestionValues.Split(';'); // if RsurTestResults.FileId != null, then RsurtTesResults.RsurQuestionValues != "wasnot"                        
             var testQuestions = rsurTestResult.RsurParticipTest.RsurTest.Test.Questions; // получаем задания текущего блока. Они необходимы, чтобы знать максимальный балл по заданиям
@@ -283,6 +293,16 @@ namespace Monit95App.Services.Rsur.QuestionValue
             {
                 result.Errors.Add(new ServiceError { HttpCode = 404 });
                 return result;
+            }
+
+            // TODO: Delete this!
+            if (areaCode == 200)
+            {
+                entities = entities.Where(p => new int[] { 4254, 4258 }.Contains(p.RsurTestId));
+            }
+            else
+            {
+                entities = entities.Where(p => !new int[] { 4254, 4258 }.Contains(p.RsurTestId));
             }
 
             result.Result = entities.Select(s => new QuestionValueViewDto

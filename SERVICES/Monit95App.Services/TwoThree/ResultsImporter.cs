@@ -13,95 +13,88 @@ namespace Monit95App.Services.TwoThree
     public class ResultsImporter
     {
         private readonly CokoContext context;
-        private readonly string destFolderPath = @"C:\repositories\4";
+        //private readonly string destFolderPath = @"C:\repositories\4";
 
         public ResultsImporter(CokoContext context)
         {
             this.context = context;
         }
 
-        public void ImportAndSave(string testCode, int marksCount, int[] generalTasksNumbers, int minMidMark, int maxMidMark)
+        public void ImportAndSave(TestOptions options, int repositoryId)
         {
-            List<TwoThreeResult> dto = new List<TwoThreeResult>();
-            foreach(var fileName in Directory.EnumerateFiles(destFolderPath).Select(Path.GetFileNameWithoutExtension).Where(p => p.StartsWith(testCode)))
+            var destFolderPath = context.Repositories.Find(repositoryId).Path;
+            foreach(var fileName in Directory.EnumerateFiles(destFolderPath).Select(Path.GetFileNameWithoutExtension).Where(p => p.StartsWith(options.Code)))
             {
                 var schoolId = fileName.Substring(5, 4);
-                var models = ImportModels(testCode, schoolId, marksCount, generalTasksNumbers, minMidMark, maxMidMark);
                 
-                dto.AddRange(models);
-            }
+                var models = ImportModels(options, schoolId, destFolderPath);
 
-            context.TwoThreeResults.AddRange(dto);
-            context.SaveChanges();
+                SaveModels(models, options.MaxMarks);
+            }
         }
 
-        public IEnumerable<TwoThreeResult> ImportModels(string testCode, string schoolId, int marksCount, int[] generalTasksNumbers, int minMidMark, int maxMidMark)
+        public IEnumerable<ResultDto> ImportModels(TestOptions options, string schoolId, string destFolderPath)
         {
-            using (var excel = new XLWorkbook($@"{destFolderPath}\{testCode}_{schoolId}.xlsx"))
+            using (var excel = new XLWorkbook($@"{destFolderPath}\{options.Code}_{schoolId}.xlsx"))
             {
-                using (var page = excel.Worksheets.First())
-                {
-                    return ImportModelsFromExcel(page, testCode, schoolId, marksCount, generalTasksNumbers, minMidMark, maxMidMark);
-                }
+                var page = excel.Worksheets.First();
+                
+                return ImportModelsFromExcel(page, schoolId, options);
             }
         }
 
-        private IEnumerable<TwoThreeResult> ImportModelsFromExcel(IXLWorksheet sheet, string testCode, string schoolId, int marksCount, int[] generalTasksNumbers, int minMidMark, int maxMidMark)
+        private IEnumerable<ResultDto> ImportModelsFromExcel(IXLWorksheet sheet, string schoolId, TestOptions options)
         {
-            var dtoList = new List<TwoThreeResult>();
+            var dtoList = new List<ResultDto>();
+            //IXLRow row;
+            //ResultDto resultDto;
+            //string val;
             for(int i = 3; i <= sheet.RowsUsed().Count(); i++)
             {
                 var row = sheet.Row(i);
-                if(CheckSheetsRow(row))
+                if (CheckSheetsRow(row))
                 {
-                    var resultDto = new TwoThreeResult
+                    var resultDto = new ResultDto
                     {
                         Surname = row.Cell(2).Value.ToString().Trim(),
                         Name = row.Cell(3).Value.ToString().Trim(),
                         SecondName = row.Cell(4).Value.ToString().Trim(),
+                        TestCode = options.Code,
                         SchoolId = schoolId,
-                        Marks = row.Cells("5:" + (marksCount + 4)).Select(s => 
+                        Years = options.Years,
+                        MarksArray = row.Cells("6:" + (options.MarksCount + 5)).Select(s => 
                         {
-                            string val = s.Value.ToString().Trim();
+                            var val = s.Value.ToString().Trim();
                             if (string.IsNullOrEmpty(val) || val.Any(v => !char.IsNumber(v)))
                             {
-                                return "0";
+                                return 0;
                             }
                             else
                             {
-                                return val;
+                                return int.Parse(val);
                             }
-                        }).Aggregate((s1, s2) => $"{s1};{s2}")
+                        }).ToArray(),
+                        OptionNumber = short.Parse(row.Cell(5).Value.ToString().Trim())
                     };
 
-                    //var marks = resultDto.Marks.Split(';').Select(int.Parse).ToArray();
-                    //List<int> generalMarks = new List<int>();
-                    //foreach (var number in generalTasksNumbers)
-                    //{
-                    //    generalMarks.Add(marks[number - 1] == 0 ? 0 : 1);
-                    //}
+                    resultDto.Marks = resultDto.MarksArray.Select(m => m.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+                    resultDto.PrimaryMark = resultDto.MarksArray.Sum();
 
-                    //resultDto.PrimaryMark = marks.Sum();
-                    ////resultDto.GeneralTasksSum = generalMarks.Sum();
-
-                    //if(resultDto.PrimaryMark < minMidMark)
-                    //{
-                    //    resultDto.Grade5 = 3;
-                    //    resultDto.GradeString = "Низкий уровень";
-                    //}
-                    //else if (resultDto.PrimaryMark <= maxMidMark)
-                    //{
-                    //    resultDto.Grade5 = 4;
-                    //    resultDto.GradeString = "Средний уровень";
-                    //}
-                    //else
-                    //{
-                    //    resultDto.Grade5 = 5;
-                    //    resultDto.GradeString = "Высокий уровень";
-                    //}
-
-                    resultDto.TestCode = testCode;
-                    resultDto.Times = 2;
+                    if (resultDto.PrimaryMark < options.MinMidMark)
+                    {
+                        resultDto.Grade5 = 3;
+                        resultDto.GradeString = "Низкий уровень";
+                    }
+                    else if (resultDto.PrimaryMark <= options.MaxMidMark)
+                    {
+                        resultDto.Grade5 = 4;
+                        resultDto.GradeString = "Средний уровень";
+                    }
+                    else
+                    {
+                        resultDto.Grade5 = 5;
+                        resultDto.GradeString = "Высокий уровень";
+                    }
 
                     dtoList.Add(resultDto);
                 }
@@ -109,14 +102,79 @@ namespace Monit95App.Services.TwoThree
             return dtoList;
         }
 
+        public void SaveModels(IEnumerable<ResultDto> results, int[] maxMarks)
+        {
+            //TwoThreeResult resultEntity;
+            //int mark;
+            //TwoThreeResultsMarks questionMarkEntity;
+            foreach (var result in results)
+            {
+                var resultEntity = new TwoThreeResult
+                {
+                    Surname = FixName(result.Surname),
+                    Name = FixName(result.Name),
+                    SecondName = FixName(result.SecondName),
+                    PrimaryMark = result.PrimaryMark,
+                    Marks = result.Marks,
+                    GradeString = result.GradeString,
+                    Grade5 = result.Grade5,
+                    Years = result.Years,
+                    OptionNumber = result.OptionNumber,
+                    TestCode = result.TestCode,
+                    SchoolId = result.SchoolId
+                };
+
+                context.TwoThreeResults.Add(resultEntity);
+                context.SaveChanges();
+
+                for (int i = 0; i < result.MarksArray.Length; i++)
+                {
+                    var mark = result.MarksArray[i];
+                    var questionMarkEntity = new TwoThreeResultsMarks
+                    {
+                        AwardedMark = mark,
+                        MaxMark = maxMarks[i],
+                        QuestionOrder = i + 1,
+                        ResultId = resultEntity.Id
+                    };
+
+                    context.TwoThreeResultsMarks.Add(questionMarkEntity);
+                }
+                context.SaveChanges();
+            }
+        }
+
         private bool CheckSheetsRow(IXLRow row)
         {
-            if(row.Cells("2:3").Any(c => string.IsNullOrEmpty(c.Value.ToString().Trim()) || c.Value.ToString() == "0" || c.Value.ToString().Any(let => char.IsNumber(let))))
+            if (row.Cells("2:12").Any(c => c.HasFormula))
+            {
+                return false;
+            }
+            
+            var optionValue = row.Cell(5).Value.ToString().Trim();
+
+            if(row.Cells("2:3").Any(c => string.IsNullOrEmpty(c.Value.ToString().Trim()) || c.Value.ToString().Trim() == "0" || c.Value.ToString().Trim().Any(let => char.IsNumber(let))))
+            {
+                return false;
+            }
+
+            if (optionValue.Length != 1 || !char.IsNumber(optionValue[0]))
             {
                 return false;
             }
 
             return true;
+        }
+
+        private string FixName(string name)
+        {
+            name = name.Replace("\t", "");
+            if (name.Length > 49)
+            {
+                name = name.Substring(0, 49);
+            }
+
+            return name;
         }
     }
 }

@@ -22,6 +22,9 @@ import { SocietyParticipsListComponent } from './society/list/particips-list.com
 import { ReportsListComponent } from './reports/list/list.component';
 import { ReportsService } from '../services/iTakeEge/reports/reports.service';
 import { ReportComponent } from './reports/report/report.component';
+import { SchoolsReportsListComponent } from './reports2/schools-list/schools-reports-list.component';
+import { SchoolReportComponent } from './reports2/school/school-report.component';
+import { Reports2Service } from '../services/iTakeEge/reports2/reports2.service';
 
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
@@ -31,6 +34,7 @@ const routes: Routes = [
 	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
 	{ path: 'particips/reports/:projectId', component: ReportsListComponent },
 	{ path: 'particips/report/:participTestId', component: ReportComponent },
+	{ path: 'particips/reports2/:projectTestId', component: SchoolsReportsListComponent },
 
 	{ path: 'particips/oge/home', component: OgeHomeComponent },
 	{ path: 'particips/oge', redirectTo: 'particips/oge/home', pathMatch: 'full' },
@@ -71,12 +75,15 @@ const routes: Routes = [
 		SocietyHomeComponent,
 		SocietyParticipsListComponent,
 		ReportsListComponent,
-		ReportComponent
+		ReportComponent,
+		SchoolsReportsListComponent,
+		SchoolReportComponent
 	],
 	providers: [
 		ParticipService,
 		ParticipProtocolsService,
-		ReportsService
+		ReportsService,
+		Reports2Service
 	]
 })
 export class ParticipsModule { }

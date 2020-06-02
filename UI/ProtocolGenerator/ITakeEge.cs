@@ -41,7 +41,7 @@ namespace ProtocolGenerator
         public void SolveAndSaveGrade5(int[] projectTestIds)
         {
             var participTests = context.ParticipTests
-                .Where(p => projectTestIds.Contains(p.ProjectTestId) && !p.Grade5.HasValue && p.PrimaryMark.HasValue)
+                .Where(p => projectTestIds.Contains(p.ProjectTestId) && p.PrimaryMark.HasValue)
                 .Include(inc => inc.ProjectTest);
 
             foreach (var participTest in participTests)
@@ -52,15 +52,15 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
 
-        public void SolveGrade5_v2()
+        public async Task SolveGrade5_v2()
         {
-            context.ParticipTests
-                .Where(pt => pt.ProjectTestId == 3058 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
+            await context.ParticipTests
+                .Where(pt => pt.ProjectTestId == 3086 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
                 .ForEachAsync(pt =>
                 {
-                    var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 1506).Select(qm => qm.AwardedMark).Sum();
+                    var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 2163).Select(qm => qm.AwardedMark).Sum();
 
-                    pt.Grade5_v2 = (int)marksSum >= 12 ? 5 : 2;
+                    pt.Grade5_v2 = (int)marksSum >= 10 ? 5 : 2;
                     //pt.Grade5_v2 = pt.PrimaryMark >= 9 ? 5 : 2;
                 });
 
@@ -127,20 +127,20 @@ namespace ProtocolGenerator
         public void GenerateReportsForAreas()
         {
             var groupedTestResults = context.ParticipTests
-                .Where(pt => pt.ProjectTest.ProjectId == 18 && new string[] { "0005", "0520", "0001", "0002", "0495", "0552", "0588", "0173", "0445" }.Contains(pt.Particip.SchoolId))
+                .Where(pt => pt.ProjectTestId == 3084 && pt.Grade5.HasValue)
                 //.OrderBy(ob => ob.Particip.SchoolId).ThenBy(ob => ob.Particip.Surname).ThenBy(tb => tb.Particip.Name).ThenBy(tb => tb.ProjectTest.Test.NumberCode)
                 .Select(MapToReportModel)
                 .OrderBy(ob => ob.SchoolId).ThenBy(ob => ob.Surname).ThenBy(tb => tb.Name).ThenBy(tb => tb.NumberCode)
-                .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
+                .GroupBy(gb => new { gb.AreaName, gb.AreaCode });
 
-            string reportFolder = $@"\\192.168.88.220\файлы_пто\Работы\[23] - Диагностика в 9 и 11 классах\протоколы";
+            string reportFolder = $@"D:\Work\iTakeSociety";
 
             foreach (var areaResult in groupedTestResults)
             {
-                using (var excel = new XLWorkbook($@"{reportFolder}\template ege school.xlsx"))
+                using (var excel = new XLWorkbook($@"{reportFolder}\template society area.xlsx"))
                 {
                     var sheet = excel.Worksheets.First();
-                    sheet.Cell(2, 1).Value = $"{areaResult.Key.SchoolName}";
+                    sheet.Cell(2, 1).Value = $"{areaResult.Key.AreaName}";
                     int i = 4;
                     foreach (var result in areaResult)
                     {
@@ -148,8 +148,9 @@ namespace ProtocolGenerator
                         sheet.Cell(i, 2).Value = result.Surname;
                         sheet.Cell(i, 3).Value = result.Name;
                         sheet.Cell(i, 4).Value = result.SecondName;
-                        sheet.Cell(i, 5).Value = result.DocumNumber;
-                        sheet.Cell(i, 6).Value = result.TestName;
+                        sheet.Cell(i, 5).Value = result.SchoolName;
+                        sheet.Cell(i, 6).Value = result.DocumNumber;
+                        //sheet.Cell(i, 6).Value = result.TestName;
                         //sheet.Cell(i, 7).Value = result.SchoolName;
                         //sheet.Cell (i, 7).Value = result.Marks;
                         sheet.Cell(i, 7).Value = result.PrimaryMark;
@@ -159,7 +160,7 @@ namespace ProtocolGenerator
 
                     //sheet.RowsUsed(false).Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
                     //sheet.RowsUsed(false).Style.Border.SetOutsideBorder(XLBorderStyleValues.Medium);
-                    excel.SaveAs($@"{reportFolder}\{areaResult.Key.SchoolName.Replace("\"", "")}.xlsx");
+                    excel.SaveAs($@"{reportFolder}\122019\{areaResult.Key.AreaCode}.xlsx");
                     
                 }
             }
@@ -387,12 +388,12 @@ namespace ProtocolGenerator
                         sheet.Cell(i + 4, 3).Value = result.Name;
                         sheet.Cell(i + 4, 4).Value = result.SecondName;
                         sheet.Cell(i + 4, 5).Value = result.DocumNumber;
-                        sheet.Cell(i + 4, 6).Value = result.TestName;
+                        //sheet.Cell(i + 4, 6).Value = result.TestName;
                         //sheet.Cell(i + 4, 7).Value = result.ClassName;
                         //sheet.Cell(i + 4, 7).Value = result.Marks;
-                        sheet.Cell(i + 4, 7).Value = result.PrimaryMark;
-                        sheet.Cell(i + 4, 8).Value = result.RiskGroup;
-                        sheet.Cell(i + 4, 9).Value = result.GradeStr;
+                        sheet.Cell(i + 4, 6).Value = result.PrimaryMark;
+                        //sheet.Cell(i + 4, 8).Value = result.RiskGroup;
+                        sheet.Cell(i + 4, 7).Value = result.GradeStr;
                         i++;
                     }
                         
@@ -409,6 +410,63 @@ namespace ProtocolGenerator
                     }
 
                     System.IO.File.Delete($@"{path}\{schoolResult.Key.SchoolId}.xlsx");
+                }
+            }
+        }
+
+        public void GenerateRaspr(int projectTestId, string path, string templateName, bool isArchieving)
+        {
+            var particips = context.ParticipTests.Where(pt => pt.ProjectTestId == projectTestId)
+                .Include("Particip.School.Area")
+                .ToList()
+                .Select(pt => new {
+                    Fio = $"{pt.Particip.Surname} {pt.Particip.Name} {pt.Particip.SecondName}",
+                    pt.Particip.DocumNumber,
+                    pt.Particip.SchoolId,
+                    SchoolName = pt.Particip.School.Name,
+                    AreaName = pt.Particip.School.Area.Name
+                })
+                .OrderBy(ob => ob.Fio)
+                .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
+
+            // string path = @"D:\Work\ITakeEge\092019";
+            string tempPath = $@"{path}\{templateName}";
+
+            foreach (var schoolParticips in particips)
+            {
+                //if (!Directory.Exists($@"{destFolderPath}\{schoolResult.Key.SchoolId}"))
+                //    Directory.CreateDirectory($@"{destFolderPath}\{schoolResult.Key.SchoolId}");
+                //if (!Directory.Exists($@"{reportFolder}\{schoolResult.Key.AreaName}"))
+                //{
+                //    Directory.CreateDirectory($@"{reportFolder}\{schoolResult.Key.AreaName}");
+                //}
+
+
+                using (var excelTemplate = new XLWorkbook(tempPath))
+                {
+                    var sheet = excelTemplate.Worksheets.First();
+                    sheet.Cell(2, 1).Value = $"{schoolParticips.Key.SchoolName}, {schoolParticips.Key.AreaName}";
+                    int i = 0;
+                    foreach (var result in schoolParticips)
+                    {
+                        sheet.Cell(i + 4, 2).Value = result.Fio;
+                        sheet.Cell(i + 4, 3).Value = result.DocumNumber;
+                        i++;
+                    }
+
+                    excelTemplate.SaveAs($@"{path}\{schoolParticips.Key.SchoolId}.xlsx");
+
+                }
+
+                if (isArchieving)
+                {
+                    using (var zip = new ZipFile())
+                    {
+                        zip.AddFile($@"{path}\{schoolParticips.Key.SchoolId}.xlsx", "");
+                        zip.Save($@"{path}\{schoolParticips.Key.SchoolId}.zip");
+                    }
+
+                    System.IO.File.Delete($@"{path}\{schoolParticips.Key.SchoolId}.xlsx");
                 }
             }
         }

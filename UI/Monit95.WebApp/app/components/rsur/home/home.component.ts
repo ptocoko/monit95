@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
     account = new AccountModel(); 
 	isLoading: boolean = true;
 	_fillingProgress: string;
+	date = new Date();
 
     constructor(        
 		private readonly accountService: AccountService,
@@ -24,7 +25,11 @@ export class HomeComponent implements OnInit {
 			localStorage.clear();
 			this.getStatistics();
         });
-    }
+	}
+
+	setTimer(day: number, hours: number = 12): boolean {
+		return (this.date.getDate() === day && this.date.getHours() >= hours) || this.date.getDate() > day;
+	}
 
 	private getStatistics() {
         this.rsurProtocolService.getStatistics().subscribe(progress => this._fillingProgress = progress, error => {

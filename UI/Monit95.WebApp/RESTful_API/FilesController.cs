@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Monit95App.Services.Exceptions;
@@ -75,14 +77,34 @@ namespace Monit95.WebApp.RESTful_API
         /// </summary>
         /// <returns></returns>
         [HttpDelete, Route("~/api/files/{id:int}")]
-        public IHttpActionResult DeleteFile()
+        public async Task<HttpResponseMessage> DeleteFile()
         {
             //TODO: сделать валидацию и при необходимости вернуть ошибку что такой файл не найден или нет досутпа для пользователя
             var fileId = Convert.ToInt32(RequestContext.RouteData.Values["id"]);
 
-            fileService.Delete(fileId, User.Identity.Name);
+            var delResult = await fileService.Delete(fileId, User.Identity.Name);
 
-            return Ok();
+            if (delResult.HasError)
+            {
+                var error = delResult.Errors.First();
+                return Request.CreateErrorResponse((HttpStatusCode)error.HttpCode.Value, error.Description);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpGet, Route("~/api/files/{filename}/{repositoryId:int}")]
+        public async Task<HttpResponseMessage> GetFileId([FromUri]string filename, [FromUri]int repositoryId)
+        {
+            var getResult = await fileService.GetFileId(filename, repositoryId);
+
+            if (getResult.HasError)
+            {
+                var error = getResult.Errors.First();
+                return Request.CreateErrorResponse((HttpStatusCode)error.HttpCode.Value, error.Description);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, getResult.Result);
         }
 
         /// <summary>

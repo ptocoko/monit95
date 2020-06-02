@@ -97,7 +97,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
             // Если протокол ПУСТ
             if (!participTestEntity.QuestionMarks.Any())
             {
-                foreach(var question in participTestEntity.ProjectTest.Test.Questions)
+                foreach(var question in participTestEntity.ProjectTest.Test.Questions.OrderBy(ob => ob.Order))
                 {
                     editDto.MarkCollection.Add(new QuestionMarkEditModel
                     {
@@ -108,7 +108,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
             }
             else
             {
-                foreach (var questionMark in participTestEntity.QuestionMarks)
+                foreach (var questionMark in participTestEntity.QuestionMarks.OrderBy(ob => ob.Question.Order))
                 {
                     editDto.MarkCollection.Add(new QuestionMarkEditModel
                     {
@@ -243,7 +243,7 @@ namespace Monit95App.Services.ItakeEge.QuestionProtocol
             }
             else
             {
-                return questionMarks.Select(qm => qm.AwardedMark.ToString()).Aggregate((agg, curr) => $"{agg};{curr}");
+                return questionMarks.OrderBy(ob => ob.Question.Order).Select(qm => qm.AwardedMark.ToString()).Aggregate((agg, curr) => $"{agg};{curr}");
             }
         }
     }

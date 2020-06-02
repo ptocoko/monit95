@@ -111,6 +111,12 @@ namespace Monit95App.Services.Rsur.MarksConvert
 
             var testId = testResultEntity.RsurParticipTest.RsurTest.TestId;
 
+            // перепутал спецификации для алгебры: до того как исправил нескольким занесли по неправильной спецификации
+            if (testId.ToString().ToUpper() == "92D1766B-38AF-459A-9EE5-5441830135D9" && marks.Length == 21)
+            {
+                testId = new Guid("84DC8187-77E4-41EA-A2E8-CFC1FFD50724");
+            }
+
             var rsurQuestionsModel = context.RsurQuestions
                 .Where(testQuestion => testQuestion.TestId == testId)
                 .Include(x => x.EgeQuestion)
@@ -155,79 +161,55 @@ namespace Monit95App.Services.Rsur.MarksConvert
             
             int grade5;
             // География. Комплексная
-            if(testResultEntity.RsurParticipTest.RsurTestId == 2138)
+            //if(testResultEntity.RsurParticipTest.RsurTestId == 2138)
+            //{
+            //    grade5 = GetGrade5ForGeo(egeValues);
+            //}
+            //// Общество. Комплексная
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 2139)
+            //{
+            //    grade5 = marks.Sum() >= 28 ? 5 : 2;
+            //}
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 3216)
+            //{
+            //    grade5 = marks.Sum() >= 25 ? 5 : 2;
+            //}
+            //// Физика 2 блок "Законы сохранения в механике"
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 3176)
+            //{
+            //    grade5 = marks.Sum() >= 25 ? 5 : 2;
+            //}
+            //// Физика 1 блок "Кинематика. Динамика"
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 3237)
+            //{
+            //    grade5 = marks.Sum() >= 25 ? 5 : 2;
+            //}
+            //// Общество 1 блок "Человек и общество"
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 3238)
+            //{
+            //    grade5 = marks.Sum() >= 23 ? 5 : 2;
+            //}
+            if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1201")
             {
-                grade5 = GetGrade5ForGeo(egeValues);
+                grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
-            // Общество. Комплексная
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 2139)
-            {
-                grade5 = marks.Sum() >= 28 ? 5 : 2;
-            }
-            // Общество. Экономика
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3177)
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1202")
             {
                 grade5 = marks.Sum() >= 22 ? 5 : 2;
             }
-            // Физика. Комплексная и РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3181)
-            {
-                grade5 = marks.Sum() >= 25 ? 5 : 2;
-            }
-            // Общество. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3180)
-            {
-                grade5 = marks.Sum() >= 20 ? 5 : 2;
-            }
-            // Общество. Социальные отношения. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3190)
-            {
-                grade5 = marks.Sum() >= 23 ? 5 : 2;
-            }
-            // Физика. Механические колебания. Волны. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3191)
-            {
-                grade5 = marks.Sum() >= 25 ? 5 : 2;
-            }
-            // Физика. МКТ. Термодинамика. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3215)
-            {
-                grade5 = marks.Sum() >= 25 ? 5 : 2;
-            }
-            // Общество. Человек и общество. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3192)
-            {
-                grade5 = marks.Sum() >= 23 ? 5 : 2;
-            }
-            // Общество. Экономика. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3193)
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1203")
             {
                 grade5 = marks.Sum() >= 22 ? 5 : 2;
             }
-            // Общество. Политика. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3194)
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1204")
             {
                 grade5 = marks.Sum() >= 21 ? 5 : 2;
             }
-            // Общество. Социальные отношения. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3207)
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1205")
             {
-                grade5 = marks.Sum() >= 23 ? 5 : 2;
+                grade5 = marks.Sum() >= 24 ? 5 : 2;
             }
-            // Общество. Право. РСУР
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3206)
-            {
-                grade5 = marks.Sum() >= 23 ? 5 : 2;
-            }
-            else if (new string[] { "0104", "0801" }.Contains(testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode) && testResultEntity.RsurParticipTest.RsurTestId < 3180)
-            {
-                grade5 = GetGrade5ForTestsWithTwoQuestionsForOne(egeValues);
-            }
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3185)
-            {
-                grade5 = GetGrade5ForTestsWithTwoQuestionsForOne(egeValues);
-            }
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3216)
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode.StartsWith("03"))
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
@@ -259,7 +241,7 @@ namespace Monit95App.Services.Rsur.MarksConvert
         private int GetGrade5ForTestsWithTwoQuestionsForOne(IEnumerable<EgeValueModel> egeValues)
         {
             int allValuesCount = egeValues.Count();
-            int badCount = egeValues.Count(p => p.EgeValue < 50); //Количество EgeQuestionValues со значение меньше 60
+            int badCount = egeValues.Count(p => p.EgeValue < 50); //Количество EgeQuestionValues со значение меньше 50
             int midCount = egeValues.Count(p => p.EgeValue >= 50 && p.EgeValue < 80);
             int goodCount = egeValues.Count(p => p.EgeValue >= 80);
 

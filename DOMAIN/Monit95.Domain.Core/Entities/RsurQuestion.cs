@@ -27,6 +27,9 @@ namespace Monit95App.Domain.Core.Entities
         public virtual EgeQuestion EgeQuestion { get; set; }
         public int EgeQuestionId { get; set; }
 
+        public virtual EgeSkill EgeSkill { get; set; }
+        public int? EgeSkillId { get; set; }
+
         /// <summary>
         /// Максимальный балл, который можно получить по заданию
         /// </summary>

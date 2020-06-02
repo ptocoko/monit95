@@ -5,15 +5,30 @@ var core_1 = require("@angular/core");
 var account_service_1 = require("../../services/account.service");
 var cards_service_1 = require("../../services/cards.service");
 var functions_1 = require("../../utils/functions");
+var material_1 = require("@angular/material");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(account, cards) {
+    function HomeComponent(account, cards, snackBar) {
         this.account = account;
         this.cards = cards;
+        this.snackBar = snackBar;
         this.date = new Date();
     }
     HomeComponent.prototype.ngOnInit = function () {
+        var _this_1 = this;
+        this.account.getAccount().subscribe(function (account) { return _this_1.isBadSchool = _this_1.badSchools(account.UserName); });
+    };
+    HomeComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.account.getAccount().subscribe(function (account) { return _this.isBadSchool = _this.badSchools(account.UserName); });
+        $('.yvideo').click(function () {
+            var siblingAnchorHref = this.parentElement.getElementsByTagName('a').item(0).href;
+            var inputEl = document.createElement('input');
+            document.body.appendChild(inputEl);
+            inputEl.value = siblingAnchorHref;
+            inputEl.select();
+            document.execCommand('copy');
+            document.body.removeChild(inputEl);
+            _this.snackBar.open('Ссылка скопирована', 'OK', { duration: 2000 });
+        });
     };
     HomeComponent.prototype.downloadCards = function (projectId) {
         this.cards.getForSchool(projectId).subscribe(function (cards) {
@@ -41,7 +56,7 @@ var HomeComponent = /** @class */ (function () {
         core_1.Component({
             templateUrl: "./app/particips/home/home.component.html?v=" + new Date().getTime()
         }),
-        tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService, cards_service_1.CardsService])
+        tslib_1.__metadata("design:paramtypes", [account_service_1.AccountService, cards_service_1.CardsService, material_1.MatSnackBar])
     ], HomeComponent);
     return HomeComponent;
 }());
