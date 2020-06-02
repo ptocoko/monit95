@@ -2,6 +2,7 @@
 import { AccountService } from '../../../services/account.service';
 import { AccountModel } from '../../../models/account.model';
 import { RsurProtocolsService } from '../../../services/rsur-protocols.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({    
 	templateUrl: `./app/components/rsur/home/home.component.html?v=${new Date().getTime()}`,
@@ -12,10 +13,12 @@ export class HomeComponent implements OnInit {
 	isLoading: boolean = true;
 	_fillingProgress: string;
 	date = new Date();
+	filesExist: { [name: string]: boolean };
 
     constructor(        
 		private readonly accountService: AccountService,
-		private readonly rsurProtocolService: RsurProtocolsService) {        
+		private readonly rsurProtocolService: RsurProtocolsService,
+		private readonly http: HttpClient) {        
     }
 
     ngOnInit() {        
@@ -25,6 +28,16 @@ export class HomeComponent implements OnInit {
 			localStorage.clear();
 			this.getStatistics();
         });
+	}
+
+	isFileExists(fileName: string) {
+		if (this.filesExist[fileName] === undefined) {
+			this.http.get(fileName, { observe: 'response' }).subscribe(res => {
+				this.filesExist[fileName] = res.status !== 404;
+			});
+		} else {
+			return this.filesExist[fileName];
+		}
 	}
 
 	setTimer(day: number, hours: number = 12): boolean {
