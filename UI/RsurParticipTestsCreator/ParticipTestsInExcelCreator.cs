@@ -2,6 +2,7 @@
 using Monit95App.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +59,9 @@ namespace RsurParticipTestsCreator
             return _context.RsurParticipTests
                 .AsNoTracking()
                 .Where(p => rsurTestIds.Contains(p.RsurTestId) && p.RsurParticip.School.AreaCode != 1000)
+                .Include("RsurTest.Test")
+                .Include("RsurParticip.RsurSubject")
+                .ToList()
                 .GroupBy(gb => new
                 {
                     gb.RsurParticip.SchoolId,
@@ -75,7 +79,6 @@ namespace RsurParticipTestsCreator
                         Surname = selector.RsurParticip.Surname,
                         Name = selector.RsurParticip.Name,
                         SecondName = selector.RsurParticip.SecondName,
-                        SchoolName = selector.RsurParticip.School.Name,
                         BlockName = selector.RsurTest.Test.Name,
                         NumberCode = selector.RsurTest.Test.NumberCode
                     })
@@ -134,7 +137,8 @@ namespace RsurParticipTestsCreator
                 using (var sheet = excel.Worksheets.First())
                 {
                     sheet.Name = shortSubjectName.ToUpper();
-                    sheet.Cell(2, 3).Value = models.SchoolId;
+                    sheet.Cell(2, 3).SetDataType(XLCellValues.Text);
+                    sheet.Cell(2, 3).SetValue<string>(models.SchoolId);
                     sheet.Cell(1, 5).Value = models.TestDate.ToString("dd.MM.yyyy");
                     sheet.Cell(2, 5).Value = models.SubjectName;
 
