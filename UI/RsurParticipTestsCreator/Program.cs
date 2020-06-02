@@ -15,10 +15,10 @@ namespace RsurParticipTestsCreator
             CokoContext context = new CokoContext();
             //GenerateParticipTests(context);
             ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context, "05-20", "Май-2020");
-            var models = cretor.GetModels(new int[] { 4288, 4287, 4286, 4285, 4284, 4283, 4282, 4281, 4280, 4277, 4276, 4275, 4274, 4273, 4272, 4271, 4270, 4269, 4268, 4267, 4266, 4265, 4264, 4263 });
+            var models = cretor.GetModelsForSchools(new int[] { 4288, 4287, 4286, 4285, 4284, 4283, 4282, 4281, 4280, 4277, 4276, 4275, 4274, 4273, 4272, 4271, 4270, 4269, 4268, 4267, 4266, 4265, 4264, 4263 });
             foreach (var model in models)
             {
-                cretor.SaveModelsIntoExcel(model);
+                cretor.SaveModelsIntoExcelForSchool(model);
             }
         }
 
