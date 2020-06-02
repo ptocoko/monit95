@@ -2,49 +2,70 @@
 <div *ngIf="!isLoading">
     <h2>РСУР: Главное меню</h2>
 
-    <div *ngIf="isArea() && setTimer(3, 7)" class="list-container">
+    <div *ngIf="(isSchool() || isArea()) && setTimer(2, 7)" class="list-container">
         <h3 class="list-header">Диагностика «Июнь-2020»</h3>
 
-        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_ру_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е РУС.xlsx">
-            <h4>Русский язык: распределение</h4>
-        </a>
-        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_ма_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е МАТ.xlsx">
-            <h4>Математика: распределение</h4>
-        </a>
-        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_фи_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ФИЗ.xlsx">
-            <h4>Физика: распределение</h4>
-        </a>
-        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_ис_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ИСТ.xlsx">
-            <h4>История: распределение</h4>
-        </a>
-        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_ге_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ГЕО.xlsx">
-            <h4>География: распределение</h4>
-        </a>
-        <a class="list-item-link" href="/file/rsur-particip-tests/{{account.UserName}}/05-20_об_распределение_{{account.UserName}}.xlsx" download="РСУР распр-е ОБЩ.xlsx">
-            <h4>Обществознание: распределение</h4>
-        </a>
-
+        <div *ngIf="isArea()">
+            <a class="list-item-link" href="{{getFileLink('05-20', 'ру')}}" *ngIf="isFileExists(getFileLink('05-20', 'ру'))" download="РСУР распр-е РУС.xlsx">
+                <h4>Русский язык: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getFileLink('05-20', 'ма')}}" *ngIf="isFileExists(getFileLink('05-20', 'ма'))" download="РСУР распр-е МАТ.xlsx">
+                <h4>Математика: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getFileLink('05-20', 'фи')}}" *ngIf="isFileExists(getFileLink('05-20', 'фи'))" download="РСУР распр-е ФИЗ.xlsx">
+                <h4>Физика: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getFileLink('05-20', 'ис')}}" *ngIf="isFileExists(getFileLink('05-20', 'ис'))" download="РСУР распр-е ИСТ.xlsx">
+                <h4>История: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getFileLink('05-20', 'ге')}}" *ngIf="isFileExists(getFileLink('05-20', 'ге'))" download="РСУР распр-е ГЕО.xlsx">
+                <h4>География: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getFileLink('05-20', 'об')}}" *ngIf="isFileExists(getFileLink('05-20', 'об'))" download="РСУР распр-е ОБЩ.xlsx">
+                <h4>Обществознание: распределение</h4>
+            </a>
+        </div>
+        <div *ngIf="isSchool()">
+            <a class="list-item-link" href="{{getSchoolFileLink('05-20', 'ру')}}" *ngIf="isFileExists(getSchoolFileLink('05-20', 'ру'))" download="РСУР распр-е РУС.xlsx">
+                <h4>Русский язык: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getSchoolFileLink('05-20', 'ма')}}" *ngIf="isFileExists(getSchoolFileLink('05-20', 'ма'))" download="РСУР распр-е МАТ.xlsx">
+                <h4>Математика: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getSchoolFileLink('05-20', 'фи')}}" *ngIf="isFileExists(getSchoolFileLink('05-20', 'фи'))" download="РСУР распр-е ФИЗ.xlsx">
+                <h4>Физика: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getSchoolFileLink('05-20', 'ис')}}" *ngIf="isFileExists(getSchoolFileLink('05-20', 'ис'))" download="РСУР распр-е ИСТ.xlsx">
+                <h4>История: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getSchoolFileLink('05-20', 'ге')}}" *ngIf="isFileExists(getSchoolFileLink('05-20', 'ге'))" download="РСУР распр-е ГЕО.xlsx">
+                <h4>География: распределение</h4>
+            </a>
+            <a class="list-item-link" href="{{getSchoolFileLink('05-20', 'об')}}" *ngIf="isFileExists(getSchoolFileLink('05-20', 'об'))" download="РСУР распр-е ОБЩ.xlsx">
+                <h4>Обществознание: распределение</h4>
+            </a>
+        </div>
         <!--<a class="list-item-link" href="/file/rsur/012020/tasks/fiz.zip" download="ФИЗ Варианты работ.zip">
-        <h4>Физика: Варианты работ</h4>
-    </a>
-    <a class="list-item-link" href="/file/rsur/012020/tasks/soc.rar" download="ОБЩ Варианты работ.rar">
-        <h4>Обществознание: Варианты работ</h4>
-    </a>
-
-    <a class="list-item-link" href="/file/rsur/012020/keys/fiz.zip" download="ФИЗ Ключи для проверки работ.zip">
-        <h4 style="font-weight:bold">Физика: Ключи для проверки работ</h4>
-    </a>
-    <a class="list-item-link" href="/file/rsur/012020/keys/soc.rar" download="ОБЩ Ключи для проверки работ.rar">
-        <h4 style="font-weight:bold">Обществознание: Ключи для проверки работ</h4>
-    </a>-->
-        <!--<div class="list-item">
-        <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-            <div>
-                <h4><b>Протоколы проверки заданий</b></h4>
-            </div>
-            <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+            <h4>Физика: Варианты работ</h4>
         </a>
-    </div>-->
+        <a class="list-item-link" href="/file/rsur/012020/tasks/soc.rar" download="ОБЩ Варианты работ.rar">
+            <h4>Обществознание: Варианты работ</h4>
+        </a>
+
+        <a class="list-item-link" href="/file/rsur/012020/keys/fiz.zip" download="ФИЗ Ключи для проверки работ.zip">
+            <h4 style="font-weight:bold">Физика: Ключи для проверки работ</h4>
+        </a>
+        <a class="list-item-link" href="/file/rsur/012020/keys/soc.rar" download="ОБЩ Ключи для проверки работ.rar">
+            <h4 style="font-weight:bold">Обществознание: Ключи для проверки работ</h4>
+        </a>-->
+        <!--<div class="list-item">
+            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
+                <div>
+                    <h4><b>Протоколы проверки заданий</b></h4>
+                </div>
+                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+            </a>
+        </div>-->
     </div>
 
     <div *ngIf="isAdmin() && false" class="list-container">
