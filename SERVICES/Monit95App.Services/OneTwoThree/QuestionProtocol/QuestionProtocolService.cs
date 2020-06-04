@@ -216,21 +216,21 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
 
         private readonly Dictionary<int, GradesOptions> _marksCountsByProjectId = new Dictionary<int, GradesOptions>
         {
-            [3069] = new GradesOptions
+            [3092] = new GradesOptions
             {
                 MinCountForThree = 7,
                 MaxCountForThree = 8,
                 MinCountForFour = 9,
                 MaxCountForFour = 10
             },
-            [3070] = new GradesOptions
+            [3093] = new GradesOptions
             {
-                MinCountForThree = 6,
-                MaxCountForThree = 7,
-                MinCountForFour = 8,
-                MaxCountForFour = 8
+                MinCountForThree = 7,
+                MaxCountForThree = 8,
+                MinCountForFour = 9,
+                MaxCountForFour = 10
             },
-            [3071] = new GradesOptions
+            [3094] = new GradesOptions
             {
                 MinCountForThree = 6,
                 MaxCountForThree = 7,
@@ -241,21 +241,21 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 FourGradeStr = "Учащийся имеет хороший уровень осознанности чтения",
                 FiveGradeStr = "Учащийся имеет повышенный уровень осознанности чтения"
             },
-            [3072] = new GradesOptions
+            [3095] = new GradesOptions
             {
                 MinCountForThree = 9,
                 MaxCountForThree = 11,
                 MinCountForFour = 12,
                 MaxCountForFour = 13
             },
-            [3073] = new GradesOptions
+            [3096] = new GradesOptions
             {
                 MinCountForThree = 8,
                 MaxCountForThree = 9,
                 MinCountForFour = 10,
                 MaxCountForFour = 12
             },
-            [3074] = new GradesOptions
+            [3097] = new GradesOptions
             {
                 MinCountForThree = 8,
                 MaxCountForThree = 10,
@@ -266,21 +266,21 @@ namespace Monit95App.Services.OneTwoThree.QuestionProtocol
                 FourGradeStr = "Учащийся имеет хороший уровень осознанности чтения",
                 FiveGradeStr = "Учащийся имеет повышенный уровень осознанности чтения"
             },
-            [3075] = new GradesOptions
+            [3098] = new GradesOptions
             {
                 MinCountForThree = 10,
                 MaxCountForThree = 12,
                 MinCountForFour = 13,
                 MaxCountForFour = 15
             },
-            [3076] = new GradesOptions
+            [3099] = new GradesOptions
             {
                 MinCountForThree = 10,
                 MaxCountForThree = 12,
                 MinCountForFour = 13,
                 MaxCountForFour = 15
             },
-            [3077] = new GradesOptions
+            [3100] = new GradesOptions
             {
                 MinCountForThree = 10,
                 MaxCountForThree = 12,
