@@ -39,27 +39,33 @@
                 <h4>Обществознание: распределение</h4>
             </a>
         </div>
+        <a class="list-item-link" [routerLink]="['/rsur/question-protocols']" *ngIf="setTimer(5, 13)">
+            <div>
+                <h4><b>Протоколы проверки заданий</b></h4>
+            </div>
+            <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+        </a>
         <!--<a class="list-item-link" href="/file/rsur/012020/tasks/fiz.zip" download="ФИЗ Варианты работ.zip">
-            <h4>Физика: Варианты работ</h4>
-        </a>
-        <a class="list-item-link" href="/file/rsur/012020/tasks/soc.rar" download="ОБЩ Варианты работ.rar">
-            <h4>Обществознание: Варианты работ</h4>
-        </a>
+        <h4>Физика: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" href="/file/rsur/012020/tasks/soc.rar" download="ОБЩ Варианты работ.rar">
+        <h4>Обществознание: Варианты работ</h4>
+    </a>
 
-        <a class="list-item-link" href="/file/rsur/012020/keys/fiz.zip" download="ФИЗ Ключи для проверки работ.zip">
-            <h4 style="font-weight:bold">Физика: Ключи для проверки работ</h4>
-        </a>
-        <a class="list-item-link" href="/file/rsur/012020/keys/soc.rar" download="ОБЩ Ключи для проверки работ.rar">
-            <h4 style="font-weight:bold">Обществознание: Ключи для проверки работ</h4>
-        </a>-->
+    <a class="list-item-link" href="/file/rsur/012020/keys/fiz.zip" download="ФИЗ Ключи для проверки работ.zip">
+        <h4 style="font-weight:bold">Физика: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" href="/file/rsur/012020/keys/soc.rar" download="ОБЩ Ключи для проверки работ.rar">
+        <h4 style="font-weight:bold">Обществознание: Ключи для проверки работ</h4>
+    </a>-->
         <!--<div class="list-item">
-            <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
-                <div>
-                    <h4><b>Протоколы проверки заданий</b></h4>
-                </div>
-                <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
-            </a>
-        </div>-->
+        <a class="list-item-link" [routerLink]="['/rsur/question-protocols']">
+            <div>
+                <h4><b>Протоколы проверки заданий</b></h4>
+            </div>
+            <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="fillingProgress()"></ngb-progressbar></span>
+        </a>
+    </div>-->
     </div>
 
     <div *ngIf="isAdmin() && false" class="list-container">

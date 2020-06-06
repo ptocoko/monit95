@@ -20,11 +20,29 @@
 <div class="list-container" *ngIf="account.isSchool() && setTimer(4, 7)">
     <h3 class="list-header">«Я сдам ЕГЭ!», диагностика - июнь 2020</h3>
 
-    <a class="list-item-link" href="/file/iTakeEge/062020/ru/raspr/{{account.account.UserName}}.xlsx" download="Распределение Я сдам ЕГЭ РУ.xlsx">
+    <!--<a class="list-item-link" href="/file/iTakeEge/062020/ru/raspr/{{account.account.UserName}}.xlsx" download="Распределение Я сдам ЕГЭ РУ.xlsx">
         <h4 style="font-weight:bold">Русский язык: Скачать распределение</h4>
     </a>
     <a class="list-item-link" href="/file/iTakeEge/062020/ma/raspr/{{account.account.UserName}}.xlsx" download="Распределение Я сдам ЕГЭ МАТ.xlsx">
         <h4 style="font-weight:bold">Математика: Скачать распределение</h4>
+    </a>-->
+    <a class="list-item-link" href="/file/iTakeEge/062020/ru/tasks/rus.rar" download="Русский язык.rar">
+        <h4>Варианты работ: Русский язык</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/062020/ma/tasks/ma.rar" download="Математика.rar">
+        <h4>Варианты работ: Математика</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/062020/ru/keys/rus.rar" download="Ключи Русский язык.rar">
+        <h4 style="font-weight:bold">Ключи для проверки работ: Русский язык</h4>
+    </a>
+    <a class="list-item-link" href="/file/iTakeEge/062020/ma/keys/ma.rar" download="Ключи Математика.rar">
+        <h4 style="font-weight:bold">Ключи для проверки работ: Математика</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/protocols/3090']">
+        <h4 style="font-weight:bold">Русский язык: Протоколы проверки заданий</h4>
+    </a>
+    <a class="list-item-link" [routerLink]="['/particips/protocols/3091']">
+        <h4 style="font-weight:bold">Математика: Протоколы проверки заданий</h4>
     </a>
 </div>
 
