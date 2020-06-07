@@ -282,8 +282,8 @@ namespace Monit95App.Services.Tests
             var areaId = 201;
 
             // Act
-            service.CreateOrUpdate(marksProtocol1, areaId);
-            service.CreateOrUpdate(marksProtocol2, areaId);
+            service.CreateOrUpdate(new QuestionValueEditDto());
+            service.CreateOrUpdate(new QuestionValueEditDto());
 
             // Assert            
             mockContext.Received().SaveChanges();
@@ -299,7 +299,7 @@ namespace Monit95App.Services.Tests
             var service = new QuestionValueService(mockContext);
             
             // Act
-            service.Get(1234, 201);
+            service.Get(1234);
         }
 
         [TestMethod]
@@ -310,7 +310,7 @@ namespace Monit95App.Services.Tests
             var service = new QuestionValueService(mockContext);
 
             // Act
-            service.Get(12346, 202);
+            service.Get(12346);
         }
 
         [TestMethod]
@@ -320,7 +320,7 @@ namespace Monit95App.Services.Tests
             var service = new QuestionValueService(mockContext);
 
             // Act            
-            var protocol = service.Get(12345, 201);
+            var protocol = service.Get(12345);
             var question1 = protocol.QuestionResults.Single(x => x.Order == 1);
             var question2 = protocol.QuestionResults.Single(x => x.Order == 2);
 
