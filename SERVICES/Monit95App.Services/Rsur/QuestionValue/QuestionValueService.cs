@@ -306,6 +306,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 RsurQuestionValues = s.RsurTestResult.RsurQuestionValues,
                 TestName = s.RsurTest.Test.NumberCode + "-" + s.RsurTest.Test.Name
             })
+                .ToList()
                 .OrderBy(ob => ob.RsurQuestionValues, Comparer<string>.Create((str1, str2) =>
             {
                 if(str1 == null && str2 != null)
@@ -346,6 +347,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 RsurQuestionValues = s.RsurTestResult.RsurQuestionValues,
                 TestName = s.RsurTest.Test.NumberCode + "-" + s.RsurTest.Test.Name
             })
+                .ToList()
                 .OrderBy(ob => ob.RsurQuestionValues, Comparer<string>.Create((str1, str2) =>
             {
                 if (str1 == null && str2 != null)
