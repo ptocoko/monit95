@@ -52,6 +52,17 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
 
+        public void ResolvePrimaryMark(int projectTestId)
+        {
+            var participTests = context.ParticipTests.Where(p => p.ProjectTestId == projectTestId && p.PrimaryMark != p.QuestionMarks.Select(qm => qm.AwardedMark).Sum());
+            foreach(var participTest in participTests)
+            {
+                participTest.PrimaryMark = (double?)participTest.QuestionMarks.Select(qm => qm.AwardedMark).Sum();
+            }
+
+            context.SaveChanges();
+        }
+
         public async Task SolveGrade5_v2()
         {
             await context.ParticipTests
