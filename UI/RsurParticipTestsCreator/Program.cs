@@ -14,11 +14,11 @@ namespace RsurParticipTestsCreator
         {
             CokoContext context = new CokoContext();
             //GenerateParticipTests(context);
-            ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context, "10-19", "Октябрь-2019");
-            var models = cretor.GetModels(new int[] { 3234, 3235 });
+            ParticipTestsInExcelCreator cretor = new ParticipTestsInExcelCreator(context, "05-20", "Май-2020");
+            var models = cretor.GetModelsForSchools(new int[] { 4288, 4287, 4286, 4285, 4284, 4283, 4282, 4281, 4280, 4277, 4276, 4275, 4274, 4273, 4272, 4271, 4270, 4269, 4268, 4267, 4266, 4265, 4264, 4263 });
             foreach (var model in models)
             {
-                cretor.SaveModelsIntoExcel(model);
+                cretor.SaveModelsIntoExcelForSchool(model);
             }
         }
 
@@ -26,21 +26,28 @@ namespace RsurParticipTestsCreator
         {
             var rsurTestNumberCodeDict = new Dictionary<string, int>
             {
-                {"0101", 3218 },
-                {"0102", 3219 },
-                {"0103", 3220 },
-                {"0104", 3221 },
-                {"0201", 3222 },
-                {"0202", 3223 },
-                {"0203", 3224 },
-                {"0701", 3225 },
-                {"0702", 3226 },
-                {"0703", 3227 },
-                {"0704", 3228 },
-                {"0801", 3229 },
-                {"0802", 3230 },
-                {"0803", 3231 },
-                {"0804", 3233 },
+                {"0101", 4239 },
+                {"0102", 4240 },
+                {"0103", 4241 },
+                {"0104", 4242 },
+                {"0201", 4243 },
+                {"0202", 4244 },
+                {"0203", 4245 },
+                {"0701", 4246 },
+                {"0702", 4247 },
+                {"0703", 4248 },
+                {"0704", 4249 },
+                {"0801", 4250 },
+                {"0802", 4251 },
+                {"0803", 4252 },
+                {"0804", 4253 },
+                {"0302", 4255 },
+                {"0303", 4256 },
+                {"0304", 4257 },
+                {"1202", 4259 },
+                {"1203", 4260 },
+                {"1204", 4261 },
+                {"1205", 4262 },
             };
 
             var whoMustPass = GetWhoMustPass(context.RsurParticips.Where(p => new int[] { 1, 2, 7, 8 }.Contains(p.RsurSubjectCode) && p.SchoolId != "0000"));

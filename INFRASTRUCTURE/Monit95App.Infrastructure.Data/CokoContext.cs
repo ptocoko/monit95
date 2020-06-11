@@ -23,6 +23,8 @@ namespace Monit95App.Infrastructure.Data
         public virtual DbSet<Particip> Particips { get; set; }
         public virtual DbSet<ParticipTest> ParticipTests { get; set; }
         public virtual DbSet<ParticipsCompetence> ParticipsCompetences { get; set; }
+        public virtual DbSet<ProfileQuestion> ProfileQuestions { get; set; }
+        public virtual DbSet<ProfileQuestionAnswer> ProfileQuestionAnswers { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTest> ProjectTests { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }        
@@ -376,6 +378,12 @@ namespace Monit95App.Infrastructure.Data
             modelBuilder.Entity<EgeSkill>()
                 .HasMany(e => e.RsurQuestions)
                 .WithOptional(e => e.EgeSkill);
+
+            modelBuilder.Entity<ProfileQuestion>()
+                .HasMany(e => e.ProfileQuestionAnswers)
+                .WithRequired(e => e.ProfileQuestion)
+                .HasForeignKey(e => e.ProfileQuestionId)
+                .WillCascadeOnDelete(true);
         }
     }
 }

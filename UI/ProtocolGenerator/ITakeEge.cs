@@ -52,6 +52,17 @@ namespace ProtocolGenerator
             context.SaveChanges();
         }
 
+        public void ResolvePrimaryMark(int projectTestId)
+        {
+            var participTests = context.ParticipTests.Where(p => p.ProjectTestId == projectTestId && p.PrimaryMark != p.QuestionMarks.Select(qm => qm.AwardedMark).Sum());
+            foreach(var participTest in participTests)
+            {
+                participTest.PrimaryMark = (double?)participTest.QuestionMarks.Select(qm => qm.AwardedMark).Sum();
+            }
+
+            context.SaveChanges();
+        }
+
         public async Task SolveGrade5_v2()
         {
             await context.ParticipTests
@@ -410,6 +421,63 @@ namespace ProtocolGenerator
                     }
 
                     System.IO.File.Delete($@"{path}\{schoolResult.Key.SchoolId}.xlsx");
+                }
+            }
+        }
+
+        public void GenerateRaspr(int projectTestId, string path, string templateName, bool isArchieving)
+        {
+            var particips = context.ParticipTests.Where(pt => pt.ProjectTestId == projectTestId)
+                .Include("Particip.School.Area")
+                .ToList()
+                .Select(pt => new {
+                    Fio = $"{pt.Particip.Surname} {pt.Particip.Name} {pt.Particip.SecondName}",
+                    pt.Particip.DocumNumber,
+                    pt.Particip.SchoolId,
+                    SchoolName = pt.Particip.School.Name,
+                    AreaName = pt.Particip.School.Area.Name
+                })
+                .OrderBy(ob => ob.Fio)
+                .GroupBy(gb => new { gb.SchoolId, gb.SchoolName, gb.AreaName });
+
+            // string path = @"D:\Work\ITakeEge\092019";
+            string tempPath = $@"{path}\{templateName}";
+
+            foreach (var schoolParticips in particips)
+            {
+                //if (!Directory.Exists($@"{destFolderPath}\{schoolResult.Key.SchoolId}"))
+                //    Directory.CreateDirectory($@"{destFolderPath}\{schoolResult.Key.SchoolId}");
+                //if (!Directory.Exists($@"{reportFolder}\{schoolResult.Key.AreaName}"))
+                //{
+                //    Directory.CreateDirectory($@"{reportFolder}\{schoolResult.Key.AreaName}");
+                //}
+
+
+                using (var excelTemplate = new XLWorkbook(tempPath))
+                {
+                    var sheet = excelTemplate.Worksheets.First();
+                    sheet.Cell(2, 1).Value = $"{schoolParticips.Key.SchoolName}, {schoolParticips.Key.AreaName}";
+                    int i = 0;
+                    foreach (var result in schoolParticips)
+                    {
+                        sheet.Cell(i + 4, 2).Value = result.Fio;
+                        sheet.Cell(i + 4, 3).Value = result.DocumNumber;
+                        i++;
+                    }
+
+                    excelTemplate.SaveAs($@"{path}\{schoolParticips.Key.SchoolId}.xlsx");
+
+                }
+
+                if (isArchieving)
+                {
+                    using (var zip = new ZipFile())
+                    {
+                        zip.AddFile($@"{path}\{schoolParticips.Key.SchoolId}.xlsx", "");
+                        zip.Save($@"{path}\{schoolParticips.Key.SchoolId}.zip");
+                    }
+
+                    System.IO.File.Delete($@"{path}\{schoolParticips.Key.SchoolId}.xlsx");
                 }
             }
         }

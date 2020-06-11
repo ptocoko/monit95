@@ -161,33 +161,57 @@ namespace Monit95App.Services.Rsur.MarksConvert
             
             int grade5;
             // География. Комплексная
-            if(testResultEntity.RsurParticipTest.RsurTestId == 2138)
-            {
-                grade5 = GetGrade5ForGeo(egeValues);
-            }
-            // Общество. Комплексная
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 2139)
-            {
-                grade5 = marks.Sum() >= 28 ? 5 : 2;
-            }
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3216)
+            //if(testResultEntity.RsurParticipTest.RsurTestId == 2138)
+            //{
+            //    grade5 = GetGrade5ForGeo(egeValues);
+            //}
+            //// Общество. Комплексная
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 2139)
+            //{
+            //    grade5 = marks.Sum() >= 28 ? 5 : 2;
+            //}
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 3216)
+            //{
+            //    grade5 = marks.Sum() >= 25 ? 5 : 2;
+            //}
+            //// Физика 2 блок "Законы сохранения в механике"
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 3176)
+            //{
+            //    grade5 = marks.Sum() >= 25 ? 5 : 2;
+            //}
+            //// Физика 1 блок "Кинематика. Динамика"
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 3237)
+            //{
+            //    grade5 = marks.Sum() >= 25 ? 5 : 2;
+            //}
+            //// Общество 1 блок "Человек и общество"
+            //else if (testResultEntity.RsurParticipTest.RsurTestId == 3238)
+            //{
+            //    grade5 = marks.Sum() >= 23 ? 5 : 2;
+            //}
+            if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1201")
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
             }
-            // Физика 2 блок "Законы сохранения в механике"
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3176)
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1202")
+            {
+                grade5 = marks.Sum() >= 22 ? 5 : 2;
+            }
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1203")
+            {
+                grade5 = marks.Sum() >= 22 ? 5 : 2;
+            }
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1204")
+            {
+                grade5 = marks.Sum() >= 21 ? 5 : 2;
+            }
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode == "1205")
+            {
+                grade5 = marks.Sum() >= 24 ? 5 : 2;
+            }
+            else if (testResultEntity.RsurParticipTest.RsurTest.Test.NumberCode.StartsWith("03"))
             {
                 grade5 = marks.Sum() >= 25 ? 5 : 2;
-            }
-            // Физика 1 блок "Кинематика. Динамика"
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3237)
-            {
-                grade5 = marks.Sum() >= 25 ? 5 : 2;
-            }
-            // Общество 1 блок "Человек и общество"
-            else if (testResultEntity.RsurParticipTest.RsurTestId == 3238)
-            {
-                grade5 = marks.Sum() >= 23 ? 5 : 2;
             }
             else
             {
