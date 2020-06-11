@@ -65,7 +65,7 @@ namespace Monit95App.Services.Tests
 
             // ACT
             var service = new FileService(mockContext);
-            var result = service.Add(2, fakeStream, @"c:\images\IMG-2017-12-07.JPG", "201");            
+            var result = service.Add(2, fakeStream, @"c:\images\IMG-2017-12-07.JPG", "201", new FileAddingOptions());            
 
             // Assert
             Assert.IsNotNull(result);            

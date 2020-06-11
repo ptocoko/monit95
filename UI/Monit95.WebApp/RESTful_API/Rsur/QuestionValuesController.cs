@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Monit95App.Services.Rsur.QuestionValue;
 using Monit95App.Services.Rsur.TestResult;
@@ -36,9 +37,9 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         /// <returns>Не возвращает Id т.к. RsurParticipTests.Id и RsurTestResults.RsurParticipTestId равны</returns>
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Post([FromBody]QuestionValueEditDto questionValueEditDto)
+        public async Task<HttpResponseMessage> Post([FromBody]QuestionValueEditDto questionValueEditDto)
         {
-            var result = questionValueService.CreateOrUpdate(questionValueEditDto);
+            var result = await questionValueService.CreateOrUpdate(questionValueEditDto);
 
             if (!result.Errors.Any())
             {
@@ -54,10 +55,10 @@ namespace Monit95.WebApp.RESTful_API.Rsur
 
         [HttpPut]
         [Route("{participCode:int}")]
-        public HttpResponseMessage Put([FromBody]QuestionValueEditDto testResultDto)
+        public async Task<HttpResponseMessage> Put([FromBody]QuestionValueEditDto testResultDto)
         {
             // var participCode = Convert.ToInt32(RequestContext.RouteData.Values["participCode"]);
-            var result = questionValueService.CreateOrUpdate(testResultDto);
+            var result = await questionValueService.CreateOrUpdate(testResultDto);
 
             if (!result.Errors.Any())
             {
@@ -151,11 +152,11 @@ namespace Monit95.WebApp.RESTful_API.Rsur
         /// <returns></returns>
         [HttpPut]
         [Route("{participTestId:int}/markAsAbsent")]
-        public IHttpActionResult MarkAsAbsent()
+        public async Task<IHttpActionResult> MarkAsAbsent()
         {
             var participTestId = int.Parse(RequestContext.RouteData.Values["participTestId"].ToString());
 
-            var result = questionValueService.MarkAsAbsent(participTestId);
+            var result = await questionValueService.MarkAsAbsent(participTestId);
 
             if (!result.Errors.Any())
             {

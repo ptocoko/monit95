@@ -5,6 +5,7 @@ using Monit95App.Services.Interfaces;
 using Monit95App.Services.School;
 using NSubstitute;
 using Monit95App.Domain.Core.Entities;
+using Monit95App.Infrastructure.Data;
 
 namespace Monit95App.Infrastructure.BusinessTests
 {
@@ -36,7 +37,7 @@ namespace Monit95App.Infrastructure.BusinessTests
                 Area = _area,
                 TownType = _townType
             };
-            _schoolService = new SchoolService(_mockSchoolRepository, _mockSchoolEditRepository);
+            _schoolService = new SchoolService(_mockSchoolRepository, _mockSchoolEditRepository, new CokoContext());
         }
         
 
@@ -61,7 +62,7 @@ namespace Monit95App.Infrastructure.BusinessTests
         public void GetModel_ExceptionTest()
         {
             //Arrange
-            var service = new SchoolService(_mockSchoolRepository, _mockSchoolEditRepository);
+            var service = new SchoolService(_mockSchoolRepository, _mockSchoolEditRepository, new CokoContext());
             
             //Act
             service.GetModel("0001");
