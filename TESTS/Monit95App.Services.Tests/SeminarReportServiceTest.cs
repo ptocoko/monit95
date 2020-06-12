@@ -22,9 +22,9 @@ namespace Monit95App.Services.Tests
             
             // mocking FileService
             var mockFileService = Substitute.For<IFileService>();         
-            mockFileService.Add(Arg.Any<int>(), Arg.Any<Stream>(), "protocol.jpg", Arg.Any<string>()).Returns(1);
-            mockFileService.Add(Arg.Any<int>(), Arg.Any<Stream>(), "foto1.jpg", Arg.Any<string>()).Returns(2);
-            mockFileService.Add(Arg.Any<int>(), Arg.Any<Stream>(), "foto2.jpg", Arg.Any<string>()).Returns(3);                        
+            mockFileService.Add(Arg.Any<int>(), Arg.Any<Stream>(), "protocol.jpg", Arg.Any<string>(), new FileAddingOptions()).Returns(1);
+            mockFileService.Add(Arg.Any<int>(), Arg.Any<Stream>(), "foto1.jpg", Arg.Any<string>(), new FileAddingOptions()).Returns(2);
+            mockFileService.Add(Arg.Any<int>(), Arg.Any<Stream>(), "foto2.jpg", Arg.Any<string>(), new FileAddingOptions()).Returns(3);                        
 
             var fakeUniqueStreamDictionary = new Dictionary<string, UniqueStream>
             {
