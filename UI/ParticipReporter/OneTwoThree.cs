@@ -13,20 +13,21 @@ namespace ParticipReporter
 {
     public class OneTwoThree
     {
-        public string[] BadSchoolsIds { get; set; } = new string[] { "0240", "0411", "0150", "0416", "0237", "0271", "0028", "0263", "0078", "0016", "0382", "0171", "0192", "0068", "0307", "0058", "0409", "0440", "0462", "0141", "0160", "0213", "0026", "0311", "0134", "0223", "0045", "0293", "0348", "0422", "0191", "0067", "0145", "0299", "0152", "0202", "0398", "0427", "0369", "0456", "0553", "0288", "0420", "0435", "0190", "0228", "0395", "0195", "0467", "0347", "0081", "0229", "0204", "0297", "0350", "0328", "0156", "0025", "0269", "0319", "0144", "0555", "0247", "0133", "0019", "0175", "0389", "0070", "0437", "0264", "0419", "0373", "0015", "0043", "0322", "0327", "0241", "0200", "0455", "0421", "0132", "0362", "0062", "0352", "0380", "0385", "0469", "0129", "0436", "0341", "0438", "0558", "0339", "0164", "0219", "0059", "0012" };
+        public string[] BadSchoolsIds { get; set; } = { "0240", "0411", "0150", "0416", "0237", "0271", "0028", "0263", "0078", "0016", "0382", "0171", "0192", "0068", "0307", "0058", "0409", "0440", "0462", "0141", "0160", "0213", "0026", "0311", "0134", "0223", "0045", "0293", "0348", "0422", "0191", "0067", "0145", "0299", "0152", "0202", "0398", "0427", "0369", "0456", "0553", "0288", "0420", "0435", "0190", "0228", "0395", "0195", "0467", "0347", "0081", "0229", "0204", "0297", "0350", "0328", "0156", "0025", "0269", "0319", "0144", "0555", "0247", "0133", "0019", "0175", "0389", "0070", "0437", "0264", "0419", "0373", "0015", "0043", "0322", "0327", "0241", "0200", "0455", "0421", "0132", "0362", "0062", "0352", "0380", "0385", "0469", "0129", "0436", "0341", "0438", "0558", "0339", "0164", "0219", "0059", "0012" };
 
         public void GenerateCards()
         {
             var context = new CokoContext();
-            foreach (var schoolid in BadSchoolsIds)
+            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 31).Select(pt => pt.Particip.SchoolId).Distinct();
+            foreach (var schoolid in schoolIds)
             {
                 var schoolInfo = context.Schools.Where(s => s.Id == schoolid).Select(s => new { SchoolName = s.Name.Trim(), AreaName = s.Area.Name.Trim() }).Single();
                 //string schoolIdDirPath = $@"D:\Work\reports\1-3 (новое)\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
-                string destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\карты";
+                string destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\карты";
                 string schoolIdDirPath = $@"{destFolder}\{schoolid}";
                 CreateDirectories(schoolIdDirPath);
 
-                var reportDtos = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 22 && pt.Particip.SchoolId == schoolid && pt.Grade5.HasValue && pt.Grade5 > 0)
+                var reportDtos = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 31 && pt.Particip.SchoolId == schoolid && pt.Grade5.HasValue && pt.Grade5 > 0)
                     .Include("Particip.School.Area")
                     .Include("OneTwoThreeQuestionMarks.OneTwoThreeQuestion")
                     .Include("ProjectTest.Test")
@@ -77,19 +78,24 @@ namespace ParticipReporter
                     }
                 });
 
-                using (ZipFile zip = new ZipFile(Encoding.UTF8))
+                foreach (var subject in new [] { "Математика", "Русский язык", "Чтение" })
                 {
-
-                    zip.AddDirectory(schoolIdDirPath, "");
-
-                    zip.Save($@"{destFolder}\{schoolid}.zip");
-
-                    //foreach (var dirToDel in Directory.EnumerateDirectories(schoolIdDirPath))
-                    //{
-                    //    Directory.Delete(dirToDel, true);
-                    //}
-                    //Directory.Delete(schoolIdDirPath, true);
+                    foreach (var className in new [] { "1 класс", "2 класс", "3 класс" })
+                    {
+                        using (var zip = new ZipFile(Encoding.UTF8))
+                        {
+                            zip.AddDirectory($@"{schoolIdDirPath}\{className}\{subject}");
+                            zip.Save($@"{destFolder}\{schoolid}\{className.Substring(0, 1)}\{subject.Substring(0, 2).ToLower()}.zip");
+                        }
+                    }
                 }
+
+                //foreach (var dirToDel in Directory.EnumerateDirectories(schoolIdDirPath))
+                //{
+                //    Directory.Delete(dirToDel, true);
+                //}
+                //Directory.Delete(schoolIdDirPath, true);
+                
 
                 Console.WriteLine("ended for " + schoolid);
             }
@@ -97,9 +103,9 @@ namespace ParticipReporter
 
         private void CreateDirectories(string dirPath)
         {
-            foreach (var subject in new string[] { "Математика", "Русский язык", "Чтение" })
+            foreach (var subject in new [] { "Математика", "Русский язык", "Чтение" })
             {
-                foreach (var className in new string[] { "1 класс", "2 класс", "3 класс" })
+                foreach (var className in new [] { "1 класс", "2 класс", "3 класс" })
                 {
                     if (!Directory.Exists(dirPath + $@"\{className}\{subject}"))
                         Directory.CreateDirectory(dirPath + $@"\{className}\{subject}");

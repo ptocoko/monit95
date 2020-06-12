@@ -76,11 +76,11 @@ namespace ProtocolGenerator
         
         public void GenerateExcelReports(string [] schoolIds = null)
         {
-            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты";
+            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\отчеты";
             if (!Directory.Exists(destFolder))
                 Directory.CreateDirectory(destFolder);
 
-            foreach (var projectTestId in new int[] { 3071, 3074, 3077 })
+            foreach (var projectTestId in new [] { 3092, 3093, 3094, 3095, 3096, 3097, 3098, 3099, 3100 })
             {
                 Console.WriteLine();
                 Console.WriteLine($"projectTest {projectTestId} starter");
@@ -105,7 +105,7 @@ namespace ProtocolGenerator
                 //    .Include("Particip.Class")
                 //    .ToList();
 
-                foreach (var school in schoolids.Where(p => schoolIds != null ? schoolIds.Contains(p.SchoolId) : true))
+                foreach (var school in schoolids.Where(p => schoolIds?.Contains(p.SchoolId) ?? true))
                 {
                     Console.WriteLine($"started for {school.SchoolId}");
 
@@ -197,15 +197,15 @@ namespace ProtocolGenerator
                             //    }
                             //}
 
-                            excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()} класс\{classResults.Key.TestName}\{classResults.Key.ClassName} класс.xlsx");
+                            excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()}\{classResults.Key.TestName.Substring(0, 2).ToLower()}.xlsx");
                         }
                     }
 
-                    using (var zip = new ZipFile(Encoding.UTF8))
-                    {
-                        zip.AddDirectory(schoolFolder, "");
-                        zip.Save($@"{destFolder}\{school.SchoolId}.zip");
-                    }
+                    //using (var zip = new ZipFile(Encoding.UTF8))
+                    //{
+                    //    zip.AddDirectory(schoolFolder, "");
+                    //    zip.Save($@"{destFolder}\{school.SchoolId}.zip");
+                    //}
                 }
             }
         }
@@ -233,16 +233,16 @@ namespace ProtocolGenerator
         {
             sheet.Cell(rowNumber, firstColumnNumber).Value = classResults.Count();
 
-            sheet.Cell(rowNumber, firstColumnNumber + 1).Value = classResults.Where(cr => cr.Grade5 == 2).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 1).Value = classResults.Count(cr => cr.Grade5 == 2);
             sheet.Cell(rowNumber, firstColumnNumber + 2).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 1}/R{rowNumber}C{firstColumnNumber}");
 
-            sheet.Cell(rowNumber, firstColumnNumber + 3).Value = classResults.Where(cr => cr.Grade5 == 3).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 3).Value = classResults.Count(cr => cr.Grade5 == 3);
             sheet.Cell(rowNumber, firstColumnNumber + 4).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 3}/R{rowNumber}C{firstColumnNumber}");
 
-            sheet.Cell(rowNumber, firstColumnNumber + 5).Value = classResults.Where(cr => cr.Grade5 == 4).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 5).Value = classResults.Count(cr => cr.Grade5 == 4);
             sheet.Cell(rowNumber, firstColumnNumber + 6).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 5}/R{rowNumber}C{firstColumnNumber}");
 
-            sheet.Cell(rowNumber, firstColumnNumber + 7).Value = classResults.Where(cr => cr.Grade5 == 5).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 7).Value = classResults.Count(cr => cr.Grade5 == 5);
             sheet.Cell(rowNumber, firstColumnNumber + 8).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 7}/R{rowNumber}C{firstColumnNumber}");
         }
 
