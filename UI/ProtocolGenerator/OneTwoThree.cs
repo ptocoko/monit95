@@ -174,38 +174,22 @@ namespace ProtocolGenerator
                             participStatsRange.Style.Font.FontSize = 10;
                             participStatsRange.Style.Font.Bold = true;
 
-                            // второй лист не нужен
-                            //using (var sheet = excel.Worksheets.ToArray()[1])
-                            //{
-                            //    sheet.Cell(2, 2).Value = $"{classResults.Key.TestName}: Выполнение заданий учащимися {classResults.Key.ClassName} класса";
-
-                            //    var resDict = new Dictionary<int, int>();
-                            //    for(int i = 0; i < classResults.First().Marks.Length; i++)
-                            //    {
-                            //        var questionRes = (int)Math.Round((double)classResults.Select(cr => cr.Marks[i]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[i]).Sum(), 0, MidpointRounding.AwayFromZero);
-                            //        resDict.Add(i + 1, questionRes);
-                            //    }
-
-                            //    var orderedDict = resDict.OrderByDescending(ob => ob.Value);
-
-                            //    int j = 0;
-                            //    foreach (var res in orderedDict)
-                            //    {
-                            //        sheet.Cell(j, 2).Value = $"Задание №{res.Key}";
-                            //        sheet.Cell(j, 3).Value = res.Value;
-                            //        sheet.Cell(j, 3).Style.Fill.BackgroundColor = res.Value > 50 ? XLColor.Blue : XLColor.Red;
-                            //    }
-                            //}
-
-                            excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()}\{classResults.Key.TestName.Substring(0, 2).ToLower()}.xlsx");
+                            excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()}\{classResults.Key.TestName.Substring(0, 2).ToLower()}\{classResults.Key.ClassName}.xlsx");
                         }
                     }
 
-                    //using (var zip = new ZipFile(Encoding.UTF8))
-                    //{
-                    //    zip.AddDirectory(schoolFolder, "");
-                    //    zip.Save($@"{destFolder}\{school.SchoolId}.zip");
-                    //}
+                    foreach (var subjectPrefix in new string[] {"ру", "ма", "чт"})
+                    {
+                        foreach (var classNumber in new int[] {1, 2, 3})
+                        {
+                            using (var zip = new ZipFile(Encoding.UTF8))
+                            {
+                                zip.AddDirectory($@"{schoolFolder}\{classNumber}\{subjectPrefix}", "");
+                                zip.Save($@"{destFolder}\{classNumber}\{subjectPrefix}.zip");
+                            }
+                        }
+                    }
+
                 }
             }
         }
