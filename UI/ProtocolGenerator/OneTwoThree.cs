@@ -85,7 +85,7 @@ namespace ProtocolGenerator
                 Console.WriteLine();
                 Console.WriteLine($"projectTest {projectTestId} starter");
                 Console.WriteLine();
-                var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты\templates\{projectTestId}\template.xlsx";
+                var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\отчеты\templates\{projectTestId}\template.xlsx";
                 
                 var schoolids = context.ParticipTests.AsNoTracking()
                     .Where(pt => pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)

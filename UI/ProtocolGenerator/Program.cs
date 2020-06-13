@@ -27,23 +27,23 @@ namespace OneTwoThreeReporter
         {
             var context = new CokoContext();
             //var reporter = new ReportService(context);
-            var iTakeEge = new ITakeEge(
-                context: context,
-                projectId: 27);
+            //var iTakeEge = new ITakeEge(
+            //    context: context,
+            //    projectId: 27);
 
             //iTakeEge.SolveGrade5_v2().Wait();
             //iTakeEge.GenerateForAllSchools(@"D:\Work\ITakeSociety\102019", "template society.xlsx", false);
             //iTakeEge.GenerateReportsForAreas();
             //iTakeEge.GenerateForAllAreas(@"D:\Work\ITakeEge\092019\Areas", "template ege.xlsx", false);
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
-            iTakeEge.SolveAndSaveGrade5(new int[] { 3090 });
+            //iTakeEge.SolveAndSaveGrade5(new int[] { 3090 });
             //iTakeEge.SolveGrade5IgnoringQuestions(new int[] { }, 3085, 8, true);
             //iTakeEge.SetPrimaryMark_v2IngoringQuestionIds(new int[] { 2163 }, 3086);
 
             //var report = reporter.GetReport(758706);
 
-            //var oneTwoThree = new OneTwoThree(context, null, 22);
-            //oneTwoThree.GenerateExcelReports();
+            var oneTwoThree = new OneTwoThree(context, null, 22);
+            oneTwoThree.GenerateExcelReports(new[] { "0005" });
             //iTakeEge.GenerateRaspr(3091, @"D:\Work\ITakeEge2\raspr\ma", "template new ege.xlsx", false);
             //iTakeEge.ResolvePrimaryMark(3090);
 
