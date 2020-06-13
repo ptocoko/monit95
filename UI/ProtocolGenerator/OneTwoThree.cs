@@ -118,6 +118,7 @@ namespace ProtocolGenerator
                         .GroupBy(gb => new { gb.ClassId, gb.ClassName, gb.TestName });
 
                     var schoolFolder = $@"{destFolder}\{school.SchoolId}";
+                    CreateDirectories(schoolFolder);
 
                     foreach (var classResults in schoolRes)
                     {
@@ -190,6 +191,18 @@ namespace ProtocolGenerator
                         }
                     }
 
+                }
+            }
+        }
+
+        private void CreateDirectories(string schoolFolder)
+        {
+            foreach (var subjectPrefix in new string[] { "ру", "ма", "чт" })
+            {
+                foreach (var classNumber in new int[] { 1, 2, 3 })
+                {
+                    if (!Directory.Exists(schoolFolder + $@"\{classNumber}\{subjectPrefix}"))
+                        Directory.CreateDirectory(schoolFolder + $@"\{classNumber}\{subjectPrefix}");
                 }
             }
         }
