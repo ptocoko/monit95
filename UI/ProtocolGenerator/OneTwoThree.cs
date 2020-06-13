@@ -80,15 +80,18 @@ namespace ProtocolGenerator
             if (!Directory.Exists(destFolder))
                 Directory.CreateDirectory(destFolder);
 
-            foreach (var projectTestId in new [] { 3092, 3093, 3094, 3095, 3096, 3097, 3098, 3099, 3100 })
+            var projectTests = context.ProjectTests.Where(pj => pj.ProjectId == 31)
+                .Select(pj => new {pj.Id, pj.ClassNumber, pj.Test.Name});
+
+            foreach (var projectTest in projectTests)
             {
                 Console.WriteLine();
-                Console.WriteLine($"projectTest {projectTestId} starter");
+                Console.WriteLine($"projectTest {projectTest.Id} starter");
                 Console.WriteLine();
-                var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\отчеты\templates\{projectTestId}\template.xlsx";
+                var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\отчеты\templates\{projectTest.Id}\template.xlsx";
                 
                 var schoolids = context.ParticipTests.AsNoTracking()
-                    .Where(pt => pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
+                    .Where(pt => pt.ProjectTestId == projectTest.Id && pt.Grade5.HasValue && pt.Grade5 > 0)
                     .Select(pt => new
                     {
                         pt.Particip.SchoolId,
@@ -110,7 +113,7 @@ namespace ProtocolGenerator
                     Console.WriteLine($"started for {school.SchoolId}");
 
                     var schoolRes = context.ParticipTests
-                        .Where(pt => pt.Particip.SchoolId == school.SchoolId && pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
+                        .Where(pt => pt.Particip.SchoolId == school.SchoolId && pt.ProjectTestId == projectTest.Id && pt.Grade5.HasValue && pt.Grade5 > 0)
                         //.Where(pt => )
                         .AsEnumerable()
                         .Select(MapToDto)
@@ -179,18 +182,11 @@ namespace ProtocolGenerator
                         }
                     }
 
-                    foreach (var subjectPrefix in new string[] {"ру", "ма", "чт"})
+                    using (var zip = new ZipFile(Encoding.UTF8))
                     {
-                        foreach (var classNumber in new int[] {1, 2, 3})
-                        {
-                            using (var zip = new ZipFile(Encoding.UTF8))
-                            {
-                                zip.AddDirectory($@"{schoolFolder}\{classNumber}\{subjectPrefix}", "");
-                                zip.Save($@"{destFolder}\{classNumber}\{subjectPrefix}.zip");
-                            }
-                        }
+                        zip.AddDirectory($@"{schoolFolder}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}", "");
+                        zip.Save($@"{destFolder}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}.zip");
                     }
-
                 }
             }
         }
