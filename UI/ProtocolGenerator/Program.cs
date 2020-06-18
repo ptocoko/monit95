@@ -43,7 +43,7 @@ namespace OneTwoThreeReporter
             //var report = reporter.GetReport(758706);
 
             var oneTwoThree = new OneTwoThree(context, null, 22);
-            oneTwoThree.GenerateExcelReports(new[] { "0005" });
+            oneTwoThree.GenerateExcelReports();
             //iTakeEge.GenerateRaspr(3091, @"D:\Work\ITakeEge2\raspr\ma", "template new ege.xlsx", false);
             //iTakeEge.ResolvePrimaryMark(3090);
 

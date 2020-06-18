@@ -121,7 +121,7 @@ namespace ProtocolGenerator
                         .GroupBy(gb => new { gb.ClassId, gb.ClassName, gb.TestName });
 
                     var schoolFolder = $@"{destFolder}\{school.SchoolId}";
-                    CreateDirectories(schoolFolder);
+                    //CreateDirectories(schoolFolder);
 
                     foreach (var classResults in schoolRes)
                     {
@@ -178,15 +178,19 @@ namespace ProtocolGenerator
                             participStatsRange.Style.Font.FontSize = 10;
                             participStatsRange.Style.Font.Bold = true;
 
+                            CreateDir($@"{schoolFolder}\{classResults.Key.ClassName.First()}\{classResults.Key.TestName.Substring(0, 2).ToLower()}");
+
                             excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()}\{classResults.Key.TestName.Substring(0, 2).ToLower()}\{classResults.Key.ClassName}.xlsx");
                         }
                     }
 
                     using (var zip = new ZipFile(Encoding.UTF8))
                     {
-                        zip.AddDirectory($@"{schoolFolder}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}", "");
-                        zip.Save($@"{destFolder}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}.zip");
+                        zip.AddDirectory($@"{schoolFolder}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}");
+                        zip.Save($@"{destFolder}\{school.SchoolId}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}.zip");
                     }
+
+                    Directory.Delete($@"{schoolFolder}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}", true);
                 }
             }
         }
@@ -200,6 +204,14 @@ namespace ProtocolGenerator
                     if (!Directory.Exists(schoolFolder + $@"\{classNumber}\{subjectPrefix}"))
                         Directory.CreateDirectory(schoolFolder + $@"\{classNumber}\{subjectPrefix}");
                 }
+            }
+        }
+
+        private void CreateDir(string dirPath)
+        {
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
             }
         }
 
