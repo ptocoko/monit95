@@ -80,7 +80,7 @@ namespace ProtocolGenerator
             if (!Directory.Exists(destFolder))
                 Directory.CreateDirectory(destFolder);
 
-            var projectTests = context.ProjectTests.Where(pj => pj.ProjectId == 31)
+            var projectTests = context.ProjectTests.Where(pj => pj.ProjectId == 31 && pj.Id > 3097)
                 .Select(pj => new {pj.Id, pj.ClassNumber, pj.Test.Name});
 
             foreach (var projectTest in projectTests)
