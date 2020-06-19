@@ -12,8 +12,8 @@ namespace ParticipReporter.Builders
         {
             return $@"<p class='coko-text'>центр оценки качества образования</p>
                       <div style='text-align:center; font-size:20pt; margin-top:15px; margin-bottom:10px;'>
-                        <div>КАРТА</div>
-                        <div>диагностики учебных достижений</div>
+                        <div>Результат</div>
+                        <div>выполнения диагностической работы</div>
                     </div>
                     <table class='heading-table'>
                         <tr><td>ФИО:</td><td>{ heading.Fio }</td></tr>
