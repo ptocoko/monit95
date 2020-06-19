@@ -28,8 +28,8 @@ namespace ParticipReporter
                 {
                     // var schoolInfo = context.Schools.Where(s => s.Id == schoolid).Select(s => new { SchoolName = s.Name.Trim(), AreaName = s.Area.Name.Trim() }).Single();
                     //string schoolIdDirPath = $@"D:\Work\reports\1-3 (новое)\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
-                    //string destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\карты";
-                    string destFolder = $@"D:\Work\карты";
+                    string destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\карты";
+                    //string destFolder = $@"D:\Work\карты";
                     string schoolIdDirPath = $@"{destFolder}\{schoolid}";
                     // CreateDirectories(schoolIdDirPath);
 
