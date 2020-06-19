@@ -18,7 +18,7 @@ namespace ParticipReporter
         public void GenerateCards()
         {
             var context = new CokoContext();
-            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 31).Select(pt => pt.Particip.SchoolId).Distinct();
+            var schoolIds = context.ParticipTests.Where(pt => pt.ProjectTest.ProjectId == 31).Select(pt => pt.Particip.SchoolId).Where(schoolId => !new[] { "0013", "0016", "0023", "0052", "0061", "0068", "0103", "0130", "0150", "0165", "0174", "0182", "0185", "0187", "0189", "0204", "0222", "0234", "0235", "0246", "0280", "0293", "0309", "0321", "0328", "0396", "0409", "0432", "0445", "0448", "0454" }.Contains(schoolId)).Distinct();
             var projectTests = context.ProjectTests.Where(pj => pj.ProjectId == 31)
                 .Select(pj => new { pj.Id, pj.ClassNumber, pj.Test.Name }).Distinct();
 
@@ -85,14 +85,18 @@ namespace ParticipReporter
                         }
                     });
 
-                    using (var zip = new ZipFile(Encoding.UTF8))
+                    var dir = $@"{schoolIdDirPath}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}";
+                    if (Directory.Exists(dir))
                     {
-                        zip.AddDirectory($@"{schoolIdDirPath}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}");
-                        zip.Save($@"{schoolIdDirPath}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}.zip");
+                        using (var zip = new ZipFile(Encoding.UTF8))
+                        {
+                            zip.AddDirectory(dir);
+                            zip.Save($@"{dir}.zip");
+                        }
+
+                        Directory.Delete($@"{schoolIdDirPath}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}", true);
                     }
-
-                    Directory.Delete($@"{schoolIdDirPath}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}", true);
-
+                    
                     //foreach (var dirToDel in Directory.EnumerateDirectories(schoolIdDirPath))
                     //{
                     //    Directory.Delete(dirToDel, true);

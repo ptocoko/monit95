@@ -41,6 +41,7 @@ namespace ParticipReporter
             //GenerateFirstClassCards();
 
             Console.WriteLine("End");
+            Console.ReadLine();
             #region oldCode
             //Console.OutputEncoding = Encoding.UTF8;
             //Console.WriteLine("Процесс");
