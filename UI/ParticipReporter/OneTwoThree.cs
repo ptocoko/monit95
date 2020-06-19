@@ -22,9 +22,9 @@ namespace ParticipReporter
             var projectTests = context.ProjectTests.Where(pj => pj.ProjectId == 31)
                 .Select(pj => new { pj.Id, pj.ClassNumber, pj.Test.Name }).Distinct();
 
-            foreach (var schoolid in schoolIds.Take(1))
+            foreach (var schoolid in schoolIds)
             {
-                foreach (var projectTest in projectTests.Take(1))
+                foreach (var projectTest in projectTests)
                 {
                     // var schoolInfo = context.Schools.Where(s => s.Id == schoolid).Select(s => new { SchoolName = s.Name.Trim(), AreaName = s.Area.Name.Trim() }).Single();
                     //string schoolIdDirPath = $@"D:\Work\reports\1-3 (новое)\{schoolInfo.AreaName}\{schoolInfo.SchoolName}";
