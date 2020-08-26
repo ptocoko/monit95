@@ -1,6 +1,6 @@
 ﻿<h2>Диагностика учебных достижений 1, 2 и 3 классы: главное меню</h2>
 
-<div class="list-container" *ngIf="accountServie.isSchool() || accountService.isArea()">
+<div class="list-container" *ngIf="accountService.isSchool() || accountService.isArea()">
     <h3 class="list-header">Результаты</h3>
     <mat-expansion-panel class="mat-elevation-z0">
         <mat-expansion-panel-header>
@@ -12,7 +12,7 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <a class="list-item-link">
+        <a class="list-item-link__disabled">
             <!--<div>
                 <h4><b>Протоколы проверки заданий</b></h4>
             </div>-->
@@ -30,9 +30,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/ру.zip" download="Протокол 1кл ру.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/ру.zip" download="Протокол 1кл ру.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/РУ_1кл.xlsx" download="Ст-ка РУ 1кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/ру.zip" download="Протокол 1кл ру.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/ру.zip" download="Карты 1кл ру.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/РУ_1кл.xlsx" download="Ст-ка РУ 1кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
             </mat-expansion-panel>
         </div>
 
@@ -47,9 +47,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/ру.zip" download="Протокол 2кл ру.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/ру.zip" download="Протокол 2кл ру.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/РУ_2кл.xlsx" download="Ст-ка РУ 2кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/ру.zip" download="Протокол 2кл ру.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/ру.zip" download="Карты 2кл ру.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/РУ_2кл.xlsx" download="Ст-ка РУ 2кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
             </mat-expansion-panel>
         </div>
 
@@ -64,9 +64,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/ру.zip" download="Протокол 3кл ру.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/ру.zip" download="Протокол 3кл ру.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/РУ_3кл.xlsx" download="Ст-ка РУ 3кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/ру.zip" download="Протокол 3кл ру.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/ру.zip" download="Карты 3кл ру.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/РУ_3кл.xlsx" download="Ст-ка РУ 3кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
             </mat-expansion-panel>
         </div>
 
@@ -82,7 +82,7 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <a class="list-item-link">
+        <a class="list-item-link__disabled">
             <!--<div>
             <h4><b>Протоколы проверки заданий</b></h4>
         </div>-->
@@ -100,9 +100,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/ма.zip" download="Протокол 1кл ма.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/ма.zip" download="Протокол 1кл ма.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/МА_1кл.xlsx" download="Ст-ка МА 1кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/ма.zip" download="Протокол 1кл ма.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/ма.zip" download="Карты 1кл ма.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/МА_1кл.xlsx" download="Ст-ка МА 1кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
             </mat-expansion-panel>
         </div>
 
@@ -117,9 +117,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/ма.zip" download="Протокол 2кл ма.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/ма.zip" download="Протокол 2кл ма.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/МА_2кл.xlsx" download="Ст-ка МА 2кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/ма.zip" download="Протокол 2кл ма.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/ма.zip" download="Карты 2кл ма.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/МА_2кл.xlsx" download="Ст-ка МА 2кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
             </mat-expansion-panel>
         </div>
 
@@ -134,9 +134,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/ма.zip" download="Протокол 3кл ма.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/ма.zip" download="Протокол 3кл ма.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/МА_3кл.xlsx" download="Ст-ка МА 3кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/ма.zip" download="Протокол 3кл ма.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/ма.zip" download="Карты 3кл ма.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/МА_3кл.xlsx" download="Ст-ка МА 3кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
             </mat-expansion-panel>
         </div>
 
@@ -152,7 +152,7 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <a class="list-item-link">
+        <a class="list-item-link__disabled">
             <!--<div>
             <h4><b>Протоколы проверки заданий</b></h4>
         </div>-->
@@ -170,9 +170,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/чт.zip" download="Протокол 1кл чт.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/чт.zip" download="Протокол 1кл чт.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/ЧТ_1кл.xlsx" download="Ст-ка ЧТ 1кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/чт.zip" download="Протокол 1кл чт.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/чт.zip" download="Карты 1кл чт.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/ЧТ_1кл.xlsx" download="Ст-ка ЧТ 1кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
             </mat-expansion-panel>
         </div>
 
@@ -187,9 +187,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/чт.zip" download="Протокол 2кл чт.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/чт.zip" download="Протокол 2кл чт.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/ЧТ_2кл.xlsx" download="Ст-ка ЧТ 2кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/чт.zip" download="Протокол 2кл чт.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/чт.zip" download="Карты 2кл чт.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/ЧТ_2кл.xlsx" download="Ст-ка ЧТ 2кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
 
             </mat-expansion-panel>
         </div>
@@ -205,9 +205,9 @@
                         Кликните чтобы раскрыть
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/чт.zip" download="Протокол 3кл чт.zip" *ngIf="accountServie.isSchool()"><h4>Результаты диагностической работы</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/чт.zip" download="Протокол 3кл чт.zip" *ngIf="accountServie.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
-                <a class="list-item-link" href="/file/1-3/2020/areas/{{accountService.account.UserName}}/ЧТ_3кл.xlsx" download="Ст-ка ЧТ 3кл.xlsx" *ngIf="accountServie.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/чт.zip" download="Протокол 3кл чт.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/чт.zip" download="Карты 3кл чт.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/ЧТ_3кл.xlsx" download="Ст-ка ЧТ 3кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
             </mat-expansion-panel>
         </div>
 

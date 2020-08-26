@@ -15,6 +15,7 @@ var add_or_update_component_1 = require("./particips/add-or-update/add-or-update
 var protocols_list_component_1 = require("./question-protocols/list/protocols-list.component");
 var question_protocols_service_1 = require("../services/one-two-three/question-protocols.service");
 var protocol_component_1 = require("./question-protocols/protocol/protocol.component");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var routes = [
     { path: 'one-two-three/home', component: home_component_1.HomeComponent },
     { path: 'one-two-three/particips/list', component: particips_list_component_1.ParticipsListComponent },
@@ -36,6 +37,7 @@ var OneTwoThreeModule = /** @class */ (function () {
                 forms_1.ReactiveFormsModule,
                 shared_module_1.SharedModule,
                 material_module_1.MaterialModule,
+                ng_bootstrap_1.NgbModule,
                 router_1.RouterModule.forChild(routes)
             ],
             exports: [router_1.RouterModule],
