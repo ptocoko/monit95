@@ -8,6 +8,7 @@ using Monit95App.Domain.Core.Entities;
 using System.Globalization;
 using ServiceResult;
 using System.Data.Entity;
+using System.Web.UI.WebControls;
 
 namespace Monit95App.Services.Rsur.ParticipReport
 {
@@ -67,29 +68,63 @@ namespace Monit95App.Services.Rsur.ParticipReport
 
             serviceResult.Result.Marks = entity.RsurQuestionValues.Split(';').Select(int.Parse).ToArray();
 
-            // Формирование EgeQuestionResults
-            serviceResult.Result.EgeQuestionResults = new List<EgeQuestionResult>();
-            var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');
-            foreach (var egeQuestionValueString in egeQuestionValuesArray)
+            serviceResult.Result.WithSkills = entity.RsurParticipTest.RsurTest.WithSkills;
+
+            if (serviceResult.Result.WithSkills)
             {
-                // Get egeQuestionNumber from egeQuestionValueString = "2(70%)" (e.g.) 
-                var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - исключить из результата открывающую скобку                
+                var testId = entity.RsurParticipTest.RsurTest.TestId;
+                var questions = context.RsurElementResults
+                    .Where(p => p.RsurParticipTestId == rsurParticipTestId)
+                    .ToList()
+                    .Select(s => new
+                    {
+                        SkillName = s.EgeQuestion.EgeSkill.SkillNames,
+                        ElementName = s.EgeQuestion.ElementNames,
+                        s.Value,
+                        QuestionNumbers = context.RsurQuestions.Where(p => p.EgeQuestionId == s.ElementId && p.TestId == testId).Select(s => s.Order).OrderBy(ob => ob).ToList(),
+                    });
 
-                var egeQuestionResult = new EgeQuestionResult
+                var groupedQuestion = questions.GroupBy(gb => gb.SkillName);
+                serviceResult.Result.SkillQuestionResults = groupedQuestion.Select(s => new SkillQuestionResult
                 {
-                    EgeQuestionNumber = egeQuestionNumber,
-                    Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ','), CultureInfo.CreateSpecificCulture("ru-RU")) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
-                };
+                    Name = s.Key,
+                    QuestionResults = s.Select(q => new EgeQuestionResult
+                    {
+                        EgeQuestionNumber = 0,
+                        ElementNames = q.ElementName,
+                        Value = q.Value,
+                        QuestionNumbers = q.QuestionNumbers,
+                        RsurQuestionNumbers = ""
+                    })
+                    .OrderBy(ob => ob.QuestionNumbers.First())
+                    .ToList()
+                }).ToList();
+            } else {
+                // Формирование EgeQuestionResults
+                serviceResult.Result.EgeQuestionResults = new List<EgeQuestionResult>();
+                var egeQuestionValuesArray = entity.EgeQuestionValues.Split(';');
+                foreach (var egeQuestionValueString in egeQuestionValuesArray)
+                {
+                    // Get egeQuestionNumber from egeQuestionValueString = "2(70%)" (e.g.) 
+                    var egeQuestionNumber = int.Parse(Regex.Match(egeQuestionValueString, @"\d+(?=\()").Value); // '(?=\()' - исключить из результата открывающую скобку                
 
-                // Получение заданий КИМ РСУР, которые проверяют номер egeQuestionNumber задание КИМ ЕГЭ
-                var rsurQuestions = entity.RsurParticipTest.RsurTest.Test.Questions.Where(rq => rq.EgeQuestion.Order == egeQuestionNumber);
-                egeQuestionResult.RsurQuestionNumbers = rsurQuestions.Select(rq => rq.Order.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
+                    var egeQuestionResult = new EgeQuestionResult
+                    {
+                        EgeQuestionNumber = egeQuestionNumber,
+                        Value = double.Parse(Regex.Match(egeQuestionValueString, @"\d+\.*\d*(?=%)").Value.Replace('.', ','), CultureInfo.CreateSpecificCulture("ru-RU")) // get egeQuestionValue from egeQuestionValueString = "2(70%)" (e.g.) 
+                    };
 
-                // ElementNames
-                egeQuestionResult.ElementNames = rsurQuestions.First().EgeQuestion.ElementNames;                
+                    // Получение заданий КИМ РСУР, которые проверяют номер egeQuestionNumber задание КИМ ЕГЭ
+                    var rsurQuestions = entity.RsurParticipTest.RsurTest.Test.Questions.Where(rq => rq.EgeQuestion.Order == egeQuestionNumber);
+                    egeQuestionResult.RsurQuestionNumbers = rsurQuestions.Select(rq => rq.Order.ToString()).Aggregate((s1, s2) => $"{s1};{s2}");
 
-                serviceResult.Result.EgeQuestionResults.Add(egeQuestionResult);
-            }            
+                    // ElementNames
+                    egeQuestionResult.ElementNames = rsurQuestions.First().EgeQuestion.ElementNames;
+
+                    serviceResult.Result.EgeQuestionResults.Add(egeQuestionResult);
+                }
+            }
+
 
             return serviceResult;
         }

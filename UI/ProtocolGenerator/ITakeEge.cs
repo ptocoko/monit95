@@ -66,13 +66,14 @@ namespace ProtocolGenerator
         public async Task SolveGrade5_v2()
         {
             await context.ParticipTests
-                .Where(pt => pt.ProjectTestId == 3086 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
+                .Where(pt => pt.ProjectTestId == 3091 && pt.Grade5.HasValue && pt.Grade5.Value > 0)
                 .ForEachAsync(pt =>
                 {
-                    var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 2163).Select(qm => qm.AwardedMark).Sum();
+                    //var marksSum = pt.QuestionMarks.Where(qm => qm.QuestionId != 2163).Select(qm => qm.AwardedMark).Sum();
 
-                    pt.Grade5_v2 = (int)marksSum >= 10 ? 5 : 2;
+                    //pt.Grade5_v2 = (int)marksSum >= 11 ? 5 : 2;
                     //pt.Grade5_v2 = pt.PrimaryMark >= 9 ? 5 : 2;
+                    pt.Grade5_v2 = pt.PrimaryMark >= 8 ? 5 : 2;
                 });
 
             context.SaveChanges();
