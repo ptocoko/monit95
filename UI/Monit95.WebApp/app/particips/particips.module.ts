@@ -29,7 +29,7 @@ import { Reports2Service } from '../services/iTakeEge/reports2/reports2.service'
 const routes: Routes = [
 	{ path: 'particips/home', component: HomeComponent },
 	{ path: 'particips/list', component: ParticipsListComponent }, //, data: { projectId: 18, projectName: 'Я сдам EГЭ!' } },
-	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 27, projectName: 'EГЭ' } },
+	{ path: 'particips/new', component: AddParticipComponent, data: { projectId: 33, projectName: 'EГЭ' } },
 	{ path: 'particips/protocols/:id', component: ProtocolsComponent },
 	{ path: 'particips/protocol/:id', component: ParticipProtocolComponent },
 	{ path: 'particips/reports/:projectId', component: ReportsListComponent },
