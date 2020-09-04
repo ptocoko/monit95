@@ -1,6 +1,6 @@
 ﻿<h2>Диагностика учащихся 1-х классов: главное меню</h2>
 
-<div class="list-container">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Участники</h3>
     <div>
         <a class="list-item-link" routerLink="/first-class/particips/list" *ngIf="false">
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="true">
+<div class="list-container" *ngIf="false">
     <h3 class="list-header">Результаты</h3>
     <div>
         <a class="list-item-link" href="/file/1_classes/092019/cards/{{ accountService.account.UserName }}.zip" download="Карты 1-х классов.zip">
@@ -27,11 +27,11 @@
     </div>
 </div>
 
-<div class="list-container" *ngIf="false">
+<div class="list-container" *ngIf="true">
     <h3 class="list-header">Вспомогательный материал</h3>
     <div>
-        <a class="list-item-link" href="/file/1_classes/recomendations.pdf" download="Методические рекомендации.pdf">
-            <h4>Методические рекомендации по проведению исследования подготовки к обучению учащихся 1-х классов</h4>
+        <a class="list-item-link" href="/file/1_classes/2020/material.rar" download="Материал для проведения исследования.rar">
+            <h4>Материал для проведения исследования</h4>
         </a>
     </div>
 </div>
