@@ -27,11 +27,11 @@ namespace OneTwoThreeReporter
         {
             var context = new CokoContext();
             //var reporter = new ReportService(context);
-            //var iTakeEge = new ITakeEge(
-            //    context: context,
-            //    projectId: 27);
+            var iTakeEge = new ITakeEge(
+                context: context,
+                projectId: 27);
 
-            //iTakeEge.SolveGrade5_v2().Wait();
+            iTakeEge.SolveGrade5_v2().Wait();
             //iTakeEge.GenerateForAllSchools(@"D:\Work\ITakeSociety\102019", "template society.xlsx", false);
             //iTakeEge.GenerateReportsForAreas();
             //iTakeEge.GenerateForAllAreas(@"D:\Work\ITakeEge\092019\Areas", "template ege.xlsx", false);
@@ -42,8 +42,8 @@ namespace OneTwoThreeReporter
 
             //var report = reporter.GetReport(758706);
 
-            var oneTwoThree = new OneTwoThree(context, null, 22);
-            oneTwoThree.GenerateExcelReports();
+            //var oneTwoThree = new OneTwoThree(context, null, 22);
+            //oneTwoThree.GenerateExcelReports();
             //iTakeEge.GenerateRaspr(3091, @"D:\Work\ITakeEge2\raspr\ma", "template new ege.xlsx", false);
             //iTakeEge.ResolvePrimaryMark(3090);
 

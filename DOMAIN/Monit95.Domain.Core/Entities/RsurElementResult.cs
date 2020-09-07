@@ -22,5 +22,7 @@ namespace Monit95App.Domain.Core.Entities
         public int ElementId { get; set; }
 
         public virtual RsurParticipTest RsurParticipTest { get; set; }
+
+        public virtual EgeQuestion EgeQuestion { get; set; }
     }
 }

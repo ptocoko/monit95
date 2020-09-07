@@ -384,6 +384,11 @@ namespace Monit95App.Infrastructure.Data
                 .WithRequired(e => e.ProfileQuestion)
                 .HasForeignKey(e => e.ProfileQuestionId)
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<RsurElementResult>()
+                .HasRequired(e => e.EgeQuestion)
+                .WithMany(e => e.RsurElementResults)
+                .HasForeignKey(e => e.ElementId);
         }
     }
 }
