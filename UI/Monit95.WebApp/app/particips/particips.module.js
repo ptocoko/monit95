@@ -30,7 +30,7 @@ var reports2_service_1 = require("../services/iTakeEge/reports2/reports2.service
 var routes = [
     { path: 'particips/home', component: home_component_1.HomeComponent },
     { path: 'particips/list', component: particips_list_component_1.ParticipsListComponent },
-    { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 27, projectName: 'EГЭ' } },
+    { path: 'particips/new', component: add_component_1.AddParticipComponent, data: { projectId: 33, projectName: 'EГЭ' } },
     { path: 'particips/protocols/:id', component: protocols_component_1.ProtocolsComponent },
     { path: 'particips/protocol/:id', component: protocol_component_1.ParticipProtocolComponent },
     { path: 'particips/reports/:projectId', component: list_component_2.ReportsListComponent },

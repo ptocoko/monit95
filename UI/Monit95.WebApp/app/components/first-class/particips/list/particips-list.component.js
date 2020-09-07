@@ -15,7 +15,7 @@ var particips_service_1 = require("../../../../services/first-class/particips.se
 var local_storage_1 = require("../../../../utils/local-storage");
 var school_collector_service_1 = require("../../../../shared/school-collector.service");
 exports.CLASS_ID_KEY = 'FIRST_CLASS_ID';
-var COLLECTOR_ID = 49;
+var COLLECTOR_ID = 119;
 var ParticipsListComponent = /** @class */ (function () {
     function ParticipsListComponent(participService, classService, dialog, snackBar, accountService, collectorService) {
         this.participService = participService;
