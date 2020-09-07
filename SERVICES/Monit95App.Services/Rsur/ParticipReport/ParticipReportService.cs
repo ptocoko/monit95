@@ -81,7 +81,7 @@ namespace Monit95App.Services.Rsur.ParticipReport
                         SkillName = s.EgeQuestion.EgeSkill.SkillNames,
                         ElementName = s.EgeQuestion.ElementNames,
                         s.Value,
-                        QuestionNumbers = context.RsurQuestions.Where(p => p.EgeQuestionId == s.ElementId && p.TestId == testId).Select(s => s.Order).OrderBy(ob => ob).ToList(),
+                        QuestionNumbers = context.RsurQuestions.Where(p => p.EgeQuestionId == s.ElementId && p.TestId == testId).Select(s1 => s1.Order).OrderBy(ob => ob).ToList(),
                     });
 
                 var groupedQuestion = questions.GroupBy(gb => gb.SkillName);

@@ -16,7 +16,7 @@ namespace Monit95App.Domain.Core.Entities
 
         public int? SkillId { get; set; }
 
-        public virtual EgeSkill EgeSkill { get; set; };
+        public virtual EgeSkill EgeSkill { get; set; }
 
         public virtual ICollection<RsurQuestion> RsurQuestions { get; set; } = new HashSet<RsurQuestion>();
 
