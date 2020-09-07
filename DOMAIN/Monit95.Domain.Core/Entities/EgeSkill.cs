@@ -13,6 +13,7 @@ namespace Monit95App.Domain.Core.Entities
         public string SkillNames { get; set; }
         public int SubjectCode { get; set; }
 
-        public virtual ICollection<RsurQuestion> RsurQuestions { get; set; } = new HashSet<RsurQuestion>();
+        //public virtual ICollection<RsurQuestion> RsurQuestions { get; set; } = new HashSet<RsurQuestion>();
+        public virtual ICollection<EgeQuestion> EgeQuestions { get; set; } = new HashSet<EgeQuestion>();
     }
 }
