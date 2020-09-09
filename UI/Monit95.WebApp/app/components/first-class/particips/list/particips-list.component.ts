@@ -13,7 +13,7 @@ import { setToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '
 import { SchoolCollectorService } from '../../../../shared/school-collector.service';
 
 export const CLASS_ID_KEY = 'FIRST_CLASS_ID';
-const COLLECTOR_ID = 49;
+const COLLECTOR_ID = 119;
 
 @Component({
 	templateUrl: './particips-list.component.html',

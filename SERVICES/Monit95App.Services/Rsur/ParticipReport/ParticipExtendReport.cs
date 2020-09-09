@@ -20,5 +20,16 @@ namespace Monit95App.Services.Rsur.ParticipReport
         public int[] Marks { get; set; }
 
         public List<EgeQuestionResult> EgeQuestionResults { get; set; }
+
+        public bool WithSkills { get; set; }
+
+        public List<SkillQuestionResult> SkillQuestionResults { get; set; }
+    }
+
+    public class SkillQuestionResult
+    {
+        public string Name { get; set; }
+
+        public List<EgeQuestionResult> QuestionResults { get; set; }
     }
 }

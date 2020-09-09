@@ -47,7 +47,7 @@ namespace Monit95.WebApp.RESTful_API.iTakeEge
         public IHttpActionResult GetAllForEge()
         {
             IEnumerable<ParticipGetViewDto> viewDtos;
-            const int projectId = 27;
+            const int projectId = 33;
             var schoolId = User.Identity.Name;
             viewDtos = participService.GetAllParticipantsBySchool(schoolId, projectId);
                                                                                       

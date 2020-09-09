@@ -31,12 +31,12 @@ namespace OneTwoThreeReporter
                 context: context,
                 projectId: 27);
 
-            //iTakeEge.SolveGrade5_v2().Wait();
+            iTakeEge.SolveGrade5_v2().Wait();
             //iTakeEge.GenerateForAllSchools(@"D:\Work\ITakeSociety\102019", "template society.xlsx", false);
             //iTakeEge.GenerateReportsForAreas();
             //iTakeEge.GenerateForAllAreas(@"D:\Work\ITakeEge\092019\Areas", "template ege.xlsx", false);
             //iTakeEge.SolveAndSaveGrade5(new int[] { 3051, 3052, 3053, 3054, 3055, 3057 });
-            iTakeEge.SolveAndSaveGrade5(new int[] { 3090 });
+            //iTakeEge.SolveAndSaveGrade5(new int[] { 3090 });
             //iTakeEge.SolveGrade5IgnoringQuestions(new int[] { }, 3085, 8, true);
             //iTakeEge.SetPrimaryMark_v2IngoringQuestionIds(new int[] { 2163 }, 3086);
 

@@ -11,8 +11,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 using Monit95App.Domain.Core.Entities;
 using Monit95App.Infrastructure.Data;
 using Monit95App.Services.Rsur.TestResult;
@@ -122,9 +124,9 @@ namespace Monit95App.Services.Rsur.QuestionValue
             {
                 currentMarks = rsurParticipTest.RsurTestResult.RsurQuestionValues.Split(';');
             } 
-            var testQuestions = rsurParticipTest.RsurTest.Test.Questions.ToList();
+            var testQuestions = rsurParticipTest.RsurTest.Test.Questions;
             int index = 0;
-            marksProtocol.QuestionResults = new List<QuestionResult>();
+            marksProtocol.QuestionResults = new List<QuestionResult>(testQuestions.Count);
             foreach (var question in testQuestions.OrderBy(x => x.Order))
             {
                 marksProtocol.QuestionResults.Add(new QuestionResult
@@ -199,7 +201,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
         /// <param name="questionValueEditDto"></param>
         /// <param name="areaCode"></param>
         /// <returns></returns>
-        public VoidResult CreateOrUpdate(QuestionValueEditDto questionValueEditDto)
+        public async Task<VoidResult> CreateOrUpdate(QuestionValueEditDto questionValueEditDto)
         {
             var result = new VoidResult();
             
@@ -259,7 +261,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 rsurQuestionValues = "wasnot";
             }
                 
-            var rsurTestResult = context.RsurTestResults.Find(questionValueEditDto.ParticipTestId);
+            var rsurTestResult = await context.RsurTestResults.FindAsync(questionValueEditDto.ParticipTestId);
 
             // create
             if (rsurTestResult == null) 
@@ -278,7 +280,7 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 rsurTestResult.FileId = questionValueEditDto.FileId;
             }
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return result;
         }        
 
@@ -304,8 +306,8 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 RsurQuestionValues = s.RsurTestResult.RsurQuestionValues,
                 TestName = s.RsurTest.Test.NumberCode + "-" + s.RsurTest.Test.Name
             })
-            .ToList()
-            .OrderBy(ob => ob.RsurQuestionValues, Comparer<string>.Create((str1, str2) =>
+                .ToList()
+                .OrderBy(ob => ob.RsurQuestionValues, Comparer<string>.Create((str1, str2) =>
             {
                 if(str1 == null && str2 != null)
                 {
@@ -345,8 +347,8 @@ namespace Monit95App.Services.Rsur.QuestionValue
                 RsurQuestionValues = s.RsurTestResult.RsurQuestionValues,
                 TestName = s.RsurTest.Test.NumberCode + "-" + s.RsurTest.Test.Name
             })
-            .ToList()
-            .OrderBy(ob => ob.RsurQuestionValues, Comparer<string>.Create((str1, str2) =>
+                .ToList()
+                .OrderBy(ob => ob.RsurQuestionValues, Comparer<string>.Create((str1, str2) =>
             {
                 if (str1 == null && str2 != null)
                 {
@@ -365,11 +367,11 @@ namespace Monit95App.Services.Rsur.QuestionValue
             return result;
         }
 
-        public VoidResult MarkAsAbsent(int participTestId)
+        public async Task<VoidResult> MarkAsAbsent(int participTestId)
         {
             var result = new VoidResult();
 
-            if(!context.RsurParticipTests.Any(p => p.Id == participTestId && p.Editable))
+            if(!await context.RsurParticipTests.AnyAsync(p => p.Id == participTestId && p.Editable))
             {
                 result.Errors.Add(new ServiceError { HttpCode = 404, Description = $"{nameof(participTestId)} which equals {participTestId} not exist in current area" });
                 return result;
@@ -385,13 +387,13 @@ namespace Monit95App.Services.Rsur.QuestionValue
                     RsurQuestionValues = "wasnot"
                 };
                 context.RsurTestResults.Add(participResult);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
 
                 return result;
             }
 
             participResult.RsurQuestionValues = "wasnot";
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return result;
         }

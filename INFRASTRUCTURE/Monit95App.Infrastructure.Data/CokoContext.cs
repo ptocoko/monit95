@@ -375,15 +375,25 @@ namespace Monit95App.Infrastructure.Data
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<EgeSkill>()
-                .HasMany(e => e.RsurQuestions)
-                .WithOptional(e => e.EgeSkill);
+            //modelBuilder.Entity<EgeSkill>()
+            //    .HasMany(e => e.RsurQuestions)
+            //    .WithOptional(e => e.EgeSkill);
 
             modelBuilder.Entity<ProfileQuestion>()
                 .HasMany(e => e.ProfileQuestionAnswers)
                 .WithRequired(e => e.ProfileQuestion)
                 .HasForeignKey(e => e.ProfileQuestionId)
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<RsurElementResult>()
+                .HasRequired(e => e.EgeQuestion)
+                .WithMany(e => e.RsurElementResults)
+                .HasForeignKey(e => e.ElementId);
+
+            modelBuilder.Entity<EgeQuestion>()
+                .HasOptional(e => e.EgeSkill)
+                .WithMany(e => e.EgeQuestions)
+                .HasForeignKey(e => e.SkillId);
         }
     }
 }

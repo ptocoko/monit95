@@ -25,8 +25,8 @@ namespace ParticipReporter
             context = new CokoContext();
             var reporter = new Reporter(context);
             var importer = new ResultsImporter(context);
-            var twoThree = new TwoThree();
-            twoThree.GenerateReports(reporter);
+            //var twoThree = new TwoThree();
+            //twoThree.GenerateReports(reporter);
             //twoThree.ImportAndSaveBySchoolIdAndTest(context, importer, 7, "0058", "0304");
             //participReporter = new ClassParticipReporter();
             //cardsGenerator = new CardsGenerator(context, participReporter);
@@ -35,12 +35,13 @@ namespace ParticipReporter
 
             //var _9_11Classes = new _9_11Classes(context, participReporter);
             //_9_11Classes.GenerateCards();
-            //var oneTwoThree = new OneTwoThree();
-            //oneTwoThree.GenerateCards();
+            var oneTwoThree = new OneTwoThree();
+            oneTwoThree.GenerateCards();
             //RenameAndMoveCardFolders();
             //GenerateFirstClassCards();
 
             Console.WriteLine("End");
+            Console.ReadLine();
             #region oldCode
             //Console.OutputEncoding = Encoding.UTF8;
             //Console.WriteLine("Процесс");

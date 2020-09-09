@@ -76,19 +76,22 @@ namespace ProtocolGenerator
         
         public void GenerateExcelReports(string [] schoolIds = null)
         {
-            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты";
+            var destFolder = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\отчеты";
             if (!Directory.Exists(destFolder))
                 Directory.CreateDirectory(destFolder);
 
-            foreach (var projectTestId in new int[] { 3071, 3074, 3077 })
+            var projectTests = context.ProjectTests.Where(pj => pj.ProjectId == 31 && pj.Id > 3097)
+                .Select(pj => new {pj.Id, pj.ClassNumber, pj.Test.Name});
+
+            foreach (var projectTest in projectTests)
             {
                 Console.WriteLine();
-                Console.WriteLine($"projectTest {projectTestId} starter");
+                Console.WriteLine($"projectTest {projectTest.Id} starter");
                 Console.WriteLine();
-                var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2019\отчеты\templates\{projectTestId}\template.xlsx";
+                var templatePath = $@"\\192.168.88.223\файлы_пто\Работы\[2016-77] - 1-3 классы\2020\отчеты\templates\{projectTest.Id}\template.xlsx";
                 
                 var schoolids = context.ParticipTests.AsNoTracking()
-                    .Where(pt => pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
+                    .Where(pt => pt.ProjectTestId == projectTest.Id && pt.Grade5.HasValue && pt.Grade5 > 0)
                     .Select(pt => new
                     {
                         pt.Particip.SchoolId,
@@ -105,12 +108,12 @@ namespace ProtocolGenerator
                 //    .Include("Particip.Class")
                 //    .ToList();
 
-                foreach (var school in schoolids.Where(p => schoolIds != null ? schoolIds.Contains(p.SchoolId) : true))
+                foreach (var school in schoolids.Where(p => schoolIds?.Contains(p.SchoolId) ?? true))
                 {
                     Console.WriteLine($"started for {school.SchoolId}");
 
                     var schoolRes = context.ParticipTests
-                        .Where(pt => pt.Particip.SchoolId == school.SchoolId && pt.ProjectTestId == projectTestId && pt.Grade5.HasValue && pt.Grade5 > 0)
+                        .Where(pt => pt.Particip.SchoolId == school.SchoolId && pt.ProjectTestId == projectTest.Id && pt.Grade5.HasValue && pt.Grade5 > 0)
                         //.Where(pt => )
                         .AsEnumerable()
                         .Select(MapToDto)
@@ -118,6 +121,7 @@ namespace ProtocolGenerator
                         .GroupBy(gb => new { gb.ClassId, gb.ClassName, gb.TestName });
 
                     var schoolFolder = $@"{destFolder}\{school.SchoolId}";
+                    //CreateDirectories(schoolFolder);
 
                     foreach (var classResults in schoolRes)
                     {
@@ -174,39 +178,40 @@ namespace ProtocolGenerator
                             participStatsRange.Style.Font.FontSize = 10;
                             participStatsRange.Style.Font.Bold = true;
 
-                            // второй лист не нужен
-                            //using (var sheet = excel.Worksheets.ToArray()[1])
-                            //{
-                            //    sheet.Cell(2, 2).Value = $"{classResults.Key.TestName}: Выполнение заданий учащимися {classResults.Key.ClassName} класса";
+                            CreateDir($@"{schoolFolder}\{classResults.Key.ClassName.First()}\{classResults.Key.TestName.Substring(0, 2).ToLower()}");
 
-                            //    var resDict = new Dictionary<int, int>();
-                            //    for(int i = 0; i < classResults.First().Marks.Length; i++)
-                            //    {
-                            //        var questionRes = (int)Math.Round((double)classResults.Select(cr => cr.Marks[i]).Sum() * 100 / classResults.Select(cr => cr.MaxMarks[i]).Sum(), 0, MidpointRounding.AwayFromZero);
-                            //        resDict.Add(i + 1, questionRes);
-                            //    }
-
-                            //    var orderedDict = resDict.OrderByDescending(ob => ob.Value);
-
-                            //    int j = 0;
-                            //    foreach (var res in orderedDict)
-                            //    {
-                            //        sheet.Cell(j, 2).Value = $"Задание №{res.Key}";
-                            //        sheet.Cell(j, 3).Value = res.Value;
-                            //        sheet.Cell(j, 3).Style.Fill.BackgroundColor = res.Value > 50 ? XLColor.Blue : XLColor.Red;
-                            //    }
-                            //}
-
-                            excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()} класс\{classResults.Key.TestName}\{classResults.Key.ClassName} класс.xlsx");
+                            excel.SaveAs($@"{schoolFolder}\{classResults.Key.ClassName.First()}\{classResults.Key.TestName.Substring(0, 2).ToLower()}\{classResults.Key.ClassName}.xlsx");
                         }
                     }
 
                     using (var zip = new ZipFile(Encoding.UTF8))
                     {
-                        zip.AddDirectory(schoolFolder, "");
-                        zip.Save($@"{destFolder}\{school.SchoolId}.zip");
+                        zip.AddDirectory($@"{schoolFolder}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}");
+                        zip.Save($@"{destFolder}\{school.SchoolId}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}.zip");
                     }
+
+                    Directory.Delete($@"{schoolFolder}\{projectTest.ClassNumber}\{projectTest.Name.Substring(0, 2).ToLower()}", true);
                 }
+            }
+        }
+
+        private void CreateDirectories(string schoolFolder)
+        {
+            foreach (var subjectPrefix in new string[] { "ру", "ма", "чт" })
+            {
+                foreach (var classNumber in new int[] { 1, 2, 3 })
+                {
+                    if (!Directory.Exists(schoolFolder + $@"\{classNumber}\{subjectPrefix}"))
+                        Directory.CreateDirectory(schoolFolder + $@"\{classNumber}\{subjectPrefix}");
+                }
+            }
+        }
+
+        private void CreateDir(string dirPath)
+        {
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
             }
         }
 
@@ -233,16 +238,16 @@ namespace ProtocolGenerator
         {
             sheet.Cell(rowNumber, firstColumnNumber).Value = classResults.Count();
 
-            sheet.Cell(rowNumber, firstColumnNumber + 1).Value = classResults.Where(cr => cr.Grade5 == 2).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 1).Value = classResults.Count(cr => cr.Grade5 == 2);
             sheet.Cell(rowNumber, firstColumnNumber + 2).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 1}/R{rowNumber}C{firstColumnNumber}");
 
-            sheet.Cell(rowNumber, firstColumnNumber + 3).Value = classResults.Where(cr => cr.Grade5 == 3).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 3).Value = classResults.Count(cr => cr.Grade5 == 3);
             sheet.Cell(rowNumber, firstColumnNumber + 4).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 3}/R{rowNumber}C{firstColumnNumber}");
 
-            sheet.Cell(rowNumber, firstColumnNumber + 5).Value = classResults.Where(cr => cr.Grade5 == 4).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 5).Value = classResults.Count(cr => cr.Grade5 == 4);
             sheet.Cell(rowNumber, firstColumnNumber + 6).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 5}/R{rowNumber}C{firstColumnNumber}");
 
-            sheet.Cell(rowNumber, firstColumnNumber + 7).Value = classResults.Where(cr => cr.Grade5 == 5).Count();
+            sheet.Cell(rowNumber, firstColumnNumber + 7).Value = classResults.Count(cr => cr.Grade5 == 5);
             sheet.Cell(rowNumber, firstColumnNumber + 8).SetFormulaR1C1($"=R{rowNumber}C{firstColumnNumber + 7}/R{rowNumber}C{firstColumnNumber}");
         }
 

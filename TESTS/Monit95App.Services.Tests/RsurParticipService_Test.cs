@@ -100,7 +100,6 @@ namespace Monit95App.Services.Tests
                           {
                               Surname = "test",
                               Name = "...",
-                              RsurSubjectName = 1,
                               CategoryId = 1,
                               Experience = 0,
                               Phone = "89280168396",
@@ -130,7 +129,6 @@ namespace Monit95App.Services.Tests
                           {
                               Surname = "test",
                               Name = "...",
-                              RsurSubjectName = 1,
                               CategoryId = 1,
                               Experience = 0,
                               Phone = "892801683967",
