@@ -11,13 +11,16 @@ import { Component } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
 import { AccountModel } from '../../../models/account.model';
 import { RsurProtocolsService } from '../../../services/rsur-protocols.service';
+import { HttpClient } from '@angular/common/http';
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(accountService, rsurProtocolService) {
+    function HomeComponent(accountService, rsurProtocolService, http) {
         this.accountService = accountService;
         this.rsurProtocolService = rsurProtocolService;
+        this.http = http;
         this.account = new AccountModel();
         this.isLoading = true;
         this.date = new Date();
+        this.filesExist = {};
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -27,6 +30,29 @@ var HomeComponent = /** @class */ (function () {
             localStorage.clear();
             _this.getStatistics();
         });
+    };
+    HomeComponent.prototype.isFileExists = function (fileName) {
+        var _this = this;
+        if (this.filesExist[fileName] === undefined) {
+            this.filesExist[fileName] = false;
+            setTimeout(function () {
+                _this.http.get(fileName, { observe: 'response' }).subscribe(function (res) {
+                    _this.filesExist[fileName] = res.status !== 404;
+                }, function (err) {
+                    _this.filesExist[fileName] = err.status !== 404;
+                });
+            });
+            return false;
+        }
+        else {
+            return this.filesExist[fileName];
+        }
+    };
+    HomeComponent.prototype.getFileLink = function (examCode, subjectStart) {
+        return "/file/rsur-particip-tests/" + this.account.UserName + "/" + examCode + "_" + subjectStart + "_\u0440\u0430\u0441\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435_" + this.account.UserName + ".xlsx";
+    };
+    HomeComponent.prototype.getSchoolFileLink = function (examCode, subjectStart) {
+        return "/file/rsur-particip-tests/schools/" + this.account.UserName + "/" + examCode + "_" + subjectStart + "_\u0440\u0430\u0441\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435_" + this.account.UserName + ".xlsx";
     };
     HomeComponent.prototype.setTimer = function (day, hours) {
         if (hours === void 0) { hours = 12; }
@@ -75,7 +101,8 @@ var HomeComponent = /** @class */ (function () {
             styleUrls: ['./home.component.css']
         }),
         __metadata("design:paramtypes", [AccountService,
-            RsurProtocolsService])
+            RsurProtocolsService,
+            HttpClient])
     ], HomeComponent);
     return HomeComponent;
 }());

@@ -38,37 +38,41 @@
             </app-table-paginator>
         </div>
         <table class="table table-bordered">
-            <tr>
-                <th>#</th>
-                <th>код участника</th>
-                <th>фамилия</th>
-                <th>имя</th>
-                <th>отчество</th>
-                <th>дата рождения</th>
-                <th>ходил в ДОО</th>
-                <th>класс</th>
-            </tr>
-            <tr *ngFor="let particip of particips; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ particip.Id }}</td>
-                <td>{{ particip.Surname }}</td>
-                <td>{{ particip.Name }}</td>
-                <td>{{ particip.SecondName }}</td>
-                <td class="text-center">
-                    <span *ngIf="!particip.Birthday">—</span>
-                    <span *ngIf="particip.Birthday">{{ particip.Birthday | date : 'dd.MM.yyyy г.' }}</span>
-                </td>
-                <td class="text-center">
-                    <span *ngIf="particip.WasDoo">да</span>
-                    <span *ngIf="!particip.WasDoo">нет</span>
-                </td>
-                <td>{{ particip.ClassName }}</td>
-                <td class="text-center"><a style="cursor:pointer" matTooltip="изменить" class="glyphicon glyphicon-edit" [routerLink]="['/first-class/particips', particip.Id]"></a></td>
-                <td class="text-center">
-                    <a style="cursor:pointer" *ngIf="!particip.isDeleting" matTooltip="удалить" class="glyphicon glyphicon-trash" (click)="deleteParticip(particip)"></a>
-                    <mat-spinner style="margin: 0 auto" *ngIf="particip.isDeleting" [diameter]="17"></mat-spinner>
-                </td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>код участника</th>
+                    <th>фамилия</th>
+                    <th>имя</th>
+                    <th>отчество</th>
+                    <th>дата рождения</th>
+                    <th>ходил в ДОО</th>
+                    <th>класс</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let particip of particips; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ particip.Id }}</td>
+                    <td>{{ particip.Surname }}</td>
+                    <td>{{ particip.Name }}</td>
+                    <td>{{ particip.SecondName }}</td>
+                    <td class="text-center">
+                        <span *ngIf="!particip.Birthday">—</span>
+                        <span *ngIf="particip.Birthday">{{ particip.Birthday | date : 'dd.MM.yyyy г.' }}</span>
+                    </td>
+                    <td class="text-center">
+                        <span *ngIf="particip.WasDoo">да</span>
+                        <span *ngIf="!particip.WasDoo">нет</span>
+                    </td>
+                    <td>{{ particip.ClassName }}</td>
+                    <td class="text-center"><a style="cursor:pointer" matTooltip="изменить" class="glyphicon glyphicon-edit" [routerLink]="['/first-class/particips', particip.Id]"></a></td>
+                    <td class="text-center">
+                        <a style="cursor:pointer" *ngIf="!particip.isDeleting" matTooltip="удалить" class="glyphicon glyphicon-trash" (click)="deleteParticip(particip)"></a>
+                        <mat-spinner style="margin: 0 auto" *ngIf="particip.isDeleting" [diameter]="17"></mat-spinner>
+                    </td>
+                </tr>
+            </tbody>
         </table>
         <div class="text-center" *ngIf="particips.length === 0">
             <span *ngIf="isLoading; else noParticips"><i>Загрузочка...</i></span>

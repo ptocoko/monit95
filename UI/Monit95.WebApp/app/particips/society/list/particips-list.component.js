@@ -13,8 +13,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 import { SchoolCollectorService } from '../../../shared/school-collector.service';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
-var PROJECT_ID = 27;
-var COLLECTOR_ID = 50;
+var PROJECT_ID = 33;
+var COLLECTOR_ID = 121;
 var SocietyParticipsListComponent = /** @class */ (function () {
     function SocietyParticipsListComponent(participService, dialog, collectorService) {
         this.participService = participService;

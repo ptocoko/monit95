@@ -15,6 +15,9 @@ import { MaterialModule } from './material.module';
 import { ParticipsModule } from './particips/particips.module';
 import { SharedModule } from './shared/shared-module';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { FirstClassModule } from './components/first-class/first-class.module';
+import { TeachersCertModule } from './components/teachers-cert/teachers-cert.module';
+import { SchoolsProfileModule } from './components/schools-profile/schools-profile.module';
 // Components
 import { AppComponent } from './components/app/app.component';
 //import { RsurParticipsComponent } from './components/rsur/particips/particips.component';
@@ -87,10 +90,12 @@ var AppModule = /** @class */ (function () {
                 //ParticipsModule2,
                 //DamnClassesModule,
                 //OneTwoThreeModule,
-                //FirstClassModule,
+                FirstClassModule,
                 //TwoThreeModule,
                 //TwoThreeModule2,
                 KpkModule,
+                TeachersCertModule,
+                SchoolsProfileModule,
                 RouterModule.forRoot([
                     { path: 'rsur', component: HomeComponent },
                     //{ path: 'rsur/particips', component: RsurParticipsComponent },

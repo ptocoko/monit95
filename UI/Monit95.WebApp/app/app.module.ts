@@ -93,7 +93,7 @@ import { KpkModule } from './components/kpk/kpk.module';
 		//ParticipsModule2,
 		//DamnClassesModule,
 		//OneTwoThreeModule,
-		//FirstClassModule,
+		FirstClassModule,
 		//TwoThreeModule,
 		//TwoThreeModule2,
 		KpkModule,

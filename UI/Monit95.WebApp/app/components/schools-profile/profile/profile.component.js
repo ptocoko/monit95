@@ -1,9 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular/core");
-var schools_profile_service_1 = require("../../../services/schools-profile/schools-profile.service");
-var school_collector_service_1 = require("../../../shared/school-collector.service");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component } from '@angular/core';
+import { SchoolsProfileService } from '../../../services/schools-profile/schools-profile.service';
+import { SchoolCollectorService } from '../../../shared/school-collector.service';
 var ProfileComponent = /** @class */ (function () {
     function ProfileComponent(profileService, schoolCollectorService) {
         this.profileService = profileService;
@@ -45,14 +51,14 @@ var ProfileComponent = /** @class */ (function () {
         var _this = this;
         this.schoolCollectorService.isFinished(this.COLLECTOR_ID, false).subscribe(function (res) { return _this.isFinished = false; });
     };
-    ProfileComponent = tslib_1.__decorate([
-        core_1.Component({
-            templateUrl: "./app/components/schools-profile/profile/profile.component.html?v=" + new Date().getTime(),
-            styleUrls: ["./app/components/schools-profile/profile/profile.component.css?v=" + new Date().getTime()]
+    ProfileComponent = __decorate([
+        Component({
+            templateUrl: "./profile.component.html",
+            styleUrls: ["./profile.component.css"]
         }),
-        tslib_1.__metadata("design:paramtypes", [schools_profile_service_1.SchoolsProfileService, school_collector_service_1.SchoolCollectorService])
+        __metadata("design:paramtypes", [SchoolsProfileService, SchoolCollectorService])
     ], ProfileComponent);
     return ProfileComponent;
 }());
-exports.ProfileComponent = ProfileComponent;
+export { ProfileComponent };
 //# sourceMappingURL=profile.component.js.map

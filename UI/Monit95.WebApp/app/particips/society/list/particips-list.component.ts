@@ -6,8 +6,8 @@ import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 import { SchoolCollectorService } from '../../../shared/school-collector.service';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
-const PROJECT_ID = 27;
-const COLLECTOR_ID = 50;
+const PROJECT_ID = 33;
+const COLLECTOR_ID = 121;
 
 @Component({
 	templateUrl: './particips-list.component.html',

@@ -30,7 +30,7 @@ import { ReportComponent } from './reports/report/report.component';
 import { SchoolsReportsListComponent } from './reports2/schools-list/schools-reports-list.component';
 import { SchoolReportComponent } from './reports2/school/school-report.component';
 import { Reports2Service } from '../services/iTakeEge/reports2/reports2.service';
-var ɵ0 = { projectId: 27, projectName: 'EГЭ' }, ɵ1 = { projectId: 28, projectName: 'ОГЭ' };
+var ɵ0 = { projectId: 33, projectName: 'EГЭ' }, ɵ1 = { projectId: 28, projectName: 'ОГЭ' };
 var routes = [
     { path: 'particips/home', component: HomeComponent },
     { path: 'particips/list', component: ParticipsListComponent },

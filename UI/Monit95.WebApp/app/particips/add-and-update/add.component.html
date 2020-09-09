@@ -21,18 +21,25 @@
         <input type="text" class="form-control" id="secondName" [(ngModel)]="particip.SecondName" #secondName="ngModel" name="secondName"
                pattern="^$|^[а-яА-Я'][а-яА-Я-']+[а-яА-Я']?" />
         <div *ngIf="secondName.invalid && secondName.touched" class="alert alert-danger form-alert">
-            <p>отчество указывается при наличии и должно содержать 3-25 букв.</p>            
+            <p>отчество указывается при наличии и должно содержать 3-25 букв.</p>
         </div>
     </div>
-    
+
     <div class="form-group">
         <label for="documNumber">Номер документа (паспорта)*</label>
-        <input name="documNumber" [(ngModel)]="particip.DocumNumber" id="documNumber" #documNumber="ngModel" class="form-control" 
-               required maxlength="9"/>
+        <input name="documNumber" [(ngModel)]="particip.DocumNumber" id="documNumber" #documNumber="ngModel" class="form-control"
+               required maxlength="9" />
         <div *ngIf="documNumber.invalid && documNumber.touched" class="alert alert-danger form-alert">
             <p>- укажите номер документа, который не должен содержать более 9 цифр;</p>
             <p>- номер паспорта указывается без серии.</p>
         </div>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            <input name="actualCode12" [ngModel]="particip.ActualCode12 === 1" (ngModelChange)="particip.ActualCode12 = $event ? 1 : null" id="actualCode12" #actualCode12="ngModel" type="checkbox" />
+            Будет участвовать в диагностике «Я сдам Обществознание!»
+        </label>
     </div>
 
     <p class="alert alert-danger conflict-text" *ngIf="isConflict">

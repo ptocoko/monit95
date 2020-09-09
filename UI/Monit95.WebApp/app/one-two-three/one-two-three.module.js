@@ -18,6 +18,7 @@ import { AddOrUpdateComponent } from './particips/add-or-update/add-or-update.co
 import { ProtocolsListComponent } from './question-protocols/list/protocols-list.component';
 import { QuestionProtocolService } from '../services/one-two-three/question-protocols.service';
 import { ProtocolComponent } from './question-protocols/protocol/protocol.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 var routes = [
     { path: 'one-two-three/home', component: HomeComponent },
     { path: 'one-two-three/particips/list', component: ParticipsListComponent },
@@ -39,6 +40,7 @@ var OneTwoThreeModule = /** @class */ (function () {
                 ReactiveFormsModule,
                 SharedModule,
                 MaterialModule,
+                NgbModule,
                 RouterModule.forChild(routes)
             ],
             exports: [RouterModule],

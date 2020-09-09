@@ -19,7 +19,7 @@ import { ParticipService } from '../../../../services/first-class/particips.serv
 import { setToLocalStorage, getFromLocalStorage, removeFromLocalStorage } from '../../../../utils/local-storage';
 import { SchoolCollectorService } from '../../../../shared/school-collector.service';
 export var CLASS_ID_KEY = 'FIRST_CLASS_ID';
-var COLLECTOR_ID = 49;
+var COLLECTOR_ID = 119;
 var ParticipsListComponent = /** @class */ (function () {
     function ParticipsListComponent(participService, classService, dialog, snackBar, accountService, collectorService) {
         this.participService = participService;
