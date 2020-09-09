@@ -72,12 +72,13 @@ namespace Monit95App.Services.ItakeEge.Participant
             var newParticip = new Particip
             {
                 ProjectId = projectId,
-                Surname = dto.Surname,                
-                Name = dto.Name,                
+                Surname = dto.Surname,
+                Name = dto.Name,
                 DocumNumber = dto.DocumNumber,
                 ClassId = dto.ClassId,
                 SchoolId = schoolId,
-                DataSource = dataSource                
+                DataSource = dataSource,
+                ActualCode12 = dto.ActualCode12
             };
             if (dto.SecondName != null)            
                 newParticip.SecondName = dto.SecondName; 
