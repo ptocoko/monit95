@@ -1,0 +1,84 @@
+﻿<div class="toggle-group">
+    <mat-button-toggle-group (change)="classChanged($event)">
+        <mat-button-toggle *ngFor="let cl of classes" [value]="cl">
+            {{cl.name}}
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+
+<div class="toggle-group">
+    <mat-button-toggle-group *ngIf="selectedClass" (change)="subjectChanged($event)">
+        <mat-button-toggle *ngFor="let subj of selectedClass.subjects" [value]="subj">
+            {{subj.name}}
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+
+<table style="margin-top: 25px" *ngIf="selectedClass && selectedSubj && weekResults" class="table table-bordered" [class.disabled]="blocked">
+    <thead>
+        <tr>
+            <th>Класс</th>
+            <th>% оценки 2</th>
+            <th>% оценки 3</th>
+            <th>% оценки 4</th>
+            <th>% оценки 5</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cl of getClassesByNumber(); let i = index" [ngClass]="{'row-error': hasFirst && isRowHasError(cl.Id)}">
+            <td>{{cl.Name}}</td>
+            <td [ngClass]="{'red-cell': showErrors && isMark2HasError(cl.Id)}">
+                <input type="number" (input)="setMark('Marks2', cl.Id, $event.target.value)" [value]="getMark('Marks2', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked" />
+            </td>
+            <td>
+                <input type="number" (input)="setMark('Marks3', cl.Id, $event.target.value)" [value]="getMark('Marks3', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked"  />
+            </td>
+            <td [ngClass]="{'red-cell': showErrors && isMark5HasError(cl.Id)}">
+                <input type="number" (input)="setMark('Marks4', cl.Id, $event.target.value)" [value]="getMark('Marks4', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked"  />
+            </td>
+            <td [ngClass]="{'red-cell': showErrors && isMark5HasError(cl.Id)}" style="position: relative;">
+                <input type="number" (input)="setMark('Marks5', cl.Id, $event.target.value)" [value]="getMark('Marks5', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked" />
+                <span *ngIf="hasFirst && isRowHasError(cl.Id)" class="non-hundreed">&#8800; 100</span>
+            </td>
+        </tr>
+        <tr [ngClass]="{'row-error': hasFirst && isItogoHasError()}">
+            <td >Итого</td>
+            <td *ngIf="totalEachAvgGrads?.length > 0">{{totalEachAvgGrads[0]}}</td>
+            <td *ngIf="totalEachAvgGrads?.length > 0">{{totalEachAvgGrads[1]}}</td>
+            <td *ngIf="totalEachAvgGrads?.length > 0">{{totalEachAvgGrads[2]}}</td>
+            <td *ngIf="totalEachAvgGrads?.length > 0" style="position: relative;">{{totalEachAvgGrads[3]}} 
+            <span *ngIf="hasFirst && isItogoHasError()" class="non-hundreed">&#8800; 100</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="legends" *ngIf="hasFirst && hasAnyError()">
+    <div class="legend-container">
+        <span class="legend-wrapper" *ngIf="showErrors">
+            <span class="legend-color red-cell"></span>
+            Результат с признаками необъективности
+        </span>
+
+        <span class="legend-wrapper">
+            <span class="legend-color row-error"></span>
+            Сумма по процентам не равна 100    
+        </span>
+    </div>
+</div>
+
+<div class="actions" *ngIf="selectedClass && selectedSubj && weekResults">
+    <button mat-raised-button color="primary" [disabled]="!isClassRowsValid()" *ngIf="!hasFirst" (click)="checkForm(); AvgSum();">Проверить</button>
+    <button mat-raised-button color="primary" *ngIf="showErrors" (click)="unblock()">Разблокировать</button>
+    <button mat-raised-button color="primary" *ngIf="!showErrors && !blocked && hasFirst && !hasSecond" [disabled]="!isClassRowsValid() || isAnyRowNotHundreed()" (click)="sendSecond()">Отправить</button>
+    
+    <div>
+        В систему предупреждения необъективного оценивания ВПР на monit95 результаты необходимо вносить только после того, как будут проведены ВПР во всей параллели одного класса!
+    </div>
+
+    <br />
+
+    <div *ngIf="(hasFirst || hasSecond) && blocked && !showErrors">
+        Данные сохранены в базе.
+    </div>
+</div>

@@ -1,0 +1,234 @@
+﻿<h3>{{protocol?.Surname}} {{protocol?.Name}} {{protocol?.SecondName}}</h3>
+
+<form *ngIf="protocol" #marksForm="ngForm">
+    <!--<div *ngFor="let question of protocol.QuestionResultsList; let i = index" class="control-wrapper">
+        <label>{{question.Name}}:</label>
+        <input class="form-control"
+               [(ngModel)]="question.CurrentMark"
+               (keydown.enter)="enterKeyHandler(i, $event)"
+               id="mark{{i}}"
+               #mark{{i}}="ngModel"
+               name="mark{{i}}"
+               type="number"
+               step="{{question.Step}}"
+               max="{{question.MaxMark}}"
+               min="0"
+               required
+               [appMark]="question"/>
+        <div class="alert alert-warning" *ngIf="marksForm.controls['mark' + i]?.invalid && (marksForm.controls['mark' + i]?.dirty || marksForm.controls['mark' + i]?.touched)">
+
+            <div *ngIf="marksForm.controls['mark' + i].errors.required">
+                Введите оценку
+            </div>
+
+            <div *ngIf="marksForm.controls['mark' + i].errors.markValidate">
+                {{ marksForm.controls['mark' + i].errors.markValidate.value }}
+            </div>
+        </div>
+    </div>-->
+    <hr />
+    <div class="control-wrapper">
+        <label>Графический диктант:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.QuestionResultsList[0].CurrentMark"
+               disabled
+               #mark0="ngModel"
+               name="mark0"
+               id="mark0"
+               required />
+
+        <span class="alert alert-info">Баллы за задание «Графический диктант» высчитываются автоматически</span>
+    </div>
+
+    <div style="display:flex; margin-top:10px">
+        <span style="width: 210px"></span>
+        <span style="width: 90px; text-align:center">Выполнение диктанта</span>
+        <span style="width: 100px; text-align:center">Продолжение узора</span>
+    </div>
+
+    <div class="control-wrapper level-2">
+        <label>1 задание:</label>
+        <div class="row-inputs">
+            <input class="form-control"
+                   [(ngModel)]="protocol.SubQuestionResults[0].CurrentMark"
+                   (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[0], 'submark3', true)"
+                   #submark0="ngModel"
+                   name="submark0"
+                   id="submark0"
+                   required />
+
+            <input class="form-control"
+                   [(ngModel)]="protocol.SubQuestionResults[3].CurrentMark"
+                   (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[3], 'submark1', true)"
+                   #submark3="ngModel"
+                   name="submark3"
+                   id="submark3"
+                   required />
+        </div>
+    </div>
+
+    <div class="control-wrapper level-2">
+        <label>2 задание:</label>
+        <div class="row-inputs">
+            <input class="form-control"
+                   [(ngModel)]="protocol.SubQuestionResults[1].CurrentMark"
+                   (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[1], 'submark4', true)"
+                   #submark1="ngModel"
+                   name="submark1"
+                   id="submark1"
+                   required />
+
+            <input class="form-control"
+                   [(ngModel)]="protocol.SubQuestionResults[4].CurrentMark"
+                   (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[4], 'submark2', true)"
+                   #submark4="ngModel"
+                   name="submark4"
+                   id="submark4"
+                   required />
+        </div>
+    </div>
+
+    <div class="control-wrapper level-2">
+        <label>3 задание:</label>
+        <div class="row-inputs">
+            <input class="form-control"
+                   [(ngModel)]="protocol.SubQuestionResults[2].CurrentMark"
+                   (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[2], 'submark5', true)"
+                   #submark2="ngModel"
+                   name="submark2"
+                   id="submark2"
+                   required />
+
+            <input class="form-control"
+                   [(ngModel)]="protocol.SubQuestionResults[5].CurrentMark"
+                   (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[5], 'mark1', true)"
+                   #submark5="ngModel"
+                   name="submark5"
+                   id="submark5"
+                   required />
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="control-wrapper">
+        <label>Дорожки:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.QuestionResultsList[1].CurrentMark"
+               (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.QuestionResultsList[1], 'submark6')"
+               #mark1="ngModel"
+               name="mark1"
+               id="mark1"
+               required />
+    </div>
+
+    <hr />
+
+    <div class="control-wrapper">
+        <label>Образец и правило:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.QuestionResultsList[2].CurrentMark"
+               disabled
+               #mark2="ngModel"
+               name="mark2"
+               id="mark2"
+               required />
+
+        <span class="alert alert-info">Баллы за задание «Образец и правило» высчитываются автоматически</span>
+    </div>
+
+    <div class="control-wrapper level-2">
+        <label>1 задание:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.SubQuestionResults[6].CurrentMark"
+               (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[6], 'submark7', false, true)"
+               #submark6="ngModel"
+               name="submark6"
+               id="submark6"
+               required />
+    </div>
+    <div class="control-wrapper level-2">
+        <label>2 задание:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.SubQuestionResults[7].CurrentMark"
+               (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[7], 'submark8', false, true)"
+               #submark7="ngModel"
+               name="submark7"
+               id="submark7"
+               required />
+    </div>
+    <div class="control-wrapper level-2">
+        <label>3 задание:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.SubQuestionResults[8].CurrentMark"
+               (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[8], 'submark9', false, true)"
+               #submark8="ngModel"
+               name="submark8"
+               id="submark8"
+               required />
+    </div>
+    <div class="control-wrapper level-2">
+        <label>4 задание:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.SubQuestionResults[9].CurrentMark"
+               (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[9], 'submark10', false, true)"
+               #submark9="ngModel"
+               name="submark9"
+               id="submark9"
+               required />
+    </div>
+    <div class="control-wrapper level-2">
+        <label>5 задание:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.SubQuestionResults[10].CurrentMark"
+               (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[10], 'submark11', false, true)"
+               #submark10="ngModel"
+               name="submark10"
+               id="submark10"
+               required />
+    </div>
+    <div class="control-wrapper level-2">
+        <label>6 задание:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.SubQuestionResults[11].CurrentMark"
+               (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.SubQuestionResults[11], 'mark3', false, true)"
+               #submark11="ngModel"
+               name="submark11"
+               id="submark11"
+               required />
+    </div>
+
+    <hr />
+
+    <div class="control-wrapper">
+        <label>Звуковые прятки:</label>
+        <input class="form-control"
+               [(ngModel)]="protocol.QuestionResultsList[3].CurrentMark"
+               (keyup)="applyMarkAndFocusNextEl($event.target.value, protocol.QuestionResultsList[3], 'submitBtn')"
+               #mark3="ngModel"
+               name="mark3"
+               id="mark3"
+               required />
+    </div>
+
+    <hr />
+    <br />
+
+    <p>
+        <button id="submitBtn"
+                type="button"
+                (click)="send()"
+                mat-raised-button
+                color="primary"
+                [disabled]="marksSending || marksForm.invalid">
+            Сохранить
+        </button>
+
+        <button type="button"
+                mat-raised-button
+                color="warn"
+                (click)="cancel()">
+            Отмена
+        </button>
+    </p>
+</form>

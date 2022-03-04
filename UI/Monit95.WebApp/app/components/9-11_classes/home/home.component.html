@@ -1,0 +1,98 @@
+﻿<h2>Исследование в 9-х и 11-х классах: Главное меню</h2>
+
+<div class="list-container" *ngIf="false">
+    <h3 class="list-header">Общее</h3>
+    <a class="list-item-link" [routerLink]="['/particips2/list']" [queryParams]="{ projectId: 23, projectName: 'Исследование в 9-х и 11-х классах' }">
+        <h4 style="font-weight:bold">Список участников</h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="true">
+    <h3 class="list-header">Результаты</h3>
+    <div>
+        <a class="list-item-link" [routerLink]="['/particips/reports/23']" [queryParams]="{ projectName: 'Диагностика в 9 и 11 классах, Март 2019' }">
+            <h4>Индивидуальные карты участников по <b>мартовской</b> диагностике</h4>
+        </a>
+        <a class="list-item-link" [routerLink]="['/particips/reports/26']" [queryParams]="{ projectName: 'Диагностика в 9 и 11 классах, Март 2019' }">
+            <h4>Индивидуальные карты участников по <b>апрельской</b> диагностике</h4>
+        </a>
+        <a class="list-item-link" href='/file/9-11_classes/КПК.zip' download="КПК.zip">
+            <h4>Курсы повышения квалификации</h4>
+        </a>
+    </div>
+</div>
+
+<div class="list-container" *ngIf="false">
+    <h3 class="list-header">Физика</h3>
+
+    <a class="list-item-link" download="9кл КИМ ФИЗ.rar" href="/file/9-11_classes/042019/tasks/ФИ-9.rar">
+        <h4>9-й класс: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл КИМ ФИЗ.rar" href="/file/9-11_classes/042019/tasks/ФИ-11.rar">
+        <h4>11-й класс: Варианты работ</h4>
+    </a>
+
+    <a class="list-item-link" download="9кл Ключи ФИЗ.rar" href="/file/9-11_classes/042019/keys/ФИ-9.rar">
+        <h4 style="font-weight:bold">9-й класс: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл Ключи ФИЗ.rar" href="/file/9-11_classes/042019/keys/ФИ-11.rar">
+        <h4 style="font-weight:bold">11-й класс: Ключи для проверки работ</h4>
+    </a>
+
+    <a class="list-item-link" routerLink="/particips/protocols/3067">
+        <h4 style="font-weight:bold">9-й класс: Протоколы проверки заданий</h4>
+    </a>
+    <a class="list-item-link" routerLink="/particips/protocols/3068">
+        <h4 style="font-weight:bold">11-й класс: Протоколы проверки заданий</h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="false">
+    <h3 class="list-header">География</h3>
+
+    <a class="list-item-link" download="9кл КИМ ГЕО.rar" href="/file/9-11_classes/042019/tasks/ГЕ-9.rar">
+        <h4>9-й класс: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл КИМ ГЕО.rar" href="/file/9-11_classes/042019/tasks/ГЕ-11.rar">
+        <h4>11-й класс: Варианты работ</h4>
+    </a>
+
+    <a class="list-item-link" download="9кл Ключи ГЕО.rar" href="/file/9-11_classes/042019/keys/ГЕ-9.rar">
+        <h4 style="font-weight:bold">9-й класс: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл Ключи ГЕО.rar" href="/file/9-11_classes/042019/keys/ГЕ-11.rar">
+        <h4 style="font-weight:bold">11-й класс: Ключи для проверки работ</h4>
+    </a>
+
+    <a class="list-item-link" routerLink="/particips/protocols/3066">
+        <h4 style="font-weight:bold">9-й класс: Протоколы проверки заданий</h4>
+    </a>
+    <a class="list-item-link" routerLink="/particips/protocols/3065">
+        <h4 style="font-weight:bold">11-й класс: Протоколы проверки заданий</h4>
+    </a>
+</div>
+
+<div class="list-container" *ngIf="false">
+    <h3 class="list-header">Обществознание</h3>
+
+    <a class="list-item-link" download="9кл КИМ.rar" href="/file/9-11_classes/042019/tasks/ОБЩ-9.rar">
+        <h4>9-й класс: Варианты работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл КИМ.rar" href="/file/9-11_classes/042019/tasks/ОБЩ-11.rar">
+        <h4>11-й класс: Варианты работ</h4>
+    </a>
+
+    <a class="list-item-link" download="9кл Ключи.rar" href="/file/9-11_classes/042019/keys/ОБЩ-9.rar">
+        <h4 style="font-weight:bold">9-й класс: Ключи для проверки работ</h4>
+    </a>
+    <a class="list-item-link" download="11кл Ключи.rar" href="/file/9-11_classes/042019/keys/ОБЩ-11.rar">
+        <h4 style="font-weight:bold">11-й класс: Ключи для проверки работ</h4>
+    </a>
+
+    <a class="list-item-link" routerLink="/particips/protocols/3063">
+        <h4 style="font-weight:bold">9-й класс: Протоколы проверки заданий</h4>
+    </a>
+    <a class="list-item-link" routerLink="/particips/protocols/3064">
+        <h4 style="font-weight:bold">11-й класс: Протоколы проверки заданий</h4>
+    </a>
+</div>

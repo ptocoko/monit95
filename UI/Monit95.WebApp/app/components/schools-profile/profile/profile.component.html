@@ -1,0 +1,67 @@
+﻿<h2>Анкета общеобразовательной организации</h2>
+<div *ngIf="!isFinished">
+    <mat-card class="question" *ngFor="let question of questions">
+        <ng-container *ngIf="!question.IsBooleanAnswer">
+            <mat-card-header>
+                <mat-card-title><strong>{{ question?.Body }}</strong></mat-card-title>
+                <mat-card-subtitle class="question-desc"><i>{{ question?.Description }}</i></mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content *ngIf="question.HasSessions; else elseBlock">
+                <label>
+                    2016-2017 учебный год
+                    <input class="form-control" type="number" min="0" (blur)="onSessionValuePassed(question, '2016-2017', $event.target.value)" [(ngModel)]="question.SessionValues['2016-2017']" />
+                </label>
+                <label>
+                    2017-2018 учебный год
+                    <input class="form-control" type="number" min="0" (blur)="onSessionValuePassed(question, '2017-2018', $event.target.value)" [(ngModel)]="question.SessionValues['2017-2018']" />
+                </label>
+                <label>
+                    2018-2019 учебный год
+                    <input class="form-control" type="number" min="0" (blur)="onSessionValuePassed(question, '2018-2019', $event.target.value)" [(ngModel)]="question.SessionValues['2018-2019']" />
+                </label>
+            </mat-card-content>
+            <ng-template #elseBlock>
+                <select class="form-control" *ngIf="question.SelectValuesArr" [(ngModel)]="question.Value" (change)="onValuePassed(question, $event.target.value)">
+                    <option *ngFor="let val of question.SelectValuesArr" [value]="val">{{ val }}</option>
+                </select>
+                <input *ngIf="!question.SelectValuesArr" class="form-control" placeholder="Значение" type="number" min="0" (blur)="onValuePassed(question, $event.target.value)" [(ngModel)]="question.Value" />
+            </ng-template>
+        </ng-container>
+        <ng-container *ngIf="question.IsBooleanAnswer">
+            <mat-card-header>
+                <mat-card-title><strong>{{ question?.Body }}</strong></mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-radio-group (change)="onRadioSelected(question, $event.value)" [(ngModel)]="question.Value">
+                    <mat-radio-button [value]="1">Да</mat-radio-button>
+                    <mat-radio-button [value]="0">Нет</mat-radio-button>
+                </mat-radio-group>
+            </mat-card-content>
+        </ng-container>
+    </mat-card>
+
+    <!--<h3 *ngIf="!isLoading" class="boolean-question-caption">Следующий блок вопросов является вопросами типа "ДА- НЕТ"</h3>
+    <mat-card class="question" *ngFor="let question of booleanQuestions">
+        <mat-card-header>
+            <mat-card-title><strong>{{ question?.Body }}</strong></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-radio-group (change)="onRadioSelected(question, $event.value)" [(ngModel)]="question.Value">
+                <mat-radio-button [value]="1">Да</mat-radio-button>
+                <mat-radio-button [value]="0">Нет</mat-radio-button>
+            </mat-radio-group>
+        </mat-card-content>
+    </mat-card>-->
+
+    <div class="text-right" style="margin-top: 25px">
+        <button mat-raised-button color="primary" (click)="finish()" [disabled]="!isAllRequiredFilled">Завершить заполнение анкеты</button>
+    </div>
+</div>
+
+<div class="content-center" *ngIf="isFinished">
+    <h2>Заполнение анкеты окончено</h2>
+    <button mat-raised-button (click)="notFinished()" color="primary">Отменить завершение</button>
+</div>
+
+<spinner-view *ngIf="isLoading"></spinner-view>

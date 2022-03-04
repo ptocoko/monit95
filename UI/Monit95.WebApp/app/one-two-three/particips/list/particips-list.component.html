@@ -1,0 +1,79 @@
+﻿<h2>Список участников</h2>
+
+<div style="text-align:right">
+    <button *ngIf="!isFinished" mat-raised-button color="primary" routerLink="/one-two-three/particips/add">Добавить участника...</button>
+
+    <div class="alert alert-info isFinished-info-wrapper" *ngIf="isFinished">
+        <div>Редактирование списка участников окончено</div>
+        <button mat-raised-button (click)="notFinish()" color="primary">Отменить завершение</button>
+    </div>
+</div>
+<div class="table-container">
+    <div class="loading-wrapper" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="actions-bar">
+        <div>
+            <mat-form-field>
+                <input matInput
+                        #searchField
+                        [(ngModel)]="searchText"
+                        placeholder="поиск участника..." />
+            </mat-form-field>
+
+            <mat-form-field class="class-select">
+                <mat-select placeholder="поиск по классу..."
+                            [(ngModel)]="searchClass"
+                            (selectionChange)="selectionChange()">
+                    <mat-option [value]="">Все классы</mat-option>
+                    <mat-option *ngFor="let class of classes"
+                                [value]="class.Id">
+                        {{ class.Name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <app-table-paginator [length]="participsLength"
+                                [pageSizeOptions]="[20, 50, 70]"
+                                [(pageSize)]="limitToVal"
+                                [(pageIndex)]="pageIndex"></app-table-paginator>
+    </div>
+    <table class="table table-bordered" [ngClass]="{ 'gray-back': isFinished }">
+        <tr>
+            <th>#</th>
+            <th>код участника</th>
+            <th>фамилия</th>
+            <th>имя</th>
+            <th>отчество</th>
+            <th>класс</th>
+        </tr>
+        <tr *ngFor="let particip of particips; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ particip.Id }}</td>
+            <td>{{ particip.Surname }}</td>
+            <td>{{ particip.Name }}</td>
+            <td>{{ particip.SecondName }}</td>
+            <td>{{ particip.ClassName }}</td>
+            <td *ngIf="!isFinished">
+                <a href="#" class="glyphicon glyphicon-edit" [routerLink]="['/one-two-three/particips', particip.Id]"></a>
+            </td>
+            <td *ngIf="!isFinished">
+                <a style="cursor:pointer" class="glyphicon glyphicon-trash" (click)="deleteParticip(particip)"></a>
+            </td>
+        </tr>
+    </table>
+    <div class="text-center" *ngIf="particips.length === 0">
+        <span *ngIf="isLoading; else noParticips"><i>Загрузочка...</i></span>
+        <ng-template #noParticips><span><i>Участников нет.</i></span></ng-template>
+    </div>
+</div>
+
+<div *ngIf="!isFinished" class="text-right">
+    <button mat-raised-button color="primary" (click)="finish()">Сохранить и отправить</button>
+</div>
+
+<!--<div [hidden]="isFinished" class="content-center">
+    <h2>Добавление участников окончено</h2>
+    <button mat-raised-button (click)="notFinish()" color="primary">Отменить завершение</button>
+</div>-->

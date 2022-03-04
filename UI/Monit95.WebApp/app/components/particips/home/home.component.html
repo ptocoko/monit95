@@ -1,0 +1,317 @@
+﻿<h2>{{projectName}}</h2>
+
+<ng-container *ngIf="projectId == 36">
+    <div class="list-container" *ngIf="true">
+        <h3 class="list-header">Участники</h3>
+        <div>
+            <a class="list-item-link" [routerLink]="['/particips2/list']" [queryParams]="{projectId: projectId, projectName: projectName}" *ngIf="false">
+                <h4>Список участников</h4>
+            </a>
+            <a class="list-item-link" download="группа риска.xlsx" href="/file/1-3/2021/bad-grades/{{account.account.UserName}}.xlsx">
+                <h4>Список участников "Группы риска"</h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container" *ngIf="false">
+        <h3 class="list-header">Чтение</h3>
+        <div>
+            <!--<a class="list-item-link" download="ЧТ_КИМ.zip" href="/file/1-3/2021/tasks/cht.zip">
+                <h4>Варианты работ</h4>
+            </a>
+            <a class="list-item-link" download="РУ_ключи.zip" href="/file/1-3/2021/keys/cht.zip" *ngIf="setTimer(21, 15)">
+                <h4>Ключи для проверки работ</h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/one-two-three/protocols/3119']" [queryParams]="{subjectName: 'Чтение'}" *ngIf="setTimer(21, 15)">
+                <h4>Протоколы проверки заданий</h4>
+            </a>-->
+            <a class="list-item-link" download="ЧТ_протокол.zip" href="/file/1-3/2021/protocols/{{account.account.UserName}}/2/чт.zip">
+                <h4>Результаты диагностической работы</h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container" *ngIf="true">
+        <h3 class="list-header">Русский язык</h3>
+        <div>
+            <a class="list-item-link" download="РУ_КИМ.zip" href="/file/1-3/2021/tasks/ru.zip">
+                <h4>Варианты работ</h4>
+            </a>
+            <a class="list-item-link" download="РУ_ключи.zip" href="/file/1-3/2021/keys/ru.zip">
+                <h4>Ключи для проверки работ</h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/one-two-three/protocols/3121']" [queryParams]="{subjectName: 'Русский язык'}">
+                <h4>Протоколы проверки заданий</h4>
+            </a>
+            <!--<a class="list-item-link" download="РУ_протокол.zip" href="/file/1-3/2021/protocols/{{account.account.UserName}}/2/ру.zip">
+        <h4>Результаты диагностической работы</h4>
+    </a>-->
+        </div>
+    </div>
+
+    <div class="list-container" *ngIf="true">
+        <h3 class="list-header">Математика</h3>
+        <div>
+            <a class="list-item-link" download="МА_КИМ.zip" href="/file/1-3/2021/tasks/ma.zip">
+                <h4>Варианты работ</h4>
+            </a>
+            <a class="list-item-link" download="МА_ключи.zip" href="/file/1-3/2021/keys/ma.zip">
+                <h4>Ключи для проверки работ</h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/one-two-three/protocols/3122']" [queryParams]="{subjectName: 'Математика'}">
+                <h4>Протоколы проверки заданий</h4>
+            </a>
+            <!--<a class="list-item-link" download="МА_протокол.zip" href="/file/1-3/2021/protocols/{{account.account.UserName}}/2/ма.zip">
+        <h4>Результаты диагностической работы</h4>
+    </a>-->
+        </div>
+    </div>
+
+    <div class="list-container" *ngIf="true">
+        <h3 class="list-header">Материалы</h3>
+        <div>
+            <a class="list-item-link" download="Описание КИМ.zip" href="/file/2/specs.zip">
+                <h4>Описание КИМ</h4>
+            </a>
+            <a class="list-item-link" download="Тренировочные задания.zip" href="/file/2/training.zip">
+                <h4>Тренировочные задания</h4>
+            </a>
+            <a class="list-item-link" download="Памятка для учителя.zip" href="/file/2/teacher.zip">
+                <h4>Памятка для учителя</h4>
+            </a>
+        </div>
+    </div>
+
+</ng-container>
+
+<ng-container *ngIf="projectId === 35">
+    <div class="list-container">
+        <h3 class="list-header">2 класс</h3>
+        <div>
+            <a class="list-item-link" download="КИМ_2кл.rar" href="/file/2_5_6_10/tasks/2.rar">
+                <h4>Метапредметная диагностическая работа</h4>
+            </a>
+            <a class="list-item-link" download="инструкции_2кл.pdf" href="/file/2_5_6_10/instructions_2.pdf">
+                <h4>Инструкции для учащихся</h4>
+            </a>
+            <a class="list-item-link" download="спец_и_критерии_2кл.pdf" href="/file/2_5_6_10/keys_2.pdf">
+                <h4>Спецификация и критерии</h4>
+            </a>
+            <a class="list-item-link" download="ключи_2кл.rar" href="/file/2_5_6_10/keys/2.rar">
+                <h4>Ключи</h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3107']">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container">
+        <h3 class="list-header">5 класс</h3>
+        <div>
+            <a class="list-item-link" *ngIf="CHG_schools.indexOf(account.account.UserName) > -1" download="ЧГ_5кл.rar" href="/file/2_5_6_10/tasks/CHG_5.rar">
+                <h4>Читательская грамотность</h4>
+            </a>
+            <a class="list-item-link" *ngIf="MG_schools.indexOf(account.account.UserName) > -1" download="МГ_5кл.rar" href="/file/2_5_6_10/tasks/MG_5.rar">
+                <h4>Математическая грамотность</h4>
+            </a>
+            <a class="list-item-link" *ngIf="EST_schools.indexOf(account.account.UserName) > -1" download="ЕСТ_5кл.rar" href="/file/2_5_6_10/tasks/EST_5.rar">
+                <h4>Естественнонаучная грамотность</h4>
+            </a>
+            <a class="list-item-link" *ngIf="GK_schools.indexOf(account.account.UserName) > -1" download="ГК_5кл.rar" href="/file/2_5_6_10/tasks/GK_5.rar">
+                <h4>Глобальные компетенции</h4>
+            </a>
+            <a class="list-item-link" *ngIf="FG_schools.indexOf(account.account.UserName) > -1" download="ФГ_5кл.rar" href="/file/2_5_6_10/tasks/FG_5.rar">
+                <h4>Финансовая грамотность</h4>
+            </a>
+            <a class="list-item-link" *ngIf="KM_schools.indexOf(account.account.UserName) > -1" download="КМ_5кл.rar" href="/file/2_5_6_10/tasks/KM_5.rar">
+                <h4>Креативное мышление</h4>
+            </a>
+            <a class="list-item-link" *ngIf="CHG_schools.indexOf(account.account.UserName) > -1" [routerLink]="['/particips/protocols/3108']">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+            <a class="list-item-link" *ngIf="MG_schools.indexOf(account.account.UserName) > -1" [routerLink]="['/particips/protocols/3109']">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+            <a class="list-item-link" *ngIf="EST_schools.indexOf(account.account.UserName) > -1" [routerLink]="['/particips/protocols/3110']">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+            <a class="list-item-link" *ngIf="GK_schools.indexOf(account.account.UserName) > -1" [routerLink]="['/particips/protocols/3111']">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+            <a class="list-item-link" *ngIf="FG_schools.indexOf(account.account.UserName) > -1" [routerLink]="['/particips/protocols/3112']">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+            <a class="list-item-link" *ngIf="KM_schools.indexOf(account.account.UserName) > -1" [routerLink]="['/particips/protocols/3113']">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container">
+        <h3 class="list-header">6 класс</h3>
+        <div>
+            <a class="list-item-link" download="КИМ_6кл.rar" href="/file/2_5_6_10/tasks/6.rar">
+                <h4>Диагностическая работа по Русскому языку</h4>
+            </a>
+            <!--<a class="list-item-link" download="Спецификации 6кл.pdf" href="/file/2_5_6_10/6_specs.pdf">
+            <h4>Спецификация диагностической работы</h4>
+        </a>-->
+            <a class="list-item-link" download="Ключи 6кл.pdf" href="/file/2_5_6_10/keys/6.pdf">
+                <h4>Ключи для проверки работ</h4>
+            </a>
+            <a class="list-item-link" download="Оценивание 6кл.pdf" href="/file/2_5_6_10/meas_6.pdf">
+                <h4>Система оценивания работы</h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3114']">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container">
+        <h3 class="list-header">6 класс (Метапредметная диагностическая работа)</h3>
+        <div>
+            <a class="list-item-link" download="КИМ_6кл.rar" href="/file/2_5_6_10/tasks/6мт.rar">
+                <h4>Метапредметная диагностическая работа</h4>
+            </a>
+            <!--<a class="list-item-link" download="Спецификации 6кл.pdf" href="/file/2_5_6_10/6_specs.pdf">
+                <h4>Спецификация диагностической работы</h4>
+            </a>-->
+            <a class="list-item-link" download="Ключи 6мт.rar" href="/file/2_5_6_10/keys/6мт.rar" *ngIf="setTimer(20, 15)">
+                <h4>Ключи для проверки работ</h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3116']" [queryParams]="{hasOptionNumber: 'true'}">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container" *ngIf="setTimer(19, 7, 30)">
+        <h3 class="list-header">10 класс</h3>
+        <div>
+            <a class="list-item-link" download="КИМ_10кл.rar" href="/file/2_5_6_10/tasks/10.rar">
+                <h4>Диагностическая работа по Русскому языку</h4>
+            </a>
+            <!--<a class="list-item-link" download="Спецификации 6кл.pdf" href="/file/2_5_6_10/6_specs.pdf">
+                <h4>Спецификация диагностической работы</h4>
+            </a>-->
+            <a class="list-item-link" download="Ключи 10кл.rar" *ngIf="setTimer(19, 15)" href="/file/2_5_6_10/keys/10.rar">
+                <h4>Ключи для проверки работ</h4>
+            </a>
+            <!--<a class="list-item-link" download="Оценивание 10кл.pdf" *ngIf="setTimer(19, 15)" href="/file/2_5_6_10/meas_10.pdf">
+                <h4>Система оценивания работы</h4>
+            </a>-->
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3115']" *ngIf="setTimer(19, 15)">
+                <h4>Протоколы проверки результатов</h4>
+            </a>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="projectId === 39">
+    <div class="list-container" *ngIf="false">
+        <h3 class="list-header">Списки участников</h3>
+        <div>
+            <a class="list-item-link" [routerLink]="['/particips2/list']" [queryParams]="{projectId: projectId, projectName: 'База данных учащихся 8го класса', classNumber: 8}">
+                <h4>8 класс</h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/particips2/list']" [queryParams]="{projectId: projectId, projectName: 'База данных учащихся 9го класса', classNumber: 9}">
+                <h4>9 класс</h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container">
+        <h3 class="list-header">Результаты</h3>
+        <a class="list-item-link" href="/file/functional/results/{{account.account.UserName}}.xlsx" download="Результаты ФГ.xlsx">
+            <h4>Скачать результаты</h4>
+        </a>
+    </div>
+
+    <div class="list-container" *ngIf="false">
+        <h3 class="list-header">Естественно-научная грамотность</h3>
+        <div>
+            <a class="list-item-link" href="/file/functional/tasks/eng_8.zip" download="8кл ЕНГ Работы.zip">
+                <h4><b>8 класс: Варианты работ</b></h4>
+            </a>
+            <a class="list-item-link" href="/file/functional/tasks/eng_9.zip" download="9кл ЕНГ Работы.zip"><h4><b>9 класс: Варианты работ</b></h4></a>
+
+            <a class="list-item-link" href="/file/functional/keys/eng_8.zip" download="8кл ЕНГ Ключи.zip" *ngIf="setTimer(3, 16)">
+                <h4><b>8 класс: Ключи для проверки работ</b></h4>
+            </a>
+            <a class="list-item-link" href="/file/functional/keys/eng_9.zip" download="9кл ЕНГ Ключи.zip" *ngIf="setTimer(3, 16)">
+                <h4><b>9 класс: Ключи для проверки работ</b></h4>
+            </a>
+
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3132']" [queryParams]="{hasOptionNumber: 'true'}" *ngIf="setTimer(3, 16)">
+                <h4><b>8 класс: Протокол проверки результатов</b></h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3133']" [queryParams]="{hasOptionNumber: 'true'}" *ngIf="setTimer(3, 16)">
+                <h4><b>9 класс: Протокол проверки результатов</b></h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container" *ngIf="false">
+        <h3 class="list-header">Читательская грамотность</h3>
+        <div>
+            <a class="list-item-link" href="/file/functional/tasks/chg_8.zip" download="8кл ЧГ Работы.zip">
+                <h4><b>8 класс: Варианты работ</b></h4>
+            </a>
+            <a class="list-item-link" href="/file/functional/tasks/chg_9.zip" download="9кл ЧГ Работы.zip"><h4><b>9 класс: Варианты работ</b></h4></a>
+
+            <a class="list-item-link" href="/file/functional/keys/chg_8.zip" download="8кл ЧГ Ключи.zip" *ngIf="setTimer(2, 16)">
+                <h4><b>8 класс: Ключи для проверки работ</b></h4>
+            </a>
+            <a class="list-item-link" href="/file/functional/keys/chg_9.zip" download="9кл ЧГ Ключи.zip" *ngIf="setTimer(2, 16)">
+                <h4><b>9 класс: Ключи для проверки работ</b></h4>
+            </a>
+
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3130']" [queryParams]="{hasOptionNumber: 'true'}" *ngIf="setTimer(2, 16)">
+                <h4><b>8 класс: Протокол проверки результатов</b></h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3131']" [queryParams]="{hasOptionNumber: 'true'}" *ngIf="setTimer(2, 16)">
+                <h4><b>9 класс: Протокол проверки результатов</b></h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="list-container" *ngIf="false">
+        <h3 class="list-header">Математическая грамотность</h3>
+        <div>
+            <a class="list-item-link" href="/file/functional/tasks/ma_8.zip" download="8кл МАТ Работы.zip">
+                <h4><b>8 класс: Варианты работ</b></h4>
+            </a>
+            <a class="list-item-link" href="/file/functional/tasks/ma_9.zip" download="9кл МАТ Работы.zip"><h4><b>9 класс: Варианты работ</b></h4></a>
+
+            <a class="list-item-link" href="/file/functional/keys/ma_8.zip" download="8кл МАТ Ключи.zip" *ngIf="true">
+                <h4><b>8 класс: Ключи для проверки работ</b></h4>
+            </a>
+            <a class="list-item-link" href="/file/functional/keys/ma_9.zip" download="9кл МАТ Ключи.zip" *ngIf="true">
+                <h4><b>9 класс: Ключи для проверки работ</b></h4>
+            </a>
+
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3127']" [queryParams]="{hasOptionNumber: 'true'}" *ngIf="true">
+                <h4><b>8 класс: Протокол проверки результатов</b></h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/particips/protocols/3129']" [queryParams]="{hasOptionNumber: 'true'}" *ngIf="true">
+                <h4><b>9 класс: Протокол проверки результатов</b></h4>
+            </a>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="projectId === 41">
+    <div class="list-container" *ngIf="true">
+        <h3 class="list-header">Списки участников</h3>
+        <div>
+            <a class="list-item-link" [routerLink]="['/particips2/list']" [queryParams]="{projectId: projectId, projectName: 'База данных учащихся 6го класса', classNumber: 6}">
+                <h4>6 класс</h4>
+            </a>
+            <a class="list-item-link" [routerLink]="['/particips2/list']" [queryParams]="{projectId: projectId, projectName: 'База данных учащихся 10го класса', classNumber: 10}">
+                <h4>10 класс</h4>
+            </a>
+        </div>
+    </div>
+</ng-container>

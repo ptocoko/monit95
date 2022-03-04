@@ -1,0 +1,79 @@
+﻿<h3>Протоколы проверки заданий</h3>
+<hr />
+<div [hidden]="isLoading || protocolsCount === 0">
+    <div>общее количество протоколов: {{protocolsCount}}</div>
+    <div>из них</div>
+    <div>обработано: {{processedProtocols()}}</div>
+    <div>не обработано: {{notProcessedProtocols()}}</div>
+
+    <div class="table-container mat-elevation-z8">
+        <div class="actions-container">
+            <mat-form-field class="filter-field">
+                <input matInput
+                       #filter
+                       (keyup)="applyFilter(filter.value)"
+                       placeholder="поиск..." />
+            </mat-form-field>
+        </div>
+
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="index">
+                <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+                <mat-cell *matCellDef="let protocol: let i = index">{{ i + 1 }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="FIO">
+                <mat-header-cell *matHeaderCellDef> фио </mat-header-cell>
+                <mat-cell *matCellDef="let protocol">{{ protocol.ParticipInfo }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="DocumNumber">
+                <mat-header-cell *matHeaderCellDef> номер документа </mat-header-cell>
+                <mat-cell *matCellDef="let protocol">{{ protocol.DocumNumber }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Marks">
+                <mat-header-cell *matHeaderCellDef> баллы по заданиям </mat-header-cell>
+                <mat-cell *matCellDef="let protocol">
+                    {{ protocol.QuestionMarks }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> действия </mat-header-cell>
+                <mat-cell *matCellDef="let protocol">
+                    <button mat-raised-button
+                            color="primary"
+                            (click)="changeMarks(protocol.ParticipTestId)"
+                            style="width:135.59px">
+                        <i class="glyphicon glyphicon-edit"></i> изменить
+                    </button>
+                    <button matTooltip="Указать, что участник отсутствовал"
+                            [matTooltipPosition]="'right'"
+                            [disabled]="protocol.QuestionMarks === AbsentText"
+                            mat-raised-button
+                            color="warn"
+                            (click)="markAsAbsent(protocol)">
+                        <i class="glyphicon glyphicon-header"></i> {{AbsentText}}
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row [ngClass]="{'red-row': !row.QuestionMarks}" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator
+                       [length]="protocolsCount"
+                       [pageSizeOptions]="['50', '100']">
+        </mat-paginator>
+    </div>
+</div>
+
+<div *ngIf="!isLoading && protocolsCount === 0" class="alert alert-info">
+    В базе не найдено ни одного участника. Пожалуйста, заполните список участников
+</div>
+
+<div *ngIf="isLoading">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>
+

@@ -1,0 +1,36 @@
+﻿.mat-column-index{
+    max-width: 50px;
+}
+
+.mat-column-DocumNumber{
+    max-width: 120px;
+}
+
+.mat-column-actions{
+    max-width: 295px;
+}
+
+.mat-column-Marks{
+    font-size: 9pt;
+}
+
+.search-field {
+    margin-top: 20px;
+}
+
+.table-container{
+    margin-top: 15px;
+}
+
+.red-row {
+    background-color: rgba(255,0,0,0.35)
+}
+
+.actions-container{
+    padding: 10px;
+}
+
+.filter-field{
+    width: 100%;
+    padding: 0 15px;
+}

@@ -1,0 +1,43 @@
+﻿:host {
+    margin: 10px 0;
+    display: flex;
+    -ms-align-content: flex-end;
+    -webkit-align-content: flex-end;
+    align-items: baseline;
+    flex-direction: row-reverse;
+}
+
+.page-navigator-arrow{
+    padding: 10px;
+    cursor: pointer;
+}
+
+#page-index{
+    /*padding: 0 10px;*/
+    border-bottom: 1px solid black;
+    text-align: center;
+    padding: 5px 10px;
+}
+
+#page-size{
+    width: 50px;
+}
+
+.page-navigator{
+    margin-left: 15px;
+}
+
+label{
+    font-weight: normal;
+    font-size: small;
+    margin-right: 5px;
+}
+
+.mat-select{
+    text-align: center;
+}
+
+.disabled{
+    opacity: 0.3;
+    cursor: default;
+}

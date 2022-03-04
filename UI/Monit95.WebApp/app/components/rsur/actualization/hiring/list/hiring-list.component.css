@@ -1,0 +1,48 @@
+﻿.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    margin-top: 40px;
+}
+
+.mat-table {
+    overflow: auto;
+    /*max-height: 700px;*/
+}
+
+.mat-column-Code{
+    max-width: 130px
+}
+
+.filter-field {
+    min-height: 64px;
+    padding: 8px 24px 0;
+    font-size: 14px;
+    flex: 1 1 auto;
+}
+
+.table-filters {
+    display: flex;
+    align-items: baseline;
+    padding: 0 15px;
+}
+
+
+.mat-checkbox-layout {
+    font-weight: normal;
+}
+
+.newItem {
+    background-color: #90ee9078;
+}
+
+
+.content-center {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}

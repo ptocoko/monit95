@@ -1,0 +1,87 @@
+﻿.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.mat-table {
+    overflow: auto;
+    /*max-height: 700px;*/
+}
+
+.mat-column-Code{
+    max-width: 110px
+}
+
+.mat-column-Surname{
+    max-width: 140px;
+}
+
+.mat-column-Name{
+    max-width: 120px;
+}
+
+.mat-column-SecondName{
+    max-width: 160px;
+}
+
+.mat-column-RsurSubjectName{
+    max-width: 130px;
+}
+
+.mat-column-FiringBtn{
+    max-width: 120px;
+    /*text-align: center;*/
+}
+
+.glyphicon-trash{
+    cursor:pointer;
+}
+
+.filter-field {
+    min-height: 64px;
+    padding: 8px 24px 0;
+    font-size: 14px;
+    flex: 1 1 auto;
+}
+
+.select-school-field {
+    flex: 0 1 auto;
+    width: 350px;
+}
+
+.table-filters {
+    display: flex;
+    align-items: baseline;
+    padding: 0 15px;
+}
+
+.slider-margin{
+    /*margin:10px;*/
+}
+
+.notActual {
+    background-color: lightgray;
+}
+
+.notActual > .mat-cell{
+    color: gray;
+}
+
+.mat-checkbox-layout {
+    font-weight: normal;
+}
+
+/*.table tr.red {
+    background-color: red;
+}
+
+.table tr.yellow {
+    background-color: yellow;
+}
+
+.table tr.active td {
+    background-color:#123456 !important;
+    color: white;
+}
+*/

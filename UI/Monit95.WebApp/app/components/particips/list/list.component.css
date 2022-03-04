@@ -1,0 +1,33 @@
+﻿.mat-column--id {
+    max-width: 60px;
+}
+
+.mat-column-upd-action, .mat-column-del-action {
+    max-width: 60px;
+    text-align: center;
+}
+
+.mat-column-DocumNumber {
+    max-width: 155px;
+}
+
+.mat-column-ClassName {
+    max-width: 100px;
+}
+
+.actions-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px;
+}
+
+.filter-field {
+    flex: 1 1 auto;
+    padding: 10px 15px;
+}
+
+h2 {
+    margin-bottom: 25px;
+}

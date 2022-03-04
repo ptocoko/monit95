@@ -1,0 +1,380 @@
+﻿<h2>Диагностика учебных достижений 1, 2 и 3 классы: главное меню</h2>
+
+<div class="list-container" *ngIf="(accountService.isSchool() || accountService.isArea()) && false">
+    <h3 class="list-header">Результаты</h3>
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><strong>Русский язык</strong></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <a class="list-item-link__disabled">
+            <!--<div>
+                <h4><b>Протоколы проверки заданий</b></h4>
+            </div>-->
+            <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="100"></ngb-progressbar></span>
+        </a>
+
+        <div class="list-container">
+            <h3 class="list-header">1 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/ру.zip" download="Протокол 1кл ру.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/ру.zip" download="Карты 1кл ру.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/РУ_1кл.xlsx" download="Ст-ка РУ 1кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+            </mat-expansion-panel>
+        </div>
+
+        <div class="list-container">
+            <h3 class="list-header">2 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/ру.zip" download="Протокол 2кл ру.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/ру.zip" download="Карты 2кл ру.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/РУ_2кл.xlsx" download="Ст-ка РУ 2кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+            </mat-expansion-panel>
+        </div>
+
+        <div class="list-container">
+            <h3 class="list-header">3 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/ру.zip" download="Протокол 3кл ру.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/ру.zip" download="Карты 3кл ру.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/РУ_3кл.xlsx" download="Ст-ка РУ 3кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+            </mat-expansion-panel>
+        </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><strong>Математика</strong></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <a class="list-item-link__disabled">
+            <!--<div>
+            <h4><b>Протоколы проверки заданий</b></h4>
+        </div>-->
+            <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="100"></ngb-progressbar></span>
+        </a>
+
+        <div class="list-container">
+            <h3 class="list-header">1 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/ма.zip" download="Протокол 1кл ма.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/ма.zip" download="Карты 1кл ма.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/МА_1кл.xlsx" download="Ст-ка МА 1кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+            </mat-expansion-panel>
+        </div>
+
+        <div class="list-container">
+            <h3 class="list-header">2 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/ма.zip" download="Протокол 2кл ма.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/ма.zip" download="Карты 2кл ма.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/МА_2кл.xlsx" download="Ст-ка МА 2кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+            </mat-expansion-panel>
+        </div>
+
+        <div class="list-container">
+            <h3 class="list-header">3 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/ма.zip" download="Протокол 3кл ма.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/ма.zip" download="Карты 3кл ма.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/МА_3кл.xlsx" download="Ст-ка МА 3кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+            </mat-expansion-panel>
+        </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="mat-elevation-z0">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4><strong>Чтение</strong></h4>
+            </mat-panel-title>
+            <mat-panel-description>
+                Кликните чтобы раскрыть
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <a class="list-item-link__disabled">
+            <!--<div>
+            <h4><b>Протоколы проверки заданий</b></h4>
+        </div>-->
+            <span class="progressbar-item"><ngb-progressbar [showValue]="true" type="info" [value]="100"></ngb-progressbar></span>
+        </a>
+
+        <div class="list-container">
+            <h3 class="list-header">1 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/1/чт.zip" download="Протокол 1кл чт.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/1/чт.zip" download="Карты 1кл чт.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/ЧТ_1кл.xlsx" download="Ст-ка ЧТ 1кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+            </mat-expansion-panel>
+        </div>
+
+        <div class="list-container">
+            <h3 class="list-header">2 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/2/чт.zip" download="Протокол 2кл чт.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/2/чт.zip" download="Карты 2кл чт.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/ЧТ_2кл.xlsx" download="Ст-ка ЧТ 2кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+
+            </mat-expansion-panel>
+        </div>
+
+        <div class="list-container">
+            <h3 class="list-header">3 класс</h3>
+            <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4><strong></strong></h4>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Кликните чтобы раскрыть
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a class="list-item-link" href="/file/1-3/2020/отчеты/{{accountService.account.UserName}}/3/чт.zip" download="Протокол 3кл чт.zip" *ngIf="accountService.isSchool()"><h4>Результаты диагностической работы</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/карты/{{accountService.account.UserName}}/3/чт.zip" download="Карты 3кл чт.zip" *ngIf="accountService.isSchool()"><h4>Индивидуальные результаты обучающихся</h4></a>
+                <a class="list-item-link" href="/file/1-3/2020/areas/ЧТ_3кл.xlsx" download="Ст-ка ЧТ 3кл.xlsx" *ngIf="accountService.isArea()"><h4>Результаты диагностической работы по муниципальным образованиям в Чеченской Республике</h4></a>
+            </mat-expansion-panel>
+        </div>
+
+    </mat-expansion-panel>
+</div>
+
+<div class="list-container" *ngIf="false">
+    <h3 class="list-header">Участники</h3>
+    <div>
+        <a class="list-item-link" routerLink="/one-two-three/particips/list">
+            <h4>Список участников</h4>
+        </a>
+    </div>
+</div>
+
+<!-- <div class="list-container" *ngIf="true"> -->
+<!-- <h3 class="list-header">Русский язык</h3> -->
+<!-- <div> -->
+<!-- <!--<a class="list-item-link" href="/file/1-3/tasks/РУ-1.rar" download="Русский язык 1кл: Варианты работ.rar"> -->
+<!-- <h4>1 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/tasks/РУ-2.rar" download="Русский язык 2кл: Варианты работ.rar"> -->
+<!-- <h4>2 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/tasks/РУ-3.rar" download="Русский язык 3кл: Варианты работ.rar"> -->
+<!-- <h4>3 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/РУ-1.rar" download="Русский язык 1кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">1 класс: Ключи для проверки работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/РУ-2.rar" download="Русский язык 2кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">2 класс: Ключи для проверки работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/РУ-3.rar" download="Русский язык 3кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">3 класс: Ключи для проверки работ</h4> -->
+<!-- </a>-->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3092"> -->
+<!-- <h4 style="font-weight:bold">1 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3095"> -->
+<!-- <h4 style="font-weight:bold">2 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3098"> -->
+<!-- <h4 style="font-weight:bold">3 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- <div class="list-container" *ngIf="true"> -->
+<!-- <h3 class="list-header">Математика</h3> -->
+<!-- <div> -->
+<!-- <!--<a class="list-item-link" href="/file/1-3/tasks/MA-1.rar" download="Математика 1кл: Варианты работ.rar"> -->
+<!-- <h4>1 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/tasks/MA-2.rar" download="Математика 2кл: Варианты работ.rar"> -->
+<!-- <h4>2 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/tasks/MA-3.rar" download="Математика 3кл: Варианты работ.rar"> -->
+<!-- <h4>3 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/MA-1.rar" download="Математика 1кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">1 класс: Ключи для проверки работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/MA-2.rar" download="Математика 2кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">2 класс: Ключи для проверки работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/MA-3.rar" download="Математика 3кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">3 класс: Ключи для проверки работ</h4> -->
+<!-- </a>-->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3093"> -->
+<!-- <h4 style="font-weight:bold">1 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3096"> -->
+<!-- <h4 style="font-weight:bold">2 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3099"> -->
+<!-- <h4 style="font-weight:bold">3 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- <div class="list-container" *ngIf="true"> -->
+<!-- <h3 class="list-header">Чтение</h3> -->
+<!-- <div> -->
+<!-- <!--<a class="list-item-link" href="/file/1-3/tasks/ЧТ-1.rar" download="Чтение 1кл: Варианты работ.rar"> -->
+<!-- <h4>1 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/tasks/ЧТ-2.rar" download="Чтение 2кл: Варианты работ.rar"> -->
+<!-- <h4>2 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/tasks/ЧТ-3.rar" download="Чтение 3кл: Варианты работ.rar"> -->
+<!-- <h4>3 класс: Варианты работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/ЧТ-1.rar" download="Чтение 1кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">1 класс: Ключи для проверки работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/ЧТ-2.rar" download="Чтение 2кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">2 класс: Ключи для проверки работ</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/keys/ЧТ-3.rar" download="Чтение 3кл: Ключи для проверки работ.rar"> -->
+<!-- <h4 style="font-weight:bold">3 класс: Ключи для проверки работ</h4> -->
+<!-- </a>-->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3094"> -->
+<!-- <h4 style="font-weight:bold">1 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3097"> -->
+<!-- <h4 style="font-weight:bold">2 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" routerLink="/one-two-three/protocols/3100"> -->
+<!-- <h4 style="font-weight:bold">3 класс: Протоколы проверки заданий</h4> -->
+<!-- </a> -->
+<!-- </div> -->
+<!-- </div> -->
+
+<div class="list-container" *ngIf="false">
+    <h3 class="list-header">Использование результатов оценочных процедур</h3>
+    <div>
+        <a class="list-item-link" href="/file/1-3/all/исп-е_рез-в.ppt" download="использование результатов диагностики 1-3 кл.ppt">
+            <h4>Использование результатов диагностики учебных достижений в 1, 2 и 3 классах</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/all/оценка_уровня.pptx" download="оценка уровня предметных достижений 1-3 кл.pptx">
+            <h4>Мониторинговое исследование «Оценка уровня предметных достижений обучающихся 1, 2 и 3 классов»</h4>
+        </a>
+    </div>
+</div>
+
+<!-- <div class="list-container" *ngIf="timeIsCome"> -->
+<!-- <h3 class="list-header">Работы</h3> -->
+<!-- <div> -->
+<!-- <a class="list-item-link" href="/file/1-3/2020/работы/1.rar" download="Работы 1 класс.rar"> -->
+<!-- <h4 style="font-weight:bold">1 класс</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/2020/работы/2.rar" download="Работы 2 класс.rar"> -->
+<!-- <h4 style="font-weight:bold">2 класс</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/2020/работы/3.rar" download="Работы 3 класс.rar"> -->
+<!-- <h4 style="font-weight:bold">3 класс</h4> -->
+<!-- </a> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- <div class="list-container" *ngIf="timeIsCome"> -->
+<!-- <h3 class="list-header">Критерии оценивания</h3> -->
+<!-- <div> -->
+<!-- <a class="list-item-link" href="/file/1-3/2020/критерии/1.rar" download="Критерии 1 класс.rar"> -->
+<!-- <h4 style="font-weight:bold">1 класс</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/2020/критерии/2.rar" download="Критерии 2 класс.rar"> -->
+<!-- <h4 style="font-weight:bold">2 класс</h4> -->
+<!-- </a> -->
+<!-- <a class="list-item-link" href="/file/1-3/2020/критерии/3.rar" download="Критерии 3 класс.rar"> -->
+<!-- <h4 style="font-weight:bold">3 класс</h4> -->
+<!-- </a> -->
+<!-- </div> -->
+<!-- </div> -->
+
+<div class="list-container">
+    <h3 class="list-header">Методический материал</h3>
+    <div>
+        <a class="list-item-link" href="/file/1-3/all/material_2.zip" download="материалы.zip" *ngIf="false">
+            <h4 style="font-weight:bold">Спецификации и рекомендации по проведению диагностических занятий</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/all/приказ.pdf" download="Приказ.pdf" *ngIf="false">
+            <h4 style="font-weight:bold">Приказ МОиН ЧР о проведении диагностики учебных достижений обучающихся 1-3 классов</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/2020/регламент.docx" download="регламент.docx">
+            <h4 style="font-weight:bold">Регламент проведения диагностики</h4>
+        </a>
+        <a class="list-item-link" href="/file/1-3/2020/инструкция.pdf" download="Инструкция для родителей.pdf">
+            <h4 style="font-weight:bold">Инструкция для родителей</h4>
+        </a>
+    </div>
+</div>

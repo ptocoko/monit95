@@ -1,0 +1,56 @@
+﻿.report-card {
+    width: 1200px;
+}
+
+.section-head {
+    background-color: cornflowerblue;
+    text-align: center;
+    height: 50px;
+    vertical-align: middle;
+    color: white;
+}
+
+.myhead {
+    text-align: center;
+    text-transform: uppercase;
+    background-color: rgb(22,54,92);
+    color: white;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.card-caption {
+    font-family: 'Times New Roman', Times, serif;
+    padding: 0 20px;
+}
+
+.cell-center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.report-table {
+    width: 1160px;
+    border: 1px solid black;
+    margin: 25px 0;
+}
+
+.report-table td {
+    padding: 7px;
+}
+
+.particip-info div {
+    clear: both;
+    margin: 15px 0;
+}
+
+.risk-group-cell{
+    background-color: red;
+    color: white;
+    text-transform: uppercase;
+
+}
+
+.w-15{
+    width: 15%;
+}

@@ -1,0 +1,8 @@
+﻿@model Monit95App.Services.DTOs.SchoolDto
+
+<head>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css") <!--подключает необходимые стили в том числе bootstrap-->
+</head>
+<h2>Информация об образовательной организации</h2>
+@{ Html.RenderPartial("~/Views/Shared/_Schoolinfo.cshtml", Model); }

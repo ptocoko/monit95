@@ -1,0 +1,39 @@
+﻿label{
+    width: 160px;
+}
+
+form{
+    margin: 15px 0;
+}
+
+.control-wrapper+.control-wrapper{
+    margin-top: 10px;
+}
+
+.form-control{
+    display: inline;
+    width: 50px;
+}
+
+.alert{
+    margin-bottom: 0;
+    min-width: 235px;
+    width: max-content;
+}
+
+label {
+    width: 160px;
+    text-align: right;
+}
+
+.level-2 > label {
+    width: 220px;
+}
+
+.row-inputs {
+    display: inline-flex;
+}
+
+.row-inputs > input {
+    margin-right: 55px;
+}

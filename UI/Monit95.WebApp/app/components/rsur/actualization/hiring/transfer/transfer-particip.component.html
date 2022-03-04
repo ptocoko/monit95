@@ -1,0 +1,53 @@
+﻿<div class="fields">
+    <mat-form-field class="search-field">
+        <input matInput type="text" #searchField [(ngModel)]="searchText" placeholder="код участника или фио"/>
+    </mat-form-field>
+
+    <mat-form-field class="area-select">
+        <mat-select placeholder="район" [(ngModel)]="areaCode" (selectionChange)="areaSelected($event.value)">
+            <mat-option>Все районы</mat-option>
+            <mat-option *ngFor="let area of areas" [value]="area.Code">{{ area.Name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="school-select">
+        <mat-select placeholder="школа" [(ngModel)]="schoolId" (selectionChange)="schoolSelected()" [disabled]="schools.length < 1">
+            <mat-option>Все школы</mat-option>
+            <mat-option *ngFor="let school of schools" [value]="school.Id">{{ school.Name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div class="results" [hidden]="!particips">
+    <div class="particip-card mat-elevation-z4" *ngFor="let particip of particips">
+        <div class="card-wrapper">
+            <div class="particip-info">
+                <h4>{{ particip.Code }} - {{ particip.SchoolParticipInfo.Surname }} {{ particip.SchoolParticipInfo.Name }} {{ particip.SchoolParticipInfo.SecondName }}</h4>
+                <div><span class="text-muted">Предмет:</span> {{ particip.RsurSubjectName }}</div>
+                <div><span class="text-muted">Предыдущая школа:</span> {{ particip.SchoolParticipInfo.SchoolName }}</div>
+                <div class="block-name">
+                    <span class="text-muted">Последняя диагностика:</span>
+                    <span style="color:red" *ngIf="particip.LastBlockStatus === 0">{{ particip.LastBlockName }} (не сдана)</span>
+                    <span style="color:green" *ngIf="particip.LastBlockStatus === 1">{{ particip.LastBlockName }} (сдана)</span>
+                    <span style="color:orange" *ngIf="particip.LastBlockStatus === 2">(не участвовал(-а) в диагностиках РСУР)</span>
+                </div>
+            </div>
+            <button *ngIf="particip.ActualCode === 0 || particip.ActualCode === 2" 
+                    mat-raised-button 
+                    color="primary"
+                    (click)="hire(particip)">
+                + добавить
+            </button>
+            <button *ngIf="particip.ActualCode === 3" 
+                    mat-raised-button 
+                    color="warn"
+                    (click)="cancelHiring(particip)">
+                - отменить добавление
+            </button>
+        </div>
+    </div>
+
+    <app-table-paginator [(pageIndex)]="pageIndex" [length]="totalItems" [(pageSize)]="pageSize"></app-table-paginator>
+</div>
+
+<spinner-view *ngIf="isLoading"></spinner-view>

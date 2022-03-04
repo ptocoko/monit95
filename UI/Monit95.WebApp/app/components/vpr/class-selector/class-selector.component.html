@@ -1,0 +1,31 @@
+﻿<div class="toggle-group" *ngIf="classes">
+    <mat-button-toggle-group (change)="selectClass($event.value)">
+        <mat-button-toggle *ngFor="let cl of classes" [value]="cl">
+            {{classesMap[cl]}}
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+
+<div class="toggle-group" *ngIf="selectedClass && subjects">
+    <mat-button-toggle-group (change)="selectSubject($event.value)">
+        <mat-button-toggle *ngFor="let sub of subjects" [value]="sub">
+            {{subjectsMap[sub]}}
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+
+<div class="toggle-group">
+    <mat-button-toggle-group (change)="selectArea($event.value)" [vertical]="true" *ngIf="selectedSubject && areas">
+        <mat-button-toggle *ngFor="let area of areas" [value]="area.Code">
+            {{area.Name}}
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-button-toggle-group (change)="selectSchool($event.value)" [vertical]="true" *ngIf="selectedArea && schools" style="margin-left: 20px">
+        <mat-button-toggle *ngFor="let school of schools" [value]="school.Id">
+            {{school.Name}}
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+
+<spinner-view *ngIf="isLoading || isLoadingFromOuter"></spinner-view>

@@ -1,0 +1,38 @@
+﻿<div class="upload-area alert" [ngClass]="{'alert-info': uploadStatus !== 'uploaded', 'alert-success': uploadStatus === 'uploaded' }">
+    <span>
+        <b>{{caption}}</b>
+    </span>
+
+    <span *ngIf="uploadStatus === 'uploading'">
+        Отправляется...
+    </span>
+
+    <span *ngIf="uploadStatus === 'uploaded'">
+        Отправлено!
+        <a *ngIf="downloadHref"
+           href="{{downloadHref}}/{{fileNamePrefix}}_{{accountService.account.UserName}}.{{downloadExt}}"
+           download="отчет.xlsx">
+            Скачать отчет
+        </a>
+        <button *ngIf="uploadedFileId"
+                type="button"
+                mat-raised-button
+                color="warn"
+                (click)="cancelUploaded()">
+            Отмена
+        </button>
+    </span>
+
+    <span class="upload-btn-wrapper" *ngIf="uploadStatus === 'waiting'">
+        <input type="file"
+               #selectedFotos
+               (change)="uploadXlsx($event)"
+               accept=".xlsx" />
+        <button type="button"
+                mat-raised-button
+                color="primary"
+                (click)="selectedFotos.click()">
+            Выбрать файл...
+        </button>
+    </span>
+</div>

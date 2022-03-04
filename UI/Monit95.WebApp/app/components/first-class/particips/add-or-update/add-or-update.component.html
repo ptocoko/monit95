@@ -1,0 +1,81 @@
+﻿<h2 *ngIf="isUpdate">Редактировать участника</h2>
+<h2 *ngIf="!isUpdate">Добавить участника</h2>
+
+<div>
+    <form [formGroup]="participForm" (ngSubmit)="submitForm()">
+        <mat-form-field>
+            <input #surnameInput matInput placeholder="фамилия" formControlName="surname" />
+            <mat-error *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+                <div *ngIf="surname.errors.required">введите фамилию</div>
+                <div *ngIf="surname.errors.minlength">фамилия должна содержать хотя бы 3 символа</div>
+                <div *ngIf="surname.errors.maxlength">фамилия должна содержать максимум 25 символов</div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="имя" formControlName="name" />
+            <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+                <div *ngIf="name.errors.required">введите имя</div>
+                <div *ngIf="name.errors.minlength">имя должно содержать хотя бы 2 символа</div>
+                <div *ngIf="name.errors.maxlength">имя должно содержать максимум 25 символов</div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="отчество" formControlName="secondName" />
+            <mat-error *ngIf="secondName.invalid && (secondName.dirty || secondName.touched)">
+                <div *ngIf="secondName.errors.maxlength">отчество должно содержать максимум 25 символов</div>
+            </mat-error>
+        </mat-form-field>
+
+        <div class="birthday-wrapper" formGroupName="birthday">
+            <mat-form-field class="birthday-day">
+                <mat-select placeholder="день" formControlName="day">
+                    <mat-option *ngFor="let day of monthDays" [value]="day">{{ day }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="birthday.day.invalid && (birthday.day.dirty || birthday.day.touched)">
+                    <div *ngIf="birthday.day.errors.required">выберите день</div>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="birthday-month">
+                <mat-select placeholder="месяц" formControlName="month">
+                    <mat-option *ngFor="let month of months" [value]="month.index">{{ month.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="birthday.month.invalid && (birthday.month.dirty || birthday.month.touched)">
+                    <div *ngIf="birthday.month.errors.required">выберите месяц</div>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="birthday-year">
+                <mat-select placeholder="год" formControlName="year">
+                    <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="birthday.year.invalid && (birthday.year.dirty || birthday.year.touched)">
+                    <div *ngIf="birthday.year.errors.required">выберите год</div>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="class-select">
+            <mat-select placeholder="класс" formControlName="classId" (selectionChange)="classChanged()">
+                <mat-option *ngFor="let class of classes" [value]="class.Id">{{ class.Name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="classId.invalid && (classId.dirty || classId.touched)">
+                <div *ngIf="classId.errors.required">выберите класс</div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-checkbox color="primary" formControlName="wasDoo">Ходил(-а) в дошкольное образовательное учреждение</mat-checkbox>
+
+        <p class="alert alert-danger" *ngIf="participForm.pristine && formIsPristine">изменений не обнаружено!</p>
+
+        <div class="form-buttons">
+            <button mat-raised-button color="primary" type="submit">отправить</button>
+            <button mat-raised-button color="warn" type="button" (click)="cancel()">отменить</button>
+            <button mat-raised-button *ngIf="!isUpdate" type="button" (click)="addNext()">сохранить и добавить еще</button>
+        </div>
+    </form>
+</div>
+
+<spinner-view *ngIf="isLoading" [caption]="'загрузка...'"></spinner-view>

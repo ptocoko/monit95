@@ -1,0 +1,52 @@
+﻿<form *ngIf="questionResults" #marksForm="ngForm">
+
+    <div class="form-inline option-number-wrapper" style="margin-bottom:5px" *ngIf="hasOptionNumber">
+        <label class="optionLabel">
+            № Варианта
+        </label>
+        <input class="markInput optionInput" 
+                (input)="onOptionNumberChange($event)" 
+                name="optionNumberField" 
+                #optionNumberField="ngModel" 
+                [(ngModel)]="optionNumber"
+               required/>
+    </div>
+
+    <div *ngFor="let question of questionResults; let i = index; let odd = odd" 
+         class="form-inline" 
+         [style.backgroundColor]="odd ? '#eee' : 'white'">
+
+        <label class="markLabel">
+            {{question.Name}}
+        </label>
+        <input class="markInput" 
+               (input)="markChange($event, question.MaxMark)" 
+               [(ngModel)]="question.CurrentMark" 
+               #mark{{i}}="ngModel" 
+               name="mark{{i}}"
+               id="mark{{i}}"
+               required />
+
+        <div class="max-mark-wrapper mat-elevation-z2" *ngIf="showPossibleMarks && isFocused('mark' + i.toString())">
+             Максимальный балл за задание: <span class="max-question-mark">{{ question.MaxMark }}</span>
+        </div>
+    </div>
+    <br />
+    <p>
+        <button id="submitBtn" 
+                type="submit" 
+                (click)="send()" 
+                mat-raised-button 
+                color="primary" 
+                [disabled]="marksForm.invalid || marksForm.pristine || marksSending">
+            Сохранить
+        </button>
+
+        <button type="button" 
+                mat-raised-button 
+                color="warn" 
+                (click)="cancel()">
+            Отмена
+        </button>
+    </p>
+</form>

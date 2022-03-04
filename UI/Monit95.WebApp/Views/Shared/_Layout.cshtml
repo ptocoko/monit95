@@ -1,0 +1,159 @@
+﻿@{ 
+    var badSchools = new string[] { "0000", "0025", "0028", "0141", "0160", "0208", "0235", "0241", "0242", "0299", "0307", "0311", "0319", "0323", "0330", "0339", "0358", "0363", "0364", "0369", "0370", "0380", "0381", "0382", "0389", "0398", "0411", "0413", "0416", "0419", "0427", "0431", "0437", "0445", "0451", "0456" };
+    var badSchools2 = new string[] { "0395", "0228", "0297", "0068", "0352" };
+    var badSchools3 = new string[] { "0012", "0311", "0381", "0451", "0389", "0427", "0419", "0363", "0358", "0339", "0235", "0299", "0068", "0431", "0028", "0303", "0208", "0421", "0319", "0015", "0413", "0160", "0078", "0436", "0307", "0445", "0370", "0328", "0313", "0380", "0364", "0395", "0330", "0401", "0141", "0241", "0456", "0352", "0323", "0398", "0411", "0437", "0025", "0362", "0242" };
+    var schools4 = new string[] { "0352", "0240", "0438", "0164", "0435", "0152", "0420", "0416", "0382", "0409", "0362", "0223", "0160", "0369", "0427", "0347", "0553", "0558", "0555", "0380", "0421", "0195", "0204", "0293", "0175", "0395", "0191", "0237", "0398", "0171", "0145", "0247", "0437", "0389", "0350", "0228", "0229", "0150", "0213", "0269", "0297", "0440", "0436", "0422", "0373", "0411", "0133", "0067", "0016", "0134", "0068", "0462", "0070", "0045", "0467", "0043", "0129", "0019", "0469", "0132", "0081", "0012", "0059", "0015", "0263", "0141", "0058", "0271", "0299", "0419", "0341", "0311", "0322", "0192", "0219", "0348", "0156", "0264", "0144", "0241", "0385", "0455", "0025", "0062", "0078", "0456", "0026", "0028", "0202", "0307", "0319", "0327", "0190", "0288", "0200", "0339", "0328" };
+    var kpkSchools = new string[] { "0296", "0151", "0162", "0274", "0280", "0438", "0347", "0152", "0215", "0160", "0223", "0382", "0416", "0427", "0345", "0375", "0377", "0412", "0415", "0190", "0254", "0259", "0327", "0195", "0400", "0401", "0404", "0174", "0171", "0279", "0213", "0269", "0367", "0276", "0167", "0413", "0247", "0437", "0357", "0153", "0376", "0169", "0231", "0411", "0349", "0440", "0441", "0135", "0252", "0390", "0436", "0011", "0012", "0015", "0020", "0044", "0045", "0046", "0059", "0067", "0070", "0081", "0126", "0133", "0452", "0467", "0148", "0271", "0310", "0250", "0275", "0025", "0029", "0072", "0028", "0074", "0458", "0348", "0057", "0170", "0143", "0206", "0341", "0249", "0092", "0123", "0064", "0109", "0480", "0544", "0596", "0594", "0610", "0560", "0554", "0557", "0558", "0562", "0563", "0581", "0613", "0587", "0173" };
+    var teachersCertSchools = new string[] { "0010", "0030", "0047", "0051", "0052", "0054", "0056", "0138", "0190", "0193", "0194", "0197", "0198", "0199", "0200", "0201", "0253", "0254", "0255", "0256", "0257", "0258", "0259", "0260", "0286", "0287", "0288", "0289", "0290", "0291", "0302", "0303", "0304", "0305", "0306", "0308", "0314", "0315", "0316", "0317", "0318", "0320", "0324", "0325", "0326", "0327", "0328", "0329", "0330", "0331", "0335", "0339", "0343", "0345", "0447", "0563" };
+    var achhoySchools = new string[] { "0031", "0104", "0107", "0111", "0115", "0149", "0151", "0162", "0164", "0178", "0186", "0212", "0214", "0225", "0226", "0240", "0249", "0268", "0274", "0280", "0296", "0300", "0312", "0323", "0334", "0338", "0342", "0364", "0379", "0392", "0417", "0425", "0438", "0470", "0526", "0554", "0560" };
+    var newDiagnosticSchools = new[] { "0000", "0319", "0149", "0152", "0051", "0147", "0053", "0277", "0278", "0135", "0015", "0141", "0142", "0465", "0463" };
+    var kurchaloySchools = new[] { "0000", "0036", "0103", "0117", "0145", "0150", "0155", "0166", "0167", "0183", "0184", "0208", "0213", "0218", "0228", "0229", "0246", "0247", "0269", "0276", "0277", "0283", "0297", "0350", "0351", "0354", "0366", "0367", "0378", "0389", "0400", "0413", "0428", "0433", "0437", "0498", "0543", "0544", "0545", "0562", "0579", "0583", "0612", "0617", "0625", "0626" };
+    var functionalSchools = new[] { "0000", "0520", "0228", "0208", "0041", "0345", "0642", "0054", "0056", "0398", "0362", "0583", "0566", "0074", "0075", "0625", "0010", "0519", "0107", "0065", "0112", "0160", "0162", "0164", "0178", "0182", "0186", "0199", "0563", "0214", "0224", "0244", "0249", "0202", "0254", "0256", "0260", "0280", "0049", "0261", "0289", "0290", "0302", "0305", "0307", "0312", "0308", "0315", "0318", "0319", "0325", "0327", "0329", "0356", "0029", "0363", "0365", "0375", "0393", "0412", "0417", "0421", "0426", "0432", "0435", "0371", "0561", "0449", "0181", "0460", "0430", "0464", "0466", "0408", "0013", "0016", "0021", "0024", "0027", "0042", "0045", "0048", "0069", "0080", "0088", "0116", "0123", "0127", "0132", "0141", "0150", "0353", "0153", "0156", "0165", "0167", "0169", "0179", "0187", "0191", "0196", "0203", "0204", "0205", "0213", "0217", "0219", "0221", "0229", "0230", "0231", "0233", "0235", "0237", "0241", "0267", "0269", "0271", "0281", "0283", "0294", "0295", "0321", "0332", "0340", "0341", "0351", "0357", "0361", "0366", "0381", "0400", "0401", "0405", "0411", "0419", "0436", "0440", "0441", "0446", "0450", "0453", "0457", "0467", "0469", "0558", "0560" };
+    var sernovodskSchools = new[] { "0032", "0097", "0179", "0188", "0242", "0251", "0281", "0284", "0301", "0352", "0473", "0510", "0511" };
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title – Monit95</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/jqueryui")*@
+    @*@Scripts.Render("~/bundles/ajax")*@
+
+    @Styles.Render("~/Content/css")
+    @*<link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />*@
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Главная", "Index", "Home", null, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    @if (User.Identity.IsAuthenticated && !User.IsInRole("coko-director"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Проекты
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @*<li>@Html.ActionLink(@"РСУР", "Spa", "Rsur")</li>*@
+                                @*<li><a href="/rsur/spa#particips">«Я сдам ЕГЭ!»</a></li>*@
+                                @if (User.IsInRole("school"))
+                                {
+                                    <li><a href="/rsur/spa#first-class">1 классы</a></li>
+                                    @*<li><a href="/rsur/spa#particips/oge">«Я сдам ОГЭ!»</a></li>*@
+                                    @*<li><a href="/rsur/spa#particips/society">«Я сдам Обществознание!»</a></li>*@
+                                    <li><a href="/rsur/spa#vpr/home">ВПР</a></li>
+                                    <li><a href="/rsur/spa#particips">«Я сдам ЕГЭ!»</a></li>
+                                }
+                                @if (User.Identity.Name == "0000")
+                                {
+                                    <li><a href="/rsur/spa#schools-profile/2">Сбор данных</a></li>
+                                }
+                                @if (newDiagnosticSchools.Contains(User.Identity.Name))
+                                {
+                                    @*<li><a href="/rsur/spa#particips2/home">Диагностика 2, 5, 6 и 10 классов</a></li>*@
+                                }
+                                @if (kurchaloySchools.Contains(User.Identity.Name) || sernovodskSchools.Contains(User.Identity.Name))
+                                {
+                                    @*<li><a href="/rsur/spa#particips2/home?projectId=36&projectName=Диагностика во 2-х классах">Диагностика во 2-х классах (Курчалоевский район)</a></li>*@
+
+                                }
+                                @*@if (User.IsInRole("school") || User.IsInRole("area"))
+        {
+            <li><a href="/rsur/spa#one-two-three">1-3 классы</a></li>
+        }*@
+                                @*@if (schools4.Contains(User.Identity.Name))
+        {
+            <li><a href="/rsur/spa#two-three-2/home">2-3 классы</a></li>
+        }*@
+                                @*@if (User.IsInRole("grozny-school"))
+        {
+        }*@
+                                @*@if (schools4.Contains(User.Identity.Name.Trim()))
+        {
+            <li><a href="/rsur/spa#9-11_classes/home">9-е и 11-е классы</a></li>
+        }*@
+                            </ul>
+                        </li>
+                    }
+                    @*@if (User.IsInRole("coko"))
+        {
+            <li>@Html.ActionLink(@"Школы", "Schools", "Home", new { @style = "background:NavajoWhite; color:black;" })</li>
+            <li>@Html.ActionLink(@"Коррекции", "Corrections", "Home")</li>
+        }*@
+
+                    @if (functionalSchools.Contains(User.Identity.Name))
+                    {
+                        <li><a href="/rsur/spa#particips2/home?projectId=39">Функциональная грамотность</a></li>
+                    }
+                    @if (User.IsInRole("school"))
+                    {
+                        @*<li><a href="/rsur/spa#particips2/home?projectId=39&projectName=База данных учащихся 8-9 классов">База данных учащихся 8-9 классов</a></li>*@
+                        <li>@*<a href="/rsur/spa#schools-profile/2">Анкета общеобразовательной организации</a>*@</li>
+                        @*<li>@Html.ActionLink(@"Информация", "Schoolinfo", "Home")</li>*@
+                        @*<li>@Html.ActionLink("Файлы", "Report", "Report")</li>*@
+                        <li><a href="/rsur/spa#school-files">Файлы</a></li>
+                        @*<li><a href="/rsur/spa#schools-profile/1">Сбор данных</a></li>*@
+                        @*if (achhoySchools.Contains(User.Identity.Name))
+            {
+
+                <li><a href="/vectorOfRise">Проект "Вектор роста"</a></li>
+            }*@
+                    }
+                    @if (User.IsInRole("area"))
+                    {
+                        <li><a href="http://monit95.ru/ege">«Я сдам ЕГЭ!»</a></li>
+                    }
+                    @*@if (kpkSchools.Contains(User.Identity.Name))
+        {
+            <li><a href="/rsur/spa#kpk/home">КПК: Объективность</a></li>
+        }*@
+                    @if (teachersCertSchools.Contains(User.Identity.Name))
+                    {
+                        <li><a href="/rsur/spa#teachers-cert/home">Аттестация учителей</a></li>
+                    }
+                    <li>@Html.ActionLink("О сайте", "About", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @*<li>@Html.ActionLink(@"Пожелания", "Index", "Wishes")</li>*@
+                    }
+                    @if (User.IsInRole("coko-director"))
+                    {
+                        <li><a href="/rsur/spa#vpr/stats">Впр: Статистика</a></li>
+                    }
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+        <footer>
+            <p>Логин: @User.Identity.Name</p>
+            <p>&copy; 2015-@DateTime.Now.Year, Monit95App v1.1.0</p>
+        </footer>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

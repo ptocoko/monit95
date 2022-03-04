@@ -1,0 +1,27 @@
+﻿<h2>РСУР: Рейтинги</h2>
+<hr />
+<div *ngIf="isLoading"><img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" /></div>
+<div *ngIf="!isLoading && ratings.length > 0">
+    <div class="form-inline">
+        <select class="form-control" [(ngModel)]="selectedSubject">            
+            <option>Русский язык</option>
+            <option>Математика</option>
+            <option>История</option>            
+        </select>                
+    </div>
+    <br />
+    <table class="table table-striped table-bordered table-hover">
+        <tr>
+            <th width="60px">место</th>
+            <th style="text-align:center">организация</th>
+            <th style="text-align:center">доля, получивших зачет по второму блоку</th>
+            <th style="text-align:center">доля, получивших зачет по первому блоку</th>
+        </tr>
+        <tr *ngFor="let item of ratings | subjectFilter : selectedSubject | orderBy : 'Place'; let i = index">            
+            <td style="text-align:center">{{item.Place}}</td>
+            <td>{{item.SchoolName}}</td>
+            <td style="text-align:center">{{item.PercentPassSecondTest}}</td>  
+            <td style="text-align:center">{{item.PercentPassFirstTest}}</td>                      
+        </tr>
+    </table>
+</div>

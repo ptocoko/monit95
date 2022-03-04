@@ -1,0 +1,24 @@
+﻿.upload-area {
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+input[type=file] {
+    display: none;
+}
+
+.alert {
+    margin-bottom: 0;
+}
+
+:host{
+    display: block;
+}
+
+.cancel-btn {
+    margin-left: 15px;
+}

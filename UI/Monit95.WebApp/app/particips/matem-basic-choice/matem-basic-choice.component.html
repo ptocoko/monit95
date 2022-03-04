@@ -1,0 +1,10 @@
+﻿<h2>«Я сдам ЕГЭ!»: список участников</h2>
+<p *ngIf="!particips" style="position:absolute; top:50%; left:50%">
+    <mat-spinner></mat-spinner>
+</p>
+
+<table-list [particips]="particips"
+            *ngIf="particips"
+            [collectorId]="120"
+            [editable]="false"
+            [matemChoice]="true"></table-list>

@@ -1,0 +1,24 @@
+﻿<div class="page-navigator">
+    <label for="page-index">текущая страница: </label>
+    <span id="page-index">
+        {{ pageIndex + 1 }}
+    </span>
+    <span class="page-navigator-arrow"
+          (click)="toPrev()"
+          matTooltip="предыдущая страница"
+          [ngClass]="{'disabled': pageIndex === 0}">
+        <i class="fa fa-chevron-left"></i>
+    </span>
+    <span class="page-navigator-arrow"
+          (click)="toNext()"
+          matTooltip="следующая страница"
+          [ngClass]="{'disabled': pageIndex === maxPageIndex }">
+        <i class="fa fa-chevron-right"></i>
+    </span>
+</div>
+<mat-form-field id="page-size">
+    <mat-select [(ngModel)]="pageSize" (selectionChange)="sizeChange()">
+        <mat-option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</mat-option>
+    </mat-select>
+</mat-form-field>
+<label for="page-size">кол-во на странице: </label>

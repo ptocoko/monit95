@@ -1,0 +1,9 @@
+﻿<h2>РСУР: Заполнение протокола проверки заданий</h2>
+<hr />
+<ng-template [ngIf]="marksProtocol">
+    <h4 style="margin-bottom: 25px">{{marksProtocol.TestName}}</h4>
+    <marks-protocol [questions]="marksProtocol.QuestionResults" (onSend)="send($event)" (onCancel)="cancel()"></marks-protocol>
+</ng-template>
+<div *ngIf="!marksProtocol">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>

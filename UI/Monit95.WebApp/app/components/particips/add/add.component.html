@@ -1,0 +1,108 @@
+﻿<h2>«{{ projectName }}»: добавление нового участника</h2>
+<hr />
+<form #participForm="ngForm" (ngSubmit)="onSubmit()" id="newParticipForm">
+
+    <ng-container *ngFor="let field of formFields">
+        <div class="form-group" *ngIf="fieldTypes[field.type] === 'Surname'">
+            <label for="surname">Фамилия<span *ngIf="field.required">*</span></label>
+            <input type="text" class="form-control" id="surname" [(ngModel)]="particip.Surname" #surname="ngModel" name="surname"
+                   [required]="field.required" [minLength]="field.minLength" [maxLength]="field.maxLength" />
+            <div *ngIf="surname.invalid && surname.touched" class="alert alert-danger form-alert">{{field.invalidMsg}}</div>
+        </div>
+
+        <div class="form-group" *ngIf="fieldTypes[field.type] === 'Name'">
+            <label for="name">Имя<span *ngIf="field.required">*</span></label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="particip.Name" #name="ngModel" name="name"
+                   [required]="field.required" [minLength]="field.minLength" [maxLength]="field.maxLength" />
+            <div *ngIf="name.invalid && name.touched" class="alert alert-danger form-alert">{{field.invalidMsg}}</div>
+        </div>
+
+        <div class="form-group" *ngIf="fieldTypes[field.type] === 'SecondName'">
+            <label for="secondName">Отчество</label>
+            <input type="text" class="form-control" id="secondName" [(ngModel)]="particip.SecondName" #secondName="ngModel" name="secondName" />
+            <div *ngIf="secondName.invalid && secondName.touched" class="alert alert-danger form-alert">
+                <p>{{field.invalidMsg}}</p>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="fieldTypes[field.type] === 'Class'">
+            <label for="classId">Класс<span *ngIf="field.required">*</span></label>
+            <select class="form-control" id="classId" [(ngModel)]="particip.ClassId" #classId="ngModel" name="classId" required>
+                <option *ngFor="let class of field.availableClasses" value="{{ class.Id }}">{{ class.Name }}</option>
+            </select>
+            <div *ngIf="classId.invalid && classId.touched" class="alert alert-danger form-alert">выберите класс.</div>
+        </div>
+
+        <div *ngIf="fieldTypes[field.type] === 'Birthday'">
+            <p>Дата рождения<span *ngIf="field.required">*</span></p>
+            <div class="birthday-wrapper" >
+                <div class="form-group">
+                    <label for="day">День</label>
+                    <select class="form-control" id="day" [(ngModel)]="participDay" #day="ngModel" name="day" required>
+                        <option *ngFor="let d of days" value="{{ d }}">{{ d }}</option>
+                    </select>
+                    <div *ngIf="day.invalid && day.touched" class="alert alert-danger form-alert">выберите день.</div>
+                </div>
+                <div class="form-group" style="margin-left: 20px">
+                    <label for="month">Месяц</label>
+                    <select class="form-control" id="month" [(ngModel)]="participMonth" #month="ngModel" name="month" required>
+                        <option *ngFor="let m of months" value="{{ m.id }}">{{ m.name }}</option>
+                    </select>
+                    <div *ngIf="month.invalid && month.touched" class="alert alert-danger form-alert">выберите месяц.</div>
+                </div>
+                <div class="form-group" style="margin-left: 20px">
+                    <label for="year">Год</label>
+                    <select class="form-control" id="year" [(ngModel)]="participYear" #year="ngModel" name="year" required>
+                        <option *ngFor="let y of field.years" value="{{ y }}">{{ y }}</option>
+                    </select>
+                    <div *ngIf="year.invalid && year.touched" class="alert alert-danger form-alert">выберите год.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="fieldTypes[field.type] === 'DocumNum'">
+            <label for="documNum">Номер документа<span *ngIf="field.required">*</span></label>
+            <input type="text" class="form-control" id="documNum" [(ngModel)]="particip.DocumNumber" #documNum="ngModel" name="documNum" required />
+            <div *ngIf="documNum.invalid && documNum.touched" class="alert alert-danger form-alert">
+                <p>Введите номер документа.</p>
+            </div>
+            <div class="alert alert-info form-alert">
+                <p>Серия и номер паспорта или номер свидетельства о рождении</p>
+            </div>
+        </div>
+    </ng-container>
+    <!--<div class="form-group">
+        <label for="documNumber">Номер документа (паспорта)*</label>
+        <input name="documNumber" [(ngModel)]="particip.DocumNumber" id="documNumber" #documNumber="ngModel" class="form-control"
+               required maxlength="9" />
+        <div *ngIf="documNumber.invalid && documNumber.touched" class="alert alert-danger form-alert">
+            <p>- укажите номер документа, который не должен содержать более 9 цифр;</p>
+            <p>- номер паспорта указывается без серии.</p>
+        </div>
+    </div>-->
+
+    <p>* - поля обязательны к заполнению</p>
+
+    <p class="alert alert-danger conflict-text" *ngIf="isConflict">
+        <i class="fa fa-times-circle fa-2x" (click)="isConflict = false"></i>
+        такой участник уже добавлен
+    </p>
+
+    <p class="alert alert-success conflict-text" *ngIf="addSuccessText">
+        <i class="fa fa-times-circle fa-2x" (click)="addSuccessText = ''"></i>
+        {{addSuccessText}}
+    </p>
+    
+    <hr />
+    <div>
+        <button type="submit" class="btn btn-success" [disabled]="participForm.invalid">Добавить и вернуться к списку</button>
+        <button type="button" class="btn btn-success" [disabled]="participForm.invalid" (click)="addNext()">Сохранить и добавить еще</button>
+        <button type="button" class="btn btn-default" (click)="back()">Отменить</button>
+    </div>
+</form>
+
+<spinner-view *ngIf="isSending" [caption]="'сведения об участнике отправляются...'"></spinner-view>
+
+<!--<h2 class="text-center text-capitalize" *ngIf="!accountService.isSchool()">
+    You aren't allowed to do that!
+</h2>-->

@@ -1,0 +1,112 @@
+﻿.image-viewer:before,
+.image-viewer_before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.report-info{
+    display:flex;
+    justify-content: space-between;
+}
+
+.img-caption{
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    padding: 10px 15px;
+    position: fixed;
+    top: 60px;
+    left: 47.5%;
+}
+
+.protocol-thumb {
+    border: 5px solid #09ab1da8;
+}
+
+.seminar-img-thumb {
+    border: 5px solid #0924aba8;
+}
+
+.image-viewer {
+    text-align: center;
+    white-space: nowrap; /* this is required unless you put the helper span closely near the img */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 1040;
+    overflow: auto;
+}
+
+.viewing-img {
+    max-width: 85vw;
+    max-height: 100vh;
+    vertical-align: middle;
+}
+
+.img-thumbnail{
+    height: 200px;
+    cursor:pointer;
+}
+
+.img-thumbnail{
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.viewer-action {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    top: 0;
+}
+
+.viewer-action:hover{
+    cursor: pointer;
+    color: gray;
+}
+
+.viewer-prev-area{
+    left: 0;
+    text-align: left;
+}
+
+.viewer-next-area {
+    right: 0;
+    text-align: right;
+}
+
+
+.viewer-close-area {
+    right: 0;
+    width: 100px !important;
+    height: 100px !important;
+    z-index: 1050;
+    text-align:right;
+}
+
+.fa {
+    color: inherit;
+    position: relative;
+    top: 45%;
+}
+
+.fa-angle-left{
+    left: 60px;
+}
+
+.fa-angle-right {
+    right: 60px;
+}
+
+.fa-times{
+    top: 35px !important;
+    right: 37px;
+}
+
+.active-btn{
+    color: gray;
+}

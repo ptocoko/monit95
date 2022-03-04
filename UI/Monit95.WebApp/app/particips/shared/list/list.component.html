@@ -1,0 +1,131 @@
+﻿<p *ngIf="isFinished" class="alert alert-success">Редактирование списка завершено</p>
+<div class="table-container mat-elevation-z8" [hidden]="particips.length === 0">
+    <div class="actions-container">
+        <mat-form-field class="filter-field">
+            <input matInput
+                   #filter
+                   (keyup)="applyFilter(filter.value)"
+                   placeholder="поиск..." />
+        </mat-form-field>
+
+        <div>
+            <button mat-raised-button
+                    color="primary"
+                    *ngIf="listEditable"
+                    (click)="addClassParticip()">
+                Добавить участника...
+            </button>
+        </div>
+        <!--<button class="btn btn-default" routerLink="/class-particips/upload-excel">
+        <i class="fa fa-file-excel-o fa-lg"></i>
+            Добавить список учеников из .xlsx...
+    </button>-->
+        <!--<button class="btn btn-primary" routerLink="/class-particips/marks">Перейти к заполнению оценок</button>-->
+    </div>
+
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="$id">
+            <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+            <mat-cell *matCellDef="let particip; let i = index">{{ i + 1 }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Surname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> фамилия </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.Surname }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> имя </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.Name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SecondName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> отчество </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.SecondName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="DocumNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> номер документа </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.DocumNumber }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SourceName" *ngIf="!showSocInsteadSource">
+            <mat-header-cell *matHeaderCellDef> источник </mat-header-cell>
+            <mat-cell *matCellDef="let particip">{{ particip.DataSource }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ActualCode12" *ngIf="showSocInsteadSource">
+            <mat-header-cell *matHeaderCellDef> сдает Обществознание </mat-header-cell>
+            <mat-cell *matCellDef="let particip" [ngStyle]="{'color': particip.ActualCode12 === 1 ? 'limegreen' : 'orangered' }">{{ particip.ActualCode12 === 1 ? 'Да' : 'Нет' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="matemChoice" *ngIf="matemChoice">
+            <mat-header-cell *matHeaderCellDef> сдает Математику Базовую </mat-header-cell>
+            <mat-cell *matCellDef="let particip">
+                <mat-button-toggle-group [value]="particip.ActualCode22" (change)="setMatemBase(particip, $event.value)">
+                    <mat-button-toggle [value]="1">Да</mat-button-toggle>
+                    <mat-button-toggle [value]="null">Нет</mat-button-toggle>
+                </mat-button-toggle-group>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="del-action" *ngIf="listEditable">
+            <mat-header-cell *matHeaderCellDef> удалить </mat-header-cell>
+            <mat-cell *matCellDef="let particip">
+                <a style="cursor:pointer"
+                   class="glyphicon glyphicon-trash"
+                   (click)="deleteClassParticip(particip)">
+                </a>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="listEditable ? displayedColumns : columnsWhenFinished"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: listEditable ? displayedColumns : columnsWhenFinished;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                   [length]="particips.length"
+                   [pageSizeOptions]="['50', '100']">
+    </mat-paginator>
+
+    <div class="table-footer">
+        <button mat-raised-button
+                *ngIf="!isFinished"
+                color="primary"
+                (click)="setAsFinished()">
+            Закрыть занесение участников
+        </button>
+        <button mat-raised-button
+                *ngIf="isFinished"
+                color="primary"
+                (click)="cancelFinish()">
+            Отменить завершение
+        </button>
+    </div>
+</div>
+<p class="alert alert-info text-center" *ngIf="particips.length === 0">
+    <span>Данные об участниках отсутсвуют</span>
+    <button mat-raised-button
+            *ngIf="listEditable"
+            style="margin-left: 15px"
+            color="primary"
+            (click)="addClassParticip()">
+        Добавить участника...
+    </button>
+    <button mat-raised-button
+            *ngIf="!isFinished"
+            style="margin-left: 15px"
+            color="primary"
+            (click)="setAsFinished()">
+        Закрыть занесение участников
+    </button>
+    <button mat-raised-button
+            *ngIf="isFinished"
+            style="margin-left: 15px"
+            color="primary"
+            (click)="cancelFinish()">
+        Отменить завершение
+    </button>
+</p>
+
+<button *ngIf="listEditable" style="position:fixed;left:90%;top:80%;color:white; background-color:green; z-index:10; font-size:x-large" mat-fab color="primary" (click)="addClassParticip()">+</button>

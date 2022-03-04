@@ -1,0 +1,59 @@
+﻿<h3>Актуализация РСУР: Этап 1</h3>
+<hr/>
+<div *ngIf="isActualizing; else actualizationIsEnding">
+    <div class="jumbotron">
+        <p>На данном этапе необходимо <b>удалить</b> из списка участников РСУР уволившихся учителей.</p>
+        <p><b>ВНИМАНИЕ!</b> Список исключенных участников будет проверен на наличие соответствующих приказов.</p>
+    </div>
+
+    <spinner-view *ngIf="isLoading" [caption]="'Загрузка...'"></spinner-view>
+
+    <div class="table-container">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>код участника</th>
+                <th>фио</th>
+                <th>предмет</th>
+                <th>последняя диагностика участника</th>
+            </tr>
+            <tr *ngFor="let particip of particips; let i = index" [ngClass]="{'notActual': particip.ActualCode === 2}">
+                <td>{{ i + 1 }}</td>
+                <td>{{ particip.Code }}</td>
+                <td>{{ particip.SchoolParticipInfo.Surname }} {{ particip.SchoolParticipInfo.Name }} {{ particip.SchoolParticipInfo.SecondName }}</td>
+                <td>{{ particip.RsurSubjectName }}</td>
+                <td>
+                    <span class="fail-color" *ngIf="particip.LastBlockStatus === 0">{{ particip.LastBlockName }} (не сдана)</span>
+                    <span class="pass-color" *ngIf="particip.LastBlockStatus === 1">{{ particip.LastBlockName }} (сдана)</span>
+                    <span class="no-participate-color" *ngIf="particip.LastBlockStatus === 2">{{ particip.LastBlockName }} (не участвовал(-а) в диагностиках РСУР)</span>
+                </td>
+                <td>
+                    <span *ngIf="particip.ActualCode === 2">
+                        <button mat-raised-button
+                                (click)="cancelFiring(particip)"
+                                color="primary">
+                            Отмена
+                        </button>
+                    </span>
+                    <span *ngIf="particip.ActualCode === 1">
+                        <button mat-raised-button
+                                (click)="fire(particip)"
+                                color="warn">
+                            Удалить из списка
+                        </button>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="text-right">
+        <button mat-raised-button (click)="endFiring()" color="primary">Завершить этап 1</button>
+    </div>
+</div>
+<ng-template #actualizationIsEnding>
+    <div class="content-center">
+        <h2>Первый этап актуализации окончен</h2>
+        <button mat-raised-button (click)="notEnded()" color="primary">Отменить завершение</button>
+    </div>
+</ng-template>

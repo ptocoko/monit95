@@ -1,0 +1,61 @@
+﻿<monit-class-selector [isLoadingFromOuter]="isLoading" (classSelected)="onClassSelected($event)"></monit-class-selector>
+
+<!--<div class="toggle-group">
+    
+</div>-->
+
+<table *ngIf="stats" class="table table-bordered">
+    <thead>
+        <tr>
+            <th rowspan="2">Класс</th>
+            <th colspan="2">% оценки 2</th>
+            <th colspan="2">% оценки 3</th>
+            <th colspan="2">% оценки 4</th>
+            <th colspan="2">% оценки 5</th>
+            <th colspan="2">Суммы</th>
+        </tr>
+        <tr>
+            <td>Первый</td>
+            <td>Второй</td>
+            <td>Первый</td>
+            <td>Второй</td>
+            <td>Первый</td>
+            <td>Второй</td>
+            <td>Первый</td>
+            <td>Второй</td>
+            <td>Первый</td>
+            <td>Второй</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cl of availableClassIds">
+            <td>{{classNames[cl]}}</td>
+            <td [ngClass]="{'red-cell': validateMin2(stats.Marks2[cl].First)}">
+                {{stats.Marks2[cl].First || '-'}}
+            </td>
+            <td [ngClass]="{'red-cell': validateMin2(stats.Marks2[cl].Second)}">
+                {{stats.Marks2[cl].Second || '-'}}
+            </td>
+
+            <td>{{stats.Marks3[cl].First || '-'}}</td>
+            <td>{{stats.Marks3[cl].Second || '-'}}</td>
+
+            <td>{{stats.Marks4[cl].First || '-'}}</td>
+            <td>{{stats.Marks4[cl].Second || '-'}}</td>
+
+            <td [ngClass]="{'red-cell': validateMax5(stats.Marks5[cl].First)}">
+                {{stats.Marks5[cl].First || '-'}}
+            </td>
+            <td [ngClass]="{'red-cell': validateMax5(stats.Marks5[cl].Second)}">
+                {{stats.Marks5[cl].Second || '-'}}
+            </td>
+            <td [ngClass]="{'yellow-bgrd': !!sums[cl][0] && sums[cl][0] !== 100 }">
+                {{sums[cl][0] || '-'}}
+            </td>
+            <td [ngClass]="{'yellow-bgrd': !!sums[cl][1] && sums[cl][1] !== 100 }">
+                {{sums[cl][1] || '-'}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+

@@ -1,0 +1,26 @@
+﻿h2{
+    margin-bottom: 35px;
+}
+
+label{
+    display: block;
+    margin-bottom: 15px;
+}
+
+.mat-card + mat-card {
+    margin-top: 25px;
+}
+
+.mat-radio-button + .mat-radio-button {
+    margin-left: 15px;
+}
+
+.content-center {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}

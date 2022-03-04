@@ -1,0 +1,88 @@
+﻿<h2>{{ projectName ? projectName : 'Я сдам ЕГЭ' }}: Результаты диагностик</h2>
+<hr />
+
+<!--<div *ngIf="!reportsInfo; else page">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif"/>
+</div>-->
+
+<div class="table-container mat-elevation-z8">
+    <div class="table-header">
+
+        <mat-form-field *ngIf="accountService.isArea()">
+            <mat-select [(ngModel)]="schoolId"
+                        (selectionChange)="selectionChange()">
+                <mat-option [value]="''">все школы</mat-option>
+                <mat-option *ngFor="let school of reportsInfo.Schools" [value]="school.Id">{{ school.Name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select [(ngModel)]="testCode"
+                        (selectionChange)="selectionChange()">
+                <mat-option [value]="''">все диагностики</mat-option>
+                <mat-option *ngFor="let test of reportsInfo.Tests" [value]="test.Code">{{ test.Name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput #searchField
+                   placeholder="поиск участника"
+                   [(ngModel)]="searchParticipText">
+            <button mat-button *ngIf="searchField.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchText()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="isLoadingReports" class="loading-wrapper">
+        <mat-spinner *ngIf="isLoadingReports"></mat-spinner>
+
+    </div>
+
+    <div class="loading-wrapper reports-empty" *ngIf="!isLoadingReports && reportsLength === 0">
+        Отсутствуют результаты диагностик
+    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+            <mat-cell *matCellDef="let report; let i = index"> {{ i + 1 }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="surname">
+            <mat-header-cell *matHeaderCellDef> фамилия </mat-header-cell>
+            <mat-cell *matCellDef="let report"> {{ report.Surname }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> имя </mat-header-cell>
+            <mat-cell *matCellDef="let report"> {{ report.Name }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="secondName">
+            <mat-header-cell *matHeaderCellDef> отчество </mat-header-cell>
+            <mat-cell *matCellDef="let report"> {{ report.SecondName }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="testName">
+            <mat-header-cell *matHeaderCellDef> диагностика </mat-header-cell>
+            <mat-cell *matCellDef="let report"> {{ report.TestName }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="passStatus">
+            <mat-header-cell *matHeaderCellDef> зачет/незачет </mat-header-cell>
+            <mat-cell *matCellDef="let report"> {{ report.PassStatus }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row (click)="openReport(report)"
+                 *matRowDef="let report; columns: displayedColumns;"
+                 [ngClass]="getRowStylingObject(report)"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator
+                   [length]="reportsLength"
+                   [pageSize]="30">
+    </mat-paginator>
+</div>

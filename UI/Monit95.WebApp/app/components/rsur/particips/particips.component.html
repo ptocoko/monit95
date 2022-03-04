@@ -1,0 +1,130 @@
+﻿<h2>РСУР: Список участников</h2>
+<p *ngIf="isLoading" style="position:absolute; top:50%; left:50%">
+    <mat-spinner></mat-spinner>
+</p>
+<div class="example-container mat-elevation-z8">
+    <div class="table-filters">
+        <mat-form-field class="select-school-field">
+            <mat-select [(ngModel)]="selectedSchool"
+                        (selectionChange)="applySchoolFilter(selectedSchool)">
+                <mat-option value="">
+                    все организации
+                </mat-option>
+                <mat-option *ngFor="let schoolName of allParticips | schoolNameFilter"
+                            [value]="schoolName">
+                    {{schoolName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-field">
+            <input matInput 
+                   [(ngModel)]="filterText"
+                   (keyup)="applyFilter()" 
+                   (focus)="focusFilterInput()" 
+                   placeholder="поиск..." />
+        </mat-form-field>
+
+        <!--<mat-checkbox color="primary"
+                      (change)="showFired($event.checked)"
+                      [align]="'start'"
+                      *ngIf="false && accauntService.isCoko()">
+            отображать выбывших
+        </mat-checkbox>-->
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="Code">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> код участника </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Code}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Surname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> фамилия </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.Surname}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> имя </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.Name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SecondName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> отчество </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.SecondName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="RsurSubjectName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> предмет </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.RsurSubjectName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SchoolIdWithName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> школа </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.SchoolParticipInfo.SchoolName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="FiringBtn">
+            <mat-header-cell *matHeaderCellDef>    статус</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <mat-slide-toggle (change)="fireParticip($event, element)"
+                                  [checked]="element.ActualCode === 1"
+                                  [color]="'primary'"
+                                  class="slider-margin">
+                    <span *ngIf="element.ActualCode === 0">выбыл</span>
+                    <span *ngIf="element.ActualCode === 1" style="color:#3f51b5;">в проекте</span>
+                </mat-slide-toggle>
+
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"
+                 [ngClass]="{'notActual': row.ActualCode === 0}"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                   [length]="allParticips.length"
+                   [pageSizeOptions]="['50', '100']">
+    </mat-paginator>
+</div>
+
+
+<!--<hr />
+<div *ngIf="isArea()" class="form-inline">
+    <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="поиск..." />
+    <div style="margin-left:15px" class="checkbox">
+        <label>
+            <input type="checkbox" [(ngModel)]="isShowNotActual"> + показывать выбывших из базы
+        </label>
+    </div>
+</div>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="text-center">Код</th>
+            <th class="text-center">Фамилия</th>
+            <th class="text-center">Имя</th>
+            <th class="text-center">Отчеcтво</th>
+            <th class="text-center">Предмет</th>
+            <th *ngIf="isArea()" class="text-center">Школа</th>
+            <th *ngIf="isArea()" class="text-center">Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let particip of particips | rsurParticipActualFilter: isShowNotActual | rsurParticipFilter: searchText | limitTo: 100" [ngClass]="{'notActual' : particip.ActualCode === 0}">
+            <td class="text-center" style="vertical-align:middle">{{particip.Code}}</td>
+            <td style="vertical-align:middle">{{particip.Surname}}</td>
+            <td style="vertical-align:middle">{{particip.Name}}</td>
+            <td style="vertical-align:middle">{{particip.SecondName}}</td>
+            <td style="vertical-align:middle">{{particip.RsurSubjectName}}</td>
+            <td *ngIf="isArea()" style="vertical-align:middle">{{particip.SchoolIdWithName}}</td>
+            <td *ngIf="isArea()" style="vertical-align:middle">
+                <span *ngIf="particip.ActualCode === 1" class="text-center">актуально</span>
+                <span *ngIf="particip.ActualCode === 0" class="text-center">выбыл</span>
+            </td>
+        </tr>
+    </tbody>
+</table>-->

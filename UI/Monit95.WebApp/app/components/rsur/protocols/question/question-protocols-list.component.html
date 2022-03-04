@@ -1,0 +1,51 @@
+﻿<h3>РСУР: Протоколы проверки заданий</h3>
+<hr />
+<ng-template [ngIf]="questionProtocols">
+    <div>общее количество протоколов: {{questionProtocols.length}}</div>
+    <div>из них</div>
+    <div>обработано: {{processedProtocols()}}</div>
+    <div>не обработано: {{notProcessedProtocols()}}</div>
+    <div class="table-actions">
+        <mat-form-field>
+            <input #participCodeInput [(ngModel)]="searchText" maxlength="5" placeholder="поиск по коду участника..." matInput />
+            <i class="glyphicon glyphicon-ok" matSuffix style="color:green" *ngIf="checkIfOnlyOneMatch(searchText)"></i>
+            <mat-hint *ngIf="checkIfOnlyOneMatch(searchText)">Нажмите Enter чтобы перейти</mat-hint>
+        </mat-form-field>
+        <app-table-paginator [length]="questionProtocols.length"
+                             [pageSizeOptions]="[20, 50, 70]"
+                             [(pageSize)]="limitToVal"
+                             [(pageIndex)]="pageIndex">
+        </app-table-paginator>
+    </div>
+    <table class="table table-bordered">
+        <tr>
+            <th class="row-number-cell">#</th>
+            <th class="particip-code-cell">код участника</th>
+            <th>блок</th>
+            <th>баллы по заданиям</th>
+            <th style="width:295px">действия</th>
+        </tr>
+        <tr *ngFor="let protocol of questionProtocols | rsurProtocolFilter : searchText
+                                                        | offset : pageIndex * limitToVal
+                                                        | limitTo : limitToVal;
+                    let i = index">
+            <td class="row-number-cell">{{i + 1 + (limitToVal * pageIndex)}}</td>
+            <td class="particip-code-cell">{{protocol.ParticipCode}}</td>
+            <td>{{protocol.TestName}}</td>
+            <td [ngClass]="{'red-cell': !protocol.RsurQuestionValues}">{{protocol.RsurQuestionValues}}</td>
+            <td>
+                <div class="pull-left">
+                    <button mat-raised-button color="primary" (click)="changeMarks(protocol.ParticipCode)" style="width:135.59px"><i class="glyphicon glyphicon-edit"></i> изменить</button>
+                    <button matTooltip="Указать, что участник отсутствовал" [matTooltipPosition]="'right'" [disabled]="protocol.RsurQuestionValues === 'отсутствовал'" mat-raised-button color="warn" (click)="markAsAbsent(protocol)">
+                        <i class="glyphicon glyphicon-header"></i> отсутствовал
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</ng-template>
+
+<div *ngIf="!questionProtocols">
+    <img style="margin-top:20px" height="100" class="center-block" src="/progress.gif" />
+</div>
