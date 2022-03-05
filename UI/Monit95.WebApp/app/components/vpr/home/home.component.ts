@@ -200,14 +200,18 @@ export class HomeComponent implements OnInit {
 			pushMarks(vals.Marks5, 3);
 			count += 1;
 		})
-		for (let i = 0; i < this.totalAvgGrades.length; i++) {
-			let lengthOfTotal:number = this.totalAvgGrades[i].length;
+		for (let i = 0; i < this.totalAvgGrades?.length; i++) {
+			let lengthOfTotal:number = this.totalAvgGrades[i]?.length;
 			this.totalEachAvgGrads[i] = 0;
-			for (let j = 0; j < this.totalAvgGrades[i].length; j++)  {
+			for (let j = 0; j < this.totalAvgGrades[i]?.length; j++)  {
 				
 				this.totalEachAvgGrads[i] += this.totalAvgGrades[i][j];	
 			}
+			
 			this.totalEachAvgGrads[i] = Math.round(((this.totalEachAvgGrads[i] / lengthOfTotal) + Number.EPSILON) * 100) / 100;
+			if (!this.totalAvgGrades[i]) {
+				this.totalEachAvgGrads[i] = 0;
+			}
 		}
 		console.log(this.totalEachAvgGrads)
 	}
@@ -376,7 +380,6 @@ export class HomeComponent implements OnInit {
 		if (!this.totalEachAvgGrads) {
 			return false;
 		}
-		console.log('smt happining now !!!')
 		return Math.round(this.totalEachAvgGrads[0] + this.totalEachAvgGrads[1] + this.totalEachAvgGrads[2] + this.totalEachAvgGrads[3]) !== 100;
 	}
 

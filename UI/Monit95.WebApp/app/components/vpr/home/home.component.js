@@ -175,6 +175,7 @@ var HomeComponent = /** @class */ (function () {
     };
     HomeComponent.prototype.AvgSum = function () {
         var _this = this;
+        var _a, _b, _c;
         var count = 0;
         this.totalAvgGrades = [];
         this.totalEachAvgGrads = [];
@@ -193,13 +194,16 @@ var HomeComponent = /** @class */ (function () {
             pushMarks(vals.Marks5, 3);
             count += 1;
         });
-        for (var i = 0; i < this.totalAvgGrades.length; i++) {
-            var lengthOfTotal = this.totalAvgGrades[i].length;
+        for (var i = 0; i < ((_a = this.totalAvgGrades) === null || _a === void 0 ? void 0 : _a.length); i++) {
+            var lengthOfTotal = (_b = this.totalAvgGrades[i]) === null || _b === void 0 ? void 0 : _b.length;
             this.totalEachAvgGrads[i] = 0;
-            for (var j = 0; j < this.totalAvgGrades[i].length; j++) {
+            for (var j = 0; j < ((_c = this.totalAvgGrades[i]) === null || _c === void 0 ? void 0 : _c.length); j++) {
                 this.totalEachAvgGrads[i] += this.totalAvgGrades[i][j];
             }
             this.totalEachAvgGrads[i] = Math.round(((this.totalEachAvgGrads[i] / lengthOfTotal) + Number.EPSILON) * 100) / 100;
+            if (!this.totalAvgGrades[i]) {
+                this.totalEachAvgGrads[i] = 0;
+            }
         }
         console.log(this.totalEachAvgGrads);
     };
@@ -360,7 +364,6 @@ var HomeComponent = /** @class */ (function () {
         if (!this.totalEachAvgGrads) {
             return false;
         }
-        console.log('smt happining now !!!');
         return Math.round(this.totalEachAvgGrads[0] + this.totalEachAvgGrads[1] + this.totalEachAvgGrads[2] + this.totalEachAvgGrads[3]) !== 100;
     };
     HomeComponent.prototype.isAnyRowNotHundreed = function () {
