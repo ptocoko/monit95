@@ -45,11 +45,11 @@ export class HomeComponent implements OnInit {
 			subjects: [
 				{ code: '01', name: 'Русский язык' },
 				{ code: '02', name: 'Математика' },
-				{ code: '03', name: 'Физика' },
+				/*{ code: '03', name: 'Физика' },
 				{ code: '06', name: 'Биология' },
 				{ code: '07', name: 'История' },
 				{ code: '08', name: 'География' },
-				{ code: '12', name: 'Обществознание' },
+				{ code: '12', name: 'Обществознание' },*/
 			]
 		},
 		{
@@ -65,100 +65,100 @@ export class HomeComponent implements OnInit {
 		'04': {
 			'01': {
 				min2: 15,
-				min4: 40,
-				max5: 5
+				max4: 40,
+				max5: 5  
 			},
 			'02': {
 				min2: 12,
-				min4: 40,
+				max4: 40,
 				max5: 8,
 			},
 			'24': {
 				min2: 10,
-				min4: 40,
+				max4: 40,
 				max5: 5
 			},
 		},
 		'05': {
 			'01': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 5
 			},
 			'02': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 8,
 			},
 			'06': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 5,
 			},
 			'07': {
 				min2: 12,
-				min4: 40,
+				max4: 40,
 				max5: 8,
 			}
 		},
 		'06': {
 			'01': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 6,
 			},
 			'02': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 6,
 			},
 		},
 		'07': {
 			'01': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 5,
 			},
 			'02': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 5,
 			},
 			'03': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 5,
 			},
 			'06': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 5,
 			},
 			'07': {
 				min2: 13,
-				min4: 40,
+				max4: 40,
 				max5: 5,
 			},
 			'08': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 4,
 			},
 			'12': {
 				min2: 16,
-				min4: 40,
+				max4: 40,
 				max5: 5
 			}
 		},
 		'08': {
 			'01': {
 				min2: 20,
-				min4: 40,
+				max4: 40,
 				max5: 5,
 			},
 			'02': {
 				min2: 15,
-				min4: 40,
+				max4: 40,
 				max5: 5,
 			},
 		},
@@ -356,7 +356,7 @@ export class HomeComponent implements OnInit {
 		if (!schoolMarks) {
 			return false;
 		}
-		return schoolMarks.Marks2 < minMax.min2;
+		return schoolMarks.Marks4 > minMax.max4;
 	}
 
 	isMark5HasError(classId: string) {
@@ -366,6 +366,19 @@ export class HomeComponent implements OnInit {
 			return false;
         }
 		return schoolMarks.Marks5 > minMax.max5;
+	}
+	AvgItogFilter(mark: string, value: number) {
+		const minMax = this.minMax[this.selectedClass.number][this.selectedSubj.code];
+		if (!this.newSchoolMarks) {
+			return false;
+		}
+		if (mark == "Marks2") {
+			return value < minMax.min2;
+		} else if (mark == "Marks4") {
+			return value > minMax.max4;
+		} else if (mark == "Marks5") {
+			return value > minMax.max5;
+		}
 	}
 
 	isRowHasError(classId: string) {
@@ -404,7 +417,7 @@ interface SubjectModel {
 	name: string;
 }
 
-type MinMax = { [classNumber: string]: { [subjectCode: string]: { min2: number, min4:number, max5: number } } };
+type MinMax = { [classNumber: string]: { [subjectCode: string]: { min2: number, max4:number, max5: number } } };
 
 function valueOrZero(val: number) {
 	return !!val || val === 0;

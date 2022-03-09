@@ -33,7 +33,7 @@
             <td>
                 <input type="number" (input)="setMark('Marks3', cl.Id, $event.target.value)" [value]="getMark('Marks3', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked"  />
             </td>
-            <td [ngClass]="{'red-cell': showErrors && isMark5HasError(cl.Id)}">
+            <td [ngClass]="{'red-cell': showErrors && isMark4HasError(cl.Id)}">
                 <input type="number" (input)="setMark('Marks4', cl.Id, $event.target.value)" [value]="getMark('Marks4', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked"  />
             </td>
             <td [ngClass]="{'red-cell': showErrors && isMark5HasError(cl.Id)}" style="position: relative;">
@@ -43,10 +43,10 @@
         </tr>
         <tr [ngClass]="{'row-error': hasFirst && isItogoHasError()}">
             <td >Итого</td>
-            <td *ngIf="totalEachAvgGrads?.length > 0">{{totalEachAvgGrads[0]}}</td>
+            <td *ngIf="totalEachAvgGrads?.length > 0" [ngClass]="{'red-cell': showErrors && AvgItogFilter('Marks2', totalEachAvgGrads[0])}">{{totalEachAvgGrads[0]}}</td>
             <td *ngIf="totalEachAvgGrads?.length > 0">{{totalEachAvgGrads[1]}}</td>
-            <td *ngIf="totalEachAvgGrads?.length > 0">{{totalEachAvgGrads[2]}}</td>
-            <td *ngIf="totalEachAvgGrads?.length > 0" style="position: relative;">{{totalEachAvgGrads[3]}} 
+            <td *ngIf="totalEachAvgGrads?.length > 0" [ngClass]="{'red-cell': showErrors && AvgItogFilter('Marks4', totalEachAvgGrads[2])}">{{totalEachAvgGrads[2]}}</td>
+            <td *ngIf="totalEachAvgGrads?.length > 0" [ngClass]="{'red-cell': showErrors && AvgItogFilter('Marks5', totalEachAvgGrads[3])}"style="position: relative;">{{totalEachAvgGrads[3]}} 
             <span *ngIf="hasFirst && isItogoHasError()" class="non-hundreed">&#8800; 100</span>
             </td>
         </tr>

@@ -7,11 +7,11 @@ table.disabled {
 }
 
 .red-cell {
-    background-color: red;
+    background-color: #f78a8a;
 }
 
 .row-error {
-    background-color: orange;
+    background-color: #dfbc32;
 }
 
 .non-hundreed {
