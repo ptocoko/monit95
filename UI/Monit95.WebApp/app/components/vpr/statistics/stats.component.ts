@@ -2,10 +2,11 @@
 import { AreaModel } from '../../../models/area.model';
 import { SchoolModel } from '../../../models/school.model';
 import { ClassSelectInfo, VprStatsModel } from '../../../models/vpr.model';
+import { ClassModel } from '../../../models/class.model';
 import { ClassService } from '../../../services/class.service';
 import { VprService } from '../../../services/vpr.service';
 
-type MinMax = { [classNumber: string]: { [subjectCode: string]: { min2: number, max5: number } } };
+type MinMax = { [classNumber: string]: { [subjectCode: string]: { min2: number, max4:number, max5: number } } };
 
 @Component({
 	templateUrl: `./app/components/vpr/statistics/stats.component.html?v=${new Date().getTime()}`,
@@ -24,87 +25,146 @@ td {
 export class StatsComponent {
 	selectedInfo: ClassSelectInfo;
 	stats: VprStatsModel;
-
+	classes: ClassesModel[] = [
+		{
+			number: '04',
+			name: '4 класс',
+			subjects: [
+				{ code: '01', name: 'Русский язык' },
+				{ code: '02', name: 'Математика' },
+				{ code: '24', name: 'Окружающий мир' },
+			]
+		},
+		{
+			number: '05',
+			name: '5 класс',
+			subjects: [
+				{ code: '01', name: 'Русский язык' },
+				{ code: '02', name: 'Математика' },
+				{ code: '06', name: 'Биология' },
+				{ code: '07', name: 'История' },
+			]
+		},
+		{
+			number: '06',
+			name: '6 класс',
+			subjects: [
+				{ code: '01', name: 'Русский язык' },
+				{ code: '02', name: 'Математика' },
+			]
+		},
+		{
+			number: '07',
+			name: '7 класс',
+			subjects: [
+				{ code: '01', name: 'Русский язык' },
+				{ code: '02', name: 'Математика' },
+				{ code: '03', name: 'Физика' },
+				{ code: '06', name: 'Биология' },
+				{ code: '07', name: 'История' },
+				{ code: '08', name: 'География' },
+				{ code: '12', name: 'Обществознание' },
+			]
+		},
+	];
 	minMax: MinMax = {
 		'04': {
 			'01': {
 				min2: 15,
+				max4:40,
 				max5: 5
 			},
 			'02': {
 				min2: 12,
+				max4: 40,
 				max5: 8,
 			},
 			'24': {
 				min2: 10,
+				max4: 40,
 				max5: 5
 			},
 		},
 		'05': {
 			'01': {
 				min2: 15,
+				max4: 40,
 				max5: 5
 			},
 			'02': {
 				min2: 15,
+				max4: 40,
 				max5: 8,
 			},
 			'06': {
 				min2: 15,
+				max4: 40,
 				max5: 5,
 			},
 			'07': {
 				min2: 12,
+				max4: 40,
 				max5: 8,
 			}
 		},
 		'06': {
 			'01': {
 				min2: 15,
+				max4: 40,
 				max5: 6,
 			},
 			'02': {
 				min2: 15,
+				max4: 40,
 				max5: 6,
 			},
 		},
 		'07': {
 			'01': {
 				min2: 15,
+				max4: 40,
 				max5: 5,
 			},
 			'02': {
 				min2: 15,
+				max4: 40,
 				max5: 5,
 			},
 			'03': {
 				min2: 15,
+				max4: 40,
 				max5: 5,
 			},
 			'06': {
 				min2: 15,
+				max4: 40,
 				max5: 5,
 			},
 			'07': {
 				min2: 13,
+				max4: 40,
 				max5: 5,
 			},
 			'08': {
 				min2: 15,
+				max4: 40,
 				max5: 4,
 			},
 			'12': {
 				min2: 16,
+				max4: 40,
 				max5: 5
 			}
 		},
 		'08': {
 			'01': {
 				min2: 20,
+				max4: 40,
 				max5: 5,
 			},
 			'02': {
 				min2: 15,
+				max4: 40,
 				max5: 5,
 			},
 		},
@@ -112,26 +172,41 @@ export class StatsComponent {
 	sums: { [classId: string]: number[] } = {};
 	availableClassIds: string[] = [];
 	isLoading: boolean;
-	classNames: { [classId: string]: string };
+/*	classNames: { [classId: string]: string };
+*/	classNames: ClassModel[] = [];
+
 
 	constructor(private vprService: VprService, private classService: ClassService) { }
 
 	ngOnInit() {
 		this.classService.getClasses().subscribe(c => {
 			const classes = c.filter(cl => !cl.Id.endsWith('00'));
-			this.classNames = classes.reduce((clAgg, curr) => {
+			/*this.classNames = classes.reduce((clAgg, curr) => {
 				clAgg[curr.Id] = curr.Name;
 				return clAgg;
-			}, {});
+			}, {});*/
 		});
 	}
+
 
 	onClassSelected(classSelectedInfo?: ClassSelectInfo) {
 		if (classSelectedInfo) {
 			this.isLoading = true;
 			this.selectedInfo = classSelectedInfo;
 			this.vprService.getStats(this.selectedInfo.ClassNumber, this.selectedInfo.Subject, this.selectedInfo.SchoolId).subscribe(stats => {
-				this.stats = stats;
+				if (stats == null) {
+
+					this.stats = {
+						Marks2: { [this.selectedInfo.ClassNumber]: { First: "", Second: "" }},
+						Marks3: { [this.selectedInfo.ClassNumber]: { First: "", Second: "" } },
+						Marks4: { [this.selectedInfo.ClassNumber]: { First: "", Second: "" } },
+						Marks5: { [this.selectedInfo.ClassNumber]: { First: "", Second: "" } },
+					}
+			
+				 }
+	else {
+					this.stats = stats;
+				}
 				this.availableClassIds = Object.keys(this.stats.Marks2).filter(cl => !cl.startsWith('$'));
 				this.calculateSums();
 
@@ -147,6 +222,15 @@ export class StatsComponent {
 		const value = +val?.replace(',', '.');
 		if (!isNaN(value) && !!val) {
 			return value < this.minMax[this.selectedInfo?.ClassNumber][this.selectedInfo?.Subject].min2;
+		}
+
+		return false;
+	}
+
+	validateMax4(val: string) {
+		const value = +val?.replace(',', '.');
+		if (!isNaN(value) && !!val) {
+			return value > this.minMax[this.selectedInfo?.ClassNumber][this.selectedInfo?.Subject].max4;
 		}
 
 		return false;
@@ -171,4 +255,14 @@ export class StatsComponent {
 			this.sums[cl][1] = +sumSecond?.toFixed(1);
 		})
 	}
+}
+interface ClassesModel {
+	number: string;
+	name: string;
+	subjects: SubjectModel[];
+}
+
+interface SubjectModel {
+	code: string;
+	name: string;
 }

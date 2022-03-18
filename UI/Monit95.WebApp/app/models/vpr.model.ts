@@ -3,6 +3,7 @@
     SubjectCode: string;
     HasError: boolean;
     IsSecond: boolean;
+    AbleSendSecond: boolean;
     VprSchoolMarks: VprSchoolMarks[];
 }
 

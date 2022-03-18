@@ -32,6 +32,10 @@ var VprService = /** @class */ (function () {
     VprService.prototype.getStats = function (classNumber, subjectCode, schoolId) {
         return this.http.get('/api/vpr/statistics?classNumber=' + classNumber + '&subjectCode=' + subjectCode + '&schoolId=' + schoolId);
     };
+    VprService.prototype.canSendSecond = function (classNumber, subjectCode, schoolId) {
+        var schoolInfo = { 'classNumber': classNumber, 'subjectCode': subjectCode, 'schoolId': schoolId };
+        return this.http.post('/api/vpr', schoolInfo, { responseType: 'text' });
+    };
     VprService = tslib_1.__decorate([
         (0, core_1.Injectable)(),
         tslib_1.__metadata("design:paramtypes", [http_1.HttpClient])

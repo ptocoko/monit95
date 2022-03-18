@@ -19,5 +19,6 @@ namespace Monit95App.Domain.Core.Entities
         public virtual School School { get; set; }
         public virtual VprWeek Week { get; set; }
         public virtual ICollection<VprSchoolMarks> VprSchoolMarks { get; set; } = new HashSet<VprSchoolMarks>();
+        public bool AbleSendSecond { get; set; }
     }
 }

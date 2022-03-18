@@ -35,7 +35,8 @@ var ClassSelectorComponent = /** @class */ (function () {
     ClassSelectorComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.vprService.getClasses().subscribe(function (cls) {
-            _this.classes = cls;
+            /*this.classes = cls;*/
+            _this.classes = ['04', '05', '06', '07', '08'];
             _this.isLoading = false;
         });
     };
@@ -49,9 +50,11 @@ var ClassSelectorComponent = /** @class */ (function () {
         this.schools = null;
         this.selectedSchool = null;
         this.classSelected.emit(null);
+        console.log('class');
         this.isLoading = true;
         this.vprService.getSubjects(this.selectedClass).subscribe(function (sjs) {
-            _this.subjects = sjs;
+            /*this.subjects = sjs;*/
+            _this.subjects = ['01', '02', '03', '06', '07', '08', '12', '24'];
             _this.isLoading = false;
         });
     };
@@ -64,9 +67,12 @@ var ClassSelectorComponent = /** @class */ (function () {
         this.selectedSchool = null;
         this.classSelected.emit(null);
         this.isLoading = true;
-        this.vprService.getAreas(this.selectedClass, this.selectedSubject).subscribe(function (areas) {
+        console.log('subje');
+        // This is for showing all areas even if they donot have results yet
+        this.vprService.getAreas("bypass", "bypass").subscribe(function (areas) {
             _this.areas = areas;
             _this.isLoading = false;
+            console.log('dwd');
         });
     };
     ClassSelectorComponent.prototype.selectArea = function (areaCode) {
@@ -75,13 +81,22 @@ var ClassSelectorComponent = /** @class */ (function () {
         this.schools = null;
         this.selectedSchool = null;
         this.classSelected.emit(null);
+        console.log('area');
         this.isLoading = true;
-        this.vprService.getSchools(this.selectedClass, this.selectedSubject, this.selectedArea).subscribe(function (schools) {
+        this.vprService.getSchools("classNumber", this.selectedSubject, this.selectedArea).subscribe(function (schools) {
             _this.schools = schools;
             _this.isLoading = false;
+            _this.AbleSendSecond = false;
         });
     };
+    ClassSelectorComponent.prototype.ableSendSecond = function (schoolId) {
+        this.vprService.canSendSecond(this.selectedClass, this.selectedSubject, schoolId).subscribe(function () {
+        });
+        this.AbleSendSecond = false;
+    };
     ClassSelectorComponent.prototype.selectSchool = function (schoolId) {
+        this.vprService.getSchools(this.selectedClass, this.selectedSubject, this.selectedArea).subscribe(function (schools) {
+        });
         this.selectedSchool = schoolId;
         var classInfo = {
             Subject: this.selectedSubject,
@@ -89,6 +104,7 @@ var ClassSelectorComponent = /** @class */ (function () {
             AreaCode: this.selectedArea,
             SchoolId: this.selectedSchool
         };
+        console.log(classInfo);
         this.classSelected.emit(classInfo);
     };
     tslib_1.__decorate([

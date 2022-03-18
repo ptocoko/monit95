@@ -167,11 +167,13 @@ var HomeComponent = /** @class */ (function () {
         this.blocked = false;
         this.hasFirst = false;
         this.hasSecond = false;
+        this.AbleSendSecond = false;
         this.showErrors = false;
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.classService.getClasses().subscribe(function (c) { return _this.classNames = c.filter(function (cl) { return !cl.Id.endsWith('00'); }); });
+        console.log(this.classNames);
     };
     HomeComponent.prototype.AvgSum = function () {
         var _this = this;
@@ -180,7 +182,7 @@ var HomeComponent = /** @class */ (function () {
         this.totalAvgGrades = [];
         this.totalEachAvgGrads = [];
         var pushMarks = function (mark, num) {
-            if (mark) {
+            if (mark || mark == 0) {
                 if (typeof _this.totalAvgGrades[num] == "undefined") {
                     _this.totalAvgGrades[num] = [];
                 }
@@ -228,6 +230,7 @@ var HomeComponent = /** @class */ (function () {
         this.showErrors = false;
         this.hasFirst = false;
         this.hasSecond = false;
+        this.AbleSendSecond = false;
         this.vprService.getSchoolWeek(this.selectedClass.number, this.selectedSubj.code).subscribe(function (res) {
             if (res.length > 0) {
                 _this.weekResults = res[res.length - 1];
@@ -292,11 +295,13 @@ var HomeComponent = /** @class */ (function () {
                 SubjectCode: this.selectedSubj.code,
                 VprSchoolMarks: this.newSchoolMarks,
                 HasError: this.hasAnyError(),
-                IsSecond: this.hasFirst
+                IsSecond: this.hasFirst,
+                AbleSendSecond: this.AbleSendSecond
             };
             this.vprService.saveSchoolWeek(weekRes).subscribe(function () {
                 _this.blocked = true;
                 _this.hasFirst = true;
+                _this.AbleSendSecond = false;
                 if (_this.hasAnyError()) {
                     _this.showErrors = true;
                 }

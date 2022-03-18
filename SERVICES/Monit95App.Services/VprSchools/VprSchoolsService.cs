@@ -47,7 +47,8 @@ namespace Monit95App.Services.VprSchools
                         ClassId = s1.ClassId
                     }),
                     HasError = s.HasError,
-                    IsSecond = s.IsSecond
+                    IsSecond = s.IsSecond,
+                    AbleSendSecond = s.AbleSendSecond
                 })
                 .AsNoTracking()
                 //.Include("VprSchoolMarks")
@@ -76,12 +77,31 @@ namespace Monit95App.Services.VprSchools
             context.VprWeekSchools.Add(weekSchool);
             context.SaveChanges();
         }
-    
+
         public VprStatisticsDto GetStatisticsForSubject(string schoolId, string classNumber, string subjectCode)
         {
+
             var subjectResults = context.VprWeekSchools.Where(p => p.SchoolId == schoolId && p.ClassNumber == classNumber && p.SubjectCode == subjectCode);
-
-            var first = subjectResults.Single(p => p.IsSecond == false).VprSchoolMarks.Select(s => new VprSchoolMarkDto
+            var isSecond = subjectResults.Count();
+            var secondRes = false;
+            if (!subjectResults.Any())
+            {
+                return null;
+            }
+            else {
+                var first = subjectResults.Single(p => p.IsSecond == false).VprSchoolMarks.Select(s => new VprSchoolMarkDto
+                {
+                    Marks2 = s.Marks2,
+                    Marks3 = s.Marks3,
+                    Marks4 = s.Marks4,
+                    Marks5 = s.Marks5,
+                    ClassId = s.ClassId
+                }).OrderBy(ob => ob.ClassId);
+                if(isSecond == 2)
+                {
+                    secondRes = true;
+                }
+                var second = subjectResults.Single(p => p.IsSecond == secondRes).VprSchoolMarks.Select(s => new VprSchoolMarkDto
             {
                 Marks2 = s.Marks2,
                 Marks3 = s.Marks3,
@@ -89,15 +109,7 @@ namespace Monit95App.Services.VprSchools
                 Marks5 = s.Marks5,
                 ClassId = s.ClassId
             }).OrderBy(ob => ob.ClassId);
-            var second = subjectResults.Single(p => p.IsSecond == true).VprSchoolMarks.Select(s => new VprSchoolMarkDto
-            {
-                Marks2 = s.Marks2,
-                Marks3 = s.Marks3,
-                Marks4 = s.Marks4,
-                Marks5 = s.Marks5,
-                ClassId = s.ClassId
-            }).OrderBy(ob => ob.ClassId);
-
+    
             var firstClasses = first.Select(s => s.ClassId);
             var secondClasses = second.Select(s => s.ClassId);
             var availableClasses = firstClasses.Union(secondClasses).OrderBy(ob => ob);
@@ -134,8 +146,9 @@ namespace Monit95App.Services.VprSchools
                     Second = second.SingleOrDefault(p => p.ClassId == classId)?.Marks5.ToString()
                 });
             }
-
-            return res;
+                System.Diagnostics.Debug.WriteLine(res);
+                return res;
+         }
         }
     
         public IEnumerable<string> GetClasses()
@@ -152,31 +165,61 @@ namespace Monit95App.Services.VprSchools
 
         public IEnumerable<AreaDto> GetAreas(string classNumber, string subjectCode)
         {
-            var areaCodes = context.VprWeekSchools
-                .Where(p => p.IsSecond && p.ClassNumber == classNumber && p.SubjectCode == subjectCode)
-                .Select(ws => ws.School.AreaCode)
-                .Distinct();
-            return context.Areas.Where(p => areaCodes.Contains(p.Code)).Select(a => new AreaDto
+            // For showing results even if results not entered yet
+            if (classNumber == "bypass" && subjectCode == "bypass")
             {
-                Code = a.Code,
-                Name = a.Name
-            })
-                .OrderBy(ob => ob.Code);
+                /*var areaCodes = context.Areas
+                              .Where(p =>  p.Code != null)
+                              .Select(ws => ws.School.AreaCode)
+                              .Distinct();*/
+                return context.Areas.Where(p => p.Code != 001).Select(a => new AreaDto
+                {
+                    Code = a.Code,
+                    Name = a.Name
+                })
+                    .OrderBy(ob => ob.Code);
+            }
+            else
+            {
+                var areaCodes = context.VprWeekSchools
+                                .Where(p => p.IsSecond && p.ClassNumber == classNumber && p.SubjectCode == subjectCode)
+                                .Select(ws => ws.School.AreaCode)
+                                .Distinct();
+                return context.Areas.Where(p => areaCodes.Contains(p.Code)).Select(a => new AreaDto
+                {
+                    Code = a.Code,
+                    Name = a.Name
+                })
+                    .OrderBy(ob => ob.Code);
+            }
+            
         }
 
         public IEnumerable<SchoolDto> GetSchools(string classNumber, string subjectCode, int areaCode)
         {
-            var schoolIds = context.VprWeekSchools
-                .Where(p => p.IsSecond && p.ClassNumber == classNumber && p.SubjectCode == subjectCode && p.School.AreaCode == areaCode)
-                .Select(ws => ws.SchoolId)
-                .Distinct();
-            return context.Schools.Where(s => schoolIds.Contains(s.Id))
+            if(classNumber == "classNumber")
+            {
+                return context.Schools.Where(s => s.AreaCode == areaCode && s.VprCode != "")
                 .Select(s => new SchoolDto
                 {
                     Id = s.Id,
                     Name = s.Name
                 })
                 .OrderBy(ob => ob.Id);
+            } else {
+                var schoolIds = context.VprWeekSchools
+                   .Where(p => /*p.IsSecond && */p.ClassNumber == classNumber && p.SubjectCode == subjectCode && p.School.AreaCode == areaCode)
+                   .Select(ws => ws.SchoolId)
+                   .Distinct();
+                return context.Schools.Where(s => schoolIds.Contains(s.Id))
+                    .Select(s => new SchoolDto
+                    {
+                        Id = s.Id,
+                        Name = s.Name
+                    })
+                    .OrderBy(ob => ob.Id);
+            }
+           
         }
     }
 }

@@ -17,6 +17,7 @@ export class ClassSelectorComponent {
 	@Input() isLoadingFromOuter: boolean;
 	classes: string[] = [];
 	selectedClass: string;
+	AbleSendSecond: boolean;
 
 	subjects: string[];
 	selectedSubject: string;
@@ -50,14 +51,15 @@ export class ClassSelectorComponent {
 
 	ngOnInit() {
 		this.vprService.getClasses().subscribe(cls => {
-			this.classes = cls;
+			/*this.classes = cls;*/
+			this.classes = ['04', '05', '06', '07', '08'];
 			this.isLoading = false;
 		});
+		
 	}
 
 	selectClass(classNumber: string) {
 		this.selectedClass = classNumber;
-
 		this.subjects = null;
 		this.selectedSubject = null;
 		this.areas = null;
@@ -65,10 +67,12 @@ export class ClassSelectorComponent {
 		this.schools = null;
 		this.selectedSchool = null;
 		this.classSelected.emit(null);
+		console.log('class');
 
 		this.isLoading = true;
 		this.vprService.getSubjects(this.selectedClass).subscribe(sjs => {
-			this.subjects = sjs;
+			/*this.subjects = sjs;*/
+			this.subjects = ['01', '02','03', '06', '07', '08', '12', '24'];
 			this.isLoading = false;
 		})
 	}
@@ -83,9 +87,13 @@ export class ClassSelectorComponent {
 		this.classSelected.emit(null);
 
 		this.isLoading = true;
-		this.vprService.getAreas(this.selectedClass, this.selectedSubject).subscribe(areas => {
+		console.log('subje');
+		// This is for showing all areas even if they donot have results yet
+
+		this.vprService.getAreas("bypass", "bypass").subscribe(areas => {
 			this.areas = areas;
 			this.isLoading = false;
+			console.log('dwd')
 		});
 	}
 
@@ -95,15 +103,26 @@ export class ClassSelectorComponent {
 		this.schools = null;
 		this.selectedSchool = null;
 		this.classSelected.emit(null);
+		console.log('area')
 
 		this.isLoading = true;
-		this.vprService.getSchools(this.selectedClass, this.selectedSubject, this.selectedArea).subscribe(schools => {
+		this.vprService.getSchools("classNumber", this.selectedSubject, this.selectedArea).subscribe(schools => {
+		
 			this.schools = schools;
 			this.isLoading = false;
+			this.AbleSendSecond = false;
 		})
 	}
+	ableSendSecond(schoolId: string) {
+		this.vprService.canSendSecond(this.selectedClass, this.selectedSubject, schoolId).subscribe(() => {
 
+		});
+		this.AbleSendSecond = false;
+	}
 	selectSchool(schoolId: string) {
+		this.vprService.getSchools(this.selectedClass, this.selectedSubject, this.selectedArea).subscribe(schools => {
+
+		})
 		this.selectedSchool = schoolId;
 
 		const classInfo: ClassSelectInfo = {
@@ -112,6 +131,7 @@ export class ClassSelectorComponent {
 			AreaCode: this.selectedArea,
 			SchoolId: this.selectedSchool
 		};
+		console.log(classInfo)
 		this.classSelected.emit(classInfo);
 	}
 }

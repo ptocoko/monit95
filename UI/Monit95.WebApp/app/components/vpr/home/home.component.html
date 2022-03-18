@@ -28,16 +28,16 @@
         <tr *ngFor="let cl of getClassesByNumber(); let i = index" [ngClass]="{'row-error': hasFirst && isRowHasError(cl.Id)}">
             <td>{{cl.Name}}</td>
             <td [ngClass]="{'red-cell': showErrors && isMark2HasError(cl.Id)}">
-                <input type="number" (input)="setMark('Marks2', cl.Id, $event.target.value)" [value]="getMark('Marks2', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked" />
+                <input type="number" (input)="setMark('Marks2', cl.Id, $event.target.value)" (change)="AvgSum()" [value]="getMark('Marks2', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked" />
             </td>
             <td>
-                <input type="number" (input)="setMark('Marks3', cl.Id, $event.target.value)" [value]="getMark('Marks3', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked"  />
+                <input type="number" (input)="setMark('Marks3', cl.Id, $event.target.value)" (change)="AvgSum()" [value]="getMark('Marks3', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked"  />
             </td>
             <td [ngClass]="{'red-cell': showErrors && isMark4HasError(cl.Id)}">
-                <input type="number" (input)="setMark('Marks4', cl.Id, $event.target.value)" [value]="getMark('Marks4', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked"  />
+                <input type="number" (input)="setMark('Marks4', cl.Id, $event.target.value)" (change)="AvgSum()" [value]="getMark('Marks4', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked"  />
             </td>
             <td [ngClass]="{'red-cell': showErrors && isMark5HasError(cl.Id)}" style="position: relative;">
-                <input type="number" (input)="setMark('Marks5', cl.Id, $event.target.value)" [value]="getMark('Marks5', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked" />
+                <input type="number" (input)="setMark('Marks5', cl.Id, $event.target.value)" (change)="AvgSum()" [value]="getMark('Marks5', cl.Id)" min="0" max="100" [disabled]="i > newSchoolMarks.length || blocked" />
                 <span *ngIf="hasFirst && isRowHasError(cl.Id)" class="non-hundreed">&#8800; 100</span>
             </td>
         </tr>
@@ -70,7 +70,7 @@
 <div class="actions" *ngIf="selectedClass && selectedSubj && weekResults">
     <button mat-raised-button color="primary" [disabled]="!isClassRowsValid()" *ngIf="!hasFirst" (click)="checkForm(); AvgSum();">Проверить</button>
     <button mat-raised-button color="primary" *ngIf="showErrors" (click)="unblock()">Разблокировать</button>
-    <button mat-raised-button color="primary" *ngIf="!showErrors && !blocked && hasFirst && !hasSecond" [disabled]="!isClassRowsValid() || isAnyRowNotHundreed()" (click)="sendSecond()">Отправить</button>
+    <button mat-raised-button color="primary" *ngIf="!showErrors && !blocked && hasFirst && !hasSecond && AbleSendSecond" [disabled]="!isClassRowsValid() || isAnyRowNotHundreed()" (click)="sendSecond()">Отправить</button>
     
     <div>
         В систему предупреждения необъективного оценивания ВПР на monit95 результаты необходимо вносить только после того, как будут проведены ВПР во всей параллели одного класса!

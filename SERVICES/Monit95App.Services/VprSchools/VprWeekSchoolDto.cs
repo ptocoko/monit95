@@ -13,6 +13,7 @@ namespace Monit95App.Services.VprSchools
         public string SubjectCode { get; set; }
         public bool HasError { get; set; }
         public bool IsSecond { get; set; }
+        public bool AbleSendSecond { get; set; }
         public IEnumerable<VprSchoolMarkDto> VprSchoolMarks { get; set; }
     }
 

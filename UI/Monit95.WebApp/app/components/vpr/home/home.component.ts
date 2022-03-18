@@ -171,6 +171,7 @@ export class HomeComponent implements OnInit {
 	blocked = false;
 	hasFirst = false;
 	hasSecond = false;
+	AbleSendSecond = false;
 	showErrors = false;
 	totalAvgGrades: number[][];
 	totalEachAvgGrads: number[];
@@ -180,20 +181,21 @@ export class HomeComponent implements OnInit {
 
 	ngOnInit() {
 		this.classService.getClasses().subscribe(c => this.classNames = c.filter(cl => !cl.Id.endsWith('00')));
+		console.log(this.classNames)
 	}
 	AvgSum() {
 		let count = 0;
 		this.totalAvgGrades = [];
 		this.totalEachAvgGrads = [];
 		let pushMarks = (mark: number, num: number) => {
-			if (mark) {
+			if (mark || mark == 0) {
 				if (typeof this.totalAvgGrades[num] == "undefined") {
 					this.totalAvgGrades[num] = [];
 				}
 				this.totalAvgGrades[num][count] = mark;
 			}
 		}
-		this.newSchoolMarks.forEach((vals)=> {
+		this.newSchoolMarks.forEach((vals) => {
 			pushMarks(vals.Marks2, 0);	
 			pushMarks(vals.Marks3, 1);	
 			pushMarks(vals.Marks4, 2);	
@@ -237,6 +239,7 @@ export class HomeComponent implements OnInit {
 		this.showErrors = false;
 		this.hasFirst = false;
 		this.hasSecond = false;
+		this.AbleSendSecond = false;
 		this.vprService.getSchoolWeek(this.selectedClass.number, this.selectedSubj.code).subscribe(res => {
 			if (res.length > 0) {
 				this.weekResults = res[res.length - 1];
@@ -244,6 +247,7 @@ export class HomeComponent implements OnInit {
 
 				this.hasFirst = true;
 				this.blocked = true;
+
 				if (res.length === 2) {
 					this.hasSecond = true;
 				} else if (this.hasAnyError()) {
@@ -300,11 +304,13 @@ export class HomeComponent implements OnInit {
                 SubjectCode: this.selectedSubj.code,
                 VprSchoolMarks: this.newSchoolMarks as VprSchoolMarks[],
                 HasError: this.hasAnyError(),
-                IsSecond: this.hasFirst
+				IsSecond: this.hasFirst,
+				AbleSendSecond: this.AbleSendSecond 
             };
             this.vprService.saveSchoolWeek(weekRes).subscribe(() => {
                 this.blocked = true;
-                this.hasFirst = true;
+				this.hasFirst = true;
+				
                 if (this.hasAnyError()) {
                     this.showErrors = true;
                 }

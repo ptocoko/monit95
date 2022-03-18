@@ -40,8 +40,10 @@
             <td>{{stats.Marks3[cl].First || '-'}}</td>
             <td>{{stats.Marks3[cl].Second || '-'}}</td>
 
-            <td>{{stats.Marks4[cl].First || '-'}}</td>
-            <td>{{stats.Marks4[cl].Second || '-'}}</td>
+            <td [ngClass]="{'red-cell': validateMax4(stats.Marks4[cl].First)}">
+            {{stats.Marks4[cl].First || '-'}}</td>
+            <td [ngClass]="{'red-cell': validateMax4(stats.Marks4[cl].Second)}">
+            {{stats.Marks4[cl].Second || '-'}}</td>
 
             <td [ngClass]="{'red-cell': validateMax5(stats.Marks5[cl].First)}">
                 {{stats.Marks5[cl].First || '-'}}

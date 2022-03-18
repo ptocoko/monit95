@@ -75,20 +75,20 @@
 
                                 }
                                 @*@if (User.IsInRole("school") || User.IsInRole("area"))
-        {
-            <li><a href="/rsur/spa#one-two-three">1-3 классы</a></li>
-        }*@
+                    {
+                        <li><a href="/rsur/spa#one-two-three">1-3 классы</a></li>
+                    }*@
                                 @*@if (schools4.Contains(User.Identity.Name))
-        {
-            <li><a href="/rsur/spa#two-three-2/home">2-3 классы</a></li>
-        }*@
+                    {
+                        <li><a href="/rsur/spa#two-three-2/home">2-3 классы</a></li>
+                    }*@
                                 @*@if (User.IsInRole("grozny-school"))
-        {
-        }*@
+                    {
+                    }*@
                                 @*@if (schools4.Contains(User.Identity.Name.Trim()))
-        {
-            <li><a href="/rsur/spa#9-11_classes/home">9-е и 11-е классы</a></li>
-        }*@
+                    {
+                        <li><a href="/rsur/spa#9-11_classes/home">9-е и 11-е классы</a></li>
+                    }*@
                             </ul>
                         </li>
                     }
@@ -119,6 +119,9 @@
                     @if (User.IsInRole("area"))
                     {
                         <li><a href="http://monit95.ru/ege">«Я сдам ЕГЭ!»</a></li>
+                        <li><a href="/rsur/spa#vpr/stats">Впр: Статистика</a></li>
+
+
                     }
                     @*@if (kpkSchools.Contains(User.Identity.Name))
         {
