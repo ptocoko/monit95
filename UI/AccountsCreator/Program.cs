@@ -18,7 +18,7 @@ namespace AccountsCreator
             Console.OutputEncoding = Encoding.Unicode;
 
             //CreateSchool(new School
-            //{
+            //{w
             //    Id = "0651",
             //    Name = "ЧОУ «НОШ 1 г.Шали»‎ ИП Р.Х. ДЖАБРАИЛОВА",
             //    AreaCode = 2000,
@@ -30,8 +30,10 @@ namespace AccountsCreator
             //accountsManager.ChangePassword("0086", "password60", "GRAnCEDeDW");
 
             //accountsManager.DeleteUser("0488");
-            accountsManager.CreateUser("0488", "XqcHkcW7");
-            accountsManager.AddRoleToUser("0488", "school");
+            accountsManager.CreateUser("0653", "stptsSht113");
+            accountsManager.AddRoleToUser("0653", "school");
+        /*    accountsManager.DeleteUser("0499");
+            accountsManager.DeleteRole("0499");*/
             //accountsManager.CreateUser("0647", "f9FTjTsT");
             //accountsManager.AddRoleToUser("0647", "school");
             //accountsManager.CreateRole("coko-employee");

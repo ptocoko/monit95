@@ -50,6 +50,16 @@ namespace Monit95.WebApp.RESTful_API
             //var schoolId = User.Identity.Name;
             return Ok(vprService.GetStatisticsForSubject(schoolId: schoolId, classNumber: classNumber, subjectCode: subjectCode));
         }
+       
+        [Authorize(Roles = "coko-director")]
+        [Route("api/vpr/statistics")]
+        [HttpPut]
+        public IHttpActionResult canSendSecond([FromBody] VprWeekSchool SecChance)
+        {
+            //var schoolId = User.Identity.Name;
+            vprService.SaveSecondChance(SecChance);
+            return Ok();
+        }
 
         [Authorize(Roles = "coko-director")]
         [Route("api/vpr/classes")]

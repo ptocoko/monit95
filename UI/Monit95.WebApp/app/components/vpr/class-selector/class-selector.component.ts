@@ -1,7 +1,7 @@
 ﻿import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AreaModel } from '../../../models/area.model';
 import { SchoolModel } from '../../../models/school.model';
-import { ClassSelectInfo } from '../../../models/vpr.model';
+import { ClassSelectInfo, VprSchoolMarks, VprWeekSchool } from '../../../models/vpr.model';
 import { ClassService } from '../../../services/class.service';
 import { VprService } from '../../../services/vpr.service';
 
@@ -19,9 +19,12 @@ export class ClassSelectorComponent {
 	selectedClass: string;
 	AbleSendSecond: boolean;
 
+/*	goToBottom() {
+		window.scrollTo(0, document.body.scrollHeight);
+	}*/
 	subjects: string[];
 	selectedSubject: string;
-
+	schoolMarks: VprSchoolMarks[];
 	areas: AreaModel[] = [];
 	selectedArea: number;
 
@@ -51,7 +54,7 @@ export class ClassSelectorComponent {
 
 	ngOnInit() {
 		this.vprService.getClasses().subscribe(cls => {
-			/*this.classes = cls;*/
+			/*Это делается для мониторинга, что бы могли видеть те школы которые внесли и НЕ ВНЕСЛИ результаты*/
 			this.classes = ['04', '05', '06', '07', '08'];
 			this.isLoading = false;
 		});
@@ -71,7 +74,7 @@ export class ClassSelectorComponent {
 
 		this.isLoading = true;
 		this.vprService.getSubjects(this.selectedClass).subscribe(sjs => {
-			/*this.subjects = sjs;*/
+			/*Also to show schools which didnt submit their results*/
 			this.subjects = ['01', '02','03', '06', '07', '08', '12', '24'];
 			this.isLoading = false;
 		})
@@ -113,12 +116,7 @@ export class ClassSelectorComponent {
 			this.AbleSendSecond = false;
 		})
 	}
-	ableSendSecond(schoolId: string) {
-		this.vprService.canSendSecond(this.selectedClass, this.selectedSubject, schoolId).subscribe(() => {
-
-		});
-		this.AbleSendSecond = false;
-	}
+	
 	selectSchool(schoolId: string) {
 		this.vprService.getSchools(this.selectedClass, this.selectedSubject, this.selectedArea).subscribe(schools => {
 
@@ -133,5 +131,44 @@ export class ClassSelectorComponent {
 		};
 		console.log(classInfo)
 		this.classSelected.emit(classInfo);
+	}
+
+	ableSendSecond(schoolId: string) {
+
+		/*Marks2: number;
+		  Marks3: number;
+		  Marks4: number;
+		  Marks5: number;
+		  ClassId: string;*/
+
+		this.schoolMarks = [{
+			Marks2: 0,
+			Marks3: 0,
+			Marks4: 0,
+			Marks5: 0,
+			ClassId: schoolId
+		}];
+		const SecChance: VprWeekSchool = {
+			ClassNumber: this.selectedClass,
+			SubjectCode: this.selectedSubject,
+			VprSchoolMarks: this.schoolMarks,
+			HasError: true,
+			IsSecond: true,
+			AbleSendSecond: true
+		};
+		/*this.vprService.saveSchoolWeek(weekRes).subscribe(() => {
+			this.blocked = true;
+			this.hasFirst = true;
+
+			if (this.hasAnyError()) {
+				this.showErrors = true;
+			}
+		});*/
+
+
+		this.vprService.canSendSecond(SecChance).subscribe(() => {
+
+		});
+		this.AbleSendSecond = false;
 	}
 }

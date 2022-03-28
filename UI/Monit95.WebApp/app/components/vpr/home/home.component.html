@@ -69,7 +69,7 @@
 
 <div class="actions" *ngIf="selectedClass && selectedSubj && weekResults">
     <button mat-raised-button color="primary" [disabled]="!isClassRowsValid()" *ngIf="!hasFirst" (click)="checkForm(); AvgSum();">Проверить</button>
-    <button mat-raised-button color="primary" *ngIf="showErrors" (click)="unblock()">Разблокировать</button>
+    <button mat-raised-button color="primary" *ngIf="showErrors" (click)="unblock()" [disabled] = "!AbleSendSecond">Разблокировать</button>
     <button mat-raised-button color="primary" *ngIf="!showErrors && !blocked && hasFirst && !hasSecond && AbleSendSecond" [disabled]="!isClassRowsValid() || isAnyRowNotHundreed()" (click)="sendSecond()">Отправить</button>
     
     <div>

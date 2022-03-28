@@ -237,6 +237,7 @@ var HomeComponent = /** @class */ (function () {
                 _this.newSchoolMarks = _this.weekResults.VprSchoolMarks;
                 _this.hasFirst = true;
                 _this.blocked = true;
+                _this.AbleSendSecond = _this.weekResults.AbleSendSecond;
                 if (res.length === 2) {
                     _this.hasSecond = true;
                 }
@@ -301,7 +302,6 @@ var HomeComponent = /** @class */ (function () {
             this.vprService.saveSchoolWeek(weekRes).subscribe(function () {
                 _this.blocked = true;
                 _this.hasFirst = true;
-                _this.AbleSendSecond = false;
                 if (_this.hasAnyError()) {
                     _this.showErrors = true;
                 }
@@ -311,6 +311,7 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.unblock = function () {
         this.blocked = false;
         this.showErrors = false;
+        console.log(this.AbleSendSecond);
     };
     HomeComponent.prototype.sendSecond = function () {
         var _this = this;
@@ -332,7 +333,8 @@ var HomeComponent = /** @class */ (function () {
         }
         var min2 = this.minMax[this.selectedClass.number][this.selectedSubj.code].min2;
         var max5 = this.minMax[this.selectedClass.number][this.selectedSubj.code].max5;
-        return !this.isClassRowsValid() || this.newSchoolMarks.some(function (m) { return m.Marks2 < min2 || m.Marks5 > max5 || Math.round(m.Marks2 + m.Marks3 + m.Marks4 + m.Marks5) !== 100; });
+        var max4 = this.minMax[this.selectedClass.number][this.selectedSubj.code].max4;
+        return !this.isClassRowsValid() || this.newSchoolMarks.some(function (m) { return m.Marks2 < min2 || m.Marks5 > max5 || m.Marks4 >= max4 || Math.round(m.Marks2 + m.Marks3 + m.Marks4 + m.Marks5) !== 100; });
     };
     HomeComponent.prototype.isMark2HasError = function (classId) {
         var minMax = this.minMax[this.selectedClass.number][this.selectedSubj.code];
@@ -348,7 +350,7 @@ var HomeComponent = /** @class */ (function () {
         if (!schoolMarks) {
             return false;
         }
-        return schoolMarks.Marks4 > minMax.max4;
+        return schoolMarks.Marks4 >= minMax.max4;
     };
     HomeComponent.prototype.isMark5HasError = function (classId) {
         var minMax = this.minMax[this.selectedClass.number][this.selectedSubj.code];

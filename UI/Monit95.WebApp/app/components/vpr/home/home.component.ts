@@ -247,7 +247,7 @@ export class HomeComponent implements OnInit {
 
 				this.hasFirst = true;
 				this.blocked = true;
-
+				this.AbleSendSecond = this.weekResults.AbleSendSecond;
 				if (res.length === 2) {
 					this.hasSecond = true;
 				} else if (this.hasAnyError()) {
@@ -310,7 +310,7 @@ export class HomeComponent implements OnInit {
             this.vprService.saveSchoolWeek(weekRes).subscribe(() => {
                 this.blocked = true;
 				this.hasFirst = true;
-				
+			
                 if (this.hasAnyError()) {
                     this.showErrors = true;
                 }
@@ -321,7 +321,8 @@ export class HomeComponent implements OnInit {
 
 	unblock() {
         this.blocked = false;
-        this.showErrors = false;
+		this.showErrors = false;
+		console.log(this.AbleSendSecond)
 	}
 
 	sendSecond() {
@@ -344,7 +345,8 @@ export class HomeComponent implements OnInit {
         }
 		const min2 = this.minMax[this.selectedClass.number][this.selectedSubj.code].min2;
 		const max5 = this.minMax[this.selectedClass.number][this.selectedSubj.code].max5;
-		return !this.isClassRowsValid() || this.newSchoolMarks.some(m => m.Marks2 < min2 || m.Marks5 > max5 || Math.round(m.Marks2 + m.Marks3 + m.Marks4 + m.Marks5) !== 100);
+		const max4 = this.minMax[this.selectedClass.number][this.selectedSubj.code].max4;
+		return !this.isClassRowsValid() || this.newSchoolMarks.some(m => m.Marks2 < min2 || m.Marks5 > max5 || m.Marks4 >= max4 || Math.round(m.Marks2 + m.Marks3 + m.Marks4 + m.Marks5) !== 100);
 	}
 
 	isMark2HasError(classId: string) {
@@ -362,7 +364,7 @@ export class HomeComponent implements OnInit {
 		if (!schoolMarks) {
 			return false;
 		}
-		return schoolMarks.Marks4 > minMax.max4;
+		return schoolMarks.Marks4 >= minMax.max4;
 	}
 
 	isMark5HasError(classId: string) {

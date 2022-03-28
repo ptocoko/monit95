@@ -78,6 +78,25 @@ namespace Monit95App.Services.VprSchools
             context.SaveChanges();
         }
 
+        public void SaveSecondChance(VprWeekSchool SecChance)
+        {
+         /* ClassNumber: this.selectedClass,
+			SubjectCode: this.selectedSubject,
+			VprSchoolMarks: null,
+			HasError: true,
+			IsSecond: true,
+			AbleSendSecond: this.AbleSendSecond*/
+
+            var collectorId = Convert.ToInt32(SecChance.ClassNumber);
+            var schoolId = "0000";
+            var entity = context.VprWeekSchools.Where(x => x.ClassNumber == SecChance.ClassNumber && x.SubjectCode == SecChance.SubjectCode && x.SchoolId == schoolId).Single();
+
+            entity.AbleSendSecond = SecChance.AbleSendSecond;
+            context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+
+        }
+
         public VprStatisticsDto GetStatisticsForSubject(string schoolId, string classNumber, string subjectCode)
         {
 

@@ -92,3 +92,6 @@ label{
 .bold-text{
     font-weight: bold;
 }
+.mat-button-toggle {
+    color: rgb(0, 0, 0) !important;
+}

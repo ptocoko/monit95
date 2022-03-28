@@ -207,7 +207,7 @@ var StatsComponent = /** @class */ (function () {
         var _a, _b;
         var value = +(val === null || val === void 0 ? void 0 : val.replace(',', '.'));
         if (!isNaN(value) && !!val) {
-            return value > this.minMax[(_a = this.selectedInfo) === null || _a === void 0 ? void 0 : _a.ClassNumber][(_b = this.selectedInfo) === null || _b === void 0 ? void 0 : _b.Subject].max4;
+            return value >= this.minMax[(_a = this.selectedInfo) === null || _a === void 0 ? void 0 : _a.ClassNumber][(_b = this.selectedInfo) === null || _b === void 0 ? void 0 : _b.Subject].max4;
         }
         return false;
     };

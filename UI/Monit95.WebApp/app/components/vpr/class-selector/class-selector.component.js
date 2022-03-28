@@ -32,6 +32,9 @@ var ClassSelectorComponent = /** @class */ (function () {
             '24': 'Окружающий мир'
         };
     }
+    ClassSelectorComponent.prototype.goToBottom = function () {
+        window.scrollTo(0, document.body.scrollHeight);
+    };
     ClassSelectorComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.vprService.getClasses().subscribe(function (cls) {
@@ -89,11 +92,6 @@ var ClassSelectorComponent = /** @class */ (function () {
             _this.AbleSendSecond = false;
         });
     };
-    ClassSelectorComponent.prototype.ableSendSecond = function (schoolId) {
-        this.vprService.canSendSecond(this.selectedClass, this.selectedSubject, schoolId).subscribe(function () {
-        });
-        this.AbleSendSecond = false;
-    };
     ClassSelectorComponent.prototype.selectSchool = function (schoolId) {
         this.vprService.getSchools(this.selectedClass, this.selectedSubject, this.selectedArea).subscribe(function (schools) {
         });
@@ -106,6 +104,39 @@ var ClassSelectorComponent = /** @class */ (function () {
         };
         console.log(classInfo);
         this.classSelected.emit(classInfo);
+    };
+    ClassSelectorComponent.prototype.ableSendSecond = function (schoolId) {
+        /*Marks2: number;
+          Marks3: number;
+          Marks4: number;
+          Marks5: number;
+          ClassId: string;*/
+        this.schoolMarks = [{
+                Marks2: 0,
+                Marks3: 0,
+                Marks4: 0,
+                Marks5: 0,
+                ClassId: schoolId
+            }];
+        var SecChance = {
+            ClassNumber: this.selectedClass,
+            SubjectCode: this.selectedSubject,
+            VprSchoolMarks: this.schoolMarks,
+            HasError: true,
+            IsSecond: true,
+            AbleSendSecond: true
+        };
+        /*this.vprService.saveSchoolWeek(weekRes).subscribe(() => {
+            this.blocked = true;
+            this.hasFirst = true;
+
+            if (this.hasAnyError()) {
+                this.showErrors = true;
+            }
+        });*/
+        this.vprService.canSendSecond(SecChance).subscribe(function () {
+        });
+        this.AbleSendSecond = false;
     };
     tslib_1.__decorate([
         (0, core_1.Output)(),

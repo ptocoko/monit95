@@ -230,7 +230,7 @@ export class StatsComponent {
 	validateMax4(val: string) {
 		const value = +val?.replace(',', '.');
 		if (!isNaN(value) && !!val) {
-			return value > this.minMax[this.selectedInfo?.ClassNumber][this.selectedInfo?.Subject].max4;
+			return value >= this.minMax[this.selectedInfo?.ClassNumber][this.selectedInfo?.Subject].max4;
 		}
 
 		return false;

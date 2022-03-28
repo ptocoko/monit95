@@ -39,8 +39,7 @@ export class VprService {
     getStats(classNumber: string, subjectCode: string, schoolId: string) {
         return this.http.get<VprStatsModel>('/api/vpr/statistics?classNumber=' + classNumber + '&subjectCode=' + subjectCode + '&schoolId=' + schoolId);
     }
-    canSendSecond(classNumber: string, subjectCode: string, schoolId: string) {
-        let schoolInfo = {'classNumber': classNumber, 'subjectCode': subjectCode, 'schoolId': schoolId}
-        return this.http.post('/api/vpr', schoolInfo ,{ responseType: 'text' });
+    canSendSecond(SecChance: VprWeekSchool) {
+        return this.http.put('/api/vpr', SecChance ,{ responseType: 'text' });
     }
 }
