@@ -32,13 +32,10 @@ var ClassSelectorComponent = /** @class */ (function () {
             '24': 'Окружающий мир'
         };
     }
-    ClassSelectorComponent.prototype.goToBottom = function () {
-        window.scrollTo(0, document.body.scrollHeight);
-    };
     ClassSelectorComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.vprService.getClasses().subscribe(function (cls) {
-            /*this.classes = cls;*/
+            /*Это делается для мониторинга, что бы могли видеть те школы которые внесли и НЕ ВНЕСЛИ результаты*/
             _this.classes = ['04', '05', '06', '07', '08'];
             _this.isLoading = false;
         });
@@ -56,7 +53,7 @@ var ClassSelectorComponent = /** @class */ (function () {
         console.log('class');
         this.isLoading = true;
         this.vprService.getSubjects(this.selectedClass).subscribe(function (sjs) {
-            /*this.subjects = sjs;*/
+            /*Also to show schools which didnt submit their results*/
             _this.subjects = ['01', '02', '03', '06', '07', '08', '12', '24'];
             _this.isLoading = false;
         });

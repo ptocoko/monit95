@@ -30,8 +30,8 @@ namespace AccountsCreator
             //accountsManager.ChangePassword("0086", "password60", "GRAnCEDeDW");
 
             //accountsManager.DeleteUser("0488");
-            accountsManager.CreateUser("0653", "stptsSht113");
-            accountsManager.AddRoleToUser("0653", "school");
+            accountsManager.CreateUser("1777", "Fewdaysadm");
+            accountsManager.AddRoleToUser("1777", "coko-director");
         /*    accountsManager.DeleteUser("0499");
             accountsManager.DeleteRole("0499");*/
             //accountsManager.CreateUser("0647", "f9FTjTsT");

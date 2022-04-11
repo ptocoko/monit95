@@ -35,6 +35,7 @@ var AddOrUpdateComponent = /** @class */ (function () {
         };
         this.saveParticip = function (method, particip, callback) {
             if (callback === void 0) { callback = function () { return _this.location.back(); }; }
+            console.log('whats up');
             _this.isConflict = false;
             _this.isLoading = true;
             _this.participSaveSub$ = method(particip)
@@ -45,6 +46,7 @@ var AddOrUpdateComponent = /** @class */ (function () {
     }
     AddOrUpdateComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log('whats up');
         this.createForm();
         this.routeSub$ = this.route.params.subscribe(function (params) {
             _this.isUpdate = params['participId'];
@@ -89,6 +91,7 @@ var AddOrUpdateComponent = /** @class */ (function () {
     AddOrUpdateComponent.prototype.addNext = function () {
         var _this = this;
         if (!this.isUpdate) {
+            console.log('whats up');
             if (this.participForm.invalid) {
                 this.markFieldsAsDirty();
             }

@@ -11,7 +11,7 @@ namespace Monit95App.Services.OneTwoThree.Particips
 {
     public class ParticipService : IParticipService
     {
-        private const int _projectId = 22;
+        private const int _projectId = 201702;
 
         private readonly Dictionary<string, int[]> projectTestIdsByClass = new Dictionary<string, int[]>
         {

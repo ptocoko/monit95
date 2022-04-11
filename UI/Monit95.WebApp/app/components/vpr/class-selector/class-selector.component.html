@@ -21,7 +21,7 @@
         </mat-button-toggle>
     </mat-button-toggle-group>
 
-    <mat-button-toggle-group (change)="selectSchool($event.value)" [vertical]="true" *ngIf="selectedArea && schools" style="margin-left: 20px" ">
+    <mat-button-toggle-group (change)="selectSchool($event.value)" [vertical]="true" *ngIf="selectedArea && schools" style="margin-left: 20px">
         <mat-button-toggle *ngFor="let school of schools" [value]="school.Id">
             {{school.Name}}<button  [disabled]='AbleSendSecond' (click)="ableSendSecond(school.Id)">2nd chance</button>
         </mat-button-toggle>

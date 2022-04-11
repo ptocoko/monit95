@@ -410,7 +410,7 @@ export class HomeComponent implements OnInit {
 			return false;
 		}
 
-		return this.newSchoolMarks.some(clMarks => Math.round(clMarks.Marks2 + clMarks.Marks3 + clMarks.Marks4 + clMarks.Marks5) !== 100);
+		return this.newSchoolMarks.some(clMarks =>Math.round(clMarks.Marks2 + clMarks.Marks3 + clMarks.Marks4 + clMarks.Marks5) !== 100);
 	}
 }
 

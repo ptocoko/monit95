@@ -39,6 +39,8 @@ export class AddOrUpdateComponent implements OnInit, OnDestroy {
 		private renderer: Renderer2) { }
 
 	ngOnInit() {
+		console.log('whats up')
+
 		this.createForm();
 		this.routeSub$ = this.route.params.subscribe(params => {
 			this.isUpdate = params['participId'];
@@ -84,6 +86,7 @@ export class AddOrUpdateComponent implements OnInit, OnDestroy {
 
 	addNext() {
 		if (!this.isUpdate) {
+			console.log('whats up')
 			if (this.participForm.invalid) {
 				this.markFieldsAsDirty();
 			} else if (this.participForm.pristine) {
@@ -116,6 +119,8 @@ export class AddOrUpdateComponent implements OnInit, OnDestroy {
 	}
 
 	private saveParticip = (method: (particip: ParticipModel) => Observable<string>, particip: ParticipModel, callback = () => this.location.back()) => {
+		console.log('whats up')
+
 		this.isConflict = false;
 		this.isLoading = true;
 

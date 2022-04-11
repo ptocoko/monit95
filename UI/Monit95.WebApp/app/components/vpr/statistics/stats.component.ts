@@ -193,7 +193,9 @@ export class StatsComponent {
 		if (classSelectedInfo) {
 			this.isLoading = true;
 			this.selectedInfo = classSelectedInfo;
+			console.log('212')
 			this.vprService.getStats(this.selectedInfo.ClassNumber, this.selectedInfo.Subject, this.selectedInfo.SchoolId).subscribe(stats => {
+				//let awaww = stats.Marks2.First == stats.Marks2.Second && stats.Marks2.First == stats.Marks2.Second && stats.Marks2.First == stats.Marks2.Second && stats.Marks2.First == stats.Marks2.Second
 				if (stats == null) {
 
 					this.stats = {

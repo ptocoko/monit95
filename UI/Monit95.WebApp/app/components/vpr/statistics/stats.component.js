@@ -172,8 +172,10 @@ var StatsComponent = /** @class */ (function () {
         if (classSelectedInfo) {
             this.isLoading = true;
             this.selectedInfo = classSelectedInfo;
+            console.log('212');
             this.vprService.getStats(this.selectedInfo.ClassNumber, this.selectedInfo.Subject, this.selectedInfo.SchoolId).subscribe(function (stats) {
                 var _a, _b, _c, _d;
+                //let awaww = stats.Marks2.First == stats.Marks2.Second && stats.Marks2.First == stats.Marks2.Second && stats.Marks2.First == stats.Marks2.Second && stats.Marks2.First == stats.Marks2.Second
                 if (stats == null) {
                     _this.stats = {
                         Marks2: (_a = {}, _a[_this.selectedInfo.ClassNumber] = { First: "", Second: "" }, _a),
